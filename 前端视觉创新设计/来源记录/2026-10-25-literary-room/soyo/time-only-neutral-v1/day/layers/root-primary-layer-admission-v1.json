@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "recordType": "primary-static-fixed-included-layer-admission",
+  "reviewer": "root / primary agent",
+  "recordedAt": "2026-10-26T01:56:12.871945+00:00",
+  "exactPrimaryMessage": "Root现已亲看Taki日5张F4(final whole/checker/face-book-hem-shoes/book-native-F4/shoes-receiver)，夜4张whole/checker/face-book-hem-shoes/shoes-receiver，以及Soyo日夜各4张whole/checker/face-book-hem/shoes-receiver，合17张final。逐SHA静态fixed included层准入：Taki day b9ff82fc…/f46a4af8…/8e2dcd2c… 与night3d9b95b6…/a4c080c2…/bcd8d39e…；Soyo day9e087f87…/2b48805e…/acd11ffb… night0775f81e…/2c5e517a…/4142e344…。完整书下封/手指/裙座与鞋地接收都连续，原RGB一次MAX。Soyo半翻书页目光对向交谈者，Taki停页回视各有性格。S局部布木固定included非caster，0运动不签动态/360。请记root-primary-layer-admission并准确复制这4套16PNG+4scene到Runtime，ids {taki,soyo}-neutral-presence-time-{day,night}-included-v1；purpose neutral-presence，neutralTime，day/mist/morning、night/rain/night，envVariant缺省，真实U不缩/不改相机。只本4来源+Runtime JSON/PNG，不改src/9335。旧F/S/HOLD仅历史不准input；check+字节核即可。Root将正常build实机。",
+  "characterId": "soyo",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "sourceCanvas": [
+    1536,
+    1024
+  ],
+  "sourceFiles": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/soyo-neutral-time-day-literary-v1.png",
+      "sha256": "b7389951fe91b57019a55aace462bd4e4efc61c455c17499743548b02cc1f062",
+      "bytes": 2457892
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/day/layers/background-v1.png",
+      "sha256": "acd11ffbe64460d73cd272e3dcbbdb9a0c7a6986fa9f4c0a081602614c255576",
+      "bytes": 2314295
+    },
+    "F": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/day/layers/figure-mask-v2.png",
+      "sha256": "9e087f87a2006c9ba0ab6b663ca7728bfa68d9d3260cd54d2633463a93333869",
+      "bytes": 499148
+    },
+    "S": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/day/layers/contact-mask-v1.png",
+      "sha256": "2b48805e45b2988ca7982427fe5742ae728cc4350311e59a37bca9ef755108f6",
+      "bytes": 305372
+    }
+  },
+  "reviewedFinalEvidence": [
+    {
+      "path": "browser-observations/whole-browser-v1.jpg",
+      "sha256": "17b5c8a6f79ceea4cc17a44310b7bc399079d6f85114921515f2a67a100590d8"
+    },
+    {
+      "path": "browser-observations/light-dark-checker-v1.jpg",
+      "sha256": "f499bbd12223b48977d69f71c8cf45a13628eff9bbc79b9a9d3398145bafc37e"
+    },
+    {
+      "path": "browser-observations/face-book-hem-v1.jpg",
+      "sha256": "f80376ce5bf76b1530c77e00de1ab6af6e60db202067697d92c25af3e32b18ee"
+    },
+    {
+      "path": "browser-observations/shoes-receiver-v1.jpg",
+      "sha256": "713f17d726fe137e479a9b394731bed230479fcef999a69a573f21f63e0d973b"
+    }
+  ],
+  "primaryApproved": true,
+  "layerApproved": true,
+  "scope": "Exact same-mother fixed original-coordinate static included union only; book/hand/seat/shoe receiving continuity personally inspected. S is original local cloth/wood receiving material, never an independent portable caster.",
+  "union": "U(x,y)=MAX(L(F(x,y)),L(S(x,y))); unchanged original mother RGB drawn once",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "rotation": 0,
+  "relativeTranslation": 0,
+  "runtimeAccepted": false,
+  "dynamicAdmission": false,
+  "countsToward360ExactActivities": false,
+  "userApproved": false,
+  "heldHistoryInputAllowed": false
+}

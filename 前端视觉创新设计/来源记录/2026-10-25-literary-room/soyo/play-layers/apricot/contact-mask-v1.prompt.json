@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-play-apricot-s2-v1",
+  "submittedPrompt": "Use case: background-extraction. Asset: S2 exact-source local contact/receiver luminance mask for fixed original-RGB INCLUDED layer. FIRST input is the apricot play S1 scene with only a few deliberately added pure-white receiving-material patches. SECOND input is its exact clean approved mother only to distinguish added marks from naturally bright cushion/book/shirt/room material. Output one opaque 1536x1024 BLACK/WHITE/edge-GRAY PNG; keep full canvas and exact source coordinates without shift, zoom, crop or resize.\nOnly deliberately ADDED WHITE regions of input1 become WHITE CORE. Everything else BLACK: entire original-colored girl including all hair/face/bow/crest/uniform/hands/knees/socks/complete shoes; the OPEN LAP BOOK with its page block and the ONE pencil; unmarked naturally light cushion, windows/curtains/lamp/plants, all rug/fringe and every unrelated floor reflection/shadow. Do NOT select the naturally pale empty bench cushion. The lap book has no separate seat receiver; no made-up book footprint.\nRetain the TWO actual small white seat-contact islands directly beneath actual hem/hip; stop at each added mark and do not join them into an empty cushion strip. Retain the FULL marked local ground-shade footprint patches around BOTH shoes, preserving actual footprint area rather than shrinking to a fine 2-pixel sole outline. These original S1 patches select exact source wood and actual contact shade immediately around the sole, roughly 8..35 source pixels where marked. Shoe interiors themselves black, including toe/heel/sole walls. White core is opaque enough to restore the real source contact shade; along only the original diffuse OUTER edge of those added marks use a SHORT soft gray fade of a few source pixels into black. Do not grow the footprint into room-wide shade, rug/fringe or window-grid sun stripes, and do not replace the source-local footprints with generic oval/rectangle/puddle. Some F/S boundary overlap is harmless through MAX, but do not select any extra body or book.\nUse input2 solely to discriminate true ADDED white from unchanged naturally white materials. Do not infer selection by brightness. No checkerboard, transparency, labels, arrows or new marks. This mask selects unchanged mother RGB ONCE through MAX(F,S), not a new colored person/shadow, portable caster or moving/deforming layer.",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/play-layers/apricot/contact-step1-marked-v1.png",
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-play-apricot-literary-v2.png"
+  ],
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/play-layers/apricot/contact-step1-marked-v1.png",
+      "sha256": "b4c53f6d2814e3cb5997e3706dc1564d6ad549342711a59c63017e3c173465ca",
+      "bytes": 2455231
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-play-apricot-literary-v2.png",
+      "sha256": "82bca80705934963059213bfb9ab31eb9edb9765ead04194cd1125cf98191d3c",
+      "bytes": 2474782
+    }
+  ],
+  "transparentBackground": false
+}

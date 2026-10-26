@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "character": "mutsumi",
+  "orientation": "left-contact-body-right",
+  "source": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mutsumi\\mutsumi-vertical-edge-left-contact-v1.png",
+    "sha256": "98eb98555e027734224ce646bdab69428133bd60a3ac980bfcf87b1486b3d8d2",
+    "canvas": [
+      1254,
+      1254
+    ]
+  },
+  "coordinateSpace": "native source PNG pixels, origin upper-left",
+  "inspection": {
+    "personallyViewed": true,
+    "method": "Human inspection of full native original with explicit 100px grid, contact line and three paw ROI boxes; no prompt-coordinate assumption",
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mutsumi\\mutsumi-left-contact-grid-candidate-v1.png",
+    "sha256": "d4fed11316dd91cce28fe31efe549040068d6a7e798ccf4f7aab9bdcce316840"
+  },
+  "contactAxis": {
+    "side": "left",
+    "x": 350,
+    "xNormalized": 0.27910685805422647
+  },
+  "pawRanges": [
+    {
+      "part": "upper-front",
+      "bounds": [
+        263,
+        481,
+        397,
+        612
+      ],
+      "lineContactY": [
+        517,
+        572
+      ]
+    },
+    {
+      "part": "lower-front",
+      "bounds": [
+        286,
+        670,
+        477,
+        807
+      ],
+      "lineContactY": [
+        701,
+        754
+      ]
+    },
+    {
+      "part": "bracing-hind",
+      "bounds": [
+        309,
+        1000,
+        512,
+        1169
+      ],
+      "lineContactY": [
+        1041,
+        1107
+      ]
+    }
+  ],
+  "identity": {
+    "face": "near-frontal",
+    "hairClipAnatomicalSide": "left",
+    "hairClipViewerSide": "right",
+    "count": 2,
+    "wholeImageMirror": false
+  },
+  "candidateOnly": true,
+  "geometryApproved": false,
+  "runtimeAccepted": false,
+  "boundary": "Candidate left-edge visible grip alignment and invariant clip side only; real surface overlap, rig and continuous motion need integration review. Grid/review image forbidden as ImageGen input."
+}

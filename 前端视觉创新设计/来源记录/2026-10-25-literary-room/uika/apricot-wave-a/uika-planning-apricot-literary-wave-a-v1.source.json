@@ -1,0 +1,76 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "bounded-apricot-literary-wave-a",
+  "character": "uika",
+  "activity": "planning",
+  "palette": "apricot",
+  "sceneFamily": "literary-room-v1",
+  "environmentVariant": "clear-day",
+  "numberOfImageInputs": 2,
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "image 1, approved empty room and camera"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.png",
+      "sha256": "df94d1a87f41775108d5b319a6bcc8ec4372283b770ef05ae764adedf2500c5d",
+      "role": "image 2, approved same-character identity/clothes/scale only"
+    }
+  ],
+  "identitySourceApproval": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.source.json",
+    "sha256": "1c090c50692ff6dbc87f15c4706bd221191adeec6601fe3bb798d3b903addd07",
+    "scope": "approved chat mother for identity/clothing/scale only; not activity pose"
+  },
+  "creativeBrief": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-b/uika-literary-room-36-cells-v1.json",
+    "sha256": "f7746767db671c1a5b52504f36649c2a7239e077d2b4d19856605b99d2d889b6",
+    "cell": "uika/planning/apricot"
+  },
+  "referenceBoundary": "New activity drawn from words; no held Umiri v1, old room4, different character body or chat-pose copy input.",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-9e9ac2b2-83da-4f75-af71-00e4e4005b3d.png",
+  "output": "uika-planning-apricot-literary-wave-a-v1.png",
+  "outputSha256": "e13fd9633947424fe3ffb11b431e5c3f45ab94b2f6d707b6db13b79b7c38c24a",
+  "promptFile": "uika-planning-apricot-literary-wave-a-v1.prompt.txt",
+  "prompt": "Use case: stylized-concept, a newly drawn same-room activity mother. Return ONE full 1536 x 1024 warm-apricot literary room image.\nIMAGE 1 is the ROOT-APPROVED CLEAN EMPTY literary room plate: exact room, close camera, furniture, materials, perspective and daylight. IMAGE 2 is THIS CHARACTER'S ROOT-APPROVED CHAT mother: identity, hair/eyes, clothing, ordinary youthful proportions and close-camera scale ONLY. Do NOT copy the chat action, hand pose, head gesture or facial expression. Recompose the new activity from words with complete anatomy. No held/rejected image, old room4, different character, face swap, pasted-body translation or calibration input.\nLOCK THE ENTIRE ROOM to image 1: connected wooden window/lake/mountain town, sheer curtains, left desk and chair, shelves/books/plants/pictures, round side table with porcelain lamp/books/cup/flowers, continuous right bench, plaid pillows and knitted throw, foreground books/plant blur, rug and floor. Same camera and object locations/scale. No zoom, crop, furniture move, gradient/blank work area, new furniture, floating UI, readable text, icons, arrows, badges or profession props.\nKeep the close human scale of image 2: head around y=110..145 depending on natural tilt, hip supported on actual bench around y=550..585, complete shoe soles around y=870..910. Do not enlarge or lean the head toward the camera. Body must truly sit on cushion; complete head, hair, hands, hem, ankles and both shoes remain visible.\nEye/hair craft: fine distinguishable hair groups and cheek strands, separately readable upper eyelids, lashes, irises and pupils. Lowered or half-closed eyes retain anatomically readable iris, not black eye slits; no fringe/lash/iris dark patch. Distinguish skin, hair, cloth, leather and wood in the original window light. Youthful original anime identity, not mature glamour, not chibi. Fine Japanese anime figure linework integrated into the richly painted literary room. No generic stock smile or vacant doll gaze.\n\nCHARACTER: Misumi Uika (三角初华). Follow image 2's short warm-blonde chin-to-neck bob, uneven light fringe, cheek strands and clear PURPLE/VIOLET irises. Not silver-blue/long hair or amber eyes. Her plain white short-sleeved T-shirt, soft plain taupe-gray long skirt, white ankle socks and complete black-and-white low canvas sneakers remain the same across this wave. No Sakiko uniform or idol/guitar symbol. Blonde hair, white cloth and warm skin must keep different values.\nBASIC LEG TOPOLOGY: two uncrossed thighs are supported by the cushion; long skirt drapes over them without creating a crossed-knee ridge. Two lower legs descend in natural parallel relation; show two distinct socked ankles and two complete sneakers, visible gap between shoes, both independently supported on the same original floor. No tucked foot, crossed ankles, duplicated calf or detached shoe. Do not paint transparent skirt to prove hidden anatomy.\n\nNEW ACTIVITY — PLANNING: she wants to preserve one thing worth looking forward to, while acknowledging a real conflict. A small weight of choice and a gently lifted brow, lips thoughtful rather than pleasing. She has just compared two places in a SMALL stiff notebook on her lap and looks up toward the nearby listener with a specific question, leaving the decision open. One hand steadies a page corner, the other holds a simple pencil PAUSED near blank space. Notebook lies stably on thighs, not raised like a reading book. No floating cards, calendar UI, success ticks or schedule board. Torso modestly turned, real bench support; no impossible reach to side table. Golden light separates page, fingers and skirt folds.\n\nReturn exactly one coherent complete 1536x1024 mother. This is an apricot daylight activity drawing, not a layer, animation, portrait cutout, split view or fake product screenshot. No labels, logo, signature, watermark or borders.",
+  "submittedPromptSha256NoTrailingNewline": "20d49862e98f8683ef6ca28b5ad43617e1a09ce1d783c19f9eb6add2f13f001c",
+  "promptFileSha256": "20d49862e98f8683ef6ca28b5ad43617e1a09ce1d783c19f9eb6add2f13f001c",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "actualMode": "RGB",
+  "producerViewed": true,
+  "primaryApproved": true,
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "reviewBoundary": "One of six bounded mother images only; no study/other palette expansion, layer or runtime acceptance.",
+  "producerObservations": [
+    "Complete fresh image personally viewed before rest. Notebook lies open and low on lap; left hand steadies page, right hand raises pencil near cheek while she looks up toward listener.",
+    "Expression reads as a particular thoughtful/questioning pause rather than reading absorption. Blonde hair, purple irises, lid lines, hands and both entire sneakers are legible.",
+    "Hip/long skirt and independently grounded shoes remain naturally supported. Room layout/camera and modest close scale retained, head about y125 and soles about y880 by visual estimate."
+  ],
+  "producerConcerns": [
+    "Pencil is held near the face rather than paused beside blank page as requested; record as a pose-detail deviation for primary judgment, not fake writing activity.",
+    "Primary still needs to approve subtle emotional fit and concealed skirt-covered leg relation."
+  ],
+  "promptFileMatchesToolInput": true,
+  "remaining": [
+    "No layer or runtime acceptance; no study or other-palette expansion in this wave."
+  ],
+  "primaryApprovalScope": "mother_only_static",
+  "primaryMotherReview": {
+    "reviewer": "root",
+    "approved": true,
+    "exactMotherSha256": "e13fd9633947424fe3ffb11b431e5c3f45ab94b2f6d707b6db13b79b7c38c24a",
+    "scope": "This exact mother only; no layer or runtime acceptance.",
+    "observations": [
+      "笔近下颌，但独立手指与纸的承重自然。",
+      "Camera and large furniture stable; clear hair/eyes and complete shoe support; no erroneous crossed-leg topology."
+    ],
+    "approvalMessage": "root 已逐张完整亲看 Uika/Umiri wave-a6母图，批准mother静态：Uika低头读页清晰握本、plan笔近下颌但独立手指/纸承重自然、rest靠格垫后倚双手自然；Umiri读页parallel knees/独立靴底、plan笔靠唇边独立握笔与本、rest转向窗/软化目光。6张camera/大家具稳定，clear hair/eyes/完整鞋脚支撑，无错误交腿。rest头低是后倚/视角姿态合理不自动比例错。请在专属wave目录落exactSHA root母图准入，layer/runtimefalse，chat层主任务先交，别扩母图。"
+  }
+}

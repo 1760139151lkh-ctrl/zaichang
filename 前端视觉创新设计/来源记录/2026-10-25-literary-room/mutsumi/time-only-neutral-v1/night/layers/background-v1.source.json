@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T01:16:55.593Z",
+  "producer": "/root/study_reading",
+  "character": "mutsumi",
+  "purpose": "neutral-presence",
+  "environmentVariant": "time-night",
+  "weather": "unknown",
+  "exactActivityMatrixCredit": 0,
+  "stage": "background-v1",
+  "tool": "image_gen.imagegen",
+  "originalToolPath": "C:/Users/17601/.codex/generated_images/01a17365-8901-7202-bd9e-0859826906dc/exec-d8a24214-98be-44e6-a120-1bd864ff5493.png",
+  "transparentBackground": false,
+  "submittedPrompt": "Use case: precise-object-edit. Same-mother clean EMPTY BACKGROUND for the exact Mutsumi neutral time-NIGHT 1536x1024 source. Only input is the complete approved character mother. REMOVE the entire girl, all fine mint hair/clips, face, navy uniform, hands, legs/socks and both entire shoes, together with the GIRL'S own source-local seat-pressure/cloth shadow and shoe-grounding shadow. There is no held prop. Reconstruct ONLY what was hidden: plausible continuous woven seat cushion and wood bench/floor grain at the exact existing perspective and original warm indoor NIGHT lamp illumination. Smoothly relax the cushion where her weight was, no person-shaped hollow or colored navy/green rim, no phantom shoe or shadow stain. Preserve the rest of the room, camera, complete1536x1024 canvas, desk/chair/shelves/plants, round lamp/table/cup/flowers, plaid pillows, knit throw, rug/foreground, wood floorboard directions and closed opaque curtain exactly as the input. Do not redesign furniture, add texture bands, crop/zoom/shift, alter lamp glow, repaint the whole room or use another empty plate. The inner curtain stays fully CLOSED/OPAQUE with no readable outdoors or guessed weather; time-NIGHT only, no hard sun/grid patch. Natural unrelated furniture/lamp shadows remain. One complete opaque empty room PNG, no remaining person/props/UI/text/checkerboard. This background will sit beneath an unchanged original-mother RGB MAX(F,S) union at fixed source coordinates; hidden texture is new inpainting, not a bitwise recovery claim. Preserve the warm night lighting gradients on closed curtain, woven seat, wood and nearby lamp glow; do not lift night into daylight or erase the existing unrelated broad lamp pool.",
+  "submittedPromptSha256": "7a73920c4cb3532579e4e7f818aee1023ee2c0370a1b47718cb09072ce89435f",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-night-v1.png"
+  ],
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-night-v1.png",
+      "role": "sole clean root-approved night mother",
+      "sha256": "ecd0ac024c414ae54c94558301e4eeb7d1e4e773cc264a195044fe9030088e36",
+      "bytes": 2240587
+    }
+  ],
+  "originalMother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-night-v1.png",
+    "sha256": "ecd0ac024c414ae54c94558301e4eeb7d1e4e773cc264a195044fe9030088e36",
+    "approvalRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-night-v1.primary-approval.json"
+  },
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/night/layers/background-v1.png",
+    "sha256": "3f01b081128e75e150652fabdaed9f2babde2410e16462d842e0683257c694dd",
+    "bytes": 2206781,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "rawToolBytesPreserved": true,
+  "producerPersonallyViewed": true,
+  "observations": [
+    "Personally viewed: whole night room empty, all person/shoes removed, coherent seat and wood reconstruction; broad unrelated warm lamp pool retained."
+  ],
+  "producerUseDecision": "candidate-awaiting-static-union-review",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "userApproved": false,
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "fixedOriginalCoordinates": true,
+    "travel": 0,
+    "perspective": 0,
+    "slope": 0,
+    "contactShadow": "included"
+  },
+  "method": {
+    "sourceRgb": "exact unchanged mother only",
+    "union": "MAX(L(F),L(S))",
+    "originalRgbDrawsPerUnion": 1,
+    "pngPixelEditing": false,
+    "manualThreshold": false,
+    "morphology": false,
+    "warp": false
+  },
+  "scope": "Production candidate only; native browser union, seam and full source RGB must be personally viewed before primary static-layer admission."
+}

@@ -1,0 +1,281 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "scope": "Rana study/reading/planning/rest only × mist/violet/rain; 12 missing complete human mothers",
+  "notCoverageFor": "other actions, separated layers, dynamic topology, root approval or runtime",
+  "items": [
+    {
+      "cell": "rana/study/mist",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-study-mist-literary-extension-v1.png",
+      "source": "rana-study-mist-literary-extension-v1.source.json",
+      "sha256": "07fb93f621c29c426e62d3da92596a86076ef7e92bd5873da2770c11719b914f",
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "rana/study/violet",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-study-violet-literary-extension-v1.png",
+      "source": "rana-study-violet-literary-extension-v1.source.json",
+      "sha256": "01a886b2f55c90d7bc1299dc82afb78bff0c3204a08ad279a2b3f346ca5e803d",
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "rana/study/rain",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-study-rain-literary-extension-v4.png",
+      "source": "rana-study-rain-literary-extension-v4.source.json",
+      "sha256": "6232d7d84e087f974e9cdff8b26fdde6ea5d0ee80d9a696784f656f979138f7e",
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "rana/reading/mist",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-reading-mist-literary-extension-v1.png",
+      "source": "rana-reading-mist-literary-extension-v1.source.json",
+      "sha256": "cbf2f2a33edec0eb7541af80567cade56f40613b38cfefc3051a35b4c9249fa1",
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "rana/reading/violet",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-reading-violet-literary-extension-v1.png",
+      "source": "rana-reading-violet-literary-extension-v1.source.json",
+      "sha256": "852ac48d0a05a83a1b67f63f2dc989abed2ec904f13007846c146c6209802611",
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "rana/reading/rain",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-reading-rain-literary-extension-v1.png",
+      "source": "rana-reading-rain-literary-extension-v1.source.json",
+      "sha256": "3ac2ca0bf048f177cced315a4a9c224c684a5c0f95199b114ad803827330281c",
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "rana/planning/mist",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-planning-mist-literary-extension-v1.png",
+      "source": "rana-planning-mist-literary-extension-v1.source.json",
+      "sha256": "cf1ccc22629dd48eeed5b863a4031560f2b569970dcf39b91fbec0e2be0170ee",
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "rana/planning/violet",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-planning-violet-literary-extension-v1.png",
+      "source": "rana-planning-violet-literary-extension-v1.source.json",
+      "sha256": "69a97faa9d579a307d3f3af0471de3e5a3e1e14c3b17f5898d712e35ddd247e6",
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "rana/planning/rain",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-planning-rain-literary-extension-v1.png",
+      "source": "rana-planning-rain-literary-extension-v1.source.json",
+      "sha256": "83523803a639bd789cf21235a1469836619dcb008b310b83800d21968dbf404c",
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "rana/rest/mist",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-rest-mist-literary-extension-v2.png",
+      "source": "rana-rest-mist-literary-extension-v2.source.json",
+      "sha256": "fca65495b251e5a15805f8550bc6fb2598c6853a167ce3ad5366b8581a280951",
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "rana/rest/violet",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-rest-violet-literary-extension-v1.png",
+      "source": "rana-rest-violet-literary-extension-v1.source.json",
+      "sha256": "fd2979ccdb92f34fffff8d34c057b6d7149efd9560802d40775b1ebc39734967",
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "rana/rest/rain",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-rest-rain-literary-extension-v1.png",
+      "source": "rana-rest-rain-literary-extension-v1.source.json",
+      "sha256": "7fb9743c49e846ac2d3786f20f9ad50632abb1e345a758e08b2e336de09e7ba0",
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "actualImageGenCalls": 16,
+  "currentCandidateCells": 12,
+  "generatedButHeldDiagnosticCount": 4,
+  "diagnostics": [
+    {
+      "cell": "rana/rest/mist",
+      "file": "rana-rest-mist-literary-extension-v1.source.json",
+      "image": "rana-rest-mist-literary-extension-v1.png",
+      "sha256": "ef4a5af7664fa899932f0cf5db3e09683d5c26646910d164d750b513ce11435d",
+      "width": 1536,
+      "height": 1024,
+      "status": "producer-held-both-irises-blue",
+      "producerHeld": true,
+      "inputShas": [
+        "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+        "bf9e9784cd5945e357268856d668056e14ac2918ed9b3635acb72bcde6877075"
+      ]
+    },
+    {
+      "cell": "rana/study/rain",
+      "file": "rana-study-rain-literary-extension-v1.source.json",
+      "image": "rana-study-rain-literary-extension-v1.png",
+      "sha256": "63630ff53707ea4e0259b97c58fd9ab3603e7835bf55eff6a8d029e8cd2105fe",
+      "width": 1536,
+      "height": 1024,
+      "status": "producer-held-wrong-gaze-and-pen-performance",
+      "producerHeld": true,
+      "inputShas": [
+        "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+        "42d51d60de9bfc18eddc76d5eba0936fb10b4756276a44b6b8ba16659270548b"
+      ]
+    },
+    {
+      "cell": "rana/study/rain",
+      "file": "rana-study-rain-literary-extension-v2.source.json",
+      "image": "rana-study-rain-literary-extension-v2.png",
+      "sha256": "572201ad5b0dbdff9756d1b218b045fa3d7449189d0f54ca8b2580f3fcb512c7",
+      "width": 1536,
+      "height": 1024,
+      "status": "producer-held-wrong-project-wardrobe",
+      "producerHeld": true,
+      "inputShas": [
+        "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1"
+      ]
+    },
+    {
+      "cell": "rana/study/rain",
+      "file": "rana-study-rain-literary-extension-v3.source.json",
+      "image": "rana-study-rain-literary-extension-v3.png",
+      "sha256": "8c04310e05add32f26afc5b8eec0f8ab62d5f1b765daa8c37a83a827c53cfc5c",
+      "width": 1536,
+      "height": 1024,
+      "status": "producer-held-room-furniture-drift",
+      "producerHeld": true,
+      "inputShas": [
+        "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1"
+      ]
+    }
+  ],
+  "currentReviewBoundary": "All twelve current entries are actual complete ImageGen outputs personally viewed by producer, awaiting root. Exact target generation is distinct from root approval, new pose topology, layers and runtime. Study mist/violet actual eye-gaze remains an up-glance candidate; study-rain-v4 main round-table drift corrected but auxiliary brass desk-lamp shift recorded for root.",
+  "currentInputBoundary": "No current or held newly generated output fed forward. Each call used only target cleanplate and, where appropriate, exact root-approved corresponding apricot seed. Rain-study v2/v3/v4 used only clean rainplate and full text.",
+  "directFileReadEvidence": [
+    {
+      "cell": "rana/study/mist",
+      "archiveSha256": "07fb93f621c29c426e62d3da92596a86076ef7e92bd5873da2770c11719b914f",
+      "actualSha256": "07fb93f621c29c426e62d3da92596a86076ef7e92bd5873da2770c11719b914f",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2426190
+    },
+    {
+      "cell": "rana/study/violet",
+      "archiveSha256": "01a886b2f55c90d7bc1299dc82afb78bff0c3204a08ad279a2b3f346ca5e803d",
+      "actualSha256": "01a886b2f55c90d7bc1299dc82afb78bff0c3204a08ad279a2b3f346ca5e803d",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2289925
+    },
+    {
+      "cell": "rana/reading/mist",
+      "archiveSha256": "cbf2f2a33edec0eb7541af80567cade56f40613b38cfefc3051a35b4c9249fa1",
+      "actualSha256": "cbf2f2a33edec0eb7541af80567cade56f40613b38cfefc3051a35b4c9249fa1",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2449430
+    },
+    {
+      "cell": "rana/reading/violet",
+      "archiveSha256": "852ac48d0a05a83a1b67f63f2dc989abed2ec904f13007846c146c6209802611",
+      "actualSha256": "852ac48d0a05a83a1b67f63f2dc989abed2ec904f13007846c146c6209802611",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2284753
+    },
+    {
+      "cell": "rana/reading/rain",
+      "archiveSha256": "3ac2ca0bf048f177cced315a4a9c224c684a5c0f95199b114ad803827330281c",
+      "actualSha256": "3ac2ca0bf048f177cced315a4a9c224c684a5c0f95199b114ad803827330281c",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2282035
+    },
+    {
+      "cell": "rana/study/rain",
+      "archiveSha256": "6232d7d84e087f974e9cdff8b26fdde6ea5d0ee80d9a696784f656f979138f7e",
+      "actualSha256": "6232d7d84e087f974e9cdff8b26fdde6ea5d0ee80d9a696784f656f979138f7e",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2261002
+    },
+    {
+      "cell": "rana/planning/mist",
+      "archiveSha256": "cf1ccc22629dd48eeed5b863a4031560f2b569970dcf39b91fbec0e2be0170ee",
+      "actualSha256": "cf1ccc22629dd48eeed5b863a4031560f2b569970dcf39b91fbec0e2be0170ee",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2449647
+    },
+    {
+      "cell": "rana/planning/violet",
+      "archiveSha256": "69a97faa9d579a307d3f3af0471de3e5a3e1e14c3b17f5898d712e35ddd247e6",
+      "actualSha256": "69a97faa9d579a307d3f3af0471de3e5a3e1e14c3b17f5898d712e35ddd247e6",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2310371
+    },
+    {
+      "cell": "rana/planning/rain",
+      "archiveSha256": "83523803a639bd789cf21235a1469836619dcb008b310b83800d21968dbf404c",
+      "actualSha256": "83523803a639bd789cf21235a1469836619dcb008b310b83800d21968dbf404c",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2295046
+    },
+    {
+      "cell": "rana/rest/mist",
+      "archiveSha256": "fca65495b251e5a15805f8550bc6fb2598c6853a167ce3ad5366b8581a280951",
+      "actualSha256": "fca65495b251e5a15805f8550bc6fb2598c6853a167ce3ad5366b8581a280951",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2403314
+    },
+    {
+      "cell": "rana/rest/violet",
+      "archiveSha256": "fd2979ccdb92f34fffff8d34c057b6d7149efd9560802d40775b1ebc39734967",
+      "actualSha256": "fd2979ccdb92f34fffff8d34c057b6d7149efd9560802d40775b1ebc39734967",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2339807
+    },
+    {
+      "cell": "rana/rest/rain",
+      "archiveSha256": "7fb9743c49e846ac2d3786f20f9ad50632abb1e345a758e08b2e336de09e7ba0",
+      "actualSha256": "7fb9743c49e846ac2d3786f20f9ad50632abb1e345a758e08b2e336de09e7ba0",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2241979
+    }
+  ],
+  "overview": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\review-rana-first-four-activities-contact-sheet-v1.png",
+    "sha256": "a84ae2a1e1cb2a0c7a5a0182f63239eebaf5fa3d08d109c288601235f816b1f1",
+    "personallyViewedByProducer": true,
+    "usage": "Overview only, never generation input or substitute for primary native anatomy/identity/light review"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "native-figure-selection-step-candidate",
+  "character": "sakiko",
+  "activity": "chat",
+  "palette": "mist",
+  "environmentVariant": "overcast-day",
+  "stage": "F2",
+  "recordedAt": "2026-10-25T13:05:11.135864+00:00",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170ed-b14d-7321-9cf7-3bd222b6ff42\\exec-c43114c2-233c-433a-9eb7-6ab2cf822765.png",
+  "toolOutputEvent": "Generated images are saved to C:\\Users\\17601\\.codex\\generated_images\\01a170ed-b14d-7321-9cf7-3bd222b6ff42 as C:\\Users\\17601\\.codex\\generated_images\\01a170ed-b14d-7321-9cf7-3bd222b6ff42\\exec-c43114c2-233c-433a-9eb7-6ab2cf822765.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/mist/figure-white-environment-v1.png",
+      "sha256": "5b9bccd48f633cefec9c6d22e0056a279366f2a446eca627e8a0429bfdee837f"
+    }
+  ],
+  "exactNewMother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-mist-v1.png",
+    "sha256": "6cbd83def33cf8284056992f10315a98101002d8f36f4d3d497548b7b4b73b9f"
+  },
+  "promptFile": "figure-mask-v1.prompt.txt",
+  "promptFileSha256": "5df7d429cd73a8de1b82c59a641dfc0b869cc95a6f08f904371b92f95d459e96",
+  "submittedPromptSha256": "56636fabaf967a5f1cfa6682afed08944280ae619fe1d04fb0efcd183b5f8d38",
+  "output": {
+    "file": "figure-mask-v1.png",
+    "sha256": "29bbc0bfc8493a5b46bcc9e74e99376d60f7da1330663ac111cf11c994b2baca",
+    "bytes": 466342,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "producerPersonallyViewed": true,
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "generationBudgetScope": "At most F1/F2 for each of three palettes; old apricot S is receiver-selection candidate only. No automatic S generation.",
+  "nativePngPixelsEditedAfterTool": false,
+  "producerObservation": "Complete saved tool output personally viewed inline: native white full subject on black, including actual crown/hair/ribbons/lap/skirt/legs and both shoes. Exact fit/contact requires actual RGB native composition below; no primary/layer/runtime admission."
+}

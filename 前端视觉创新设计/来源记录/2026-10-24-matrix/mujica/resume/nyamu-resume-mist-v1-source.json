@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "character": "nyamu",
+  "activity": "resume",
+  "sceneCategory": "S9_RESUME",
+  "palette": "mist",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "nyamu-resume-mist-v1-prompt.txt",
+  "promptFileSha256": "eb629eb696b6ca6bf344cb5dbdf6efd82d5ebaad2e2ec03e6f30c1826ff286de",
+  "submittedPrompt": "Exact UTF-8 promptFile contents with trailing newline trimmed.",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mujica/resume/nyamu-resume-apricot-mother-candidate-v2.png",
+      "role": "primary-personally-reviewed approved apricot mother; exact figure/pose/support edit target",
+      "sha256": "fe11df2b3080e68bc269dc43a0149f3f0ab05ced35b3629c229cf423d41a671b"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-mist-candidate.png",
+      "role": "clean empty theme room; whole-scene light/weather reference only",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
+    }
+  ],
+  "output": {
+    "file": "nyamu-resume-mist-mother-candidate-v1.png",
+    "toolOriginalPath": "$CODEX_HOME/generated_images/01a1702e-1e74-7ac0-9f86-f1d6b1ffcf30/exec-75afd903-e09f-40d4-a2d5-226f85abf31e.png",
+    "sha256": "a7c973d42b9c57a3afdad0a9b03352273606efd8ac28218ceeefebb0caa28a03",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "bytes": 2146367
+  },
+  "review": {
+    "producerPersonallyViewed": true,
+    "producerObservation": "Full image personally viewed. Approved v2 forward-lean silhouette, wrist/palm-side at knee, rear palm on cushion, two independent knees/calves/shoes retained. Small recognition smile stays; cool daylight and mist lake relight room/person/floor together, not a sadness cue. No definite new anatomical defect seen.",
+    "approvedByPrimary": false,
+    "layers": "not extracted",
+    "runtimeAccepted": false
+  },
+  "sourceSupportReference": "nyamu-resume-apricot-v2-source.json",
+  "boundary": "Approved apricot INPUT is not approval of this themed OUTPUT. No sourceSupportReference is claimed as new runtime calibration.",
+  "matrixCell": {
+    "character": "nyamu",
+    "activity": "resume",
+    "theme": "mist"
+  },
+  "identityBasis": {
+    "officialProfile": "https://anime.bang-dream.com/avemujica/character/nyamu/",
+    "textVerifiedOn": "2026-10-24",
+    "boundary": "Official identity/background; university-companion resume moment is project-original. This relighting uses only approved generated character mother and clean generated theme room, no third-party character pixels."
+  }
+}

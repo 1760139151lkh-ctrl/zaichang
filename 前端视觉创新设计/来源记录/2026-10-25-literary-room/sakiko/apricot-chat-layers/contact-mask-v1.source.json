@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "assetType": "apricot-chat-original-local-contact-receiver-luminance-selection-S",
+  "id": "contact-mask-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "contact-mask-v1.prompt.json",
+  "promptFileSha256": "2083fa04b3d87a562b88803b16b308d2f6ad9d45fe37a8df6dc322467f758959",
+  "submittedPrompt": "Use case: precise-object-edit. STEP2 same-canvas original contact RECEIVER luminance selection S.\nImage1 is the ONLY full1536x1024 input: original apricot-chat mother with actual local receiving-surface contact regions already marked white in place. Preserve the EXACT existing deliberate white marks and their original source positions/shapes, not another shadow drawing.\nKeep only the already painted white cushion/seat receiver directly beneath the plaid skirt/hips, around existing source x1010..1350,y560..668, and the existing white irregular original floor-contact footprints adjoining BOTH loafers/soles, around x864..1110,y865..963. These describe source search locations, never rectangles/ellipses to draw. Retain complete actual white marks and narrow original fading edges, without shifting onto the lap or enlarging the floor shade.\nTurn EVERY other original colored or naturally pale pixel PURE BLACK: all actual person hair/face/clothes/hands/skin/socks/shoes, bright unmarked linen/pillow/throw, clouds/curtains/lamps, tables/books/cup/flowers, desk/chair/plants, floor/rug/sun lattice and unrelated shadows. Pale clothing/skin and natural room highlights are not marked receivers. No white person silhouette or new shoes. Only the already marked support-surface footprints survive.\nNo reconstruction, translation, resize, crop, zoom, re-center, new outline/ghost, new shadow shape, connected oval or altered geometry. Keep complete original1536x1024 frame. Return opaque grayscale RGB black canvas with only exact existing contact selections white/gray, thin original edge antialias. No colored room, labels/text/UI/grid/border/watermark/checkerboard/transparency.",
+  "submittedPromptSha256Utf8NoTrailingLF": "135130071d85ba85b8bc11c8d14ba1e2f0448a3ba9d5cb000e0f2df2b1a31cb0",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/contact-marked-v1.png",
+      "sha256": "979dccd7e62ab1a4857baade881fafd81715746f2e595f6f94b678b26d196393",
+      "role": "sole correctly registered original-room local contact markup; retain existing white receiver footprints only, no F or wrong-person reference"
+    }
+  ],
+  "output": {
+    "file": "contact-mask-v1.png",
+    "sha256": "9ee1264c492186058e9069b3ab5b86679690a0349363bcf970fc241251a2e159",
+    "bytes": 348393,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-4b0e20d7-44a2-4dd8-9d3e-6a56549be11b.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": true,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "primaryLayerApprovalRecord": "sakiko-chat-apricot-literary-included-primary-admission-v1.json",
+    "primaryLayerApprovalScope": "Exact fixed-source MAX included only, all motion0; runtime remains false."
+  },
+  "status": "producer-viewed-original-output-included-chat-candidate-primary-pending",
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "activity": "chat",
+  "palette": "apricot",
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "fullImageResultRetainedInStore": false
+}

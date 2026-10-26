@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "recordType": "time-only-neutral-complete-mother-imagegen-candidate",
+  "character": "nyamu",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "palette": "mist",
+  "light": "morning",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "weatherClaim": false,
+  "creationIntent": "喵梦把自己小纸扇的最后一道折痕压好，想分享却先看一眼熟悉的人。物件留在低处，明亮小得意与允许对方继续手边事的余地并存；不是镜头营业，也不是用户资料完成回执。",
+  "canonBoundary": "Project-original imagined companion moment. Canon identity/outfit are researched from the complete dossier; no invented canon event, user history or document-read claim.",
+  "tool": "built-in image_gen.imagegen",
+  "toolArguments": {
+    "prompt": "Use case: illustration-story.\nAsset type: complete opaque original companion mother illustration for Zaichang, purpose neutral-presence, time-only day (palette mist, light morning). It is a project-original imagined quiet companionship moment, not a canonical anime event, an actual user memory, a claim of reading user material, or a completed task.\nOutput ONE complete 1536 x 1024 landscape image, no transparency, text, border, UI, label, watermark, collage or comparison panel.\n\nREFERENCE ROLES AND SPACE:\nInput 1 is the root-approved EMPTY literary-room-time-day-v1 plate, the authoritative exact camera, full canvas, room geometry, support surfaces and target light. Preserve that close family camera, the left timber shelves/desk/chair, the foreground plant, central round table and its unchanged ceramic lamp/books/cup/flowers, the long RIGHT window bench, its actual ivory cushion and pillows, the knitted throw at far right, existing floorboards and rug. Do not zoom, crop, move or redesign furniture. Do not invent a new chair or foreground desk.\nThe milk-white opaque INNER CURTAINS stay fully CLOSED across ALL window panes, including their central seam. There is absolutely no readable exterior, sky, rain, wet glass, sun, cloud, skyline, lake or outdoor-weather clue. The faint central cloth/wood seam is not an open gap. This is DAY only, WEATHER UNKNOWN. Preserve the plate's broad softly transmitted neutral daylight and gentle existing lamp warmth; NO hard window-grid/leaf sun streaks, no overcast-weather assertion, no mist inside, no global blue or green tint. Relight the WHOLE person, hands, clothing, paper, cushion and floor coherently within that existing light. This is not an unchanged portrait pasted on a photographic room.\nInput 2 is this character's independently drawn 2D youth avatar, used ONLY to recognize her hair shape/color, eyes and individual identity. Repaint her complete youthful face, head, body and clothing together in this room. Do not paste avatar pixels, repeat its large close-up smile, reproduce any long lower face, turn a high-detail head into a doll, or use a 3D official model. Keep a naturally short soft chin, youthful fuller cheeks and intelligent original anime identity, without infant eyes, baby proportions or adult cosmetics.\n\nCOMPOSITION AND SUPPORT:\nOnly ONE person on the RIGHT bench, at this family's natural full-body bench scale: complete head and both complete shoes visible with source margins, head roughly in the right third and feet on the lower-right wood. Preserve left/central clear working space. Do not enlarge her to a portrait, put her in front of the table, make her sit on air or shift the room to fit her.\nHer pelvis truly rests on the actual cushion; the clothing drapes around the seat contact and the cushion responds subtly. Spine, hips, thighs, separate knees, calves, ankles and complete footwear form natural continuous chains with honest overlap. Both feet can rest comfortably on the same existing wood floor in this chosen uncrossed seated pose, full toe/sole/heel contour visible. No crossed or twisted legs, no fused calves, extra limbs, floating objects, hand pointing into space, or hidden bad joints covered by props. There is a real local seat contact and short soft shoe grounding, not a black generic ellipse.\nRender as one refined youthful 2D anime-and-painterly literary illustration: delicate variable linework, natural face planes, readable expressions, soft cloth and material-specific room bounce. Preserve the room's luminous air and restrained texture; no 3D doll, glossy figurine, mature fashion photograph, heavy makeup, long maternal face, thick black eye contour, blank robotic stare or forced hostess grin.\n\nNYAMU, THIS PARTICULAR MOMENT:\nYutenji Nyamu has been quietly pressing one last crease in a small cream folded-paper fan of her own. It sits low across her lap, a modest hand-sized thing, not a stage prop. She likes how this version turned out and is tempted to show it. Hearing the familiar person at her left, her eyes arrive first; she pauses instead of pushing the object into their attention. There is a readable young little pride in her rose-violet eyes, one eyebrow lightly lifted as if asking \"notice this?\", and a small lively asymmetric smile with a hint of parted lips. The expression is warm and bright but still observant; she is not winking, pouting, seducing or performing for a livestream.\nHer shoulders have loosened after working. She sits slightly three-quarter toward the left with balanced hips on the same right cushion. One hand lightly pinches the REAL folded edge against her skirt; the other fingertips rest on and support the opposite low edge of the paper, not an empty pointing gesture. The fan's bottom is supported by her lap, fingers and fabric, and her hands remain below the chest, leaving the face clear. She has not yet lifted it to show anyone. If the other person continues their own work she can simply finish the crease; that unhurried possibility should remain in the pose. The only new small object is this own folded paper, with no readable text.\nShe is recognizably the SAME Nyamu: short lavender-purple bob ending around the jaw/neck, soft irregular thin bangs and slightly longer fine side strands; clear red-violet/rose-purple eyes, youthful soft face, natural lashes and no conspicuous makeup. Her 2D identity reference informs recognition, not a generic purple-haired woman.\nUse the COMPLETE official-shown CASUAL outfit, translated into gentle 2D cloth: gray short-sleeved ruffled cold-shoulder blouse with fine shoulder straps and front buttons; thin BLACK choker; black high-waist short skirt with natural seated folds. Bare legs, NO socks or stockings; BLACK stable modest-heel ANKLE-STRAP shoes with actual small buckles and continuous straps around each ankle. Do not mix stage tights, school uniform, brown loafers, boots, corset, red stage shoes, exaggerated cleavage or mature curves. The skirt covers her seat naturally, the two bare knees remain separate and unforced, and both ankle-strap shoes are fully drawn on the wood. Her inventiveness is in this private little discovery and her glance, not equipment, a phone, a camera or a costume performance.\nThe quiet neutral daytime, fully closed curtain and exact room camera are non-negotiable. A whole integrated original Nyamu-and-room image, not a cutout or UI mockup.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.png",
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/nyamu-youth-charm-avatar-v2.png"
+    ],
+    "transparent_background": false
+  },
+  "submittedPrompt": "Use case: illustration-story.\nAsset type: complete opaque original companion mother illustration for Zaichang, purpose neutral-presence, time-only day (palette mist, light morning). It is a project-original imagined quiet companionship moment, not a canonical anime event, an actual user memory, a claim of reading user material, or a completed task.\nOutput ONE complete 1536 x 1024 landscape image, no transparency, text, border, UI, label, watermark, collage or comparison panel.\n\nREFERENCE ROLES AND SPACE:\nInput 1 is the root-approved EMPTY literary-room-time-day-v1 plate, the authoritative exact camera, full canvas, room geometry, support surfaces and target light. Preserve that close family camera, the left timber shelves/desk/chair, the foreground plant, central round table and its unchanged ceramic lamp/books/cup/flowers, the long RIGHT window bench, its actual ivory cushion and pillows, the knitted throw at far right, existing floorboards and rug. Do not zoom, crop, move or redesign furniture. Do not invent a new chair or foreground desk.\nThe milk-white opaque INNER CURTAINS stay fully CLOSED across ALL window panes, including their central seam. There is absolutely no readable exterior, sky, rain, wet glass, sun, cloud, skyline, lake or outdoor-weather clue. The faint central cloth/wood seam is not an open gap. This is DAY only, WEATHER UNKNOWN. Preserve the plate's broad softly transmitted neutral daylight and gentle existing lamp warmth; NO hard window-grid/leaf sun streaks, no overcast-weather assertion, no mist inside, no global blue or green tint. Relight the WHOLE person, hands, clothing, paper, cushion and floor coherently within that existing light. This is not an unchanged portrait pasted on a photographic room.\nInput 2 is this character's independently drawn 2D youth avatar, used ONLY to recognize her hair shape/color, eyes and individual identity. Repaint her complete youthful face, head, body and clothing together in this room. Do not paste avatar pixels, repeat its large close-up smile, reproduce any long lower face, turn a high-detail head into a doll, or use a 3D official model. Keep a naturally short soft chin, youthful fuller cheeks and intelligent original anime identity, without infant eyes, baby proportions or adult cosmetics.\n\nCOMPOSITION AND SUPPORT:\nOnly ONE person on the RIGHT bench, at this family's natural full-body bench scale: complete head and both complete shoes visible with source margins, head roughly in the right third and feet on the lower-right wood. Preserve left/central clear working space. Do not enlarge her to a portrait, put her in front of the table, make her sit on air or shift the room to fit her.\nHer pelvis truly rests on the actual cushion; the clothing drapes around the seat contact and the cushion responds subtly. Spine, hips, thighs, separate knees, calves, ankles and complete footwear form natural continuous chains with honest overlap. Both feet can rest comfortably on the same existing wood floor in this chosen uncrossed seated pose, full toe/sole/heel contour visible. No crossed or twisted legs, no fused calves, extra limbs, floating objects, hand pointing into space, or hidden bad joints covered by props. There is a real local seat contact and short soft shoe grounding, not a black generic ellipse.\nRender as one refined youthful 2D anime-and-painterly literary illustration: delicate variable linework, natural face planes, readable expressions, soft cloth and material-specific room bounce. Preserve the room's luminous air and restrained texture; no 3D doll, glossy figurine, mature fashion photograph, heavy makeup, long maternal face, thick black eye contour, blank robotic stare or forced hostess grin.\n\nNYAMU, THIS PARTICULAR MOMENT:\nYutenji Nyamu has been quietly pressing one last crease in a small cream folded-paper fan of her own. It sits low across her lap, a modest hand-sized thing, not a stage prop. She likes how this version turned out and is tempted to show it. Hearing the familiar person at her left, her eyes arrive first; she pauses instead of pushing the object into their attention. There is a readable young little pride in her rose-violet eyes, one eyebrow lightly lifted as if asking \"notice this?\", and a small lively asymmetric smile with a hint of parted lips. The expression is warm and bright but still observant; she is not winking, pouting, seducing or performing for a livestream.\nHer shoulders have loosened after working. She sits slightly three-quarter toward the left with balanced hips on the same right cushion. One hand lightly pinches the REAL folded edge against her skirt; the other fingertips rest on and support the opposite low edge of the paper, not an empty pointing gesture. The fan's bottom is supported by her lap, fingers and fabric, and her hands remain below the chest, leaving the face clear. She has not yet lifted it to show anyone. If the other person continues their own work she can simply finish the crease; that unhurried possibility should remain in the pose. The only new small object is this own folded paper, with no readable text.\nShe is recognizably the SAME Nyamu: short lavender-purple bob ending around the jaw/neck, soft irregular thin bangs and slightly longer fine side strands; clear red-violet/rose-purple eyes, youthful soft face, natural lashes and no conspicuous makeup. Her 2D identity reference informs recognition, not a generic purple-haired woman.\nUse the COMPLETE official-shown CASUAL outfit, translated into gentle 2D cloth: gray short-sleeved ruffled cold-shoulder blouse with fine shoulder straps and front buttons; thin BLACK choker; black high-waist short skirt with natural seated folds. Bare legs, NO socks or stockings; BLACK stable modest-heel ANKLE-STRAP shoes with actual small buckles and continuous straps around each ankle. Do not mix stage tights, school uniform, brown loafers, boots, corset, red stage shoes, exaggerated cleavage or mature curves. The skirt covers her seat naturally, the two bare knees remain separate and unforced, and both ankle-strap shoes are fully drawn on the wood. Her inventiveness is in this private little discovery and her glance, not equipment, a phone, a camera or a costume performance.\nThe quiet neutral daytime, fully closed curtain and exact room camera are non-negotiable. A whole integrated original Nyamu-and-room image, not a cutout or UI mockup.",
+  "originalToolOutput": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-16fde31c-0055-4d00-999c-fe9cc80ba3f1.png",
+  "outputFile": "nyamu-neutral-presence-time-day-v1.png",
+  "inputPolicy": "Only actual root-approved empty time-day plate and Nyamu independent 2D v2 avatar identity reference. v2 latest face proportions remain pending, explicitly redrawn short/soft rather than inherited. No HOLD, UI, review board, old weather mother, official 3D model or assembled scene supplied.",
+  "referenceApprovalBoundary": "Parent explicitly permitted v2 as identity-only reference after noting latestRequirementAccepted=false; keep original portrait review flags unchanged. Fresh v3 identity reference was separately requested after this healthy day call returned.",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.png",
+      "role": "root-approved exact empty time-day space/lighting/camera",
+      "sha256": "aa4ce3dcab5cd2366c9f1c4eadcff0ab85537ab45e5a3b0643c4d01588e6e247"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/nyamu-youth-charm-avatar-v2.png",
+      "role": "2D identity-only hair/eyes/person recognition; not copied face proportions or material",
+      "sha256": "8ce8e16572956939f16e4baaf9fe3d504f051e24bbde64c9c535fd8a5127f241"
+    }
+  ],
+  "documents": [
+    ".agents/skills/zaichang-frontend-director/SKILL.md",
+    "C:/Users/17601/.codex/skills/.system/imagegen/SKILL.md",
+    ".agents/skills/zaichang-frontend-director/references/characters/nyamu.md",
+    ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.primary-approval.json",
+    "前端视觉创新设计/来源记录/2026-10-25-integrated-room/independent-portraits-primary-review.json"
+  ],
+  "producerObservation": {
+    "personallyViewedCompleteToolOutput": true,
+    "identityEmotion": "短紫bob、红紫眼与年轻短柔面保持；小幅含笑带一点得意，未变浓妆/成熟泛脸。",
+    "objects": "纸扇位于腰腹前低处，被两手真实夹握，未出现悬空指物；结果比Prompt所想略抬高，并未严格贴在膝面，记录实际而不声称全句遵循。",
+    "support": "髋和裙摆落在实际右榻软垫，两膝/小腿各自连续、踝带鞋两只完整接地，未见明确扭腿或多肢。",
+    "spaceLight": "同家族左桌椅/圆几/灯/右榻整体相机保留；内帘合闭且无可读室外景，软日光与原灯温和，地板无硬窗格日照。",
+    "limitations": "Full static mother candidate only; root still must inspect youth, exact camera, hands, wardrobe and support. Not a layer, runtime, dynamic or 360 acceptance."
+  },
+  "primaryApproved": false,
+  "layersApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "dynamicAdmission": false,
+  "original360CreditAssigned": false,
+  "nightProductionStarted": false,
+  "rawPixelEditing": false,
+  "sourcePNGCopyOnly": true,
+  "recordedAtUTC": "2026-10-26T00:09:48.975063+00:00",
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/nyamu-neutral-presence-time-day-v1.png",
+    "sha256": "5df25df2667581917ee3e312218810da2424bcd573be4418b245ac7d05dc755d",
+    "bytes": 2443868,
+    "originalToolOutputSHA256": "5df25df2667581917ee3e312218810da2424bcd573be4418b245ac7d05dc755d",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "documentVersions": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/SKILL.md",
+      "sha256": "d3dafe3e370dfe2aa6bbd522dd64242efb6e9dbed265daa0b68a9532734e1a58",
+      "readScope": "complete relevant document"
+    },
+    {
+      "path": "C:/Users/17601/.codex/skills/.system/imagegen/SKILL.md",
+      "sha256": "706d4d96e1d5c9e6023fe3ccabba1bb34b364024d344fd25b8515ec7d28fe3c4",
+      "readScope": "complete relevant document"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/nyamu.md",
+      "sha256": "c5acd92fe6cd9ccf35785bd09e7f71337bca5bf7eb0fdd37629e78780eb9ebe1",
+      "readScope": "complete relevant document"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "readScope": "complete relevant document"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.primary-approval.json",
+      "sha256": "52fbcfab5828226ba97e486aaf20e2d5896d3744c349094129602faef22e7f72",
+      "readScope": "complete relevant document"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/independent-portraits-primary-review.json",
+      "sha256": "db84483141ad96867f2c10f7f4765d8e00a862f6aa9e1e388a7acd301eaccd2b",
+      "readScope": "review metadata and Nyamu item only; unrelated character records not used"
+    }
+  ],
+  "promptFile": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/nyamu-neutral-presence-time-day-v1.prompt.txt",
+    "sha256": "14b7cac7952c835f429973e02687f0121bf82118e2de182b0c6b8c694140b80a"
+  },
+  "submittedPromptSHA256": "cec85c44ff002de78e998254a17e27b0f2dc3d5cebaabeec1528836ec33269e9"
+}

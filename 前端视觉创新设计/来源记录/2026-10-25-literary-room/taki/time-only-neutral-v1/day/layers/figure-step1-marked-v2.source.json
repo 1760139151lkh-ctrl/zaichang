@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "characterId": "taki",
+  "neutralTime": "day",
+  "purpose": "neutral-presence-fixed-included-layer",
+  "kind": "foreground-source-white-markup-F1-HOLD",
+  "createdAt": "2026-10-26T01:15:57.020715+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "exactPromptFile": "figure-step1-marked-v2.prompt.txt",
+  "promptSha256": "f4371b19b5c5c4641e7bfa64ed9c8863d9d35eef705ca3a66b6b0ade19ac8627",
+  "requestFile": "figure-step1-marked-v2.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/taki-neutral-time-day-literary-v1.png",
+      "sha256": "66e104b6025d0b65c2ab522a6d76c8cab8cbc94e5ee4edbd3dd2c4d9b5bb6654",
+      "role": "sole clean root-approved mother, no held mask"
+    }
+  ],
+  "output": {
+    "file": "figure-step1-marked-v2.png",
+    "sha256": "96ea76d0bb84040b1e017f035faf01e9fbef4be859e3ec874f68f71e95d4a9ba",
+    "bytes": 2231597,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "originalBasename": "exec-9e9c9cab-d56b-46f3-83f0-722cc9f239d9.png",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteOutput": true,
+    "observations": [
+      "Book lower seam filled, but small triangular unselected region in upper torso is not accepted without proof of a source-background gap.",
+      "HOLD; never supply this image as next-step input."
+    ],
+    "eligibleAsNextStepInput": false
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "countsToward360ExactActivities": false,
+  "pngPixelEditing": false
+}

@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "id": "rana-chat-apricot-room4-v3",
+  "character": "rana",
+  "activity": "chat",
+  "palette": "apricot",
+  "light": "morning",
+  "sceneFamily": "room4",
+  "width": 1536,
+  "height": 1024,
+  "mother": {
+    "file": "../../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png",
+    "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+    "primaryApproved": true,
+    "approvalRecord": "../../../assets-design-generated/2026-10-23-companion-matrix/primary-other-mother-reviews.json",
+    "originalPrompt": "../../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-prompt.txt",
+    "originalPromptSha256": "fe9287841dd3f2c83059a3914394c5489301f6d51842ae8370f5278c928ad59a",
+    "producerPersonallyViewed": true,
+    "producerReadOriginalPrompt": true
+  },
+  "background": {
+    "file": "rana-chat-apricot-background-v1.png",
+    "sha256": "f013eb51f07da78849cc6b789f0251ba18db1a6305e0c6e3176be7b9dff844cb"
+  },
+  "mask": {
+    "file": "rana-chat-apricot-figure-mask-v1.png",
+    "sha256": "ea25d04608d3d38903b726cf0040fffe4abcaf1fd06540d99e3d797bcb5c97aa",
+    "mode": "luminance",
+    "sourceRgb": "../../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png",
+    "method": "Native original mother RGB through newly generated same-canvas luminance mask; no replacement figure RGB or bitmap alpha processing."
+  },
+  "shadow": {
+    "file": "rana-chat-apricot-contact-shadow-mask-v3.png",
+    "sha256": "5c0963db7cd7c2c393c07fd69d0de7b06cc361df1afa7e6dd154d3f600e166ae",
+    "mode": "luminance",
+    "rendering": "source-rgb",
+    "sourceRgb": "../../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png",
+    "opacity": 1,
+    "order": "matching BG, original mother RGB through cast/contact matte, original mother RGB through independent figure mask",
+    "reason": "Actual broad upper-thigh shadow on cushion has textured warm-brown falloff. Preserve original RGB rather than fitting it with a dark uniform fill. Fixed travel 0 only.",
+    "nativeCalibrationRecord": "rana-chat-apricot-native-cast-calibration-v1.json",
+    "maskOperations": [
+      "native union of ImageGen v3 luminance matte and explicit original-source polygon",
+      "multiply with inverse independent figure luminance"
+    ],
+    "candidateEdgeVariants": [
+      {
+        "id": "hard",
+        "stdDeviationSourcePixels": 0
+      },
+      {
+        "id": "soft",
+        "stdDeviationSourcePixels": 0.5
+      }
+    ],
+    "selectedEdgeVariant": null
+  },
+  "foreground": {
+    "required": false,
+    "reason": "Fixed visible person is in front of cushion/floor; no original foreground room object crosses the source pose. No held prop is present."
+  },
+  "provisionalCalibration": {
+    "coordinateSpace": "mother-normalized",
+    "maskBoundsPixels": [
+      1112,
+      285,
+      1450,
+      773
+    ],
+    "bodyBounds": [
+      0.7239583333333334,
+      0.2783203125,
+      0.9440104166666666,
+      0.7548828125
+    ],
+    "maskBoundsMethod": "Read-only current mask luminance >32; right/bottom exclusive. No raster edits.",
+    "seatPixels": [
+      1335,
+      581
+    ],
+    "seat": [
+      0.869140625,
+      0.5673828125
+    ],
+    "groundPixels": [
+      1275,
+      772
+    ],
+    "ground": [
+      0.830078125,
+      0.75390625
+    ],
+    "sourceSupportLandmarksApproximatePixels": {
+      "hipSeatRegion": [
+        1280,
+        582
+      ],
+      "supportingPalm": [
+        1425,
+        578
+      ],
+      "kneeHand": [
+        1235,
+        543
+      ],
+      "leftBootSole": [
+        1148,
+        738
+      ],
+      "rightBootSole": [
+        1275,
+        772
+      ]
+    },
+    "safeTextBoundary": 0.64,
+    "support": "window-seat",
+    "hitPolygon": "83.0% 27.9%, 86.0% 27.9%, 88.7% 33.0%, 88.5% 37.0%, 90.6% 39.0%, 92.0% 45.9%, 91.1% 47.0%, 91.7% 54.5%, 94.5% 56.7%, 92.1% 57.0%, 90.6% 56.2%, 89.5% 52.0%, 89.3% 55.8%, 86.7% 57.0%, 82.5% 56.6%, 83.5% 65.0%, 85.1% 73.1%, 83.3% 75.5%, 80.6% 75.5%, 80.6% 73.6%, 82.0% 68.0%, 79.6% 56.5%, 77.3% 64.7%, 77.0% 70.8%, 74.6% 72.5%, 72.3% 72.2%, 72.6% 70.0%, 75.0% 65.0%, 76.0% 60.5%, 78.3% 52.0%, 81.9% 48.0%, 82.0% 39.0%, 81.5% 36.0%, 81.5% 31.0%",
+    "anchorMethod": "Source-specific approximate visual landmarks and current silhouette, independently inspected; not old v9 calibration. Scene owner validates integrated coordinates after static admission.",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "review": {
+    "motherApprovedByPrimary": true,
+    "producerViewedOriginalPngs": true,
+    "producerViewedNativeComposite": false,
+    "layersApprovedByPrimary": false,
+    "primaryViewedNativeComposite": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  },
+  "knownDefectReview": {
+    "sourcePoint": [
+      1280,
+      582
+    ],
+    "sourceSurface": "Primary directly identified broad triangular upper-thigh cast shadow on cushion, not person skin or only a contact seam.",
+    "status": "native-geometric-cast-union-candidate-primary-original-pixel-review-pending",
+    "castMatteLuminanceAtPoint": 254,
+    "notClaimedResolved": true,
+    "observationAnchor": "#known-defect",
+    "scope": "Whole shadow coverage still requires primary original-pixel inspection; no further generation without new root direction."
+  },
+  "observationPage": "rana-chat-apricot-layers-v3.html",
+  "status": "not-admitted-source-polygon-crossed-onto-front-wood-superseded-v4",
+  "primaryFinding": "Root formal Tab.screenshot clip verified white triangle repaired, but old polygon bottom y606 crossed horizontal cushion front about y596..598 and exposed a visible brown polygon on the vertical wooden front; hard and .5 feather both rejected.",
+  "supersededBy": "rana-chat-apricot-bundle-v4.json"
+}

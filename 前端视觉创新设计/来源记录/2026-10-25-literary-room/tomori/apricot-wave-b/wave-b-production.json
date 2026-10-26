@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "characterId": "tomori",
+  "wave": "apricot-wave-b",
+  "createdOn": "2026-10-25",
+  "completedCalls": 5,
+  "batchCallOrdinals": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "batchCap": 10,
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "imageInputsOnly": [
+    "../../plates/literary-room-clear-day-v1.png",
+    "../chat-pilot/tomori-chat-apricot-literary-v1.png"
+  ],
+  "allOriginalsPersonallyViewed": true,
+  "entries": [
+    {
+      "activity": "study",
+      "sourceFile": "tomori-study-apricot-literary-v1.source.json",
+      "file": "tomori-study-apricot-literary-v1.png",
+      "sha256": "5d83c9d46e4919810cb0547c01da7f761823e7d16c438ff80f810b82edc3e9f6",
+      "bytes": 2413616,
+      "width": 1536,
+      "height": 1024,
+      "producerReview": {
+        "personallyViewed": true,
+        "decision": "static mother candidate; desk furnishing differences disclosed for primary inspection",
+        "observation": "Complete original viewed: Tomori is newly seated at the left desk at a farther/smaller scale, with forearms and pencil/page on its writing surface, readable three-quarter youthful face and separate eyes/fringe. Pelvis/skirt sit on the chair cushion; chair back/slats occlude the torso naturally. The right bench is empty. The wooden chair has a plausible adjusted orientation/visible outline, and the small metal desk lamp has shifted left relative to the empty plate. These are actual furnishing differences, not exact original-chair/light coordinates. Foreground plant naturally occludes most lower legs and part of the loafers; actual visible shoe portions are coherent, but a complete pair of soles is not verified.",
+        "limits": "At producer review, desk/chair geometry and lamp shift were submitted for primary review; root's later static disposition is recorded separately. No hidden anatomy, full two-sole contact, layer or runtime acceptance claimed.",
+        "primaryDisposition": "Root personally accepted the portable metal task-lamp relocation, chair orientation and natural plant occlusion for this exact static mother."
+      },
+      "primaryApproved": true,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "listening",
+      "sourceFile": "tomori-listening-apricot-literary-v1.source.json",
+      "file": "tomori-listening-apricot-literary-v1.png",
+      "sha256": "292ccd83be7064fdef9a5dd3cfa729078bd7299f2dc805df145f8830a10b4468",
+      "bytes": 2425989,
+      "width": 1536,
+      "height": 1024,
+      "producerReview": {
+        "personallyViewed": true,
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: low closed book rests across thighs, relaxed hands settle on its cover rather than gripping; attentive eye contact and slightly parted mouth suggest a paused reply. Both hands are on/over the book, not one clearly on a separate knee as proposed. Eyes/fringe/lids remain distinct. Pelvis/cushion contact, coherent uncrossed knees/ankles and both complete floor-supported loafers visible; camera and major room furnishings stable.",
+        "limits": "Static project-original listening impression only; no actual conversation duration or layer/runtime admission. Primary static approval is recorded separately below."
+      },
+      "primaryApproved": true,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "play",
+      "sourceFile": "tomori-play-apricot-literary-v1.source.json",
+      "file": "tomori-play-apricot-literary-v1.png",
+      "sha256": "aff22695d16c32fd4a09877951a33c27812cad8f8ce9a023988b0d1a67322106",
+      "bytes": 2434917,
+      "width": 1536,
+      "height": 1024,
+      "producerReview": {
+        "personallyViewed": true,
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: Tomori holds a small simply folded cream paper shape between two readable connected hands above a closed book supported on her lap. The paper is at mid-torso, higher than the low-lap proposal but modest in scale. A spontaneous open-mouth small laugh/bright sharing expression fits play; eyes/fringe/lids separate. Pelvis/cushion contact, coherent uncrossed legs and both complete floor-supported shoes visible; camera and large furniture stable.",
+        "limits": "Original playful scene impression, not a real performed user action. Producer observation predates separate exact-SHA primary mother approval; layer/runtime remain false."
+      },
+      "primaryApproved": true,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "attention",
+      "sourceFile": "tomori-attention-apricot-literary-v1.source.json",
+      "file": "tomori-attention-apricot-literary-v1.png",
+      "sha256": "22b2ae5582d852a3b0fd565d3e52f95acd6cbdc5ed5b8c58a5076d1540e30013",
+      "bytes": 2442897,
+      "width": 1536,
+      "height": 1024,
+      "producerReview": {
+        "personallyViewed": true,
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: Tomori keeps an open notebook supported on her lap with the pencil resting across its fold and a separate small page flat on the linen at image-left. Hands retain the notebook pause rather than reach far; gaze/head angle down-left toward that nearby region. Both irises remain readable with distinct fringe/lids. Pelvis/cushion and coherent uncrossed legs plus complete floor-supported shoes visible; room stable.",
+        "limits": "A static gaze suggests attention toward the nearby page region but does not prove an exact eye ray or a prior pointing event. Producer observation predates separate exact-SHA primary mother approval; layer/runtime remain false."
+      },
+      "primaryApproved": true,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "resume",
+      "sourceFile": "tomori-resume-apricot-literary-v1.source.json",
+      "file": "tomori-resume-apricot-literary-v1.png",
+      "sha256": "aa97ef281ebb77b5b3707744e7fb76e6d0b8e7f94a04673ee9c513ae7d2552b8",
+      "bytes": 2417353,
+      "width": 1536,
+      "height": 1024,
+      "producerReview": {
+        "personallyViewed": true,
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: open book remains low on the thighs, one hand retains a light paper/page margin and the other supports the outer cover; she raises her eyes with a small closed-mouth familiar smile, without a greeting wave. The light strip in her fingers could read as a page corner or bookmark, so a distinct separate bookmark is not asserted. Eye/fringe/lid separation, pelvis/cushion contact and coherent uncrossed legs/complete shoes visible; room and furniture stable.",
+        "limits": "Fictional continuation impression only, not proof of prior actual events, fulfilled promises or saved state. Producer observation predates separate exact-SHA primary mother approval; layer/runtime remain false."
+      },
+      "primaryApproved": true,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "scope": "Five exact-SHA static mothers personally approved by root; no layer progression, runtime registration or product code edits.",
+  "primaryAdmissionRecord": "primary-mother-admission-v1.json"
+}

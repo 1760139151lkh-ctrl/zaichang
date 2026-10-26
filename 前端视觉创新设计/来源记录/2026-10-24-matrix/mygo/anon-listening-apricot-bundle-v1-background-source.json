@@ -1,0 +1,28 @@
+{
+  "recordType": "original-mother-layer-extraction",
+  "layer": "background",
+  "key": "anon/listening/apricot",
+  "tool": "built-in image_gen.imagegen",
+  "createdAtUtc": "2026-10-25T03:43:11.952Z",
+  "file": "anon-listening-apricot-bundle-v1-background.png",
+  "sha256": "71c8085b66d652ba998a395bb11e008d2df32a052880ee7d527080a33a788f4a",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "promptSha256": "a92db19cadee359748535fed3aea5db6fe8f5cd423f775e82ce688549d82f2bd",
+  "prompt": "anon-listening-apricot-bundle-v1-background-prompt.txt",
+  "input": {
+    "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-listening-apricot-mother-candidate-v2.png",
+    "sha256": "352fc80272d9ae4e224225980bd270b2481516dbd32c0b7a0dc5814e8c3457bb",
+    "role": "approved complete mother; sole edit target"
+  },
+  "originalOutputBasename": "exec-a299e7fc-fbcc-4833-8e4e-875fe93311cf.png",
+  "originalExecutionId": "a299e7fc-fbcc-4833-8e4e-875fe93311cf",
+  "originalSessionId": "01a170ed-b14d-7321-9cf7-3bd222b6ff42",
+  "designerPersonallyViewed": true,
+  "designerObservation": "Full original camera and room are retained; the seated girl and both socked feet are removed. Two separate empty brown loafers remain together on the floor. No visible human skin, hair, socks or extra person remains. Layer alignment/composition pending mask and contact inspection.",
+  "approvedByPrimary": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false
+}

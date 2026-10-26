@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "cell": "sakiko/attention/rain",
+  "character": "sakiko",
+  "activity": "attention",
+  "palette": "rain",
+  "stage": "S1",
+  "assetType": "raw-Image-source-selection-mask-or-markup",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: precise-object-edit. Asset type: S1 selection markup for the ORIGINAL SOURCE-LOCAL receiving material of the approved Sakiko ATTENTION RAIN NIGHT v3 mother. The ONLY input is that clean original 1536x1024 mother. Keep every pixel of the person/book/room at its exact original coordinate and color except the actual small receiver regions to mark below. This is source selection, not new character art, re-lighting or a new shadow.\n\nPaint PURE WHITE only the true local receivers for her existing seated support and grounded shoes, with GREY only along actual soft shadow/antialias falloff. (1) The narrow cushion/linen compression and near contact shade immediately beneath the original hip and trailing skirt edge: small irregular pieces at the actual body-cushion contact, roughly x950..1330,y545..635. Follow the real touching edge only. Do not select the long empty seat to the LEFT of her skirt, blue plaid pillow, knitted throw, entire cushion, broad bright lamp-lit fabric or any clothing. The book is HELD, so do not invent a separate book-on-seat receiver. (2) The COMPLETE local soft floor contact/cast-shadow receiver around both actual shoe soles, roughly x800..1030,y850..952. Follow the real irregular dark soft near-shoe shadow extent, including the shadow area immediately beneath and just beside both toes/heels. Keep the shadow's soft original falloff; do not reduce it to thin outsole outlines or add a geometric oval/rectangle. These neighborhoods are inspection hints, NEVER fill their bounding rectangles. Exclude distant room/lamp/furniture shadows and unrelated large floor reflections.\n\nAll person pixels stay original COLORED: full long blue-purple hair, ribbons, gold-eyed youthful face, hands and real open book, navy literary cardigan/bow/plaid skirt, exposed knees, dark below-knee calf socks and both entire brown-black loafers including outsoles. Do not whiten the shoes as though they were shadow. All remaining floor/rug/seat/window/lake/rain/town/plants/desk/chair/table/lamp/cup/flowers stay original colored as well. Natural linen/page/lamp brightness is NOT a deliberate receiver mark.\n\nMaintain this original rainy NIGHT light: local soft indoor lamp pools and dark exterior, no sunlight or rectangular window-grid illumination added. Preserve the approved person's page-touching/supporting hands, youthful face, body proportions and coherent hip/knee/ankle support unchanged. Output one opaque 1536x1024 PNG of the original scene with ONLY those precise existing cushion/floor receiver regions white/edge-grey. No other masks, black backdrop yet, text/UI/labels/arrows/grid/boxes, silhouette outlines, crop, zoom, recenter, move, new body/object/shadow or camera change. The result supports fixed original-RGB MAX(F,S) included composition at travel/slope/perspective 0, not a portable caster.",
+  "submittedPromptSha256": "fe2ea7b9f3e36f483638522dc8841c623e95ae50066f9bc7cf2d71ca3f1d7389",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.png",
+      "sha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    }
+  ],
+  "originalRgbOwner": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.png",
+    "sha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac",
+    "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.source.json",
+    "sourceRecordSha256": "c569c6ae9ac68037fcf95b4d8497bd40369d5576fae1ac0c8c250ae46fe3ebec",
+    "rootMotherStaticReview": {
+      "status": "approved_static_mother",
+      "reviewer": "root",
+      "observed": "Root inspected whole actual output: rain-night room now has local lamp pools and dark wood/reflections without daylight window-grid patches. Youthful gold eyes/blue-purple hair, visible book-page finger contact, physical seated support, two uncovered knees/dark calf socks and complete grounded shoes. Bow is a darker cloth variant of project wardrobe, not asserted official."
+    }
+  },
+  "method": "Actual Image same-mother F1/F2 or S1/S2 chain. F is whole human/ribbons/hands/held book/clothing/knees/calf socks/complete shoes. S includes real source-local seat and full soft grounded floor receiver, not just sole line; original RGB MAX(F,S) drawn once only.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\sakiko\\shared-attention-v2\\layers\\attention-rain\\contact-step1-marked-v1.png",
+    "sha256": "c058bf60692088f0e3a74168995a1dcb2553f3b2ca5b4b13631aca20346735e8",
+    "bytes": 2308309,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-6e86cec1-6064-40d0-9100-75e996a1e2fe.png",
+    "pngBytesUnchanged": true
+  },
+  "producerObservation": {
+    "personallyViewedFullNative": true,
+    "observation": "Actual full native S1 inspected: original rain-v3 person/book stays colored; only near-hip/underhem linen contact and local complete shoe-shadow floor receiver deliberately white with soft falloff, no long empty left seat or large unrelated floor mark. Shape to recheck with original RGB after S2."
+  },
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "sourceOrigin": [
+      0,
+      0
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": "included",
+    "independentCaster": false
+  },
+  "motherReconstructed": false,
+  "primaryLayerApproved": false,
+  "layerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "status": "producer-candidate-awaiting-source-RGB-union-browser-and-root-review",
+  "inputBoundary": "Only current exact root-approved mother and its correct same-canvas working intermediates. No HOLD rain-attention-v2, white-sock resume-mist-v3, screenshot, audit collage or other mother mask.",
+  "promptFile": "contact-step1-marked-v1.prompt.json",
+  "promptFileSha256": "a2b741c2c38f44f9116cd25aa87dd9aa8ac80a1a02c08518bf6919a6eb6a5e8d",
+  "generatedAt": "2026-10-25T23:36:00.372Z"
+}

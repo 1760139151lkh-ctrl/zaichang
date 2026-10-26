@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-canvas-original-person-luminance-mask",
+  "id": "sakiko-chat-rain-day-figure-mask-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-chat-rain-day-figure-mask-v1.prompt.json",
+  "promptFileSha256": "85c25561388ecc48c3bb14c13585add8291e4b2f5a27e2750f0bc758e984b516",
+  "submittedPrompt": "Use case: precise-object-edit. STEP 2 of registered local color replacement, not silhouette reconstruction.\nImage 1 is the ONLY exact full 1536x1024 input. Its original small seated girl and held lap book are already filled flat WHITE at their correct source positions. Preserve that EXACT white region's existing contour, scale, pose and pixels: original hair strands, ribbons, hand/finger edges, entire skirt flares, knees, socks and both worn shoes. Do not draw a new person.\nChange ONLY the surrounding COLORED ROOM into solid PURE BLACK. ALL rainy window/sky/clouds/lake/town, white curtains, lamp, blue desk book, mug, furniture/bench/pillows/blanket, walls/plants/floor/rug, shadows and genuine visible room gaps become BLACK. Only the already white GIRL and held LAP BOOK stay opaque pure WHITE. Remove any faint internal detail by filling white without changing the outer silhouette. Pale room objects are background and become black too.\nNo resizing, translation, reposing, recentering, straightening, crop, zoom, enlargement or shrinking. Keep her current crown near original y270 and two shoe soles near original y780 exactly at their source locations. Do not smooth away existing hair, lose skirt tips, whiten furniture/contact shadows, fill real hair/limb/finger gaps or infer hidden anatomy.\nReturn ONLY this exact registered opaque-white original silhouette on an otherwise pure BLACK full 1536x1024 opaque RGB canvas. Narrow original outer antialiasing only; no gray interior, clothing/book/finger lines, colored room, glow, ghost, shadow, text, watermark, grid, border or transparency.",
+  "submittedPromptSha256Utf8NoTrailingLF": "02efec75d35b7068d50615b5a70bd35b5939b1303689fc8600e63b2aebcc7042",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-rain-day-white-in-room-v2.png",
+      "sha256": "b767a16e5b4d37e85cd78b9b069da4f1c6b0811f9b5a452b0f46719e2d789336",
+      "role": "sole corrected same-canvas local person-white intermediate v2; no rejected global mask input"
+    }
+  ],
+  "output": {
+    "file": "sakiko-chat-rain-day-figure-mask-v1.png",
+    "sha256": "92661beb0fb2ffa59670f346f9f957921f417be2840d9a493de20673728ac13b",
+    "bytes": 392736,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-3fd75068-76e3-41a3-8758-19bc02a5b3d5.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": true,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observationBoundary": "Producer directly viewed full original PNG output only. Root native original-RGB recomposition review pending; no runtime or movement acceptance.",
+    "primaryNativeCompositeViewed": true,
+    "primaryLayerApprovalRecord": "sakiko-chat-rain-day-primary-layer-approval-v1.json",
+    "primaryLayerApprovalScope": "Exact-SHA original-position static same-canvas layers only; runtime independent"
+  },
+  "status": "primary-admitted-original-position-static-layer-runtime-separate",
+  "maskMode": "luminance",
+  "mother": {
+    "file": "sakiko-chat-rain-day-mother-v1.png",
+    "sha256": "e287875d209fc367d4316b4dcdb53201fb514f8404de8ebc63cd6fe46a99e7d8"
+  },
+  "rgbMethod": "Original complete mother RGB through native same-canvas luminance mask, no bitmap alpha editing or generated replacement figure RGB."
+}

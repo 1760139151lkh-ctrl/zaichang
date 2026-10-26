@@ -1,0 +1,8 @@
+{
+  "tool": "image_gen.imagegen",
+  "prompt": "Technical matte conversion of this exact benign room-selection markup, not new art. Preserve the entire 1536x1024 coordinate canvas. Keep ALL and ONLY the intentionally painted WHITE local contact patches unchanged: the small cushion marks and the continuous near-shoe floor/contact band. Keep their true soft grey outside edge. Convert every remaining colored/naturally bright room pixel to black.\n\nAt the floor/sole meeting, copy the CURRENT WHITE selection exactly. Do not inset its inner border, draw a black outline, add an exclusion margin, or leave a narrow unselected ring around footwear. Do not trace the dark shoe edge to enlarge the negative space. The intentional white contact band is allowed to touch or overlap a few actual lowest outsole pixels because original RGB will be drawn once through MAX(F,S). Keep that white meeting band continuous. No extra dilation of the OUTER floor footprint, no oval/rectangle, no newly selected upper footwear/body.\n\nUnmarked fabric, empty bench, reader/book, shoe uppers, furniture, lamps/windows/rug and floor remain black. Only deliberate flat-white marks survive, not naturally bright linen or lighting. Output one opaque exact 1536x1024 grayscale PNG, black field and original white/soft-edge grey selected contact. No color, new scene, objects, text/UI/grid/arrows/labels, crop/zoom/resize/recenter/translation. Fixed source material selection, not independent movable shadow.",
+  "referenced_image_paths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-rain/contact-step1-marked-v2.png"
+  ],
+  "transparent_background": false
+}

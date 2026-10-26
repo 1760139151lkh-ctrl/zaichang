@@ -19,7 +19,7 @@ import type { AssistantWorkSource, ClockPort, HostIdentity, ReminderSpeaker } fr
 import { interactiveProgramSourceSchema } from '../shared/harness';
 import { redactExport } from './runtime/redaction';
 import { assertTestStoreFile } from './testBoundary';
-import { applyPersonaUpdate, companionPreset, initialPersona, isUntouchedDefaultPersona, migratePersona, personaStateSchema } from '../shared/persona';
+import { applyPersonaUpdate, companionPreset, initialPersona, isUntouchedDefaultPersona, isUntouchedPresetPersona, migratePersona, personaStateSchema } from '../shared/persona';
 import { DEFAULT_INTERACTION, LEGACY_DEFAULT_INTERACTION, type InteractionPreferences } from '../shared/interaction';
 import { NotesService } from './notes/service';
 import { canonical } from './runtime/semantics';
@@ -217,7 +217,7 @@ export class Store {
   followDefaultCompanion(companionId: string) {
     const current = this.settings();
     const preset = companionPreset(companionId);
-    if (!preset || current.persona.revision !== 0 || current.persona.source !== 'default' || current.persona.history.length) return current;
+    if (!preset || !isUntouchedPresetPersona(current.persona)) return current;
     if (current.persona.core.presetId === preset.core.presetId) return current;
     this.putMeta('settings', { ...this.meta<Partial<Settings>>('settings', {}), persona: { ...current.persona, core: preset.core } });
     this.notifySettingsChanged();
@@ -537,9 +537,11 @@ export class Store {
     this.db.prepare('UPDATE agenda SET notified=1 WHERE id=?').run(id);
   }
   private draftOriginals(id?: string): { draftId: string; reference: MaterialReference }[] {
-    const rows = this.db.prepare(`SELECT key,json_extract(value,'$.attachment.resource') AS reference
-      FROM meta WHERE key LIKE 'draft:%' AND json_valid(value)
-      AND json_extract(value,'$.attachment.kind')='text'${id === undefined ? '' : ' AND key=?'}`)
+    const rows = this.db.prepare(`SELECT m.key,json_extract(a.value,'$.resource') AS reference
+      FROM meta m,json_each(CASE WHEN json_type(m.value,'$.attachments')='array' THEN json_extract(m.value,'$.attachments')
+        ELSE json_array(json_extract(m.value,'$.attachment')) END) a
+      WHERE m.key LIKE 'draft:%' AND json_valid(m.value)
+      AND json_extract(a.value,'$.kind')='text'${id === undefined ? '' : ' AND m.key=?'}`)
       .all(...(id === undefined ? [] : ['draft:' + id]));
     return rows.flatMap(row => {
       try {
@@ -560,6 +562,7 @@ export class Store {
       this.db.prepare('DELETE FROM meta WHERE key=?').run('draft:' + id);
       this.kernel.afterCommit(() => {
         for (const original of originals) this.runtime.materials.releasePersistedDraft(original.reference, original.draftId);
+        this.runtime.materials.sweep();
       });
     });
   }
@@ -624,6 +627,7 @@ export class Store {
       this.db.exec('DELETE FROM messages; DELETE FROM sessions; DELETE FROM memories; DELETE FROM agenda; DELETE FROM meta;');
       this.kernel.afterCommit(() => {
         for (const original of originals) this.runtime.materials.releasePersistedDraft(original.reference, original.draftId);
+        this.runtime.materials.sweep();
       });
     });
     this.db.exec('VACUUM;');

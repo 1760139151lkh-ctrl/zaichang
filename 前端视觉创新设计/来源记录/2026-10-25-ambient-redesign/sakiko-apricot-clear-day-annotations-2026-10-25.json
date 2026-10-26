@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "recordType": "primary-explicit-environment-annotations",
+  "recordedAtUtc": "2026-10-25T06:10:02.285885+00:00",
+  "reviewer": "root / primary agent",
+  "basis": "Root explicitly confirmed prior personal image review of these eight admitted room4 apricot activity mothers plus resume: visible blue sky, clear daylight and consistent window light. The play entry now uses separately admitted corrected V5. This is not a palette-based weather inference.",
+  "scope": "Only the nine concrete registrations/mother hashes listed here. Environment annotation does not promote any layer or runtime review.",
+  "environmentVariant": "clear-day",
+  "registrations": [
+    {
+      "activity": "attention",
+      "id": "sakiko-attention-apricot-v4",
+      "registration": "前端视觉创新设计/运行素材/companion/scenes/sakiko-attention-apricot-v4.scene.json",
+      "registrationSha256": "d9b70cbcc21bf22d407997b48b8342e86382343368a618287e6ca85523bd824c",
+      "mother": "前端视觉创新设计/运行素材/companion/scenes/sakiko-attention-apricot-v4-mother.png",
+      "motherSha256": "5631cdd842797d1e46b898b9e5914f250cb5d66e8a058878eee2547e1f707017",
+      "environmentVariant": "clear-day",
+      "reviewPreserved": true,
+      "reviewSha256": "acf42a58f634aea90485f98c33352fd35e2572e38c05a98434228b1fa2bfc04a",
+      "runtimeAccepted": null
+    },
+    {
+      "activity": "chat",
+      "id": "sakiko-chat-apricot-room4",
+      "registration": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-apricot.scene.json",
+      "registrationSha256": "70cf65ba6518d7f599123bbb2ef59399b4535acc9eb213910ce097d1a8d8f7d2",
+      "mother": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+      "motherSha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1",
+      "environmentVariant": "clear-day",
+      "reviewPreserved": true,
+      "reviewSha256": "1f0f0b3099fed5406e4c5fd8d25a2de49ac4806a9f825ad8425980e9ea48f4d8",
+      "runtimeAccepted": null
+    },
+    {
+      "activity": "listening",
+      "id": "sakiko-listening-apricot",
+      "registration": "前端视觉创新设计/运行素材/companion/scenes/sakiko-listening-apricot.scene.json",
+      "registrationSha256": "2445b0c5b3a353039ae0fe21c06adcfbdd8ac8f404a8e70315393a2cfb8f8ec4",
+      "mother": "前端视觉创新设计/运行素材/companion/scenes/sakiko-listening-apricot-mother.png",
+      "motherSha256": "a35aaa3549a04cf9f6fa7e478224f53afdcbfd1f133f6570a643191916189bb1",
+      "environmentVariant": "clear-day",
+      "reviewPreserved": true,
+      "reviewSha256": "905e3c1d279e9532078870d50779a64b7f7ecac478d56a0d58f541d7bca2e843",
+      "runtimeAccepted": null
+    },
+    {
+      "activity": "planning",
+      "id": "sakiko-planning-apricot-room4",
+      "registration": "前端视觉创新设计/运行素材/companion/scenes/sakiko-planning-apricot.scene.json",
+      "registrationSha256": "dbee99eabcf5625b739a42a6527bb57acfe1151a7d13a4a577a36bffc2b96699",
+      "mother": "前端视觉创新设计/运行素材/companion/scenes/sakiko-planning-apricot.png",
+      "motherSha256": "0458909a7b70b2c26da20a210e2b60ab142c953e2e627624accddb581f9cde11",
+      "environmentVariant": "clear-day",
+      "reviewPreserved": true,
+      "reviewSha256": "0fee89ec435ffc70c4b9e4685855228e3573dd2d39b809b93211d53dccc3ab99",
+      "runtimeAccepted": null
+    },
+    {
+      "activity": "play",
+      "id": "sakiko-play-apricot-v4",
+      "registration": "前端视觉创新设计/运行素材/companion/scenes/sakiko-play-apricot-v4.scene.json",
+      "registrationSha256": "d098e9f36b4a81b941b31d71656ddc7643770c8b45e609c1b9cd0b5884cbe53f",
+      "mother": "前端视觉创新设计/运行素材/companion/scenes/sakiko-play-apricot-scale-v5-mother.png",
+      "motherSha256": "876d39377ec165cd6fcbab19c646a7d63d97c2f85b5dc354711d0cb961a22d87",
+      "environmentVariant": "clear-day",
+      "reviewPreserved": true,
+      "reviewSha256": "9b1b4f8912223aa043cb191d6e7e5ee4e0b31b3e881aac1e612cedca85465736",
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "reading",
+      "id": "sakiko-reading-apricot-room4",
+      "registration": "前端视觉创新设计/运行素材/companion/scenes/sakiko-reading-apricot.scene.json",
+      "registrationSha256": "2d0b4b3e7284a4f78a640f2936132278250983349d428e94e5510fd22536248e",
+      "mother": "前端视觉创新设计/运行素材/companion/scenes/sakiko-reading-apricot-v2-mother.png",
+      "motherSha256": "8f2358c0af7a78451259d049517cf3dedfe011023fdbabc44ec4bd850d3e671b",
+      "environmentVariant": "clear-day",
+      "reviewPreserved": true,
+      "reviewSha256": "c7c97e7ffbfbdd5e0caf4613a4dffae1d9b7220e2620a0b4f3168d2505df2d57",
+      "runtimeAccepted": null
+    },
+    {
+      "activity": "rest",
+      "id": "sakiko-rest-apricot",
+      "registration": "前端视觉创新设计/运行素材/companion/scenes/sakiko-rest-apricot.scene.json",
+      "registrationSha256": "08fc59b81eb6baf64f77a83a2b1db4af2b13fa04a0ec0d7f7cf725739d83d796",
+      "mother": "前端视觉创新设计/运行素材/companion/scenes/sakiko-rest-apricot-mother.png",
+      "motherSha256": "ffdf5ac11d9d25da5347120dd7b5f19bf68a6211c991c373e1c6d2f623cebfbf",
+      "environmentVariant": "clear-day",
+      "reviewPreserved": true,
+      "reviewSha256": "18ab31c69533b9d492a917b18cada44ecf733a67d66c97582a542ea65b9e7efa",
+      "runtimeAccepted": null
+    },
+    {
+      "activity": "resume",
+      "id": "sakiko-resume-apricot-room4-v1",
+      "registration": "前端视觉创新设计/运行素材/companion/scenes/sakiko-resume-apricot-v1.scene.json",
+      "registrationSha256": "47e7a618bb27b3587b1458fc8cc0615aa191152690aeaeb4c92d0ce92635f773",
+      "mother": "前端视觉创新设计/运行素材/companion/scenes/sakiko-resume-apricot-mother-v1.png",
+      "motherSha256": "4f6cbda7f205da55b6f50bfa355a45d487b320a1529794f44e18f477129fdee8",
+      "environmentVariant": "clear-day",
+      "reviewPreserved": true,
+      "reviewSha256": "9ce4bf4d4761325b2815b4549f4123a834c5d03ea0328f12ce94b377b722d00a",
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "study",
+      "id": "sakiko-study-apricot-room4",
+      "registration": "前端视觉创新设计/运行素材/companion/scenes/sakiko-study-apricot.scene.json",
+      "registrationSha256": "df8941f371c450a4c2b339120ae4a7dc2324ca8fc6c3df1736cf214fcd918a34",
+      "mother": "前端视觉创新设计/运行素材/companion/scenes/sakiko-study-apricot-mother.png",
+      "motherSha256": "a5a21feb6d8190c29323a317a9beb0158e697356aefbec04c73679cb9c070ae1",
+      "environmentVariant": "clear-day",
+      "reviewPreserved": true,
+      "reviewSha256": "d30ad4460a3de86043e2c68c24662d4f6aa5472cffe1d25d7422361fef44aab9",
+      "runtimeAccepted": null
+    }
+  ],
+  "reviewPolicy": "Annotation preserved every current review object. V5 play was replaced under its independent primary-play-v5-layer-approval before this annotation pass; all other eight review objects were untouched.",
+  "runtimeAccepted": false
+}

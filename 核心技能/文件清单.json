@@ -1,72 +1,152 @@
 {
   "schemaVersion": 1,
-  "date": "2026-10-24",
-  "note": "全部正文及配套文件；仓库绝对链接改为相对链接，并修正四个已迁移源码文件名。",
+  "date": "2026-10-25",
+  "note": "前后端以 .agents/skills 为维护源，完整镜像按所在目录及技能目录名称调整相对链接；TXT六种出现方式、七项创意、伴跑与八细节已进入契约和十二阶段硬门禁。正式研发每阶段固定八人和完整动态目标保留；首样片及静态降级不冒充阶段完成。Gemini技能保留原网页制作体系。",
   "files": [
     {
       "path": "前端设计/SKILL.md",
-      "bytes": 21883,
-      "sha256": "207e23ec0f8383ed59491c7e06c783628cf3a282d5a9f8802954d1da6a4abfb3"
+      "bytes": 25542,
+      "sha256": "ef6d8efc8100f0c128452a7611bb1681a292a168b2bf98ee0d3fabd21a399604"
     },
     {
       "path": "前端设计/references/01-soul-and-personas.md",
-      "bytes": 8177,
-      "sha256": "18a5e3bc4ad4da4e7cbf4bbba1a9fe0842575390ec7df8771ea64003c1a57f31"
+      "bytes": 12507,
+      "sha256": "6a4e53bba42dc85f143bfd81374ae971adddc19d529fb6e566c5b8309b28ba7f"
     },
     {
       "path": "前端设计/references/02-visual-matrix-and-imagegen.md",
-      "bytes": 8568,
-      "sha256": "3e7409475bc6037b4c60c9e12516af4a53b1e6351535bc7834ded4b94f17ca59"
+      "bytes": 17020,
+      "sha256": "d67c326fa8c776ef7c58fa7dd212fcd43648a148cf1211f2b2bc02f52732a87c"
     },
     {
       "path": "前端设计/references/03-spatial-craft-and-alignment.md",
-      "bytes": 8334,
-      "sha256": "952b089d5e35e42d34503caa088ef49cc969e0f9d8ee6ff9e3efcfc8791184a2"
+      "bytes": 8657,
+      "sha256": "54909a0f45ab7e05cc23c8a0949e71fddf78d079c576c6fc14e4281e49ebaea8"
     },
     {
       "path": "前端设计/references/04-motion-openui-and-direct-manipulation.md",
-      "bytes": 6797,
-      "sha256": "530e2fee5c8e5ccb3f08c820f4e2020f56cbc5e7826d530f4444da2078354636"
+      "bytes": 15025,
+      "sha256": "e69c5e6c4018ae246e5d5bf93849efe1fddc32fce00be6c0912f91f40e31b5c0"
     },
     {
       "path": "前端设计/references/05-architecture-synergy-and-verification.md",
-      "bytes": 7407,
-      "sha256": "1eae5b2ba29cad84e740616e1ac5779388acfd5195387a32956a9c8f23a2a787"
+      "bytes": 7718,
+      "sha256": "c93f345fd7a7bbc26a97bb1da7608975b2be2fca70592080c77e93e5a2fcc7c0"
+    },
+    {
+      "path": "前端设计/references/06-presence-orchestration.md",
+      "bytes": 9785,
+      "sha256": "6cea4d2c7edca3dc76c056faa6842b8f7218293451101880905d9c833592b5ab"
+    },
+    {
+      "path": "前端设计/references/07-gemini-and-asset-production.md",
+      "bytes": 5484,
+      "sha256": "2ba2ad26858b6bc0411e4f007a4919a012ef2a08b18db8d61b70d1f7adc2c98b"
+    },
+    {
+      "path": "前端设计/references/character-art-direction.md",
+      "bytes": 12645,
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d"
+    },
+    {
+      "path": "前端设计/references/characters/README.md",
+      "bytes": 1293,
+      "sha256": "c6b04d1cbb7e3b985d49027029c70e56b3bcbd8e80ff2ccdfb47b15886325126"
+    },
+    {
+      "path": "前端设计/references/characters/anon.md",
+      "bytes": 11006,
+      "sha256": "de7782a11d0e620b3d25de33ac7a964142a39322e6fa8f0ceceea2bc6d501b19"
+    },
+    {
+      "path": "前端设计/references/characters/mutsumi.md",
+      "bytes": 11640,
+      "sha256": "189d1a17f6e4c2656692437167c50d2a89379cf50b16bc354df3ac8406e4610c"
+    },
+    {
+      "path": "前端设计/references/characters/nyamu.md",
+      "bytes": 11917,
+      "sha256": "c5acd92fe6cd9ccf35785bd09e7f71337bca5bf7eb0fdd37629e78780eb9ebe1"
+    },
+    {
+      "path": "前端设计/references/characters/rana.md",
+      "bytes": 10948,
+      "sha256": "d39286e83289d7c67222428a139b8650ff9f60a0e78e49c0a8393b3079f2e892"
+    },
+    {
+      "path": "前端设计/references/characters/sakiko.md",
+      "bytes": 12246,
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e"
+    },
+    {
+      "path": "前端设计/references/characters/soyo.md",
+      "bytes": 10928,
+      "sha256": "1ec8b260d40f8363c096ed8392547dd276d2318df5aadbe34b1f51e51e2ed04e"
+    },
+    {
+      "path": "前端设计/references/characters/taki.md",
+      "bytes": 11453,
+      "sha256": "48f954585e91b84599430c573ff38e498959d3168f18a9ca46c0c3c1e7f7bc7a"
+    },
+    {
+      "path": "前端设计/references/characters/tomori.md",
+      "bytes": 11163,
+      "sha256": "3a73a8f8299e7645ea96f6d07051a38bb2ccdb4b4e7e25e19eb08d51e2d08d3c"
+    },
+    {
+      "path": "前端设计/references/characters/uika.md",
+      "bytes": 11886,
+      "sha256": "08e1b6e7dfa31b9c82d2ad5446b482655cd548c2191926b46840af5b515fdf5b"
+    },
+    {
+      "path": "前端设计/references/characters/umiri.md",
+      "bytes": 12032,
+      "sha256": "760b038d3ff84a770c80bf6144e52265d8109e41ecd5cb3440408561ac2bc0da"
     },
     {
       "path": "后端设计/SKILL.md",
-      "bytes": 22670,
-      "sha256": "9c8363572ec27c82b5617f4d4219fb3d20a9bbe03f6127363d1726dd75c7ede3"
+      "bytes": 14991,
+      "sha256": "c1efd4518f48d9e3e94599e7fb183d37f3beff313cec9ddd8d3378ba0317e06b"
+    },
+    {
+      "path": "后端设计/references/continuous-experience-design.md",
+      "bytes": 7523,
+      "sha256": "76db4f25eacc0114dd323e3780d904c53d063024e7d829a82a7046c38fd44863"
     },
     {
       "path": "后端设计/references/extensions-and-evaluation.md",
-      "bytes": 14118,
-      "sha256": "7b1e8b2989d232456415dafab74dba80bd5a33ffcbd891b29bfb204763a2ca82"
+      "bytes": 14831,
+      "sha256": "e96f559604f0fde8d88ef554c681f2ecb6096e957a83a618889c3082ecc83a99"
     },
     {
       "path": "后端设计/references/harness-and-agency.md",
-      "bytes": 11463,
-      "sha256": "de95a4502f304a463ca256d573672cb063a05fa3909730fc415cdb4df72e8602"
+      "bytes": 11599,
+      "sha256": "b16d2dd125dc37b5a22edd8f458fe7302a580201c199192fb006f50089b1a359"
     },
     {
       "path": "后端设计/references/memory-and-continuity.md",
-      "bytes": 11110,
-      "sha256": "13d5cd6521ce97c70d1014518d1f0b0ff92843fc35a7836da630bea45b9d8e26"
+      "bytes": 11286,
+      "sha256": "e29e43c63033fb555a38b45d196aab7794a71ff3a8c4e0f62a241de841f006f5"
     },
     {
       "path": "后端设计/references/openui-spatial-and-cross-module.md",
-      "bytes": 10314,
-      "sha256": "bc6d8862b3cf114bf9230377cc39f0e3647fd67bf148e7b191372919bdd9d227"
+      "bytes": 13231,
+      "sha256": "cca736976c1dd760bf5ad647e933b2839afc4667e17f1ac4f0228b8407768e7b"
     },
     {
       "path": "后端设计/references/persona-proactivity-and-rhythm.md",
-      "bytes": 11596,
-      "sha256": "7df95f52edad55e26dc10238e186f91d1d777c1c5899e7be7345dfa1d9da6c33"
+      "bytes": 12315,
+      "sha256": "a61aea47e3b777a9982c65af62ad0ac73bfba42e22703f95c184ffdd7da09a7c"
+    },
+    {
+      "path": "后端设计/references/presence-events-and-observation.md",
+      "bytes": 6634,
+      "sha256": "3ebed7e7efa15f6deff354961076a87cb270cfc07bb2f3fef82e8739d1d6e0e9"
     },
     {
       "path": "Gemini视频生成/SKILL.md",
-      "bytes": 5412,
-      "sha256": "1989fea90dfcd2c202dc25b7b3be0f60afb6702441ed99c66423b71c15186987"
+      "bytes": 6095,
+      "sha256": "aad6fbbd9be2ff6bceae0830fecb03412e1dea153ea934efc04d6c98bfb02b92"
     },
     {
       "path": "Gemini视频生成/references/continuity-and-direction.md",
@@ -109,9 +189,15 @@
       "sha256": "438466783efbec622aed87b3a723a39c3c10a3cf06ffe02806a07f5fef385cbf"
     },
     {
+      "path": "Gemini视频生成/references/zaichang-production-handoff.md",
+      "bytes": 2744,
+      "sha256": "eb98e06b9a155c06474fccee7beb3d8eeda86620090db60d038188cc881f1c9b"
+    },
+    {
       "path": "Gemini视频生成/setup-status.md",
       "bytes": 2248,
       "sha256": "d9306a6b6176c54b8b68f439a07ddfcb89a06f8055fe3b084b5e67d774ed9b4a"
     }
-  ]
+  ],
+  "revisedAtLocal": "2026-10-25 America/Los_Angeles"
 }

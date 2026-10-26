@@ -1,0 +1,8 @@
+Use case: precise-object-edit.
+Asset type: exact source-space foreground coverage MASK, F STEP 2 of 2.
+The ONLY image input is the 1536 x 1024 original literary dry-night room with the entire girl deliberately painted flat pure white in place. This is a selection-to-mask conversion, not a new silhouette.
+
+Keep ALL of that deliberately painted complete white girl exactly at her existing pixels and original outline. Include the full long hair/ribbons and fine wisps, the entire head/face, torso/collar/sleeves, two complete hands, every skirt pleat and dark-hem-shaped tip, both full legs/socks and both whole shoes including heel blocks and thin outsole rims. Preserve the exact real holes/gaps between separate strands or legs.
+Turn EVERY other original room pixel to SOLID PURE BLACK, including every lamp highlight, curtain, cushion, pillow, throw, wood floor, carpet, window/star/town and all receiver/contact shadows. Only the intentionally white girl stays white. No accidental white lamp, window, shelf or floor detail.
+The mask interiors must be solid white / black with only the fine natural antialiased boundary at the original silhouette. Do not shrink, erode, expand, simplify, redraw, invent anatomy, blur, translate, crop or zoom. Do not add labels or text.
+Output ONE opaque 1536 x 1024 grayscale black-and-white coverage mask, same complete canvas and source coordinates.

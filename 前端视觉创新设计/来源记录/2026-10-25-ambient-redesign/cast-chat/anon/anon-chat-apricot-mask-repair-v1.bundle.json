@@ -1,0 +1,292 @@
+{
+  "schemaVersion": 1,
+  "kind": "producer-original-rgb-mask-repair-bundle",
+  "key": "anon/chat/apricot",
+  "version": "figure-mask-v2-source-contact-mask-v2-observation-v8",
+  "createdAtUtc": "2026-10-25T07:03:15.561Z",
+  "scope": "Only existing approved Anon apricot chat mother; no new pose, character RGB, source edit, product code or runtime registration.",
+  "producerRuntime": {
+    "model": "gpt-6.1-sol",
+    "effort": "ultra",
+    "turnId": "01a171c1-2501-76c3-8a23-286d375357f7",
+    "verification": "actual latest turn_context, not agent-role name"
+  },
+  "assets": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-chat-apricot-mother-candidate-v1.png",
+      "sha256": "99c8acd4c2b875659afc9471b3c020219d394aae025cba2f164daf47babb5986",
+      "bytes": 2173090,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-chat-apricot-background-calibrated-v6.png",
+      "sha256": "9495c0f16e5a452c6d7b91ea70d78915b8c8074f7e0ad4ccb440bdb609774462",
+      "bytes": 2089610,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "reusedUnmodified": true
+    },
+    "figureMask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/anon/anon-chat-apricot-figure-mask-v2.png",
+      "file": "anon-chat-apricot-figure-mask-v2.png",
+      "sha256": "8bdef14ada7f7fd0a8061ffcb8061f99ffea5c9536ad335d20db5f5016ba31f2",
+      "bytes": 377939,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "maskMode": "luminance",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/anon/anon-chat-apricot-figure-mask-v2.source.json"
+    },
+    "sourceContactMask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/anon/anon-chat-apricot-contact-shadow-mask-v2.png",
+      "file": "anon-chat-apricot-contact-shadow-mask-v2.png",
+      "sha256": "c31340da20860c8d98888cf8d0ea40a099a3c49382f36a828b7f4fb3e7d03adb",
+      "bytes": 294795,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "maskMode": "luminance",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/anon/anon-chat-apricot-contact-shadow-mask-v2.source.json"
+    }
+  },
+  "figure": {
+    "rgbSource": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-chat-apricot-mother-candidate-v1.png",
+    "rgbSourceSha256": "99c8acd4c2b875659afc9471b3c020219d394aae025cba2f164daf47babb5986",
+    "mask": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/anon/anon-chat-apricot-figure-mask-v2.png",
+    "maskMode": "luminance",
+    "method": "native-inline-svg-original-mother-image-through-luminance-mask",
+    "newFigureRgbGenerated": false,
+    "position": [
+      0,
+      0
+    ],
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "transform": "identity"
+  },
+  "sourceContactRepair": {
+    "kind": "native-svg-original-mother-rgb-through-contact-mask-excluding-figure",
+    "rgbSource": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-chat-apricot-mother-candidate-v1.png",
+    "rgbSourceSha256": "99c8acd4c2b875659afc9471b3c020219d394aae025cba2f164daf47babb5986",
+    "contactMask": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/anon/anon-chat-apricot-contact-shadow-mask-v2.png",
+    "maskMode": "luminance",
+    "outsideFigureMask": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/anon/anon-chat-apricot-figure-mask-v2.png",
+    "outsideFigureMethod": "Native SVG feComponentTransfer RGB tableValues='1 0' in a second luminance mask; nested group masks source-contact image with inverse figure occupancy. No PNG is edited.",
+    "role": "Room-fixed original source contact pixels at hip/palm and the adjoining floor around both shoes. This restores source surface RGB rather than drawing one flat shadow color across different materials.",
+    "imagePosition": [
+      0,
+      0
+    ],
+    "imageDimensions": [
+      1536,
+      1024
+    ],
+    "transform": "identity",
+    "blend": "normal source-over",
+    "fixedTo": "shared original room stage; never inside actor translation",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "showOnlyFor": {
+      "character": "anon",
+      "activity": "chat",
+      "palette": "apricot",
+      "motherSha256": "99c8acd4c2b875659afc9471b3c020219d394aae025cba2f164daf47babb5986",
+      "showFigure": true,
+      "motherReady": true,
+      "failedMother": false,
+      "failedLayer": false
+    },
+    "removeOn": [
+      "figure hidden",
+      "pose or character changes",
+      "theme or original mother SHA changes",
+      "mother, background or either mask is not loaded or fails"
+    ],
+    "runtimeSupport": "Original-mother RGB contact-mask layer plus inverse-figure masking must be supported by the runtime owner before registration. The existing flat-color luminance shadow mode alone does not reproduce this candidate.",
+    "observedBoundary": "Raw contact mask is not a transferable generic shadow. It includes a narrow source contact surround; native inverse figure occupancy removes source figure coverage. It must never remain alone when the figure is hidden."
+  },
+  "sameCanvas": {
+    "width": 1536,
+    "height": 1024,
+    "transform": "identity",
+    "compositeOrder": [
+      "unchanged v6 background",
+      "room-fixed original RGB source contact through contact-mask-v2 and inverse figure-mask-v2",
+      "original mother RGB through figure-mask-v2"
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "calibration": {
+    "source": "Existing v6 same-mother scene metadata, with travel reduced to zero; no pose or mother change.",
+    "seat": [
+      0.8723958333333334,
+      0.5703125
+    ],
+    "ground": [
+      0.7994791666666666,
+      0.7783203125
+    ],
+    "support": "window-seat",
+    "safeTextBoundary": 0.56,
+    "contourComplete": true,
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "generation": {
+    "tool": "built-in image_gen.imagegen",
+    "calls": 6,
+    "pngEditsInPython": 0,
+    "newPersonRgbCalls": 0,
+    "oldBadMaskUsedAsInput": false,
+    "newBackgroundCalls": 0,
+    "personPipeline": [
+      "approved original mother -> white-person-in-original-room-v1",
+      "healthy white-person intermediate -> figure-mask-v1 (rejected pillow corner)",
+      "same healthy white-person intermediate -> figure-mask-v2"
+    ],
+    "contactPipeline": [
+      "approved original mother -> direct contact-shadow-mask-v1 (rejected missing contact core)",
+      "approved original mother -> white-shadow-in-original-room-v1",
+      "white-shadow intermediate -> contact-shadow-mask-v2"
+    ],
+    "archivePolicy": "Every image copied into this directory and precise prompt/input-output SHA/original tool path/event recorded in the same functions.exec as the generation result, before the next operation."
+  },
+  "intermediatesAndRejectedPngs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/anon/anon-chat-apricot-contact-shadow-mask-v1.png",
+      "file": "anon-chat-apricot-contact-shadow-mask-v1.png",
+      "sha256": "fba556ca8607fa0a4e93b3cd20d241a21ccc48998f43033d31cab2fe61ff70ff",
+      "bytes": 331101,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/anon/anon-chat-apricot-figure-mask-v1.png",
+      "file": "anon-chat-apricot-figure-mask-v1.png",
+      "sha256": "684c1e55b8db9812587af31dbac756efdeb21ceb6b93ae1d5c18096d86b33641",
+      "bytes": 376346,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/anon/anon-chat-apricot-white-in-room-v1.png",
+      "file": "anon-chat-apricot-white-in-room-v1.png",
+      "sha256": "c5ff9b6d17ec729b52e46772125637a486ba7f066ae14d221e2b9ba069e4b529",
+      "bytes": 2028456,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/anon/anon-chat-apricot-white-shadow-in-room-v1.png",
+      "file": "anon-chat-apricot-white-shadow-in-room-v1.png",
+      "sha256": "42b6d4da78b7f55843146aa9f01bce66aa944e6c474cece7042af0460d1710ed",
+      "bytes": 2109019,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    }
+  ],
+  "legacyBaseline": {
+    "bundle": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/anon-chat-apricot-runtime-bundle-v1.json",
+    "figure": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-chat-apricot-figure-calibrated-v6.png",
+      "sha256": "d730e8d6fe9211cdae65d1f92ee7182cfaaad26479eedb6b9842facbe516e2f7",
+      "offered": false,
+      "reason": "Primary observed detached window-light fragments around the back of the head and hair tips on dark backing."
+    },
+    "shadow": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-chat-apricot-shadow-calibrated-v6.png",
+      "sha256": "407caede02b3d19f2fc719d4e761432726269c86fd22d91eef53d0473805c735",
+      "offered": false,
+      "reason": "Source/composite shoe comparison showed too-light contact core; bright inpainted floor stripe intruded near soles."
+    },
+    "originalFilesChanged": false
+  },
+  "visualInspection": {
+    "personallyViewed": true,
+    "method": "Connected Chrome extension, normal existing static server on port 5188. No 9222 control.",
+    "finalObservationPage": "http://127.0.0.1:5188/来源记录/2026-10-25-ambient-redesign/cast-chat/anon/anon-chat-apricot-mask-repair-v8.html",
+    "viewed": [
+      "approved original mother and original prompt",
+      "original v6 empty room and shadow",
+      "native original-RGB figure on light/dark grounds at 1:1",
+      "old v6 versus repaired hair contour at 150%",
+      "original/right-hair-gap/figure-mask at 400%",
+      "mother versus composition at hips, supporting palm and complete shoes at source 1:1 and 200%",
+      "full original room and final source-RGB contact reconstruction",
+      "contact layer by itself and its exact mask footprint"
+    ],
+    "observations": [
+      "Old detached rear-head white debris is removed from the offered person mask.",
+      "Figure-mask-v1 still selected a naturally white pillow corner through the right hair loop; figure-mask-v2 removes that island and keeps the surrounding fine source hair.",
+      "Original youthful face, smile, chest-hand gesture, supporting palm, skirt, knees, socks and both complete loafers retain mother RGB and original placement.",
+      "Native original-RGB contact restoration avoids the gray floor halo and warm cushion stain produced by the rejected flat-color shadow calibrations.",
+      "The reused empty background keeps the same room furniture and camera; it is an inpainted reconstruction and is not claimed pixel-identical to every original room surface."
+    ],
+    "limitations": [
+      "Static exact-source/zero-offset candidate only; motion, drag, product failure/hide behavior and actual runtime are not verified.",
+      "Primary must personally inspect before admission.",
+      "Original source-lit fine warm/blue-white hair rims remain. RGB decontamination was not performed; this source is limited to its original apricot lighting."
+    ]
+  },
+  "rejected": [
+    {
+      "candidate": "figure-mask-v1",
+      "reason": "Natural checked-pillow white corner retained as a detached bright block inside right hair loop near x1403..1419/y462..473.",
+      "page": "anon-chat-apricot-mask-repair-v2.html#hair-gap"
+    },
+    {
+      "candidate": "contact-shadow-mask-v1",
+      "reason": "At source floor point (1165,788), luminance was only 4/255 while source contact RGB was (168,100,57) versus background (254,209,145); core not restored.",
+      "page": "anon-chat-apricot-mask-repair-v4.html#shoes"
+    },
+    {
+      "candidate": "contact-shadow-mask-v2 flat #332418 at 0.45",
+      "reason": "Grayish contact halo on warm floor.",
+      "page": "anon-chat-apricot-mask-repair-v5.html#palm"
+    },
+    {
+      "candidate": "contact-shadow-mask-v2 flat #88320b at 0.7",
+      "reason": "Warm floor improved but original light cushion acquired a brown stain.",
+      "page": "anon-chat-apricot-mask-repair-v6.html#palm"
+    }
+  ],
+  "review": {
+    "producerRecommendation": "Offer figure-mask-v2 and original-RGB source-contact composition for primary static review.",
+    "primaryLayerApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  },
+  "cleanup": {
+    "removedFiles": [],
+    "note": "No disposable scripts or caches were created. Rejected outputs and fixed observation versions remain as diagnostic provenance."
+  }
+}

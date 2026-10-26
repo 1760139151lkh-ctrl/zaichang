@@ -1,0 +1,20 @@
+{
+  "tool": "built-in image_gen",
+  "generationMode": "text-only",
+  "referencedImages": [],
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a16fb3-8f8d-7c72-a744-a441e8907c91\\exec-21086a01-b10d-48ae-bdfa-4edd755a0b9e.png",
+  "output": "sakiko-reading-apricot-literary-v1.png",
+  "outputSha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+  "promptFile": "sakiko-reading-apricot-literary-v1.prompt.txt",
+  "submittedPromptSha256": "ebcef44bd92cfdf510692b140e968ba6bf9abd8564ae8a7f98d82828a2740d94",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "reviewBoundary": "Primary saw complete fresh output with separate fringe/eyelid/iris and natural seated reading. This text-only candidate changes camera/room proportions from room4 and is not admitted as a drop-in runtime replacement.",
+  "humanSelected": true,
+  "humanRequest": "这个感觉很好；要不把所有的布局都改成他吧。所有矩阵都要换一下。",
+  "selectionScope": "New spatial and emotional baseline for all roles/scenarios/themes; requires new empty plates, single-role pilots, matrix regeneration, live component integration and verification"
+}

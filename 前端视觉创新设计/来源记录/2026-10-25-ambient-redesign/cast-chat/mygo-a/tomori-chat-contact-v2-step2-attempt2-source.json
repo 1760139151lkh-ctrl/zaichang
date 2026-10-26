@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "kind": "imagegen-contact-matte-step2-attempt2",
+  "primary": false,
+  "runtime": false,
+  "tool": "built-in image_gen.imagegen",
+  "prompt": "Technical SAME-PIXEL selection transfer, not a redesigned mask. Input is the sole same-canvas 1536x1024 Tomori mother with the real contact shadows painted white. Output exactly the same 1536x1024 canvas, an opaque white-on-black luminance matte.\nThere are exactly THREE source-position contact groups. Copy the marked white shapes from the input at their original coordinates, without moving or reshaping them:\nA. Narrow curved cushion/hem contact band under the seated plaid skirt, centered near (1331,592). Its source footprint is x1278..1389, y584..602. It is BELOW the skirt hem. Keep it in this y584..602 strip. DO NOT move this band to y557 or the lap above it.\nB. Small palm contact under the resting right hand, centered near (1415,590). Footprint x1388..1446, y580..599. DO NOT shift it up to y560.\nC. The two irregular white sole-contact fringes at the bottom of the two black loafers, x1153..1271, y760..791, centers near (1179,774) and (1225,781).\nThese footprints are enclosing limits only, never rectangles to fill. Retain only the actual marked shadow strokes inside them. Every other pixel of the canvas becomes pure black, including the whole girl, chair, cushion, natural bright highlights, all curtains, clouds, notebook, hand/sleeve/clothing pixels and all unmarked floor.\nKeep the A and B groups at the lower cushion edge source height around y590, NOT up near y560. Keep the narrow irregular contour width and separate little contact groups; do not draw ellipses, generic arcs, thick blobs, labels, arrows, boxes or a new figure. No color scene and no transparency checkerboard. One complete 1536x1024 black PNG canvas containing only the original-position white shadow selections; grey antialias only at the existing stroke edges.",
+  "input": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mygo-a/tomori-chat-contact-v2-step1-marked.png",
+    "sha256": "a0a092644ef49fe04907379e983395f0bb0491ba4796e7905f8a6cd7f660c6e7",
+    "role": "sole step1 marked derivative; no failed mask used as input",
+    "originalMotherSha256": "7e2d61d5874ede02beba0808b329b18922dfe6b3f20f2d923a9c2ea4c22978d9"
+  },
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mygo-a/tomori-chat-contact-v2-step2-attempt2-mask.png",
+    "originalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17125-a57d-70f3-9b8f-9ecfd8cef13e\\exec-d44c4758-df86-4b52-964a-ecae803d7ee9.png",
+    "executionId": "exec-d44c4758-df86-4b52-964a-ecae803d7ee9",
+    "sha256": "9203881970d5b5281a2b8bd2326b7c98a5ef19e1b78da494bfa6f4ef1bacd1a2",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 326031,
+    "originalOutputLastWriteTimeUtc": "2026-10-25T08:10:15.2419566Z"
+  },
+  "scope": "One targeted correction of observed vertical placement failure, no RGB regenerated or used.",
+  "status": "rejected_observed_vertical_and_horizontal_drift",
+  "inspection": {
+    "reason": "Corrective mask still visually redraws/moves seat marks above the correct source contact; no composite adoption."
+  }
+}

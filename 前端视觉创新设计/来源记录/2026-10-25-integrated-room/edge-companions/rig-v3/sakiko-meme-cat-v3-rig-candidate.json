@@ -1,0 +1,222 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-canvas-source-rgb-edge-cat-static-rig-candidate",
+  "original": {
+    "file": "前端视觉创新设计\\运行素材\\companion\\edge\\sakiko-meme-cat-v3.png",
+    "sha256": "15b21bfb6c94aef1dfd8ae7b168f970fbe9998cddb705b64ac7dabdceab0c161",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGBA",
+    "userAcceptedForm": true,
+    "originalPreserved": true
+  },
+  "canvas": [
+    1536,
+    1024
+  ],
+  "files": {
+    "sakiko-meme-cat-v3-body": {
+      "file": "sakiko-meme-cat-v3-body.png",
+      "sha256": "d972816533f714b4d75a50c7e60b018fab5758d608e61fb3d940cae104a502d0",
+      "bytes": 735686,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGBA",
+      "alphaBounds": [
+        41,
+        169,
+        1395,
+        886
+      ]
+    },
+    "sakiko-meme-cat-v3-tail": {
+      "file": "sakiko-meme-cat-v3-tail.png",
+      "sha256": "973cf9225f5e3f89ceaf3e004976968ec89036b36c534d5e2ed32ead6287250c",
+      "bytes": 54833,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGBA",
+      "alphaBounds": [
+        1321,
+        341,
+        1508,
+        691
+      ]
+    },
+    "sakiko-meme-cat-v3-clean-composite": {
+      "file": "sakiko-meme-cat-v3-clean-composite.png",
+      "sha256": "ee1d4331e0f940267ea1850cb05f70bdf9dd320e6dd1906dd767847925d8c157",
+      "bytes": 772042,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGBA",
+      "alphaBounds": [
+        41,
+        169,
+        1508,
+        886
+      ]
+    },
+    "cat-solid-alpha-calibrated-v1": {
+      "file": "cat-solid-alpha-calibrated-v1.png",
+      "sha256": "f14a35adfab56ebc9480c7c42167a9b649f5dcd15fa391596c6b5065b181d3c8",
+      "bytes": 36912,
+      "width": 1536,
+      "height": 1024,
+      "mode": "L",
+      "alphaBounds": null
+    },
+    "tail-ownership-mask-calibrated-v1": {
+      "file": "tail-ownership-mask-calibrated-v1.png",
+      "sha256": "1b72028b19fcec46057d90a962842f799895540b9190ca914812d4f1502f065e",
+      "bytes": 3141,
+      "width": 1536,
+      "height": 1024,
+      "mode": "L",
+      "alphaBounds": null
+    },
+    "tail-layer-mask-calibrated-v1": {
+      "file": "tail-layer-mask-calibrated-v1.png",
+      "sha256": "747563de356637bf39f2216775b2a972aea1dea6966b2c48d9050df553f7d72b",
+      "bytes": 3141,
+      "width": 1536,
+      "height": 1024,
+      "mode": "L",
+      "alphaBounds": null
+    },
+    "tail-root-underlap-mask-v1": {
+      "file": "tail-root-underlap-mask-v1.png",
+      "sha256": "18d1d4e071a817fd2f001cc64a1114cc7cbd3fb98b679a097e155e80566f0ff8",
+      "bytes": 1822,
+      "width": 1536,
+      "height": 1024,
+      "mode": "L",
+      "alphaBounds": null
+    }
+  },
+  "layerOrder": [
+    "tail",
+    "body"
+  ],
+  "sourceGeometry": {
+    "tailPivotPx": [
+      1354,
+      658
+    ],
+    "tailPivotNormalized": [
+      0.8815104166666666,
+      0.642578125
+    ],
+    "tailVisibleJoinPx": [
+      [
+        1341,
+        636
+      ],
+      [
+        1364,
+        684
+      ]
+    ],
+    "bodyForegroundArcSamplesPx": [
+      [
+        1333,
+        610
+      ],
+      [
+        1339,
+        620
+      ],
+      [
+        1353,
+        640
+      ],
+      [
+        1355,
+        648
+      ],
+      [
+        1360,
+        658
+      ],
+      [
+        1365,
+        668
+      ],
+      [
+        1373,
+        690
+      ]
+    ],
+    "supportAnchorPx": [
+      768,
+      846
+    ],
+    "supportAnchorNormalized": [
+      0.5,
+      0.826171875
+    ],
+    "paperEdgeSourceY": 846,
+    "frontPawLowerExtentsPx": [
+      [
+        301,
+        862
+      ],
+      [
+        582,
+        875
+      ]
+    ],
+    "pawMeaning": "The paper edge supports the belly/low paw line while both front paws hang a small distance below, as directly viewed on the two-tone edge preview. Lower extents are not invented limb joints.",
+    "bodyAlphaBoundsPx": [
+      41,
+      169,
+      1395,
+      886
+    ],
+    "tailAlphaBoundsPx": [
+      1321,
+      341,
+      1508,
+      691
+    ]
+  },
+  "processing": {
+    "rgb": "Original source RGB copied at identical coordinates; no face, style, tail shape, camera, crop, scale or color redraw. Fully transparent pixels zeroed only after alpha assignment.",
+    "generatedMasks": "ImageGen masks provide object identity. Raw masks were not mistaken for exact registration. Coarse whole mask expanded 14 pixels, coarse tail mask expanded 12 pixels solely to include original omitted navy stroke, then clipped to original native-alpha contour and original body arc.",
+    "alpha": "Native source alpha reaches 254. Diffuse halo removed by multiplying original alpha by a bounded 230-to-250 native-opacity gate, constrained by expanded whole-cat mask. Only original already-solid pixels survive; source RGB remains unchanged for every visible output pixel.",
+    "separation": "Visible tail ownership is constrained beyond the directly read body arc. Body retains its foreground navy rump outline. Tail layer includes an 18px original-neighbour RGB underlap at y620..690 behind body for small rotation coverage; no painted or synthesized hidden tail.",
+    "recomposition": "Tail then unchanged body, full canvas. Hidden root underlap can make alpha differ by at most small overlap rounding, so do not claim byte-identical output to original halo image."
+  },
+  "motionBoundary": {
+    "staticOnly": true,
+    "suggestedMicroRotationDegrees": [
+      -3,
+      3
+    ],
+    "producerViewedStaticExtremesDegrees": [
+      -5,
+      0,
+      5
+    ],
+    "sameCanvasTransformOriginPercent": [
+      88.15104166666667,
+      64.2578125
+    ],
+    "mirror": "Mirror the shared outer wrapper with both layers together. Retain source-local pivot for the tail; keep bubble text outside the mirrored layer.",
+    "disallowed": "Do not sway the complete PNG as a substitute for an independent tail. Do not translate/scale the tail independently or place it in front of the body."
+  },
+  "producerReview": {
+    "personallyViewed": [
+      "source full canvas and tail/root coordinate detail",
+      "body/tail full-canvas RGBA layers",
+      "whole rest on light and dark paper-edge grounds",
+      "independent tail +5 and -5 degree poses on light and dark grounds",
+      "root join enlarged details at both extremes",
+      "128px whole-canvas render on light/dark edge in both mirror directions"
+    ],
+    "observation": "Selected simple form, face, ink and colours remain source-original. Broad blue halo is removed. Root is covered by original body foreground at both inspected small-angle extremes; body/paws remain stationary. Small-size mirror keeps paws on paper edge with a short natural overhang.",
+    "scope": "Static source-RGB rig candidate only. No interactive runtime, drag, bubble, reduced-motion or model behavior has been signed off."
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false
+}

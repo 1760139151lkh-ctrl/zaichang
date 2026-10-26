@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "stage": "F2",
+  "tool": "image_gen.imagegen",
+  "recordedAt": "2026-10-25T22:38:20.229795+00:00",
+  "sceneFamily": "literary-room-v1",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "motherSha256": "35a318faaab82305b4a5f28e4f109701986e7ce75b312536835216306c2945af",
+  "inputImages": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/day/layers/figure-step1-marked-v1.png",
+      "sha256": "79aa9972cc9ac6c489bda5cb52c89d1053fdacbb7251b8b59fae342c6c6d3eed"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-day-v1.png",
+      "sha256": "35a318faaab82305b4a5f28e4f109701986e7ce75b312536835216306c2945af"
+    }
+  ],
+  "promptFile": "figure-mask-v1.prompt.txt",
+  "promptFileSha256": "1ec4ea9946ff8c2ba8ba3f42d6d11403da1c2db21cbe48e27c2d46d1e53281a7",
+  "requestFile": "figure-mask-v1.request.json",
+  "exactSubmittedPrompt": "Use case: background-extraction. Exact source-position foreground LUMINANCE MASK conversion F2,1536x1024. Firstinput is the deliberateF1 whiteperson+openbook markup from this same mother. Secondinput is exact clean original mother ONLY to distinguish the true foreground from naturally brightroom and realhair/leg gaps. Keep originalfullcanvas, noresize/crop/zoom/recenter/dilation/erosion/shift.\nOutput one OPAQUE PURE BLACK1536x1024 PNG with only the COMPLETE already-whitened originalperson+WHOLE OPENBOOK SOLID WHITE. No coloredRGB, checker, graybackground, humanfeatures, shadows, labels orroom. All naturallylight closedivorycurtain/cushion/lamp/flowers/roomobjects must be BLACK.\nWHITE includes all blue-lavenderhair strands/tips/darkribbons, head/face/ears/neck, every eyes/mouth/nose region filled as opaqueSOLIDWHITE, everycardigan/collar/clothbow/sleeve/cuff/skirt/outwardlowerhemfold, both completehands/fingers/wrists, fullbarethighs/knees, both below-kneecalfsocks, both completeloafers including darktoes/soleedge/heelblock/bottomoutline, and WHOLE openedbook: bothcovers/spine/pageblock and thin darkunderbinding betweenbookedgeandlap. Faint gray tracing inside the markedwhitehand/book/shoe fromF1 is NOT a hole: FILL interior tracing fully WHITE, no internalbookpage lines, shoeseam, faceeye/mouth mark or clothingfold left gray/black.\nActual true backgroundgaps BETWEEN separatedhair strands/limbs/legs remain BLACK using originalmotherforcontext, not blackholes IN face/hand/book/skirt/shoes. Finegray allowedONLY at actual outer antialiasedperimeter, retain allsourcefinehair/completebookandheels. Don't select naturalwhite room materials. No newshadow or receiverpatch, they belong toS. This only controls coverage; originalRGB will come from exactmother ONCE viaMAX(F,S), no regeneratedsubjectcolor.",
+  "submittedPromptSha256": "bfb920ebaffb3c9d2405cb481cc0997cd13c5067cc8cf347350b76389e241828",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-b4412f38-1fe2-41fc-8bc9-be9ed210474b.png",
+  "toolOriginalSha256": "a963241ed91e08bc0cce5b15e69386f5ac0c19fdede79931d1a718dce924f61e",
+  "output": {
+    "file": "figure-mask-v1.png",
+    "sha256": "a963241ed91e08bc0cce5b15e69386f5ac0c19fdede79931d1a718dce924f61e",
+    "bytes": 475364,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "unchangedToolPngBytes": true
+  },
+  "producerReview": "Wholemask viewed. Facewhite solid; visible black curve at bookloweredge needs originalRGB/native browser context before selection is accepted. No alteredmaskbytes.",
+  "dossierVersion": "2026-10-25.1",
+  "role": "RawImageGen luminance coverage only; originalmotherRGB once throughMAX(F,S), no threshold/crop/morphology/paint.",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "selectionStatus": "HOLD_not_selected",
+  "holdReason": "Actual native Chrome original/union/composite bookcloseup proved thin lowerbookcover/lap foreground hole in F2-v1; remake F1 from clean original only. Do not use oldmarked/mask as newinput.",
+  "browserEvidence": "browser-observations/HOLD-book-edge-v1.png",
+  "generationInputAllowed": false
+}

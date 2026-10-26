@@ -1,0 +1,482 @@
+{
+  "schemaVersion": 1,
+  "recordType": "readonly-css-optical-frame-comparison",
+  "createdAt": "2026-10-26T00:48:33.010999+00:00",
+  "inputs": [
+    {
+      "characterId": "tomori",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/portrait/tomori-avatar-youth-v3.png",
+      "url": "/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/tomori/time-only-neutral-v1/portrait/tomori-avatar-youth-v3.png",
+      "sha256": "986470992b8c303016d9b7b383138d5f2c66f962fb4453939cf0feeb43c6a9b9",
+      "scope": "Same original PNG, no crop/write/newgeneration",
+      "frames": [
+        {
+          "id": "f100",
+          "width": "100%",
+          "left": "0%",
+          "top": "0%",
+          "label": "100% (0, 0)"
+        },
+        {
+          "id": "f108",
+          "width": "108%",
+          "left": "-4%",
+          "top": "-6%",
+          "label": "108% (−4, −6)"
+        },
+        {
+          "id": "f114",
+          "width": "114%",
+          "left": "-7%",
+          "top": "-10%",
+          "label": "114% (−7, −10)"
+        }
+      ]
+    },
+    {
+      "characterId": "anon",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/time-only-neutral-v1/portrait/anon-avatar-youth-v3.png",
+      "url": "/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/anon/time-only-neutral-v1/portrait/anon-avatar-youth-v3.png",
+      "sha256": "132d7f7f8d513634fc45145fc2405543a8e2b9bc0df47bfad614b94381a2663c",
+      "scope": "Same original PNG, no crop/write/newgeneration",
+      "frames": [
+        {
+          "id": "f100",
+          "width": "100%",
+          "left": "0%",
+          "top": "0%",
+          "label": "100% (0, 0)"
+        },
+        {
+          "id": "f108",
+          "width": "108%",
+          "left": "-4%",
+          "top": "-6%",
+          "label": "108% (−4, −6)"
+        },
+        {
+          "id": "f114",
+          "width": "114%",
+          "left": "-7%",
+          "top": "-10%",
+          "label": "114% (−7, −10)"
+        }
+      ]
+    },
+    {
+      "characterId": "rana",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/time-only-neutral-v1/portrait/rana-avatar-youth-v3.png",
+      "url": "/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/rana/time-only-neutral-v1/portrait/rana-avatar-youth-v3.png",
+      "sha256": "400f6a20398a978d24561f7b484ab03bdf4ff3951cdfa95595a78691828a9aad",
+      "scope": "Same original PNG, no crop/write/newgeneration",
+      "frames": [
+        {
+          "id": "f100",
+          "width": "100%",
+          "left": "0%",
+          "top": "0%",
+          "label": "100% (0, 0)"
+        },
+        {
+          "id": "f108",
+          "width": "108%",
+          "left": "-4%",
+          "top": "-6%",
+          "label": "108% (−4, −6)"
+        },
+        {
+          "id": "f114",
+          "width": "114%",
+          "left": "-7%",
+          "top": "-10%",
+          "label": "114% (−7, −10)"
+        }
+      ]
+    },
+    {
+      "characterId": "soyo",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/portrait/soyo-avatar-youth-v3.png",
+      "url": "/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/soyo/time-only-neutral-v1/portrait/soyo-avatar-youth-v3.png",
+      "sha256": "735d92cac98476e597a9ca6bb86df60c4de1ccf5481a88597f5d4a17e359c418",
+      "scope": "Same original PNG, no crop/write/newgeneration",
+      "frames": [
+        {
+          "id": "f100",
+          "width": "100%",
+          "left": "0%",
+          "top": "0%",
+          "label": "100% (0, 0)"
+        },
+        {
+          "id": "f108",
+          "width": "108%",
+          "left": "-4%",
+          "top": "-6%",
+          "label": "108% (−4, −6)"
+        },
+        {
+          "id": "f114",
+          "width": "114%",
+          "left": "-7%",
+          "top": "-10%",
+          "label": "114% (−7, −10)"
+        }
+      ]
+    },
+    {
+      "characterId": "taki",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/portrait/taki-avatar-youth-v3.png",
+      "url": "/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/taki/time-only-neutral-v1/portrait/taki-avatar-youth-v3.png",
+      "sha256": "6597cfbe08e2e4ce4906c498bcfc5d2e41d3d3910e5a8a80762c2aa53d4ed873",
+      "scope": "Same original PNG, no crop/write/newgeneration",
+      "frames": [
+        {
+          "id": "f100",
+          "width": "100%",
+          "left": "0%",
+          "top": "0%",
+          "label": "100% (0, 0)"
+        },
+        {
+          "id": "f108",
+          "width": "108%",
+          "left": "-4%",
+          "top": "-6%",
+          "label": "108% (−4, −6)"
+        },
+        {
+          "id": "f114",
+          "width": "114%",
+          "left": "-7%",
+          "top": "-10%",
+          "label": "114% (−7, −10)"
+        }
+      ]
+    },
+    {
+      "characterId": "mutsumi",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-avatar-youth-v3.png",
+      "url": "/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-avatar-youth-v3.png",
+      "sha256": "accf39ccc205ee077827b9ed3b24a4c67921cb693b0f20cb2037c96cad01e24c",
+      "scope": "Same original PNG, no crop/write/newgeneration",
+      "frames": [
+        {
+          "id": "f100",
+          "width": "100%",
+          "left": "0%",
+          "top": "0%",
+          "label": "100% (0, 0)"
+        },
+        {
+          "id": "f108",
+          "width": "108%",
+          "left": "-4%",
+          "top": "-6%",
+          "label": "108% (−4, −6)"
+        },
+        {
+          "id": "f114",
+          "width": "114%",
+          "left": "-7%",
+          "top": "-10%",
+          "label": "114% (−7, −10)"
+        }
+      ]
+    },
+    {
+      "characterId": "uika",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-avatar-youth-v3.png",
+      "url": "/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-avatar-youth-v3.png",
+      "sha256": "842725f73a3d8bd1af9941e58783a523e3adb3b7f43e21c2a9b2579f0f680257",
+      "scope": "Same original PNG, no crop/write/newgeneration",
+      "frames": [
+        {
+          "id": "f100",
+          "width": "100%",
+          "left": "0%",
+          "top": "0%",
+          "label": "100% (0, 0)"
+        },
+        {
+          "id": "f108",
+          "width": "108%",
+          "left": "-4%",
+          "top": "-6%",
+          "label": "108% (−4, −6)"
+        },
+        {
+          "id": "f114",
+          "width": "114%",
+          "left": "-7%",
+          "top": "-10%",
+          "label": "114% (−7, −10)"
+        }
+      ]
+    },
+    {
+      "characterId": "umiri",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/avatars/umiri-avatar-youth-v3.png",
+      "url": "/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/umiri/time-only-neutral-v1/avatars/umiri-avatar-youth-v3.png",
+      "sha256": "560073dc61f3dee7e48052d3f0cfe16bba041071b8b8ec2889bb7de9bdb565ef",
+      "scope": "Same original PNG, no crop/write/newgeneration",
+      "frames": [
+        {
+          "id": "f100",
+          "width": "100%",
+          "left": "0%",
+          "top": "0%",
+          "label": "100% (0, 0)"
+        },
+        {
+          "id": "f108",
+          "width": "108%",
+          "left": "-4%",
+          "top": "-6%",
+          "label": "108% (−4, −6)"
+        },
+        {
+          "id": "f114",
+          "width": "114%",
+          "left": "-7%",
+          "top": "-10%",
+          "label": "114% (−7, −10)"
+        }
+      ]
+    },
+    {
+      "characterId": "nyamu",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/avatars/nyamu-avatar-youth-v3.png",
+      "url": "/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/nyamu/time-only-neutral-v1/avatars/nyamu-avatar-youth-v3.png",
+      "sha256": "ebffcd406edb975c91c7b62f0c246850340248a62828b7338a7897d48095cc72",
+      "scope": "Same original PNG, no crop/write/newgeneration",
+      "frames": [
+        {
+          "id": "f100",
+          "width": "100%",
+          "left": "0%",
+          "top": "0%",
+          "label": "100% (0, 0)"
+        },
+        {
+          "id": "f108",
+          "width": "108%",
+          "left": "-4%",
+          "top": "-6%",
+          "label": "108% (−4, −6)"
+        },
+        {
+          "id": "f114",
+          "width": "114%",
+          "left": "-7%",
+          "top": "-10%",
+          "label": "114% (−7, −10)"
+        }
+      ]
+    },
+    {
+      "characterId": "sakiko",
+      "path": "前端视觉创新设计/运行素材/companion/portraits/sakiko-selected-soft-youth-edit-v3-20261025.png",
+      "url": "/%E8%BF%90%E8%A1%8C%E7%B4%A0%E6%9D%90/companion/portraits/sakiko-selected-soft-youth-edit-v3-20261025.png",
+      "sha256": "50ed57c7cb690ac52eb49190762f878a2b8e8db5eb75d5d3d3f220e771d86974",
+      "scope": "Same original PNG, no crop/write/newgeneration",
+      "frames": [
+        {
+          "id": "existing",
+          "width": "108%",
+          "left": "-4%",
+          "top": "-6%",
+          "label": "existing108%"
+        }
+      ]
+    }
+  ],
+  "frameCandidates": [
+    {
+      "id": "f100",
+      "width": "100%",
+      "left": "0%",
+      "top": "0%",
+      "label": "100% (0, 0)"
+    },
+    {
+      "id": "f108",
+      "width": "108%",
+      "left": "-4%",
+      "top": "-6%",
+      "label": "108% (−4, −6)"
+    },
+    {
+      "id": "f114",
+      "width": "114%",
+      "left": "-7%",
+      "top": "-10%",
+      "label": "114% (−7, −10)"
+    }
+  ],
+  "sizesCssPx": [
+    34,
+    48
+  ],
+  "backgrounds": [
+    "current lightcomponentbase overlight",
+    "current darkcomponentbase overdark"
+  ],
+  "samePngPixelsUnchanged": true,
+  "newPngGeneration": false,
+  "rasterPixelEdits": false,
+  "oldArtifactsPreserved": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/index.html",
+      "sha256": "68f088a5b3fd5e2a8ac7095f5a0402ff7caaa685897785769cd9f03a3d45b8a7"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/inputs-and-runtime-snapshot-v1.json",
+      "sha256": "b0fe777bcafdb56ceafcd491a8d74eb02c2f2cd6aca1911ec65c888bc8d0a5fc"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/producer-circle-observations-v1.json",
+      "sha256": "e3d75f7d717746ae4eeb9da4acda7adc187307fcea9b3fec5699db4f94881945"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/OBSERVATIONS.md",
+      "sha256": "bbc0c7479af22784dabdcb57b59c7f9fccb5f2609bc4b7acc0b85a7964f06db9"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/browser-observations/anon-34-48-96-light-dark-checker-v1.png",
+      "sha256": "c9d3d045fceba059829a3b9203da170b6456f8efdcba6924a5776ba9b3a0fec5"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/browser-observations/mutsumi-34-48-96-light-dark-checker-v1.png",
+      "sha256": "ea1a2167ab04c175954623734eb2256600c2c3ba326c41fe2eedfb26f0d1ac51"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/browser-observations/nyamu-34-48-96-light-dark-checker-v1.png",
+      "sha256": "cc52c4beb9bb2b820cca007ea62cc25b96728d8f5bd3a95a90f73cfcea8cf6e7"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/browser-observations/rana-34-48-96-light-dark-checker-v1.png",
+      "sha256": "1813cfb5cdf8be34adc10cd78af15626291e4e0ee08f9950bb8a081e0a9751db"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/browser-observations/render-metadata-v1.json",
+      "sha256": "992bef00287ccce7173e29f84c6631926c6f5f3155f28659d6d2fa15e0e58583"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/browser-observations/sakiko-34-48-96-light-dark-checker-v1.png",
+      "sha256": "2175895e1f20d9e0ecf14d106428a7cf2b3f50600b1054b8feca17ddd4608b51"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/browser-observations/sakiko-native-dimensions-v1.json",
+      "sha256": "89775b2bd62a058cfd84e9597f09028dd9263e109c9facdd26fc7f54f6bdc963"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/browser-observations/sakiko-native1254-scroll-detail-v1.png",
+      "sha256": "1e66f4d894a29a161cc6da886a89da01fac6a8fdbf937ac0fbf47d92fd13060b"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/browser-observations/soyo-34-48-96-light-dark-checker-v1.png",
+      "sha256": "76b6f969ee69614004a9c17a569876b9c0557bc4b364e7c740e39c9f5b373dec"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/browser-observations/taki-34-48-96-light-dark-checker-v1.png",
+      "sha256": "73667b6aa3e904e2220a5d40a2354ad82674824dc87e53d188ff7ac0cad8c2a0"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/browser-observations/tomori-34-48-96-light-dark-checker-v1.png",
+      "sha256": "e0d9d5148d34c5f8a34da5717c07f375361aeb33d28e05f38bf901dd1ad7ad9d"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/browser-observations/uika-34-48-96-light-dark-checker-v1.png",
+      "sha256": "01a9d45e84bf01aa366058571e87682168ec4bd3e176e07f0fde5ddf0b0398b5"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/browser-observations/umiri-34-48-96-light-dark-checker-v1.png",
+      "sha256": "04a00b697b3430476adbcbf9251aacae74fd617c3c7b4642589e745cc228d984"
+    }
+  ],
+  "takiHeadingVerification": {
+    "actualOldHtmlHeading": "taki · 新v3 / 当前运行对照",
+    "observedTextError": false,
+    "note": "ActualHTML says taki, no Raki heading found. New heading Taki(taki), originalpurple-eyePNG unchanged."
+  },
+  "primarySelectedFrame": null,
+  "runtimeAccepted": false,
+  "avatarSourceDataModified": false,
+  "userApprovalChanged": false,
+  "scoresOrFunctionalTests": false,
+  "boardsGenerationInputAllowed": false,
+  "browserObservationsPending": false,
+  "personallyViewedAllNineThreeFrameGroups": true,
+  "existingSakikoReferencePersonallyViewed": true,
+  "browserTabId": "500947837",
+  "browserUrl": "http://127.0.0.1:5188/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/frames-optical-compare-v1.html",
+  "observedAt": "2026-10-26T00:55:07.082263+00:00",
+  "browserEvidence": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/frame-browser-observations-v1/01-tomori-anon-rana.png",
+      "sha256": "8c862448a60e3fe7c5ff2bfac61cbc221804c45f522405e924cf6e9a3b919787",
+      "bytes": 62081,
+      "generationInputAllowed": false,
+      "canvas": [
+        839,
+        582
+      ],
+      "source": "Actual formal cua_repl Chrome screenshot bytes, no rasterchanges"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/frame-browser-observations-v1/02-soyo-taki-mutsumi.png",
+      "sha256": "b8bec3129e8890bd244ed16165741dfb1ec60cf724025373e61d98dc61522e69",
+      "bytes": 63528,
+      "generationInputAllowed": false,
+      "canvas": [
+        839,
+        582
+      ],
+      "source": "Actual formal cua_repl Chrome screenshot bytes, no rasterchanges"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/frame-browser-observations-v1/03-uika-umiri-nyamu.png",
+      "sha256": "75a407a737523227091614d79821a1d25da55edbd6f76ef32598cc55b463e5e3",
+      "bytes": 63505,
+      "generationInputAllowed": false,
+      "canvas": [
+        839,
+        582
+      ],
+      "source": "Actual formal cua_repl Chrome screenshot bytes, no rasterchanges"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/frame-browser-observations-v1/04-nyamu-sakiko-reference.png",
+      "sha256": "1506151cd00dce5cb2de84c0fb51bd09e3816704e836a44213ee8d595fee1fe9",
+      "bytes": 59656,
+      "generationInputAllowed": false,
+      "canvas": [
+        839,
+        582
+      ],
+      "source": "Actual formal cua_repl Chrome screenshot bytes, no rasterchanges"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/frame-browser-observations-v1/render-metadata.json",
+      "sha256": "fd101d68a237cade093b7c99ef6b6916b70c5e00eebfd5e6f0ee163999bcf41b",
+      "bytes": 5172,
+      "generationInputAllowed": false
+    }
+  ],
+  "observedOldArtifactChanges": [],
+  "observedInputPngChanges": [],
+  "producerOpticalNotes": {
+    "tomori": "100%留整头短发的余量较多；108%把眼睛与闭口笑抬到更清楚的位置，48px头顶仍较松；114%更亲近，但冠部/侧发更贴圈。主观上108较平衡，114可供root比较眼神优先。",
+    "anon": "108/114比100明显减少外侧粉发与领口占比，小开口笑和蓝眼更突出；114在34px更亮、更像脸的入口，代价是头顶/侧发少一些。108更松，未据此代选。",
+    "rana": "108/114使金蓝眼更占小圆；114的34px异色眼较100更清楚，短白发冠部也更紧。108兼顾短发轮廓，114偏眼神优先。三框同PNG，观者左金右蓝未镜像。",
+    "soyo": "100%里卷发与领口较占空间；108/114的蓝眼/脸颊更明显，114减少领口后微笑更集中。114侧发贴圈，需root比较保发量与看眼神的取舍。",
+    "taki": "100%深发/紫眼对比已清楚；108让目光更突出，同时比114多一点顶发余量；114更利落而冠部更紧。倾向先比较108的平衡，仍由root选择。HTML实际为Taki(taki)，原紫眼PNG不改。",
+    "mutsumi": "108比100的眼睛/面颊更占圆框；114让浅绿侧发和发夹更贴圆边。不能仅追求眼大而忽略自身左侧双夹；这组三框中108是值得root先看的折中，不断言114已丢夹。",
+    "uika": "100%浅金发外围与浅底相融，脸显轻；108/114使紫眼和小开口笑更集中，114领口更少、34px眼神收益较明显。头顶贴圈需root连48px一同判断。",
+    "umiri": "108相比100能更清楚看到眼与脸颊；114进一步放大，但顶发与下方颈带更贴边。主观108更均衡，114提供眼神优先的实际比较。",
+    "nyamu": "108/114均让会意眼笑更活；114在34px的眼/嘴更醒目，颈带与顶发余量减少；108保更多下缘和发型。两者不因统一参数就视为同等选定。",
+    "sakiko": "仅当前108%(-4,-6)的原选定v3作为参照，没有新增候选或新脸，不修改现有画框。"
+  },
+  "noProductionAvatarDataModified": true,
+  "revisesPriorConservativeAdvice": "Actual three-frame comparison shows100% preserveshair/collar but is not necessarily eye-charisma optimum at34px.108/114 have real visibleface/eye gains; this comparison supersedes the earlier single100%-board conservative suggestion without changing historicalrecords."
+}

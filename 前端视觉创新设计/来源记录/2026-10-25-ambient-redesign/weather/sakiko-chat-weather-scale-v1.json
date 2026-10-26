@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Only three Sakiko chat weather mother prototypes on the root-approved room4 weather empty backgrounds; no layers or matrix expansion.",
+  "registeredScaleReference": {
+    "mother": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+    "motherSha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1",
+    "registration": "../../../运行素材/companion/scenes/sakiko-chat-apricot.scene.json",
+    "registrationSha256": "94df96f72e40e3b1ffbb15ae1e1fb5c9f2f5fec24b848b752791604f01a1b244",
+    "registrationId": "sakiko-chat-apricot-room4",
+    "width": 1536,
+    "height": 1024,
+    "registeredSeatNormalized": [0.842, 0.58],
+    "registeredGroundNormalized": [0.767, 0.761],
+    "registeredBodyBoundsNormalized": [0.7259114583333334, 0.2509765625, 0.9322916666666666, 0.767578125],
+    "registeredBodyBoundsPixels": [1115, 257, 1432, 786],
+    "measuredMaskAlphaNonzeroBoundsPixels": [1115, 257, 1432, 786],
+    "registeredSeatPixels": [1293.312, 593.92],
+    "registeredGroundPixels": [1178.112, 779.264],
+    "visualLandmarksApproximatePixels": {
+      "crownY": 260,
+      "faceCenter": [1290, 345],
+      "hipSeatRegion": [1293, 589],
+      "lapBookRegion": [1200, 520, 1310, 555],
+      "handOnBook": [1246, 525],
+      "supportingRightPalm": [1405, 582],
+      "shoeRegion": [1115, 725, 1237, 786]
+    },
+    "landmarkMethod": "Registration values and complete existing alpha bounds are direct readouts. Crown/face/hip/book/hand/shoe subregions are approximate visual placement guides from the personally viewed accepted mother, not newly measured anatomy or runtime calibration.",
+    "personallyViewed": true,
+    "anatomyObservation": "Complete youthful seated figure in the approved original room perspective, uncrossed legs, both loafers grounded, hips on the bench cushion, one hand resting on a closed blue lap book and the other palm supported by the cushion. No source pose defect observed; acceptable as identity and scale reference. Old mist/night large-figure references are excluded.",
+    "consumerEvidence": "src/renderer/companion-scenes.tsx loads approved *.scene.json registrations and maps each registration's mother/layer files. This prototype uses the approved room4 apricot registration rather than the older generic large sakiko-chat calibration."
+  },
+  "generationPolicy": "Each weather clean background is the edit target. The accepted apricot chat mother is optional secondary identity and scale reference only. Redraw the complete figure with new physically coherent scene lighting; do not paste or recolor the sunny figure into a nighttime room. Keep original room perspective and body size.",
+  "prototypeBoundary": { "travel": 0, "slope": 0, "perspective": 0, "layersGenerated": false, "runtimeRegistered": false, "runtimeAccepted": false, "approvedByRoot": false }
+}

@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "characterId": "taki",
+  "activity": "chat",
+  "palette": "apricot",
+  "roomFamily": "literary-room-v1",
+  "stage": "figure2",
+  "createdOn": "2026-10-25",
+  "tool": "image_gen.imagegen (built-in)",
+  "callOrdinalInBoundedBatch": 6,
+  "executionId": "exec-124db89f-4404-4a7c-8dc1-80200e99f69c",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-124db89f-4404-4a7c-8dc1-80200e99f69c.png",
+  "input": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-layers/figure-step1-marked-v1.png",
+    "sha256": "a12ca0ce3f98ab531b339765660e956d8e4813ef4c898992057d1cf200be8971",
+    "role": "only image input; immediately preceding F1 marked source"
+  },
+  "promptFile": "figure-step2-prompt-v1.txt",
+  "promptFileSha256": "a076a52bae4ea200f424fe3c3604b84e2dc390054195bda3834ff58bbfc3d2fa",
+  "submittedPrompt": "Use case: background-extraction. Asset: full foreground luminance mask, STEP F2 of F2.\nImage 1 is the ONLY input: the original-position Shiina Taki literary chat scene already marked with the complete visible girl and lap book in solid white. Keep EVERY existing deliberate white foreground pixel at exactly its current canvas coordinate. Change ONLY the remaining colored environment to PURE BLACK. This is an in-place conversion, not a new silhouette drawing.\nPreserve the FULL actual contour of the whole long dark purple-black hair and all fine fringe/strand tips, face and neck, sailor collar/red ribbon/camel blouse and sleeves, every VISIBLE hand and finger (one hand is naturally occluded around the book; do not invent hidden anatomy), ALL covers/pages of the closed book on her lap, every camel skirt fold and complete dark lower hem, both thighs/knees, both dark socks and both complete brown loafers. In particular preserve the whole dark clothing hem/perimeter and every skirt-fold tip (roughly x865..1220,y470..600), and the COMPLETE shoe outsole/heel blocks/bottom contours (roughly x765..965,y790..925). Do not shrink, erode, contract or recenter the white coverage; no reinterpreting dark shoe or hem pixels as room shadow.\nAll girl/book interiors remain solid white. Natural gaps between body parts, legs, shoes and strands stay black where source background exists. Linen, plaid cushions, throw, lamp, window, scenery, floor/rug and every unrelated bright room object become black, even naturally white fabric or clouds. Thin source-edge grey antialias is allowed only at the original outside boundary.\nOutput ONE opaque 1536x1024 black PNG with this unchanged source-position complete white foreground. No color, new body, movement, crop, resize, grid, labels, arrows, rectangles, checkerboard or text.",
+  "output": {
+    "file": "figure-mask-v1.png",
+    "sha256": "0c9a012634dcafb933a204c3e53150f978d26365e63e46c578687dba57d1781c",
+    "bytes": 466233,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "decision": "Not an exact isolated-foreground mask; raw coverage retained only for a fixed included union proposal after native evaluation",
+    "observation": "The actual F2 adds room coverage outside the original left waist, as preserved in the initial observation. It samples unchanged mother room RGB, and has now been evaluated in the fixed union; no claim of pure figure/caster isolation or relative travel is made.",
+    "reportedToPrimary": true,
+    "limits": "Eight-call cap retained; no pixel editing or extra repair generation has been performed.",
+    "fixedIncludedReview": {
+      "personallyViewed": true,
+      "decision": "proposable fixed-source included union; exact foreground isolation is not claimed",
+      "evidence": "Native browser inspection of original/composite full scene and source-pixel #fixed seat/wood/hand/floor pairs, plus light/dark/checker and face/book/hem/heel views.",
+      "observation": "Extra coverage visibly samples a wood-colored wedge outside the left wrist on checker. In the unchanged original coordinate composite, it meets the matching window-bench wood without an obvious angular patch edge, disconnected furniture or missing real body at the inspected scale. It remains explicit receiver material and cannot travel.",
+      "primaryGuidance": "Root instructed that mask overcoverage samples original room RGB and should be judged by fixed composite continuity, not treated as an invented white body/prop.",
+      "motion": "all relative motion zero"
+    },
+    "initialForegroundIsolationReview": {
+      "decision": "not accepted; local extrapolated coverage requires repair",
+      "observation": "Full F2 original viewed: most original body/hair/shoes remain white, but the conversion adds an angular open-book/finger-like white protrusion outside the source girl's left waist around x850..945,y475..550. The approved mother has room pixels there, not an open book. This is local silhouette drift relative to F1 and must not be declared foreground correctness.",
+      "reportedToPrimary": true
+    }
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "representation": "Fixed original-coordinate included-contact union; no independent caster/travel claim."
+}

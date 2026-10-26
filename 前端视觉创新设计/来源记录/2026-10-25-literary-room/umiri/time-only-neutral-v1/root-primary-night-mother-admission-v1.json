@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "recordType": "root-primary-time-only-neutral-static-night-mother-admission",
+  "character": "umiri",
+  "purpose": "neutral-presence",
+  "neutralTime": "night",
+  "palette": "rain",
+  "light": "night",
+  "weather": "unknown",
+  "weatherClaim": false,
+  "selected": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-night-v1.png",
+    "sha256": "c6f19f399ab4a05727cb52d36a780fd3fde3f4222e4c31dc39dee6b2f1b19731",
+    "actualSHA256AtRecord": "c6f19f399ab4a05727cb52d36a780fd3fde3f4222e4c31dc39dee6b2f1b19731",
+    "bytes": 2218442
+  },
+  "approvalEvidence": {
+    "source": "Direct parent /root message in this same healthy task session, after complete original PNG inspection.",
+    "messageVerbatim": "同一健康会话继续。根代理已亲看Nyamu night-v1 799a16…a44a、Umiri night-v1 c6f19f…9731，两图neutral-presence/time-only静态母图准入：前者放低纸扇随轻笑、后者书膝/侧掌自然从容，闭帘夜暖光完整落人体/衣服/木作，鞋与坐垫支承可解释；不同人格保留，不冒报天气，不计exact activity360/runtime。记录逐SHAroot准入后，为Nyamu/Umiri日夜4母图制作同画布included固定层F/S masks+cleanBG bundle，沿Saki/Taki成功原景RGB只绘一次MAX(F,S)管线。完整头发/手道具/坐面/鞋地影，0travel/persp/slope。每个新mask/编辑用Image；坏mask/HOLD/评审板禁作后续垫图；原图不Python修绘。先一角色日夜做完整再第二。只写各自source不写src/runtime/registry/9335，生成实际Browser组合/浅暗棋盘/脸发/道具坐面/鞋影观察页供根主审。禁新测试/runner/fixture，保所有原约束健康会话。"
+  },
+  "primaryApproved": true,
+  "approvedStaticMother": true,
+  "generationInputAllowed": true,
+  "layersProductionReleased": true,
+  "layersApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "dynamicAdmission": false,
+  "original360CreditAssigned": false,
+  "userApproved": false,
+  "observation": "书膝/侧掌自然从容，闭帘夜暖光完整落人体/衣服/木作，鞋与坐垫支承可解释。",
+  "boundary": "Exact complete neutral night STATIC mother plus same-source fixed layer production only. Newly generated layers still require primary review; no runtime/exact activity360 adoption.",
+  "recordedAtUTC": "2026-10-26T01:00:43.241959+00:00"
+}

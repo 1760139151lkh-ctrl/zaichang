@@ -54,5 +54,7 @@
     "stage": "layer-admission-for-original-stage",
     "observed": "主代理亲看v6浅深底、完整空BG/原房间及加工记录；旧桌下人体投影已清，纸/桌/椅固定，手持本与人物原RGB同层，行程0。待原Stage实际呈现。"
   },
-  "shadow": "sakiko-planning-apricot-shadow-calibrated-v6.png"
+  "shadow": "sakiko-planning-apricot-shadow-calibrated-v6.png",
+  "environmentVariant": "clear-day",
+  "environmentAnnotationRecord": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-apricot-clear-day-annotations-2026-10-25.json"
 }

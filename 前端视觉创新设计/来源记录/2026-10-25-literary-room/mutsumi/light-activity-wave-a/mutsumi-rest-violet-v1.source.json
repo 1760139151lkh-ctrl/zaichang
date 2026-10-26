@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "same-activity-whole-light-mother-candidate",
+  "character": "mutsumi",
+  "activity": "rest",
+  "palette": "violet",
+  "environmentVariant": "twilight",
+  "wave": "light-activity-wave-a",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-cf711510-4d6b-4f3b-90ca-9cd07218e0f5.png",
+  "executionId": "exec-cf711510-4d6b-4f3b-90ca-9cd07218e0f5",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+      "role": "first input; approved empty environment plate, primary camera and authoritative target whole-room light"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-a/mutsumi-rest-apricot-v1.png",
+      "sha256": "e414a4eae007a1ffdac4d3b4efcfecaed0414ee2a8cc68b20be289f9a314e671",
+      "role": "second input; root-approved exact same-activity apricot mother, correct identity/pose/proportion/props/physical support"
+    }
+  ],
+  "apricotActivityMotherApproval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-a/mutsumi-rest-apricot-v1.primary-approval.json",
+  "sourceMotherContourComplete": true,
+  "intendedSupport": "window-seat",
+  "sourceSpecificPose": "Exact source pose: looking toward the window, one hand supports cheek with elbow resting on the PORTABLE PLAID PILLOW brought forward under it, other hand on actual seat/throw. Root approved this pillow position and support. Retain that source pillow/body relationship even though the empty plate shows the pillow before moving; re-light it with everything else. Keep uncrossed legs and complete loafers.",
+  "brief": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/mutsumi-prompt-plan.json",
+    "sha256": "66ade9700cb7bb993b43bd7e247b678878b79ad71237b0b5dcd915a43a3be2ca",
+    "key": "mutsumi/rest/apricot",
+    "role": "own role/activity literary psychology; light redirection keeps actual accepted mother pose"
+  },
+  "wholeSceneRelighting": true,
+  "oldApricotHeatSpotsAreNotIdentity": true,
+  "unreviewedLightCandidateUsedAsInput": false,
+  "promptFile": "mutsumi-rest-violet-v1.prompt.txt",
+  "promptFileSha256": "7054af5e85b1719f61f137d5fb90551acd0123f7ab8eeb6f0e4f97742762c8a9",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; exact submitted text",
+  "submittedPromptSha256": "672976c565ec9b140f5d19c2015d78cafdd96c87431fcb7af3716e7d529578b5",
+  "output": {
+    "file": "mutsumi-rest-violet-v1.png",
+    "sha256": "e8efcfa8f720da494fc2bbbbff30f3bfdd65df2f104655590af209ddd3d5e02b",
+    "bytes": 2251466,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved complete mother. Source rest pose, cheek hand/elbow on accepted forward plaid pillow, seat-support hand, lower rest head position and full shoes remain visually coherent, not forced back to empty-room cushion arrangement. Twilight and warm lamps illuminate mint hair/face, navy cloth, plaid/linen and wood together; true intrinsic garment stripes/pillow plaid remain, no flat violet filter or forced melancholy. Visible eye/eyelid versus fringe and uncrossed knee/ankle support are readable. Local warm light patterns remain recorded as dusk candidate, not a pixel-match or root pass claim. Root/layer/runtime pending."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "New static mother candidate only, root review pending; no layer, registration or runtime acceptance.",
+  "privateUserDataUsed": false
+}

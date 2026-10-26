@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "recordType": "independent-youth-charm-portrait-candidate",
+  "character": "umiri",
+  "assetKind": "avatar",
+  "version": "youth-v3",
+  "tool": "built-in image_gen.imagegen",
+  "toolArguments": {
+    "prompt": "Use case: illustration-story.\nCreate ONE independent square 2D head portrait avatar of Yahata Umiri, genuinely transparent around the complete head, with just a little neckline. 1024 x 1024 requested. No circular disc, scene, text, border, watermark, UI, hand or prop. This is a freshly composed close-up, never a cropped head from a full-body room mother.\n\nReference image 1 is the prior independent 2D Umiri avatar. Use it ONLY to recognize her charcoal-gray shoulder-length hair, directional bangs and flipped ends, gray-teal eyes, small silver ear jewelry and thin black choker. The parent explicitly permits this identification use; its prior face proportions and material are not the accepted final standard. Repaint her youthful face rather than duplicating the reference's long tapered lower-face silhouette, any adult-looking jaw, polished mature lips or plastic skin.\n\nPROJECT-ORIGINAL MOMENT:\nUmiri had made one quietly deadpan little joke. The person she trusts caught exactly what she meant, without making her explain it. She looks back at that familiar person close beside the lens and lets her composure soften. Her clear blue-gray/gray-teal eyes attend to them, inner brows release, a modest but unmistakably warm closed-mouth smile rises with a slight unequal corner. There is a small young flicker of amusement in her eyes, an \"you understood\" ease, with the reliability of someone who can remain in a conversation without managing it. Her head inclines just a little, shoulders and neck relaxed. She is thoughtful and present, not vacant or solemn. Calm does not mean frozen eyes and a straight mouth; avoid fatigued drooping eyelids, poker face, mature hostess grin, smugness, flirting or an exaggerated generic happy face. At 34–48 pixels one should still see the eye/brow/mouth warmth, not have to invent it from the description.\nThis is an imagined companion expression, not canon plot, saved user history, romance fact or a claim that a task has been arranged.\n\nIDENTITY AND AGE:\nThe SAME Umiri: charcoal-gray near-black medium-short shoulder-length hair with characteristic directional layered fringe and slightly outward-flipped tips; light gray-teal/blue-gray irises, coherent young face planes, intelligent clear attention. Redraw a softly rounded young cheek and naturally short gentle chin. Specifically avoid extending the cheek-to-chin lower face into a long pointed diamond: the mouth and chin should sit comfortably close within a soft youthful lower-face plane. This is an expressive teenage anime identity, not an adult woman's long face. Do not solve it with infant cheeks, enormous glass eyes, baby spacing, a tiny infant nose, simplistic chibi proportions or a different generic character. No heavy eye makeup, sharp cosmetic contour, glossy mature lips or photoreal skin.\n\nCLOTHING AND FRAMING:\nOnly a very small hint of the complete official-shown punk casual outfit at the bottom: THIN BLACK CHOKER with modest buckle, a little dark red top and minimal black jacket neckline; small SILVER ear jewelry only where naturally visible through her hair. No uniform collar/red school bow, stage collar, new accessory or full jacket shoulders. Face and recognizable hair occupy about 85–90 percent of the square; leave just enough genuinely transparent margin to keep the complete hair silhouette and allow a circle crop without cutting the eyes or characteristic side strands. The head is the picture, not a little face above a large chest.\n\nART:\nYouthful fine TWO-DIMENSIONAL anime literary portrait, fresh natural diffuse daylight, delicate varied hand-drawn outlines and calm light planes on hair and skin. Hair accepts soft neutral highlights while staying charcoal, eyes remain gray-teal rather than purple or green. Her face should feel soft, concise and alive without doll gloss, 3D model shading or a mature fashion-photo surface. Truly transparent alpha all around the hair, no white/black matte, colored halo, magenta speckles, outline sticker stroke or checkerboard pixels. Coherent visible irises and eyelids, no fused fringe/eyebrow/eye, no duplicated face. A distinct restrained warm smile from THIS moment, not a copy of Nyamu's open grin or Sakiko's expression.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/umiri-youth-charm-avatar-v2.png"
+    ],
+    "transparent_background": true
+  },
+  "submittedPrompt": "Use case: illustration-story.\nCreate ONE independent square 2D head portrait avatar of Yahata Umiri, genuinely transparent around the complete head, with just a little neckline. 1024 x 1024 requested. No circular disc, scene, text, border, watermark, UI, hand or prop. This is a freshly composed close-up, never a cropped head from a full-body room mother.\n\nReference image 1 is the prior independent 2D Umiri avatar. Use it ONLY to recognize her charcoal-gray shoulder-length hair, directional bangs and flipped ends, gray-teal eyes, small silver ear jewelry and thin black choker. The parent explicitly permits this identification use; its prior face proportions and material are not the accepted final standard. Repaint her youthful face rather than duplicating the reference's long tapered lower-face silhouette, any adult-looking jaw, polished mature lips or plastic skin.\n\nPROJECT-ORIGINAL MOMENT:\nUmiri had made one quietly deadpan little joke. The person she trusts caught exactly what she meant, without making her explain it. She looks back at that familiar person close beside the lens and lets her composure soften. Her clear blue-gray/gray-teal eyes attend to them, inner brows release, a modest but unmistakably warm closed-mouth smile rises with a slight unequal corner. There is a small young flicker of amusement in her eyes, an \"you understood\" ease, with the reliability of someone who can remain in a conversation without managing it. Her head inclines just a little, shoulders and neck relaxed. She is thoughtful and present, not vacant or solemn. Calm does not mean frozen eyes and a straight mouth; avoid fatigued drooping eyelids, poker face, mature hostess grin, smugness, flirting or an exaggerated generic happy face. At 34–48 pixels one should still see the eye/brow/mouth warmth, not have to invent it from the description.\nThis is an imagined companion expression, not canon plot, saved user history, romance fact or a claim that a task has been arranged.\n\nIDENTITY AND AGE:\nThe SAME Umiri: charcoal-gray near-black medium-short shoulder-length hair with characteristic directional layered fringe and slightly outward-flipped tips; light gray-teal/blue-gray irises, coherent young face planes, intelligent clear attention. Redraw a softly rounded young cheek and naturally short gentle chin. Specifically avoid extending the cheek-to-chin lower face into a long pointed diamond: the mouth and chin should sit comfortably close within a soft youthful lower-face plane. This is an expressive teenage anime identity, not an adult woman's long face. Do not solve it with infant cheeks, enormous glass eyes, baby spacing, a tiny infant nose, simplistic chibi proportions or a different generic character. No heavy eye makeup, sharp cosmetic contour, glossy mature lips or photoreal skin.\n\nCLOTHING AND FRAMING:\nOnly a very small hint of the complete official-shown punk casual outfit at the bottom: THIN BLACK CHOKER with modest buckle, a little dark red top and minimal black jacket neckline; small SILVER ear jewelry only where naturally visible through her hair. No uniform collar/red school bow, stage collar, new accessory or full jacket shoulders. Face and recognizable hair occupy about 85–90 percent of the square; leave just enough genuinely transparent margin to keep the complete hair silhouette and allow a circle crop without cutting the eyes or characteristic side strands. The head is the picture, not a little face above a large chest.\n\nART:\nYouthful fine TWO-DIMENSIONAL anime literary portrait, fresh natural diffuse daylight, delicate varied hand-drawn outlines and calm light planes on hair and skin. Hair accepts soft neutral highlights while staying charcoal, eyes remain gray-teal rather than purple or green. Her face should feel soft, concise and alive without doll gloss, 3D model shading or a mature fashion-photo surface. Truly transparent alpha all around the hair, no white/black matte, colored halo, magenta speckles, outline sticker stroke or checkerboard pixels. Coherent visible irises and eyelids, no fused fringe/eyebrow/eye, no duplicated face. A distinct restrained warm smile from THIS moment, not a copy of Nyamu's open grin or Sakiko's expression.",
+  "originalToolOutput": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-ce010cbf-2b52-45b9-bb5b-b3f6d153a22a.png",
+  "outputFile": "umiri-avatar-youth-v3.png",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/umiri-youth-charm-avatar-v2.png",
+      "role": "Prior 2D identity-only charcoal flipped-tip hair, gray-teal eyes, silver ear jewelry and choker. Parent explicitly permits recognition use; no mature lower-face/material copy or room crop.",
+      "sha256": "4132dd17cf54c52a5a6ee7674f780182cb14a45e8870313417765b9e1ef4c46a"
+    }
+  ],
+  "dossier": ".agents/skills/zaichang-frontend-director/references/characters/umiri.md",
+  "method": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+  "purpose": "自己一句很短的干幽默被熟悉的人准确接住，眼神先松开，闭口嘴角留一份清楚而克制的会意温柔；不把可靠变成面瘫或日程营业。项目原创表演。",
+  "identityFacts": "深灰近黑齐肩中短发、带方向刘海与外翘末梢、浅青蓝/青灰眼、少许银饰/黑颈带/暗红上衣黑夹克领口；完整服装来源详护照，无官网原图贴装。",
+  "producerObservation": {
+    "wholeOriginalPersonallyViewed": true,
+    "portraitNotRoomCrop": true,
+    "visibleEmotion": "闭口弧线笑意明确，灰青眼清楚，有克制会意与柔软颊部；并非直嘴线冷脸。",
+    "youngFace": "新稿柔软脸颊成立，但仍保留v2较尖的下颌转折，最新短柔青春比例必须交root判断，不自动写通过。",
+    "edgeBoundary": "完整PNG可见少量蓝紫细发缘；34/48真实深浅圆形和实际UI尚未验，alpha不代签边缘干净。"
+  },
+  "canonBoundary": "Official identity/outfit research separated from project-original expression; no invented canon relationship, saved user memory, completed action or official source pixels.",
+  "primaryApproved": false,
+  "latestRequirementAccepted": false,
+  "smallSizeAccepted": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "sourcePNGCopyOnly": true,
+  "rawPixelEditing": false,
+  "recordedAtUTC": "2026-10-26T00:14:12.317889+00:00",
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/avatars/umiri-avatar-youth-v3.png",
+    "sha256": "560073dc61f3dee7e48052d3f0cfe16bba041071b8b8ec2889bb7de9bdb565ef",
+    "bytes": 2085682,
+    "originalToolOutputSHA256": "560073dc61f3dee7e48052d3f0cfe16bba041071b8b8ec2889bb7de9bdb565ef",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ]
+  },
+  "dossierSHA256": "760b038d3ff84a770c80bf6144e52265d8109e41ecd5cb3440408561ac2bc0da",
+  "methodSHA256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+  "submittedPromptSHA256": "5a0ee0229e1e58247dcfe3885ca7b1b4f5a24842a69dbf450786f235abc51025",
+  "promptFileSHA256": "b0ffb1bd1d3c6c8c8dd74dd94c684c3de6c3429c523faa8693d3a4c19832bbbe"
+}

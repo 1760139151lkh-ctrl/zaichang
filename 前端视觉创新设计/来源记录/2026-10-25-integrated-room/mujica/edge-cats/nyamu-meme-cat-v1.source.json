@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "edge-meme-cat-v3-family",
+  "character": "nyamu",
+  "kind": "project-original-2d-human-character-head-and-complete-simple-cat-body",
+  "costumeId": "project-original-edge-cat-no-human-clothes",
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-6b21aaf9-26c7-43bc-b23c-e946a3f74950.png",
+  "transparentBackgroundRequested": true,
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/运行素材/companion/edge/sakiko-meme-cat-v3.png",
+      "sha256": "15b21bfb6c94aef1dfd8ae7b168f970fbe9998cddb705b64ac7dabdceab0c161",
+      "role": "Accepted v3 family line language/full cat body scale reference only; not character identity"
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/nyamu.md",
+      "sha256": "c5acd92fe6cd9ccf35785bd09e7f71337bca5bf7eb0fdd37629e78780eb9ebe1",
+      "scope": "Fully read immediately before this character creative call"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840",
+      "scope": "Fully read immediately before this character creative call"
+    }
+  ],
+  "exactSubmittedPrompt": "Create ONE project-original Nyamu Yutenji / 祐天寺若麦 edge companion as a complete genuinely transparent 2D meme cat. She has been making up a tiny mischievous rhythm of her own; when the familiar person notices, there is a small satisfied 'you caught that!' look before she decides whether to share the joke. A slight cheeky head angle and a little open cat smile with lively attentive eyes, not a permanent wink, not a sales smile, not sexy or mature. Her body is still comfortably resting rather than leaping or posing. No notes, words, laughter marks, props or speech bubble are drawn.\nUse the ONE input, accepted Sakiko meme-cat v3, ONLY for its simple unified meme drawing language, approximate large-head/small-low-body family ratio and complete horizontal cat anatomy/support baseline. Draw NYAMU'S head independently: do not recolor Sakiko's hairstyle, copy her bows or reuse a generic blonde cat. Complete 1536x1024 RGBA transparent canvas with safe uncut margins, head and two short rounded white front paws at left, elongated rounded WHITE cat torso extending right, complete rear haunch and hind paw, one correctly rooted tail at the right with a small playful upward hook. Chin, front paws, belly and hind paw settle on a single believable invisible horizontal edge. No shelf/floor/support line. Entire ears, hair, face, paws, body and tail stay in frame; one integrated cat, not portrait+body collage or separated-parts sheet. Leave clear alpha above for future separately rendered dialogue, draw no bubble.\nNYAMU'S identity in very few flat shapes: short LAVENDER-PURPLE rounded BOB at jaw/neck length, a soft uneven fringe and a couple of slightly longer cheek wisps. Her eyes are big ROUND RED-PURPLE / rose-magenta disks with only TWO flat tones per eye, darker muted red-purple upper half and pale rose lower half. Minimal clean lids/brows; no detailed sparkles, complex pupils, glam lashes or makeup. One little brow and the tiny mouth carry a bit more playful confidence than the other quieter cats. Pure WHITE little cat face, no flesh color/skin planes/human nose or lips. No Sakiko ribbons or twin tails, no invented clips/crown, no clothing or jewelry: CAT form is an explicitly project-original adaptation, not canon costume.\nDraw hair, head, ears, paws, full torso and tail in the SAME extremely simple hand-drawn 2D meme-cartoon style: bold smooth dark-navy outlines, broad white areas, just a few big flat lavender hair masses, a few smooth curves and almost no shading. No realistic fur/animal anatomy, plush, 3D, elaborate anime rendering, realistic skin, flesh gradients, mature face, human body, shoulders, uniform, off-shoulder blouse, ruffles, socks, shoes, collar, props, background, halo, glow, floor shadow, frame, text, logo or watermark. Preserve real alpha transparency, never paint a black/white/checkerboard backdrop.",
+  "submittedPromptSha256": "5e1f99d04e2767c7f307410fe76f4c6630cd9f5327252de85b3fa34da70a42b5",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\nyamu-meme-cat-v1.png",
+    "sha256": "87e3c75a373ecc2b1e290a38efbf15251aba0347d483b6567fced78b8e12ca2b",
+    "bytes": 1376689,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 6
+  },
+  "producerViewed": true,
+  "producerObservation": "Personally viewed complete original: independent short lavender-purple bob/uneven fringe, red-purple two-tone round eyes, slight cheeky brows/head angle and small open cat grin. White face and fully connected horizontal white cat body, two front paws, rear haunch/hind paw and tail intact at v3-family scale/baseline. No copied ribbons, human clothing, flesh-face shading or 3D/fur; expression is more playful than the quieter three. Static whole candidate only, root review pending; tail and eyes not independently layered.",
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "independentTailLayer": false,
+  "independentEyeLayer": false,
+  "privateWechatSourceUsed": false,
+  "officialArtworkInput": false,
+  "pngEdited": false,
+  "fullHumanMatrixCredit": false,
+  "directAlphaObservation": {
+    "mode": "RGBA",
+    "extrema": [
+      0,
+      254
+    ],
+    "transparentPixelsPresent": true,
+    "sourceAlphaPreserved": true
+  },
+  "producerSmallSizeReview": {
+    "personallyViewed": true,
+    "widthPx": 220,
+    "backgrounds": [
+      "#fff9f2",
+      "#20212c"
+    ],
+    "evidence": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\review\\four-cats-light-dark-220px.png",
+    "sha256": "4fa123fc86f0bb00d0842636db5e828a73785a884ab931154429a71aaaab28cf",
+    "observation": "Original full-cat silhouette stays readable on both backgrounds at 220px width; hair/eye identity remains distinct, outline and white face/body clean. This review sheet is engineering evidence only, forbidden as future generation input."
+  }
+}

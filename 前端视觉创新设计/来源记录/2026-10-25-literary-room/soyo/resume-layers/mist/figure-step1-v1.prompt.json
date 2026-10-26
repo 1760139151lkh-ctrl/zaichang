@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-resume-mist-figure-step1-v1",
+  "cell": "soyo/resume/mist",
+  "stage": "figure-step1-v1",
+  "submittedPrompt": "Use case: precise-object-edit. Asset: original-position complete foreground selection markup, F1.\nThe ONLY input is this exact clean root-approved Soyo resume mist mother, 1536x1024. Preserve the entire original canvas, all source coordinates and camera framing. No crop/resize/zoom/centering/shift, no changes to pose, expression, proportions, wardrobe, linework or source geometry. This is technical selection/restoration for a FIXED original-RGB included layer, not a new character illustration. Root approved minor theme/pose differences; preserve this exact original.\nPaint the ENTIRE actual original girl PLUS her complete real lap-held book and any source-held pencil/bookmark SOLID PURE WHITE, an opaque silhouette including every fine hair strand, face/neck, complete hands/fingers, sailor uniform and all skirt hem folds/white trim, both full exposed knees and below-knee socks, and BOTH COMPLETE brown loafers including their darkest sole and heel edges. Keep the complete open book, raised page edge and actual fingers holding that page, both hands and existing hanging bookmark ribbon around x868..880,y460..522. Preserve the lifted paper contour against background. All foreground object color/interior self-shading becomes fully white; naturally pale book pages must also be deliberately whitened as one complete book, not disappear into background. Keep actual small negative spaces between hair loops, limbs and pencil/hand/book contours in original background color. Do not join unrelated objects across a genuine empty gap. Keep every selected original outline where it already is; no dilation/erosion or template silhouette.\nAll environment remains ORIGINAL COLOR: full naturally pale cushion, curtains, flowers/lamp shade, cup and small books on side table, window/outside town, furniture, floor/rug and all independent floor/seat contact shading. Do not whiten naturally bright room areas, long bench strip or source shadow; those are not F. No new objects, text, arrows, mask checker/grid or background recoloring. Output one opaque full-color 1536x1024 PNG with only the deliberately white complete foreground at original location. Its RGB will never be used; later it only supplies a selection mask over unchanged original mother RGB once.",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-resume-mist-literary-v1.png"
+  ],
+  "transparentBackground": false,
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-resume-mist-literary-v1.png",
+      "sha256": "a7fc19f9af9788ce88964d4b532dd770407700500bb96ecf87a26a6e99b9dc55",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "outputFile": "figure-step1-marked-v1.png",
+  "generationStatus": "returned-and-preserved",
+  "scope": "selection/restoration only; mother RGB once through MAX; runtime=false"
+}

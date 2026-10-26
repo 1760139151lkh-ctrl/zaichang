@@ -52,13 +52,20 @@
   "review": {
     "producerPersonallyViewed": true,
     "producerObservation": "Complete youthful anime Mutsumi, both loafers and knee-sock chains visible, sit bones and rear supporting palm meet the original cushion. Right fingertip rests on lap-supported open notebook. Look is small and attentive; shoulders remain quiet. Needs primary own judgment of proportions and activity distinction.",
-    "approvedByPrimary": false,
+    "approvedByPrimary": true,
     "layers": "not extracted",
-    "runtimeAccepted": false
+    "runtimeAccepted": false,
+    "primaryApprovalScope": "Root personally viewed the original PNG: youthful identity, hip/seat support, two knee-ankle-shoe chains, full shoes; Uika lap-supported half-closed book, Nyamu independent forward-lean silhouette. Mother only; no layer/runtime acceptance.",
+    "primaryApprovalDate": "2026-10-24"
   },
   "identityBasis": {
     "officialProfile": "https://anime.bang-dream.com/avemujica/character/mutsumi/",
     "textVerifiedOn": "2026-10-24",
     "boundary": "Official profile supports identity/background; this university-companion resume moment is project-original. No official or third-party character pixels were image inputs."
+  },
+  "matrixCell": {
+    "character": "mutsumi",
+    "activity": "resume",
+    "theme": "apricot"
   }
 }

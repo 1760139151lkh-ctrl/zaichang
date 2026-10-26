@@ -14,15 +14,19 @@
   "inputs": [
     {
       "file": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\anon-rest-apricot-mother-candidate-v1.png",
-      "role": "approved apricot complete mother; edit target"
+      "role": "approved apricot complete mother; edit target",
+      "sha256": "55d2d4d6873bb1089bef893e5fe4e9d953a3e8d1eca651d50a575532e8c0ffbd"
     },
     {
       "file": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-mist-candidate.png",
-      "role": "clean-room light reference only"
+      "role": "clean-room light reference only",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
     }
   ],
-  "designerPersonallyViewed": false,
+  "designerPersonallyViewed": true,
   "primaryMotherReview": "pending_current_root_review",
   "layers": "not_produced",
-  "runtime": "not_registered"
+  "runtime": "not_registered",
+  "promptSha256": "746a75772a1f57049ff47e5b6fd01cbd5ba10118ac9b77e27a6ec00228da66b4",
+  "designerObservation": "Personally viewed the complete generated original. Head stays toward the window, body remains supported on the bench, two connected legs and whole shoes retained; no forced viewer smile. Complete requested environment light and natural skin bounce are present, with no split scene, text or UI. Primary approval and integrated layer/runtime remain separate."
 }

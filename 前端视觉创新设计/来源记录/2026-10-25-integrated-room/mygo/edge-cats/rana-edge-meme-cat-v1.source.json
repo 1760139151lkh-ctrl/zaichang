@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "assetType": "project-original-2d-edge-meme-cat-candidate",
+  "characterId": "rana",
+  "shapeFamily": "user-selected-sakiko-meme-cat-v3",
+  "wardrobeId": "project-original-meme-cat/no-human-costume",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in transparent original character generation from family style reference",
+  "promptFile": "rana-edge-meme-cat-v1.prompt.txt",
+  "submittedPrompt": "Create ONE original Kaname Rana / 要乐奈 / 要 楽奈 (MyGO!!!!!) edge-companion meme cat, a genuinely transparent RGBA PNG, complete horizontal body.\nThe ONLY supplied image is the user's accepted Sakiko v3 cat. It is a FAMILY STYLE/SCALE REFERENCE ONLY. Retain its wonderfully plain integrated 2D grammar: flat white face and white loafing cat body, a few large simple hair shapes, bold clean dark-navy contour, uncomplicated round two-zone irises, tiny restrained mouth, rounded front paws, a complete low horizontal torso/rump/hind-paw silhouette and full upcurved tail. Head at left, body stretching to right, all resting naturally along the same horizontal imaginary paper-edge baseline. No ledge/floor/page/room is drawn. Leave transparent padding around the entire drawing. Do not copy Sakiko's identity, bang layout, navy ribbons, two gold eyes or expression.\nRANA IDENTITY, newly drawn from words: short SILVER-WHITE soft bob, a few broad irregularly grouped bangs, small layered cheek/nape tips with only restrained pale gray-lavender secondary shapes. No long hair, hair ornament, ribbon, collar, clothing or costume. Face remains FLAT WHITE, not beige skin or mature human planes. Her HETEROCHROMIA is essential: RANA'S OWN RIGHT EYE IS GOLD, RANA'S OWN LEFT EYE IS BLUE. With the face nearly frontal as drawn here, the eye on the VIEWER'S LEFT is GOLD and the eye on the VIEWER'S RIGHT is BLUE. Each iris is a simple round shape divided into two flat horizontal shades of its OWN color, matching v3's simplicity. Do not give her two gold/blue eyes, swap these sides, close one eye, or mirror this asset. Keep separated readable eye outlines and small simple brows. No realistic iris texture, extra giant baby eyes, heavy lashes, makeup, blush or doll look.\nShe has been doing a small thing for herself: nudging one plain tiny triangular guitar pick with a resting paw, trying to hear the little tap change when it turns onto another edge. A nearby person has just repeated the rhythm differently; she has stopped the paw for a moment because THAT variation caught her interest. Her quiet attention is direct, specific and self-possessed, rather than a universal greeting or a sleepy/lazy stereotype. Keep her mouth as a very small nearly straight mark with one slight curious upturn; brows calm and alert, both gold/blue eyes clearly open. No forced affectionate grin, tears, worried helplessness, cat-eating or automatic matcha prop.\nONE tiny plain blue-gray guitar pick rests firmly against one front paw on the baseline; it is an actual small object she was moving, not a floating icon. The other round paw stays loosely resting and available. No guitar, human hands/fingers, extra notes, sound-wave symbols, captions or empty-air pointing. The pick remains visually subordinate to the face and full cat.\nComplete the same coherent white cat body in this single drawing: connected forepaws, low supported belly, rounded hindquarters with a readable folded hind-paw line, correct tail root and full tail curving up at right. Do not crop any part, detach paws/tail, add human limbs, make a standing kitten or replace the body with realistic fur. The head and cat are one simple cartoon, never a polished anime portrait pasted to an animal photo.\nUse only white, restrained silver/pale-lavender hair blocks, gold and blue two-tone eyes, small blue-gray pick and dark-navy outline. True transparency outside that silhouette. No black/white rectangle, fake checkerboard, aura, rim glow, diffuse drop-shadow fog, background, photoreal fur, plush toy, 3D model, skin folds, mature glamour, uniform/socks/shoes, speech bubble, lettering, logo, watermark or collage. One original complete standalone transparent asset.",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/运行素材/companion/edge/sakiko-meme-cat-v3.png",
+      "role": "only image input: clean v3 family 2D grammar/scale, not Sakiko identity",
+      "sha256": "15b21bfb6c94aef1dfd8ae7b168f970fbe9998cddb705b64ac7dabdceab0c161"
+    }
+  ],
+  "readSources": {
+    "passport": {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/rana.md",
+      "fullReadBeforeCall": true,
+      "version": "2026-10-25",
+      "sha256AtArchive": "d39286e83289d7c67222428a139b8650ff9f60a0e78e49c0a8393b3079f2e892"
+    },
+    "method": {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "fullReadBeforeCall": true,
+      "sha256AtArchive": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840"
+    }
+  },
+  "output": {
+    "file": "rana-edge-meme-cat-v1.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-d36a4fd3-e72a-44f8-ba1c-395e80c8b4e7.png",
+    "sha256": "9fb3fb07c6dd85e3d5657e9da51c415449bc91bd90f7a057ae1ca805f90bc28f",
+    "bytes": 1369964,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      254
+    ],
+    "cornerAlpha": 0
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Whole original viewed: silver-white short grouped hair, viewer-left GOLD / viewer-right BLUE two-tone open eyes, no ribbons; small blue-gray guitar pick has contact at one forepaw; full white horizontal body/tail coherent. Quiet alert face differs from Anon's open amusement. Reference-like faint contour halo remains visible on dark viewer; candidate only.",
+    "decision": "candidate for root personal review",
+    "transparentBackgroundReview": {
+      "personallyViewed": true,
+      "method": "actual browser rendering of original PNG on warm-light, dark and 160px-width surfaces",
+      "page": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mygo/edge-cats/producer-observe-v1.html",
+      "pageSha256": "7f90deccf18a5180984b74140418619ec4a703ba47745f002b8acca85297be2f",
+      "observations": "Full silhouettes and role hair/eye colors remained readable, including full rump and tail; no opaque background rectangle. Root acceptance, actual UI edges and interactions remain separate."
+    }
+  },
+  "mirrorPolicy": {
+    "sourceOrientation": "near-frontal head at left, body toward right; own right eye gold / own left blue",
+    "rawWholeImageFlipIdentityApproved": false,
+    "requiredOppositeSideSolution": "independent opposite-side redraw with original anatomical eye ownership, or root-reviewed separate iris/head layers that preserve own-right gold and own-left blue after body reorientation; current asset alone does not implement that solution"
+  },
+  "primaryApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "humanMatrixCoverage": false,
+  "promptFileSha256": "a80e88814bb7cff650011c229973e19feed00cd23ec781ebc336b941554b87ea",
+  "submittedPromptSha256": "21d29f1f75c80d46fa1ac52b9440f69fb6d234196e8cff82ab5e2779b99f2b05",
+  "archivedAtUtc": "2026-10-25T15:59:29.181332+00:00"
+}

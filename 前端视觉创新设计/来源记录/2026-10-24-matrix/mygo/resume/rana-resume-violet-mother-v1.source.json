@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "recordType": "complete-companion-mother-theme-relighting",
+  "dateLocal": "2026-10-24",
+  "timeZone": "America/Los_Angeles",
+  "character": "rana",
+  "activity": "resume",
+  "theme": "violet",
+  "version": 1,
+  "tool": "image_gen.imagegen (built-in)",
+  "executionId": "exec-2d3b222e-6d62-4bd3-b01e-3c6265240342",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "originalOutput": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-2d3b222e-6d62-4bd3-b01e-3c6265240342.png",
+  "prompt": "rana-resume-violet-mother-v1.prompt.txt",
+  "promptFileSha256": "2e86f9573cf7457a9add4ced06287f559d3844c22c26194e1d9ee3e901bf2dcb",
+  "submittedPromptTransform": "UTF-8 prompt file trimEnd, exactly as submitted",
+  "submittedPromptSha256": "06aeb11a9a6fd253178adee5af009716eda228d6b64befa3ffb8c48e4f59bac2",
+  "inputs": [
+    {
+      "file": "rana-resume-apricot-mother-v1.png",
+      "sha256": "54dd1803e9ff81797c1b3ad69ee36a92b3cde58072705e21f7869a38d17717cb",
+      "role": "sole editable target: exact primary-accepted complete warm resume mother; all geometry, identity, expression and supported activity"
+    },
+    {
+      "file": "../../../assets-design-generated/2026-10-23-companion-matrix/room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "empty whole-room theme light/sky/weather reference only; never a replacement furniture layout or source of character pixels"
+    }
+  ],
+  "identityFromApprovedMotherSource": "rana-resume-apricot-mother-v1.source.json",
+  "output": {
+    "file": "rana-resume-violet-mother-v1.png",
+    "sha256": "ee3ce795ab84c5d40adee6beb51ff1c9a0812ac2d59ea521d25813e8f5b10985",
+    "bytes": 2168922,
+    "width": 1536,
+    "height": 1024
+  },
+  "approvalScope": "Theme candidate only. Warm mother acceptance does not approve this output, its layers or runtime. Resume remains semantic renewed attention, not a new furniture anchor or wholly new spatial action.",
+  "review": {
+    "producerViewedFullOriginal": true,
+    "primaryViewed": false,
+    "primaryApproved": false,
+    "layersAccepted": false,
+    "runtimeAccepted": false
+  },
+  "status": "producer-inspected complete theme mother awaiting primary review",
+  "producerObservation": "Personally viewed complete original: single low sun around x1007 and matching lake reflection, original clocktower near x1218, continuous dusk across room. White bob and gold/blue eyes, same lap-supported cream guitar, neck hand, resting string hand and both floor-contact boots remain. Whole-body/held-object warm edges and violet room shadows are coherent, no new pose or extra limb observed."
+}

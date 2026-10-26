@@ -1,0 +1,81 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "bounded-same-activity-weather-light-mother",
+  "character": "umiri",
+  "activity": "study",
+  "palette": "mist",
+  "environmentVariant": "overcast-day",
+  "sceneFamily": "literary-room-v1",
+  "wave": "light-activity-wave-a",
+  "waveCallIndex": 22,
+  "waveCallLimit": 24,
+  "numberOfImageInputs": 2,
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "role": "image 1 approved empty weather/time room and illumination",
+      "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.source.json",
+      "actualSha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "approvalRecordSha256": "85e4b1e7f3de6186b46cd6e1add64d12a243c1f796033067eef48e5c5b9b716c"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-study-apricot-literary-wave-b-v1.png",
+      "sha256": "00e7de1bd0befad8932dc9684af860c982fe853cec855e163f5ad76f455d114a",
+      "role": "image 2 root-approved apricot SAME ACTIVITY pose/identity/support",
+      "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/root-mother-admission-v1.json",
+      "actualSha256": "00e7de1bd0befad8932dc9684af860c982fe853cec855e163f5ad76f455d114a",
+      "approvalRecordSha256": "7951458f9c2fcd9433a2752a1c620dc9020aa22c275b614470d83a7be5909c16"
+    }
+  ],
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-study-apricot-literary-wave-b-v1.png",
+    "sha256": "00e7de1bd0befad8932dc9684af860c982fe853cec855e163f5ad76f455d114a",
+    "role": "image 2 root-approved apricot SAME ACTIVITY pose/identity/support",
+    "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/root-mother-admission-v1.json",
+    "actualSha256": "00e7de1bd0befad8932dc9684af860c982fe853cec855e163f5ad76f455d114a",
+    "approvalRecordSha256": "7951458f9c2fcd9433a2752a1c620dc9020aa22c275b614470d83a7be5909c16"
+  },
+  "lightingTarget": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+    "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+    "role": "image 1 approved empty weather/time room and illumination",
+    "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.source.json",
+    "actualSha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+    "approvalRecordSha256": "85e4b1e7f3de6186b46cd6e1add64d12a243c1f796033067eef48e5c5b9b716c"
+  },
+  "referenceBoundary": "First input exact approved matching weather/time empty plate; second exact root-approved apricot same-activity mother, not unreviewed light/chat or old held Umiri v1. Preserve source pose/identity/camera/scale/support; redraw true complete lighting.",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-93eeead4-1641-46f0-a7f1-49e538561c36.png",
+  "output": "umiri-study-mist-literary-light-wave-a-v1.png",
+  "outputSha256": "2d3895b2b765c08119fffe629e64e5299b4fe8fb4431ba1eb6b59c0aa09904a5",
+  "promptFile": "umiri-study-mist-literary-light-wave-a-v1.prompt.txt",
+  "prompt": "Use case: lighting-weather. Return ONE complete 1536x1024 literary-room activity mother.\nINPUT ROLES: IMAGE 1 is the root-approved EMPTY matching weather/time room, authoritative for full room geometry, camera and LIGHT. IMAGE 2 is the root-approved APRICOT SAME-ACTIVITY mother, authoritative for this character's identity, exact pose, body proportions, image location, support, hands and small objects. Use ONLY these two approved inputs. This is a light/weather change preserving a correct pose, NOT a new activity or free pose redraw.\nLOCK the source camera/perspective/window divisions and all major furniture to image 1: desk/chair, shelves/plants/books/pictures, original ceramic lamp/round table/cup/flowers, right bench/pillows/knitted throw, foreground depth/rug/floor. Preserve image 2's complete source figure: head angle/gaze, hair silhouette, torso/back/pelvis, elbows/wrists/palms/fingers, skirt/legs and complete shoes. Same youthful body size and source positions; no zoom, head enlargement, leaning toward lens, body translation, crop or moved furniture. True hip/cushion, back/pillow, hand/object and shoe/floor contacts remain. Complete head/hair, hands, hem and both shoes in frame. Never replace with chat/listening pose.\nREPAINT physically coherent illumination across the ENTIRE person, hair/skin/clothes, paper/books/pencil where present, cushion/contact receiver, wood and floor to image 1. The old hard sunny window bars, hot skin patches and gold noon rim are NOT identity: remove/repaint them under new weather. Match material reflections, contact softness, exposure and lamp falloff. Not a CSS/global color wash, pasted sunny figure or half-day/half-night split. No added lamp or prop; keep interior dry.\nClear fine original youthful anime linework in rich painted room. Hair groups/cheek strands, eyelids/lashes, iris and pupil readable and separate even in downcast/profile eyes. No dark fringe/eye fusion, mature glamour or chibi. No UI, readable text, labels, card, badge, bubble, trail, arrow, halo, signature, watermark or split view.\n\nUmiri/八幡海铃: exact charcoal layered shoulder-length hair, gray-teal irises, small earrings/choker, black leather jacket, burgundy top, gray belted skirt and full black lace-up platform boots from image 2. Hair/leather/cloth remain different materials. Preserve source separate side-by-side knees, two continuous naturally parallel calves and two complete boots each bearing weight on original floor. Never held old crossed-knee v1, no detached calf/boot or new leg crossing.\nSTUDY — preserve source checking gray-teal gaze and level quiet lips, dark hardcover FLAT ON LAP with single light sheet lying on it; one hand steadies edge and other INDEX touches accepted paper location. Keep actual finger/sheet boundary and original book/leg support. Don't replace with held-up reading book, move finger into face or add desk/UI. She is testing the condition that connects the reasoning.\nMIST / OVERCAST DAY: exact image 1 dry cloudy silver-gray daytime, softly veiled original lake/town/mountains, soft diffuse cool-neutral window light with modest original lamp warmth. Not rain/night. No hard sunny stripe on hair/skin/paper/fabric or floor. Skin/clothes and white paper stay dimensional, not chalky blue. All existing material/contact shadows soften consistently.",
+  "submittedPromptSha256NoTrailingNewline": "c2f8ae0872f62a0780f6be953cd08ea0738fa95c49f0cca9c0052c13e21757f9",
+  "promptFileSha256": "c2f8ae0872f62a0780f6be953cd08ea0738fa95c49f0cca9c0052c13e21757f9",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "actualMode": "RGB",
+  "pngEdited": false,
+  "cssFilter": false,
+  "largeImageResultStored": false,
+  "producerViewed": true,
+  "primaryMotherApproved": false,
+  "primaryApproved": false,
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "reviewBoundary": "This new light mother only. Approved input mother and plate do not approve this output or layers/runtime.",
+  "remaining": [
+    "Root personally inspect this exact light mother",
+    "No layers, registration or runtime acceptance"
+  ],
+  "producerObservations": [
+    "Personally viewed full study mist: source flat lap-supported dark hardcover/light sheet, index touching paper and other hand steadying edge, checking gray-teal gaze preserved.",
+    "Diffuse overcast light across paper/skin/leather/wood removes source solar hot spots/grid; separate knees/calves and complete independently grounded boots, stable room/camera."
+  ],
+  "producerConcerns": [
+    "Paper fold/overlap and precise fingertip remain subtle source-sized details; primary must judge visible contacts, not inferred hidden surfaces."
+  ]
+}

@@ -1,0 +1,697 @@
+{
+  "schemaVersion": 1,
+  "recordType": "readonly-avatar-visual-observation",
+  "createdAt": "2026-10-26T00:26:39.654555+00:00",
+  "sourceTs": {
+    "path": "src/renderer/companion-portraits.ts",
+    "sha256": "fd4a9af6b78beb911d4582ff12cadd78b8b5f2aad70d299d31f52f7b18eba4c6"
+  },
+  "sourceCss": {
+    "path": "src/renderer/companion.css",
+    "sha256": "b4fe46c16cea65ead3818cf312c68cb561228ec65d96f125c77eabbd51a7ea86",
+    "copiedScope": "Avatarrelativeframe/overflowclip/radius50/imgabsolute-heightauto, currentTS frame; light/dark basegradients. No productcodeedited."
+  },
+  "sourceFiles": [
+    {
+      "characterId": "tomori",
+      "newV3": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/portrait/tomori-avatar-youth-v3.png",
+        "url": "/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/tomori/time-only-neutral-v1/portrait/tomori-avatar-youth-v3.png",
+        "sha256": "986470992b8c303016d9b7b383138d5f2c66f962fb4453939cf0feeb43c6a9b9",
+        "bytes": 2085402,
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/portrait/tomori-avatar-youth-v3.source.json",
+        "sourceSha256AtSnapshot": "a873eed0919d1930601b228235280c1226cf03c2d3bae9defbec75dcc1d6215d",
+        "sourcePrimaryApprovedFieldAtSnapshot": true,
+        "sourceStatusAtSnapshot": "root_approved_with_scoped_boundaries",
+        "rootOriginalFaceIdentityApproved": true,
+        "rootOriginalApprovalBoundary": "Direct root parent message: all9originals personally viewed; gradedface/youth2D/identity reference only. Saki is existing selectedv3 control, no newgeneration.",
+        "circleFrameForThisReview": {
+          "left": "0%",
+          "top": "0%",
+          "width": "100%"
+        },
+        "primarySmallCircleApproved": false,
+        "runtimeAccepted": false
+      },
+      "currentRuntimeSnapshot": {
+        "path": "前端视觉创新设计/运行素材/companion/portraits/tomori-youth-charm-20261025.png",
+        "url": "/%E8%BF%90%E8%A1%8C%E7%B4%A0%E6%9D%90/companion/portraits/tomori-youth-charm-20261025.png",
+        "sha256": "8c829c4380843fab92cb66bd4343a9d696d2bbcff7bcd50514f8d228f3ed4b43",
+        "declaredTsSha256": "8c829c4380843fab92cb66bd4343a9d696d2bbcff7bcd50514f8d228f3ed4b43",
+        "declaredShaMatchesActual": true,
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "frame": {
+          "left": "-5%",
+          "top": "-14%",
+          "width": "110%"
+        }
+      },
+      "generationInputAllowedForBoards": false
+    },
+    {
+      "characterId": "anon",
+      "newV3": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/time-only-neutral-v1/portrait/anon-avatar-youth-v3.png",
+        "url": "/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/anon/time-only-neutral-v1/portrait/anon-avatar-youth-v3.png",
+        "sha256": "132d7f7f8d513634fc45145fc2405543a8e2b9bc0df47bfad614b94381a2663c",
+        "bytes": 2174800,
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/time-only-neutral-v1/portrait/anon-avatar-youth-v3.source.json",
+        "sourceSha256AtSnapshot": "50b8fc7c3cba8b0a9155dadb8f3b776b6303d23b10c14c95bfeb1786c872741d",
+        "sourcePrimaryApprovedFieldAtSnapshot": false,
+        "sourceStatusAtSnapshot": "candidate_pending_root_latest_youth_proportion_review",
+        "rootOriginalFaceIdentityApproved": true,
+        "rootOriginalApprovalBoundary": "Direct root parent message: all9originals personally viewed; gradedface/youth2D/identity reference only. Saki is existing selectedv3 control, no newgeneration.",
+        "circleFrameForThisReview": {
+          "left": "0%",
+          "top": "0%",
+          "width": "100%"
+        },
+        "primarySmallCircleApproved": false,
+        "runtimeAccepted": false
+      },
+      "currentRuntimeSnapshot": {
+        "path": "前端视觉创新设计/运行素材/companion/portraits/anon-youth-charm-20261025.png",
+        "url": "/%E8%BF%90%E8%A1%8C%E7%B4%A0%E6%9D%90/companion/portraits/anon-youth-charm-20261025.png",
+        "sha256": "7f1e2c6e782ea0d688825dc68c36c28c526856750a2ab9c29772efa6632d62d9",
+        "declaredTsSha256": "7f1e2c6e782ea0d688825dc68c36c28c526856750a2ab9c29772efa6632d62d9",
+        "declaredShaMatchesActual": true,
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "frame": {
+          "left": "0%",
+          "top": "0%",
+          "width": "100%"
+        }
+      },
+      "generationInputAllowedForBoards": false
+    },
+    {
+      "characterId": "rana",
+      "newV3": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/time-only-neutral-v1/portrait/rana-avatar-youth-v3.png",
+        "url": "/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/rana/time-only-neutral-v1/portrait/rana-avatar-youth-v3.png",
+        "sha256": "400f6a20398a978d24561f7b484ab03bdf4ff3951cdfa95595a78691828a9aad",
+        "bytes": 2176794,
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/time-only-neutral-v1/portrait/rana-avatar-youth-v3.source.json",
+        "sourceSha256AtSnapshot": "e7919c064cc1c6572a5f5915c15cfb34dcd2ab476cece7df0aa30915c84becc6",
+        "sourcePrimaryApprovedFieldAtSnapshot": false,
+        "sourceStatusAtSnapshot": "candidate_pending_root_latest_youth_proportion_review",
+        "rootOriginalFaceIdentityApproved": true,
+        "rootOriginalApprovalBoundary": "Direct root parent message: all9originals personally viewed; gradedface/youth2D/identity reference only. Saki is existing selectedv3 control, no newgeneration.",
+        "circleFrameForThisReview": {
+          "left": "0%",
+          "top": "0%",
+          "width": "100%"
+        },
+        "primarySmallCircleApproved": false,
+        "runtimeAccepted": false
+      },
+      "currentRuntimeSnapshot": {
+        "path": "前端视觉创新设计/运行素材/companion/portraits/rana-youth-charm-20261025.png",
+        "url": "/%E8%BF%90%E8%A1%8C%E7%B4%A0%E6%9D%90/companion/portraits/rana-youth-charm-20261025.png",
+        "sha256": "eae8f6bd24c70dd265f061bdfd7d633192d718170561fb6b6d7da50b4d8bba55",
+        "declaredTsSha256": "eae8f6bd24c70dd265f061bdfd7d633192d718170561fb6b6d7da50b4d8bba55",
+        "declaredShaMatchesActual": true,
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "frame": {
+          "left": "-5%",
+          "top": "-14%",
+          "width": "110%"
+        }
+      },
+      "generationInputAllowedForBoards": false
+    },
+    {
+      "characterId": "soyo",
+      "newV3": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/portrait/soyo-avatar-youth-v3.png",
+        "url": "/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/soyo/time-only-neutral-v1/portrait/soyo-avatar-youth-v3.png",
+        "sha256": "735d92cac98476e597a9ca6bb86df60c4de1ccf5481a88597f5d4a17e359c418",
+        "bytes": 2248353,
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/portrait/soyo-avatar-youth-v3.source.json",
+        "sourceSha256AtSnapshot": "f7e3c715ce9c3b353057b1c2b4934ff54c3b8453b5c28ce4fca734e1d7a1d52c",
+        "sourcePrimaryApprovedFieldAtSnapshot": false,
+        "sourceStatusAtSnapshot": null,
+        "rootOriginalFaceIdentityApproved": true,
+        "rootOriginalApprovalBoundary": "Direct root parent message: all9originals personally viewed; gradedface/youth2D/identity reference only. Saki is existing selectedv3 control, no newgeneration.",
+        "circleFrameForThisReview": {
+          "left": "0%",
+          "top": "0%",
+          "width": "100%"
+        },
+        "primarySmallCircleApproved": false,
+        "runtimeAccepted": false
+      },
+      "currentRuntimeSnapshot": {
+        "path": "前端视觉创新设计/运行素材/companion/portraits/soyo-youth-charm-20261025.png",
+        "url": "/%E8%BF%90%E8%A1%8C%E7%B4%A0%E6%9D%90/companion/portraits/soyo-youth-charm-20261025.png",
+        "sha256": "f14cf584972ef3d165a2834a6240ea7a6183edda97ad8290e618f1ff1952df81",
+        "declaredTsSha256": "f14cf584972ef3d165a2834a6240ea7a6183edda97ad8290e618f1ff1952df81",
+        "declaredShaMatchesActual": true,
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "frame": {
+          "left": "-7%",
+          "top": "-12%",
+          "width": "114%"
+        }
+      },
+      "generationInputAllowedForBoards": false
+    },
+    {
+      "characterId": "taki",
+      "newV3": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/portrait/taki-avatar-youth-v3.png",
+        "url": "/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/taki/time-only-neutral-v1/portrait/taki-avatar-youth-v3.png",
+        "sha256": "6597cfbe08e2e4ce4906c498bcfc5d2e41d3d3910e5a8a80762c2aa53d4ed873",
+        "bytes": 2268488,
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/portrait/taki-avatar-youth-v3.source.json",
+        "sourceSha256AtSnapshot": "95cdf53d5a57adcc56ade127c772157d0e62449f822440e9e5a9af8519775e7e",
+        "sourcePrimaryApprovedFieldAtSnapshot": false,
+        "sourceStatusAtSnapshot": null,
+        "rootOriginalFaceIdentityApproved": true,
+        "rootOriginalApprovalBoundary": "Direct root parent message: all9originals personally viewed; gradedface/youth2D/identity reference only. Saki is existing selectedv3 control, no newgeneration.",
+        "circleFrameForThisReview": {
+          "left": "0%",
+          "top": "0%",
+          "width": "100%"
+        },
+        "primarySmallCircleApproved": false,
+        "runtimeAccepted": false
+      },
+      "currentRuntimeSnapshot": {
+        "path": "前端视觉创新设计/运行素材/companion/portraits/taki-youth-charm-20261025.png",
+        "url": "/%E8%BF%90%E8%A1%8C%E7%B4%A0%E6%9D%90/companion/portraits/taki-youth-charm-20261025.png",
+        "sha256": "c83367bce9967601aade4049df5e3153caa4cf7fd9f5a8a7aede88dac14aea80",
+        "declaredTsSha256": "c83367bce9967601aade4049df5e3153caa4cf7fd9f5a8a7aede88dac14aea80",
+        "declaredShaMatchesActual": true,
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "frame": {
+          "left": "0%",
+          "top": "0%",
+          "width": "100%"
+        }
+      },
+      "generationInputAllowedForBoards": false
+    },
+    {
+      "characterId": "mutsumi",
+      "newV3": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-avatar-youth-v3.png",
+        "url": "/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-avatar-youth-v3.png",
+        "sha256": "accf39ccc205ee077827b9ed3b24a4c67921cb693b0f20cb2037c96cad01e24c",
+        "bytes": 2098970,
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-avatar-youth-v3.source.json",
+        "sourceSha256AtSnapshot": "6a1e5255609ff7ad87c3754f3d50c70d7959d700bc3bdb8197d5827d66eeef35",
+        "sourcePrimaryApprovedFieldAtSnapshot": true,
+        "sourceStatusAtSnapshot": null,
+        "rootOriginalFaceIdentityApproved": true,
+        "rootOriginalApprovalBoundary": "Direct root parent message: all9originals personally viewed; gradedface/youth2D/identity reference only. Saki is existing selectedv3 control, no newgeneration.",
+        "circleFrameForThisReview": {
+          "left": "0%",
+          "top": "0%",
+          "width": "100%"
+        },
+        "primarySmallCircleApproved": false,
+        "runtimeAccepted": false
+      },
+      "currentRuntimeSnapshot": {
+        "path": "前端视觉创新设计/运行素材/companion/portraits/mutsumi-youth-charm-20261025.png",
+        "url": "/%E8%BF%90%E8%A1%8C%E7%B4%A0%E6%9D%90/companion/portraits/mutsumi-youth-charm-20261025.png",
+        "sha256": "a39e50dae66da5928168510c8bb00e48b4c0d5d89967b0a4977a2eb81afcb6c2",
+        "declaredTsSha256": "a39e50dae66da5928168510c8bb00e48b4c0d5d89967b0a4977a2eb81afcb6c2",
+        "declaredShaMatchesActual": true,
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "frame": {
+          "left": "0%",
+          "top": "0%",
+          "width": "100%"
+        }
+      },
+      "generationInputAllowedForBoards": false
+    },
+    {
+      "characterId": "uika",
+      "newV3": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-avatar-youth-v3.png",
+        "url": "/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-avatar-youth-v3.png",
+        "sha256": "842725f73a3d8bd1af9941e58783a523e3adb3b7f43e21c2a9b2579f0f680257",
+        "bytes": 1997252,
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-avatar-youth-v3.source.json",
+        "sourceSha256AtSnapshot": "34ebe6294e58b24f4edfde7e24272b1fab677c97345309b0326e3b6abed3c791",
+        "sourcePrimaryApprovedFieldAtSnapshot": true,
+        "sourceStatusAtSnapshot": null,
+        "rootOriginalFaceIdentityApproved": true,
+        "rootOriginalApprovalBoundary": "Direct root parent message: all9originals personally viewed; gradedface/youth2D/identity reference only. Saki is existing selectedv3 control, no newgeneration.",
+        "circleFrameForThisReview": {
+          "left": "0%",
+          "top": "0%",
+          "width": "100%"
+        },
+        "primarySmallCircleApproved": false,
+        "runtimeAccepted": false
+      },
+      "currentRuntimeSnapshot": {
+        "path": "前端视觉创新设计/运行素材/companion/portraits/uika-youth-charm-20261025.png",
+        "url": "/%E8%BF%90%E8%A1%8C%E7%B4%A0%E6%9D%90/companion/portraits/uika-youth-charm-20261025.png",
+        "sha256": "0e06d03c06ce3d582f09be8a21f69be7e663e6fbe95f75b64cf42db03fbbc58c",
+        "declaredTsSha256": "0e06d03c06ce3d582f09be8a21f69be7e663e6fbe95f75b64cf42db03fbbc58c",
+        "declaredShaMatchesActual": true,
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "frame": {
+          "left": "0%",
+          "top": "0%",
+          "width": "100%"
+        }
+      },
+      "generationInputAllowedForBoards": false
+    },
+    {
+      "characterId": "umiri",
+      "newV3": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/avatars/umiri-avatar-youth-v3.png",
+        "url": "/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/umiri/time-only-neutral-v1/avatars/umiri-avatar-youth-v3.png",
+        "sha256": "560073dc61f3dee7e48052d3f0cfe16bba041071b8b8ec2889bb7de9bdb565ef",
+        "bytes": 2085682,
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/avatars/umiri-avatar-youth-v3.source.json",
+        "sourceSha256AtSnapshot": "0f522d0b79bee06dfcb5d691b3f293d34ca3526553b8bb06a8779d986f9f4d2f",
+        "sourcePrimaryApprovedFieldAtSnapshot": false,
+        "sourceStatusAtSnapshot": null,
+        "rootOriginalFaceIdentityApproved": true,
+        "rootOriginalApprovalBoundary": "Direct root parent message: all9originals personally viewed; gradedface/youth2D/identity reference only. Saki is existing selectedv3 control, no newgeneration.",
+        "circleFrameForThisReview": {
+          "left": "0%",
+          "top": "0%",
+          "width": "100%"
+        },
+        "primarySmallCircleApproved": false,
+        "runtimeAccepted": false
+      },
+      "currentRuntimeSnapshot": {
+        "path": "前端视觉创新设计/运行素材/companion/portraits/umiri-youth-charm-20261025.png",
+        "url": "/%E8%BF%90%E8%A1%8C%E7%B4%A0%E6%9D%90/companion/portraits/umiri-youth-charm-20261025.png",
+        "sha256": "4132dd17cf54c52a5a6ee7674f780182cb14a45e8870313417765b9e1ef4c46a",
+        "declaredTsSha256": "4132dd17cf54c52a5a6ee7674f780182cb14a45e8870313417765b9e1ef4c46a",
+        "declaredShaMatchesActual": true,
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "frame": {
+          "left": "0%",
+          "top": "0%",
+          "width": "100%"
+        }
+      },
+      "generationInputAllowedForBoards": false
+    },
+    {
+      "characterId": "nyamu",
+      "newV3": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/avatars/nyamu-avatar-youth-v3.png",
+        "url": "/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/nyamu/time-only-neutral-v1/avatars/nyamu-avatar-youth-v3.png",
+        "sha256": "ebffcd406edb975c91c7b62f0c246850340248a62828b7338a7897d48095cc72",
+        "bytes": 2137264,
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/avatars/nyamu-avatar-youth-v3.source.json",
+        "sourceSha256AtSnapshot": "8b57f61fcac1f585fbfb27ceb0d461a06631554fa0f2bfd63de8e69890f95825",
+        "sourcePrimaryApprovedFieldAtSnapshot": false,
+        "sourceStatusAtSnapshot": null,
+        "rootOriginalFaceIdentityApproved": true,
+        "rootOriginalApprovalBoundary": "Direct root parent message: all9originals personally viewed; gradedface/youth2D/identity reference only. Saki is existing selectedv3 control, no newgeneration.",
+        "circleFrameForThisReview": {
+          "left": "0%",
+          "top": "0%",
+          "width": "100%"
+        },
+        "primarySmallCircleApproved": false,
+        "runtimeAccepted": false
+      },
+      "currentRuntimeSnapshot": {
+        "path": "前端视觉创新设计/运行素材/companion/portraits/nyamu-youth-charm-20261025.png",
+        "url": "/%E8%BF%90%E8%A1%8C%E7%B4%A0%E6%9D%90/companion/portraits/nyamu-youth-charm-20261025.png",
+        "sha256": "8ce8e16572956939f16e4baaf9fe3d504f051e24bbde64c9c535fd8a5127f241",
+        "declaredTsSha256": "8ce8e16572956939f16e4baaf9fe3d504f051e24bbde64c9c535fd8a5127f241",
+        "declaredShaMatchesActual": true,
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "frame": {
+          "left": "0%",
+          "top": "0%",
+          "width": "100%"
+        }
+      },
+      "generationInputAllowedForBoards": false
+    },
+    {
+      "characterId": "sakiko",
+      "newV3": {
+        "path": "前端视觉创新设计/运行素材/companion/portraits/sakiko-selected-soft-youth-edit-v3-20261025.png",
+        "url": "/%E8%BF%90%E8%A1%8C%E7%B4%A0%E6%9D%90/companion/portraits/sakiko-selected-soft-youth-edit-v3-20261025.png",
+        "sha256": "50ed57c7cb690ac52eb49190762f878a2b8e8db5eb75d5d3d3f220e771d86974",
+        "bytes": 2309543,
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "source": null,
+        "sourceSha256AtSnapshot": null,
+        "sourcePrimaryApprovedFieldAtSnapshot": null,
+        "sourceStatusAtSnapshot": null,
+        "rootOriginalFaceIdentityApproved": true,
+        "rootOriginalApprovalBoundary": "Direct root parent message: all9originals personally viewed; gradedface/youth2D/identity reference only. Saki is existing selectedv3 control, no newgeneration.",
+        "circleFrameForThisReview": {
+          "left": "0%",
+          "top": "0%",
+          "width": "100%"
+        },
+        "primarySmallCircleApproved": false,
+        "runtimeAccepted": false
+      },
+      "currentRuntimeSnapshot": {
+        "path": "前端视觉创新设计/运行素材/companion/portraits/sakiko-selected-soft-youth-edit-v3-20261025.png",
+        "url": "/%E8%BF%90%E8%A1%8C%E7%B4%A0%E6%9D%90/companion/portraits/sakiko-selected-soft-youth-edit-v3-20261025.png",
+        "sha256": "50ed57c7cb690ac52eb49190762f878a2b8e8db5eb75d5d3d3f220e771d86974",
+        "declaredTsSha256": "50ed57c7cb690ac52eb49190762f878a2b8e8db5eb75d5d3d3f220e771d86974",
+        "declaredShaMatchesActual": true,
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "frame": {
+          "left": "-4%",
+          "top": "-6%",
+          "width": "108%"
+        }
+      },
+      "generationInputAllowedForBoards": false
+    }
+  ],
+  "browserObservationPending": false,
+  "newV3Frame": "All100%left0top0, no opticalcropadjustment/PNGedit. Currentruntimecolumn copies exactTS frame.",
+  "backgrounds": {
+    "light": "external#faf7f0 + currentcomponentlightgradient circlebase",
+    "dark": "external#171b22 + currentcomponentdarkgradient circlebase",
+    "checker": "checkerexternal, transparentcirclebase purely forsourcealpha observation; not runtimeclaim"
+  },
+  "sizesCssPx": [
+    34,
+    48,
+    96
+  ],
+  "nativeOriginals": "Full PNG links plus native1254pxscrollingdetails; no rastercrop/resamplecreated.",
+  "primaryCircleApproval": false,
+  "runtimeAccepted": false,
+  "sourceOrRegistryOrPngChanged": false,
+  "userApprovalChanged": false,
+  "boardsAreImageGenerationInputs": false,
+  "browserObservationCompletedAt": "2026-10-26T00:40:10.753649+00:00",
+  "browserTabId": "500947835",
+  "browserUrl": "http://127.0.0.1:5188/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/index.html",
+  "browserEvidence": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/browser-observations/anon-34-48-96-light-dark-checker-v1.png",
+      "sha256": "c9d3d045fceba059829a3b9203da170b6456f8efdcba6924a5776ba9b3a0fec5",
+      "bytes": 79036,
+      "generationInputAllowed": false,
+      "canvas": [
+        839,
+        582
+      ],
+      "captureSource": "Actual formal cua_repl Chrome screenshot bytes, unedited"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/browser-observations/mutsumi-34-48-96-light-dark-checker-v1.png",
+      "sha256": "ea1a2167ab04c175954623734eb2256600c2c3ba326c41fe2eedfb26f0d1ac51",
+      "bytes": 79723,
+      "generationInputAllowed": false,
+      "canvas": [
+        839,
+        582
+      ],
+      "captureSource": "Actual formal cua_repl Chrome screenshot bytes, unedited"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/browser-observations/nyamu-34-48-96-light-dark-checker-v1.png",
+      "sha256": "cc52c4beb9bb2b820cca007ea62cc25b96728d8f5bd3a95a90f73cfcea8cf6e7",
+      "bytes": 83298,
+      "generationInputAllowed": false,
+      "canvas": [
+        839,
+        582
+      ],
+      "captureSource": "Actual formal cua_repl Chrome screenshot bytes, unedited"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/browser-observations/rana-34-48-96-light-dark-checker-v1.png",
+      "sha256": "1813cfb5cdf8be34adc10cd78af15626291e4e0ee08f9950bb8a081e0a9751db",
+      "bytes": 77355,
+      "generationInputAllowed": false,
+      "canvas": [
+        839,
+        582
+      ],
+      "captureSource": "Actual formal cua_repl Chrome screenshot bytes, unedited"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/browser-observations/render-metadata-v1.json",
+      "sha256": "992bef00287ccce7173e29f84c6631926c6f5f3155f28659d6d2fa15e0e58583",
+      "bytes": 6489,
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/browser-observations/sakiko-34-48-96-light-dark-checker-v1.png",
+      "sha256": "2175895e1f20d9e0ecf14d106428a7cf2b3f50600b1054b8feca17ddd4608b51",
+      "bytes": 85399,
+      "generationInputAllowed": false,
+      "canvas": [
+        839,
+        582
+      ],
+      "captureSource": "Actual formal cua_repl Chrome screenshot bytes, unedited"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/browser-observations/sakiko-native-dimensions-v1.json",
+      "sha256": "89775b2bd62a058cfd84e9597f09028dd9263e109c9facdd26fc7f54f6bdc963",
+      "bytes": 712,
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/browser-observations/sakiko-native1254-scroll-detail-v1.png",
+      "sha256": "1e66f4d894a29a161cc6da886a89da01fac6a8fdbf937ac0fbf47d92fd13060b",
+      "bytes": 67931,
+      "generationInputAllowed": false,
+      "canvas": [
+        839,
+        582
+      ],
+      "captureSource": "Actual formal cua_repl Chrome screenshot bytes, unedited"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/browser-observations/soyo-34-48-96-light-dark-checker-v1.png",
+      "sha256": "76b6f969ee69614004a9c17a569876b9c0557bc4b364e7c740e39c9f5b373dec",
+      "bytes": 82766,
+      "generationInputAllowed": false,
+      "canvas": [
+        839,
+        582
+      ],
+      "captureSource": "Actual formal cua_repl Chrome screenshot bytes, unedited"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/browser-observations/taki-34-48-96-light-dark-checker-v1.png",
+      "sha256": "73667b6aa3e904e2220a5d40a2354ad82674824dc87e53d188ff7ac0cad8c2a0",
+      "bytes": 84086,
+      "generationInputAllowed": false,
+      "canvas": [
+        839,
+        582
+      ],
+      "captureSource": "Actual formal cua_repl Chrome screenshot bytes, unedited"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/browser-observations/tomori-34-48-96-light-dark-checker-v1.png",
+      "sha256": "e0d9d5148d34c5f8a34da5717c07f375361aeb33d28e05f38bf901dd1ad7ad9d",
+      "bytes": 81337,
+      "generationInputAllowed": false,
+      "canvas": [
+        839,
+        582
+      ],
+      "captureSource": "Actual formal cua_repl Chrome screenshot bytes, unedited"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/browser-observations/uika-34-48-96-light-dark-checker-v1.png",
+      "sha256": "01a9d45e84bf01aa366058571e87682168ec4bd3e176e07f0fde5ddf0b0398b5",
+      "bytes": 77164,
+      "generationInputAllowed": false,
+      "canvas": [
+        839,
+        582
+      ],
+      "captureSource": "Actual formal cua_repl Chrome screenshot bytes, unedited"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/browser-observations/umiri-34-48-96-light-dark-checker-v1.png",
+      "sha256": "04a00b697b3430476adbcbf9251aacae74fd617c3c7b4642589e745cc228d984",
+      "bytes": 84672,
+      "generationInputAllowed": false,
+      "canvas": [
+        839,
+        582
+      ],
+      "captureSource": "Actual formal cua_repl Chrome screenshot bytes, unedited"
+    }
+  ],
+  "actualInputChangesDuringReview": [],
+  "runtimeTsChangedDuringReview": false,
+  "producerVisualObservations": {
+    "tomori": {
+      "34": "灰紫短波波头与玫褐眼的整体能认；不把极小嘴角当可精读表情。",
+      "48": "抬眼和轻微不对称闭口笑较清楚，面颊/短下巴比当前更柔。",
+      "96": "发丝与眉眼完整，暗底见少量暖亮发沿，没有矩形底块。",
+      "frame": "新v3保100%作为候选；不直接套旧110%/-14%上移，避免裁掉新冠部。"
+    },
+    "anon": {
+      "34": "粉发、蓝眼与小开口笑的明朗关系能读到。",
+      "48": "较当前大开口笑收敛，脸部更短软，仍是主动而亮的神情。",
+      "96": "粉发细丝有浅暖彩边；实际圆形内较自然，不等于自由透明matte已验。",
+      "frame": "100%可保，暂无需要扩大或偏移的可见依据。"
+    },
+    "rana": {
+      "34": "白短发与异色眼的总体能辨，细微嘴角不宜硬读。",
+      "48": "观者左金右蓝清楚，即自身右金左蓝；没有镜像交换身份。",
+      "96": "青春短脸与安静好奇目光成立；浅发在浅底轮廓弱于暗底。",
+      "frame": "100%保完整短发，勿直接继承旧110%/-14%或CSSmirror。"
+    },
+    "soyo": {
+      "34": "棕长卷发/蓝眼帮助辨识，闭口细笑在34主要表现为柔和整体。",
+      "48": "眉眼与嘴角的温和关系较清楚，新脸纵向较收敛。",
+      "96": "暗底可见一些米暖发沿；不是粗矩形污染，也未宣称alpha全用途合格。",
+      "frame": "100%已能读脸；不照旧114%/-12%统一放大裁顶。"
+    },
+    "taki": {
+      "34": "近黑长发、利落眉眼和紫色系眼睛的对比够清楚。",
+      "48": "闭口微笑较当前开口笑安静；短柔下巴仍保年轻判断感。",
+      "96": "脸部/头发细节完整，暗底发沿有一点亮边但在小圆内未形成方框。",
+      "frame": "100%保留；本轮工具标题曾误写红瞳，现按实际图及dossier更正为紫眼，不改原图。"
+    },
+    "mutsumi": {
+      "34": "浅绿长发、金褐眼与轻闭口笑仍可辨，双银夹不能在34稳定分成两条。",
+      "48": "神情较清楚，发夹是辅助线索，不能要求小图独靠两条夹辨人。",
+      "96": "观者右/自身左的双银夹与柔软脸部可看；浅底与浅发边界更弱，暗底更稳。",
+      "frame": "100%留住发饰所在侧，不为挤入发夹镜像或强裁。"
+    },
+    "uika": {
+      "34": "淡金短发与紫眼可辨，浅底外轮廓偏淡。",
+      "48": "小开口笑/亮眼可读，比当前更少夸张张嘴。",
+      "96": "浅暖外发沿在暗底有亮圈感，圆形用途仍克制；不适合据此签自由抠像。",
+      "frame": "100%作为起点。若后续实际浅标题栏轮廓弱，先亲看现组件细描边，不凭此修改PNG或猜放大数值。"
+    },
+    "umiri": {
+      "34": "深蓝黑短发轮廓与浅蓝灰眼可辨，局部刘海遮挡是原图关系。",
+      "48": "微微上扬嘴角和稳的目光能读，较当前长下巴更柔短。",
+      "96": "深发在暗底靠少量暖亮边分开，细发未见明显断块/方底。",
+      "frame": "100%可保，不需扩大成更多颈肩。"
+    },
+    "nyamu": {
+      "34": "紫短发、红紫眼与较会意的小开口笑辨识强。",
+      "48": "眼眉/嘴角的俏意较清楚，不只统一温柔闭口笑。",
+      "96": "下方细黑颈带仍在圆内；发沿有浅紫亮边，圆框不露大方底。",
+      "frame": "100%可保，发与脸已占主要画框，不需再挤。"
+    },
+    "sakiko": {
+      "34": "同一选定v3在现108%frame里金眼/面部略大，更利于小尺寸；100%对照也保持同一人。",
+      "48": "蓝紫发/金眼/深侧发带与软笑清楚，无新画脸。",
+      "96": "两个栏是同一PNG，只比较100%与现left-4/top-6/108%的光学差异。",
+      "frame": "保既有选定v3与当前108%配置，不据这张对照自动归一100%，不重画。"
+    }
+  },
+  "nativeOriginalControlObservation": {
+    "availableForAllTen": true,
+    "actual1254CssPxControlOpenedAndScrolledWith": "sakiko",
+    "allOriginalUrlsDecodedInBrowser": true,
+    "nativeDimensionsEvidence": "browser-observations/sakiko-native-dimensions-v1.json",
+    "scope": "All10 complete originalPNG previews and actual34/48/96circles personally viewed. Does not claim all9raworiginals separately rechecked at1:1; root had personally viewed all9originalface aesthetics. Shared1254px nativecontrol verified usingSaki."
+  },
+  "generalJudgment": "34px primarily carries silhouette/hair/eye-color identity;48px more reliable for gaze/mouth nuance. In this actual boundedcircle use none visibly creates a large rectangular plate. Rawcolorededges remain,96dark may show warm/pastelrim; not a freeform/fullbodymatte admission.",
+  "proposedFrameOnly": "New9 keep100%candidate untilroot actualUI framing decision; do not blindlycopy oldTomori/Rana/Soyo crops. ExistingSaki selectedv3/current108%preserved.",
+  "noPrimaryOrRuntimeAcceptanceInferred": true,
+  "rootOriginalApprovalBoundaryLatest": "Directrootmessage: all9 originalPNGs personallyviewed and gradedface/youth2D/identityreference approved; circle/alpha/runtime still requireprimarypurpose review. No grade scores reconstructed."
+}

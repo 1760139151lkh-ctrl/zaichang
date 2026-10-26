@@ -1,0 +1,9 @@
+{
+  "promptFile": "contact-mask-v1.prompt.txt",
+  "promptSha256": "2b8751b706f9de71158ef2c656d05068ecde79b298382fa6f3d92c46004443a8",
+  "submittedPrompt": "Use case: background-extraction. Asset: fixed INCLUDED CONTACT luminance mask S2. Image1 is the ONLY input: personally checked original-coordinate Taki S1 colored source with ONLY small genuine seat/sole receiving-material regions deliberately white. Preserve ONLY those deliberate marks as WHITE at exactly their source coordinate/shape. Change EVERYTHING ELSE to PURE BLACK, including girl/book, natural white collar/pages, linen cushion, opaque curtains, lamp shade, wood, rug, every unrelated original bright/shadow region. Do not infer or redraw new contact areas.\nKeep original irregular seat-contact group beneath the seated skirt/hip x970..1325,y540..626 and actual short sole-to-floor contacts x900..1135,y870..938 only where already deliberately white. Bounding ranges are guides, never fill rectangles/ellipses or bridge disconnected regions. Preserve existing narrow hem/sole overlap, soft outside antialias, all original mark coordinates. No moving seat marks onto lap/book or floor marks above/below shoes.\nThis opaque1536x1024 luminance selection will combine as MAX(F,S) to draw original mother RGB ONCE, fixed in source coordinates; never an independent portable caster. Output black canvas with just the same deliberate white contact marks, solid white interiors and fine grey boundary only. No colored scene, new shadows, body silhouette, crop, zoom, resize, text, guide, checkerboard or frame.\n",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/day/layers/contact-step1-marked-v1.png"
+  ],
+  "transparentBackground": false
+}

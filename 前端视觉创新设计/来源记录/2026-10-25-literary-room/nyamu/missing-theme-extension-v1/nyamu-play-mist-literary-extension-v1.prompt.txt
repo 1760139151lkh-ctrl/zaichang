@@ -1,0 +1,24 @@
+Use case: lighting-weather, identity-preserve. Asset: ONE complete 1536x1024 literary-room HUMAN activity mother, no UI. Image 1 is the ONLY room geometry / target light and weather authority: approved clean EMPTY target-theme room. Image 2 is this SAME character's healthy root-approved APRICOT mother of this SAME activity, personally viewed; use her identity, complete wardrobe, natural human scale, body support and unfinished personal action as continuity. Repaint a coherent WHOLE scene in Image 1's light; do not paste daylight-colored figure pixels, tint a cutout, or keep sunny floor stripes from Image 2. Keep every major room object, source camera, window mullion, lake/town/hills, desk/chair/bookcase, porcelain lamp/round side table, window bench/cushions/throw, floor/rug and foreground perspective at Image 1's original positions/sizes. No zoom, crop, mirror, new furniture, montage, UI rectangle, gray/white panel, text, labels, watermark, arrows, halo, speech balloon, readable fake business document or completion badge. Keep complete top hair, both hands and fingers, full clothes/hem, knees/ankles and both entire shoes in frame, with source support material and believable occlusion/weight. Do not shrink her into a distant doll or enlarge her toward the lens. Fine youthful Japanese 2D character drawing belongs in the richly painted room through actual warm/cool material light, not a 3D glamour model or chibi.
+
+TARGET MIST / overcast-day: Image1 has soft bright blue-white cloudy daylight and a readable lake/mountain distance; retain the real low practical lamp glow. Replace hard sunny stripes with this diffuse light across room, cushion AND person. Keep healthy skin and original clothing/hair pigments; her attention stays lively rather than washed-out blue. No new rainfall or dawn sun invented.
+
+CHARACTER / complete daily wardrobe: Yuutenji Nyamu (祐天寺若麦 / にゃむ), short lavender-purple bob ending at jaw/nape, uneven light fringe with longer fine cheek strands, clear rose/red-purple irises, fresh youthful face, expressive but not mature makeup or baby proportions. Grey ruffled short-sleeve off-shoulder blouse with thin black shoulder straps and real front buttons, fine black neck choker, black high-waisted belted short skirt, BARE natural legs, TWO complete black low-stable block-heel ankle-strap shoes. Do not add calf socks/stockings, brown loafers, stage garters or a school uniform. This complete daily outfit follows her dossier, not a random mixed costume. Keep grey fabric and skin distinct, black skirt folds and ankle straps readable. She wants her effort to be seen and has wit and initiative, but need not perform for a camera. No camera/phone/livestream UI, permanent wink, cat-mouth or identical sales smile.
+
+THIS INSTANT — PLAY: she has folded one SMALL imperfect light-paper piece, and is first amused by her own crooked result. Preserve Image2's actual tiny paper physically pinched between relaxed fingers, hands around knee/chest level with believable wrist/elbow support, never enlarged toward camera. Eyes glance from its crooked fold to the nearby companion; brows have a playful challenging lift, a young asymmetric open smile says 'try changing this corner' rather than a permanent wink. She likes this version but leaves the other person room to disagree and reshape it. Keep only the existing few paper pieces, no hobby-prop pile or stage. Both natural knees/calves/ankles and complete grounded strap shoes remain distinct.
+
+EXACT CELL'S CREATIVE BRIEF (historical planning hold has now been explicitly released by root for this exact missing cell; creative intent retained, current complete dossier has priority):
+她把一个轻纸片折成小小的东西，在指间试了试，自己先被那点不大成功的结果逗到了。她当然想让这一幕有趣，却也愿意让你看见第一遍没那么漂亮。那一点邀请不是“看我表演”，更像“来，你改一下会怎样”。
+
+晨光清亮，一个轻巧的小失败也能开始玩。
+
+晨雾蓝：通透蓝白的早光让纸、书架和面孔一起变清楚，灰上衣不是一片冰蓝。她可以带着还没排练完的神气醒来，也能很快认真；不用晨光把她变成另一个乖巧人偶。
+
+祐天寺若麦的原作青春二次元辨识：短至下颌与颈侧的薰衣草紫 bob，柔软不齐刘海与侧边发丝，红紫眼；细致而鲜活的年轻脸。维持已核身份文字中的灰色荷叶边短袖上衣与细肩带、黑色细颈圈、黑短裙及低稳跟踝带鞋，衣着自然完整。不是成熟写实时装照，不用过重妆容或魅惑摆拍代替性格；不自动塞入正在拍摄的手机或相机。
+
+坐姿比工作时舒展，一手仍能轻扶软垫，另一手在膝前展示小纸作品，目光在纸与对方间自然转换；不伸到镜头里放大手掌。
+
+只给出基本姿势：让髋与真实座垫、手与书页或支撑面确实接触，膝踝关系自然，鞋与地面或自然悬垂随具体姿势成立；不以脚数或固定腿长比例判断。脸、视线、刘海和手部要清楚，衣着完整，关键肢体不靠裁切掩盖。
+
+承接用户选定的新文学居室，而非旧 room4：近而不压迫的相机、分格木窗与湖山远景，左后方真正有人使用的书桌和木椅，书架、纸张与小物的生活层次；窗边长软榻、邻近的小边桌、陶瓷灯、书与杯，织物的触感和有限的前景景深。最终相机、家具、留白与人物尺度以 root 新空房 plate 和已通过的单祥子跨情境打样为准，不自行锁像素坐标，不把本参考中的祥子身体或旧房间带入。画面是一整个自然房间，不画 UI、文字标签、箭头、轨迹、拼贴分界或水印。
+
+Final invariant: one whole room and one nyamu only, full1536x1024 opaque RGB. The theme changes light, not identity, age, complete wardrobe or action's meaning. Preserve actual source support and full contour. This is a mother candidate; not a cutout, layer mask, runtime screenshot or claim of independently moving pose.

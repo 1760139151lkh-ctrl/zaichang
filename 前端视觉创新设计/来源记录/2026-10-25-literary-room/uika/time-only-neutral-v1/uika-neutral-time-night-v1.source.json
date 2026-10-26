@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T00:34:33.433Z",
+  "producer": "/root/study_reading",
+  "character": "uika",
+  "kind": "time-only-weather-unknown-neutral-companion-night-mother-candidate",
+  "environmentVariant": "time-night",
+  "operation": "whole-scene lighting-only extension of the same approved day posture",
+  "weatherClaim": "none; complete closed opaque inner curtain conceals all outdoors",
+  "tool": "image_gen.imagegen",
+  "originalToolPath": "C:/Users/17601/.codex/generated_images/01a17365-8901-7202-bd9e-0859826906dc/exec-c46d68ea-f601-4b6c-8f15-2975dd1f8108.png",
+  "submittedPrompt": "Use case: lighting-weather, TIME-OF-DAY LIGHTING ONLY; WEATHER UNKNOWN. Make ONE complete opaque 1536x1024 literary hand-drawn 2D room-and-character mother. INPUT 1 is the exact root-approved Uika-neutral-time-day-v1 mother, the EDIT TARGET and authority for the complete pose, camera, face proportions, person scale and source coordinates. INPUT 2 is root-approved independent Uika avatar-youth-v3, only reinforcing the same warm-blonde bob/violet-eye youthful facial identity; do not paste a portrait or alter her body scale. INPUT 3 is the root-approved clean EMPTY literary-room-time-night plate, the sole reference for whole-scene NIGHT lamp illumination in the same opaque-curtain room. No UI, review/composite board, held picture, official 3D model or another weather scene is an input.\n\n这仍是同一个项目原创的相处片刻：初华原本想说出自己的理解，听到身旁熟悉的人还有一句，便让那句回应在唇边稍停，愿意听对方把话讲完。她的专注亲近不是营业摆拍。保留日母同样朝画外左前方附近坐姿对话者的紫眼目光、轻轻分开的自然弧笑、轻微头倾和松开的肩；不要为了夜晚换成困倦、忧郁、夸张温柔或露齿大笑。她有自己的想法，也仍给对方说完的空间。此画不宣称原作剧情、真实用户往事或任何已知天气。\n\nLOCK ALL GEOMETRY TO INPUT1: same whole 1536x1024 camera and canvas, same complete short-bob crown, soft youthful cheeks/chin, neck/torso size, face angle and eye target. Same pelvis and rear-thigh weight into the RIGHT bench cushion; same palm pressing the cushion beside the hip and same other hand resting on her own knee/skirt, each finger coherent. Same gray long-skirt folds and hem, two separate calves/visible white ankle socks, two complete original black-white lace-up canvas shoes at the same actual wooden-floor positions with source-local grounding. No new pose, relocated shoe, recrossed ankle, floating seat, cut-through skirt or hidden missing joint. Do not enlarge the head toward camera, change the room/perspective, add a prop, point into empty space or add a second person/cat.\n\nKeep Uika recognizably the SAME youthful 2D girl: warm light-blonde SHORT bob with delicate fringe and cheek-side strands, clear VIOLET irises/pupils and natural eyelids. Preserve the approved short-soft face, not a long pointed adult jaw or mature makeup. Plain WHITE short-sleeve crew-neck T-shirt, soft taupe-gray LONG skirt with real waist/drape, WHITE SHORT ankle socks and BLACK/WHITE low canvas sneakers remain the same clothes. Hat stays off-frame as this project's current indoor choice. No sailor uniform, stage chain/corset/boots, new hairclip, jewelry or glossy mannequin skin. White cloth and blonde hair remain distinct materials under night light, never glowing flat white stickers.\n\nTRANSFORM LIGHT ACROSS THE ENTIRE CONNECTED SCENE, following INPUT3: the existing ceramic lamp on the left provides a quiet local warm night pool. Lamp-facing folds of white T-shirt, face, short hair and hand, nearby linen cushion and wood receive coherent gentle amber warmth; far skin/clothing turns, gray skirt folds, right pillows and room corners fall into readable soft shadow. Night illumination changes skin, hair, shirt, skirt, seat, curtains, table and floor TOGETHER, not merely a color filter on the person. Remove every leftover broad daylight curtain patch, bright window grid, sun reflection, daytime solar rim or white-day cloth/skin shine. The inner curtain remains FULLY CLOSED and OPAQUE from edge to edge and across the center seam; its cream woven fabric is now dim warm lamp-lit, not an illuminated outdoor scene. No visible sky, lake, town lights, stars, moon, cloud, rain, fog, weather silhouette or outside blue light. No new light fixture, theatrical rim glow or invented weather.\n\nKeep INPUT1'S actual shelves/desk/chair/plants/books/pictures, round lamp/cup/flowers table, continuous cushioned bench, plaid pillows, knitted throw, rug/floor and blurred foreground in their existing places and scale. Full-body support and localized contact shadows stay plausible under the existing lamp rather than a generic dark oval. Left room remains available for future real content, with no drawn page or UI. Fine varying 2D line weight, matte cloth, soft cheek planes, readable violet eyes and shared room bounce light; no photorealistic adult face, plastic hair bundles or model cutout edges. No text, speech bubble, symbols, labels, logo, watermark, frame, grid, collage or split day/night. Output only this unchanged-posture neutral TIME-NIGHT static candidate. It provides no new exact activity, layer, animation, weather fact, 360 matrix or runtime admission.",
+  "submittedPromptSha256": "2991fa4e194ac7547ee3dd986f11554904f79515e600ce83a1fe383b1d0fe192",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-day-v1.png",
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-avatar-youth-v3.png",
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.png"
+  ],
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-day-v1.png",
+      "role": "Exact root-approved complete day posture edit target; same body/face/gaze/support/camera authority.",
+      "approval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-day-v1.primary-approval.json",
+      "sha256": "e05d24ff0a1943e66e635880d5265fb79a66dac13e8656ca6d820b1b171ebbea",
+      "bytes": 2427278
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-avatar-youth-v3.png",
+      "role": "Root-approved facial aesthetic and same-character identity generation only.",
+      "approval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-avatar-youth-v3.primary-approval.json",
+      "sha256": "842725f73a3d8bd1af9941e58783a523e3adb3b7f43e21c2a9b2579f0f680257",
+      "bytes": 1997252
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.png",
+      "role": "Root-approved empty time-night room lamp illumination reference, closed opaque curtain and no visible weather.",
+      "approval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.primary-approval.json",
+      "sha256": "d9c41c4278dd8a4efae1a91102e16349ad4dcf9829963c31ddc421dfc3652253",
+      "bytes": 2184911
+    }
+  ],
+  "transparentBackground": false,
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-night-v1.png",
+    "sha256": "7c53b03795295ddf3b7b490fe1332db82326a49dcace9fe9f6502b2cee5636d9",
+    "bytes": 2215829,
+    "width": 1536,
+    "height": 1024
+  },
+  "rawToolBytesPreserved": true,
+  "dependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/uika.md",
+      "sha256": "08e1b6e7dfa31b9c82d2ad5446b482655cd548c2191926b46840af5b515fdf5b",
+      "readScope": "fully read for current task"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "readScope": "fully read for current task"
+    }
+  ],
+  "projectOriginalBoundary": "Same original quiet willingness to hear the nearby persons unfinished sentence as the approved day image. No new canon, user history, weather statement or exact activity.",
+  "producerObservation": {
+    "personallyViewedWholeOriginal": true,
+    "observed": [
+      "Same apparent youthful face scale, short blonde bob/violet eyes, slight head tilt and left-front gaze, lightly open smile, knee hand and supporting side palm remain.",
+      "Long skirt, visible white ankle socks, both whole original canvas shoes and actual seat/floor contacts remain in the original arrangement.",
+      "Warm night lamp now acts on white T-shirt, skin/hair, skirt, linen cushion, wood floor and fully closed curtain together; no visible outdoor sky/town/weather or leftover hard daylight-grid patch.",
+      "This is a full static visual observation, not a pixel-identical guarantee, independent motion or runtime proof."
+    ],
+    "concerns": [
+      "Complete night lighting and same-pose support still require root primary review before downstream use."
+    ]
+  },
+  "primaryApproved": true,
+  "motherStaticApproved": true,
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "userApproved": false,
+  "generationInputAllowed": true,
+  "exactActivityMatrixCredit": 0,
+  "scope": "One unchanged-posture neutral time-night static mother candidate; no layers/360-motion/runtime credit.",
+  "primaryApprovalScope": "Complete static neutral-presence time-only mother only; F/S/BG production authorized but layer/runtime approval separate.",
+  "primaryApprovalRecord": "uika-neutral-time-night-v1.primary-approval.json"
+}

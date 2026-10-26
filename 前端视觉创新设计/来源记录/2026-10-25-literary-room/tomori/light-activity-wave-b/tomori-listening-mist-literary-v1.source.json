@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "assetId": "tomori-listening-mist-literary-v1",
+  "roomFamily": "literary-room-v1",
+  "characterId": "tomori",
+  "activity": "listening",
+  "palette": "mist",
+  "ambientPlateKey": "overcast-day",
+  "createdOn": "2026-10-25",
+  "generationMode": "target-empty-plate-and-approved-exact-activity-mother-relighting",
+  "tool": "image_gen.imagegen (built-in)",
+  "callOrdinalInBoundedBatch": 1,
+  "executionId": "exec-896de6e4-825e-407f-b02e-960d0efb83b0",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-896de6e4-825e-407f-b02e-960d0efb83b0.png",
+  "inputs": [
+    {
+      "file": "../../plates/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "role": "image1: approved exact target empty plate and illumination"
+    },
+    {
+      "file": "../apricot-wave-b/tomori-listening-apricot-literary-v1.png",
+      "sha256": "292ccd83be7064fdef9a5dd3cfa729078bd7299f2dc805df145f8830a10b4468",
+      "role": "image2: root-approved actual activity identity/pose/scale/support, not inherited daylight",
+      "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+    }
+  ],
+  "promptFile": "tomori-listening-mist-literary-v1.prompt.txt",
+  "promptFileSha256": "c1de804944a9596650f5a0a9b5324987c8a2141bb3baa99642d5f6c2463da812",
+  "submittedPrompt": "Create ONE 1536×1024 complete landscape literary companion illustration through genuine WHOLE-SCENE RELIGHTING. Image 1 is the ROOT-APPROVED EMPTY environmental plate at the TARGET time/weather and gives camera, room geometry and illumination. Image 2 is this SAME girl's ROOT-APPROVED APRICOT MOTHER OF THIS EXACT ACTIVITY. Retain its actual youthful identity, uniform, exact silhouette/head/body scale/source positions, microexpression, visible hands/objects, true support and occlusion; its DAYLIGHT HIGHLIGHTS are NOT identity or pose constraints.\nRepaint all light on skin/hair/uniform, held or resting paper/book, contact linen, wood/lamps and floor according to image 1, rather than tinting the scene or pasting a day-lit girl into new weather. Old apricot white knee/shin/face hotspots, sunlit hair rims and window-lattice pools do not survive by default.\nLock the close camera/framing and existing window panes/current crop, lake/town/mountain geometry, desk/chair, shelves/books/plants, round table/ceramic lamp/cup/flowers, linen bench/right plaid cushions/cream knit throw, floor/rug and blurred foreground plant. Keep her actual approved seated pelvis/cushion support and exact shoulders/arms/hands/props/knees/ankles/complete shoes at source coordinates. No body translation, enlarged head, reposed/crossed legs or invented hidden hand. Full head/hair and both complete shoes stay within the original image; real limb/strand gaps and overlaps remain.\nPrecise expressive anime character drawing belongs in the tactile softly painterly room. Separate every fringe lock, brow, lash, upper/lower eyelid, sclera and iris boundary, including side/down gaze. Preserve her youthful canonical hair/eye/garment colors under the new light, not a generic adult face, green UI tint, fixed service smile, compulsory blush or stereotyped scowl.\nOnly these two approved images are references. No unreviewed light mother, prior lighting-problem candidate, mask, other character, old room or malformed pose is used. Do not add readable text/schedules/answers/receipts, UI, logos, watermarks, diagrams, another person, split scene, zoom, new furniture or duplicate limbs. This is a project-original fictional performance, not a statement about an actual user's past action or completion.\n\nCHARACTER: Takamatsu Tomori (高松燈), MyGO!!!!!: neck-length layered steel-gray/gray-lavender short hair, muted rose-brown/dusty pink-gray eyes; gray-purple blazer with white piping, white shirt/dark striped tie, checked skirt, dark socks and brown loafers.\nACTUAL APPROVED PERFORMANCE: Preserve the APPROVED ACTUAL closed book resting flat across her thighs, both relaxed hands on/over that book (not an invented separate knee hand), small paused slightly open mouth and direct attentive eyes. This is her quietly leaving her own sentence unsaid to hear the rest. Keep the original comfortable distance and seated support, not a camera greeting.\nTARGET LIGHT: OVERCAST DAY, exactly image 1's clouded diffuse daylight. Cool softened lake/town distance, natural warm wood local color and only the existing lamps as shown. Repaint skin/hair/uniform/paper/book/linen and floor under this diffuse light. No hard apricot window grid or bright inherited knee/shin/face sun patches; no blue film.",
+  "output": {
+    "file": "tomori-listening-mist-literary-v1.png",
+    "sha256": "1c99a4c6bd40490d5df65d4cd6ed392a7da3203a755fd1310fa1bed2c5b32588",
+    "bytes": 2381190,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "reviewedOn": "2026-10-25",
+    "decision": "static mother candidate for primary inspection",
+    "observation": "Complete original viewed: actual closed book across thighs, both relaxed hands over it and attentive paused slightly open mouth retain approved listening performance. Overcast diffuse light softens skin/uniform/book/linen/floor without hard apricot grid/hotspots. Eyes/fringe/lids distinct; hip/cushion and complete uncrossed legs/shoes retain observed scale/support, major room stable.",
+    "bodyContour": {
+      "contourComplete": true
+    },
+    "limits": "Static fictional listening/light inspection only; primary/layer/runtime remain false."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "acceptanceScope": "Static actual-activity theme mother candidate only; no layer progression or registration."
+}

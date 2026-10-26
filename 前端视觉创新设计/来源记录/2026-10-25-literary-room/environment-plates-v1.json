@@ -1,0 +1,725 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "createdAt": "2026-10-25T08:44:33.050943+00:00",
+  "countedSeparatelyFrom360": true,
+  "expectedPlateCount": 8,
+  "coverageSummary": {
+    "platesListed": 8,
+    "generated": 8,
+    "emptyRoomStaticApproved": 8,
+    "runtimeAccepted": 0,
+    "legacyInherited": 0
+  },
+  "weatherBoundary": {
+    "owner": "src/main/runtime/environment.ts via existing broker/weather.lookup",
+    "bridge": "State.environment and finite Bridge.environment; renderer does not fetch or manage broker cache",
+    "reference": "Hangzhou fixed public city reference; Asia/Shanghai; never GPS/user location",
+    "authorityFields": [
+      "weatherEnabled",
+      "status",
+      "condition",
+      "weatherCode",
+      "isDay",
+      "currentAt",
+      "observedAt",
+      "expiresAt",
+      "sunriseAt",
+      "sunsetAt",
+      "timeZone"
+    ],
+    "clockFallback": "clockTimeZone stays separate from weather timeZone; time-only art makes no weather assertion",
+    "offRevokedOrExpired": "clear weather statements; no guessed clear/rain; use compatible time-only plate",
+    "unsupportedCondition": "keep unknown or an explicitly compatible time-only room; snow/fog/storm details require own review",
+    "manual": "manual palette is an aesthetic preference, not a report of local weather",
+    "roleComposition": "an approved empty plate alone never licenses an old-room or unlit role to be pasted over it",
+    "modelActivity": "activity intent remains a model choice, never a host weather/keyword route"
+  },
+  "plates": [
+    {
+      "key": "literary-room-v1:plate:clear-day",
+      "sceneFamily": "literary-room-v1",
+      "variant": "clear-day",
+      "name": "晴日",
+      "canvas": {
+        "width": 1536,
+        "height": 1024
+      },
+      "kind": "shared_empty_room",
+      "paletteHint": "apricot",
+      "selectionBoundary": "fresh current weather clear + isDay=true outside twilight; exact scene annotation required",
+      "visualBrief": "keep selected clear daylight, coherent window/wood/cloth reflections and empty furniture",
+      "generation": {
+        "status": "generated",
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+          "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "bytes": 2524961,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "prompt": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.prompt.txt",
+          "fileSha256": "3e854eda45e9e76baed6ad514c67488656035d0990663f089cbf6f24575cae26",
+          "submittedSha256": "3e854eda45e9e76baed6ad514c67488656035d0990663f089cbf6f24575cae26",
+          "verifiedSubmittedEncoding": "exact file bytes"
+        },
+        "inputArtifacts": [
+          {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+            "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+            "role": null,
+            "existsAtSnapshot": true
+          }
+        ],
+        "sourceRecord": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json",
+          "sha256": "5425e475efa8264874f2f3b083b8737b4b1f9d35399e9b2c3d86dc561a36cddb",
+          "bytes": 1250,
+          "capturedAt": "2026-10-25T09:14:03.003540+00:00"
+        },
+        "toolOutput": "exec-58f82fc8-15f6-4703-b926-da3e1768f24b.png",
+        "attempts": []
+      },
+      "motherReview": {
+        "status": "approved_empty_room_static",
+        "approved": true,
+        "scope": "exact empty environment only",
+        "evidence": [
+          {
+            "aggregate": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/literary-room-empty-plates-primary-admission-v1.json",
+              "sha256": "8ed5c9723ccf61f178ffa5e7f90a66f05b18fc6e44c8ba1124782b679a045c0c",
+              "bytes": 4399,
+              "capturedAt": "2026-10-25T09:14:02.909131+00:00"
+            },
+            "individual": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json",
+              "sha256": "5425e475efa8264874f2f3b083b8737b4b1f9d35399e9b2c3d86dc561a36cddb",
+              "bytes": 1250
+            },
+            "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+            "reviewer": "root / primary",
+            "boundary": "Eight exact-SHA empty environment plates only. No character, activity, layer, motion or runtime acceptance."
+          }
+        ]
+      },
+      "layers": {
+        "status": "not_applicable_as_empty_plate",
+        "roleLayerBundleApproved": false
+      },
+      "runtime": {
+        "status": "not_integrated",
+        "accepted": false,
+        "registration": null,
+        "observations": []
+      },
+      "legacyPlateInherited": false
+    },
+    {
+      "key": "literary-room-v1:plate:overcast-day",
+      "sceneFamily": "literary-room-v1",
+      "variant": "overcast-day",
+      "name": "阴天",
+      "canvas": {
+        "width": 1536,
+        "height": 1024
+      },
+      "kind": "shared_empty_room",
+      "paletteHint": "mist",
+      "selectionBoundary": "fresh current cloudy/fog + isDay=true; fog detail only if source and specific art allow",
+      "visualBrief": "soft diffuse outside light without painting arbitrary rain or gloom",
+      "generation": {
+        "status": "generated",
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "bytes": 2526101,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "prompt": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.prompt.txt",
+          "fileSha256": "04a3f62c1e8656b73b3ffc86e42685d3761a4d0ccdad21c06c1776896a56fd96",
+          "submittedSha256": "c715f97aa29df86e1d6460f1631e79935d26de79ae2201ea88b37039cb501bf9",
+          "verifiedSubmittedEncoding": "UTF-8 file trimEnd"
+        },
+        "inputArtifacts": [
+          {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+            "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+            "role": "sole approved clean empty room edit target; no character image input",
+            "actualSha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+            "hashMatches": true
+          }
+        ],
+        "sourceRecord": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.source.json",
+          "sha256": "85e4b1e7f3de6186b46cd6e1add64d12a243c1f796033067eef48e5c5b9b716c",
+          "bytes": 2598,
+          "capturedAt": "2026-10-25T09:14:03.006839+00:00"
+        },
+        "toolOutput": "exec-595c9ee6-82d5-4978-8739-0c66aa557454.png",
+        "attempts": []
+      },
+      "motherReview": {
+        "status": "approved_empty_room_static",
+        "approved": true,
+        "scope": "exact empty environment only",
+        "evidence": [
+          {
+            "aggregate": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/literary-room-empty-plates-primary-admission-v1.json",
+              "sha256": "8ed5c9723ccf61f178ffa5e7f90a66f05b18fc6e44c8ba1124782b679a045c0c",
+              "bytes": 4399,
+              "capturedAt": "2026-10-25T09:14:02.909131+00:00"
+            },
+            "individual": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.primary-approval.json",
+              "sha256": "00be824f06a3d5ea16f32264c19898e3da9e8c37c5e3ed4668475e165720efc1",
+              "bytes": 790
+            },
+            "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+            "reviewer": "root / primary",
+            "boundary": "Eight exact-SHA empty environment plates only. No character, activity, layer, motion or runtime acceptance."
+          }
+        ]
+      },
+      "layers": {
+        "status": "not_applicable_as_empty_plate",
+        "roleLayerBundleApproved": false
+      },
+      "runtime": {
+        "status": "not_integrated",
+        "accepted": false,
+        "registration": null,
+        "observations": []
+      },
+      "legacyPlateInherited": false
+    },
+    {
+      "key": "literary-room-v1:plate:rain-day",
+      "sceneFamily": "literary-room-v1",
+      "variant": "rain-day",
+      "name": "白昼有雨",
+      "canvas": {
+        "width": 1536,
+        "height": 1024
+      },
+      "kind": "shared_empty_room",
+      "paletteHint": "mist",
+      "selectionBoundary": "fresh current rain/storm + isDay=true; storm-specific effects need their own review",
+      "visualBrief": "visible day with rain outside and plausible room reflections, not a rain-night tint",
+      "generation": {
+        "status": "generated",
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-day-v1.png",
+          "sha256": "80c6eba701bc229e79939639426de4b1c7ef68790b840ea9ded07c2bc6fc77eb",
+          "bytes": 2504784,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "prompt": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-day-v1.prompt.txt",
+          "fileSha256": "58d7ec59fbb62ae770b0dfe866b0ccf10bf449be917060c4829fa35156f94690",
+          "submittedSha256": "b564f5610450d3ae9e342b2e8c602cb659c4e7a3d7af1c964d3f564f76672ec6",
+          "verifiedSubmittedEncoding": "UTF-8 file trimEnd"
+        },
+        "inputArtifacts": [
+          {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+            "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+            "role": "sole approved clean empty room edit target; no character image input",
+            "actualSha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+            "hashMatches": true
+          }
+        ],
+        "sourceRecord": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-day-v1.source.json",
+          "sha256": "49a66ea4373e8b464d690bcfad5b8f7b5e319af9f09f3f64ed31eef5a07f4a10",
+          "bytes": 2579,
+          "capturedAt": "2026-10-25T09:14:03.011499+00:00"
+        },
+        "toolOutput": "exec-a939dac8-8dd4-4eb1-ae9b-c3f8f2a8f174.png",
+        "attempts": []
+      },
+      "motherReview": {
+        "status": "approved_empty_room_static",
+        "approved": true,
+        "scope": "exact empty environment only",
+        "evidence": [
+          {
+            "aggregate": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/literary-room-empty-plates-primary-admission-v1.json",
+              "sha256": "8ed5c9723ccf61f178ffa5e7f90a66f05b18fc6e44c8ba1124782b679a045c0c",
+              "bytes": 4399,
+              "capturedAt": "2026-10-25T09:14:02.909131+00:00"
+            },
+            "individual": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-day-v1.primary-approval.json",
+              "sha256": "8bccf12ee2f1abe0f0e7327f397f1aefef330f9a7107a42b0da96d09240cab54",
+              "bytes": 833
+            },
+            "sha256": "80c6eba701bc229e79939639426de4b1c7ef68790b840ea9ded07c2bc6fc77eb",
+            "reviewer": "root / primary",
+            "boundary": "Eight exact-SHA empty environment plates only. No character, activity, layer, motion or runtime acceptance."
+          }
+        ]
+      },
+      "layers": {
+        "status": "not_applicable_as_empty_plate",
+        "roleLayerBundleApproved": false
+      },
+      "runtime": {
+        "status": "not_integrated",
+        "accepted": false,
+        "registration": null,
+        "observations": []
+      },
+      "legacyPlateInherited": false
+    },
+    {
+      "key": "literary-room-v1:plate:twilight",
+      "sceneFamily": "literary-room-v1",
+      "variant": "twilight",
+      "name": "暮光",
+      "canvas": {
+        "width": 1536,
+        "height": 1024
+      },
+      "kind": "shared_empty_room",
+      "paletteHint": "violet",
+      "selectionBoundary": "fresh current/solar-supported transition at declared place time; not just violet UI",
+      "visualBrief": "retain room geometry while true low window light and material response change together",
+      "generation": {
+        "status": "generated",
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "bytes": 2350339,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "prompt": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.prompt.txt",
+          "fileSha256": "b23d108b15ef464bbfc5b905adf40674dc56d9a29d1d90a1659da64b6f904f4f",
+          "submittedSha256": "f5b0c958a6aefadaa65ce3a203f087180e765a73b37ea61627b682ff360b6750",
+          "verifiedSubmittedEncoding": "UTF-8 file trimEnd"
+        },
+        "inputArtifacts": [
+          {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+            "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+            "role": "sole approved empty environment edit target; no person image input",
+            "actualSha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+            "hashMatches": true
+          }
+        ],
+        "sourceRecord": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.source.json",
+          "sha256": "47104186489b5556e4d9e1b27eeda4641442b5bccca6478e35b39701c0d3e843",
+          "bytes": 2448,
+          "capturedAt": "2026-10-25T09:14:03.015828+00:00"
+        },
+        "toolOutput": "exec-fa38e050-6280-4ba0-b9f7-530978e4c924.png",
+        "attempts": []
+      },
+      "motherReview": {
+        "status": "approved_empty_room_static",
+        "approved": true,
+        "scope": "exact empty environment only",
+        "evidence": [
+          {
+            "aggregate": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/literary-room-empty-plates-primary-admission-v1.json",
+              "sha256": "8ed5c9723ccf61f178ffa5e7f90a66f05b18fc6e44c8ba1124782b679a045c0c",
+              "bytes": 4399,
+              "capturedAt": "2026-10-25T09:14:02.909131+00:00"
+            },
+            "individual": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.primary-approval.json",
+              "sha256": "8606bc7ad5785ad740b4f89a9620eefb9287b62d186855e4bd5807dc461d2ed1",
+              "bytes": 797
+            },
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "reviewer": "root / primary",
+            "boundary": "Eight exact-SHA empty environment plates only. No character, activity, layer, motion or runtime acceptance."
+          }
+        ]
+      },
+      "layers": {
+        "status": "not_applicable_as_empty_plate",
+        "roleLayerBundleApproved": false
+      },
+      "runtime": {
+        "status": "not_integrated",
+        "accepted": false,
+        "registration": null,
+        "observations": []
+      },
+      "legacyPlateInherited": false
+    },
+    {
+      "key": "literary-room-v1:plate:dry-night",
+      "sceneFamily": "literary-room-v1",
+      "variant": "dry-night",
+      "name": "夜晚未呈现降雨",
+      "canvas": {
+        "width": 1536,
+        "height": 1024
+      },
+      "kind": "shared_empty_room",
+      "paletteHint": "rain",
+      "selectionBoundary": "fresh current isDay=false and reviewed non-precipitating condition; no snow/rain inference",
+      "visualBrief": "night outside with believable warm interior lamps; no invented rainfall",
+      "generation": {
+        "status": "generated",
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-dry-night-v1.png",
+          "sha256": "edad31b1ce0c7f21be59d939cc54a0d6230b31d6fe380d0d553af515032fd0f4",
+          "bytes": 2249307,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "prompt": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-dry-night-v1.prompt.txt",
+          "fileSha256": "eb06e8d27cadc636af8b88fb5567a85b35fa415ff9621fcee9b424dbe5d07998",
+          "submittedSha256": "8cfefb54aa3a79aee6e7b10cf401b70cd3716f2e9468b3a3af72a5da3a2255b1",
+          "verifiedSubmittedEncoding": "UTF-8 file trimEnd"
+        },
+        "inputArtifacts": [
+          {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+            "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+            "role": "sole approved clean empty room edit target; no character image input",
+            "actualSha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+            "hashMatches": true
+          }
+        ],
+        "sourceRecord": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-dry-night-v1.source.json",
+          "sha256": "888ceb6d45e28082883f5f825f5b9724c0b963f862b6fa9a6a1f30dbffe71d08",
+          "bytes": 2687,
+          "capturedAt": "2026-10-25T09:14:03.019804+00:00"
+        },
+        "toolOutput": "exec-20ff811a-90cc-4f23-9ac2-4f9d0a02c820.png",
+        "attempts": []
+      },
+      "motherReview": {
+        "status": "approved_empty_room_static",
+        "approved": true,
+        "scope": "exact empty environment only",
+        "evidence": [
+          {
+            "aggregate": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/literary-room-empty-plates-primary-admission-v1.json",
+              "sha256": "8ed5c9723ccf61f178ffa5e7f90a66f05b18fc6e44c8ba1124782b679a045c0c",
+              "bytes": 4399,
+              "capturedAt": "2026-10-25T09:14:02.909131+00:00"
+            },
+            "individual": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-dry-night-v1.primary-approval.json",
+              "sha256": "9165f0548a08ffe75560be33354ec8fa89f511cc96345ca945c4bd100e16d3b7",
+              "bytes": 849
+            },
+            "sha256": "edad31b1ce0c7f21be59d939cc54a0d6230b31d6fe380d0d553af515032fd0f4",
+            "reviewer": "root / primary",
+            "boundary": "Eight exact-SHA empty environment plates only. No character, activity, layer, motion or runtime acceptance."
+          }
+        ]
+      },
+      "layers": {
+        "status": "not_applicable_as_empty_plate",
+        "roleLayerBundleApproved": false
+      },
+      "runtime": {
+        "status": "not_integrated",
+        "accepted": false,
+        "registration": null,
+        "observations": []
+      },
+      "legacyPlateInherited": false
+    },
+    {
+      "key": "literary-room-v1:plate:rain-night",
+      "sceneFamily": "literary-room-v1",
+      "variant": "rain-night",
+      "name": "夜雨",
+      "canvas": {
+        "width": 1536,
+        "height": 1024
+      },
+      "kind": "shared_empty_room",
+      "paletteHint": "rain",
+      "selectionBoundary": "fresh current rain/storm + isDay=false; specific lightning not implied",
+      "visualBrief": "night rain and warm indoor light act on window, wood, textiles and later figure",
+      "generation": {
+        "status": "generated",
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "bytes": 2270751,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "prompt": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.prompt.txt",
+          "fileSha256": "4f6eecd450b75507a0f40f840f3186e8fccc8deddade327ff9e4fdc907ecb96c",
+          "submittedSha256": "abd2258674debcea69fa3160e9170f6bbe47a7cc70e528fd1643f6c01fea6499",
+          "verifiedSubmittedEncoding": "UTF-8 file trimEnd"
+        },
+        "inputArtifacts": [
+          {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-dry-night-v1.png",
+            "sha256": "edad31b1ce0c7f21be59d939cc54a0d6230b31d6fe380d0d553af515032fd0f4",
+            "role": "sole approved empty dry-night environment edit target; no person image input",
+            "actualSha256": "edad31b1ce0c7f21be59d939cc54a0d6230b31d6fe380d0d553af515032fd0f4",
+            "hashMatches": true
+          }
+        ],
+        "sourceRecord": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.source.json",
+          "sha256": "fae6d70ec523dfb8780207d57677bd6ae383d270255acac1856c7d0888cb92e7",
+          "bytes": 2497,
+          "capturedAt": "2026-10-25T09:14:03.023625+00:00"
+        },
+        "toolOutput": "exec-d1b245d5-e1a9-401a-8e5a-4bca263f5fd1.png",
+        "attempts": []
+      },
+      "motherReview": {
+        "status": "approved_empty_room_static",
+        "approved": true,
+        "scope": "exact empty environment only",
+        "evidence": [
+          {
+            "aggregate": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/literary-room-empty-plates-primary-admission-v1.json",
+              "sha256": "8ed5c9723ccf61f178ffa5e7f90a66f05b18fc6e44c8ba1124782b679a045c0c",
+              "bytes": 4399,
+              "capturedAt": "2026-10-25T09:14:02.909131+00:00"
+            },
+            "individual": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.primary-approval.json",
+              "sha256": "c69b0ffc2ffd0cf8296845ec5320411f966154f00763db65dfe4ff6b415860f4",
+              "bytes": 797
+            },
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "reviewer": "root / primary",
+            "boundary": "Eight exact-SHA empty environment plates only. No character, activity, layer, motion or runtime acceptance."
+          }
+        ]
+      },
+      "layers": {
+        "status": "not_applicable_as_empty_plate",
+        "roleLayerBundleApproved": false
+      },
+      "runtime": {
+        "status": "not_integrated",
+        "accepted": false,
+        "registration": null,
+        "observations": []
+      },
+      "legacyPlateInherited": false
+    },
+    {
+      "key": "literary-room-v1:plate:time-day",
+      "sceneFamily": "literary-room-v1",
+      "variant": "time-day",
+      "name": "仅时间的白昼",
+      "canvas": {
+        "width": 1536,
+        "height": 1024
+      },
+      "kind": "shared_empty_room",
+      "paletteHint": null,
+      "selectionBoundary": "weather off/revoked/missing/expired/unsupported; clockTimeZone supports daytime only",
+      "visualBrief": "Full opaque milk-white inner curtains conceal readable outdoor scenery; day/night interior light alone, no inferred weather.",
+      "generation": {
+        "status": "generated",
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.png",
+          "sha256": "aa4ce3dcab5cd2366c9f1c4eadcff0ab85537ab45e5a3b0643c4d01588e6e247",
+          "bytes": 2512492,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "prompt": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.prompt.txt",
+          "fileSha256": "a437d119e3dea09a8aec40dbfd0eb9c81b262bf915f5f85d971aded2899a30fe",
+          "submittedSha256": "ec9bc9b73e3e6673738b6ab5c9f6b01ff1c34215218b115298c6486dcee22e78",
+          "verifiedSubmittedEncoding": "UTF-8 file trimEnd"
+        },
+        "inputArtifacts": [
+          {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+            "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+            "role": "sole approved empty clear-day environment edit target; no person image input",
+            "actualSha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+            "hashMatches": true
+          }
+        ],
+        "sourceRecord": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.source.json",
+          "sha256": "573dae483823a4132499a02e5775059430acded7640a2ad6614a3c28925e8a59",
+          "bytes": 2715,
+          "capturedAt": "2026-10-25T09:14:03.027793+00:00"
+        },
+        "toolOutput": "exec-3ef33581-ede6-493a-9b45-0b747dad3d35.png",
+        "attempts": []
+      },
+      "motherReview": {
+        "status": "approved_empty_room_static",
+        "approved": true,
+        "scope": "exact empty environment only",
+        "evidence": [
+          {
+            "aggregate": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/literary-room-empty-plates-primary-admission-v1.json",
+              "sha256": "8ed5c9723ccf61f178ffa5e7f90a66f05b18fc6e44c8ba1124782b679a045c0c",
+              "bytes": 4399,
+              "capturedAt": "2026-10-25T09:14:02.909131+00:00"
+            },
+            "individual": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.primary-approval.json",
+              "sha256": "52fbcfab5828226ba97e486aaf20e2d5896d3744c349094129602faef22e7f72",
+              "bytes": 869
+            },
+            "sha256": "aa4ce3dcab5cd2366c9f1c4eadcff0ab85537ab45e5a3b0643c4d01588e6e247",
+            "reviewer": "root / primary",
+            "boundary": "Eight exact-SHA empty environment plates only. No character, activity, layer, motion or runtime acceptance."
+          }
+        ]
+      },
+      "layers": {
+        "status": "not_applicable_as_empty_plate",
+        "roleLayerBundleApproved": false
+      },
+      "runtime": {
+        "status": "not_integrated",
+        "accepted": false,
+        "registration": null,
+        "observations": []
+      },
+      "legacyPlateInherited": false
+    },
+    {
+      "key": "literary-room-v1:plate:time-night",
+      "sceneFamily": "literary-room-v1",
+      "variant": "time-night",
+      "name": "仅时间的夜晚",
+      "canvas": {
+        "width": 1536,
+        "height": 1024
+      },
+      "kind": "shared_empty_room",
+      "paletteHint": null,
+      "selectionBoundary": "weather off/revoked/missing/expired/unsupported; clockTimeZone supports night only",
+      "visualBrief": "Full opaque milk-white inner curtains conceal readable outdoor scenery; day/night interior light alone, no inferred weather.",
+      "generation": {
+        "status": "generated",
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.png",
+          "sha256": "d9c41c4278dd8a4efae1a91102e16349ad4dcf9829963c31ddc421dfc3652253",
+          "bytes": 2184911,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "prompt": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.prompt.txt",
+          "fileSha256": "53b243edcd9b046ed71d0520e549ee66de696d66343362a05c628c37af7d9705",
+          "submittedSha256": "1e9fe9926427b89abf306dd61b17024f077bed1e49196fbfac4e05b44ca1b351",
+          "verifiedSubmittedEncoding": "UTF-8 file trimEnd"
+        },
+        "inputArtifacts": [
+          {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-dry-night-v1.png",
+            "sha256": "edad31b1ce0c7f21be59d939cc54a0d6230b31d6fe380d0d553af515032fd0f4",
+            "role": "sole approved empty dry-night environment edit target; no person image input",
+            "actualSha256": "edad31b1ce0c7f21be59d939cc54a0d6230b31d6fe380d0d553af515032fd0f4",
+            "hashMatches": true
+          }
+        ],
+        "sourceRecord": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.source.json",
+          "sha256": "32b064384fadb3f76227f36de48e8d24e7c342fea434939eb4d457d01226aed6",
+          "bytes": 2729,
+          "capturedAt": "2026-10-25T09:14:03.031924+00:00"
+        },
+        "toolOutput": "exec-e8344419-e988-47b4-a15f-c2d8a5be4809.png",
+        "attempts": []
+      },
+      "motherReview": {
+        "status": "approved_empty_room_static",
+        "approved": true,
+        "scope": "exact empty environment only",
+        "evidence": [
+          {
+            "aggregate": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/literary-room-empty-plates-primary-admission-v1.json",
+              "sha256": "8ed5c9723ccf61f178ffa5e7f90a66f05b18fc6e44c8ba1124782b679a045c0c",
+              "bytes": 4399,
+              "capturedAt": "2026-10-25T09:14:02.909131+00:00"
+            },
+            "individual": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.primary-approval.json",
+              "sha256": "6911d8a438417db80fe67e828c3d44735769722529af1fe8f09b3b1cfbf1c0c9",
+              "bytes": 805
+            },
+            "sha256": "d9c41c4278dd8a4efae1a91102e16349ad4dcf9829963c31ddc421dfc3652253",
+            "reviewer": "root / primary",
+            "boundary": "Eight exact-SHA empty environment plates only. No character, activity, layer, motion or runtime acceptance."
+          }
+        ]
+      },
+      "layers": {
+        "status": "not_applicable_as_empty_plate",
+        "roleLayerBundleApproved": false
+      },
+      "runtime": {
+        "status": "not_integrated",
+        "accepted": false,
+        "registration": null,
+        "observations": []
+      },
+      "legacyPlateInherited": false
+    }
+  ],
+  "ledgerRevision": 3,
+  "primaryAdmission": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/literary-room-empty-plates-primary-admission-v1.json",
+    "sha256": "8ed5c9723ccf61f178ffa5e7f90a66f05b18fc6e44c8ba1124782b679a045c0c",
+    "bytes": 4399,
+    "capturedAt": "2026-10-25T09:14:02.909131+00:00"
+  },
+  "snapshot": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/production-snapshot-v3.json",
+    "sha256": "6881f85ee4b420d6ef8fa94d019685bbb8984b9a1c42b6541fb55e1b95e01cc9",
+    "revision": 3,
+    "cutoffUtc": "2026-10-25T13:13:57+00:00",
+    "closedAt": "2026-10-25T13:20:52.971092+00:00"
+  }
+}

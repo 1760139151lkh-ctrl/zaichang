@@ -10,6 +10,7 @@ import { InteractiveGraphic, InteractiveGroup, InteractiveLine, InteractivePolyl
 import { InteractiveMotion } from './interactive-motion';
 import { InteractivePress } from './interactive-press';
 import { InteractiveVoice, InteractiveAudioTrace } from './interactive-audio';
+import { InteractivePiano } from './interactive-piano';
 
 type Props = ComponentRenderProps<Record<string, any>>;
 type NumberState = Extract<InteractiveStateDeclaration, { kind: 'number' }>;
@@ -46,12 +47,14 @@ function NumberEditor({ value, state, label, disabled, onCommit, onCancel, inlin
   useEffect(() => { if (inline) input.current?.select(); }, [inline]);
   const commit = () => {
     const next = draft.trim() ? Number(draft) : NaN;
-    const accepted = Number.isFinite(next) && onCommit(next);
-    if (accepted) dirty.current = false;
+    const bounded = Number.isFinite(next) ? snapProgramNumber(next, state) : NaN;
+    const accepted = Number.isFinite(bounded) && onCommit(bounded);
+    if (accepted) { dirty.current = false; setDraft(String(bounded)); }
     setInvalid(!accepted); return accepted;
   };
   return <input ref={input} autoFocus={inline} type="number" className="interactive-number-editor" inputMode="decimal"
     value={draft} min={state.min} max={state.max} step={state.step ?? 'any'} aria-label={label} aria-invalid={invalid || undefined}
+    title={invalid ? '再检查一下这个数值，或按 Esc 放回。' : `可在 ${state.min} 至 ${state.max} 之间调整${state.step === undefined ? '。' : `，每次 ${state.step}。`}`}
     disabled={disabled} onFocus={() => { focused.current = true; onBeginEdit?.(); }}
     onChange={event => { dirty.current = true; onBeginEdit?.(); setDraft(event.currentTarget.value); setInvalid(false); }}
     onBlur={() => { focused.current = false; if (dirty.current) commit(); else { setDraft(String(value)); setInvalid(false); } }}
@@ -274,7 +277,7 @@ function InteractiveSourceSlot({ props }: Props) {
 const renderers: Record<InteractiveComponentName, ComponentRenderer<any>> = {
   Document: InteractiveDocument, Flow: InteractiveFlow, Paper: InteractivePaper, Text: InteractiveText, Formula: InteractiveFormula,
   Number: InteractiveNumber, TextInput: InteractiveTextInput, SequenceInput: InteractiveSequenceInput, Choice: InteractiveChoice,
-  Toggle: InteractiveToggle, Press: InteractivePress, Voice: InteractiveVoice, AudioTrace: InteractiveAudioTrace,
+  Toggle: InteractiveToggle, Press: InteractivePress, Voice: InteractiveVoice, AudioTrace: InteractiveAudioTrace, Piano: InteractivePiano,
   Button: InteractiveButton, SourceSlot: InteractiveSourceSlot, Graphic: InteractiveGraphic,
   Group: InteractiveGroup, Line: InteractiveLine, Polyline: InteractivePolyline, Curve: InteractiveCurve, Circle: InteractiveCircle,
   Rect: InteractiveRect, Polygon: InteractivePolygon, Label: InteractiveLabel, DragHandle: InteractiveDragHandle, Motion: InteractiveMotion,

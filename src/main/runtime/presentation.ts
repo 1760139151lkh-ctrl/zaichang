@@ -18,8 +18,9 @@ import { isAcademicCampus } from './campus-academic';
 import { programMessageProjection } from './interactive-program-sources';
 import { orderCampusPageViews } from './campus-page-order';
 import { validCompanionActivityHint } from '../../shared/companion-activity';
+import { readEvidenceImage } from './evidence-images';
 
-type PresentationRead = { liveCuriosity?: boolean; liveRehearsal?: boolean; liveNote?: boolean; liveCampus?: boolean; liveProgram?: boolean };
+type PresentationRead = { liveCuriosity?: boolean; liveRehearsal?: boolean; liveNote?: boolean; liveCampus?: boolean; liveProgram?: boolean; liveAttachments?: boolean };
 
 /** Audience projection happens before IPC. Public presentation has neither
  * private transcript payloads nor hidden explanations in DOM/ARIA metadata. */
@@ -209,6 +210,21 @@ export class PresentationService {
   /** Historical IPC and exports must apply the same source gate as scene tools. */
   sourceCurrentMessage(value: Message, options: PresentationRead = {}): Message {
     const runtime = this.store.runtime, scope = runtime.policy.hostScope();
+    if (value.attachments) value = { ...value, attachments: value.role !== 'user' ? undefined : value.attachments.filter(item => {
+      if (!item.sourceEventId || this.store.kernel.hasFence(item.sourceEventId) || this.store.kernel.hasFence(value.id)) return false;
+      const row = this.store.kernel.db.prepare('SELECT status FROM h_evidence WHERE id=?').get(item.sourceEventId);
+      // The first foreground projection acknowledges the native selection;
+      // only the second, authoredSource-stamped projection proves admission.
+      if (!row) return options.liveAttachments === true && value.retention === 'session_only';
+      const event = this.store.kernel.evidence(scope, item.sourceEventId);
+      if (!event || event.status !== 'active' || event.parentEventId !== value.id || this.store.kernel.sourceRestrictions(scope, event.id).length
+        || this.store.kernel.sourceLineageRestricted(event)) return false;
+      if (item.kind === 'image') {
+        try { readEvidenceImage(this.store.kernel, scope, event.id, event.contentVersion); }
+        catch (error) { if (error instanceof HarnessError) return false; throw error; }
+      }
+      return true;
+    }) };
     if (value.companionActivity && (value.role !== 'assistant' || value.proactive || !['running', 'done'].includes(value.status)
       || !validCompanionActivityHint(value.companionActivity, value.id))) value = { ...value, companionActivity: undefined };
     value = programMessageProjection(runtime, value, { live: options.liveProgram });
@@ -259,7 +275,7 @@ export class PresentationService {
       hostStatus: { kind: 'notice', code: 'source_changed', text: '这条回复的依据已改变，正文暂不可读。' },
       steps: [], obligations: [], actions: [], mapCards: undefined, scenes: [], views: [], companionActivity: undefined,
       releaseArtifacts: undefined, helpRefs: undefined, primaryHelpRef: undefined, cooperationId: undefined,
-      contextReceipt: undefined, objectStates: undefined, image: undefined };
+      contextReceipt: undefined, objectStates: undefined, image: undefined, attachments: undefined };
     const denied = new Set(snapshots.filter(scene => !this.studySnapshot(scene) && scene.kind !== 'study_reference' && scene.kind !== 'curiosity_reference' && scene.kind !== 'rehearsal_reference' && scene.kind !== 'note_reference'
       && !this.sceneReadable(scene, options)).map(scene => `${scene.id}@${scene.revision}`));
     const visibleScenes = value.scenes ? this.currentScenes(value.scenes, options) : undefined;

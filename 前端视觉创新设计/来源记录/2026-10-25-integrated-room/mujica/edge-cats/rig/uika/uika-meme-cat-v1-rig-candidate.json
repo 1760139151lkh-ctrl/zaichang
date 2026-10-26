@@ -1,0 +1,258 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-canvas-source-rgb-edge-cat-static-rig-candidate",
+  "characterId": "uika",
+  "source": {
+    "file": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\uika-meme-cat-v1.png",
+    "sha256": "4e47efb50195f79286f944127aa39399749fe04f7b57f59a3b651e024463de74",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "originalPreserved": true
+  },
+  "files": {
+    "body": {
+      "file": "uika-meme-cat-v1-body.png",
+      "sha256": "07da5395cc73220d8dbdb25de563ed4cae5a0c8128a3de144fdd20e9ac8a96c0",
+      "bytes": 768525,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        49,
+        169,
+        1395,
+        883
+      ]
+    },
+    "tail": {
+      "file": "uika-meme-cat-v1-tail.png",
+      "sha256": "793078af85336aee99c842e53709b8ff616767ac870989b5c8b86d4480446fef",
+      "bytes": 58628,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        1318,
+        339,
+        1513,
+        695
+      ]
+    },
+    "clean": {
+      "file": "uika-meme-cat-v1-clean.png",
+      "sha256": "60baf057f54e2054a2440db3cea19074fe87423b285e59a3fb2fd372f186f724",
+      "bytes": 808206,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        49,
+        169,
+        1513,
+        883
+      ]
+    }
+  },
+  "layerOrder": [
+    "tail",
+    "body"
+  ],
+  "calibration": {
+    "id": "uika",
+    "source": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\uika-meme-cat-v1.png",
+    "sourceSha256": "4e47efb50195f79286f944127aa39399749fe04f7b57f59a3b651e024463de74",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "tailPivotPx": [
+      1353,
+      664
+    ],
+    "tailPivotNormalized": [
+      0.880859375,
+      0.6484375
+    ],
+    "paperEdgeSourceY": 847,
+    "paperEdgeNormalized": 0.8271484375,
+    "frontPawLowerExtentsPx": [
+      [
+        293,
+        864
+      ],
+      [
+        570,
+        877
+      ]
+    ],
+    "bodyArcSamplesY_X": [
+      [
+        600,
+        1321
+      ],
+      [
+        610,
+        1329
+      ],
+      [
+        620,
+        1336
+      ],
+      [
+        630,
+        1343
+      ],
+      [
+        650,
+        1355
+      ],
+      [
+        660,
+        1360
+      ],
+      [
+        670,
+        1365
+      ],
+      [
+        690,
+        1373
+      ],
+      [
+        700,
+        1377
+      ]
+    ],
+    "visibleTailEndY": 694,
+    "wholeMaskExpansionRadius": 18,
+    "tailSemanticExpansionRadius": 12,
+    "rootUnderlapPx": 18,
+    "sourceSolidOutsideWholeGuardBounds": null,
+    "bodyAlphaBounds": [
+      49,
+      169,
+      1395,
+      883
+    ],
+    "tailAlphaBounds": [
+      1318,
+      339,
+      1513,
+      695
+    ],
+    "rawTailRedBounds": [
+      1334,
+      343,
+      1503,
+      684
+    ],
+    "outputs": {
+      "body": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\rig\\uika\\uika-meme-cat-v1-body.png",
+      "tail": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\rig\\uika\\uika-meme-cat-v1-tail.png",
+      "clean": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\rig\\uika\\uika-meme-cat-v1-clean.png"
+    },
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-9725-7bd3-aa74-f7fa6487bfed/exec-4ed795b0-15ea-4f82-ad35-e25b7dfc3614.png",
+    "bodyForegroundInkOverlapPx": 4
+  },
+  "processing": {
+    "rgb": "Every visible output RGB copied from original at same pixel coordinates. No face, style, colours, body or tail painted/replaced. Transparent-only RGB zeroed.",
+    "semanticMask": "ImageGen generated independently for this asset. Whole semantic mask expanded by this asset measured radius to include all original alpha>=250 core; no shared Sakiko mask or coordinate default. Red tail identity expanded 12px, clipped to native contour and actual source rump arc.",
+    "nativeAlpha": "Original alpha max254. Original alpha multiplied by native-opacity gate 0 at <=230, 1 at >=250, linear between; only original solid ink/colour survives, broad diffuse blue halo exits. Coarse semantic identity remains a guard.",
+    "root": "Visible tail begins beyond this asset own rump arc. Original navy foreground root ink retained in body, with 4px source-ink-only overlap. Tail contains an 18px original neighbouring RGB hidden underlap from y620 to this asset actual root end, no painted hidden tail."
+  },
+  "directRgbInspection": {
+    "body": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "tail": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "clean": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  "review": {
+    "personallyViewedOriginalWholeSource": true,
+    "personallyViewedSourceRootCoordinates": true,
+    "personallyViewedProductionReview": true,
+    "evidence": "static-production-review.png",
+    "scope": "128px light/dark and both mirror directions; root -5/0/+5 degree static detail. Shape, character face/hair/eyes and colour stay source-original. Body/paws stationary. Fine native antialias remains; no broad blue glow or open seam observed at normal small size.",
+    "staticOnly": true,
+    "realMotionNotVerified": true
+  },
+  "motionBoundary": {
+    "tailPivotPx": [
+      1353,
+      664
+    ],
+    "tailPivotNormalized": [
+      0.880859375,
+      0.6484375
+    ],
+    "paperEdgeSourceY": 847,
+    "paperEdgeNormalized": 0.8271484375,
+    "frontPawLowerExtentsPx": [
+      [
+        293,
+        864
+      ],
+      [
+        570,
+        877
+      ]
+    ],
+    "usualMicroRotationDegrees": [
+      -3,
+      3
+    ],
+    "staticInspectedExtremesDegrees": [
+      -5,
+      5
+    ],
+    "mirror": "Shared outer wrapper mirrors both layers; retain source-local tail pivot; speech text lives outside mirrored layers."
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "fullHumanMatrixCredit": false
+}

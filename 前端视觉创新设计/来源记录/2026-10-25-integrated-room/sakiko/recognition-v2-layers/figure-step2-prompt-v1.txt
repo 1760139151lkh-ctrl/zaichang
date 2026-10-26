@@ -1,0 +1,9 @@
+Use case: background-extraction. Asset type: SAME-CANVAS COMPLETE FOREGROUND LUMINANCE MASK, STEP F2, for Sakiko recognition v2. Image 1 is the ONLY input: the 1536x1024 original-colored room in which the actual original girl and her held open book were already painted solid white.
+
+Keep the ENTIRE EXISTING WHITE GIRL-PLUS-BOOK foreground in exactly the same source coordinates and shape. Change ONLY the remaining colored environment to solid pure BLACK. This is an in-place background conversion, not a new silhouette drawing. Do not crop, resize, recenter, zoom, translate, rotate, change the pose, contract or erode the selected foreground.
+
+The preserved white foreground includes all long hair/ribbon contours, face/neck, all cardigan and sleeves, full hands/fingers, all book covers/spine/pages, every outward-folded plaid skirt tip and dark lower clothing trim, both thighs and exposed knees, both actual BELOW-KNEE calf socks and their cuffs, BOTH complete loafers including toe tips, thin outsole rims, heel walls/blocks and the entire original bottom contour. Original antialiased outer edges may be thin grey; object interiors remain pure white with no eye, clothing or book linework. Keep only actual source-background gaps between strands, limbs, book or shoes; never reinterpret the girl as a new pose.
+
+All colored furniture, linen, pillows/throw, table, lamp/shade, cup, books, plants/shelves, curtains/window/clouds/lake/town, wood floor/rug and all independent cast/contact shadows become BLACK. Natural bright-white cloud, curtain, linen and sun patches also become BLACK; they are background, not the intentionally painted solid-white girl.
+
+Output ONE opaque 1536x1024 PNG: black canvas with this full unchanged original-position white foreground only. No color room, checkerboard, labels, grid, arrows, boxes, new shadow, text or watermark.

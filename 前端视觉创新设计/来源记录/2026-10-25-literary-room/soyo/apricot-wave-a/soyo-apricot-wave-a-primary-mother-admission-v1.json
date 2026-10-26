@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "kind": "exact-sha-primary-mother-decisions",
+  "character": "soyo",
+  "recordedAtUtc": "2026-10-25T11:36:47.494773+00:00",
+  "decisionSource": "Root personally viewed all six wave-a mothers and issued exact per-image decisions in this healthy session",
+  "scope": "mother static only, no layer or runtime approval",
+  "cells": [
+    {
+      "key": "soyo/reading/apricot",
+      "mother": {
+        "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-a\\soyo-reading-apricot-literary-v1.png",
+        "sha256": "d0d179ddadd7638eea42b51c3e158ed820f1bb65deea5ccc73a625eac459369e",
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "producerSource": "soyo-reading-apricot-literary-v1.source.json",
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static original mother only",
+        "rationale": "Root personally viewed and approved original identity, hair/eyes/hands/book and visible real support; static mother only.",
+        "source": "Root direct message 2026-10-25; exact message timestamp not provided"
+      },
+      "contourComplete": null,
+      "visibleContourNote": "see original visible contour; no layer-mask certification made by this mother record",
+      "allowedAsFutureImageInput": true,
+      "imageInputBoundary": "future generation still needs explicit task release; this records correct-mother eligibility only",
+      "primaryLayerApproved": false,
+      "runtimeRegistered": false,
+      "runtimeAccepted": false
+    },
+    {
+      "key": "soyo/planning/apricot",
+      "mother": {
+        "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-a\\soyo-planning-apricot-literary-v1.png",
+        "sha256": "270017d960ec00da97493baf8120e16403ba534e4040dc5e9be72ef44e7fe6c9",
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "producerSource": "soyo-planning-apricot-literary-v1.source.json",
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static original mother only",
+        "rationale": "Root personally viewed and approved original identity, hair/eyes/hands/book and visible real support; static mother only. Large furniture remains stable; local chair rotation is reasonable. Foreground plant naturally occludes part of legs/shoes; no complete foot contour certification, not a structural anatomy rejection.",
+        "source": "Root direct message 2026-10-25; exact message timestamp not provided"
+      },
+      "contourComplete": false,
+      "visibleContourNote": "foreground plant naturally occludes part of lower legs/shoe contours",
+      "allowedAsFutureImageInput": true,
+      "imageInputBoundary": "future generation still needs explicit task release; this records correct-mother eligibility only",
+      "primaryLayerApproved": false,
+      "runtimeRegistered": false,
+      "runtimeAccepted": false
+    },
+    {
+      "key": "soyo/rest/apricot",
+      "mother": {
+        "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-a\\soyo-rest-apricot-literary-v1.png",
+        "sha256": "3bd75a744710a6b112696fbdea7502e54e18f6430bdbe1d785b2861c128d9463",
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "producerSource": "soyo-rest-apricot-literary-v1.source.json",
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static original mother only",
+        "rationale": "Root personally viewed and approved original identity, hair/eyes/hands/book and visible real support; static mother only.",
+        "source": "Root direct message 2026-10-25; exact message timestamp not provided"
+      },
+      "contourComplete": null,
+      "visibleContourNote": "see original visible contour; no layer-mask certification made by this mother record",
+      "allowedAsFutureImageInput": true,
+      "imageInputBoundary": "future generation still needs explicit task release; this records correct-mother eligibility only",
+      "primaryLayerApproved": false,
+      "runtimeRegistered": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "layerWorkAuthorizedByThisRecord": false,
+  "runtimeAccepted": false
+}

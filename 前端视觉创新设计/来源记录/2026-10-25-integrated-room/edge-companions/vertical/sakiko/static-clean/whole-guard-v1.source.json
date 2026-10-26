@@ -1,0 +1,35 @@
+{
+  "recordType": "imagegen-whole-silhouette-guard-for-native-alpha",
+  "input": {
+    "path": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\sakiko\\sakiko-vertical-edge-cat-pilot-v1.png",
+    "sha256": "5bfc229f5c0506f6fcb93646d4058543d42dbba910eafb5f99a5ebdefcb55d05",
+    "personallyViewed": true
+  },
+  "readDependencies": [
+    {
+      "file": ".agents\\skills\\zaichang-frontend-director\\references\\characters\\sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "scope": "Full text read immediately before whole-guard generation."
+    },
+    {
+      "file": ".agents\\skills\\zaichang-frontend-director\\references\\character-art-direction.md",
+      "sha256": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840",
+      "scope": "Full text read immediately before whole-guard generation."
+    }
+  ],
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-9fec3c76-0047-470c-9139-ac4441cac38d.png",
+  "toolOriginalSha256": "3f8dd8f97d53cbe22a29abff8f24c985fd434d7c4476bc4f84540ea626c5381b",
+  "actualOutput": {
+    "canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGB"
+  },
+  "promptFile": "whole-guard-v1.prompt.txt",
+  "promptFileSha256": "05df54c8183845372bd0298a9a6a7d29f142a2e657ca89a0db1dd1527179d46e",
+  "exactSubmittedPrompt": "Produce ONE technical WHOLE-CAT SILHOUETTE MASK for the single supplied accepted Sakiko upright vertical-edge cat source. This is segmentation only, not illustration. EXACT native canvas 1254 x 1254 pixels. No crop, scaling, centering, extension, flip, quarter-turn or redraw. The existing near-frontal head remains UPRIGHT; the complete existing vertical white cat torso, both front paws at different heights, bracing hind paw, hair/ribbons/ears and naturally attached downward-left curled tail are all one fixed silhouette.\n\nWHITE #FFFFFF for EVERY opaque actual cat pixel: entire eyes/face/mouth/internal navy ink, blue-lavender hair/dark ribbons, ears, torso/paws/hind legs/tail AND EVERY THICK NAVY OUTER OUTLINE. Begin with a completely filled solid whole-cat white silhouette. No internal black eye/hair/ink holes. Actual true background gaps stay BLACK, including the small open alpha gap near neck/hair and the open space inside the tail curl where background shows.\nBLACK #000000 for transparent surroundings, true gaps and any isolated nearly invisible transparency speckles. No grey background, painted checkerboard, glow, shadow or gradients.\nOnly these two flat opaque labels. Preserve the actual full source position, scale, shape, generous blank side margins and exact native1254 square. Do NOT add the imagined vertical page/pole/edge line or mask a rectangular page strip. The drawn cat alone is white.\nThis mask will only guard native source alpha; every original visible RGB remains untouched later. No text, arrows, labels, new objects, independent tail construction, invented body geometry or background. The head/hair/ribbons/face may not be remodeled. This is the accepted simple cartoon head plus equally simple meme cat body, not realistic fur or a new character rendering.",
+  "submittedPromptSha256": "a951f1e7f6d26163279245398802ef657570f4384a284bdad87094daf070690b",
+  "transparentBackground": false,
+  "purpose": "Guard native source alpha only; no source RGB or pose repaint; no tail rig."
+}

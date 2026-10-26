@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "character-activity-mother-candidate",
+  "character": "mutsumi",
+  "activity": "resume",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "wave": "apricot-wave-b",
+  "intendedSupport": "window-seat",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-2172d756-2255-4b5c-bbfb-c7f4c48f8cc4.png",
+  "executionId": "exec-2172d756-2255-4b5c-bbfb-c7f4c48f8cc4",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "primary approved clean literary room spatial input"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.png",
+      "sha256": "9d529789ece89f44b166f39dd259136257598cfd546009e49fae74140cbf8b6d",
+      "role": "same character root-approved chat mother for correct identity/outfit only, not new activity pose"
+    }
+  ],
+  "brief": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/mutsumi-prompt-plan.json",
+    "sha256": "66ade9700cb7bb993b43bd7e247b678878b79ad71237b0b5dcd915a43a3be2ca",
+    "key": "mutsumi/resume/apricot",
+    "release": "Root released limited wave-b study/listening/play/attention/resume apricot only, five cells per character; no layers before root mother review",
+    "transformation": "Own literary narrative/core/identity/light retained; support refined from actual empty room. Study uses actual left desk/chair depth instead of unapproved generic bench-study or copied desk-pilot body."
+  },
+  "fictionalCompanionScene": true,
+  "privateUserDataUsed": false,
+  "promptFile": "mutsumi-resume-apricot-v1.prompt.txt",
+  "promptFileSha256": "ade1cbdcbf60163010784e89feae93d574c8864c1a82c0669fa2017b9df4ad73",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; exact submitted text",
+  "submittedPromptSha256": "5d783d8030d7b5d915c6b31276caa6b542a29e5f49906903007928f2685fe028",
+  "output": {
+    "file": "mutsumi-resume-apricot-v1.png",
+    "sha256": "8e8ac48ad4b37993d28ccd8bd8c83f64c98f5f1abf8e43f7791b0c8380b11701",
+    "bytes": 2431327,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved complete mother at the five-call boundary. Correct mint-haired sailor identity returns gaze to the interlocutor while one finger keeps place in a low open book and the other hand supports it on the lap. This differs from reading's down-page attention and the attention candidate's high held-book/thinking pose. Clear face/eyelids/irises versus fringe, real finger/page and hand/book contacts, full head/shoes, supported bench sitting and uncrossed knee/ankle/floor relations read coherently in full view. No welcome wave, completed-work claim or generic large smile. Same room camera/major furniture and warm light remain. Root/layers/runtime pending."
+  },
+  "primaryApproved": true,
+  "primaryApprovalRecord": "mutsumi-resume-apricot-v1.primary-approval.json",
+  "primaryApprovalScope": "Root approved exact-SHA static mother only, with actual rendered semantics; layer/runtime remain false.",
+  "contourComplete": true,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "Static mother candidate only, root review pending; no layer, motion or runtime admission."
+}

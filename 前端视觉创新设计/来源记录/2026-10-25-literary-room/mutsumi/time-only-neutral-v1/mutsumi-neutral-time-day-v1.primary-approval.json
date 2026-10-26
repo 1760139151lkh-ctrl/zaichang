@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "recordType": "primary-static-mother-admission",
+  "reviewer": "root / primary agent",
+  "asset": {
+    "path": "mutsumi-neutral-time-day-v1.png",
+    "sha256": "8c1d8e006fa332a85a9d7fed40989170fce6f6956a0b18e351efa83f29404f6f"
+  },
+  "staticMotherApproved": true,
+  "sameCharacterNightPoseBaseAllowed": true,
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "userApproved": false,
+  "exactActivityMatrixCredit": 0,
+  "scope": "Complete static neutral time-day mother and same-character complete-pose base for a time-night lighting extension only. No layers, runtime or 360 activity-motion admission.",
+  "primaryMessageVerbatim": "Root刚逐完整PNG亲看Mutsumi day8c1d8e00…4f6f：闭帘、浅绿长发双银夹/金褐眼/轻回应、交掌膝上、髋座与完整双鞋地面关系成立，准STATIC mother可作同角色night完整姿势基底。保存本消息分级根准入exactSHA，不签层/runtime/360/userApproved。可先睦night1张：准睦day＋准睦v3 identity＋time-night净plate，身体/脸型/同一动作/视线对象维持，全画面人物/软垫/木面共同转室内夜灯光，闭帘无天气，不留白日窗格亮斑，不换相机/家具/人。仅母候选不制layers。Uika day我下一步看，先别用它连night。",
+  "recordedAt": "2026-10-26T00:26:13.441Z"
+}

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "kind": "primary-static-mother-admission",
+  "key": "mutsumi/attention/apricot",
+  "reviewer": "root",
+  "decision": "approved",
+  "primaryPersonallyViewed": true,
+  "mother": {
+    "file": "mutsumi-attention-apricot-v1.png",
+    "sha256": "6a6dd6f09e91cdcf97461452757cbe8ca1ae4ec5bbe382d404d5d0ef8fad3cd8",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "sourceRecord": "mutsumi-attention-apricot-v1.source.json",
+  "observation": "Root personally viewed open-book/finger-near-chin thought pose and accepted it as attention to details on the page. This is the actual approved scene, not a claim the submitted empty-handed side-turn was rendered. Eyes/fringe, hands/seat support and complete shoes coherent.",
+  "contourComplete": true,
+  "scope": "Exact-SHA complete static mother only. Actual rendered scene semantics recorded honestly; no layer, audio/performance, motion or runtime admission.",
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "evidenceSource": "Explicit root message after personally viewing all five Mutsumi wave-b full mothers"
+}

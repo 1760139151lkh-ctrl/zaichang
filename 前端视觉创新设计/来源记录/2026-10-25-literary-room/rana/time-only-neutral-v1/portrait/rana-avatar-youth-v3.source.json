@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "recordType": "independent-youth-v3-avatar-candidate",
+  "characterId": "rana",
+  "purpose": "independent-avatar",
+  "originalInteraction": "Original project moment: an interesting familiar comment receives her brief self-chosen attentive glance, quiet curiosity and a small self-possessed asymmetrical smile",
+  "dossierVersion": "2026-10-25",
+  "tool": "image_gen.imagegen",
+  "recordedAt": "2026-10-26T00:19:44.754912+00:00",
+  "sourceConversationId": "01a17365-def4-7ef0-9767-09f785cec060",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/运行素材/companion/portraits/rana-youth-charm-20261025.png",
+      "sha256": "eae8f6bd24c70dd265f061bdfd7d633192d718170561fb6b6d7da50b4d8bba55",
+      "purpose": "2D short silver-hair and own-right gold/own-left blue-eye identity only; v2 latest proportional requirement not treated as accepted",
+      "personallyViewedBeforeGeneration": true
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: illustration-story. Draw a NEW independent avatar of Kaname Rana (MyGO!!!!!) for 在场, square 1024 x 1024 with real transparent background. This is an original personal moment, not a canon episode or cat transformation. The single supplied current 2D portrait provides ONLY silver-white layered short hair, her recognizable eye shape and real heterochromia. It does NOT approve the old face length, exact smile, head tilt or adult/chibi proportions. Do not crop any room/body image, paste an old face, or bring in a 3D official model.\n\nShe has been contentedly following her own small thought, and something the familiar companion says is just interesting enough to make her look up. The gaze is awake and quietly curious, her own small choice to pay attention, without performing for approval. One brow lifts a fraction; the mouth has a small relaxed asymmetrical closed-lip curve, as if she has noticed an amusing possibility she may or may not explain. She is easy in her own company yet responsive. Not empty or vacant, sleepy by default, infant-cute, a pet begging for attention, cat mouth, giant delighted eyes or a generic hostess smile. No props, captions, musical notes, matcha cup or cat ears are needed to explain identity.\n\nFace: softly compact youthful cheek/middle/lower-face relation, natural young cheek volume and a short gently rounded chin. Preserve her own modest eye shape, believable eye/nose/mouth proportions, small subtle nose, fine natural lips and normal restrained eye size. Do not squeeze the whole skull or make the eyes huge to suggest youth. No vertical adult long jaw, pointy glamour chin, long exposed neck, heavy makeup, fashionable lashes, lipstick, 3D glossy skin or round chibi/toddler doll. She remains a recognizable thoughtful young anime girl with her own freedom.\n\nHer short silver-white hair has separated soft locks at cheeks/ears/nape and cool gray-lilac painted shadows, not a shining white helmet. The airy bangs leave both eyes readable. For this near-frontal portrait, HER OWN RIGHT iris is GOLD and HER OWN LEFT iris is BLUE; the viewer sees gold on the left, blue on the right. Do not mirror that identity, turn both irises one color or add a new hair ornament. Both eyes engage the viewer with specific small curiosity, not a blind identical glass highlight. Delicate fine literary 2D hand drawing and softly painted hair/face planes, no photography, plush, plastic, heavy rendering or source-image collage.\n\nComposition: head and hair dominate the square, an intimate near-front view with only a slight natural turn, a little less tilted than the previous portrait. Full crown, identity hair silhouette, both eyes, cheeks and chin safely inside circular-avatar framing. Only a tiny necessary neckline and a hint of white sailor collar with dark navy edging and tan uniform at the bottom, no large torso, hands, arms or shoulders filling half the picture. Soft neutral illumination, subtle natural cheek warmth, clear silver hair and actual gold/blue eyes. No room, scenery, background color, border, avatar circle, logo, text or watermark. Preserve true alpha transparency and fine natural hair edges, never paint a checkerboard.",
+  "submittedPromptSha256": "d84de7cc21c7b1d7c0ec8ee8f70fc789b2e20338a57650f8fae1030856641af4",
+  "promptFile": "rana-avatar-youth-v3.prompt.txt",
+  "promptFileSha256": "375ab5b8dfb629263ac3effca118c8cb948da87060e367d9a89201358337f5f1",
+  "requestFile": "rana-avatar-youth-v3.request.json",
+  "requestSha256": "372b13276763ca16166b0ad5aabcef2a629efbf6e32d7279021d15a2cf5da15f",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-2cd1d296-927a-4bdf-96a6-36b33738b991.png",
+  "toolOriginalSha256": "400f6a20398a978d24561f7b484ab03bdf4ff3951cdfa95595a78691828a9aad",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/time-only-neutral-v1/portrait/rana-avatar-youth-v3.png",
+    "sha256": "400f6a20398a978d24561f7b484ab03bdf4ff3951cdfa95595a78691828a9aad",
+    "bytes": 2176794,
+    "canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "toolPngBytesUnchanged": true,
+    "resizedOrRetouched": false
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "observations": "Whole actual output viewed: silver-white layered short hair with cool lilac planes, observer-left gold and observer-right blue irises, awake soft gaze and small asymmetrical closed smile, compact cheek/chin with a modest lower collar hint. Head/hair dominate without a torso crop. Upper crown/few wisps meet the top canvas boundary; source records that observation rather than claiming perfect circular framing. Fine alpha edge appearance and real34px/48px circle/runtime remain unverified. Root owns latest youthful-face aesthetics approval.",
+    "realSmallSizeOrRuntimeVerified": false
+  },
+  "latestRequirementAccepted": true,
+  "primaryApproved": true,
+  "generationInputAllowed": true,
+  "runtimeAccepted": false,
+  "roomMotherCropUsed": false,
+  "threeDOrHoldOrUiUsed": false,
+  "sourceCodeOrRegistryChanged": false,
+  "status": "root_approved_with_scoped_boundaries",
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/SKILL.md",
+      "sha256AtRecord": "d3dafe3e370dfe2aa6bbd522dd64242efb6e9dbed265daa0b68a9532734e1a58",
+      "fullyRead": true
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256AtRecord": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "fullyRead": true
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/rana.md",
+      "sha256AtRecord": "d39286e83289d7c67222428a139b8650ff9f60a0e78e49c0a8393b3079f2e892",
+      "fullyRead": true
+    }
+  ],
+  "userApproved": false,
+  "primaryReview": {
+    "reviewer": "root",
+    "scope": "original_portrait_face_aesthetic_and_identity_reference",
+    "record": "root-primary-day-and-avatar-admission-v1.json",
+    "exactMessage": "Root现逐原PNG亲看Anon v3 132d7f7f…2663c、Rana v3 400f6a20…9aad：各发色/眼识别与细2D青春短柔颊下巴成立，Anon期待的轻开口笑、Rana自在小好奇半笑可读，准原画面部审美与同角色identity generation参考；透明细发边/34/48圆框/真实runtime未验，不签全用途或userApproved true。3张day原母已到，我下一步看Anon/Rana后再明确night；Tomori日母和v3已准，你可以先按原影一张time-night延拓（day完整姿势＋已准v3 identity＋准time-night纯空plate），闭帘无天气，全人物/书物/软垫/地面同夜光，不改体量/脸型和视线对象/不凭空歪腿；只准母候选、不制layers或registry。全源保留。"
+  },
+  "fineAlphaEdgesVerified": false,
+  "real34And48CircleVerified": false
+}

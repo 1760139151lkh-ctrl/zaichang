@@ -1,0 +1,440 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "recordedAt": "2026-10-25T09:08:04.351482+00:00",
+  "scope": "Exact-version primary full mother decisions. Core matrix records and weather supplements counted separately; old held/rejected versions retained. Layer approval is separate except explicit linked dry-night included admission. Runtime remains false.",
+  "humanSelectedSourceSha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+  "approvedCells": 11,
+  "records": [
+    {
+      "key": "sakiko/reading/apricot",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+      "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.source.json",
+      "sourceRecordSha256": "d9cd4427517d0e0fc050b9777c204e4f7363d8bd19bb585f000f5212f64fe6c3",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "decision": "approved",
+      "primaryPersonallyViewed": true,
+      "observation": "Human selected spatial/emotional baseline. Primary viewed complete face, hands/book, supported seat and shoes.",
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "key": "sakiko/chat/apricot",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.png",
+      "sha256": "8d8ca2d001893c16106ab797ec4a8a8c1e6576115a5a4c76ff1dd519eff4e2cd",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.source.json",
+      "sourceRecordSha256": "f18c9191161867a158126d7726e8d4826b8aef6280b98870f0839ac61e0a92e5",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "decision": "approved",
+      "primaryPersonallyViewed": true,
+      "observation": "Quiet attentive expression, coherent face and hands, natural supported close room posture.",
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "key": "sakiko/study/apricot",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-study-apricot-v1.png",
+      "sha256": "e7181f8b7a73cb57208375b95dd11135c67ff6f71055d59528a83ab6530ee285",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-study-apricot-v1.source.json",
+      "sourceRecordSha256": "84fdd5ab12939eef19d5cccf4b89eaa1affe0ea3fae11415aed1c26ff9b0fb4a",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "decision": "approved",
+      "primaryPersonallyViewed": true,
+      "observation": "Thoughtful concentration, supported notebook and pencil grip, clear eyes/fringe and full shoes.",
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "key": "sakiko/play/apricot",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v2.png",
+      "sha256": "f3e046d90a4f08c6f4afab56bb38c98cd6634f1731d80b145008041f26287f2d",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v2.source.json",
+      "sourceRecordSha256": "a06d91207acbe3d4f1f2b6dca46068716cf03b147912d7924dd1d74b81ed1ca9",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "decision": "approved",
+      "primaryPersonallyViewed": true,
+      "observation": "V2 keeps upright torso at original bench depth, restores apparent head/figure scale and small personal paper-bird gesture.",
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "key": "sakiko/rest/apricot",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-rest-apricot-literary-pilot-v1.png",
+      "sha256": "144a167d9c7d1bc594051ef1ca3fcf0b92e97f1a8ddbf8cd63eb6b54c8a460f8",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-rest-apricot-literary-pilot-v1.source.json",
+      "sourceRecordSha256": "ba207dbc7f8d219502ccc33494bd075c1316dd1933e1ce42a43c6192fdccc1b3",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "decision": "approved",
+      "primaryPersonallyViewed": true,
+      "observation": "Autonomous resting attention toward the window, relaxed supported palm/seat and complete shoes at selected scale.",
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "key": "sakiko/resume/apricot",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-resume-apricot-literary-pilot-v1.png",
+      "sha256": "b13d26385d89f3087c198645b489512f25093db6cbbd221f28b2cd7572368589",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-resume-apricot-literary-pilot-v1.source.json",
+      "sourceRecordSha256": "029e9621c9cdedbd0544cf352a23955289773be8a0bf824568c064a9d2008113",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "decision": "held-by-user",
+      "primaryPersonallyViewed": true,
+      "observation": "用户否决显老、标准营业笑的恢复表达；角色必须有青春辨识与具体认出熟人的目光。历史袜饰解释不再构成采用理由。",
+      "layerApproved": false,
+      "runtimeAccepted": false,
+      "decisionAtPreviousReview": "approved",
+      "observationAtPreviousReview": "Recognizing returning viewer with restrained personal warmth; book/hands/seat/shoes coherent. Minor sock ornament is project costume interpretation, not asserted as canon.",
+      "previousApprovalSuperseded": true,
+      "updatedAt": "2026-10-25T16:37:04.915665+00:00",
+      "generationInputAllowed": false,
+      "decisionSource": "Latest explicit user image review, relayed by root in this task; current dossier 2026-10-25.1.",
+      "supersedesHistoricalApproval": true
+    },
+    {
+      "key": "sakiko/planning/apricot",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-planning-apricot-literary-pilot-v1.png",
+      "sha256": "d3439fe3a604aaa3291889291b3dc7ff93d22297b765af98c21f00bea78269e7",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-planning-apricot-literary-pilot-v1.source.json",
+      "sourceRecordSha256": "08f4d91be377748cd99b39051a370304099373a753ee93e344b6418b717c4bcb",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "decision": "approved",
+      "primaryPersonallyViewed": true,
+      "observation": "Focused, revisable thought; modest notebook and pen supported on lap, full clear face/hand/shoes, room proportions retained.",
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "key": "sakiko/attention/apricot",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-attention-apricot-literary-pilot-v1.png",
+      "sha256": "ee521a0bf2b68e4d36c62a5c7755549006400e96d4ce252e0b154fe6587156b9",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-attention-apricot-literary-pilot-v1.source.json",
+      "sourceRecordSha256": "e320cf18dc6ef220a606904b54982f31694af879ee792a93331fcbf606c6e5af",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "decision": "held-by-user",
+      "primaryPersonallyViewed": true,
+      "observation": "用户否决无当前对象的空指姿态；手势必须由真实共同对象与眼神落点长出，不能用静态抬指冒充理解。",
+      "layerApproved": false,
+      "runtimeAccepted": false,
+      "decisionAtPreviousReview": "approved",
+      "observationAtPreviousReview": "Fresh attentive glance and small pointing gesture, supported pose at consistent close room scale. Static mother does not prove gaze timing.",
+      "previousApprovalSuperseded": true,
+      "updatedAt": "2026-10-25T16:37:04.915665+00:00",
+      "generationInputAllowed": false,
+      "decisionSource": "Latest explicit user image review, relayed by root in this task; current dossier 2026-10-25.1.",
+      "supersedesHistoricalApproval": true
+    },
+    {
+      "key": "sakiko/listening/apricot",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-listening-apricot-literary-pilot-v1.png",
+      "sha256": "ac97872e1632ee8cbfde69fb5ed6a15c55bcc5b7057158f4d3db3e12690ee329",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-listening-apricot-literary-pilot-v1.source.json",
+      "sourceRecordSha256": "d8079c0142c3637c630c6625d0a0b1b9fe6512cdd7f4463aa72cddb595474e8c",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "decision": "held-for-scale-repair",
+      "primaryPersonallyViewed": true,
+      "observation": "Primary viewed full candidate: face/torso approaches camera and shifts toward viewer compared with selected reading; no admission as current listening cell.",
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "key": "sakiko/play/apricot",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v1.png",
+      "sha256": "5f3dfd09f4ea2c5b2d22c5803474195358157c857e9350cb4794ead646db05a5",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v1.source.json",
+      "sourceRecordSha256": "bfac3400157988ea455d275edaa8b431ab58910b153486d569dadf1834ae8d71",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "decision": "rejected",
+      "primaryPersonallyViewed": true,
+      "observation": "Primary compared original-pixel heads: forward lean enlarges head; retained only as historical comparison, forbidden repair input.",
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "key": "sakiko/listening/apricot",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-listening-apricot-literary-pilot-v2.png",
+      "sha256": "e88e85dfba21e9639d5414375518b4a1dc85ef0660e9d7f79772306f14a1113d",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-listening-apricot-literary-pilot-v2.source.json",
+      "sourceRecordSha256": "ff796a78eb2ea9bbafdf3c776435d5531b6a1e55af4655b4825b9c0c9a5a838b",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "decision": "approved",
+      "primaryPersonallyViewed": true,
+      "reviewer": "root / primary",
+      "recordedAt": "2026-10-25T11:24:09.657584+00:00",
+      "observation": "Root saw full v2: head/torso return to original bench depth, clear eyes/fringe, natural slight side tilt, palms/knees and other palm on cushion, complete shoes; v1 held remains.",
+      "layerApproved": false,
+      "runtimeAccepted": false,
+      "decisionSource": "Explicit complete-original root visual approval message 2026-10-25."
+    },
+    {
+      "key": "sakiko/chat/mist",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-mist-v1.png",
+      "sha256": "6cbd83def33cf8284056992f10315a98101002d8f36f4d3d497548b7b4b73b9f",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-mist-v1.source.json",
+      "sourceRecordSha256": "f8a8da2dbb106e58bfdeb3294c1ce336f8847b05c1f2bde49ee9d63a8cdcefbe",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "decision": "approved",
+      "primaryPersonallyViewed": true,
+      "reviewer": "root / primary",
+      "recordedAt": "2026-10-25T11:24:09.657584+00:00",
+      "observation": "Root personally viewed complete original: Cloudy diffuse light without hard direct sun; distinct hair/eyes and complete hands/seat/shoes.",
+      "layerApproved": false,
+      "runtimeAccepted": false,
+      "decisionSource": "Explicit complete-original root visual approval message 2026-10-25.",
+      "environmentVariant": "overcast-day"
+    },
+    {
+      "key": "sakiko/chat/violet",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-violet-v1.png",
+      "sha256": "3115fb3058cff052bddc376d4612aa842c96925e6708a809b434097980274b84",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-violet-v1.source.json",
+      "sourceRecordSha256": "3997f0cc5a37ce718e73f2197aae9ba442a4d3d9df92f8a78b5ae4d172ab3990",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "decision": "approved",
+      "primaryPersonallyViewed": true,
+      "reviewer": "root / primary",
+      "recordedAt": "2026-10-25T11:24:09.657584+00:00",
+      "observation": "Root personally viewed complete original: Continuous natural twilight across the full window; distinct hair/eyes and complete hands/seat/shoes.",
+      "layerApproved": false,
+      "runtimeAccepted": false,
+      "decisionSource": "Explicit complete-original root visual approval message 2026-10-25.",
+      "environmentVariant": "twilight"
+    },
+    {
+      "key": "sakiko/chat/rain",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-rain-v1.png",
+      "sha256": "229156a8a56698f5e0fb73424c3b65dc5fe3adde0fbee3101033ca5df1ce3f2f",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-rain-v1.source.json",
+      "sourceRecordSha256": "fcbeb69980072f782ac40f58f6e018ffd5ad7e63aa2a35818d398843b49c64ad",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "decision": "approved",
+      "primaryPersonallyViewed": true,
+      "reviewer": "root / primary",
+      "recordedAt": "2026-10-25T11:24:09.657584+00:00",
+      "observation": "Root personally viewed complete original: Dark wet night window and warm ceramic lamp; distinct hair/eyes and complete hands/seat/shoes.",
+      "layerApproved": false,
+      "runtimeAccepted": false,
+      "decisionSource": "Explicit complete-original root visual approval message 2026-10-25.",
+      "environmentVariant": "rain-night"
+    },
+    {
+      "key": "sakiko/attention/mist",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/light-activity-wave-a/sakiko-attention-mist-literary-v1.png",
+      "sha256": "864a95a58f5ed85dcda6e83a277c0c0fb9e7a1063283a4147c3811f61be69c3d",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/light-activity-wave-a/sakiko-attention-mist-literary-v1.source.json",
+      "sourceRecordSha256": "93670365b77db027f9a28c6a99a926e79372af955fe95e42c7d920e1f4164bb8",
+      "primaryPersonallyViewed": false,
+      "decision": "held-by-lineage",
+      "observation": "实际第二输入为用户HOLD的attention母图，主题重绘不能解除身份/空指姿态禁用。",
+      "updatedAt": "2026-10-25T16:37:04.915665+00:00",
+      "generationInputAllowed": false,
+      "layerApproved": false,
+      "runtimeAccepted": false,
+      "decisionSource": "Latest explicit user image review, relayed by root in this task; current dossier 2026-10-25.1.",
+      "supersedesHistoricalApproval": true,
+      "blockedParentSha256": "ee521a0bf2b68e4d36c62a5c7755549006400e96d4ce252e0b154fe6587156b9"
+    },
+    {
+      "key": "sakiko/attention/violet",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/light-activity-wave-a/sakiko-attention-violet-literary-v1.png",
+      "sha256": "497c402c9411a01f98c50132d93068cf9841c239126fedb89595da8d8f3f4c83",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/light-activity-wave-a/sakiko-attention-violet-literary-v1.source.json",
+      "sourceRecordSha256": "ac3de2fbff0f8db57408c89ae9fa1214d60eeb23f13783cd6729740362e7baf9",
+      "primaryPersonallyViewed": false,
+      "decision": "held-by-lineage",
+      "observation": "实际第二输入为用户HOLD的attention母图，主题重绘不能解除身份/空指姿态禁用。",
+      "updatedAt": "2026-10-25T16:37:04.915665+00:00",
+      "generationInputAllowed": false,
+      "layerApproved": false,
+      "runtimeAccepted": false,
+      "decisionSource": "Latest explicit user image review, relayed by root in this task; current dossier 2026-10-25.1.",
+      "supersedesHistoricalApproval": true,
+      "blockedParentSha256": "ee521a0bf2b68e4d36c62a5c7755549006400e96d4ce252e0b154fe6587156b9"
+    },
+    {
+      "key": "sakiko/attention/rain",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/light-activity-wave-a/sakiko-attention-rain-literary-v1.png",
+      "sha256": "7b9caf4e538c3b4ac4da1923ec14ca2413c01506567e7005f2d15a800e25f2d9",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/light-activity-wave-a/sakiko-attention-rain-literary-v1.source.json",
+      "sourceRecordSha256": "5a028f6c935b15045ba7d3dfc36e3d45d037359950539d41a3fb686a85f13a6b",
+      "primaryPersonallyViewed": false,
+      "decision": "held-by-lineage",
+      "observation": "实际第二输入为用户HOLD的attention母图，主题重绘不能解除身份/空指姿态禁用。",
+      "updatedAt": "2026-10-25T16:37:04.915665+00:00",
+      "generationInputAllowed": false,
+      "layerApproved": false,
+      "runtimeAccepted": false,
+      "decisionSource": "Latest explicit user image review, relayed by root in this task; current dossier 2026-10-25.1.",
+      "supersedesHistoricalApproval": true,
+      "blockedParentSha256": "ee521a0bf2b68e4d36c62a5c7755549006400e96d4ce252e0b154fe6587156b9"
+    },
+    {
+      "key": "sakiko/resume/mist",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/light-activity-wave-a/sakiko-resume-mist-literary-v1.png",
+      "sha256": "7ae96b362f848525b692dd3a1de220e68153fd8e370808f91d0beb65fa394e56",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/light-activity-wave-a/sakiko-resume-mist-literary-v1.source.json",
+      "sourceRecordSha256": "9829a5c403b15bd1592c1fc26e68b35c9eb15359cd15d18841ce145c88c46b14",
+      "primaryPersonallyViewed": false,
+      "decision": "held-by-lineage",
+      "observation": "实际第二输入为用户HOLD的resume母图，不能沿用被否决的年龄/恢复表达或把旧approval作为新许可。",
+      "updatedAt": "2026-10-25T16:37:04.915665+00:00",
+      "generationInputAllowed": false,
+      "layerApproved": false,
+      "runtimeAccepted": false,
+      "decisionSource": "Latest explicit user image review, relayed by root in this task; current dossier 2026-10-25.1.",
+      "supersedesHistoricalApproval": true,
+      "blockedParentSha256": "b13d26385d89f3087c198645b489512f25093db6cbbd221f28b2cd7572368589"
+    },
+    {
+      "key": "sakiko/resume/apricot",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/sakiko-recognition-apricot-v1.png",
+      "sha256": "c65437eeca50a78ac4f032ea0bb82a6380e7a64803b763c3ceb747d89624ce36",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/sakiko-recognition-apricot-v1.source.json",
+      "sourceRecordSha256": "ded5ef0adc25b6146a0a4d6388e40b9b212a8b0710de70509ff4dc3cf2077f3d",
+      "primaryPersonallyViewed": false,
+      "decision": "rejected-by-user-wrong-hosiery",
+      "observation": "用户明确要求膝盖以下小腿袜、双膝露出；此recognition v1被画为连裤袜。当前护照和原source已记用户否决，禁止作身份、动作或主题输入。",
+      "updatedAt": "2026-10-25T16:37:04.915665+00:00",
+      "generationInputAllowed": false,
+      "layerApproved": false,
+      "runtimeAccepted": false,
+      "decisionSource": "Latest explicit user image review, relayed by root in this task; current dossier 2026-10-25.1.",
+      "supersedesHistoricalApproval": true
+    },
+    {
+      "key": "sakiko/resume/apricot",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/sakiko-recognition-apricot-v2.png",
+      "sha256": "a8801f784b77d632509818d102a8b899d0bdda99afe904085196a9e8c5bee279",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/sakiko-recognition-apricot-v2.source.json",
+      "sourceRecordSha256": "f6ed1f2f74aa0befec911da5d31ed812b89f67d67ad1681d1bda480ac9eaa87a",
+      "decision": "approved",
+      "primaryPersonallyViewed": true,
+      "reviewer": "root / primary",
+      "recordedAt": "2026-10-25T16:37:04.915665+00:00",
+      "observation": "Root personally viewed the new clean-room-only recognition v2 and permits resume/apricot mother direction and layer production: youthful face, glance toward familiar person, book/held page, below-knee socks and uncovered knees, coherent supported seated pose. No attention, other palette, layer or runtime approval.",
+      "decisionSource": "Explicit root delegation in current task after complete-original inspection.",
+      "generationInputAllowed": true,
+      "layerApproved": false,
+      "runtimeAccepted": false,
+      "userApproved": false,
+      "dossierVersion": "2026-10-25.1",
+      "wardrobeId": "sakiko-literary-navy-adaptation"
+    }
+  ],
+  "weatherSupplements": [
+    {
+      "key": "sakiko/chat/weather/dry-night",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/weather-chat-pilot/sakiko-chat-dry-night-v1.png",
+      "sha256": "c56541389158a7f28539062ae2174da997b4cd4301e022eab9202e34d31ab5c1",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/weather-chat-pilot/sakiko-chat-dry-night-v1.source.json",
+      "sourceRecordSha256": "b7c03d1a2c2a077c2f0c3384f092b5a931f503922a7e818314c4e811f6428e07",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "decision": "approved",
+      "primaryPersonallyViewed": true,
+      "reviewer": "root / primary",
+      "recordedAt": "2026-10-25T11:24:09.657584+00:00",
+      "observation": "Root personally viewed complete original: Actual dark blue starry sky/city outside, warm dark lamp-lit character; distinct hair/eyes and complete hands/seat/shoes.",
+      "layerApproved": true,
+      "runtimeAccepted": false,
+      "decisionSource": "Explicit complete-original root visual approval message 2026-10-25.",
+      "environmentVariant": "dry-night",
+      "kind": "weather-supplement",
+      "coreMatrixCell": false,
+      "contactAssemblyRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/sakiko-chat-dry-night-literary-included-primary-admission-v1.json",
+        "sha256": "4e3f3cd07eb093675fc87b24d9c2d9df5217ffd155f8b295a884be64802d2c74",
+        "bytes": 2744
+      }
+    },
+    {
+      "key": "sakiko/chat/weather/rain-day",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/weather-chat-pilot/sakiko-chat-rain-day-v1.png",
+      "sha256": "909c6f932335841d4627309e92819ab25fe0a189dd70b4584c2935c6d0a7caaa",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/weather-chat-pilot/sakiko-chat-rain-day-v1.source.json",
+      "sourceRecordSha256": "43435baa78d492cb51eaba5778042f49e5e98930ff2cef3989fd88dbdb960320",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "decision": "approved",
+      "primaryPersonallyViewed": true,
+      "reviewer": "root / primary",
+      "recordedAt": "2026-10-25T11:24:09.657584+00:00",
+      "observation": "Root personally viewed complete original: Diffuse rainy window with dry interior; distinct hair/eyes and complete hands/seat/shoes.",
+      "layerApproved": false,
+      "runtimeAccepted": false,
+      "decisionSource": "Explicit complete-original root visual approval message 2026-10-25.",
+      "environmentVariant": "rain-day",
+      "kind": "weather-supplement",
+      "coreMatrixCell": false
+    }
+  ],
+  "updatedAt": "2026-10-25T16:37:04.915665+00:00",
+  "currentUserSupersession": {
+    "recordedAt": "2026-10-25T16:37:04.915665+00:00",
+    "directHeldMotherSha256": [
+      "b13d26385d89f3087c198645b489512f25093db6cbbd221f28b2cd7572368589",
+      "ee521a0bf2b68e4d36c62a5c7755549006400e96d4ce252e0b154fe6587156b9"
+    ],
+    "blockedDescendantSha256": [
+      "864a95a58f5ed85dcda6e83a277c0c0fb9e7a1063283a4147c3811f61be69c3d",
+      "497c402c9411a01f98c50132d93068cf9841c239126fedb89595da8d8f3f4c83",
+      "7b9caf4e538c3b4ac4da1923ec14ca2413c01506567e7005f2d15a800e25f2d9",
+      "7ae96b362f848525b692dd3a1de220e68153fd8e370808f91d0beb65fa394e56"
+    ],
+    "additionalRejectedWardrobePilotSha256": "c65437eeca50a78ac4f032ea0bb82a6380e7a64803b763c3ceb747d89624ce36",
+    "scope": "Exact source artifacts and their proven descendants only. No blanket activity ban; approved clean replacements need independent layers and runtime review.",
+    "historicalReview": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-pre-user-hold-20261025.json",
+      "sha256": "0dc133f5dc0ac1702bce894b279304dde90ab45ddbe57c4107ee9caf360fe8d0"
+    },
+    "sourceInspection": "All thirteen active literary registrations and ten portrait output hashes read directly; no held source matched a current runtime mother or portrait source.",
+    "runtimeMatchedBlockedSources": 0,
+    "catAndPortraitAreIndependentForms": true
+  }
+}

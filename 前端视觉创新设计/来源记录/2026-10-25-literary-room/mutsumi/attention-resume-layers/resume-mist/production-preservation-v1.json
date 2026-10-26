@@ -1,0 +1,358 @@
+{
+  "schemaVersion": 1,
+  "recordType": "user-steered-production-preservation",
+  "recordedAt": "2026-10-25T20:40:03.488651+00:00",
+  "cell": "mutsumi/resume/mist",
+  "directory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist",
+  "status": "stopped-at-root-new-priority-no-new-image-call",
+  "actualImageOutputsSaved": 7,
+  "inFlightCalls": 0,
+  "newHumanMotherCells": 0,
+  "currentProducerCandidates": {
+    "foreground": {
+      "file": "figure-mask-v2.png",
+      "scope": "Producer candidate only. Native original/rawF/original-RGB face and book compared; whole BG/receiver/contour acceptance remains incomplete."
+    },
+    "contact": null,
+    "background": null,
+    "completeBundle": null,
+    "primaryLayerApproved": false,
+    "runtimeAccepted": false
+  },
+  "heldNativeOutputs": [
+    {
+      "file": "figure-step1-marked-v1.png",
+      "generationInputAllowed": false,
+      "selectionAllowed": false,
+      "sourceRecord": "figure-step1-marked-v1.source.json"
+    },
+    {
+      "file": "figure-step1-marked-v2.png",
+      "generationInputAllowed": false,
+      "selectionAllowed": false,
+      "sourceRecord": "figure-step1-marked-v2.source.json"
+    },
+    {
+      "file": "figure-mask-v1.png",
+      "generationInputAllowed": false,
+      "selectionAllowed": false,
+      "sourceRecord": "figure-mask-v1.source.json"
+    },
+    {
+      "file": "contact-mask-v1.png",
+      "generationInputAllowed": false,
+      "selectionAllowed": false,
+      "sourceRecord": "contact-mask-v1.source.json"
+    }
+  ],
+  "unselectedDiagnostics": [
+    {
+      "file": "figure-step1-marked-v3.png",
+      "scope": "Original-source F1 diagnostic only, not used by current direct native F2-v2."
+    }
+  ],
+  "notStarted": [
+    {
+      "promptFile": "resume-background-v1.prompt.txt",
+      "requestFile": "resume-background-v1.request.json",
+      "imageCallStarted": false,
+      "resultExists": false,
+      "scope": "Same-mother Image background removal not yet called."
+    },
+    {
+      "promptFile": "contact-mask-v2.prompt.txt",
+      "requestFile": "contact-mask-v2.request.json",
+      "imageCallStarted": false,
+      "resultExists": false,
+      "scope": "Prepared S1+original seat-preserving conversion only; never submitted."
+    }
+  ],
+  "diagnosticUnion": {
+    "file": "union-source-v1.svg",
+    "notRuntimeAsset": true,
+    "notSelectedBundle": true,
+    "usesHeldContactForInspectionOnly": true,
+    "boundary": "Diagnostic raw RGB/MAX view, no complete source BG or final static composition; do not adopt as approved layer."
+  },
+  "browserInspectionActuallyDone": [
+    "Original full mother/source identity and pose",
+    "Original versus F1-v1/v2 book/hand/hem native close-up",
+    "Current original/rawF/RGB union face and book native comparison; face eye/mouth complete and true small hair/background openings distinguished"
+  ],
+  "notVerified": [
+    "Same-mother empty BG, not generated",
+    "Complete whole-scene BG+MAX union",
+    "Final all-face/full-hem/seat/both-full-shoes/deep-light-checker optical pass for this exact whole set",
+    "Root layer approval",
+    "Runtime or nonzero movement"
+  ],
+  "boundaries": {
+    "motherRgbUnchanged": true,
+    "noPngPixelEditing": true,
+    "noManualThresholdOrMorphology": true,
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "globalLedgerAppRuntimeEdgeChanged": false,
+    "newTestsFixturesRunners": false,
+    "sourceFilesRemoved": false,
+    "sakiQueuedMistVioletStarted": false
+  },
+  "nativePngs": [
+    {
+      "file": "contact-mask-v1.png",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/contact-mask-v1.png",
+      "sha256": "3d26fa20ae7e00799fadbd7df90388c7d1f6376d21c9081ae44818c397838170",
+      "bytes": 281483
+    },
+    {
+      "file": "contact-step1-marked-v1.png",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/contact-step1-marked-v1.png",
+      "sha256": "3eb7b486b2a6a20c93baecf08f44d6c1d07ac7a0d488d2f0ae3a9bb90b54be1a",
+      "bytes": 2338361
+    },
+    {
+      "file": "figure-mask-v1.png",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/figure-mask-v1.png",
+      "sha256": "12dbb074f3b37cdfddee9d0fec75c99f82ef759f81a4e47477451578dbd30f54",
+      "bytes": 503942
+    },
+    {
+      "file": "figure-mask-v2.png",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/figure-mask-v2.png",
+      "sha256": "b2ba90f6f762d9c227035c7aef8c68fd3efa7b35334e127be65daf56548855ff",
+      "bytes": 474597
+    },
+    {
+      "file": "figure-step1-marked-v1.png",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/figure-step1-marked-v1.png",
+      "sha256": "f76405e6e624553c1695ea34a4b1695c3c5d6f8d911adce32a21e62a8ba868b6",
+      "bytes": 2263336
+    },
+    {
+      "file": "figure-step1-marked-v2.png",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/figure-step1-marked-v2.png",
+      "sha256": "a8c7216c9836706af0f964d220a3fb958b988b4fdce4adafef25962d407f1a89",
+      "bytes": 2305518
+    },
+    {
+      "file": "figure-step1-marked-v3.png",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/figure-step1-marked-v3.png",
+      "sha256": "62b61a484ea7e3f6b296e36ebbfabff7d37351301d4c77ac951372e155ea8ddf",
+      "bytes": 2263094
+    }
+  ],
+  "allDirectoryFilesExceptThisInventory": [
+    {
+      "file": "contact-mask-v1.png",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/contact-mask-v1.png",
+      "sha256": "3d26fa20ae7e00799fadbd7df90388c7d1f6376d21c9081ae44818c397838170",
+      "bytes": 281483
+    },
+    {
+      "file": "contact-mask-v1.prompt.txt",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/contact-mask-v1.prompt.txt",
+      "sha256": "cf7ced8a26758bc2f5fddd0ef76e163d5a2b20404334dcf7c66c362d6facc347",
+      "bytes": 1488
+    },
+    {
+      "file": "contact-mask-v1.request.json",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/contact-mask-v1.request.json",
+      "sha256": "d2574dabd47533130dc89269ab7a187ef90ca6f6e8fdf6c742e5d17a02a0db4b",
+      "bytes": 2989
+    },
+    {
+      "file": "contact-mask-v1.source.json",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/contact-mask-v1.source.json",
+      "sha256": "24f8b09be91688a8c90599a06581421adcb694f808128a0a5320a4ca9093f493",
+      "bytes": 6363
+    },
+    {
+      "file": "contact-mask-v2.prompt.txt",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/contact-mask-v2.prompt.txt",
+      "sha256": "a86d54a4139a239f570b622f957c9a0b8ef71f98d04e7d94715a7de27efcf0a6",
+      "bytes": 1945
+    },
+    {
+      "file": "contact-mask-v2.request.json",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/contact-mask-v2.request.json",
+      "sha256": "1937e6386311a2af5c7a757adfeeaa319ed8220e6c752dff836df1b7c8eea592",
+      "bytes": 3217
+    },
+    {
+      "file": "contact-step1-marked-v1.png",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/contact-step1-marked-v1.png",
+      "sha256": "3eb7b486b2a6a20c93baecf08f44d6c1d07ac7a0d488d2f0ae3a9bb90b54be1a",
+      "bytes": 2338361
+    },
+    {
+      "file": "contact-step1-marked-v1.prompt.txt",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/contact-step1-marked-v1.prompt.txt",
+      "sha256": "77989f48d514a532a19b3d6250e2d3a07b50717ee52d96880394a99649d7786f",
+      "bytes": 2716
+    },
+    {
+      "file": "contact-step1-marked-v1.request.json",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/contact-step1-marked-v1.request.json",
+      "sha256": "ff0557c292a23f491d2c578a09ba92c64db2569657b565bd33953004e3f4490b",
+      "bytes": 3106
+    },
+    {
+      "file": "contact-step1-marked-v1.source.json",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/contact-step1-marked-v1.source.json",
+      "sha256": "98c6072ef5980a8f37465c2dc7bca27c288b23fa5e1e5b580d02b8909855b31e",
+      "bytes": 7965
+    },
+    {
+      "file": "figure-mask-v1.png",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/figure-mask-v1.png",
+      "sha256": "12dbb074f3b37cdfddee9d0fec75c99f82ef759f81a4e47477451578dbd30f54",
+      "bytes": 503942
+    },
+    {
+      "file": "figure-mask-v1.prompt.txt",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/figure-mask-v1.prompt.txt",
+      "sha256": "b2e8b05f9aaa64cb3f401a784f4ade3ec9ed39984ab8bad540e62c18a3af88d9",
+      "bytes": 1651
+    },
+    {
+      "file": "figure-mask-v1.request.json",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/figure-mask-v1.request.json",
+      "sha256": "d0e1c19e45cfd3a345c37634349650fe7ab51258e09664bfe7adc8600abc4555",
+      "bytes": 3014
+    },
+    {
+      "file": "figure-mask-v1.source.json",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/figure-mask-v1.source.json",
+      "sha256": "ad179aedfa7115509010e89a6706c5830546902ceacc2835822a6c46ac75c443",
+      "bytes": 6933
+    },
+    {
+      "file": "figure-mask-v2.png",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/figure-mask-v2.png",
+      "sha256": "b2ba90f6f762d9c227035c7aef8c68fd3efa7b35334e127be65daf56548855ff",
+      "bytes": 474597
+    },
+    {
+      "file": "figure-mask-v2.prompt.txt",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/figure-mask-v2.prompt.txt",
+      "sha256": "0ff24db02e99e35752f1941dac71104fb417b7d673b4962ca20e5f7703687018",
+      "bytes": 2361
+    },
+    {
+      "file": "figure-mask-v2.request.json",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/figure-mask-v2.request.json",
+      "sha256": "5b9fb5ebb3a23b8df08bb528563ce2b507ed1836454937ac3d4b83928fca0830",
+      "bytes": 3030
+    },
+    {
+      "file": "figure-mask-v2.source.json",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/figure-mask-v2.source.json",
+      "sha256": "4ebccb293968c8bcf2516f9770e98b581c03e654318f08d9853b5455cb4e4184",
+      "bytes": 7565
+    },
+    {
+      "file": "figure-step1-marked-v1.png",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/figure-step1-marked-v1.png",
+      "sha256": "f76405e6e624553c1695ea34a4b1695c3c5d6f8d911adce32a21e62a8ba868b6",
+      "bytes": 2263336
+    },
+    {
+      "file": "figure-step1-marked-v1.prompt.txt",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/figure-step1-marked-v1.prompt.txt",
+      "sha256": "86079698bf75aabf9f37a041f3a82ebb63b5b8bb601ab08659cc3099ce16fcc3",
+      "bytes": 2251
+    },
+    {
+      "file": "figure-step1-marked-v1.request.json",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/figure-step1-marked-v1.request.json",
+      "sha256": "af58ad9b3977652105a184d4ed479c17769d42f947cf05535369b2aa8bcfa64d",
+      "bytes": 3103
+    },
+    {
+      "file": "figure-step1-marked-v1.source.json",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/figure-step1-marked-v1.source.json",
+      "sha256": "890357c76e11e692305cdaed2d687f3412cd1a2110901eacf9b4c8e193f45c54",
+      "bytes": 7623
+    },
+    {
+      "file": "figure-step1-marked-v2.png",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/figure-step1-marked-v2.png",
+      "sha256": "a8c7216c9836706af0f964d220a3fb958b988b4fdce4adafef25962d407f1a89",
+      "bytes": 2305518
+    },
+    {
+      "file": "figure-step1-marked-v2.prompt.txt",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/figure-step1-marked-v2.prompt.txt",
+      "sha256": "1e2deb9be8c5dfe490f9e25fae95a79b92b5c04831ee3346717fdd7873f2b649",
+      "bytes": 3217
+    },
+    {
+      "file": "figure-step1-marked-v2.request.json",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/figure-step1-marked-v2.request.json",
+      "sha256": "df4b1fa4745b1ae2246125387ab712570f4ff86e5816d9839bf058cfea726a6c",
+      "bytes": 3042
+    },
+    {
+      "file": "figure-step1-marked-v2.source.json",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/figure-step1-marked-v2.source.json",
+      "sha256": "f7aef4d949e6225f7c463797bef058fb275aaec66a363fab7a748462260bd22f",
+      "bytes": 8509
+    },
+    {
+      "file": "figure-step1-marked-v3.png",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/figure-step1-marked-v3.png",
+      "sha256": "62b61a484ea7e3f6b296e36ebbfabff7d37351301d4c77ac951372e155ea8ddf",
+      "bytes": 2263094
+    },
+    {
+      "file": "figure-step1-marked-v3.prompt.txt",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/figure-step1-marked-v3.prompt.txt",
+      "sha256": "e19aec735a691feb46b4c4a3262162b83015e737d29e9645f6dc6bf57c6b1fe0",
+      "bytes": 2969
+    },
+    {
+      "file": "figure-step1-marked-v3.request.json",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/figure-step1-marked-v3.request.json",
+      "sha256": "969fd24473e1310fb8e64e4f1b8ccb2c48b287c33da6887dcbb1ea635e0f84af",
+      "bytes": 3048
+    },
+    {
+      "file": "figure-step1-marked-v3.source.json",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/figure-step1-marked-v3.source.json",
+      "sha256": "4beff57f5042a22560c5d5daa29b999abeb7a7888f77f1dfecf2f835038a3162",
+      "bytes": 7914
+    },
+    {
+      "file": "phase-observe-v1.html",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/phase-observe-v1.html",
+      "sha256": "ce619141f7bd71304be3a64fdb99af21c191d7a87df566e9460a5f50a183c4e6",
+      "bytes": 2099
+    },
+    {
+      "file": "resume-background-v1.prompt.txt",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/resume-background-v1.prompt.txt",
+      "sha256": "9cee321c4af1f23d8dbea6e6374cffcb13d106d0282c943b6a314c176396bf6d",
+      "bytes": 2014
+    },
+    {
+      "file": "resume-background-v1.request.json",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/resume-background-v1.request.json",
+      "sha256": "657e2e2c63f699c6851ce65d76626f8a78f0cfd1b4374ec7e59e0cccebf81b59",
+      "bytes": 3084
+    },
+    {
+      "file": "resume-included-observe-v1.html",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/resume-included-observe-v1.html",
+      "sha256": "e502021e0259193e942a0c3ef3949bed441f4099b19d854e7ae9c57e36bc5c0f",
+      "bytes": 11483
+    },
+    {
+      "file": "union-source-v1.svg",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/union-source-v1.svg",
+      "sha256": "86cfa58333afd3bde7d80930c70ddfb884eb2b31b4c36b093b8077c4d9c6b60d",
+      "bytes": 1277
+    }
+  ],
+  "inventorySelfHashExcluded": true
+}

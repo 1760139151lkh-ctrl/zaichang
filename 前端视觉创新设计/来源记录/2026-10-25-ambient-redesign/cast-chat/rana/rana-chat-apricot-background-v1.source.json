@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-canvas-matching-clean-background",
+  "id": "rana-chat-apricot-background-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "rana-chat-apricot-background-v1.prompt.json",
+  "promptFileSha256": "e742f931c06961bbe0f61bb9106dceab7d0b0626e6d68064efc911be31cbb897",
+  "submittedPrompt": "Use case: precise-object-edit. Asset: MATCHING SAME-CANVAS clean empty background from the approved complete Rana apricot CHAT mother.\nImage 1 is the ONLY input and exact full 1536x1024 edit target. Preserve THIS original camera, complete window frame/mullions, room architecture, furniture/bench/cushions/blanket, floor/rug, textures, sunny window scenery and apricot morning light. This is not a new room or earlier generic empty backdrop. No crop, zoom, recenter, resize, redecorate, relight or global color filter.\nRemove ONLY the original seated girl on the far-right window bench: her silver bob hair, skin, black short-sleeve outer shirt, white long sleeves and white frilled shorts, both hands, bare legs and both WORN black lace-up ankle boots. Remove only the contact/cast shadows caused by her seated hip/clothing hem, supporting right palm/fingers and both boots. She holds no prop: keep all room-owned objects including the blue book, cup and lamp on the center desk.\nReconstruct only newly exposed bench cushion/back/pillow/window area and dry floor using the exact source perspective and adjacent materials/light. Keep cushion seams, original sun/shadow geometry, wooden bench front, blanket and all normal pre-existing furniture shadows. Do not leave a person-shaped stain/indentation, ghost, black or white shirt piece, shorts hem, hand, boot, lace or human-shaped shadow.\nKeep the complete refined painterly anime room and sunny view unchanged elsewhere. Return one clean opaque RGB background registered to source (0,0), FULL 1536x1024. No UI/text/grid/label/border/watermark/transparency or extra object.",
+  "submittedPromptSha256Utf8NoTrailingLF": "8fef76be32e667a32fead2decec6f4ec4dc3bf39f2089468297e1e6f22419ef5",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png",
+      "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+      "role": "sole exact-SHA primary-approved complete Rana apricot chat mother; rejected old v9 layers never used as inputs"
+    }
+  ],
+  "output": {
+    "file": "rana-chat-apricot-background-v1.png",
+    "sha256": "f013eb51f07da78849cc6b789f0251ba18db1a6305e0c6e3176be7b9dff844cb",
+    "bytes": 2098270,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-8c61f6a5-6ef7-441f-982e-b7f22865ac73.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": true,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observationBoundary": "Producer directly viewed exact original PNG only; primary native original-RGB recomposition and known-seat-gap review pending.",
+    "primaryNativeCompositeViewed": true,
+    "primaryLayerApprovalRecord": "rana-chat-apricot-primary-layer-approval-v1.json",
+    "primaryLayerApprovalScope": "Exact admitted static v4 bundle with contained1.2 native geometric calibration; source RGB unchanged; runtime separate."
+  },
+  "status": "primary-admitted-static-v4-bundle-member-runtime-separate"
+}

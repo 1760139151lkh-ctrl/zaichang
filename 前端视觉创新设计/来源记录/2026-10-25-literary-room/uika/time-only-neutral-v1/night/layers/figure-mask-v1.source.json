@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T01:34:00.591Z",
+  "producer": "/root/study_reading",
+  "character": "uika",
+  "purpose": "neutral-presence",
+  "environmentVariant": "time-night",
+  "weather": "unknown",
+  "exactActivityMatrixCredit": 0,
+  "stage": "figure-mask-v1",
+  "tool": "image_gen.imagegen",
+  "originalToolPath": "C:/Users/17601/.codex/generated_images/01a17365-8901-7202-bd9e-0859826906dc/exec-efb7e5db-bb40-4f0e-9592-2f0d25d1a808.png",
+  "transparentBackground": false,
+  "submittedPrompt": "Use case: precise-object-edit. PURE TRACE F1 to F2: ONLY this correct source-colored original F1 white-person markup as input. Preserve EXACT complete1536x1024 pixel registration. All deliberately PUREWHITE figure areas -> solidWHITE255, EVERYTHING ELSE original colored room ->BLACK0. NO semantic reinterpretation, redraw or cut newly imagined holes. Crucial BOTH SHOES ARE ALREADY SOLID WHITE in input: maintain EACH ENTIRE SHOE FILLED WHITE, from ankle join across WHOLE UPPER, full lace region, toe cap, sidewall, complete BOTTOM SOLE and HEEL. BLACK CANVAS COLOR or LACES from the original are not alpha; there must be NO BLACK HOLES OR STRIPES INSIDE SHOES. Likewise skirt/T/skin/hand/head ALL completely white, no face/clothing/hand/hem lines, no newly invented slit in lower hem. Keep all deliberately white lace loops outside silhouette white too; actual small original-colored open room between loop OUTSIDE may stay black, but not shoe interior. Fine outer bob curls remain white. Keep only actual source-colored open gaps between arm/waist or ankles/hair black. No new hair/hand/skirt/shoe outlines, no resizing/cropping/shift/recenter, no floor/seat shadow selected, no white background, no transparency/checkerboard/text/UI. Opaque raw black-white luminance mask only. The F1 whole WHITE silhouette must be identical, not a new black-and-white drawing of original clothes. Any tiny remaining gray line INSIDE the already white lower shin/ankle or skirt is also white, not a cutout; solid complete person interiors.",
+  "submittedPromptSha256": "a12613d62feb7875acfd973187c61504f30ace7272e7f3c8711cfaf212c397a1",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/night/layers/figure-step1-marked-v1.png"
+  ],
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/night/layers/figure-step1-marked-v1.png",
+      "role": "source F1 only",
+      "sha256": "47d50cd1a6aba5cb4fef5c2350c39bb059b175fd33ac6e78fcee402783f32902",
+      "bytes": 2081686
+    }
+  ],
+  "originalMother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-night-v1.png",
+    "sha256": "7c53b03795295ddf3b7b490fe1332db82326a49dcace9fe9f6502b2cee5636d9",
+    "approvalRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-night-v1.primary-approval.json"
+  },
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/night/layers/figure-mask-v1.png",
+    "sha256": "06923733ffec5213e488d4cb3a713b58789121bb9b713b950d04c52c96c0d1d1",
+    "bytes": 471773,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "rawToolBytesPreserved": true,
+  "producerPersonallyViewed": true,
+  "observations": [
+    "Personally viewed: full shoe interiors white, but a thin black slash persists INSIDE visible left shin/ankle aroundx893..903,y760..782. This is not an open background gap; HOLD pending clean F1 reconversion."
+  ],
+  "producerUseDecision": "HOLD-rear-skirt-fabric-mistaken-for-background",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "userApproved": false,
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "fixedOriginalCoordinates": true,
+    "travel": 0,
+    "perspective": 0,
+    "slope": 0,
+    "contactShadow": "included"
+  },
+  "method": {
+    "sourceRgb": "exact unchanged mother only",
+    "union": "MAX(L(F),L(S))",
+    "originalRgbDrawsPerUnion": 1,
+    "pngPixelEditing": false,
+    "manualThreshold": false,
+    "morphology": false,
+    "warp": false
+  },
+  "scope": "Production candidate only; native browser union, seam and full source RGB must be personally viewed before primary static-layer admission.",
+  "laterMaterialDiagnosis": {
+    "recordedAt": "2026-10-26T01:38:02.639Z",
+    "decision": "HOLD-rear-skirt-fabric-mistaken-for-background",
+    "evidence": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/night/layers/browser-shin-diagnostic-v1.png",
+    "detail": "Exact source material close-up confirms dark area behind ankles is actual long-skirt fabric. This old stage cut it, causing false wood through clothing in composite. Not approved/re-fed."
+  }
+}

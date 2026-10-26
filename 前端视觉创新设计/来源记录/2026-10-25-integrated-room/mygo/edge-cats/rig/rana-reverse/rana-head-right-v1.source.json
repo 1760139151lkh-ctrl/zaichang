@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "characterId": "rana",
+  "kind": "project-original-simple-meme-cat-opposite-composition",
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-9725-7bd3-aa74-f7fa6487bfed/exec-db0d8c1f-0327-41df-89ab-663819bed836.png",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mygo\\edge-cats\\rana-edge-meme-cat-v1.png",
+      "sha256": "9fb3fb07c6dd85e3d5657e9da51c415449bc91bd90f7a057ae1ca805f90bc28f",
+      "role": "Only accepted family/identity cat reference, not a mechanical mirrored bitmap"
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/rana.md",
+      "sha256": "d39286e83289d7c67222428a139b8650ff9f60a0e78e49c0a8393b3079f2e892",
+      "scope": "Full text personally read before creative generation in this turn"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840",
+      "scope": "Full text personally read before creative generation in this turn"
+    }
+  ],
+  "promptFile": "rana-head-right-v1.prompt.txt",
+  "submittedPromptSha256": "d440f62f8af9f53f3cb669a1c97059f604aed79fff82897e8f421038ed0c1dfe",
+  "output": {
+    "file": "rana-head-right-v1.png",
+    "sha256": "21a25b80c021b4ad84f3c4d896447d57af89b00819f3969869c726fcba1efa9e",
+    "bytes": 1387042,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGBA"
+  },
+  "direction": "head-right-body-left-tail-left",
+  "mirrorSafe": false,
+  "identity": "Own anatomical right eye gold, own left eye blue; near-front face gives viewer-left gold and viewer-right blue in this independently generated opposite body composition.",
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Complete new opposite cat body/head layout, silver-white short hair, two-tone gold/blue in correct intrinsic eye order, white simplified cat face/body, front paws resting and blue guitar pick, left rear haunch and left up-curled tail. Same simple family, no clothing/flesh/3D. Native alpha contains a blue glow that will be removed through source-RGB same-canvas rig extraction.",
+    "scope": "Opposite source candidate only; root still decides static identity/form and later rig/runtime."
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "fullHumanMatrixCredit": false
+}

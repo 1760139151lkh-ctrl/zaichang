@@ -1,0 +1,34 @@
+{
+  "tool": "built-in image_gen",
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "activity": "play",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "kind": "clean-empty-room"
+    },
+    {
+      "path": "前端视觉创新设计\\来源记录\\2026-10-25-ambient-redesign\\sakiko-reading-literary\\sakiko-reading-apricot-literary-v1.png",
+      "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+      "kind": "human-selected-correct-identity-and-scale"
+    }
+  ],
+  "damagedCharacterInput": false,
+  "rejectedPlayV1Input": false,
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a16fb3-8f8d-7c72-a744-a441e8907c91\\exec-8983c5c9-aaef-4f55-85a0-3c72a0155bbd.png",
+  "output": "sakiko-play-apricot-v2.png",
+  "outputSha256": "f3e046d90a4f08c6f4afab56bb38c98cd6634f1731d80b145008041f26287f2d",
+  "promptFile": "sakiko-play-apricot-v2.prompt.txt",
+  "submittedPromptSha256": "6daf1988e680b50e1228bc1c4ce7f700c33b0852ae7acf0ef90b2762ccc15b9d",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "reviewBoundary": "Primary personally viewed full v2: upright torso at original bench depth, head/shoes scale restored to selected reading, separate fringe/eyelid/iris, coherent hands and small paper bird, supported seat/shoes; tender restrained play expression. Full mother only; layers/runtime unaccepted."
+}

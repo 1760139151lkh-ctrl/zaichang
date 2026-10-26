@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "character": "mutsumi",
+  "purpose": "neutral-presence",
+  "environmentVariant": "time-night",
+  "weather": "unknown",
+  "exactActivityMatrixCredit": 0,
+  "mother": {
+    "path": "../../mutsumi-neutral-time-night-v1.png",
+    "sha256": "ecd0ac024c414ae54c94558301e4eeb7d1e4e773cc264a195044fe9030088e36",
+    "primaryApproval": "../../mutsumi-neutral-time-night-v1.primary-approval.json"
+  },
+  "assets": {
+    "figureMask": {
+      "path": "figure-mask-v1.png",
+      "sha256": "9e25e904f56f9577cf55db97a5f9904bd5a7748a5ff4d796e6327245defdaec0",
+      "bytes": 481590
+    },
+    "contactMask": {
+      "path": "contact-mask-v1.png",
+      "sha256": "4296a97883d68a7b5b19592cefce6c0b708cd1eabba73df1765f59e7337c73e3",
+      "bytes": 321004
+    },
+    "cleanBackground": {
+      "path": "background-v1.png",
+      "sha256": "3f01b081128e75e150652fabdaed9f2babde2410e16462d842e0683257c694dd",
+      "bytes": 2206781
+    },
+    "union": {
+      "path": "union-source-v1.svg",
+      "sha256": "f54deb8a267850cff6555e59ef200b50268e095d58ed1908f5c747d64e7f04f9",
+      "bytes": 1292
+    },
+    "composite": {
+      "path": "composite-source-v1.svg",
+      "sha256": "5684d9991f0272ffc71602a4b2429baa58e3dfe80c8335f79d1c46492b0bb65b",
+      "bytes": 1383
+    },
+    "observationPage": {
+      "path": "included-observe-v1.html",
+      "sha256": "3e256f7b7edd2cc5af3af01e57805f7e8c1db2d0a601d9dcd78964ebf0d2572f",
+      "bytes": 21469
+    }
+  },
+  "stages": [
+    {
+      "source": "background-v1.source.json",
+      "stage": "background-v1",
+      "sha256": "3f01b081128e75e150652fabdaed9f2babde2410e16462d842e0683257c694dd",
+      "decision": "candidate-awaiting-static-union-review"
+    },
+    {
+      "source": "contact-mask-v1.source.json",
+      "stage": "contact-mask-v1",
+      "sha256": "4296a97883d68a7b5b19592cefce6c0b708cd1eabba73df1765f59e7337c73e3",
+      "decision": "candidate-awaiting-static-union-review"
+    },
+    {
+      "source": "contact-step1-marked-v1.source.json",
+      "stage": "contact-step1-marked-v1",
+      "sha256": "9ea44d65befc6ed31a501ce42e2e0eec3c57647bb9c1307245e635894751c66c",
+      "decision": "candidate-awaiting-static-union-review"
+    },
+    {
+      "source": "figure-mask-v1.source.json",
+      "stage": "figure-mask-v1",
+      "sha256": "9e25e904f56f9577cf55db97a5f9904bd5a7748a5ff4d796e6327245defdaec0",
+      "decision": "candidate-awaiting-static-union-review"
+    },
+    {
+      "source": "figure-step1-marked-v1.source.json",
+      "stage": "figure-step1-marked-v1",
+      "sha256": "aa0078a4b307c8e0f512e1beadda43fb949cff7142818ab0ca736d9ad45b8c2e",
+      "decision": "candidate-awaiting-static-union-review"
+    }
+  ],
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "travel": 0,
+    "perspective": 0,
+    "slope": 0
+  },
+  "nativeMethod": {
+    "sourceRgb": "exact original mother",
+    "originalRgbDraws": 1,
+    "union": "MAX(L(F),L(S))",
+    "luminance": "native feColorMatrix sRGB then feBlend lighten",
+    "mask": "native SVG luminance mask",
+    "contact": "included fixed original receiving seat/wood material; not a mobile caster",
+    "pixelEditing": false,
+    "threshold": false,
+    "warp": false
+  },
+  "browser": {
+    "tabId": "500947839",
+    "viewport": [
+      1590,
+      1130
+    ],
+    "cssSourcePixelCloseups": true,
+    "observations": [
+      "实际 Chrome 实看1536原尺寸组合、完整浅/暗/棋盘、脸发/手座面/鞋与S-only。",
+      "夜母原RGB保留脸型、双夹、轻回应、细发、膝上交掌、裙与整双鞋；未见明显漏切。",
+      "实际受座材质与鞋地软影沿夜母自身原位，S-only存在少量边缘与F重叠，MAX只绘同母一次不加深。",
+      "同母BG移除人物并重建隐藏坐面木纹，夜灯仍暖；不宣称隐藏区位精确复原或运行准入。"
+    ],
+    "evidence": [
+      {
+        "path": "browser-contact-v1.png",
+        "sha256": "38c8dc8ea20cc7b0494973a99f126765d03fb4b7efb45f55b05920d7ec10a0a8",
+        "bytes": 208931,
+        "personallyViewed": true,
+        "method": "actual Chrome formal Browser screenshot; local native inline SVG"
+      },
+      {
+        "path": "browser-light-dark-checker-v1.png",
+        "sha256": "90487adf0873ceaf8b6b04ddaad08bd2597b9a57f9f6502e24e4ce6fb9d7dffd",
+        "bytes": 214971,
+        "personallyViewed": true,
+        "method": "actual Chrome formal Browser screenshot; local native inline SVG"
+      },
+      {
+        "path": "browser-native-1536-v1.png",
+        "sha256": "2cc3e3580fe9ddef832778c45faf94fe596ee09ae86a9a7414cf08a91a95cb24",
+        "bytes": 229467,
+        "personallyViewed": true,
+        "method": "actual Chrome formal Browser screenshot; local native inline SVG"
+      },
+      {
+        "path": "browser-scene-v1.png",
+        "sha256": "53a8feba7e82f38be743b82179701f323464e5430e92f068284bc4fb2f0b2a2c",
+        "bytes": 258049,
+        "personallyViewed": true,
+        "method": "actual Chrome formal Browser screenshot; local native inline SVG"
+      }
+    ]
+  },
+  "primaryLayerApproved": true,
+  "runtimeAccepted": false,
+  "runtimeRegistered": true,
+  "userApproved": false,
+  "status": "root-approved-exact-static-layer-runtime-registered-awaiting-integrated-runtime",
+  "primaryAdmission": "root-primary-layer-admission-v1.json",
+  "historicalDiagnosticsExcluded": []
+}

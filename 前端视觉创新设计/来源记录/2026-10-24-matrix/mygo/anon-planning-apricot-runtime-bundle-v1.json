@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "cell": "anon/planning/apricot",
+  "primary": false,
+  "runtime": false,
+  "status": "candidate_visually_inspected_parent_review_pending",
+  "bundle": "anon-planning-apricot-bundle-v1.json",
+  "sourceMotherSha256": "74aae35f25cf35d0c1c34ca150e650956bd60218a8e759d15ad44abbb41adc4e",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "fixedRoom": true,
+  "theme": "apricot",
+  "pose": "planning",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "transform": {
+    "x": 0,
+    "y": 0,
+    "scale": 1
+  },
+  "displayGate": [
+    "showFigure === true",
+    "motherReady === true",
+    "failed === false",
+    "theme === apricot",
+    "pose === planning",
+    "actual mother SHA-256 === sourceMotherSha256"
+  ],
+  "removeOn": [
+    "showFigure false",
+    "mother not ready",
+    "source/layer failure",
+    "theme change away from apricot",
+    "pose change away from planning",
+    "mother SHA mismatch"
+  ],
+  "layerOrder": [
+    "background",
+    "shadow if independently present (none in this bundle)",
+    "original-mother source contact strips",
+    "original-mother RGB through native SVG luminance mask and black furniture-exclusion polygon"
+  ],
+  "background": "anon-planning-apricot-bundle-v1-background.png",
+  "luminanceMask": "anon-planning-apricot-bundle-v1-mask.png",
+  "sourceRgb": "../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-planning-apricot-mother-candidate-v1.png",
+  "contactRepair": {
+    "method": "native SVG clipPath of unmodified original mother at original coordinates",
+    "sourceMotherSha256": "74aae35f25cf35d0c1c34ca150e650956bd60218a8e759d15ad44abbb41adc4e",
+    "file": "anon-planning-apricot-runtime-bundle-v1-source-contact.svg",
+    "polygons": [
+      {
+        "id": "seat-contact",
+        "points": "885,601 897,605 924,599 948,594 952,597 926,603 898,610 886,606",
+        "areaPx": 293.5
+      },
+      {
+        "id": "left-shoe-contact",
+        "points": "944,733 951,737 974,739 1007,735 1009,738 998,742 959,742 945,739",
+        "areaPx": 268
+      },
+      {
+        "id": "right-shoe-contact",
+        "points": "1016,736 1036,739 1063,738 1082,733 1085,736 1074,741 1042,743 1019,741",
+        "areaPx": 281.5
+      }
+    ],
+    "paintedShadow": false,
+    "fullRoomCrop": false,
+    "rgbSource": "mother only",
+    "transform": {
+      "x": 0,
+      "y": 0,
+      "scale": 1
+    },
+    "displayGate": "exactly the same gate as figure",
+    "note": "Narrow original seat and shoe contact strips; no new shadow generation or RGB retouch."
+  },
+  "observationPage": "anon-planning-apricot-runtime-bundle-v3.html",
+  "productIntegration": false,
+  "figureSvgSource": "anon-planning-apricot-runtime-bundle-v1-figure-v2.svg",
+  "maskMode": "luminance",
+  "nativeSvgEmbedding": "inline_svg_required; SVG source contains same-origin image references and must be inlined rather than embedded as an img",
+  "furnitureExclusion": {
+    "method": "black polygon inside native SVG luminance mask after unmodified generated mask",
+    "coordinates": "820,509 857,509 864,525 870,549 878,577 889,607 820,607",
+    "purpose": "Remove only original-mother beige chair pixels from left rear waist/hip where the foreground chair occludes the girl. Do not reconstruct hidden body.",
+    "earlierCandidate": "820,509 853,509 859,525 865,549 872,577 882,607 820,607",
+    "earlierCandidateStatus": "v2 left a thin beige chair edge; v3 tightened to the observed original chair occlusion edge.",
+    "pngModified": false,
+    "rgbModified": false
+  },
+  "shadow": null,
+  "observation": {
+    "at": "2026-10-25 03:53:59 UTC",
+    "browser": "connected Chrome extension",
+    "finalPage": "http://127.0.0.1:5188/来源记录/2026-10-24-matrix/mygo/anon-planning-apricot-runtime-bundle-v3.html",
+    "sections": {
+      "compare": "Original mother, background+contact+original RGB figure, empty room, raw luminance mask",
+      "edges": "Light and dark backgrounds at original source scale. Chair triangle removed; face/held sheet/hands/full both shoes visible. Immutable RGB preserves warm source edge tint, especially hair on dark.",
+      "contacts": "Actual mother / corrected mask without source contact / corrected mask with original narrow source-contact strips. No broad floor patch hard edge observed."
+    },
+    "operationsObserved": [
+      "Hide/show removes/restores figure and source contact together",
+      "Theme mist mismatch hides figure and source contact together",
+      "Pose reading mismatch hides figure and source contact together",
+      "Simulated source failure hides figure and source contact together",
+      "Restoring apricot/planning/nonfailure restores exact fixed-position candidate"
+    ],
+    "displayVerification": {
+      "motherShaGate": "Displayed only after actual fetched mother SHA-256 matched and source/mask/background decoded at 1536x1024",
+      "mismatchDomObserved": {
+        "figureVisible": "false",
+        "figureDisplay": "none",
+        "sourceContactDisplay": "none"
+      }
+    },
+    "boundaries": [
+      "Candidate asset inspection only; no product runtime registry or Electron workflow changed/verified.",
+      "Manual native SVG furniture-exclusion geometry requires parent visual review.",
+      "Warm original RGB edge tint remains on artificial dark background; no RGB decontamination or independent figure generation performed.",
+      "The fixed room/pose/theme cannot travel, tilt, change perspective or be reused as free-standing figure."
+    ]
+  },
+  "parentVisualApproval": false
+}

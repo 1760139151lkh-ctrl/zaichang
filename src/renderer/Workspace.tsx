@@ -26,14 +26,14 @@ import {
 import { DEFAULT_TIME_ZONE, formatDateTime, timeZoneLabel, toTimeInput } from './time';
 import type { SharedMatterView } from '../shared/presentation';
 import type { CampusScheduleBlock } from '../shared/campus-calendar';
-import type { AgendaDayResult, AgendaFocus, AgendaOccurrence } from '../shared/agenda';
+import type { AgendaDayResult, AgendaFocus, AgendaOccurrence, AgendaReference } from '../shared/agenda';
 import './today.css';
 import { CalendarHandoff } from './CalendarHandoff';
 import { CampusDayControls, CampusScheduleRow, useCampusDaySchedule } from './CampusDaySchedule';
 import { AgendaDayTimeline, agendaDayWindow, agendaTimedRange, campusTimedRange } from './AgendaDayTimeline';
 import { workspaceReturnAddressSchema, type AgendaReturnAddress } from './workspace-return';
 
-export type WorkspaceView = 'chat' | 'agenda' | 'notes' | 'materials' | 'memory' | 'settings' | 'companion';
+export type WorkspaceView = 'chat' | 'agenda' | 'keep' | 'notes' | 'materials' | 'memory' | 'settings' | 'companion';
 type AgendaScope = 'day' | 'all' | 'undated' | 'completed';
 export interface AgendaViewPosition { selectedDate: string; scope: AgendaScope; dayLayout: 'timeline' | 'list'; query: string }
 type AgendaEdit = { original: Action; initialStartsAt?: string; trialDurationMinutes?: number | null; occurrenceDate?: string; occurrenceId?: string; restoreRequestId?: number };
@@ -82,6 +82,7 @@ export function AgendaView({
   onPresentMatter,
   onMap,
   onDiscuss,
+  onOpenOrigin,
   position,
   focus,
   onPositionChange,
@@ -102,6 +103,7 @@ export function AgendaView({
   onPresentMatter: (matter: SharedMatterView) => void;
   onMap: (id: string) => void;
   onDiscuss?: (focus: AgendaFocus, label: string) => void;
+  onOpenOrigin?: (record: AgendaReference) => void;
   position?: AgendaViewPosition;
   focus?: AgendaFocus;
   onPositionChange?: (position: AgendaViewPosition) => void;
@@ -563,7 +565,7 @@ export function AgendaView({
       original={editing.original} current={state.agenda.find(item => item.id === editing.original.id)}
       timeZone={zone} initialStartsAt={editing.initialStartsAt} initialOccurrenceDate={editing.occurrenceDate}
       initialDurationMinutes={editing.trialDurationMinutes} restoreRequestId={editing.restoreRequestId}
-      boundary={nativeBoundary} includeCampus={campus.enabled} onDiscuss={onDiscuss} onMap={onMap}
+      boundary={nativeBoundary} includeCampus={campus.enabled} onDiscuss={onDiscuss} onOpenOrigin={onOpenOrigin} onMap={onMap}
       calendarVersionKey={dayKey}
       onReload={item => { restoreFocus.current = undefined; setEditing(value => value ? { original: { ...item },
         ...(item.recurrence && value.occurrenceDate ? { occurrenceDate: value.occurrenceDate,

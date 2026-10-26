@@ -28,7 +28,7 @@ const FAMILY_PURPOSE: Record<DeferredFamily, string> = {
   curiosity: '带来能一起玩、一起写的新东西',
   companion: '一起做事，留下停点，下次接着来',
   planning: '商量安排，比较取舍，找出能用的时间',
-  methods: '记住合适的帮忙方式，以及它适用的条件',
+  methods: '保存、修改或停用个人方法；找回原方法沿discover_skills和read_skill',
 };
 const familyOf = new Map<string, DeferredFamily>(Object.entries(DEFERRED_TOOL_FAMILIES)
   .flatMap(([family, names]) => names.map(name => [name, family as DeferredFamily] as const)));
@@ -66,7 +66,7 @@ const PURPOSE: Record<string, string> = {
  * replace repeated top-level prose; use_tool reads the owner's original
  * description and full parameters when more detail is useful. */
 const TOOL_INTRODUCTIONS: Record<string, string> = {
-  present_view: '把眼前真正需要的结果摊开：地图、课表、陪学纸、安排比较，或能亲手试的小作品。sceneRefs沿资料返回的画面地址；笔记和试说沿原结果的present.arguments。成绩可用campusDisplay选学期与口径。继续原题、原安排或原作品时沿它原来的地址和版本；新作品的做法可从read_skill查。companionActivity选择自己的陪伴姿态，镜头变化照顾对方刚才的手动浏览。',
+  present_view: '让自己的视觉参与和眼前需要看的内容跟上交流。只选自己的姿态可以直接给 {"companionActivity":"play","sceneRefs":[],"layout":"stack"}，如一起摆弄小物或共创；陪读可选reading，其他姿态按companionActivity说明选择，无需查询、建任务或另造Scene。“不用查资料”仍允许你选择自己的表现。可以保持当前姿态，不必每轮调用。这里交付姿态意图，尚不证明对方已看见动作；想象、邀请与实际画面分开，隐藏、头像、自选形象及减少动态优先。地图、课表、陪学纸、安排比较或小作品也可在此摊开：sceneRefs沿真实返回的画面地址，笔记和试说沿原结果的present.arguments，成绩可用campusDisplay选学期与口径；新作品做法可从read_skill查，继续原对象保留原地址和版本，镜头照顾对方刚才的手动浏览。',
   update_collaboration: '记下这件事已经聊清什么、还有什么没办、刚才试得怎样，以及后来改了什么。确定的内容与暂时猜想各自保留；对方明确选中或撤回一种做法时用choose。讲题、即兴共写和接着讨论，可以把实际内容直接写在当前回复里；另要独立成稿或保留原生纸时，再连回那份成果。真正保存安排沿原行动继续。',
   prepare_release: '对方明确要单独的稿页、稿件版本，或要交给具体收件人的正文时，沿原话准备这份稿件，保留读者、用途和可用材料。已有稿件可用真实priorArtifactId接回；写忙闲时带具体from/to。正文会在独立稿页里呈现，你可以接着聊内容与修改。平常讲题、即兴共写和私下讨论，可以直接在当前回复里完成；要怎样交付，沿对方这次的需要来。',
   prepare_action: '把明确托付的本地安排办好，或把尚在商量的安排做成可接受的建议卡。整份规划沿原planId递出，单项托付保留真实日期和提醒时刻；时长还未知时留空。结果会说明现在是建议已备好、安排已保存，还是还差哪一步。',
@@ -76,7 +76,9 @@ const TOOL_INTRODUCTIONS: Record<string, string> = {
   inspect_help: '翻回已经准备的材料、照看的事项和相处约定。可以按关键词、关联事项、状态或日期找，再沿原id读正文和来由。已有材料仍合用时，decide_help可以把它带回当前交流；实际送到哪一步会分别留下记录。',
   read_assistant_history: '回看自己以前说过或递过什么。知道回复id就沿它分页读；只记得一句话时用连续短语找。本人原话旁的conversationContext可接回前后回复，共同作品沿historicalWorks读当时的原章。用当时读到的内容接话，也留意后来有没有修订。',
   read_skill: '翻看这件事合适的做法与适用条件。按精确id读，下一页沿next继续；做互动作品可选interactive-program的authoring，改已有作品先接回原稿。借个人方法帮眼前这件事时，forCurrentHelp连回本轮原话与事项；回顾或修改方法时直接读原方法。',
+  discover_skills: '找回已经保存的个人方法，或看看眼前这件事可用的做法。沿目录返回的id用read_skill读方法，借到当前事情时保留forCurrentHelp的来由。想留下一种新帮法、改原方法或停用它，再用manage_method。',
   read_interactive_program: '接回同一个可玩作品的原稿、文字位置和真实状态声明。沿messageId/programId/revision读取；overview看梗概，source分页或full读原稿，find找文字，states看状态字段。当前手势和数值沿这轮画面给出的UIref接续，原稿与下一页都保留原地址。',
+  read_current_campus_selection: '打开眼前指着的那一条校园资料，沿原版本和原ID继续看。currentWorkspace同时带着两处时，用slot选A或B。普通课程、课次和考试可用fields挑这次需要的字段；成绩和GPA沿它原来的口径读取，结果会留下这次读到的范围。',
 };
 
 const DROP_KEYS = new Set(['$schema', 'minLength', 'maxLength', 'minItems', 'maxItems', 'pattern']);

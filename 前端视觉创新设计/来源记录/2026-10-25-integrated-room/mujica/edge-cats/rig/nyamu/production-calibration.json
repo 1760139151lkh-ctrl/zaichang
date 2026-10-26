@@ -1,0 +1,93 @@
+{
+  "id": "nyamu",
+  "source": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\nyamu-meme-cat-v1.png",
+  "sourceSha256": "87e3c75a373ecc2b1e290a38efbf15251aba0347d483b6567fced78b8e12ca2b",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "tailPivotPx": [
+    1359,
+    666
+  ],
+  "tailPivotNormalized": [
+    0.884765625,
+    0.650390625
+  ],
+  "paperEdgeSourceY": 845,
+  "paperEdgeNormalized": 0.8251953125,
+  "frontPawLowerExtentsPx": [
+    [
+      301,
+      861
+    ],
+    [
+      580,
+      872
+    ]
+  ],
+  "bodyArcSamplesY_X": [
+    [
+      600,
+      1326
+    ],
+    [
+      610,
+      1334
+    ],
+    [
+      620,
+      1341
+    ],
+    [
+      640,
+      1356
+    ],
+    [
+      650,
+      1359
+    ],
+    [
+      660,
+      1364
+    ],
+    [
+      670,
+      1368
+    ],
+    [
+      700,
+      1380
+    ]
+  ],
+  "visibleTailEndY": 698,
+  "wholeMaskExpansionRadius": 18,
+  "tailSemanticExpansionRadius": 12,
+  "rootUnderlapPx": 18,
+  "sourceSolidOutsideWholeGuardBounds": null,
+  "bodyAlphaBounds": [
+    42,
+    161,
+    1395,
+    879
+  ],
+  "tailAlphaBounds": [
+    1323,
+    336,
+    1503,
+    699
+  ],
+  "rawTailRedBounds": [
+    1338,
+    340,
+    1498,
+    692
+  ],
+  "outputs": {
+    "body": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\rig\\nyamu\\nyamu-meme-cat-v1-body.png",
+    "tail": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\rig\\nyamu\\nyamu-meme-cat-v1-tail.png",
+    "clean": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\rig\\nyamu\\nyamu-meme-cat-v1-clean.png"
+  },
+  "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-9725-7bd3-aa74-f7fa6487bfed/exec-c6725f57-8c0e-4b07-b783-510bad604c3f.png",
+  "bodyForegroundInkOverlapPx": 4
+}

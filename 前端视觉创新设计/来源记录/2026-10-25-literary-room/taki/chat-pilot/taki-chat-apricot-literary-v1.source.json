@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "assetId": "taki-chat-apricot-literary-v1",
+  "roomFamily": "literary-room-v1",
+  "characterId": "taki",
+  "activity": "chat",
+  "palette": "apricot",
+  "createdOn": "2026-10-25",
+  "generationMode": "clean-empty-room-plus-character-text",
+  "tool": "image_gen.imagegen (built-in)",
+  "executionId": "exec-5b2ce862-f461-410f-aae9-0a382f985b36",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-5b2ce862-f461-410f-aae9-0a382f985b36.png",
+  "inputs": [
+    {
+      "file": "../../plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "sole approved clean empty room image input"
+    }
+  ],
+  "brief": "../../briefs/mygo-a/taki-36-briefs.md#暖杏--先把书往旁边放一点",
+  "characterDefinition": "src/shared/persona-portrayals.ts:taki@2026-10-24.3",
+  "creativeStatus": "Project-original conversational psychology; canonical identity described in text.",
+  "promptFile": "taki-chat-apricot-literary-v1.prompt.txt",
+  "promptFileSha256": "14288f1e16c6e6833c41e8827817cf789de8af8a8b56b57a3866393a5ae3e8ec",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd, exactly as submitted",
+  "submittedPromptSha256": "9f339990136efa5f204d8ddb39af55b3c1e47444da7163557f3d7e82978130e8",
+  "output": {
+    "file": "taki-chat-apricot-literary-v1.png",
+    "sha256": "0eb782e67b9954b406130a4994e9e75dd8774c8c3eb2a690d75d3e55338aad16",
+    "bytes": 2433343,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "reviewedOn": "2026-10-25",
+    "decision": "acceptable static mother candidate for primary inspection",
+    "observation": "Full generated original personally viewed. Taki's long dark purple-black hair, violet eyes, red ribbon and camel sailor uniform remain readable and youthful. Both eyes, sclera, eyelids and fringe contours are distinct. The closed book lies on the right side of her lap in image space; one forearm and relaxed hand visibly rest toward the opposite thigh, while the other hand is naturally obscured around the book rather than clearly displayed holding its corner. Her attentive slightly parted mouth reads as a quiet question, not a broad service smile or a scolding pose. Pelvis/cushion contact, coherent knees/ankles, complete loafers and floor contact are visible. The original close room and table/lamp relationships are retained.",
+    "limits": "The intended book-corner grip is partly occluded and is not claimed as visually verified. Static mother only; no extracted layers, movement, integrated UI or runtime inspected. Producer inspection predates the separate primary static-mother admission below."
+  },
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "acceptanceScope": "Primary-approved static full-scene mother only; no layer, movement, integrated UI or runtime approval.",
+  "primaryApprovalRecord": "taki-chat-apricot-literary-v1.primary-approval.json"
+}

@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T01:06:11.881Z",
+  "producer": "/root/study_reading",
+  "character": "mutsumi",
+  "purpose": "neutral-presence",
+  "environmentVariant": "time-day",
+  "weather": "unknown",
+  "exactActivityMatrixCredit": 0,
+  "stage": "figure-step1-marked-v1",
+  "tool": "image_gen.imagegen",
+  "originalToolPath": "C:/Users/17601/.codex/generated_images/01a17365-8901-7202-bd9e-0859826906dc/exec-e0698fce-1fca-49d0-afcf-3d117b474a86.png",
+  "transparentBackground": false,
+  "submittedPrompt": "Use case: precise-object-edit. F1 deliberate whole-person selection markup, exact Mutsumi neutral time-DAY mother, 1536x1024. The ONLY input is the complete clean root-approved mother. Preserve full canvas, camera and every original source coordinate; no new picture, redrawing, proportion correction or changed pose. Paint SOLID PURE WHITE over the ENTIRE actually visible girl: every pale mint-gray hair lock, separated strand and fine tip, both tiny silver temple clips; whole face/ears/neck; full navy sailor dress with white collar/purple cloth bow/left-chest gold crest/buttons/cuffs; BOTH knee hands and every real finger/wrist; all outer skirt pleats/hem points; bare knees and legs, dark below-knee calf socks; BOTH COMPLETE brown loafers with toe tips, shoe sidewalls, sole rims and full bottom heel blocks. White selected interiors have no face/cloth/hand/shoe lines or holes. Real gaps between fine hair/body/arms/legs stay the original colored background. There is NO book, pencil, cup or other held prop to add. Loose inspection only, not fill boxes: girl roughly x875..1350,y125..935, complete farther shoe nearx879..1005,y823..897 and nearer shoex1020..1158,y846..934. Keep complete bottom soles and fine hair, do not shave or enlarge outlines. ALL unselected room stays ORIGINAL COLOR including naturally pale CLOSED OPAQUE curtain, cushion/throw/plaid pillow, wood bench/floor, table/lamp/cup/flowers, desk/chair/plants/rug, and actual source-local receiving contact shadows. Do not select empty cushion or shoe-floor shade in F. No crop/zoom/resize/recenter, no change to face or support, no checkerboard/transparency/text/UI/labels or new silhouette. One opaque full1536x1024 source-colored scene with ONLY the exact complete girl deliberately white. This is selection luminance only; mother RGB remains sole final figure color source.",
+  "submittedPromptSha256": "0cba12e29f409ce98f63c4714b8fba89b66f47ad41153219da5374f67adf258b",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-day-v1.png"
+  ],
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-day-v1.png",
+      "role": "sole clean root-approved mother",
+      "sha256": "8c1d8e006fa332a85a9d7fed40989170fce6f6956a0b18e351efa83f29404f6f",
+      "bytes": 2440649
+    }
+  ],
+  "originalMother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-day-v1.png",
+    "sha256": "8c1d8e006fa332a85a9d7fed40989170fce6f6956a0b18e351efa83f29404f6f",
+    "approvalRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-day-v1.primary-approval.json"
+  },
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/day/layers/figure-step1-marked-v1.png",
+    "sha256": "8d8e786c7e1cb27c032459bcab98b53faade244ed497c11500038ea29535011c",
+    "bytes": 2146811,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "rawToolBytesPreserved": true,
+  "producerPersonallyViewed": true,
+  "observations": [
+    "Personally viewed full tool output: complete source-colored room remains; entire girl appears deliberately white including hair, crossed knee hands, skirt and both complete shoes. Actual room gaps remain colored. Exact source RGB union and edge detail not yet inspected."
+  ],
+  "producerUseDecision": "candidate-awaiting-static-union-review",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "userApproved": false,
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "fixedOriginalCoordinates": true,
+    "travel": 0,
+    "perspective": 0,
+    "slope": 0,
+    "contactShadow": "included"
+  },
+  "method": {
+    "sourceRgb": "exact unchanged mother only",
+    "union": "MAX(L(F),L(S))",
+    "originalRgbDrawsPerUnion": 1,
+    "pngPixelEditing": false,
+    "manualThreshold": false,
+    "morphology": false,
+    "warp": false
+  },
+  "scope": "Production candidate only; native browser union, seam and full source RGB must be personally viewed before primary static-layer admission."
+}

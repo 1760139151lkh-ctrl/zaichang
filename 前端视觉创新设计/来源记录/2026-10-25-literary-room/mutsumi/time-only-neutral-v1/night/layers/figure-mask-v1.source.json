@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T01:17:54.002Z",
+  "producer": "/root/study_reading",
+  "character": "mutsumi",
+  "purpose": "neutral-presence",
+  "environmentVariant": "time-night",
+  "weather": "unknown",
+  "exactActivityMatrixCredit": 0,
+  "stage": "figure-mask-v1",
+  "tool": "image_gen.imagegen",
+  "originalToolPath": "C:/Users/17601/.codex/generated_images/01a17365-8901-7202-bd9e-0859826906dc/exec-b04f60e6-ab27-429a-8524-6893f7cca224.png",
+  "transparentBackground": false,
+  "submittedPrompt": "Use case: precise-object-edit. Convert input1 correct source-coordinate F1 white girl markup into a RAW BLACK-WHITE LUMINANCE FIGURE MASK, exact1536x1024. Input2 clean mother is ONLY for exact-coordinate identity/edge discrimination. This is not illustration or a redraw. Preserve EVERY source pixel location and complete selected silhouette; no crop, shift, resize, recenter or changing pose. All intentionally marked white girl pixels in input1 become pure opaque255white: ALL fine pale mint hair strands/tips, clips/head/face, neck/navy uniform/collar/bow/crest, BOTH hands/fingers on knees, every skirt pleat/hem edge, both knees/legs/dark calf socks, BOTH entire brown loafers including toe tips, bottom sole and heel blocks. White interior must be completely solid, no leftover face/garment/hand/shoe lines, no black internal gaps except REAL open room between hair strands/body/limbs. There is no book or held object. Every other pixel BLACK0 including naturally cream curtains, cushions, lamp, room and receiving seat/floor shadows; do NOT select naturally white room details. Keep original fine hair holes and real body gaps at exact coordinates. Full opaque RGB grayscale mask with only exact F1 girl silhouette white; antialias just original short edge. No shadow, broad halo, extra white islands, checkerboard, transparency, text, UI. Sole sourceRGB for final compositing stays clean mother; mask is never figure color.",
+  "submittedPromptSha256": "f691628674fd62e128a877b29702c75f4ce2a84f426cf17e05c6289c890e0c9a",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/night/layers/figure-step1-marked-v1.png",
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-night-v1.png"
+  ],
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/night/layers/figure-step1-marked-v1.png",
+      "role": "correct F1",
+      "sha256": "aa0078a4b307c8e0f512e1beadda43fb949cff7142818ab0ca736d9ad45b8c2e",
+      "bytes": 2125512
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-night-v1.png",
+      "role": "clean mother coordinates",
+      "sha256": "ecd0ac024c414ae54c94558301e4eeb7d1e4e773cc264a195044fe9030088e36",
+      "bytes": 2240587
+    }
+  ],
+  "originalMother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-night-v1.png",
+    "sha256": "ecd0ac024c414ae54c94558301e4eeb7d1e4e773cc264a195044fe9030088e36",
+    "approvalRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-night-v1.primary-approval.json"
+  },
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/night/layers/figure-mask-v1.png",
+    "sha256": "9e25e904f56f9577cf55db97a5f9904bd5a7748a5ff4d796e6327245defdaec0",
+    "bytes": 481590,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "rawToolBytesPreserved": true,
+  "producerPersonallyViewed": true,
+  "observations": [
+    "Personally viewed: full white figure with long fine hair and complete shoe shapes; tiny hair-adjacent black slits require motherRGB review to distinguish true gaps."
+  ],
+  "producerUseDecision": "candidate-awaiting-static-union-review",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "userApproved": false,
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "fixedOriginalCoordinates": true,
+    "travel": 0,
+    "perspective": 0,
+    "slope": 0,
+    "contactShadow": "included"
+  },
+  "method": {
+    "sourceRgb": "exact unchanged mother only",
+    "union": "MAX(L(F),L(S))",
+    "originalRgbDrawsPerUnion": 1,
+    "pngPixelEditing": false,
+    "manualThreshold": false,
+    "morphology": false,
+    "warp": false
+  },
+  "scope": "Production candidate only; native browser union, seam and full source RGB must be personally viewed before primary static-layer admission."
+}

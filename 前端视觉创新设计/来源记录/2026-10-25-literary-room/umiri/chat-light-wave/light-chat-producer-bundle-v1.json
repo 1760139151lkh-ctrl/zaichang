@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "kind": "bounded-chat-weather-light-mother-producer-record",
+  "character": "umiri",
+  "activity": "chat",
+  "sceneFamily": "literary-room-v1",
+  "wave": "light-chat-wave",
+  "tool": "built-in image_gen",
+  "characterCalls": 3,
+  "sharedWaveCalls": 6,
+  "sharedWaveCallLimit": 6,
+  "generationStopped": true,
+  "inputBoundary": "Only exact root-approved own apricot chat mother (Umiri v2 only) and corresponding root-approved empty weather/time plate. All six outputs are new mothers pending primary review.",
+  "method": "Actual image generation repaint across person, clothing, room contact surfaces and lighting; no CSS filter, no PNG editing or day-night split.",
+  "largeImageResultStored": false,
+  "pngEdited": false,
+  "primaryMotherApproved": false,
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "outputs": [
+    {
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-light-wave/umiri-chat-mist-literary-light-v1.png",
+      "motherSha256": "0e143de57d1d4e487e1ca1d6641ff66ee563e5a986f421f90fa46247373c8810",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-light-wave/umiri-chat-mist-literary-light-v1.source.json",
+      "sourceSha256": "fb2b2bbfe1f93c57e9ddda64541492162fedc8e23f486d1468e64722d797c590",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-light-wave/umiri-chat-mist-literary-light-v1.prompt.txt",
+      "promptSha256": "39fbd790e9d4990311f8f7646d9aaf7a1cb72ae82fa5f97a32a1a0f55cb1f3c0",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Full-source visual pose correspondence is not pixel-identical registration or hidden anatomy measurement. Root must separately inspect this new weather mother before layers."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-light-wave/umiri-chat-violet-literary-light-v1.png",
+      "motherSha256": "976a6f663f6f3ba419ae0d5cf79c2688f7781098dc894e9b16c8a9cd788a0a98",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-light-wave/umiri-chat-violet-literary-light-v1.source.json",
+      "sourceSha256": "970153883a62a1c12b50869bc733d76970715663765b42118b0e692058526776",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-light-wave/umiri-chat-violet-literary-light-v1.prompt.txt",
+      "promptSha256": "0d18031fc3ecdf40629209c1becfaa829a4f9d02fa4f6e9fa164582f1a9c1e6e",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Warm rim on some hair/skin is interpreted as dusk/practical-light rendering, not proven physically measured illumination. Primary should judge unified light plausibility; no pixel-identical shape or runtime claim."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-light-wave/umiri-chat-rain-literary-light-v1.png",
+      "motherSha256": "d585d56c6f2baefdf422ad4950734427e20b550d75838661a80b6e647bb8f960",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-light-wave/umiri-chat-rain-literary-light-v1.source.json",
+      "sourceSha256": "8121b8e735c899be5b503ac49bb2a7706e1ec28bb1b946bb6c2b606189bec4a5",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-light-wave/umiri-chat-rain-literary-light-v1.prompt.txt",
+      "promptSha256": "80b6568886078b71427f8ca436bc3063f1fbb28c195ffb57753b6fa9f10afb05",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Warm skin and hair edging is a generated night-light interpretation; root should judge practical-light plausibility and exact pose correspondence before approval. No pixel-exact registration, layer or runtime claim."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "reviewBoundary": "Producer visually inspected every full saved source before next call. Prior source-mother/plate approvals do not approve these new mothers or any layer/runtime."
+}

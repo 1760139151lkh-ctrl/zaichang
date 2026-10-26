@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "recordType": "independent-youth-v3-avatar-candidate",
+  "characterId": "anon",
+  "purpose": "independent-avatar",
+  "originalInteraction": "Original project moment: a little idea she likes, bright expectant gaze and a small personally pleased smile, leaving room for a familiar response",
+  "dossierVersion": "2026-10-25",
+  "tool": "image_gen.imagegen",
+  "recordedAt": "2026-10-26T00:17:58.993144+00:00",
+  "sourceConversationId": "01a17365-def4-7ef0-9767-09f785cec060",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/运行素材/companion/portraits/anon-youth-charm-20261025.png",
+      "sha256": "7f1e2c6e782ea0d688825dc68c36c28c526856750a2ab9c29772efa6632d62d9",
+      "purpose": "2D pink-hair/gray-blue-eye identity only; v2 latest proportional requirement not treated as accepted",
+      "personallyViewedBeforeGeneration": true
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: illustration-story. Make a NEW independent youthful avatar of Chihaya Anon (MyGO!!!!!), square 1024 x 1024, genuinely transparent background. This is an original personal moment for 在场, not an anime-canon scene. The supplied current 2D portrait is ONLY an identity guide for long pink hair, separated bangs and her recognizable gray-blue eyes. Its long-face tendencies and previous large open-mouth smile are NOT a proportional or expression target. Do not crop a body/room picture or paste any existing face.\n\nShe has just found a small idea she genuinely likes and is about to share it with someone familiar. Her eyes are bright with specific expectation: the gaze meets the viewer as if checking whether they see the same amusing possibility. A very slight lift at one brow, a visible small warm smile beginning at one mouth corner, lips gently parted just enough to suggest she might speak, no broad tooth display. Keep her lively confidence and a trace of wanting the idea to be appreciated, not a generic service smile, blank puppy stare, forced wink, huge laugh or sad timid face. No props, captions, stars or speech bubbles are needed to explain the feeling.\n\nDraw a softly SHORT, youthful cheek-and-chin relationship, natural full young cheeks turning into a short gently rounded chin, and a compact middle/lower face. Preserve Anon's own restrained eye shape and normal eye-to-nose-to-mouth relations; do not solve youth by giant glass eyes, infant cheeks, a tiny chibi nose, squeezing the whole skull or scaling the forehead. NO adult vertical long jaw, sharp mature glamour chin, long exposed neck, heavy fashion lashes, makeup or lipstick. Fine natural lips and small nose, distinct thoughtful gray-blue irises. It should read as the same smart young girl, personally pleased and ready to listen, not a baby or adult model.\n\nPink long hair is softly separated and layered, with natural airy bangs and readable side locks, subtle hand-painted warm/cool planes, no plastic shine or solid helmet. No invented bow, ribbon, cat ears or other character's accessories. The long hair may continue naturally below the bottom edge, but the complete crown, both eye regions and cheek-side hair needed for a circular closeup stay safely in frame. Delicate refined literary 2D linework with softly painted young skin, not photo realism, 3D figurine, glossy skin, plush or a room-background crop.\n\nHead and hair occupy nearly all the square, friendly near-frontal orientation with only a small natural turn and less dramatic tilt than the old portrait. Leave only a tiny necessary neckline and hint of white shirt collar / gray-violet blazer at the lower edge, perhaps a small dark-green tie hint; do not spend the frame on a large torso or broad shoulders. Soft neutral flattering light, subtle natural cheek warmth, her actual pink hair and gray-blue eyes remain clear. No room, object, frame, circle border, label, watermark or colored backdrop. Real clean alpha transparency with fine hair edges, not painted checkerboard.",
+  "submittedPromptSha256": "e19a8db70d6acdd87f813679dd6c8f30c594ba2937f10115561762152da85f09",
+  "promptFile": "anon-avatar-youth-v3.prompt.txt",
+  "promptFileSha256": "1467cdcc6c0bc0ecf129f422b26cf0a2bfd45d13d28a8a787a85c9a46b3c29fa",
+  "requestFile": "anon-avatar-youth-v3.request.json",
+  "requestSha256": "413e90ee67cbba86dd5f9c7f55eb9d8abd5b4c43eb4f5ceab7aa4cf6d803ed82",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-d7d31e73-c3f9-46eb-96f6-e1853aa3bbae.png",
+  "toolOriginalSha256": "132d7f7f8d513634fc45145fc2405543a8e2b9bc0df47bfad614b94381a2663c",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/time-only-neutral-v1/portrait/anon-avatar-youth-v3.png",
+    "sha256": "132d7f7f8d513634fc45145fc2405543a8e2b9bc0df47bfad614b94381a2663c",
+    "bytes": 2174800,
+    "canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "toolPngBytesUnchanged": true,
+    "resizedOrRetouched": false
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "observations": "Whole actual output viewed: airy long pink hair framing a compact youthful cheek/chin, distinct gray-blue irises, warm expectant gaze and visible slightly open smile with a narrow tooth highlight rather than claiming fully closed lips. Hair/head dominate, only lower shirt/blazer/tie hint visible. Transparent raster preserved. Still a tilted near-front angle related to the source; latest youth proportion/face aesthetics require root review, and fine alpha edges/34px/48px circles/runtime are not verified.",
+    "realSmallSizeOrRuntimeVerified": false
+  },
+  "latestRequirementAccepted": true,
+  "primaryApproved": true,
+  "generationInputAllowed": true,
+  "runtimeAccepted": false,
+  "roomMotherCropUsed": false,
+  "threeDOrHoldOrUiUsed": false,
+  "sourceCodeOrRegistryChanged": false,
+  "status": "root_approved_with_scoped_boundaries",
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/SKILL.md",
+      "sha256AtRecord": "d3dafe3e370dfe2aa6bbd522dd64242efb6e9dbed265daa0b68a9532734e1a58",
+      "fullyRead": true
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256AtRecord": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "fullyRead": true
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/anon.md",
+      "sha256AtRecord": "de7782a11d0e620b3d25de33ac7a964142a39322e6fa8f0ceceea2bc6d501b19",
+      "fullyRead": true
+    }
+  ],
+  "userApproved": false,
+  "primaryReview": {
+    "reviewer": "root",
+    "scope": "original_portrait_face_aesthetic_and_identity_reference",
+    "record": "root-primary-day-and-avatar-admission-v1.json",
+    "exactMessage": "Root现逐原PNG亲看Anon v3 132d7f7f…2663c、Rana v3 400f6a20…9aad：各发色/眼识别与细2D青春短柔颊下巴成立，Anon期待的轻开口笑、Rana自在小好奇半笑可读，准原画面部审美与同角色identity generation参考；透明细发边/34/48圆框/真实runtime未验，不签全用途或userApproved true。3张day原母已到，我下一步看Anon/Rana后再明确night；Tomori日母和v3已准，你可以先按原影一张time-night延拓（day完整姿势＋已准v3 identity＋准time-night纯空plate），闭帘无天气，全人物/书物/软垫/地面同夜光，不改体量/脸型和视线对象/不凭空歪腿；只准母候选、不制layers或registry。全源保留。"
+  },
+  "fineAlphaEdgesVerified": false,
+  "real34And48CircleVerified": false
+}

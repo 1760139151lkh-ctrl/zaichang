@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "s01-d01-sakiko-attend-apricot-keypose-v1",
+  "tool": "image_gen.imagegen",
+  "generationId": "exec-7423b312-6dc1-4a30-a307-be5f60c55781",
+  "prompt": "sakiko-attend-apricot-keypose-v1.prompt.txt",
+  "source": "../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+  "sourceSha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1",
+  "output": "sakiko-attend-apricot-keypose-v1.png",
+  "sha256": "a30f678b7e6029b673b5cf79ca1a30dd6698dad3bc9ed1dd2781edc06545c54c",
+  "bytes": 2067328,
+  "classification": "B",
+  "status": "keypose-candidate",
+  "intendedUse": "Stage01 D01 look toward the current object; same-scene right-hand indication",
+  "staticReview": {
+    "inspectedByPrimary": true,
+    "retain": "Room composition, youthful identity, supported window seat, continuous hip-knee-ankle anatomy, book and supported left hand",
+    "remaining": "Right-hand lift exceeds the intended small amplitude; compare background invariants, extract compatible local layers, verify recomposition and controlled transition"
+  },
+  "runtimeReference": null,
+  "motionVerified": false,
+  "geminiVideoReference": null
+}

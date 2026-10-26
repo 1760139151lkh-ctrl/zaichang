@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "dateLocal": "2026-10-25",
+  "recordType": "primary-static-empty-plate-admission",
+  "reviewer": "root / primary agent",
+  "asset": {
+    "file": "literary-room-overcast-day-v1.png",
+    "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+    "width": 1536,
+    "height": 1024
+  },
+  "primaryApproved": true,
+  "scope": "Complete static empty environment plate only; same selected close room and corresponding weather/time illumination. No character/activity/layers/motion/runtime approval.",
+  "evidence": "Root personally viewed the complete original PNG: same close camera/furniture/floor, cloudy daylight and no hard solar patches.",
+  "producerReviewSeparate": true,
+  "runtimeAccepted": false
+}

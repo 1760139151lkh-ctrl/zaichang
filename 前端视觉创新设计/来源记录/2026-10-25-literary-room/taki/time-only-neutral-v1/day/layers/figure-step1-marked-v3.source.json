@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "characterId": "taki",
+  "neutralTime": "day",
+  "purpose": "neutral-presence-fixed-included-layer",
+  "kind": "foreground-source-white-markup-F1-HOLD",
+  "createdAt": "2026-10-26T01:17:45.133491+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "exactPromptFile": "figure-step1-marked-v3.prompt.txt",
+  "promptSha256": "5f7ce79ee0d3a7ed7e504080b1ab6c73b7ef358ebd57c28d84fd94b77023fc7f",
+  "requestFile": "figure-step1-marked-v3.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/taki-neutral-time-day-literary-v1.png",
+      "sha256": "66e104b6025d0b65c2ab522a6d76c8cab8cbc94e5ee4edbd3dd2c4d9b5bb6654",
+      "role": "sole clean root-approved mother"
+    }
+  ],
+  "output": {
+    "file": "figure-step1-marked-v3.png",
+    "sha256": "0ef4321157ede1ba9a67a151e5e4969effce3546d8ea9ad82af32fc591f148ae",
+    "bytes": 2183494,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "originalBasename": "exec-ab770255-b006-4678-bdb7-7739e4ff857b.png",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteOutput": true,
+    "observations": [
+      "Residual internal book/hand line and tiny unselected hole remain despite complete solid-white instruction.",
+      "HOLD; never used as downstream input. After two similar markup artifacts, changing to direct same-mother semantic luminance selection."
+    ],
+    "eligibleAsNextStepInput": false
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "countsToward360ExactActivities": false,
+  "pngPixelEditing": false
+}

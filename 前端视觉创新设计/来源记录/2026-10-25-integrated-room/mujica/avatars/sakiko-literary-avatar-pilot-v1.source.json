@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "kind": "brand-new-independent-hand-drawn-2d-bust-avatar",
+  "character": "sakiko",
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-f1d52f79-aa90-4d4d-bfde-ffaf0583dea2.png",
+  "inputs": [],
+  "officialReferences": [
+    "https://anime.bang-dream.com/avemujica/character/sakiko/",
+    "https://anime.bang-dream.com/mygo/character/sakiko/"
+  ],
+  "officialBoundary": "Public official pages used as identity/clothing research only, no official raster file copied, no official image used as generation input or runtime artwork.",
+  "originalProjectBoundary": "Specific responding emotional moment, painted linework/natural literary-room light, independent portrait composition are original project interpretation. Not a crop, not a canon relationship or actual business action.",
+  "costumeId": "sakiko-private-mujica-visual1",
+  "readDependencies": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "scope": "Fully read immediately before independent portrait creation"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840",
+      "scope": "Fully read immediately before independent portrait creation"
+    }
+  ],
+  "exactSubmittedPrompt": "Generate ONE brand-new independent hand-drawn 2D anime portrait asset, square 1024x1024 RGBA with genuinely transparent background. Subject: Sakiko Togawa / 丰川祥子 / 豊川祥子 from BanG Dream! Ave Mujica, portrayed as her recognizable youthful high-school anime self. This is an original drawing, NOT a crop of any existing scene, NOT an official model render pasted into a frame, NOT a cat/chibi/meme. Bust close-up from upper chest to the whole head with both relaxed shoulders visible, enough transparent margin around the complete hair crown and side ribbons; long hair may continue naturally toward the bottom edge. No circle, disc, decorative frame, card, scene, text, logo, speech bubble or UI.\nTHE HUMAN MOMENT: She had been quietly testing a musical phrase of her own. The familiar person beside her says, 'I think I finally understood that step.' She turns her attention from her own thought toward that person just left of the viewer. Her clear GOLDEN eyes are the first to brighten with keen interested recognition; her brow relaxes only a little, and her small mouth has not yet arranged itself into a polite smile. One corner almost lifts, as if she is quietly pleased and ready to hear HOW they understood it. A little of her pride remains in her posture. It should feel like a clever young person genuinely responding, not a sad rescuer, mature gentle teacher, generic girlfriend advertising portrait or vacant doll. Choose this one specific emotion; no stacked tears/blush/surprise/grin. No pointing hand or arbitrary prop.\nIDENTITY: long pale BLUE-LAVENDER / silver-blue hair with clear cool blue base, fine separated bangs and the recognizable modest dark ribbons where the side hair is gathered; no random giant new bow, blonde/white hair, violet eyes or invented jewelry. Soft youthful cheek volume and a light, not elongated chin; clear thinking golden irises, natural small nose and small unpainted mouth. Her expression can be attentive without narrow half-lidded mature eyes. Avoid enormous glass doll eyes, baby proportions or chibi. Keep the distinctive Sakiko hair/face relationship instead of making a generic blue-haired woman.\nSELECT ONE COHERENT OFFICIAL OUTFIT: sakiko-private-mujica-visual1, the Ave Mujica official casual visual: ivory-white long-sleeve blouse with its finely pleated/detailed front and a THIN BLACK RIBBON at the collar; the bust crop need not show the gray plaid skirt, white short socks or black Mary Jane shoes, and must not invent any alternate legwear. Do not mix in navy sailor uniform, green school tie, leather jacket or red-black stage costume. The clothing reference is identity/structure only, not a direct copy of official CG material or standing expression.\nART DIRECTION: delicate, thoughtful Japanese hand-drawn 2D anime linework with varied line weight, softly brushed flat colors and gentle natural window light of a warm literary room falling from upper-left. Very subtle cool reflected fill in the hair, dimensional but clearly drawn face planes, clean readable irises, a few fine hair strands and convincing blouse folds. Warmth comes from attention and light, not heavy skin rendering or glamour. Repaint the whole portrait in this unified 2D language; no near-3D model, plastic highlights, photoreal skin/pore texture, glossy mature lips, heavy lashes/makeup, sharp adult jaw, realistic fashion photo, dark rim halo, vignette or opaque backdrop. Preserve true alpha transparency. No room pixels behind her; just the independently drawn portrait.",
+  "submittedPromptSha256": "c109b18071cb71ee2a0b0cb8e5d2b21b11edd450a8809c80cf46f57974e73c68",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\avatars\\sakiko-literary-avatar-pilot-v1.png",
+    "sha256": "3de1cdc02b034282ee03a46475bf6ef9876508db142472b7a16ecabb9ee28d07",
+    "bytes": 1805877,
+    "width": 1254,
+    "height": 1254,
+    "pngColorType": 6
+  },
+  "transparentBackgroundRequested": true,
+  "producerViewed": true,
+  "producerObservation": "Personally viewed brand-new complete bust portrait. Sakiko has blue-lavender long hair, modest dark side ribbons, clear gold irises and ivory blouse/thin black collar bow; specific attentive turn and slightly unfinished mouth response, no pointing hand or prop. Fine 2D linework/soft drawn shading, real transparent cutout, no circle/text/UI or cat form. Hair and blouse are newly generated, not an existing scene crop or official image cutout. Primary identity/youth/emotion approval pending.",
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "sceneHeadCrop": false,
+  "catForm": false,
+  "pngEdited": false,
+  "directAlphaObservation": {
+    "mode": "RGBA",
+    "extrema": [
+      0,
+      255
+    ],
+    "canvas": [
+      1254,
+      1254
+    ],
+    "nativePixelsUnmodified": true
+  },
+  "producerSmallSizeReview": {
+    "personallyViewed": true,
+    "widthsPx": [
+      180,
+      48
+    ],
+    "backgrounds": [
+      "#fff9f2",
+      "#20212c"
+    ],
+    "evidence": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\avatars\\review\\ave-five-avatar-light-dark-180-and-48px.png",
+    "sha256": "ca96775d8cac9f03e2d34158e5ec7a2d4a9e994316912255da388e22463bb910",
+    "observation": "Face/hair/eye/clothing identity readable on both backdrops. No obvious colored outline at actual 48px in these viewed backgrounds; this does not claim native 1254px colored edge pixels were repaired."
+  },
+  "primaryReview": {
+    "reviewer": "root",
+    "decision": "approved-independent-avatar-static-only",
+    "personallyViewed": true,
+    "source": "Explicit root collaboration messages after full originals and actual 180/48px light/dark board were viewed on 2026-10-25.",
+    "scope": "This exact independently generated human bust avatar and viewed small-size backdrops only; not full-body mother, all emotions/themes or runtime acceptance.",
+    "outputSha256": "3de1cdc02b034282ee03a46475bf6ef9876508db142472b7a16ecabb9ee28d07"
+  },
+  "currentAdmission": "held-by-latest-avatar-direction",
+  "currentUseAllowed": false,
+  "userAccepted": false,
+  "excludedFromFutureGenerationInputs": true,
+  "latestDirection": {
+    "date": "2026-10-25",
+    "source": "Direct latest user correction relayed verbatim by root",
+    "userQuote": "头像和背景是不一样的，头像呢一定要做的那种有青春风，有青春的感觉。然后头像是最体现一个角色的魅力的那种一个展现方式，一定要用相应的合理的方式去表达他。比方说展示角色最亮点的那种，比如说微笑起来的状态等等之类的。",
+    "reason": "用户指出旧头像冷、机器人、面无表情；头像应以青春与角色魅力为中心，具体笑意与心理需可读。旧静态root批准仅为历史，不是用户采用。"
+  },
+  "historicalRootStaticApproval": {
+    "primaryApproved": true,
+    "primaryReview": {
+      "reviewer": "root",
+      "decision": "approved-independent-avatar-static-only",
+      "personallyViewed": true,
+      "source": "Explicit root collaboration messages after full originals and actual 180/48px light/dark board were viewed on 2026-10-25.",
+      "scope": "This exact independently generated human bust avatar and viewed small-size backdrops only; not full-body mother, all emotions/themes or runtime acceptance.",
+      "outputSha256": "3de1cdc02b034282ee03a46475bf6ef9876508db142472b7a16ecabb9ee28d07"
+    },
+    "scope": "Historical independent-avatar static approval before the latest user correction; explicitly not current admission"
+  }
+}

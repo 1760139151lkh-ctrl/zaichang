@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "cell": "sakiko/resume/rain",
+  "character": "sakiko",
+  "activity": "resume",
+  "palette": "rain",
+  "stage": "S1",
+  "assetType": "raw-Image-source-selection-mask-or-markup",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: precise-object-edit. Create S1 source-local RECEIVER selection markup from this ONE exact clean approved 1536x1024 mother. Keep whole person/book/room/camera and all coordinates unchanged. This is technical material selection, not relighting or new illustration.\n\nPaint PURE FLAT WHITE only the real narrow cushion pressure/contact receivers directly touching the original hip/trailing skirt, and the COMPLETE actual soft near-shoe floor-contact/cast receiving region immediately OUTSIDE both complete shoes. Use grey only along their real soft edge/antialias. Selected interiors are flat white, no copied linen/wood pattern inside white. Do NOT paint the person or shoes; both whole colored shoes including every dark outsole/toe/heel stay original COLORED holes within the exterior floor selection. Follow the source's irregular true shadow extent, not an ellipse/rectangle, not thin sole outlines, not broad unrelated floor reflection or rug.\n\nDo not select the whole pale bench, long empty seat, pillows/knit, natural linen/page/lamp/curtain highlights or distant furniture shadows. All unselected room pixels remain ORIGINAL COLORED and textured. The book is HELD, so no invented book-on-seat receiver. All original hair/ribbons/face/hands/book/clothing/knees/calf socks/shoes remain colored and unchanged. Output one opaque same-position 1536x1024 original-color scene with ONLY actual near hip/skirt and exterior near-foot receivers white/soft-edge grey. No new body/props/shadow, black background yet, crop/zoom/resize/recenter/shift, checkerboard/text/UI/arrows/grid/labels/boxes. Original-RGB MAX(F,S) fixed included support, zero travel/slope/perspective; not independent caster.\n\nRAIN NIGHT source observation: actual skirt/hip touching linen lies in the approximate x980..1320,y545..620 neighborhood; select only narrow real underhem/pressure pieces, leave all empty left seat at x<970 original colored. Both whole loafers are near x1030..1170,y800..905; actual exterior floor shadow receiver is around/below their soles roughly x1010..1200,y850..935, keeping complete colored shoes unmarked. Ranges are inspection hints, never filled rectangles. Preserve true rain-night warm local lamp pools and dark outside, no hard daylight patches.",
+  "submittedPromptSha256": "f869ef2655a1a795c9839c354221880bb6f8459716a4f1a2a5ab9b77622feb19",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.png",
+      "sha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    }
+  ],
+  "originalRgbOwner": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.png",
+    "sha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9",
+    "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.source.json",
+    "sourceRecordSha256": "1cf9daa11db3353467feae4a9ca4f68c711dce9b43be483e895e00b1f81440df",
+    "rootMotherStaticReview": {
+      "status": "approved_static_mother",
+      "reviewer": "root",
+      "observed": "Youthful blue-purple hair/gold eyes, recognition looking toward a returning familiar person; actual hands support the book, two exposed knees/dark calf socks/complete shoes. Whole rain light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "reviewRecord": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/root-human-mother-primary-review-20261025.json"
+    }
+  },
+  "method": "Actual Image same-mother F1/F2 or S1/S2 chain. F is whole human/ribbons/hands/held book/clothing/knees/calf socks/complete shoes. S includes real source-local seat and full soft grounded floor receiver, not just sole line; original RGB MAX(F,S) drawn once only.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\sakiko\\shared-attention-v2\\layers\\resume-rain\\contact-step1-marked-v1.png",
+    "sha256": "833131b10886b69da82cef4973d214ad13458a1518e8938d2f318a4b024cbf11",
+    "bytes": 2207956,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-7eca7dc0-55e3-4600-8801-3866fdb1ddfd.png",
+    "pngBytesUnchanged": true
+  },
+  "producerObservation": {
+    "personallyViewedFullNative": true,
+    "observation": "Full native S1 viewed: small source-local underhem/hip contact fragments and outside-both-shoes floor receiver marked flat white, true original shoe/body colors stay intact, empty left bench not selected. Same original night scene context, not new rendered human."
+  },
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "sourceOrigin": [
+      0,
+      0
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": "included",
+    "independentCaster": false
+  },
+  "motherReconstructed": false,
+  "primaryLayerApproved": false,
+  "layerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "status": "producer-candidate-awaiting-source-RGB-union-browser-and-root-review",
+  "inputBoundary": "Only current exact root-approved mother and its correct same-canvas working intermediates. No HOLD rain-attention-v2, white-sock resume-mist-v3, screenshot, audit collage or other mother mask.",
+  "promptFile": "contact-step1-marked-v1.prompt.json",
+  "promptFileSha256": "eb8bf5b2a037dd0296e37df8b409d2872891ae7437df564e9c9ce3764548fa0c",
+  "generatedAt": "2026-10-26T00:10:44.958Z"
+}

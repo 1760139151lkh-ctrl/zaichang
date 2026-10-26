@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "same-activity-whole-light-mother-candidate",
+  "character": "nyamu",
+  "activity": "planning",
+  "palette": "mist",
+  "environmentVariant": "overcast-day",
+  "wave": "light-activity-wave-a",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-2f9656ca-d787-49e1-9e84-180bac2f7acf.png",
+  "executionId": "exec-2f9656ca-d787-49e1-9e84-180bac2f7acf",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "role": "first input; approved empty environment plate, primary camera and authoritative target whole-room light"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-a/nyamu-planning-apricot-v1.png",
+      "sha256": "df2fee09026be2e7c6c3842194d668c57a78bd3b4a41ee2cd6c4cf4e743ecf8e",
+      "role": "second input; root-approved exact same-activity apricot mother, correct identity/pose/proportion/props/physical support"
+    }
+  ],
+  "apricotActivityMotherApproval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-a/nyamu-planning-apricot-v1.primary-approval.json",
+  "sourceMotherContourComplete": true,
+  "intendedSupport": "window-seat",
+  "sourceSpecificPose": "Exact source pose: open notebook on lap, one hand on its page and a SEPARATE small pencil held by the other hand near lips. Preserve this real two-hand/pen/page support and thoughtful returning gaze, not a new prop arrangement; uncrossed knees/ankles and full shoes.",
+  "brief": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-prompt-plan.json",
+    "sha256": "9f549b3785d8e59d903dec1f220f05880ce0b57213591c5111effa3a98da9dea",
+    "key": "nyamu/planning/apricot",
+    "role": "own role/activity literary psychology; light redirection keeps actual accepted mother pose"
+  },
+  "wholeSceneRelighting": true,
+  "oldApricotHeatSpotsAreNotIdentity": true,
+  "unreviewedLightCandidateUsedAsInput": false,
+  "promptFile": "nyamu-planning-mist-v1.prompt.txt",
+  "promptFileSha256": "ed82c511e083a708068f9e23b551ef883502f167aaa1c545e3df0b3084c37299",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; exact submitted text",
+  "submittedPromptSha256": "f4463149e83ab8e0082ce189d9c06aec51b8b9cf5975e3ab36b85d22577c9e90",
+  "output": {
+    "file": "nyamu-planning-mist-v1.png",
+    "sha256": "0257b3fa475b4a8bf4185058ba0ffe26c6adb2823816dd8b780631c8d53fec76",
+    "bytes": 2438989,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved complete mother. Same accepted planning notebook on lap, actual page hand and separate pencil-near-lips hand, thoughtful gaze and correct lavender/red-purple identity remain. Eye/fringe, real finger/pen/page contacts, full head/shoes, bench hip support and uncrossed knees/ankles are readable. Dry overcast light reaches grey cloth, skin, paper and floor coherently; knee/upper-leg shading is broad and more continuous without the former obvious isolated bright knee island, and hard floor sun lattice is absent. Intrinsic colors retained without a blue wash. Producer static observation only; root/layer/runtime pending."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "New static mother candidate only, root review pending; no layer, registration or runtime acceptance.",
+  "privateUserDataUsed": false
+}

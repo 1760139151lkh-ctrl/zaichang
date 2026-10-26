@@ -1,0 +1,267 @@
+{
+  "schemaVersion": 1,
+  "character": "uika",
+  "purpose": "neutral-presence",
+  "environmentVariant": "time-night",
+  "weather": "unknown",
+  "exactActivityMatrixCredit": 0,
+  "mother": {
+    "path": "../../uika-neutral-time-night-v1.png",
+    "sha256": "7c53b03795295ddf3b7b490fe1332db82326a49dcace9fe9f6502b2cee5636d9",
+    "primaryApproval": "../../uika-neutral-time-night-v1.primary-approval.json"
+  },
+  "assets": {
+    "figureMask": {
+      "path": "figure-mask-v3.png",
+      "sha256": "f1833c0423a5d8241c4e69f1a95101bc5643d89b18019f008b53a41ec146b539",
+      "bytes": 467544
+    },
+    "contactMask": {
+      "path": "contact-mask-v1.png",
+      "sha256": "95be09b006d6811de4688ca14de32c4b1426d3aff54814d1d4518a253830c387",
+      "bytes": 353968
+    },
+    "cleanBackground": {
+      "path": "background-v1.png",
+      "sha256": "0ee667d9b808402c52c22deca94209a429f33836d6f95a1285e3bad21683a7f8",
+      "bytes": 2150916
+    },
+    "union": {
+      "path": "union-source-v2.svg",
+      "sha256": "c3d10f6caafde0e426851d35c4f5d8b16ca5cb7e1b46a4aa6eca3152d9a18796",
+      "bytes": 1277
+    },
+    "composite": {
+      "path": "composite-source-v2.svg",
+      "sha256": "b0dac93fab586ff310d1b7ce4bff9dc94ba3dc50d0494a846a6319542cf4d700",
+      "bytes": 1368
+    },
+    "observationPage": {
+      "path": "included-observe-v2.html",
+      "sha256": "5deea75ef1c97b8257215eaee74b0baf7b45c5f8dea9b49143399847fe72a2ac",
+      "bytes": 24357
+    }
+  },
+  "stages": [
+    {
+      "source": "background-v1.source.json",
+      "stage": "background-v1",
+      "sha256": "0ee667d9b808402c52c22deca94209a429f33836d6f95a1285e3bad21683a7f8",
+      "decision": "candidate-awaiting-static-union-review",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-night-v1.png",
+          "role": "sole approved clean Uika night mother",
+          "sha256": "7c53b03795295ddf3b7b490fe1332db82326a49dcace9fe9f6502b2cee5636d9",
+          "bytes": 2215829
+        }
+      ]
+    },
+    {
+      "source": "contact-mask-v1.source.json",
+      "stage": "contact-mask-v1",
+      "sha256": "95be09b006d6811de4688ca14de32c4b1426d3aff54814d1d4518a253830c387",
+      "decision": "candidate-awaiting-static-union-review",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/night/layers/contact-step1-marked-v1.png",
+          "role": "source magenta S1 only",
+          "sha256": "80f83888010d2d5b0a716ac01d3033486458d4c38094b02025eb793980a45a6e",
+          "bytes": 2210245
+        }
+      ]
+    },
+    {
+      "source": "contact-step1-marked-v1.source.json",
+      "stage": "contact-step1-marked-v1",
+      "sha256": "80f83888010d2d5b0a716ac01d3033486458d4c38094b02025eb793980a45a6e",
+      "decision": "candidate-awaiting-static-union-review",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-night-v1.png",
+          "role": "sole approved clean Uika night mother",
+          "sha256": "7c53b03795295ddf3b7b490fe1332db82326a49dcace9fe9f6502b2cee5636d9",
+          "bytes": 2215829
+        }
+      ]
+    },
+    {
+      "source": "figure-mask-v1.source.json",
+      "stage": "figure-mask-v1",
+      "sha256": "06923733ffec5213e488d4cb3a713b58789121bb9b713b950d04c52c96c0d1d1",
+      "decision": "HOLD-rear-skirt-fabric-mistaken-for-background",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/night/layers/figure-step1-marked-v1.png",
+          "role": "source F1 only",
+          "sha256": "47d50cd1a6aba5cb4fef5c2350c39bb059b175fd33ac6e78fcee402783f32902",
+          "bytes": 2081686
+        }
+      ]
+    },
+    {
+      "source": "figure-mask-v2.source.json",
+      "stage": "figure-mask-v2",
+      "sha256": "05b93ef95f95b74deabbc344bb57fb3a347ee20f0c7ee7b45857f41304ae858a",
+      "decision": "HOLD-rear-skirt-fabric-mistaken-for-background",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/night/layers/figure-step1-marked-v1.png",
+          "role": "source F1 only, not old F2",
+          "sha256": "47d50cd1a6aba5cb4fef5c2350c39bb059b175fd33ac6e78fcee402783f32902",
+          "bytes": 2081686
+        }
+      ]
+    },
+    {
+      "source": "figure-mask-v3.source.json",
+      "stage": "figure-mask-v3",
+      "sha256": "f1833c0423a5d8241c4e69f1a95101bc5643d89b18019f008b53a41ec146b539",
+      "decision": "candidate-awaiting-static-union-review",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/night/layers/figure-step1-marked-v2.png",
+          "role": "correct full-rear-skirt F1 rebuilt from clean mother; no held input",
+          "sha256": "84fe6f24e434237b6b1eb422e6424761b6e2e99f366e3cbf72b0f1eaa26e4c6b",
+          "bytes": 2066709
+        }
+      ]
+    },
+    {
+      "source": "figure-step1-marked-v1.source.json",
+      "stage": "figure-step1-marked-v1",
+      "sha256": "47d50cd1a6aba5cb4fef5c2350c39bb059b175fd33ac6e78fcee402783f32902",
+      "decision": "HOLD-rear-skirt-fabric-mistaken-for-background",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-night-v1.png",
+          "role": "sole approved clean Uika night mother",
+          "sha256": "7c53b03795295ddf3b7b490fe1332db82326a49dcace9fe9f6502b2cee5636d9",
+          "bytes": 2215829
+        }
+      ]
+    },
+    {
+      "source": "figure-step1-marked-v2.source.json",
+      "stage": "figure-step1-marked-v2",
+      "sha256": "84fe6f24e434237b6b1eb422e6424761b6e2e99f366e3cbf72b0f1eaa26e4c6b",
+      "decision": "candidate-awaiting-static-union-review",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-night-v1.png",
+          "role": "sole approved clean mother; no failed F1/F2",
+          "sha256": "7c53b03795295ddf3b7b490fe1332db82326a49dcace9fe9f6502b2cee5636d9",
+          "bytes": 2215829
+        }
+      ]
+    }
+  ],
+  "actualImageCalls": 8,
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "F": [
+      805,
+      96,
+      1341,
+      894
+    ],
+    "U": [
+      787,
+      96,
+      1343,
+      907
+    ],
+    "basis": "Read-only Rec709 >32 original F and MAX(F,S), right/bottom exclusive; no pixels changed.",
+    "travel": 0,
+    "perspective": 0,
+    "slope": 0
+  },
+  "nativeMethod": {
+    "sourceRgb": "exact unchanged approved mother only",
+    "originalRgbDraws": 1,
+    "union": "MAX(L(F),L(S))",
+    "mask": "native sRGB feColorMatrix + feBlend lighten + luminance mask",
+    "contact": "fixed included original source seat/wood receiver with permitted F overlap, not caster",
+    "pngPixelEditing": false,
+    "thresholdOrMorphologyEditing": false,
+    "warp": false
+  },
+  "browser": {
+    "tabId": "500947839",
+    "viewport": [
+      1590,
+      1130
+    ],
+    "cssSourcePixelCloseups": true,
+    "rearSkirtMaterialMagnification": 4,
+    "evidence": [
+      {
+        "path": "browser-contact-v2.png",
+        "sha256": "3fd372e7582ef53e70bc6361c53d37a12656f1acc6c0769e7a2c8ff6a831f1e0",
+        "bytes": 204746,
+        "personallyViewed": true,
+        "assembly": "figure-mask-v3 + contact-mask-v1 + same-mother BG-v1",
+        "method": "actual Chrome formal Browser screenshot, native inline SVG MAX, original motherRGB once"
+      },
+      {
+        "path": "browser-face-hands-shoes-v2.png",
+        "sha256": "5129657cfc924dbb5009f533e941ec6d35300a8698abf328758e4762d2fd7b9b",
+        "bytes": 194415,
+        "personallyViewed": true,
+        "assembly": "figure-mask-v3 + contact-mask-v1 + same-mother BG-v1",
+        "method": "actual Chrome formal Browser screenshot, native inline SVG MAX, original motherRGB once"
+      },
+      {
+        "path": "browser-light-dark-checker-v2.png",
+        "sha256": "d54410e04d6cc32e4f4b0d4a1a2e7ce561e32b6f7be939a2d97a21dff3df0ce7",
+        "bytes": 198074,
+        "personallyViewed": true,
+        "assembly": "figure-mask-v3 + contact-mask-v1 + same-mother BG-v1",
+        "method": "actual Chrome formal Browser screenshot, native inline SVG MAX, original motherRGB once"
+      },
+      {
+        "path": "browser-native-1536-v2.png",
+        "sha256": "c00e0ef98d618be17a1a88196f4102746dae65edcf68530d609f7954e27fd232",
+        "bytes": 224321,
+        "personallyViewed": true,
+        "assembly": "figure-mask-v3 + contact-mask-v1 + same-mother BG-v1",
+        "method": "actual Chrome formal Browser screenshot, native inline SVG MAX, original motherRGB once"
+      },
+      {
+        "path": "browser-rear-skirt-v2.png",
+        "sha256": "95f18bf5b82b8ab9dde60464abcbafb0438987abf76cb5d2444d379425a798ce",
+        "bytes": 193746,
+        "personallyViewed": true,
+        "assembly": "figure-mask-v3 + contact-mask-v1 + same-mother BG-v1",
+        "method": "actual Chrome formal Browser screenshot, native inline SVG MAX, original motherRGB once"
+      }
+    ],
+    "observations": [
+      "Full original-size1536 native composite personally viewed after final F-v3 selection.",
+      "Hair/face/whiteT/every finger/side palm/long skirt/full sneaker sourceRGB visible; side contact and original wood footing remain fixed.",
+      "Real dark rear skirt fabric behind ankles returned; 4x mother/union/composite confirms cloth instead of false wood from old F holes.",
+      "Light/dark/checker and S-only personally seen; local contact allowed overlap combines by MAX, not duplicate color darkening.",
+      "BG actual same-mother Image removal/inpainting, no claimed bitwise scene reconstruction."
+    ]
+  },
+  "historicalExcluded": {
+    "figureStages": [
+      "figure-step1-marked-v1",
+      "figure-mask-v1",
+      "figure-mask-v2"
+    ],
+    "views": [
+      "browser-shin-diagnostic-v1.png"
+    ],
+    "reason": "Old F selection cut actual rear skirt fabric between ankles; day F-v1 also cut black shoe uppers. Exact material diagnosis recorded, only clean mother F1-v2→F-v3 repairs selected."
+  },
+  "primaryLayerApproved": true,
+  "runtimeRegistered": true,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "status": "root-approved-exact-static-layer-runtime-registered-awaiting-root-integrated-runtime",
+  "primaryAdmission": "root-primary-layer-admission-v2.json"
+}

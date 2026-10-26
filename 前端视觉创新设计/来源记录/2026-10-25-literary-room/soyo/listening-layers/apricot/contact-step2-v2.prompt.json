@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-listening-apricot-contact-step2-v2",
+  "stage": "S2",
+  "submittedPrompt": "Use case: precise-object-edit. Asset: corrected STEP S2 exact same-canvas receiving-material luminance selection mask. Output one opaque 1536x1024 black/white PNG, original coordinates, no crop/resize/zoom/shift. FIRST image is the same source scene with deliberately pure-white contact marks. SECOND image is its clean ORIGINAL source, used ONLY to distinguish deliberately marked contacts from unchanged natural bright linen. Do not make a person or redraw RGB.\nConvert ONLY the deliberately ADDED pure-white small contact marks of image 1 to white, everything else solid black. The marks are four local receiver families: tiny linen wedges directly touching the left and right skirt-bottom edges; the very thin receiver immediately under the separate closed book to the girl's right; and narrow floor-contact strips touching both loafer soles. No separated distant patch is a receiver. Keep every original colored person/book/shoe pixel black. Their interiors and self-shadow are not receivers.\nCRITICAL compare image 2: The naturally bright EMPTY cushion from approximately x700 to x813 at y525..557 is unchanged linen, NOT a deliberately white contact. It MUST be BLACK throughout. The tiny left-hem marked contact begins only at the actual dark trailing skirt edge near x815,y560 and hugs it, not 40-70 pixels left or above. Leave an immediate natural contour hugging under the hem, not a detached jagged white stripe. The right-hem few white marks hug the source garment near x1000..1115,y573..589. The separate closed book itself near x1111..1250,y544..568 remains BLACK; only its already marked very thin bottom contact is white. These coordinates identify the observed marked contours, never boxes to fill. For feet, only white-added marked floor immediately under each original shoe bottom around x745..896,y872..885 remains white; shoe sidewall/sole/heel themselves BLACK; don't select sunlight or wood grain.\nEvery other unmarked pixel including natural white seat cloth, curtains, lamp, pillows, white garment trim, skin, eyes, floor sunlight, rug, room and plants is BLACK. Do not select by ordinary brightness; select only the deliberate marks in image 1 compared to original image 2. No broad band, detached seat island, rectangle, oval, new shadow, feather texture, labels or diagram. White interiors fully opaque, antialias gray at thin boundary only. For a fixed included layer U=MAX(F,S) selecting the original image RGB once; no portable shadow, no motion.",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/contact-step1-marked-v1.png",
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-listening-apricot-literary-v2.png"
+  ],
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/contact-step1-marked-v1.png",
+      "sha256": "2fb4401de742ce88549306f4bbce1cd7e1f970a76b1304b2c90bbbeb2355aa22",
+      "role": "exact S1 selection intermediate"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-listening-apricot-literary-v2.png",
+      "sha256": "f242a5b6865d6ac27688ba75bdb8b0e733e6cbb8ea9724b4ea338973288c3862",
+      "role": "exact clean root-approved mother for mark discrimination"
+    }
+  ],
+  "transparentBackground": false,
+  "outputFile": "contact-mask-v2.png",
+  "generationStatus": "returned-and-preserved"
+}

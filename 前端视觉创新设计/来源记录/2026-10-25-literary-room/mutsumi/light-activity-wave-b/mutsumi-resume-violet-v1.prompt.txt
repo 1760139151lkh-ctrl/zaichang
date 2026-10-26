@@ -1,0 +1,26 @@
+Use case: lighting-weather.
+ONE complete mutsumi/resume/violet mother illustration, opaque 1536×1024.
+INPUT 1 is the ROOT-APPROVED EMPTY twilight literary room, PRIMARY camera/space and AUTHORITATIVE whole-light source.
+INPUT 2 is the ROOT-APPROVED APRICOT SAME-ACTIVITY mutsumi mother, the exact correct identity, actual approved pose/proportion/coordinates, clothing design, hands, props and support reference. These are the ONLY image inputs. No unreviewed new light candidate, problem/old-room4 image, other person or cutout is supplied.
+
+Keep full canvas and exact camera/perspective, window divisions/lake/town/hills, desk/chair/shelves/round table/ceramic lamp, long bench/plaid/throw, foreground plant, floor and rug from the approved family. Preserve image 2's source-specific physical pose and actual portable support/prop placements; re-light them without resetting a real support under a body.
+Preserve the accepted returning gaze with a LOW OPEN BOOK supported by lap/hand, one real finger keeping page place, other hand supporting the book. Keep that source book angle, hand/finger contact, near-bench scale, actual seat and uncrossed legs/full loafers. No greeting wave or claimed completed user work.
+
+Literary direction:
+她读到一半，指间还留着那一页的位置。听见你回来，她抬起眼，没有问为什么离开这么久，也不把未完的事举成一份欠账。那一页仍可以翻下去，也可以先让你说今天想说的话。
+
+那一页和她的眼睛，都在日光里留着一点余地。
+
+她话少，注意却从不含糊。真正的在意不是每一帧都含笑，而是肯留在别人已经翻过去的那一点。可以喜欢、认真、困惑，也有很轻的幽默；不要把她画成悲伤的玻璃人或空白的人偶。
+若叶睦的原作青春二次元辨识：柔直的浅薄荷绿长发与轻齐刘海，小银色发夹、温润金棕眼；发色是人物固有色，不给全房染绿。沿已核身份文字维持月之森深藏蓝水手式校服裙、白领与细深色边、灰紫领结、深色袜和棕色便鞋。眼睛与刘海有清楚关系，表情细而有判断，不成熟写实、不换成祥子的脸和开衫。
+Preserve the source activity's particular expression/cadence with small natural light nuance. No universal welcoming smile. Rain does not decide sadness; twilight does not force goodbye; cloudy light does not make her vacant. This is project-original fictional companion illustration, not canon event, actual private memory, autonomous service action or completed user work.
+
+WHOLE-SCENE target illumination:
+Image 1 is actual ROSE-GOLD/LILAC TWILIGHT with its approved existing light sources. Rebuild skin, clothing, all actual props, support surfaces and floor according to low evening/window and local lamp direction, not an orange recoloring of apricot hot islands. Preserve intrinsic colors and source material grain/true patterns. Only local light patterns justified by this actual twilight plate may remain. No flat purple overlay, split day/night, new light, forced farewell or melancholy.
+Her navy uniform is a solid textile apart from true collar/cuff/hem stripes, bow and badge. Irregular pale leaf-like sleeve/skirt islands in the apricot mother are changing light, NOT a flower/camouflage print; repaint them as needed without erasing true seams/pleats/trim.
+Actual source book/page/folded paper is matte physical material; its intrinsic pale color must dim/warm naturally under low light, not become an emissive white beacon. Keep original hand/page/crane/support contacts and actual source object count; no floating object, duplication or readable invented text.
+Specific uniform repaint: inspect the source RIGHT SKIRT around x1180..1380,y495..645 and OUTER SLEEVE around x1240..1400,y320..545 (finding limits only, no box to draw). Any irregular pale beige/white leaf-shaped ISLANDS there are old source sun hits, not embroidered/printed cloth. Repaint the navy material INSIDE the SAME garment contour as plain solid navy with only soft target-light form gradients; remove those original island shapes completely while retaining real pleat/seam geometry, true white collar/cuffs/two hem stripes, lavender bow and gold badge. Do not preserve an old island by recoloring it orange or calling it a fold. Keep face, hands, support, source clothing outline and body proportions unchanged.
+STRUCTURE is preserved, old RGB shading is not sacred. Coherently repaint face/skin, intrinsic hair/eye colors, clothes, all existing props, support furniture/material and floor from Image 1 light. Use actual source-consistent local cast/contact shadow. Do not use a full-frame tint, background-only swap or half-day/half-night split; do not tint the whole room green/purple.
+Keep the source activity's full head and both shoes, apparent head/body proportions, exact hip/seat/support relation and uncrossed knee/ankle geometry; no enlargement/lensward leaning, shrink/recentering or new limb/hand/prop. Respect the lower rest/thought head and original gaze rather than forcing chat coordinates.
+Face is a coherent structure: separate fringe strands, brows, eyelids and visible irises, naturally readable fingers/wrists and true object contacts. No fused iris/hair, double eye, face patch, mesh/shard, extra/fused fingers or floating material. Do not hide anatomy errors by cropping or a new object.
+One youthful refined anime/painterly literary room. No UI/palette/weather controls, labels/captions/text, status, arrows, grids, tutorials, border, watermark, collage or split view.

@@ -8,10 +8,15 @@
 
 在场中的动态视图（`PresentationView` / `InteractiveProgramView`）绝不是静态截图或死板的 JSON 表格，而是由主模型通过 `present_view` 实时编写、支持物理拖拽与声光交互的 **OpenUI Lang 活程序**。
 
-### 1.1 核心交互原语（Interactive Primitives）
+### 1.1 现有原语与拟扩展能力（实施前核实际共享库）
+
+下文构作与调用名须映射现有定义。`Linkage/Fulcrum/Hammer/Damper`等机构名称是待设计能力，不能因文档列出就声称已注册；新增机制优先由通用约束与图形组合承载。
 定义于 [`src/shared/interactive-library.ts`](../../../src/shared/interactive-library.ts) 与 [`src/renderer/presentation/`](../../../src/renderer/presentation/AssistantPresentation.tsx)：
 - **几何与物理探索**：`Canvas`、`Curve`（参数曲线/函数图像）、`Point`、`Line`、`Area`、`DragHandle`（可在画布上直接拖动的二维控制柄，实时驱动 `$params` 变量）、`Motion`（时间轴/弹簧物理演化）。
 - **声音与乐理交互**：`Voice`（音高、波形、包络合成）、`Press`（可弹奏琴键/触发垫）、`AudioTrace`（实时声波与频谱轨迹）——让丰川祥子或初华能直接在对话里为你写出一架可弹奏、可调和弦色彩的桌边小钢琴。
+- **机械连杆与声学原语**：
+  - 连杆传动：`Linkage`、`Fulcrum`、`Hammer`、`Damper`，支持 $1/100$ 慢放观察三角钢琴击弦机脱扣回落；
+  - 物理弦振动：$f_1 = \frac{1}{2L}\sqrt{\frac{T}{\mu}}$ 实时参数化泛音列包络合成，踩延音踏板余音共振。
 - **真实来源插槽**：`SourceSlot`（通过稳定 `sceneId + revision` 嵌入真实的浙大课表、地图路线或学习卡片，**严禁在 DSL 里手抄伪造校园数据**）。
 
 ### 1.2 流式生成、增量修补与 CAS 局部状态回流
@@ -24,7 +29,7 @@
 
 ## 2. 跨模块单一权威 Owner 与稳定 ID 契约
 
-在场拥有六个紧密相连的生活与学习空间：**对话（Chat）**、**今天/日程（Today/Agenda）**、**陪学（Study）**、**资料/PDF（Materials）**、**笔记（Notes）** 与 **校园地图（Map）**。
+在场的**对话（Chat）**、**今天/日程（Today/Agenda）**、**陪学（Study）**、**资料/PDF（Materials）**、**笔记（Notes）** 与 **校园地图（Map）**是已有主要空间。运动、互动作品、来信/好奇心、角色/主题设置和返回小界面同样必须接入当前语义，不能把这六项误写成助手只能理解的范围；完整功能面映射见[共同契约2.5](../../../docs/design/PRESENCE_SYSTEM_2026-10-25.md#25-全功能可理解要有真实的双向接口)。
 
 ### 跨模块对象流转铁律（The Single-Owner Handoff Table）
 
@@ -39,35 +44,93 @@
 
 ---
 
-## 3. 六个具体跨模块微界面（The 6 Life-Continuity Micro-Interfaces A–F）
+## 3. 从附件创意推演的五项协议草案
 
-这六个微界面将后端的严谨契约化作了自然、可触摸的窗边生活体验：
+这些是设计提案，不是现有IPC/API。字段与既有对象对接后才能实施；每项补齐原Owner、稳定ID、版本、来源和取消范围。共同记号不签发授权，物件交接不转移业务数据所有权。
 
-### A. 思路破冰小便签（Non-Spoiler Step Hint Card）
-- **后端契约**：[`StudyCompanionService`](../../../src/main/runtime/study-companion.ts) 与 [`StudyNativeService`](../../../src/main/runtime/study-native.ts)。
-- **体验闭环**：面对微积分、线代或电路难题，不直接糊一脸完整答案剥夺思考乐趣，而是生成绑定原题码位/页码的**「第一步怎么下笔」破冰小便签**（`kind: 'hint' | 'question'`，含 `focus` 与 `nextMove`），并允许展开可调节参数的 `explorableStudy` 几何直觉小画布。学生自己的尝试（`attempts`）与助手的提示（`steps`）严格分列。
+下例泛型 `R` 必须实例化为原Owner已存在或经本阶段扩展的具体引用联合，例如资料/笔记/消息引文、日程实例、路线、Work/Scene/Program等；沿各自schema验证，不接任意URI或复制正文建“万能对象库”。当前 `context.ts` 的 `focused_work` 与 `coordinator.ts` 的 `current*` 是对接起点。每个功能注册可读语义、可用动作与回读入口，模型沿同一Hermes判断如何协作，而不是按页面标签选择固定话术。
 
-### B. 桌边书签托盘（Cross-Module Source Bookmark Tray）
-- **后端契约**：[`NativeSourceBookmarkService`](../../../src/main/runtime/source-bookmark-native.ts) (`preview` & `keep`) + [`src/shared/source-bookmark.ts`](../../../src/shared/source-bookmark.ts)。
-- **体验闭环**：用户从对话气泡、PDF 讲义页或笔记本中选中一段话拖入桌边书签托盘（[`SourceBookmarkTray.tsx`](../../../src/renderer/SourceBookmarkTray.tsx)），可一键带入陪学推导行、带入当前对话追问，或通过 `keep()` 保存为带精确来源回链（`material / notebook / conversation`）的独立笔记页，绝不污染原笔记草稿。
+### A. 共同指向与轻松纠偏契约（AI Pointer Protocol）
+- **契约定义**：
+  ```typescript
+  export interface AIPointerTarget<R> {
+    pointerId: string;
+    targets: { key: string; ref: R }[]; // 可同时指A/B，含原Owner的版本化锚点
+    relation?: { from: string; to: string; explanation: string; basis: R[] };
+    cueId: string;                     // 复用共同cue的角色、场景、epoch与失效约束
+  }
+  ```
+- **纠偏机制**：页码、Unicode范围或AST节点服从目标Owner；屏幕rect留在前端解析，地图点/边不强填文档页码。用户改选后先撤旧指向，再沿现有Bridge更新本轮协作上下文，模型沿新对象重新解释；不能只移动光标，内容还在回答旧题。`amend_pointer`若作为实现名，须先登记真实接口，不假称现有方法。
+- **创新完成条件**：共同注意支持“两处之间”的关系、提及符号与原文呼应、伙伴/用户指针独立及自然退强调。找不到可靠锚点允许明确停住，继续找原文；不能因此把精确指向整项删掉。
 
-### C. 回来仍在原处（Gentle Return Bookmark）
-- **后端契约**：[`src/renderer/workspace-return.ts`](../../../src/renderer/workspace-return.ts)、[`src/renderer/study-reading-position.ts`](../../../src/renderer/study-reading-position.ts) 与各 Owner 版本核验。
-- **体验闭环**：当用户切去别的页面或关掉应用后重新回来，左下角温和浮现一张「上次停在《高等数学》第 14 页 / 那道积分题第 2 步」的书签（[`ReturnBookmark.tsx`](../../../src/renderer/ReturnBookmark.tsx)）。点一下即回到原页码与原滚动位置；若只想闲聊，点 × 即可收起，**绝不把未做完的题变成催债弹窗**。
+### B. 新旧草稿相认描图纸契约（Drawing Paper Overlay Protocol）
+- **契约定义**：
+  ```typescript
+  export interface TracingPaperMatch<R> {
+    previous: R;
+    current: R;
+    pairs: { previous: R; current: R; explanation: string }[];
+    changedConditions: string[];
+    mode: 'overlay' | 'paired-pointers' | 'side-by-side';
+    alignment?: { matrix: [number, number, number, number, number, number]; basis: R[] };
+    proposalRevision: number;
+  }
+  ```
+- 模型先取得旧尝试原稿与当前材料，再提出可解释的映射和差异；用户可否定/移动对应，修订跟进。只有空间映射可成立才叠合，不能用任意变形冒充数学等价。
+- 过去旋转图与今天复指数、计划/实跑、初稿/改稿、概念图/完整模型都可相认；三种模式保持同一引用和关系。按住纸角叠合/松开复原是一个完整表达，点击/键盘等价入口保留；它不是只有透明度的动效。
 
-### D. 安排冲突试放沙盘（Agenda Conflict Trial Sandbox）
-- **后端契约**：[`NativeAgendaService.preview`](../../../src/main/runtime/native-agenda.ts) 与 [`previewCalendarPlan`](../../../src/main/actions/planning.ts)。
-- **体验闭环**：在「今天」页时间轴（[`AgendaDayTimeline.tsx`](../../../src/renderer/AgendaDayTimeline.tsx)）或对话内的排程对比时间轴（[`PlanningComparisonTimeline.tsx`](../../../src/renderer/presentation/PlanningComparisonTimeline.tsx)）上直接拖动日程块时：
-  1. 实时展示包含 `setup（准备）+ work（核心）+ cleanup（收尾）+ travel/rest（通勤与休息）` 的完整占用幽灵块；
-  2. 若与浙大课表或既有安排冲突，自动按 15 分钟网格计算并提供 `earlier（提前）` 与 `later（顺延）` 的无冲突候选位；
-  3. 点击「就按这个时间改」走原 `calendar` Owner 的 CAS 提交；点击「带回对话和她商量」则把 `{ record, trial: { proposedStart, executionAuthorized: false } }` 传给主模型，由角色用她自己的话帮你权衡。
+### C. 双人轮流操作同一对象（Turn-Taking Living Canvas）
+- **契约定义**：
+  ```typescript
+  export interface CanvasCollaborativeDelta<R, D> {
+    operationId: string;
+    groupId: string;
+    target: R;
+    baseRevision: number;
+    author: 'user' | 'companion';
+    operation: D;            // 该Owner经schema核验的具体局部变更联合
+    dependsOn: R[];
+    phase: 'proposed' | 'preview' | 'submitted';
+  }
+  ```
+- `D`覆盖各Owner真正支持的辅助线/端点、路线候选、日程试放、段落差异、作品参数等局部操作；不把全产品锁死在三个几何动作，也不放开任意脚本/JSON。结果与新revision由Owner真实回执返回，不能由前端自填成功。
+- “只要这一笔”独立采用，拒绝其它部分不擦用户后续修改；前提变化让相关依赖停止或重算。递来、摊开、接住、收回保持连续，输入/笔迹先接管，原有阶段04/07–10分别落到具体对象。
 
-### E. 桥边路线口袋（Bridge-Side Route Pocket）
-- **后端契约**：[`CampusMapAdapter`](../../../src/main/mapService.ts) 与 [`src/shared/map-routing.ts`](../../../src/shared/map-routing.ts)。
-- **体验闭环**：当聊到「下课从东四去紫金港食堂再到田径场怎么走顺路」时，对话内直接展开路线口袋（[`ConversationMap.tsx`](../../../src/renderer/map/ConversationMap.tsx)）。
-  - **相机主权（`CameraOwnership`）**：自动运镜展示起点→终点有向路径（`buildDirectedPath`）；一旦用户手指/鼠标触碰拖图或缩放，**立即移交相机控制权**，绝不强行把镜头抢回去。
-  - **诚实空间语义**：未获用户明确指定起点时，显示目的地位置并留出起点选择，绝不假装拥有实时 GPS；真实校园拓扑导航与故事场景里的想象木桥插画严格分离。
+### D. 随身携带当前事情跨页换形态（Traveling In-Flight Context）
+- **契约定义**：
+  ```typescript
+  export interface TravelingContextSnapshot<R> {
+    threadId: string;
+    focus: R[];                 // 当前对象或比较组，保各自版本/原锚点
+    relationRefs: R[];          // 关系沿原Work/关联Owner保存
+    checkpointRef?: R;         // 未完问题、步骤与停点，按当前许可回读
+    operationGroupId?: string;
+    cueId?: string;            // 有效动作可接续；失效动作安全收手
+    carrierStyleId: string;    // 经审核的前端表现，不接受模型任意HTML
+  }
+  ```
+- 不以四个 `sourceModule` 枚举排除资料、笔记、作品、来信、设置或后续真实功能；当前语义与工具通过既有注册机制覆盖全功能。悬浮球/纸角/小桌面/声音/小状态按任务采用，边缘光是辅助表现。
+- 携带的是同一事情的身份、关系和未完位置，不只是一个字符串符号。比较布局在本机续接；跨设备同步对象组/对应关系，适配新视口，不复制原页每个像素，也不抢焦点。
+- 切页不重置迎宾；可定位且接触兼容时顺势续动作，用户接管或来源失效就从当前姿态收手。主循环下一次使用前重新核来源、授权、角色与版本，不能借快照复活取消的工作。
 
-### F. 一盏灯的专注（Focus Lamp）
-- **后端契约**：[`src/renderer/focus-session.ts`](../../../src/renderer/focus-session.ts) 与 [`FocusLamp.tsx`](../../../src/renderer/FocusLamp.tsx)。
-- **体验闭环**：不搞打卡排行榜、番茄钟惩罚或专注失败羞辱。点亮桌边那盏暖灯，设定一段自习时光，窗边的她会调暗面板对比度、收起主动打扰，安静低头陪你写字或看谱；随时可以暂停、延长或提前收工，专注时长只属于此刻的陪伴氛围，绝不虚报为课程完成度。
+### E. 共同经历小记号契约（Relational Token Protocol）
+- **契约定义**：
+  ```typescript
+  export interface RelationalToken<R> {
+    id: string;
+    revision: number;
+    target: R;
+    appearance: { kind: 'preset'; styleId: string } | { kind: 'user-artwork'; ref: R };
+    meaningRefs: R[];          // 原话、命名、作品与实际采用依据
+    adoptedFrom?: R;
+    createdAt: string;
+  }
+  ```
+- 预设图钉/问号之外，引用用户真实笔迹、矢量或图像版本，能保留歪星星与自己画的形状；不要为了存储方便抹掉共同手艺。显示含义时回原Owner取内容，不再抄一份永久私人引文。
+- 原路段“太窄”的理由可随路线到日程，旧题的共同名字可随新稿继续理解；不是简单在两个页面贴同一图标。支持改名、换画法、移除和遗忘的对应传播，普通修订不删除仍合法历史。
+
+### F. 五项协议如何共同服务AI体验
+
+来源/对象引用 → 当前语义与关系 → 同一模型调查、解释、提议或改判 → 原Owner操作/回执 → 物件/角色/声音表现 → 用户指正或接手 → 原对象新状态，必须形成双向闭环。轻唤和连续玩笑也沿当前会话理解，本地响应不等待模型；不另建动画Agent或固定三次点击脚本。
+
+验收须走真实连续操作，既看模型是否理解关系，也看对象是否真改、跨页是否接得上。五项类型出现在文档或代码里不算兑现；阶段闭合标准见路线图和[共同契约](../../../docs/design/PRESENCE_SYSTEM_2026-10-25.md)。

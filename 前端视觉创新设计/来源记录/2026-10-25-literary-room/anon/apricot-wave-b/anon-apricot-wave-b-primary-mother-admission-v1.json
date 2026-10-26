@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "kind": "exact-sha-primary-static-mother-decisions",
+  "character": "anon",
+  "recordedAtUtc": "2026-10-25T13:18:33.730368+00:00",
+  "approvalScope": "static mother only; no layer/runtime promotion",
+  "cells": [
+    {
+      "key": "anon/study/apricot",
+      "mother": {
+        "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-b\\anon-study-apricot-literary-v1.png",
+        "sha256": "a0e5ce5637ca48e6f16f36722c5a835d3421ab601a3780439ca0e7483d5c8fda",
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "producerSource": "anon-study-apricot-literary-v1.source.json",
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static mother only",
+        "finding": "left desk writing/steadying page and true chair support; chair naturally pulled locally, original plant occludes feet",
+        "source": "Root direct complete-original review in this healthy session 2026-10-25; exact timestamp not provided"
+      },
+      "contourComplete": false,
+      "contourScope": "original visible mother contour only; no generated-layer certification",
+      "allowedAsFutureImageInput": true,
+      "imageInputBoundary": "future task release still required",
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "runtimeRegistered": false
+    },
+    {
+      "key": "anon/listening/apricot",
+      "mother": {
+        "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-b\\anon-listening-apricot-literary-v1.png",
+        "sha256": "569b85c9dff9b8e6984f68d1d97b85ce6f708b764a203a6f8e3ea0cc7ca53973",
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "producerSource": "anon-listening-apricot-literary-v1.source.json",
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static mother only",
+        "finding": "empty hands at knees, serious attentive listening",
+        "source": "Root direct complete-original review in this healthy session 2026-10-25; exact timestamp not provided"
+      },
+      "contourComplete": true,
+      "contourScope": "original visible mother contour only; no generated-layer certification",
+      "allowedAsFutureImageInput": true,
+      "imageInputBoundary": "future task release still required",
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "runtimeRegistered": false
+    },
+    {
+      "key": "anon/play/apricot",
+      "mother": {
+        "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-b\\anon-play-apricot-literary-v1.png",
+        "sha256": "2c538c5fe334104ebd7b7c4478d0d9ed185ff9df65523dd1b01db79f41619139",
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "producerSource": "anon-play-apricot-literary-v1.source.json",
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static mother only",
+        "finding": "a small tangible paper idea supported by hands; specific individual playful expression",
+        "source": "Root direct complete-original review in this healthy session 2026-10-25; exact timestamp not provided"
+      },
+      "contourComplete": true,
+      "contourScope": "original visible mother contour only; no generated-layer certification",
+      "allowedAsFutureImageInput": true,
+      "imageInputBoundary": "future task release still required",
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "runtimeRegistered": false
+    },
+    {
+      "key": "anon/attention/apricot",
+      "mother": {
+        "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-b\\anon-attention-apricot-literary-v1.png",
+        "sha256": "2e2ddf10a45c957268103996550e7b61178e50727cfc8823790b3daeaaf883d7",
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "producerSource": "anon-attention-apricot-literary-v1.source.json",
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static mother only",
+        "finding": "one fingertip preserves the page while eyes answer/question the companion",
+        "source": "Root direct complete-original review in this healthy session 2026-10-25; exact timestamp not provided"
+      },
+      "contourComplete": true,
+      "contourScope": "original visible mother contour only; no generated-layer certification",
+      "allowedAsFutureImageInput": true,
+      "imageInputBoundary": "future task release still required",
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "runtimeRegistered": false
+    },
+    {
+      "key": "anon/resume/apricot",
+      "mother": {
+        "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-b\\anon-resume-apricot-literary-v1.png",
+        "sha256": "c1beaeb11e57d6c07bb3d2582aa340e5948aef7643125a102296e333cb617e74",
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "producerSource": "anon-resume-apricot-literary-v1.source.json",
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static mother only",
+        "finding": "eyes recognize companion while current bookmarked page remains; a real different position along the same long bench is accepted",
+        "source": "Root direct complete-original review in this healthy session 2026-10-25; exact timestamp not provided"
+      },
+      "contourComplete": true,
+      "contourScope": "original visible mother contour only; no generated-layer certification",
+      "allowedAsFutureImageInput": true,
+      "imageInputBoundary": "future task release still required",
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "runtimeRegistered": false
+    }
+  ],
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false
+}

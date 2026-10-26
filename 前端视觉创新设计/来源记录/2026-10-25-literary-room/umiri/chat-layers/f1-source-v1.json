@@ -1,0 +1,41 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "two-step-source-selection",
+  "character": "umiri",
+  "activity": "chat",
+  "palette": "apricot",
+  "sceneFamily": "literary-room-v1",
+  "step": "F1",
+  "roleCallSequence": 1,
+  "roleCallBudget": 4,
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v2.png",
+    "sha256": "b54800a320a163629dba745183efa63d18a83aa1ae19ba0f9382fdb546b12844"
+  },
+  "numberOfImageInputs": 1,
+  "actualInput": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v2.png",
+    "sha256": "b54800a320a163629dba745183efa63d18a83aa1ae19ba0f9382fdb546b12844",
+    "role": "sole primary-approved chat v2 mother; held v1 never supplied"
+  },
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-bde2924d-0bda-4776-9f5f-a6cf9dad6fa4.png",
+  "output": "figure-step1-marked-v1.png",
+  "outputSha256": "3bd584194d3b3a514b70f9ff19896ddf6bcc1261bd6dd8adf8e0ad420fea7bb9",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "actualMode": "RGB",
+  "promptFile": "f1-actual-prompt-v1.txt",
+  "actualPrompt": "Use case: precise-object-edit. COMPLETE FOREGROUND source selection markup, STEP F1.\nImage 1 is the ONLY input: approved original UMIRI literary CHAT mother, complete 1536x1024 canvas. Keep source camera, scale, pose and every object pixel position unchanged. Paint SOLID PURE WHITE directly over ALL visible character-owned source pixels, not a new drawing or a resized silhouette.\nINCLUDE: all charcoal shoulder hair/fine tips, face/eyes/neck/ears/earrings/choker, entire black jacket with full sleeve/hem edges, red top, gray skirt with every folded dark hem, both entire hands and fingers, both distinct knees/calves, BOTH complete black lace-up platform boots including every lace, dark sole rim, toe, back/side heel wall, heel block and full bottom contour. There is NO held prop in this chat mother. Fill all subject interiors white irrespective of original dark linework, eye features, jacket/skirt folds or black shoes; no internal holes where the original is subject. Preserve real room gaps between hair strands, limbs, fingers and shoes.\nEXACT SOURCE GUIDES, not boxes to fill: head/hair near x905..1115,y130..365; black jacket/red top/skirt near x870..1190,y285..600; supporting palm ends near x1265,y575; separate knees/calves near x890..1105,y520..730; both complete boots near x842..1080,y700..913. Do not zoom, center, move or grow the figure. The entire garment lower perimeter and every actual dark shoe sole/heel pixel are FOREGROUND, not cast shadow. Do not erode/shave the dark trim, hem tips, heel block or thin outsole to make a clean shape. Include true source antialias edges but do not invent hidden anatomy or expand into cushion/floor.\nEVERYTHING ELSE stays in its original colors: cushion, plaid pillows, throw, wood, side table/lamp/cup/flowers, desk/chair, shelves/plants/window/lake/rug/floor, independent cast/contact shadow and sunlight pattern. In this F1 image whiten only actual person/clothing/shoes, not room receiver material. No background conversion yet.\nReturn ONE opaque 1536x1024 source-colored mother with the complete existing foreground painted white exactly in place. No new person RGB, changed room, crop/warp, labels, outlines, arrows, rectangles, text or collage.",
+  "actualPromptSha256NoTrailingNewline": "e73880d6f1354a09da427e0b631e379a20e9c2b6aea7c7677e3c9df816ae2945",
+  "promptFileSha256": "e73880d6f1354a09da427e0b631e379a20e9c2b6aea7c7677e3c9df816ae2945",
+  "producerViewed": true,
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "representation": "F/S union is fixed original-source joint subject with included local receiver material; not portable caster or new RGB figure.",
+  "pngEdited": false,
+  "producerObservations": [
+    "Personally viewed the complete original-position white figure marking before F2; room remains colored, full head, clothing, palms, calves and both boots selected."
+  ]
+}

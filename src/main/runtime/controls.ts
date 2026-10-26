@@ -9,6 +9,7 @@ import { readReleaseArtifacts } from './release-store';
 import { latestReleases, renderReleases } from './release-composer';
 import { attentionChangeInput, attentionSourceName, type AttentionControlItem, type AttentionControlPage } from '../../shared/attention-control';
 import { usingLunaTestTransport } from '../model-selection';
+import { replySources } from './reply-sources';
 
 /** Trusted native controls. These are never registered as model or extension tools. */
 export class NativeControls {
@@ -170,6 +171,7 @@ export class NativeControls {
   evidence(value: unknown) {
     return this.store.kernel.evidence(this.store.runtime.policy.hostScope(), objectId.parse(value)) || null;
   }
+  replySources(value: unknown) { return replySources(this.store, value); }
   adoptWorld(raw: unknown) {
     const input = z
         .object({

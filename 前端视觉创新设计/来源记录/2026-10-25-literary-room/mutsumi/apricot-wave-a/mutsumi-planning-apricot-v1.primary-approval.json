@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "kind": "primary-static-mother-admission",
+  "key": "mutsumi/planning/apricot",
+  "reviewer": "root",
+  "evidenceSource": "Explicit root message to cast_settings_recovered after root personally viewed all six wave-a full mothers",
+  "decision": "approved",
+  "primaryPersonallyViewed": true,
+  "mother": {
+    "file": "mutsumi-planning-apricot-v1.png",
+    "sha256": "67190814223746eb9d9039f38357ac1005d7d8c1066313fc33c84b815c7eea67",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "sourceRecord": "mutsumi-planning-apricot-v1.source.json",
+  "observation": "Root personally viewed complete mother: two paper cards and lap notebook have clear natural hand/finger layering; eyes/fringe, supported seat and full feet/shoes are coherent.",
+  "scope": "Exact-SHA complete static mother only; no layer/extraction/motion/runtime admission.",
+  "layerApproved": false,
+  "runtimeAccepted": false
+}

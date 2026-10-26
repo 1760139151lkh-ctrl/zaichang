@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "assetId": "tomori-planning-mist-literary-v1",
+  "roomFamily": "literary-room-v1",
+  "characterId": "tomori",
+  "activity": "planning",
+  "palette": "mist",
+  "ambientPlateKey": "overcast-day",
+  "createdOn": "2026-10-25",
+  "generationMode": "target-empty-plate-and-approved-exact-activity-mother-relighting",
+  "tool": "image_gen.imagegen (built-in)",
+  "callOrdinalInBoundedBatch": 4,
+  "executionId": "exec-a0680b99-9992-4a8e-a673-2574fcf8264e",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-a0680b99-9992-4a8e-a673-2574fcf8264e.png",
+  "inputs": [
+    {
+      "file": "../../plates/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "role": "image1: approved exact target empty plate and illumination"
+    },
+    {
+      "file": "../apricot-wave-a/tomori-planning-apricot-literary-v1.png",
+      "sha256": "5687e5717027d445907aa89a1493d8bede4644fe4eb40f37087da77e4e88c276",
+      "role": "image2: root-approved exact activity identity/pose/scale/support reference; original daylight not retained",
+      "primaryApprovalRecord": "../apricot-wave-a/primary-mother-admission-v1.json"
+    }
+  ],
+  "inheritedRootMotherContour": {
+    "contourComplete": true,
+    "note": "Complete head and shoes in root-approved apricot mother; output inspection follows."
+  },
+  "promptFile": "tomori-planning-mist-literary-v1.prompt.txt",
+  "promptFileSha256": "c17e3e8332d80d2e58a80f9e7c0ac7a3f7971eac3a3011b3ff46a6eb40f003a8",
+  "submittedPrompt": "Create ONE complete 1536×1024 landscape literary companion scene by genuine WHOLE-SCENE RELIGHTING. Image 1 is the PRIMARY-APPROVED EMPTY environmental plate at the TARGET time/weather: it supplies the exact camera, global room and target illumination. Image 2 is this SAME character's ROOT-APPROVED APRICOT MOTHER OF THIS EXACT ACTIVITY: use its exact youthful identity/uniform, body pose, scale/source coordinates, facial activity, hands/objects and true support/occlusion, NOT its daylight highlights.\nRepaint the girl's skin, hair, clothing, paper/book, cushion/chair/desk contacts and the floor under image 1's target light. Original apricot skin/garment hot patches, sunlit hair rims and window-lattice pools are NOT identity/pose constraints and must not survive by default. This is not a tinted film, simple hue swap, pasted day-lit figure or separate day/night halves.\nLock the close camera, full framing, wooden window panes/current crop, lake/town/mountains, shelves/books/plants, desk/chair, round table/ceramic lamp/cup/flowers, linen bench/right plaid cushions/cream throw, floor/rug and foreground plant. Where the approved occupied study mother contains an adjusted chair or portable task lamp relative to the unoccupied plate, preserve THAT mother's actual occupied-chair support geometry and small-object position; use the empty plate for illumination, not to replace the occupied chair beneath her.\nKeep the exact activity mother silhouette/head/body proportions and source locations; no head enlargement, leaning toward camera, translation, crossed-knee rearrangement, new hand gesture or changed physical support. Preserve all actual limb/strand gaps and natural occlusion. On bench poses, whole head/hair and both complete shoes stay in frame. On desk study poses, natural source plant/furniture occlusion is intentional, contourComplete=false; do not add false visible feet through objects.\nDetailed expressive anime character drawing belongs inside tactile softly painterly room materials. Keep youthful original character identity, correct canonical hair/eye/uniform colors under the light. Separate each fringe lock, eyebrow, lash, upper/lower eyelid, sclera and iris boundary, even with downward gaze. No hair-eye fusion, generic adult face, service smile, compulsory blush or stereotyped scowl.\nOnly these two approved images are inputs. No unreviewed mother, earlier lighting problem candidate, mask, different character, old room or rejected pose is a reference. No readable user text/equations/business receipts, labels, UI, watermarks, new character, diagrams, split screen or duplicate limbs. This original fictional activity illustration does not assert an actual user's action or completed work.\n\nACTIVITY PERSON: Takamatsu Tomori (高松燈), MyGO!!!!!, short gray-lavender/steel-gray layered neck-length hair, muted rose-brown eyes, gray-purple white-piped blazer/striped tie/checked skirt/dark socks/brown loafers.\nAPPROVED EXACT-ACTIVITY PERFORMANCE: Preserve the light questioning eye contact, fingertip beside the notebook gap, opposite hand at outer edge, pencil lying in its fold and notebook fully lap-supported. Do not introduce readable schedules or declare a plan complete.\nTARGET LIGHT: OVERCAST DAY: exactly image 1's cloudy diffuse daylight, softened cool lake/town distance and no hard sunlight lattice on the floor, cushion, skin or paper. Retain wood and garment local colors without a blue filter. Soft room bounce and the existing lamps remain as the empty target actually shows. The person's skin/hair/uniform/paper must be repainted under that diffuse illumination; remove original hard apricot knee/shin hotspots.",
+  "output": {
+    "file": "tomori-planning-mist-literary-v1.png",
+    "sha256": "4d3fa368efa00f9132ea24125db2aa526bef931f0c4d0c740057b69997cc4a78",
+    "bytes": 2371551,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "reviewedOn": "2026-10-25",
+    "decision": "static mother candidate for primary inspection",
+    "observation": "Complete original viewed: fingertip at notebook gap and opposite outer-edge grip retain actual lap support, with pencil resting in fold and unreadable sparse marks. Questioning face and separate eyes/fringe remain; diffuse overcast light consistently softens notebook, skin, uniform, linen and floor, no hard sunlight grid. Hip/seat and complete uncrossed legs/shoes retain scale/support; major room stable.",
+    "bodyContour": {
+      "contourComplete": true
+    },
+    "limits": "No real schedule, chosen plan or pixel-identical pose claimed; primary/layer/runtime remain false."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "acceptanceScope": "Static same-activity light mother candidate only; no layer progression or registration."
+}

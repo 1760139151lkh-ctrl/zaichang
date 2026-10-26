@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "assetType": "literary-room-complete-human-mother-candidate",
+  "producer": "/root/mujica_matrix",
+  "cell": "rana/reading/rain",
+  "character": "rana",
+  "activity": "reading",
+  "palette": "rain",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "创作一张1536×1024横向、完整的“在场”文学房间人形母图。参考图1是当前目标主题的纯净空房，只采用它的相机、窗格、湖镇山景、家具尺度、物件位置与整间房的环境光。参考图2是root本轮已亲看准作参考、我也实际亲看的同activity暖杏乐奈完整母图；它只提供乐奈本人、明确项目私服、对应座面与身体支撑的连续性，不带来白天阳光，不是抠图贴进房间，也不冻结脸和手来换背景。请从一开始把人物、衣料、桌椅软垫、投影与整个目标环境重新画在同一种光里。保留完整窗边生活空间，原有书架/左桌椅/圆桌陶瓷灯杯/右侧长窗榻格纹靠枕针织毯/植物地毯形成同一个房间；不加UI、灰卡、按钮、文字、圆盘、其他人物、猫、吉他或象征装饰。不镜像、不裁成近景，完整头发与鞋尽量在画内，既有前景遮挡按真实深度成立，不编造看不见的轮廓。\n\n要乐奈（要楽奈，Rana Kaname）必须仍是本人：银白分层短发，柔软刘海与淡灰紫阴影，双眼清楚且自身右眼金色、自身左眼蓝色；在本次未翻转、近正面或温和三分之二视角，观者左金、右蓝，不交换、不合成两种同色。年轻有思考的原作少女面相，面颊柔和饱满、自然短下巴，中下面部不过长；不成熟少妇、不尖长成人脸，不幼儿化、不Q版、不玻璃巨眼。保清楚眼睑、虹膜、眉与分开的刘海，目光有确切对象，头部转动和眼球方向一致。保持本项目明确原创的宽松黑短袖叠白长袖、白短裤、黑系带踝靴；不是冒称官方校服，不混红领结或舞台装，不增无来源长袜。人物依然细腻2D手绘而非3D模型，发丝、衣褶与房间材质自然相接。官图本次无图像输入；具体相处是项目原创设想，不冒称原作事件、用户真实历史或业务已完成。人物有自己的兴趣、好恶与节奏，不当客服微笑或无口木偶。\n\n本格rana/reading/rain（阅读·夜雨暖金）：“翻页声隔着雨”。她原本正读自己的书，某一句不寻常的话使她入神地多停了片刻。熟悉的人在旁边坐近，她已经察觉，却没急着摆欢迎姿态：双手只把书稍稍留开一点，愿意共享，又让对方可以仍做自己的事。选择这一刻目光真实聚焦书中一行，眼神集中而清醒，两只异色虹膜读得清；眉没有忧虑，嘴边有若有若无的喜欢这句话的笑意，不张嘴惊讶，不困倦和被雨夜自动伤感。图内书页是不可读纸纹，不冒称真实选段或共同记忆。\n\n她稳坐近右窗榻，髋与大腿压进实际软垫；肩膀不耸起，背自然，书不靠悬空手腕：小书落在大腿上、双手托住两边、前臂自肘到袖口连贯。头浅低却不让刘海遮双眼。双膝、下腿、黑系带踝靴沿一对自然腿连接，鞋底实在地板，不漂浮不踩靠枕。保原黑短袖/白长袖/纯白短裤项目私服，绝无灰格纹裙或舞台装；完整头发与两靴在画内，左桌椅空。\n\n重建整个图1雨夜光场：蓝黑雨窗与远镇暖灯倒影，陶瓷灯的柔暖光同时落到人脸、纸、白袖、白短裤、软垫和木地板，黑衣有细节。白发接受克制冷窗轮廓，但不自己发光；眼睛保金/蓝本色。窗榻和地板没有晴日窗格的硬金黄日斑，人物不能保持日光漂白。暖灯可照出局部柔边光池，不能像穿过窗的太阳长条；不只给背景加雨，完整无UI母图。",
+  "promptSha256Utf8NoTrailingLF": "f3d7eb264c6b4f2506c3409a11dce0d2d8fb12b979eba6636ab876207f97b6f9",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "role": "target-theme-clean-empty-room-camera-and-light-reference",
+      "personallyViewedBeforeCall": true
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/apricot-wave-a/rana-reading-apricot-literary-v1.png",
+      "sha256": "6b39aff1ba2f5f95dbec0322714733fe1b2183e075687fa6b4641a5f0df15f96",
+      "role": "root-approved-exact-activity-apricot-mother-identity-and-support-continuity-only",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/rana.md",
+      "sha256": "d39286e83289d7c67222428a139b8650ff9f60a0e78e49c0a8393b3079f2e892",
+      "readScope": "Complete current text read at role/cell preparation before generation"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "91fb8b8de3e8d954a9367a585f09b71b8f5a9962d8ed0107249c348390fb7f05",
+      "readScope": "Complete current text read at role/cell preparation before generation"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/rana-reading-rain.md",
+      "sha256": "1714f346b11238f762630f8952ba46538424c50d51717145244c70fd2baf3fda",
+      "readScope": "Complete current text read at role/cell preparation before generation"
+    }
+  ],
+  "briefIndex": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+    "jsonPointer": "/entries/11"
+  },
+  "rootAuthorization": {
+    "source": "Explicit root task in current healthy session on 2026-10-25",
+    "scope": "Only study/reading/planning/rest × mist/violet/rain, 12 actual ImageGen cells. Root personally viewed eight warm mothers and permits these four exact activity seeds for reference. Later explicit authorization supersedes stale candidate_pending_root seed input flags in plan, never new outputs review.",
+    "seedSha256": "6b39aff1ba2f5f95dbec0322714733fe1b2183e075687fa6b4641a5f0df15f96"
+  },
+  "officialAndOriginalBoundary": "Rana identity and own-right-gold/own-left-blue eyes follow researched official dossier; black short-sleeve over white long-sleeve, white shorts and black laceup boots are declared project styling, not claimed official casual preference. Room and specific performance are project original. No official raster, held anatomy, cold portrait, collage or UI screenshot input.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-reading-rain-literary-extension-v1.png",
+    "sha256": "3ac2ca0bf048f177cced315a4a9c224c684a5c0f95199b114ad803827330281c",
+    "bytes": 2282035,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-2f521bb2-c47b-40b9-9593-781cf430d7ca.png",
+    "sourcePngUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "fullNativeOriginal": true,
+    "observations": "亲看完整1536×1024：夜雨房间、双灯暖色与冷窗连贯，人物白发/白袖/书/软垫/地板同场受光，未见白昼窗格硬日斑；局部较亮软边灯池与夜源位置相容。右窗榻髋大腿支撑，双手开书在膝上，腕袖与双膝踝黑靴连续，完整鞋底落地；左桌椅空。金蓝自身左右正确、头浅低、闭口有轻微喜欢/投入感，目光靠书近前，是否充分呈现页内聚焦由root亲判。项目白短裤/黑叠白袖保持，不用猫/抹茶符号。"
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "generationInputAllowed": false,
+  "status": "actual-image-saved-producer-viewed-awaiting-root"
+}

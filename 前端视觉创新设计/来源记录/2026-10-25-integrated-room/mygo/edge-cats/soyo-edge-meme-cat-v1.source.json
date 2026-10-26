@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "assetType": "project-original-2d-edge-meme-cat-candidate",
+  "characterId": "soyo",
+  "shapeFamily": "user-selected-sakiko-meme-cat-v3",
+  "wardrobeId": "project-original-meme-cat/no-human-costume",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in transparent original character generation from family style reference",
+  "promptFile": "soyo-edge-meme-cat-v1.prompt.txt",
+  "submittedPrompt": "Create ONE original Soyo Nagasaki / 长崎素世 / 長崎そよ (MyGO!!!!!) edge-companion meme cat in a genuine transparent RGBA PNG.\nThe ONLY image input is the user's selected Sakiko v3 meme cat. It supplies the FAMILY'S SIMPLE 2D LINE LANGUAGE AND SCALE, not Sakiko's identity or expression. Match the integrated flat-white face and complete white horizontal loafing cat, bold clean dark-navy contour, a few large flat hair masses, plain round two-color-zone eyes, small restrained mouth, rounded resting front paws, full low body/rump/tucked hind paw and full upward-curving tail. Head at left and long white body extending right, all paws and belly naturally sharing one level imaginary paper-edge baseline. Leave clear transparent breathing room around the entire silhouette. No drawn ledge, page panel, floor or room.\nDraw Soyo's identity anew in words: LONG LIGHT-BROWN hair, soft off-center front curves and fine grouped bangs framing the white face, long side masses with gently turned ends. Use only a few large graceful flat shapes; do not copy Sakiko's pointed fringe, blue-purple hair, navy ribbon ornaments or gold eyes. Both eyes are clear BLUE, simple ROUND two-zone irises with two flat horizontal blues in v3's uncomplicated graphic language, not realistic eyes or glass marbles. Her face stays clean FLAT WHITE. No flesh skin shading, folds, makeup, seductive mature eyelids, oversized baby eyes, doll head or generic older gentle woman. No borrowed ornaments, uniform, school crest, neckbow, collar or jewelry.\nShe has a tiny intention of her own. She was leaving a deliberately imperfect folded corner in a very tidy little bookmark, the sort of small loophole two people can turn into a story. The nearby person has just noticed that it was intentional. She still has one paw lightly touching that corner and glances up with a very small knowing, almost teasing recognition, not a service smile or automatic motherly consolation. A slight head tilt, calm attentive blue eyes, one subtle brow change and a tiny asymmetrical closed mouth are enough. Keep some of her own preference in that look: she is pleased they noticed, while leaving them free to change it.\nA SINGLE tiny warm-cream bookmark strip with one intentionally turned corner lies along the front-paw baseline. It has no letters and at most one tiny abstract non-letter stroke. One round paw lightly steadies the corner; the other has already relaxed away to leave it available. It must be physically supported and small, not a floating card, UI panel, gift package, teacup or decorative prop pile. No human hands/fingers, no pointing into air, no exaggerated wink or permanent broad grin.\nKeep the complete cat body coherent and supported: connected forepaws and low belly, rounded white hindquarters with one readable folded hind-paw contour, tail from the proper root and the full tail curving up at the far right. No clipped rear body, cut tail, detached paws, extra limbs, standing kitten, head-only avatar or realistic cat anatomy/fur. The head, ears, hair, paws and white body are drawn from the start in one simple 2D graphic language.\nPalette: white face/body, flat light-brown hair blocks with only restrained secondary tan shapes, simple blue eyes, cream bookmark and dark-navy outline. Real transparency outside the one character and her tiny bookmark. No colored rectangle, black/white backdrop, fake checkerboard, ambient aura, rim glow, blurry drop shadow, photoreal fur, plush/3D/plastic/model rendering, mature glam, human costume/socks/shoes, text, speech balloon, logo, watermark or collage. Output ONE complete original transparent standalone asset only.",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/运行素材/companion/edge/sakiko-meme-cat-v3.png",
+      "role": "only image input: clean v3 simple 2D family grammar/scale, not another character identity",
+      "sha256": "15b21bfb6c94aef1dfd8ae7b168f970fbe9998cddb705b64ac7dabdceab0c161"
+    }
+  ],
+  "readSources": {
+    "passport": {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/soyo.md",
+      "fullReadBeforeCall": true,
+      "version": "2026-10-25",
+      "sha256AtArchive": "1ec8b260d40f8363c096ed8392547dd276d2318df5aadbe34b1f51e51e2ed04e"
+    },
+    "method": {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "fullReadBeforeCall": true,
+      "sha256AtArchive": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840"
+    }
+  },
+  "output": {
+    "file": "soyo-edge-meme-cat-v1.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-6e7bc02f-916c-43dc-9fee-a3a153a9baba.png",
+    "sha256": "dfd7282c452eab0a921ce9188b97350f9b4ca0aa1028fd38065c70634bd3fd41",
+    "bytes": 1442720,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      254
+    ],
+    "cornerAlpha": 0
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Whole original viewed: long light-brown softly curled grouped hair, blue two-tone circular eyes, white face/full cat body and complete tail. One paw touches a tiny cream bookmark. The inner-tilted brow may read as concern as much as knowing amusement, so the intended teasing recognition needs root's judgment; no approval asserted. Reference-like contour halo visible on dark viewer.",
+    "decision": "candidate for root personal review; subtle emotion not signed",
+    "transparentBackgroundReview": {
+      "personallyViewed": true,
+      "method": "actual browser rendering of original PNG on warm-light, dark and 160px-width surfaces",
+      "page": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mygo/edge-cats/producer-observe-v1.html",
+      "pageSha256": "7f90deccf18a5180984b74140418619ec4a703ba47745f002b8acca85297be2f",
+      "observations": "Full silhouettes and role hair/eye colors remained readable, including full rump and tail; no opaque background rectangle. Root acceptance, actual UI edges and interactions remain separate."
+    }
+  },
+  "primaryApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "humanMatrixCoverage": false,
+  "promptFileSha256": "4379d78a1c2edeb56fb84cb732554df8424721c66ec5c31f60a4a8732cf9bdfc",
+  "submittedPromptSha256": "318b03d5fca6fcc6744995b6d9f053f6688851dbe0371f8e758f7d32e895da76",
+  "archivedAtUtc": "2026-10-25T15:59:29.204076+00:00"
+}

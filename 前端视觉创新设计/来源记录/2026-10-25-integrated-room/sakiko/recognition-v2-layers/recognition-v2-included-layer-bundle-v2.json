@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 1,
+  "recordType": "fixed-source-included-contact-layer-candidate",
+  "sceneId": "sakiko-resume-apricot-recognition-v2",
+  "sceneFamily": "literary-room-v1",
+  "cell": "sakiko/resume/apricot",
+  "recordedAt": "2026-10-25T16:59:27.207152+00:00",
+  "intent": "她仍留着自己书中的一行，先认出画外熟悉的人，眼神与嘴角保留半拍。仅恢复单格，不冒充无对象attention、其他主题或完整动态。",
+  "dossier": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+    "version": "2026-10-25.1",
+    "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+    "readComplete": true,
+    "wardrobeId": "sakiko-literary-navy-adaptation",
+    "wardrobeBoundary": "Below-knee calf socks, both knees uncovered; original project navy adaptation, not asserted as official uniform."
+  },
+  "method": {
+    "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+    "sha256": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840",
+    "readComplete": true,
+    "reuse": "Existing native same-canvas source-RGB/MAX(F,S) fixed included assembly; no new test harness or scoring."
+  },
+  "review": {
+    "motherDirectionApprovedByPrimary": true,
+    "primaryPersonallyViewedMother": true,
+    "motherApprovalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+    "motherApprovalSha256": "e468ec9ca1356b3f4e71f70eb4afa376a10c07315b6fcda5cf03225bd03263d4",
+    "producerPersonallyViewedComposite": true,
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "status": "primary-approved-static-fixed-included-layer-registered-runtime-pending",
+    "reviewer": "root / primary",
+    "primaryExactLayerReview": {
+      "reviewer": "root / primary",
+      "recordedAt": "2026-10-25T17:07:25.895859+00:00",
+      "source": "Direct parent-agent instruction in this same task; root personally inspected exact native IAB observation page.",
+      "personallyViewed": [
+        "#scene complete original mother and fixed union composition",
+        "#subject on light and dark backgrounds",
+        "#seat original/transparent/composite close-ups",
+        "#shoes uncovered knees, below-knee sock cuffs, complete loafers and original floor contacts"
+      ],
+      "observed": "Original source RGB retained with no large differently colored receiver block. Youthful face, gold eyes, hand keeping the book page and below-knee socks remain coherent.",
+      "approvedCell": "sakiko/resume/apricot",
+      "approvedKind": "static exact same-canvas included source RGB union only",
+      "travel": 0,
+      "slope": 0,
+      "perspective": 0,
+      "runtimeAccepted": false,
+      "boundary": "No independent shadow/body motion, other activity/theme, whole matrix or runtime workflow approval."
+    }
+  },
+  "canvas": {
+    "width": 1536,
+    "height": 1024,
+    "origin": "top-left",
+    "allLayerTransforms": "identity in mother source pixels; one shared runtime Stage camera only"
+  },
+  "assets": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/sakiko-recognition-apricot-v2.png",
+      "sha256": "a8801f784b77d632509818d102a8b899d0bdda99afe904085196a9e8c5bee279",
+      "runtimeFile": "sakiko-resume-apricot-recognition-v2-mother.png",
+      "bytes": 2460394
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "runtimeFile": "literary-room-clear-day-v1.png",
+      "bytes": 2524961
+    },
+    "F": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/recognition-v2-layers/figure-mask-v1.png",
+      "sha256": "12fab43e02b4afb8c00cca76a208b4905d58919643667f1412bddd6c5e7626d3",
+      "runtimeFile": "sakiko-resume-apricot-recognition-v2-mask.png",
+      "bytes": 448042
+    },
+    "S": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/recognition-v2-layers/contact-mask-v2.png",
+      "sha256": "b3c3cb7ef1b9b93836bdfb388d2e3d0db4bc466885c7f5f8277d1af297d367f1",
+      "runtimeFile": "sakiko-resume-apricot-recognition-v2-contact-mask.png",
+      "bytes": 313832
+    }
+  },
+  "assembly": {
+    "formula": "U(x,y)=MAX(L(F(x,y)),L(S_v2(x,y))); show original mother RGB once through U over the admitted clear-day BG",
+    "luminanceWeights": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorSpace": "sRGB",
+    "nativeSvg": "recognition-v2-union-source-v2.svg",
+    "nativeSvgSha256": "f720c7bdf2086d30e1a7fcee9561bc84f0e147310f2e6ccb48edd05d6d3a538f",
+    "motherRgbDrawCount": 1,
+    "contactShadow": {
+      "mode": "included"
+    },
+    "independentFigureRgb": false,
+    "independentShadow": false,
+    "sourceShadowPolygon": false,
+    "pngEdits": false,
+    "bodyDeformation": false,
+    "contactScope": "Small source trailing-cloth/linen receiver and two sole-floor receiver groups. A few adjacent source material pixels are part of the fixed union; no independent projection or hidden support is claimed."
+  },
+  "geometry": {
+    "bodyBounds": {
+      "sourcePixels": [
+        965,
+        118,
+        1329,
+        899
+      ],
+      "normalized": [
+        0.6282552083333334,
+        0.115234375,
+        0.865234375,
+        0.8779296875
+      ],
+      "basis": "Read-only F luminance>32 diagnostic envelope cross-checked against complete source and actual light/dark/checker/native composite. Not an anatomical joint measurement."
+    },
+    "jointReceiverEnvelope": {
+      "sourcePixels": [
+        960,
+        118,
+        1329,
+        904
+      ],
+      "normalized": [
+        0.625,
+        0.115234375,
+        0.865234375,
+        0.8828125
+      ],
+      "basis": "Read-only max(F,S_v2)>32 envelope; includes adjacent real source support material, not pure anatomy."
+    },
+    "seat": {
+      "sourcePixels": [
+        1150,
+        595
+      ],
+      "normalized": [
+        0.7486979166666666,
+        0.5810546875
+      ],
+      "confidence": "provisional-visible-cloth-to-cushion-reference",
+      "meaning": "Visible skirt/linen support candidate, not a measured hidden hip or continuous-motion pivot. travel=0 makes no anatomical transform."
+    },
+    "shoeContacts": [
+      {
+        "sourcePixels": [
+          1115,
+          895
+        ],
+        "confidence": "provisional-visible-sole-floor-reference"
+      },
+      {
+        "sourcePixels": [
+          1197,
+          891
+        ],
+        "confidence": "provisional-visible-sole-floor-reference"
+      }
+    ],
+    "ground": {
+      "sourcePixels": [
+        1115,
+        895
+      ],
+      "normalized": [
+        0.7259114583333334,
+        0.8740234375
+      ],
+      "meaning": "One visible sole/floor reference for the fixed window-seat pose; both source shoe contacts remain separately visible."
+    },
+    "support": "window-seat",
+    "floorContact": "not-applicable-to-window-seat-support",
+    "contourComplete": true,
+    "safeTextBoundary": 0.6,
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "runtimeAccepted": false
+  },
+  "producerObserved": [
+    "Complete native original and whole BG+union show the same youthful face, eye direction, book and original pose.",
+    "Light/dark body surfaces and checker close-ups retain hair/ribbon, hands/book, full skirt trim, exposed knees, calf-sock cuffs and both entire soles/heels.",
+    "Actual BG+union close-up keeps source floor contacts; small local linen receiving material remains part of the fixed source union.",
+    "No held mother, wrong-hosiery pilot, descendant, old room4 body or failed wide-seat selection was used as an input."
+  ],
+  "opticalEvidence": {
+    "page": "recognition-v2-fixed-union-observe-v2.html",
+    "sha256": "c0911a8382ecbb5901355e89c59a743ec1caefaf3d611446159d443c71602940",
+    "producerPersonallyViewed": [
+      "#scene",
+      "#subject",
+      "#face",
+      "#seat",
+      "#shoes"
+    ],
+    "primaryPersonallyViewed": true,
+    "primaryPersonallyViewedSections": [
+      "#scene",
+      "#subject",
+      "#seat",
+      "#shoes"
+    ]
+  },
+  "generationCalls": 7,
+  "rejectedSelectionHistory": [
+    {
+      "file": "contact-mask-v1.png",
+      "sha256": "d5ea19a7a84954083b15cfd171f521c3be77608e84915122289ac06d4632ae5b",
+      "reason": "First S conversion dropped the small selected seat receiver; not used in current v2 union."
+    },
+    {
+      "file": "contact-step1-wide-seat-rejected-v2.png",
+      "sha256": "a066a8e2aab59ec4693e889695ab1dc6b4fb03c50348a3ea14844ac2e40d6c6c",
+      "reason": "Selected the long empty bench; rejected and never passed into a later mask or composite."
+    }
+  ],
+  "permitted": [
+    "Whole fixed-pose show/hide",
+    "Whole-pose replacement through exact same-family source sets",
+    "One shared BG/subject responsive Stage transform after root review"
+  ],
+  "prohibited": [
+    "Independent limb/body/shadow movement",
+    "Nonzero seat travel/slope/perspective",
+    "Using this apricot mother as another activity or theme completion",
+    "Primary or runtime approval inferred from producer inspection"
+  ],
+  "registration": "前端视觉创新设计/运行素材/companion/scenes/sakiko-resume-apricot-recognition-v2.scene.json",
+  "registrationState": {
+    "registeredAt": "2026-10-25T17:10:05.099687+00:00",
+    "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-resume-apricot-recognition-v2.scene.json",
+    "sha256": "c7bc48eeedcbd87776200db9dc7916e303679f2d36f736611a17568a38f18d7b",
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "boundary": "The exact source slot is discoverable, not proof of an exercised current runtime workflow."
+  }
+}

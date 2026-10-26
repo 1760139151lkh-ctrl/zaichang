@@ -1,0 +1,47 @@
+{
+  "cell": "taki/attention/rain",
+  "role": "taki",
+  "activity": "attention",
+  "palette": "rain",
+  "stem": "taki-attention-rain-literary-extension-v1",
+  "directory": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\taki\\missing-theme-extension-v1",
+  "prompt": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\taki\\missing-theme-extension-v1\\taki-attention-rain-literary-extension-v1.prompt.txt",
+  "inputFiles": [
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png"
+  ],
+  "approvedSeedInspected": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/apricot-wave-b/taki-attention-apricot-literary-v1.png",
+    "sha256": "58de13810d18c43ead5764cbaccdf2cfa8e994313b3d938c75c716c0826fe7e9",
+    "bytes": 2448399,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "format": "PNG",
+    "writtenByUtc": "2026-10-25T11:58:50.288990+00:00"
+  },
+  "seedActuallyInput": false,
+  "seedDecision": "Attention seed had raised-pencil/unclear common target; clean target plate plus full identity/wardrobe/story rebuild selected, never input old attention body.",
+  "brief": {
+    "index": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-a/matrix-72.json",
+      "sha256": "584a74a9a3b540dcebad4902f189a7c722b86eb2ed13825e7d5ed7eb076c051e",
+      "bytes": 74445,
+      "capturedAt": "2026-10-25T09:14:03.039950+00:00"
+    },
+    "jsonPointer": "/cells/67",
+    "briefKey": "taki/attention/rain",
+    "producerBriefRef": null
+  },
+  "targetPlate": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+    "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+    "bytes": 2270751,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "format": "PNG"
+  },
+  "plan": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\missing-human-mother-production-plan-v1.json"
+}

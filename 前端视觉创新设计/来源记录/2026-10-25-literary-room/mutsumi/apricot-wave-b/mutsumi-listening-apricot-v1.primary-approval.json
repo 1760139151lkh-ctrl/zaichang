@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "kind": "primary-static-mother-admission",
+  "key": "mutsumi/listening/apricot",
+  "reviewer": "root",
+  "decision": "approved",
+  "primaryPersonallyViewed": true,
+  "mother": {
+    "file": "mutsumi-listening-apricot-v1.png",
+    "sha256": "99ec0d08d7d1dd6e7ef13f70be6c137ba6330bc6a556e7a188757aa47ec86515",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "sourceRecord": "mutsumi-listening-apricot-v1.source.json",
+  "observation": "Root personally viewed empty hands on lap, gentle lifted attentive gaze, natural visible hand/seat support, separate eyes/fringe and complete bench-pose shoes.",
+  "contourComplete": true,
+  "scope": "Exact-SHA complete static mother only. Actual rendered scene semantics recorded honestly; no layer, audio/performance, motion or runtime admission.",
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "evidenceSource": "Explicit root message after personally viewing all five Mutsumi wave-b full mothers"
+}

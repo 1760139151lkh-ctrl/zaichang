@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "recordType": "source-rgb-included-layer-image-stage",
+  "characterId": "tomori",
+  "neutralTime": "night",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "stage": "F2",
+  "tool": "image_gen.imagegen",
+  "toolElapsedMs": 25555,
+  "recordedAt": "2026-10-26T01:32:20.902767+00:00",
+  "sourceConversationId": "01a17365-def4-7ef0-9767-09f785cec060",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/night/layers/figure-step1-marked-v1.png",
+      "sha256": "af8de9a36721376762f0637991547b220586d46b786faf65f539dc657b7387df",
+      "role": "Only personally inspected healthy same-night F1 markup; single-input exact white region conversion",
+      "personallyViewedBeforeGeneration": true
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: background-extraction. Convert ONLY this healthy same-mother NIGHT F1 WHITE MARKUP to opaque1536x1024 black/white LUMINANCE MASK. Exact full canvas and every source coordinate; no crop/resize/zoom/recenter, contour redesign, erosion or dilation.\n\nThe deliberate connected WHITE person + whole pencil + whole open notebook + lap + legs + BOTH full shoes becomes PURE SOLID FEATURELESS WHITE. Include every fine hair tip, whole head/face/eyes/ears/neck, blazer/shirt/collar/sleeves/skirt/dark lower hem, both complete hands/fingers/wrists, exposed thighs/knees/calf socks, toe/sidewall/sole/bottommost heel outlines. Include whole thin pencil upper end→page tip and notebook ALL pages/spine/curved lower cover/binding. Fill any faint selected interior tracing WHITE. NO facial mark, garment fold, hand line, pencil centerline, shoe seam, or curved book/lap line may remain black/gray. Notebook/lower cover/lap are ONE connected foreground, no transparent seam.\n\nKeep true outside background gaps between hair strands, narrow lower bent-arm/torso slit and separated legs BLACK exactly as existing markup. The arm slit is tiny/lower around x1010..1020,y470..500, not a bigger upper triangle: do not extend it into selected blazer at x1015,y450 or x1010,y480. Keep selected garment white. No new inner holes. Fine gray only original outside antialiasing.\n\nEVERY COLORED NIGHT ROOM region becomes BLACK: closed curtain, naturally bright lamp/shade/flowers/cup/table/books, cushion/throw/pillows, left desk/chair/plants, floor/rug and separate receiving shadows. Natural material brightness is NOT deliberate white markup. No RGB, checkerboard, gray background, outlines, labels, new shadow or new texture. Coverage only; final original NIGHT RGB comes only from unchanged mother ONCE under MAX(F,S).",
+  "submittedPromptSha256": "5d6594a16f3e57407e2a6e36ce41c390936a83ad316fd90364ae2ae71cf39122",
+  "promptFile": "figure-mask-v1.prompt.txt",
+  "promptFileSha256": "b56888887408f8f01148b0a57366727e0743a8785b0638390cf150fa35486c3f",
+  "requestFile": "figure-mask-v1.request.json",
+  "requestSha256": "199b86f124b7970d9e2a005fbd1095c026e1777c8f03249718b441ad62aef2e2",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-836d9ee6-6b89-40df-98e6-7735eeb7d100.png",
+  "toolOriginalSha256": "92a07a8d9dc3549fe13b9e4cac4bae767104535231da6b5ed4b1fa505b6df4c8",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/night/layers/figure-mask-v1.png",
+    "sha256": "92a07a8d9dc3549fe13b9e4cac4bae767104535231da6b5ed4b1fa505b6df4c8",
+    "bytes": 465719,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true,
+    "resizedOrRetouched": false
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "status": "HOLD_shoe_outer_edge",
+    "observations": "Complete original-position white person/pencil/notebook/full shoes, no book/lap black seam and lower narrow true arm gap retained. Native original-RGB review pending.",
+    "observedIssue": "Native original-RGB checker shoe closeup exposes a narrow missing strip along front loafer outer toe/sole edge; full source shoe silhouette must be retained. Rebuild from clean mother, no failed markup/mask/composite/review-image input."
+  },
+  "primaryApproved": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "generationInputAllowed": false,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "original360ExactActivityCell": false,
+  "sourceCodeOrRegistryChanged": false,
+  "status": "HOLD_shoe_outer_edge",
+  "reviewClarification": "The early shoe-edge concern involved partial exterior antialias coverage, not proof of an entire amputated shoe block. That version remains unselected/unused. Later native review supplies the firmer arm-gap garment-loss diagnosis; exact original prompt/outputs remain unchanged."
+}

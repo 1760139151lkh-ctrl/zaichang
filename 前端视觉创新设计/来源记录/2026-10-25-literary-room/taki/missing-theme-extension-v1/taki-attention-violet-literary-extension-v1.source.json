@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "recordType": "new-complete-human-theme-mother-candidate",
+  "sceneFamily": "literary-room-v1",
+  "cell": "taki/attention/violet",
+  "character": "taki",
+  "activity": "attention",
+  "palette": "violet",
+  "tool": "image_gen.imagegen",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-c84f0188-3292-48b1-a367-d0a1aed5e2c0.png",
+  "toolOriginalSha256": "322e2e43b3a93587098bf35f0a36d314d0cd4f23a541782353c2e9bc20cb2a26",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+      "role": "ONLY clean target plate"
+    }
+  ],
+  "seedInspection": {
+    "artifact": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/apricot-wave-b/taki-attention-apricot-literary-v1.png",
+      "sha256": "58de13810d18c43ead5764cbaccdf2cfa8e994313b3d938c75c716c0826fe7e9",
+      "bytes": 2448399,
+      "canvas": {
+        "width": 1536,
+        "height": 1024
+      },
+      "format": "PNG",
+      "writtenByUtc": "2026-10-25T11:58:50.288990+00:00"
+    },
+    "personallyViewedWholeExactSeed": true,
+    "actuallyInput": false,
+    "decision": "Attention seed had raised-pencil/unclear common target; clean target plate plus full identity/wardrobe/story rebuild selected, never input old attention body."
+  },
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/taki.md",
+      "sha256": "48f954585e91b84599430c573ff38e498959d3168f18a9ca46c0c3c1e7f7bc7a",
+      "readScope": "Complete current role dossier and complete art method personally read before this role batch."
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "91fb8b8de3e8d954a9367a585f09b71b8f5a9962d8ed0107249c348390fb7f05",
+      "readScope": "Complete current role dossier and complete art method personally read before this role batch."
+    }
+  ],
+  "generationPlan": {
+    "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\missing-human-mother-production-plan-v1.json",
+    "sha256": "251f83b82c17e5ea7646559e29655dd9daae9b2dcdc370fcce2169bd62debc9f",
+    "brief": {
+      "index": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-a/matrix-72.json",
+        "sha256": "584a74a9a3b540dcebad4902f189a7c722b86eb2ed13825e7d5ed7eb076c051e",
+        "bytes": 74445,
+        "capturedAt": "2026-10-25T09:14:03.039950+00:00"
+      },
+      "jsonPointer": "/cells/66",
+      "briefKey": "taki/attention/dusk",
+      "canonicalKey": "taki/attention/violet",
+      "canonicalAxisAlias": {
+        "field": "palette",
+        "from": "dusk",
+        "to": "violet",
+        "scope": "this creative brief index only",
+        "evidence": "producer paletteName 暮色紫; canonical family axis violet; original index remains untouched"
+      },
+      "producerBriefRef": null
+    },
+    "paletteAlias": "Target violet corresponds to dusk wording in originalTaki brief; target actual twilight plate used."
+  },
+  "promptFile": "taki-attention-violet-literary-extension-v1.prompt.txt",
+  "promptFileSha256": "550628b4d860c7646f26cd9308642634700d70e1e2314bc910226230761841be",
+  "exactSubmittedPrompt": "Create ONE newly painted complete literary-room mother illustration, exact LANDSCAPE1536x1024 canvas. This is one continuous physical room and one youthful human character, not a UI mock, collage, figure pasted over scenery, portrait, sprite or theme filter. Image1 is the approved CLEAN target-theme EMPTY room: it is the PRIMARY room/camera/furniture and lighting reference. Retain its camera, full timber window/lake/town/mountain depth, left desk/chair/bookcase/plants, near ceramic lamp/cup/flowers on round side table, long linen window-seat, right plaid cushions/cream knitted throw, wood floor/rug and soft foreground plant. Keep the original whole room, no extra desk, no new furniture, zoom, empty UI panel or divided day/night scene. The LEFT half remains a complete naturally furnished room, not painted blank.\n\nThere is ONLY the clean target EMPTY room input. Do not use any old attention/resume human image or pasted body. Build this full Taki figure, youthful identity, complete uniform and actual pencil/page/support relation anew from the text below.\n\nTHE LIVING MOMENT:\nShe was comparing two passages in the small open notebook supported on her thighs. The familiar person says one condition was changed and places a narrow cream slip across the near margin. She stops the pencil with its tip only a small distance ABOVE THAT ACTUAL MARGIN; it is not raised at the face or pointing at air. The other hand steadies the notebook at a real lower corner. VIOLET eyes turn down to the new cream slip/adjacent page, head and upper torso follow a modest amount, both eyes readable. Her brow changes from certainty to one precise curious question; her mouth is just about to ask it. She wants the reasoning to be right and is willing to change her mind, not judge the person. Her forearm gives the page back instead of presenting an answer.\n\nCHARACTER AND COMPLETE CHOSEN WARDROBE:\nShiina Taki/椎名立希 from MyGO!!!!!, young high-school face with strong but soft natural brow/eye space, LONG DARK BROWN-NEAR-BLACK hair with angled separated fringe, clear VIOLET eyes, no invented major clip/ribbon. Hanasakigawa school uniform: CAMEL-BROWN sailor one-piece dress, WIDE WHITE collar with fine DARK trim, RED long bow, TWO columns of gold front buttons, matching pleated camel skirt, side-waist white-edged detail where visible, white cuff/dark edge, DARK NAVY BELOW-KNEE calf socks with knees exposed, complete BROWN loafers. Not Rana separate middle-school gray-plaid skirt, not Sakiko navy cardigan or performance costume. Precise gaze and youthful dry directness, not permanent angry teacher or a universal sweet grin.\n\nTHE WHOLE THEME IS PHYSICALLY RE-LIT, NOT A COLOR FILTER:\nTWILIGHT /暮色紫: use actual violet-lilac lake hills and muted peach remaining sky. Low fading exterior light rims hair/paper while warm ceramic lamp takes over cheek, sleeve and page. Purple is in air/shadows rather than entire skin or clothing; no mandatory farewell/sadness.\nThe actual target plate controls the outside weather/time, room values and lamp strength; do NOT keep the apricot source sunshine. Paint matching light on face, hair, paper, cloth, cushion, floor and contact shadows together, preserving intrinsic hair/eye/skin/fabric colors. No blue skin, neon eyes, muddy black figure or glowing page. Night changes light, not her personality into sorrow or sleep.\n\nBODY, OBJECT AND CAMERA:\nSit naturally on the existing window bench in its RIGHT half, not the left desk chair. Book/notebook lies low across thighs; hands have distinct supporting/pausing tasks. Hips remain settled in cushion as only upper torso and attention shift; legs uncrossed and complete brown shoes supported by wood floor. Do not move her by pixel translation or invent a nearer desk to support the paper.\nReal pelvis weight compresses existing bench cushion; shoulder/forearm/hand and book have one continuous weight-bearing relation. Keep both hip-knee-ankle chains coherent, knees uncrossed, socks separate below exposed knees, complete loafers naturally supported by original wood floor, full head/hair and full shoe soles inside safe frame margins. Do not make a long-legged body merely to force the soles flat, mirror the two feet rigidly, lift a heel without support, cross legs with broken joints, hide anatomy behind a prop, move a whole figure pack across furniture or invent a third hand. Keep original bench-person apparent scale, with full head roughly near y110..160 and shoes roughly y850..930 according to natural perspective, not a numeric anatomy stencil. Natural joint/occlusion and real source bench support decide exact positions. One single girl, no other person's hand. A few book/page marks can be softly suggested but NO legible text, formula, answer, user quote or task receipt. No UI/text/title/signature/logo/watermark/arrows/guidelines/split screen or decorative emotion icons.\n\nART:\nYouthful expressive2D anime-derived literary linework integrated with tactile wood/linen and room air. Separate fringe, eyebrows, lids, sclera and irises; natural skin, soft cheek volume and light chin. No mature makeup/model long face, cold stock scowl, glass baby eyes, compulsory blush or advertising smile. Show this role's small specific change of attention. This is a project-original fictional companionship moment, not an assertion that a user file was read, a bookmark found, a promise kept or real work completed. Preserve only the selected healthy family and exact intended target light; output a new whole-scene painting.",
+  "submittedPromptSha256": "32e5eff5b79d3671b23337394f7eff961f5c3b64b280501103ee4ff6d833fd27",
+  "submittedPromptTransform": "PythonPath.read_text UTF8 universal newline; no trim",
+  "fictionalCompanionScene": true,
+  "privateUserDataUsed": false,
+  "output": {
+    "file": "taki-attention-violet-literary-extension-v1.png",
+    "sha256": "322e2e43b3a93587098bf35f0a36d314d0cd4f23a541782353c2e9bc20cb2a26",
+    "bytes": 2330841,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "observation": "Personally viewed new complete Taki attention from CLEAN target plate only, no old attention figure. Pencil now targets actual lap notebook/cream marker; other hand supports lower page; gaze is down at that shared object, youthful violet eyes/near-black long hair/camel sailor dress, exposed knees and below-knee socks, coherent bench pelvis and complete floor-supported loafers. Static still suggests pausing/considering, does not prove a timed stop or actual user source. Rain candidate subsequently HOLD for conservative nightlight reassessment; not an allowed input.",
+    "staticOnly": true
+  },
+  "generationStatus": "actual-image-output-saved-static-candidate",
+  "generationInputAllowed": null,
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "postureTopologyCredit": "Newly rebuilt supported lap-object attention; no claim of new furniture/mobile body topology."
+}

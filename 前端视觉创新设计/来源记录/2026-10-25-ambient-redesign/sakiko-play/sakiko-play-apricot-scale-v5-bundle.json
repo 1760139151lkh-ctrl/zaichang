@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "character": "sakiko",
+  "activity": "play",
+  "palette": "apricot",
+  "light": "morning",
+  "sceneFamily": "room4",
+  "id": "sakiko-play-apricot-scale-v5",
+  "width": 1536,
+  "height": 1024,
+  "mother": {
+    "file": "sakiko-play-apricot-scale-v5-mother.png",
+    "sha256": "876d39377ec165cd6fcbab19c646a7d63d97c2f85b5dc354711d0cb961a22d87",
+    "primaryApproved": true
+  },
+  "background": {
+    "file": "sakiko-play-apricot-scale-v5-background-v1.png",
+    "sha256": "8219bb91988495693880f7cea53ff65a6c40c36813fc68d1f138f3e5df418ed1"
+  },
+  "mask": {
+    "file": "sakiko-play-apricot-scale-v5-figure-mask-v3.png",
+    "sha256": "4ddd7cd99109a2987b054b2e189a2d78a9a686d734917cd5fb8f9c00b7329a9a",
+    "mode": "luminance",
+    "sourceRgb": "sakiko-play-apricot-scale-v5-mother.png",
+    "method": "ImageGen local person-to-white in original room, then local environment-to-black without moving the white source silhouette"
+  },
+  "shadow": {
+    "file": "sakiko-play-apricot-scale-v5-contact-mask-v1.png",
+    "sha256": "9aeee1e208d96f5b2e2c43162611aca8ffc73fb41f027e131554a1c18f7ceda8",
+    "mode": "luminance",
+    "color": "#291c16",
+    "opacity": 0.48,
+    "order": "matching background, dark contact mask, original RGB through figure mask"
+  },
+  "foreground": {
+    "required": false,
+    "reason": "Visible body, rear palm and held bird are in front of their support/background surfaces; no independent foreground crosses the actor in this fixed pose. Bench, pillows and blanket remain in the matching background."
+  },
+  "provisionalCalibration": {
+    "seat": [0.854, 0.573],
+    "ground": [0.772, 0.757],
+    "bodyBounds": [0.731, 0.274, 0.934, 0.764],
+    "maskWhitePixelBounds": [1126, 283, 1430, 779],
+    "safeTextBoundary": 0.64,
+    "support": "window-seat",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "scope": "Original position only, no arbitrary translation or trajectory; actual Scene owner validates final metadata and runtime."
+  },
+  "review": {
+    "motherApprovedByPrimary": true,
+    "layersApprovedByPrimary": false,
+    "runtimeAccepted": false,
+    "producerViewed": [
+      "chat and V5 complete sources side by side in the same room/camera",
+      "original-pixel figure on light and dark grounds",
+      "matching BG plus source RGB and figure mask",
+      "final independent contact mask on light/dark grounds",
+      "original-pixel V5 mother versus full layer recomposition at hip, palm and both shoe contacts"
+    ],
+    "producerObservation": "V5 scale retained without resizing source pixels. Hair gaps, paper bird, fingers, supporting palm and complete loafers remain readable; dark contact fringe stays at original supports. Source RGB is original mother; black-white and contact maps are ImageGen outputs, not Python bitmap edits. Primary review remains separate.",
+    "rejectedLayers": [
+      {"file": "sakiko-play-apricot-scale-v5-figure-mask-v1.png", "reason": "Tool enlarged/shifted silhouette to white bounds [1093,253,1455,808]; never used downstream."},
+      {"file": "sakiko-play-apricot-scale-v5-figure-mask-v2.png", "reason": "Second global conversion still enlarged/shifted silhouette to [1056,245,1449,856]; never used downstream."}
+    ],
+    "wrongScaleV4UsedAsInput": false
+  },
+  "fixedPreviews": [
+    "sakiko-play-v5-layers-v1-preview.html",
+    "sakiko-play-v5-figure-v3-preview.html",
+    "sakiko-play-v5-alignment-v1-preview.html"
+  ],
+  "source": "sakiko-play-apricot-scale-v5.source.json",
+  "production": "sakiko-play-apricot-scale-v5-layer-production.json"
+}

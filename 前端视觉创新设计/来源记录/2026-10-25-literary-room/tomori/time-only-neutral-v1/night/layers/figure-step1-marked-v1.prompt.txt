@@ -1,0 +1,11 @@
+Use case: precise-object-edit. F1 semantic foreground markup for a FIXED same-mother source-RGB included layer. ONLY input is exact root-approved Tomori TIME-NIGHT neutral full mother1536x1024. Preserve full canvas/camera/every original coordinate, not a new person/pose/light/outline. No crop/resize/zoom/recenter/shift, no erosion/dilation.
+
+Paint SOLID FEATURELESS PURE WHITE over the COMPLETE original girl plus her WHOLE thin PENCIL and WHOLE OPEN NOTEBOOK: every short fine hair strand/tip, head/face/eyes/ears/neck, ALL blazer including dark narrow panels/folds, white shirt/collar/sleeves/cuffs, plaid skirt/dark lower hem, both complete hands/fingers/wrists, exposed thighs/knees, calf socks, BOTH complete black loafers including toe sides/sole rims/bottommost heel edges, whole pencil from upper end to page tip, and all notebook pages/spine/brown-dark lower cover.
+
+Notebook, its thin lower cover, hands and lap are ONE connected foreground. Inside x885..1080,y495..540 do NOT leave a dark internal book/lap curved seam, page line or outline; the actual outside perimeter alone borders colored room. Every selected interior feature/fold/seam/eye/mouth/hand/shoe line is filled solid white. Fine gray only true external antialiasing.
+
+The actual arm/torso room slit is ONLY the tiny narrow LOWER original gap near x1010..1020,y470..500, not a large upper triangle. Original dark blazer around x1015,y450 and x1010,y480 is foreground WHITE. Do not widen the slit upward/sideways or remove adjacent garment. Keep only genuine source background gaps between hair/arms/legs in original COLORED ROOM with exact outlines.
+
+Approximate inspection limits, NOT boxes to fill: all figure/hair/props x780..1240,y110..925; pencil/hands/notebook x880..1120,y425..545; both complete shoes x780..1010,y785..925. Keep full true outlines.
+
+Everything unselected remains ORIGINAL COLORED NIGHT ROOM: opaque closed curtain, warm lamp/shade/flowers/cup/table/books, naturally bright linen/throw, pillows, left desk/chair/plants, rug/wood and separate local receiving shadows. Natural room whites/highlights are NOT foreground. No contact marking, black blob, new glow/texture, guide/grid/checker/labels. This markup is coverage only; final RGB later comes from unchanged NIGHT mother ONCE with U=MAX(L(F),L(S)), not from redrawn white person RGB.

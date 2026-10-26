@@ -1,0 +1,274 @@
+{
+  "schemaVersion": 1,
+  "kind": "literary-room-apricot-wave-b-mother-candidates",
+  "character": "soyo",
+  "authorizedCharacterCalls": 5,
+  "completedCharacterCalls": 5,
+  "waveTotalLimit": 10,
+  "characterGenerationStopped": true,
+  "cells": [
+    {
+      "activity": "study",
+      "key": "soyo/study/apricot",
+      "png": {
+        "path": "soyo-study-apricot-literary-v1.png",
+        "sha256": "a53ed6272d5ee14f9bbf9bebdefa7becfdda3babbda954191d1c58b2a13d9d89",
+        "bytes": 2453099,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "soyo-study-apricot-literary-v1.prompt.json",
+        "sha256": "69d914a6607a9a7145b9bd79a9f83dfb3d7ae0c69c74ec975fe2ec430ecee074"
+      },
+      "source": {
+        "path": "soyo-study-apricot-literary-v1.source.json",
+        "sha256": "e817e0a0e4f848ff2813153419357881a54c1e7f46ae4a88ddf9a800d4d520b4"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "runtimeAccepted": false,
+      "contourComplete": false,
+      "concerns": [
+        "producer reject-room-layout-drift：圆几由原x约435..690移至约566..810，明显横移约130px；桌椅也重构前移，不能当fixed-room合格母。",
+        "手持笔实际举近下巴，非暂停在补充纸旁；保留原成果，禁止后续输入待root裁决。"
+      ],
+      "contentConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ]
+      },
+      "producerDisposition": "hold-room-layout-drift",
+      "allowedAsImageInput": false,
+      "primaryDecision": {
+        "approvedByPrimary": false,
+        "scope": "static mother only",
+        "finding": "REJECT old study v1: whole desk and round table displaced/enlarged; forbidden as all future image input.",
+        "source": "Root direct complete-original review in this healthy session 2026-10-25; exact timestamp not provided"
+      }
+    },
+    {
+      "activity": "listening",
+      "key": "soyo/listening/apricot",
+      "png": {
+        "path": "soyo-listening-apricot-literary-v1.png",
+        "sha256": "a3a0c9e80066021508fcbe82274f2aa2c1e0254c6b4d32a9156e2c5e4a001f29",
+        "bytes": 2438406,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "soyo-listening-apricot-literary-v1.prompt.json",
+        "sha256": "4e5936899538171f1e688e33181431e9a7fa2579241022830953fde9cade0767"
+      },
+      "source": {
+        "path": "soyo-listening-apricot-literary-v1.source.json",
+        "sha256": "6a473d106c6b20e97cdd253a3b2d4ea77f10204bd39d1f84c6e4512e49f73dfd"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": true,
+      "runtimeAccepted": false,
+      "contourComplete": true,
+      "concerns": [
+        "实际仍在中右凳位而非特别靠近圆几端，留root相处分寸审查。"
+      ],
+      "contentConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ]
+      },
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static mother only",
+        "finding": "empty hands at knees, serious attentive listening",
+        "source": "Root direct complete-original review in this healthy session 2026-10-25; exact timestamp not provided"
+      }
+    },
+    {
+      "activity": "play",
+      "key": "soyo/play/apricot",
+      "png": {
+        "path": "soyo-play-apricot-literary-v1.png",
+        "sha256": "dcfe060914aa55fe373104a0f46bab903fda44a7b1ed2120230af81d7d5d60ba",
+        "bytes": 2442361,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "soyo-play-apricot-literary-v1.prompt.json",
+        "sha256": "158ab05e40ef8699a2ff9c9e545a002ec61769b38fe937b05cf5a446f70ebce1"
+      },
+      "source": {
+        "path": "soyo-play-apricot-literary-v1.source.json",
+        "sha256": "da51a1a18d9a2ed65f95723830d02e7b0cfac5b1e8103feba64bb62c1922bfdf"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": true,
+      "runtimeAccepted": false,
+      "contourComplete": true,
+      "concerns": [
+        "铅笔实际抬至唇边而非册角附近，手部小动作偏离brief但承托自然；留root文学审。"
+      ],
+      "contentConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ]
+      },
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static mother only",
+        "finding": "pencil near lips, notebook supported on lap, subtle playful smile accepted",
+        "source": "Root direct complete-original review in this healthy session 2026-10-25; exact timestamp not provided"
+      }
+    },
+    {
+      "activity": "attention",
+      "key": "soyo/attention/apricot",
+      "png": {
+        "path": "soyo-attention-apricot-literary-v1.png",
+        "sha256": "f0250da580d8a02c22b69ee2c3f46a2bbf72e78604976baf2e43596ab63712c3",
+        "bytes": 2422465,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "soyo-attention-apricot-literary-v1.prompt.json",
+        "sha256": "4fa3c0ba2a40723c9e30c463c1dd3c8e0af813f183ee0e2ac889c8361b17711d"
+      },
+      "source": {
+        "path": "soyo-attention-apricot-literary-v1.source.json",
+        "sha256": "1cc2b404253866186ca554f15ceeba73068813f135bc45d0bf5ca8a711145f84"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": true,
+      "runtimeAccepted": false,
+      "contourComplete": true,
+      "concerns": [],
+      "contentConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ]
+      },
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static mother only",
+        "finding": "one fingertip preserves the page while eyes answer/question the companion",
+        "source": "Root direct complete-original review in this healthy session 2026-10-25; exact timestamp not provided"
+      }
+    },
+    {
+      "activity": "resume",
+      "key": "soyo/resume/apricot",
+      "png": {
+        "path": "soyo-resume-apricot-literary-v1.png",
+        "sha256": "d79e9a2d7b873932dd1b2c04692eba3bd386007da501996eecc7d3ed62a6cf7a",
+        "bytes": 2442708,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "soyo-resume-apricot-literary-v1.prompt.json",
+        "sha256": "19656e4b7f8618917842a5b6c9aac8b037d4f2fa6afdb648f2f7a5503e4328b9"
+      },
+      "source": {
+        "path": "soyo-resume-apricot-literary-v1.source.json",
+        "sha256": "0eedbc4353cccfd3b07b5a1625317c530594ba00e2992639ba3b573455e8868d"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": true,
+      "runtimeAccepted": false,
+      "contourComplete": true,
+      "concerns": [
+        "实际仍在中右凳位而非更远右靠垫前，材料接续成立，留root角色/相处分寸主审。"
+      ],
+      "contentConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ]
+      },
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static mother only",
+        "finding": "eyes lift while pink bookmark page remains, natural sincere shallow smile",
+        "source": "Root direct complete-original review in this healthy session 2026-10-25; exact timestamp not provided"
+      }
+    }
+  ],
+  "approvedByPrimary": false,
+  "layerWorkStarted": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "extraStudyRepairCalls": 1,
+  "additionalCandidates": [
+    {
+      "id": "soyo-study-apricot-literary-desk-v2",
+      "png": {
+        "path": "soyo-study-apricot-literary-desk-v2.png",
+        "sha256": "2aafefdcb31e10b8f91de63a0e5ff6a2ee21d65026763ed072ea3aedb0688dd0",
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": "soyo-study-apricot-literary-desk-v2.prompt.json",
+      "source": {
+        "path": "soyo-study-apricot-literary-desk-v2.source.json",
+        "sha256": "317b205ef35d88fb3976c7d80f4f2c6a7d7b0a2207e3f7e9e7f8eb053e2bd777"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": true,
+      "runtimeAccepted": false,
+      "contourComplete": false,
+      "concerns": [
+        "contourComplete=false：原前景植物遮部分膝下/鞋。",
+        "侧低头后的远眼部分被刘海/脸部视角遮挡；这是可见性边界，待root母图审。"
+      ],
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static mother only",
+        "finding": "same approved planning desk/round table; forearms on desk, steadying page and writing natural. Far eye partly hidden by lowered-head hair/view angle, not a fused hair-eye anatomy error.",
+        "source": "Root direct complete-original review in this healthy session 2026-10-25; exact timestamp not provided"
+      }
+    }
+  ],
+  "primaryAdmissionRecord": {
+    "path": "soyo-apricot-wave-b-primary-mother-admission-v1.json",
+    "sha256": "699c3c762a54bb073f4072e9d2885b54813f05276fbc55ab075eabcf4628c095"
+  },
+  "approvalScope": "per-cell static mother only"
+}

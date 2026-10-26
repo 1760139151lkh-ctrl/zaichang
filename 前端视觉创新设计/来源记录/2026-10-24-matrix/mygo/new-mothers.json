@@ -1,5 +1,5 @@
 {
-  "scope": "New independent complete theme mothers; pending current primary review",
+  "scope": "Anon independent complete theme mothers: seven activities x mist/violet/rain. Mother review, same-canvas layers and runtime admission remain separate.",
   "cells": [
     {
       "key": "anon/study/mist",
@@ -60,6 +60,53 @@
       "key": "anon/listening/rain",
       "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/anon-listening-rain-mother-v1.png",
       "sha256": "e1bf3d85e79d413e13e7c60b1643f58bdda47cb57db9dcb41865c3a434e401ec"
+    },
+    {
+      "key": "anon/rest/mist",
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/anon-rest-mist-mother-v1.png",
+      "sha256": "6f4bdc0b48e64ac44fc108a70a37315f697ebc2fa0f36d4580f52e74ad8a8fd6"
+    },
+    {
+      "key": "anon/rest/violet",
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/anon-rest-violet-mother-v1.png",
+      "sha256": "96ae1a37560012d256a61360ec5134f15a51355029d9400ca0a9c9f63af71283"
+    },
+    {
+      "key": "anon/rest/rain",
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/anon-rest-rain-mother-v1.png",
+      "sha256": "97f9aae14531603c334a4040fab73dd6cad0f79eac4e88ed20ac0d886b2730b2"
+    },
+    {
+      "key": "anon/play/mist",
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/anon-play-mist-mother-v1.png",
+      "sha256": "ca406d159c8fa60534597428e2a8b2ae4352184a4d481fe31701616406067395"
+    },
+    {
+      "key": "anon/play/violet",
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/anon-play-violet-mother-v1.png",
+      "sha256": "f50ac87dd77960704e79adef497cca3d261acec8a7b6c3a5358c839c8e751f88"
+    },
+    {
+      "key": "anon/play/rain",
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/anon-play-rain-mother-v1.png",
+      "sha256": "ee97b2767dae00b324f238a740f3767a9152c57550ab31cbdd74addcf4ba4c81"
+    },
+    {
+      "key": "anon/attention/mist",
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/anon-attention-mist-mother-v1.png",
+      "sha256": "3873bf3f80cdd279a7065a9efcc1c609ab4ae8c2aa85efdae40e4c13d8022ea6"
+    },
+    {
+      "key": "anon/attention/violet",
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/anon-attention-violet-mother-v1.png",
+      "sha256": "6b13edf9789c087c30ef07cbcb143120ad47f3ec1fc6b2d8ec95223a98a90023"
+    },
+    {
+      "key": "anon/attention/rain",
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/anon-attention-rain-mother-v1.png",
+      "sha256": "d1de4060f5503cd5ffad2325685c60a2409d4aa4fb87bd91732a98c91600f2a9"
     }
-  ]
+  ],
+  "rejected": [],
+  "rejectedScope": "No rejected candidate in this 21-cell Anon theme batch. Historical apricot rejections remain at their original source records and are excluded."
 }

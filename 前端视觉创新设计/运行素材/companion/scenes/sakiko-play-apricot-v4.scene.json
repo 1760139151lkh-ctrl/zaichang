@@ -7,39 +7,52 @@
   "palette": "apricot",
   "width": 1536,
   "height": 1024,
-  "mother": "sakiko-play-apricot-v4-mother.png",
-  "background": "sakiko-play-apricot-v4-background.png",
-  "figure": "sakiko-play-apricot-v4-figure.png",
-  "shadow": "sakiko-play-apricot-v4-shadow.png",
+  "mother": "sakiko-play-apricot-scale-v5-mother.png",
+  "background": "sakiko-play-apricot-scale-v5-background-v1.png",
+  "shadow": "sakiko-play-apricot-scale-v5-contact-mask-v1.png",
   "seat": [
-    0.8561197917,
-    0.5810546875
+    0.854,
+    0.573
   ],
   "ground": [
-    0.732421875,
-    0.82421875
+    0.772,
+    0.757
   ],
   "bodyBounds": [
-    0.7096354167,
-    0.2158203125,
-    0.9309895833,
-    0.8291015625
+    0.731,
+    0.274,
+    0.934,
+    0.764
   ],
-  "safeTextBoundary": 0.56,
+  "safeTextBoundary": 0.64,
   "support": "window-seat",
   "contactShadow": {
     "mode": "separate"
   },
   "contourComplete": true,
-  "hitPolygon": "82.878% 21.777%, 79.818% 22.07%, 78.125% 24.121%, 76.823% 27.832%, 76.953% 30.176%, 76.237% 31.055%, 76.497% 32.422%, 75.716% 36.523%, 73.503% 41.113%, 73.503% 42.188%, 74.023% 42.676%, 73.177% 43.457%, 73.503% 43.555%, 72.786% 45.703%, 72.982% 47.656%, 73.828% 48.633%, 73.763% 49.902%, 74.414% 50.977%, 76.497% 51.758%, 75.586% 54.59%, 73.698% 55.957%, 73.633% 57.324%, 74.089% 58.887%, 75.0% 59.863%, 76.432% 57.91%, 76.758% 58.398%, 74.544% 63.965%, 73.177% 72.656%, 71.094% 79.98%, 70.964% 81.738%, 71.81% 82.617%, 73.503% 82.812%, 74.414% 82.129%, 75.0% 73.242%, 79.688% 59.57%, 80.143% 71.289%, 79.753% 73.633%, 77.865% 78.027%, 77.799% 79.395%, 78.646% 79.883%, 80.924% 79.395%, 82.227% 77.051%, 81.901% 71.484%, 83.008% 65.43%, 82.747% 59.961%, 84.505% 59.375%, 85.612% 60.156%, 88.411% 58.105%, 89.518% 58.789%, 91.471% 58.789%, 91.602% 57.812%, 93.034% 57.91%, 91.602% 56.348%, 90.234% 56.348%, 89.062% 52.148%, 89.062% 51.172%, 89.714% 50.879%, 89.128% 50.195%, 90.169% 49.707%, 90.625% 47.656%, 91.211% 47.754%, 91.146% 48.633%, 90.169% 50.586%, 92.188% 46.973%, 91.536% 43.555%, 91.667% 41.699%, 92.383% 40.918%, 92.253% 39.648%, 88.997% 33.691%, 86.979% 27.637%, 87.24% 26.465%, 85.938% 25.879%, 84.831% 23.438%",
-  "travel": 0.012,
-  "slope": 0.14,
-  "perspective": 0.002,
+  "hitPolygon": "84.5052% 27.7344%, 83.3333% 27.6367%, 82.0312% 28.2227%, 81.1198% 29.3945%, 80.5339% 31.0547%, 80.0130% 34.2773%, 80.2734% 33.4961%, 80.2734% 36.4258%, 80.5990% 37.9883%, 79.8177% 41.4062%, 79.2318% 40.6250%, 79.6224% 42.4805%, 79.1667% 42.8711%, 79.6224% 43.1641%, 79.5573% 44.3359%, 78.8411% 46.2891%, 79.4922% 44.9219%, 79.9479% 45.0195%, 78.9062% 50.1953%, 78.9714% 51.0742%, 79.1667% 51.2695%, 78.9062% 50.8789%, 79.0365% 49.9023%, 79.6224% 51.1719%, 79.2969% 51.3672%, 79.6875% 51.3672%, 78.5807% 52.5391%, 77.9297% 54.3945%, 76.9531% 54.8828%, 78.4505% 56.4453%, 77.2135% 59.9609%, 75.3255% 69.6289%, 73.4375% 73.3398%, 73.5026% 74.8047%, 74.9349% 75.0000%, 75.5859% 74.4141%, 75.5208% 75.5859%, 77.4740% 75.9766%, 79.6875% 74.4141%, 79.6875% 69.9219%, 82.1615% 63.1836%, 82.8776% 58.4961%, 83.3333% 57.6172%, 85.8724% 57.3242%, 86.3281% 57.8125%, 88.7370% 57.3242%, 89.4531% 56.2500%, 90.4297% 57.3242%, 91.9271% 57.4219%, 91.7318% 56.9336%, 93.0339% 57.2266%, 92.3828% 56.3477%, 91.2109% 56.1523%, 90.7552% 55.5664%, 90.9505% 54.2969%, 90.4948% 53.0273%, 90.8854% 50.7812%, 91.6016% 49.9023%, 91.0156% 50.4883%, 91.3411% 49.2188%, 91.3411% 47.0703%, 91.7318% 49.5117%, 91.2760% 46.7773%, 91.5365% 46.2891%, 91.1458% 46.1914%, 89.3880% 41.0156%, 91.6667% 43.4570%, 92.1875% 45.7031%, 91.9922% 44.1406%, 89.6484% 40.3320%, 88.0859% 37.0117%, 87.5000% 33.8867%, 87.8906% 34.5703%, 87.3698% 32.9102%, 87.6302% 32.0312%, 87.2396% 30.7617%, 86.5234% 30.4688%, 85.5469% 28.5156%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
   "review": {
     "approvedByPrimary": true,
-    "stage": "layer-admission-for-original-stage",
-    "reviewer": "primary-agent",
-    "date": "2026-10-23",
-    "runtimeReviewRecord": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-runtime-reviews.json"
-  }
+    "motherApprovedByPrimary": true,
+    "layersApprovedByPrimary": true,
+    "reviewer": "root / primary agent",
+    "stage": "layer-admission-original-position",
+    "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-play/primary-play-v5-layer-approval.json",
+    "sourceBundleRecord": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-play/sakiko-play-apricot-scale-v5-bundle.json",
+    "runtimeAccepted": false,
+    "geometryStatus": "V5 source canvas and native luminance mask rechecked. V5 seat/ground and conservative bounds retained; hit polygon is the V5 mask main contour in original coordinates. Fixed travel/slope/perspective zero. Integrated motion and scale remain pending root QA.",
+    "producerObservation": "All four approved V5 PNGs are unchanged. Original V5 mother RGB is shown through figure mask v3; independent contact mask v1 uses #291c16 / 0.48. The stable scene ID is retained solely to preserve existing appearance choices and position keys; no V4 image or mask is referenced by this active registration."
+  },
+  "mask": "sakiko-play-apricot-scale-v5-figure-mask-v3.png",
+  "maskMode": "luminance",
+  "shadowMode": "luminance",
+  "shadowColor": "#291c16",
+  "shadowOpacity": 0.48,
+  "environmentVariant": "clear-day",
+  "source": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-play/sakiko-play-apricot-scale-v5.source.json",
+  "production": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-play/sakiko-play-apricot-scale-v5-bundle.json",
+  "environmentAnnotationRecord": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-apricot-clear-day-annotations-2026-10-25.json"
 }

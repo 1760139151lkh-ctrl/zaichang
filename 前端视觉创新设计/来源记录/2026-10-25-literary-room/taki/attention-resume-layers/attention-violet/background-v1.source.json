@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-mother-original-rgb-included-layer-production",
+  "cell": "taki/attention/violet",
+  "stage": "BG",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: precise-object-edit. Asset: exact SAME-MOTHER empty receiving BG for taki/attention/violet. ONLY input is this exact root-approved full 1536x1024 mother. Object-removal edit, NOT a new room, common theme plate, color correction or camera redesign. Keep the full canvas, window mullions, all furniture coordinates, bench top/front, round table/lamp/cup/books/flowers, left desk/chair/shelves/plants, right plaid cushions/knit, curtains, lake-town/mountain view, floor/rug and source theme light. No crop, resize, zoom, shift, moved table or altered perspective.\n\nRemove ONLY the ENTIRE girl including all fine near-black hair, camel sailor dress, red bow, all hands/limbs/navy calf socks/complete brown shoes, and ALL her OPEN lap book/notebook, full covers/pages/cream margin slip and pencil. Remove the local cushion compression/contact and near shoe-contact/cast shade caused specifically by those removed objects. No residual hair/hand/book/pencil/shoe/pose silhouette, ghost or replacement object. No separate book should remain on the cushion.\n\nReconstruct the actual hidden original scene behind them: continuous matching pale linen seat and natural folds blending into untouched source cushion, original wood bench/window where body hid it, same wood floor planks and original violet evening-lamp reflections beneath shoes. Preserve unrelated original room/window/lamp/furniture shadows, ambient light and original detailed painted material style. Keep the violet sunset and warm lamplight weather/time and exposure, including existing soft evening reflections, no new sunshine grid, night tint or brighter cushion. One opaque clean EMPTY SAME 1536x1024 receiving room; it will sit behind original-mother RGB selected only once at fixed original positions, so matching contact-adjacent cloth/floor color and geometry is essential. No text/UI/labels/axes/grid/border/watermark. Do not use another room plate.",
+  "promptFile": "background-v1.prompt.txt",
+  "actualToolArguments": {
+    "prompt": "Use case: precise-object-edit. Asset: exact SAME-MOTHER empty receiving BG for taki/attention/violet. ONLY input is this exact root-approved full 1536x1024 mother. Object-removal edit, NOT a new room, common theme plate, color correction or camera redesign. Keep the full canvas, window mullions, all furniture coordinates, bench top/front, round table/lamp/cup/books/flowers, left desk/chair/shelves/plants, right plaid cushions/knit, curtains, lake-town/mountain view, floor/rug and source theme light. No crop, resize, zoom, shift, moved table or altered perspective.\n\nRemove ONLY the ENTIRE girl including all fine near-black hair, camel sailor dress, red bow, all hands/limbs/navy calf socks/complete brown shoes, and ALL her OPEN lap book/notebook, full covers/pages/cream margin slip and pencil. Remove the local cushion compression/contact and near shoe-contact/cast shade caused specifically by those removed objects. No residual hair/hand/book/pencil/shoe/pose silhouette, ghost or replacement object. No separate book should remain on the cushion.\n\nReconstruct the actual hidden original scene behind them: continuous matching pale linen seat and natural folds blending into untouched source cushion, original wood bench/window where body hid it, same wood floor planks and original violet evening-lamp reflections beneath shoes. Preserve unrelated original room/window/lamp/furniture shadows, ambient light and original detailed painted material style. Keep the violet sunset and warm lamplight weather/time and exposure, including existing soft evening reflections, no new sunshine grid, night tint or brighter cushion. One opaque clean EMPTY SAME 1536x1024 receiving room; it will sit behind original-mother RGB selected only once at fixed original positions, so matching contact-adjacent cloth/floor color and geometry is essential. No text/UI/labels/axes/grid/border/watermark. Do not use another room plate.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-violet-literary-extension-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-violet-literary-extension-v1.png",
+      "role": "exact root-approved complete same mother",
+      "sha256": "322e2e43b3a93587098bf35f0a36d314d0cd4f23a541782353c2e9bc20cb2a26"
+    }
+  ],
+  "mother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-violet-literary-extension-v1.png",
+    "sha256": "322e2e43b3a93587098bf35f0a36d314d0cd4f23a541782353c2e9bc20cb2a26",
+    "sourceRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-violet-literary-extension-v1.source.json",
+    "sourceRecordSHA": "a82ef2f551a0012a0e3cf98a451bd4370b18471aff4778d8f0db77ee83a053f6",
+    "primaryAdmission": {
+      "cell": "taki/attention/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-violet-literary-extension-v1.png",
+        "sha256": "322e2e43b3a93587098bf35f0a36d314d0cd4f23a541782353c2e9bc20cb2a26",
+        "bytes": 2330841,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.850Z",
+      "observation": "Taki dark hair/purple eyes and brown-red school wardrobe remain. Pencil tip lands on the real lap page; eyes are directed down toward the task. Whole violet light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    "primaryAdmissionFile": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/root-human-mother-primary-review-20261025.json"
+  },
+  "output": {
+    "file": "background-v1.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-be3c6e11-61be-45d8-bc35-2fce677addf0.png",
+    "sha256": "2c37a339857b1a85db2d9a0752c68989a1dd788e3a872669dcb13f0f157ae951",
+    "bytes": 2291420,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewedWholeOutput": true,
+    "status": "producer_candidate_browser_reviewed_pending_primary_priority_hold",
+    "observations": [
+      "亲看完整返回图：人物、书笔与所致接触移除，窗框/圆几/灯/软垫/地板位置保留；暮紫天空与原有暮色、暖灯反射保留。隐藏处属于生成重建，不声明与不可见源逐像素一致。"
+    ]
+  },
+  "originalMotherRGBChanged": false,
+  "pngPixelEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "promptSha256Utf8": "b70d27a1008ab961a2f5be6ee10aca5969afc3a2a12baf6908395b42a512a34a",
+  "promptFileSha256": "8374df7da675073b479b8c1150e318b392fa1199e0e2cec5988473b230977920"
+}

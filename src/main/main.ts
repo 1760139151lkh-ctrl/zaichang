@@ -20,6 +20,7 @@ import path from 'node:path';
 import { homedir } from 'node:os';
 import { pathToFileURL } from 'node:url';
 import { z } from 'zod';
+import { createHash } from 'node:crypto';
 import { Store } from './store';
 import { LocalSearchService } from './search';
 import { DraftStore } from './storage/drafts';
@@ -35,7 +36,7 @@ import { friendlyError } from './provider';
 import { createModelClient, usingLunaTestTransport } from './model-selection';
 import { LUNA_MODEL, LUNA_DISPLAY_NAME } from './luna-provider';
 import { actionCommandSchema, campusSchema, settingsSchema } from '../shared/schemas';
-import { DEEPSEEK_MODEL, type Draft, type ImageAttachment, type Settings } from '../shared/types';
+import { DEEPSEEK_MODEL, getDraftAttachments, withDraftAttachments, type Draft, type ImageAttachment, type Settings } from '../shared/types';
 import campusExample from '../../examples/campus.example.json';
 import { LIMITS } from '../shared/limits';
 import { assertTestDataDirectory } from './testBoundary';
@@ -47,6 +48,8 @@ import { NativeCampusCalendar } from './runtime/campus-calendar';
 import { agendaFocusSchema } from '../shared/agenda';
 import { NativeStudyService } from './runtime/study-native';
 import { NativeSourceBookmarkService } from './runtime/source-bookmark-native';
+import { NativeKeepService } from './runtime/keep';
+import { NativeAgendaOrigin } from './runtime/agenda-origin';
 import { conversationBookmarkReferenceSchema } from '../shared/source-bookmark';
 import { NativeRehearsalService } from './runtime/rehearsal-native';
 import { NativeProgramLocalState } from './runtime/interactive-program-local-state';
@@ -55,6 +58,7 @@ import { rehearsalInteractionSchema } from '../shared/relationship-rehearsal';
 import { configureNetwork } from './network';
 import { materialReferenceSchema, materialTargetSchema, materialQuoteReferenceSchema } from '../shared/materials';
 import { semanticSelectionSchema } from '../shared/scenes';
+import { workspaceContextSchema } from '../shared/workspace-context';
 import { studyInteractionSchema } from '../shared/study-presentation';
 import { reflectiveLetterSourceInput, letterReferenceSchema, reflectiveLetterProjectInput } from '../shared/reflective-letter';
 import { noteReferenceSchema } from '../shared/note-presentation';
@@ -214,6 +218,7 @@ function decorateState(value: ReturnType<Store['state']>) {
   const luna = usingLunaTestTransport();
   return store.runtime.presentation.state({
     ...value,
+    environment: store.runtime.environment.snapshot(),
     campusConnector: zju.describe(),
     modelRuntime: luna
       ? { displayName: LUNA_DISPLAY_NAME, model: LUNA_MODEL, providerId: 'openai-app-server', temporaryTestSubstitute: true as const, status: 'enabled' as const, productionDefault: 'DeepSeek' as const }
@@ -254,14 +259,18 @@ function handle(name: string, fn: (data: any) => unknown | Promise<unknown>) {
     }
   });
 }
+let pendingSendSubmission: string | undefined;
+let pendingSendController: AbortController | undefined;
 function noRun() {
-  if (harness.running) throw new Error('请先停止当前处理，再修改连接或资料。');
+  if (harness.running || pendingSendSubmission) throw new Error('请先停止当前处理，再修改连接或资料。');
 }
 const id = z.string().min(1).max(100);
+const attachmentIdSchema = z.string().uuid();
 const textAttachmentSchema = z.union([
   z
     .object({
       kind: z.literal('text'),
+      attachmentId: attachmentIdSchema.optional(),
       name: z.string().max(LIMITS.fileName),
       text: z.string().max(LIMITS.attachmentText),
       resource: materialReferenceSchema.optional(),
@@ -270,6 +279,7 @@ const textAttachmentSchema = z.union([
   z
     .object({
       name: z.string().max(LIMITS.fileName),
+      attachmentId: attachmentIdSchema.optional(),
       text: z.string().max(LIMITS.attachmentText),
       resource: materialReferenceSchema.optional(),
     })
@@ -279,6 +289,7 @@ const textAttachmentSchema = z.union([
 const imageAttachmentSchema = z
   .object({
     kind: z.literal('image'),
+    attachmentId: attachmentIdSchema.optional(),
     name: z.string().max(LIMITS.fileName),
     mimeType: z.literal('image/jpeg'),
     dataUrl: z
@@ -293,8 +304,20 @@ const draftSchema = z
   .object({
     text: z.string().max(LIMITS.draftText),
     attachment: z.union([textAttachmentSchema, imageAttachmentSchema]).nullable(),
+    attachments: z.array(z.union([textAttachmentSchema, imageAttachmentSchema])).max(LIMITS.attachments).optional(),
+    submission: z.object({ id: attachmentIdSchema, draftKey: id, controls: z.object({
+      transmission: z.enum(['cloud_allowed', 'local_only']).optional(), memoryMode: z.enum(['relevant', 'current_sources_only', 'session_only', 'none']).optional(),
+      retention: z.enum(['purpose_scoped', 'history_no_inference', 'session_only']).optional(), audience: z.enum(['self', 'group', 'public']).optional(),
+    }).strict().optional(), materialDocument: z.object({
+      resourceId: materialReferenceSchema.shape.resourceId, sha256: materialReferenceSchema.shape.sha256 }).strict().optional() }).strict().optional(),
   })
-  .strict();
+  .strict().superRefine((value, context) => {
+    const attachments = getDraftAttachments(value);
+    if (attachments.filter(item => item.kind === 'image').reduce((n, item) => n + (item.kind === 'image' ? item.dataUrl.length : 0), 0) > LIMITS.imageDataUrls)
+      context.addIssue({ code: 'custom', message: '这几张图片合起来较大，请先留两张再继续。' });
+    const ids = attachments.flatMap(item => item.attachmentId ? [item.attachmentId] : []);
+    if (new Set(ids).size !== ids.length) context.addIssue({ code: 'custom', message: '同一份附件出现了两次，请移除重复的一份。' });
+  }).transform(value => value.attachments ? withDraftAttachments(value, value.attachments) : value);
 function draft(value: unknown): Draft {
   const parsed = draftSchema.safeParse(value);
   return parsed.success ? parsed.data : { text: '', attachment: null };
@@ -307,6 +330,11 @@ app.whenReady().then(async () => {
   mkdirSync(dataDir, { recursive: true });
   keyPath = path.join(dataDir, 'deepseek-key.bin');
   store = new Store(path.join(dataDir, 'zaichang.sqlite'));
+  const stopEnvironmentState = store.runtime.environment.onChanged(() => {
+    if (window && !window.isDestroyed() && !window.webContents.isDestroyed())
+      window.webContents.send('zaichang:event', { type: 'state', state: state() });
+  });
+  store.onClose(stopEnvironmentState);
   const localSearch = new LocalSearchService(store);
   // The explicit project entry point means this app session should use the
   // project model rather than silently falling back to the demo responder.
@@ -340,7 +368,11 @@ app.whenReady().then(async () => {
       if (event.type === 'state') opportunityScheduler?.wake();
       if (!window || window.isDestroyed()) return;
       if (event.type === 'state') window.webContents.send('zaichang:event', { ...event, state: decorateState(event.state) });
-      else if (event.type === 'message') { const message = store.runtime.presentation.message(event.message, { liveCuriosity: true, liveRehearsal: true, liveNote: true, liveCampus: true, liveProgram: true }); if (message) window.webContents.send('zaichang:event', { ...event, message }); }
+      else if (event.type === 'message') {
+        if (event.message.role === 'user' && event.message.authoredSource && event.message.submissionId)
+          drafts.admitSubmission(event.message);
+        const message = store.runtime.presentation.message(event.message, { liveCuriosity: true, liveRehearsal: true, liveNote: true, liveCampus: true, liveProgram: true, liveAttachments: true }); if (message) window.webContents.send('zaichang:event', { ...event, message });
+      }
       else if (!store.runtime.presentation.public) window.webContents.send('zaichang:event', event);
     },
     undefined,
@@ -425,6 +457,10 @@ app.whenReady().then(async () => {
   const agenda = store.runtime.nativeAgenda;
   const study = new NativeStudyService(store, store.runtime.studyPresentation);
   const sourceBookmarks = new NativeSourceBookmarkService(store);
+  const kept = new NativeKeepService(store);
+  handle('keep:snapshot', value => kept.snapshot(value));
+  const agendaOrigin = new NativeAgendaOrigin(store, localSearch);
+  handle('agenda:origin', value => agendaOrigin.resolve(value));
   const rehearsal = new NativeRehearsalService(store, store.runtime.rehearsals);
   handle('rehearsal:project', value => rehearsal.project(value));
   handle('note:project', value => {
@@ -527,6 +563,7 @@ app.whenReady().then(async () => {
   handle('attention:change', value => controls.attentionChange(value));
   handle('runtime:adopt-world', (value) => controls.adoptWorld(value));
   handle('runtime:evidence', (value) => controls.evidence(value));
+  handle('runtime:reply-sources', value => controls.replySources(value));
   handle('runtime:goal', (value) => controls.goal(value));
   handle('runtime:feedback', (value) => controls.feedback(value));
   handle('runtime:retry', (value) => controls.retry(value));
@@ -563,6 +600,10 @@ app.whenReady().then(async () => {
   session.defaultSession.setPermissionRequestHandler((_w, _permission, callback) => callback(false));
   session.defaultSession.setPermissionCheckHandler(() => false);
   handle('state', state);
+  handle('environment:read', value => {
+    z.undefined().parse(value);
+    return store.runtime.environment.read();
+  });
   handle('notes:list', value => store.notes.list(value));
   handle('notes:draft', value => store.notes.nativeDraft(value));
   handle('notes:read', value => store.notes.read(value));
@@ -602,6 +643,11 @@ app.whenReady().then(async () => {
   handle('draft', (value) => draft(drafts.get(id.parse(value))));
   handle('draft:info', value => drafts.info(id.parse(value)));
   handle('draft:unsaved', () => drafts.unsaved());
+  handle('draft:submissions', () => drafts.submissions().map(item => {
+    const admitted = drafts.submissionAdmission(item.id);
+    return { ...item, processing: pendingSendSubmission === item.draft.submission!.id || harness.submissionPending(item.draft.submission!.id),
+      ...(admitted ? { admitted } : {}) };
+  }));
   handle('draft:persist', value => {
     const input = z.object({ id, digest: z.string().regex(/^[a-f0-9]{64}$/), confirmed: z.literal(true) }).strict().parse(value);
     drafts.persist(input.id, input.digest);
@@ -623,10 +669,15 @@ app.whenReady().then(async () => {
     const input = z
       .object({
         sessionId: id.optional(),
+        submissionId: attachmentIdSchema.optional(),
         content: z.string().min(1).max(LIMITS.message).refine(text => text.trim().length > 0, '先写一句话再发送。'),
+        workspaceContext: workspaceContextSchema.optional(),
         attachment: z.object({ name: z.string().max(LIMITS.fileName), text: z.string().max(LIMITS.attachmentText) }).strict().optional(),
         image: imageAttachmentSchema.optional(),
         material: materialReferenceSchema.optional(),
+        attachments: z.array(z.union([textAttachmentSchema, imageAttachmentSchema])).max(LIMITS.attachments).optional(),
+        materialDocument: z.object({ resourceId: materialReferenceSchema.shape.resourceId,
+          sha256: materialReferenceSchema.shape.sha256 }).strict().optional(),
         materialQuote: materialQuoteReferenceSchema.optional(),
         noteQuote: noteQuoteReferenceSchema.optional(),
         conversationQuote: conversationBookmarkReferenceSchema.optional(),
@@ -653,27 +704,85 @@ app.whenReady().then(async () => {
           .optional(),
       })
       .strict()
-      .refine(input => !input.attachment || !input.material && !input.image, '这次只附一份文件或图片，再继续发送。')
+      .refine(input => !input.attachments || !input.attachment && !input.image && !input.material, '新附件队列不能与旧附件入口同时发送。')
+      .refine(input => !input.attachment || !input.material && !input.materialDocument && !input.image, '这次只附一份文件或图片，再继续发送。')
+      .refine(input => !input.materialDocument || !input.image && (!input.material
+        || input.material.resourceId === input.materialDocument.resourceId && input.material.sha256 === input.materialDocument.sha256),
+        '这次拿起了不同的文件，先保留想一起看的那一份再发送。')
       .refine(input => input.content.length + (input.attachment ? input.attachment.name.length + input.attachment.text.length : 0) <= LIMITS.message, '这段话和附件合起来太长了，可以先选出需要一起看的部分。')
+      .superRefine((input, context) => {
+        const items = input.attachments || [];
+        const documentInQueue = !!input.materialDocument && items.some(item => item.kind === 'text'
+          && item.resource?.resourceId === input.materialDocument!.resourceId && item.resource.sha256 === input.materialDocument!.sha256);
+        if (items.length + (input.materialDocument && !documentInQueue ? 1 : 0) > LIMITS.attachments)
+          context.addIssue({ code: 'custom', message: '一次最多一起看三份文件或图片。' });
+        if (input.content.length + items.reduce((n, item) => n + item.name.length + (item.kind === 'text' && !item.resource ? item.text.length : 0), 0) > LIMITS.message)
+          context.addIssue({ code: 'custom', message: '这句话和附件文字合起来太长了，请先选出需要一起看的部分。' });
+        if (items.reduce((n, item) => n + (item.kind === 'image' ? item.dataUrl.length : 0), 0) > LIMITS.imageDataUrls)
+          context.addIssue({ code: 'custom', message: '这些图片合起来较大，请先留两张再继续。' });
+        const keys = items.map(item => item.kind === 'text' && item.resource ? 'material:' + item.resource.resourceId
+          : item.kind === 'image' ? 'image:' + createHash('sha256').update(Buffer.from(item.dataUrl.split(',')[1], 'base64')).digest('hex') : 'text:' + item.name + '\n' + item.text);
+        const ids = items.flatMap(item => item.attachmentId ? [item.attachmentId] : []);
+        if (new Set(keys).size !== keys.length || new Set(ids).size !== ids.length)
+          context.addIssue({ code: 'custom', message: '同一份附件出现了两次，请移除重复的一份。' });
+      })
       .refine(input => [input.materialQuote, input.noteQuote, input.noteReference, input.notebookQuote, input.conversationQuote].filter(Boolean).length <= 1, '这次拿起了几处原文，请先留一处再发送。')
       .parse(value);
+    noRun();
+    pendingSendSubmission = input.submissionId || crypto.randomUUID();
+    const admissionController = new AbortController(); pendingSendController = admissionController;
+    try {
+    // Only this explicit send boundary can prepare an unsubmitted original
+    // kept by its native owner. Reuse the standard material ingress so the
+    // eventual file event belongs to the real user message and current run.
+    // A durably bound original returns no new material: its existing source
+    // remains. An explicit temporary delivery needs this turn's real event.
+    const queuedDocument = input.attachments?.some(item => item.kind === 'text' && item.resource?.resourceId === input.materialDocument?.resourceId
+      && item.resource?.sha256 === input.materialDocument?.sha256);
+    const documentDraftOwnerId = input.sessionId || 'new';
+    const draftDocument = input.materialDocument && !queuedDocument ? getDraftAttachments(drafts.get(documentDraftOwnerId))
+      .find(item => item.kind === 'text' && item.resource?.resourceId === input.materialDocument!.resourceId
+        && item.resource.sha256 === input.materialDocument!.sha256) : undefined;
+    const preparedDocument = !input.material && input.materialDocument && !queuedDocument
+      ? store.runtime.materials.prepareDocumentSend(input.materialDocument, draftDocument?.kind === 'text' && draftDocument.resource
+        ? { draftOwnerId: documentDraftOwnerId, reference: draftDocument.resource } : undefined) : undefined;
+    // A host-qualified pending draft original keeps its canonical upload ID.
+    // No other draft words or attachments enter this explicit delivery.
+    const draftUpload = preparedDocument?.kind === 'draft' ? { kind: 'text' as const,
+      name: preparedDocument.reference.name, text: '', resource: preparedDocument.reference,
+      ...(draftDocument?.attachmentId ? { attachmentId: draftDocument.attachmentId } : {}) } : undefined;
+    const uploads = draftUpload ? [draftUpload, ...(input.attachments || [])] : input.attachments;
+    if (draftUpload && (uploads!.length > LIMITS.attachments
+      || draftUpload.attachmentId && input.attachments?.some(item => item.attachmentId === draftUpload.attachmentId)))
+      throw new Error('这次的附件地址有重复，请重新选择要一起看的原件。');
+    if (draftUpload && input.content.length + uploads!.reduce((n, item) => n + item.name.length
+      + (item.kind === 'text' && !item.resource ? item.text.length : 0), 0) > LIMITS.message)
+      throw new Error('这句话和附件文字合起来太长了，请先选出需要一起看的部分。');
+    const material = input.material || (preparedDocument?.kind === 'notebook' ? preparedDocument.reference : undefined);
+    const quoteMaterial = preparedDocument && preparedDocument.reference.resourceId === input.materialQuote?.resourceId ? preparedDocument.reference
+      : material?.resourceId === input.materialQuote?.resourceId ? material
+      : input.attachments?.flatMap(item => item.kind === 'text' && item.resource?.resourceId === input.materialQuote?.resourceId ? [item.resource] : [])[0];
     if (input.materialQuote) await store.runtime.materials.nativeQuote({
-      target: input.material?.resourceId === input.materialQuote.resourceId
-        ? { kind: 'pending', reference: input.material } : { kind: 'saved', resourceId: input.materialQuote.resourceId },
+      target: quoteMaterial ? { kind: 'pending', reference: quoteMaterial } : { kind: 'saved', resourceId: input.materialQuote.resourceId },
       quote: input.materialQuote,
-    });
+    }, admissionController.signal);
+    admissionController.signal.throwIfAborted();
+    if (preparedDocument?.kind === 'draft' && store.runtime.materials.prepareDocumentSend(input.materialDocument!,
+      { draftOwnerId: documentDraftOwnerId, reference: preparedDocument.reference })?.kind !== 'draft')
+      throw new Error('这份原件已经离开刚才的草稿，请重新选择要看的文件。');
     if (input.noteQuote) store.notes.quote(input.noteQuote);
-    return harness.start(input.sessionId, input.content, { ...input.controls,
+    return harness.start(input.sessionId, input.content, { ...input.controls, submissionId: input.submissionId, submittedMaterialDocument: input.materialDocument,
       attachment: input.attachment ? { id: crypto.randomUUID(), ...input.attachment } : undefined,
-      material: input.material, selection: input.selection,
+      material, uploads, selection: input.selection, workspaceContext: input.workspaceContext,
       studyInteraction: input.studyInteraction, companionReference: input.companionReference,
       curiosityReference: input.curiosityReference, letterReference: input.letterReference, noteReference: input.noteReference,
       notebookQuote: input.notebookQuote, mapRouteReference: input.mapRouteReference, agendaFocus: input.agendaFocus,
       programReference: input.programReference, preparationReference: input.preparationReference,
       rehearsalInteraction: input.rehearsalInteraction, materialQuote: input.materialQuote, noteQuote: input.noteQuote,
       conversationQuote: input.conversationQuote }, input.image);
+    } finally { pendingSendSubmission = undefined; if (pendingSendController === admissionController) pendingSendController = undefined; }
   });
-  handle('stop', () => harness.stop());
+  handle('stop', () => { pendingSendController?.abort(new DOMException('用户停止', 'AbortError')); return harness.stop(); });
   handle('persona:follow-default', value => {
     noRun();
     store.followDefaultCompanion(z.string().min(1).max(100).parse(value));
@@ -943,10 +1052,21 @@ app.whenReady().then(async () => {
   });
   handle('materials:read', value => store.runtime.materials.nativeReadPage(value));
   handle('materials:quote', value => store.runtime.materials.nativeQuote(value));
-  handle('materials:keep-quote', value => store.runtime.materials.nativeKeepQuote(value, store.notes));
-  handle('materials:move-note', value => store.runtime.materials.nativeMoveNote(value, store.notes));
+  const materialCommitGate = () => {
+    const runtime = store.runtime, epoch = store.kernel.epoch, revision = store.kernel.policyRevision, boundary = runtime.policy.sourceBoundary;
+    if (runtime.presentation.public) throw new Error('先回到自己的对话，再保存这段笔记。');
+    return () => {
+      if (runtime.presentation.public || epoch !== store.kernel.epoch || revision !== store.kernel.policyRevision || boundary !== runtime.policy.sourceBoundary)
+        throw new Error('资料或展示范围刚有变化，笔记还没有保存。请回到原处核对后再继续。');
+    };
+  };
+  handle('materials:keep-quote', value => store.runtime.materials.nativeKeepQuote(value, store.notes, materialCommitGate()));
+  handle('materials:move-note', value => store.runtime.materials.nativeMoveNote(value, store.notes, materialCommitGate()));
   handle('materials:notes', value => store.runtime.materials.nativeNotes(value, store.notes));
-  handle('materials:cancel', () => store.runtime.materials.cancelNativeRead());
+  handle('materials:cancel', value => {
+    const input = z.object({ readerId: z.string().min(1).max(100).optional() }).strict().parse(value || {});
+    store.runtime.materials.cancelNativeRead(input.readerId);
+  });
   handle('materials:discard', value => {
     const input = z.object({ reference: materialReferenceSchema }).strict().parse(value);
     store.runtime.materials.releasePending(input.reference);
@@ -1002,6 +1122,7 @@ app.whenReady().then(async () => {
     if (dataUrl.length > LIMITS.imageDataUrl) throw new Error('这张图片处理后仍然过大，请换一张。');
     return {
       kind: 'image',
+      attachmentId: crypto.randomUUID(),
       name: path.basename(file),
       mimeType: 'image/jpeg',
       dataUrl,
@@ -1071,8 +1192,39 @@ app.whenReady().then(async () => {
       spellcheck: false,
     },
   });
+  const noteChangeWindow = window;
+  const stopNoteChanges = store.notes.onChanged(change => {
+    if (store.runtime.presentation.public || noteChangeWindow.isDestroyed() || noteChangeWindow.webContents.isDestroyed()) return;
+    const current = store.notes.read({ id: change.id, revision: change.revision, offset: 0, limit: 1 }).note;
+    if (store.runtime.presentation.public) return;
+    noteChangeWindow.webContents.send('zaichang:event', { type: 'note_changed', note: {
+      id: current.id, revision: current.revision, sha256: current.sha256, state: current.state,
+    } } satisfies import('../shared/types').RunEvent);
+  });
+  noteChangeWindow.once('closed', stopNoteChanges);
   window.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
   window.webContents.on('will-navigate', (event) => event.preventDefault());
+  let environmentLocked = false, environmentSuspended = false;
+  const syncEnvironmentActivity = () => {
+    const active = !!window && !window.isDestroyed() && window.isVisible() && !window.isMinimized()
+      && !quitting && !environmentLocked && !environmentSuspended;
+    store.runtime.environment.setActive(active);
+    return active;
+  };
+  const refreshVisibleEnvironment = () => {
+    if (syncEnvironmentActivity()) void store.runtime.environment.read();
+  };
+  window.on('show', syncEnvironmentActivity);
+  window.on('restore', refreshVisibleEnvironment);
+  window.on('focus', refreshVisibleEnvironment);
+  window.on('hide', syncEnvironmentActivity);
+  window.on('minimize', () => store.runtime.environment.setActive(false));
+  // Track lock/sleep before loading the renderer: a load or focus event must
+  // not restart weather while the desktop is still locked or suspended.
+  powerMonitor.on('suspend', () => { environmentSuspended = true; store.runtime.environment.setActive(false); });
+  powerMonitor.on('lock-screen', () => { environmentLocked = true; store.runtime.environment.setActive(false); });
+  powerMonitor.on('resume', () => { environmentSuspended = false; refreshVisibleEnvironment(); });
+  powerMonitor.on('unlock-screen', () => { environmentLocked = false; refreshVisibleEnvironment(); });
   window.once('ready-to-show', () => {
     if (!process.argv.includes('--hidden') || !ensureTray()) window?.show();
   });
@@ -1100,6 +1252,7 @@ app.whenReady().then(async () => {
     }
   });
   window.on('closed', () => {
+    store.runtime.environment.setActive(false);
     harness.endConversations();
     window = undefined;
   });
@@ -1221,6 +1374,7 @@ app.whenReady().then(async () => {
 });
 app.on('before-quit', event => {
   quitting = true;
+  store?.runtime.environment.setActive(false);
   if (workouts && !workoutDisposed) {
     event.preventDefault();
     if (!workoutExitPending) {

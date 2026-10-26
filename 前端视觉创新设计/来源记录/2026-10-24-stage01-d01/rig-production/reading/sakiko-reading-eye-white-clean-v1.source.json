@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "s01-d01-sakiko-reading-eye-white-clean-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "recordedAt": "2026-10-25T08:01:26Z",
+  "generationId": "exec-2746ee1e-707c-44c9-aecd-1bfd7924cb51",
+  "prompt": "sakiko-reading-eye-white-clean-v1.prompt.txt",
+  "inputs": [
+    {
+      "path": "../../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-mother.png",
+      "sha256": "8f2358c0af7a78451259d049517cf3dedfe011023fdbabc44ec4bd850d3e671b",
+      "role": "approved original READING mother; only image reference used for every generation in this folder"
+    }
+  ],
+  "output": "sakiko-reading-eye-white-clean-v1.png",
+  "sha256": "cb607331038922dbb2061c42822fb815814735f207093db8f5bd20f5c5cb3e99",
+  "bytes": 2082621,
+  "canvas": {
+    "width": 1536,
+    "height": 1024
+  },
+  "outputMode": "RGB",
+  "character": "sakiko",
+  "sceneFamily": "sakiko-reading-apricot-room4",
+  "classification": "B",
+  "status": "approved-local-component",
+  "runtimeAllowed": "only the registered local component/repair paths",
+  "staticReview": {
+    "producerInspected": true,
+    "alsoInspectedBy": "s01_04_participation",
+    "observed": "The golden irises/pupils were removed from both original tiny eye openings, with the reading head angle and eyelid/bang relationships visually retained.",
+    "limitation": "Only exposed eye whites are clipped as an underlayer; original iris texture is restored inside the eyelid aperture before display."
+  },
+  "originalNotOverwritten": true,
+  "noCrossFamilyPixels": true,
+  "motionVerified": false,
+  "inAppVerified": false,
+  "runtimeRig": "sakiko-reading-d01-rig-v1.json"
+}

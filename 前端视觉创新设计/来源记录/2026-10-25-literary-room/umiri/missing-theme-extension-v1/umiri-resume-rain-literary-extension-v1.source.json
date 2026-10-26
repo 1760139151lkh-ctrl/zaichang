@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "assetType": "literary-room-complete-activity-light-mother",
+  "sceneFamily": "literary-room-v1",
+  "character": "umiri",
+  "activity": "resume",
+  "palette": "rain",
+  "environmentVariant": "rain-night",
+  "recordedAt": "2026-10-25T18:59:19.991365+00:00",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-454d-7bb3-8b77-bcaadd75b8a4\\exec-2d3b6ad1-4078-4e0c-8631-7352519b33f6.png",
+  "fullRequest": "umiri-resume-rain-literary-extension-v1.request.json",
+  "promptFile": "umiri-resume-rain-literary-extension-v1.prompt.txt",
+  "promptFileSha256": "5f4a57111f839cfd8d9d4ff041ad38ecfde60ca1c27f0786c9bca102b04605ad",
+  "submittedPrompt": "Use case: lighting-weather, identity-preserve. Asset: ONE complete 1536x1024 literary-room HUMAN activity mother, no UI. Image 1 is the ONLY room geometry / target light and weather authority: approved clean EMPTY target-theme room. Image 2 is this SAME character's healthy root-approved APRICOT mother of this SAME activity, personally viewed; use her identity, complete wardrobe, natural human scale, body support and unfinished personal action as continuity. Repaint a coherent WHOLE scene in Image 1's light; do not paste daylight-colored figure pixels, tint a cutout, or keep sunny floor stripes from Image 2. Keep every major room object, source camera, window mullion, lake/town/hills, desk/chair/bookcase, porcelain lamp/round side table, window bench/cushions/throw, floor/rug and foreground perspective at Image 1's original positions/sizes. No zoom, crop, mirror, new furniture, montage, UI rectangle, gray/white panel, text, labels, watermark, arrows, halo, speech balloon, readable fake business document or completion badge. Keep complete top hair, both hands and fingers, full clothes/hem, knees/ankles and both entire shoes in frame, with source support material and believable occlusion/weight. Do not shrink her into a distant doll or enlarge her toward the lens. Fine youthful Japanese 2D character drawing belongs in the richly painted room through actual warm/cool material light, not a 3D glamour model or chibi.\n\nTARGET RAIN / approved rain-night: Image1 already depicts real raindrops on the dark window, a low contrast blue lake/town and warm practical lamp; follow that exact depicted weather, not a real-world claim. The lamp defines hands/face/paper and soft cool fill separates dark clothes/hair from dark window. Keep dim room detail and natural skin, not shiny black/gold silhouette, blanket brown filter or forced tears/sleepiness.\n\nCHARACTER / complete daily punk wardrobe: Yahata Umiri (八幡海铃), dark charcoal near-black shoulder-length layered hair, directional fringe and softly outward ends, clear pale blue-gray/gray-teal irises, youthful face with natural short chin and soft young cheeks, not a long mature model jaw/heavy eyeliner. Black short leather jacket with lapels, zips and metal details, dark burgundy top, grey high-waisted pleated short skirt with black belt, black choker and small appropriate daily earrings, BARE lower legs, TWO complete black lace-up platform calf/ankle boots with real separate thick soles. No school calf socks/loafers, stage thigh-high boots, navy uniform or Nyamu blouse. Differentiate leather folds, hair, red top, skin and metal by actual lamp/window light. Her calm has a point of view and understated warmth, not permanent half-shut eyes, deadpan emptiness, detached schedule-agent demeanor or commercial welcome smile.\n\nTHIS INSTANT — RESUME / SHE STAYS WITH THE THREAD: her own open/half-open book rests on her two thighs, one relaxed hand has found the retained page edge, other palm honestly bears a little weight on the cushion beside her hip. Keep the healthy source's two separate parallel knees, uninterrupted bare calves and two complete grounded lace-up boots, no leg crossing or hidden shoe joins. She first checks that same page corner, then recognizes the returning person just left of camera. Clear gray-teal eyes hold a small familiar easing; brows loosen, one mouth corner softens into quiet, young, slightly wry recognition rather than a blank flat line or uniform warm smile. She is willing to remain here without allocating the person's next task; a page may continue or wait. No schedule clipboard, rubber stamp, business UI or extravagant welcoming hand.\n\nEXACT CELL'S CREATIVE BRIEF (historical planning hold has now been explicitly released by root for this exact missing cell; creative intent retained, current complete dossier has priority):\npsychologicalBeat: 她确认停点仍在，准备从还成立的那一段继续，而不是要求对方重来一遍。这一页可以继续，也可以先放着，她不替回来的人排下一件事。\nexpression: 认出接续关系后的轻微释然，眉眼舒开，不表演热烈欢迎。\ngaze: 先核对手指夹住的页角，再抬眼看回来的人。看过页角后平静抬眼，停住等对方决定。\ncompanionship: 把已做好的部分留住，也允许这次回来只是坐一会儿。\nposeAndSupport: 书半合放在腿上，手指保留原页，另一手轻放坐垫；坐姿接续原重心，不另起迎宾动作。\nhandsAndObjects: 一本原停点未丢的书，不加新完成章、进度条或恢复卡。\nspecificLightInteraction: 夜灯照清脸与停页手指，窗外深蓝不压平黑衣轮廓。\n\nFinal invariant: one whole room and one umiri only, full1536x1024 opaque RGB. The theme changes light, not identity, age, complete wardrobe or action's meaning. Preserve actual source support and full contour. This is a mother candidate; not a cutout, layer mask, runtime screenshot or claim of independently moving pose.\n\nNIGHT RECEIVER CHECK: Recompute the APRICOT reference light completely. Its bright pale patch across the upper knee, hard sunlight window lattice on the floor and white sun strips on the cushion must NOT survive. Night skin has soft warm lamp falloff and blue-gray fill, with no sharp geometric sun patch. Use Image1 for every receiver, not just for a raindrop window replacement. Keep the familiar young expression and actual support, not the old daylight shading.",
+  "submittedPromptSha256": "e052884687113c1a781c495c2f962f13bc81ab75173d861403a1bf9454698dfc",
+  "submittedPromptTransform": "UTF-8 prompt file without final LF; exact submitted text",
+  "dossier": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/umiri.md",
+    "sha256": "760b038d3ff84a770c80bf6144e52265d8109e41ecd5cb3440408561ac2bc0da",
+    "version": "2026-10-25",
+    "readComplete": true
+  },
+  "method": {
+    "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+    "sha256": "91fb8b8de3e8d954a9367a585f09b71b8f5a9962d8ed0107249c348390fb7f05",
+    "readComplete": true
+  },
+  "wardrobeId": "umiri-daily-punk-leather-burgundy-grey-skirt-platform-laceup",
+  "creativeBrief": {
+    "index": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-b/umiri-literary-room-36-cells-v1.json",
+      "sha256": "b8f97f1a2ce86161c1068f9b0d12c26370cece95b85680f9f1fc5ef70f701c4b",
+      "bytes": 50290,
+      "capturedAt": "2026-10-25T09:14:03.039466+00:00"
+    },
+    "jsonPointer": "/cells/35",
+    "briefKey": "umiri/resume/rain",
+    "producerBriefRef": null
+  },
+  "inputBoundary": "Only exact clean target plate and this role/activity root-approved healthy apricot mother. Both complete inputs personally viewed; no held, malformed, wrong-wardrobe, UI collage or old room4 source.",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "role": "Image 1: clean target room/camera/theme light authority"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-resume-apricot-literary-wave-b-v1.png",
+      "sha256": "6842a6222779a5607400400a6a1df5e3b732c814777f447defc5d5951413328e",
+      "role": "Image 2: same-role same-activity healthy root-approved apricot mother; continuity only, personally viewed"
+    }
+  ],
+  "output": {
+    "file": "umiri-resume-rain-literary-extension-v1.png",
+    "sha256": "4719cce6dbacf723d429dbca63601cf41858e7cf5da1d635163b49e78782235d",
+    "bytes": 2198618,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "pngEdited": false,
+  "privateUserDataUsed": false,
+  "producerReview": {
+    "personallyViewed": true,
+    "observations": [
+      "Complete original Umiri rain-resume mother personally viewed: charcoal hair/gray-teal eyes/youthful calm face, full daily black leather/burgundy/grey outfit, bare lower legs and both complete separate platform lace-up boots remain recognizable and supported.",
+      "Book rests on thighs, one hand touches the page edge and other palm bears on the real cushion. Same source camera and room stay coherent; floor no longer has the clear apricot window-lattice sun stripes.",
+      "Producer light concern: the near upper knee retains a relatively sharp bright warm patch below the book with a similar boundary to the daylight seed; a daylight carryover cannot be ruled out from this mother. Rainy glass alone does not resolve that receiver-light ambiguity. Hold this variant out of further input/selection and rebuild from clean rain plate plus full text alone.",
+      "This producer-held lighting variant is retained as exact output evidence, not a new generation input, qualified mother, layer or runtime completion."
+    ]
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "scope": "This exact complete human mother candidate only. No approval, layer, actual weather or dynamic matrix completion inherited.",
+  "productionStatus": "held-by-producer-possible-daylight-receiver-carryover",
+  "generationInputAllowed": false,
+  "selectionAllowed": false,
+  "release": {
+    "authority": "Parent root explicitly assigned Nyamu listening/play/attention/resume x mist/violet/rain (12), Umiri resume x violet/rain (2) in this same healthy task.",
+    "scope": "Generate exact missing complete human mothers only; historical brief holds superseded for these cells. No layer, runtime or primary mother acceptance granted.",
+    "rootTotalLedgerChanged": false
+  },
+  "furtherGenerationRequiresPrimaryReview": true
+}

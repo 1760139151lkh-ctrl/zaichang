@@ -52,13 +52,20 @@
   "review": {
     "producerPersonallyViewed": true,
     "producerObservation": "Young charcoal-haired Umiri with gray-teal eyes, original casual jacket/red top/gray skirt/boots. Pelvis and distinct uncrossed knees remain left-oriented; two calf-to-boot chains and full soles visible. Rear palm meets cushion, notebook sits on thigh rather than outside leg. Calm return gaze with restrained smile. Primary must judge exact character likeness, front/back knee overlap and resume distinction.",
-    "approvedByPrimary": false,
+    "approvedByPrimary": true,
     "layers": "not extracted",
-    "runtimeAccepted": false
+    "runtimeAccepted": false,
+    "primaryApprovalScope": "Root personally viewed the original PNG: youthful identity, hip/seat support, two knee-ankle-shoe chains, full shoes; Uika lap-supported half-closed book, Nyamu independent forward-lean silhouette. Mother only; no layer/runtime acceptance.",
+    "primaryApprovalDate": "2026-10-24"
   },
   "identityBasis": {
     "officialProfile": "https://anime.bang-dream.com/avemujica/character/umiri/",
     "textVerifiedOn": "2026-10-24",
     "boundary": "Official profile supports identity/background; this university-companion resume moment is project-original. No official or third-party character pixels were image inputs."
+  },
+  "matrixCell": {
+    "character": "umiri",
+    "activity": "resume",
+    "theme": "apricot"
   }
 }

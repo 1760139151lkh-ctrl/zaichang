@@ -1,0 +1,12 @@
+Use case: precise-object-edit.
+Asset type: a tightly localized SAME-SCENE right-hand release pose for a controllable 2D reading rig.
+
+Image 1 is the approved original READING scene, at exactly 1536×1024. Keep the whole character, head, eyes, reclined back/hip support, crossed legs, LEFT supporting hand, open blue book, camera, room, sunlight, and pixel scale unchanged.
+
+Edit only the anatomical RIGHT arm at the viewer-LEFT of the book. The ORIGINAL tiny right hand at the book's left edge near x=1243–1267, y=505–528 must be moved, NOT duplicated. First erase that original right hand from the left page/cover edge and repair the page/cover beneath it. There must be exactly TWO hands in the final character: one unchanged LEFT hand on the viewer-RIGHT supporting the book near (1335,524), and one slightly moved RIGHT hand.
+
+Place the RIGHT wrist only about fourteen pixels higher than before, approximately (1267,507), with a small relaxed hand extending toward viewer-left. Keep its entire hand within approximately x=1243–1281, y=493–517, in FRONT of the book/page edge so the connected cuff, palm, thumb and natural fingers are visible. This is a tiny loosening/release of the book grip, NOT a raised arm beside her face, NOT a wave, NOT an arm high above the book. The right shoulder and elbow stay close to their original positions and limb lengths stay natural. Do not add another sleeve, arm, wrist, hand or finger cluster.
+
+The unchanged LEFT hand and lap keep the book supported at its original angle and exact position. The book must not lift, tilt or float with the released right hand. No changes to the other hand or any face/body/support detail.
+
+No transparency, no new framing, no zoom, no atlas, no diagram or text. Output one normal opaque same-scene PNG. The most important checks are no old hand left behind, exactly two hands total, and a very small complete right-hand release near the original book contact.

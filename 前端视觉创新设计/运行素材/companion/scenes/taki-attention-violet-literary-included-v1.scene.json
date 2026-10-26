@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "id": "taki-attention-violet-literary-included-v1",
+  "sceneFamily": "literary-room-v1",
+  "pose": "supported-attention-with-real-lap-notebook-paper-and-pencil",
+  "character": "taki",
+  "activity": "attention",
+  "purpose": "activity",
+  "light": "dusk",
+  "palette": "violet",
+  "environmentVariant": "twilight",
+  "width": 1536,
+  "height": 1024,
+  "mother": "taki-attention-violet-literary-included-v1-mother.png",
+  "background": "taki-attention-violet-literary-included-v1-background.png",
+  "mask": "taki-attention-violet-literary-included-v1-mask.png",
+  "maskMode": "luminance",
+  "contactMask": "taki-attention-violet-literary-included-v1-contact-mask.png",
+  "seat": [
+    0.765625,
+    0.5732421875
+  ],
+  "ground": [
+    0.6412760416666666,
+    0.865234375
+  ],
+  "bodyBounds": [
+    0.578125,
+    0.09765625,
+    0.8522135416666666,
+    0.875
+  ],
+  "safeTextBoundary": 0.5436197916666667,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "57.8125% 9.765625%, 85.22135416666666% 9.765625%, 85.22135416666666% 87.5%, 57.8125% 87.5%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "dynamicAdmission": false,
+    "original360CreditAssigned": false,
+    "layerReview": "root-approved-exact-three-theme-static-fixed-same-source-included-union",
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-violet/root-primary-layer-admission-v2.json",
+    "sourceAssembly": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-violet/assembly-v2.json",
+      "sha256": "0be29acfbc4dc41d16f80e2094ddb6b5ce0789afe84db11df64304cb4729e439",
+      "bytes": 20358
+    },
+    "runtimeSourceSha256": {
+      "mother": "322e2e43b3a93587098bf35f0a36d314d0cd4f23a541782353c2e9bc20cb2a26",
+      "background": "2c37a339857b1a85db2d9a0752c68989a1dd788e3a872669dcb13f0f157ae951",
+      "F": "fe8b6621f72244255d9a65401e903bc07cdb6de9b2b73e75dd82b8c00a479bd4",
+      "S": "1d0f60ca08f8a65d8743192d3788b438ba17893c9db328f591dd8e66f8da6b8d"
+    },
+    "actualMotherSource": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-violet-literary-extension-v1.png",
+      "sha256": "322e2e43b3a93587098bf35f0a36d314d0cd4f23a541782353c2e9bc20cb2a26",
+      "bytes": 2330841,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "geometryEvidence": {
+      "figureEnvelope": {
+        "sourcePixels": [
+          888,
+          100,
+          1309,
+          896
+        ],
+        "normalized": [
+          0.578125,
+          0.09765625,
+          0.8522135416666666,
+          0.875
+        ],
+        "basis": "sRGB Rec.709 luminance; F >32 and MAX(L(F),L(S)) >32 for envelope metadata only. Original continuous mask PNG bytes and runtime luminance remain unchanged."
+      },
+      "jointReceiverEnvelope": {
+        "sourcePixels": [
+          851,
+          100,
+          1309,
+          911
+        ],
+        "normalized": [
+          0.5540364583333334,
+          0.09765625,
+          0.8522135416666666,
+          0.8896484375
+        ],
+        "basis": "sRGB Rec.709 luminance; F >32 and MAX(L(F),L(S)) >32 for envelope metadata only. Original continuous mask PNG bytes and runtime luminance remain unchanged."
+      },
+      "supportAnchors": {
+        "seatPixels": [
+          1176,
+          587
+        ],
+        "groundPixels": [
+          985,
+          886
+        ],
+        "basis": "Registrar personally viewed exact full mother; visible hip/skirt resting on actual linen seat and local midpoint of complete loafer floor contacts. Fixed visible source references, not unseen joints or travel calibration."
+      },
+      "newUnionFitsInsideExistingFamilyEnvelope": true,
+      "familyFramingUnchanged": true
+    },
+    "boundary": "Only this exact attention activity/palette/light static same-source composition. U=MAX(L(F),L(S)), original mother RGB once; fixed original linen/wood receiver, no caster or independent actor/book/paper/shadow motion. No runtime/dynamic/360 acceptance."
+  }
+}

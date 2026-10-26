@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T01:23:22.832Z",
+  "producer": "/root/study_reading",
+  "character": "uika",
+  "purpose": "neutral-presence",
+  "environmentVariant": "time-day",
+  "weather": "unknown",
+  "exactActivityMatrixCredit": 0,
+  "stage": "figure-step1-marked-v1",
+  "tool": "image_gen.imagegen",
+  "originalToolPath": "C:/Users/17601/.codex/generated_images/01a17365-8901-7202-bd9e-0859826906dc/exec-96566122-1797-4ae5-ad73-c84d53bbf396.png",
+  "transparentBackground": false,
+  "submittedPrompt": "Use case: precise-object-edit. F1 deliberate full-person white selection markup, exact Uika neutral TIME-DAY original1536x1024. ONLY input is approved clean full mother. Preserve every source coordinate, camera, pose and proportions; no redraw, translation, resize, crop or recenter. Paint solid PUREWHITE255 over ENTIRE actual visible girl: every fine blonde bob lock/outer curl/flyaway, face/ear/neck, whole white short-sleeved T-shirt including sleeve edges; both arms/hands with EVERY finger (one relaxed on her own knee and the other splayed palm pressing cushion at her right side); entire taupe long pleated skirt including all irregular hanging hem points, both exposed shins/ankles, white SHORT ankle socks, BOTH ENTIRE black canvas lace-up sneakers with all white toe caps/sidewalls/full bottom soles/heel blocks and all lace loops. Whiten selected interiors fully, no face/hair/cloth/hand/laces or skirt lines, no holes in person. Keep actual open background gaps between arm/waist and separate legs/hair in SOURCE COLOR. All other room remains ORIGINALCOLOR including naturally cream opaque closed curtain/cushion, pillows/throw, woodfloor, local original contact shade, lamp/table/cup/flowers, desk/chair/shelves/plants/rug. No held prop; no book/pen/cup to invent. Do NOT select empty cushion or floor shadow into F. Completegirl roughlyx800..1340,y95..895; far sneaker aboutx804..948,y785..867, nearshoe aboutx888..1026,y807..895; these are visual location hints, NOT boxes. Preserve complete soles/toe tips and every finger. Full opaque1536x1024 source-colored room with only original complete girl white, exact original silhouette. No checkerboard/alpha/text/UI.",
+  "submittedPromptSha256": "60c822cd3970071a53ffc5b50199998c91f255cefd4b78d0a90fa94d07e05dd1",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-day-v1.png"
+  ],
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-day-v1.png",
+      "role": "sole approved Uika clean day mother",
+      "sha256": "e05d24ff0a1943e66e635880d5265fb79a66dac13e8656ca6d820b1b171ebbea",
+      "bytes": 2427278
+    }
+  ],
+  "originalMother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-day-v1.png",
+    "sha256": "e05d24ff0a1943e66e635880d5265fb79a66dac13e8656ca6d820b1b171ebbea",
+    "approvalRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-day-v1.primary-approval.json"
+  },
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/day/layers/figure-step1-marked-v1.png",
+    "sha256": "2db42989c84cf67bb0ef79f6fe57438b08c3b515f8665ddb38e63497dbe8ed68",
+    "bytes": 2151206,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "rawToolBytesPreserved": true,
+  "producerPersonallyViewed": true,
+  "observations": [
+    "Personally viewed: full bob, both hands incl side palm, complete long skirt, sock/ankles and all sneaker soles white, real body gaps colored."
+  ],
+  "producerUseDecision": "HOLD-rear-skirt-fabric-mistaken-for-background",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "userApproved": false,
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "fixedOriginalCoordinates": true,
+    "travel": 0,
+    "perspective": 0,
+    "slope": 0,
+    "contactShadow": "included"
+  },
+  "method": {
+    "sourceRgb": "exact unchanged mother only",
+    "union": "MAX(L(F),L(S))",
+    "originalRgbDrawsPerUnion": 1,
+    "pngPixelEditing": false,
+    "manualThreshold": false,
+    "morphology": false,
+    "warp": false
+  },
+  "scope": "Production candidate only; native browser union, seam and full source RGB must be personally viewed before primary static-layer admission.",
+  "laterMaterialDiagnosis": {
+    "recordedAt": "2026-10-26T01:38:02.634Z",
+    "decision": "HOLD-rear-skirt-fabric-mistaken-for-background",
+    "evidence": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/night/layers/browser-shin-diagnostic-v1.png",
+    "detail": "Exact source material close-up confirms dark area behind ankles is actual long-skirt fabric. This old stage cut it, causing false wood through clothing in composite. Not approved/re-fed."
+  }
+}

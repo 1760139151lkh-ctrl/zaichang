@@ -15,6 +15,7 @@ import type { CampusScheduleBlock } from '../shared/campus-calendar';
 import type { AgendaOccurrence, AgendaReference } from '../shared/agenda';
 import { calendarCommitment } from '../shared/calendar';
 import { fromTimeInput, toTimeInput } from './time';
+import { uiError } from './ui';
 import { SpringLayoutButton } from './motion/SpringLayoutButton';
 
 const MINUTE = 60000;
@@ -243,10 +244,26 @@ export function AgendaDayTimeline({
       setMoveError('');
       return value ? Date.parse(value) : undefined;
     } catch (error) {
-      const message = error instanceof Error ? error.message : '这一天的时刻需要重新选一下。';
+      const message = uiError(error, { fallback: '这一天的时刻需要重新选一下。' });
       setAnnouncement(message); setMoveError(message);
       return undefined;
     }
+  }
+  function onVisibleDate(instant: number, targetDate: string, visibleDate = date) {
+    // A continuation shown after midnight still belongs to its original start
+    // date. Moving its visible slice by one day moves the whole occurrence by
+    // one local date, including across a daylight-saving boundary.
+    const offset = Math.round((Date.parse(`${targetDate}T12:00:00Z`) - Date.parse(`${visibleDate}T12:00:00Z`)) / (24 * HOUR));
+    return onDate(instant, shiftDate(toTimeInput(new Date(instant).toISOString(), timeZone).slice(0, 10), offset));
+  }
+  function moveBounds(start: number, end: number, target = day) {
+    if (!day || !target) return undefined;
+    const duration = end - start;
+    // A clipped cross-midnight card must stay grabbable. Keep at least one
+    // minute in the visible day; the owner reviews the complete interval.
+    return start < day.start || end > day.end
+      ? { min: target.start - duration + MINUTE, max: target.end - MINUTE }
+      : { min: target.start, max: Math.max(target.start, target.end - duration) };
   }
 
   function updateMove(value?: Move) {
@@ -372,7 +389,7 @@ export function AgendaDayTimeline({
       .find(node => { const bounds = node.getBoundingClientRect(); return active.clientX >= bounds.left && active.clientX <= bounds.right
         && active.clientY >= bounds.top && active.clientY <= bounds.bottom; });
     if (landing?.dataset.agendaDropDate) {
-      const startsAt = onDate(active.localStartsAt, landing.dataset.agendaDropDate);
+      const startsAt = onVisibleDate(active.localStartsAt, landing.dataset.agendaDropDate);
       if (startsAt !== undefined) updateMove({ ...active, id: active.key, startsAt, rawStartsAt: startsAt,
         mode: 'pointer', targetDate: landing.dataset.agendaDropDate });
       return;
@@ -430,7 +447,8 @@ export function AgendaDayTimeline({
     if (!isActive || event.button !== 0 || !event.isPrimary || !day || !stage.current || draft || disabled || item.saved !== true)
       return;
     const range = { start: entry.start, end: entry.end };
-    if (!range || range.start < day.start || range.end > day.end) return;
+    const bounds = moveBounds(range.start, range.end);
+    if (!bounds) return;
     cancelMove();
     const node = event.currentTarget;
     node.focus({ preventScroll: true });
@@ -448,10 +466,10 @@ export function AgendaDayTimeline({
       startX: event.clientX,
       clientX: event.clientX,
       clientY: event.clientY,
-      grabOffset: event.clientY - node.getBoundingClientRect().top,
+      grabOffset: event.clientY - node.getBoundingClientRect().top + Math.max(0, viewStart - range.start) / HOUR * PIXELS_PER_HOUR,
       moved: false,
-      min: day.start,
-      max: Math.max(day.start, day.end - (range.end - range.start)),
+      min: bounds.min,
+      max: bounds.max,
       anchor: day.start,
       viewStart,
       localStartsAt: range.start,
@@ -508,12 +526,13 @@ export function AgendaDayTimeline({
       return;
     }
     if (['PageUp', 'PageDown'].includes(event.key) && !event.altKey && !event.ctrlKey && !event.metaKey
-      && !draft && !disabled && day && item.saved === true && entry.start >= day.start && entry.end <= day.end) {
+      && !draft && !disabled && day && item.saved === true) {
       event.preventDefault();
       const previous = active?.id === entry.key ? active : undefined;
       const previousStart = previous?.startsAt ?? entry.start;
-      const targetDate = shiftDate(toTimeInput(new Date(previousStart).toISOString(), timeZone).slice(0, 10), event.key === 'PageDown' ? 1 : -1);
-      const startsAt = onDate(previousStart, targetDate);
+      const direction = event.key === 'PageDown' ? 1 : -1;
+      const targetDate = shiftDate(previous?.targetDate || date, direction);
+      const startsAt = onDate(previousStart, shiftDate(toTimeInput(new Date(previousStart).toISOString(), timeZone).slice(0, 10), direction));
       if (startsAt === undefined) return;
       updateMove({ id: entry.key, original: previous?.original || { ...item }, reference: entry.reference,
         originalStart: entry.start, originalEnd: entry.end, contextKey, startsAt, rawStartsAt: startsAt, mode: 'keyboard', targetDate });
@@ -532,16 +551,17 @@ export function AgendaDayTimeline({
     )
       return;
     const range = { start: entry.start, end: entry.end };
-    if (!range || range.start < day.start || range.end > day.end) return;
     event.preventDefault();
     expandDay();
     const previous = active?.id === entry.key ? active : undefined;
     const targetDay = previous?.targetDate ? agendaDayWindow(previous.targetDate, timeZone) || day : day;
+    const bounds = moveBounds(range.start, range.end, targetDay);
+    if (!bounds) return;
     const direction = event.key === 'ArrowUp' || event.key === 'ArrowLeft' ? -1 : 1;
     const instant = clamp(
       (previous?.startsAt ?? range.start) + direction * (event.shiftKey ? 1 : 15) * MINUTE,
-      targetDay.start,
-      Math.max(targetDay.start, targetDay.end - (range.end - range.start)),
+      bounds.min,
+      bounds.max,
     );
     updateMove({
       id: entry.key,
@@ -627,7 +647,7 @@ export function AgendaDayTimeline({
         {[-1, 0, 1].map(offset => { const target = shiftDate(date, offset); return <button type="button" key={target}
           data-agenda-drop-date={target} className={moving.targetDate === target ? 'is-target' : ''}
           onClick={() => { const move = movingRef.current; if (!move) return;
-            const start = onDate(move.startsAt, target); if (start === undefined) return;
+            const start = onVisibleDate(move.startsAt, target, move.targetDate || date); if (start === undefined) return;
             proposeMove({ ...move, startsAt: start, rawStartsAt: start, targetDate: target }); }}>
           <span>{offset === -1 ? '前一天' : offset === 1 ? '后一天' : '这一天'}</span><time>{target.slice(5).replace('-', ' / ')}</time>
         </button>; })}
@@ -663,7 +683,7 @@ export function AgendaDayTimeline({
               }}
               aria-hidden="true"
             >
-              <span>{clock(oldRange.start)}</span>
+              <span>{oldRange.start < day.start || oldRange.end > day.end ? timeRange(oldRange.start, oldRange.end) : clock(oldRange.start)}</span>
             </div>
           )}
           {drawingEntries.map((entry) => {
@@ -687,9 +707,7 @@ export function AgendaDayTimeline({
               entry.kind === 'action' &&
               !draft &&
               !disabled &&
-              entry.item.saved === true &&
-              entry.start >= day.start &&
-              entry.end <= day.end;
+              entry.item.saved === true;
             const style = {
               top: pixels(shownStart),
               height: cardHeight,

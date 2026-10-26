@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "assetType": "literary-room-complete-mother",
+  "id": "rana-listening-apricot-literary-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "rana-listening-apricot-literary-v1.prompt.json",
+  "promptFileSha256": "ab9544f3f8c915bd8d1d0f4ddfa7dc8cca9b32c047af40a584fa7e441b088b47",
+  "submittedPrompt": "Create a complete 1536×1024 landscape mother illustration of Rana in the approved literary room. Image 1 is the only spatial reference: preserve its warm apricot daylight, camera and furniture layout, lake/town/mountain windows, left wooden desk and chair, round lamp table, cream right window bench, plaid pillows, knit throw, foreground plants, rug and wood floor. Image 2 supplies only the correct Rana identity/outfit and close bench apparent scale. Start from the empty room, not a changed version of her chat pose.\n\n“She has stopped what she was doing.” Rana had been absorbed by a little patch of light. At one particular phrase from you, her attention truly moves to your side. The pause is small but specific: she chooses to give this stretch of time to what you are saying. Her eyes are focused and serious in her own youthful way, lips naturally relaxed, not a therapist's wise face, pity, generic consolation, a large-eyed service smile, or an eager performance of listening. She has her own mind and can be affected by a sentence. Let the moment feel slightly interrupted, attentive and alive, without dramatizing sorrow or guessing trauma. Keep the room's everyday sun unchanged.\n\nSeat her back on the near right bench, supported at its real depth, with an upright relaxed torso turned just a little away from the window and attention now on the viewer. Do not lean or enlarge her head toward the camera. Keep image 2's apparent head size and close-bench scale, crown near y110 and full soles near y890. Both hands lie simply and loosely together on her own lap; sleeves/wrists are coherent and no unsupported gesture is required. Hips/thighs rest on linen cushion, knees and lower legs connect naturally, complete lace-up black boots relate honestly to the floor. Full head and both boots remain in frame. Do not lift or move furniture to enlarge her; distant left desk/chair stay empty. No new prop needs to explain the interruption.\n\nRana has a short silver-white bob, relaxed soft bangs and faint lavender tips; own-right eye gold and own-left eye blue (viewer-left gold/viewer-right blue in frontal view). Clearly separate hair strands, eyelids, irises and brows, keep both eyes readable. Original loose black short sleeve top over pale white long sleeves, white shorts and black lace-up ankle boots. Youthful anime rendering with finely observed face and hair integrated into rich room materials and shared sunlight, credible cushion/boot contact shadows, no separate glowing character layer. No cat, guitar, tea in hands, paper performance, captions, UI, readable writing, other characters or costume swap. One whole coherent lived-in scene, with the quiet turn of attention carrying the psychology.",
+  "submittedPromptSha256Utf8NoTrailingLF": "3a7e34253834319eed26237008c4bf90ae1bb4e18990ee2acbe6f25fcef4fe6c",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "sole-room-and-camera-input"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.png",
+      "sha256": "060e897c7b9ebdefc5ab84d6fbada2983625b19e6a4ebc57501ede19c5259919",
+      "role": "root-approved-Rana-identity-and-near-bench-scale-only"
+    }
+  ],
+  "output": {
+    "file": "rana-listening-apricot-literary-v1.png",
+    "sha256": "8dffee56695d45ec3195d298d808e5a2f71c92508e8418f4e46ad0dbfb90b01d",
+    "bytes": 2394841,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-a251cde9-0a8c-4505-a28d-08bc8a32c3b1.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "primaryApproved": false,
+    "layerApproved": false
+  },
+  "status": "producer-viewed-awaiting-root-mother-review",
+  "producerReview": {
+    "reviewedAt": "2026-10-25T12:26:09.443974+00:00",
+    "method": "Personally inspected actual full native ImageGen output at 1536x1024 before next call.",
+    "observations": [
+      "Attentive direct gaze and relaxed slightly parted mouth, clear silver bob and heterochromia; no large service smile.",
+      "Both hands simply rest together on supported lap, with continuous sleeves/wrists.",
+      "Crown around y105 and complete boot soles near y890, consistent with correct chat reference rather than head-forward enlargement; seat/knee/boot relation visible."
+    ],
+    "issues": [
+      "The tiny interruption itself is conveyed through gaze and hands in one still frame; no temporal action or interaction is claimed.",
+      "Overlapping fingers are only certified as the visible simple hand relationship, not hidden anatomy."
+    ],
+    "rootApprovalRequired": true
+  },
+  "character": "rana",
+  "activity": "listening",
+  "palette": "apricot",
+  "creativeBrief": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/rana-listening-apricot.md",
+    "sha256": "ea53ad17bc09b495160a8f98a54c65d3674ecb2e8346e15bb517a326c0b0600a",
+    "title": "她把自己的事停住了",
+    "role": "literary-direction-text-only"
+  },
+  "generationBudget": {
+    "wave": "rana-apricot-wave-a",
+    "maxCalls": 8,
+    "callOrdinal": 5,
+    "callsForThisCell": 1,
+    "retries": 0
+  },
+  "approvalBoundary": {
+    "primaryAccepted": false,
+    "layerAccepted": false,
+    "runtimeAccepted": false,
+    "runtimeRegistered": false,
+    "rootReviewPending": true,
+    "motherOnly": true
+  }
+}

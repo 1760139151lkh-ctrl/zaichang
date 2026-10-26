@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "native-contact-receiver-selection-step-candidate",
+  "character": "sakiko",
+  "activity": "chat",
+  "palette": "rain",
+  "environmentVariant": "rain-night",
+  "stage": "S1",
+  "recordedAt": "2026-10-25T13:30:05.432137+00:00",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170ed-b14d-7321-9cf7-3bd222b6ff42\\exec-4d4e25e5-2e9d-4852-af84-7ef3b3f3106c.png",
+  "toolOutputEvent": "Generated images are saved to C:\\Users\\17601\\.codex\\generated_images\\01a170ed-b14d-7321-9cf7-3bd222b6ff42 as C:\\Users\\17601\\.codex\\generated_images\\01a170ed-b14d-7321-9cf7-3bd222b6ff42\\exec-4d4e25e5-2e9d-4852-af84-7ef3b3f3106c.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-rain-v1.png",
+      "sha256": "229156a8a56698f5e0fb73424c3b65dc5fe3adde0fbee3101033ca5df1ce3f2f"
+    }
+  ],
+  "exactNewMother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-rain-v1.png",
+    "sha256": "229156a8a56698f5e0fb73424c3b65dc5fe3adde0fbee3101033ca5df1ce3f2f"
+  },
+  "promptFile": "contact-white-environment-v1.prompt.txt",
+  "promptFileSha256": "b1a003a6abb343766a8977278d383eed2ff3f960189d32cc587633b419b46308",
+  "submittedPromptSha256": "dfaba5c8fa5c283d62ae0c71d71b07d193d6b0f0946f989fa5ec56a7656451ef",
+  "output": {
+    "file": "contact-white-environment-v1.png",
+    "sha256": "8a78ac1dd4dc9c5486aa36754f41d028b9f57bba70f9a81b383fd2216b114e7f",
+    "bytes": 2250550,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "producerPersonallyViewed": true,
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "generationBudgetScope": "Root separately authorized at most S1/S2 for each of three correct new mothers after old-S hold. Six S calls then stop. No old mask or failed composite is an image input.",
+  "nativePngPixelsEditedAfterTool": false,
+  "producerObservation": "Saved S1 output personally viewed inline: white receiver follows actual rain-night full skirt support and the two current shoes/heels, with original warm-dark mother/body intact. Candidate source-local receiver, no new caster/pose/runtime approval.",
+  "submittedPromptTransform": "Exact UTF-8 prompt text with LF newlines. Saved prompt file has Windows CRLF bytes from write_text; read with universal newline normalization to reproduce actual submitted LF text. File-byte SHA and submitted-text SHA are intentionally separate and both verified.",
+  "promptLineageVerified": {
+    "fileByteShaMatches": true,
+    "submittedLfTextShaMatches": true
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-mother-original-rgb-included-layer-production",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "palette": "rain",
+  "timeOfDay": "night",
+  "neutralTime": "night",
+  "weather": "unknown",
+  "original360ExactActivityCell": false,
+  "cell": "sakiko/neutral-presence/rain/night/time-night",
+  "stage": "S1",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: precise-object-edit.\nAsset: deliberate original-place LOCAL receiver markup for the full approved time-only NIGHT Sakiko mother,1536x1024. ONLY provided image is exact clean mother. Keep all source coordinates, whole person/openbook/room colors and opaque closed curtain. This is selection markup, not newly painted shadows or a changed pose.\n\nMark PURE WHITE the full actual source-local receiving material under seated skirt/hips and both grounded loafers. The seated linen marks stay tight to source contact: small islands at left hem nearx938..979,y555..586, underneath thigh/hem aroundx1090..1150,y601..617, and right skirt/hip aroundx1238..1356,y565..608, only where actual contact exists. Never mark the long empty pale cushion, independent book patch or unrelated cloth highlight. The book remains on her lap, all girl/hair/ribbons/clothing/hands/shoes remain colored.\n\nImportant correction: select the ENTIRE short dark grounding BASE on wood below the FULL front/toe edges, not a thin ring kissing the shoes and not only the shade behind their heels. Source front shoe bottom is abouty919. Its actual dark contact/short diffuse receiving wood extends BELOW it: mark a solid white CORE all across its visible dark source base approximatelyx850..993,y919..949, following the real irregular source outline, then only the short actual outer soft transition just beyond. The farther/left toe nearx824..902,y882..895 likewise has source-local dark wood contact in front of it down to abouty921 where visible. Include the short real heel/side receiver nearx982..1012,y879..920. These are loose inspection neighborhoods, NOT white rectangles. Follow source perspective and actual dark local footprint, never invent a generic oval, long stripe, large cast shadow or far lamp reflection. Preserve the actual meeting of close two-foot contacts where real shade meets. Keep distant wood/rug and all unrelated lamp pools untouched. No rug island unless that surface actually receives the local source contact.\n\nThe white marker should be OPAQUE over the complete actual dark contact center/near receiving base; do not fade it out prematurely at the shoe's front rim. Use only a short soft marker boundary outside the selected complete core, so later mask will retain the actual full dark source shadow before its final fade. Do not brighten/repaint actual surrounding floor, change sourceRGB, move feet, crop/resize, or draw guide lines. Source-colored shoes, including their bottommost soles/heels, remain unchanged, slight outer antialias overlap with receiver is harmless for MAX union.\n\nAll naturally pale closed curtain/cushion/lamp/bookpages and UNMARKED source stays original colored. Output opaque full1536x1024 original color image with only complete true LOCAL receiver/contact materials deliberately white. No UI/text/checkerboard/new person/weather/exterior. This will select sourceRGB ONCE at fixed original place throughMAX(F,S), not a portable caster, travel/slope/perspective0.",
+  "promptFile": "contact-step1-marked-v2.prompt.txt",
+  "promptFileSHA256": "33ecca13e781ba11690ea2e21b6610e4ec7a76b880a1d9e6b68747af1ac34733",
+  "actualToolArguments": {
+    "prompt": "Use case: precise-object-edit.\nAsset: deliberate original-place LOCAL receiver markup for the full approved time-only NIGHT Sakiko mother,1536x1024. ONLY provided image is exact clean mother. Keep all source coordinates, whole person/openbook/room colors and opaque closed curtain. This is selection markup, not newly painted shadows or a changed pose.\n\nMark PURE WHITE the full actual source-local receiving material under seated skirt/hips and both grounded loafers. The seated linen marks stay tight to source contact: small islands at left hem nearx938..979,y555..586, underneath thigh/hem aroundx1090..1150,y601..617, and right skirt/hip aroundx1238..1356,y565..608, only where actual contact exists. Never mark the long empty pale cushion, independent book patch or unrelated cloth highlight. The book remains on her lap, all girl/hair/ribbons/clothing/hands/shoes remain colored.\n\nImportant correction: select the ENTIRE short dark grounding BASE on wood below the FULL front/toe edges, not a thin ring kissing the shoes and not only the shade behind their heels. Source front shoe bottom is abouty919. Its actual dark contact/short diffuse receiving wood extends BELOW it: mark a solid white CORE all across its visible dark source base approximatelyx850..993,y919..949, following the real irregular source outline, then only the short actual outer soft transition just beyond. The farther/left toe nearx824..902,y882..895 likewise has source-local dark wood contact in front of it down to abouty921 where visible. Include the short real heel/side receiver nearx982..1012,y879..920. These are loose inspection neighborhoods, NOT white rectangles. Follow source perspective and actual dark local footprint, never invent a generic oval, long stripe, large cast shadow or far lamp reflection. Preserve the actual meeting of close two-foot contacts where real shade meets. Keep distant wood/rug and all unrelated lamp pools untouched. No rug island unless that surface actually receives the local source contact.\n\nThe white marker should be OPAQUE over the complete actual dark contact center/near receiving base; do not fade it out prematurely at the shoe's front rim. Use only a short soft marker boundary outside the selected complete core, so later mask will retain the actual full dark source shadow before its final fade. Do not brighten/repaint actual surrounding floor, change sourceRGB, move feet, crop/resize, or draw guide lines. Source-colored shoes, including their bottommost soles/heels, remain unchanged, slight outer antialias overlap with receiver is harmless for MAX union.\n\nAll naturally pale closed curtain/cushion/lamp/bookpages and UNMARKED source stays original colored. Output opaque full1536x1024 original color image with only complete true LOCAL receiver/contact materials deliberately white. No UI/text/checkerboard/new person/weather/exterior. This will select sourceRGB ONCE at fixed original place throughMAX(F,S), not a portable caster, travel/slope/perspective0.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.png",
+      "sha256": "2d571adc2146dd779954f0d014ef015b658a83250d6626d707dcece3c6335d8e",
+      "role": "exact clean mother only; no held mask or review image"
+    }
+  ],
+  "mother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.png",
+    "sha256": "2d571adc2146dd779954f0d014ef015b658a83250d6626d707dcece3c6335d8e",
+    "sourceRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.source.json",
+    "sourceRecordSHA256": "c4a7dfd47161498c7801b25e520fd00b0b36fd66f5de1b90da86462d2ec5efe2",
+    "primaryAdmission": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/root-primary-mother-admission-v1.json",
+    "primaryAdmissionSHA256": "1ddf9b15e52dcbc9bc360ec7edd172b9d26c25057efe808e98cbe52f30417666"
+  },
+  "readDependencies": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "bytes": 12246
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "bytes": 12645
+    }
+  ],
+  "dossierVersion": "2026-10-25.1",
+  "wardrobeId": "sakiko-literary-navy-adaptation",
+  "output": {
+    "file": "contact-step1-marked-v2.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-2494313f-22cb-4900-b820-255b0c3bd64f.png",
+    "sha256": "efc5cadc34549d2c9a73590aedb540f17edd0717deba01989819a1bf7720ee23",
+    "bytes": 2085042,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "status": "producer_candidate_browser_reviewed_pending_root",
+    "observations": [
+      "完整输出亲看：新接收选择使前鞋前缘下方有连续完整白核，座面选择也有少量与身体/裙边F区重叠；U=MAX允许重叠，不以标记图人物RGB作成品。真实落地仍需S转换后原RGB浏览。"
+    ],
+    "browserEvidence": [
+      "browser-observations/01-scene.png",
+      "browser-observations/02-subject.png",
+      "browser-observations/03-face.png",
+      "browser-observations/04-book.png",
+      "browser-observations/05-hem.png",
+      "browser-observations/06-shoes.png",
+      "browser-observations/07-contact.png"
+    ]
+  },
+  "heldInputUsed": false,
+  "originalMotherRGBChanged": false,
+  "pngPixelEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "selectedForAssembly": true,
+  "submittedPromptSHA256": "b2c84c587c94d327d33b7f3dd063d4f73d3bfd5d919054d8349e7cc541db8fbb"
+}

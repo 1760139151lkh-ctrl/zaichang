@@ -1,0 +1,11 @@
+Use case: background-extraction. Asset type: fixed INCLUDED contact-receiver luminance mask, S2 revision 2. The ONLY input is the complete 1536x1024 recognition v2 scene with THREE small original-source support receiver groups deliberately marked white. Preserve that full canvas and all mark coordinates exactly.
+
+Keep all THREE ALREADY MARKED groups WHITE and make every other pixel pure BLACK:
+- DO NOT DROP THE SMALL SEAT GROUP: there is a deliberately painted little PURE-WHITE LINEN/CONTACT WEDGE immediately LEFT OF and BELOW the girl's dark trailing skirt/cardigan edge, near original x960..1045,y540..581 (around x995,y564). It is a small receiver/material mark, not the whole bright bench. Preserve that existing white wedge exactly. It must remain visible in the final black mask, even though nearby unpainted linen is naturally light.
+- Preserve the already painted first local sole/floor contact along the bottom of the left complete loafer, near x1055..1165,y855..910.
+- Preserve the already painted second local sole/floor contact along the bottom of the right complete loafer, near x1150..1245,y860..910.
+These coordinate neighborhoods only identify the already painted irregular marks. Do NOT fill their rectangles, add geometry, expand or connect the groups, invent a shadow, or move white onto the body. Keep the existing thin antialiased source edges.
+
+The original colored girl, dark hair/ribbon, face, hands/book, all navy and plaid clothing, exposed knees, below-knee socks and whole shoes become BLACK. All other natural light linen, plaid pillows, knitted throw, curtains/clouds, flowers, lamp shade, floor sun patches/rug and room objects become BLACK. Only the three intentionally painted receiver marks stay white. In particular, do not keep the whole naturally pale empty seat and do not erase the small intentionally painted seat wedge.
+
+Output ONE opaque 1536x1024 black PNG with those exact three existing local white receiver groups. No color scene, new body, new cast shadow, labels, arrows, boxes, text, checkerboard, resize, crop, zoom, recentering or translation.

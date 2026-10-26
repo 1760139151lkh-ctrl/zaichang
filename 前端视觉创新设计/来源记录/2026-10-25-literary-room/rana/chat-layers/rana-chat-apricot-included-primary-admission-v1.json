@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "primary-fixed-source-included-layer-admission",
+  "key": "rana/chat/apricot",
+  "recordedAt": "2026-10-25T11:41:51.573918+00:00",
+  "reviewer": "root / primary",
+  "approvedByPrimary": true,
+  "runtimeAccepted": false,
+  "source": "Explicit root message after personal scene/face/seat/feet native comparison",
+  "assets": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.png",
+      "sha256": "060e897c7b9ebdefc5ab84d6fbada2983625b19e6a4ebc57501ede19c5259919",
+      "bytes": 2417341,
+      "canvas": {
+        "width": 1536,
+        "height": 1024
+      },
+      "pngBitDepth": 8,
+      "pngColorType": 2
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "bytes": 2524961,
+      "canvas": {
+        "width": 1536,
+        "height": 1024
+      },
+      "pngBitDepth": 8,
+      "pngColorType": 2
+    },
+    "F": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/figure-mask-v1.png",
+      "sha256": "db455865e6f624158babe8d34ac42af15b4702ce1ad4697e6cc03e4fe1e40bd7",
+      "bytes": 466820,
+      "canvas": {
+        "width": 1536,
+        "height": 1024
+      },
+      "pngBitDepth": 8,
+      "pngColorType": 2,
+      "maskMode": "luminance"
+    },
+    "S": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/contact-mask-v1.png",
+      "sha256": "a1ccab76d88deaebc84a61a6287f5f898959a13bac41c9adf666a97a9c76a6e6",
+      "bytes": 305379,
+      "canvas": {
+        "width": 1536,
+        "height": 1024
+      },
+      "pngBitDepth": 8,
+      "pngColorType": 2,
+      "maskMode": "luminance"
+    }
+  },
+  "bundleAtVisualReview": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/rana-chat-apricot-included-bundle-v1.json",
+    "sha256": "5f04221eb5d411010c5896dbe55a065d71f4bb99b84736377849672c13acff17",
+    "bytes": 8071
+  },
+  "observation": "Root saw full scene/original/BG/FSMAX; heterochromatic eyes/short hair triples; palms/knees/complete hem/shorts and original cushion receiver; complete boots/soles/heels/wide floor receiver. Fixed composite has no white seam or obvious patch and preserves original proportions.",
+  "assembly": {
+    "formula": "MAX(luminance(F),luminance(S)); original mother RGB once",
+    "contactShadow": "included",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "pureCaster": false
+  },
+  "scope": "Exact fixed source static joint; receiver is not pure shadow. Whole visibility/whole-pose swap only; runtime remains false."
+}

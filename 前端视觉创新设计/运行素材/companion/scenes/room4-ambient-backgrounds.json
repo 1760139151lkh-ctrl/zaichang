@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "roomFamily": "room4",
+  "width": 1536,
+  "height": 1024,
+  "weather": {
+    "clear-day": {
+      "file": "room-apricot-candidate-v4.png",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    },
+    "twilight": {
+      "file": "sakiko-chat-violet-background-calibrated-v9.png",
+      "sha256": "b00b4ce21ffef719216b957415d2efc4434dc6d0b9ef788524b185cf0be940c8"
+    },
+    "rain-night": {
+      "file": "sakiko-chat-rain-background-calibrated-v3.png",
+      "sha256": "cf93f67e148b635043fe83280256c2c080ab2515435e6433e52791766626fd9e"
+    },
+    "overcast-day": {
+      "file": "room4-cloudy-day-v1.png",
+      "sha256": "d218968a3f057a961dd0e9bfbc88ae9c95fc78c0d6e49dfdaf4c71e78c4e8526"
+    },
+    "rain-day": {
+      "file": "room4-rainy-day-v1.png",
+      "sha256": "d561c4db01557f642d7ccbabd444ab916d1fd200e8dc8392295dbbb9ff5c0cdd"
+    },
+    "dry-night": {
+      "file": "room4-dry-clear-night-v1.png",
+      "sha256": "4e86e26b6b0b59f4bcef537cf593776a10f9134045219117fd1ecf853b7361ea"
+    }
+  },
+  "timeOnly": {
+    "day": {
+      "file": "room4-time-day-v1.png",
+      "sha256": "01782f953ab7f77d693deab531f9164a9b949698c33be5ff09bde88a014f5ed8"
+    },
+    "night": {
+      "file": "room4-time-night-v1.png",
+      "sha256": "c98d0a07c1a64f72034b03487bff1ce8f3cbb90267eb4c6c284759880946ed47"
+    }
+  },
+  "review": {
+    "approvedByPrimary": true,
+    "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/primary-room4-ambient-background-admission-2026-10-25.json",
+    "scope": "Eight exact-SHA room4 empty backgrounds only. No character/activity layer or runtime acceptance.",
+    "runtimeAccepted": false
+  }
+}

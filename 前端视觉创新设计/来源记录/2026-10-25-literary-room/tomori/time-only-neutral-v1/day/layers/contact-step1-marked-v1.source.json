@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "recordType": "source-rgb-included-layer-image-stage",
+  "characterId": "tomori",
+  "neutralTime": "day",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "stage": "S1",
+  "tool": "image_gen.imagegen",
+  "toolElapsedMs": 34795,
+  "recordedAt": "2026-10-26T01:13:08.206983+00:00",
+  "sourceConversationId": "01a17365-def4-7ef0-9767-09f785cec060",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/tomori-neutral-time-day-v1.png",
+      "sha256": "ee943e04da7a50748d3e331ed4339548b842388027d0a5fe360e95a4c2d270b7",
+      "role": "Only exact root-approved clean full mother; source-local receiver selection target",
+      "personallyViewedBeforeGeneration": true
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: precise-object-edit. S1 semantic selection markup of ORIGINAL source-local RECEIVING MATERIAL/contact shade, for a FIXED included layer. ONLY input is the exact root-approved Tomori TIME-DAY full mother, 1536x1024. Keep canvas/camera/all original positions. Entire Tomori, hair, clothes, skin, hands, pencil, notebook, legs and both shoes remain ORIGINAL COLORS; do not redraw/recolor/white-mark any person or book.\n\nMark PURE WHITE ONLY these actual original local receiving patches:\n1. Real linen immediately UNDER/TOUCHING her trailing blazer/skirt/hip-thigh seated weight, only visible compressed/darkened islands adjacent to the actual lower hem around x1010..1230,y570..630. These are inspection limits, NOT boxes. No empty cushion strip left of her, no bench-wide rectangle, no hidden material under the body invented. The notebook rests on LAP, not on an empty cushion: no separate book-cushion patch. Both hands hold the notebook, no new hand-on-seat receiver.\n2. The COMPLETE short soft floor-contact shade footprints of BOTH existing loafers. Preserve the full local darkened WOOD area immediately beneath/around actual toes/side soles/heels, not a mere 1–2 pixel contour. Follow the source's real irregular contact shade and adjacent wood grain, with full white core and source-soft transition near the outside; usually only about 8..30 source pixels beyond soles where genuine shadow/receiver is visible. Neighborhood x775..1030,y790..935 is NOT a box to fill. Keep all shoe leather/soles in original colors because F selects complete shoe RGB. The two receiver patches may meet only if the actual source contact shades meet.\n\nDo NOT select a generic oval/rectangle, whole floor band, rug/fringe, table/chair shadows, broad window or lamp light pool, empty cushion, natural white curtain/throw/flowers/lamp/book page. Retain actual near-grounding area, not just edge strokes. No new shadow rendering, portable black blob, shifted shade, glow, added texture or new ambient occlusion. Only the original receiving WOOD/LINEN pixels are selected to restore their original RGB once through MAX(F,S), travel/slope/perspective=0.\n\nAll unselected scene stays original colored RGB, including naturally light materials. Output one opaque FULL1536x1024 original scene with ONLY those tiny seat-contact islands and full local two-shoe receiver footprints marked deliberately white. No labels, arrows, guides, checker, crop, zoom or resize.",
+  "submittedPromptSha256": "4002468f2db8e963f58e2e703f1923605add9256c532ba9ae729bf10ad8eb0e6",
+  "promptFile": "contact-step1-marked-v1.prompt.txt",
+  "promptFileSha256": "aa422f44f88178207bf227d5e2c9ca9ab35bcaea05c416576b7d9ad77b3a1f7d",
+  "requestFile": "contact-step1-marked-v1.request.json",
+  "requestSha256": "b2b682116e6531c86e5a24c2f13155e819fcdf9e7167dd6e2ff19770a2167849",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-f61eb35e-95f9-40ed-ad00-fa1a5e852245.png",
+  "toolOriginalSha256": "e0c4036488b8e91150252dcc0549dbcc2af40dfabf669df82d7c3e5aab59714f",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/contact-step1-marked-v1.png",
+    "sha256": "e0c4036488b8e91150252dcc0549dbcc2af40dfabf669df82d7c3e5aab59714f",
+    "bytes": 2246590,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true,
+    "resizedOrRetouched": false
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "status": "semantic_receiver_markup_candidate",
+    "observations": "White local linen islands touch trailing hip/skirt/hem; no bench-wide left cushion strip. Both shoes remain colored and white-marked original floor receiver has real area around toes/heels, not just sole strokes. Exact original-RGB union check still pending."
+  },
+  "primaryApproved": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "generationInputAllowed": true,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "original360ExactActivityCell": false,
+  "sourceCodeOrRegistryChanged": false,
+  "generationInputScope": "Only immediate same-position S2 semantic mask conversion"
+}

@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "character": "nyamu",
+  "activity": "resume",
+  "sceneCategory": "S9_RESUME",
+  "palette": "rain",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "nyamu-resume-rain-v1-prompt.txt",
+  "promptFileSha256": "e31a1fd64ed238b2786da76dd4cf047727bcc45f4305787a30a8ebdfb95789a5",
+  "submittedPrompt": "Exact UTF-8 promptFile contents with trailing newline trimmed.",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mujica/resume/nyamu-resume-apricot-mother-candidate-v2.png",
+      "role": "primary-personally-reviewed approved apricot mother; exact figure/pose/support edit target",
+      "sha256": "fe11df2b3080e68bc269dc43a0149f3f0ab05ced35b3629c229cf423d41a671b"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-rain-candidate-v2.png",
+      "role": "clean empty theme room; whole-scene light/weather reference only",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "output": {
+    "file": "nyamu-resume-rain-mother-candidate-v1.png",
+    "toolOriginalPath": "$CODEX_HOME/generated_images/01a1702e-1e74-7ac0-9f86-f1d6b1ffcf30/exec-ca64e80a-d05c-46b6-a2ae-c9fed6f132b8.png",
+    "sha256": "e47ac948888f400ac7b48023dca210304e9554d78ed5eb038725a5a3522ae682",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "bytes": 2165356
+  },
+  "review": {
+    "producerPersonallyViewed": true,
+    "producerObservation": "Full image personally viewed. Approved forward-lean v2 silhouette, lifted eyes, small amused recognition, near wrist/palm-side at thigh, rear palm and two complete ankle shoes retained. Rain window/night lights and warm desk lamp match new skin/clothing/bench/floor lighting. Old daytime hard leaf/grid beams removed; no new pose or melancholy imposed. No definite new anatomy defect seen.",
+    "approvedByPrimary": false,
+    "layers": "not extracted",
+    "runtimeAccepted": false
+  },
+  "sourceSupportReference": "nyamu-resume-apricot-v2-source.json",
+  "boundary": "Approved apricot INPUT is not approval of this themed OUTPUT. No sourceSupportReference is claimed as new runtime calibration.",
+  "matrixCell": {
+    "character": "nyamu",
+    "activity": "resume",
+    "theme": "rain"
+  },
+  "identityBasis": {
+    "officialProfile": "https://anime.bang-dream.com/avemujica/character/nyamu/",
+    "textVerifiedOn": "2026-10-24",
+    "boundary": "Official identity/background; university-companion resume moment is project-original. This relighting uses only approved generated character mother and clean generated theme room, no third-party character pixels."
+  }
+}

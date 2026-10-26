@@ -1,0 +1,62 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "bounded-apricot-literary-wave-b",
+  "character": "uika",
+  "activity": "study",
+  "palette": "apricot",
+  "sceneFamily": "literary-room-v1",
+  "environmentVariant": "clear-day",
+  "waveCallIndex": 1,
+  "waveCallLimit": 10,
+  "numberOfImageInputs": 2,
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "image 1 approved empty room/camera"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.png",
+      "sha256": "df94d1a87f41775108d5b319a6bcc8ec4372283b770ef05ae764adedf2500c5d",
+      "role": "image 2 approved own chat identity/clothes/scale only"
+    }
+  ],
+  "creativeBrief": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-b/uika-literary-room-36-cells-v1.json",
+    "sha256": "f7746767db671c1a5b52504f36649c2a7239e077d2b4d19856605b99d2d889b6",
+    "cell": "uika/study/apricot"
+  },
+  "referenceBoundary": "Approved empty plate plus this exact character approved chat mother for identity/clothes/scale only; no old Umiri v1, old room4, wrong character or copied pose.",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-19b63d50-7384-4368-821f-c8447ac10b0b.png",
+  "output": "uika-study-apricot-literary-wave-b-v1.png",
+  "outputSha256": "e2d564a0893b1a35b182ac78d8b7464883a462c4b7398e54e0798c0c5afdaba9",
+  "promptFile": "uika-study-apricot-literary-wave-b-v1.prompt.txt",
+  "prompt": "Use case: stylized-concept. Asset: ONE new 1536x1024 warm-apricot daylight activity mother in the approved literary room.\nIMAGE 1 is the approved CLEAN EMPTY ROOM: exact camera, connected window/lake/town/mountain, desk and chair at left, books/plants/shelves/pictures, round side table with porcelain lamp/books/cup/flowers, right bench/plaid pillows/knitted throw, foreground blur, rug/floor. Keep their locations, perspective and sizes unchanged. IMAGE 2 is THIS CHARACTER'S approved chat mother for IDENTITY, CLOTHES and CLOSE HUMAN SCALE ONLY. Draw a NEW action and expression from words. Do not copy the chat hand/bracing pose or pasted body; no different character, old room or erroneous crossed legs.\nKeep head top roughly y110..150 according to natural tilt, hip truly supported on the right bench cushion around y550..585, complete soles around y875..915. Same normal youthful human size; no enlarged face, leaning toward lens, zoom/crop, chibi or mature glamour. Keep COMPLETE head/hair, palms/fingers, hem, ankles and both shoes in frame. Natural hip-cushion and feet-floor contact, real weight and material shadow.\nFine Japanese anime figure integrated into the richly painted room. Separate hair groups, cheek strands, upper eyelid/lashes, iris and pupil: readable eyes even when looking down, never fringe/lash/iris fused as black shapes. Distinct skin, hair, paper, fabric and wood in existing window light. The warm side light is calm and dimensional, not an all-over orange filter.\nNo UI, text labels, floating panels, speech bubbles, icons, arrows, motion trails, halo, badges, watermark or readable book print. No new furniture or profession/stage symbols. This is one coherent complete room mother, not a cutout/layer/contact-mask/split-view.\n\nCHARACTER: Misumi Uika (三角初华), approved image 2 identity. Short warm blonde chin-to-neck bob with uneven light fringe, clear PURPLE/VIOLET irises and youthful original anime face. Same plain white short-sleeved T-shirt, soft taupe-gray long skirt, white ankle socks, complete black-and-white low canvas sneakers. No silver-blue long hair, golden eyes or school uniform. Light blonde hair, skin, white shirt and paper remain distinct.\nBASIC SUPPORT: pelvis and uncrossed thighs sit on cushion; long skirt drapes naturally over two parallel knees without a crossed-leg ridge. Two continuous separate lower legs descend to two socked ankles and two complete sneakers with visible natural gap; soles independently rest on original floor. No tucked/detached foot or duplicate calf. Don't make skirt transparent to demonstrate hidden anatomy.\n\nNEW ACTIVITY — STUDY / \"一起想明白\". She wants the other person to explain the missing middle step in their own words; her focus has a little energy of wanting to try together, not a teacher's triumphant smile. Slight gathered brows, quiet lips; violet eyes lift from a margin toward the nearby person's explanation, waiting for the connection. Sit steadily on RIGHT BENCH, torso only slightly inclined toward the supported book, not toward camera. One open modest HARDCOVER book lies securely across lap/thighs; one hand supports it, the other INDEX fingertip lightly marks the OUTER PAGE MARGIN, not the central content. Relaxed elbows close to torso; real finger-page contact shadow. No new desk, pencil near face, worksheets floating or fake equations. A specific reasoning pause, distinct from absorbed reading or easy chat.",
+  "submittedPromptSha256NoTrailingNewline": "00889c6d6b4d3354448e67e1db6f7b6a8a3836d7ce48c702fc056c6d8a441a63",
+  "promptFileSha256": "00889c6d6b4d3354448e67e1db6f7b6a8a3836d7ce48c702fc056c6d8a441a63",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "actualMode": "RGB",
+  "pngEdited": false,
+  "producerViewed": true,
+  "primaryApproved": false,
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "reviewBoundary": "This one activity mother only. No layer or runtime approval, no unlimited retry or other-palette expansion.",
+  "remaining": [
+    "Root personally inspect this exact mother for identity, emotion, framing and physical support",
+    "No layer, registration or runtime acceptance"
+  ],
+  "producerObservations": [
+    "Personally viewed complete 1536x1024 output before next call. Short blonde hair and violet irises/eyelids are clear; mouth and lifted gaze make a specific reasoning pause.",
+    "Open hardcover is supported across skirt lap; one hand holds book edge, the other finger marks a page. Hip sits on cushion; two socked ankles and both complete sneakers remain supported in original floor area.",
+    "Room camera and large furniture remain visually stable; head top about y125 and soles about y875 by visual estimate, not anatomical measurement."
+  ],
+  "producerConcerns": [
+    "Finger lands toward upper/inner page area rather than strictly the outer margin requested. Book/hand contact remains legible; primary should judge the study expression and page-pointing detail.",
+    "This brief intentionally uses lap-supported study on the bench, not the left desk; no runtime or layer acceptance."
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "id": "rana-chat-apricot-literary-v1",
+  "sceneFamily": "literary-room-v1",
+  "character": "rana",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "width": 1536,
+  "height": 1024,
+  "mother": "rana-chat-apricot-literary-mother-v1.png",
+  "background": "literary-room-clear-day-v1.png",
+  "mask": "rana-chat-apricot-literary-figure-mask-v1.png",
+  "maskMode": "luminance",
+  "contactMask": "rana-chat-apricot-literary-contact-mask-v1.png",
+  "seat": [
+    0.7799479166666666,
+    0.5595703125
+  ],
+  "ground": [
+    0.6477864583333334,
+    0.869140625
+  ],
+  "bodyBounds": [
+    0.580078125,
+    0.0966796875,
+    0.8619791666666666,
+    0.873046875
+  ],
+  "safeTextBoundary": 0.54,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "58.0078125% 9.66796875%, 86.19791666666666% 9.66796875%, 86.19791666666666% 87.3046875%, 58.0078125% 87.3046875%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/rana-chat-apricot-included-primary-admission-v1.json",
+    "geometryRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/rana-chat-apricot-included-bundle-v1.json",
+    "geometryStatus": "Actual Rana complete original and native palm/seat/boots personally viewed; visible receiver surface references, no hidden hip joint or drag certification.",
+    "geometryEvidence": {
+      "actualPersonDominantCoverageBBox": [
+        891,
+        99,
+        1324,
+        894
+      ],
+      "includedReceiverDominantCoverageBBox": [
+        860,
+        540,
+        1332,
+        904
+      ],
+      "measurement": "Read-only fixed >=0.5 luminance for conservative layout envelope only; original PNG/continuous runtime mask unchanged. bodyBounds uses F only, not receiver outline.",
+      "seatGround": "visible cushion/support and visible shoe-floor reference points, not hidden anatomical joints or unshown feet"
+    },
+    "runtimeSourceSha256": {
+      "mother": "060e897c7b9ebdefc5ab84d6fbada2983625b19e6a4ebc57501ede19c5259919",
+      "background": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "F": "db455865e6f624158babe8d34ac42af15b4702ce1ad4697e6cc03e4fe1e40bd7",
+      "S": "a1ccab76d88deaebc84a61a6287f5f898959a13bac41c9adf666a97a9c76a6e6"
+    },
+    "layerReview": "root exact-SHA static MAX(F,S) included joint; no pure caster, independent body motion or runtime acceptance"
+  }
+}

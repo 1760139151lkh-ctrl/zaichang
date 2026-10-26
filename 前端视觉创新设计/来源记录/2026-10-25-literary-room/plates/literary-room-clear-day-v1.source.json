@@ -1,0 +1,23 @@
+{
+  "tool": "built-in image_gen",
+  "sceneFamily": "literary-room-v1",
+  "kind": "empty-room-plate",
+  "environmentVariant": "clear-day",
+  "input": {
+    "path": "前端视觉创新设计\\来源记录\\2026-10-25-ambient-redesign\\sakiko-reading-literary\\sakiko-reading-apricot-literary-v1.png",
+    "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+    "humanSelected": true
+  },
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a16fb3-8f8d-7c72-a744-a441e8907c91\\exec-58f82fc8-15f6-4703-b926-da3e1768f24b.png",
+  "output": "literary-room-clear-day-v1.png",
+  "outputSha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+  "promptFile": "literary-room-clear-day-v1.prompt.txt",
+  "submittedPromptSha256": "3e854eda45e9e76baed6ad514c67488656035d0990663f089cbf6f24575cae26",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "reviewBoundary": "Primary personally viewed complete output: same selected close camera, exact room furniture arrangement, girl/book/body shadows removed, plausible continuous bench cushion/front and floor; empty clear-day plate only. No role/pose/layers/runtime acceptance."
+}

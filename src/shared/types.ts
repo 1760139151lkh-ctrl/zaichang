@@ -3,6 +3,7 @@ import type { NotesBridge } from './notes';
 import type { MaterialsBridge } from './materials';
 import type { LocalSearchBridge } from './search';
 import type { AgendaBridge } from './agenda';
+import type { KeepBridge } from './keep';
 import { DEFAULT_INTERACTION, type InteractionPreferences } from './interaction';
 import { DEFAULT_PERSONA, type PersonaState, type PersonaUpdate } from './persona';
 
@@ -15,6 +16,8 @@ export interface NavigationTarget {
 export const DEEPSEEK_MODEL = 'deepseek-flash' as const;
 export type ImageMimeType = 'image/jpeg';
 export interface ImageAttachment {
+  /** Stable native upload identity; display identity alone grants no access. */
+  attachmentId?: string;
   kind: 'image';
   name: string;
   mimeType: ImageMimeType;
@@ -23,6 +26,7 @@ export interface ImageAttachment {
   height: number;
 }
 export interface TextAttachment {
+  attachmentId?: string;
   kind: 'text';
   name: string;
   text: string;
@@ -36,6 +40,51 @@ export interface Step {
   detail?: string;
   status: StepStatus;
   scope?: string;
+  /** Host presentation of the operation, separate from model guidance and
+   * source coverage. An older step without this field has no such projection. */
+  userFacing?: { title: string; detail?: string; status: StepStatus; coverage?: 'partial' | 'complete' };
+}
+export interface ReplySourceRange {
+  unit: 'unicode_code_point' | 'page_unicode_code_point' | 'page_image' | 'program_source' | 'program_outline' | 'program_states';
+  page?: number;
+  start?: number;
+  end?: number;
+  total?: number;
+  crop?: { x: number; y: number; width: number; height: number };
+  /** The original owner's coverage flag; the stated range is exact. A PDF
+   * range never implies that the rest of the file was read. */
+  complete: boolean;
+}
+export type ReplySourceAddress =
+  | { kind: 'conversation'; sessionId: string; messageId: string; contentVersion: number }
+  | { kind: 'material'; target: import('./materials').MaterialTarget; resourceId: string; sha256: string;
+      page?: number; start?: number; end?: number }
+  | { kind: 'image'; sessionId: string; messageId: string; sourceEventId: string; attachmentId?: string; sha256: string }
+  | { kind: 'notebook'; noteId: string; revision: number; sha256: string; start: number; end: number }
+  | ({ kind: 'interactive' } & import('./keep').KeepWorkLocator)
+  | { kind: 'scene'; sessionId: string; messageId: string; sceneId: string; revision: number };
+/** Native metadata only. A supplied source is not thereby an answer citation,
+ * a body-read acknowledgement or a grant to a later model request. */
+export interface ReplySourceDisplay {
+  /** Display identity only; notes and works are not fabricated Evidence events. */
+  id: string;
+  eventId?: string;
+  kind: 'conversation' | 'document' | 'image' | 'notebook' | 'interactive' | 'scene' | 'other';
+  title: string;
+  availability: 'available' | 'unavailable';
+  reading: { state: 'provided' | 'text_ranges' | 'page_images' | 'program_reads' | 'unknown'; ranges: ReplySourceRange[] };
+  statusText: string;
+  unavailableReason?: string;
+  address?: ReplySourceAddress;
+}
+export interface ReplySourcePage {
+  items: ReplySourceDisplay[];
+  nextOffset: number | null;
+  total: number;
+  privacyEpoch: number;
+  policyRevision: number;
+  sourceBoundary: number;
+  unavailableReason?: string;
 }
 export interface Obligation {
   id: string;
@@ -106,6 +155,9 @@ export interface MessageHostStatus {
   text: string;
 }
 export interface Message {
+  /** UI transport correlation, never source identity or permission. */
+  submissionId?: string;
+  submittedMaterialDocument?: Pick<import('./materials').MaterialItem, 'resourceId' | 'sha256'>;
   /** Host-checked projection of the retained authored event into this plain
    * message body. Attachment labels are outside this range. Address only. */
   authoredSource?: { eventId: string; contentVersion: number; sha256: string; displayStart: 0; displayEnd: number };
@@ -133,6 +185,8 @@ export interface Message {
   sessionId: string;
   role: 'user' | 'assistant';
   authorName?: string;
+  /** Artwork binding captured with this speaker; never a persona or read grant. */
+  authorCompanionId?: string;
   content: string;
   createdAt: string;
   status: 'running' | 'done' | 'error' | 'cancelled';
@@ -158,6 +212,8 @@ export interface Message {
   /** Host delivery stamp for rendering; not stored permission or provenance. */
   presentationBoundaryKey?: string;
   image?: ImageAttachment;
+  /** Ordered originals owned by this message. Event addresses are host-only. */
+  attachments?: (DraftAttachment & { sourceEventId?: string })[];
 }
 export interface Conversation {
   id: string;
@@ -179,6 +235,16 @@ export interface Memory {
 export interface Draft {
   text: string;
   attachment: DraftAttachment | null;
+  /** When present, this is the complete ordered queue (including empty). */
+  attachments?: DraftAttachment[];
+  /** Original owner of a detached, not-yet-admitted editor snapshot. */
+  submission?: { id: string; draftKey: string; controls?: TurnControls; materialDocument?: Pick<import('./materials').MaterialItem, 'resourceId' | 'sha256'> };
+}
+export function getDraftAttachments(draft: Pick<Draft, 'attachment' | 'attachments'>): DraftAttachment[] {
+  return draft.attachments ?? (draft.attachment ? [draft.attachment] : []);
+}
+export function withDraftAttachments<T extends Draft>(draft: T, ordered: DraftAttachment[]): T {
+  return { ...draft, attachment: null, attachments: ordered };
 }
 export interface Settings {
   interaction: InteractionPreferences;
@@ -225,6 +291,7 @@ export interface CampusEvent {
   source: string;
 }
 export interface State {
+  environment?: import('./environment').CompanionEnvironment;
   /** Process-local signalBarrier generation, including account replacement. */
   sourceBoundary?: number;
   matters?: import('./presentation').SharedMatterView[];
@@ -261,6 +328,7 @@ export interface State {
 }
 export type RunEvent =
   | { type: 'message'; message: Message }
+  | { type: 'note_changed'; note: { id: string; revision: number; sha256: string; state: 'active' | 'deleted' } }
   | { type: 'state'; state: State }
   | { type: 'conversations'; conversations: Conversation[] };
 export interface RuntimeOverview {
@@ -313,7 +381,8 @@ export interface WorkoutDeviceChoice {
   provenance: 'device' | 'simulated' | 'unknown';
   reason?: string;
 }
-export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge, AgendaBridge {
+export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge, AgendaBridge, KeepBridge {
+  environment(): Promise<import('./environment').CompanionEnvironment>;
   tiyiStatus(input?: { refreshGateway?: boolean }): Promise<import('./tiyi').TiyiConnectorState>;
   tiyiConnect(input?: { via?: 'direct' | 'webvpn'; accountLogin?: boolean }): Promise<import('./tiyi').TiyiConnectorState & { check: {
     status: import('./tiyi').TiyiObservation['status']; observedAt: string; reason?: string } }>;
@@ -362,13 +431,21 @@ export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge,
   saveDraft(input: { id: string; draft: Draft; retention?: 'session_only'; privacyEpoch?: number }): Promise<void>;
   draftInfo(id: string): Promise<{ digest: string; changed: boolean; empty: boolean; temporary: boolean; persisted: boolean }>;
   unsavedDrafts(): Promise<{ id: string; digest: string; changed: boolean; empty: boolean; temporary: boolean; persisted: boolean }[]>;
+  draftSubmissions(): Promise<{ id: string; draft: Draft; processing: boolean; admitted?: { sessionId: string; userMessageId: string } }[]>;
   persistDraft(input: { id: string; digest: string; confirmed: true }): Promise<void>;
   send(input: {
     sessionId?: string;
+    submissionId?: string;
     content: string;
+    workspaceContext?: import('./workspace-context').WorkspaceContext;
     attachment?: { name: string; text: string };
     image?: ImageAttachment;
     material?: import('./materials').MaterialReference;
+    /** Ordered native uploads, at most three; legacy singular fields remain readable. */
+    attachments?: DraftAttachment[];
+    /** An explicitly accepted whole-document chip, submitted with this turn.
+     * The host qualifies its original owner; previews never send this field. */
+    materialDocument?: Pick<import('./materials').MaterialItem, 'resourceId' | 'sha256'>;
     materialQuote?: import('./materials').MaterialQuoteReference;
     conversationQuote?: import('./source-bookmark').ConversationBookmarkReference;
     noteQuote?: import('./notes').NoteQuoteReference;
@@ -385,7 +462,7 @@ export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge,
     letterReference?: import('./reflective-letter').LetterReference;
     noteReference?: import('./note-presentation').NoteReference;
     rehearsalInteraction?: import('./relationship-rehearsal').RehearsalInteraction;
-  }): Promise<{ sessionId: string }>;
+  }): Promise<{ sessionId: string; userMessageId?: string }>;
   stop(): Promise<void>;
   saveSettings(input: SettingsUpdate): Promise<State>;
   /** Only a never-saved default role follows the chosen artwork. */
@@ -413,6 +490,7 @@ export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge,
     expectedPrivacyEpoch: number;
   }): Promise<RuntimeOverview>;
   evidence(id: string): Promise<import('./harness').EvidenceEvent | null>;
+  replySources(input: { sessionId: string; messageId: string; offset?: number; limit?: number }): Promise<ReplySourcePage>;
   goal(input: {
     id: string;
     expectedRevision: number;

@@ -1,0 +1,1651 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "snapshotRevision": 2,
+  "snapshotStartedAt": "2026-10-25T09:14:02.908188+00:00",
+  "snapshotClosedAt": "2026-10-25T09:14:03.050171+00:00",
+  "policy": "One captured source path list and exact bytes; no continuous polling. Later files or reviews require a new explicit snapshot.",
+  "rootMotherAdmission": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+    "sha256": "010ceb6067ad63560676b1af5af8e641102ecba6d773b5310490ac33aab4c48d",
+    "bytes": 9123,
+    "capturedAt": "2026-10-25T09:14:02.908764+00:00"
+  },
+  "rootPlateAdmission": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/literary-room-empty-plates-primary-admission-v1.json",
+    "sha256": "8ed5c9723ccf61f178ffa5e7f90a66f05b18fc6e44c8ba1124782b679a045c0c",
+    "bytes": 4399,
+    "capturedAt": "2026-10-25T09:14:02.909131+00:00"
+  },
+  "sourceRecords": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-pilot/anon-chat-apricot-literary-v1.source.json",
+      "sha256": "6b3fb4659d9b2934aa6875c36e008adaa31ce461674293a66ba540b026a92f5e",
+      "bytes": 9296,
+      "capturedAt": "2026-10-25T09:14:02.912791+00:00",
+      "sceneFamily": null,
+      "kind": "complete-mother-first-literary-room-pilot"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.source.json",
+      "sha256": "315aeab44f31ab65fc263c68c3428fffe3bf53a323a1acbd8c9ac535508f2987",
+      "bytes": 3696,
+      "capturedAt": "2026-10-25T09:14:02.913242+00:00",
+      "sceneFamily": "literary-room-v1",
+      "kind": "character-activity-mother-candidate"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.source.json",
+      "sha256": "9810e439e7f019535d953b5583a307c441b0c6eaea8aca4183452c6d31962ad0",
+      "bytes": 2845,
+      "capturedAt": "2026-10-25T09:14:02.916376+00:00",
+      "sceneFamily": "literary-room-v1",
+      "kind": "character-activity-mother-candidate"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json",
+      "sha256": "5425e475efa8264874f2f3b083b8737b4b1f9d35399e9b2c3d86dc561a36cddb",
+      "bytes": 1250,
+      "capturedAt": "2026-10-25T09:14:02.919634+00:00",
+      "sceneFamily": "literary-room-v1",
+      "kind": "empty-room-plate"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-dry-night-v1.source.json",
+      "sha256": "888ceb6d45e28082883f5f825f5b9724c0b963f862b6fa9a6a1f30dbffe71d08",
+      "bytes": 2687,
+      "capturedAt": "2026-10-25T09:14:02.919953+00:00",
+      "sceneFamily": "literary-room-v1",
+      "kind": "empty-room-plate"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.source.json",
+      "sha256": "85e4b1e7f3de6186b46cd6e1add64d12a243c1f796033067eef48e5c5b9b716c",
+      "bytes": 2598,
+      "capturedAt": "2026-10-25T09:14:02.920293+00:00",
+      "sceneFamily": "literary-room-v1",
+      "kind": "empty-room-plate"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-day-v1.source.json",
+      "sha256": "49a66ea4373e8b464d690bcfad5b8f7b5e319af9f09f3f64ed31eef5a07f4a10",
+      "bytes": 2579,
+      "capturedAt": "2026-10-25T09:14:02.920574+00:00",
+      "sceneFamily": "literary-room-v1",
+      "kind": "empty-room-plate"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.source.json",
+      "sha256": "fae6d70ec523dfb8780207d57677bd6ae383d270255acac1856c7d0888cb92e7",
+      "bytes": 2497,
+      "capturedAt": "2026-10-25T09:14:02.920851+00:00",
+      "sceneFamily": "literary-room-v1",
+      "kind": "empty-room-plate"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.source.json",
+      "sha256": "573dae483823a4132499a02e5775059430acded7640a2ad6614a3c28925e8a59",
+      "bytes": 2715,
+      "capturedAt": "2026-10-25T09:14:02.921163+00:00",
+      "sceneFamily": "literary-room-v1",
+      "kind": "empty-room-plate"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.source.json",
+      "sha256": "32b064384fadb3f76227f36de48e8d24e7c342fea434939eb4d457d01226aed6",
+      "bytes": 2729,
+      "capturedAt": "2026-10-25T09:14:02.921581+00:00",
+      "sceneFamily": "literary-room-v1",
+      "kind": "empty-room-plate"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.source.json",
+      "sha256": "47104186489b5556e4d9e1b27eeda4641442b5bccca6478e35b39701c0d3e843",
+      "bytes": 2448,
+      "capturedAt": "2026-10-25T09:14:02.921857+00:00",
+      "sceneFamily": "literary-room-v1",
+      "kind": "empty-room-plate"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.source.json",
+      "sha256": "722ffa0154fd1266a2829d10a0536e9700ef8295ea2eedf493505a85b6516359",
+      "bytes": 7962,
+      "capturedAt": "2026-10-25T09:14:02.922229+00:00",
+      "sceneFamily": "literary-room-v1",
+      "kind": "new-literary-room-complete-single-rana-chat-mother-first-pilot"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-mist-v1.source.json",
+      "sha256": "f8a8da2dbb106e58bfdeb3294c1ce336f8847b05c1f2bde49ee9d63a8cdcefbe",
+      "bytes": 3051,
+      "capturedAt": "2026-10-25T09:14:02.926206+00:00",
+      "sceneFamily": "literary-room-v1",
+      "kind": "character-activity-mother-candidate"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-rain-v1.source.json",
+      "sha256": "fcbeb69980072f782ac40f58f6e018ffd5ad7e63aa2a35818d398843b49c64ad",
+      "bytes": 2945,
+      "capturedAt": "2026-10-25T09:14:02.928841+00:00",
+      "sceneFamily": "literary-room-v1",
+      "kind": "character-activity-mother-candidate"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-violet-v1.source.json",
+      "sha256": "3997f0cc5a37ce718e73f2197aae9ba442a4d3d9df92f8a78b5ae4d172ab3990",
+      "bytes": 2903,
+      "capturedAt": "2026-10-25T09:14:02.931366+00:00",
+      "sceneFamily": "literary-room-v1",
+      "kind": "character-activity-mother-candidate"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.source.json",
+      "sha256": "f18c9191161867a158126d7726e8d4826b8aef6280b98870f0839ac61e0a92e5",
+      "bytes": 1341,
+      "capturedAt": "2026-10-25T09:14:02.933846+00:00",
+      "sceneFamily": "literary-room-v1",
+      "kind": null
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v1.source.json",
+      "sha256": "bfac3400157988ea455d275edaa8b431ab58910b153486d569dadf1834ae8d71",
+      "bytes": 1349,
+      "capturedAt": "2026-10-25T09:14:02.936688+00:00",
+      "sceneFamily": "literary-room-v1",
+      "kind": null
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v2.source.json",
+      "sha256": "a06d91207acbe3d4f1f2b6dca46068716cf03b147912d7924dd1d74b81ed1ca9",
+      "bytes": 1693,
+      "capturedAt": "2026-10-25T09:14:02.939583+00:00",
+      "sceneFamily": "literary-room-v1",
+      "kind": null
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-study-apricot-v1.source.json",
+      "sha256": "84fdd5ab12939eef19d5cccf4b89eaa1affe0ea3fae11415aed1c26ff9b0fb4a",
+      "bytes": 1329,
+      "capturedAt": "2026-10-25T09:14:02.942940+00:00",
+      "sceneFamily": "literary-room-v1",
+      "kind": null
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-listening-apricot-literary-pilot-v1.source.json",
+      "sha256": "d8079c0142c3637c630c6625d0a0b1b9fe6512cdd7f4463aa72cddb595474e8c",
+      "bytes": 6305,
+      "capturedAt": "2026-10-25T09:14:02.945505+00:00",
+      "sceneFamily": "literary-room-v1",
+      "kind": "new-literary-room-complete-single-sakiko-listening-mother-pilot"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-rest-apricot-literary-pilot-v1.source.json",
+      "sha256": "ba207dbc7f8d219502ccc33494bd075c1316dd1933e1ce42a43c6192fdccc1b3",
+      "bytes": 6173,
+      "capturedAt": "2026-10-25T09:14:02.949444+00:00",
+      "sceneFamily": "literary-room-v1",
+      "kind": "new-literary-room-complete-single-sakiko-rest-mother-pilot"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-resume-apricot-literary-pilot-v1.source.json",
+      "sha256": "029e9621c9cdedbd0544cf352a23955289773be8a0bf824568c064a9d2008113",
+      "bytes": 6753,
+      "capturedAt": "2026-10-25T09:14:02.953546+00:00",
+      "sceneFamily": "literary-room-v1",
+      "kind": "new-literary-room-complete-single-sakiko-resume-mother-pilot"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-attention-apricot-literary-pilot-v1.source.json",
+      "sha256": "e320cf18dc6ef220a606904b54982f31694af879ee792a93331fcbf606c6e5af",
+      "bytes": 7881,
+      "capturedAt": "2026-10-25T09:14:02.957453+00:00",
+      "sceneFamily": "literary-room-v1",
+      "kind": "single-character-cross-activity-pilot"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-planning-apricot-literary-pilot-v1.source.json",
+      "sha256": "08f4d91be377748cd99b39051a370304099373a753ee93e344b6418b717c4bcb",
+      "bytes": 7337,
+      "capturedAt": "2026-10-25T09:14:02.960317+00:00",
+      "sceneFamily": "literary-room-v1",
+      "kind": "single-character-cross-activity-pilot"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-step1-source-v1.json",
+      "sha256": "bbe7ba476feda6b4bf4f088cbd28f5e9e074c694c47b635d51be4e206faf2a08",
+      "bytes": 3673,
+      "capturedAt": "2026-10-25T09:14:02.963353+00:00",
+      "sceneFamily": null,
+      "kind": null
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-step1-source-v2.json",
+      "sha256": "3355d5c869b9d8781b1da1c5942ae173c5fbfc458b9a703f4aadb8c14ee48556",
+      "bytes": 3623,
+      "capturedAt": "2026-10-25T09:14:02.965264+00:00",
+      "sceneFamily": null,
+      "kind": null
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-step2-source-v1.json",
+      "sha256": "622b9d477c3feed78391567d03866c095af31a15991b0fbdcce6ce0a8a2c27d2",
+      "bytes": 3194,
+      "capturedAt": "2026-10-25T09:14:02.967038+00:00",
+      "sceneFamily": null,
+      "kind": null
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-step2-source-v2.json",
+      "sha256": "9a5b9fb8bfd4f2ff72f847c2204458a4620ecbcad566a868bd87f15da65d164a",
+      "bytes": 3561,
+      "capturedAt": "2026-10-25T09:14:02.967847+00:00",
+      "sceneFamily": null,
+      "kind": null
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/shadow-step1-source-v1.json",
+      "sha256": "3fba72a735b6591bce05e18649fe2cb78719b067ee4f4982ceb1180921793fcd",
+      "bytes": 3667,
+      "capturedAt": "2026-10-25T09:14:02.968640+00:00",
+      "sceneFamily": null,
+      "kind": null
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/shadow-step2-source-v1.json",
+      "sha256": "075e90b951df583704fac5ba3a21d89d563f538bf0d14063a62fce6d317013a5",
+      "bytes": 3520,
+      "capturedAt": "2026-10-25T09:14:02.970654+00:00",
+      "sceneFamily": null,
+      "kind": null
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-pilot/soyo-chat-apricot-literary-v1.source.json",
+      "sha256": "b93bed9c534c50c490211625026842288536990504950d035a019981d197cabe",
+      "bytes": 9800,
+      "capturedAt": "2026-10-25T09:14:02.971596+00:00",
+      "sceneFamily": null,
+      "kind": "complete-mother-first-literary-room-pilot"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.source.json",
+      "sha256": "9e54fdde8a39200c138a14e86f60801cf32f81992d6caa386fdedbb491aa560f",
+      "bytes": 7565,
+      "capturedAt": "2026-10-25T09:14:02.971880+00:00",
+      "sceneFamily": "literary-room-v1",
+      "kind": "first-character-literary-chat-pilot"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v1.source.json",
+      "sha256": "6aa200ba22b594b3e5b7acc17dd88fb38df568a0cf240c04ceed38580b482167",
+      "bytes": 8041,
+      "capturedAt": "2026-10-25T09:14:02.974476+00:00",
+      "sceneFamily": "literary-room-v1",
+      "kind": "first-character-literary-chat-pilot"
+    }
+  ],
+  "selectedReadingSource": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.source.json",
+    "sha256": "d9cd4427517d0e0fc050b9777c204e4f7363d8bd19bb585f000f5212f64fe6c3",
+    "bytes": 1247,
+    "capturedAt": "2026-10-25T09:14:02.977125+00:00"
+  },
+  "motherAttempts": [
+    {
+      "cell": "mutsumi/chat/apricot",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.png",
+        "sha256": "9d529789ece89f44b166f39dd259136257598cfd546009e49fae74140cbf8b6d",
+        "bytes": 2468785,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.source.json",
+        "sha256": "315aeab44f31ab65fc263c68c3428fffe3bf53a323a1acbd8c9ac535508f2987",
+        "bytes": 3696,
+        "capturedAt": "2026-10-25T09:14:02.913242+00:00",
+        "sceneFamily": "literary-room-v1",
+        "kind": "character-activity-mother-candidate"
+      },
+      "prompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.prompt.txt",
+        "fileSha256": "619ce5853d743eac4c97f52dd30419347ed4861b40fc4f5a23edaf3d0d1392ad",
+        "submittedSha256": "0edde755eeec0f42b3e6e33a688c150e5679046a662b827b95e2f2ce8b7ca11a",
+        "verifiedSubmittedEncoding": "UTF-8 file trimEnd"
+      },
+      "inputArtifacts": [
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+          "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "role": "sole approved clean empty room environment image input; fresh character from text",
+          "existsAtSnapshot": false
+        }
+      ],
+      "toolOutput": "exec-023d0f74-3280-48c2-a5e3-eb22b7072f8b.png",
+      "generationMode": null,
+      "environmentVariant": "clear-day",
+      "producerPrimaryFlagAtSnapshot": false,
+      "decision": "producer_candidate_pending_root"
+    },
+    {
+      "cell": "nyamu/chat/apricot",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.png",
+        "sha256": "096bd7f5f0138e8b961c91d52dc8e68b29bcda1600bbb9ca444bd1c7eff75313",
+        "bytes": 2469206,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.source.json",
+        "sha256": "9810e439e7f019535d953b5583a307c441b0c6eaea8aca4183452c6d31962ad0",
+        "bytes": 2845,
+        "capturedAt": "2026-10-25T09:14:02.916376+00:00",
+        "sceneFamily": "literary-room-v1",
+        "kind": "character-activity-mother-candidate"
+      },
+      "prompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.prompt.txt",
+        "fileSha256": "b5cb5846140a99bd40c361114bf74a7920d23212971d38212d68d7a6aa3aefd5",
+        "submittedSha256": "5367559bf10b3eccc5ab121ca310e15451d9a0493c9fbba31480295fa685a32c",
+        "verifiedSubmittedEncoding": "UTF-8 file trimEnd"
+      },
+      "inputArtifacts": [
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+          "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "role": "sole approved clean empty room environment image input; fresh character from text",
+          "existsAtSnapshot": false
+        }
+      ],
+      "toolOutput": "exec-4b586f23-099a-4252-8b7f-3bdbc2950144.png",
+      "generationMode": null,
+      "environmentVariant": "clear-day",
+      "producerPrimaryFlagAtSnapshot": false,
+      "decision": "producer_candidate_pending_root"
+    },
+    {
+      "cell": "rana/chat/apricot",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.png",
+        "sha256": "060e897c7b9ebdefc5ab84d6fbada2983625b19e6a4ebc57501ede19c5259919",
+        "bytes": 2417341,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.source.json",
+        "sha256": "722ffa0154fd1266a2829d10a0536e9700ef8295ea2eedf493505a85b6516359",
+        "bytes": 7962,
+        "capturedAt": "2026-10-25T09:14:02.922229+00:00",
+        "sceneFamily": "literary-room-v1",
+        "kind": "new-literary-room-complete-single-rana-chat-mother-first-pilot"
+      },
+      "prompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.prompt.json",
+        "fileSha256": "f67d0417755f699af487ed503b3a8c0d65f8767aff45773a825b73e33a8c2322",
+        "submittedSha256": "75a9d0fcd006c5a44e655f594ac3ffa9820f4363b6c2aacd64a4decf6d5e2c46",
+        "verifiedSubmittedEncoding": "source.submittedPrompt UTF-8"
+      },
+      "inputArtifacts": [
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+          "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "role": "sole root-approved EMPTY new literary room plate; no character, Sakiko, old-room or rejected person image supplied",
+          "actualSha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "hashMatches": true
+        }
+      ],
+      "toolOutput": "exec-514733ef-016d-49df-b7a9-2eface9d0137.png",
+      "generationMode": null,
+      "environmentVariant": null,
+      "producerPrimaryFlagAtSnapshot": false,
+      "decision": "producer_candidate_pending_root"
+    },
+    {
+      "cell": "sakiko/chat/mist",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-mist-v1.png",
+        "sha256": "6cbd83def33cf8284056992f10315a98101002d8f36f4d3d497548b7b4b73b9f",
+        "bytes": 2461416,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-mist-v1.source.json",
+        "sha256": "f8a8da2dbb106e58bfdeb3294c1ce336f8847b05c1f2bde49ee9d63a8cdcefbe",
+        "bytes": 3051,
+        "capturedAt": "2026-10-25T09:14:02.926206+00:00",
+        "sceneFamily": "literary-room-v1",
+        "kind": "character-activity-mother-candidate"
+      },
+      "prompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-mist-v1.prompt.txt",
+        "fileSha256": "cd3fb0a2e421b5b5ccf8e5562b60205027e7bddd14516378d67dea4a52aab9e4",
+        "submittedSha256": "43e697c0fce755658c0541a05cb7130ce6d6cac3bf192f695a227f1525010573",
+        "verifiedSubmittedEncoding": "UTF-8 file trimEnd"
+      },
+      "inputArtifacts": [
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "role": "sole approved clean empty room environment input; fresh character from text",
+          "existsAtSnapshot": false
+        }
+      ],
+      "toolOutput": "exec-e5a1c0d0-cc23-41bf-b625-2212cf3f6cc6.png",
+      "generationMode": null,
+      "environmentVariant": "overcast-day",
+      "producerPrimaryFlagAtSnapshot": false,
+      "decision": "producer_candidate_pending_root"
+    },
+    {
+      "cell": "sakiko/chat/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-rain-v1.png",
+        "sha256": "229156a8a56698f5e0fb73424c3b65dc5fe3adde0fbee3101033ca5df1ce3f2f",
+        "bytes": 2274460,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-rain-v1.source.json",
+        "sha256": "fcbeb69980072f782ac40f58f6e018ffd5ad7e63aa2a35818d398843b49c64ad",
+        "bytes": 2945,
+        "capturedAt": "2026-10-25T09:14:02.928841+00:00",
+        "sceneFamily": "literary-room-v1",
+        "kind": "character-activity-mother-candidate"
+      },
+      "prompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-rain-v1.prompt.txt",
+        "fileSha256": "3e695ac2ada6be6ba416eb527d6f510392dea8603a3a40459adc18b2360001f9",
+        "submittedSha256": "24f9446cf2dd4d23131a01266a58bd8f131667ab60ace37790dcbbb29f534f49",
+        "verifiedSubmittedEncoding": "UTF-8 file trimEnd"
+      },
+      "inputArtifacts": [
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "role": "sole approved clean empty room environment input; fresh character from text",
+          "existsAtSnapshot": false
+        }
+      ],
+      "toolOutput": "exec-e5b0a00b-7972-459f-8ea9-2ddf3e682ce2.png",
+      "generationMode": null,
+      "environmentVariant": "rain-night",
+      "producerPrimaryFlagAtSnapshot": false,
+      "decision": "producer_candidate_pending_root"
+    },
+    {
+      "cell": "sakiko/chat/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-violet-v1.png",
+        "sha256": "3115fb3058cff052bddc376d4612aa842c96925e6708a809b434097980274b84",
+        "bytes": 2309955,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-violet-v1.source.json",
+        "sha256": "3997f0cc5a37ce718e73f2197aae9ba442a4d3d9df92f8a78b5ae4d172ab3990",
+        "bytes": 2903,
+        "capturedAt": "2026-10-25T09:14:02.931366+00:00",
+        "sceneFamily": "literary-room-v1",
+        "kind": "character-activity-mother-candidate"
+      },
+      "prompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-violet-v1.prompt.txt",
+        "fileSha256": "63bf73aa2f63d852e8dec3f560d1491d88a0c381c14211a7ac363c91435bb330",
+        "submittedSha256": "7dbe554bb658666817c63065bff637cf65d5dd28328ce98b0b43eb27c7fcdcba",
+        "verifiedSubmittedEncoding": "UTF-8 file trimEnd"
+      },
+      "inputArtifacts": [
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "role": "sole approved clean empty room environment input; fresh character from text",
+          "existsAtSnapshot": false
+        }
+      ],
+      "toolOutput": "exec-4d51477f-cc73-4177-8f1c-e42edc9813f0.png",
+      "generationMode": null,
+      "environmentVariant": "twilight",
+      "producerPrimaryFlagAtSnapshot": false,
+      "decision": "producer_candidate_pending_root"
+    },
+    {
+      "cell": "sakiko/chat/apricot",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.png",
+        "sha256": "8d8ca2d001893c16106ab797ec4a8a8c1e6576115a5a4c76ff1dd519eff4e2cd",
+        "bytes": 2459089,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.source.json",
+        "sha256": "f18c9191161867a158126d7726e8d4826b8aef6280b98870f0839ac61e0a92e5",
+        "bytes": 1341,
+        "capturedAt": "2026-10-25T09:14:02.933846+00:00",
+        "sceneFamily": "literary-room-v1",
+        "kind": null
+      },
+      "prompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.prompt.txt",
+        "fileSha256": "1d698ea2705a0bd4d5f6b8a77ef41c0feda2118f8694aa79c0449d8169dbc20b",
+        "submittedSha256": "1d698ea2705a0bd4d5f6b8a77ef41c0feda2118f8694aa79c0449d8169dbc20b",
+        "verifiedSubmittedEncoding": "exact file bytes"
+      },
+      "inputArtifacts": [
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+          "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "role": "clean-empty-room-only",
+          "existsAtSnapshot": false
+        }
+      ],
+      "toolOutput": "exec-dd4eae5b-c9c5-4d61-8044-e8f70140b713.png",
+      "generationMode": null,
+      "environmentVariant": "clear-day",
+      "producerPrimaryFlagAtSnapshot": true,
+      "decision": "approved",
+      "rootReview": {
+        "key": "sakiko/chat/apricot",
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.png",
+        "sha256": "8d8ca2d001893c16106ab797ec4a8a8c1e6576115a5a4c76ff1dd519eff4e2cd",
+        "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.source.json",
+        "sourceRecordSha256": "f18c9191161867a158126d7726e8d4826b8aef6280b98870f0839ac61e0a92e5",
+        "canvas": [
+          1536,
+          1024
+        ],
+        "decision": "approved",
+        "primaryPersonallyViewed": true,
+        "observation": "Quiet attentive expression, coherent face and hands, natural supported close room posture.",
+        "layerApproved": false,
+        "runtimeAccepted": false,
+        "admissionRecord": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+          "sha256": "010ceb6067ad63560676b1af5af8e641102ecba6d773b5310490ac33aab4c48d",
+          "bytes": 9123,
+          "capturedAt": "2026-10-25T09:14:02.908764+00:00"
+        },
+        "sourceRecordActualSha256": "f18c9191161867a158126d7726e8d4826b8aef6280b98870f0839ac61e0a92e5",
+        "sourceRecordShaMatchesReview": true
+      }
+    },
+    {
+      "cell": "sakiko/play/apricot",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v1.png",
+        "sha256": "5f3dfd09f4ea2c5b2d22c5803474195358157c857e9350cb4794ead646db05a5",
+        "bytes": 2515785,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v1.source.json",
+        "sha256": "bfac3400157988ea455d275edaa8b431ab58910b153486d569dadf1834ae8d71",
+        "bytes": 1349,
+        "capturedAt": "2026-10-25T09:14:02.936688+00:00",
+        "sceneFamily": "literary-room-v1",
+        "kind": null
+      },
+      "prompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v1.prompt.txt",
+        "fileSha256": "d6c1a2f2ef25d7648be360cb70357153695a060028a487c93ec76a372ddd0917",
+        "submittedSha256": "d6c1a2f2ef25d7648be360cb70357153695a060028a487c93ec76a372ddd0917",
+        "verifiedSubmittedEncoding": "exact file bytes"
+      },
+      "inputArtifacts": [
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+          "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "role": "clean-empty-room-only",
+          "existsAtSnapshot": false
+        }
+      ],
+      "toolOutput": "exec-e0cf57db-6f62-4993-ace1-88c77173ecad.png",
+      "generationMode": null,
+      "environmentVariant": "clear-day",
+      "producerPrimaryFlagAtSnapshot": false,
+      "decision": "rejected",
+      "rootReview": {
+        "key": "sakiko/play/apricot",
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v1.png",
+        "sha256": "5f3dfd09f4ea2c5b2d22c5803474195358157c857e9350cb4794ead646db05a5",
+        "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v1.source.json",
+        "sourceRecordSha256": "bfac3400157988ea455d275edaa8b431ab58910b153486d569dadf1834ae8d71",
+        "canvas": [
+          1536,
+          1024
+        ],
+        "decision": "rejected",
+        "primaryPersonallyViewed": true,
+        "observation": "Primary compared original-pixel heads: forward lean enlarges head; retained only as historical comparison, forbidden repair input.",
+        "layerApproved": false,
+        "runtimeAccepted": false,
+        "admissionRecord": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+          "sha256": "010ceb6067ad63560676b1af5af8e641102ecba6d773b5310490ac33aab4c48d",
+          "bytes": 9123,
+          "capturedAt": "2026-10-25T09:14:02.908764+00:00"
+        },
+        "sourceRecordActualSha256": "bfac3400157988ea455d275edaa8b431ab58910b153486d569dadf1834ae8d71",
+        "sourceRecordShaMatchesReview": true
+      }
+    },
+    {
+      "cell": "sakiko/play/apricot",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v2.png",
+        "sha256": "f3e046d90a4f08c6f4afab56bb38c98cd6634f1731d80b145008041f26287f2d",
+        "bytes": 2462149,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v2.source.json",
+        "sha256": "a06d91207acbe3d4f1f2b6dca46068716cf03b147912d7924dd1d74b81ed1ca9",
+        "bytes": 1693,
+        "capturedAt": "2026-10-25T09:14:02.939583+00:00",
+        "sceneFamily": "literary-room-v1",
+        "kind": null
+      },
+      "prompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v2.prompt.txt",
+        "fileSha256": "6daf1988e680b50e1228bc1c4ce7f700c33b0852ae7acf0ef90b2762ccc15b9d",
+        "submittedSha256": "6daf1988e680b50e1228bc1c4ce7f700c33b0852ae7acf0ef90b2762ccc15b9d",
+        "verifiedSubmittedEncoding": "exact file bytes"
+      },
+      "inputArtifacts": [
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+          "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "role": "clean-empty-room",
+          "existsAtSnapshot": false
+        },
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+          "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+          "role": "human-selected-correct-identity-and-scale",
+          "existsAtSnapshot": false
+        }
+      ],
+      "toolOutput": "exec-8983c5c9-aaef-4f55-85a0-3c72a0155bbd.png",
+      "generationMode": null,
+      "environmentVariant": "clear-day",
+      "producerPrimaryFlagAtSnapshot": true,
+      "decision": "approved",
+      "rootReview": {
+        "key": "sakiko/play/apricot",
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v2.png",
+        "sha256": "f3e046d90a4f08c6f4afab56bb38c98cd6634f1731d80b145008041f26287f2d",
+        "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v2.source.json",
+        "sourceRecordSha256": "a06d91207acbe3d4f1f2b6dca46068716cf03b147912d7924dd1d74b81ed1ca9",
+        "canvas": [
+          1536,
+          1024
+        ],
+        "decision": "approved",
+        "primaryPersonallyViewed": true,
+        "observation": "V2 keeps upright torso at original bench depth, restores apparent head/figure scale and small personal paper-bird gesture.",
+        "layerApproved": false,
+        "runtimeAccepted": false,
+        "admissionRecord": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+          "sha256": "010ceb6067ad63560676b1af5af8e641102ecba6d773b5310490ac33aab4c48d",
+          "bytes": 9123,
+          "capturedAt": "2026-10-25T09:14:02.908764+00:00"
+        },
+        "sourceRecordActualSha256": "a06d91207acbe3d4f1f2b6dca46068716cf03b147912d7924dd1d74b81ed1ca9",
+        "sourceRecordShaMatchesReview": true
+      }
+    },
+    {
+      "cell": "sakiko/study/apricot",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-study-apricot-v1.png",
+        "sha256": "e7181f8b7a73cb57208375b95dd11135c67ff6f71055d59528a83ab6530ee285",
+        "bytes": 2432882,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-study-apricot-v1.source.json",
+        "sha256": "84fdd5ab12939eef19d5cccf4b89eaa1affe0ea3fae11415aed1c26ff9b0fb4a",
+        "bytes": 1329,
+        "capturedAt": "2026-10-25T09:14:02.942940+00:00",
+        "sceneFamily": "literary-room-v1",
+        "kind": null
+      },
+      "prompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-study-apricot-v1.prompt.txt",
+        "fileSha256": "38079c216ee57bace11309815e2520be80364a17b48d6bb492cf6bf5b567577d",
+        "submittedSha256": "38079c216ee57bace11309815e2520be80364a17b48d6bb492cf6bf5b567577d",
+        "verifiedSubmittedEncoding": "exact file bytes"
+      },
+      "inputArtifacts": [
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+          "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "role": "clean-empty-room-only",
+          "existsAtSnapshot": false
+        }
+      ],
+      "toolOutput": "exec-33bf31bc-235d-4d5b-b7d8-a21393d5e7e2.png",
+      "generationMode": null,
+      "environmentVariant": "clear-day",
+      "producerPrimaryFlagAtSnapshot": true,
+      "decision": "approved",
+      "rootReview": {
+        "key": "sakiko/study/apricot",
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-study-apricot-v1.png",
+        "sha256": "e7181f8b7a73cb57208375b95dd11135c67ff6f71055d59528a83ab6530ee285",
+        "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-study-apricot-v1.source.json",
+        "sourceRecordSha256": "84fdd5ab12939eef19d5cccf4b89eaa1affe0ea3fae11415aed1c26ff9b0fb4a",
+        "canvas": [
+          1536,
+          1024
+        ],
+        "decision": "approved",
+        "primaryPersonallyViewed": true,
+        "observation": "Thoughtful concentration, supported notebook and pencil grip, clear eyes/fringe and full shoes.",
+        "layerApproved": false,
+        "runtimeAccepted": false,
+        "admissionRecord": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+          "sha256": "010ceb6067ad63560676b1af5af8e641102ecba6d773b5310490ac33aab4c48d",
+          "bytes": 9123,
+          "capturedAt": "2026-10-25T09:14:02.908764+00:00"
+        },
+        "sourceRecordActualSha256": "84fdd5ab12939eef19d5cccf4b89eaa1affe0ea3fae11415aed1c26ff9b0fb4a",
+        "sourceRecordShaMatchesReview": true
+      }
+    },
+    {
+      "cell": "sakiko/listening/apricot",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-listening-apricot-literary-pilot-v1.png",
+        "sha256": "ac97872e1632ee8cbfde69fb5ed6a15c55bcc5b7057158f4d3db3e12690ee329",
+        "bytes": 2454944,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-listening-apricot-literary-pilot-v1.source.json",
+        "sha256": "d8079c0142c3637c630c6625d0a0b1b9fe6512cdd7f4463aa72cddb595474e8c",
+        "bytes": 6305,
+        "capturedAt": "2026-10-25T09:14:02.945505+00:00",
+        "sceneFamily": "literary-room-v1",
+        "kind": "new-literary-room-complete-single-sakiko-listening-mother-pilot"
+      },
+      "prompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-listening-apricot-literary-pilot-v1.prompt.json",
+        "fileSha256": "73584a8599f46e2b8766cd8290b11e3af7bff973e687abedbd3d8441a9a45ce2",
+        "submittedSha256": "53d122378d0d3bb43549b50fba610db204a36198d6d780ab1c1c172269385a2a",
+        "verifiedSubmittedEncoding": "source.submittedPrompt UTF-8"
+      },
+      "inputArtifacts": [
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+          "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "role": "sole root-approved EMPTY new literary room plate; no character or old-room image input",
+          "actualSha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "hashMatches": true
+        }
+      ],
+      "toolOutput": "exec-ee0d4acb-1f8b-42d0-955a-adb3a3855154.png",
+      "generationMode": null,
+      "environmentVariant": null,
+      "producerPrimaryFlagAtSnapshot": false,
+      "decision": "held-for-scale-repair",
+      "rootReview": {
+        "key": "sakiko/listening/apricot",
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-listening-apricot-literary-pilot-v1.png",
+        "sha256": "ac97872e1632ee8cbfde69fb5ed6a15c55bcc5b7057158f4d3db3e12690ee329",
+        "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-listening-apricot-literary-pilot-v1.source.json",
+        "sourceRecordSha256": "d8079c0142c3637c630c6625d0a0b1b9fe6512cdd7f4463aa72cddb595474e8c",
+        "canvas": [
+          1536,
+          1024
+        ],
+        "decision": "held-for-scale-repair",
+        "primaryPersonallyViewed": true,
+        "observation": "Primary viewed full candidate: face/torso approaches camera and shifts toward viewer compared with selected reading; no admission as current listening cell.",
+        "layerApproved": false,
+        "runtimeAccepted": false,
+        "admissionRecord": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+          "sha256": "010ceb6067ad63560676b1af5af8e641102ecba6d773b5310490ac33aab4c48d",
+          "bytes": 9123,
+          "capturedAt": "2026-10-25T09:14:02.908764+00:00"
+        },
+        "sourceRecordActualSha256": "d8079c0142c3637c630c6625d0a0b1b9fe6512cdd7f4463aa72cddb595474e8c",
+        "sourceRecordShaMatchesReview": true
+      }
+    },
+    {
+      "cell": "sakiko/rest/apricot",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-rest-apricot-literary-pilot-v1.png",
+        "sha256": "144a167d9c7d1bc594051ef1ca3fcf0b92e97f1a8ddbf8cd63eb6b54c8a460f8",
+        "bytes": 2466058,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-rest-apricot-literary-pilot-v1.source.json",
+        "sha256": "ba207dbc7f8d219502ccc33494bd075c1316dd1933e1ce42a43c6192fdccc1b3",
+        "bytes": 6173,
+        "capturedAt": "2026-10-25T09:14:02.949444+00:00",
+        "sceneFamily": "literary-room-v1",
+        "kind": "new-literary-room-complete-single-sakiko-rest-mother-pilot"
+      },
+      "prompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-rest-apricot-literary-pilot-v1.prompt.json",
+        "fileSha256": "379ae69f4fa96f1d6bc2ac1a3245a5c619b2a9a2724bf94a5071b150823dccde",
+        "submittedSha256": "b3b49d68b44b483bc0f9c5a5406dfb55ca930980a195643a5d1d8ba6e94eccea",
+        "verifiedSubmittedEncoding": "source.submittedPrompt UTF-8"
+      },
+      "inputArtifacts": [
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+          "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "role": "sole root-approved EMPTY new literary room plate; no character/old-room image input",
+          "actualSha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "hashMatches": true
+        }
+      ],
+      "toolOutput": "exec-0e550587-d5a1-4f3d-b2f8-97505d250ddc.png",
+      "generationMode": null,
+      "environmentVariant": null,
+      "producerPrimaryFlagAtSnapshot": false,
+      "decision": "approved",
+      "rootReview": {
+        "key": "sakiko/rest/apricot",
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-rest-apricot-literary-pilot-v1.png",
+        "sha256": "144a167d9c7d1bc594051ef1ca3fcf0b92e97f1a8ddbf8cd63eb6b54c8a460f8",
+        "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-rest-apricot-literary-pilot-v1.source.json",
+        "sourceRecordSha256": "ba207dbc7f8d219502ccc33494bd075c1316dd1933e1ce42a43c6192fdccc1b3",
+        "canvas": [
+          1536,
+          1024
+        ],
+        "decision": "approved",
+        "primaryPersonallyViewed": true,
+        "observation": "Autonomous resting attention toward the window, relaxed supported palm/seat and complete shoes at selected scale.",
+        "layerApproved": false,
+        "runtimeAccepted": false,
+        "admissionRecord": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+          "sha256": "010ceb6067ad63560676b1af5af8e641102ecba6d773b5310490ac33aab4c48d",
+          "bytes": 9123,
+          "capturedAt": "2026-10-25T09:14:02.908764+00:00"
+        },
+        "sourceRecordActualSha256": "ba207dbc7f8d219502ccc33494bd075c1316dd1933e1ce42a43c6192fdccc1b3",
+        "sourceRecordShaMatchesReview": true
+      }
+    },
+    {
+      "cell": "sakiko/resume/apricot",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-resume-apricot-literary-pilot-v1.png",
+        "sha256": "b13d26385d89f3087c198645b489512f25093db6cbbd221f28b2cd7572368589",
+        "bytes": 2508942,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-resume-apricot-literary-pilot-v1.source.json",
+        "sha256": "029e9621c9cdedbd0544cf352a23955289773be8a0bf824568c064a9d2008113",
+        "bytes": 6753,
+        "capturedAt": "2026-10-25T09:14:02.953546+00:00",
+        "sceneFamily": "literary-room-v1",
+        "kind": "new-literary-room-complete-single-sakiko-resume-mother-pilot"
+      },
+      "prompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-resume-apricot-literary-pilot-v1.prompt.json",
+        "fileSha256": "82a5a05591e6649afdbd9edcbf2b9d41e3097a378b48fe286eb695736882ef82",
+        "submittedSha256": "f21b153cc3b02a405d394969f103da764ffc4c01dcfa9ed48354f54b80dcf42a",
+        "verifiedSubmittedEncoding": "source.submittedPrompt UTF-8"
+      },
+      "inputArtifacts": [
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+          "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "role": "sole root-approved EMPTY new literary room plate; selected reading mother only personally viewed, never supplied as input",
+          "actualSha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "hashMatches": true
+        }
+      ],
+      "toolOutput": "exec-1775f2dc-5228-49ac-9acc-8697ea2a7290.png",
+      "generationMode": null,
+      "environmentVariant": null,
+      "producerPrimaryFlagAtSnapshot": false,
+      "decision": "approved",
+      "rootReview": {
+        "key": "sakiko/resume/apricot",
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-resume-apricot-literary-pilot-v1.png",
+        "sha256": "b13d26385d89f3087c198645b489512f25093db6cbbd221f28b2cd7572368589",
+        "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-resume-apricot-literary-pilot-v1.source.json",
+        "sourceRecordSha256": "029e9621c9cdedbd0544cf352a23955289773be8a0bf824568c064a9d2008113",
+        "canvas": [
+          1536,
+          1024
+        ],
+        "decision": "approved",
+        "primaryPersonallyViewed": true,
+        "observation": "Recognizing returning viewer with restrained personal warmth; book/hands/seat/shoes coherent. Minor sock ornament is project costume interpretation, not asserted as canon.",
+        "layerApproved": false,
+        "runtimeAccepted": false,
+        "admissionRecord": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+          "sha256": "010ceb6067ad63560676b1af5af8e641102ecba6d773b5310490ac33aab4c48d",
+          "bytes": 9123,
+          "capturedAt": "2026-10-25T09:14:02.908764+00:00"
+        },
+        "sourceRecordActualSha256": "029e9621c9cdedbd0544cf352a23955289773be8a0bf824568c064a9d2008113",
+        "sourceRecordShaMatchesReview": true
+      }
+    },
+    {
+      "cell": "sakiko/attention/apricot",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-attention-apricot-literary-pilot-v1.png",
+        "sha256": "ee521a0bf2b68e4d36c62a5c7755549006400e96d4ce252e0b154fe6587156b9",
+        "bytes": 2467510,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-attention-apricot-literary-pilot-v1.source.json",
+        "sha256": "e320cf18dc6ef220a606904b54982f31694af879ee792a93331fcbf606c6e5af",
+        "bytes": 7881,
+        "capturedAt": "2026-10-25T09:14:02.957453+00:00",
+        "sceneFamily": "literary-room-v1",
+        "kind": "single-character-cross-activity-pilot"
+      },
+      "prompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-attention-apricot-literary-pilot-v1.prompt.txt",
+        "fileSha256": "1380065adfa55f6732ae8441a34f893d8b223ddf0b0b82aa142a7297cb1bd752",
+        "submittedSha256": "1380065adfa55f6732ae8441a34f893d8b223ddf0b0b82aa142a7297cb1bd752",
+        "verifiedSubmittedEncoding": "exact file bytes"
+      },
+      "inputArtifacts": [
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+          "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "role": "sole actual image input, approved clean plate",
+          "existsAtSnapshot": false
+        }
+      ],
+      "toolOutput": "exec-2e6f4339-6140-4194-91b2-c76fc6f3acca.png",
+      "generationMode": "sole-approved-empty-plate-input",
+      "environmentVariant": "clear-day",
+      "producerPrimaryFlagAtSnapshot": false,
+      "decision": "approved",
+      "rootReview": {
+        "key": "sakiko/attention/apricot",
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-attention-apricot-literary-pilot-v1.png",
+        "sha256": "ee521a0bf2b68e4d36c62a5c7755549006400e96d4ce252e0b154fe6587156b9",
+        "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-attention-apricot-literary-pilot-v1.source.json",
+        "sourceRecordSha256": "e320cf18dc6ef220a606904b54982f31694af879ee792a93331fcbf606c6e5af",
+        "canvas": [
+          1536,
+          1024
+        ],
+        "decision": "approved",
+        "primaryPersonallyViewed": true,
+        "observation": "Fresh attentive glance and small pointing gesture, supported pose at consistent close room scale. Static mother does not prove gaze timing.",
+        "layerApproved": false,
+        "runtimeAccepted": false,
+        "admissionRecord": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+          "sha256": "010ceb6067ad63560676b1af5af8e641102ecba6d773b5310490ac33aab4c48d",
+          "bytes": 9123,
+          "capturedAt": "2026-10-25T09:14:02.908764+00:00"
+        },
+        "sourceRecordActualSha256": "e320cf18dc6ef220a606904b54982f31694af879ee792a93331fcbf606c6e5af",
+        "sourceRecordShaMatchesReview": true
+      }
+    },
+    {
+      "cell": "sakiko/planning/apricot",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-planning-apricot-literary-pilot-v1.png",
+        "sha256": "d3439fe3a604aaa3291889291b3dc7ff93d22297b765af98c21f00bea78269e7",
+        "bytes": 2488850,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-planning-apricot-literary-pilot-v1.source.json",
+        "sha256": "08f4d91be377748cd99b39051a370304099373a753ee93e344b6418b717c4bcb",
+        "bytes": 7337,
+        "capturedAt": "2026-10-25T09:14:02.960317+00:00",
+        "sceneFamily": "literary-room-v1",
+        "kind": "single-character-cross-activity-pilot"
+      },
+      "prompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-planning-apricot-literary-pilot-v1.prompt.txt",
+        "fileSha256": "570f6e748883ab035ef9c264800314af37a74f53d6cf54f28f64207931448b07",
+        "submittedSha256": "570f6e748883ab035ef9c264800314af37a74f53d6cf54f28f64207931448b07",
+        "verifiedSubmittedEncoding": "exact file bytes"
+      },
+      "inputArtifacts": [
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+          "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "role": "sole actual image input, approved clean plate",
+          "existsAtSnapshot": false
+        }
+      ],
+      "toolOutput": "exec-9e5c3518-6746-4dc5-a9b6-310b825de1b5.png",
+      "generationMode": "sole-approved-empty-plate-input",
+      "environmentVariant": "clear-day",
+      "producerPrimaryFlagAtSnapshot": false,
+      "decision": "approved",
+      "rootReview": {
+        "key": "sakiko/planning/apricot",
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-planning-apricot-literary-pilot-v1.png",
+        "sha256": "d3439fe3a604aaa3291889291b3dc7ff93d22297b765af98c21f00bea78269e7",
+        "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-planning-apricot-literary-pilot-v1.source.json",
+        "sourceRecordSha256": "08f4d91be377748cd99b39051a370304099373a753ee93e344b6418b717c4bcb",
+        "canvas": [
+          1536,
+          1024
+        ],
+        "decision": "approved",
+        "primaryPersonallyViewed": true,
+        "observation": "Focused, revisable thought; modest notebook and pen supported on lap, full clear face/hand/shoes, room proportions retained.",
+        "layerApproved": false,
+        "runtimeAccepted": false,
+        "admissionRecord": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+          "sha256": "010ceb6067ad63560676b1af5af8e641102ecba6d773b5310490ac33aab4c48d",
+          "bytes": 9123,
+          "capturedAt": "2026-10-25T09:14:02.908764+00:00"
+        },
+        "sourceRecordActualSha256": "08f4d91be377748cd99b39051a370304099373a753ee93e344b6418b717c4bcb",
+        "sourceRecordShaMatchesReview": true
+      }
+    },
+    {
+      "cell": "uika/chat/apricot",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.png",
+        "sha256": "df94d1a87f41775108d5b319a6bcc8ec4372283b770ef05ae764adedf2500c5d",
+        "bytes": 2464320,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.source.json",
+        "sha256": "9e54fdde8a39200c138a14e86f60801cf32f81992d6caa386fdedbb491aa560f",
+        "bytes": 7565,
+        "capturedAt": "2026-10-25T09:14:02.971880+00:00",
+        "sceneFamily": "literary-room-v1",
+        "kind": "first-character-literary-chat-pilot"
+      },
+      "prompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.prompt.txt",
+        "fileSha256": "365d544c2ccbacbe0b3ed062ec6ff1f02af9ea7dc6db66570fd88e7421c93dd3",
+        "submittedSha256": "365d544c2ccbacbe0b3ed062ec6ff1f02af9ea7dc6db66570fd88e7421c93dd3",
+        "verifiedSubmittedEncoding": "exact file bytes"
+      },
+      "inputArtifacts": [
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+          "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "role": "sole actual image input, approved clean plate",
+          "existsAtSnapshot": false
+        }
+      ],
+      "toolOutput": "exec-69d0edd2-59d3-4da3-bcf1-6ed3493636bd.png",
+      "generationMode": "sole-approved-empty-plate-input",
+      "environmentVariant": "clear-day",
+      "producerPrimaryFlagAtSnapshot": false,
+      "decision": "producer_candidate_pending_root"
+    },
+    {
+      "cell": "umiri/chat/apricot",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v1.png",
+        "sha256": "3c6dc9fdff30dc91141da199aea07e3c279c14ac6b561a8e07099a2e69905649",
+        "bytes": 2460181,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v1.source.json",
+        "sha256": "6aa200ba22b594b3e5b7acc17dd88fb38df568a0cf240c04ceed38580b482167",
+        "bytes": 8041,
+        "capturedAt": "2026-10-25T09:14:02.974476+00:00",
+        "sceneFamily": "literary-room-v1",
+        "kind": "first-character-literary-chat-pilot"
+      },
+      "prompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v1.prompt.txt",
+        "fileSha256": "a4f8d2e04dd27ff47676843d837f21893ae0588ed5397ba164da7693906a6718",
+        "submittedSha256": "a4f8d2e04dd27ff47676843d837f21893ae0588ed5397ba164da7693906a6718",
+        "verifiedSubmittedEncoding": "exact file bytes"
+      },
+      "inputArtifacts": [
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+          "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "role": "sole actual image input, approved clean plate",
+          "existsAtSnapshot": false
+        }
+      ],
+      "toolOutput": "exec-cd891001-b9e1-47a9-aed1-7312418f1cde.png",
+      "generationMode": "sole-approved-empty-plate-input",
+      "environmentVariant": "clear-day",
+      "producerPrimaryFlagAtSnapshot": false,
+      "decision": "producer_candidate_pending_root"
+    },
+    {
+      "cell": "sakiko/reading/apricot",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+        "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+        "bytes": 2606101,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.source.json",
+        "sha256": "d9cd4427517d0e0fc050b9777c204e4f7363d8bd19bb585f000f5212f64fe6c3",
+        "bytes": 1247,
+        "capturedAt": "2026-10-25T09:14:02.977125+00:00"
+      },
+      "prompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.prompt.txt",
+        "fileSha256": "ebcef44bd92cfdf510692b140e968ba6bf9abd8564ae8a7f98d82828a2740d94",
+        "submittedSha256": "ebcef44bd92cfdf510692b140e968ba6bf9abd8564ae8a7f98d82828a2740d94",
+        "verifiedSubmittedEncoding": "exact file bytes"
+      },
+      "inputArtifacts": [],
+      "toolOutput": "exec-21086a01-b10d-48ae-bdfa-4edd755a0b9e.png",
+      "generationMode": "text-only",
+      "environmentVariant": "clear-day",
+      "producerPrimaryFlagAtSnapshot": false,
+      "decision": "approved",
+      "rootReview": {
+        "key": "sakiko/reading/apricot",
+        "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+        "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+        "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.source.json",
+        "sourceRecordSha256": "d9cd4427517d0e0fc050b9777c204e4f7363d8bd19bb585f000f5212f64fe6c3",
+        "canvas": [
+          1536,
+          1024
+        ],
+        "decision": "approved",
+        "primaryPersonallyViewed": true,
+        "observation": "Human selected spatial/emotional baseline. Primary viewed complete face, hands/book, supported seat and shoes.",
+        "layerApproved": false,
+        "runtimeAccepted": false,
+        "admissionRecord": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+          "sha256": "010ceb6067ad63560676b1af5af8e641102ecba6d773b5310490ac33aab4c48d",
+          "bytes": 9123,
+          "capturedAt": "2026-10-25T09:14:02.908764+00:00"
+        },
+        "sourceRecordActualSha256": "d9cd4427517d0e0fc050b9777c204e4f7363d8bd19bb585f000f5212f64fe6c3",
+        "sourceRecordShaMatchesReview": true
+      }
+    }
+  ],
+  "layerAttemptArtifacts": [
+    {
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-step1-marked-v1.png",
+        "sha256": "04e9b6c3e3a6b4dfd0242e31c5ce7d564e7700b548a8116f44d8a71782698433",
+        "bytes": 2306041,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-step1-source-v1.json",
+        "sha256": "bbe7ba476feda6b4bf4f088cbd28f5e9e074c694c47b635d51be4e206faf2a08",
+        "bytes": 3673,
+        "capturedAt": "2026-10-25T09:14:02.963353+00:00",
+        "sceneFamily": null,
+        "kind": null
+      },
+      "producerStatus": "saved_and_visually_inspected_candidate_not_admitted",
+      "role": "figure-step1-marked",
+      "primaryApproved": false,
+      "runtimeAccepted": false,
+      "prompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-step1-prompt-v1.txt",
+        "fileSha256": "29a8475c5836e735ce61e2256cc563e3169b62a503c07cb32ff94aa76a199e09",
+        "submittedSha256": "d50c42a84375ab358184ddeabd4ea74c72d6f8471fe7b9691853f88ca12acf26",
+        "verifiedSubmittedEncoding": "source.prompt exact UTF-8; file text matches after trailing-whitespace removal",
+        "boundedLineageVerificationAt": "2026-10-25T09:17:20.499754+00:00",
+        "sourceRecordSha256AtVerification": "bbe7ba476feda6b4bf4f088cbd28f5e9e074c694c47b635d51be4e206faf2a08"
+      }
+    },
+    {
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-step1-marked-v2.png",
+        "sha256": "aa4c1536d5835f1f566e8307f303a12edac042b3c46374e55ec9f9da4c19fa83",
+        "bytes": 2369690,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-step1-source-v2.json",
+        "sha256": "3355d5c869b9d8781b1da1c5942ae173c5fbfc458b9a703f4aadb8c14ee48556",
+        "bytes": 3623,
+        "capturedAt": "2026-10-25T09:14:02.965264+00:00",
+        "sceneFamily": null,
+        "kind": null
+      },
+      "producerStatus": "saved_pending_inspection",
+      "role": "repair-round2-figure-step1",
+      "primaryApproved": false,
+      "runtimeAccepted": false,
+      "prompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-step1-prompt-v2.txt",
+        "fileSha256": "a0574888fed05124ed8772a2278108c7960bb8d709a664288bec57a7627ef71e",
+        "submittedSha256": "e554094bacd9758f81e85c44a1f9d4c9fc1ebf5c84f5f9d31a3c32015d3cd61a",
+        "verifiedSubmittedEncoding": "source.prompt exact UTF-8; file text matches after trailing-whitespace removal",
+        "boundedLineageVerificationAt": "2026-10-25T09:17:20.499754+00:00",
+        "sourceRecordSha256AtVerification": "3a959e88c88a42111622430423f89686d123822960fa1f26e2ecb64fd9d7fa98"
+      }
+    },
+    {
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-mask-v1.png",
+        "sha256": "d72a00b683ceb61cad80f49278618972fea309df051672c843d8e04399b44dfc",
+        "bytes": 478641,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-step2-source-v1.json",
+        "sha256": "622b9d477c3feed78391567d03866c095af31a15991b0fbdcce6ce0a8a2c27d2",
+        "bytes": 3194,
+        "capturedAt": "2026-10-25T09:14:02.967038+00:00",
+        "sceneFamily": null,
+        "kind": null
+      },
+      "producerStatus": "saved_and_visually_inspected_candidate_not_admitted",
+      "role": "figure-step2-luminance-mask",
+      "primaryApproved": false,
+      "runtimeAccepted": false,
+      "prompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-step2-prompt-v1.txt",
+        "fileSha256": "7ff958182f86b5600f4b0a45da9bd9c3e0da3c20693963df133ba88a5af7f89f",
+        "submittedSha256": "ec06b13237b9027a1fe08d5c6ceb2bc2a73477402972237a6043610be33d280d",
+        "verifiedSubmittedEncoding": "source.prompt exact UTF-8; file text matches after trailing-whitespace removal",
+        "boundedLineageVerificationAt": "2026-10-25T09:17:20.499754+00:00",
+        "sourceRecordSha256AtVerification": "622b9d477c3feed78391567d03866c095af31a15991b0fbdcce6ce0a8a2c27d2"
+      }
+    },
+    {
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-mask-v2.png",
+        "sha256": "0561235343377c9d760d4aab0a95e197c01904ff1dd9fefab53dd66f0ea7a11d",
+        "bytes": 452243,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-step2-source-v2.json",
+        "sha256": "9a5b9fb8bfd4f2ff72f847c2204458a4620ecbcad566a868bd87f15da65d164a",
+        "bytes": 3561,
+        "capturedAt": "2026-10-25T09:14:02.967847+00:00",
+        "sceneFamily": null,
+        "kind": null
+      },
+      "producerStatus": "saved_pending_old_new_original_rgb_inspection",
+      "role": "repair-round2-figure-step2-luminance-mask",
+      "primaryApproved": false,
+      "runtimeAccepted": false,
+      "prompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-step2-prompt-v2.txt",
+        "fileSha256": "e5f5dfde046bfec00cb953eb59fea43e90383ccc73278d456c217542a4393bf7",
+        "submittedSha256": "92ef6040850aa11b2d018b47cd33dcd7d6979a652270fb250b4ca718b35e20dd",
+        "verifiedSubmittedEncoding": "source.prompt exact UTF-8; file text matches after trailing-whitespace removal",
+        "boundedLineageVerificationAt": "2026-10-25T09:17:20.499754+00:00",
+        "sourceRecordSha256AtVerification": "1f2ffdc54748aff8ff4e4429f7f6ef43f46dc81f0b7b9c11dc42e5686eb0430e"
+      }
+    },
+    {
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/shadow-step1-marked-v1.png",
+        "sha256": "648b38d8ec733b9e21be55cb35b0f2e81fd152e8803a866adfbbb7a41282c448",
+        "bytes": 2463188,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/shadow-step1-source-v1.json",
+        "sha256": "3fba72a735b6591bce05e18649fe2cb78719b067ee4f4982ceb1180921793fcd",
+        "bytes": 3667,
+        "capturedAt": "2026-10-25T09:14:02.968640+00:00",
+        "sceneFamily": null,
+        "kind": null
+      },
+      "producerStatus": "saved_and_visually_inspected_candidate_not_admitted",
+      "role": "shadow-step1-marked",
+      "primaryApproved": false,
+      "runtimeAccepted": false,
+      "prompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/shadow-step1-prompt-v1.txt",
+        "fileSha256": "2b1a2925196edc4f1e21b6fbcc324f56ce93c3e729fab5e9da19c28686727b32",
+        "submittedSha256": "e756a4fef919490f92d2459a3bc1ff4f94d8dc4da02e3595044cd6e6ff0e5073",
+        "verifiedSubmittedEncoding": "source.prompt exact UTF-8; file text matches after trailing-whitespace removal",
+        "boundedLineageVerificationAt": "2026-10-25T09:17:20.499754+00:00",
+        "sourceRecordSha256AtVerification": "3fba72a735b6591bce05e18649fe2cb78719b067ee4f4982ceb1180921793fcd"
+      }
+    },
+    {
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/shadow-mask-v1.png",
+        "sha256": "971c1c6fce428abfb6457e3a20b58655ea32b8bda10b7af2761500afdd989992",
+        "bytes": 288214,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/shadow-step2-source-v1.json",
+        "sha256": "075e90b951df583704fac5ba3a21d89d563f538bf0d14063a62fce6d317013a5",
+        "bytes": 3520,
+        "capturedAt": "2026-10-25T09:14:02.970654+00:00",
+        "sceneFamily": null,
+        "kind": null
+      },
+      "producerStatus": "saved_and_visually_inspected_candidate_not_admitted",
+      "role": "shadow-step2-luminance-mask",
+      "primaryApproved": false,
+      "runtimeAccepted": false,
+      "prompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/shadow-step2-prompt-v1.txt",
+        "fileSha256": "033ff2fe2ca0220311d2173475ee87def0444c8161829706776aa843ddde8dd9",
+        "submittedSha256": "1a220594d18223f679b1979fa0ddf710f68f164fbff1772c66f4f237c5279728",
+        "verifiedSubmittedEncoding": "source.prompt exact UTF-8; file text matches after trailing-whitespace removal",
+        "boundedLineageVerificationAt": "2026-10-25T09:17:20.499754+00:00",
+        "sourceRecordSha256AtVerification": "075e90b951df583704fac5ba3a21d89d563f538bf0d14063a62fce6d317013a5"
+      }
+    }
+  ],
+  "layerCandidateBundles": [
+    {
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/reading-layers-bundle-v1.json",
+        "sha256": "51a9481a5eabf4170569b84f7392ddf9080ad220a04e0e5679fde9349970492c",
+        "bytes": 11444,
+        "capturedAt": "2026-10-25T09:14:03.002592+00:00"
+      },
+      "status": "four_call_candidate_visually_inspected_not_admitted",
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/reading-layers-bundle-v2.json",
+        "sha256": "5e3a26091d910fc7be8f4ebc2474445e8da89a2b3627512639ebc2dee6472b0f",
+        "bytes": 4252,
+        "capturedAt": "2026-10-25T09:14:03.002903+00:00"
+      },
+      "status": "round2_two_calls_saved_inspection_pending",
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "briefIndexes": [
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/mutsumi-prompt-plan.json",
+        "sha256": "66ade9700cb7bb993b43bd7e247b678878b79ad71237b0b5dcd915a43a3be2ca",
+        "bytes": 101958,
+        "capturedAt": "2026-10-25T09:14:03.037840+00:00"
+      },
+      "arrayField": "cells",
+      "roles": [
+        "mutsumi"
+      ],
+      "cellCount": 36,
+      "boundary": "creative brief coverage only; production states come from exact source and root admission records"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-prompt-plan.json",
+        "sha256": "9f549b3785d8e59d903dec1f220f05880ce0b57213591c5111effa3a98da9dea",
+        "bytes": 103955,
+        "capturedAt": "2026-10-25T09:14:03.038468+00:00"
+      },
+      "arrayField": "cells",
+      "roles": [
+        "nyamu"
+      ],
+      "cellCount": 36,
+      "boundary": "creative brief coverage only; production states come from exact source and root admission records"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-b/uika-literary-room-36-cells-v1.json",
+        "sha256": "f7746767db671c1a5b52504f36649c2a7239e077d2b4d19856605b99d2d889b6",
+        "bytes": 51369,
+        "capturedAt": "2026-10-25T09:14:03.039014+00:00"
+      },
+      "arrayField": "cells",
+      "roles": [
+        "uika"
+      ],
+      "cellCount": 36,
+      "boundary": "creative brief coverage only; production states come from exact source and root admission records"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-b/umiri-literary-room-36-cells-v1.json",
+        "sha256": "b8f97f1a2ce86161c1068f9b0d12c26370cece95b85680f9f1fc5ef70f701c4b",
+        "bytes": 50290,
+        "capturedAt": "2026-10-25T09:14:03.039466+00:00"
+      },
+      "arrayField": "cells",
+      "roles": [
+        "umiri"
+      ],
+      "cellCount": 36,
+      "boundary": "creative brief coverage only; production states come from exact source and root admission records"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-a/matrix-72.json",
+        "sha256": "584a74a9a3b540dcebad4902f189a7c722b86eb2ed13825e7d5ed7eb076c051e",
+        "bytes": 74445,
+        "capturedAt": "2026-10-25T09:14:03.039950+00:00"
+      },
+      "arrayField": "cells",
+      "roles": [
+        "tomori",
+        "taki"
+      ],
+      "cellCount": 72,
+      "boundary": "creative brief coverage only; production states come from exact source and root admission records",
+      "canonicalAxisAliases": [
+        {
+          "field": "palette",
+          "from": "dusk",
+          "to": "violet",
+          "scope": "this creative brief index only",
+          "evidence": "producer paletteName 暮色紫; canonical family axis violet; original index remains untouched"
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/mygo-b-matrix-v1.json",
+        "sha256": "e744ab94da12aa771b9293b1a52a5f0e9af0f2eaee856c1a3201f95a58032556",
+        "bytes": 23633,
+        "capturedAt": "2026-10-25T09:14:03.040380+00:00"
+      },
+      "arrayField": "cells",
+      "roles": [
+        "anon",
+        "soyo"
+      ],
+      "cellCount": 72,
+      "boundary": "creative brief coverage only; production states come from exact source and root admission records"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+        "sha256": "302b39c48450afae6cd3e5acd8f87bb3ab234562b6c0ca85f02f5815ff02ea63",
+        "bytes": 50127,
+        "capturedAt": "2026-10-25T09:14:03.040833+00:00"
+      },
+      "arrayField": "entries",
+      "roles": [
+        "rana"
+      ],
+      "cellCount": 36,
+      "boundary": "creative brief coverage only; production states come from exact source and root admission records"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/sakiko/sakiko-literary-room-36-cells-v1.json",
+        "sha256": "a771f7473ebeb6dfed1d1143ef83cf41f0037885ed750ee1914c01e1a07eec2d",
+        "bytes": 124020,
+        "capturedAt": "2026-10-25T09:14:03.049739+00:00"
+      },
+      "arrayField": "cells",
+      "roles": [
+        "sakiko"
+      ],
+      "cellCount": 36,
+      "boundary": "creative brief coverage only; production states come from exact source and root admission records"
+    }
+  ],
+  "unresolvedAtSnapshot": [],
+  "counts": {
+    "matrix": {
+      "cellsListed": 360,
+      "generatedMothers": 17,
+      "generatedMotherArtifactsIncludingRejected": 18,
+      "humanSelectedBaselines": 1,
+      "staticMotherApproved": 8,
+      "heldForScaleRepairCells": 1,
+      "producerCandidatePendingRootCells": 8,
+      "rejectedMotherArtifacts": 1,
+      "missingMotherCells": 343,
+      "cellsWithLayerCandidates": 1,
+      "layerAttemptArtifacts": 6,
+      "layerBundlesApproved": 0,
+      "runtimeAccepted": 0,
+      "legacyCellsInherited": 0
+    },
+    "plates": {
+      "platesListed": 8,
+      "generated": 8,
+      "emptyRoomStaticApproved": 8,
+      "runtimeAccepted": 0,
+      "legacyInherited": 0
+    },
+    "briefs": {
+      "unique": 360,
+      "otherOwners": 324,
+      "sakiko": 36
+    }
+  },
+  "boundaries": [
+    "producer candidates do not count as root approval",
+    "rejected/held versions are not valid repair inputs",
+    "source primaryApproved false never overrides exact-SHA later root review",
+    "copying or source admission does not prove runtime"
+  ],
+  "directoryListingFrozenAt": "2026-10-25T09:14:02.908188+00:00",
+  "boundedPromptLineageSupplement": {
+    "recordedAt": "2026-10-25T09:17:20.499754+00:00",
+    "scope": "six already-captured extraction outputs only; no new source paths or outputs absorbed"
+  },
+  "briefAxisReconciliation": {
+    "mappedCells": 18,
+    "alias": {
+      "field": "palette",
+      "from": "dusk",
+      "to": "violet",
+      "scope": "this creative brief index only",
+      "evidence": "producer paletteName 暮色紫; canonical family axis violet; original index remains untouched"
+    },
+    "sourceIndexUnchanged": true
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "purpose": "neutral-presence",
+  "neutralTime": "night",
+  "sceneFamily": "literary-room-v1",
+  "characterId": "taki",
+  "paletteHint": "rain",
+  "lightHint": "night",
+  "environmentVariant": "time-night",
+  "weatherClaim": false,
+  "exactActivityCoverage": false,
+  "createdAt": "2026-10-26T00:27:50.098496+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "generationIntent": "same-character approved day whole-mother relight using approved identity and empty time-night plate; no new pose/camera/furniture",
+  "exactPromptFile": "taki-neutral-time-night-literary-v1.prompt.txt",
+  "promptSha256": "e53568e2eb96518159e920218a6b9b324944f99e25ea83ca4947d327ca9f9e0c",
+  "requestFile": "taki-neutral-time-night-literary-v1.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/taki-neutral-time-day-literary-v1.png",
+      "sha256": "66e104b6025d0b65c2ab522a6d76c8cab8cbc94e5ee4edbd3dd2c4d9b5bb6654",
+      "role": "approved same-character day full pose and scene",
+      "primaryApproval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/taki-neutral-time-day-literary-v1.primary-mother-review.json"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/portrait/taki-avatar-youth-v3.png",
+      "sha256": "6597cfbe08e2e4ce4906c498bcfc5d2e41d3d3910e5a8a80762c2aa53d4ed873",
+      "role": "approved same-character face aesthetic and identity reference only",
+      "primaryApproval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/portrait/taki-avatar-youth-v3.primary-identity-review.json"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.png",
+      "sha256": "d9c41c4278dd8a4efae1a91102e16349ad4dcf9829963c31ddc421dfc3652253",
+      "role": "approved clean empty time-night interior lighting and opaque curtains",
+      "primaryApproval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.primary-approval.json"
+    }
+  ],
+  "readSources": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/taki.md",
+      "sha256": "48f954585e91b84599430c573ff38e498959d3168f18a9ca46c0c3c1e7f7bc7a",
+      "fullReadBeforeCall": true
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "fullReadBeforeCall": true
+    }
+  ],
+  "wardrobeId": "hanasakigawa-high-sailor-dress-under-knee-socks-brown-loafers",
+  "projectOriginalInteraction": "Same paused page-and-upward attention moment as the approved day mother, with night interior light only; not a claim of actual weather, completed work or original-series history",
+  "output": {
+    "file": "taki-neutral-time-night-literary-v1.png",
+    "originalBasename": "exec-049c77b8-e1c0-454a-98ec-0cdaafccff00.png",
+    "sha256": "79aae6d833d537e9667f9ec77850fe00121aa886031ca3e2cba15ccc49401800",
+    "bytes": 2195396,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteMother": true,
+    "observations": [
+      "Opaque curtains remain closed with no visible exterior or invented rain/moonlight.",
+      "Night lamp warmth now acts on Taki, her sailor dress, cushion, wood and floor together; the bright daytime curtain is gone.",
+      "The same right-seat body scale, connected hips/knees/ankles, book-on-lap and page-touching hands remain visible.",
+      "Violet eyes, long dark hair, exposed knees above below-knee socks and complete grounded brown loafers retained.",
+      "No independent layers or runtime motion have been made; primary night-mother inspection remains pending."
+    ]
+  },
+  "primaryApproved": true,
+  "userApproved": false,
+  "generationInputAllowed": true,
+  "layersProduced": false,
+  "runtimeAccepted": false,
+  "countsToward360ExactActivities": false,
+  "primaryAdmissionRecord": "taki-neutral-time-night-literary-v1.primary-mother-review.json",
+  "generationInputScope": "Authorized same-character fixed included-mask layer production only; exact mother pixels remain source of RGB; no runtime or activity360 acceptance."
+}

@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T00:24:27.961Z",
+  "producer": "/root/study_reading",
+  "character": "uika",
+  "kind": "time-only-weather-unknown-neutral-companion-mother-candidate",
+  "environmentVariant": "time-day",
+  "weatherClaim": "none; complete closed opaque inner curtain, undifferentiated daytime only",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "tool": "image_gen.imagegen",
+  "originalToolPath": "C:/Users/17601/.codex/generated_images/01a17365-8901-7202-bd9e-0859826906dc/exec-11ae104d-40af-475e-a593-c822e7ae4083.png",
+  "submittedPrompt": "Use case: identity-preserve. Create ONE complete opaque 1536x1024 fine hand-painted 2D literary anime character-and-room mother for 在场, a neutral DAYTIME scene with WEATHER UNKNOWN. Input 1 is the approved CLEAN EMPTY literary-room-time-day plate: it alone defines the exact entire room, intimate eye-level camera, furniture, perspective and closed opaque inner curtain. Input 2 is the newly root-approved independent Uika avatar-youth-v3 for youthful facial identity, short warm-blonde hair and violet eyes only; no portrait enlargement, no copied shoulder crop or CG figure. Paint her whole body newly and coherently into the actual empty bench. No old weather/person mother, UI, review board, held candidate or official 3D model is supplied as input.\n\n这是本项目原创的在场相处，不是原作剧情或真实用户往事。初华原本已经想好一句自己的回应，听见身旁的人还想补一句，便没有抢着把她的理解说成答案。她把想说的话稍稍停住，愿意听对方把后半句说完；里面有她自己的好奇，也有相熟之后不用急着填满沉默的亲近。紫色眼睛明亮而安定地看向画外左前方、正常坐姿眼高的附近对话者，眉梢只有一点会意的松动；唇角是轻而可读、略不对称的年轻微笑，嘴轻轻分开一点像在等下一个词，不是营业摆拍、满口露齿、惊讶O嘴或通用安抚笑。没有任务催促，没有虚空指手，不画用户、对白或书页假文字。\n\nKeep INPUT 1'S ROOM EXACTLY: same full 1536x1024 canvas and camera; left shelves, books, pictures, plants, desk and chair; round table, porcelain lamp, flowers/books/cup; continuous cushioned right bench, plaid pillows, knitted throw; rug, floorboards and blurred foreground. Preserve positions, height, depth and all real support surfaces. Across the whole former window, the milk-white WOVEN INNER CURTAIN stays fully CLOSED and OPAQUE, including central seam. No sky, lake, town, mountain, outside foliage, cloud, rain or gap revealing weather. No hard window-grid sunshine, sunbeam pattern, dramatic blue fog, dusk color or weather icon. Soft undifferentiated indoor daylight comes through fabric, with gentle warm lamp and wood bounce as in the plate. No camera zoom/crop/move, split theme, new furniture, giant empty gradient or large paper/UI panel.\n\nCHARACTER: Misumi Uika / 三角初华, the recognizable youthful Ave Mujica / MyGO!!!!! girl. Warm LIGHT BLONDE short bob with delicate separated fringe and fine short cheek-side strands; clear VIOLET/PURPLE irises and pupils with natural eyelids. Keep short hair, not long waist hair, silver-white hair or orange dye; no invented hairclips or stage jewelry. Face is soft youthful 2D with gentle full cheeks, a short natural chin, light nose/mouth and intelligent almond eyes, not a long pointed adult face, glamorous makeup, glass-doll huge eyes, chibi proportions or plastic CG highlights. Use input 2's newly approved face direction, freshly painted at room scale, never paste a sharp-edged avatar head onto a small body.\n\nONE COHERENT ORIGINAL CASUAL OUTFIT: plain white short-sleeved crew-neck T-shirt, softly draping taupe-gray long skirt with a real waist and folds following the thighs/knees, white SHORT ankle socks, complete black-and-white lace-up low canvas sneakers with real soles. The black baseball hat is off-frame as this project's ordinary indoor choice, not an assertion that the official outfit is hatless. No sailor collar/bow, stage corset/belts/chains, boots, microphone, guitar, star prop or extra fashion accessory. Keep pale skin, blonde hair, white T-shirt and gray skirt distinct materials rather than bleaching them together.\n\nPOSE / SUPPORT / SCALE: sit on the front half of the real RIGHT bench beside the blue plaid pillow, torso naturally three-quarters toward the left-front nearby listener. Pelvis and rear thighs carry real weight into the linen cushion with slight compression and short local shade. One relaxed palm rests on the actual cushion beside her hip, fingers open naturally to support a small comfortable turn; the other hand lies loosely on her own skirt near a knee, not hovering or pointing. The long skirt drapes over two continuous thighs and separate close uncrossed knees, then falls toward two different calves and socked ankles. Both complete canvas shoes connect to their own legs and rest on the real wooden floor with soft local contact shadows, no split calf, detached ankle, floating seat or bench cutting through cloth. Knees may be modestly covered by the long skirt; do not expose hidden joints just to label them.\nMaintain the established close-room natural human scale comparable to the other approved right-bench mothers: head top roughly y115..135, supported hip at real cushion y550..585, complete shoe soles around y875..905, whole girl approximately x880..1380. These are compositional guides, not official physical measurements. Do not lean a giant face toward the camera or shrink the girl to a sticker. Show full crown/bob silhouette, both hands, full draped hem, visible ankle socks and both whole shoes. Leave the left half of the room calm and available for future real live content, with NO drawn interface or fake page.\n\nFinish as one integrated delicate youthful 2D painting: fine varying line weight and airy hair, quiet matte fabric, soft cheek and eye planes, coherent illumination on person/cushion/wood and local grounding. Her look is a warm willingness to hear the rest, with her own thoughts still present. No stage glamour, adult photorealistic skin, forced generic grin or strong pink blush. No text, speech bubble, labels, frame, logo, watermark, grid, collage, another person or cat. This is one static neutral time-day companion candidate only, not an exact activity, weather observation, animation, layer set or runtime acceptance.",
+  "submittedPromptSha256": "7f66ee6ec138a5a89f833c6b4b68df61eb7904c8ab5aed479f9c0850b201717e",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.png",
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-avatar-youth-v3.png"
+  ],
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.png",
+      "role": "Sole camera/room/time-only daylight authority; root-approved clean empty opaque-curtain plate.",
+      "approval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.primary-approval.json",
+      "sha256": "aa4ce3dcab5cd2366c9f1c4eadcff0ab85537ab45e5a3b0643c4d01588e6e247",
+      "bytes": 2512492
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-avatar-youth-v3.png",
+      "role": "Root-scoped youthful facial aesthetic and same-character identity generation only; no alpha/small-circle/runtime acceptance inherited.",
+      "approval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-avatar-youth-v3.primary-approval.json",
+      "sha256": "842725f73a3d8bd1af9941e58783a523e3adb3b7f43e21c2a9b2579f0f680257",
+      "bytes": 1997252
+    }
+  ],
+  "transparentBackground": false,
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-day-v1.png",
+    "sha256": "e05d24ff0a1943e66e635880d5265fb79a66dac13e8656ca6d820b1b171ebbea",
+    "bytes": 2427278,
+    "width": 1536,
+    "height": 1024
+  },
+  "rawToolBytesPreserved": true,
+  "dependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/uika.md",
+      "sha256": "08e1b6e7dfa31b9c82d2ad5446b482655cd548c2191926b46840af5b515fdf5b",
+      "readScope": "fully read for current task"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "readScope": "fully read for current task"
+    }
+  ],
+  "projectOriginalBoundary": "She leaves her own reply unspoken for a moment to hear the other persons unfinished sentence. Original in-app companionship interpretation, not canon or claimed real user history; no real weather/source material is depicted.",
+  "wardrobe": "Plain white short-sleeved crew-neck T-shirt, taupe-gray long skirt, white short ankle socks and complete black/white lace-up low canvas sneakers. Hat removed indoors as explicit project-original staging.",
+  "producerObservation": {
+    "personallyViewedWholeOriginal": true,
+    "observed": [
+      "Whole opaque inner curtain remains closed with no readable outdoors, weather, hard sunbeam or grid shadow; same desk/lamp/bench and quiet left area remain.",
+      "Warm light-blonde bob and clear violet eyes are recognizable; softly youthful 2D face and small open smile look attentive toward nearby left-front person, without pointing or a new prop.",
+      "One palm visibly supports on real cushion beside hip, other hand rests on skirt near a knee; continuous long skirt leads to two separate socked ankles and both whole canvas shoes grounded on wood.",
+      "Character and bench share the same soft day illumination. Crown projects a little higher than Mutsumi due to upright pose/bob silhouette; human-scale and full scene integration remain for primary judgment, not numeric scoring."
+    ],
+    "concerns": [
+      "Full static mother, scale and source support are candidates until root personally reviews."
+    ]
+  },
+  "primaryApproved": true,
+  "motherStaticApproved": true,
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "generationInputAllowed": true,
+  "exactActivityMatrixCredit": 0,
+  "scope": "One neutral time-day static mother candidate only; no 360 exact-activity/motion credit. No night or layers started.",
+  "primaryApprovalScope": "Complete static neutral time-day mother and same-character complete-pose base for a time-night lighting extension only. No layers, runtime or 360 activity-motion admission.",
+  "primaryApprovalRecord": "uika-neutral-time-day-v1.primary-approval.json",
+  "userApproved": false
+}

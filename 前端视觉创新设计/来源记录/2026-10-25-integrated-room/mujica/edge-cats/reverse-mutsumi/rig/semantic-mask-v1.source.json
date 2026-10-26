@@ -1,0 +1,25 @@
+{
+  "recordType": "imagegen-same-canvas-semantic-label-mask",
+  "input": {
+    "file": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\reverse-mutsumi\\mutsumi-meme-cat-head-right-v1.png",
+    "sha256": "3edcb5c85458c4150e196056347c3a8214d229392fc784aad4e49f4682432b74",
+    "personallyViewed": true,
+    "staticDirectionApprovedByRoot": "Direct parent message: root personally viewed reverse-mutsumi/mutsumi-meme-cat-head-right-v1.png; static facing accepted, blue halo requires originalRGB/mask cleaning."
+  },
+  "promptFile": "semantic-mask-v1.prompt.txt",
+  "promptFileSha256": "7709cfb2697ac741a12e050abbf0dd17ba779adf3bf528c598d2740fa8bfaed9",
+  "exactSubmittedPrompt": "Create a technical SAME-CANVAS semantic label mask of the one supplied accepted Mutsumi meme-cat source. This is segmentation only, NOT a character redraw. Output exactly 1536 x 1024, all source edges remain at their existing source-pixel positions: no crop, rescale, translation, mirroring, pose edit, face edit or new anatomy.\n\nBegin with a SOLID WHITE WHOLE-CAT SILHOUETTE, including the entire face, eyes, mouth, internal ink, hair, ears, front paws and hind paw. Then change ONLY the actual raised tail on the FAR LEFT to solid RED. BLACK is only true transparent background/gaps and unwanted diffuse blue halo. No facial holes or internal black ink lines in the mask.\n\nUse three flat opaque colors:\nWHITE #FFFFFF = all opaque head/ears/hair/eyes/face/body/paws/actual double silver hairclips. Include every navy outline. The pair of silver clips remains at viewer RIGHT, character's own LEFT temple; do not change its shape or position. The white face and gold-brown eyes become plain solid WHITE in this mask.\nRED #FF0000 = the existing upcurving tail at FAR LEFT, including its thick navy outer ink outline as well as white fur. The tail tip is near (117,280). Its actual visible attachment runs against the existing left rump outline from approximately (246,600) to (213,651); root center near (230,626). Follow the actual source geometry rather than drawing from those approximate coordinates. Tail is behind the white body, not a body/hind-paw wedge.\nBLACK #000000 = all transparent surroundings, true gaps, and broad semitransparent blue glow. No checkerboard, dark blue background substitute, shadow, gradient or labels.\n\nThe large rounded hind haunch/paw at lower LEFT is BODY and WHITE. Its continuous navy rump arc is foreground BODY, not tail. RED only selects the actual distinct appendage outside that arc. There is no hidden tail to invent. The extended head and two hanging front paws at the RIGHT are all BODY and WHITE. Every opaque internal color/ink inside the source silhouette becomes white, never a hole. Every opaque tail outline pixel belongs in red. Narrow antialiasing at the exact true outline is okay, no broad blurred mask. Preserve the full blank margins and exact 1536x1024 source canvas. No text, arrows, grid, added edge, new prop or furniture.\n\nThis accepted near-frontal Mutsumi head has mint-gray hair, gold-brown eyes, two silver clips at her own-left/viewer-right temple, and the same simple unified cartoon treatment as the white meme-cat body. No artwork will be repainted: original same-coordinate RGB will be used later. The mask must only establish this actual source's body/tail ownership and opaque contour.",
+  "submittedPromptSha256": "569362d386f3308ebe91397405546400a58a1d4bab8da10a9ca81f3069ab4359",
+  "transparentBackground": false,
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-24671b78-c930-454d-a881-b3a8e32e437a.png",
+  "toolOriginalSha256": "e8daa0d06d432592709539d10370d5416a04deff1829fb261d03630bed34790e",
+  "actualOutput": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "sha256": "ffa75d09c288e9efd848557cc2500f3d396b14e50efb4dd0ff17598a7e61d981"
+  },
+  "scope": "Raw AI semantic mask is coarse and underselects original outer ink; source-specific guard expansion and native-alpha calibration performed separately. Not a repainted source and not runtime art by itself."
+}

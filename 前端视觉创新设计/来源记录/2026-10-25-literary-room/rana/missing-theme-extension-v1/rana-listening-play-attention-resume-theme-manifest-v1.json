@@ -1,0 +1,296 @@
+{
+  "schemaVersion": 1,
+  "scope": "Rana listening/play/attention/resume x mist/violet/rain: twelve separately generated full human mothers; no layers or runtime credit",
+  "producer": "/root/integrated_shell",
+  "entries": [
+    {
+      "cell": "rana/listening/mist",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-listening-mist-literary-v1.png",
+        "sha256": "b0f0aa476e1ac07f7bdf5fdbdea950fc2f8bfe7ec200f7d3cda0145a6afdd60c",
+        "bytes": 2393367,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-listening-mist-literary-v1.source.json",
+      "producerReview": "producer-static-candidate-awaiting-root"
+    },
+    {
+      "cell": "rana/listening/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-listening-violet-literary-v1.png",
+        "sha256": "d50534c3340f9b7aa6f6c03aa65f92fe1d3dd2dd3d552d495124ba76a6ffaa1f",
+        "bytes": 2293779,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-listening-violet-literary-v1.source.json",
+      "producerReview": "producer-static-candidate-awaiting-root"
+    },
+    {
+      "cell": "rana/listening/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-listening-rain-literary-v1.png",
+        "sha256": "8c19088bf553b3a9e87ca5021e75c126deb97135279ec418add235bb5a38754e",
+        "bytes": 2254006,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-listening-rain-literary-v1.source.json",
+      "producerReview": "producer-static-candidate-awaiting-root"
+    },
+    {
+      "cell": "rana/play/mist",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-play-mist-literary-v1.png",
+        "sha256": "b69bc40c8132c2691611e415793f16938670eeb02ae4758d5b43140838ac0b64",
+        "bytes": 2383424,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-play-mist-literary-v1.source.json",
+      "producerReview": "producer-static-candidate-awaiting-root"
+    },
+    {
+      "cell": "rana/play/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-play-violet-literary-v1.png",
+        "sha256": "d436f7482a116c995a73d32d942e2494a1804a8d2f96318c926e026577b7107c",
+        "bytes": 2315722,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-play-violet-literary-v1.source.json",
+      "producerReview": "producer-static-candidate-awaiting-root"
+    },
+    {
+      "cell": "rana/attention/mist",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-attention-mist-literary-v1.png",
+        "sha256": "0e78409d6dcc9c01754229b88961e9cb57168bffc1208a066b3e6bea3d89fe38",
+        "bytes": 2439240,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-attention-mist-literary-v1.source.json",
+      "producerReview": "producer-static-candidate-awaiting-root"
+    },
+    {
+      "cell": "rana/attention/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-attention-violet-literary-v1.png",
+        "sha256": "e080a71ba55f326a6719cdd0152125a44ef6bf08d25de960d3be19c34ae7b240",
+        "bytes": 2302218,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-attention-violet-literary-v1.source.json",
+      "producerReview": "producer-static-candidate-awaiting-root"
+    },
+    {
+      "cell": "rana/attention/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-attention-rain-literary-v1.png",
+        "sha256": "72f15192218de0764069d7f324d4f86e056c4cc1b952703ac8121c9b5b1e03e9",
+        "bytes": 2216250,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-attention-rain-literary-v1.source.json",
+      "producerReview": "producer-static-candidate-awaiting-root"
+    },
+    {
+      "cell": "rana/resume/mist",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-resume-mist-literary-v1.png",
+        "sha256": "022c74e07054f1d326d02316277c10383dc9f398a321a17a38594426339d8c65",
+        "bytes": 2430868,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-resume-mist-literary-v1.source.json",
+      "producerReview": "producer-static-candidate-awaiting-root"
+    },
+    {
+      "cell": "rana/resume/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-resume-violet-literary-v1.png",
+        "sha256": "85381ed965058dae77a0aabbb4b3652c51c703fdf852b97a64b7193169616e45",
+        "bytes": 2299322,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-resume-violet-literary-v1.source.json",
+      "producerReview": "producer-static-candidate-awaiting-root"
+    },
+    {
+      "cell": "rana/play/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-play-rain-literary-v5.png",
+        "sha256": "54e75abe74e2f67f5cbcf9b8cb74459a29458c7d89ca4425535d815b2f78e67d",
+        "bytes": 2269016,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-play-rain-literary-v5.source.json",
+      "producerReview": "producer-static-candidate-awaiting-root"
+    },
+    {
+      "cell": "rana/resume/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-resume-rain-literary-v2.png",
+        "sha256": "c5a05eec8c023c47cc5cbc9402e672eaa384747721f4f6a93f336c2574f8511f",
+        "bytes": 2252126,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-resume-rain-literary-v2.source.json",
+      "producerReview": "producer-static-candidate-awaiting-root"
+    }
+  ],
+  "generatedCount": 12,
+  "requiredCount": 12,
+  "updatedAt": "2026-10-25T19:06:56.225Z",
+  "historicalAttempts": [
+    {
+      "cell": "rana/play/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-play-rain-literary-v1.png",
+        "sha256": "1bad9497d6c65107beae4b186f74f76df72c610c924abeace30180ef2aa5f3e2",
+        "bytes": 2239137,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-play-rain-literary-v1.source.json",
+      "producerReview": "HOLD-action-missing-do-not-feed",
+      "status": "HOLD-preserved-not-generation-input"
+    },
+    {
+      "cell": "rana/play/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-play-rain-literary-v2.png",
+        "sha256": "1e8e2bfd75736be8d582029a411f966b2f3d71e4a3d362a28557e3545c8d5ab0",
+        "bytes": 2346591,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-play-rain-literary-v2.source.json",
+      "producerReview": "HOLD-identity-and-geometry-drift-do-not-feed",
+      "status": "HOLD-preserved-not-generation-input"
+    },
+    {
+      "cell": "rana/play/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-play-rain-literary-v3.png",
+        "sha256": "892380b7711e9460e45c7f5bff9c0cb760421a6f04db033b9e65c8da07076133",
+        "bytes": 2243112,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-play-rain-literary-v3.source.json",
+      "producerReview": "HOLD-specific-tap-contact-unresolved-do-not-feed",
+      "status": "HOLD-preserved-not-generation-input"
+    },
+    {
+      "cell": "rana/play/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-play-rain-literary-v4.png",
+        "sha256": "eca7beec6a3ce66d18afda12595ad51cc312bcb8efc54533d7de6b3bb7ca6a87",
+        "bytes": 2220802,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-play-rain-literary-v4.source.json",
+      "producerReview": "HOLD-wood-contact-still-not-explicit-do-not-feed",
+      "status": "HOLD-preserved-not-generation-input"
+    },
+    {
+      "cell": "rana/resume/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-resume-rain-literary-v1.png",
+        "sha256": "ddbdf5f4ed5dafbb443ae2874c28af53999bca24eae56b4cfddbbf5d5ddb882b",
+        "bytes": 2239345,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-resume-rain-literary-v1.source.json",
+      "producerReview": "HOLD-night-light-ambiguity-clean-rebuild-required",
+      "status": "HOLD-preserved-not-generation-input"
+    }
+  ],
+  "physicalOutputCount": 17,
+  "historicalHeldAttemptCount": 5,
+  "producerCandidateCount": 12,
+  "rootMotherApprovedCount": 0,
+  "layerOrRuntimeCredit": 0,
+  "integrityReview": {
+    "sourceRecordsChecked": 17,
+    "currentCellsChecked": 12,
+    "promptInputOutputShaAndPngDimensions": true,
+    "errors": [],
+    "heldInputReuseDetected": []
+  },
+  "doNotFeedHeldSha256": [
+    "1bad9497d6c65107beae4b186f74f76df72c610c924abeace30180ef2aa5f3e2",
+    "1e8e2bfd75736be8d582029a411f966b2f3d71e4a3d362a28557e3545c8d5ab0",
+    "892380b7711e9460e45c7f5bff9c0cb760421a6f04db033b9e65c8da07076133",
+    "ddbdf5f4ed5dafbb443ae2874c28af53999bca24eae56b4cfddbbf5d5ddb882b",
+    "eca7beec6a3ce66d18afda12595ad51cc312bcb8efc54533d7de6b3bb7ca6a87"
+  ],
+  "rootReviewNotes": [
+    "Rana play/mist coincidental shadow is subtle; inspect intent before approval.",
+    "Pure-plate play/rain v5 and resume/rain v2 have some figure placement/scale variation; inspect full mother and calibrate before layers.",
+    "No mother, layers or runtime approved by producer; generationInputAllowed remains false pending primary review."
+  ]
+}

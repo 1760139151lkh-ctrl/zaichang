@@ -1,0 +1,163 @@
+{
+  "id": "anon",
+  "characterId": "anon",
+  "stem": "anon-edge-meme-cat-v1",
+  "source": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mygo\\edge-cats\\anon-edge-meme-cat-v1.png",
+  "sourceSha256": "f56249db73c9c499914b6232bd2e6c9444cce33631f730835bfaf55606adcf7e",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "sourceMode": "RGBA",
+  "sourceAlphaRange": [
+    0,
+    254
+  ],
+  "tailSide": "right",
+  "tailPivotPx": [
+    1358,
+    670
+  ],
+  "tailPivotNormalized": [
+    0.8841145833333334,
+    0.654296875
+  ],
+  "paperEdgeSourceY": 854,
+  "paperEdgeNormalized": 0.833984375,
+  "frontPawVisualRefsPx": [
+    [
+      280,
+      778
+    ],
+    [
+      587,
+      834
+    ]
+  ],
+  "pawScope": "Visible paw support/holding references; props belong to fixed body, no hypothetical joints or forced equal paw-bottom rule.",
+  "propOwnership": "folded paper bird retained with fixed holding paw",
+  "bodyArcSamplesY_X": [
+    [
+      610,
+      1333
+    ],
+    [
+      620,
+      1341
+    ],
+    [
+      630,
+      1347
+    ],
+    [
+      650,
+      1359
+    ],
+    [
+      660,
+      1364
+    ],
+    [
+      670,
+      1369
+    ],
+    [
+      680,
+      1373
+    ],
+    [
+      700,
+      1380
+    ],
+    [
+      710,
+      1382
+    ]
+  ],
+  "visibleTailEndY": 701,
+  "wholeGuardExpansionRadius": 26,
+  "sourceSolidOutsideWholeGuardBounds": null,
+  "tailSemanticExpansionRadius": 12,
+  "rootUnderlapPx": 18,
+  "bodyForegroundInkOverlapPx": 4,
+  "mirrorSafe": true,
+  "eyeIdentity": null,
+  "selectedMask": "semantic-mask-v2.png",
+  "selectedMaskToolPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-376f4345-b1f7-41d6-a989-a291d93fd83d.png",
+  "outputs": {
+    "body": {
+      "sha256": "e2f9bc6831f9f6a740d826014b2262397b1546f165a3ad7aa84f69c1f08aeb42",
+      "bytes": 919839,
+      "alphaBounds": [
+        18,
+        135,
+        1396,
+        915
+      ],
+      "visibleRgbDifferenceRange": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    "tail": {
+      "sha256": "e52e8a7c08e5f76d8eb7fac55a4ec51345be10adf5ad453d4a93f4c83d2421b4",
+      "bytes": 62973,
+      "alphaBounds": [
+        1323,
+        322,
+        1519,
+        702
+      ],
+      "visibleRgbDifferenceRange": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    "clean": {
+      "sha256": "763ee236abaf9c3b18c914b74397be65f37e96d0e204066582858ff0617ef9b2",
+      "bytes": 960636,
+      "alphaBounds": [
+        18,
+        135,
+        1519,
+        915
+      ],
+      "visibleRgbDifferenceRange": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    }
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false
+}

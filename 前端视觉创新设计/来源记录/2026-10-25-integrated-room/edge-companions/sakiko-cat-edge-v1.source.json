@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-25",
+  "tool": "image_gen.imagegen",
+  "prompt": "Use case: stylized-concept / transparent product character asset.\nCreate ONE original high quality hand-drawn TWO-DIMENSIONAL cat-form interpretation of Toyokawa Sakiko from BanG Dream Ave Mujica, for the personal companion product 在场. Real transparent RGBA background, no room, no drawn ledge, no circle, glass orb, box, badge, sticker outline, text or watermark. Square canvas; one complete cat including full tail and both front paws, generous clear margins. This is an original project animal transformation, using the named character only as an identity reference, not a copied official render.\nFirst imagine why she is here: she was quietly listening to the piano you are exploring, lying beside the page with an air of having chosen this spot herself. You pause at one note; her clear golden eyes turn down-left toward that same place before her head moves. Her dignified little face is attentive, with the slightest private softness reserved for someone familiar. She is not performing a wide generic cute grin. She has her own composure and curiosity, yet she has left one paw over the paper edge as if keeping your place. The gesture should feel like quiet shared attention and a small invitation to continue, not a task notification.\nIdentity reference: Sakiko's pale BLUE-LAVENDER hair becomes softly painted blue-grey fur with a recognizably blue undertone, warmer only where a nearby amber lamp catches it. Golden amber eyes stay clear, intelligent and focused. A small dark navy ribbon arrangement echoes her side hair ribbons in a natural fur tuft beside the ears. Preserve her refined youthful spirit and self-respect without a human face pasted onto an animal. The result is a small expressive CAT, not a human girl wearing cat ears, not a plush toy, not a glossy 3D doll and not infantile chibi.\nPose for a real UI paper edge: seen from a gentle three-quarter front angle, the compact cat rests its chest and belly on an implied horizontal support at around the lower middle of its body. Both front paws drape a short distance over exactly the same imaginary straight edge; shoulders, wrists and paw weight make sense. Hind legs are comfortably tucked onto that same support, full torso is supported. Head tilts only a little toward the page below-left. Long elegant tail grows continuously from the correct base at the rear and curves out to the right and up slightly at the tip, a distinct readable silhouette suitable for a later separate tail layer. No floating paw, dislocated leg, wing, extra limb or separate tail.\nArt direction: delicate confident 2D anime illustration with a small amount of painterly paper-grain shading; clean but varied line weight; nuanced eye highlights and restrained fur detail. A warm literary desk companion, distinctive and affectionate through posture and attention. Use a coherent muted blue-lavender, deep navy and warm gold palette, no green accent. Soft warm side light with gentle cool shadows, no black floor shadow or white halo baked into transparency. Keep all fur, ear tips, paws and tail fully within the canvas. No books, clothes, footwear, external props or background—this cat will perch on a genuine draggable document frame in code.",
+  "referencedImages": [],
+  "transparentBackgroundRequested": true,
+  "originalOutput": "C:/Users/17601/.codex/generated_images/01a1735e-42d5-7930-8d15-d513cca81deb/exec-3402cd42-9e65-47ce-bfb1-fbed9f68e272.png",
+  "output": "sakiko-cat-edge-v1.png",
+  "passport": "2026-10-25.1",
+  "form": "original-project-cat-interpretation",
+  "review": {
+    "by": "root",
+    "status": "rejected-by-user-too-realistic",
+    "generationInputAllowed": false,
+    "userDirection": "简洁简笔表情包风格；人物的2D卡通头+搞怪可爱的猫身，先搜真实表情包参考；不要写实毛发或拼装感",
+    "observed": "双前爪可沿同一纸边落下，尾巴根部连续、蓝灰毛色/金眼/深发带保角色联想。细毛与人形发束较丰富，须以真实小尺寸/深浅底检查，不能凭大图声称边缘干净或小尺度清楚。",
+    "tailLayerPresent": false,
+    "bodyAnimation": "不得全PNG摆动冒充尾巴动作",
+    "runtimeAccepted": false
+  }
+}

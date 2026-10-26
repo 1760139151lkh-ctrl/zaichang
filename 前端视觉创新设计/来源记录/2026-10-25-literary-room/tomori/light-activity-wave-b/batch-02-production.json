@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 1,
+  "characterId": "tomori",
+  "batch": 2,
+  "totalWaveCap": 24,
+  "completedCalls": 6,
+  "callOrdinals": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "entries": [
+    {
+      "assetId": "tomori-attention-mist-literary-v1",
+      "activity": "attention",
+      "palette": "mist",
+      "callOrdinal": 7,
+      "file": "tomori-attention-mist-literary-v1.png",
+      "sha256": "f1d4baa0b5fa81ba5c7364c0047f61e2e1ebc531b7a54786652b26ac0611debc",
+      "bytes": 2369317,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "tomori-attention-mist-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-b/tomori-attention-apricot-literary-v1.png",
+          "sha256": "22b2ae5582d852a3b0fd565d3e52f95acd6cbdc5ed5b8c58a5076d1540e30013",
+          "role": "image2: root-approved actual activity identity/pose/scale/support, not inherited daylight",
+          "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: same supported open notebook/pencil-at-fold and hand pause with separate nearby image-left sheet, modest down-left head/gaze retained rather than a reach or enlarged lean. Overcast light softens paper/skin/uniform/linen/floor together without hard sun grid. Eyes/fringe/lids readable, hip/cushion and full coherent uncrossed legs/shoes at source scale; room stable.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "Gaze implies nearby-page-region attention, not exact eye-ray or actual pointing evidence; primary/layer/runtime remain false."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "tomori-attention-violet-literary-v1",
+      "activity": "attention",
+      "palette": "violet",
+      "callOrdinal": 8,
+      "file": "tomori-attention-violet-literary-v1.png",
+      "sha256": "be2b69bb058d8cf93523a386d6c6aab0b84782cc4865863383e0fc5cec018beb",
+      "bytes": 2266912,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "tomori-attention-violet-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-b/tomori-attention-apricot-literary-v1.png",
+          "sha256": "22b2ae5582d852a3b0fd565d3e52f95acd6cbdc5ed5b8c58a5076d1540e30013",
+          "role": "image2: root-approved actual activity identity/pose/scale/support, not inherited daylight",
+          "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: supported notebook, pencil-at-fold, hand pause and separate image-left page retain actual activity; modest down-left gaze/head inclination rather than a reach. Dusk/lamp light reaches paper, skin/uniform, seat and floor consistently without conspicuous noon grid. Eyes/fringe/lids clear; coherent hip support/full uncrossed legs/shoes at source scale and room stable.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "Not an exact measured eye ray or pixel-identical head angle; primary/layer/runtime remain false."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "tomori-attention-rain-literary-v1",
+      "activity": "attention",
+      "palette": "rain",
+      "callOrdinal": 9,
+      "file": "tomori-attention-rain-literary-v1.png",
+      "sha256": "d0d70a39fc8caead41799622c127f337f26d530f2c9111b5bafa201935cabb1f",
+      "bytes": 2198653,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "tomori-attention-rain-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-b/tomori-attention-apricot-literary-v1.png",
+          "sha256": "22b2ae5582d852a3b0fd565d3e52f95acd6cbdc5ed5b8c58a5076d1540e30013",
+          "role": "image2: root-approved actual activity identity/pose/scale/support, not inherited daylight",
+          "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: same notebook/pencil-at-fold/retained hands and separate nearby page, modest down-left reconsidering gaze. Glass rain/dark town and warm existing-lamp light reach paper/skin/uniform/linen/floor together with no hard noon grid. No rain-imposed grief; eyes/fringe/lids clear, hip support and complete coherent uncrossed legs/shoes at source scale; room stable.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "Static nearby-page attention, not actual pointing/precise eye ray or primary/layer/runtime proof."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "tomori-resume-mist-literary-v1",
+      "activity": "resume",
+      "palette": "mist",
+      "callOrdinal": 10,
+      "file": "tomori-resume-mist-literary-v1.png",
+      "sha256": "65ee5cbf135b6956eccd9d1935b0d4e999b9c432e14ba8fc4857998fce54d781",
+      "bytes": 2411216,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "tomori-resume-mist-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-b/tomori-resume-apricot-literary-v1.png",
+          "sha256": "aa97ef281ebb77b5b3707744e7fb76e6d0b8e7f94a04673ee9c513ae7d2552b8",
+          "role": "image2: root-approved actual activity identity/pose/scale/support, not inherited daylight",
+          "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: same low open book, retained light page strip/margin, opposite cover support and small familiar closed-mouth smile/raised eyes. Overcast diffuse light reaches paper/hands/skin/uniform/seat/floor consistently without hard sun grid. Eyes/fringe/lids distinct; hip support and complete coherent uncrossed legs/shoes at source scale, room stable. The light strip is not relabeled as a definitely separate bookmark.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "Fictional continuation only, no actual return/saved-state/promise evidence; primary/layer/runtime remain false."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "tomori-resume-violet-literary-v1",
+      "activity": "resume",
+      "palette": "violet",
+      "callOrdinal": 11,
+      "file": "tomori-resume-violet-literary-v1.png",
+      "sha256": "b4150eae98005d280703fb0a556cffc9cb2812b814e23f4c9a217f7541620d9d",
+      "bytes": 2216725,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "tomori-resume-violet-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-b/tomori-resume-apricot-literary-v1.png",
+          "sha256": "aa97ef281ebb77b5b3707744e7fb76e6d0b8e7f94a04673ee9c513ae7d2552b8",
+          "role": "image2: root-approved actual activity identity/pose/scale/support, not inherited daylight",
+          "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: same low book/page-margin hand/outer cover support and tiny familiar closed-mouth smile/raised eyes. Dusk/lamp light integrates paper/hands/skin/uniform/linen/floor with no conspicuous right-floor noon grid. Light strip remains source page/marker ambiguity, not a new prop. Eyes/fringe/lids clear, hip support and full coherent uncrossed legs/shoes at observed source scale; room stable.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "Fictional continuation only, no actual saved-state/promise or primary/layer/runtime claim."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "tomori-resume-rain-literary-v1",
+      "activity": "resume",
+      "palette": "rain",
+      "callOrdinal": 12,
+      "file": "tomori-resume-rain-literary-v1.png",
+      "sha256": "edf77501b516408f9d305c12c7cf1e37555ecaf2c18e3f05081779483274fe48",
+      "bytes": 2198516,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "tomori-resume-rain-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-b/tomori-resume-apricot-literary-v1.png",
+          "sha256": "aa97ef281ebb77b5b3707744e7fb76e6d0b8e7f94a04673ee9c513ae7d2552b8",
+          "role": "image2: root-approved actual activity identity/pose/scale/support, not inherited daylight",
+          "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: low supported open book, retained light page strip/margin, opposite cover support and small familiar smile/raised eyes preserve approved actual continuation pose. Rain/dark town and warm lamp illuminate paper/hands/skin/uniform/linen/floor together without hard noon grid or automatic grief. Eyes/fringe/lids clear, full coherent uncrossed legs/shoes and hip support at source scale; room stable.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "No actual return/saved state/kept promise or primary/layer/runtime proof."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "scope": "Six actually saved and personally viewed same-activity light mother candidates. Root/layer/runtime approval remains separate; no new layers or registration."
+}

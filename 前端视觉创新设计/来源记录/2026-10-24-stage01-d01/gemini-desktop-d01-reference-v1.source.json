@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "id": "s01-d01-gemini-desktop-reference-v1",
+  "producer": "Gemini desktop",
+  "clientVersion": "1.16.0",
+  "observedUi": {
+    "mode": "video",
+    "modelSelection": "3.8 Flash",
+    "thinkingLevel": "高（超级详尽）",
+    "thinkingChoices": [
+      "低",
+      "中",
+      "高"
+    ],
+    "aspectRatio": "16:9"
+  },
+  "backendVideoModel": "not_shown",
+  "input": "../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+  "inputSha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1",
+  "prompt": "gemini-desktop-d01-reference-v1.prompt.txt",
+  "output": "gemini-desktop-d01-reference-v1.mp4",
+  "sha256": "6dc15c18368fa04f66bf04b9f2c3e81287424928af74347893054a73af982fa5",
+  "bytes": 2801842,
+  "observedMedia": {
+    "width": 1280,
+    "height": 720,
+    "videoSeconds": 10,
+    "containerSeconds": 10.005,
+    "fps": 24,
+    "frames": 240,
+    "videoCodec": "h264",
+    "pixelFormat": "yuv420p",
+    "audioCodec": "aac",
+    "audioSampleRate": 48000,
+    "audioChannels": 2
+  },
+  "classification": "C",
+  "status": "reference-only-needs-correction",
+  "review": {
+    "fullAvDecode": "passed",
+    "keyFramesInspected": [
+      0,
+      5,
+      9.9583333333
+    ],
+    "retained": "Supported seated posture, look toward the left, hand raise and return to the book",
+    "defect": "An unrequested black/red shooting-target poster appears on the left wall.",
+    "normalSpeedFullPlayback": "pending",
+    "audioListening": "pending",
+    "loopReview": "not_a_loop_target"
+  },
+  "runtimeReference": null,
+  "nextRevision": "Same conversation: remove only the added target poster; preserve character, room and action."
+}

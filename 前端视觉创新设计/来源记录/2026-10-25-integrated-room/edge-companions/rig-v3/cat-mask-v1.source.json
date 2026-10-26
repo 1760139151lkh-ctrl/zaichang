@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-9725-7bd3-aa74-f7fa6487bfed/exec-aa04f969-1663-4c06-9347-c79e6370484a.png",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计\\运行素材\\companion\\edge\\sakiko-meme-cat-v3.png",
+      "sha256": "15b21bfb6c94aef1dfd8ae7b168f970fbe9998cddb705b64ac7dabdceab0c161",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGBA",
+      "userAcceptedForm": true,
+      "originalPreserved": true
+    }
+  ],
+  "promptFile": "cat-mask-v1.prompt.txt",
+  "submittedPromptSha256": "8e6a816c428510ce00a49950e26e26ca322d88c56bcbcb88c5ead15d72d3f2be",
+  "output": {
+    "file": "cat-mask-v1.png",
+    "sha256": "a17b7ad321707a0836655f2bcd94a53adda6ee991d420307ae7047b996543bc1",
+    "bytes": 679578,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "alphaBounds": null
+  },
+  "producerReview": "coarse whole-cat identity guard; source native alpha governs precise original ink boundary",
+  "primaryApproved": false,
+  "runtimeAccepted": false
+}

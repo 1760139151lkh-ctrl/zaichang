@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-mother-fixed-included-layer-imagegen-stage",
+  "character": "umiri",
+  "purpose": "neutral-presence",
+  "neutralTime": "night",
+  "palette": "rain",
+  "light": "night",
+  "weather": "unknown",
+  "weatherClaim": false,
+  "stage": "F1",
+  "tool": "built-in image_gen.imagegen",
+  "toolArguments": {
+    "prompt": "Use case: precise-object-edit. Exact root-approved Umiri neutral-presence time-night 1536x1024 mother, weather unknown. Create F1 deliberate full foreground PURE-WHITE selection markup on the ONLY input clean complete mother. Keep exact full canvas/camera/all source positions, no identity/body/pose/prop redraw.\nPaint the ENTIRE visible Umiri and her COMPLETE little book SOLID PURE WHITE: every charcoal bob strand and separate outward hair tip, head/face/ear/small ear jewelry/neck/choker/buckle, full black leather jacket lapels/zips/sleeves/cuffs, dark red top, ALL hands/wrists/fingers including the extended SIDE PALM pressing the cushion, black belt and gray skirt with every outer hem/fold tip, both bare legs/knees/ankles, and BOTH COMPLETE black chunky lace-up mid-calf platform boots. Include fine dangling lace ends/straps/buckles, boot shafts, full dark toes/sidewalls/platform soles and ALL bottom treads/heel blocks; darkness does not exclude these. Include the WHOLE small book resting on thigh: both covers/spine/dark bottom binding/cream page block/all thin page and cover edges around the hand. Book/hand/lap are continuous foreground. ALL selected INTERIORS become featureless pure white; no original black zipper/choker/boot-lace/book-cover line, face/hand/page detail, gray crease or hollow book cut remains inside white.\nPreserve original outer antialiased perimeter, actual background gaps between fine hair, arm/body, separated legs and boot shapes remain original COLORED room. Do not grow/shrink/move outlines. Naturally pale empty curtains/cushion/knit/lamp and ALL unselected furniture/floor/shadows remain original colored. Seat receiving compression under hip/skirt/side palm and boot-ground shadows remain colored for S. No extra bench/book object, boxes, text, checkerboard, crop/resize/transparency. One opaque full original scene, only complete girl/held book deliberately white; generated RGB will never replace mother RGB.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-night-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "submittedPrompt": "Use case: precise-object-edit. Exact root-approved Umiri neutral-presence time-night 1536x1024 mother, weather unknown. Create F1 deliberate full foreground PURE-WHITE selection markup on the ONLY input clean complete mother. Keep exact full canvas/camera/all source positions, no identity/body/pose/prop redraw.\nPaint the ENTIRE visible Umiri and her COMPLETE little book SOLID PURE WHITE: every charcoal bob strand and separate outward hair tip, head/face/ear/small ear jewelry/neck/choker/buckle, full black leather jacket lapels/zips/sleeves/cuffs, dark red top, ALL hands/wrists/fingers including the extended SIDE PALM pressing the cushion, black belt and gray skirt with every outer hem/fold tip, both bare legs/knees/ankles, and BOTH COMPLETE black chunky lace-up mid-calf platform boots. Include fine dangling lace ends/straps/buckles, boot shafts, full dark toes/sidewalls/platform soles and ALL bottom treads/heel blocks; darkness does not exclude these. Include the WHOLE small book resting on thigh: both covers/spine/dark bottom binding/cream page block/all thin page and cover edges around the hand. Book/hand/lap are continuous foreground. ALL selected INTERIORS become featureless pure white; no original black zipper/choker/boot-lace/book-cover line, face/hand/page detail, gray crease or hollow book cut remains inside white.\nPreserve original outer antialiased perimeter, actual background gaps between fine hair, arm/body, separated legs and boot shapes remain original COLORED room. Do not grow/shrink/move outlines. Naturally pale empty curtains/cushion/knit/lamp and ALL unselected furniture/floor/shadows remain original colored. Seat receiving compression under hip/skirt/side palm and boot-ground shadows remain colored for S. No extra bench/book object, boxes, text, checkerboard, crop/resize/transparency. One opaque full original scene, only complete girl/held book deliberately white; generated RGB will never replace mother RGB.",
+  "originalToolOutput": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-2e2d9a36-7e79-402e-9591-a2abb36601c9.png",
+  "outputFile": "figure-step1-marked-v1.png",
+  "mother": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-night-v1.png",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-night-v1.png",
+      "role": "exact root-approved original whole mother",
+      "sha256": "c6f19f399ab4a05727cb52d36a780fd3fde3f4222e4c31dc39dee6b2f1b19731"
+    }
+  ],
+  "producerObservation": "Complete tool output personally viewed: full person/book/extended side palm, both complete boots and fine lace tails deliberately white; actual empty arm/leg background gaps remain colored.",
+  "sourceRgbDrawsInFinalAssembly": 1,
+  "assembly": "U=MAX(L(F),L(S)); exact original mother RGB drawn only once; local receiver material fixed at source position",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "pngPixelEditing": false,
+  "croppingOrResizingSourcePNG": false,
+  "thresholdOrMorphologyEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "dynamicAdmission": false,
+  "original360CreditAssigned": false,
+  "userApproved": false,
+  "reviewScreenshotsUsedAsImageInput": false,
+  "recordedAtUTC": "2026-10-26T01:28:53.917922+00:00",
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/night/layers/figure-step1-marked-v1.png",
+    "sha256": "7b4f4c8fb7627426bc845de36c9e1ff745227e168b77d6db1589a5653a006172",
+    "bytes": 1999899,
+    "originalToolOutputSHA256": "7b4f4c8fb7627426bc845de36c9e1ff745227e168b77d6db1589a5653a006172",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "motherSHA256": "c6f19f399ab4a05727cb52d36a780fd3fde3f4222e4c31dc39dee6b2f1b19731",
+  "dossierVersion": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/umiri.md",
+    "sha256": "760b038d3ff84a770c80bf6144e52265d8109e41ecd5cb3440408561ac2bc0da"
+  },
+  "methodVersion": {
+    "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+    "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d"
+  },
+  "submittedPromptSHA256": "6d76a09e27681c4fe6636f47f23fff4c830d259289b015d414b775de6de6d06c",
+  "promptFileSHA256": "4d063de6053590eb097d8d5357f5c75e8a541c54d9379ee6a1712a1e38785fdf"
+}

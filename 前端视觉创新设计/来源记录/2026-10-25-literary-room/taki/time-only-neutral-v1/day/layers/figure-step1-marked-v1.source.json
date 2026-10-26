@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "characterId": "taki",
+  "neutralTime": "day",
+  "purpose": "neutral-presence-fixed-included-layer",
+  "kind": "foreground-source-white-markup-F1",
+  "createdAt": "2026-10-26T01:02:44.726616+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "exactPromptFile": "figure-step1-marked-v1.prompt.txt",
+  "promptSha256": "a0b22fad193e85a221dd579a89d2b1466ad8decfaa257151f734deac8c554364",
+  "requestFile": "figure-step1-marked-v1.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/taki-neutral-time-day-literary-v1.png",
+      "sha256": "66e104b6025d0b65c2ab522a6d76c8cab8cbc94e5ee4edbd3dd2c4d9b5bb6654",
+      "role": "sole exact root-approved full mother; no prior mask"
+    }
+  ],
+  "output": {
+    "file": "figure-step1-marked-v1.png",
+    "sha256": "281d578849e8aebd40fc10c43755f9fc5f5b3c9beaf00eeeaf1177563129a023",
+    "bytes": 2120134,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "originalBasename": "exec-d799732d-20af-41c2-b16a-c17864af1211.png",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteOutput": true,
+    "observations": [
+      "Complete same-coordinate silhouette covers head/hair, actual visible hands and whole lap book, skirt, both legs/socks and full shoes.",
+      "Natural source environment and support colors retained; no obvious omitted face/book/shoe region in full output."
+    ],
+    "eligibleAsNextStepInput": false,
+    "nativeBrowserDefect": "book-native-v1.png shows the bottom dark book cover interrupted by a transparent seam, admitting warm BG wood in fixed composite; never use this mask or markup as new image input"
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "countsToward360ExactActivities": false,
+  "pngPixelEditing": false,
+  "status": "HOLD_book_lower_cover_coverage_gap"
+}

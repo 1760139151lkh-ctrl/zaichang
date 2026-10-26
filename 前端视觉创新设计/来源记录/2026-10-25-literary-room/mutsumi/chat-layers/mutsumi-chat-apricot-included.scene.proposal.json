@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "id": "literary-mutsumi-chat-apricot",
+  "sceneFamily": "literary-room-v1",
+  "character": "mutsumi",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "width": 1536,
+  "height": 1024,
+  "mother": "mutsumi-chat-apricot-v1.png",
+  "background": "literary-room-clear-day-v1.png",
+  "mask": "mutsumi-chat-figure-mask-v1.png",
+  "maskMode": "luminance",
+  "contactMask": "mutsumi-chat-contact-mask-v1.png",
+  "seat": [
+    0.800781,
+    0.576172
+  ],
+  "ground": [
+    0.660807,
+    0.875
+  ],
+  "bodyBounds": [
+    0.585938,
+    0.102539,
+    0.904948,
+    0.888672
+  ],
+  "safeTextBoundary": 0.56,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "70% 10%, 83% 10%, 91% 53%, 88% 64%, 74% 67%, 73% 90%, 59% 90%, 64% 61%, 64% 53%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-included-primary-admission-v1.json"
+  },
+  "proposalOnly": true,
+  "copyPlan": [
+    {
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.png",
+      "target": "mutsumi-chat-apricot-v1.png",
+      "sha256": "9d529789ece89f44b166f39dd259136257598cfd546009e49fae74140cbf8b6d"
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "target": "literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c"
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-figure-mask-v1.png",
+      "target": "mutsumi-chat-figure-mask-v1.png",
+      "sha256": "a6d6cef3414154b5201be221e9192b8ce7c42406d4757f893cf16fa0e5824977"
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-contact-mask-v1.png",
+      "target": "mutsumi-chat-contact-mask-v1.png",
+      "sha256": "469d1c34a02afa1616626e18300994099bf5f28d4b761b655ed0dcff2b6788b1"
+    }
+  ],
+  "contract": "Matches isolated implementation's contactMask + maskMode:luminance + contactShadow:included. No figure/shadow/floorCast. Do not register before root layer admission; no runtime assets copied."
+}

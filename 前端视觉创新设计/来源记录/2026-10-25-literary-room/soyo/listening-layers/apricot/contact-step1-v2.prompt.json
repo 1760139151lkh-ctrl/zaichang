@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-listening-apricot-contact-step1-v2",
+  "submittedPrompt": "Use case: precise-object-edit. Asset: corrected local RECEIVING MATERIAL selection markup S1-v2 for an unchanged original-RGB INCLUDED figure/contact layer. The ONLY input is the clean approved Soyo listening apricot original mother, 1536x1024. Preserve the entire full canvas, camera, all original source coordinates, and original person/book RGB exactly. This is SELECTION markup, not a new scene, person, new shadow or a portable caster.\nKeep the complete girl (all hair, face, uniform, empty hands, knees, socks and both whole brown loafers) and the separate closed book on her image-right IN THEIR ORIGINAL COLORS. Mark PURE WHITE only on the ACTUAL ORIGINAL LOCAL RECEIVING MATERIAL/contact-and-shadow regions: small linen islands touching directly below trailing skirt/hip and very narrow book-bottom linen receiver, plus the COMPLETE short soft ground-contact shadows of BOTH real source shoes. Important: shoe contacts are NOT merely a 2-pixel white contour line around the soles. The mother contains visible dark floor shade immediately surrounding/beneath the two soles; select this local real darkened floor footprint in full so the later original-RGB layer restores its grounding, including the dark center under toes/heels and soft peripheral receiver shade for roughly 8..35 source pixels past each sole where actually visible. Follow the source dark shade, its irregular wood-grain boundary and gentle faded edge, not a drawn generic oval, rectangle or long band. Do not invent or enlarge a new shadow.\nBoth shoes are near x744..895,y804..883; inspect ONLY the source-connected foot-darkened floor just beneath/around them around x730..950,y850..925. These are loose inspection neighborhoods, NOT boxes to fill. The shadow may connect naturally where the actual two source shades meet; never connect unrelated room illumination. Dark shoe sidewalls, heels and soles themselves stay COLORED, because F already includes all shoes. Exclude rug/fringe, window sun patches, unrelated table/lamp/furniture cast shadows, broad floor reflections and all empty far-away floor. Select ONLY receiver shading physically touching this source pair of shoes, not long room-wide light patterns.\nSeat: only actual tight receiver below the original hem/hip, not the naturally pale EMPTY cushion on the left or a long bench strip. Book: only actual immediately touching lower-edge receiver, stopping at the book's real footprint, not a trailing strip into empty cushion. Keep naturally pale linen, original white sailor trim, curtains, lamp, flowers and all unmarked source pixels colored. Do not shift the subject or replace its outline. No checkerboard, labels, arrows, grid, crop, recenter, zoom or resize. One opaque full-color 1536x1024 PNG with only those few real local receiver/shadow patches deliberately white. It will only select exact source RGB via MAX(F,S), with travel/slope/perspective=0.",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-listening-apricot-literary-v2.png"
+  ],
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-listening-apricot-literary-v2.png",
+      "sha256": "f242a5b6865d6ac27688ba75bdb8b0e733e6cbb8ea9724b4ea338973288c3862",
+      "role": "sole approved clean mother"
+    }
+  ],
+  "transparentBackground": false,
+  "outputFile": "contact-step1-marked-v2.png",
+  "generationStatus": "returned-and-preserved"
+}

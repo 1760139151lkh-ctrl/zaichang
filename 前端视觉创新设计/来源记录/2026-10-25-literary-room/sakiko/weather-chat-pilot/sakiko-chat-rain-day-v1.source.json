@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "character-activity-mother-candidate",
+  "character": "sakiko",
+  "activity": "chat",
+  "environmentVariant": "rain-day",
+  "variantKind": "weather-and-time-depiction",
+  "newUIPaletteOption": false,
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-6dc4d9b1-d9a1-46ac-9553-a64230701a9f.png",
+  "executionId": "exec-6dc4d9b1-d9a1-46ac-9553-a64230701a9f",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-day-v1.png",
+      "sha256": "80c6eba701bc229e79939639426de4b1c7ef68790b840ea9ded07c2bc6fc77eb",
+      "role": "sole approved clean empty room environment image input; fresh character from text",
+      "admissionRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-day-v1.primary-approval.json"
+    }
+  ],
+  "selectedMotherLineage": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+    "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+    "imageInputForThisCall": false,
+    "purpose": "personally viewed space-emotion and human-scale basis only"
+  },
+  "weatherBoundary": "Generated scene depicts this weather/time; it is not a weather observation. Runtime selection remains with the real environment owner, not a new UI palette control.",
+  "promptFile": "sakiko-chat-rain-day-v1.prompt.txt",
+  "promptFileSha256": "078eecddcc74f0c35985b5eced61e750ee2db8550d49feda401f7b010ad6a9b6",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; submitted text exact",
+  "submittedPromptSha256": "4c94037438909c9825d6459b43d9a9d31627a57f4551af6dbd3d268b41089d3b",
+  "output": {
+    "file": "sakiko-chat-rain-day-v1.png",
+    "sha256": "909c6f932335841d4627309e92819ab25fe0a189dd70b4584c2935c6d0a7caaa",
+    "bytes": 2480638,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed complete saved original. Original close literary room and window/furniture anchors remain visually in place, with bright diffuse daytime rain on the exterior glass and a softly veiled lake/town. Character crown near y125 and complete soles near y885 retain a comparable intimate scale without obvious lensward head enlargement. Lap hands, cushion weight, knee/ankle continuity and both complete shoes read coherently in full view. Golden irises, eyelids and silver-blue fringe remain distinct; awake eyes, slightly parted lips and sustained attention suggest a thought or question rather than imposed rain sadness. Soft daylight acts across skin, navy clothes and hair, with small local lamp warmth; no hard sunny floor patterns, night tint or wet indoor floor observed. Producer static view only; root, layers and runtime acceptance remain pending."
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "Producer-viewed single-character static weather-variant mother candidate only; root review pending, no layer, matrix, motion or runtime acceptance."
+}

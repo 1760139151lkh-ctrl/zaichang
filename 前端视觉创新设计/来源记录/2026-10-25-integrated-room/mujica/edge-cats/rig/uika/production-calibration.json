@@ -1,0 +1,97 @@
+{
+  "id": "uika",
+  "source": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\uika-meme-cat-v1.png",
+  "sourceSha256": "4e47efb50195f79286f944127aa39399749fe04f7b57f59a3b651e024463de74",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "tailPivotPx": [
+    1353,
+    664
+  ],
+  "tailPivotNormalized": [
+    0.880859375,
+    0.6484375
+  ],
+  "paperEdgeSourceY": 847,
+  "paperEdgeNormalized": 0.8271484375,
+  "frontPawLowerExtentsPx": [
+    [
+      293,
+      864
+    ],
+    [
+      570,
+      877
+    ]
+  ],
+  "bodyArcSamplesY_X": [
+    [
+      600,
+      1321
+    ],
+    [
+      610,
+      1329
+    ],
+    [
+      620,
+      1336
+    ],
+    [
+      630,
+      1343
+    ],
+    [
+      650,
+      1355
+    ],
+    [
+      660,
+      1360
+    ],
+    [
+      670,
+      1365
+    ],
+    [
+      690,
+      1373
+    ],
+    [
+      700,
+      1377
+    ]
+  ],
+  "visibleTailEndY": 694,
+  "wholeMaskExpansionRadius": 18,
+  "tailSemanticExpansionRadius": 12,
+  "rootUnderlapPx": 18,
+  "sourceSolidOutsideWholeGuardBounds": null,
+  "bodyAlphaBounds": [
+    49,
+    169,
+    1395,
+    883
+  ],
+  "tailAlphaBounds": [
+    1318,
+    339,
+    1513,
+    695
+  ],
+  "rawTailRedBounds": [
+    1334,
+    343,
+    1503,
+    684
+  ],
+  "outputs": {
+    "body": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\rig\\uika\\uika-meme-cat-v1-body.png",
+    "tail": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\rig\\uika\\uika-meme-cat-v1-tail.png",
+    "clean": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\rig\\uika\\uika-meme-cat-v1-clean.png"
+  },
+  "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-9725-7bd3-aa74-f7fa6487bfed/exec-4ed795b0-15ea-4f82-ad35-e25b7dfc3614.png",
+  "bodyForegroundInkOverlapPx": 4
+}

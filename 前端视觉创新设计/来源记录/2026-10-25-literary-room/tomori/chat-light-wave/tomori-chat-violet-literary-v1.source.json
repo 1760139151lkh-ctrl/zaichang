@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "assetId": "tomori-chat-violet-literary-v1",
+  "roomFamily": "literary-room-v1",
+  "characterId": "tomori",
+  "activity": "chat",
+  "palette": "violet",
+  "ambientPlateKey": "twilight",
+  "createdOn": "2026-10-25",
+  "generationMode": "whole-scene-same-pose-relighting",
+  "tool": "image_gen.imagegen (built-in)",
+  "callOrdinalInBoundedBatch": 2,
+  "executionId": "exec-7243608a-663e-4f9c-8d80-dc16250ec664",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-7243608a-663e-4f9c-8d80-dc16250ec664.png",
+  "inputs": [
+    {
+      "file": "../chat-pilot/tomori-chat-apricot-literary-v1.png",
+      "sha256": "f075324f63e151e4045b4ac5ee87f30dc8295295b81f12c97ddb30ab56ac34d9",
+      "role": "image1: primary-approved exact chat identity/pose/scale/support reference"
+    },
+    {
+      "file": "../../plates/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+      "role": "image2: primary-approved empty plate target light and atmosphere"
+    }
+  ],
+  "promptFile": "tomori-chat-violet-literary-v1.prompt.txt",
+  "promptFileSha256": "4ad45b10e59b93e0c6d21d11dedd1c09855b7104112f7376cd7e80c607599ab0",
+  "submittedPrompt": "Create ONE 1536×1024 complete landscape literary companion scene by genuinely RELIGHTING an approved chat mother. Image 1 is the PRIMARY-APPROVED original same-role apricot CHAT MOTHER, and is the exact human identity, pose, anatomical silhouette, scale, support/occlusion and camera reference. Image 2 is the PRIMARY-APPROVED matching EMPTY ROOM for the new environmental light; it is the target atmosphere and illumination reference. These two images are the only inputs. No layer/mask, unreviewed activity mother, old room, different girl or face replacement.\nPreserve the same close camera and original framing. Preserve ALL original person coordinates/scale, her seated hips in the real linen bench, exact shoulders/arms/hands/book/hem/knees/ankles and both complete shoes at their real original floor contacts. Head and shoes stay fully in frame. No translation, enlargement, leaning toward camera, new gesture or reposed limbs; natural originals gaps and occlusion remain. Keep the same large wooden multi-pane window and its current crop, lake/town/mountain geometry, shelves/books/plants, left desk and chair, round table/ceramic lamp/cup/flowers, right plaid cushions/knit throw, rug/floor and foreground plant at the same positions. Keep the room continuous, no day/night split, hard color boundary or replacement furniture.\nRepaint the WHOLE scene's light, including character face/hair/clothes/book, cushion compression/contact shadows and floor, consistently with image 2. The target is natural integrated illumination, NOT a tinted transparent overlay, filter, pasted daytime figure or simple hue swap. Use precise expressive anime character drawing inside the tactile softly painterly room. Keep each fringe lock, eyebrow, eyelash, eyelid, sclera and iris separate and readable; no hair-eye fusion or changed eye color. Do not trade youthful identity for an adult generic face.\nNo readable text, captions, fake user state, diagrams, UI, logos, watermarks, duplicate body parts, new person, crop, zoom, picture-in-picture or poster layout. The emotional scenario is project-original and does not assert an actual user's past action, promise or completed task.\n\nCHARACTER: Takamatsu Tomori (高松燈) from BanG Dream! It's MyGO!!!!! — youthful short layered steel-gray/gray-lavender neck-length hair, muted rose-brown/dusty pink-gray eyes; gray-purple white-piped blazer, white shirt, dark striped tie, checked skirt, dark socks and complete brown loafers.\nORIGINAL PERFORMANCE: Her earnest, small joy in sharing the light/page detail remains: softly expectant readable eyes, a tiny slightly parted mouth, low open thin book on thighs, one hand steadying the page and the other actual palm supporting her on the cushion. Preserve that exact calm conversational body performance; no invented greeting or pose change.\nTARGET LIGHT: Natural continuous TWILIGHT as shown in image 2: the full window and landscape share a plausible late sky, lavender/rose distance and warm interior lamp atmosphere. Use the supplied empty plate's actual time-of-day illumination, not two times split left/right. Relight the girl's skin/hair/uniform/book and surrounding seat/floor with real mixed twilight-window fill and the existing ceramic lamp's warm key. Preserve her actual garment colors and eye identity; do not dye everything purple, paste daytime skin into a dark room or preserve old noon sun lattice.",
+  "output": {
+    "file": "tomori-chat-violet-literary-v1.png",
+    "sha256": "489b44ab9165cef294dde495649de5e9f5468fc778304b34fe213a17315d4c8c",
+    "bytes": 2324413,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "decision": "lighting revision recommended; primary inspection pending",
+    "observation": "Complete original viewed and approved empty twilight plate re-viewed for comparison. Body/chat pose, low book/page hand, supporting palm, hip/seat, complete shoes and distinct eyes/fringe are retained. Exterior is continuous orange/lavender twilight with town lights, and person/materials have warm dusk coloring. However the lower-right floor still has conspicuous bright window-lattice rectangles and a strong original-style leg highlight, stronger and more noon-like than the approved empty twilight plate's diffuse floor/seat treatment.",
+    "limits": "No claim of fully matched target twilight lighting. Six-call cap retained, no extra repair generation or layer progression; issue reported to primary for exact original review."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "acceptanceScope": "Static theme mother candidate only; no new layers or registration."
+}

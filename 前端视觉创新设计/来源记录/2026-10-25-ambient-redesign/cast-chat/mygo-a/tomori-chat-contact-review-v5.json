@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "key": "tomori/chat/apricot",
+  "primary": false,
+  "runtime": false,
+  "status": "contact_extraction_not_successful_root_stopped_further_generation_and_difference_algorithm",
+  "inFlightGeneration": false,
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-chat-apricot-mother.png",
+    "sha256": "7e2d61d5874ede02beba0808b329b18922dfe6b3f20f2d923a9c2ea4c22978d9",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "issue": {
+    "sourcePixelBoundsExclusive": [
+      1287,
+      582,
+      1375,
+      604
+    ],
+    "sourcePixelRect": [
+      1287,
+      582,
+      88,
+      22
+    ],
+    "description": "Original mother has continuous compressed cushion/hem darkness; v7 recomposition loses that contact and leaves a bright strip."
+  },
+  "generationCalls": [
+    {
+      "sourceRecord": "tomori-chat-contact-v2-step1-source.json",
+      "executionId": "exec-1bf5b5cb-36c2-4080-b8f1-017061bb9fdc",
+      "output": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mygo-a/tomori-chat-contact-v2-step1-marked.png",
+      "sha256": "a0a092644ef49fe04907379e983395f0bb0491ba4796e7905f8a6cd7f660c6e7",
+      "status": "not_admitted_incomplete_contact_selection"
+    },
+    {
+      "sourceRecord": "tomori-chat-contact-v2-step2-source.json",
+      "executionId": "exec-ec8830bf-e6c4-4dc7-851c-0410485cb93f",
+      "output": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mygo-a/tomori-chat-contact-v2-step2-mask.png",
+      "sha256": "81f31068cd2be24b2a9e9a2cc4308ed13a47dd047caec2aee0bc3f696753e17b",
+      "status": "rejected_observed_vertical_drift"
+    },
+    {
+      "sourceRecord": "tomori-chat-contact-v2-step2-attempt2-source.json",
+      "executionId": "exec-d44c4758-df86-4b52-964a-ecae803d7ee9",
+      "output": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mygo-a/tomori-chat-contact-v2-step2-attempt2-mask.png",
+      "sha256": "9203881970d5b5281a2b8bd2326b7c98a5ef19e1b78da494bfa6f4ef1bacd1a2",
+      "status": "rejected_observed_vertical_and_horizontal_drift"
+    },
+    {
+      "sourceRecord": "tomori-chat-contact-v2-step1-complete-source.json",
+      "executionId": "exec-44b3f575-475e-49fe-9b4c-ae84b6f9ae3b",
+      "output": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mygo-a/tomori-chat-contact-v2-step1-complete-marked.png",
+      "sha256": "ead3a2e6d34b2ac6d81207528ac589ea162acf55deddf64c62be29770cd65789",
+      "status": "not_admitted_after_root_stop"
+    }
+  ],
+  "attempts": [
+    {
+      "page": "tomori-chat-apricot-observe-v2.html",
+      "method": "Native selection of first step near-white marks, subtract original white regions and old figure alpha",
+      "status": "not successful; selection fragmented and seat bright strip remained"
+    },
+    {
+      "page": "tomori-chat-apricot-observe-v3.html",
+      "method": "Native near-white marks without original-white subtraction; old figure alpha subtracted",
+      "status": "not successful; incomplete source contact selection"
+    },
+    {
+      "page": "tomori-chat-apricot-observe-v4.html",
+      "method": "Experimental existing background / original mother color-difference selection in source ROI",
+      "status": "not admitted; visible patch boundary; further color-difference work stopped by root"
+    }
+  ],
+  "latestHonestReviewPage": "tomori-chat-contact-review-v5.html#seat",
+  "latestReviewMethod": "Original mother / unchanged v7 / last generated white-on-black mask projected through original RGB with figure alpha removed; visibly unaccepted and no color-difference algorithm used.",
+  "nextDecision": "Root may choose an explicit honestly recorded source-space contact-region geometry calibration; none added after stop.",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "modifiedOldFiles": false,
+  "newPngEditing": false,
+  "newTests": false,
+  "childrenSpawned": false
+}

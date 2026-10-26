@@ -37,6 +37,7 @@
     "height": 1024
   },
   "producerObservation": "Full original personally viewed. Short white bob, viewer-left gold/right blue eye, black loose top over white sleeves/shorts and complete black lace-up boots retained. Cream single-cut guitar rests across thighs, neck/headstock remain within right-side space, two real hands meet neck and bridge/string area. Her chin/eyes lift with mild recognition rather than a wave. Both separate legs/knees/boots are visible below the supported instrument; feet meet floor, hips meet bench. Guitar strings/tuners and hand precision still deserve primary close review; no instrument performance or sound result is claimed.",
-  "review": { "producerViewedFullOriginal": true, "primaryViewed": false, "primaryApproved": false, "layersAccepted": false, "runtimeAccepted": false },
-  "status": "complete mother candidate awaiting primary review; no theme expansion yet"
+  "review": { "producerViewedFullOriginal": true, "primaryViewed": true, "primaryApproved": true, "layersAccepted": false, "runtimeAccepted": false },
+  "primaryObservation": "Root personally viewed original PNG: electric guitar truly rests on thighs, left hand meets neck, right hand pauses over strings, different eye colors and both complete boots are retained. Accepted as complete resume mother only, not a layer/runtime pass or a new furniture anchor.",
+  "status": "primary-accepted complete warm mother; theme relighting authorized; layers/runtime remain unaccepted"
 }

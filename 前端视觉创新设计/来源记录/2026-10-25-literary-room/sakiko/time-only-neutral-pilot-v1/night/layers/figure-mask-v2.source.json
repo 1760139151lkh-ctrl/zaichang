@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-mother-original-rgb-included-layer-production",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "palette": "rain",
+  "timeOfDay": "night",
+  "neutralTime": "night",
+  "weather": "unknown",
+  "original360ExactActivityCell": false,
+  "cell": "sakiko/neutral-presence/rain/night/time-night",
+  "stage": "F2",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: precise-object-edit.\nAsset: corrected exact-position opaque foreground luminance mask,1536x1024. Input1 is the ONLY deliberate WHITE SELECTION geometry to convert. Input2 is exact approved original mother solely for coordinate verification, NOT for redrawing a nicer book/person. Keep every white-marked pixel position and full canvas.\n\nConvert all colored UNSELECTED ROOM in input1 to PURE BLACK. Keep the ENTIRE already-white girl/open lap book SOLID PURE WHITE with only the original very fine outer antialias. DO NOT DRAW ANY BOOK OR PAGE LINE INSIDE THE WHITE. The book touches both hands and lies on her knees; book, fingers, cuffs, knees and body are ONE selected connected white region. No black thin line across pages, no outline separating book from hand, no dark triangular hole near right book/hand. In particular preserve the ALREADY WHITE original small left book corner from image1, approximately x966,y479..497; DO NOT invent a new upward-tilted corner atx943,y468, enlarge the book, move its spine or carve a page boundary. Use only the existing input1 perimeter.\n\nPreserve exact fine curly hair and separated tips, dark ribbon tips, face/collar/bow/cardigan/hands/all skirt pleats, entire exposed knees/legs/calf socks and BOTH COMPLETE original shoes with sole/heel bottoms. Both shoe interiors and the subtle internal touching seam must be solid white. Only REAL empty gaps between curls/body/arms/legs remain black. White interiors have NO face/cloth/book/shoe detail. No shape contraction/expansion/redesign/zoom/crop/resize/shift. Naturally pale closed curtain/lamp/cushion and ALL local seat/floor receiver material are BLACK, not selected by brightness. No pencil/loose paper/new object. Output opaque1536x1024 black/white mask. No color/checkerboard/text/UI. Raw luminance later selects exact source RGB once; never generate new character RGB.",
+  "promptFile": "figure-mask-v2.prompt.txt",
+  "promptFileSHA256": "862c18948834bbf0626ab1cf1d7da87065e0a4e9a3adb5a10785ed8675b4ba40",
+  "actualToolArguments": {
+    "prompt": "Use case: precise-object-edit.\nAsset: corrected exact-position opaque foreground luminance mask,1536x1024. Input1 is the ONLY deliberate WHITE SELECTION geometry to convert. Input2 is exact approved original mother solely for coordinate verification, NOT for redrawing a nicer book/person. Keep every white-marked pixel position and full canvas.\n\nConvert all colored UNSELECTED ROOM in input1 to PURE BLACK. Keep the ENTIRE already-white girl/open lap book SOLID PURE WHITE with only the original very fine outer antialias. DO NOT DRAW ANY BOOK OR PAGE LINE INSIDE THE WHITE. The book touches both hands and lies on her knees; book, fingers, cuffs, knees and body are ONE selected connected white region. No black thin line across pages, no outline separating book from hand, no dark triangular hole near right book/hand. In particular preserve the ALREADY WHITE original small left book corner from image1, approximately x966,y479..497; DO NOT invent a new upward-tilted corner atx943,y468, enlarge the book, move its spine or carve a page boundary. Use only the existing input1 perimeter.\n\nPreserve exact fine curly hair and separated tips, dark ribbon tips, face/collar/bow/cardigan/hands/all skirt pleats, entire exposed knees/legs/calf socks and BOTH COMPLETE original shoes with sole/heel bottoms. Both shoe interiors and the subtle internal touching seam must be solid white. Only REAL empty gaps between curls/body/arms/legs remain black. White interiors have NO face/cloth/book/shoe detail. No shape contraction/expansion/redesign/zoom/crop/resize/shift. Naturally pale closed curtain/lamp/cushion and ALL local seat/floor receiver material are BLACK, not selected by brightness. No pencil/loose paper/new object. Output opaque1536x1024 black/white mask. No color/checkerboard/text/UI. Raw luminance later selects exact source RGB once; never generate new character RGB.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/night/layers/figure-step1-marked-v1.png",
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/night/layers/figure-step1-marked-v1.png",
+      "sha256": "658e2bd413333d675b4140796a447924bba5a8b09f904242b392b9eb70dc4e02",
+      "role": "good original same-mother F1 deliberate white selection"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.png",
+      "sha256": "2d571adc2146dd779954f0d014ef015b658a83250d6626d707dcece3c6335d8e",
+      "role": "exact approved mother for geometry confirmation; bad F2 v1 not used"
+    }
+  ],
+  "mother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.png",
+    "sha256": "2d571adc2146dd779954f0d014ef015b658a83250d6626d707dcece3c6335d8e",
+    "sourceRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.source.json",
+    "sourceRecordSHA256": "c4a7dfd47161498c7801b25e520fd00b0b36fd66f5de1b90da86462d2ec5efe2",
+    "primaryAdmission": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/root-primary-mother-admission-v1.json",
+    "primaryAdmissionSHA256": "1ddf9b15e52dcbc9bc360ec7edd172b9d26c25057efe808e98cbe52f30417666"
+  },
+  "readDependencies": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "bytes": 12246
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "bytes": 12645
+    }
+  ],
+  "dossierVersion": "2026-10-25.1",
+  "wardrobeId": "sakiko-literary-navy-adaptation",
+  "output": {
+    "file": "figure-mask-v2.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-4212424f-84f1-488c-8344-c5e484af5bd2.png",
+    "sha256": "2fd336732827df3443f20575a3b5395f6838af11efe37de1ac0cf19eefd7b4ef",
+    "bytes": 485735,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "status": "producer_candidate_browser_reviewed_pending_root",
+    "observations": [
+      "完整输出亲看：书页内部黑线与小孔消除，左书尖回到F1原位；卷发/发带细岛、全裙袜鞋保持白轮廓。少量很浅内线仍须实际原RGB联合浏览看是否造成可见缺失。"
+    ],
+    "browserEvidence": [
+      "browser-observations/01-scene.png",
+      "browser-observations/02-subject.png",
+      "browser-observations/03-face.png",
+      "browser-observations/04-book.png",
+      "browser-observations/05-hem.png",
+      "browser-observations/06-shoes.png",
+      "browser-observations/07-contact.png"
+    ]
+  },
+  "supersedesHeldFile": "figure-mask-v1.png",
+  "heldInputUsed": false,
+  "originalMotherRGBChanged": false,
+  "pngPixelEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "selectedForAssembly": true,
+  "submittedPromptSHA256": "263e53fcd10588edd29c310906d5a8d68dc13fcb4f2249dbf4f2e6b5295326af"
+}

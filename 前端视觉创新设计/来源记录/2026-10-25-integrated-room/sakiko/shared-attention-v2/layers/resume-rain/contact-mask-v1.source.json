@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "cell": "sakiko/resume/rain",
+  "character": "sakiko",
+  "activity": "resume",
+  "palette": "rain",
+  "stage": "S2",
+  "assetType": "raw-Image-source-selection-mask-or-markup",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Technical black-and-white material-selection matte for a peaceful illustrated reading room, with no narrative change. This is ordinary image compositing, not a new scene. Image 1 is the exact same-canvas room with small cushion/floor contact areas deliberately painted flat white. Image 2 is its clean original only to distinguish those marks from natural pale fabric.\n\nKeep only the actual deliberate white cushion and floor marks from image 1 white, unchanged at their original positions; preserve their real soft grey edge. Convert every remaining colored or naturally bright scene pixel to black. The selected floor wraps outside the pair of complete shoes; the shoes themselves remain entirely black negative space. The colored seated reader, book, furniture, long empty bench, windows/lamps/curtains, rug and unmarked floor are all black. Do not select naturally pale linen or lamp highlights. Include every genuine small marked cushion-contact fragment, but no broad empty seat. Do not add shape, outline, rectangle, oval, image detail or new lighting.\n\nOutput one opaque 1536x1024 grayscale PNG: black field, only the existing local cushion/floor material marks white with their original grey antialias/soft falloff. Preserve exact camera, coordinates and dimensions. No color, text, symbols, graphic narrative, new objects, crop, zoom, resize or movement. This matte is used at one fixed position with the original room's unchanged RGB, not as a movable shadow.",
+  "submittedPromptSha256": "e152ec0c8ec9642e95dee032e0b2ec3e2a6eee7664ae72c34207ad6308f21d2f",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-rain/contact-step1-marked-v1.png",
+      "sha256": "833131b10886b69da82cef4973d214ad13458a1518e8938d2f318a4b024cbf11",
+      "personallyViewedBeforeCall": true
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.png",
+      "sha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    }
+  ],
+  "originalRgbOwner": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.png",
+    "sha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9",
+    "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.source.json",
+    "sourceRecordSha256": "1cf9daa11db3353467feae4a9ca4f68c711dce9b43be483e895e00b1f81440df",
+    "rootMotherStaticReview": {
+      "status": "approved_static_mother",
+      "reviewer": "root",
+      "observed": "Youthful blue-purple hair/gold eyes, recognition looking toward a returning familiar person; actual hands support the book, two exposed knees/dark calf socks/complete shoes. Whole rain light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "reviewRecord": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/root-human-mother-primary-review-20261025.json"
+    }
+  },
+  "method": "Actual Image same-mother F1/F2 or S1/S2 chain. F is whole human/ribbons/hands/held book/clothing/knees/calf socks/complete shoes. S includes real source-local seat and full soft grounded floor receiver, not just sole line; original RGB MAX(F,S) drawn once only.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\sakiko\\shared-attention-v2\\layers\\resume-rain\\contact-mask-v1.png",
+    "sha256": "d0cf45216fc6e6c67560ee92f6a171fe04de64ae51f3c66743b8afee04d2743f",
+    "bytes": 297858,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-90ecdf97-e579-438e-a7b9-21fad17f1e04.png",
+    "pngBytesUnchanged": true
+  },
+  "producerObservation": {
+    "personallyViewedFullNative": true,
+    "observation": "Full native successful S2 inspected: three small original seat-contact fragments and complete exterior near-foot receiver with both whole shoe silhouettes black; unselected long seat/room black. Benign technical-mask retry after output moderation returned this PNG normally; first failed attempt produced no image. Native original-RGB comparison pending."
+  },
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "sourceOrigin": [
+      0,
+      0
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": "included",
+    "independentCaster": false
+  },
+  "motherReconstructed": false,
+  "primaryLayerApproved": false,
+  "layerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "status": "producer-HOLD-FS-receiver-inner-edge-gap",
+  "inputBoundary": "Only current exact root-approved mother and its correct same-canvas working intermediates. No HOLD rain-attention-v2, white-sock resume-mist-v3, screenshot, audit collage or other mother mask.",
+  "promptFile": "contact-mask-v1.prompt.json",
+  "promptFileSha256": "48e4d8d7c8ed5e119b02556ddb85391c80e269374243b2405dcf04c6720e24d1",
+  "generatedAt": "2026-10-26T00:13:34.602Z",
+  "priorFailedAttempt": "contact-mask-v1-attempt1-failed.json",
+  "generationInputAllowed": false,
+  "observedIssue": {
+    "at": "2026-10-26T00:20:24.581Z",
+    "method": "Actual Chrome source/F1/F2 shoe-rim diagnostic and original/union/composite contact closeup",
+    "issue": "F1/F2 retain the complete source shoe shape, but S2 negative shoe holes leave a thin uncovered band just outside the outsole, seen as checker/light rim in union and brighter BG line in composite. Need actual receiver to meet source outsole, allowing tiny outsole overlap under MAX once.",
+    "evidence": "browser-observations/shoes-contact-original-union-composite-v1-HOLD.png",
+    "nextInputBoundary": "Correct S1 and clean original mother only; do not feed this S2 or audit image."
+  }
+}

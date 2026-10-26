@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-study-apricot-literary-desk-v2",
+  "assetType": "complete-mother-literary-room-study-correct-desk-revision",
+  "createdAtUtc": "2026-10-25T12:05:08.522847+00:00",
+  "tool": {
+    "name": "image_gen.imagegen",
+    "mode": "edit-primary-approved-correct-desk-mother-study-action",
+    "originalEventId": "exec-5f9e5b5b-569f-4a91-bc57-017d9b745e57",
+    "outputHint": "Generated images are saved to C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270 as C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-5f9e5b5b-569f-4a91-bc57-017d9b745e57.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  "prompt": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-b\\soyo-study-apricot-literary-desk-v2.prompt.json",
+    "fileSHA256": "54527f0cb52ae341372bf4cdbe0748c323705d420b94865d7c47d9cc3e017ee4",
+    "submittedPrompt": "Use case: precise-object-edit. Output one complete 1536×1024 literary-room STUDY mother. IMAGE 1 is the CORRECT primary-approved Soyo PLANNING mother at the original LEFT desk, with stable original round-table position, correct seated body and natural foreground-plant occlusion. It is the primary authority for the exact camera, furniture positions, character identity/clothing/scale and supported seated body. IMAGE 2 is the approved empty clear-day room, supporting the same original room geometry and light only. The rejected drifting study image is NOT supplied and must not be recreated. Keep the exact full canvas and source positions of Image 1; change only the small arm/gaze activity needed for studying.\n\nLiterary expression: 她不急着替你答，认真把这一行读到自己也懂。她留住对方已经走通的尝试，把那个看似基础、却还没接上的关系安放在明亮处；不是摆出熟练的讲解者姿态，而是自己也耐心读清这一行。安定、专注，唇线自然中性，眉间有很轻的推敲；清楚的蓝眼睛落回真实桌面的页上。Keep Soyo's individual quiet judgment and warmth, without an automatic smile, frowning drama or a hostess pose.\n\nCritical invariants: preserve Image 1's exact original LEFT desk dimensions/top/front and drawers, the SAME locally angled wooden chair and seated hip/legs, the ROUND porcelain-lamp table still at original x≈435–690, all lamp/cup/flower/book positions, window bench/pillows/throw, original large wood window/lake-town view/curtains, shelves/plants/art/floor/rug and foreground plant. Do not enlarge the desk, shift the round table, translate the chair toward camera, change perspective, crop or create more room for a frontal figure. The plant's natural partial occlusion of lower legs/shoes stays; do not move it or invent hidden foot anatomy. Keep the proper depth and source human scale of this approved desk sitting, not the bench-chat scale.\n\nCharacter remains exactly the correct youthful Soyo Nagasaki / 長崎そよ, It's MyGO!!!!!: long LIGHT BROWN softly curled hair, fine bangs and BLUE eyes, original navy Tsukinomori sailor blouse with broad WHITE collar/navy trim, gray-blue bow and small gold crest, navy pleated skirt with TWO white hem lines, dark knee socks, brown loafers. Keep her own original youthful face and ordinary proportions, clothing and hair silhouette; no mature model styling or borrowed face.\n\nOnly basic changed study action: both forearms receive real support from the existing desk. One hand lightly steadies the original page; the other holds one simple pen just above or touching that page, recording ONE small faint line in its margin. Lower the former near-chin thinking hand naturally to this supported desk task, with coherent wrist/elbow connections. Keep the original supported seated pelvis, knees and lower legs, no recrossing legs or reshaping the chair. Her gaze is now on the page, head inclined only a little, with both eyes naturally legible through her bangs. A small supplemental sheet can remain next to the original page. Faint abstract pencil/pen traces only, no readable problem, calendar, dates, names, schedule or completed-work label.\n\nRetain the same clear-day apricot whole-room sunlight, natural skin/hair/navy/white local colors, gentle face shadow planes and soft real contact/compression at chair and shoes. Refined original anime linework and shading integrated with the literary room. No full-room redraw, gray/gold overlay, split light, sticker outline, new furniture, extra person/limb, UI, text caption, watermark, logo, collage, border, crop or fog.",
+    "submittedPromptSHA256": "414d6845f610038b4c93ab82acc8fdc396d1bac51d5a6295345be3b898c834a3"
+  },
+  "inputs": [
+    {
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-a\\soyo-planning-apricot-literary-v1.png",
+      "sha256": "270017d960ec00da97493baf8120e16403ba534e4040dc5e9be72ef44e7fe6c9",
+      "role": "primary-approved correct Soyo planning at left desk; primary edit authority for camera/furniture/identity/clothing/supported-body/scale",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "approved empty clear-day plate; auxiliary same-room geometry/light reference only",
+      "primaryApprovalEvidence": "Root approved matching empty clear-day plate; correct planning first input was also explicitly approved as Soyo desk-support reference",
+      "approvedScope": "mother only, not a layer or runtime approval"
+    }
+  ],
+  "brief": {
+    "cellId": "soyo/study/apricot; root-authorized correct-desk reference revision",
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\briefs\\mygo-b\\soyo-literary-room-briefs-v1.json",
+    "sha256": "14e055e68af80cfdb1302cd1eb3b115323c414dee43f67ab22b0df3f376b8789",
+    "releaseScope": "Root released exactly ONE extra Soyo study repair after ten-wave-B calls, using correct approved planning plus empty clear-day plate; drifting study forbidden as input"
+  },
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-b\\soyo-study-apricot-literary-desk-v2.png",
+    "sha256": "2aafefdcb31e10b8f91de63a0e5ff6a2ee21d65026763ed072ea3aedb0688dd0",
+    "bytes": 2378977,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-5f9e5b5b-569f-4a91-bc57-017d9b745e57.png"
+  },
+  "review": {
+    "directInspection": "original full-resolution tool PNG personally viewed; archived copy byte-identical",
+    "approvedByPrimary": true,
+    "primaryLayerApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observations": [
+      "正确planning原构图的圆几/大桌/木椅/窗位置保持，未重现漂移study的横移圆几。",
+      "前臂由真实桌面承托，一手压页一手持笔记小行，目光回纸，闭口专注；原制服和浅棕发保持。",
+      "原腿/鞋自然plant遮挡保留，未强造完整足部；低头侧向使远眼不如chat清楚，不签双眼全可见。"
+    ],
+    "concerns": [
+      "contourComplete=false：原前景植物遮部分膝下/鞋。",
+      "侧低头后的远眼部分被刘海/脸部视角遮挡；这是可见性边界，待root母图审。"
+    ],
+    "producer": {
+      "inspected": true,
+      "recommendation": "correct-desk study mother candidate for primary review"
+    },
+    "primary": {
+      "approved": true,
+      "scope": "static mother only",
+      "record": "soyo-apricot-wave-b-primary-mother-admission-v1.json",
+      "finding": "same approved planning desk/round table; forearms on desk, steadying page and writing natural. Far eye partly hidden by lowered-head hair/view angle, not a fused hair-eye anatomy error."
+    },
+    "runtime": {
+      "accepted": false,
+      "registered": false
+    }
+  },
+  "boundaries": [
+    "mother only",
+    "new cleanplate plus own approved new-room chat identity reference only",
+    "no old room4 or invalid character pixels",
+    "no layer extraction, runtime registration or source-code change",
+    "one extra correct-desk study call only; stop after saving"
+  ],
+  "status": "primary-approved-static-mother-only",
+  "contourComplete": false,
+  "authorization": {
+    "extraStudyCallsAllowed": 1,
+    "extraStudyCallsUsed": 1,
+    "generationStopped": true
+  },
+  "previousHeldCandidate": {
+    "path": "soyo-study-apricot-literary-v1.png",
+    "sha256": "a53ed6272d5ee14f9bbf9bebdefa7becfdda3babbda954191d1c58b2a13d9d89",
+    "suppliedAsInput": false,
+    "forbiddenAsInput": true
+  },
+  "sourceConsistency": {
+    "output": true,
+    "toolOriginal": true,
+    "promptFile": true,
+    "inputs": [
+      true,
+      true
+    ]
+  },
+  "primaryAdmissionRecord": "soyo-apricot-wave-b-primary-mother-admission-v1.json",
+  "allowedAsImageInput": true
+}

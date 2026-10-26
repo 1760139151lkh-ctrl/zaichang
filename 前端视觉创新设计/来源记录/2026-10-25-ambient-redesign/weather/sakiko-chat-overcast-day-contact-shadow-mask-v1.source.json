@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-canvas-independent-contact-shadow-luminance-mask",
+  "id": "sakiko-chat-overcast-day-contact-shadow-mask-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-chat-overcast-day-contact-shadow-mask-v1.prompt.json",
+  "promptFileSha256": "88cba769352d9584f664d66bfa6b8e8049f44c17d6792c3a5b48153249dadc9f",
+  "submittedPrompt": "Use case: precise-object-edit. Asset: independent CONTACT-SHADOW OPACITY MASK on the unchanged full original canvas, not a room illustration, person silhouette or colored floor patch.\nImage 1 is the approved COMPLETE original mother, 1536 x 1024, and the exact source-coordinate authority. Image 2 is its new MATCHING EMPTY background, same full canvas; use it only to distinguish the girl's shadows from normal furniture/room shading. Do not move, enlarge, crop, recenter, rotate or redraw any contact position.\nReturn a full 1536 x 1024 opaque grayscale image. Pure BLACK everywhere except the actual subtle shadows created by this girl's physical contact with the room: (a) narrow cushion occlusion under her seated hip/skirt edge, (b) the tiny real cushion-contact darkness immediately beneath the supporting right palm/fingers, and (c) the immediate shoe-to-dry-floor contact and short soft cast shadows adjoining BOTH worn loafers. At these exact SOURCE locations only, encode shadow opacity as WHITE for the darkest true contact core and soft GRAY for its natural fading edge. Brightness represents shadow opacity; the rest stays perfectly BLACK. Use the actual silhouette and directions from Image 1, not generic ellipses, an imagined person shadow or a shifted pair of shoes.\nThe girl, all her hair/clothes/skin/book/hands/socks/shoes THEMSELVES must be BLACK, not a white person or white shoes. The matching empty bench, blanket, floor texture, colored wood grain, window, walls, objects and pre-existing chair/bench/table shadows must be BLACK. No broad furniture silhouettes, large cushion rectangle, whole floor patch, detached distant oval, bright ghost girl, room RGB, stains, captions or outlines. The body remains absent from this MASK; only the independent real contact-shadow footprints surrounding its physical support survive.\nKeep exact source registration: the original seated hips/palm lie by the bench around y=590; the two original shoe soles are around y=780 in the lower-right portion of the FULL canvas. These are location guides, not permission to fabricate shapes. Preserve only the mother's real observed contact shadows under soft cloudy daytime light. No sunlight beams, rain effect, hard outer border, crop, transparency, UI, grid, text or watermark. Output black-background grayscale RGB at 1536 x 1024.",
+  "submittedPromptSha256Utf8NoTrailingLF": "a4d6480c0d5c8ff51c3fdc713d00a5ecec834b3a4a06ef934bfb66ee93c95b5d",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-overcast-day-mother-v1.png",
+      "sha256": "a7e10ccb551badc3bb015bdd2c8870969bcf20c8ea23f2a282d2bcf636baa382",
+      "role": "exact complete mother source-coordinate authority"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-overcast-day-background-v1.png",
+      "sha256": "2142878f64a444c66e78a7f31a45e6b94c49464ea984058da50427a80de80747",
+      "role": "matching empty room distinguishes girl contact shadows from furniture shadows"
+    }
+  ],
+  "output": {
+    "file": "sakiko-chat-overcast-day-contact-shadow-mask-v1.png",
+    "sha256": "259c53a5855c7a68908568ab67d52274cdc2c06f71ced008e8b9800c6251b78f",
+    "bytes": 299700,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17126-cdea-77e3-9abe-3d71acd87e8b\\exec-75323ada-cd08-428c-8f9b-7f0f49e04b2b.png"
+  },
+  "transparentBackground": false,
+  "maskMode": "luminance",
+  "intendedRendering": "Native source-over low-opacity neutral-dark fill through generated contact-shadow luminance mask; no mother/floor/cushion RGB in this shadow layer, no hand-drawn replacement shapes.",
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": true,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "primaryLayerApprovalRecord": "sakiko-chat-overcast-day-primary-layer-approval-v1.json",
+    "primaryLayerApprovalScope": "Exact-SHA original-position static same-canvas layers only; runtime independent",
+    "primaryNativeCompositeViewed": true
+  },
+  "status": "generated-and-saved-awaiting-contact-position-and-strength-observation"
+}

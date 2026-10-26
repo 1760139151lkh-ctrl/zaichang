@@ -1,0 +1,53 @@
+.conversation-space.has-reading-desk { position: relative; isolation: isolate; }
+.app-main > .reading-desk { inset: 72px 8px 8px; }
+.conversation-space.has-reading-desk.has-open-reading-window > .workspace {
+  flex: 0 0 auto;
+  width: clamp(340px, 44%, 640px);
+  max-width: calc(100% - 360px);
+  min-width: 0;
+  margin-inline-start: auto;
+}
+/* Window geometry belongs to ReadingFrame's spring. Paint changes may
+   acknowledge a grab, but must never lag behind that direct manipulation. */
+.app-main > .reading-desk .reading-desk-frame.is-moving { animation: none; }
+.composer-area > .attachment-shelf { width: fit-content; max-width: 100%; margin: 0 0 10px; padding-inline: 10px; }
+.document-focus-tray { display: flex; align-items: center; gap: 9px; width: fit-content; max-width: 100%; }
+.document-focus-tray > .icon-button { align-self: center; }
+.document-preview-mark { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; width: fit-content; max-width: 100%; }
+.document-preview-mark > .quiet-notice { flex-basis: 100%; }
+.app-main:has(> .companion-scene[data-scene-family]) > .retained-heading {
+  --text: var(--room-air-ink); --text-tertiary: var(--room-air-secondary);
+  --accent: var(--room-air-ink);
+  position: relative; color: var(--room-air-ink); text-shadow: var(--room-air-shadow);
+}
+.app-main:has(> .companion-scene[data-scene-family]) > .retained-heading .reading-pane-switch {
+  background: #21180f88; text-shadow: none;
+}
+.app-main:has(> .companion-scene[data-scene-family]) > .retained-heading .reading-pane-switch button[aria-pressed='true'] {
+  color: #473a2f; background: #f4e6cf;
+}
+.app-main:has(> .companion-scene[data-scene-family]) .composer .attachment-menu {
+  --text-tertiary: var(--room-ink-secondary);
+  background: var(--room-paper-raised); color: var(--room-ink);
+  border-color: var(--room-paper-edge); text-shadow: none;
+}
+:root[data-palette='rain'] .app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer .attachment-menu {
+  --room-ink: #f4e6cf; --room-ink-secondary: #d5c1a1;
+  --room-paper-raised: #4c3527; --room-paper-edge: #8f6a43;
+  --wash: #f4e6cf12;
+}
+:root[data-palette='rain'] .app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer {
+  background: rgba(58, 41, 28, .88); border-color: rgba(191, 151, 91, .38); color: #eddec5;
+  box-shadow: 0 8px 28px #17110c28; backdrop-filter: blur(14px);
+}
+:root[data-palette='rain'] .app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer :is(textarea,.icon-button,.composer-context-button) { color: #eddec5; }
+:root[data-palette='rain'] .app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer textarea::placeholder { color: #cbbb9e; }
+@media (max-width: 900px) {
+  .conversation-space.has-reading-desk.has-open-reading-window > .workspace { flex-basis: 100%; width: 100%; max-width: none; min-width: 0; }
+  .app-main[data-workspace-view='materials'] > .conversation-space.has-open-reading-window[data-reading-pane='reader'] > .workspace,
+  .app-main[data-workspace-view='materials']:has(> .conversation-space[data-reading-pane='chat']) > .reading-desk { display: none; }
+  .composer-area > .attachment-shelf { padding-inline: 4px; }
+}
+@media (max-width: 600px) {
+  .app-main > .reading-desk { inset: 100px 4px 4px; }
+}

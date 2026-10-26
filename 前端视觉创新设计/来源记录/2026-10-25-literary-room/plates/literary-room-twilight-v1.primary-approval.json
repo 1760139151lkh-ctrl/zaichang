@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "dateLocal": "2026-10-25",
+  "recordType": "primary-static-empty-plate-admission",
+  "reviewer": "root / primary agent",
+  "asset": {
+    "file": "literary-room-twilight-v1.png",
+    "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+    "width": 1536,
+    "height": 1024
+  },
+  "primaryApproved": true,
+  "scope": "Complete static empty environment plate only; same selected close room and corresponding weather/time illumination. No character/activity/layers/motion/runtime approval.",
+  "evidence": "Root personally viewed the complete original: natural continuous twilight across the entire original literary room, no day/night division.",
+  "producerReviewSeparate": true,
+  "runtimeAccepted": false
+}

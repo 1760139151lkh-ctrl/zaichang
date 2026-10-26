@@ -1,0 +1,45 @@
+{
+  "stage": "F1-v2",
+  "cell": "mutsumi/attention/violet",
+  "submittedPrompt": "CRITICAL CORRECTION: begin by COMPLETELY FILLING EVERY OPAQUE FACIAL AND HAIR-INTERIOR FEATURE PURE WHITE. Her tiny open MOUTH, lips, pupils, eyelids, brows, nostril, skin shading and opaque grey hair lines are NOT holes. Whiten the entire FACE/NECK as one SOLID opaque region following actual outer source contour. No tiny dark triangle at the mouth; no ink/shading strokes left inside face, book, clothing, fingers or shoes. Only real ROOM seen in open external gaps stays colored. Do not use any previous marked image/mask; the ONLY input is the original approved color mother. This is renewed source selection, not a new character.\n\nUse case: precise-object selection markup. F STEP1, original-position whole-foreground selection for the exact root-approved Mutsumi Wakaba ATTENTION violet mother. The ONLY input is this complete1536x1024 original mother. Preserve canvas, camera, all poses, objects and every source coordinate. This is a fixed selection intermediate, NOT a new character or anatomy redraw.\n\nPaint SOLID PURE WHITE over the ENTIRE VISIBLE GIRL AND HER ENTIRE HELD OPEN BOOK/PAPER MARKER, directly at their EXISTING source locations. Include every fine mint-gray hair tip, both silver clips, face/eyes/neck, both hands/every real finger, all navy sailor sleeves/collar/bow/crest/cuffs, every part of the dark pleated skirt including pointed side/underside hem tips and pale hem trim, exposed knees, below-knee dark socks, BOTH COMPLETE BROWN LOAFERS including toe caps, sidewalls, sole rims, heel backs and bottom heel blocks. All internal opaque ink/color becomes plain solid white; NO eye/collar/cloth/skin/shoe holes.\n\nThe held open book belongs to F even its outer dark covers, spine, whole page block, thin lower cover/page edges, curled or pale page tips, and actual small cream marker. Preserve all of it together with holding fingers. Do not omit pale pages as background or dark covers as shadows. Genuine original open room gaps BETWEEN hair strands, arm/book/body and legs stay original colored background, not filled white; but the opaque book/page interiors are fully white.\n\nObservation only, NEVER boxes to fill: full original figure/book approximately x930..1390,y145..915; actual held book approximately x1003..1212,y365..509. Follow actual irregular original edges; no erosion/contraction, added white halo, invented connection across a real room gap, shifted silhouette or simplified finger/hair/sole.\n\nKeep ALL other original colored room RGB unchanged: linen seat/plaid/knit beneath and around her, true cushion compression/shadows, dark floor contact softness, desk/chair/table/cup/lamp/flowers, window/lake/town/mountains, curtain/rug/plants. Do not select natural pale linen/lamp/curtain or floor light. Do not turn contact receiver into foreground.\n\nOutput ONE opaque1536x1024 COLOR mother with ONLY entire girl+complete held open book/marker whitened in place. No black background yet, transparency/checkerboard, text, labels, guide boxes, grid, arrows, crop, zoom, scale, translation, recoloring or new anatomy. Original foreground RGB will later come ONLY from original mother, never this marked image.\n\nFinal priority: full opaque face, tiny mouth INCLUDED, all eye/fringe/grey-hair interior lines are WHITE with zero internal facial pinholes. Background holes may exist only where actual room shows between separate strands/limbs, never on an opaque face, book or uniform.",
+  "inputs": [
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-violet-literary-extension-v1.png"
+  ],
+  "motherSha256": "56797968161abce8b9441ebf073cc623b8dd9aa0b999145163dfae8811bfe014",
+  "readDependencies": [
+    {
+      "path": ".agents\\skills\\zaichang-frontend-director\\references\\characters\\mutsumi.md",
+      "sha256": "189d1a17f6e4c2656692437167c50d2a89379cf50b16bc354df3ac8406e4610c",
+      "scope": "Full text personally read before source-fixed layer production."
+    },
+    {
+      "path": ".agents\\skills\\zaichang-frontend-director\\references\\character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "scope": "Full text personally read before source-fixed layer production."
+    }
+  ],
+  "rootMotherApproval": {
+    "path": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\root-human-mother-primary-review-20261025.json",
+    "sha256": "f6b3a0b7ac9974993b61553e907f0ebfa7c39763ebef7d33ca7efb215a99fbb2",
+    "record": {
+      "cell": "mutsumi/attention/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-violet-literary-extension-v1.png",
+        "sha256": "56797968161abce8b9441ebf073cc623b8dd9aa0b999145163dfae8811bfe014",
+        "bytes": 2369619,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.840Z",
+      "observation": "Mutsumi green-tinted hair/gold eyes and anatomical-left paired clips remain; quiet curiosity or recognition is distinct from a stock smiling pose. Hands physically support the book, legs/shoes and bench support are coherent. Small sock decoration in rain remains project illustration, not new official wardrobe fact. Whole violet light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    }
+  },
+  "outputStem": "figure-step1-marked-v2",
+  "outputDirectory": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\mutsumi\\attention-resume-layers\\attention-violet"
+}

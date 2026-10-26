@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "recordType": "shared-pdf-interaction-storyboard-candidate",
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-ab3f7baf-c449-4660-b780-a3c140e85b81.png",
+  "inputImages": [
+    {
+      "file": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "sole clean empty-room reference"
+    }
+  ],
+  "userScreenshotUsedAsInput": false,
+  "previousUiMockUsedAsInput": false,
+  "characterInput": false,
+  "promptFile": "pdf-shared-reading-storyboard-v3.prompt.txt",
+  "submittedPromptSha256": "5811e6a35498313d047da64ead753f3f0019d96eabc00ca32eaf968112aaef69",
+  "output": {
+    "file": "pdf-shared-reading-storyboard-v3.png",
+    "sha256": "443a6811ec3fda5775c1130cb607977f7e9ef410501276daf6f65c43b64bf768",
+    "bytes": 1934627,
+    "width": 1852,
+    "height": 849
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "decision": "current flat object-flow storyboard for primary review",
+    "observation": "Two front-on flat app moments with tall warm-white PDF, full room behind the interface, compact composer and small red portrait source cover. Left cover is lifted from an empty header outline; the draft edge shows reversible target. Right retains same page and draft with a small source chip and x, plus bottom-edge return/bookmark strip. No arrows, unexplained pointing, physical laptop, human figure, or readable fake author list remain.",
+    "limits": "Illustrated message copy and page marks are synthetic UI samples, never actual PDF content/model output. The main-state v1 is clearer for a full desktop viewport; v3 is a process board only. Still art does not prove dragging, interruption, cancel persistence or source-owner behavior."
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "runtimeUse": "UI relationships only, never whole-screen bitmap or character/source document."
+}

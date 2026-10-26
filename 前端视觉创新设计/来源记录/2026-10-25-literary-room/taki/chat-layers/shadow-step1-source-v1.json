@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "characterId": "taki",
+  "activity": "chat",
+  "palette": "apricot",
+  "roomFamily": "literary-room-v1",
+  "stage": "shadow1",
+  "createdOn": "2026-10-25",
+  "tool": "image_gen.imagegen (built-in)",
+  "callOrdinalInBoundedBatch": 7,
+  "executionId": "exec-1cd36ab6-30a1-4c08-ac2d-9ff6c9dcea44",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-1cd36ab6-30a1-4c08-ac2d-9ff6c9dcea44.png",
+  "input": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-pilot/taki-chat-apricot-literary-v1.png",
+    "sha256": "0eb782e67b9954b406130a4994e9e75dd8774c8c3eb2a690d75d3e55338aad16",
+    "role": "only image input; primary-approved original mother"
+  },
+  "promptFile": "shadow-step1-prompt-v1.txt",
+  "promptFileSha256": "7bea4a6b8ab76d2d8ecd74368793407d35bd0226b6d3d568426b72a536ff3bc7",
+  "submittedPrompt": "Use case: precise-object-edit. Asset: SOURCE CONTACT-RECEIVING MATERIAL selection markup, STEP S1 of S2.\nImage 1 is the ONLY input: the primary-approved original Shiina Taki literary chat mother, exactly 1536x1024. Keep the original scene, girl, book and every object at exactly their existing positions; no redraw or new shadow.\nThis is explicitly an INCLUDED CONTACT joint subject representation, NOT a claim to isolate a physically portable pure cast shadow. Select only the small existing original contact/compression shadows AND the immediately adjacent source receiving-material transition necessary to keep the person's seated/grounded connection complete.\nPaint solid neutral PURE WHITE directly over the actual irregular local source contact regions: the narrow cushion compression/contact-receiving material immediately beneath the rear hip and camel skirt around x865..1240,y540..615; and the real irregular floor contact and short local shade directly below both soles around x745..1000,y845..955. Follow the source contours and their real tapered soft extent. The coordinate ranges are enclosing guides, never boxes to fill. A narrow transition may overlap the true skirt/sole perimeter so MAX(F,S) retains the full original contact; do not broadly whiten the person. Keep the rest of the girl/book in original colors. Self-shadows inside the girl or book are not independent material selections.\nDo not invent ellipses, large floor islands, seat rectangles, artificial glows or connecting bridges between distant contact groups. Preserve actual local cushion texture/floor grain outside the marked small regions in original colors. Do not classify pillow plaid, window sun lattice, intrinsic wood tone, rug design or distant furniture shadow as body contact.\nOutput ONE opaque 1536x1024 original colored source scene with ONLY those existing small irregular contact-receiving regions painted solid white. No black mask yet, new RGB, crop, zoom, movement, labels, arrows, grid, boxes or text.",
+  "output": {
+    "file": "shadow-step1-marked-v1.png",
+    "sha256": "cb07b19e002479cea9e8caad0d6f7f90fa4f011732dbfa6f648a0ef5508841ac",
+    "bytes": 2401122,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Full S1 original viewed: white contact receiver follows the hip/hem area in a small source linen strip around the seated skirt and thighs, with two local sole-following floor marks. The full girl/book remain colored. No distant furniture or whole-floor selection is visible. Native MAX source-RGB comparison will determine fixed included suitability."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "representation": "Fixed original-coordinate included-contact union; no independent caster/travel claim."
+}

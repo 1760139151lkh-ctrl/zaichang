@@ -11,12 +11,11 @@ import { ArrowLeft, Check, ChevronRight, Download, LoaderCircle, Pencil, Trash2,
 import { IconButton, Modal, PagePanel, Switch, uiError } from './ui';
 import { MemoryPanelSimple, SourcePermissions, type MemoryWorkspaceState } from './HarnessViews';
 import type { SettingsUpdate, State } from '../shared/types';
-import { APPEARANCE_PALETTES, useAppearance, type Appearance } from './appearance';
+import { useAppearance, type Appearance } from './appearance';
 import { DEFAULT_INTERACTION } from '../shared/interaction';
 import { PersonaEditor, type PersonaDraft, type PersonaPreviewDraft } from './PersonaEditor';
 import { CompanionSettings, type CompanionSettingsDraft } from './CompanionSettings';
-import { useCompanion } from './companion';
-import { companionPaletteLight } from './companion-scenes';
+import { useCompanion, type CompanionMoment } from './companion';
 import { RichText } from './RichText';
 import { TiyiConnection, type TiyiConnectionFocus } from './TiyiConnection';
 import './settings-refinement.css';
@@ -36,6 +35,7 @@ export interface SettingsDraft {
 interface Props {
   embedded?: boolean;
   initialTab?: SettingsTab;
+  companionMoment?: CompanionMoment;
   state: State;
   busy: boolean;
   onState: (s: State) => void;
@@ -71,6 +71,7 @@ export function SettingsPanel({
   onMemoryWorkspace,
   embedded,
   initialTab = '连接',
+  companionMoment,
 }: Props) {
   const [appearance, setAppearance] = useAppearance();
   const { reset: resetCompanion, value: companion, update: updateCompanion } = useCompanion();
@@ -79,10 +80,14 @@ export function SettingsPanel({
     ? draft.current.navigation : undefined);
   const [tab, setTab] = useState<SettingsTab>(resumeNavigation.current?.tab || initialTab);
   const tabs: SettingsTab[] = embedded ? ['陪伴', '交流', '偏好', '连接'] : ['陪伴', '交流', '偏好', '连接', '记忆'];
-  const tabNames: Record<string, string> = { 陪伴: '陪伴的样子', 交流: '怎么相处', 偏好: '阅读与节奏', 连接: '连接与资料', 记忆: '关于你' };
+  const tabNames: Record<string, string> = { 陪伴: '陪伴', 交流: '相处', 偏好: '阅读', 连接: '连接', 记忆: '关于你' };
   const Frame = embedded ? PagePanel : Modal;
   const [key, setKey] = useState(draft.current.apiKey || '');
+  const [keyExpanded, setKeyExpanded] = useState(!state.settings.hasKey || !!draft.current.apiKey);
   const [guidance, setGuidance] = useState(draft.current.guidance ?? state.settings.guidance);
+  const [guidanceExpanded, setGuidanceExpanded] = useState(
+    draft.current.guidance !== undefined && draft.current.guidance !== state.settings.guidance,
+  );
   const [pending, setPending] = useState('');
   const [feedback, setFeedback] = useState<Feedback>(null);
   const [memoryText, setMemoryText] = useState(''),
@@ -142,18 +147,6 @@ export function SettingsPanel({
       if (element) previewAnchor.current = { element, offset: element.getBoundingClientRect().top - top };
     }
     setAppearance(patch);
-  }
-  async function changePalette(palette: Appearance['palette']) {
-    await perform('appearance', async () => {
-      const previous = appearance.palette;
-      setAppearance({ palette }, previous);
-      try { updateCompanion({ light: companionPaletteLight(palette) }); }
-      catch (problem) {
-        try { setAppearance({ palette: previous }, palette); }
-        catch { throw new Error('这次没能完整留下光线，先看看现在的样子，再试一次。'); }
-        throw problem;
-      }
-    });
   }
   function changeTab(value: SettingsTab) {
     const viewport = settingsViewport();
@@ -221,7 +214,7 @@ export function SettingsPanel({
             : '再试一下登录';
   return (
     <Frame
-      title={tab === '资料' ? '校园资料' : tab === '记忆' ? '关于你' : tab === '陪伴' ? '让这里，更像你喜欢的地方。' : tab === '交流' ? '怎么相处' : tab === '偏好' ? '按你的节奏来。' : state.settings.hasKey || lunaSubstitute ? '连接与资料' : '让我们聊起来。'}
+      title={tab === '资料' ? '资料与权限' : initialTab === '记忆' ? '关于你' : '设置'}
       onClose={onClose}
       className={`settings-panel settings-refined ${initialTab === '记忆' ? 'memory-page' : ''} ${['陪伴', '交流', '偏好'].includes(tab) ? 'settings-wide' : ''} ${tab === '偏好' ? 'settings-rhythm' : tab === '交流' ? 'settings-conversation' : tab === '连接' ? 'settings-connect' : ''}`}
     >
@@ -273,17 +266,13 @@ export function SettingsPanel({
         }
       >
         {busy && tab === '连接' && <p className="busy-note">等这句话说完，就可以换一个连接。</p>}
-        {tab === '陪伴' && <CompanionSettings persona={state.settings.persona} draft={draft} onState={onState} busy={busy || !!pending} saving={pending === 'persona'} saveOperation={(operation) => perform('persona', operation)} onEditPersona={() => changeTab('交流')} />}
+        {tab === '陪伴' && <CompanionSettings persona={state.settings.persona} draft={draft} moment={companionMoment} onState={onState} busy={busy || !!pending} saving={pending === 'persona'} saveOperation={(operation) => perform('persona', operation)} onEditPersona={() => changeTab('交流')} />}
         {tab === '连接' && (
           <>
             <div className="section-heading">
               <div>
                 <h3>{lunaSubstitute ? state.modelRuntime?.displayName : 'DeepSeek'}</h3>
-                {!lunaSubstitute && <p>
-                  {state.settings.mode === 'deepseek' && state.settings.hasKey
-                      ? '密钥留好了。可以试着连接。'
-                      : '留下一把密钥，我们就可以聊起来。'}
-                </p>}
+                <p>{state.settings.mode === 'demo' ? '演示模式' : lunaSubstitute ? '使用当前登录的连接' : state.settings.hasKey ? '已保存密钥' : '尚未设置密钥'}</p>
               </div>
             </div>
             {lunaSubstitute ? (
@@ -310,7 +299,7 @@ export function SettingsPanel({
                     }}
                   >
                     {pending === 'test' && <LoaderCircle size={14} className="spin" />}
-                    {pending === 'test' ? '正在检查…' : '试着连接'}
+                    {pending === 'test' ? '正在检查…' : '检查连接'}
                   </button>
                   {pending === 'test' && (
                     <button
@@ -328,81 +317,46 @@ export function SettingsPanel({
                 <details className="connection-technical">
                   <summary>关于这次连接</summary>
                   <p>
-                    通过 App Server 使用当前登录的 {state.modelRuntime?.displayName}。生产默认仍为
-                    DeepSeek；两种连接各自记录使用情况。
+                    使用当前登录的 {state.modelRuntime?.displayName}；与 DeepSeek 分别记录使用情况。
                   </p>
                 </details>
               </div>
             ) : (
               <>
-                <label className="field-label">
-                  DeepSeek 密钥
-                  <input
-                    type="password"
-                    value={key}
-                    autoComplete="off"
-                    placeholder={state.settings.hasKey ? '已有密钥，想更换时在这里输入' : '粘贴你的 DeepSeek 密钥'}
-                    onChange={(e) => {
-                      setKey(e.target.value);
-                      draft.current.apiKey = e.target.value;
-                    }}
-                    disabled={disabled}
-                  />
-                </label>
-                <div className="field-buttons">
-                  <button
-                    className="primary-button"
-                    disabled={disabled || !(key || state.settings.hasKey)}
-                    onClick={() =>
-                      void perform('save', async () => {
-                        onState(
-                          await api.saveSettings({ mode: 'deepseek', ...(key ? { apiKey: key } : {}) }),
-                        );
-                        setKey('');
-                        draft.current.apiKey = '';
-                        setFeedback({ action: 'save', text: '密钥留好了。可以试着连接。' });
-                      })
-                    }
-                  >
-                    {pending === 'save' && <LoaderCircle size={14} className="spin" />}留下密钥
-                  </button>
-                </div>
-                {result(['save', 'remove'])}
-                <details className="advanced connection-advanced" open={!state.settings.hasKey}>
-                  <summary>试一试，或换一把密钥</summary>
-                  <div className="advanced-body">
+                <details className="settings-disclosure connection-key" open={keyExpanded} onToggle={event => setKeyExpanded(event.currentTarget.open)}>
+                  <summary>{state.settings.hasKey ? '管理密钥' : '设置密钥'}</summary>
+                  <div className="settings-disclosure-body">
+                    <label className="field-label">
+                      DeepSeek 密钥
+                      <input
+                        type="password"
+                        value={key}
+                        autoComplete="off"
+                        placeholder={state.settings.hasKey ? '已有密钥，想更换时在这里输入' : '粘贴你的 DeepSeek 密钥'}
+                        onChange={(e) => {
+                          setKey(e.target.value);
+                          draft.current.apiKey = e.target.value;
+                        }}
+                        disabled={disabled}
+                      />
+                    </label>
                     <div className="field-buttons">
                       <button
-                        className="subtle-button"
+                        className="primary-button"
                         disabled={disabled || !(key || state.settings.hasKey)}
-                        onClick={() => {
-                          testCancelled.current = false;
-                          void perform('test', async () => {
-                            const text = await api.testConnection({ ...(key ? { apiKey: key } : {}) });
-                            setFeedback({
-                              action: 'test',
-                              text:
-                                key || state.settings.mode !== 'deepseek'
-                                  ? '可以聊起来了'
-                                  : `${text.replace(/[。.!！]+$/, '')}，可以聊起来了`,
-                            });
-                          });
-                        }}
+                        onClick={() =>
+                          void perform('save', async () => {
+                            onState(
+                              await api.saveSettings({ mode: 'deepseek', ...(key ? { apiKey: key } : {}) }),
+                            );
+                            setKey('');
+                            draft.current.apiKey = '';
+                            setFeedback({ action: 'save', text: '密钥已保存' });
+                          })
+                        }
                       >
-                        {pending === 'test' && <LoaderCircle size={14} className="spin" />}
-                        {pending === 'test' ? '正在试着连接…' : '试着连接'}
+                        {pending === 'save' && <LoaderCircle size={14} className="spin" />}保存密钥
                       </button>
-                      {pending === 'test' && (
-                        <button
-                          className="text-button"
-                          onClick={() => {
-                            testCancelled.current = true;
-                            void api.cancelConnection();
-                          }}
-                        >
-                          先不试了
-                        </button>
-                      )}
                       {state.settings.hasKey && (
                         <button
                           className="text-button"
@@ -420,24 +374,62 @@ export function SettingsPanel({
                         </button>
                       )}
                     </div>
-                    {result(['test'])}
                   </div>
                 </details>
+                {result(['save', 'remove'])}
+                <div className="connection-actions">
+                  <div className="field-buttons">
+                    <button
+                      className="primary-button"
+                      disabled={disabled || !(key || state.settings.hasKey)}
+                      onClick={() => {
+                        testCancelled.current = false;
+                        void perform('test', async () => {
+                          const text = await api.testConnection({ ...(key ? { apiKey: key } : {}) });
+                          setFeedback({
+                            action: 'test',
+                            text: text.replace(/[。.!！]+$/, ''),
+                          });
+                        });
+                      }}
+                    >
+                      {pending === 'test' && <LoaderCircle size={14} className="spin" />}
+                      {pending === 'test' ? '正在检查…' : '检查连接'}
+                    </button>
+                    {pending === 'test' && (
+                      <button
+                        className="text-button"
+                        onClick={() => {
+                          testCancelled.current = true;
+                          void api.cancelConnection();
+                        }}
+                      >
+                        先不试了
+                      </button>
+                    )}
+                  </div>
+                  {result(['test'])}
+                </div>
               </>
             )}
             {state.settings.mode === 'deepseek' && (
-              <button
-                className="text-button use-demo"
-                disabled={disabled}
-                onClick={() =>
-                  void perform('demo', async () => {
-                    onState(await api.saveSettings({ mode: 'demo' }));
-                    setFeedback({ action: 'demo', text: '现在可以先看看在场的样子' });
-                  })
-                }
-              >
-                先看看在场的样子
-              </button>
+              <details className="settings-disclosure connection-extra">
+                <summary>其他连接设置</summary>
+                <div className="settings-disclosure-body">
+                  <button
+                    className="text-button use-demo"
+                    disabled={disabled}
+                    onClick={() =>
+                      void perform('demo', async () => {
+                        onState(await api.saveSettings({ mode: 'demo' }));
+                        setFeedback({ action: 'demo', text: '现在可以先看看在场的样子' });
+                      })
+                    }
+                  >
+                    使用演示模式
+                  </button>
+                </div>
+              </details>
             )}
             {result(['demo'])}
             <button className="settings-navigation" onClick={() => changeTab('资料')}>
@@ -451,7 +443,10 @@ export function SettingsPanel({
         )}
         {tab === '资料' && (
           <>
-            <SourcePermissions onState={onState} />
+            <details className="settings-disclosure source-permissions-entry">
+              <summary>允许读取的资料</summary>
+              <div className="settings-disclosure-body"><SourcePermissions onState={onState} /></div>
+            </details>
             <section className="campus-source-block">
               <div className="connector connector-primary">
                 <div>
@@ -561,86 +556,99 @@ export function SettingsPanel({
               'template',
               'disconnect',
             ])}
-            <TiyiConnection disabled={disabled} restoreFocus={resumeNavigation.current?.tiyiFocus}
-              onControlFocus={tiyiFocus => { draft.current.navigation = { entry: initialTab, tab, tiyiFocus }; }} />
+            <details className="settings-disclosure" open={!!resumeNavigation.current?.tiyiFocus}>
+              <summary>体艺记录</summary>
+              <div className="settings-disclosure-body">
+                <TiyiConnection disabled={disabled} restoreFocus={resumeNavigation.current?.tiyiFocus}
+                  onControlFocus={tiyiFocus => { draft.current.navigation = { entry: initialTab, tab, tiyiFocus }; }} />
+              </div>
+            </details>
             {!connectorReady && (
-              <section className="campus-import-block">
-                <div className="connector">
-                  <div>
-                    <strong>手边已有一份校园资料</strong>
-                    <p>也可以打开以前保存的文件。学校的最新消息仍需登录后查看。</p>
-                  </div>
-                  <button
-                    className="subtle-button"
-                    disabled={disabled}
-                    onClick={() =>
-                      void perform('import', async () => {
-                        const next = await api.importCampus();
-                        if (next) {
-                          onState(next);
-                          setFeedback({
-                            action: 'import',
-                            text: '这份资料已打开。要看学校的最新消息，再登录账号。',
-                          });
-                        }
-                      })
-                    }
-                  >
-                    {pending === 'import' ? (
-                      <LoaderCircle size={14} className="spin" />
-                    ) : state.campus ? (
-                      '更新'
-                    ) : (
-                      '导入'
-                    )}
-                  </button>
-                </div>
-                {state.campus && (
-                  <small className="campus-import-state">
-                    这份资料保存于 {date(state.campus.updatedAt)}
-                  </small>
-                )}
-                <details className="campus-more">
-                  <summary>这份资料的其他操作</summary>
-                  <div className="field-buttons">
+              <details className="settings-disclosure campus-import-block">
+                <summary>本地校园资料</summary>
+                <div className="settings-disclosure-body">
+                  <div className="connector">
+                    <div>
+                      <strong>{state.campus ? '已保存的资料' : '打开资料文件'}</strong>
+                      <p>最新校园记录仍需登录后查看。</p>
+                    </div>
                     <button
-                      className="text-button"
+                      className="subtle-button"
                       disabled={disabled}
                       onClick={() =>
-                        void perform('template', async () => {
-                          if (await api.campusTemplate())
-                            setFeedback({ action: 'template', text: '空白资料文件已留好，可以按里面的格式填写' });
+                        void perform('import', async () => {
+                          const next = await api.importCampus();
+                          if (next) {
+                            onState(next);
+                            setFeedback({
+                              action: 'import',
+                              text: '这份资料已打开。要看学校的最新消息，再登录账号。',
+                            });
+                          }
                         })
                       }
                     >
-                      <Download size={14} />
-                      带走一份空白格式
+                      {pending === 'import' ? (
+                        <LoaderCircle size={14} className="spin" />
+                      ) : state.campus ? (
+                        '更新'
+                      ) : (
+                        '导入'
+                      )}
                     </button>
-                    {state.campus && (
+                  </div>
+                  {state.campus && (
+                    <small className="campus-import-state">
+                      这份资料保存于 {date(state.campus.updatedAt)}
+                    </small>
+                  )}
+                  <details className="campus-more">
+                    <summary>文件操作</summary>
+                    <div className="field-buttons">
                       <button
                         className="text-button"
                         disabled={disabled}
                         onClick={() =>
-                          void perform('disconnect', async () => {
-                            onState(await api.disconnectCampus());
-                            setFeedback({ action: 'disconnect', text: '这份旧资料已移除' });
+                          void perform('template', async () => {
+                            if (await api.campusTemplate())
+                              setFeedback({ action: 'template', text: '空白资料文件已留好，可以按里面的格式填写' });
                           })
                         }
                       >
-                        移除这份资料
+                        <Download size={14} />
+                        下载空白格式
                       </button>
-                    )}
-                  </div>
-                </details>
-              </section>
+                      {state.campus && (
+                        <button
+                          className="text-button"
+                          disabled={disabled}
+                          onClick={() =>
+                            void perform('disconnect', async () => {
+                              onState(await api.disconnectCampus());
+                              setFeedback({ action: 'disconnect', text: '这份旧资料已移除' });
+                            })
+                          }
+                        >
+                          移除这份资料
+                        </button>
+                      )}
+                    </div>
+                  </details>
+                </div>
+              </details>
             )}
-            <Switch
-              checked={state.settings.weatherEnabled}
-              onChange={(v) => void update('weather', { weatherEnabled: v })}
-              label="杭州天气"
-              detail="查看杭州的天气，不读取你的位置。"
-              disabled={!!pending || (busy && !state.settings.weatherEnabled)}
-            />
+            <details className="settings-disclosure">
+              <summary><span>天气资料</span><small>{state.settings.weatherEnabled ? '已允许' : '未允许'}</small></summary>
+              <div className="settings-disclosure-body">
+                <Switch
+                  checked={state.settings.weatherEnabled}
+                  onChange={(v) => void update('weather', { weatherEnabled: v })}
+                  label="杭州天气"
+                  detail="只查询杭州，不读取你的位置。"
+                  disabled={!!pending || (busy && !state.settings.weatherEnabled)}
+                />
+              </div>
+            </details>
             {result(['weather'])}
           </>
         )}
@@ -661,161 +669,158 @@ export function SettingsPanel({
               {result(['persona'])}
             </div>
             {tab === '偏好' && <>
-              <p className="settings-lede">读得舒服，也聊得自在。</p>
               <div className="rhythm-layout">
                 <div className="rhythm-controls">
                   <section className="preference-section">
-                    <h3 className="section-title">阅读的样子</h3>
-                    <p className="preference-scope-note">字号和间距保存在这台设备，这段预览可以边读边试。</p>
-                    <div className="rhythm-choice-row"><span>外观</span><div className="rhythm-segmented" role="group" aria-label="外观主题">
-                      {([['light', '晨光'], ['dark', '夜色'], ['system', '跟随系统']] as const).map(([value, label]) => <button type="button" key={value} aria-pressed={appearance.theme === value} onClick={() => setAppearance({ theme: value })}>{label}</button>)}
-                    </div></div>
-                    <div className="rhythm-choice-row"><span>色彩</span><div className="rhythm-segmented" role="group" aria-label="界面色彩">
-                      {APPEARANCE_PALETTES.map(palette => <button type="button" key={palette.id} aria-pressed={appearance.palette === palette.id} disabled={!!pending} onClick={() => void changePalette(palette.id)}>{palette.name}</button>)}
-                    </div></div>
-                    {result(['appearance'])}
-                    <div className="rhythm-choice-row"><span>正文字号</span><div className="rhythm-segmented" role="group" aria-label="正文字号">
-                      {([[1, '标准'], [1.15, '大一点'], [1.3, '再大一点']] as const).map(([value, label]) => <button type="button" key={value} aria-pressed={appearance.readingScale === value} onClick={() => changeReadingLayout({ readingScale: value })}>{label}</button>)}
-                    </div></div>
-                    <div className="rhythm-choice-row"><span>内容间距</span><div className="rhythm-segmented" role="group" aria-label="内容间距">
-                      {([['comfortable', '舒展'], ['compact', '紧凑']] as const).map(([value, label]) => <button type="button" key={value} aria-pressed={appearance.density === value} onClick={() => changeReadingLayout({ density: value })}>{label}</button>)}
-                    </div></div>
-                    <Switch label="少一点动态" detail="让画面安静一点。" checked={companion.reducedMotion} onChange={reducedMotion => updateCompanion({ reducedMotion })} />
+                    <h3 className="section-title">排版</h3>
+                    <label className="rhythm-choice-row"><span>正文字号</span><select aria-label="正文字号" value={appearance.readingScale} onChange={event => changeReadingLayout({ readingScale: Number(event.target.value) as Appearance['readingScale'] })}>
+                      <option value={1}>标准</option><option value={1.15}>大一点</option><option value={1.3}>再大一点</option>
+                    </select></label>
+                    <label className="rhythm-choice-row"><span>内容间距</span><select aria-label="内容间距" value={appearance.density} onChange={event => changeReadingLayout({ density: event.target.value as Appearance['density'] })}>
+                      <option value="comfortable">舒展</option><option value="compact">紧凑</option>
+                    </select></label>
                   </section>
-                  <section className="preference-section initiative-section">
-                    <h3 className="section-title">希望我怎样陪着你</h3>
-                    <div className="initiative-choices" role="group" aria-label="主动帮助程度">
-                      {([
-                        ['quiet', '等你开口', '你想聊的时候，我们再接着说。'],
-                        ['prepare', '先把资料备好', '安静整理，等你想看时再打开。'],
-                        ['when_useful', '有值得说的事，再告诉你', '遇到与你有关的变化，再来和你商量。'],
-                      ] as const).map(([value, label, description]) => <button type="button" key={value} aria-pressed={interaction.initiative === value} disabled={!!pending} onClick={() => void update('initiative', { interaction: { ...interaction, initiative: value } })}>
-                        <span><strong>{label}</strong><small>{description}</small></span><span className="initiative-radio" aria-hidden="true" />
-                      </button>)}
+                  <details className="settings-disclosure initiative-section">
+                    <summary>主动陪伴</summary>
+                    <div className="settings-disclosure-body">
+                      <label className="rhythm-choice-row"><span>主动帮助</span><select aria-label="主动帮助程度" value={interaction.initiative} disabled={!!pending} onChange={event => void update('initiative', { interaction: { ...interaction, initiative: event.target.value as typeof interaction.initiative } })}>
+                        <option value="quiet">等你开口</option><option value="prepare">先把资料备好</option><option value="when_useful">有值得说的事，再告诉你</option>
+                      </select></label>
+                      <Switch label="留意你交给我的事" detail="关闭后，等你询问时再看。" checked={interaction.followup === 'meaningful_change'} disabled={!!pending} onChange={value => void update('followup', { interaction: { ...interaction, followup: value ? 'meaningful_change' : 'on_request' } })} />
+                      <label className="rhythm-choice-row"><span>主动来聊</span><select aria-label="不为事情、只是来找你聊聊的频率" value={state.settings.companionCheckIns || 'sometimes'} disabled={!!pending} onChange={event => void update('checkins', { companionCheckIns: event.target.value as 'off' | 'sometimes' | 'often' })}>
+                        <option value="off">不用</option><option value="sometimes">偶尔</option><option value="often">常来</option>
+                      </select></label>
+                      {interaction.initiative === 'quiet' && <p className="preference-scope-note">现在等你开口，主动来聊也先停下。</p>}
                     </div>
-                    <Switch label="留意你交给我的事" detail="关闭后，等你询问时再看。" checked={interaction.followup === 'meaningful_change'} disabled={!!pending} onChange={value => void update('followup', { interaction: { ...interaction, followup: value ? 'meaningful_change' : 'on_request' } })} />
-                    <div className="rhythm-choice-row"><span>主动来聊</span><div className="rhythm-segmented" role="group" aria-label="不为事情、只是来找你聊聊的频率">
-                      {([['off', '不用'], ['sometimes', '偶尔'], ['often', '常来']] as const).map(([value, label]) => <button type="button" key={value} aria-pressed={(state.settings.companionCheckIns || 'sometimes') === value} disabled={!!pending} onClick={() => void update('checkins', { companionCheckIns: value })}>{label}</button>)}
-                    </div></div>
-                    {interaction.initiative === 'quiet' && <p className="preference-scope-note">现在等你开口，主动来聊也先停下。</p>}
-                    {result(['initiative', 'followup', 'checkins'])}
-                  </section>
+                  </details>
+                  {result(['initiative', 'followup', 'checkins'])}
+                  <details className="settings-disclosure">
+                    <summary>动态与通知</summary>
+                    <div className="settings-disclosure-body">
+                      <Switch label="少一点动态" checked={companion.reducedMotion} onChange={reducedMotion => updateCompanion({ reducedMotion })} />
+                      <Switch checked={state.settings.remindersEnabled} onChange={v => void update('reminders', { remindersEnabled: v })} label="用系统通知叫我" detail="约好的提醒，以及你离开窗口时允许通知的事。" disabled={!!pending || (busy && !state.settings.remindersEnabled)} />
+                      <Switch checked={(state.settings.notificationPreview || 'words') === 'words'} onChange={v => void update('preview', { notificationPreview: v ? 'words' : 'private' })} label="通知显示内容" detail="关掉后，只显示“有件事想跟你说”。" disabled={!!pending} />
+                    </div>
+                  </details>
+                  {result(['reminders', 'preview'])}
+                  <details className="settings-disclosure">
+                    <summary>后台与启动</summary>
+                    <div className="settings-disclosure-body">
+                      <Switch checked={(state.settings.backgroundPresence || 'tray') === 'tray'} onChange={v => void update('presence', { backgroundPresence: v ? 'tray' : 'quit' })} label="关掉窗口后留在托盘" detail="继续有效的提醒与托付；电脑睡眠或关机时暂停。" disabled={!!pending} />
+                      <Switch checked={state.settings.launchAtLogin === true} onChange={v => void update('login', { launchAtLogin: v })} label="启动时留在托盘" detail="托盘不可用时打开窗口。" disabled={!!pending} />
+                    </div>
+                  </details>
+                  {result(['presence', 'login'])}
                 </div>
-                <aside className="rhythm-preview-column" aria-label="阅读预览与提醒">
+                <aside className="rhythm-preview-column" aria-label="阅读排版样例">
                   <div className="reading-feel-preview">
-                    <span className="reading-preview-label">此刻的阅读感觉</span>
-                    <h3>常数，<br />为什么可以变？</h3>
+                    <h3>常数为什么可以变？</h3>
                     <div ref={previewRef} className="reading-preview-scroll" role="region" aria-label="长文排版预览" tabIndex={0}>
                       <div className="markdown reading-preview-text"><RichText text={'先从已经知道的解出发。对一阶方程 $x\u2032=a(t)x+b(t)$，暂时放下右边多出来的那一项，取齐次方程的一个非零解 $u(t)$。\n\n现在把新的解写成：\n\n$$x(t)=u(t)c(t)$$\n\n这一步还没有替原方程作出结论。我们只是换一种写法，让已知的 $u(t)$ 留在式子里，再问未知的 $c(t)$ 需要满足什么。\n\n沿着乘积求导，$u\u2032(t)c(t)$ 与右边的 $a(t)u(t)c(t)$ 正好抵消。剩下的是：\n\n$$u(t)c\u2032(t)=b(t)$$\n\n在 $u(t)$ 不为零的这个区间里，就能得到 $c\u2032(t)=b(t)/u(t)$。把这一项积分，再乘回 $u(t)$，便回到了原来的未知函数。\n\n所以，“常数变易”并不是先断言常数会变，而是借已知齐次解重新表达问题。真正需要检查的，是换写后的式子有没有仍然满足原方程。\n\n如果题目还给了一个初始值，最后再用它确定积分常数。每一步都有自己的位置：先认出已知结构，再找剩下的变化，最后回到条件核对。\n\n读到这里，可以停在刚才抵消的那一行，看看上下两边分别留下了什么。'} /></div>
                     </div>
                   </div>
-                  <section className="preference-section reminder-preference">
-                    <h3 className="section-title">提醒与通知</h3>
-                    <Switch checked={state.settings.remindersEnabled} onChange={v => void update('reminders', { remindersEnabled: v })} label="用系统通知叫我" detail="约好的提醒会准时响；你不在窗口前时，想告诉你的事也会轻轻提一下。" disabled={!!pending || (busy && !state.settings.remindersEnabled)} />
-                    <Switch checked={(state.settings.notificationPreview || 'words') === 'words'} onChange={v => void update('preview', { notificationPreview: v ? 'words' : 'private' })} label="通知里显示说的话" detail="关掉后，通知只写“有件事想跟你说”。" disabled={!!pending} />
-                    <Switch checked={(state.settings.backgroundPresence || 'tray') === 'tray'} onChange={v => void update('presence', { backgroundPresence: v ? 'tray' : 'quit' })} label="关掉窗口后留在托盘" detail="按当前设置，继续处理仍有效的提醒与托付；电脑睡眠或关机时暂停。" disabled={!!pending} />
-                    <Switch checked={state.settings.launchAtLogin === true} onChange={v => void update('login', { launchAtLogin: v })} label="开机后优先留在托盘" detail="启动时先收在托盘；托盘暂时不可用时，会打开窗口。" disabled={!!pending} />
-                    {result(['reminders', 'preview', 'presence', 'login'])}
-                  </section>
                 </aside>
               </div>
             </>}
-            <section className="preference-section" hidden={tab !== '交流'}>
-              <h3 className="section-title">怎么交流</h3>
-              <div className="preference-fields">
-                <label>
-                  语气
-                  <select
-                    aria-label="交流语气"
-                    value={interaction.tone}
-                    disabled={!!pending}
-                    onChange={(event) =>
-                      void update('interaction', {
-                        interaction: { ...interaction, tone: event.target.value as typeof interaction.tone },
-                      })
-                    }
-                  >
-                    <option value="natural">自然、清楚</option>
-                    <option value="warm">更亲切一点</option>
-                    <option value="direct">直接说重点</option>
-                  </select>
-                </label>
-                <label>
-                  解释
-                  <select
-                    aria-label="解释偏好"
-                    value={interaction.depth}
-                    disabled={!!pending}
-                    onChange={(event) =>
-                      void update('interaction', {
-                        interaction: {
-                          ...interaction,
-                          depth: event.target.value as typeof interaction.depth,
-                        },
-                      })
-                    }
-                  >
-                    <option value="adaptive">按问题需要展开</option>
-                    <option value="concise">少枝节、少重复</option>
-                    <option value="thorough">充分展开推导</option>
-                  </select>
-                </label>
-                <label>
-                  玩笑
-                  <select
-                    aria-label="幽默偏好"
-                    value={interaction.humor}
-                    disabled={!!pending}
-                    onChange={(event) =>
-                      void update('interaction', {
-                        interaction: {
-                          ...interaction,
-                          humor: event.target.value as typeof interaction.humor,
-                        },
-                      })
-                    }
-                  >
-                    <option value="character">跟随角色自然表达</option>
-                    <option value="none">不主动开玩笑</option>
-                    <option value="light">合适时轻松一点</option>
-                  </select>
-                </label>
+            <details className="settings-disclosure" hidden={tab !== '交流'}>
+              <summary>说话习惯</summary>
+              <div className="settings-disclosure-body">
+                <div className="preference-fields">
+                  <label>
+                    语气
+                    <select
+                      aria-label="交流语气"
+                      value={interaction.tone}
+                      disabled={!!pending}
+                      onChange={(event) =>
+                        void update('interaction', {
+                          interaction: { ...interaction, tone: event.target.value as typeof interaction.tone },
+                        })
+                      }
+                    >
+                      <option value="natural">自然、清楚</option>
+                      <option value="warm">更亲切一点</option>
+                      <option value="direct">直接说重点</option>
+                    </select>
+                  </label>
+                  <label>
+                    解释
+                    <select
+                      aria-label="解释偏好"
+                      value={interaction.depth}
+                      disabled={!!pending}
+                      onChange={(event) =>
+                        void update('interaction', {
+                          interaction: {
+                            ...interaction,
+                            depth: event.target.value as typeof interaction.depth,
+                          },
+                        })
+                      }
+                    >
+                      <option value="adaptive">按问题需要展开</option>
+                      <option value="concise">少枝节、少重复</option>
+                      <option value="thorough">充分展开推导</option>
+                    </select>
+                  </label>
+                  <label>
+                    玩笑
+                    <select
+                      aria-label="幽默偏好"
+                      value={interaction.humor}
+                      disabled={!!pending}
+                      onChange={(event) =>
+                        void update('interaction', {
+                          interaction: {
+                            ...interaction,
+                            humor: event.target.value as typeof interaction.humor,
+                          },
+                        })
+                      }
+                    >
+                      <option value="character">跟随角色自然表达</option>
+                      <option value="none">不主动开玩笑</option>
+                      <option value="light">合适时轻松一点</option>
+                    </select>
+                  </label>
+                </div>
               </div>
-              {result(['interaction'])}
-            </section>
-            <section className="preference-section" hidden={tab !== '交流'}>
-              <h3 className="section-title">关于你的补充</h3>
-              <label className="field-label behavior-label">
-                私人背景与回复偏好
-                <textarea
-                  value={guidance}
-                  onChange={(e) => {
-                    setGuidance(e.target.value);
-                    draft.current.guidance = e.target.value;
-                  }}
-                  rows={3}
-                  maxLength={4000}
-                  placeholder="例如：先给结论，再给推导；保留我要求的细节"
-                />
-              </label>
-              <p className="setting-note">你允许参考个人记忆时才使用这些内容。带走角色设置时，不会带上它们。</p>
-              <div className="field-buttons">
-                <button
-                  className="primary-button"
-                  disabled={disabled || guidance === state.settings.guidance}
-                  onClick={() =>
-                    void perform('guidance', async () => {
-                      onState(await api.saveSettings({ guidance }));
-                      setFeedback({ action: 'guidance', text: '以后就按这个意思聊' });
-                    })
-                  }
-                >
-                  {pending === 'guidance' && <LoaderCircle size={14} className="spin" />}留下这些话
-                </button>
-                {guidance !== state.settings.guidance && <small className="setting-hint">这段话还没留下</small>}
+            </details>
+            {tab === '交流' && result(['interaction'])}
+            <details className="settings-disclosure" hidden={tab !== '交流'} open={guidanceExpanded} onToggle={event => setGuidanceExpanded(event.currentTarget.open)}>
+              <summary><span>关于我的补充</span>{guidance !== state.settings.guidance && <small>未保存</small>}</summary>
+              <div className="settings-disclosure-body">
+                <label className="field-label behavior-label">
+                  私人背景与回复偏好
+                  <textarea
+                    value={guidance}
+                    onChange={(e) => {
+                      setGuidance(e.target.value);
+                      draft.current.guidance = e.target.value;
+                    }}
+                    rows={3}
+                    maxLength={4000}
+                    placeholder="例如：先给结论，再给推导；保留我要求的细节"
+                  />
+                </label>
+                <p className="setting-note">你允许参考个人记忆时才使用这些内容。带走角色设置时，不会带上它们。</p>
+                <div className="field-buttons">
+                  <button
+                    className="primary-button"
+                    disabled={disabled || guidance === state.settings.guidance}
+                    onClick={() =>
+                      void perform('guidance', async () => {
+                        onState(await api.saveSettings({ guidance }));
+                        setFeedback({ action: 'guidance', text: '以后就按这个意思聊' });
+                      })
+                    }
+                  >
+                    {pending === 'guidance' && <LoaderCircle size={14} className="spin" />}留下这些话
+                  </button>
+                </div>
               </div>
-              {result(['guidance'])}
-            </section>
+            </details>
+            {tab === '交流' && result(['guidance'])}
             <details className="data-controls" hidden={tab !== '偏好'}>
               <summary className="section-title">留在这台电脑里的</summary>
               <div className="data-controls-body">

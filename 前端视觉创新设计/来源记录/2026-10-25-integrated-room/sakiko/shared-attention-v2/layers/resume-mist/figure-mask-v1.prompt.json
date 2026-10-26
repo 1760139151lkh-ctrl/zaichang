@@ -1,0 +1,8 @@
+{
+  "tool": "image_gen.imagegen",
+  "prompt": "Make the FINAL foreground luminance mask from this EXACT selection markup. Preserve the full 1536x1024 canvas and every existing white selection boundary at exactly its current coordinate. This is a technical selection conversion, not a new drawing.\n\nThe deliberately painted connected WHITE foreground is ALREADY SOLID AND CORRECT. Keep it solid PURE WHITE, including all small original white strand tips and the entire lower white footwear shape. Do not recognize, outline, reinterpret or draw any features inside it. No inner line, grey seam, crease, shading, edge between parts, or pinhole may be introduced. Do not change the outer silhouette or invent new gaps. Keep the true existing colored gaps between the thin white strands and between the two long white leg shapes out of the selection.\n\nConvert ALL remaining COLORED room pixels, including any originally naturally bright cream/white areas, to PURE BLACK. Select ONLY the deliberately uniform white painted subject, never a brightness key of natural room features. There should be no room color, floor/seat receiver, lamp/curtain/sky, broad blank fabric or unrelated highlight in the mask.\n\nOutput ONE opaque exact 1536x1024 PNG: the original-position intentional full WHITE selection on a PURE BLACK field. Grey only at the original true exterior antialias. No interior illustration or outline, new object, checkerboard/text/labels/arrows/grid/UI/boxes, crop/zoom/resize/recenter/shift.",
+  "referenced_image_paths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-mist/figure-step1-marked-v2.png"
+  ],
+  "transparent_background": false
+}

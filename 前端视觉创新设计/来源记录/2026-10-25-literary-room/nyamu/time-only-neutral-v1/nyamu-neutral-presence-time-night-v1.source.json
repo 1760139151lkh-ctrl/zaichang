@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "recordType": "time-only-neutral-complete-mother-imagegen-candidate",
+  "character": "nyamu",
+  "purpose": "neutral-presence",
+  "neutralTime": "night",
+  "palette": "rain",
+  "light": "night",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "weatherClaim": false,
+  "tool": "built-in image_gen.imagegen",
+  "toolArguments": {
+    "prompt": "Use case: lighting-weather.\nCreate ONE complete opaque 1536 x 1024 same-camera literary illustration of Nyamu, purpose NEUTRAL-PRESENCE, TIME-ONLY NIGHT. Palette rain / light night is an internal palette mapping only: the actual weather is UNKNOWN and must NOT be illustrated or inferred. This is a project-original companion image, not a canon scene, actual user memory, reading receipt or completed work. No UI, text, label, border, watermark, collage or split comparison.\n\nEXACT INPUT ROLES:\n1. ROOT-APPROVED Nyamu neutral-presence TIME-DAY mother (SHA 5df25df2667581917ee3e312218810da2424bcd573be4418b245ac7d05dc755d). This is the EDIT TARGET and authoritative exact composition: same youthful Nyamu, body scale, head/face proportions, pose, both hands and little paper fan, complete casual clothing and ankle-strap shoes, actual hip/cushion and both shoe/floor contacts. Preserve all of that accepted geometry. Do not resize her head/body, change the knee/ankle relation, re-pose her, move her or replace her with a cutout.\n2. ROOT-APPROVED EMPTY literary-room-time-night-v1 plate. This is the authoritative whole-room NIGHT LIGHT field, closed-curtain state, source camera and material illumination. It is not permission to remove the person from Input1 or redesign/move the furniture.\n3. ROOT-APPROVED new independent Nyamu avatar youth-v3. This is same-character youthful facial identification only: short soft young cheeks/chin, lavender bob, rose/red-violet eyes and lively intent. Do NOT paste a giant head, copy the larger avatar grin onto this quiet whole-body moment, add a background, or change the day mother's accepted face/scale just to resemble a close-up.\n\nTHE SAME SPECIFIC LITTLE MOMENT:\nShe has pressed a final crease in the small cream folded-paper fan of her own, and likes how this version turned out. She wants to share that small discovery but looks first toward the familiar person at her left instead of lifting it into their attention. Keep the day mother's bright rose-violet eyes, a gently lifted brow and the small pleased asymmetric smile. She remains observant and young, not a blank nighttime doll, sleepy sad woman, seductive model or a hostess. Her relaxed shoulders and the fan still low between her two REAL gripping hands retain the possibility of simply returning to her own crease if the other person keeps working. These are imagined personal paper folds, not user text or evidence that she completed a task.\nKeep her SHORT lavender-purple bob, delicate irregular bangs and fine side strands; naturally short soft youthful face and intelligent anime eyes. Preserve the entire official-shown CASUAL outfit from Input1: gray ruffled short-sleeved cold-shoulder blouse with fine shoulder straps/front buttons, thin black choker, black high-waist short skirt, bare legs with NO socks, and BLACK modest stable-heel ANKLE-STRAP shoes with real straps/buckles. Do not mix stage tights/corset, school uniform, loafers or boots. No mature makeup, glossy adult lips, long mother-like face or infant glass eyes.\n\nCHANGE THE ENTIRE LIGHT FIELD TO INPUT2:\nThe existing ceramic table lamp is the principal warm interior light. The fully CLOSED opaque milk-white INNER CURTAINS now softly receive dim warm lamp spill, with darker folds away from the lamp. Keep ALL window panes covered, including the central seam: NO visible exterior, rain, sky, stars, lake, town, clouds, wet glass, blue night window or implied weather. Remove the day mother's transmitted bright daylight, pale backlit curtain glow and daylight floor brightness as LIGHT, not as identity. The face, hair, bare shoulders/arms/legs, ruffle fabric, black skirt, paper fan, right cushion, shoes, wood floor, rug, shelves and left wall all receive one coherent subdued lamp-lit NIGHT field matching Input2. No bright sunny patches, window-grid or leaf sunlight, old daytime skin hot spots, giant bright white curtain, daylight person with dark background, global amber filter or black overlay. Preserve each intrinsic hair/eye/gray/black/skin color and readable room depth; fine details remain visible, not crushed silhouettes. Local contact shading stays at the actual cushion and full shoe soles under the new lamp light.\n\nLOCK THE SHARED SPACE:\nKeep the whole canvas, close room perspective, left shelf/desk/chair/foreground plant, central round table with same lamp/books/cup/flowers, right bench/pillows/throw, rug and all floor geometry and positions exactly from the approved family. Preserve the left/center usable room space, do not zoom, crop or bring the character toward the lens. All of Nyamu's head and BOTH complete shoes remain visible at the same source coordinates and scale. Her pelvis and skirt truly load the same cushion, the two separate knee-calf-ankle-shoe chains and both complete shoe/floor support relations remain natural. No hard pasted outline, floating fan, extra/fused hands, twisted or crossed legs, generic elliptical shadow or added object.\nOne coherent finely drawn youthful TWO-DIMENSIONAL anime-and-painterly literary night room. Repaint illumination throughout, preserve the accepted pose and youth, no 3D model or collage.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/nyamu-neutral-presence-time-day-v1.png",
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.png",
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/avatars/nyamu-avatar-youth-v3.png"
+    ],
+    "transparent_background": false
+  },
+  "submittedPrompt": "Use case: lighting-weather.\nCreate ONE complete opaque 1536 x 1024 same-camera literary illustration of Nyamu, purpose NEUTRAL-PRESENCE, TIME-ONLY NIGHT. Palette rain / light night is an internal palette mapping only: the actual weather is UNKNOWN and must NOT be illustrated or inferred. This is a project-original companion image, not a canon scene, actual user memory, reading receipt or completed work. No UI, text, label, border, watermark, collage or split comparison.\n\nEXACT INPUT ROLES:\n1. ROOT-APPROVED Nyamu neutral-presence TIME-DAY mother (SHA 5df25df2667581917ee3e312218810da2424bcd573be4418b245ac7d05dc755d). This is the EDIT TARGET and authoritative exact composition: same youthful Nyamu, body scale, head/face proportions, pose, both hands and little paper fan, complete casual clothing and ankle-strap shoes, actual hip/cushion and both shoe/floor contacts. Preserve all of that accepted geometry. Do not resize her head/body, change the knee/ankle relation, re-pose her, move her or replace her with a cutout.\n2. ROOT-APPROVED EMPTY literary-room-time-night-v1 plate. This is the authoritative whole-room NIGHT LIGHT field, closed-curtain state, source camera and material illumination. It is not permission to remove the person from Input1 or redesign/move the furniture.\n3. ROOT-APPROVED new independent Nyamu avatar youth-v3. This is same-character youthful facial identification only: short soft young cheeks/chin, lavender bob, rose/red-violet eyes and lively intent. Do NOT paste a giant head, copy the larger avatar grin onto this quiet whole-body moment, add a background, or change the day mother's accepted face/scale just to resemble a close-up.\n\nTHE SAME SPECIFIC LITTLE MOMENT:\nShe has pressed a final crease in the small cream folded-paper fan of her own, and likes how this version turned out. She wants to share that small discovery but looks first toward the familiar person at her left instead of lifting it into their attention. Keep the day mother's bright rose-violet eyes, a gently lifted brow and the small pleased asymmetric smile. She remains observant and young, not a blank nighttime doll, sleepy sad woman, seductive model or a hostess. Her relaxed shoulders and the fan still low between her two REAL gripping hands retain the possibility of simply returning to her own crease if the other person keeps working. These are imagined personal paper folds, not user text or evidence that she completed a task.\nKeep her SHORT lavender-purple bob, delicate irregular bangs and fine side strands; naturally short soft youthful face and intelligent anime eyes. Preserve the entire official-shown CASUAL outfit from Input1: gray ruffled short-sleeved cold-shoulder blouse with fine shoulder straps/front buttons, thin black choker, black high-waist short skirt, bare legs with NO socks, and BLACK modest stable-heel ANKLE-STRAP shoes with real straps/buckles. Do not mix stage tights/corset, school uniform, loafers or boots. No mature makeup, glossy adult lips, long mother-like face or infant glass eyes.\n\nCHANGE THE ENTIRE LIGHT FIELD TO INPUT2:\nThe existing ceramic table lamp is the principal warm interior light. The fully CLOSED opaque milk-white INNER CURTAINS now softly receive dim warm lamp spill, with darker folds away from the lamp. Keep ALL window panes covered, including the central seam: NO visible exterior, rain, sky, stars, lake, town, clouds, wet glass, blue night window or implied weather. Remove the day mother's transmitted bright daylight, pale backlit curtain glow and daylight floor brightness as LIGHT, not as identity. The face, hair, bare shoulders/arms/legs, ruffle fabric, black skirt, paper fan, right cushion, shoes, wood floor, rug, shelves and left wall all receive one coherent subdued lamp-lit NIGHT field matching Input2. No bright sunny patches, window-grid or leaf sunlight, old daytime skin hot spots, giant bright white curtain, daylight person with dark background, global amber filter or black overlay. Preserve each intrinsic hair/eye/gray/black/skin color and readable room depth; fine details remain visible, not crushed silhouettes. Local contact shading stays at the actual cushion and full shoe soles under the new lamp light.\n\nLOCK THE SHARED SPACE:\nKeep the whole canvas, close room perspective, left shelf/desk/chair/foreground plant, central round table with same lamp/books/cup/flowers, right bench/pillows/throw, rug and all floor geometry and positions exactly from the approved family. Preserve the left/center usable room space, do not zoom, crop or bring the character toward the lens. All of Nyamu's head and BOTH complete shoes remain visible at the same source coordinates and scale. Her pelvis and skirt truly load the same cushion, the two separate knee-calf-ankle-shoe chains and both complete shoe/floor support relations remain natural. No hard pasted outline, floating fan, extra/fused hands, twisted or crossed legs, generic elliptical shadow or added object.\nOne coherent finely drawn youthful TWO-DIMENSIONAL anime-and-painterly literary night room. Repaint illumination throughout, preserve the accepted pose and youth, no 3D model or collage.",
+  "originalToolOutput": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-b1981527-c760-42a3-92dd-b744f9364deb.png",
+  "outputFile": "nyamu-neutral-presence-time-night-v1.png",
+  "creationIntent": "保留主审已准日母中她想分享自己小纸扇的眼神与低持双手，整个房间由闭帘日光转为原陶灯主光的夜色。夜间不是强迫她困倦、悲伤或另摆一套姿势，也不借rain主题映射编造天气。",
+  "canonBoundary": "Project-original neutral companionship and paper craft; no canon episode, saved private memory, completed task or source-reading claim.",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/nyamu-neutral-presence-time-day-v1.png",
+      "role": "root-approved exact Nyamu day mother, authoritative accepted source pose/scale/face/wardrobe/objects/support geometry",
+      "sha256": "5df25df2667581917ee3e312218810da2424bcd573be4418b245ac7d05dc755d"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.png",
+      "role": "root-approved exact empty time-night plate for coherent full-field lamp lighting/closed curtains/unknown weather",
+      "sha256": "d9c41c4278dd8a4efae1a91102e16349ad4dcf9829963c31ddc421dfc3652253"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/avatars/nyamu-avatar-youth-v3.png",
+      "role": "root-approved new Nyamu independent youth-v3 identity-only reference, never a pasted or enlarged head",
+      "sha256": "ebffcd406edb975c91c7b62f0c246850340248a62828b7338a7897d48095cc72"
+    }
+  ],
+  "documents": [
+    ".agents/skills/zaichang-frontend-director/SKILL.md",
+    "C:/Users/17601/.codex/skills/.system/imagegen/SKILL.md",
+    ".agents/skills/zaichang-frontend-director/references/characters/nyamu.md",
+    ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.primary-approval.json",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/root-primary-mother-admission-v1.json",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/avatars/root-primary-avatar-admission-v3.json"
+  ],
+  "producerObservation": {
+    "personallyViewedCompleteToolOutput": true,
+    "identityEmotion": "保持已准日母短紫bob/红紫眼与明亮但不夸张的小得意，未换成长成熟脸或睡意冷脸。",
+    "poseObjects": "两手低持原纸扇、裙/髋受座、双膝至全踝带鞋的原关系和体量延续，未出现新悬物或扭腿。",
+    "spaceLight": "所有内帘仍合闭，无可读室外景；人物皮肤/灰荷叶上衣/纸扇与软垫地板共同转为暖灯夜光，窗帘已去明亮白昼透光，未见日照窗格硬阳斑。",
+    "camera": "与已准日母和净夜底同完整1536×1024文学房间相机，桌灯圆几/窗榻/左右家具未见重排。",
+    "limitations": "Static whole night candidate pending root. No pixel-identical relighting or runtime/layer/360 claim."
+  },
+  "primaryApproved": false,
+  "layersApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "dynamicAdmission": false,
+  "original360CreditAssigned": false,
+  "rawPixelEditing": false,
+  "sourcePNGCopyOnly": true,
+  "recordedAtUTC": "2026-10-26T00:20:48.083257+00:00",
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/nyamu-neutral-presence-time-night-v1.png",
+    "sha256": "799a1602dc9d40fb3409f75502fa643b6635a25a98fe28f568359db4bbc7a44a",
+    "bytes": 2224434,
+    "originalToolOutputSHA256": "799a1602dc9d40fb3409f75502fa643b6635a25a98fe28f568359db4bbc7a44a",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "documentVersions": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/SKILL.md",
+      "sha256": "d3dafe3e370dfe2aa6bbd522dd64242efb6e9dbed265daa0b68a9532734e1a58",
+      "readScope": "complete relevant document"
+    },
+    {
+      "path": "C:/Users/17601/.codex/skills/.system/imagegen/SKILL.md",
+      "sha256": "706d4d96e1d5c9e6023fe3ccabba1bb34b364024d344fd25b8515ec7d28fe3c4",
+      "readScope": "complete relevant document"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/nyamu.md",
+      "sha256": "c5acd92fe6cd9ccf35785bd09e7f71337bca5bf7eb0fdd37629e78780eb9ebe1",
+      "readScope": "complete relevant document"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "readScope": "complete relevant document"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.primary-approval.json",
+      "sha256": "6911d8a438417db80fe67e828c3d44735769722529af1fe8f09b3b1cfbf1c0c9",
+      "readScope": "complete relevant document"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/root-primary-mother-admission-v1.json",
+      "sha256": "5b9efdae10f905367c88c2e3c26f8ae91cf35ed95ff25a5733cc4d9f65eab7e1",
+      "readScope": "complete relevant document"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/avatars/root-primary-avatar-admission-v3.json",
+      "sha256": "2a697d2fb24a26b99cb6291fa1f692c11d7ffa11fdad61b2cee934b138549b3f",
+      "readScope": "complete relevant document"
+    }
+  ],
+  "promptFileSHA256": "ea4964b3885c94999d964f671423dc43ea48d664a5412d76ba08f390ef02db66",
+  "submittedPromptSHA256": "2f674a4d9d25b3a0a60a6363484dbb6dfb03384011f0fd39bc3165939e738979"
+}

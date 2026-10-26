@@ -1,0 +1,163 @@
+{
+  "id": "rana-reverse",
+  "characterId": "rana",
+  "stem": "rana-head-right-v1",
+  "source": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mygo\\edge-cats\\rig\\rana-reverse\\rana-head-right-v1.png",
+  "sourceSha256": "21a25b80c021b4ad84f3c4d896447d57af89b00819f3969869c726fcba1efa9e",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "sourceMode": "RGBA",
+  "sourceAlphaRange": [
+    0,
+    254
+  ],
+  "tailSide": "left",
+  "tailPivotPx": [
+    199,
+    656
+  ],
+  "tailPivotNormalized": [
+    0.12955729166666666,
+    0.640625
+  ],
+  "paperEdgeSourceY": 832,
+  "paperEdgeNormalized": 0.8125,
+  "frontPawVisualRefsPx": [
+    [
+      953,
+      814
+    ],
+    [
+      1257,
+      799
+    ]
+  ],
+  "pawScope": "Visible paw support/holding references; props belong to fixed body, no hypothetical joints or forced equal paw-bottom rule.",
+  "propOwnership": "blue pick retained with opposite pose holding paw",
+  "bodyArcSamplesY_X": [
+    [
+      600,
+      241
+    ],
+    [
+      610,
+      230
+    ],
+    [
+      620,
+      220
+    ],
+    [
+      640,
+      199
+    ],
+    [
+      650,
+      194
+    ],
+    [
+      660,
+      187
+    ],
+    [
+      670,
+      180
+    ],
+    [
+      690,
+      169
+    ],
+    [
+      700,
+      164
+    ]
+  ],
+  "visibleTailEndY": 696,
+  "wholeGuardExpansionRadius": 14,
+  "sourceSolidOutsideWholeGuardBounds": null,
+  "tailSemanticExpansionRadius": 12,
+  "rootUnderlapPx": 18,
+  "bodyForegroundInkOverlapPx": 4,
+  "mirrorSafe": false,
+  "eyeIdentity": "own-right gold / own-left blue, must use independent facing asset, never flip",
+  "selectedMask": "semantic-mask-v1.png",
+  "selectedMaskToolPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-7453a53c-850e-45d8-a8be-3baed2284321.png",
+  "outputs": {
+    "body": {
+      "sha256": "8dff799a03366dfb038e0ab5a31df8864ed698f84db0d49b53b9673fe768d336",
+      "bytes": 748542,
+      "alphaBounds": [
+        146,
+        176,
+        1485,
+        869
+      ],
+      "visibleRgbDifferenceRange": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    "tail": {
+      "sha256": "5a0f9faba65933e5fed9e47c77a5d8a0d77de4a785ba7f8609844b8957ed179a",
+      "bytes": 67132,
+      "alphaBounds": [
+        33,
+        322,
+        239,
+        697
+      ],
+      "visibleRgbDifferenceRange": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    "clean": {
+      "sha256": "7cb7794ef4e0baf16f80d88976b7b40d166ae3a58d8d697ea57d02b8061906a0",
+      "bytes": 793797,
+      "alphaBounds": [
+        33,
+        176,
+        1485,
+        869
+      ],
+      "visibleRgbDifferenceRange": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    }
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false
+}

@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "assetType": "project-original-vertical-edge-meme-cat",
+  "characterId": "soyo",
+  "tool": "image_gen.imagegen",
+  "mode": "accepted-family-reference-plus-independent-character-design",
+  "wardrobeId": "project-original-white-cat/no-human-costume",
+  "promptFile": "soyo-vertical-edge-cat-v1.prompt.txt",
+  "submittedPrompt": "HIGHEST PRIORITY GEOMETRY: Soyo's FACE must be STRAIGHT UPRIGHT and front-facing, facial centerline exactly vertical. The centers of BOTH EYES have the SAME Y coordinate on a HORIZONTAL line; cheeks at the same level. The supplied pilot has a diagonal face: do NOT copy that tilt. Curved hair or asymmetrical eyebrows do not rotate the facial plane. The complete cat BODY hangs VERTICALLY below the head; this is never a horizontal cat rotated ninety degrees.\n\nDraw ONE new original transparent vertical edge companion of Nagasaki Soyo from MyGO!!!!! as a spare 2D cartoon HUMAN-LIKE HEAD integrated with a complete WHITE meme-cat body. The attached accepted Sakiko image is ONLY a family grammar reference for simple contours, flat white face, two-zone round eyes, body scale and the relationship of paws clasping a vertical side. Recreate Soyo's own recognisable head, not Sakiko recolored: LONG LIGHT-BROWN hair in a few broad soft groups, gently curved cheek locks and slightly curled tips, parted grouped fringe, clear BLUE irises. No gold eyes, blue-purple hair, Sakiko ribbons, invented bows or official 3D material. Long brown hair descends behind and along the left/outside shoulder, leaving the right paw-contact silhouette open. Minimal white-interior cat ears can rise behind the hair as anatomy of this project-original cat form. No human clothes, collar, uniform, skirt or socks.\n\nThe moment: she has been rereading a little shared story she quietly adjusted, leaving an overly neat excuse with one intentional gap. From her place beside its edge, she hears the familiar reader name exactly what that fictional character really wanted. She has been understood, and is pleased without surrendering all her teasing composure. The eyes remain round, level and awake toward the viewer, with a small knowing lift in one brow and the other nearly relaxed. Give a VERY SMALL CLOSED shallow curved mouth with just ONE corner slightly lifted, not a broad smile, not the pilot's w-shaped mouth, not Anon's exuberance. No sultry half-lids, mature lipstick or maternal gaze. Her upper paw is keeping her own place; the lower paw has softened its pressure, leaving room for the other person to continue. She is not offering a service and not sorting somebody's life. The story and reader are outside this sprite; do not draw book, text, speech bubble or props.\n\nKeep the approved graphic family: white human-cartoon face and full white body, clean readable dark navy contours, simple round blue irises divided into just TWO FLAT COLOR ZONES, sparse light-brown hair forms with at most one restrained flat shadow zone. Same pen and simplicity everywhere; no detailed human portrait attached to a realistic animal. No fur, plush texture, fleshy skin, 3D, glass infant eyes, huge star glints, blush or mature makeup.\n\nPaw/body support: whole torso on the LEFT of an imaginary vertical edge around 82 percent of canvas width. Edge itself is invisible. One front paw curls RIGHT beside lower cheek, another curls RIGHT beside upper belly; both tips contact the same near-vertical x coordinate. A clear bent hind leg from the lower rump ends in a lower paw bracing that same side. Every paw connects to its shoulder/leg; no extra limbs and no sideways loaf. Body curves gently downward. A complete white tail has a connected lower-rump root, descends and makes one soft down-left curve, uncut at the tip. Face and eyes remain horizontally readable. The few long hair groups remain distinguishable from white tail and paws.\n\nPortrait composition with generous transparent clearance; all ears, head, long hair, paws, torso, hind leg and tail fully visible. No panel, edge line, ruler, ledge, rectangle, background, floor, outer glow, cast shadow or colored haze. Genuine RGBA transparency beyond the normal narrow antialiased contour. No UI, border, watermark or collage. This is a new individual illustration for later optional rigging, not a crop or copied official pose.",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/edge-companions/vertical/sakiko/sakiko-vertical-edge-cat-pilot-v1.png",
+      "role": "approved vertical family drawing simplicity and paw/body support grammar only; not character head",
+      "sha256": "5bfc229f5c0506f6fcb93646d4058543d42dbba910eafb5f99a5ebdefcb55d05"
+    }
+  ],
+  "readSources": {
+    "passport": {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/soyo.md",
+      "fullReadBeforeCall": true,
+      "version": "2026-10-25",
+      "sha256AtArchive": "1ec8b260d40f8363c096ed8392547dd276d2318df5aadbe34b1f51e51e2ed04e"
+    },
+    "method": {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "fullReadBeforeCall": true,
+      "version": "2026-10-25",
+      "sha256AtArchive": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840"
+    }
+  },
+  "facts": {
+    "officialSources": [
+      "https://mygo-movie.bang-dream.com/character/soyo/",
+      "https://bang-dream.com/artist/mygo/nagasaki-soyo/"
+    ],
+    "identityObserved": "长浅棕发、颊侧柔弯及略曲发尾、蓝眼，无固定大型发饰。",
+    "projectOriginal": "自己的故事有意留一个借口破绽，被相熟读者看出真正愿望，带一点会意。 人物简笔头+白猫身及此刻互动是项目原创，不是原作事件或物种设定；官图只作护照文字辨识，此次无官网图像输入。"
+  },
+  "output": {
+    "file": "soyo-vertical-edge-cat-v1.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-425693ca-7233-465c-aa65-54ed88b4b9fb.png",
+    "sha256": "3c3044d0d656a76fc33124333599567e4477036c06296b834f4c0d856dc30b57",
+    "bytes": 897500,
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "cornerAlpha": 0
+  },
+  "producerReview": {
+    "status": "producer_candidate_pending_primary",
+    "fullImagePersonallyViewed": true,
+    "observations": "亲看：浅棕长发和蓝眼、闭口一侧小弧，面朝人，眼线近水平而有少量手绘高差；长发沿外侧留出爪线。完整竖身/尾相连，前后爪同侧。",
+    "contactProposal": {
+      "width": 1254,
+      "height": 1254,
+      "upperPawApprox": [
+        934,
+        553
+      ],
+      "middlePawApprox": [
+        922,
+        733
+      ],
+      "hindPawApprox": [
+        919,
+        1033
+      ],
+      "proposedEdgeX": 925,
+      "bodySide": "left-of-imagined-edge",
+      "pawSide": "right",
+      "note": "亲看近似接触点，只是rig起点候选；不等于边缘接触已集成或mask已核。实际尺寸不同，须按原画布和内容边界计算，不能按同一PNG宽度齐缩。"
+    },
+    "smallSizeReview": {
+      "method": "Chrome真实静态HTML逐行亲看，原PNG CSS 300/128/64px高，浅纸/深蓝灰背景",
+      "observationPage": "producer-observe-v1.html",
+      "allFiveRowsPersonallyViewed": true,
+      "visibleResult": "未见明显不透明背景板、紫晕或裁断。128px发眼及抱边轮廓可读；64px只宜承担轮廓和色块，细小嘴角不承载复杂语义。",
+      "notClaimed": "未签rig、两侧身份、拖动、气泡或runtime准入；主代理仍须亲看。"
+    }
+  },
+  "mirrorPolicy": "镜像/对向停靠仍需按头发、支撑、遮挡亲看，当前仅此朝向。",
+  "primaryApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "humanMatrixCoverage": false
+}

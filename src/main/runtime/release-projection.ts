@@ -8,15 +8,16 @@ import type { EvidenceEvent } from '../../shared/harness';
 import { sourceContextGuidance } from '../../shared/source-context';
 
 /** Private preparation consumes current text+image jointly; the writer receives only this brief. */
-export async function projectRelease(input: { text: string; sourceContext?: EvidenceEvent['sourceContext']; image?: ImageAttachment; attachment?: { name: string; text: string }; prior?: unknown; task?: unknown; observations?: unknown[]; alreadyScopedConversation?: { id: string; role: 'user' | 'assistant'; content: string; sourceContext?: EvidenceEvent['sourceContext'] }[]; boundary: TurnControlProposal }, client: Pick<DeepSeekClient, 'complete'>, signal: AbortSignal) {
+export async function projectRelease(input: { text: string; sourceContext?: EvidenceEvent['sourceContext']; image?: ImageAttachment; images?: ImageAttachment[]; attachment?: { name: string; text: string }; attachments?: { name: string; text: string }[]; prior?: unknown; task?: unknown; observations?: unknown[]; alreadyScopedConversation?: { id: string; role: 'user' | 'assistant'; content: string; sourceContext?: EvidenceEvent['sourceContext'] }[]; boundary: TurnControlProposal }, client: Pick<DeepSeekClient, 'complete'>, signal: AbortSignal) {
   const schema = releaseProjectionSchema.extend({
     purpose: releaseProjectionSchema.shape.purpose.describe('这份文字希望向收件人表达什么、达成怎样的沟通。给本人的点评、写作过程与发送选择分别留在原交流和对应字段。'),
     allowedFacts: releaseProjectionSchema.shape.allowedFacts.describe('收件人获准知道、这份文字也真正用得上的事实。给作者的措辞点评和准备过程留在私下交流里。'),
   });
   const { $schema: _, ...parameters } = z.toJSONSchema(schema);
   const tool: ToolSpec = { type: 'function', function: { name: 'project_release_brief', description: '替写作者备好收件人真正需要且获准知道的内容，以及这份文字想向他表达的意思。', parameters } };
-  const text = JSON.stringify({ original: input.text, ...(input.sourceContext ? { sourceContext: input.sourceContext } : {}), currentMaterial: input.attachment || null, priorReleasedDraft: input.prior || null, alreadyScopedConversation: input.alreadyScopedConversation || [], boundary: input.boundary, proposedWritingTask: input.task || null, selectedToolObservations: input.observations || [] });
-  const content: ModelWireMessage['content'] = input.image ? [{ type: 'text', text }, { type: 'image_url', image_url: { url: input.image.dataUrl } }] : text;
+  const text = JSON.stringify({ original: input.text, ...(input.sourceContext ? { sourceContext: input.sourceContext } : {}), currentMaterial: input.attachments || input.attachment || null, priorReleasedDraft: input.prior || null, alreadyScopedConversation: input.alreadyScopedConversation || [], boundary: input.boundary, proposedWritingTask: input.task || null, selectedToolObservations: input.observations || [] });
+  const images = input.images || (input.image ? [input.image] : []);
+  const content: ModelWireMessage['content'] = images.length ? [{ type: 'text', text }, ...images.map(image => ({ type: 'image_url' as const, image_url: { url: image.dataUrl } }))] : text;
   return structuredResult({ schema, tool, complete: client.complete.bind(client), signal, failureCode: 'release_unknown', failureMessage: '这份文字哪些内容适合给收件人看，还没理清楚；稿子还没有写成或发送。', options: { thinking: 'enabled', maxOutputTokens: 16384, phase: 'control' }, messages: [
     ...sourceContextGuidance(input.sourceContext, ...(input.alreadyScopedConversation || []).map(message => message.sourceContext))
       .map(content => ({ role: 'system' as const, content })),

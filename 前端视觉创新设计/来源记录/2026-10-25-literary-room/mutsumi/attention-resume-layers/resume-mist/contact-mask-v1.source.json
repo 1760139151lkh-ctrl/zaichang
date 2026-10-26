@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "recordType": "native-same-canvas-layer-production-receipt",
+  "assetType": "same-canvas-source-local-contact-luminance-mask",
+  "sceneFamily": "literary-room-v1",
+  "character": "mutsumi",
+  "activity": "resume",
+  "palette": "mist",
+  "phase": "S2",
+  "recordedAt": "2026-10-25T20:36:02.851584+00:00",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-454d-7bb3-8b77-bcaadd75b8a4\\exec-be48b941-fdc2-487f-a8ea-704b5902cbfc.png",
+  "promptFile": "contact-mask-v1.prompt.txt",
+  "promptFileSha256": "cf7ced8a26758bc2f5fddd0ef76e163d5a2b20404334dcf7c66c362d6facc347",
+  "exactSubmittedPrompt": "Use case: precise-object-edit. This ONE input is freshly generated same-canvas WHITE CONTACT RECEIVER MARKUP in the ORIGINAL colored room. Convert ONLY those deliberately pure-white source-local linen and proximal floor receiving footprints to WHITE in an otherwise BLACK opaque RGB luminance mask at EXACT1536x1024 coordinates. Preserve their original extent/shape: the actual small irregular skirt-to-linen pressure/contact receiver AND the complete local soft wood floor receiving material around BOTH full loafers/toe/sole/heel contacts, including genuinely connected near shade between shoes. Do not reduce it to thin shoe-outline lines or drop the selected seat contact. Don't add a broad ellipse/rectangle, distant tail, long empty cushion patch or extra natural highlight. All original-colored girl/hair/face/hands/BOOK/navy uniform/socks/whole shoes/room remain BLACK, even if naturally bright; only the intentionally WHITE S1 patches count. No person silhouette or clothes detail. Preserve actual narrow/soft original receiving boundary: opaque center where selected, gentle antialias/feather only at true soft perimeter, no arbitrary blurred cloud. Source locations unchanged, no crop/recenter/resize/zoom or hidden support invention. It remains fixed included ORIGINAL SOURCE linen/wood contact material for U=MAX(L(F),L(S)); not a portable independent transparent caster. No original RGB room, UI/text/grid/labels/watermark. Output full1536x1024 opaque RGB black-white mask.",
+  "submittedPromptSha256": "3b51e42e5389867ebbeb406b65db7d9d55f498b4542f14ed8643abef8db89f42",
+  "submittedPromptTransform": "UTF-8 prompt file without final LF added by patch; exact submitted string",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/contact-step1-marked-v1.png",
+      "sha256": "3eb7b486b2a6a20c93baecf08f44d6c1d07ac7a0d488d2f0ae3a9bb90b54be1a",
+      "role": "Fresh same-mother local receiver S1 markup, exact source position"
+    }
+  ],
+  "output": {
+    "file": "contact-mask-v1.png",
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/contact-mask-v1.png",
+    "sha256": "3d26fa20ae7e00799fadbd7df90388c7d1f6376d21c9081ae44818c397838170",
+    "bytes": 281483,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "dossier": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/mutsumi.md",
+    "sha256": "189d1a17f6e4c2656692437167c50d2a89379cf50b16bc354df3ac8406e4610c",
+    "version": "2026-10-25",
+    "readComplete": true
+  },
+  "method": {
+    "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+    "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+    "readComplete": true
+  },
+  "wardrobeId": "mutsumi-tsukinomori-school-source-preserving",
+  "mother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-mist-literary-extension-v1.png",
+    "sha256": "dbd6bab85718cb6bf4fe53c3502bf7fbc0a3d78b69c8f1e29cba04ceaefea8ef",
+    "bytes": 2434826,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    }
+  },
+  "motherApproval": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/root-human-mother-primary-review-20261025.json",
+    "sha256": "f6b3a0b7ac9974993b61553e907f0ebfa7c39763ebef7d33ca7efb215a99fbb2",
+    "record": {
+      "cell": "mutsumi/resume/mist",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-mist-literary-extension-v1.png",
+        "sha256": "dbd6bab85718cb6bf4fe53c3502bf7fbc0a3d78b69c8f1e29cba04ceaefea8ef",
+        "bytes": 2434826,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.843Z",
+      "observation": "Mutsumi green-tinted hair/gold eyes and anatomical-left paired clips remain; quiet curiosity or recognition is distinct from a stock smiling pose. Hands physically support the book, legs/shoes and bench support are coherent. Small sock decoration in rain remains project illustration, not new official wardrobe fact. Whole mist light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    }
+  },
+  "pngPixelEditing": false,
+  "manualThresholdOrMorphology": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "producerReview": {
+    "personallyViewed": true,
+    "observations": [
+      "Native S2 personally viewed. It retained the proximal shoe-floor region but dropped the deliberately selected far-hem cushion receiver; this incomplete mask is held and will not be used as later Image input."
+    ]
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "scope": "Original source-position fixed included layer production only; marked/mask RGB never replaces original mother color. No independent movement, no new mother/dynamic/runtime completion.",
+  "productionStatus": "held-dropped-selected-seat-receiver",
+  "generationInputAllowed": false,
+  "selectionAllowed": false
+}

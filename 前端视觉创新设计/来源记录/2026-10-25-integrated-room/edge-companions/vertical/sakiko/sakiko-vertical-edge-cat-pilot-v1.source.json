@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "edge-meme-cat-v3-family",
+  "character": "sakiko",
+  "kind": "newly-articulated-upright-face-vertical-edge-clinging-cat-pilot",
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-1cc6905a-7c51-4e6c-b919-1da1a13ef631.png",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/运行素材/companion/edge/sakiko-meme-cat-v3.png",
+      "sha256": "15b21bfb6c94aef1dfd8ae7b168f970fbe9998cddb705b64ac7dabdceab0c161",
+      "role": "Accepted simple Sakiko v3 character/graphic family only; newly draw vertical grip, no 90-degree whole-image rotation"
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "scope": "Fully read before this independent vertical cat creative call"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840",
+      "scope": "Fully read before this independent vertical cat creative call"
+    }
+  ],
+  "exactSubmittedPrompt": "Create ONE new complete VERTICAL-EDGE CLINGING Sakiko Togawa / 丰川祥子 meme-cat sprite, 1024x1024 square RGBA with genuinely transparent background. This is a newly drawn pose, NOT the horizontal cat rotated 90 degrees. The ONE image input is the accepted v3 horizontal Sakiko cat: use only its character identity and unified ultra-simple 2D meme line language, white round face, blue-lavender hair/dark ribbons, simple gold eyes and complete WHITE cat body. The new pose must be newly articulated for a vertical edge while her FACE REMAINS UPRIGHT TOWARD THE PERSON, both eyes clear and nearly horizontal, ears upward.\nTHE LIVING MOMENT: She was quietly looking at the next line beside the page edge for herself. Someone familiar lightly calls her; her gold eyes turn to them before the tiny closed cat mouth fully relaxes, one little brow retains her slightly proper, thoughtful air. There is a small endearing hint of being caught caring about the line, not a vacant waiting-for-orders pose. No sad comfort, no big grin, no words or thought bubble.\nPOSE AND BELIEVABLE CONTACT: imagine a thin VERTICAL paper/panel edge on HER RIGHT, around the right three-quarter of the square. Her large upright head peeks from its LEFT toward the viewer. Below the head a COMPLETE softly rounded WHITE CAT TORSO hangs mostly VERTICALLY, its belly/near shoulder nestling beside that same imaginary vertical edge, with a curved back/real rump visible to the left. Her TWO small front paws reach naturally from the shoulders and HOOK/CLASP AROUND that vertical edge at TWO DIFFERENT HEIGHTS, upper paw near cheek height and lower paw around upper belly height, rather than lying on a horizontal shelf. Both forelimbs visibly connect to her body; no floating mitten, extra arms or human hands. Her two hind legs bend naturally near the lower body; at least one hind paw braces the SAME vertical contact alignment lower down, the other curls near her rump. The weight reads as held by front-paw grip plus close body/hind-paw support. Her ONE tail emerges from the actual rump, drops/curves naturally downward and left, complete and uncut; not a rigid rotated horizontal tail or disconnected cord. Keep head, paws, complete torso, rear legs and tail all inside generous transparent margins. Cat head/body scale stays in the v3 simple family, compact within the square, not a long empty image strip.\nIMPORTANT: do NOT draw the imagined paper, panel, shelf, wall, edge line, pole, rope, border or long colored/white strip. Only the COMPLETE CAT is visible on alpha; the real application edge will provide the support later. Leave empty alpha near the contact side. No whole-image quarter rotation, no sideways face, no horizontal loaf with feet turned sideways, no portrait pasted onto another rendering style.\nSAKIKO IDENTITY AND SIMPLE ART: youthful cartoon human-character hair shape integrated into a little WHITE ROUND CAT FACE, a few broad pale BLUE-LAVENDER hair masses with simple bangs and modest dark navy side ribbons; big ROUND GOLD eyes each with only TWO flat tones (muted ochre upper half/pale gold lower half), tiny minimal mouth/brows. Head, ears, paws, body, legs and tail are all drawn in the SAME very simple 2D Doro-like meme/cartoon way: bold clean dark-navy outlines, large white areas, few rounded curves, minimal flat color/shadow. No refined human avatar painting, human flesh/skin gradients, realistic nose/lips, mature makeup, 3D, plush, furry animal, realistic fur, human body, uniform, socks, shoes, frills, props, symbols, text/UI, bubble, halo/glow, floor shadow, scene, watermark or painted black/white/checkerboard backdrop. Preserve actual transparency. This is a project-original cat pose, not canon costume or a full-human matrix cell.",
+  "submittedPromptSha256": "8b32a0de93a47ecf489eb955faffaafa7bbf47c5ff34512560a66e5c188eea49",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\sakiko\\sakiko-vertical-edge-cat-pilot-v1.png",
+    "sha256": "5bfc229f5c0506f6fcb93646d4058543d42dbba910eafb5f99a5ebdefcb55d05",
+    "bytes": 831221,
+    "width": 1254,
+    "height": 1254,
+    "pngColorType": 6
+  },
+  "intendedSupport": {
+    "kind": "imagined-vertical-paper-edge",
+    "contactSide": "right",
+    "frontPaws": "two connected paws at distinct heights",
+    "body": "vertical complete white cat torso to left of contact alignment",
+    "hindPaw": "bent bracing lower on same alignment",
+    "tail": "real rump root, naturally curves downward/left",
+    "actualPanelPixelsDrawn": false
+  },
+  "wholeImageQuarterTurn": false,
+  "producerViewed": true,
+  "producerObservation": "Personally viewed complete vertical pilot: upright near-frontal white cat face with clear gold two-tone eyes, blue-lavender simple hair/dark side ribbons, head slightly inclined but not quarter-rotated. Newly articulated complete white vertical cat torso below head. Two connected front paws contact an imagined right-side vertical edge at visibly different heights, a bent lower hind paw braces the same side, rump/curved hanging tail continue naturally. No actual panel/strip/edge line/text/background or flesh avatar rendering. Cat has a small proper attentive brow/closed mouth as if interrupted from reading one nearby line. Root pose/art direction and later rig/runtime review pending.",
+  "primaryApproved": true,
+  "rigApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "independentTailLayer": false,
+  "privateWechatSourceUsed": false,
+  "officialArtworkInput": false,
+  "fullHumanMatrixCredit": false,
+  "pngEdited": false,
+  "directAlphaObservation": {
+    "mode": "RGBA",
+    "extrema": [
+      0,
+      255
+    ],
+    "canvas": [
+      1254,
+      1254
+    ],
+    "nativePixelsUnmodified": true
+  },
+  "producerSmallSizeReview": {
+    "personallyViewed": true,
+    "widthPx": 220,
+    "backgrounds": [
+      "#fff9f2",
+      "#20212c"
+    ],
+    "evidence": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\sakiko\\sakiko-vertical-cat-220px-light-dark-review.png",
+    "sha256": "b351db4bafdbea35f62fc7818d2047e3fe17e81369585a36b046583af20f7e7e",
+    "observation": "Upright readable round face, two distinct-height front-paw grips, complete vertical torso/haunch/bracing hind paw and naturally curved attached tail; no panel/long stripe/background. Actual edge anchor and motion need later integration review. Review sheet forbidden as generation input."
+  },
+  "primaryReview": {
+    "reviewer": "root",
+    "decision": "approved-vertical-static-direction-only",
+    "personallyViewed": true,
+    "source": "Explicit root message after viewing full original on 2026-10-25",
+    "outputSha256": "5bfc229f5c0506f6fcb93646d4058543d42dbba910eafb5f99a5ebdefcb55d05",
+    "scope": "This complete simple vertical cat art/pose direction, not rig/runtime"
+  },
+  "contactGeometryCandidate": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\sakiko\\sakiko-vertical-edge-cat-pilot-v1.geometry-candidate.json"
+}

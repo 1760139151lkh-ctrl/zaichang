@@ -1,0 +1,165 @@
+{
+  "schemaVersion": 1,
+  "key": "taki/chat/apricot",
+  "scope": "Selected public source closure for root-approved fixed included joint and isolated-worktree owner handoff; not a runtime registration",
+  "createdOn": "2026-10-25",
+  "primaryAdmissionRecord": "taki-chat-apricot-literary-included-primary-admission-v1.json",
+  "runtimeAccepted": false,
+  "fileCount": 29,
+  "files": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-pilot/taki-chat-apricot-literary-v1.png",
+      "sha256": "0eb782e67b9954b406130a4994e9e75dd8774c8c3eb2a690d75d3e55338aad16",
+      "bytes": 2433343
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-pilot/taki-chat-apricot-literary-v1.prompt.txt",
+      "sha256": "14288f1e16c6e6833c41e8827817cf789de8af8a8b56b57a3866393a5ae3e8ec",
+      "bytes": 4656
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-pilot/taki-chat-apricot-literary-v1.source.json",
+      "sha256": "57e7781b3e1441093a73c2f55ff3e3bfa21696b6c123b364954bfb9d65d1bd85",
+      "bytes": 3070
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-pilot/taki-chat-apricot-literary-v1.primary-approval.json",
+      "sha256": "147a8e8a00fc32c848c2a9757e4f7787c414ef2a5b4d7c90f6c21b0b6ad44c5d",
+      "bytes": 809
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "bytes": 2524961
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.prompt.txt",
+      "sha256": "3e854eda45e9e76baed6ad514c67488656035d0990663f089cbf6f24575cae26",
+      "bytes": 1584
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json",
+      "sha256": "5425e475efa8264874f2f3b083b8737b4b1f9d35399e9b2c3d86dc561a36cddb",
+      "bytes": 1250
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/literary-room-empty-plates-primary-admission-v1.json",
+      "sha256": "8ed5c9723ccf61f178ffa5e7f90a66f05b18fc6e44c8ba1124782b679a045c0c",
+      "bytes": 4399
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+      "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+      "bytes": 2606101
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.prompt.txt",
+      "sha256": "ebcef44bd92cfdf510692b140e968ba6bf9abd8564ae8a7f98d82828a2740d94",
+      "bytes": 4250
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.source.json",
+      "sha256": "d9cd4427517d0e0fc050b9777c204e4f7363d8bd19bb585f000f5212f64fe6c3",
+      "bytes": 1247
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-layers/chat-layers-included-bundle-v1.json",
+      "sha256": "d37c25f52b8fc518cdfe4ef14037c595e8e2ea35ab0314583070fbe302781205",
+      "bytes": 6954
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-layers/chat-layers-included-observe-v1.html",
+      "sha256": "5c78afe7ea6b942a79f6e0fdfd19ccc921b8a56cb634820784bef0f3e1366348",
+      "bytes": 21787
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-layers/chat-scene-proposal-v1.json",
+      "sha256": "1ba8026c5876077818bd90e7ea90fdac7fd45c2154e9f2ad39d63cca1e4b09b0",
+      "bytes": 2497
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-layers/figure-mask-v1.png",
+      "sha256": "0c9a012634dcafb933a204c3e53150f978d26365e63e46c578687dba57d1781c",
+      "bytes": 466233
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-layers/figure-step1-marked-v1.png",
+      "sha256": "a12ca0ce3f98ab531b339765660e956d8e4813ef4c898992057d1cf200be8971",
+      "bytes": 2314223
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-layers/figure-step1-prompt-v1.txt",
+      "sha256": "a34769034aa7e1f6ad4889686d2d7eb63f66ca1c56ca23e573a201931d10d608",
+      "bytes": 1975
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-layers/figure-step1-source-v1.json",
+      "sha256": "d7ed4b0c1a088cb80a4df3299580d3cfcdb49846eace6ccbde8966610bed7b8e",
+      "bytes": 3674
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-layers/figure-step2-prompt-v1.txt",
+      "sha256": "a076a52bae4ea200f424fe3c3604b84e2dc390054195bda3834ff58bbfc3d2fa",
+      "bytes": 1823
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-layers/figure-step2-source-v1.json",
+      "sha256": "8f707f18ff3b720a693e6492deff76e865fe572dee7bc8cf91c48fdbe7b4f953",
+      "bytes": 5299
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-layers/README.md",
+      "sha256": "9f83a4f6f4d4592498e416def9b5b18d0ffd4344ebbc483cbd8b4aacf09f0e47",
+      "bytes": 1703
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-layers/shadow-mask-v1.png",
+      "sha256": "bbcb8bfbb911c1c7855f455f2159134267235474efeed22cc916c108561eb847",
+      "bytes": 311946
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-layers/shadow-step1-marked-v1.png",
+      "sha256": "cb07b19e002479cea9e8caad0d6f7f90fa4f011732dbfa6f648a0ef5508841ac",
+      "bytes": 2401122
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-layers/shadow-step1-prompt-v1.txt",
+      "sha256": "7bea4a6b8ab76d2d8ecd74368793407d35bd0226b6d3d568426b72a536ff3bc7",
+      "bytes": 2006
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-layers/shadow-step1-source-v1.json",
+      "sha256": "25fcc7f22087c7b85bc6aea192b77df8b8ad11c142ff08ca8635258d0089c90b",
+      "bytes": 3800
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-layers/shadow-step2-prompt-v1.txt",
+      "sha256": "dc1d6b8847bf77fda60827b5d94b79fb23416ae677a25c0c00c626af4ade5686",
+      "bytes": 1762
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-layers/shadow-step2-source-v1.json",
+      "sha256": "35d45f64118f1587f884f24948ad42e3bc21f24e5f73e1dcfbab7f2fcbd27444",
+      "bytes": 3602
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-layers/taki-chat-apricot-literary-included-primary-admission-v1.json",
+      "sha256": "74d90d0656658921b3fda22d59e95a4b7cccde5a5b1ab8fe1d2d0ffba998ea63",
+      "bytes": 2381
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-layers/union-source-v1.svg",
+      "sha256": "3f7d30bf9429230118ce540a3d7c5df146e9505ad87875960da321ffc709a188",
+      "bytes": 1315
+    }
+  ],
+  "omissions": [
+    "Logical generated_images original-tool locators are provenance only; project PNG copies above have exact matching bytes and SHA. Raw chat/session logs, secrets and personal data are not publication inputs.",
+    "The empty-plate aggregate approval includes seven other plates as review history; only clear-day is a dependency of this chat joint. The isolated worktree already has the separately transferred eight-plate closure.",
+    "Selected user-approved literary v1 original is included solely as clean-plate provenance; unselected v2 and old room4/rejected variants are excluded."
+  ],
+  "handoff": {
+    "owner": "/root/cast_mygo_recovered",
+    "allowedAction": "Copy this selected closure and register only this exact approved fixed-coordinate joint through the owner's runtime files; runtime verification remains separate."
+  }
+}

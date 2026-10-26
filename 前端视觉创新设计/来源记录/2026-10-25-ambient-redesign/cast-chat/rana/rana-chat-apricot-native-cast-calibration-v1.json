@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "id": "rana-chat-apricot-native-cast-calibration-v1",
+  "source": "Root directly identified original mother broad upper-thigh cast-shadow perimeter after v2 native source-pixel inspection.",
+  "sourceMother": {
+    "file": "../../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png",
+    "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812"
+  },
+  "imageGenMatte": {
+    "file": "rana-chat-apricot-contact-shadow-mask-v3.png",
+    "sha256": "5c0963db7cd7c2c393c07fd69d0de7b06cc361df1afa7e6dd154d3f600e166ae",
+    "provenance": "Built-in ImageGen two-step broad-cast-white in original room, then background black. Original raster unchanged."
+  },
+  "nativeGeometry": {
+    "provenance": "Explicit primary-agent text coordinates, implemented as native SVG polygon; not ImageGen output and not a raster asset.",
+    "coordinateSpace": "original mother pixels",
+    "polygonPixels": [
+      [
+        1255,
+        571
+      ],
+      [
+        1327,
+        571
+      ],
+      [
+        1338,
+        574
+      ],
+      [
+        1343,
+        578
+      ],
+      [
+        1341,
+        583
+      ],
+      [
+        1323,
+        585
+      ],
+      [
+        1311,
+        590
+      ],
+      [
+        1305,
+        596
+      ],
+      [
+        1299,
+        603
+      ],
+      [
+        1284,
+        606
+      ],
+      [
+        1264,
+        606
+      ],
+      [
+        1261,
+        596
+      ],
+      [
+        1258,
+        586
+      ],
+      [
+        1254,
+        579
+      ]
+    ],
+    "operation": "Union with existing ImageGen luminance matte. Then multiply by inverse independent figure luminance mask to keep person RGB out of the independent shadow layer.",
+    "variants": [
+      {
+        "id": "hard",
+        "featherStdDeviationSourcePixels": 0
+      },
+      {
+        "id": "soft",
+        "featherStdDeviationSourcePixels": 0.5
+      }
+    ],
+    "rgb": "Same original complete mother RGB through calibrated mask, no scale/color/position change or separate image patch.",
+    "rasterWritten": false
+  },
+  "coupling": {
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "lifecycle": "The entire fixed pose layer bundle is removed together on hide/pose change. Geometric cast calibration may not be moved independently or reused across a pose."
+  },
+  "observationPage": "rana-chat-apricot-layers-v3.html",
+  "review": {
+    "primaryLayerApproved": false,
+    "primaryVariantSelected": null,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  }
+}

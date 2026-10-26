@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "root / primary agent",
+  "recordedAt": "2026-10-26T00:16:04.838649+00:00",
+  "recordType": "primary-face-aesthetic-and-identity-reference-admission",
+  "file": "taki-avatar-youth-v3.png",
+  "sha256": "6597cfbe08e2e4ce4906c498bcfc5d2e41d3d3910e5a8a80762c2aa53d4ed873",
+  "primaryPersonallyViewedCompleteOriginal": true,
+  "faceAestheticApproved": true,
+  "identityGenerationReferenceApproved": true,
+  "scope": "Only original 2D face aesthetic and same-character identity reference for the newly authorized time-only-neutral room mothers. Not all-purpose or runtime acceptance.",
+  "exactPrimaryMessage": "root已逐原PNG亲看Taki v3 6597cfbe…ed873与Soyo v3 735d92ca…9c418。两人脸形是短柔青春2D，Taki紫眼松眉小笑、Soyo蓝眼轻关心各有神情；下巴自然anime尖收/小鼻高光不构成我看到的长成人脸缺陷，不为这点重做。准原画面部审美与同角色identity generation参考，可以用它们+已准净day plate做各day。只准这个scope，发缘透明大图与34/48圆框/实际UI没验，不签runtime/latest全用途中完成，不写userApproved true。请用root本消息存分项准入记录，旧v2 flags不改；原始PNG不手工加工。日母完先根审再night，不用未审母连生。",
+  "notChecked": [
+    "transparent hair-edge quality",
+    "34px and 48px circular crop",
+    "actual UI runtime"
+  ],
+  "userApproved": false,
+  "runtimeAccepted": false,
+  "latestAllPurposeAccepted": false
+}

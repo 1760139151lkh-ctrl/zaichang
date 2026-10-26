@@ -1,0 +1,559 @@
+{
+  "schemaVersion": 1,
+  "kind": "light-activity-wave-a-mother-candidates",
+  "character": "soyo",
+  "waveTotalCallsLimit": 24,
+  "waveCallsCompletedAtHandoff": 24,
+  "characterLimit": 12,
+  "characterCallsCompleted": 12,
+  "characterGenerationStopped": true,
+  "generationStopped": true,
+  "inputManifest": "soyo-light-activity-wave-a-input-manifest-v1.json",
+  "cells": [
+    {
+      "id": "soyo-reading-mist-literary-v1",
+      "key": "soyo/reading/mist",
+      "activity": "reading",
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "png": {
+        "path": "soyo-reading-mist-literary-v1.png",
+        "sha256": "0dfd952919768c1e47d82183beed396ccd74096b3b40c2e6d92ad59d22b45151",
+        "bytes": 2404453,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "soyo-reading-mist-literary-v1.prompt.json",
+        "sha256": "0e558084ca38eb497d140f8950d615afcd553426672b7e9e174a10b9cab8a152"
+      },
+      "source": {
+        "path": "soyo-reading-mist-literary-v1.source.json",
+        "sha256": "0356606ecf21c5980a7cc798ed72de0db4648d564d5d7c7958665884c13e4407"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "contourComplete": null,
+      "concerns": [],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "approvalRecordSHAs": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "soyo-reading-violet-literary-v1",
+      "key": "soyo/reading/violet",
+      "activity": "reading",
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "png": {
+        "path": "soyo-reading-violet-literary-v1.png",
+        "sha256": "a76b10798c2692f0ec899c629581c372e6f1124db8c9ac5248a87992313a38e9",
+        "bytes": 2290978,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "soyo-reading-violet-literary-v1.prompt.json",
+        "sha256": "2ceef0b4e30eba558780307f2b687e92c7992da5f46b8036ef6b6fcac7f7c954"
+      },
+      "source": {
+        "path": "soyo-reading-violet-literary-v1.source.json",
+        "sha256": "c1396c34e8d9adf87d24bb34bcad728796d97ffd19fe0bdcb64a8054ee44b902"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "contourComplete": null,
+      "concerns": [],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "approvalRecordSHAs": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "soyo-reading-rain-literary-v1",
+      "key": "soyo/reading/rain",
+      "activity": "reading",
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "png": {
+        "path": "soyo-reading-rain-literary-v1.png",
+        "sha256": "6438a2daa3db445bb1a934666ffbe8fd2104bb43c1d245c2c00d29df402bfff2",
+        "bytes": 2208688,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "soyo-reading-rain-literary-v1.prompt.json",
+        "sha256": "dcb770cea83d6b8ad7305da11a4557cc1a51d3556274ab784e438c00529de0ff"
+      },
+      "source": {
+        "path": "soyo-reading-rain-literary-v1.source.json",
+        "sha256": "967d8c604bc7f6d210ca567d75ae10f9772b414b3549afd8d03999c00c6a827c"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "contourComplete": null,
+      "concerns": [],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "approvalRecordSHAs": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "soyo-planning-mist-literary-v1",
+      "key": "soyo/planning/mist",
+      "activity": "planning",
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "png": {
+        "path": "soyo-planning-mist-literary-v1.png",
+        "sha256": "8b8f9dcc80a76f35d7d4115bb6bdb637258fcc88016abf247137efa88e1ea44a",
+        "bytes": 2417159,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "soyo-planning-mist-literary-v1.prompt.json",
+        "sha256": "aa6d2490373427c2dd316c75e75d03977460748700b55dec22067375e0064ed4"
+      },
+      "source": {
+        "path": "soyo-planning-mist-literary-v1.source.json",
+        "sha256": "65ef7532fc7143a401a6434949b27106b1e0457036a594d269cdc44c39f8853e"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "contourComplete": false,
+      "concerns": [
+        "contourComplete=false：原构图plant遮部分小腿/鞋，不虚签完整足部。"
+      ],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "approvalRecordSHAs": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "soyo-planning-violet-literary-v1",
+      "key": "soyo/planning/violet",
+      "activity": "planning",
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "png": {
+        "path": "soyo-planning-violet-literary-v1.png",
+        "sha256": "3e2e88de8271ec950f2ba1721639e3ec38666b6c58380a92b2b71f9fd4356a4e",
+        "bytes": 2275699,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "soyo-planning-violet-literary-v1.prompt.json",
+        "sha256": "808560f600f50dd91fa73d74b187316177507b77f83c9892f80301d02fd31554"
+      },
+      "source": {
+        "path": "soyo-planning-violet-literary-v1.source.json",
+        "sha256": "52141b360121027bccad63c41825916d4071c03ba2c88ba13ecf4ba49475f0bf"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "contourComplete": false,
+      "concerns": [
+        "contourComplete=false：原plant遮部分腿鞋。"
+      ],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "approvalRecordSHAs": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "soyo-planning-rain-literary-v1",
+      "key": "soyo/planning/rain",
+      "activity": "planning",
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "png": {
+        "path": "soyo-planning-rain-literary-v1.png",
+        "sha256": "60312b8e6426032876e89afc5044798ccff679588fd178aa4acefdfa2ea39d25",
+        "bytes": 2234726,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "soyo-planning-rain-literary-v1.prompt.json",
+        "sha256": "081692d4af02dc4854bb7415ba6c1c294ef834bad1931a6a46b1fc3b93ce255a"
+      },
+      "source": {
+        "path": "soyo-planning-rain-literary-v1.source.json",
+        "sha256": "3ef7f0813b4e5216611b87cb2c8a9433ed4544a4e3f781ece31ddd8fe7e1d377"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "contourComplete": false,
+      "concerns": [
+        "contourComplete=false：原plant遮部分腿鞋，不虚签完整足部。"
+      ],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "approvalRecordSHAs": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "soyo-rest-mist-literary-v1",
+      "key": "soyo/rest/mist",
+      "activity": "rest",
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "png": {
+        "path": "soyo-rest-mist-literary-v1.png",
+        "sha256": "a80220bbd3823505fef43691b245c4970235423f86a94344c9bffa3e10928413",
+        "bytes": 2406596,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "soyo-rest-mist-literary-v1.prompt.json",
+        "sha256": "e408f6ddac6136bdbdb7b4ef9ea93b5d58de2a9e0ad7ea469634e3f5123cd86a"
+      },
+      "source": {
+        "path": "soyo-rest-mist-literary-v1.source.json",
+        "sha256": "28dbc5939c856cd9860bacdecf952067bed4f55f06e5c56207ce4ec97bba7b40"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "contourComplete": null,
+      "concerns": [],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "approvalRecordSHAs": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "soyo-rest-violet-literary-v1",
+      "key": "soyo/rest/violet",
+      "activity": "rest",
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "png": {
+        "path": "soyo-rest-violet-literary-v1.png",
+        "sha256": "73e666a40431adc9aea2f723418dabb083777ac8fdf38e48d67abc8753249729",
+        "bytes": 2286264,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "soyo-rest-violet-literary-v1.prompt.json",
+        "sha256": "c22be2bb429ee36ec9e5faff1a31e772d7c4cc7ceeb019a16c3b5a3a8ab6fdb6"
+      },
+      "source": {
+        "path": "soyo-rest-violet-literary-v1.source.json",
+        "sha256": "c2e86f22b0d616ceb1c553e8b90f4aae92d2c28294596ae9af188274578374d8"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "contourComplete": null,
+      "concerns": [],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "approvalRecordSHAs": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "soyo-rest-rain-literary-v1",
+      "key": "soyo/rest/rain",
+      "activity": "rest",
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "png": {
+        "path": "soyo-rest-rain-literary-v1.png",
+        "sha256": "f47877a698b5fc4025771f81b8af27e5cae34e438ca3b8c2fc06d1423e2568da",
+        "bytes": 2232793,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "soyo-rest-rain-literary-v1.prompt.json",
+        "sha256": "fdba5bd642b7df8580d1367cc8580b0d8ebc2e78df934d5836c4d4adeaa0b108"
+      },
+      "source": {
+        "path": "soyo-rest-rain-literary-v1.source.json",
+        "sha256": "1130bed9a7499f896e195c9a2282acbeeb1ddda75c2529353edea8e60eb15419"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "contourComplete": null,
+      "concerns": [],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "approvalRecordSHAs": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "soyo-study-mist-literary-v1",
+      "key": "soyo/study/mist",
+      "activity": "study",
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "png": {
+        "path": "soyo-study-mist-literary-v1.png",
+        "sha256": "68a5ef8cc5f4b1de709ed9699749b2c168fe943c63aab953abca4277dcb2b264",
+        "bytes": 2469023,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "soyo-study-mist-literary-v1.prompt.json",
+        "sha256": "0b565cee1904d69799d7531689217465640e8c4ab5931c8159a73083497d1cb0"
+      },
+      "source": {
+        "path": "soyo-study-mist-literary-v1.source.json",
+        "sha256": "bc3f2850ed61386bc4aadee93b8cba4fb147be42828a42141e0bb76244fe01c5"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "contourComplete": false,
+      "concerns": [
+        "contourComplete=false：原plant遮腿鞋，远眼因低头发/视角局部遮挡；不签完整脚或双眼全见。"
+      ],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "approvalRecordSHAs": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "soyo-study-violet-literary-v1",
+      "key": "soyo/study/violet",
+      "activity": "study",
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "png": {
+        "path": "soyo-study-violet-literary-v1.png",
+        "sha256": "37ce88f7b952c0cd3c359d0663a54baa2c7dfa8b9d1dd599111f0addff708f29",
+        "bytes": 2263698,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "soyo-study-violet-literary-v1.prompt.json",
+        "sha256": "9e01b11278479a372c4491b568f3a662c8ac57c066c1352a79cc8b54b5f901d3"
+      },
+      "source": {
+        "path": "soyo-study-violet-literary-v1.source.json",
+        "sha256": "3705669bcc3d6de1447d966668bcf74f3c223db98e8a6e18e7ac7c03b7d590bd"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "contourComplete": false,
+      "concerns": [
+        "contourComplete=false：原plant遮部分腿鞋；远眼因低头发/视角局部遮挡。"
+      ],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "approvalRecordSHAs": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "soyo-study-rain-literary-v1",
+      "key": "soyo/study/rain",
+      "activity": "study",
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "png": {
+        "path": "soyo-study-rain-literary-v1.png",
+        "sha256": "24f701e796042a7c307a47c0746de5d43e22cd47713f4c329debbde563bd6ea0",
+        "bytes": 2252621,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "soyo-study-rain-literary-v1.prompt.json",
+        "sha256": "f4a4e803f43748d8f353e0da25c09c9c93c5dee4bf1942f4e14bb21f20172361"
+      },
+      "source": {
+        "path": "soyo-study-rain-literary-v1.source.json",
+        "sha256": "cc031a5e8667b184d74a3d6a2785d4be9d3955e66b3add15eac21a039139ca46"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "contourComplete": false,
+      "concerns": [
+        "contourComplete=false：原plant遮腿鞋；远眼因低头发/视角局部遮挡。"
+      ],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "approvalRecordSHAs": [
+          true,
+          true
+        ]
+      }
+    }
+  ],
+  "approvedByPrimary": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "layerWorkStarted": false,
+  "runtimeRegistered": false
+}

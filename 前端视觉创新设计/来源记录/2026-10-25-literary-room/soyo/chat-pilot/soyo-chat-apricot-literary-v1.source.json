@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-chat-apricot-literary-v1",
+  "assetType": "complete-mother-first-literary-room-pilot",
+  "createdAtUtc": "2026-10-25T09:13:07.405506+00:00",
+  "tool": {
+    "name": "image_gen.imagegen",
+    "mode": "edit-approved-empty-room-add-one-character",
+    "originalEventId": "exec-fb1657d0-2110-49e3-ab15-d6645c30abe4",
+    "outputHint": "Generated images are saved to C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270 as C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-fb1657d0-2110-49e3-ab15-d6645c30abe4.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  "prompt": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\chat-pilot\\soyo-chat-apricot-literary-v1.prompt.json",
+    "fileSHA256": "2f46fda46803b23f7f376be07d9bc196658cda88641bcb97d8331aeca5f8ae6d",
+    "submittedPrompt": "Use case: illustration-story. Create one complete literary-room companion mother artwork, exactly 1536 × 1024 pixels, horizontal full canvas. The ONLY image input is the approved clean EMPTY literary room. Keep its exact close camera, perspective and room geometry: the complete large wood window, clear blue sky and autumn lake-town view, ivory curtains, left wood writing desk/chair, shelves with books, frames and plants, the round table and its blue-white porcelain lamp/cup, flowers and books, the long wood window bench with linen cushion, blue-gray plaid pillows and knit throw at right, warm floor, woven rug and blurred foreground plant. Add exactly ONE naturally integrated character. The existing furniture remains in its place and at its existing scale; no crop, zoom, new furniture, second person or extra hand entering from off camera. No other character image, pose image or face is supplied.\n\nThe literary moment leads the image: 长崎そよ原本把话接得很周全，话到中途，却愿意坦然承认自己更喜欢其中一种过法。这个小小的偏向让聊天真正有了她。顾及关系和说出自己的愿望同时成立，柔和没有把判断磨平。她先前短暂看过膝上那本自己偏爱的薄册，此刻把清楚的蓝眼睛重新抬向画外同伴，等一句真实回应。她的浅笑里有自己的主意，唇线轻轻收住，眉目从容，不急着把不同意见说成一致。Show a quiet but individual conversational moment: she has just offered a small sincere preference, feels close enough to let the polite performance loosen, and is ready for the other person's honest answer. Gentle, perceptive, with a little self-possession and warmth. No broad interchangeable grin, hostess pose, exaggerated sadness, pleading, pointing or celebratory gesture. No written speech or caption.\n\nIdentity entirely from text: Soyo Nagasaki / 長崎そよ, BanG Dream! It's MyGO!!!!!. Faithful youthful Japanese 2D anime identity, long natural LIGHT BROWN hair, softly curved side locks and gently curled ends, fine airy bangs, clear BLUE eyes and a delicate youthful observant face. Her hair is light brown rather than blonde, gray, pink or Sakiko's blue. BOTH eyes and their fine linework remain clear and visible; bangs frame the eyes naturally instead of hiding either eye. Faithful Tsukinomori school uniform: dark NAVY sailor blouse with a broad WHITE sailor collar and fine navy trim, a gray-blue bow with small GOLD school crest at the throat, dark navy pleated knee-length skirt with TWO white lines near its hem, dark knee socks and simple BROWN loafers. Keep her clothing's own navy/white colors, youthful ordinary proportions and modest fully clothed school-day presence. No mature model styling, chibi proportions, borrowed face or another character's uniform.\n\nBasic supported posture: she sits on the actual linen window bench near the round table, her hips and thighs resting with believable weight on the cushion. Leave the lamp, cup and tabletop intact and the left writing desk visible. Her torso sits upright and gently turns toward the off-camera companion near the viewer, shoulders settled, no leaning toward the lens. A thin, nearly closed booklet lies across her own lap; both hands rest lightly on it, with one relaxed fingertip at its page edge, an ordinary unforced small gesture. The booklet has faint abstract paper texture without readable content. Show clear wrist-to-arm connections and natural fingers without hiding an error behind the book. Her legs are comfortably arranged with real continuous hip-to-knee-to-ankle relations. Both complete brown loafers rest a little forward on the clear floor, with subtle contact shadows and believable perspective. The bench front remains behind her lower legs, the cushion supports her weight, and no limb penetrates the furniture. No extra limb, fused knee/hand, missing shoe or floating unsupported body. Do not force a decorative leg pose.\n\nThis is the newly selected close-room HUMAN scale: full seated figure, hair top approximately y=110 and complete shoe soles approximately y=880–900 on the 1536×1024 canvas. Keep the feet naturally forward on the floor so the full figure reaches this near-room scale; do not obtain it by enlarging her head, leaning into camera, stretching the shins, shrinking furniture, changing the room camera or cropping the body. Her hair, both hands, skirt, knees, ankles and both shoes are all within the frame, with clear breathing room. The figure feels physically present beside the original side table and bench rather than small and distant.\n\nApricot clear-day atmosphere: almond-gold window light stays on the wood and porcelain, gently picks up her light-brown hair and fingertips, and leaves nuanced soft shadow planes on her face. Preserve clear blue eyes, warm natural skin and clean navy/white local colors. Match her lighting, contact shadows and occlusion to this same room without gray/gold overlays or a sticker outline. Refined anime linework and softly modeled anime shading coexist naturally with the detailed literary-room illustration. One complete coherent scene, no interface, collage, borders, logos, watermark, captions or artificial fog.",
+    "submittedPromptSHA256": "ff2a439ba4e8b62edb93a3d59ff035310fd398f47a54c01efade729338939a34"
+  },
+  "inputs": [
+    {
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "sole-image-input-primary-approved-clean-literary-room-clear-day",
+      "canvas": [
+        1536,
+        1024
+      ]
+    }
+  ],
+  "brief": {
+    "cellId": "soyo/chat/apricot",
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\briefs\\mygo-b\\soyo-literary-room-briefs-v1.json",
+    "sha256": "14e055e68af80cfdb1302cd1eb3b115323c414dee43f67ab22b0df3f376b8789",
+    "releaseScope": "Root released only this chat/apricot first mother pilot; remaining matrix not released"
+  },
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\chat-pilot\\soyo-chat-apricot-literary-v1.png",
+    "sha256": "20942d064ae0af479ede2868d689e105433022e8c0448d45301bd7fc9301bfd8",
+    "bytes": 2458295,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-fb1657d0-2110-49e3-ab15-d6645c30abe4.png"
+  },
+  "review": {
+    "directInspection": "saved-original-PNG-personally-viewed",
+    "approvedByPrimary": false,
+    "primaryLayerApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observations": [
+      "1536×1024原尺寸PNG已亲看；新文学房窗、书桌、圆几灯杯、长凳抱枕与织物布局保持可辨。",
+      "浅棕长发与卷曲发梢、蓝眼、两眼和刘海清楚；海军蓝白领与灰蓝结、棕色便鞋可辨。",
+      "闭口浅笑、从容看向画外同伴；比Anon接话中的轻张口更安静，保留可商量的个人偏好。",
+      "双手轻落在册页上，手腕接续可辨；髋和腿有凳垫承托，两只完整棕鞋落在可见地面。",
+      "近机位尺度：目测头顶约y110、鞋底约y875，接近本次约y110/890目标；未声称精确像素命中。",
+      "母图仅候选；未做分层、运行注册或primary验收。"
+    ],
+    "concerns": [
+      "visible booklet is open rather than the nearly closed booklet requested; root to judge moment and expression",
+      "head/shoe coordinates are visual estimates, not exact segmentation measurements"
+    ]
+  },
+  "boundaries": [
+    "mother only",
+    "no layer extraction or runtime registration",
+    "no previous character pixels as input",
+    "two authorized pilot mothers only"
+  ],
+  "status": "mother-candidate-directly-inspected-awaiting-root-review",
+  "textualIdentityBasis": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\soyo-taki\\soyo-chat-apricot-prompt.txt",
+    "sha256": "22f6925f3b66fef97e821e30e799f5d2f8125741c71a1cc7a7d560497c22ae76",
+    "role": "local public character identity and clothing text only; no character image pixels supplied",
+    "projectOriginalSituation": true
+  }
+}

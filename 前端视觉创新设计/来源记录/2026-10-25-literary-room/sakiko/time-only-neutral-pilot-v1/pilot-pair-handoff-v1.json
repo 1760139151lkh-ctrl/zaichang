@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "purpose": "neutral-presence",
+  "recordedAt": "2026-10-25T22:24:52.281003+00:00",
+  "pilots": [
+    {
+      "neutralTime": "day",
+      "file": "sakiko-neutral-reading-time-day-v1.png",
+      "sha256": "35a318faaab82305b4a5f28e4f109701986e7ce75b312536835216306c2945af",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "source": "sakiko-neutral-reading-time-day-v1.source.json",
+      "primaryApproved": true,
+      "layersProduced": false,
+      "runtimeAccepted": false
+    },
+    {
+      "neutralTime": "night",
+      "file": "sakiko-neutral-reading-time-night-v1.png",
+      "sha256": "2d571adc2146dd779954f0d014ef015b658a83250d6626d707dcece3c6335d8e",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "source": "sakiko-neutral-reading-time-night-v1.source.json",
+      "primaryApproved": true,
+      "layersProduced": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "samePoseSeed": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac",
+  "rootTimeOnlyPlateShas": [
+    "aa4ce3dcab5cd2366c9f1c4eadcff0ab85537ab45e5a3b0643c4d01588e6e247",
+    "d9c41c4278dd8a4efae1a91102e16349ad4dcf9829963c31ddc421dfc3652253"
+  ],
+  "readonlyWrongFamilyDiscovery": {
+    "oldRoom4ReadAndViewed": true,
+    "usedInPromptOrImageCall": false,
+    "outputsCreated": false,
+    "correctedBeforeAnyImageCall": true
+  },
+  "actualOutputs": 2,
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "generationAndLayerExpansionStoppedForRootReview": false,
+  "noSceneCodeOr9335Touched": true,
+  "primaryApprovalRecord": "root-primary-mother-admission-v1.json",
+  "layerProductionOnly": "Root authorized day/night same-mother layerproduction, not additionalroles/motherexpansion."
+}

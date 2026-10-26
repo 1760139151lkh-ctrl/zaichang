@@ -1,0 +1,9 @@
+Use case: precise-object-edit / mask color conversion ONLY. The SINGLE input is the already-marked original-position F1-v2 image. Keep its EXACT1536x1024 canvas and ALL existing white-shape coordinates. Do not draw a different silhouette, infer a new pose, enlarge/scale, recenter, shift, crop or resize. Merely replace unselected room colors by black and keep the deliberately white selection opaque white.
+
+THE EXISTING WHITE PERSON/PENCIL/NOTEBOOK/LEGS/SHOES SHAPE STAYS IN THE SAME PLACE. Crown stays around y122, both shoe bottoms around original y905, not a taller/repositioned person. Every already marked full shoe outer edge stays white: no shaving of toe/sole/heel perimeter. Do not expand into extra floor. Fine gray at true outside antialiasing only.
+
+Fill the faint internal hand/book/sock/clothing tracing in the selected white region to PURE WHITE. Complete face/head/hair, all blazer panels/shirt/collar/skirt/hem, hands/fingers, exposed knees/calf socks, BOTH whole loafers, whole thin pencil and the open notebook/lower cover/lap are FEATURELESS SOLID WHITE. Notebook/lap must not have a black curved seam or page outline. No face features, garment folds or internal shoeseams left black/gray.
+
+ONLY the existing genuine outside gaps between hair/limbs/legs are BLACK, including the lower narrow arm/torso gap exactly where this marked input leaves colored room. Do not extend or redesign it. All unmarked colored room—warm opaque curtain, lamp/shade/flowers/cup/books/table, pale cushions/throw, pillows, left furniture/plants/rug/floor and separate receiver/shadows—BLACK. Natural bright material is not deliberately white selection.
+
+No source person RGB, gray backdrop, checkerboard, labels, guide, outline, texture or new shadow. This is mask conversion at identical source coordinates; original RGB will be read only from the unchanged clean mother once under MAX(F,S).

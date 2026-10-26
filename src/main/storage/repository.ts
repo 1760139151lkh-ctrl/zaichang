@@ -1,5 +1,6 @@
 import { DatabaseSync, type SQLInputValue } from 'node:sqlite';
 import { randomUUID, createHash } from 'node:crypto';
+import type { Message } from '../../shared/types';
 import fs from 'node:fs';
 import path from 'node:path';
 import { AsyncLocalStorage } from 'node:async_hooks';
@@ -2209,6 +2210,17 @@ export class KernelRepository {
     }
     return [...new Map(sources.map(source => [canonical(source), source])).values()];
   }
+  private messageImageAttachments(handle: ScopeHandle, messageId: string) {
+    const rows = this.db.prepare(`SELECT id FROM h_evidence WHERE owner=? AND workspace=? AND status='active'
+      AND json_extract(payload,'$.parentEventId')=? AND json_extract(payload,'$.kind')='user_message'
+      AND json_type(payload,'$.imageSource')='object' ORDER BY seq`).all(this.identity.principalId, this.identity.workspaceId, messageId);
+    const images = rows.flatMap(row => {
+      const event = this.evidence(handle, String(row.id));
+      const image = event && !this.sourceRestrictions(handle, event.id).length && !this.sourceLineageRestricted(event) ? evidenceImageRead(event) : undefined;
+      return image ? [{ id: event!.id, name: event!.text, ...image }] : [];
+    });
+    return images.length ? { images } : {};
+  }
   /** Select permitted transcript bodies in SQL, before they enter model memory. */
   conversationHistory(handle: ScopeHandle, sessionId: string, excludeIds: string[], limit = 12,
     options: { beforeMessageId?: string } = {}) {
@@ -2244,7 +2256,7 @@ export class KernelRepository {
     return rows.reverse().map(row => ({ id: String(row.id), role: row.role as 'user' | 'assistant', content: String(row.content), createdAt: String(row.created_at),
       ...(row.role === 'assistant' ? assistantReplyState(row.reply_status) : {}),
       ...(row.role === 'user' ? { contentVersion: Number(row.content_version) } : {}),
-      ...(row.role === 'user' ? sourceImageProjection(row.image_source, String(row.id), Number(row.content_version)) : {}),
+      ...(row.role === 'user' ? { ...sourceImageProjection(row.image_source, String(row.id), Number(row.content_version)), ...this.messageImageAttachments(handle, String(row.id)) } : {}),
       ...sourceContextProjection(row.source_context) }));
   }
   /** A linked source observation can inform a same-conversation continuation.
@@ -2302,7 +2314,7 @@ export class KernelRepository {
     if (!row) return null;
     this.recordAccess(handle, { ...row, source: 'history:self' }, 'conversation_anchor');
     return { id: String(row.id), role: 'user' as const, content: String(row.content), contentVersion: Number(row.version), createdAt: String(row.created_at),
-      ...sourceImageProjection(row.image_source, String(row.id), Number(row.version)),
+      ...sourceImageProjection(row.image_source, String(row.id), Number(row.version)), ...this.messageImageAttachments(handle, String(row.id)),
       ...sourceContextProjection(row.source_context) };
   }
   pendingConstraints(handle: ScopeHandle, sessionId: string): EvidenceEvent[] {
@@ -3499,10 +3511,13 @@ export class KernelRepository {
       if (sources.length) work.data.workoutSources = sources;
     }
     const context = this.methodApplications.getStore();
+    const methodRefs = context?.scopeId === handle.id && context.items.length && work.data.type !== 'personal_method'
+      ? work.sourceBinding?.refs || (work.kind === 'episode' ? declaredFrameSourceRefs(work, eventId => this.evidence(handle, eventId)) : undefined)
+      : undefined;
     const applied = context?.scopeId === handle.id && work.data.type !== 'personal_method' ? context.items.filter(application => {
       const sameMatter = work.id === application.matterId || work.data.matterId === application.matterId;
       if (application.matterId && !sameMatter) return false;
-      const overlaps = work.sourceBinding?.refs.some(ref => ref.eventId === application.source.eventId && ref.contentVersion === application.source.contentVersion
+      const overlaps = methodRefs?.some(ref => ref.eventId === application.source.eventId && ref.contentVersion === application.source.contentVersion
         && ref.start < application.source.end && ref.end > application.source.start);
       return overlaps || !work.sourceBinding && !!application.matterId && sameMatter && work.evidenceIds.includes(application.source.eventId);
     }) : [];
@@ -4824,7 +4839,7 @@ export class KernelRepository {
     }
     return [...messages];
   }
-  /** File lifetime follows its exact original submission. This is deletion
+  /** Each attached original follows its exact submission. This is deletion
    * closure only: old manifests/bytes and body-read authority are not rebuilt.
    * Remove only the obsolete coarse copy edge for these exact submissions. */
   private fileChildrenAffectedBy(fence: PrivacyFence, alreadyClean: boolean): string[] {
@@ -4832,9 +4847,13 @@ export class KernelRepository {
     const children = this.db.prepare(`SELECT f.id,p.id AS parent,json_extract(f.payload,'$.locator.artifactId') AS artifact
       FROM h_evidence f JOIN h_evidence p ON p.id=json_extract(f.payload,'$.parentEventId')
         AND p.owner=f.owner AND p.workspace=f.workspace
-      WHERE f.owner=? AND f.workspace=? AND f.id=p.id||':file' AND f.source='file:'||f.id
+      WHERE f.owner=? AND f.workspace=? AND ((f.id=p.id||':file'
+        OR length(f.id)=length(p.id)+42 AND substr(f.id,1,length(p.id)+6)=p.id||':file:') AND f.source='file:'||f.id
         AND json_extract(f.payload,'$.kind')='file_import' AND json_extract(f.payload,'$.speaker')='external'
         AND json_extract(f.payload,'$.authority')='quotation' AND json_extract(f.payload,'$.locator.kind')='file'
+        OR length(f.id)=length(p.id)+43 AND substr(f.id,1,length(p.id)+7)=p.id||':image:'
+          AND json_extract(f.payload,'$.kind')='user_message' AND json_extract(f.payload,'$.speaker')='user'
+          AND json_type(f.payload,'$.imageSource')='object')
         AND json_extract(p.payload,'$.kind')='user_message' AND json_extract(p.payload,'$.speaker')='user'
         AND json_type(f.payload,'$.sessionId')='text' AND length(json_extract(f.payload,'$.sessionId'))>0
         AND json_extract(f.payload,'$.sessionId')=json_extract(p.payload,'$.sessionId')
@@ -4842,7 +4861,7 @@ export class KernelRepository {
           OR (p.source IN (SELECT value FROM json_each(?)) AND (?=0 OR p.status='deleted')))`)
       .all(this.identity.principalId, this.identity.workspaceId, JSON.stringify(fence.objectIds),
         JSON.stringify(fence.sourceIds), JSON.stringify(fence.sourceIds), alreadyClean ? 1 : 0)
-      .filter(row => typeof row.artifact === 'string' && /^material-[a-f0-9-]{36}$/.test(row.artifact));
+      .filter(row => row.artifact === null || typeof row.artifact === 'string' && /^material-[a-f0-9-]{36}$/.test(row.artifact));
     if (children.length) this.write(() => {
       for (const child of children) this.db.prepare(`DELETE FROM h_dependencies WHERE consumer_id=? AND producer_id=?
         AND producer_revision=0 AND sensitivity='privacy' AND invalidation='block'`).run(String(child.id), String(child.parent));
@@ -5137,7 +5156,7 @@ export class KernelRepository {
                   .run(parent.text, parent.status, JSON.stringify(parent), parent.id);
                 this.replaceIndex('evidence', parent.id, parent.text);
               }
-              this.redactLegacyMessage(
+              if (!this.removeMessageAttachment(parent.id, event.id, parent.text)) this.redactLegacyMessage(
                 parent.id,
                 parent.text + (event.kind === 'file_import' ? '\n[附件内容已删除]' : ''),
               );
@@ -5587,14 +5606,33 @@ export class KernelRepository {
       ...(message.role === 'assistant' ? { hostStatus: { kind: 'notice', code: 'source_changed',
         text: '这段旧回复的一处来源已移除。' } } : {}) };
   }
+  private removeMessageAttachment(messageId: string, sourceEventId: string, authoredText: string) {
+    const row = this.db.prepare("SELECT payload FROM messages WHERE id=? AND role='user'").get(messageId);
+    const message = row && JSON.parse(String(row.payload)) as Message | undefined;
+    if (!message?.attachments?.some(item => item.sourceEventId === sourceEventId)) return false;
+    message.attachments = message.attachments.filter(item => item.sourceEventId !== sourceEventId);
+    message.content = authoredText;
+    this.db.prepare('UPDATE messages SET content=?,payload=? WHERE id=?').run(message.content, JSON.stringify(message), messageId);
+    return true;
+  }
   private redactLegacyMessage(id: string, content: string) {
     if (!this.db.prepare("SELECT name FROM sqlite_master WHERE name='messages'").get()) return;
     const row = this.db.prepare('SELECT payload,session_id FROM messages WHERE id=?').get(id);
     if (!row) return;
-    const message = this.clearedMessage(JSON.parse(String(row.payload)), content);
+    const original = JSON.parse(String(row.payload)) as Message;
+    const message: ReturnType<KernelRepository['clearedMessage']> & { attachments?: Message['attachments'] } = this.clearedMessage(original, content);
+    const parent = this.db.prepare('SELECT status FROM h_evidence WHERE id=?').get(id);
+    if (original.role === 'user' && original.attachments && parent?.status === 'redacted') {
+      message.attachments = original.attachments.filter(item => {
+        if (!item.sourceEventId || this.hasFence(item.sourceEventId)) return false;
+        const event = parse<EvidenceEvent>(this.db.prepare('SELECT payload FROM h_evidence WHERE id=?').get(item.sourceEventId));
+        return !!event && event.status === 'active' && event.parentEventId === id && !this.sourceLineageRestricted(event)
+          && !this.db.prepare('SELECT 1 FROM h_source_restrictions WHERE event_id=? LIMIT 1').get(event.id);
+      });
+    }
     this.db
       .prepare('UPDATE messages SET content=?,payload=? WHERE id=?')
-      .run(content, JSON.stringify(message), id);
+      .run(message.content, JSON.stringify(message), id);
     // Assistant messages may repeat the erased source without a precise locator. Redact that derived session conservatively.
     for (const output of this.db
       .prepare("SELECT id,payload FROM messages WHERE session_id=? AND role='assistant'")

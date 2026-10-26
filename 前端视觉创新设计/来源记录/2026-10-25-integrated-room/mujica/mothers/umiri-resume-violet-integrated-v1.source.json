@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "same-activity-light-mother",
+  "key": "umiri/resume/violet",
+  "character": "umiri",
+  "activity": "resume",
+  "palette": "violet",
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-2d296cb1-0b60-41fe-b7a0-08d7a68ba534.png",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-resume-apricot-literary-wave-b-v1.png",
+      "sha256": "6842a6222779a5607400400a6a1df5e3b732c814777f447defc5d5951413328e"
+    }
+  ],
+  "promptFile": "umiri-resume-violet-integrated-v1.prompt.txt",
+  "exactSubmittedPrompt": "Use case: lighting-weather. Asset type: one complete 1536x1024 literary-room character mother, no UI.\nImage 1 is the clean EMPTY target environment, authoritative for the complete room, camera and lighting. Image 2 is the approved SAME CHARACTER / SAME ACTIVITY warm-day mother, authoritative for actual youthful anime identity, clothing, current pose, expression, body scale, precise seat support, hands and objects. Use only these two inputs. Retain the full composition and original camera; do not zoom, shift the character or rearrange furniture. Preserve the same head, hands, hip-to-seat contact, knees, ankles and complete shoes as this activity. This is a true SAME-ACTIVITY light variant; do not copy a generic chat body.\nRepaint coherent light over the ENTIRE person, hair, skin, clothes, props, cushion contact, wood and floor to match Image 1. The original warm daylight reflections and hard sun patches are NOT identity: remove their old shapes and recreate appropriate soft or practical-light shading. No pasted bright daytime person, global color filter or split time-of-day. Keep the room dry inside. Preserve individual hair strands, eyelids, irises and pupils, fingers and fine clothing details. Original youthful Japanese 2D anime character in richly painted room; no mature glamour, no chibi. Full head, hair, hands, hem, ankles and shoes in frame. No text, UI, cards, labels, arrows, halos, logos or watermark.\nUMIRI YAHATA / 八幡海铃. Preserve her real calm, quietly familiar recognition from Image 2, cool teal-gray eyes, dark shoulder-length hair, small earrings/choker, black leather jacket, dark red top, gray skirt and complete black lace-up platform boots. The OPEN blue book lies on her LAP, one hand retains the page and the other full palm supports on the cushion beside her hip. Preserve this actual pose and the uncrossed separate lower-leg/boot support. She is pleased the shared thought is still here; no new checklist, prop, exaggerated smile or greeting performance.\nTWILIGHT / VIOLET: match Image 1's continuous rose-gold/purple twilight sky across all windows, soft interior lamp, quiet fading ambient light and coherent skin/cloth/wood reflections; do not leave midday skin hot patches or noon floor lattice. Skin remains natural and the black jacket still has readable dark material detail.",
+  "submittedPromptSha256": "031f53998a24a900750b43aab0d82962a63c3d5b5cfe24773e591e3ecf472c9b",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\mothers\\umiri-resume-violet-integrated-v1.png",
+    "sha256": "655c5ccea2379ff67f22c8650f9bd937b2ac03c0d2628089defb822da509fa1a",
+    "bytes": 2258258,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerViewed": true,
+  "producerObservation": "Personally viewed complete generated mother: calm familiar recognition, supported open lap book with retained-page hand and separate cushion palm, original hip/seat and uncrossed separate boots preserved. Coherent full twilight across window/skin/jacket/wood/floor, no daytime hot patches or UI. Root, layers and runtime pending.",
+  "primaryMotherApproved": false,
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "pngEdited": false,
+  "privateUserDataUsed": false,
+  "releaseStatus": "hold_pending_new_soul_identity_pilot",
+  "emotionIdentityReview": "Pending primary comparison with official youthful face and specific shared situation; structural observation is not aesthetic admission."
+}

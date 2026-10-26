@@ -9,6 +9,7 @@ import {
   Search,
   Sparkles,
   BookOpen,
+  Coffee,
 } from 'lucide-react';
 import type { WorkspaceView } from './Workspace';
 import { CompanionAvatar } from './companion';
@@ -21,6 +22,7 @@ export function Navigation({
   onNew,
   onHistory,
   onMap,
+  onRest,
 }: {
   busy: boolean;
   view: WorkspaceView;
@@ -28,6 +30,7 @@ export function Navigation({
   onNew: () => void;
   onHistory: () => void;
   onMap: () => void;
+  onRest?: () => void;
 }) {
   const [open, setOpen] = useState(false);
   const host = useRef<HTMLDivElement>(null),
@@ -38,13 +41,13 @@ export function Navigation({
     const outside = (event: PointerEvent) => {
       if (!host.current?.contains(event.target as Node)) setOpen(false);
     };
-    document.addEventListener('pointerdown', outside);
+    document.addEventListener('pointerdown', outside, true);
     const recoverFocus = () => {
       if (host.current?.contains(document.activeElement) && (document.activeElement as HTMLElement).getClientRects().length) return;
       [...(host.current?.querySelectorAll<HTMLButtonElement>('[role="menuitem"]') || [])].find(item => !item.disabled && item.getClientRects().length > 0)?.focus();
     };
     window.addEventListener('resize', recoverFocus);
-    return () => { document.removeEventListener('pointerdown', outside); window.removeEventListener('resize', recoverFocus); };
+    return () => { document.removeEventListener('pointerdown', outside, true); window.removeEventListener('resize', recoverFocus); };
   }, [open]);
   const go = (action: () => void) => {
     setOpen(false);
@@ -52,11 +55,11 @@ export function Navigation({
   };
   return (
     <nav className="top-navigation" aria-label="常用操作">
-      <div className="primary-navigation" aria-label="主要页面" data-view={view === 'materials' ? 'notes' : view}>
+      <div className="primary-navigation" aria-label="主要页面" data-view={view === 'notes' || view === 'keep' ? 'notes' : view === 'materials' ? 'chat' : view}>
         <span className="primary-selection" aria-hidden="true" />
-        <button type="button" aria-current={view === 'chat' ? 'page' : undefined} onClick={() => onView('chat')}>聊天</button>
+        <button type="button" aria-current={view === 'chat' || view === 'materials' ? 'page' : undefined} onClick={() => onView('chat')}>聊天</button>
         <button type="button" aria-current={view === 'agenda' ? 'page' : undefined} onClick={() => onView('agenda')}>今天</button>
-        <button type="button" aria-current={view === 'notes' || view === 'materials' ? 'page' : undefined} onClick={() => onView('notes')}>留下</button>
+        <button type="button" aria-current={view === 'notes' || view === 'keep' ? 'page' : undefined} onClick={() => onView('keep')}>留下</button>
       </div>
       <button className="nav-button nav-wide-only" aria-label="历史对话" title="历史对话 · Ctrl K" onClick={onHistory}>
         <Search size={19} />
@@ -131,6 +134,7 @@ export function Navigation({
             <button role="menuitem" aria-current={view === 'companion' ? 'page' : undefined} onClick={() => go(() => onView('companion'))}>
               <Sparkles size={18} /><span>陪伴的样子</span>
             </button>
+            {onRest && <button role="menuitem" onClick={() => go(onRest)}><Coffee size={18} /><span>休息一会儿</span></button>}
             <button
               role="menuitem"
               aria-current={view === 'agenda' ? 'page' : undefined}

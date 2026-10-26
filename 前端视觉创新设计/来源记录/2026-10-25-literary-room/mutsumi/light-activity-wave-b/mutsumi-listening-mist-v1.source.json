@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "same-activity-whole-light-mother-candidate",
+  "character": "mutsumi",
+  "activity": "listening",
+  "palette": "mist",
+  "environmentVariant": "overcast-day",
+  "wave": "light-activity-wave-b",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-f9fa1f9a-6907-4a38-9530-a9e5656582ab.png",
+  "executionId": "exec-f9fa1f9a-6907-4a38-9530-a9e5656582ab",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "role": "first input; approved empty environment plate, primary camera and authoritative target whole-room light"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-listening-apricot-v1.png",
+      "sha256": "99ec0d08d7d1dd6e7ef13f70be6c137ba6330bc6a556e7a188757aa47ec86515",
+      "role": "second input; root-approved exact same-activity apricot mother, actual accepted psychology/pose/proportion/props/support"
+    }
+  ],
+  "apricotActivityMotherApproval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-listening-apricot-v1.primary-approval.json",
+  "sourceMotherContourComplete": true,
+  "intendedSupport": "window-seat",
+  "sourceSpecificPose": "Preserve the actual root-approved EMPTY-HAND listening pose: both relaxed hands together on the lap, gentle attentive lifted gaze and slight source forward inclination, real hip/cushion, uncrossed knees/ankles and full loafers. Do not add a handheld object or force a larger body gesture.",
+  "brief": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/mutsumi-prompt-plan.json",
+    "sha256": "66ade9700cb7bb993b43bd7e247b678878b79ad71237b0b5dcd915a43a3be2ca",
+    "key": "mutsumi/listening/apricot",
+    "role": "own role/activity literary psychology; light redirection keeps actual accepted mother pose"
+  },
+  "wholeSceneRelighting": true,
+  "oldApricotHeatSpotsAreNotIdentity": true,
+  "unreviewedLightCandidateUsedAsInput": false,
+  "promptFile": "mutsumi-listening-mist-v1.prompt.txt",
+  "promptFileSha256": "e4d25d9db72aec4f83607942ec99297eebedf9c4c2907f434b46cea4c0df687a",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; exact submitted text",
+  "submittedPromptSha256": "ef119f6828af32321e7f96e4518bebacd2bb86fab7faa01963b7a84ada4303a3",
+  "output": {
+    "file": "mutsumi-listening-mist-v1.png",
+    "sha256": "0f8dd18d9cce1c61f4d2362c797b676591b9bd4148ffd47060d67e9cab1328c8",
+    "bytes": 2428748,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved complete mother. Same approved empty-hand listening pose with both lap hands, gently attentive lifted gaze and source near-bench head/body scale; correct mint/golden-brown sailor identity, visible eye/fringe, hip/cushion, uncrossed knees/ankles and full loafers remain readable. Dry overcast diffuse light reaches face, skin, navy cloth and floor together; original irregular garment sun islands/hard floor lattice are absent, true hem/collar stripes retained. No new handheld prop or forced vacant/sad expression. Producer observation only; root/layer/runtime pending."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "New static mother candidate only, root review pending; no layer, registration or runtime acceptance.",
+  "privateUserDataUsed": false
+}

@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-source-desk-mother-matching-empty-background",
+  "id": "desk-background-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "desk-background-v1.prompt.json",
+  "promptFileSha256": "681fe923bcd779509bfd4fcff792f47638e71870a7332937d76233b6a8e56364",
+  "submittedPrompt": "Use case: precise-object-edit. Asset: exact same-canvas MATCHING EMPTY BACKGROUND of this approved LEFT DESK mother,1536x1024.\nImage1 is the ONLY input and exact target. Preserve THIS mother's exact full camera, all visible geometry, lighting, textures and furniture coordinates. Especially keep the wood chair already pulled out beside the left writing desk at THIS source orientation, its wooden back/slats/seat/legs and seat cloth. Do not revert to an earlier empty-room chair position or move/rotate the chair. Keep the desk and its open page/book, pencil holder/books, task lamp, shelves, foreground plant, side table/lamp/cup/flowers, empty right bench/pillows/throw, window/lake/town/hills, floor/rug and sunlight all fixed.\nRemove ONLY the visible Sakiko body from the left chair and her HELD PEN: all visible hair/ribbons/skin/clothes/hands/legs/socks and actually visible loafer fragments. Remove only her local body/contact shadows on the desk, seat cloth/chair and visible floor. Keep the actual desk page/open book in place; remove only the handheld pen, not every other room writing tool.\nReconstruct only newly exposed room/desk/chair/curtain/floor surface pixels behind her removal. Preserve all already visible chair slats and foreground leaves; they are real foreground room objects and must remain exactly at source positions. Her naturally occluded legs/shoes were never visible: do not add or uncover a phantom complete person, detached shoe, hand, hair or human-shaped shadow. Keep the pulled chair and its plausible seat cloth, no person-shaped dark or pale stain.\nThis is removal from THIS approved complete mother, not a new room illustration. No camera/crop/zoom/resize/recenter/recolor, no layout change, no new objects, no full furniture replacement. Return one complete opaque RGB1536x1024 clean matching empty room at source(0,0). No UI, label, text, outline, grid, border, watermark or transparency.",
+  "submittedPromptSha256Utf8NoTrailingLF": "7f29b82876e450186c67928939dfb52f52842345012e7537e9da9d1bff6550d7",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-pilot/sakiko-study-apricot-literary-desk-pilot-v1.png",
+      "sha256": "00629c2e6e5b55901244a534145ab3c9d8c2f9c3cbf2ec2de8668f33037ccb04",
+      "role": "sole root-admitted visible left-desk mother; actual pulled-chair geometry and natural foreground occlusion authoritative"
+    }
+  ],
+  "output": {
+    "file": "desk-background-v1.png",
+    "sha256": "1b33255f6535dbb93d103ff52a99774d2cbe51925ff19adb6eefd088910c8498",
+    "bytes": 2440565,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-9cfa2922-bba7-4d31-80d7-d0c6d4fa2fd7.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "specificIssue": "Native browser #pen-bg/#bgfix source-pixel comparison confirmed unsupported diagonal held-pen fragment aroundx170..185,y358..386 after hand/body removal."
+  },
+  "status": "diagnostic-background-person-removed-but-held-pen-remnant-confirmed",
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "activity": "study",
+  "palette": "apricot",
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "fullImageResultRetainedInStore": false
+}

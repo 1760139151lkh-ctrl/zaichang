@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "stage01-d01-sakiko-rig-production",
+  "scope": "one existing window-seat family; no Stage06 matrix expansion",
+  "mother": {
+    "path": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+    "sha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1",
+    "role": "approved edit target; original support, anatomy, camera and texture source"
+  },
+  "rig": "sakiko-d01-rig-v1.json",
+  "approvedLocalUnderlayers": [
+    "sakiko-body-clean-right-arm-v1.png",
+    "sakiko-eye-white-clean-v1.png"
+  ],
+  "sourcePixelComponents": [
+    "right upper sleeve",
+    "right forearm, cuff and hand",
+    "front head and bangs",
+    "two original irises"
+  ],
+  "componentMethod": "Runtime SVG clips the unchanged original mother, with generated local repair plates behind it. No raster editing or rescaling outside built-in Imagegen.",
+  "quarantined": [
+    "quarantine/sakiko-right-arm-neutral-v1.png",
+    "quarantine/sakiko-right-arm-neutral-v2.png"
+  ],
+  "doNotUseAsReferences": [
+    "quarantine/sakiko-right-arm-neutral-v1.png",
+    "quarantine/sakiko-right-arm-neutral-v2.png"
+  ],
+  "runtimeGlobAllowed": false,
+  "staticReview": "Producer and implementation owner inspected the two local underlayers; seed paths await integrated optical/contact review.",
+  "motionVerified": false,
+  "inAppVerified": false,
+  "limitations": [
+    "The two full opaque outputs are local underlayers, not replacement full scenes.",
+    "No rejected alpha extraction is admitted.",
+    "Neutral, attend, retarget, yield and settle still require final renderer observation.",
+    "A head roll alone is not gaze; original iris motion supplies actual gaze within eyelid apertures."
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "createdOn": "2026-10-25T06:52:35.926305+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "kind": "binary-floor-cast-shadow-selection-mask",
+  "character": "nyamu",
+  "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-a/nyamu-floor-cast-mask-v3.png",
+  "sha256": "7a1771ef91fed24b2b466b43cedd7d8d2786644f3a7cc53835160ac90c147fd8",
+  "bytes": 280084,
+  "width": 1536,
+  "height": 1024,
+  "exactPrompt": "Use case: background-extraction. Make a registered BINARY SELECTION MASK, not a grayscale photograph.\nSole input: this correct complete 1536×1024 original Nyamu room artwork.\nSelect ONLY the two actual dark CAST SHADOWS visible ON THE WOODEN FLOOR, projecting FORWARD AND TO THE LOWER LEFT from the two black shoes. Render those original dark floor-shadow shapes SOLID WHITE. Every other pixel is PURE BLACK. Bright sunlight is BLACK. Shoes/heels/straps/legs are BLACK. Do not create a white floor plate with black shoe holes. Do not retain wood grain or a photographed gray floor inside the mask.\nThe main missing shadow is the broad dark brown projection BELOW/LEFT of the right shoe, between the two shoes and extending toward the viewer-left foreground. The source shoe toes end about y820. Much of the required actual shadow lies BELOW those toes, around y820..860, not merely on the bright floor behind the heels at y780..805. The left shoe has its own smaller forward-left dark projection. Look at the original floor darkness, not the bright rectangular sunbeam shapes.\nCoordinate guide only: relevant floor area approximately x1070..1310,y802..868. Follow the actual source contour and preserve genuine gaps; do NOT fill this rectangle or invent a triangle/ellipse. Pure-white shadow interiors have no texture, at most 1–3 px gray edge antialias. Keep original whole 1536×1024 canvas and exact positions. Everything outside the true two floor-cast shapes is black, including furniture, bench, rug, room, person and all environmental shadows. No blur, labels, UI, border, watermark or cropped close-up. One precise full-canvas black/white shadow segmentation mask.",
+  "promptSha256": "171a5e4e0725b54228d48808fe321c9e79f88bae30622d8912c7b1a48c0553bc",
+  "inputs": [
+    {
+      "role": "sole approved original mother; no prior matte input",
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-mother-candidate-v1.png",
+      "sha256": "4916b887de5b6ce7ba75068b001ede1ca8d51a331b32141b6fb5969ec26bf305"
+    }
+  ],
+  "originalGeneratedFile": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-9d63974a-56d5-49b2-9b7a-257e6d52d8e3.png",
+  "methodBoundary": "Selection only; original PNG pixels are not edited. Fixed-source SVG displays both seam and comparison alternatives.",
+  "designerReview": "Rejected after viewing: white follows the two shoe bodies rather than selecting visible floor cast darkness. Not used as an input or selected shadow.",
+  "approvedByPrimary": false,
+  "runtimeAccepted": false,
+  "designerRejected": true
+}

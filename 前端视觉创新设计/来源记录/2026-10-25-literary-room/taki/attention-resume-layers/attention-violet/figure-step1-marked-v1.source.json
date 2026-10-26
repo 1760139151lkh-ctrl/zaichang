@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-mother-original-rgb-included-layer-production",
+  "cell": "taki/attention/violet",
+  "stage": "F1",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: precise-object-edit. Asset: F1 deliberate full foreground selection markup for taki/attention/violet, fixed original-RGB joint layer. ONLY input is the exact root-approved complete 1536x1024 Taki mother. Keep the full canvas, camera, ALL source coordinates, furniture and original identity/pose absolutely unchanged. This is selection markup, not a redraw, new character, shadow, cutout, UI or alternative head/body.\n\nPaint SOLID PURE WHITE directly over the ENTIRE actually visible Taki AND every held prop. Include every near-black long hair strand/tip and separated strand island, head/face/ears/neck, white sailor collar/dark edge, red bow, camel one-piece uniform sleeves/cuffs/both hands/all fingers/wrists, both gold button rows and waist tabs, every dark outer skirt pleat/hem tip, bare thighs/exposed knees, dark navy BELOW-KNEE socks, and BOTH COMPLETE brown loafers including toe sidewalls, sole rims, heel blocks and the bottommost dark contour. Include ALL of the OPEN LAP NOTEBOOK: both covers, full page block, thin page/cover edges, cream slip/marker on its margin, and the ENTIRE very thin PENCIL from the fingers through its far tip at the real page. No missing pencil tip, unselected dark cover, hollow hand or face hole. All selected interiors become solid white, with no hair/skin/clothing/eye detail inside. Keep the actual fine antialiased perimeter, no shrink/grow/movement. True empty gaps between hair/arms/body/legs remain ORIGINAL COLORED room, not white.\n\nLoose inspection neighborhoods only, NOT rectangles to fill: whole figure/props around x882..1310,y100..898; pencil around x993..1048,y415..490; open book around x965..1195,y482..526. The shoes and hems are dark and easy to miss: include their complete original outline, do not let natural source shade erase them. There is NO separate book on the cushion.\n\nAll unselected room RGB remains original colored and unchanged: naturally pale linen, curtains/lamp shade/window/clouds, pillows/knit, cup/flowers/side-table books, left desk/chair/plants, floor/rug and all independent local seat/floor receiving shade. Do not mark naturally white room surfaces as foreground. No checkerboard, text, arrows, labels, crop, resizing, zoom, recentering, new silhouette or different face. One opaque full-color original scene with ONLY complete person/held book/pencil/paper intentionally white. It will only supply selection luminance; none of this generated RGB replaces original mother RGB.",
+  "promptFile": "figure-step1-marked-v1.prompt.txt",
+  "actualToolArguments": {
+    "prompt": "Use case: precise-object-edit. Asset: F1 deliberate full foreground selection markup for taki/attention/violet, fixed original-RGB joint layer. ONLY input is the exact root-approved complete 1536x1024 Taki mother. Keep the full canvas, camera, ALL source coordinates, furniture and original identity/pose absolutely unchanged. This is selection markup, not a redraw, new character, shadow, cutout, UI or alternative head/body.\n\nPaint SOLID PURE WHITE directly over the ENTIRE actually visible Taki AND every held prop. Include every near-black long hair strand/tip and separated strand island, head/face/ears/neck, white sailor collar/dark edge, red bow, camel one-piece uniform sleeves/cuffs/both hands/all fingers/wrists, both gold button rows and waist tabs, every dark outer skirt pleat/hem tip, bare thighs/exposed knees, dark navy BELOW-KNEE socks, and BOTH COMPLETE brown loafers including toe sidewalls, sole rims, heel blocks and the bottommost dark contour. Include ALL of the OPEN LAP NOTEBOOK: both covers, full page block, thin page/cover edges, cream slip/marker on its margin, and the ENTIRE very thin PENCIL from the fingers through its far tip at the real page. No missing pencil tip, unselected dark cover, hollow hand or face hole. All selected interiors become solid white, with no hair/skin/clothing/eye detail inside. Keep the actual fine antialiased perimeter, no shrink/grow/movement. True empty gaps between hair/arms/body/legs remain ORIGINAL COLORED room, not white.\n\nLoose inspection neighborhoods only, NOT rectangles to fill: whole figure/props around x882..1310,y100..898; pencil around x993..1048,y415..490; open book around x965..1195,y482..526. The shoes and hems are dark and easy to miss: include their complete original outline, do not let natural source shade erase them. There is NO separate book on the cushion.\n\nAll unselected room RGB remains original colored and unchanged: naturally pale linen, curtains/lamp shade/window/clouds, pillows/knit, cup/flowers/side-table books, left desk/chair/plants, floor/rug and all independent local seat/floor receiving shade. Do not mark naturally white room surfaces as foreground. No checkerboard, text, arrows, labels, crop, resizing, zoom, recentering, new silhouette or different face. One opaque full-color original scene with ONLY complete person/held book/pencil/paper intentionally white. It will only supply selection luminance; none of this generated RGB replaces original mother RGB.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-violet-literary-extension-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-violet-literary-extension-v1.png",
+      "role": "exact root-approved complete same mother",
+      "sha256": "322e2e43b3a93587098bf35f0a36d314d0cd4f23a541782353c2e9bc20cb2a26"
+    }
+  ],
+  "mother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-violet-literary-extension-v1.png",
+    "sha256": "322e2e43b3a93587098bf35f0a36d314d0cd4f23a541782353c2e9bc20cb2a26",
+    "sourceRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-violet-literary-extension-v1.source.json",
+    "sourceRecordSHA": "a82ef2f551a0012a0e3cf98a451bd4370b18471aff4778d8f0db77ee83a053f6",
+    "primaryAdmission": {
+      "cell": "taki/attention/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-violet-literary-extension-v1.png",
+        "sha256": "322e2e43b3a93587098bf35f0a36d314d0cd4f23a541782353c2e9bc20cb2a26",
+        "bytes": 2330841,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.850Z",
+      "observation": "Taki dark hair/purple eyes and brown-red school wardrobe remain. Pencil tip lands on the real lap page; eyes are directed down toward the task. Whole violet light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    "primaryAdmissionFile": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/root-human-mother-primary-review-20261025.json"
+  },
+  "output": {
+    "file": "figure-step1-marked-v1.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-aad78f46-5249-458f-95ce-1650f5549830.png",
+    "sha256": "a9c8939b9d6a561d7691729686eba91af3b73cc586cc3450a36e5391d1dd5ffe",
+    "bytes": 2211347,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewedWholeOutput": true,
+    "status": "producer_candidate_browser_reviewed_pending_primary_priority_hold",
+    "observations": [
+      "亲看完整返回图：白色选择覆盖完整人物、薄册页边、细笔和全鞋，真正发丝/手臂/腿间空隙保留彩色；书/手内部少量浅线交由F2实白转换。"
+    ]
+  },
+  "originalMotherRGBChanged": false,
+  "pngPixelEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "promptSha256Utf8": "12ce2c5848313bcb927cb6ebdeba3b2df85c9adcd89f235734725d492ad5c987",
+  "promptFileSha256": "f1beda97d3ea26b0933b0c680962208531d794986b6078837c0f8e80e3f3c052"
+}

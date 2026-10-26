@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "kind": "root-static-mother-approval",
+  "character": "umiri",
+  "wave": "apricot-wave-a",
+  "reviewer": "root",
+  "primaryApproved": true,
+  "approvalScope": "Exact three mother PNGs only, personally viewed by root.",
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "approvalMessage": "root 已逐张完整亲看 Uika/Umiri wave-a6母图，批准mother静态：Uika低头读页清晰握本、plan笔近下颌但独立手指/纸承重自然、rest靠格垫后倚双手自然；Umiri读页parallel knees/独立靴底、plan笔靠唇边独立握笔与本、rest转向窗/软化目光。6张camera/大家具稳定，clear hair/eyes/完整鞋脚支撑，无错误交腿。rest头低是后倚/视角姿态合理不自动比例错。请在专属wave目录落exactSHA root母图准入，layer/runtimefalse，chat层主任务先交，别扩母图。",
+  "outputs": [
+    {
+      "activity": "reading",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-a/umiri-reading-apricot-literary-wave-a-v1.png",
+      "motherSha256": "fe7c87c08e8f35689e7fa5ec9d42837d531c0313b4f756539b59501384146fa3",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-a/umiri-reading-apricot-literary-wave-a-v1.source.json",
+      "sourceSha256": "78ea917eb84d80e447e72ff4e789e6ac3291f1e57492485f08daa88dc76298a5",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-a/umiri-reading-apricot-literary-wave-a-v1.prompt.txt",
+      "promptSha256": "5158aa9d2791901052756863060902041f88797d3cf24a6ecba0c191eb1c4649",
+      "primaryApproved": true,
+      "approvalScope": "mother_only_static",
+      "layersApproved": false,
+      "runtimeAccepted": false,
+      "observation": "Parallel knees 与独立靴底成立。"
+    },
+    {
+      "activity": "planning",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-a/umiri-planning-apricot-literary-wave-a-v1.png",
+      "motherSha256": "51f175f589262c767b68e08f21d18569c05910558dda13fc1fa2017bdc8497ac",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-a/umiri-planning-apricot-literary-wave-a-v1.source.json",
+      "sourceSha256": "7fd34aea1e07d0d41f9c3bf95373ba31073d8e4f40b5f15b91ad8531750ed5e9",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-a/umiri-planning-apricot-literary-wave-a-v1.prompt.txt",
+      "promptSha256": "1930c6fea2f74f820423e668e10fbdafa4c2e0a4972adb2c9fe7eb9f4507e4f1",
+      "primaryApproved": true,
+      "approvalScope": "mother_only_static",
+      "layersApproved": false,
+      "runtimeAccepted": false,
+      "observation": "笔靠唇边，独立握笔与本。"
+    },
+    {
+      "activity": "rest",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-a/umiri-rest-apricot-literary-wave-a-v1.png",
+      "motherSha256": "77da67753be186eed85348271e8c9fd4a1a1d24e68e8016e9cb9c0f01d6b4e0b",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-a/umiri-rest-apricot-literary-wave-a-v1.source.json",
+      "sourceSha256": "8025ac1195d41906a7120ec12c39bfea80b702f0c427612988b212e06f2bad59",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-a/umiri-rest-apricot-literary-wave-a-v1.prompt.txt",
+      "promptSha256": "4b4684c7bc26c99774ae8384d60da53421074c2d860a2aeb6649964dd5776526",
+      "primaryApproved": true,
+      "approvalScope": "mother_only_static",
+      "layersApproved": false,
+      "runtimeAccepted": false,
+      "observation": "转向窗，目光软化。"
+    }
+  ]
+}

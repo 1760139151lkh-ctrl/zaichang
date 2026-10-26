@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "cell": "sakiko/attention/apricot",
+  "character": "sakiko",
+  "activity": "attention",
+  "palette": "apricot",
+  "stage": "F2",
+  "assetType": "raw-Image-source-selection-mask-or-markup",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: background-extraction. Asset type: complete original-position F2 luminance mask, Sakiko ATTENTION APRICOT. The ONLY image input is the exact NEW 1536x1024 F1 marked mother with entire Sakiko and held OPEN BOOK intentionally WHITE.\n\nKeep the full already-marked original figure/ribbons/hair/hands/book/clothes/knees/calf-socks/complete shoes WHITE at the same coordinates, and turn every other colored or naturally bright room pixel PURE BLACK. Make white interiors COMPLETELY SOLID: remove the F1's faint internal open-book outline/sole lines or garment traces, with no eye/face holes. Do not redraw, resize, recenter, shift, shrink or expand the silhouette.\n\nPreserve all fine hair/ribbon tips and actual antialias, whole book covers/pages/spine/fine lower page edges, full hands and fingers, every dark skirt underside/hem fold already whitened, both entire loafers including dark bottom outsole rims and heel blocks. Observation limits only: full foreground about x900..1370,y112..935, book x997..1261,y457..531, both loafers x902..1100,y823..935. These identify existing shapes, NOT boxes to fill. True hair/limb/leg gaps must become black.\n\nThe room must ALL become black: naturally white cushion, curtain, lamp shade, flowers, sky/clouds, plaid/throw, table/chair/desk/shelves/plants, lake/window, floor/rug sunlight lattice and every independent receiver/cast shadow. No natural sunny linen or floor highlight may survive as foreground. Only deliberately whitened original figure plus held book remains.\n\nOutput exactly ONE opaque 1536x1024 BLACK PNG with unchanged original-position solid WHITE complete foreground. Thin original antialias may be grey only at the real outer edge. No colored room, checkerboard, new body/book, text/arrows/labels/grid/boxes, crop, zoom, resize or translation.",
+  "submittedPromptSha256": "c14a8d8fff3d15378d3ec7fd7fe416a97b8a0996791efcf26bf424fc706dac1f",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-apricot/figure-step1-marked-v1.png",
+      "sha256": "4055e8f01d62879f20facec0bea66d7d5ae706c33b6e99ba91d9edcba209e0a4",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    }
+  ],
+  "originalRgbOwner": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-apricot-shared-page-v2.png",
+    "sha256": "f04805d0e723420c48cf4e16005d4c863df50042339c65290a34491e553de238",
+    "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-apricot-shared-page-v2.source.json",
+    "sourceRecordSha256": "eb4a257d8ba38e8df98eddbd86ce907a0f48cd441881555253b20180c4d434ec",
+    "rootMotherStaticReview": {
+      "status": "approved_static_mother",
+      "reviewer": "root",
+      "observed": "Actual full output inspected: soft youthful gold eyes/blue-purple hair, finger has a visible book-page contact, other hand supports book; hip supported on cushion, two uncovered knees/below-knee calf socks and complete grounded shoes; consistent clear-day warm room. This proves a still shared attention direction, not a live model having read user PDF."
+    }
+  },
+  "method": "Actual Image same-mother F1/F2 or S1/S2 chain. F is whole human/ribbons/hands/held book/clothing/knees/calf socks/complete shoes. S includes real source-local seat and full soft grounded floor receiver, not just sole line; original RGB MAX(F,S) drawn once only.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\sakiko\\shared-attention-v2\\layers\\attention-apricot\\figure-mask-v1.png",
+    "sha256": "51c1c3a83a7930c64be4cd2a8eae33e7b5a9d250fa366b19a822edfe57ce7fab",
+    "bytes": 459345,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-30963fd2-975d-463a-848f-ede7feb03e97.png",
+    "pngBytesUnchanged": true
+  },
+  "producerObservation": {
+    "personallyViewedFullNative": true,
+    "observation": "Full native black/white F2 viewed: complete long hair/ribbons/person/open-book/hands/skirt/knees/calf socks and both loafers retained, natural gaps black. Internal F1 book/sole lines mostly cleared; one tiny dark shoe mark and book-left contour will be checked in native original-RGB closeup before acceptance. No natural bright bench/sunlight/lamp remains as a broad mask patch."
+  },
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "sourceOrigin": [
+      0,
+      0
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": "included",
+    "independentCaster": false
+  },
+  "motherReconstructed": false,
+  "primaryLayerApproved": false,
+  "layerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "status": "producer-HOLD-native-book-edge-overselection",
+  "inputBoundary": "Only current exact root-approved mother and its correct same-canvas working intermediates. No HOLD rain-attention-v2, white-sock resume-mist-v3, screenshot, audit collage or other mother mask.",
+  "promptFile": "figure-mask-v1.prompt.json",
+  "promptFileSha256": "5baa621fcb8fceed02f65b3853ad85cf59cc1fb9f723e2316f9ef69664344e17",
+  "generationInputAllowed": false,
+  "observedIssue": {
+    "observedAt": "2026-10-25T23:28:47.887Z",
+    "method": "Actual Chrome original / source-RGB MAX / composite closeup",
+    "issue": "F2 expands the held book left contour into a horizontal piece of brown window ledge; a small internal shoe-mask mark is also present. F1 original marked mother was separately personally re-read and does not contain this broad left ledge extension; preserve that healthy intermediate.",
+    "evidence": "browser-observations/book-seat-original-union-composite-v1-HOLD.png",
+    "nextInputBoundary": "Only separately verified F1 v1 and exact clean original mother may be used; this faulty F2 and all review composites are forbidden inputs."
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "tool": "built-in image_gen",
+  "transparentBackgroundRequested": true,
+  "sceneFamily": "literary-room-v1",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计\\来源记录\\2026-10-25-ambient-redesign\\sakiko-reading-literary\\sakiko-reading-apricot-literary-v1.png",
+      "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd"
+    }
+  ],
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a16fb3-8f8d-7c72-a744-a441e8907c91\\exec-c38171f5-07b4-4b05-af96-6edee36e6982.png",
+  "output": "figure-rgba-candidate-v1.png",
+  "outputSha256": "09c29977091eb7c63a85839361349b6a701737900cc2bc6436c15b754e440b80",
+  "promptFile": "figure-rgba-candidate-v1.prompt.txt",
+  "submittedPromptSha256": "a5983934df59d695d1b0e75eb4bf438412cc14f337cb10c5f625ceec854f3c3b",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "actualMode": "RGBA",
+  "alphaExtrema": [
+    0,
+    254
+  ],
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "primaryDecision": "rejected-for-runtime",
+  "reviewBoundary": "Primary personally viewed output. Character scale/placement changed (soles substantially lower than approved original) and a broad luminous haze surrounds the extraction. This is not a faithful same-canvas layer; preserve source only and do not feed into repair."
+}

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "recordedAt": "2026-10-25T07:24:00Z",
+  "canvas": {
+    "width": 1536,
+    "height": 1024
+  },
+  "character": "sakiko",
+  "sceneFamily": "sakiko-chat-apricot-room4",
+  "originalNotOverwritten": true,
+  "motionVerified": false,
+  "inAppVerified": false,
+  "id": "s01-d01-right-arm-neutral-v2",
+  "generationId": "exec-0c4a7401-8004-4323-97a9-c707f2b9b2d4",
+  "prompt": "sakiko-right-arm-neutral-v2.prompt.txt",
+  "inputs": [
+    {
+      "path": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+      "sha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1",
+      "role": "approved edit target; original support, anatomy, camera and texture source"
+    },
+    {
+      "path": "sakiko-body-clean-right-arm-v1.png",
+      "sha256": "a40ae07ae8d37b2e0e6e87bb2cbadc325e3bc6df91826eb0b2dd8d40963bb99c",
+      "role": "supporting clean plate to identify the original arm; not an identity reference"
+    }
+  ],
+  "output": "quarantine/sakiko-right-arm-neutral-v2.png",
+  "sha256": "6d09b107f61055531dbc7c69c6fc3bc60da10106b60f56ee91d2de33c20ea91a",
+  "bytes": 507028,
+  "classification": "C",
+  "status": "rejected-quarantine",
+  "runtimeAllowed": false,
+  "staticReview": {
+    "producerInspected": true,
+    "observed": "Second targeted extraction still enlarged/shifted the sleeve/hand and retained a broad soft alpha field despite a narrow coordinate request.",
+    "alphaRange": [
+      0,
+      254
+    ],
+    "alphaNonzeroBounds": [
+      401,
+      272,
+      1288,
+      920
+    ],
+    "decision": "Do not retry the same extraction path or use either rejected arm as a new source."
+  },
+  "functionExtracted": "After the second same-type failure, switch to original-pixel renderer clipping and the successful local clean plate; do not add API fallback or accept a fuzzy layer."
+}

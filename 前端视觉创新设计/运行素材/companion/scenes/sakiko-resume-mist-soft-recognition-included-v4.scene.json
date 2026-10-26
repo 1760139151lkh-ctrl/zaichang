@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "id": "sakiko-resume-mist-soft-recognition-included-v4",
+  "sceneFamily": "literary-room-v1",
+  "pose": "supported-return-recognition-with-real-open-lap-book",
+  "character": "sakiko",
+  "activity": "resume",
+  "purpose": "activity",
+  "light": "morning",
+  "environmentVariant": "overcast-day",
+  "palette": "mist",
+  "width": 1536,
+  "height": 1024,
+  "mother": "sakiko-resume-mist-soft-recognition-included-v4-mother.png",
+  "background": "sakiko-resume-mist-soft-recognition-included-v4-background.png",
+  "mask": "sakiko-resume-mist-soft-recognition-included-v4-mask.png",
+  "maskMode": "luminance",
+  "contactMask": "sakiko-resume-mist-soft-recognition-included-v4-contact-mask.png",
+  "seat": [
+    0.7682291666666666,
+    0.591796875
+  ],
+  "ground": [
+    0.5944010416666666,
+    0.8994140625
+  ],
+  "bodyBounds": [
+    0.5286458333333334,
+    0.083984375,
+    0.8971354166666666,
+    0.9091796875
+  ],
+  "safeTextBoundary": 0.490234375,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "52.864583333333336% 8.3984375%, 89.71354166666666% 8.3984375%, 89.71354166666666% 90.91796875%, 52.864583333333336% 90.91796875%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "dynamicAdmission": false,
+    "original360CreditAssigned": false,
+    "userApproval": false,
+    "layerReview": "root-approved-exact-seven-cell-static-fixed-same-source-included-union",
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-mist/root-primary-layer-admission-v1.json",
+    "sourceAssembly": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-mist/resume-mist-included-bundle-v1.json",
+      "sha256": "b6e8a659862a253a41c88924af3dab93ea0da051f26d27c38ba081ea50ef9b85",
+      "bytes": 14871
+    },
+    "runtimeSourceSha256": {
+      "mother": "9c9e2aa283a1d809a3e6edf9f574e026de3046093e6c8dcd8b7c0316961dc624",
+      "background": "cb609191291dfa5ff189878c890569ea4377cecded41b1962feb14746db3d7ad",
+      "F": "a48c3f85d41b27e58eb3080cf6e3279edd743bb509da669e47793e2fc292941a",
+      "S": "4dcb075e2072eeb42c44a2caba82f50c48335eccce9e537ba81f7cb72f89afb0"
+    },
+    "actualMotherSource": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-resume-mist-soft-recognition-v4.png",
+      "sha256": "9c9e2aa283a1d809a3e6edf9f574e026de3046093e6c8dcd8b7c0316961dc624",
+      "bytes": 2566569,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "geometryEvidence": {
+      "figureEnvelope": {
+        "sourcePixels": [
+          812,
+          86,
+          1378,
+          931
+        ],
+        "normalized": [
+          0.5286458333333334,
+          0.083984375,
+          0.8971354166666666,
+          0.9091796875
+        ],
+        "basis": "sRGB Rec.709 luminance; F >32, S >32 and MAX(L(F),L(S)) >32 are read-only envelope metadata only. Original continuous ImageGen mask PNG bytes and runtime luminance are unchanged; no thresholded or hand-edited image is created."
+      },
+      "contactReceiverEnvelope": {
+        "sourcePixels": [
+          769,
+          547,
+          1373,
+          955
+        ],
+        "normalized": [
+          0.5006510416666666,
+          0.5341796875,
+          0.8938802083333334,
+          0.9326171875
+        ],
+        "basis": "sRGB Rec.709 luminance; F >32, S >32 and MAX(L(F),L(S)) >32 are read-only envelope metadata only. Original continuous ImageGen mask PNG bytes and runtime luminance are unchanged; no thresholded or hand-edited image is created."
+      },
+      "jointReceiverEnvelope": {
+        "sourcePixels": [
+          769,
+          86,
+          1378,
+          955
+        ],
+        "normalized": [
+          0.5006510416666666,
+          0.083984375,
+          0.8971354166666666,
+          0.9326171875
+        ],
+        "basis": "sRGB Rec.709 luminance; F >32, S >32 and MAX(L(F),L(S)) >32 are read-only envelope metadata only. Original continuous ImageGen mask PNG bytes and runtime luminance are unchanged; no thresholded or hand-edited image is created."
+      },
+      "supportAnchors": {
+        "seatPixels": [
+          1180,
+          606
+        ],
+        "groundPixels": [
+          913,
+          921
+        ],
+        "basis": "Registrar personally viewed this exact full mother. Fixed visible skirt/hip-to-linen resting region and midpoint of the complete sole-floor contacts, not hidden joints or travel calibration."
+      },
+      "candidateSevenUnionPixels": [
+        762,
+        86,
+        1378,
+        955
+      ],
+      "candidateSevenProtectedPixels": [
+        666,
+        74,
+        1474,
+        967
+      ],
+      "candidateSevenProtectedHeight": 893,
+      "protectedMarginSourcePixels": {
+        "x": 96,
+        "y": 12
+      },
+      "framing": "Current shared literary-room protected-fit/safe-cover function is untouched. Actual family envelope is recomputed by that function across registered same-family sources; no mask edge is removed to fit.",
+      "cameraFunctionModified": false
+    },
+    "boundary": "This exact activity/palette/light/weather static same-mother fixed included composition only. U=MAX(L(F),L(S)); original mother RGB drawn once. S includes original cloth/wood receiver and intentional F overlap, never a portable caster or independently translated shadow. travel/slope/perspective=0. No user-signature, runtime-experience, dynamic, or 360-matrix completion claim.",
+    "sourcePointerCorrection": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-mist/svg-reference-correction-v2.json",
+      "sha256": "70873a05aa957585ed4ec4f45e63b7c682e8db319aba6c65a082bd4833c8949b",
+      "scope": "Metadata-only standalone SVG correction; exact PNGs/geometry/behavior unchanged"
+    }
+  }
+}

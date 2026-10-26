@@ -1,0 +1,169 @@
+{
+  "recordType": "prepared-native-alpha-preserved-upright-vertical-edge-cat-static-candidate",
+  "characterId": "rana",
+  "assetVariant": "rana-left-contact-vertical-edge-cat-v1",
+  "source": {
+    "file": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\rana-left-contact-vertical-edge-cat-v1.png",
+    "sha256": "1eb313f4e59b4dcc89d0b412a7f2f307912853e734974b3a1a1463d298fbc54e",
+    "sourceRecord": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\rana-left-contact-vertical-edge-cat-v1.source.json",
+    "sourceRecordSha256": "bb4541754a0a382df2f0e3feff1b09b884e2ed574b788bea2917439238f3212f",
+    "canvas": [
+      1070,
+      1470
+    ],
+    "mode": "RGBA",
+    "alphaRange": [
+      0,
+      255
+    ],
+    "alphaBounds": [
+      0,
+      56,
+      993,
+      1425
+    ],
+    "alphaThresholdBounds": {
+      "1": [
+        0,
+        56,
+        993,
+        1425
+      ],
+      "2": [
+        145,
+        57,
+        917,
+        1425
+      ],
+      "8": [
+        146,
+        60,
+        915,
+        1423
+      ],
+      "32": [
+        146,
+        60,
+        915,
+        1423
+      ],
+      "128": [
+        147,
+        61,
+        914,
+        1422
+      ],
+      "230": [
+        147,
+        61,
+        914,
+        1422
+      ],
+      "250": [
+        147,
+        61,
+        913,
+        1421
+      ]
+    },
+    "originalPreserved": true,
+    "staticDirectionApprovedByRoot": false,
+    "approvalSource": "Preparation requested by life_continuity; original source and new128 board still await direct primary acceptance. Does not grant registration."
+  },
+  "output": {
+    "file": "rana-left-contact-vertical-edge-cat-v1-static-clean.png",
+    "sha256": "4973c13eaab03924a47bf6718a0107da5ad0c75b9f9aa36402d788b1006bd8fb",
+    "bytes": 907432,
+    "canvas": [
+      1070,
+      1470
+    ],
+    "mode": "RGBA",
+    "alphaRange": [
+      0,
+      255
+    ],
+    "alphaBounds": [
+      0,
+      56,
+      993,
+      1425
+    ],
+    "visibleBoundsAtAlpha8": [
+      146,
+      60,
+      915,
+      1423
+    ],
+    "visibleRgbDifferenceRange": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "alphaDifferenceRange": [
+      0,
+      0
+    ]
+  },
+  "productionDecision": {
+    "nativeAlphaAlreadyClean": true,
+    "imageGenerationNeeded": false,
+    "reason": "This new independently generated actual left-contact source has narrow normal native antialias, no broad visible halo. Preserve all source alpha and all RGB with A>0; only hidden A0 RGB zeroed. No mask required and no unnecessary subject cut.",
+    "hiddenRgbPixelCountNormalized": 961,
+    "alpha": "Native alpha byte-for-byte preserved including A1 speckles; actual nonzero bounds honestly retained and alpha8 visible bounds separately labelled."
+  },
+  "verticalContact": {
+    "contactSide": "left",
+    "gripXSource": 260,
+    "sourceYAnchor": 915,
+    "anchorNormalized": [
+      0.24299065420560748,
+      0.6224489795918368
+    ],
+    "actualCanvas": [
+      1070,
+      1470
+    ],
+    "sourceTorsoApproximateYRange": [
+      670,
+      1160
+    ],
+    "anchorMeaning": "Actual independently observed torso center placement reference; not a new joint or same-height paw contact.",
+    "pawContactReferenceCentersY": [
+      636,
+      807,
+      1148
+    ],
+    "previousProducerApproximateX": 231,
+    "adjustmentReason": "Producer near-tip rough X231 was outside middle/hind white grip areas. Independently viewed new source crops; X260 crosses white grasp regions of all three actual paws. Not derived by flip of right-contact axis790.",
+    "mirrorSafe": false,
+    "mirrorAnchorContinuousSource": null,
+    "identityConstraint": "Never flip. Own-right gold/own-left blue; near-frontal viewer-left gold/viewer-right blue maintained while all three paw contacts are LEFT, body RIGHT and tail curves RIGHT."
+  },
+  "producerReview": {
+    "fullOriginalPersonallyViewed": true,
+    "nativeAlphaOnLightDark128PersonallyViewed": true,
+    "eachNativePawContactPersonallyViewed": true,
+    "review": "static-128-light-dark-grip-review.png",
+    "contactEvidence": "source-contact-coordinate-review.png",
+    "observation": "Personally viewed whole independent left-contact source and128px light/dark original orientation. Front/hind paws reach left, body and curling tail right; viewer-left gold/viewer-right blue remain readable. No visible broad glow or backdrop. Native source crops at X260 cross white grip regions at all three actual paw heights. Never mirrored. Original direction and clean board still await primary review."
+  },
+  "motion": {
+    "kind": "static-complete-sprite",
+    "independentTailLayer": false,
+    "wholeImageTailSwingAllowed": false,
+    "quarterTurnAllowed": false
+  },
+  "primaryStaticCleanApproved": false,
+  "runtimeAccepted": false,
+  "fullHumanMatrixCredit": false
+}

@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "assetType": "literary-room-complete-mother",
+  "id": "rana-resume-apricot-literary-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "rana-resume-apricot-literary-v1.prompt.json",
+  "promptFileSha256": "da1117d2b975c5b2df063eeb516887e8b4ed332ea9964ce46bd68db1a0b7d3aa",
+  "submittedPrompt": "Create one complete 1536×1024 landscape illustrated mother scene. Use image 1 as the exact approved room/camera/spatial reference: warm apricot daylight, lake-town-mountain windows, left writing desk/chair and shelves, round lamp/cup table, long cream right window bench, plaid cushions and knit throw, rug/wood floor/foreground plants. Image 2 is ONLY Rana Kaname's correct identity, original casual clothes and near-bench apparent proportions. Compose a new original homecoming/continuation moment from the empty plate. Do not repeat the chat face and hand arrangement or enlarge the head.\n\n“When you return, the direction is still there.” Rana notices the returning person before the unfinished thing. Recognition arrives in her eyes, a small familiar interest and a little ease around her mouth; the interval does not become a demand for an explanation. A previous thread, if there really is one, can wait quietly. If there is not, this hour itself is enough to begin. The picture must not claim any task was completed during absence or invent a message/history. Portray a person who is pleased to recognize you in her own candid understated way, with an actual flicker of warmth rather than a stock huge smile, therapeutic reassurance, or dutiful welcome. The room feels still in use, not reset for a performance.\n\nSeat Rana comfortably on the near RIGHT cream bench with real hip/thigh cushion support. Match image 2's close-bench depth/apparent head size, crown roughly y110 and complete boot soles near y890, no face lunge. A slim plain warm brown book lies closed on her thighs, with one narrow unlettered paper bookmark showing at an edge; it is simply the thing she was using, not evidence of a saved user memory. One hand rests naturally flat on that book, the other rests loosely on the cushion near her hip. She has looked up from it toward the viewer, relaxed upright body with a small natural head turn, coherent sleeves/wrists and simple hands. Knees, lower legs and ankles connect naturally; full lace-up boots are visible with believable floor contact. Full head/hair and both boots in frame. Keep left desk/chair empty, no reaching across to distant furniture or dramatic gesture.\n\nHer own distinct identity: youthful girl, short silver-white soft bob, faint lavender ends, parted light bangs; own-right gold iris and own-left blue iris (viewer-left gold/viewer-right blue when frontal). Separate eye/eyelid/iris/brow and fine hair detail; no bangs fused into the eyes. Loose black short sleeve outer shirt over pale white long sleeves, white shorts and black lace-up ankle boots. Finely observed anime character integrated with rich warm textiles/wood and shared sunlight, natural bench/floor contact shadows. Her warmth has a specific recognitional quality and she keeps her own independent rhythm. No readable text, UI, captions, completed-work symbols, cat, guitar, new character, costume change or spotlight. One cohesive complete lived-in room and a quiet real-feeling recognition.",
+  "submittedPromptSha256Utf8NoTrailingLF": "1f2cf8e9354e77a709041979433aaa1f115c82d565bc4a0b95ae50732375b17d",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "sole-room-and-camera-input"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.png",
+      "sha256": "060e897c7b9ebdefc5ab84d6fbada2983625b19e6a4ebc57501ede19c5259919",
+      "role": "root-approved-Rana-identity-and-near-bench-scale-only"
+    }
+  ],
+  "output": {
+    "file": "rana-resume-apricot-literary-v1.png",
+    "sha256": "3ae610c8f7aa21abf062bb24e2851dfc6c4fe2c8c4df7aa455f26cda67400a23",
+    "bytes": 2421580,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-61e76ca0-7a04-4c43-a03c-08a53f9c4ee7.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "primaryApproved": false,
+    "layerApproved": false
+  },
+  "status": "producer-viewed-awaiting-root-mother-review",
+  "producerReview": {
+    "reviewedAt": "2026-10-25T12:31:30.299517+00:00",
+    "method": "Personally inspected actual full native ImageGen output at 1536x1024 before next call.",
+    "observations": [
+      "Familiar restrained smile and direct gold/blue gaze, distinct from serious listening; identity hair/eye/clothes retained.",
+      "Closed warm brown book lies on thighs with one hand on cover, other palm on cushion; wrists/sleeves and visible support relation coherent.",
+      "Complete head and both black boots visible at correct near-bench apparent depth, crown around y105 and soles near y890."
+    ],
+    "issues": [
+      "Book shows two narrow light ribbon-like protrusions rather than the one unlettered paper bookmark requested; no readable message or prior user state is claimed.",
+      "Body arrangement stays close to chat reference; the actual closed book, relaxed recognition and small smile carry the resume difference."
+    ],
+    "rootApprovalRequired": true
+  },
+  "character": "rana",
+  "activity": "resume",
+  "palette": "apricot",
+  "creativeBrief": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/rana-resume-apricot.md",
+    "sha256": "acc7e36e8031a5f082ce059135d52d79d92d4ab4f931baaca4a79a11d1d44efb",
+    "title": "回来时，方向还在",
+    "role": "literary-direction-text-only"
+  },
+  "generationBudget": {
+    "wave": "rana-apricot-wave-a",
+    "maxCalls": 8,
+    "callOrdinal": 8,
+    "callsForThisCell": 1,
+    "retries": 0
+  },
+  "approvalBoundary": {
+    "primaryAccepted": false,
+    "layerAccepted": false,
+    "runtimeAccepted": false,
+    "runtimeRegistered": false,
+    "rootReviewPending": true,
+    "motherOnly": true
+  }
+}

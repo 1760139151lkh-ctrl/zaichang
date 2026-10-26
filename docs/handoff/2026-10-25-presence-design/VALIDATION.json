@@ -1,0 +1,612 @@
+{
+  "date": "2026-10-25",
+  "timezone": "America/Los_Angeles",
+  "scope": "Current documentation and skill-package consistency only; no product, model, device, avatar adoption or generated-asset acceptance.",
+  "checks": {
+    "mirrorsChecked": 28,
+    "mirrorErrors": [],
+    "manifestFilesChecked": 39,
+    "manifestGroups": {
+      "前端设计": 20,
+      "后端设计": 8,
+      "Gemini视频生成": 11
+    },
+    "manifestErrors": [],
+    "unlistedFiles": [],
+    "missingPackagedFiles": [],
+    "markdownFilesChecked": 68,
+    "relativeLinksChecked": 259,
+    "missingLinks": [],
+    "linkCheckScope": "Local Markdown target files only; external URLs and fragment anchors were not revalidated.",
+    "sourceSkillLines": {
+      "zaichang-frontend-director": 205,
+      "zaichang-backend-director": 130
+    },
+    "manifestSha256": "df7b379240e44a1ef3fc43dab8faefecc1d63b5585f3ddb3884874eb3a14e2e9",
+    "notRevalidated": [
+      "product runtime, model, device, avatar adoption and generated assets",
+      "historical stage/role counts, reading totals, CommonMark rendering and skill-validator receipts"
+    ],
+    "gitDiffCheck": true,
+    "gitDiffCheckScope": "The eight explicitly edited avatar-method, mirror, manifest and delivery/validation document paths only."
+  },
+  "errors": [],
+  "passed": true,
+  "historicalLocalDocumentationValidation": {
+    "note": "Historical local TXT-adoption/documentation evidence; its 16 mirror / 27 manifest counts, runtime exclusions, reading totals and cleanup receipts are not current checks.",
+    "report": {
+      "date": "2026-10-24",
+      "timezone": "America/Los_Angeles",
+      "scope": "TXT adoption and twelve-stage documentation/skill refinement only; no product runtime/model/device or generation verification",
+      "sourceConversationId": "898ebbde-66ce-4b1b-bff1-c05453d48840",
+      "sourceText": {
+        "lines": 341,
+        "bytes": 23700,
+        "sha256": "89ca1ee04b95b00a28f43c6b9a3e3ecba3d1b5d2ea20c083e6aafd6737985779",
+        "reviewedDesignGroups": [
+          "six appearances",
+          "seven core ideas and alternatives",
+          "full run lifecycle",
+          "eight details",
+          "cited inspiration and final selected combination"
+        ]
+      },
+      "checks": {
+        "stages": [
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08",
+          "09",
+          "10",
+          "11",
+          "12"
+        ],
+        "rolesPerStage": {
+          "10": [
+            "01",
+            "02",
+            "03",
+            "04",
+            "05",
+            "06",
+            "07",
+            "08"
+          ],
+          "11": [
+            "01",
+            "02",
+            "03",
+            "04",
+            "05",
+            "06",
+            "07",
+            "08"
+          ],
+          "12": [
+            "01",
+            "02",
+            "03",
+            "04",
+            "05",
+            "06",
+            "07",
+            "08"
+          ],
+          "01": [
+            "01",
+            "02",
+            "03",
+            "04",
+            "05",
+            "06",
+            "07",
+            "08"
+          ],
+          "02": [
+            "01",
+            "02",
+            "03",
+            "04",
+            "05",
+            "06",
+            "07",
+            "08"
+          ],
+          "03": [
+            "01",
+            "02",
+            "03",
+            "04",
+            "05",
+            "06",
+            "07",
+            "08"
+          ],
+          "04": [
+            "01",
+            "02",
+            "03",
+            "04",
+            "05",
+            "06",
+            "07",
+            "08"
+          ],
+          "05": [
+            "01",
+            "02",
+            "03",
+            "04",
+            "05",
+            "06",
+            "07",
+            "08"
+          ],
+          "06": [
+            "01",
+            "02",
+            "03",
+            "04",
+            "05",
+            "06",
+            "07",
+            "08"
+          ],
+          "07": [
+            "01",
+            "02",
+            "03",
+            "04",
+            "05",
+            "06",
+            "07",
+            "08"
+          ],
+          "08": [
+            "01",
+            "02",
+            "03",
+            "04",
+            "05",
+            "06",
+            "07",
+            "08"
+          ],
+          "09": [
+            "01",
+            "02",
+            "03",
+            "04",
+            "05",
+            "06",
+            "07",
+            "08"
+          ]
+        },
+        "originalRoleBodiesCompared": 96,
+        "changedRoleBodies": [],
+        "directors": [
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08",
+          "09",
+          "10",
+          "11",
+          "12"
+        ],
+        "continuumChapters": [
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08",
+          "09",
+          "10",
+          "11",
+          "12"
+        ],
+        "continuumHardGates": [
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08",
+          "09",
+          "10",
+          "11",
+          "12"
+        ],
+        "mirrorsChecked": 16,
+        "mirrorErrors": [],
+        "manifestFilesChecked": 27,
+        "manifestErrors": [],
+        "markdownFilesChecked": 61,
+        "relativeLinksChecked": 536,
+        "missingLinks": [],
+        "utf8ReplacementErrors": [],
+        "unclosedCodeFences": [],
+        "legacyStarterMatchesRoadmap": true,
+        "skillValidators": "Four existing quick_validate invocations passed; frontend source and mirror revalidated after final reference formatting repair.",
+        "gitDiffCheck": true,
+        "gitDiffCheckScope": "Explicitly edited documentation and skill paths only",
+        "reviewedPaths": [
+          ".agents/skills/zaichang-backend-director/SKILL.md",
+          ".agents/skills/zaichang-backend-director/references/continuous-experience-design.md",
+          ".agents/skills/zaichang-backend-director/references/openui-spatial-and-cross-module.md",
+          ".agents/skills/zaichang-backend-director/references/persona-proactivity-and-rhythm.md",
+          ".agents/skills/zaichang-frontend-director/SKILL.md",
+          ".agents/skills/zaichang-frontend-director/references/02-visual-matrix-and-imagegen.md",
+          ".agents/skills/zaichang-frontend-director/references/04-motion-openui-and-direct-manipulation.md",
+          ".agents/skills/zaichang-frontend-director/references/06-presence-orchestration.md",
+          "AGENTS.md",
+          "FRONTEND_DESIGN.md",
+          "PROJECT_NAVIGATION.md",
+          "docs/ARCHITECTURE.md",
+          "docs/CURRENT_STATUS.md",
+          "docs/PRODUCT_CONTRACT.md",
+          "docs/REFACTOR_ROADMAP_2026-10-22.md",
+          "docs/design/CHARACTER_MOTION_PIPELINE_2026-10-25.md",
+          "docs/design/PRESENCE_SYSTEM_2026-10-25.md",
+          "docs/handoff/2026-10-24-stage02-restart/README.md",
+          "docs/handoff/2026-10-24-stage02-restart/新聊天启动提示词.md",
+          "docs/handoff/2026-10-25-presence-design/CODEX_START.md",
+          "docs/handoff/2026-10-25-presence-design/DELIVERY.md",
+          "docs/handoff/2026-10-25-presence-design/VALIDATION.json",
+          "docs/reading/2026-10-25/READING_AND_DESIGN_DECISIONS.md",
+          "docs/research/PRESENCE_MOTION_RESEARCH_2026-10-25.md",
+          "核心技能/前端设计/SKILL.md",
+          "核心技能/前端设计/references/02-visual-matrix-and-imagegen.md",
+          "核心技能/前端设计/references/04-motion-openui-and-direct-manipulation.md",
+          "核心技能/前端设计/references/06-presence-orchestration.md",
+          "核心技能/后端设计/SKILL.md",
+          "核心技能/后端设计/references/continuous-experience-design.md",
+          "核心技能/后端设计/references/openui-spatial-and-cross-module.md",
+          "核心技能/后端设计/references/persona-proactivity-and-rhythm.md",
+          "核心技能/文件清单.json"
+        ],
+        "markdownRendering": {
+          "parser": "markdown-it-py CommonMark",
+          "markdownFiles": 61,
+          "unclosedFences": [],
+          "roadmap": {
+            "stageHeadings": [
+              "01",
+              "02",
+              "03",
+              "04",
+              "05",
+              "06",
+              "07",
+              "08",
+              "09",
+              "10",
+              "11",
+              "12"
+            ],
+            "directorHeadings": [
+              "01",
+              "02",
+              "03",
+              "04",
+              "05",
+              "06",
+              "07",
+              "08",
+              "09",
+              "10",
+              "11",
+              "12"
+            ],
+            "visibleRoleCount": 96
+          }
+        },
+        "cleanupFilesAbsent": true
+      },
+      "errors": [],
+      "workspaceWideDiffCheck": {
+        "exitCode": 2,
+        "otherPathsWithWhitespace": [
+          "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/anon-rest-mist-mother-v1.source.json",
+          "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/anon-rest-violet-mother-v1.source.json",
+          "前端视觉创新设计/来源记录/2026-10-24-matrix/primary-direct-review.json"
+        ],
+        "note": "Workspace-wide check also reports CRLF whitespace in asset metadata outside this documentation edit. Those files were not changed by this task."
+      },
+      "passed": true,
+      "cleanup": [
+        {
+          "file": "C:/Users/17601/.codex/tmp/zaichang-rationalization-898ebbde/revise_documents.py",
+          "bytes": 26632,
+          "sizeKB": 26,
+          "status": "removed"
+        },
+        {
+          "file": "C:/Users/17601/.codex/tmp/zaichang-rationalization-898ebbde/refine_consistency.py",
+          "bytes": 31707,
+          "sizeKB": 31,
+          "status": "removed"
+        },
+        {
+          "file": "C:/Users/17601/.codex/tmp/zaichang-rationalization-898ebbde/finalize_documents.py",
+          "bytes": 15342,
+          "sizeKB": 15,
+          "status": "removed"
+        },
+        {
+          "file": "C:/Users/17601/.codex/tmp/zaichang-continuum-review-20261024/deepen_roadmap.py",
+          "bytes": 32096,
+          "sizeKB": 31.3,
+          "status": "removed"
+        },
+        {
+          "file": "C:/Users/17601/.codex/tmp/zaichang-continuum-review-20261024/sync_documents.py",
+          "bytes": 7337,
+          "sizeKB": 7.2,
+          "status": "removed"
+        }
+      ],
+      "cleanupNote": "Removed only the two disposable editing scripts from this continuation (and retain the earlier three cleanup receipts). Baseline snapshots, local review diff and diagnostic JSON remain. Logical file sizes do not claim freed disk space.",
+      "markdownRepair": {
+        "cause": "Previous local rewrite of video examples mismatched code-fence indentation inside lists",
+        "repair": "Restored matching indentation for content and closing fences; original words and role bodies retained",
+        "evidence": "CommonMark now renders all 12 stages, 12 director chapters and 96 original roles"
+      }
+    }
+  },
+  "historicalSourceValidation": {
+    "sourceCommit": "afcca03c5b84ea5f1fcac93d00adc0f3cb94325e",
+    "note": "Original cloud report retained as historical evidence; not inherited as current checks.",
+    "report": {
+      "date": "2026-10-25",
+      "scope": "documentation and skill validation only; no runtime/model/device/generation testing",
+      "checks": {
+        "relativeLinksChecked": 711,
+        "stages": [
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08",
+          "09",
+          "10",
+          "11",
+          "12"
+        ],
+        "directors": [
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08",
+          "09",
+          "10",
+          "11",
+          "12"
+        ],
+        "embeddedStarterExact": true,
+        "legacyStarterRedirectExact": true,
+        "mirrorsChecked": 16,
+        "manifestFilesChecked": 27,
+        "readingDocuments": 154,
+        "archiveMembers": 5,
+        "images": 20,
+        "skillMainLines": {
+          ".agents/skills/product-design/SKILL.md": 97,
+          ".agents/skills/project-foundations/SKILL.md": 70,
+          ".agents/skills/project-navigation/SKILL.md": 38,
+          ".agents/skills/zaichang-backend-director/SKILL.md": 190,
+          ".agents/skills/zaichang-frontend-director/SKILL.md": 217,
+          "核心技能/Gemini视频生成/SKILL.md": 46,
+          "核心技能/前端设计/SKILL.md": 217,
+          "核心技能/后端设计/SKILL.md": 190
+        },
+        "gitDiffCheck": true
+      },
+      "warnings": [],
+      "errors": [],
+      "passed": true
+    }
+  },
+  "previousLocalRationalization": {
+    "date": "2026-10-24",
+    "scope": "Local documentation and skill rationalization only; no runtime, model, device, generation or school operation verification.",
+    "checks": {
+      "stages": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ],
+      "rolesPerStage": {
+        "10": [
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08"
+        ],
+        "11": [
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08"
+        ],
+        "12": [
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08"
+        ],
+        "01": [
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08"
+        ],
+        "02": [
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08"
+        ],
+        "03": [
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08"
+        ],
+        "04": [
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08"
+        ],
+        "05": [
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08"
+        ],
+        "06": [
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08"
+        ],
+        "07": [
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08"
+        ],
+        "08": [
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08"
+        ],
+        "09": [
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08"
+        ]
+      },
+      "directors": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ],
+      "mirrorsChecked": 16,
+      "manifestFilesChecked": 27,
+      "relativeLinksChecked": 480,
+      "missingLinks": [],
+      "legacyStarterMatchesRoadmap": true,
+      "skillValidators": "four existing quick_validate invocations passed",
+      "gitDiffCheck": true,
+      "crossPageDirectorAdditions": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ],
+      "changedDocumentsComparedToSessionStart": 43,
+      "cleanupFilesAbsent": true
+    },
+    "note": "Earlier local rationalization evidence retained separately from this latest TXT adoption review."
+  }
+}

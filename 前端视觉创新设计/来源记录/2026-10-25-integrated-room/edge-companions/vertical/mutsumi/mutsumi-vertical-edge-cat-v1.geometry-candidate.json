@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "character": "mutsumi",
+  "source": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mutsumi\\mutsumi-vertical-edge-cat-v1.png",
+    "sha256": "0581d83f351cb6bdc0b742d8f02ff4147f4e1c297d7f3f9a42fa4cf40c0cd651",
+    "canvas": [
+      1254,
+      1254
+    ]
+  },
+  "coordinateSpace": "native source PNG pixels, origin upper-left",
+  "inspection": {
+    "personallyViewed": true,
+    "method": "Human inspection of actual full native PNG with 100px grid, explicit candidate line and pawn ROI overlay; not prompt coordinates",
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mutsumi\\mutsumi-contact-grid-candidate-v1.png",
+    "sha256": "069a45c20d645186b4d9e71c1479b68f10180ae005f1970696d64f58ed0ce014"
+  },
+  "contactAxis": {
+    "side": "right",
+    "x": 905,
+    "xNormalized": 0.7216905901116427
+  },
+  "pawRanges": [
+    {
+      "part": "upper-front",
+      "bounds": [
+        831,
+        487,
+        965,
+        612
+      ],
+      "lineContactY": [
+        520,
+        572
+      ]
+    },
+    {
+      "part": "lower-front",
+      "bounds": [
+        758,
+        648,
+        944,
+        791
+      ],
+      "lineContactY": [
+        690,
+        752
+      ]
+    },
+    {
+      "part": "bracing-hind",
+      "bounds": [
+        760,
+        951,
+        941,
+        1121
+      ],
+      "lineContactY": [
+        994,
+        1060
+      ]
+    }
+  ],
+  "candidateOnly": true,
+  "geometryApproved": false,
+  "runtimeAccepted": false,
+  "boundary": "Visible image grip alignment candidate only. Real-edge overlay, per-surface occlusion, interrupted drag and rig still require actual integration review; never use grid/review sheet as ImageGen input."
+}

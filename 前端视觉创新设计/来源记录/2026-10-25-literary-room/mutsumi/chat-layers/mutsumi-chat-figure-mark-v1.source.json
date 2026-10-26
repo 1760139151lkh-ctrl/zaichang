@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "foreground-selection-markup",
+  "character": "mutsumi",
+  "activity": "chat",
+  "palette": "apricot",
+  "step": "F1",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-b20047c7-124f-4151-9a45-d386fe1cb823.png",
+  "executionId": "exec-b20047c7-124f-4151-9a45-d386fe1cb823",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.png",
+      "sha256": "9d529789ece89f44b166f39dd259136257598cfd546009e49fae74140cbf8b6d",
+      "role": "sole root-approved correct mother; original source selection target"
+    }
+  ],
+  "approvedOriginalMother": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.png",
+    "sha256": "9d529789ece89f44b166f39dd259136257598cfd546009e49fae74140cbf8b6d",
+    "approvalEvidence": "root personally reviewed and approved this exact chat mother; central primary-cast-chat-mother-reviews-v1.json"
+  },
+  "intendedAssembly": {
+    "contactShadowMode": "included",
+    "formula": "U=MAX(L(F),L(S)); draw original mother RGB through U exactly once over matching empty BG",
+    "allMotionZero": true,
+    "separateCleanCasterClaim": false,
+    "pngPixelEditing": false
+  },
+  "promptFile": "mutsumi-chat-figure-mark-v1.prompt.txt",
+  "promptFileSha256": "74f96e28bad1ec771fc7e6f2ed7afa4bd27fd57dd63788b5c0478fb80e1eb8be",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; submitted text exact",
+  "submittedPromptSha256": "203dd109ee5276ad9cace6166a454e77fc5b8dff4be95dfd8dc0e14ad5836300",
+  "output": {
+    "file": "mutsumi-chat-figure-mark-v1.png",
+    "sha256": "2e96e033f3f138c827b84f417a213ed84fc8419d754f3e5754294c393e465f7d",
+    "bytes": 2301981,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "extrema": [
+      [
+        0,
+        255
+      ],
+      [
+        0,
+        255
+      ],
+      [
+        0,
+        255
+      ]
+    ]
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed full saved F1 markup: a solid white complete girl in the original apparent position, including head/long hair, lap hands, full skirt hem, socks and complete shoes, with colored room around and real leg gap retained. Minor fine edge coverage requires final source-RGB union inspection; this marked image supplies selection only, never generated figure RGB."
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "Raw selection-stage candidate only; no layer or runtime approval."
+}

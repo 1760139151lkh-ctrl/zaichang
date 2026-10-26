@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-play-mist-s1-v1",
+  "submittedPrompt": "Use case: precise-object-edit. Asset: S1 local RECEIVING MATERIAL/contact-and-shadow selection markup for same-source-RGB INCLUDED joint layer. The ONLY input is the approved clean Soyo play mist mother, 1536x1024. Keep the exact whole original camera/canvas and person RGB/coordinates unchanged. This is NOT a new room, new person or newly painted shadow. Keep the complete girl, fine hair, face, uniform, gray-blue bow and left-chest gold crest, hands, skirt, knees, socks, both complete brown shoes, OPEN book on her LAP and her one real pencil IN ORIGINAL COLORS, never white. The book rests on her lap, so its self-shadow is part of the figure F; DO NOT mark an imaginary separate book receiver on empty cushion.\nMark PURE WHITE only on these physically real LOCAL RECEIVING MATERIAL regions present in the source: a few small linen contact islands directly touching beneath the actual hip/skirt hem, and the complete original short soft floor shade directly grounding BOTH actual shoes. Do not whiten the whole bench/cushion or a long strip. Leave the naturally pale EMPTY cushion and all unmarked linen in original colors.\nCRITICAL shoes: the source shoes occupy roughly x720..898,y801..894. These numbers are loose inspection neighborhood bounds, NEVER a rectangle to fill. Examine actual darkened wooden floor immediately under/around their toes, heels and soles. Mark the FULL existing localized floor contact shade and its small receiving wood footprint, normally about 8..35 source pixels beyond the sole wherever actually present. Do not collapse it to a 2-pixel white outline. The sole/heel/shoe wall itself remains colored, only the actual receiver FLOOR is white. Follow the two original irregular foot-shaped patches and visible soft fade; include actual dense contact and original soft peripheral grounding. Do not invent a generic oval, big connected puddle, rectangle or elongated band. Do not include the nearby rug, its fringe, any window-grid sunlight, lamp/table/bench cast shadows or broad room floor reflection; the mark must stop at the actual shoe-local contact region. Two patches may meet only if the original source ground shade actually meets.\nLeave all other source pixels unchanged in color. No crop/resize/recenter/zoom, checkerboard, transparency, labels or arrows. Output one opaque full-color 1536x1024 scene with ONLY those few actual small seat receivers and complete local shoe-shadow floor receiver areas deliberately pure white. It will later select unchanged mother RGB once via MAX(F,S), with travel/slope/perspective zero; no portable shadow caster.",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-play-mist-literary-v2.png"
+  ],
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-play-mist-literary-v2.png",
+      "sha256": "0d6df59d4ade1ff32688d2f9618ca7a42ef7ff4d1ec8fb6c45cebfe80ac7d106",
+      "bytes": 2474859
+    }
+  ],
+  "transparentBackground": false
+}

@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "id": "nyamu-neutral-presence-time-night-included-v1",
+  "sceneFamily": "literary-room-v1",
+  "pose": "supported-neutral-presence-with-low-held-paper-fan",
+  "character": "nyamu",
+  "activity": "chat",
+  "purpose": "neutral-presence",
+  "neutralTime": "night",
+  "light": "night",
+  "palette": "rain",
+  "width": 1536,
+  "height": 1024,
+  "mother": "nyamu-neutral-presence-time-night-included-v1-mother.png",
+  "background": "nyamu-neutral-presence-time-night-included-v1-background.png",
+  "mask": "nyamu-neutral-presence-time-night-included-v1-mask.png",
+  "maskMode": "luminance",
+  "contactMask": "nyamu-neutral-presence-time-night-included-v1-contact-mask.png",
+  "seat": [
+    0.7682291666666666,
+    0.5546875
+  ],
+  "ground": [
+    0.6510416666666666,
+    0.8466796875
+  ],
+  "bodyBounds": [
+    0.5735677083333334,
+    0.107421875,
+    0.8430989583333334,
+    0.8544921875
+  ],
+  "safeTextBoundary": 0.537109375,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "57.356770833333336% 10.7421875%, 84.30989583333334% 10.7421875%, 84.30989583333334% 85.44921875%, 57.356770833333336% 85.44921875%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "dynamicAdmission": false,
+    "original360CreditAssigned": false,
+    "layerReview": "root-approved-time-only-neutral-fixed-original-source-max-union",
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/night/layers/root-primary-layer-admission-v1.json",
+    "sourceAssembly": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/night/layers/assembly-v1.json",
+      "sha256": "f841c611a0866ef778aae7fa445ad3e11f0549da444dde4d96124d67c1b4ee1d",
+      "bytes": 16443
+    },
+    "runtimeSourceSha256": {
+      "mother": "799a1602dc9d40fb3409f75502fa643b6635a25a98fe28f568359db4bbc7a44a",
+      "background": "447d9badea81d18cafbce4260b0c77d5ac27718d1afc00c089249eeae3e7ae1b",
+      "F": "1a47cde2b2f94fd5d7904722b1537a4c95f814979a44fce0498f6cc6bfed2101",
+      "S": "109f82613063077855ae0e414a8bedb231233068bfda2b0597b01de5865cb882"
+    },
+    "geometryEvidence": {
+      "figureEnvelope": {
+        "sourcePixels": [
+          881,
+          110,
+          1295,
+          875
+        ],
+        "normalized": [
+          0.5735677083333334,
+          0.107421875,
+          0.8430989583333334,
+          0.8544921875
+        ],
+        "basis": "Read-only sRGB Rec.709 F >32 and MAX(L(F),L(S)) >32 geometry, right/bottom exclusive; original continuous PNG luminance unchanged."
+      },
+      "jointReceiverEnvelope": {
+        "sourcePixels": [
+          841,
+          110,
+          1307,
+          881
+        ],
+        "normalized": [
+          0.5475260416666666,
+          0.107421875,
+          0.8509114583333334,
+          0.8603515625
+        ],
+        "basis": "Read-only sRGB Rec.709 F >32 and MAX(L(F),L(S)) >32 geometry, right/bottom exclusive; original continuous PNG luminance unchanged."
+      },
+      "supportAnchors": {
+        "seatPixels": [
+          1180,
+          568
+        ],
+        "groundPixels": [
+          1000,
+          867
+        ],
+        "basis": "Registrar personally viewed this exact full mother. Seat reference is visible lower skirt/linen contact, ground reference lies in local contact area of both complete source ankle-strap shoes; fixed visible support points, not hidden-joint reconstruction or travel calibration."
+      },
+      "familyFramingUnchanged": true
+    },
+    "approvalScope": "Exact neutral-presence time-only static full-source assembly, weather unknown. U=MAX(L(F),L(S)), original mother RGB once. Fixed included linen/wood/shoe overlap receiver; no caster, free travel, dynamic, exact activity360 or actual runtime acceptance."
+  }
+}

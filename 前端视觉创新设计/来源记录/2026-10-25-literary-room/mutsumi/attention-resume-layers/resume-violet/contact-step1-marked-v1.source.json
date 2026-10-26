@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "recordType": "native-same-canvas-layer-production-receipt",
+  "assetType": "same-canvas-source-local-contact-white-markup-intermediate",
+  "sceneFamily": "literary-room-v1",
+  "character": "mutsumi",
+  "activity": "resume",
+  "palette": "violet",
+  "phase": "S1",
+  "recordedAt": "2026-10-25T20:33:16.799558+00:00",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-454d-7bb3-8b77-bcaadd75b8a4\\exec-f247f9af-ba63-431d-b922-82433d28d8b3.png",
+  "promptFile": "contact-step1-marked-v1.prompt.txt",
+  "promptFileSha256": "77989f48d514a532a19b3d6250e2d3a07b50717ee52d96880394a99649d7786f",
+  "exactSubmittedPrompt": "Use case: precise-object-edit. This is a native source-position selection/removal job, not a new character design. The sole input is the exact ROOT-APPROVED Mutsumi resume mother on the complete1536x1024 canvas. Preserve the original camera, every coordinate and full source dimensions; no zoom/crop/mirror/pose/scale change, UI/text/grid/labels/border/watermark/transparency. Keep all PNG output opaque RGB1536x1024. Mutsumi's accepted youthful face, long pale mint-grey hair/temple clips/gold-brown eyes, navy sailor uniform with full collar/bow/cuffs/double hem stripes, actual source calf socks/loafers, hands and lap book must not be redesigned. Tiny accepted theme/pose differences stay. Only the specified selection/removal may change; marked RGB will never supply the final person color.\n\nSTEP S1 — SOURCE-LOCAL CONTACT RECEIVING MATERIAL WHITE MARKUP, girl/book/room otherwise ORIGINAL COLOR. Paint pure opaque WHITE only over the REAL visible NON-PERSON receiving surfaces of this exact supported pose:\n(1) the narrow irregular local linen compression/contact-darkness immediately below/around the actual skirt-to-cushion meeting, including the true small tapering local cloth receiver rather than only a one-pixel contour; search broadly x980..1380,y570..665, but follow ACTUAL SOURCE CONTACT, not that rectangle;\n(2) the complete proximal soft original WOOD-FLOOR grounding/contact shade immediately touching and behind BOTH complete loafers, including the existing soft taper near toe/sole/heel and any genuinely connected small floor shadow BETWEEN the two shoes, search x880..1140,y790..935. Capture the actual soft local floor material, not just thin shoe-outline lines, so the whole source floor contact reads grounded.\nSelect irregular source receiving footprints, NEVER fill a rectangular pool, ellipse, straight tail, whole floorboard or long empty bench. In particular DON'T select pale sun/lamp highlights on the EMPTY cushion to the LEFT of her, don't invent a dark contact shape, and don't include unrelated table/chair/window-grid shadows. Preserve this theme's current lighting and original soft feather at actual boundaries; don't add daylight to night.\nThe girl, full hair/face/hands/navy hem/socks/whole loafers AND held lap book stay their ORIGINAL RGB; their interiors/self-shadows are foreground, not an independent receiver. The book rests on her own thighs/hands, so do not invent a separate book-footprint on an empty bench. A tiny truly visible non-person linen contact may be included, not hidden anatomy. All other room pixels keep original color. This is a fixed included source material union, not a portable independent transparent shadow. Do not make the black matte yet.",
+  "submittedPromptSha256": "9ac6d5cfdef58593b75b197f49df65d7fe90d4d31c77d409f1b3d82e8b4b3d39",
+  "submittedPromptTransform": "UTF-8 prompt file without final LF added by patch; exact submitted string",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-violet-literary-extension-v1.png",
+      "sha256": "ba9249784ddce618ac8b670163dd4de9d6f794d5a18549f19f489c58a6c6be43",
+      "role": "Only exact root-approved original mother; no failed selection or theme input"
+    }
+  ],
+  "output": {
+    "file": "contact-step1-marked-v1.png",
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-violet/contact-step1-marked-v1.png",
+    "sha256": "02a0e8ba79bce0d93cbb0d1ea00b9e7313e52aca1a9f5930f659a5e0e7fe3f21",
+    "bytes": 2315779,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "dossier": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/mutsumi.md",
+    "sha256": "189d1a17f6e4c2656692437167c50d2a89379cf50b16bc354df3ac8406e4610c",
+    "version": "2026-10-25",
+    "readComplete": true
+  },
+  "method": {
+    "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+    "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+    "readComplete": true
+  },
+  "wardrobeId": "mutsumi-tsukinomori-school-source-preserving",
+  "mother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-violet-literary-extension-v1.png",
+    "sha256": "ba9249784ddce618ac8b670163dd4de9d6f794d5a18549f19f489c58a6c6be43",
+    "bytes": 2356570,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    }
+  },
+  "motherApproval": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/root-human-mother-primary-review-20261025.json",
+    "sha256": "f6b3a0b7ac9974993b61553e907f0ebfa7c39763ebef7d33ca7efb215a99fbb2",
+    "record": {
+      "cell": "mutsumi/resume/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-violet-literary-extension-v1.png",
+        "sha256": "ba9249784ddce618ac8b670163dd4de9d6f794d5a18549f19f489c58a6c6be43",
+        "bytes": 2356570,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.844Z",
+      "observation": "Mutsumi green-tinted hair/gold eyes and anatomical-left paired clips remain; quiet curiosity or recognition is distinct from a stock smiling pose. Hands physically support the book, legs/shoes and bench support are coherent. Small sock decoration in rain remains project illustration, not new official wardrobe fact. Whole violet light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    }
+  },
+  "pngPixelEditing": false,
+  "manualThresholdOrMorphology": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "producerReview": {
+    "personallyViewed": true,
+    "observations": [
+      "Complete original S1 personally viewed: localized selected linen near existing skirt/cushion contact and a proximal receiving-material pool around both whole shoe soles are white; complete girl/book remain original RGB.",
+      "Seat receiver follows local lower-hem/cushion meeting rather than a long empty bench, while shoe receiver covers both soles and their immediate soft floor region rather than thin outline only.",
+      "This is included original local linen/wood material, not a claimed pure independent shadow. No later conversion or primary approval is inferred until source-RGB shallow/deep/composite inspection."
+    ]
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "scope": "Original source-position fixed included layer production only; marked/mask RGB never replaces original mother color. No independent movement, no new mother/dynamic/runtime completion."
+}

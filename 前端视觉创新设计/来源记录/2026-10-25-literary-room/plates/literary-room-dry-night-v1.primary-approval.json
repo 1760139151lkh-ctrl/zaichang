@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "dateLocal": "2026-10-25",
+  "recordType": "primary-static-empty-plate-admission",
+  "reviewer": "root / primary agent",
+  "asset": {
+    "file": "literary-room-dry-night-v1.png",
+    "sha256": "edad31b1ce0c7f21be59d939cc54a0d6230b31d6fe380d0d553af515032fd0f4",
+    "width": 1536,
+    "height": 1024
+  },
+  "primaryApproved": true,
+  "scope": "Complete static empty environment plate only; same selected close room and corresponding weather/time illumination. No character/activity/layers/motion/runtime approval.",
+  "evidence": "Root personally viewed the complete original PNG: dark clear exterior with faint stars/town lights, warm existing ceramic-lamp illumination, same room geometry and no daytime light patches.",
+  "producerReviewSeparate": true,
+  "runtimeAccepted": false
+}

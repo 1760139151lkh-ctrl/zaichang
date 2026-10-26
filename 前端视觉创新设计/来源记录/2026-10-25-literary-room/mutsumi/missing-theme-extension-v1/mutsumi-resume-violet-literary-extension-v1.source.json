@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "recordType": "new-complete-human-theme-mother-candidate",
+  "sceneFamily": "literary-room-v1",
+  "cell": "mutsumi/resume/violet",
+  "character": "mutsumi",
+  "activity": "resume",
+  "palette": "violet",
+  "tool": "image_gen.imagegen",
+  "transparentBackground": false,
+  "recordedAt": "2026-10-25T18:39:18.172747+00:00",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-b77897ab-57e8-44e2-aafb-b781decc97a9.png",
+  "toolOriginalSha256": "ba9249784ddce618ac8b670163dd4de9d6f794d5a18549f19f489c58a6c6be43",
+  "generationPlan": {
+    "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\missing-human-mother-production-plan-v1.json",
+    "sha256": "251f83b82c17e5ea7646559e29655dd9daae9b2dcdc370fcce2169bd62debc9f",
+    "brief": {
+      "index": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/mutsumi-prompt-plan.json",
+        "sha256": "66ade9700cb7bb993b43bd7e247b678878b79ad71237b0b5dcd915a43a3be2ca",
+        "bytes": 101958,
+        "capturedAt": "2026-10-25T09:14:03.037840+00:00"
+      },
+      "jsonPointer": "/cells/34",
+      "briefKey": "mutsumi/resume/violet",
+      "producerBriefRef": null
+    },
+    "precedence": "Current explicit14-cell release supersedes historical held brief flags. Actual input list alone was submitted."
+  },
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/mutsumi.md",
+      "sha256": "189d1a17f6e4c2656692437167c50d2a89379cf50b16bc354df3ac8406e4610c",
+      "readScope": "Full personally read current role dossier and full art-direction before role batch; exact read-version bound to call."
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "91fb8b8de3e8d954a9367a585f09b71b8f5a9962d8ed0107249c348390fb7f05",
+      "readScope": "Full personally read current role dossier and full art-direction before role batch; exact read-version bound to call."
+    }
+  ],
+  "seedInspection": {
+    "artifact": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-resume-apricot-v1.png",
+      "sha256": "8e8ac48ad4b37993d28ccd8bd8c83f64c98f5f1abf8e43f7791b0c8380b11701",
+      "bytes": 2431327,
+      "canvas": {
+        "width": 1536,
+        "height": 1024
+      },
+      "format": "PNG",
+      "writtenByUtc": "2026-10-25T12:00:53.750984+00:00"
+    },
+    "personallyViewedWholeExactSeed": true,
+    "actuallyInput": true,
+    "decision": "Approved source personally viewed: healthy supported identity/wardrobe/action used for continuity only."
+  },
+  "targetPlate": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+    "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+    "bytes": 2350339,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "format": "PNG"
+  },
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+      "role": "primary CLEAN target room/camera/theme"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-resume-apricot-v1.png",
+      "sha256": "8e8ac48ad4b37993d28ccd8bd8c83f64c98f5f1abf8e43f7791b0c8380b11701",
+      "role": "same role/activity root-approved exact healthy apricot continuity reference, not daylight/unchanged copied pixels"
+    }
+  ],
+  "wardrobeId": "mutsumi-tsukinomori-school-source-preserving",
+  "promptFile": "mutsumi-resume-violet-literary-extension-v1.prompt.txt",
+  "promptFileSha256": "13b2bdd2525f98c4e3dfa359416d01a6824efbbbe5120bf0d0949aeb275cbf95",
+  "submittedPromptTransform": "PythonPath.read_text UTF8 universal newline; no trim; exact below",
+  "exactSubmittedPrompt": "Create ONE newly painted complete literary-room mother illustration, exact LANDSCAPE1536x1024 canvas. This is one continuous physical room and one youthful human character, not a UI mock, collage, figure pasted over scenery, portrait, sprite or theme filter. Image1 is the approved CLEAN target-theme EMPTY room: it is the PRIMARY room/camera/furniture and lighting reference. Retain its camera, full timber window/lake/town/mountain depth, left desk/chair/bookcase/plants, near ceramic lamp/cup/flowers on round side table, long linen window-seat, right plaid cushions/cream knitted throw, wood floor/rug and soft foreground plant. Keep the original whole room, no extra desk, no new furniture, zoom, empty UI panel or divided day/night scene. The LEFT half remains a complete naturally furnished room, not painted blank.\n\nImage2 is ONLY the exact approved healthy mutsumi resume APRICOT mother for this person/outfit/pose continuity. Repaint a complete new person under image1 target lighting; do not transplant its pixels, daylight, fixed face, incorrect skeleton or another character. No other person/image is a reference.\n\nTHE LIVING MOMENT:\nHer own open book stayed low on her supported thighs; one fingertip kept the current page edge while the other hand held the lower cover. She hears the familiar person return and looks up toward their face just LEFT of camera, not directly posing at a lens. Her head turns a little more slowly than the eyes. The brow relaxes and the lips almost make a very small answering smile, as though she has one plain true thought still to share. She need not ask why the person left or claim to have worked all the while. The finger and page remain one natural continuous action; the person may continue this page or simply talk.\n\nCHARACTER AND COMPLETE CHOSEN WARDROBE:\nMutsumi Wakaba/若叶睦, youthful soft face with quiet active judgment, long softly straight PALE MINT-GRAY hair, light fine fringe, TWO slim silver temple clips following the accepted own-left/viewer-right temple relation, clear GOLD-BROWN irises. Hair's natural mint hue does not tint the room green. Complete Tsukinomori school wardrobe as in approved own seed: NAVY sailor one-piece uniform dress, wide WHITE sailor collar with fine dark/gray edge, gray-purple bow, subtle front buttons/school detail, white cuff trim, pleated navy skirt with TWO fine white hem stripes. DARK BELOW-KNEE calf socks, exposed knees, BROWN loafers. Not white ankle socks/private lace dress/MaryJanes, not Sakiko cardigan or stageMortis. Youthful eyes with separate lids/fringe, no sleepy doll, adult lip makeup or blank face.\n\nTHE WHOLE THEME IS PHYSICALLY RE-LIT, NOT A COLOR FILTER:\nTWILIGHT /暮色紫: use actual violet-lilac lake hills and muted peach remaining sky. Low fading exterior light rims hair/paper while warm ceramic lamp takes over cheek, sleeve and page. Purple is in air/shadows rather than entire skin or clothing; no mandatory farewell/sadness.\nThe actual target plate controls the outside weather/time, room values and lamp strength; do NOT keep the apricot source sunshine. Paint matching light on face, hair, paper, cloth, cushion, floor and contact shadows together, preserving intrinsic hair/eye/skin/fabric colors. No blue skin, neon eyes, muddy black figure or glowing page. Night changes light, not her personality into sorrow or sleep.\n\nBODY, OBJECT AND CAMERA:\nSit securely on the RIGHT part of the existing long window bench, hips visibly on linen cushion, small open book truly resting between thighs and supporting hand. Soft modest torso/head turn belongs to the page/person, no unsupported twist. Knees near each other and uncrossed; both lower legs and brown loafers fully visible with natural floor support.\nReal pelvis weight compresses existing bench cushion; shoulder/forearm/hand and book have one continuous weight-bearing relation. Keep both hip-knee-ankle chains coherent, knees uncrossed, socks separate below exposed knees, complete loafers naturally supported by original wood floor, full head/hair and full shoe soles inside safe frame margins. Do not make a long-legged body merely to force the soles flat, mirror the two feet rigidly, lift a heel without support, cross legs with broken joints, hide anatomy behind a prop, move a whole figure pack across furniture or invent a third hand. Keep original bench-person apparent scale, with full head roughly near y110..160 and shoes roughly y850..930 according to natural perspective, not a numeric anatomy stencil. Natural joint/occlusion and real source bench support decide exact positions. One single girl, no other person's hand. A few book/page marks can be softly suggested but NO legible text, formula, answer, user quote or task receipt. No UI/text/title/signature/logo/watermark/arrows/guidelines/split screen or decorative emotion icons.\n\nART:\nYouthful expressive2D anime-derived literary linework integrated with tactile wood/linen and room air. Separate fringe, eyebrows, lids, sclera and irises; natural skin, soft cheek volume and light chin. No mature makeup/model long face, cold stock scowl, glass baby eyes, compulsory blush or advertising smile. Show this role's small specific change of attention. This is a project-original fictional companionship moment, not an assertion that a user file was read, a bookmark found, a promise kept or real work completed. Preserve only the selected healthy family and exact intended target light; output a new whole-scene painting.",
+  "submittedPromptSha256": "36c9b3704213e986150830ea3ac06f744a86a6714d884ab49422c5a78edd460b",
+  "fictionalCompanionScene": true,
+  "privateUserDataUsed": false,
+  "output": {
+    "file": "mutsumi-resume-violet-literary-extension-v1.png",
+    "sha256": "ba9249784ddce618ac8b670163dd4de9d6f794d5a18549f19f489c58a6c6be43",
+    "bytes": 2356570,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "observation": "Personally viewed full returned complete mother: youthful same Mutsumi identity/complete sailor uniform, low lap-supported open book, finger retains actual page edge, eyes lift toward familiar interlocutor with slight answering mouth/brow softening. Bench pelvis, uncrossed leg chains and full floor-supported loafers remain clear. Mist/violet/rain target lighting acts jointly on person and room. No welcome wave, empty pointing or completed-user-work claim. Static candidate only.",
+    "staticOnly": true,
+    "cameraRegistration": "Room family/camera visually continuous; not claimed exact empty-plate pixel registration."
+  },
+  "generationStatus": "actual-image-output-saved-static-candidate",
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "postureTopologyCredit": "Same supported activity family theme extension, not new major support topology."
+}

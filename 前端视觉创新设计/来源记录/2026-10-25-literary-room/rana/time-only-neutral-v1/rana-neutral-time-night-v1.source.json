@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "recordType": "time-only-neutral-presence-night-mother-candidate",
+  "characterId": "rana",
+  "sceneFamily": "literary-room-v1",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "environmentVariant": "time-night",
+  "neutralTime": "night",
+  "weather": "unknown",
+  "weatherClaim": "none; complete opaque inner curtain",
+  "originalInteraction": "Same approved day moment: self-chosen quiet corner, own book supported on thighs, other palm on cushion, small curious glance toward familiar left-front companion; not a canonical or source-read claim",
+  "wardrobeId": "rana-movie-hanasakigawa-junior-school-uniform",
+  "tool": "image_gen.imagegen",
+  "recordedAt": "2026-10-26T00:38:53.264462+00:00",
+  "sourceConversationId": "01a17365-def4-7ef0-9767-09f785cec060",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.png",
+      "sha256": "d9c41c4278dd8a4efae1a91102e16349ad4dcf9829963c31ddc421dfc3652253",
+      "purpose": "Only approved time-night room/camera/opaque-curtain/full light target",
+      "personallyViewedBeforeGeneration": true,
+      "rootApprovedForThisRole": true
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/time-only-neutral-v1/rana-neutral-time-day-v1.png",
+      "sha256": "b8d0c29a192672f90eb9a16420c571d64ad449903ef0e4dfc86ee8ff036e6a08",
+      "purpose": "Exact root-approved same-character day full mother: pose/scale/gaze/book/hands/wardrobe/support only; not daylight",
+      "personallyViewedBeforeGeneration": true,
+      "rootApprovedForThisRole": true
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/time-only-neutral-v1/portrait/rana-avatar-youth-v3.png",
+      "sha256": "400f6a20398a978d24561f7b484ab03bdf4ff3951cdfa95595a78691828a9aad",
+      "purpose": "Exact root-approved youth-v3 identity portrait only; no portrait-scale head or unrelated avatar expression",
+      "personallyViewedBeforeGeneration": true,
+      "rootApprovedForThisRole": true
+    }
+  ],
+  "inputApprovalRecords": [
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.primary-approval.json",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/time-only-neutral-v1/root-primary-day-and-avatar-admission-v1.json"
+  ],
+  "exactSubmittedPrompt": "Use case: lighting-weather with NO weather claim. Draw ONE coherent full 1536 x 1024 literary 2D TIME-NIGHT mother of the SAME Rana and the SAME root-approved day moment for 在场. Actual weather is UNKNOWN; this is original neutral company, not an anime episode or user-document reading receipt.\n\nSTRICT INPUT ROLES: Input 1 is the ROOT-APPROVED TIME-NIGHT clean empty plate, the only target for whole room light/camera/opaque closed curtain. Input 2 is the ROOT-APPROVED Rana TIME-DAY full mother, supplying complete figure pose, scale, gaze, book, hands, clothes, cushion and foot support. Input 3 is the ROOT-APPROVED Rana youth-v3 independent portrait, supplying only soft youthful cheek/short chin, silver short hair and right-gold/left-blue identity. Do not paste the avatar head, enlarge her head, copy portrait studio light or change the day mother's specific small expression.\n\nPreserve the EXACT room arrangement and wide full camera: left shelves/desk/wooden chair, foreground foliage/rug, original round side table with blue-floral ceramic lamp, RIGHT long cushioned window bench/blue checked pillows/knitted throw. Keep the day figure in the same right-side seat with the same head-to-body scale, shoulders/pelvis/thighs/knees/ankles/entire loafers relation. No new leg angle, floated pelvis, stretched shins, random head size or camera crop. Hip/thigh weight stays on the actual cushion, both complete BROWN loafers naturally on the same wooden floor. Full hair, book, both hands, skirt, uncovered knees, calf socks and full shoe heels stay visible.\n\nShe remains quietly content in her own corner, a little interested in her familiar companion at left-front, not performing for approval. Keep the small awake curious gaze and the day mother's slight closed-lip smile; do not make her sleepy, sad, an empty chibi doll or a broad-smiling hostess. Her own open book stays physically supported across her thighs with one hand/thumb keeping her place; the other complete palm stays resting naturally on the cushion beside her hip. No new pointing, floating book, swapped hand gesture, raised arm, cat, tea or guitar. Faint non-readable marks only; the book is her own, not fabricated source contents or a shared-work completion claim.\n\nRetain silver-white layered SHORT hair with real cheek/ear/nape locks and cool gray-lilac base in shadows. BOTH irises readable: HER OWN RIGHT GOLD / HER OWN LEFT BLUE; in this near-front view the viewer sees gold at left and blue at right. Warm lamp exposure may soften colors, never swap/mirror the eyes or turn both eyes brown. Preserve the same youthful face with soft compact cheek/chin relation; no long adult jaw, giant glass eyes, mature makeup, baby proportions or 3D skin. Delicate refined literary 2D linework and softly painted planes integrate with the room.\n\nKeep the exact selected DAY school uniform structure: tan/beige long-sleeve sailor top with wide white/navy-edged collar and red fabric bow, gray plaid pleated skirt, dark NAVY BELOW-KNEE calf socks with both knees exposed, complete BROWN loafers. Do not turn it into Taki's double-row gold-button uniform, black tights, over-knee socks, boots, shorts or stagewear. Do not add ornaments or badges. White collar and red bow take the actual warm night exposure, not daytime white cutouts.\n\nThe WHOLE PERSON AND ROOM must receive the SAME target NIGHT light. Existing ceramic-lamp glow creates a soft warm near edge and plausible falloff across hair, face, skin, collar, fingers and book pages; far sides and fabric folds fall into readable dim shadow. Thigh-cushion contact, resting palm, socks/shoes and wood-floor reflections must turn with that same lamp. No separate studio spotlight, luminous day face or page, glowing eyes, white hair sticker, flat global RGB tint or pasted cutout. Keep anatomy visible enough to judge support instead of hiding it in solid black.\n\nThe substantial ivory inner curtain stays fully CLOSED and OPAQUE edge to edge exactly as target 1. No readable exterior gap, lake, sky, trees, town lights, stars, rain, snow or weather silhouette. The middle join is cloth/hardware only. NO white daytime light patch, direct sun beam, solar window-grid or leaf shadow on her, the cushion or floor. Follow the night plate's actual local warm lamp pool. No extra person, new furniture, UI/panel, words, caption, speech bubble, avatar circle, frame, watermark or logo. This is a static night mother candidate only, not a newly counted action or runtime completion.",
+  "submittedPromptSha256": "11d6845581ac131b73dc3b344c89541bc46db55900781766d9e760a24400e382",
+  "promptFile": "rana-neutral-time-night-v1.prompt.txt",
+  "promptFileSha256": "91601ac1dc17943b947353154d7ee97d5aa44222c992214cc5bc458f5440575a",
+  "requestFile": "rana-neutral-time-night-v1.request.json",
+  "requestSha256": "a44b7b9506c708dd128de8d88ffda1266467bde72478387324cdbc7eb5dcacb3",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-84678ebc-0452-49d9-bbfb-4449659f4cd2.png",
+  "toolOriginalSha256": "9188cbcf796537a4279efa30605439d0ec9beb385aa07dbc8e32f656039f66b9",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/time-only-neutral-v1/rana-neutral-time-night-v1.png",
+    "sha256": "9188cbcf796537a4279efa30605439d0ec9beb385aa07dbc8e32f656039f66b9",
+    "bytes": 2139072,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true,
+    "resizedOrRetouched": false
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "observations": "Whole actual output viewed: same short silver hair now receiving warm lamp edges, viewer-left gold/viewer-right blue irises still readable, small curious closed smile. Actual open lap book and supporting hand, opposite palm on cushion, seated hips/thighs, exposed knees/navy below-knee socks and full brown loafers keep the day relation. Face/collar/paper/cushion/wood all in warm dim night exposure; not a luminous day person. Same closed curtain and room/camera, no readable outside weather or white daylight grid/solar patch observed. Optical continuity, not pixel-exact geometry or runtime registration.",
+    "staticOnly": true
+  },
+  "primaryApproved": true,
+  "generationInputAllowed": true,
+  "userApproved": false,
+  "layersProduced": false,
+  "runtimeAccepted": false,
+  "motionVerified": false,
+  "original360ExactActivityCell": false,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "uiOrScreenshotOrHoldOrOtherCharacterUsedAsInput": false,
+  "sourceCodeOrSceneRegistryChanged": false,
+  "status": "root_approved_static_time_only_night_mother",
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/SKILL.md",
+      "sha256AtRecord": "d3dafe3e370dfe2aa6bbd522dd64242efb6e9dbed265daa0b68a9532734e1a58",
+      "fullyRead": true
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256AtRecord": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "fullyRead": true
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/rana.md",
+      "sha256AtRecord": "d39286e83289d7c67222428a139b8650ff9f60a0e78e49c0a8393b3079f2e892",
+      "fullyRead": true
+    }
+  ],
+  "primaryReview": {
+    "reviewer": "root",
+    "record": "root-primary-night-admission-v1.json",
+    "scope": "neutral-presence/time-only static mother aesthetics/structure and same-mother layer-generation input only",
+    "exactMessage": "根代理已逐张亲看tomori/anon/rana三个night-v1母图（SHA36e1e2…4300、b8c250…b2d8、9188cb…6b9），全部通过本次 neutral-presence/time-only 的静态母图审美/结构准入：暖灯有全身明暗，书/纸与手和膝/坐垫支承连续，低头/迎视有对象，闭合不透明帘不冒报窗外天气；不是exact activity/360，也非runtime签验。"
+  }
+}

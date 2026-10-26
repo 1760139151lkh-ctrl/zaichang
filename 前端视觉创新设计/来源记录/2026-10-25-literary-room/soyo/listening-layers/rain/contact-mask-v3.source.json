@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "character": "soyo",
+  "activity": "listening",
+  "palette": "rain",
+  "stage": "S2-v3",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: background-extraction. Asset type: revised S2-v3 fixed INCLUDED original-source support receiver luminance mask.\n\nImage 1 is ONLY the NEW correct S1-v3 marked same-canvas rain mother. Image 2 is the exact original colored rain mother ONLY to distinguish intentional white/edge-grey markings from natural pale linen/pages/room light. No held v1/v2 mask, composite or old background is used. Preserve complete 1536x1024 canvas and exact marked positions.\n\nKeep the FULL existing deliberately white/soft-grey localized floor receiver UNDER/IMMEDIATELY AROUND BOTH CLOSE SHOES. It is the original local soft ground support material, now tightened near the real shoes, not a single fine sole outline and not a large glowing oval. Preserve every marked white core and true grey edge softness, including the actual small overlap/connection between the close original shoe ground contacts. Floor selection is near approximately x745..965,y842..920 in image1; these limits identify existing markings only, NEVER a box/ellipse to draw or an area to expand. Do not shrink the marked area back into a 1-pixel rim; do not reintroduce an extended left floor pool. Whole shoe RGB is colored and becomes BLACK.\n\nKeep ONLY deliberately marked small seat compression/contact below the hip/skirt near x960..1047,y566..593 (and any other genuinely white marked visible seat bit), not the naturally pale long cushion. Keep ONLY the deliberately marked tiny support directly below the SEPARATE CLOSED BOOK, tight near x1120..1266,y552..577. The actual book remains colored in image1 and becomes black, including pale pages/bottom cover; there must be no white cloth tail far beyond the book's right edge.\n\nMake ALL other scene pixels pure BLACK: the girl/face/hair/empty hands, navy clothes and hem, knees/socks/whole brown loafers, independent closed book, natural linen/plaid/knit/curtain/collar/page whites, rain window/lamp/flowers, all unselected floor/rug/large warm light and furniture. Compare image2 solely to prevent natural brightness being confused with marked receiver. Do not erase intentionally painted grey receiver edges just because they are softer than white.\n\nOutput ONE opaque 1536x1024 BLACK PNG with only the unchanged already-marked local support pieces WHITE and their true thin soft boundary GREY. No colored scene/person, newly drawn shadow/geometry, large oval/rectangle, labels, arrows, grid, text, checkerboard, crop, resize, zoom, recenter or translation. Fixed source original RGB MAX(F,S) union only, never portable caster.",
+  "promptSha256Utf8NoTrailingLF": "d61b9c0ae565b8e2ad1dbc886599ef67bf917b9c61abe3aa1ffe563a33687d5f",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/rain/contact-step1-marked-v3.png",
+      "sha256": "dbf916971d21563220477675db2452e9b496409fc269294c1849beac02e2d663",
+      "personallyViewedBeforeCall": true
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-rain-literary-v1.png",
+      "sha256": "dca2dd09063832af700bcb833ddaae40cde16b01aed2d27429204762cd3c7210",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "sourceMotherSha256": "dca2dd09063832af700bcb833ddaae40cde16b01aed2d27429204762cd3c7210",
+  "approvalEvidence": "Root static approval of Soyo listening four mothers relayed by openui_creation delegation. Exact violet/rain source images independently viewed and hashes verified. This does not approve any new mask.",
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/soyo.md",
+      "sha256": "1ec8b260d40f8363c096ed8392547dd276d2318df5aadbe34b1f51e51e2ed04e",
+      "readScope": "Complete current text read before this layer task"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "readScope": "Complete current text read before this layer task"
+    }
+  ],
+  "method": "Read mature Soyo/chat-layers F1/F2/S1/S2 actual prompts and root Sakiko recognition-v2-layers contact S1-v3/S2-v2 repair prompts. Original mother -> same-canvas marked selection -> black/white extraction only. No held images, threshold/manual PNG paint or review collage input.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\listening-layers\\rain\\contact-mask-v3.png",
+    "sha256": "63587481505e221520af104603404157df6aa018105796a171b178009aa1165c",
+    "bytes": 319241,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-e28a89da-ed48-40c7-aee3-1578d42c7c7b.png",
+    "pngBytesUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "fullNativeImage": true,
+    "observations": "亲看完整1536×1024：黑底保紧邻近双鞋的一组有面积白芯/灰柔缘地板receiver，鞋/腿本身黑，不再v1细线或v2远扩大白池；真实小座下接触与收紧合书底小条保留，长空座/大灯影/全地板都黑。书底仍可能与原书边/页块少量重叠F，固定MAX只画一次可由caller实看判included范围；不签独立caster/primary/runtime。"
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "status": "producer-candidate-awaiting-fixed-source-RGB-union-and-primary-review",
+  "useBoundary": "Only fixed original-source included union MAX(F,S); local receiver pixels are not a portable independent cast-shadow layer. No new pose/dynamic credit.",
+  "revisionPurpose": "Extract full local support from new rain S1-v3 plus exact original mother after v1 thin-contact issue and held S1-v2 expansion; no defective mask/union/BG fed forward."
+}

@@ -2,14 +2,35 @@ import { useEffect, useRef, useState } from 'react';
 import { retainedProgramState, restoredProgramState, validateProgramState, type InteractiveProgramDocument, type ProgramLocalState,
   type ProgramLocalStateAddress, type ProgramStateValues } from '../../shared/interactive-program';
 
-const pending = new Set<() => Promise<void>>();
-export async function flushProgramLocalStates() { await Promise.allSettled([...pending].map(flush => flush())); }
+export interface ProgramLocalStateFlushIssue {
+  sessionId: string;
+  messageId: string;
+  programId: string;
+  revision: number;
+  reason: 'read_failed' | 'save_failed' | 'conflict' | 'pending';
+}
+export interface ProgramLocalStateFlushReport {
+  /** Safe to leave under the current retention mode, not a claim that an
+   * ephemeral work was written to persistent storage. */
+  ok: boolean;
+  issues: ProgramLocalStateFlushIssue[];
+}
+const pending = new Set<Writer>();
+export async function flushProgramLocalStates(): Promise<ProgramLocalStateFlushReport> {
+  const writers = [...pending];
+  const results = await Promise.allSettled(writers.map(writer => writer.flush()));
+  const issues = results.flatMap((result, index) => result.status === 'fulfilled'
+    ? result.value ? [result.value] : []
+    : [{ ...writers[index].address, reason: 'save_failed' as const }]);
+  return { ok: issues.length === 0, issues };
+}
 
 interface Writer {
   key: string; edited: boolean; active: boolean; revision?: number; ephemeral?: boolean;
+  address: Pick<ProgramLocalStateAddress, 'sessionId' | 'messageId' | 'programId' | 'revision'>;
   failedRead?: boolean; failedSave?: boolean; conflicted?: boolean; replacing?: boolean;
   staged?: ProgramStateValues; pending?: ProgramStateValues; saved?: string; timer?: ReturnType<typeof setTimeout>; saving?: Promise<void>; reading?: Promise<void>;
-  flush: () => Promise<void>;
+  flush: () => Promise<ProgramLocalStateFlushIssue | undefined>;
 }
 
 /** This adapter stores only local conditions through the same source owner.
@@ -28,7 +49,9 @@ export function useProgramLocalState(key: string, program: InteractiveProgramDoc
     if (!doc || !source || !allowed || typeof window.zaichang.readProgramLocalState !== 'function') return;
     const choice = resolution.current?.key === key ? resolution.current.choice : undefined; resolution.current = undefined;
     const retainedEdit = choice !== 'saved' && unsaved.current?.key === key ? unsaved.current.inputs : undefined;
-    const current: Writer = { key, edited: !!retainedEdit, pending: retainedEdit, replacing: choice === 'saved', active: true, flush: async () => {} };
+    const current: Writer = { key, edited: !!retainedEdit, pending: retainedEdit, replacing: choice === 'saved', active: true,
+      address: { sessionId: source.sessionId, messageId: source.messageId, programId: source.programId, revision: source.revision },
+      flush: async () => undefined };
     writer.current = current; setIssue('');
     const flush = async (): Promise<void> => {
       if (current.timer) { clearTimeout(current.timer); current.timer = undefined; }
@@ -48,7 +71,7 @@ export function useProgramLocalState(key: string, program: InteractiveProgramDoc
           current.revision = result.stateRevision;
           if (result.status === 'conflict') {
             current.conflicted = true; current.failedSave = false;
-            current.pending = undefined;
+            if (!current.pending) current.pending = inputs;
             if (current.active) setIssue('另一处也改过这页。眼前的调整还在。');
           } else if (result.status === 'ephemeral') current.ephemeral = true;
           else {
@@ -56,19 +79,30 @@ export function useProgramLocalState(key: string, program: InteractiveProgramDoc
             if (unsaved.current?.key === key && JSON.stringify(retainedProgramState(doc.states, unsaved.current.inputs)) === signature) unsaved.current = undefined;
             if (current.active) setIssue('');
           }
-        } catch { current.failedSave = true; if (current.active) setIssue('这次的调整还没留住，眼前的内容还在。'); }
+        } catch {
+          current.failedSave = true;
+          if (!current.pending) current.pending = inputs;
+          if (current.active) setIssue('这次的调整还没留住，眼前的内容还在。');
+        }
         finally { current.saving = undefined; }
       })();
       await current.saving;
-      if (current.pending) await flush();
+      if (current.pending && !current.failedSave && !current.conflicted) await flush();
     };
     current.flush = async () => {
       // Frames only stage a record in memory. An explicit flush, the finite
       // process stopping, or this exact writer leaving promotes it once.
       if (current.staged) { current.pending = current.staged; current.staged = undefined; }
-      await flush();
+      try { await flush(); }
+      catch {
+        current.failedSave = true;
+        if (current.active) setIssue('这次的调整还没留住，眼前的内容还在。');
+      }
+      if (current.ephemeral || !current.pending && !current.staged && unsaved.current?.key !== key) return;
+      return { ...current.address, reason: current.conflicted ? 'conflict' : current.failedRead ? 'read_failed'
+        : current.failedSave ? 'save_failed' : 'pending' };
     };
-    pending.add(current.flush);
+    pending.add(current);
     current.reading = window.zaichang.readProgramLocalState(source).then(result => {
       current.revision = result.stateRevision; current.ephemeral = result.status === 'ephemeral';
       if (result.inputs) {
@@ -89,7 +123,11 @@ export function useProgramLocalState(key: string, program: InteractiveProgramDoc
       if (current.active) setIssue('这次没能接回这页保存的调整，眼前的变化还在。');
     });
     return () => {
-      current.active = false; void current.flush().finally(() => pending.delete(current.flush));
+      current.active = false;
+      // Explicit retry/conflict resolution starts a new reader below. Do not
+      // also retry the retired failed writer against that same revision.
+      if (current.failedRead || current.failedSave || current.conflicted) pending.delete(current);
+      else void current.flush().finally(() => pending.delete(current));
       if (writer.current === current) writer.current = undefined;
     };
   }, [key, program?.hash, admitted, address?.privacyEpoch, address?.policyRevision, address?.ephemeral, readAttempt]);

@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-10-25T03:11:46.614198+00:00",
+  "bundles": [
+    {
+      "character": "sakiko",
+      "activity": "resume",
+      "palette": "mist",
+      "mother": {
+        "file": "sakiko-resume-mist-mother-v1.png",
+        "sha256": "2c89eaf224cf1032049e533ebf0879098a1ea7eeb8e6db1fdac00652b772063f",
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      },
+      "background": {
+        "file": "sakiko-resume-mist-background-v1.png",
+        "sha256": "30ceb812334cbd0fdc894e95756d8eea7009ba56dc6c2672840e71f9d5978676",
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      },
+      "mask": {
+        "file": "sakiko-resume-mist-mask-v1.png",
+        "sha256": "e3e95f8e07f7fe5e1357520d0b20d83b491186ae663fa6a82b45e38219df0828",
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      },
+      "maskMode": "luminance",
+      "shadow": {
+        "file": "sakiko-resume-mist-contact-mask-v1.png",
+        "sha256": "2e9198b3bcf81f670363a3a7ad5c0e7665ea4df8ae03f85b2f89e8a11f06d0b7",
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      },
+      "shadowMode": "luminance",
+      "shadowColor": "#291c16",
+      "shadowOpacity": 0.48,
+      "travel": 0,
+      "source": "sakiko-resume-mist-v1-source.json",
+      "production": "theme-layer-production.json",
+      "fixedPreview": "resume-mist-layers-v1-preview.html",
+      "motherApprovedByPrimary": true,
+      "approvedByPrimary": false,
+      "runtimeAccepted": false,
+      "scope": "original position only; each role uses this theme's own source, never apricot layers"
+    },
+    {
+      "character": "sakiko",
+      "activity": "resume",
+      "palette": "violet",
+      "mother": {
+        "file": "sakiko-resume-violet-mother-v1.png",
+        "sha256": "8cecb9f7025665577e3179abf28f92ca4d9477a41c9b156918faaa17c5430ff4",
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      },
+      "background": {
+        "file": "sakiko-resume-violet-background-v1.png",
+        "sha256": "5463752a0e7691b7aed6a8997cb84daadda9435fad48474fbde58e0cb7e018d0",
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      },
+      "mask": {
+        "file": "sakiko-resume-violet-mask-v1.png",
+        "sha256": "57f852669fae44d784cf01e0f43d69b4580eb6008c7c20952b893d8cd6740aeb",
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      },
+      "maskMode": "luminance",
+      "shadow": {
+        "file": "sakiko-resume-violet-contact-mask-v1.png",
+        "sha256": "293dc94ed9d800bfe92a994403ecd04d387744e0c5a0fcb7e4ec490fe9d0864e",
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      },
+      "shadowMode": "luminance",
+      "shadowColor": "#291c16",
+      "shadowOpacity": 0.48,
+      "travel": 0,
+      "source": "sakiko-resume-violet-v1-source.json",
+      "production": "theme-layer-production.json",
+      "fixedPreview": "resume-violet-layers-v1-preview.html",
+      "motherApprovedByPrimary": true,
+      "approvedByPrimary": false,
+      "runtimeAccepted": false,
+      "scope": "original position only; each role uses this theme's own source, never apricot layers"
+    },
+    {
+      "character": "sakiko",
+      "activity": "resume",
+      "palette": "rain",
+      "mother": {
+        "file": "sakiko-resume-rain-mother-v1.png",
+        "sha256": "eaac28cd65add943d09cf304afca0f77a4835a3e755092b11be4a07dc0501ea0",
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      },
+      "background": {
+        "file": "sakiko-resume-rain-background-v1.png",
+        "sha256": "3740e805592f96e2bce1d6984b8303d593a1f1afece27ae7cf15716e564fdf18",
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      },
+      "mask": {
+        "file": "sakiko-resume-rain-mask-v1-tight.png",
+        "sha256": "76dae400f79286fae13891f667f16169a3d44e2a8a4d16b09ba56734755d4d40",
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      },
+      "maskMode": "luminance",
+      "shadow": {
+        "file": "sakiko-resume-rain-contact-mask-v1.png",
+        "sha256": "0855ff771855f13e9e9c0d0fc71335ed8c9251279e97ec0b6cd0fba71b79f28e",
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      },
+      "shadowMode": "luminance",
+      "shadowColor": "#291c16",
+      "shadowOpacity": 0.48,
+      "travel": 0,
+      "source": "sakiko-resume-rain-v1-source.json",
+      "production": "theme-layer-production.json",
+      "fixedPreview": "resume-rain-layers-v1-preview.html",
+      "motherApprovedByPrimary": true,
+      "approvedByPrimary": false,
+      "runtimeAccepted": false,
+      "scope": "original position only; each role uses this theme's own source, never apricot layers"
+    }
+  ]
+}

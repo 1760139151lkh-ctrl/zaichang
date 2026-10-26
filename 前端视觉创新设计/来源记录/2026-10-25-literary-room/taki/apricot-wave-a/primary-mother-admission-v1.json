@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "characterId": "taki",
+  "reviewedOn": "2026-10-25",
+  "reviewer": "root primary agent",
+  "evidence": "Direct primary-agent message confirming personal inspection of all six complete original mother images.",
+  "decision": "approved",
+  "scope": "Exact-SHA static mothers only",
+  "commonObservation": "Original close camera and large room furnishings stable, original human scale retained, complete knees/legs/shoes and seated support accepted.",
+  "entries": [
+    {
+      "assetId": "taki-reading-apricot-literary-v1",
+      "file": "taki-reading-apricot-literary-v1.png",
+      "sha256": "d449a8bab393b75f13a247615d69b778e7ce88839d421b47ed7759aa8b6fe9dc",
+      "bytes": 2447883,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "decision": "approved-static-mother-only",
+      "observation": "Reads clear page with separated hair/eyes and a page-retaining hand."
+    },
+    {
+      "assetId": "taki-planning-apricot-literary-v1",
+      "file": "taki-planning-apricot-literary-v1.png",
+      "sha256": "1f34dd07951af867f0041a1d492f7d4f93a3f9769441373f85e944936b01df1e",
+      "bytes": 2439872,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "decision": "approved-static-mother-only",
+      "observation": "Independent visible hands and finger on notebook page. Gold-brown spine-side line lies against notebook; could be binding or another pencil. No claim that there is only one pencil; not a floating structural fault."
+    },
+    {
+      "assetId": "taki-rest-apricot-literary-v1",
+      "file": "taki-rest-apricot-literary-v1.png",
+      "sha256": "d4f8289259d5797c27aebac314b124123e7f4b6a5964124f2378b954551f9c61",
+      "bytes": 2426971,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "decision": "approved-static-mother-only",
+      "observation": "Hand/seat support with book beside her and quiet gaze away from work."
+    }
+  ],
+  "layerApproved": false,
+  "runtimeAccepted": false
+}

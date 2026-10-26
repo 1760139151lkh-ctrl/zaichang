@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "assetType": "apricot-chat-original-visible-foreground-luminance-selection-F",
+  "id": "figure-mask-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "figure-mask-v1.prompt.json",
+  "promptFileSha256": "fb7af2cdef047d6eb39359d37c69dd459c2a5ea67f9af7d4bbcb19a20edf7f09",
+  "submittedPrompt": "Use case: precise-object-edit. STEP2 COMPLETE original-position foreground luminance mask.\nImage1 is the ONLY full1536x1024 input. The original seated apricot-chat girl is already filled flat WHITE in her original room. Preserve EVERY existing original white person pixel, full contour, apparent scale and pose exactly. This is local environment color conversion, not a new silhouette drawing.\nKeep all existing white foreground completely opaque WHITE: fine long hair/ribbons, face/neck, collar/blouse/cardigan/sleeves, both whole clasped hands/fingers on lap, every original plaid-skirt pleat/hem/outward tip and fine dark lower edging, both thighs/knees, whole socks and BOTH complete loafers. Retain all actual outsole rims, toe tips, heel walls/blocks and bottom contours. Do not shave dark source edges or classify the white marked hem/sole pixels as room shadow. Fill faint internal eye/clothing/lace lines white without changing any outer boundary; white person interior has no accidental holes.\nTurn ONLY the remaining COLORED ENVIRONMENT solid PURE BLACK: cushion/pillows/throw, side-table/lamp/cup/books/flowers, room desk/chair/shelves/plants, curtains/window/lake/town/hills, floor/rug, sunlight and independent room/cast shadows. Naturally bright curtains/clouds/linen are background and become black. Real original room gaps between hair/limbs/fingers remain black; do not fill actual background or infer hidden anatomy.\nNo crop, zoom, move, resize, recenter, repose, erosion or new glow/shadow. Keep full original1536x1024 registration and all head/seat/shoe positions as already marked. Output ONE opaque grayscale RGB black canvas with only that unchanged COMPLETE original white person; narrow original outer antialias gray only. No room color/texture, text/UI/label/grid/border/watermark/checkerboard/transparency.",
+  "submittedPromptSha256Utf8NoTrailingLF": "73322ac5b9402ddcb7fae568b32281d8bf2665f19462b58a616caf40b23d321a",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/figure-marked-v1.png",
+      "sha256": "adc42fb233aed7bd6a8c781330816a70b3798ecacf72edd3cb2877d9645a0f82",
+      "role": "sole exact original-room white-person intermediate; room-to-black only, original person contour retained"
+    }
+  ],
+  "output": {
+    "file": "figure-mask-v1.png",
+    "sha256": "976e6a52af3fd9fd8b8ef9a7a017cddb37fec6ebae961256c5b1134ad0cba59d",
+    "bytes": 470866,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-66f2f129-4004-4508-b1d7-a30f67f51552.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": true,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "primaryLayerApprovalRecord": "sakiko-chat-apricot-literary-included-primary-admission-v1.json",
+    "primaryLayerApprovalScope": "Exact fixed-source MAX included only, all motion0; runtime remains false."
+  },
+  "status": "producer-viewed-original-output-included-chat-candidate-primary-pending",
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "activity": "chat",
+  "palette": "apricot",
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "fullImageResultRetainedInStore": false
+}

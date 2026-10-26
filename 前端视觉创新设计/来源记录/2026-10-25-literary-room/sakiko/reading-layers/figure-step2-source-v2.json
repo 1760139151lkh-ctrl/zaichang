@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "role": "repair-round2-figure-step2-luminance-mask",
+  "repairRound": 2,
+  "roundCallNumber": 2,
+  "roundCallLimit": 2,
+  "totalImageGenCallNumber": 6,
+  "tool": "built-in image_gen.imagegen",
+  "prompt": "Use case: background-extraction.\nAsset type: COMPLETE foreground luminance mask, repair round 2 STEP 2.\nImage 1 is the ONLY input: the correct 1536x1024 mother with the ENTIRE original girl plus held open book already painted white, including all folded skirt hem, fine dark lower clothing trim and complete shoe soles/heel blocks.\nKeep EVERY EXISTING WHITE FOREGROUND PIXEL at exactly its current original source coordinates and keep its full contour. Change ONLY the remaining colored environment to pure BLACK. This is an in-place background conversion, not a new silhouette drawing. No crop, zoom, move, resize, centering, pose change, contraction or erosion.\nThe whole PLAID SKIRT LOWER EDGE, every outward-folded hem tip, and the THIN BLACK/DARK BLUE SKIRT TRIM belong to the white foreground. Do not cut them off as if they were a seat shadow. Preserve all existing white coverage at that edge, including its antialiased perimeter.\nBOTH loafers must stay wholly white: toe tips, uppers, every dark sole rim, full bottom contour, back/side heel walls and the complete heel blocks. Do not classify any dark shoe edge as independent floor shadow or shrink the white soles. Keep the original gap between the shoes only where actual background exists.\nAll hair strands/ribbons, face/neck, sleeves, both complete hands/fingers, ALL covers and pages of the held open book, thighs/knees and both socks remain completely white as already selected. White interiors are solid with no facial eye holes or garment linework. Grey only on thin original outer antialias edges.\nThe linen cushion, plaid pillows, knitted throw, window, lamp, side table, desk, shelves, natural room highlights, floor/rug and all independent room/cast shadows become BLACK. Do not enlarge the white object into those surroundings, and do not add any new figure/shadow.\nOutput exactly ONE opaque 1536x1024 black PNG canvas with this unchanged FULL original-position white foreground. No colored room, checkerboard, labels, arrows, rectangles, grid or text.",
+  "input": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-step1-marked-v2.png",
+    "sha256": "aa4c1536d5835f1f566e8307f303a12edac042b3c46374e55ec9f9da4c19fa83",
+    "role": "sole fresh round2 full-foreground white-marked derivative",
+    "originalMotherSha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+    "noOldFOrSInput": true
+  },
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-mask-v2.png",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17125-a57d-70f3-9b8f-9ecfd8cef13e\\exec-c4813114-ba5f-46bc-a740-f1e28aa1124a.png",
+    "executionId": "exec-c4813114-ba5f-46bc-a740-f1e28aa1124a",
+    "sha256": "0561235343377c9d760d4aab0a95e197c01904ff1dd9fefab53dd66f0ea7a11d",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 452243,
+    "toolOriginalLastWriteTimeUtc": "2026-10-25T09:06:47.5334476Z"
+  },
+  "primary": false,
+  "runtime": false,
+  "status": "saved_visually_inspected_not_admitted",
+  "rgbUse": "Unchanged original mother RGB only, directly through unmodified generated luminance mask; no PNG editing.",
+  "inspection": "Original-RGB old/new light/dark and hem/heel comparisons viewed. Effective S after new-F subtraction retains heel-shaped dark fringe and unresolved seat-edge ownership. Candidate not admitted.",
+  "authoritativeBundle": "reading-layers-bundle-v2.json"
+}

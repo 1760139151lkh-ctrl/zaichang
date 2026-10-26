@@ -1,0 +1,10 @@
+Use case: background-extraction.
+Asset type: a single production RGBA component for an interruptible 2D character rig, full original canvas.
+
+Input image 1 is the approved edit target. Extract ONLY Sakiko's anatomical RIGHT arm, the arm on the image-left side of her torso, from its shoulder/sleeve seam down through the elbow, wrist, and the natural hand resting on the blue book on her lap. This is the arm whose hand touches the book near original canvas coordinate (1248, 524). The other arm at the far image-right supporting her on the bench must NOT be included.
+
+Preserve the exact 1536 by 1024 canvas, original scale, and original absolute position. Do not crop, recenter, enlarge, mirror, rotate, repaint the pose, or change the sleeve shape, lighting, skin tone, wrist, fingers, or book-contact hand shape. The shoulder join remains near (1240, 430), elbow near (1234, 490), wrist near (1247, 513). Keep the tiny hand and sleeve details legible at their existing size. Retain a small natural overlap at the shoulder seam so the rig can join under the torso/front hair.
+
+Make EVERYTHING ELSE genuinely transparent: no room, no other body parts, no head or hair, no torso, no skirt, no legs, no bench, and no book. The book itself belongs to a separate stationary layer; preserve the existing flattened contact shape of the fingers, not a hovering or gripping redesign. Skin and sleeve must form one continuous anatomically sound arm, with the original hand shape.
+
+This is a faithful local extraction, not a new character illustration or alternate pose. No checkerboard painted into pixels, no text, no border, no shadow outside the extracted arm. Output a real transparent PNG component on the full original canvas.

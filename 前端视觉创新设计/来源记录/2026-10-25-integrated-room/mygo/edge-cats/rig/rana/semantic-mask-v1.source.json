@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-ff3e91bf-7661-4a4d-b0a6-2ca7b684d1e3.png",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mygo\\edge-cats\\rana-edge-meme-cat-v1.png",
+      "sha256": "9fb3fb07c6dd85e3d5657e9da51c415449bc91bd90f7a057ae1ca805f90bc28f",
+      "role": "Only character source; source-local RGB/identity authority"
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": ".agents\\skills\\zaichang-frontend-director\\references\\characters\\rana.md",
+      "sha256": "d39286e83289d7c67222428a139b8650ff9f60a0e78e49c0a8393b3079f2e892",
+      "scope": "Full relevant text read before each generation call in this production turn"
+    },
+    {
+      "path": ".agents\\skills\\zaichang-frontend-director\\references\\character-art-direction.md",
+      "sha256": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840",
+      "scope": "Full relevant text read before each generation call in this production turn"
+    }
+  ],
+  "promptFile": "semantic-mask-v1.prompt.txt",
+  "submittedPromptSha256": "e1eaed6067183434c754e9c9479c53c59f814e968ded515419d72f9bec97a89c",
+  "output": {
+    "file": "semantic-mask-v1.png",
+    "sha256": "3de3ede6833215999db0a7ad8df7326c65b1980209ce0403b4dbb43df4d2ab1e",
+    "bytes": 743006,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "alphaBounds": null
+  },
+  "labels": {
+    "white": "all actual opaque head/body/paws and touching/held prop, including original ink",
+    "red": "actual tail including original ink",
+    "black": "background/open gaps/glow"
+  },
+  "review": "Semantic identity only. Native-alpha original contours and asset-specific body arc calibrate precise source-RGB layer ownership. No mask black facial line is treated as true transparent face.",
+  "primaryApproved": false,
+  "runtimeAccepted": false
+}

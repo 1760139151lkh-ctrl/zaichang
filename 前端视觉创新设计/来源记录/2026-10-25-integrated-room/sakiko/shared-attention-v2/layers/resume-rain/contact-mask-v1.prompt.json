@@ -1,0 +1,9 @@
+{
+  "tool": "image_gen.imagegen",
+  "prompt": "Technical black-and-white material-selection matte for a peaceful illustrated reading room, with no narrative change. This is ordinary image compositing, not a new scene. Image 1 is the exact same-canvas room with small cushion/floor contact areas deliberately painted flat white. Image 2 is its clean original only to distinguish those marks from natural pale fabric.\n\nKeep only the actual deliberate white cushion and floor marks from image 1 white, unchanged at their original positions; preserve their real soft grey edge. Convert every remaining colored or naturally bright scene pixel to black. The selected floor wraps outside the pair of complete shoes; the shoes themselves remain entirely black negative space. The colored seated reader, book, furniture, long empty bench, windows/lamps/curtains, rug and unmarked floor are all black. Do not select naturally pale linen or lamp highlights. Include every genuine small marked cushion-contact fragment, but no broad empty seat. Do not add shape, outline, rectangle, oval, image detail or new lighting.\n\nOutput one opaque 1536x1024 grayscale PNG: black field, only the existing local cushion/floor material marks white with their original grey antialias/soft falloff. Preserve exact camera, coordinates and dimensions. No color, text, symbols, graphic narrative, new objects, crop, zoom, resize or movement. This matte is used at one fixed position with the original room's unchanged RGB, not as a movable shadow.",
+  "referenced_image_paths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-rain/contact-step1-marked-v1.png",
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.png"
+  ],
+  "transparent_background": false
+}

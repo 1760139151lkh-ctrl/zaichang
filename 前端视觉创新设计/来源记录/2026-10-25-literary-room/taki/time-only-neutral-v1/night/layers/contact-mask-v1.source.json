@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "characterId": "taki",
+  "neutralTime": "night",
+  "purpose": "neutral-presence-fixed-included-layer",
+  "kind": "included-contact-luminance-mask-S",
+  "createdAt": "2026-10-26T01:09:05.501955+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "exactPromptFile": "contact-mask-v1.prompt.txt",
+  "promptSha256": "2b8751b706f9de71158ef2c656d05068ecde79b298382fa6f3d92c46004443a8",
+  "requestFile": "contact-mask-v1.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/night/layers/contact-step1-marked-v1.png",
+      "sha256": "8a2863c8812e3c78d0b957740973f4485a1e7c90eca0eb23bc27090ca37d5c1b",
+      "role": "sole personally checked healthy S1 contact markup; exact same benign prompt after local output rejection"
+    }
+  ],
+  "output": {
+    "file": "contact-mask-v1.png",
+    "sha256": "a4c080c247aa1470ba13a5583d0cbb3233c6275e894fffca92a7be52da09d5d5",
+    "bytes": 307355,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "originalBasename": "exec-db201a69-8f6d-4e6c-973e-294d7500ec95.png",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteOutput": true,
+    "observations": [
+      "Separate small seat and floor contact groups preserved with soft outside falloff.",
+      "No unrelated person or room selected; final fixed composition still requires native browser inspection."
+    ],
+    "eligibleAsNextStepInput": true
+  },
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "countsToward360ExactActivities": false,
+  "pngPixelEditing": false,
+  "primaryStaticLayerApproved": true,
+  "primaryAdmissionRecord": "root-primary-layer-admission-v1.json",
+  "primaryApprovalScope": "Exact static fixed included layer in this same source canvas; no runtime, motion or activity360 acceptance"
+}

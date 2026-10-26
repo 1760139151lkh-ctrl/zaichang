@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-canvas-independent-contact-shadow-luminance-mask",
+  "id": "sakiko-chat-dry-night-contact-shadow-mask-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-chat-dry-night-contact-shadow-mask-v1.prompt.json",
+  "promptFileSha256": "d8a25d6071495abda1bcae774668a4ff427c67194b40ff14c37b579737bdfe5f",
+  "submittedPrompt": "Use case: precise-object-edit. Asset: independent CONTACT-SHADOW OPACITY MASK for the unchanged full original 1536 x 1024 canvas. Not a room image or person silhouette.\nImage 1 is the exact approved complete DRY NIGHT mother and sole source-coordinate authority. Image 2 is its matching extracted empty background, used only to distinguish person contact shadows from ordinary room/furniture shadows. Keep every contact at its original position; no enlargement, translation, crop, zoom, recentering or invented geometry.\nOutput opaque grayscale RGB: pure BLACK everywhere except the girl's actual modest contact/cast shadows at (a) narrow cushion occlusion under seated hip/skirt edge, (b) tiny cushion-contact darkness beneath the supporting right palm/fingers, and (c) immediate shoe-floor contact and short soft cast shadow adjoining BOTH worn loafers. At those exact original source pixels encode darkest real contact cores WHITE and naturally fading edges soft GRAY. Mask brightness means shadow opacity. Use the real directions and source contours under the warm desk lamp and cool nighttime fill; no generic detached ellipse or arbitrary broad oval.\nThe girl herself and her hair, clothes, skin, held lap book, hands, socks and shoes must all be BLACK. Every furniture part, cushion/blanket, floor/wood grain, window and normal bench/desk/chair shadow is BLACK. No colored mother RGB, whole cushion rectangle, floor patch, person ghost, white shoes, shoe highlights, distant shadow or stain.\nHips and right palm are at the existing bench seat around y590; two worn soles around y775..780. These are only source position guides. Keep complete 1536 x 1024 original frame, black field and only real independent contact footprints, narrow smooth natural fades. No room glow, rain/wet effects, sunlight, UI, words, labels, outlines, watermark, border, grid or transparency.",
+  "submittedPromptSha256Utf8NoTrailingLF": "71acafbc83648fe61f4a2820243479652228f88cc06f382e8e5ea97a970844f9",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-dry-night-mother-v1.png",
+      "sha256": "894ea7803e258c79792110d32d9e1ece3f1551d75b0d6f4746ca09065ef296f9",
+      "role": "exact complete dry-night mother source-coordinate authority"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-dry-night-background-v1.png",
+      "sha256": "f2a854d9fdea993e10cb6bc8b8758bd89d275db2b119f1367cb2bd829f32b4a8",
+      "role": "matching empty room; distinguishes girl contacts from furniture shadows"
+    }
+  ],
+  "output": {
+    "file": "sakiko-chat-dry-night-contact-shadow-mask-v1.png",
+    "sha256": "8d18bd24c16bbd1d5646140c0709c6b880e52877dda77de18719c99eab20b940",
+    "bytes": 326463,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-cfcb57ed-534f-4e40-b916-e1edca83cf9a.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": true,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observationBoundary": "Producer directly viewed full original PNG output only. Root native original-RGB recomposition review pending; no runtime or movement acceptance.",
+    "primaryNativeCompositeViewed": true,
+    "primaryLayerApprovalRecord": "sakiko-chat-dry-night-primary-layer-approval-v1.json",
+    "primaryLayerApprovalScope": "Exact-SHA original-position static same-canvas layers only; runtime independent"
+  },
+  "status": "primary-admitted-original-position-static-layer-runtime-separate",
+  "maskMode": "luminance"
+}

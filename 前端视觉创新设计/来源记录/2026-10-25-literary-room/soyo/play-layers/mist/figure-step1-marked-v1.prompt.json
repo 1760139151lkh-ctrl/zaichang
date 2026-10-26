@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-play-mist-f1-v1",
+  "submittedPrompt": "Use case: precise-object-edit. Asset: F1 full-canvas white figure-and-prop selection markup for an unchanged original-RGB included layer. The sole input is the approved clean Soyo play mist mother, exactly 1536x1024. Keep its entire canvas, camera, furniture and environment unchanged in their original colors and positions; do not redraw or improve the person. Replace ONLY the complete original girl plus her complete lap-supported OPEN drawing book and the single real pencil with perfectly solid pure WHITE selection shapes. Preserve the exact outer silhouettes and source coordinates, including fine trailing hair strands, every finger, hands, the gray-blue cloth bow, her left-chest gold school crest, navy pleated hem with double white lines, bare knees, below-knee socks, all heels/soles and both entire brown loafers. The open book is a full physical page block: include both whole visible page faces, every page edge, spine/binding and lower cover thickness without holes or shaved white pages. The ONLY real pencil runs approximately from x861,y434 down to its actual tip near x909,y497. Include its full thin shaft, its visible upper end, every segment around the gripping fingers and the lower tip as one exact white prop; do not omit it because it is thin or confuse it with hair. White denotes selected opaque source pixels; no interior illustration lines, facial features or page drawings remain within the selected figure/book/pencil. All original environment, linen cushion, bench, floor, rug and existing cast/contact shadows stay colored and unselected. Do not include a pillow, empty cushion, room highlight or shoe shadow in F. Preserve original small gaps between hair/fingers/props where they show background; do not fuse them with filled background. No crop, resizing, recentering, scaling, checkerboard, transparency, labels or arrows. Output one opaque full-color 1536x1024 PNG: the exact scene with only its complete figure/open book/single pencil deliberately pure white. This is selection markup only, not replacement RGB or a new pose.",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-play-mist-literary-v2.png"
+  ],
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-play-mist-literary-v2.png",
+      "sha256": "0d6df59d4ade1ff32688d2f9618ca7a42ef7ff4d1ec8fb6c45cebfe80ac7d106",
+      "bytes": 2474859
+    }
+  ],
+  "transparentBackground": false
+}

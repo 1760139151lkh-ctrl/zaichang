@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "anon-chat-apricot-white-shadow-in-room-v1",
+  "assetType": "same-canvas-white-contact-shadows-in-original-room",
+  "createdAtUtc": "2026-10-25T06:50:00.998054+00:00",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "submittedPrompt": "Use case: precise-object-edit. STEP 1 of same-canvas contact-shadow extraction. Image 1 is the ONLY input and unchanged full 1536 x 1024 original Anon chat room.\nKeep the original room, the complete original girl, camera, furniture, all colors and every coordinate unchanged. Do not remove or redraw the girl. In that same original colored image, fill only the girl's REAL independent contact/cast shadows on the room surfaces SOLID PURE WHITE: the narrow cushion darkness directly under her seated skirt/hip, the tiny supporting-palm contact on the cushion, and especially the immediate floor-contact darkness and short adjoining soft shadow UNDER BOTH loafers. The girl/hair/hands/clothes/socks/shoes themselves keep their original RGB; do not paint a white person or white footwear.\nUse the actual source footprints, not a generic ellipse or guessed shoe location. Source ground guide points are just BELOW the existing soles: left shoe contact passes near (1155,787),(1165,788),(1175,787),(1185,781); right shoe contact passes near (1205,800),(1215,802),(1225,802),(1235,800),(1245,797),(1255,787),(1265,787). The small source cast shadow continues naturally around these cores; preserve its real direction and soft extent. These are actual room-floor positions, not permission to shift either shoe or invent a shadow elsewhere. A white area INSIDE a shoe would be wrong: select only the floor/cushion shadow outside the body.\nKeep unrelated window-grid light and furniture shadows unchanged in original color. Do not make a whole floor patch, whole cushion, detached oval, broad gray room or empty black backdrop. Keep actual toes, heels and soles unchanged, so they remain visible above the selected white floor-contact marks at precisely the source position. Hip/palm shadow guides are around x1295..1400/y585..600 and x1410..1445/y584..592 respectively.\nReturn the same original full room with ONLY these existing support-surface shadow areas painted white at their exact source pixels, brightest opaque white in contact cores and a very narrow antialiased boundary. No labels, borders, grid, text, crop, zoom, transparency or checkerboard. Opaque RGB PNG exactly 1536x1024.",
+  "submittedPromptSha256Utf8NoTrailingLF": "98a1e5288a66fa14e8e7a79a7c5ffdb14264f48b67fc6f754db64380fb990a2a",
+  "promptFile": "anon-chat-apricot-white-shadow-in-room-v1.prompt.json",
+  "promptFileSha256": "4cf769c003ac5e493ab4f4eb0daffed24b79059c6d9536a9547e9f9ad0bca64e",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-chat-apricot-mother-candidate-v1.png",
+      "sha256": "99c8acd4c2b875659afc9471b3c020219d394aae025cba2f164daf47babb5986",
+      "role": "sole approved original mother; no rejected mask supplied"
+    }
+  ],
+  "mother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-chat-apricot-mother-candidate-v1.png",
+    "sha256": "99c8acd4c2b875659afc9471b3c020219d394aae025cba2f164daf47babb5986"
+  },
+  "output": {
+    "file": "anon-chat-apricot-white-shadow-in-room-v1.png",
+    "sha256": "42b6d4da78b7f55843146aa9f01bce66aa944e6c474cece7042af0460d1710ed",
+    "bytes": 2109019,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-ea2d5e6a-26ad-4f6a-bd0d-bb197b399523.png",
+    "originalEvent": "exec-ea2d5e6a-26ad-4f6a-bd0d-bb197b399523"
+  },
+  "transparentBackground": false,
+  "review": {
+    "primaryLayerApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "personallyViewed": true
+  },
+  "status": "production-intermediate-personally-inspected",
+  "producerRuntime": {
+    "model": "gpt-6.1-sol",
+    "effort": "ultra",
+    "turnId": "01a171c1-2501-76c3-8a23-286d375357f7"
+  }
+}

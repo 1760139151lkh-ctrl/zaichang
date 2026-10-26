@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "id": "umiri-chat-apricot-literary-v2",
+  "sceneFamily": "literary-room-v1",
+  "character": "umiri",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "width": 1536,
+  "height": 1024,
+  "mother": "umiri-chat-apricot-literary-mother-v2.png",
+  "background": "literary-room-clear-day-v1.png",
+  "mask": "umiri-chat-apricot-literary-v2-figure-mask-v1.png",
+  "maskMode": "luminance",
+  "contactMask": "umiri-chat-apricot-literary-v2-contact-mask-v1.png",
+  "seat": [
+    0.7259114583333334,
+    0.556640625
+  ],
+  "ground": [
+    0.6302083333333334,
+    0.88671875
+  ],
+  "bodyBounds": [
+    0.5481770833333334,
+    0.126953125,
+    0.8268229166666666,
+    0.8916015625
+  ],
+  "safeTextBoundary": 0.5281770833333334,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "54.817708333333336% 12.6953125%, 82.68229166666666% 12.6953125%, 82.68229166666666% 89.16015625%, 54.817708333333336% 89.16015625%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/umiri-chat-apricot-joint-primary-admission-v1.json",
+    "geometryRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/chat-included-scene-proposal-v1.scene.json",
+    "geometryStatus": "Actual v2 mother personally viewed; own visible palm/cushion and boot-floor references. Parallel leg/boot source replaces held v1, which is not a runtime source.",
+    "geometryEvidence": {
+      "bodyEnvelope": [
+        0.5481770833333334,
+        0.126953125,
+        0.8268229166666666,
+        0.8916015625
+      ],
+      "FWholeCoverageDominantPixelBBox": [
+        848,
+        130,
+        1256,
+        909
+      ],
+      "receiverCoverageDominantPixelBBox": [
+        822,
+        526,
+        1282,
+        924
+      ],
+      "readOnlyMeasurement": "fixed >=0.5 luminance for metadata only; original PNG/native continuous mask unchanged",
+      "supportReference": "visible source receiving surface and visible boot soles, not unseen hip joints or movable support certification"
+    },
+    "runtimeSourceSha256": {
+      "mother": "b54800a320a163629dba745183efa63d18a83aa1ae19ba0f9382fdb546b12844",
+      "background": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "F": "45e143667fdcba8dc0a09a521bf2f579eba2d11946bb987068ee0646980e19d6",
+      "S": "5123edf75d3c989f9a463d558ccd2989e574c6c1d165a4a65853749e33e55a02"
+    },
+    "layerReview": "root approved exact original RGB once through MAX(F,S), all motion zero; runtime pending"
+  }
+}

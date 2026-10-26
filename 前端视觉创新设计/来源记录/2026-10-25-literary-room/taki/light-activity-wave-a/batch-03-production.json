@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 1,
+  "characterId": "taki",
+  "batch": 3,
+  "totalWaveCap": 24,
+  "completedCalls": 6,
+  "callOrdinals": [
+    13,
+    14,
+    15,
+    16,
+    17,
+    18
+  ],
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "entries": [
+    {
+      "assetId": "taki-reading-mist-literary-v1",
+      "activity": "reading",
+      "palette": "mist",
+      "callOrdinal": 13,
+      "file": "taki-reading-mist-literary-v1.png",
+      "sha256": "be79a65c0cf034e7b54d6e90dde07e2169e7d23ac8420deb57c293624c141763",
+      "bytes": 2393581,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "taki-reading-mist-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-a/taki-reading-apricot-literary-v1.png",
+          "sha256": "d449a8bab393b75f13a247615d69b778e7ce88839d421b47ed7759aa8b6fe9dc",
+          "role": "image2: root-approved exact activity identity/pose/scale/support reference; original daylight not retained",
+          "primaryApprovalRecord": "../apricot-wave-a/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: low book/thigh support, outer cover hand and page-retaining finger preserve the approved rereading pose; violet eyes follow the page and remain separate from dark fringe/lids. Diffuse overcast light consistently softens paper, skin, uniform, linen and floor with no hard apricot pools. Coherent hip/seat and complete uncrossed legs/shoes, room camera/furniture stable.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "Static reading/light comparison only; primary/layer/runtime remain false."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "taki-reading-violet-literary-v1",
+      "activity": "reading",
+      "palette": "violet",
+      "callOrdinal": 14,
+      "file": "taki-reading-violet-literary-v1.png",
+      "sha256": "522f2f1d06d24ec48ca1a8959e998403d83a22d38f10140a5d80ce15b9566635",
+      "bytes": 2270140,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "taki-reading-violet-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-a/taki-reading-apricot-literary-v1.png",
+          "sha256": "d449a8bab393b75f13a247615d69b778e7ce88839d421b47ed7759aa8b6fe9dc",
+          "role": "image2: root-approved exact activity identity/pose/scale/support reference; original daylight not retained",
+          "primaryApprovalRecord": "../apricot-wave-a/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: approved page-reading/book/hand support retained, clear violet eyes with separate fringe/lids and closed concentrated mouth. Dusk outside and warm lamp/ambient fill repaint paper, skin, camel uniform, linen and floor consistently; no lower-right hard noon grid. Complete shoes/uncrossed coherent legs and hip/seat retain scale/support, major room stable.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "Localized warm knee plane remains; no radiometric/pixel-identical or primary/layer/runtime claim."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "taki-reading-rain-literary-v1",
+      "activity": "reading",
+      "palette": "rain",
+      "callOrdinal": 15,
+      "file": "taki-reading-rain-literary-v1.png",
+      "sha256": "e22dbc0d77ee7beac486f3fa4ced5e680e2d33952a103c8a4e1bf44440f53151",
+      "bytes": 2194567,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "taki-reading-rain-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-a/taki-reading-apricot-literary-v1.png",
+          "sha256": "d449a8bab393b75f13a247615d69b778e7ce88839d421b47ed7759aa8b6fe9dc",
+          "role": "image2: root-approved exact activity identity/pose/scale/support reference; original daylight not retained",
+          "primaryApprovalRecord": "../apricot-wave-a/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: same book/page-retaining/cover-hand relationships and lap support, clear downward violet eyes with separate fringe/lids. Rainy dark town/glass and warm existing-lamp treatment reach face/uniform/paper/linen/floor together, no hard noon grid or rain-imposed grief. Complete shoes, uncrossed connected legs and hip/seat support/scale preserved; room stable.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "Static rereading/light impression only; primary/layer/runtime remain false."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "taki-planning-mist-literary-v1",
+      "activity": "planning",
+      "palette": "mist",
+      "callOrdinal": 16,
+      "file": "taki-planning-mist-literary-v1.png",
+      "sha256": "da2d0cc81a7b70d8edd420c10e8d27bd865e1df6f8a34d312f9d3dd60bba0c41",
+      "bytes": 2383690,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "taki-planning-mist-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-a/taki-planning-apricot-literary-v1.png",
+          "sha256": "1f34dd07951af867f0041a1d492f7d4f93a3f9769441373f85e944936b01df1e",
+          "role": "image2: root-approved exact activity identity/pose/scale/support reference; original daylight not retained",
+          "primaryApprovalRecord": "../apricot-wave-a/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: same supported notebook, two independent visible hands/finger-on-page, pencil/binding-like details and direct questioning face retain approved actual props/pose. No claim of a single pencil. Overcast light softens paper/skin/uniform/seat/floor together, no hard apricot grid; eyes/fringe/lids clear and complete shoes/uncrossed legs/hip support stable.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "Unreadable marks are fictional design detail, not a real schedule; primary/layer/runtime remain false."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "taki-planning-violet-literary-v1",
+      "activity": "planning",
+      "palette": "violet",
+      "callOrdinal": 17,
+      "file": "taki-planning-violet-literary-v1.png",
+      "sha256": "c31f9ed2e3398e81b7ebfef4f0ceeeec6f515ca96ae5d462b8b7884f111c31db",
+      "bytes": 2274058,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "taki-planning-violet-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-a/taki-planning-apricot-literary-v1.png",
+          "sha256": "1f34dd07951af867f0041a1d492f7d4f93a3f9769441373f85e944936b01df1e",
+          "role": "image2: root-approved exact activity identity/pose/scale/support reference; original daylight not retained",
+          "primaryApprovalRecord": "../apricot-wave-a/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: same two visible hands/notebook/finger-on-page and actual pencil/binding detail; direct soft questioning eyes remain distinct from hair/lids. Continuous twilight and warm existing lamp repaint paper, camel uniform, skin/seat/floor without lower-right noon grid. Hip support, body scale, complete shoes and major room positions stable.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "No real saved arrangement or exact-pixel/radiometric proof claimed; primary/layer/runtime remain false."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "taki-planning-rain-literary-v1",
+      "activity": "planning",
+      "palette": "rain",
+      "callOrdinal": 18,
+      "file": "taki-planning-rain-literary-v1.png",
+      "sha256": "f90d563e20dbffa5f013ce2b0349114d937991d554da76af1cebb281536b40bd",
+      "bytes": 2206439,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "taki-planning-rain-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-a/taki-planning-apricot-literary-v1.png",
+          "sha256": "1f34dd07951af867f0041a1d492f7d4f93a3f9769441373f85e944936b01df1e",
+          "role": "image2: root-approved exact activity identity/pose/scale/support reference; original daylight not retained",
+          "primaryApprovalRecord": "../apricot-wave-a/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: exact activity's two visible hands/notebook/finger and pencil/binding-like detail remain supported on thighs, questioning gaze unchanged by rain. Wet dark window/town and warm existing-lamp light affect face, uniform, paper, cushion and floor together; no noon grid or forced grief. Eyes/fringe/lids clear, hip/seat and full uncrossed legs/shoes coherent at source scale.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "No actual plan/completion or measured radiometry claimed; primary/layer/runtime remain false."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "scope": "Six actual saved and personally viewed same-activity light mother candidates; root/layer/runtime approval remains separate. No layer progression or registration."
+}

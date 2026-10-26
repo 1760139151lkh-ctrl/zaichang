@@ -1,0 +1,28 @@
+{
+  "key": "anon/play/rain",
+  "tool": "built-in image_gen.imagegen",
+  "createdAtUtc": "2026-10-25T02:33:22.851Z",
+  "stage": "complete whole-scene lighting edit",
+  "file": "anon-play-rain-mother-v1.png",
+  "sha256": "ee97b2767dae00b324f238a740f3767a9152c57550ab31cbdd74addcf4ba4c81",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "originalOutputBasename": "exec-44b9e9f9-4f85-4649-89a2-40e0e72e4ca7.png",
+  "prompt": "anon-play-rain-mother-v1.prompt.txt",
+  "inputs": [
+    {
+      "file": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\anon-play-apricot-mother-candidate-v1.png",
+      "role": "approved apricot complete mother; edit target"
+    },
+    {
+      "file": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-rain-candidate-v2.png",
+      "role": "clean-room light reference only"
+    }
+  ],
+  "designerPersonallyViewed": false,
+  "primaryMotherReview": "pending_current_root_review",
+  "layers": "not_produced",
+  "runtime": "not_registered"
+}

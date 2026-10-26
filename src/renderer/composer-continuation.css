@@ -86,3 +86,92 @@
     gap: 6px;
   }
 }
+
+/* The room's writing paper keeps its warm ink at every hour. It is the
+   sole solid surface on arrival, with the same controls as the shared page. */
+.app-main:has(> .companion-scene[data-scene-family]) .composer-area:not(.is-study-writing) .composer {
+  --text: var(--room-ink);
+  --text-secondary: var(--room-ink-secondary);
+  --text-tertiary: #8a7c69;
+  --surface: var(--room-paper);
+  --surface-raised: var(--room-paper-raised);
+  --border: var(--room-paper-edge);
+  --separator: var(--room-paper-edge);
+  --accent: var(--room-paper-accent);
+  --accent-hover: #795b3c;
+  --accent-ink: #fffaf0;
+  --accent-soft: var(--room-paper-accent-soft);
+  --control-disabled-text: #aa9b87;
+  --focus: var(--room-paper-accent);
+  --wash: var(--room-paper-accent-soft);
+  color-scheme: light;
+  border: 1px solid color-mix(in srgb, var(--room-paper-edge) 72%, transparent);
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--room-paper) 97%, transparent);
+  box-shadow: 0 6px 28px #2e1c1417, 0 1px 4px #2e1c1409;
+  color: var(--text);
+  text-shadow: none;
+}
+.app-main:has(> .companion-scene[data-scene-family]) .composer-area:not(.is-study-writing) .composer:focus-within {
+  border-color: var(--room-paper-accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--room-paper-accent) 15%, transparent), 0 6px 28px #2e1c1417;
+}
+.app-main:has(> .companion-scene[data-scene-family]) .composer-area:not(.is-study-writing) .composer textarea,
+.app-main:has(> .companion-scene[data-scene-family]) .composer-area:not(.is-study-writing) .composer textarea:focus,
+.app-main:has(> .companion-scene[data-scene-family]) .composer-area:not(.is-study-writing) .composer textarea:focus-visible {
+  color: var(--room-ink);
+  background: transparent;
+  font-size: 16px;
+  line-height: 1.7;
+}
+.app-main:has(> .companion-scene[data-scene-family]) .composer-area:not(.is-study-writing) .composer textarea::placeholder { color: var(--room-ink-secondary); opacity: 1; }
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer {
+  --composer-input-row: 1;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0 12px;
+  padding: 15px 17px;
+}
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer.has-attachment { --composer-input-row: 2; row-gap: 12px; }
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer > .attachment { grid-column: 1 / -1; grid-row: 1; margin: 0; }
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer textarea {
+  grid-column: 2;
+  grid-row: var(--composer-input-row);
+  min-height: 38px;
+  padding: 5px 2px;
+}
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer-toolbar { display: contents; }
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer-left {
+  grid-column: 1;
+  grid-row: var(--composer-input-row);
+  flex-wrap: nowrap;
+  gap: 5px;
+}
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer-right { grid-column: 3; grid-row: var(--composer-input-row); }
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer-context-button:not(.selected) > span,
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer-context-button:not(.selected) > svg:last-child { display: none; }
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer-context-button { padding-inline: 4px; gap: 4px; }
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.conversation .composer { border-radius: 17px; box-shadow: 0 2px 12px #2e1c1409; }
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.conversation .composer:focus-within { box-shadow: 0 0 0 2px color-mix(in srgb, var(--room-paper-accent) 14%, transparent); }
+.app-main:has(> .companion-scene[data-scene-family]) .composer-area:not(.is-study-writing) .composer .send-button:disabled { background: var(--room-paper-accent-soft); color: var(--room-ink-secondary); }
+.app-main:has(> .companion-scene[data-scene-family]) .composer-area:not(.is-study-writing) .composer .attachment-menu { text-shadow: none; }
+@media (max-width: 600px) {
+  .app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer { padding: 12px; gap: 0 7px; border-radius: 18px; }
+  .app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer:has(.composer-context-button.selected) { grid-template-columns: minmax(0, 1fr) auto; }
+  .app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer:has(.composer-context-button.selected) textarea { grid-column: 1 / -1; grid-row: var(--composer-input-row); }
+  .app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer:has(.composer-context-button.selected) .composer-left { grid-column: 1; grid-row: calc(var(--composer-input-row) + 1); }
+  .app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer:has(.composer-context-button.selected) .composer-right { grid-column: 2; grid-row: calc(var(--composer-input-row) + 1); }
+}
+:root[data-palette='rain'] .app-main:has(> .companion-scene[data-scene-family]) .workspace.conversation .composer-area:not(.is-study-writing) .composer {
+  --accent-ink: #302114;
+  --accent-hover: #f0cf92;
+  color-scheme: dark;
+  border-color: color-mix(in srgb, var(--room-paper-edge) 58%, transparent);
+  background: color-mix(in srgb, var(--room-paper) 84%, transparent);
+  box-shadow: inset 0 1px 0 #f6d69c08;
+}
+:root[data-palette='rain'] .app-main:has(> .companion-scene[data-scene-family]) .workspace.conversation .composer-area:not(.is-study-writing) .composer:focus-within {
+  border-color: var(--room-paper-accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--room-paper-accent) 13%, transparent);
+}

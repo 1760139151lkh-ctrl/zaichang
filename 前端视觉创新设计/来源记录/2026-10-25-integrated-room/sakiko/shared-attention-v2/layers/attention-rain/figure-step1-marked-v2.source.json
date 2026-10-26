@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "cell": "sakiko/attention/rain",
+  "character": "sakiko",
+  "activity": "attention",
+  "palette": "rain",
+  "stage": "F1-solid-interior-cleanup",
+  "assetType": "raw-Image-source-selection-mask-or-markup",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Precise selection-mark cleanup, NOT a new illustration. The sole input is the verified original-position F1 markup: a colored room with one connected, deliberately WHITE foreground silhouette. Keep this full 1536x1024 image and the exact current exterior white silhouette and all colored room pixels unchanged.\n\nMake the interior of the already-white foreground COMPLETELY SOLID PURE WHITE. Erase ALL faint grey inner strokes by overpainting them white, especially the long curved grey stroke near the middle-lower white shape around x1000..1150,y505..535, the small upper white hand strokes, and faint shoe/garment strokes near the bottom. These are interior marks, NOT holes or exterior boundaries. Do not preserve an outline between parts of the same selected white foreground. The entire head/body/held-object/hands/legs/shoes white region must be one featureless filled white selection with no internal line drawing at all.\n\nDo not alter the exterior selection boundary, do not expand into the colored background, and keep true colored gaps between strands and legs unchanged. No size/position/camera change, extra point or new edge. All original colored room regions remain original colored, with no relighting, geometry repair, filter, new object or white receiver marks. This is only clearing lines INSIDE the existing intentional white selected region, not turning the scene black yet.\n\nOutput ONE opaque exact 1536x1024 PNG: the same original colored F1 scene, same-coordinate white foreground, now fully solid white inside and no interior grey/black lines. No text/grid/arrows/UI/labels, crop/zoom/resize/translation or recreated human art.",
+  "submittedPromptSha256": "f7b301918bafa65e5b935d83e2c94bda34b02cffff9547f63207181a57bdf5af",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-rain/figure-step1-marked-v1.png",
+      "sha256": "d4fd3d05d2acb5206b81808e6212859dd4b748010c11007ca58338a81ac3d48b",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    }
+  ],
+  "originalRgbOwner": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.png",
+    "sha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac",
+    "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.source.json",
+    "sourceRecordSha256": "c569c6ae9ac68037fcf95b4d8497bd40369d5576fae1ac0c8c250ae46fe3ebec",
+    "rootMotherStaticReview": {
+      "status": "approved_static_mother",
+      "reviewer": "root",
+      "observed": "Root inspected whole actual output: rain-night room now has local lamp pools and dark wood/reflections without daylight window-grid patches. Youthful gold eyes/blue-purple hair, visible book-page finger contact, physical seated support, two uncovered knees/dark calf socks and complete grounded shoes. Bow is a darker cloth variant of project wardrobe, not asserted official."
+    }
+  },
+  "method": "Actual Image same-mother F1/F2 or S1/S2 chain. F is whole human/ribbons/hands/held book/clothing/knees/calf socks/complete shoes. S includes real source-local seat and full soft grounded floor receiver, not just sole line; original RGB MAX(F,S) drawn once only.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\sakiko\\shared-attention-v2\\layers\\attention-rain\\figure-step1-marked-v2.png",
+    "sha256": "30630e1495c86b3dfe41835d4f6d58d8f7e4ac0922c22470acb99e409754473a",
+    "bytes": 2169697,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-d5e1480d-bf7a-4314-8c69-7107a6767173.png",
+    "pngBytesUnchanged": true
+  },
+  "producerObservation": {
+    "personallyViewedFullNative": true,
+    "observation": "Actual full native F1 cleanup inspected: same original white foreground coordinates and silhouette retained while faint hand/book/shoe interior strokes removed, resulting featureless solid white. Original colored night room remains a mark context only, not used as final RGB."
+  },
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "sourceOrigin": [
+      0,
+      0
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": "included",
+    "independentCaster": false
+  },
+  "motherReconstructed": false,
+  "primaryLayerApproved": false,
+  "layerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "status": "producer-candidate-awaiting-source-RGB-union-browser-and-root-review",
+  "inputBoundary": "Only current exact root-approved mother and its correct same-canvas working intermediates. No HOLD rain-attention-v2, white-sock resume-mist-v3, screenshot, audit collage or other mother mask.",
+  "promptFile": "figure-step1-marked-v2.prompt.json",
+  "promptFileSha256": "ea202c69cbe719c0b85c3736e1df7f6985362c270431bbd765beb9e1f70c3a09",
+  "generatedAt": "2026-10-25T23:42:30.214Z",
+  "generationInputAllowed": true
+}

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "recordType": "primary-static-direction-admission-and-bounded-implementation-authorization",
+  "reviewer": "root / primary agent",
+  "authority": "Direct parent root message in the same healthy collaborative session; root personally viewed all four original concept PNGs.",
+  "selected": {
+    "id": "B2",
+    "file": "keep-narrow-b-quiet-desk-attachment-v2.png",
+    "sha256": "78c01827b801cc0b932da84ea3f7c200d344e95adcf211320a1cdafe66dd8663"
+  },
+  "approvedRelationship": [
+    "Quiet narrow-window yielding through existing independent portrait and small cat",
+    "One current object to its original source to the same optional writer",
+    "Small original pending file covers remain inside that writer",
+    "Continuous empty environment rather than flat contain gaps"
+  ],
+  "notApproved": [
+    "Literal generated PDF contents or model-generated user text",
+    "A1/B1 oversized cat, column-like grouping and generated PDF material",
+    "A2 as a new camera/person/support source",
+    "Any concept PNG as a runtime background, human mother, thumbnail, avatar, cat, or later imagegen input"
+  ],
+  "implementationAuthorization": {
+    "ambientFit": "Optional room(default) | cover. Cover only for a truly empty decorative ambient route; current approved weather/clock clean plate, no person/receiver/hotspots/transfer coordinates, onRoomLayout null. Default family camera and other views preserved.",
+    "parentConnection": "Root owns App: narrow Keep representation portrait + ambientFit cover, existing34px portrait and approved cat rig; no new portrait crop.",
+    "writingFlow": "Stable top rather than composer-height-dependent auto-bottom. Default card top about panelTop+274, incorporating initial reader top header+12, height250, minimum12 gap and tools34+8. Files/status grow down; normal vertical scroll. User moved/resized reader remains with its owner.",
+    "sourceFiles": [
+      "src/renderer/companion.tsx",
+      "src/renderer/companion-scenes.tsx (CompanionRoomStage only)",
+      "src/renderer/companion.css (new scoped rules only)",
+      "src/renderer/keep-panel.css"
+    ],
+    "noAppRegistryOrAssetMutation": true
+  },
+  "runtimeAccepted": false,
+  "runtimeVerification": "Pending root new production build and direct narrow/window/file-growth observations.",
+  "newCleanRuntimeBackgroundApproved": false,
+  "conceptPngGenerationInputAllowed": false,
+  "recordedAt": "2026-10-26T00:03:23.966Z"
+}

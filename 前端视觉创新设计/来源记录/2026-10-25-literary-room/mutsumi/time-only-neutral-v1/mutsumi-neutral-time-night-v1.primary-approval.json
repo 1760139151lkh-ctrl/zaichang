@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "recordType": "primary-static-neutral-time-only-mother-admission",
+  "reviewer": "root / primary agent",
+  "recordedAt": "2026-10-26T01:00:44.060Z",
+  "asset": {
+    "path": "mutsumi-neutral-time-night-v1.png",
+    "sha256": "ecd0ac024c414ae54c94558301e4eeb7d1e4e773cc264a195044fe9030088e36"
+  },
+  "staticMotherApproved": true,
+  "includedFixedLayerProductionAllowed": true,
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "userApproved": false,
+  "exactActivityMatrixCredit": 0,
+  "scope": "Complete static neutral-presence time-only mother only; F/S/BG production authorized but layer/runtime approval separate.",
+  "primaryMessageVerbatim": "根代理已亲看 Mutsumi night-v1 ecd0ac…8e36 与Uika night-v1 7c53b0…36d9，准入neutral-presence/time-only静态母图：年轻辨识度、自然回视/轻笑，闭帘夜暖光完整落人物/衣物/木作，Mutsumi膝上双手与小腿袜、Uika侧掌/长裙/踝袜鞋支承合理，不冒报天气，不计exact activity360或runtime。"
+}

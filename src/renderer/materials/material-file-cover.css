@@ -1,0 +1,8 @@
+.material-file-cover { position:relative; display:inline-flex; flex:none; align-items:center; justify-content:center; width:24px; height:30px; border:1px solid var(--separator); border-radius:3px; background:var(--surface-raised); color:var(--accent); vertical-align:middle; }
+.material-file-cover.is-regular { width:32px; height:42px; border-radius:3px 4px 4px 3px; }
+.material-file-cover.is-pdf { overflow:hidden; border-color:#783b32; background:linear-gradient(102deg,#9d473d 0%,#b15b4c 18%,#a64f43 76%,#8b3f37 100%); color:#edc8a0; box-shadow:inset 1px 0 #efd1a72b,inset -1px 0 #3019123d,0 2px 3px #29120d26; }
+.material-file-cover.is-pdf.has-orbit { border-color:#6c3437; background:linear-gradient(102deg,#79393d 0%,#99484b 18%,#894045 76%,#733439 100%); }
+.material-file-cover.is-pdf::before { position:absolute; inset:2px 2px 2px 5px; content:''; border:1px solid #efc79221; border-radius:1px 2px 2px 1px; pointer-events:none; }
+.material-file-cover.is-pdf::after { position:absolute; inset:0 auto 0 3px; width:1px; content:''; background:#351b1930; box-shadow:1px 0 #f3d5b31c; pointer-events:none; }
+.material-file-cover-art { position:absolute; inset:3px 2px 3px 4px; width:calc(100% - 6px); height:calc(100% - 6px); stroke:currentColor; stroke-width:.65; stroke-linecap:round; stroke-linejoin:round; }
+.material-file-cover.has-orbit .material-file-cover-art { stroke-width:.5; }

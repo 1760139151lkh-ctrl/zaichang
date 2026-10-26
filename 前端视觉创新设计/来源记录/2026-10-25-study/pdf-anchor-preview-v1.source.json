@@ -1,0 +1,40 @@
+{
+  "id": "pdf-anchor-preview-v1",
+  "date": "2026-10-25",
+  "generator": "built-in image_gen.imagegen",
+  "inputImages": [],
+  "prompt": "pdf-anchor-preview-v1.prompt.txt",
+  "output": "../../补充图稿/2026-10-25-study/pdf-anchor-preview-v1.png",
+  "sha256": "5aba7f26a5ce9e1a545c2e5438da38760b7f7b881db8a0f11572a5e795e57ac7",
+  "purpose": "PDF 页边笔记移锚前的原处与候选处比较、确认与取消",
+  "implementation": ["src/renderer/MaterialsPanel.tsx", "src/renderer/materials.css"],
+  "adopted": "PDF 底沿薄便签在正常布局内展开，不遮正文；原处和候选处真实摘句；放回/留在这里两动作。",
+  "notAdopted": "图中假原文、数学推论、工具栏与导航状态不作为产品事实。",
+  "primaryDesignReview": "主代理已亲看并接受上述局部关系；运行验收另行记录。",
+  "runtimeReview": {
+    "reviewer": "study-reading delegated implementation agent; primary integrated acceptance remains separate",
+    "platform": "Windows Electron, isolated integrated-room-20261025 profile",
+    "material": "existing public RoLM ICRA 2023 PDF; 7 pages",
+    "observed": [
+      "Native file dialog import, actual PDF page raster and selectable Unicode text layer",
+      "Normal mouse text selection, page-edge note creation and Notes owner readback at revision 1",
+      "Space/ArrowDown/Enter placement preview followed by Escape: original source, body and revision 1 unchanged",
+      "Pointer drag with a reversal, current-owner comparison, explicit confirmation and same-note CAS to revision 2; independent body unchanged",
+      "Next page and back, reopening the new page-edge pin with the same note and revision 2",
+      "Short-reader editor overflow and broken action labels repaired, then visually rechecked",
+      "After root rebuilt and restarted the same isolated Electron profile, original Notes owner returned the same note at revision 2, source page 1 / Unicode 38–46 and unchanged body",
+      "That first note's original was genuinely removed by ordinary attachment cleanup before the retention fix; its missing source was not replaced or back-signed by a later import",
+      "A new import of the same public PDF used existing host Store/DraftStore/MaterialService entry points after the Windows UI helper could not address the owned file dialog; this route is distinct from the earlier successful native dialog import",
+      "For the new original, normal PDF selection and the explicit 留笔记与原文 button with local-storage explanation created a revision-1 note on the exact page-1 range 0–37",
+      "Ordinary 移除附件 left the actual composer draft empty while the same original remained in materialsList with originalRetained true; its page-edge pin reopened the same note and body",
+      "Before restart, the exact original's durable manifest had notebookOriginal true, no model binding, and the complete 5366959-byte original",
+      "After the same-profile process restart, a real StrictMode note-resume busy-state defect was located and repaired by resetting the invalidated resume request alongside the existing focus retry; normal renderer reload and 接着这里 then reopened the same saved note",
+      "Normal 回到原文 after restart visibly reopened the same PDF page 1 with its title and original page-edge pin, unchanged note identity, resource ID and SHA-256",
+      "Document-preview cancellation preserved the same authored composer draft and returned focus to the original cover button",
+      "Two explicit temporary formal deliveries used the same retained original with two distinct real current-message file events; actual response receipts identified gpt-6-luna and exact page-1 materials.read, with materials.observe on the second delivery",
+      "The first prompt requested only the abstract but the model read the complete page-1 text layer and its completion review acknowledged the broader read; this is not evidence of abstract-only reading",
+      "After normal 新的对话 ended the temporary conversation, the original remained native-only with no temporary binding in its durable manifest; the same note and normal 回到原文 opened the actual PDF again"
+    ],
+    "notObserved": ["touch hardware", "source withdrawal during an active preview", "a conflicting external note edit", "primary-agent final runtime acceptance"]
+  }
+}

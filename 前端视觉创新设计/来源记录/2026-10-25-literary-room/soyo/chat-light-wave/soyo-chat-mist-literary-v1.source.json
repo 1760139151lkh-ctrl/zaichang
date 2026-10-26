@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-chat-mist-literary-v1",
+  "assetType": "complete-mother-light-chat-wave",
+  "character": "soyo",
+  "palette": "mist",
+  "environmentVariant": "overcast-day",
+  "createdAtUtc": "2026-10-25T12:17:43.586917+00:00",
+  "tool": {
+    "name": "image_gen.imagegen",
+    "mode": "whole-room-and-character-lighting-weather-edit",
+    "originalEventId": "exec-40e2a6d7-9b02-4401-96fc-efef9a16798f",
+    "outputHint": "Generated images are saved to C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270 as C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-40e2a6d7-9b02-4401-96fc-efef9a16798f.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  "prompt": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\chat-light-wave\\soyo-chat-mist-literary-v1.prompt.json",
+    "fileSHA256": "afadf65caedc412d60910add1b1f03c425c5e04c4624380252b3c8c08bf184f8",
+    "submittedPrompt": "Use case: lighting-weather. Create ONE complete same-room CHAT mother, exactly 1536×1024 horizontal canvas. IMAGE 1 is the PRIMARY-APPROVED EMPTY overcast-day literary-room plate: sole authority for the entire room's weather/time, light direction, exposure, window atmosphere and furniture geometry. IMAGE 2 is this same character's PRIMARY-APPROVED APRICOT CHAT mother: sole authority for character identity/clothing, exact camera-space body position, supported seated pose, proportions, hands/book and feet. Combine these two approved authorities by REPAINTING coherent illumination through the WHOLE room and WHOLE figure. This is a new complete relit mother artwork, not a color filter or an unchanged sunny cutout pasted into a dark BG.\n\nPreserve the exact complete near-room camera and mild perspective, full wooden window, original lake-town/mountains/trees, curtains, LEFT writing desk/chair/shelves/plants/art, ROUND side table with its porcelain lamp/cup/flowers/books, long linen bench, blue-gray plaid pillows and knitted throw, wood floor/rug/foreground plant. Do not shift furniture, crop, zoom, split the room into light halves, add a new object/person, or redesign the window. Round table remains x≈435–690, top near y500; desk remains its original left footprint. Follow the input empty plate rather than guessing a theme.\n\nLiterary companionship: そよ仍把一点自己的偏爱轻轻放进聊天，细腻而克制，浅笑里保留主意，不把每个不同意见磨成一致。Keep the exact restrained clear-eyed soft self-possession of her approved chat mother; a tiny natural smile, not a hostess grin, automatic melancholy or tears.\n她原本接得很周全，话到中途却愿意承认自己其实更喜欢其中一种过法。这个小小的偏向让聊天真正有了她。 顾及关系与说出自己的愿望可以同时成立，柔和不必把判断磨平。 一句“其实我更想……”可以不经过漂亮包装。\n凉润日光照清手与册面，瓷灯低亮，肤色不泛蓝。\n\nCharacter identity:  Soyo Nagasaki / 長崎そよ, BanG Dream! It's MyGO!!!!!. Faithful youthful Japanese 2D anime identity, long natural LIGHT BROWN hair, softly curved side locks and gently curled ends, fine airy bangs, clear BLUE eyes and a delicate youthful observant face. Her hair is light brown rather than blonde, gray, pink or Sakiko's blue. BOTH eyes and their fine linework remain clear and visible; bangs frame the eyes naturally instead of hiding either eye. Faithful Tsukinomori school uniform: dark NAVY sailor blouse with a broad WHITE sailor collar and fine navy trim, a gray-blue bow with small GOLD school crest at the throat, dark navy pleated knee-length skirt with TWO white lines near its hem, dark knee socks and simple BROWN loafers. Keep her clothing's own navy/white colors, youthful ordinary proportions and modest fully clothed school-day presence. No mature model styling, chibi proportions, borrowed face or another character's uniform.\n\n\n\nPose/support invariant: Preserve her exact original middle-right bench seated body, head/hair scale and position, hip/knee/shin/BROWN-shoe relations and BOTH hands lightly resting on the SAME open booklet over her lap. Hair top near y110 and shoe soles near y875 belong to this source; no body relocation, head enlargement, new gesture or new leg pose. Both eyes and bangs remain clear, the entire hair/hands/book/skirt/knees/ankles and BOTH complete shoes stay in frame. All visible original joints and limb contours stay continuous; no crossed-one-knee/two-flat-feet ambiguity, duplicate limb, fused finger, hand through book or furniture penetration. Cushion weight and local shoe-floor contacts remain believable at these same positions. Do not use any B-wave or rejected drifting mother as input.\n\nWhole-scene light instruction: Match the approved OVERCAST-DAY empty plate: gray clouded daytime sky, soft cool diffuse window daylight, gentle warm local porcelain/desk lamp contribution, restrained contrast with NO hard solar grid or direct-sun highlights. The room remains plainly daytime. Repaint the figure's face, hair, white shirt/collar, navy/gray blazer, paper, socks/shoes and all local contacts for this same diffuse light. Do not leave apricot-sunlit hair/skin on a cloudy room. Preserve natural own colors, not a blue filter.\n\nRetain refined youthful 2D anime linework and naturally modeled shading integrated with the detailed literary-room illustration. No recasting, mature model styling, new body, cropped feet, gray/gold overlay, extra spotlight, halo, neon, UI, captions, readable book text, logo, watermark, collage, borders or artificial foreground fog. No old room4 reference is supplied. Output the complete requested environment and this one original-position character together.\n",
+    "submittedPromptSHA256": "e9c21d23af93d3182691253584680c829622d5e2d078cba7d0965f8ee0484c0b"
+  },
+  "inputs": [
+    {
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "role": "primary-approved corresponding empty atmosphere plate; entire-room weather/light/camera/furniture authority",
+      "primaryApprovalRecord": {
+        "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-overcast-day-v1.primary-approval.json",
+        "sha256": "00be824f06a3d5ea16f32264c19898e3da9e8c37c5e3ed4668475e165720efc1"
+      }
+    },
+    {
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\chat-pilot\\soyo-chat-apricot-literary-v1.png",
+      "sha256": "20942d064ae0af479ede2868d689e105433022e8c0448d45301bd7fc9301bfd8",
+      "role": "same-character primary-approved apricot chat mother; correct identity/clothing/pose/scale/hand-book/hip-knee-shoe support authority",
+      "approvalScope": "mother static only; root explicitly authorized use for this six-call light wave"
+    }
+  ],
+  "brief": {
+    "cellId": "soyo/chat/mist",
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\briefs\\mygo-b\\soyo-literary-room-briefs-v1.json",
+    "sha256": "14e055e68af80cfdb1302cd1eb3b115323c414dee43f67ab22b0df3f376b8789",
+    "releaseScope": "Root released exactly Anon/Soyo × mist(overcast-day)/violet(twilight)/rain(rain-night), six mothers maximum; primary review before any layers"
+  },
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\chat-light-wave\\soyo-chat-mist-literary-v1.png",
+    "sha256": "22b5685c35294e54242ecf50098c173f35c6e29d64a706857fec47496ae6bca4",
+    "bytes": 2393408,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-40e2a6d7-9b02-4401-96fc-efef9a16798f.png"
+  },
+  "review": {
+    "producer": {
+      "inspected": true,
+      "method": "original full-resolution tool PNG personally viewed after generation; archived PNG byte-identical",
+      "observations": [
+        "原尺寸工具输出亲看；阴天灰云与柔和漫射窗光，人物白领/皮肤/棕发/纸页同光源，未保留硬太阳亮斑。",
+        "原中右chat坐姿与克制浅笑保持，双眼刘海、双掌与书、膝小腿和完整棕鞋可辨，桌椅圆几窗不移位。"
+      ],
+      "concerns": [],
+      "recommendation": "mother candidate for root complete-image review"
+    },
+    "primary": {
+      "approved": false,
+      "scope": "not yet reviewed; approved inputs do not approve output"
+    },
+    "approvedByPrimary": false,
+    "primaryLayerApproved": false,
+    "runtimeAccepted": false,
+    "runtimeRegistered": false
+  },
+  "authorization": {
+    "waveCallsAllowed": 6,
+    "thisCallCount": 1
+  },
+  "largeImageResultStored": false,
+  "boundaries": [
+    "only approved own apricot chat plus approved corresponding empty plate",
+    "no unreviewed B mother or rejected planning/study input",
+    "whole-room coherent lighting rather than filter or split day/night",
+    "mother only; no layers or runtime registration"
+  ],
+  "status": "directly-inspected-light-chat-mother-candidate-awaiting-primary-review",
+  "sourceConsistency": {
+    "outputSHA": true,
+    "toolOriginalSHA": true,
+    "promptFileSHA": true,
+    "submittedPromptSHA": true,
+    "inputSHAs": [
+      true,
+      true
+    ],
+    "plateApprovalRecordSHA": true
+  },
+  "futureLayerBoundary": "new relit mother requires own primary approval and own exact-source layer calibration; no automatic reuse of apricot mask approval"
+}

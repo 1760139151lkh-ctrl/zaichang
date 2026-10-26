@@ -1,0 +1,194 @@
+{
+  "schemaVersion": 1,
+  "key": "umiri/chat/apricot",
+  "kind": "original-source-union-subject-included-contact-candidate",
+  "primary": false,
+  "runtime": false,
+  "status": "producer_observed_primary_review_pending",
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v2.png",
+    "sha256": "b54800a320a163629dba745183efa63d18a83aa1ae19ba0f9382fdb546b12844",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "background": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "inputs": {
+    "F": {
+      "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\umiri\\chat-layers\\figure-mask-v1.png",
+      "sha256": "45e143667fdcba8dc0a09a521bf2f579eba2d11946bb987068ee0646980e19d6",
+      "generationSource": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/f2-source-v1.json"
+    },
+    "S": {
+      "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\umiri\\chat-layers\\contact-mask-v1.png",
+      "sha256": "5123edf75d3c989f9a463d558ccd2989e574c6c1d165a4a65853749e33e55a02",
+      "generationSource": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/s2-source-v1.json"
+    }
+  },
+  "union": {
+    "formula": "U(x,y)=MAX(L(F(x,y)),L(S(x,y)))",
+    "luminanceWeights": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorSpace": "sRGB",
+    "nativeSvgSource": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/joint-source-v1.svg",
+    "nativeSvgSourceSha256": "591723e2dbf909cf68adaafa26a75b5f4da7c792b7107001945271f801ab8d24",
+    "nativeSvgMethod": "feImage + replicated luminance feColorMatrix + feBlend lighten; mask-type luminance",
+    "originalMotherRgbDrawsPerSubject": 1,
+    "extraColorPaint": false,
+    "newRaster": false,
+    "pngPixelEditing": false,
+    "thresholding": false,
+    "subtraction": false,
+    "adaptiveColorDifference": false
+  },
+  "contactShadow": {
+    "mode": "included",
+    "meaning": "Foreground plus actual local contact/receiver material is one fixed source subject; not pure/portable caster."
+  },
+  "composition": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "layerOrder": [
+      "matching clear plate",
+      "original mother RGB once masked by MAX(F,S)"
+    ],
+    "sharedStage": true,
+    "transform": {
+      "x": 0,
+      "y": 0,
+      "scale": 1,
+      "rotation": 0
+    },
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "geometryProposal": {
+    "seat": [
+      0.7259114583333334,
+      0.556640625
+    ],
+    "ground": [
+      0.6302083333333334,
+      0.88671875
+    ],
+    "bodyBounds": [
+      0.5481770833333334,
+      0.126953125,
+      0.8268229166666666,
+      0.8916015625
+    ],
+    "source": "visible source contact candidate points, not hidden anatomical measurements",
+    "support": "window-seat"
+  },
+  "allowedPresentation": [
+    "entire fixed union shown/hidden together",
+    "whole pose replacement with its own approved source",
+    "shared background-and-joint viewport scale"
+  ],
+  "unsupportedPresentation": [
+    "independent body or shadow movement",
+    "retargeting limbs or support surface",
+    "figure-relative travel/slope/perspective",
+    "claim of independently clean cast shadow"
+  ],
+  "generation": {
+    "calls": 4,
+    "callLimit": 4,
+    "steps": {
+      "F1": {
+        "image": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/figure-step1-marked-v1.png",
+        "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/f1-source-v1.json",
+        "sha256": "3bd584194d3b3a514b70f9ff19896ddf6bcc1261bd6dd8adf8e0ad420fea7bb9",
+        "promptSha256": "e73880d6f1354a09da427e0b631e379a20e9c2b6aea7c7677e3c9df816ae2945",
+        "actualSize": [
+          1536,
+          1024
+        ],
+        "actualMode": "RGB"
+      },
+      "F2": {
+        "image": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/figure-mask-v1.png",
+        "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/f2-source-v1.json",
+        "sha256": "45e143667fdcba8dc0a09a521bf2f579eba2d11946bb987068ee0646980e19d6",
+        "promptSha256": "c5ce3b8b155f52bfe7d8e41b922cece6886d84ceefff8658383a483a52a640d5",
+        "actualSize": [
+          1536,
+          1024
+        ],
+        "actualMode": "RGB"
+      },
+      "S1": {
+        "image": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/contact-step1-marked-v1.png",
+        "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/s1-source-v1.json",
+        "sha256": "23725746bd3de0bccd0689a3fbba561d14a6e5b24159eb83835a8649482aea85",
+        "promptSha256": "eadddabe8c189f433860285a8045d527fc46fd93ab6e8395a9ad591b130aed5d",
+        "actualSize": [
+          1536,
+          1024
+        ],
+        "actualMode": "RGB"
+      },
+      "S2": {
+        "image": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/contact-mask-v1.png",
+        "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/s2-source-v1.json",
+        "sha256": "5123edf75d3c989f9a463d558ccd2989e574c6c1d165a4a65853749e33e55a02",
+        "promptSha256": "66ffb7dd3d957141e21818952fe00cef91ea569f305a13af9050e611f0d80dd6",
+        "actualSize": [
+          1536,
+          1024
+        ],
+        "actualMode": "RGB"
+      }
+    },
+    "largeImageResultStored": false
+  },
+  "visualInspection": {
+    "page": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/chat-layers-included-observe-v1.html",
+    "pageSha256": "62e2990eb20c1994a0d280e18da5cada284168bb94d7b088248293306ba05903",
+    "producerViewed": true,
+    "statesViewed": [
+      "same-scale complete original mother / joint composite / clear plate",
+      "complete head-to-boot joint on light / dark / checker",
+      "face / hair / irises: mother, composite, checker",
+      "both palms / lap / skirt: mother, composite, checker",
+      "hem / local linen receiver tip: mother, composite, checker",
+      "both boot toes / soles / heels / floor receiver: mother, composite, checker",
+      "hip / supporting palm / cushion: mother, composite, checker"
+    ],
+    "specificIssues": [
+      "S2 boot-floor selection is visibly rounded on checker. It carries original brown floor RGB, not newly painted shadow; do not describe it as a geometrically isolated contact shadow or translate it off its matching floor.",
+      "Joint carries a narrow pointed original linen receiver tip left of skirt. This remains visible on checker and must be judged by primary as part of the fixed source subject.",
+      "No runtime motion or integration inspected. Existing shared source scene contract must support MAX(F,S) before this proposal can be registered; F alone is not this candidate."
+    ],
+    "method": "Actual Chrome native SVG source-over; canonical full scene and full joint on light/dark/checker; compact original-pixel 1:1 three-way details.",
+    "compactPage": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/chat-layers-source-pixels-observe-v1.html",
+    "compactPageSha256": "cc662c116f45e96dac4ae75bf843b552a095b62ee8224a7bd3771af7c23e8c08",
+    "observations": [
+      "Original full body, hair, face, hands, hem, parallel calves and two complete boots remain in source positions; no generated RGB figure is substituted.",
+      "Native whole-scene reconstruction has no observed white seam or obvious disconnected sticker boundary at the displayed same scale.",
+      "Compact shoes three-way shows both boot soles preserved and grounded; the joint carries rounded original brown floor receiver material around each sole.",
+      "Seat/palm three-way preserves source hip and supporting palm relationship to the cushion. Narrow original linen material beneath the support and a pointed tip left of hem are part of the joint, not an independent shadow."
+    ]
+  },
+  "review": {
+    "primaryApproved": false,
+    "runtimeAccepted": false,
+    "approvedByPrimary": false,
+    "separateCastShadowClaim": false,
+    "producerReviewComplete": true
+  }
+}

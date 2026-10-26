@@ -48,7 +48,7 @@ function initialize() {
         elapsedMs: value.elapsedMs,
         ...(typeof value.startedAt === 'string' ? { startedAt: value.startedAt } : {}),
         ...(typeof value.changedAt === 'string' ? { changedAt: value.changedAt } : {}),
-        ...(value.status === 'running' ? { recovered: true } : {}) };
+        ...(value.status === 'running' || value.status === 'paused' && value.recovered === true ? { recovered: true } : {}) };
       if (value.status === 'running') save();
     }
   } catch { current = { ...current, storageUnavailable: true }; }

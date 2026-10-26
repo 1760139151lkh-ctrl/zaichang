@@ -200,12 +200,12 @@ export class BackgroundDelegation {
         });
         const deliveredObservationIds = new Set<string>();
         const childRun: RunSession = { ...this.run, events, observations: [], deliveredObservationIds, pack: undefined,
-          sessionId: id, sceneSessionId: undefined, image: undefined, toolImages: [],
+          sessionId: id, sceneSessionId: undefined, image: undefined, images: undefined, toolImages: [],
           methodNotes: [], controlUsages: undefined, dependencyNotices: undefined,
           privacyResult: undefined, releaseArtifacts: undefined, episodeId: undefined,
           budgetOwner: this.run, toolCalls: 0, modelCalls: 0,
           ingress: { ...this.run.ingress, text: task.instruction, authoredText: task.instruction,
-            attachment: undefined, controlProposal: undefined, releaseBrief: undefined,
+            attachment: undefined, attachments: undefined, controlProposal: undefined, releaseBrief: undefined,
             priorReleaseArtifacts: undefined, priorReleasedDraft: undefined,
             projectionSources: scope.sources.filter(source => ['local-agenda', 'campus:local', 'campus:zju-account'].includes(source)),
             threadContextAllowed: false, requiresReadPurpose: true,

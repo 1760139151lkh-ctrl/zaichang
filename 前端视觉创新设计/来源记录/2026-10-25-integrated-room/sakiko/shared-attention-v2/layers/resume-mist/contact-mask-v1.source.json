@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "cell": "sakiko/resume/mist",
+  "character": "sakiko",
+  "activity": "resume",
+  "palette": "mist",
+  "stage": "S2",
+  "assetType": "raw-Image-source-selection-mask-or-markup",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: background-extraction. Asset type: S2 same-source fixed INCLUDED cushion/floor receiver mask for Sakiko RESUME MIST v4. Image 1 is the actual inspected S1 original mother with deliberate white receiver marks. Image 2 is the exact clean approved original, only to distinguish white marks from naturally pale linen/lamp/curtain/pages. Keep the exact 1536x1024 source coordinate system.\n\nRetain ALL and ONLY the deliberately whitened S1 local receiving material WHITE with GREY at its actual soft antialias/falloff. Preserve the thin original cushion compression/contact just beneath hip/skirt and any real tiny underhem piece; follow the visible selected edge, not the whole bright bench. Preserve the complete soft near-shoe floor receiver around both original toes/soles/heels in the roughly x780..1045,y865..965 neighborhood, rather than only a thin shoe outline. These are inspection neighborhoods, NEVER filled geometric bounds. Do not add or enlarge marks; the existing S1 and clean original decide the actual selection and natural soft edge.\n\nMake ALL other colored/naturally bright pixels PURE BLACK: whole person/hair/ribbons/face, both hands and held book/covers/pages, navy garments/skirt, bare knees/dark calf socks/full shoes/outsoles; the long empty cushion to the left, plaid pillow/knit throw, windows/cloudy lake/town, lamp/curtain/flowers/table/desk/chair/plants, unselected floor/rug/reflections and unrelated shadows. The book is held, no seat-book receiver. Natural white fabric and room illumination must not become support merely from brightness. Use clean original only for that distinction, not to redraw any mark.\n\nOutput one opaque same-canvas 1536x1024 BLACK PNG with only unchanged intended seat and floor receivers white/soft-edge grey. No original room color, geometric ellipse/box, artificial new shadow/body, checkerboard/text/UI/grid/labels/arrows, crop/zoom/resize/recenter/translation. Fixed original RGB MAX(F,S), zero travel/perspective/slope; not a movable independent caster.",
+  "submittedPromptSha256": "4327fe03d8d60894d11a32a3ff587f27fc5465024ec01189b554d6c717e62676",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-mist/contact-step1-marked-v1.png",
+      "sha256": "4f2935c16284a5bcca37cbc9ed13c28e9485a1a5f47a55acac63237d9b8542e4",
+      "personallyViewedBeforeCall": true
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-resume-mist-soft-recognition-v4.png",
+      "sha256": "9c9e2aa283a1d809a3e6edf9f574e026de3046093e6c8dcd8b7c0316961dc624",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    }
+  ],
+  "originalRgbOwner": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-resume-mist-soft-recognition-v4.png",
+    "sha256": "9c9e2aa283a1d809a3e6edf9f574e026de3046093e6c8dcd8b7c0316961dc624",
+    "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-resume-mist-soft-recognition-v4.source.json",
+    "sourceRecordSha256": "15c8a582a317dd760947eb56b6bfc31d6ed78fd63d06ac4d4bd02c6ae73a0371",
+    "rootMotherStaticReview": {
+      "status": "approved_static_mother",
+      "reviewer": "root",
+      "observed": "Actual whole image inspected. Familiar-person recognition in soft gold eyes/small smile, page-holding hand and supported book; two knees exposed above dark navy below-knee socks, complete grounded shoes; hip/cushion and legs continuous; overcast diffuse room light. New image built only from clean plate and independent identity portrait, not white-sock v3 or old mature resume."
+    }
+  },
+  "method": "Actual Image same-mother F1/F2 or S1/S2 chain. F is whole human/ribbons/hands/held book/clothing/knees/calf socks/complete shoes. S includes real source-local seat and full soft grounded floor receiver, not just sole line; original RGB MAX(F,S) drawn once only.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\sakiko\\shared-attention-v2\\layers\\resume-mist\\contact-mask-v1.png",
+    "sha256": "60b8e86411d5766e3f4906922a787f0b371ad99d837144f89d267f4531e61295",
+    "bytes": 372183,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-cf45e51e-1509-480f-a711-b7982c16f121.png",
+    "pngBytesUnchanged": true
+  },
+  "producerObservation": {
+    "personallyViewedFullNative": true,
+    "observation": "Actual full S2 inspected: appears to select broad naturally pale empty left linen while the floor mark forms two pale blobs instead of faithfully excluding the original whole shoes. HOLD pending original-mother S1 rebuild; not passed to another Image call."
+  },
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "sourceOrigin": [
+      0,
+      0
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": "included",
+    "independentCaster": false
+  },
+  "motherReconstructed": false,
+  "primaryLayerApproved": false,
+  "layerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "status": "producer-HOLD-receiver-misclassification",
+  "inputBoundary": "Only current exact root-approved mother and its correct same-canvas working intermediates. No HOLD rain-attention-v2, white-sock resume-mist-v3, screenshot, audit collage or other mother mask.",
+  "promptFile": "contact-mask-v1.prompt.json",
+  "promptFileSha256": "84c270505b7903b4fd0bc1f23ba709cb467e8d99259fb405beefec56b89d857a",
+  "generatedAt": "2026-10-25T23:56:02.578Z",
+  "generationInputAllowed": false,
+  "observedIssue": {
+    "issue": "Natural left linen mistaken for intentional support and floor receiver topology does not keep original shoe holes clearly. Original RGB/native comparison must use rebuilt S.",
+    "nextInputBoundary": "Only exact clean resume-mist-v4 mother; do not feed this S2 or ambiguous old S1."
+  }
+}

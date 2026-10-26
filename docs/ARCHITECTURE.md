@@ -471,4 +471,8 @@ Luna 接现有 Codex 账号的单次 completion 传输，Hermes 继续运行主�
 
 常规构建生成 Electron、renderer、stdio 地图桥和隔离公共预览；Windows 打包另暂存锁定 Hermes/Python 与有许可的原生 PDF 运行时。依赖安装、编译、合成宿主检查、真实模型调用和业务成功各自验收。已有 Android/iOS 原生位置桥工程，完整口袋伴侣、手机同步接口与已部署持续宿主仍分别演进；`ClockPort`、`DeliveryPort`、SQLite 与模型/工具回调是后续接入点。生产 DeepSeek、校园外部服务和手机生命周期仍需各自验收。
 
-本轮按用户最新补充执行后端 → GPT Image → 前端：先完成本轮可实施的后端机制与对应核查，再开始图像先行的页面工作；Luna 通道不可用或个别远期连接缺失不作为全面停止前端的门禁。类型、机制与合成宿主证据不能代替真实模型、真实来源或长期体验；未接外源复验、手机生命周期等只限制对应能力，界面不得把它们包装成已完成。最新需求与历史要求的关系见[本轮补充](source-materials/2026-10-18/continuation-requirements.md)。
+早期“后端完成后再做图和前端”的节奏只保留为[历史补充](source-materials/2026-10-18/continuation-requirements.md)。当前按同一用户故事共同设计理解、事实状态、呈现和反馈：同一Hermes理解，原Owner核事实与动作，前端解析当前对象锚点并及时响应本地操作，必要语义回到原主循环；没有新的情绪路由、事实库或每帧模型调用。[共同在场契约](design/PRESENCE_SYSTEM_2026-10-25.md)和[制作规范](design/CHARACTER_MOTION_PIPELINE_2026-10-25.md)中的新字段仍属设计草案，须先映射现有类型。新界面继续先有GPT Image设计与动态参考，再做可操作实现；一个远期连接未就绪不阻止其他已授权工作。类型、机制、模型、真实来源、画面与设备证据分别证明其范围，不互相代签。
+
+本轮 `shared/workspace-context.ts` 定义有限页面、最多 A/B 两个原对象地址及关系、返回入口和设置语义；`renderer/workspace-context.ts` 在发送时冻结它们，未发草稿、凭据、人格草稿和图片不随设置语义进入模型。两个互动作品各自带发送时输入，等待期间的新拨动不替换原快照。`runtime/workspace-context.ts` 将对象映射回已有单对象读取路径，`coordinator.ts` 的共同读取者为旧入口和对象组核同一 Owner、版本、用途及原来源回执；尚须确认读取用途时，只给待读槽位，沿 `read_workspace_object` 核准后才展开正文。可用操作目录按当前工具与能力范围筛选，不产生新的授权或事实库。
+
+前端沿原 NotesService 提交后的 `{id,revision,sha256,state}` 事件撤下旧笔记几何；几何只在本机按原 Unicode 范围和版本求值，不复制成模型记忆。`companion-d01-motion.tsx` 以匹配母版的局部层和原场景变换接目光、头部与手势，输入状态直接中止非必要表演。普通内容修订、来源撤回与已完成历史分别处理；当前版本的在途重评和真实动态仍沿 [Stage 01 进行中证据](evidence/2026-10-24-stage01-presence-goal.md) 验收。比较布局恢复、跨端停点及自己的笔迹记号继续按各阶段推进，不由本轮 A/B 地址接线推定全部完成。

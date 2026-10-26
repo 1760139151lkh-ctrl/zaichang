@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "characterId": "soyo",
+  "neutralTime": "day",
+  "purpose": "neutral-presence-fixed-included-layer",
+  "kind": "included-contact-source-white-markup-S1",
+  "createdAt": "2026-10-26T01:27:25.675034+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "exactPromptFile": "contact-step1-marked-v1.prompt.txt",
+  "promptSha256": "cd1ec9a81fd4652f8d6ebc615b637e1ca22a2c21cfa8d53d095b5d36e4b9619e",
+  "requestFile": "contact-step1-marked-v1.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/soyo-neutral-time-day-literary-v1.png",
+      "sha256": "b7389951fe91b57019a55aace462bd4e4efc61c455c17499743548b02cc1f062",
+      "role": "sole exact root-approved day mother"
+    }
+  ],
+  "output": {
+    "file": "contact-step1-marked-v1.png",
+    "sha256": "395bf1e4fe3d2b8ba11a376d6a7934bd39b9c3fdc6f68d0674f48bc63f44b509",
+    "bytes": 2325139,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "originalBasename": "exec-09173fd3-14c1-4ff4-a4c2-ba0a6f911e24.png",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteOutput": true,
+    "observations": [
+      "Local white receiving strips beneath real skirt/cushion and shoe-to-floor contact retain original coordinate.",
+      "Shoe marks have soft fringe; only source RGB will supply actual contact color, no white glow is rendered as RGB."
+    ],
+    "eligibleAsNextStepInput": true
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "countsToward360ExactActivities": false,
+  "pngPixelEditing": false
+}

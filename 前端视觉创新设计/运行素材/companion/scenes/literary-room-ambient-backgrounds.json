@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "roomFamily": "literary-room-v1",
+  "width": 1536,
+  "height": 1024,
+  "weather": {
+    "clear-day": {
+      "file": "literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c"
+    },
+    "twilight": {
+      "file": "literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c"
+    },
+    "rain-night": {
+      "file": "literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1"
+    },
+    "overcast-day": {
+      "file": "literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a"
+    },
+    "rain-day": {
+      "file": "literary-room-rain-day-v1.png",
+      "sha256": "80c6eba701bc229e79939639426de4b1c7ef68790b840ea9ded07c2bc6fc77eb"
+    },
+    "dry-night": {
+      "file": "literary-room-dry-night-v1.png",
+      "sha256": "edad31b1ce0c7f21be59d939cc54a0d6230b31d6fe380d0d553af515032fd0f4"
+    }
+  },
+  "timeOnly": {
+    "day": {
+      "file": "literary-room-time-day-v1.png",
+      "sha256": "aa4ce3dcab5cd2366c9f1c4eadcff0ab85537ab45e5a3b0643c4d01588e6e247"
+    },
+    "night": {
+      "file": "literary-room-time-night-v1.png",
+      "sha256": "d9c41c4278dd8a4efae1a91102e16349ad4dcf9829963c31ddc421dfc3652253"
+    }
+  },
+  "review": {
+    "approvedByPrimary": true,
+    "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/literary-room-empty-plates-primary-admission-v1.json",
+    "scope": "Eight exact-SHA literary-room-v1 empty backgrounds only. No character/activity layer or runtime acceptance.",
+    "runtimeAccepted": false
+  },
+  "interactionGeometry": {
+    "file": "literary-room-v1.interaction.json",
+    "sha256": "6f4910354fe60d25a4e158bbf4712880adcdba8fef59f001d3a97eb4168a91c4",
+    "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/geometry/literary-room-v1-interaction-geometry-v1.json"
+  }
+}

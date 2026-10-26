@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "recordType": "source-rgb-included-layer-image-stage",
+  "characterId": "tomori",
+  "neutralTime": "day",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "stage": "F1-v2",
+  "tool": "image_gen.imagegen",
+  "toolElapsedMs": 32057,
+  "recordedAt": "2026-10-26T01:09:53.239378+00:00",
+  "sourceConversationId": "01a17365-def4-7ef0-9767-09f785cec060",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/tomori-neutral-time-day-v1.png",
+      "sha256": "ee943e04da7a50748d3e331ed4339548b842388027d0a5fe360e95a4c2d270b7",
+      "role": "Only exact root-approved clean mother; no rejected mask/markup/composite input",
+      "personallyViewedBeforeGeneration": true
+    }
+  ],
+  "exactSubmittedPrompt": "CRITICAL CLEAN-MOTHER REPAIR: entire notebook lower cover/spine/binding, hands and lap are ONE connected solid-white foreground. Around x885..1070,y495..540, the REAL notebook bottom cover is not a background slit. Especially the thin brown lower-cover at about x905,y516 belongs to the notebook: include it WHITE to its exact outside edge. Do not leave any colored/gray/black internal curved book line over skin/skirt. Only true outside silhouette gaps may retain room color. This is semantic selection, not a box to fill, and not body RGB repainting.\n\nUse case: precise-object-edit. F1-v2 selection markup. ONLY input is the exact root-approved Tomori neutral DAY mother 1536x1024. Output the same full canvas, every original coordinate; no zoom/crop/resize/recenter or changed silhouette/pose. Deliberately paint the COMPLETE girl, her WHOLE thin pencil and WHOLE open notebook PURE FEATURELESS SOLID WHITE. Every short hair strand/tip, whole head/face/eyes/ears/neck, blazer/shirt/collar/sleeve/cuff, full plaid skirt and dark/outward hem, both hands/fingers/wrists, all exposed thigh/knee/skin, both calf socks and BOTH full loafers including darkest toes/sidewall/sole rim/heel bottom are selected. Pencil extends from upper end to actual page tip. Notebook includes ALL pages plus every thin dark/brown lower cover/spine corner over her lap. Do not draw a border, fold, shoeseam, page line, face feature or hand outline within the selected white region.\n\nThe narrow actual arm/torso background gap around x1000..1020,y460..500 remains original colored room with exact original outline; it ends at the actual hand/book silhouette, not a new gap across the notebook/lap. Real outer hair/leg gaps stay colored. All other interiors solid white; fine gray only existing outer antialiasing. No erosion/dilation, expanded shape or new holes.\n\nAll unselected room stays exact ORIGINAL COLORED RGB: closed opaque ivory curtain, naturally white cushion/throw, blue pillows, lamp/shade/flowers/cup/table/books, left desk/chair/plants, wood floor/rug and separate receiving shadows. Natural whites are NOT selected. No contactshadow marking, grid, arrows, labels, checker or added texture. Only coverage is marked; final figure RGB comes solely from untouched original mother ONCE under MAX(F,S).",
+  "submittedPromptSha256": "31aef686bf53a10483745a1d7a67585ff306d24ed46ff498a30c2f0aa4392b0e",
+  "promptFile": "figure-step1-marked-v2.prompt.txt",
+  "promptFileSha256": "94fe37ea24883588ccd6741df061688547f3bebd47b0d8f42d0a1928e85c1495",
+  "requestFile": "figure-step1-marked-v2.request.json",
+  "requestSha256": "72137781d4279bf5806aa78c58c94c23e15f294b70bfa3794a196612b0d2098e",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-209203ca-cac0-4c3c-a0f9-7d4122f3b174.png",
+  "toolOriginalSha256": "35e988e592f3b8c99f71c77c9af34f8cfc4f686e406506b11dda81258646b279",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/figure-step1-marked-v2.png",
+    "sha256": "35e988e592f3b8c99f71c77c9af34f8cfc4f686e406506b11dda81258646b279",
+    "bytes": 2151022,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true,
+    "resizedOrRetouched": false
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "status": "HOLD_expanded_arm_gap",
+    "observations": "Whole person, pencil, notebook lower cover/lap and complete shoes are now connected white. A faint gray internal book contour remains visible in the markup, explicitly to be filled during the image mask-conversion stage; this marked RGB is never foreground color or final coverage. True arm/torso room gap retained. No old failed F2 used.",
+    "observedIssue": "Native original-RGB book/hands closeup proves the actual narrow arm/torso ivory slit was expanded upward/sideways, removing a small original blazer strip. Rebuild from clean mother; no faulty F1/F2/composite/review screenshot may be an input."
+  },
+  "primaryApproved": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "generationInputAllowed": false,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "original360ExactActivityCell": false,
+  "sourceCodeOrRegistryChanged": false,
+  "generationInputScope": "Only immediate F2 semantic white-region conversion, not a selected production mask",
+  "status": "HOLD_expanded_arm_gap"
+}

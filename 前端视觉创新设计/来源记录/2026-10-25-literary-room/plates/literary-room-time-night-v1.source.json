@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "empty-room-plate",
+  "environmentVariant": "time-night",
+  "weatherClaim": "none; complete opaque inner curtain conceals all outdoor scenery",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "executionId": "exec-e8344419-e988-47b4-a15f-c2d8a5be4809",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-e8344419-e988-47b4-a15f-c2d8a5be4809.png",
+  "inputs": [
+    {
+      "file": "literary-room-dry-night-v1.png",
+      "sha256": "edad31b1ce0c7f21be59d939cc54a0d6230b31d6fe380d0d553af515032fd0f4",
+      "role": "sole approved empty dry-night environment edit target; no person image input",
+      "admissionRecord": "literary-room-dry-night-v1.primary-approval.json"
+    }
+  ],
+  "selectedMotherLineage": {
+    "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+    "imageInputForThisCall": false
+  },
+  "promptFile": "literary-room-time-night-v1.prompt.txt",
+  "promptFileSha256": "53b243edcd9b046ed71d0520e549ee66de696d66343362a05c628c37af7d9705",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd, exactly as submitted",
+  "submittedPromptSha256": "1e9fe9926427b89abf306dd61b17024f077bed1e49196fbfac4e05b44ca1b351",
+  "output": {
+    "file": "literary-room-time-night-v1.png",
+    "sha256": "d9c41c4278dd8a4efae1a91102e16349ad4dcf9829963c31ddc421dfc3652253",
+    "bytes": 2184911,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed complete saved original: substantial milk-white/ivory inner curtain fully closes the former glazing, with continuous opaque folds and no readable outside sky, town light, stars, rain or weather silhouette. Its lower edge stays behind the original bench; seat and wood front remain exposed. Existing ceramic lamp supplies the quiet local warm night light, far fabric and room corners fall into readable shadow, no daytime solar patch or new fixture observed. Original close furniture/floor/foreground relationships remain. Producer view only; primary/runtime separate."
+  },
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "approvalScope": "Static time-only empty environment candidate; no inferred weather, character/activity/layers/runtime approval.",
+  "primaryApprovalRecord": "literary-room-time-night-v1.primary-approval.json",
+  "primaryApprovalScope": "Complete static empty environment plate only; same selected close room and corresponding weather/time illumination. No character/activity/layers/motion/runtime approval."
+}

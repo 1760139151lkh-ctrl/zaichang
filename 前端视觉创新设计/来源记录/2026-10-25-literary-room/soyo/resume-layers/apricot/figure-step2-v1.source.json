@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-resume-apricot-figure-step2-v1",
+  "cell": "soyo/resume/apricot",
+  "stage": "figure-step2-v1",
+  "tool": "image_gen.imagegen",
+  "actualToolArguments": {
+    "prompt": "Use case: precise-object-edit. Exact original-position foreground selection conversion. The ONLY input is the correctly marked 1536x1024 Soyo resume apricot F1. Keep EVERY existing deliberately white girl/book/page/ribbon pixel exactly where it is; turn ALL remaining colored room pixels BLACK. No redrawing, resizing, crop, leg lengthening, shift or recenter. The source shoes lie around x741..923,y800..894. Whole shoe group and full hair/body/hem contour must stay at actual input positions, not an approximate character template.\nKeep complete fine hair, hands/fingers, all book page/cover/spine corners, real lifted page contour held by fingers, narrow hanging bookmark/ribbon, skirt trim and complete dark shoe/sole/heel edges WHITE. Keep the entire open book and all lifted page edges, both supporting hands, and the existing narrow hanging bookmark ribbon from book spine toward knee around x912..928,y488..543. Do not erase the ribbon or add a second object. All faint gray INTERNAL book/hand/ribbon/garment linework on already-whitened objects must also become fully opaque WHITE. Such internal page lines are not real colored gaps; do not create black holes or missing book edges. Only genuine colored background gaps between hairs/limbs become black. No gray page/face/clothing details remain in the white interior.\nAll unmarked natural pale cushion/curtains/lamp/flowers, independent contact shadows, window/town, floor/rug highlights BLACK. No extra white islands, long seat band, floor patch or new object. Output ONE opaque original-position 1536x1024 black PNG with only the entire unchanged complete white foreground. Raw luminance will select clean mother RGB once by MAX(F,S); no newly colored figure adopted.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/figure-step1-marked-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "submittedPromptSha256": "c2f6af0fa92bb812e0ff71e9abb9ff3b5fb252ee3688a59ec8dba71f8494f551",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/figure-step1-marked-v1.png",
+      "sha256": "cd988baff0313725c348bee352cc98dc84a0b5697a00ade072f16fce0fe1a344",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-resume-apricot-literary-v2.png",
+    "sha256": "4381d5f5faeeeedf1b84bf9e69bad71fe4a6dc06a7d8653c8b1f88b48c559cbe",
+    "bytes": 2473344,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    }
+  },
+  "rootPrimaryRecordSha256AtRead": "f6b3a0b7ac9974993b61553e907f0ebfa7c39763ebef7d33ca7efb215a99fbb2",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/figure-mask-v1.png",
+    "sha256": "ed2360ccaa8010bce7668dbdf639a5edab0d743a78dc7d04825fe62dbcb3b1b5",
+    "bytes": 459386,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-407fe67c-a925-466c-a666-6818a943a6b4.png",
+  "producerObservations": [
+    "Personally viewed returned F2: overall hair/body/shoe and full open book/page/ribbon silhouette appears at the original source positions.",
+    "Gray-to-dark internal book/page/bookmark outline lines remain despite prompt; exact original-RGB closeup has NOT yet been completed, so this mask is not accepted or selected as a final layer.",
+    "Root latest product steering stops new Image batches; raw healthy output retained, no mask refed or manual pixel edit."
+  ],
+  "status": "candidate-unverified-internal-book-contours-awaiting-product-rescope",
+  "pngBytesUnchanged": true,
+  "pngPixelEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0
+}

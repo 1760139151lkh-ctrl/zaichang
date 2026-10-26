@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "assetId": "taki-listening-violet-literary-v1",
+  "roomFamily": "literary-room-v1",
+  "characterId": "taki",
+  "activity": "listening",
+  "palette": "violet",
+  "ambientPlateKey": "twilight",
+  "createdOn": "2026-10-25",
+  "generationMode": "target-empty-plate-and-approved-exact-activity-mother-relighting",
+  "tool": "image_gen.imagegen (built-in)",
+  "callOrdinalInBoundedBatch": 14,
+  "executionId": "exec-2988caf5-e2e0-471b-9346-9b2a2f732a6c",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-2988caf5-e2e0-471b-9346-9b2a2f732a6c.png",
+  "inputs": [
+    {
+      "file": "../../plates/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+      "role": "image1: approved exact target empty plate and illumination"
+    },
+    {
+      "file": "../apricot-wave-b/taki-listening-apricot-literary-v1.png",
+      "sha256": "cf48e29b3c636be8cc34b2fca85ad7ceefed5c7956d5417b3e4a5d3958ce3c89",
+      "role": "image2: root-approved actual activity identity/pose/scale/support, not inherited daylight",
+      "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+    }
+  ],
+  "promptFile": "taki-listening-violet-literary-v1.prompt.txt",
+  "promptFileSha256": "a5927917faf8acf9223937f176dc2f0496954f509b3b8049a9248b3d8938e201",
+  "submittedPrompt": "Create ONE 1536×1024 complete landscape literary companion illustration through genuine WHOLE-SCENE RELIGHTING. Image 1 is the ROOT-APPROVED EMPTY environmental plate at the TARGET time/weather and gives camera, room geometry and illumination. Image 2 is this SAME girl's ROOT-APPROVED APRICOT MOTHER OF THIS EXACT ACTIVITY. Retain its actual youthful identity, uniform, exact silhouette/head/body scale/source positions, microexpression, visible hands/objects, true support and occlusion; its DAYLIGHT HIGHLIGHTS are NOT identity or pose constraints.\nRepaint all light on skin/hair/uniform, held or resting paper/book, contact linen, wood/lamps and floor according to image 1, rather than tinting the scene or pasting a day-lit girl into new weather. Old apricot white knee/shin/face hotspots, sunlit hair rims and window-lattice pools do not survive by default.\nLock the close camera/framing and existing window panes/current crop, lake/town/mountain geometry, desk/chair, shelves/books/plants, round table/ceramic lamp/cup/flowers, linen bench/right plaid cushions/cream knit throw, floor/rug and blurred foreground plant. Keep her actual approved seated pelvis/cushion support and exact shoulders/arms/hands/props/knees/ankles/complete shoes at source coordinates. No body translation, enlarged head, reposed/crossed legs or invented hidden hand. Full head/hair and both complete shoes stay within the original image; real limb/strand gaps and overlaps remain.\nPrecise expressive anime character drawing belongs in the tactile softly painterly room. Separate every fringe lock, brow, lash, upper/lower eyelid, sclera and iris boundary, including side/down gaze. Preserve her youthful canonical hair/eye/garment colors under the new light, not a generic adult face, green UI tint, fixed service smile, compulsory blush or stereotyped scowl.\nOnly these two approved images are references. No unreviewed light mother, prior lighting-problem candidate, mask, other character, old room or malformed pose is used. Do not add readable text/schedules/answers/receipts, UI, logos, watermarks, diagrams, another person, split scene, zoom, new furniture or duplicate limbs. This is a project-original fictional performance, not a statement about an actual user's past action or completion.\n\nCHARACTER: Shiina Taki (椎名立希), MyGO!!!!!: long straight purple-black hair with side fringe, violet eyes; camel Hanasakigawa sailor uniform with trimmed white collar/red ribbon/gold buttons/camel skirt/dark socks/brown loafers.\nACTUAL APPROVED PERFORMANCE: Preserve the APPROVED ACTUAL closed book and small paper supported on thighs, one relaxed hand on knee and the other lightly over the paper, head/gaze toward the nearby image-right speaker region, tiny paused part of the mouth. She has caught her own haste and listens to the remaining thought, not scolding or counseling. Keep source shoulder/hip and full leg/shoe support.\nTARGET LIGHT: NATURAL TWILIGHT, exactly image 1's continuous rose/lavender sky and existing warm ceramic-lamp interior with gentle cool window fill and town lights. Repaint the whole girl, folded paper/book/page, seat contacts and floor together. The lower-right floor and knees/shins stay softly lit like image 1, NOT bright orange rectangular noon sun pools or retained white apricot hot patches. No purple/amber overlay, half-day/half-night split or pasted daytime skin.",
+  "output": {
+    "file": "taki-listening-violet-literary-v1.png",
+    "sha256": "f743970e8f9104dbf53c9a46d3e8599e81289dc801642db45271b7506affce8a",
+    "bytes": 2237078,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "reviewedOn": "2026-10-25",
+    "decision": "static mother candidate; localized knee-light detail for primary inspection",
+    "observation": "Complete original viewed: actual book/small paper, knee hand and paper hand, sideward listening gaze/paused mouth retained. Dusk/lamp treatment reaches paper/skin/uniform/seat/floor coherently with no conspicuous right-floor noon grid. One warmer bright knee patch remains at a source-similar location and is disclosed for primary light-direction judgment. Eyes/fringe/lids clear, hip support and complete coherent uncrossed legs/shoes at source scale; room stable.",
+    "bodyContour": {
+      "contourComplete": true
+    },
+    "limits": "Local knee highlight not signed off as physically measured illumination; primary/layer/runtime remain false."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "acceptanceScope": "Static actual-activity theme mother candidate only; no layer progression or registration."
+}

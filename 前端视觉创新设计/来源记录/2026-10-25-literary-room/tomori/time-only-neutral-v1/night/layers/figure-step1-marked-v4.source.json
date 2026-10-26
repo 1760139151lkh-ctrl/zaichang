@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "recordType": "source-rgb-included-layer-image-stage",
+  "characterId": "tomori",
+  "neutralTime": "night",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "stage": "F1-v4",
+  "tool": "image_gen.imagegen",
+  "toolElapsedMs": 40193,
+  "recordedAt": "2026-10-26T02:04:57.704211+00:00",
+  "sourceConversationId": "01a17365-def4-7ef0-9767-09f785cec060",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/tomori-neutral-time-night-v1.png",
+      "sha256": "36e1e2e4029d81914b4192cee8351d84b44fa0ef188c88910dd58d400a3e4300",
+      "role": "ONLY exact clean approved night mother; fixed continuous person/prop coverage with parent-scoped fully enclosed 1–3px original curtain inclusion; no HOLD input",
+      "personallyViewedBeforeGeneration": true
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: precise-object-edit.\nAsset: F1-v4 semantic coverage markup for a FIXED original-RGB included layer, not an independent movable cutout.\nInput 1 is the ONLY exact clean root-approved Tomori TIME-NIGHT mother, 1536×1024. Edit only its semantic colors, keep every original image coordinate, full canvas, scale, pose, camera, fine outer contour and props identical.\n\nPaint the COMPLETE person, pencil and whole open notebook solid pure white: every outer hair wisp, head/face/ears/neck, complete gray-violet blazer/shirt/sleeves, every hand/finger, all notebook page surfaces and thin dark lower cover, plaid skirt/hem, exposed knees, both calf socks, BOTH complete loafers including their entire toe/sidewall/outsole/heel. All selected interiors are continuous featureless white, no clothing folds, book seams, or skin lines remain colored.\n\nCRITICAL FIXED-INCLUDED EXCEPTION: there is an extremely tiny, fully enclosed 1–3px original warm-curtain sliver inside the bent-arm/torso/notebook loop around source x1014,y480. Include THIS enclosed sliver in the white coverage too, so the whole arm/torso/notebook interior is unbroken white. Do NOT make an arm hole, inner notch, triangle, book seam or colored internal line there. This intentionally carries the original tiny enclosed curtain RGB together with the stationary person. It does not alter the outside silhouette. No separate transparent arm gap is required.\n\nKeep genuine EXTERIOR open background spaces unchanged in original room color: the gap between the legs, outside spaces between hair wisps, the surrounding cushion and floor. Do NOT connect or bridge the legs. Do not expand the outside silhouette, include a long window rail, broad curtain region, empty cushion, floor, or shadow.\nEvery other room object and pixel remains original colored night room, including naturally bright lamp/curtain/page-like room objects. No new object, light, texture, outline, label, grid or checker.\nOutput exactly1536×1024. This is semantic selection only: later original mother RGB is drawn ONCE under MAX(F,S), no AI-redrawn character RGB. Travel/perspective/slope=0.",
+  "submittedPromptSha256": "46e270b801ec1900ea4518cb0d6254ebcfbb75950148764468fd73741e43ac4c",
+  "promptFile": "figure-step1-marked-v4.prompt.txt",
+  "promptFileSha256": "ce07c1faacb4d4eff7d76584b581590c186fb86c54ec30142799f1e99e4be46f",
+  "requestFile": "figure-step1-marked-v4.request.json",
+  "requestSha256": "a84c3e02cb490068e5e615a696028591fb7615d7baa5c1c754098ddcf92abed6",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-917041fb-937f-4857-991c-8c2186cb51ca.png",
+  "toolOriginalSha256": "3f5cc105ca35dc3cf3ce5fe804fd419b759bdf760d6c0661a1ee014b8208eba3",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/night/layers/figure-step1-marked-v4.png",
+    "sha256": "3f5cc105ca35dc3cf3ce5fe804fd419b759bdf760d6c0661a1ee014b8208eba3",
+    "bytes": 1958210,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true,
+    "resizedOrRetouched": false
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "status": "HOLD_enclosed_arm_loop_not_filled",
+    "observations": [
+      "Actual Image output still retains a visible colored crescent in the closed arm/torso/book loop despite explicit continuous-included request; no conversion or further Image input from this output."
+    ]
+  },
+  "primaryApproved": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "generationInputAllowed": false,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "original360ExactActivityCell": false,
+  "sourceCodeOrRegistryChanged": false
+}

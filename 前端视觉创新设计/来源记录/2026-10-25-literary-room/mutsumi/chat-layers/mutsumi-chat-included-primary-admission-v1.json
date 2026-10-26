@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "kind": "primary-fixed-source-included-joint-static-admission",
+  "key": "mutsumi/chat/apricot",
+  "reviewer": "root",
+  "decision": "approved",
+  "primaryPersonallyViewed": true,
+  "observation": "Root personally viewed #scene full mother/composite, #face native hair/eyes, #hem hands/full skirt/source-linen receiver triptych, and #shoes full soles/heels/floor triptych. Root found no white seam, missing body, obvious patch discontinuity or proportion change and approved exact F/S+mother MAX included fixed static layer.",
+  "exactSelectedInputs": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.png",
+      "sha256": "9d529789ece89f44b166f39dd259136257598cfd546009e49fae74140cbf8b6d",
+      "recordedSha256": "9d529789ece89f44b166f39dd259136257598cfd546009e49fae74140cbf8b6d",
+      "matchesRecorded": true
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "recordedSha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "matchesRecorded": true
+    },
+    "F": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-figure-mask-v1.png",
+      "sha256": "a6d6cef3414154b5201be221e9192b8ce7c42406d4757f893cf16fa0e5824977",
+      "recordedSha256": "a6d6cef3414154b5201be221e9192b8ce7c42406d4757f893cf16fa0e5824977",
+      "matchesRecorded": true
+    },
+    "S": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-contact-mask-v1.png",
+      "sha256": "469d1c34a02afa1616626e18300994099bf5f28d4b761b655ed0dcff2b6788b1",
+      "recordedSha256": "469d1c34a02afa1616626e18300994099bf5f28d4b761b655ed0dcff2b6788b1",
+      "matchesRecorded": true
+    }
+  },
+  "bundle": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-included-bundle-v1.json",
+    "sha256": "9892b8ebabc3882fb136ef5e4e78ba864aaba50df144f197beec4e8a93993701"
+  },
+  "formula": "U=MAX(L(F),L(S)); one unchanged source-mother RGB draw through U over exact matching BG",
+  "contactShadow": {
+    "mode": "included",
+    "pureCaster": false
+  },
+  "motion": {
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "approvedPresentation": [
+    "Whole fixed-pose assembly show/hide",
+    "Whole-pose replacement with its own approved closure",
+    "Shared BG+joint viewport transform"
+  ],
+  "forbiddenPresentation": [
+    "Independent movement/deformation",
+    "Separate caster translation",
+    "Reusing receiver material on another support"
+  ],
+  "runtimeAccepted": false,
+  "runtimeRegisteredByThisLane": false,
+  "evidenceSource": "Explicit root approval messages to this healthy subagent after root personally viewed the static native SVG pages"
+}

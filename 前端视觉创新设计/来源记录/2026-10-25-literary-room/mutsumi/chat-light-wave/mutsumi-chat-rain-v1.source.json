@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "whole-scene-chat-light-mother-candidate",
+  "character": "mutsumi",
+  "activity": "chat",
+  "palette": "rain",
+  "environmentVariant": "rain-night",
+  "wave": "chat-light-wave",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-9abfe111-f196-4a5c-93e8-65e914b7f63a.png",
+  "executionId": "exec-9abfe111-f196-4a5c-93e8-65e914b7f63a",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.png",
+      "sha256": "9d529789ece89f44b166f39dd259136257598cfd546009e49fae74140cbf8b6d",
+      "role": "primary exact approved same-character apricot-chat mother, identity/pose/geometry edit target"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "role": "approved corresponding empty literary room environment/whole-light reference"
+    }
+  ],
+  "inputAcceptanceBasis": "Root explicitly approved each same-character apricot chat mother and the matching empty plate; no unreviewed wave-b or old-room figure used.",
+  "wholeSceneRelighting": true,
+  "newUIPaletteOption": false,
+  "promptFile": "mutsumi-chat-rain-v1.prompt.txt",
+  "promptFileSha256": "b84404cc946ababcd982336b063815e8e85549a7f3d9d44a88dd73a9f832dad7",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; exact submitted text",
+  "submittedPromptSha256": "8af68f091d525f39c67372adfb70acf2bd42cdc294e8cd9c80ed4ff702f1ba51",
+  "output": {
+    "file": "mutsumi-chat-rain-v1.png",
+    "sha256": "4a9f298d6b3e34a9eee88bcaaaa32d4e5a5016eb9600da1cbab396d1449ef1d6",
+    "bytes": 2363467,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved complete mother before moving to Nyamu lights. Dark blue rainy glass/town/lake and warm existing interior lamps replace day; person skin, mint hair, navy clothes, cushion and floor belong to the lower-light room, with coherent local warm influence rather than a white-daylit figure against black windows. No hard daylight leaf/window-grid floor patches or split view observed; room stays dry. Source chat lap hands, hip/seat, complete head/shoes, uncrossed knees/ankles and comparable apparent scale/coordinates remain stable. Golden-brown eyes/eyelids are distinct from fringe, expression awake and quietly attentive without imposed sadness/sleepiness. Producer static observation only; root/layers/runtime pending."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "Whole-scene static mother candidate only; root review pending. Apricot layer masks do not grant light-variant layer acceptance.",
+  "privateUserDataUsed": false
+}

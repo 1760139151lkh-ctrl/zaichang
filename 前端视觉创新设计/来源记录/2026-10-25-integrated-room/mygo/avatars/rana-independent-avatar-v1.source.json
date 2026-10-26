@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "assetType": "independently-generated-2d-human-bust-avatar-candidate",
+  "characterId": "rana",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in independent human portrait generation, transparent background",
+  "wardrobeId": "official-observed-hanasakigawa-middle-school-upper-sailor-blouse-white-collar-red-bow",
+  "promptFile": "rana-independent-avatar-v1.prompt.txt",
+  "submittedPrompt": "Draw ONE completely new independent 2D HUMAN portrait avatar of Kaname Rana / 要乐奈 / 要 楽奈, MyGO!!!!!. Square 1024x1024 transparent RGBA, head and upper chest with full crown, both eyes and natural shoulder starts. Leave 12–15 percent CLEAR TRANSPARENT space above the hair and comfortable side margins; do not clip the parting, crown or side bob. This is not a cat, mascot, existing-scene crop or official character-render cutout.\nThe ONLY picture is a CLEAN EMPTY literary room, used solely for the product's softly hand-painted air and quiet natural warm-cool window light. No room/background/window/furniture or other person's anatomy may enter this portrait. Independently compose and draw Rana's fresh head, neck, shoulders and clothes from the identity and living instant below.\nIdentity: short SILVER-WHITE soft layered bob, a few light separated fringe groups, small cheek and nape tips, pale gray-lavender shadow shapes. Not a helmet, long-haired girl, mature pixie, pink hair or added hair ribbon. Her eyes are DISTINCT and ANATOMICALLY OWNED: her OWN RIGHT iris is GOLD, her OWN LEFT iris is BLUE. With this almost-frontal face the VIEWER-LEFT eye is GOLD and VIEWER-RIGHT eye is BLUE. Preserve both whole eyes, with comparable natural size, clear pupils/sclera/eyelids/fringe boundaries. Do not swap them, make both eyes the same color, close one, mirror her or add metallic/starry glass textures. Clear youthful human anime face with an ordinary gently short jaw and small natural nose/mouth, not chibi/baby proportions or adult glamorous sleepy eyes.\nShe has a life inside this small portrait. She was concentrating on the last little ring of a sound she had made herself, then a nearby person tried its rhythm differently. That new variation genuinely catches her interest. She turns her eyes toward them, head mostly upright, shoulders loose, with calm direct curiosity and a tiny private recognition. Keep her lips CLOSED, relaxed and almost straight with only the faintest one-corner lift; attentive brows, eyes lucid and alert rather than wide bewilderment or perpetual drowsiness. This is NOT Tomori's tentative parted mouth, Anon's caught-out smile, a stock gentle grin, helpless sadness or a lazy-cat joke. Sound/instrument and the other person stay outside the bust; no hand pointing at nothing, no guitar, teacup, matcha token or symbols.\nUse the observed upper structure of her Hanasakigawa MIDDLE-SCHOOL uniform: modest warm-tan pullover sailor blouse, broad white sailor collar with dark trim, a small red bow. Do NOT borrow Taki's double-breasted buttoned dress/waist tabs, Sakiko's uniform or a guessed casual outfit. No readable text, badges or extra jewelry. Crop naturally at upper chest; coherent head-neck-shoulder relation, no detached floating head.\nRefined genuinely TWO-DIMENSIONAL drawn anime portrait with restrained pencil/gouache-like brushwork and soft natural light. The supplied room's gentle upper-left warmth and cool reflected fill give white hair and fresh skin depth without 3D plastic/model finish, photoreal pores, glam makeup, heavy glossy highlights or giant watery eyes. Hair uses readable groups and selected fine strands; keep gold and blue eye identity even under warm light. The quiet personal interest should remain readable at 48px.\nTRUE transparency around the complete new bust. Clean cutout hair/shoulder edges: keep warm highlights within real hair, no detached red/yellow specks, dirty matte fringe, blue aura, background remnants, glow or fog. No circle/disc, frame, gradient/black/white background, fake checkerboard, room fragment, shadow, animal ears, cat body, UI, lettering, speech balloon, logo, watermark or collage. One original standalone transparent human avatar only.",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "role": "only image input: clean empty literary room for 2D painting/light atmosphere only; no face/body/layout to copy",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c"
+    }
+  ],
+  "readSources": {
+    "passport": {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/rana.md",
+      "fullReadBeforeCall": true,
+      "version": "2026-10-25",
+      "sha256AtArchive": "d39286e83289d7c67222428a139b8650ff9f60a0e78e49c0a8393b3079f2e892"
+    },
+    "method": {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "fullReadBeforeCall": true,
+      "sha256AtArchive": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840"
+    }
+  },
+  "facts": {
+    "officialSources": [
+      "https://mygo-movie.bang-dream.com/character/rana/",
+      "https://bang-dream.com/artist/mygo/kaname-rana/"
+    ],
+    "identityObserved": "short silver-white layered bob; anatomical own-right gold iris / own-left blue iris; middle-school tan pullover sailor top with white dark-trim collar/red bow",
+    "projectOriginal": "fresh independent bust and sound-variation curiosity; no cat transformation, claimed actual user event or preferred-clothing claim"
+  },
+  "output": {
+    "file": "rana-independent-avatar-v1.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-c512c0d2-d8fd-4bf7-ab4e-4e666725dbdf.png",
+    "sha256": "9af2fc3360b91ff753b2f604c384ddd5cbfc277315ed621ab6a3c92dc9fc4068",
+    "bytes": 1749569,
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "cornerAlpha": 0
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "status": "candidate",
+    "observation": "Whole original personally viewed: silver-white short bob, own-right gold / own-left blue (viewer-left gold/right blue), closed relaxed mouth and alert quiet interest. Correct middle-school upper sailor relation, new independent human bust; no crop/disk/cat. Sparse colored fine hair-edge residue visible on raw dark viewer; small-size review follows.",
+    "decision": "candidate for root independent-image review",
+    "smallSizeReview": {
+      "personallyViewed": true,
+      "page": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mygo/avatars/producer-observe-v1.html",
+      "pageSha256": "d3d0f896387a83b07478ec07cf55c48cab3dc5b34d3d88b9ac8a588c891e18e4",
+      "cssImageSize": [
+        48,
+        48
+      ],
+      "viewportDuringExactCapture": [
+        1280,
+        800
+      ],
+      "captureDpr": 1,
+      "method": "original PNG browser composition on light/dark plus 48px; only own observation tab metrics temporarily changed, original measured 1280x591 DPR3 restored",
+      "observation": "Near-frontal own-right gold / own-left blue personally verified; 48px light/dark gold/blue differentiation and white bob remain visible, no opaque white background. Raw mirror not approved.",
+      "rawPerimeterBoundary": "Sparse red/yellow fine fringe visible in original black viewer; not conspicuous as a colored external frame in actual light/dark/48px composition. Not all densities/runtime approved."
+    }
+  },
+  "primaryApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "croppedFromScene": false,
+  "officialArtCopied": false,
+  "humanMatrixCoverage": false,
+  "identityMirrorBoundary": "Near-frontal view: own-right gold / own-left blue. A raw whole-image mirror is not identity-approved; any opposite direction needs independent verification.",
+  "promptFileSha256": "9f118eb15c94f1f17b8c1b923c10a17ee21ac32eab6ca81e88e0c5a962586dd5",
+  "submittedPromptSha256": "ff7bae37d2509caa0df7469617f3ae9bd4b67d3e3b33bdc59010f3c44303a657",
+  "archivedAtUtc": "2026-10-25T16:49:48.626678+00:00"
+}

@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "recordType": "source-rgb-included-layer-image-stage",
+  "characterId": "tomori",
+  "neutralTime": "night",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "stage": "F2-v3",
+  "tool": "image_gen.imagegen",
+  "toolElapsedMs": 17976,
+  "recordedAt": "2026-10-26T01:46:11.177404+00:00",
+  "sourceConversationId": "01a17365-def4-7ef0-9767-09f785cec060",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/night/layers/figure-step1-marked-v2.png",
+      "sha256": "cb588ae6028b4d453159242a5c36921154ef62670af86859267d0f20964a7c31",
+      "role": "Only current healthy source-position F1-v2 semantic markup; fill internal tracing/convert room colors, no failed F2 input",
+      "personallyViewedBeforeGeneration": true
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: precise-object-edit / mask color conversion ONLY. The SINGLE input is the already-marked original-position F1-v2 image. Keep its EXACT1536x1024 canvas and ALL existing white-shape coordinates. Do not draw a different silhouette, infer a new pose, enlarge/scale, recenter, shift, crop or resize. Merely replace unselected room colors by black and keep the deliberately white selection opaque white.\n\nTHE EXISTING WHITE PERSON/PENCIL/NOTEBOOK/LEGS/SHOES SHAPE STAYS IN THE SAME PLACE. Crown stays around y122, both shoe bottoms around original y905, not a taller/repositioned person. Every already marked full shoe outer edge stays white: no shaving of toe/sole/heel perimeter. Do not expand into extra floor. Fine gray at true outside antialiasing only.\n\nFill the faint internal hand/book/sock/clothing tracing in the selected white region to PURE WHITE. Complete face/head/hair, all blazer panels/shirt/collar/skirt/hem, hands/fingers, exposed knees/calf socks, BOTH whole loafers, whole thin pencil and the open notebook/lower cover/lap are FEATURELESS SOLID WHITE. Notebook/lap must not have a black curved seam or page outline. No face features, garment folds or internal shoeseams left black/gray.\n\nONLY the existing genuine outside gaps between hair/limbs/legs are BLACK, including the lower narrow arm/torso gap exactly where this marked input leaves colored room. Do not extend or redesign it. All unmarked colored room—warm opaque curtain, lamp/shade/flowers/cup/books/table, pale cushions/throw, pillows, left furniture/plants/rug/floor and separate receiver/shadows—BLACK. Natural bright material is not deliberately white selection.\n\nNo source person RGB, gray backdrop, checkerboard, labels, guide, outline, texture or new shadow. This is mask conversion at identical source coordinates; original RGB will be read only from the unchanged clean mother once under MAX(F,S).",
+  "submittedPromptSha256": "50a9d5be3f4296080e5e388e85678744c4d1394fd76933252fbb6eb8ef6983aa",
+  "promptFile": "figure-mask-v3.prompt.txt",
+  "promptFileSha256": "143f56452ff61610d8b60b3cc33d1a7d065ecfa855f24d5a9a554104aff06175",
+  "requestFile": "figure-mask-v3.request.json",
+  "requestSha256": "18968db7937247762e6ff6c3476e90707902508cf730cef0deb5faae120317db",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-5a31fc28-6287-415e-bf2f-fd47c2cb6dcd.png",
+  "toolOriginalSha256": "028ae5c667a16530152d74a9a267d5a34e1a0faad2aa783a13a3599002fdacc5",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/night/layers/figure-mask-v3.png",
+    "sha256": "028ae5c667a16530152d74a9a267d5a34e1a0faad2aa783a13a3599002fdacc5",
+    "bytes": 419649,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true,
+    "resizedOrRetouched": false
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "status": "HOLD_expanded_arm_slit",
+    "observations": "Current F-v3 keeps original-position crown and full body after single-markup conversion; internal tracing filled white. Complete shoe selection requires targeted native checker/source comparison. No shifted held F-v2 used as input.",
+    "observedIssue": "Native original-RGB closeup and read-only source samples show true curtain slit only about x1014 at y480; mask also removes dark blazer at (1016,466)/(1016,472). Rebuild from clean mother, no held input."
+  },
+  "primaryApproved": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "generationInputAllowed": false,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "original360ExactActivityCell": false,
+  "sourceCodeOrRegistryChanged": false,
+  "status": "HOLD_expanded_arm_slit"
+}

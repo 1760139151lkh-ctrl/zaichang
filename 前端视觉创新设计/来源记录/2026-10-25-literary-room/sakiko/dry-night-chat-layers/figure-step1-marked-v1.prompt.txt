@@ -1,0 +1,10 @@
+Use case: precise-object-edit.
+Asset type: exact source-space foreground selection markup, F STEP 1 of 2.
+The ONLY image input is the correct approved original 1536 x 1024 Sakiko literary dry-night CHAT mother. This is selection markup, not a new illustration or a lighting edit.
+
+Paint the ENTIRE visible girl SOLID PURE WHITE directly over ALL of her ORIGINAL visible pixels. Preserve her exact original pose, close furniture scale and location. Include every silver-blue hair strand and wisp, navy ribbons, the complete face/eyes/neck, collar and tie, cardigan, sleeves, both whole hands and every visible finger, ALL plaid skirt pleats and the complete dark lower hem/trim, both knees/thighs, socks including tiny ornaments, both COMPLETE brown loafers and all very dark outsole/heel rims. Do not mistake dark clothes, hair gaps inside the silhouette, shoe soles or skirt trim for shadow. The head is around the source upper right, body stays at the original bench, shoes remain on the original floor. There is NO handheld book or new prop in this chat mother.
+
+The white interior must be flat and complete: no eye drawing, hair lines, buttons, fabric pattern, skin shade or shoe details inside the selected girl. Preserve the true fine perimeter and natural real gaps between separate strands/limbs; do not contract/erode the visible garment outline. Do not reconstruct hidden anatomy.
+
+Everything NOT part of her visible body/clothes/hair/shoes stays in the original source RGB: cushion, throw, pillows, bench, wood floor, carpet, lamp, cup, table, desk, chair, plants, window and dark exterior. Keep body-contact receiver shadows in the original environment color for a separate S selection; do not whiten a broad floor patch.
+Keep the exact full 1536 x 1024 canvas and every object coordinate. No crop, zoom, recenter, edge padding, new person, redraw, new room, moved furniture, color grading, labels, frames, arrows or text. Return one opaque same-size original room with only the entire visible girl painted white in place.

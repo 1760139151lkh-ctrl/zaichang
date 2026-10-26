@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "sceneId": "soyo-neutral-presence-time-night-included-v1",
+  "primaryAdmissionRecord": "root-primary-layer-admission-v1.json",
+  "runtimeManifest": "前端视觉创新设计/运行素材/companion/scenes/soyo-neutral-presence-time-night-included-v1.scene.json",
+  "runtimeManifestSha256": "2ddf6c4559d9188656bbeb0b4d5fc8f066c8bcd0ce2c953025d1f26cd220706c",
+  "sourceBundleSha256": "d05cb7e06626f6195758e79c79dc1e5edc1ff4a7ec4cb19b136325613c8f463a",
+  "copies": [
+    {
+      "role": "mother",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/soyo-neutral-time-night-literary-v1.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/soyo-neutral-presence-time-night-included-v1-mother.png",
+      "sha256": "82a918b778cbe9549572410ceba0c27af7c0e11d33f9f2ae14614a280e36d9b6",
+      "sourceSha256": "82a918b778cbe9549572410ceba0c27af7c0e11d33f9f2ae14614a280e36d9b6",
+      "bytes": 2255447
+    },
+    {
+      "role": "background",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/night/layers/background-v1.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/soyo-neutral-presence-time-night-included-v1-background.png",
+      "sha256": "4142e34426feb030bf4b471c084bb089850e4a8c28f44b01e96092781f46e90a",
+      "sourceSha256": "4142e34426feb030bf4b471c084bb089850e4a8c28f44b01e96092781f46e90a",
+      "bytes": 2127283
+    },
+    {
+      "role": "F",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/night/layers/figure-mask-v3.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/soyo-neutral-presence-time-night-included-v1-mask.png",
+      "sha256": "0775f81ebda27f9294d1e08cc888d8a795f555e4aa02921e19f0bb821aa13e79",
+      "sourceSha256": "0775f81ebda27f9294d1e08cc888d8a795f555e4aa02921e19f0bb821aa13e79",
+      "bytes": 464409
+    },
+    {
+      "role": "S",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/night/layers/contact-mask-v1.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/soyo-neutral-presence-time-night-included-v1-contact-mask.png",
+      "sha256": "2c5e517a2dfdf400f4e5b053fb30c96d6eaca52a6a52046fc0c1c31bf4e8b5cb",
+      "sourceSha256": "2c5e517a2dfdf400f4e5b053fb30c96d6eaca52a6a52046fc0c1c31bf4e8b5cb",
+      "bytes": 304889
+    }
+  ],
+  "runtimeAccepted": false,
+  "staticLayerApproved": true,
+  "noSrcEdits": true,
+  "noMaskPixelEdits": true,
+  "noTestEngineering": true
+}

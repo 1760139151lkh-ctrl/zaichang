@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-canvas-white-person-in-original-room-intermediate",
+  "id": "sakiko-chat-overcast-day-white-in-room-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-chat-overcast-day-white-in-room-v1.prompt.json",
+  "promptFileSha256": "fb18fe55ee8cc9c54848446302d25f67d2c72f804d379144c3b4509babf1c2c9",
+  "submittedPrompt": "Use case: precise-object-edit. This is STEP 1 of a registered silhouette extraction, NOT a cutout, NOT a new pose and NOT a black-background portrait.\nImage 1 is the ONLY input and exact full 1536 x 1024 edit target. Keep the complete original room, camera, objects, lighting, floor, window and ALL coordinates unchanged. In that SAME unaltered room image, turn ONLY every originally visible pixel belonging to the seated girl and her closed blue LAP book into one flat SOLID PURE WHITE region. Paint her original visible hair strands/ribbons, face/neck, navy cardigan, white blouse/bow, skirt, hands/fingers, bare knees, navy socks, both WORN brown loafers and the blue book under her left hand completely WHITE. All dark clothing/folds/eyes/laces/finger lines/book details INSIDE her silhouette become opaque white, with no holes or gray interior. Only narrow outer antialiasing is permitted.\nDo NOT remove the room or make it black in this step. Keep all non-person room pixels original color, including the closed blue DESK book, lamp, mug, bench cushion around her hips/right supporting palm, blanket and floor shadows. Never include furniture or contact shadows in the white figure. Keep real negative spaces between limbs/body and fingers where room is visibly seen. Do not reconstruct hidden anatomy behind the book, clothing or cushion. Trace the exact existing visible contour without enlarging, reducing, translating, straightening, recentering or altering the pose. Her crown stays near original y270, soles near original y783; do not make a larger girl or bring her toward camera.\nReturn the SAME full room with the same small seated silhouette simply filled white at the original coordinates. No black backdrop, new objects, text, labels, borders, grid, watermark, transparency or crop. Opaque RGB 1536 x 1024.",
+  "submittedPromptSha256Utf8NoTrailingLF": "090a1d203d4a01f5151d70a655bbc87f2dc5d2419a3cf133cb55aebdde6d0142",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-overcast-day-mother-v1.png",
+      "sha256": "a7e10ccb551badc3bb015bdd2c8870969bcf20c8ea23f2a282d2bcf636baa382",
+      "role": "sole root-approved complete overcast-day mother"
+    }
+  ],
+  "output": {
+    "file": "sakiko-chat-overcast-day-white-in-room-v1.png",
+    "sha256": "5a9adb59ac1ad6eba4958d94024016e658e7bc84ede65a41de8e08240a340b5e",
+    "bytes": 2051539,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17126-cdea-77e3-9abe-3d71acd87e8b\\exec-ba9cac8e-0b31-4707-a687-c8ffc8b62809.png"
+  },
+  "transparentBackground": false,
+  "intermediateOnly": true,
+  "review": {
+    "personallyViewed": false,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  },
+  "status": "generated-and-saved-awaiting-contour-inspection-before-step2"
+}

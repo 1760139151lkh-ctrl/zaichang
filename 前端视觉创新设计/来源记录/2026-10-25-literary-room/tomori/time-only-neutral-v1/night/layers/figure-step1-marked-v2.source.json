@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "recordType": "source-rgb-included-layer-image-stage",
+  "characterId": "tomori",
+  "neutralTime": "night",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "stage": "F1-v2",
+  "tool": "image_gen.imagegen",
+  "toolElapsedMs": 34885,
+  "recordedAt": "2026-10-26T01:42:17.723350+00:00",
+  "sourceConversationId": "01a17365-def4-7ef0-9767-09f785cec060",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/tomori-neutral-time-night-v1.png",
+      "sha256": "36e1e2e4029d81914b4192cee8351d84b44fa0ef188c88910dd58d400a3e4300",
+      "role": "Only exact clean root-approved night mother; full shoe contour rebuild, no held mask/markup/review image input",
+      "personallyViewedBeforeGeneration": true
+    }
+  ],
+  "exactSubmittedPrompt": "CRITICAL FULL-SHOE SOURCE SELECTION: BOTH loafers must retain EVERY actual leather/sole pixel right to their original OUTERMOST toe, sidewall, sole-rim and heel bottom. Do not simplify or shave the diagonal outer edge of the FRONT loafer: inspect x855..1005,y820..915, especially its outer toe/sole curve. The rear loafer x780..905,y795..885 also stays complete. A source leather highlight/sole strip is foreground, not a transparent floor gap. No erosion or inward contour contraction. These are inspection regions, NOT rectangles or permission to select extra floor.\n\nUse case: precise-object-edit F1-v2 rebuild. ONLY input is exact clean root-approved Tomori TIME-NIGHT full mother1536x1024. Same full canvas/camera/every source position; no resize/crop/zoom/recenter/pose/silhouette redesign. Mark the COMPLETE original girl, full pencil and whole open notebook SOLID FEATURELESS PURE WHITE. All fine hair tips, head/face/ears/neck, ALL blazer panels/cuffs/shirt/collar/skirt/lowest hem, both hands/fingers/wrists, exposed thighs/knees/calf socks and BOTH entire shoes are white. Full pencil upper end→page tip; all notebook pages/spine/thin lower cover/binding connected continuously to lap. No black/colored internal notebook curve, hand line, face feature, garment fold, pencil centerline or shoeseam.\n\nLeave ONLY true original outside gaps between hair strands/limbs/legs colored. The actual arm/torso slit is tiny and lower near x1010..1020,y470..500, never an enlarged upper triangle. Keep actual dark blazer around x1015,y450 and x1010,y480 WHITE; no extra arm hole. Notebook/lower cover/lap connected white. Fine gray only original external antialiasing, no dilation/new holes.\n\nEverything actual room stays ORIGINAL COLORED NIGHT RGB: opaque curtain, lamp/shade/flowers/cup/table/book stack, naturally bright linen/throw, blue pillows, left furniture/plants/rug/wood floor and independent contact shades. No receiver/shadow markup here; natural bright room is not foreground. No new shade, glow, texture, label, grid, checker or outline. Final RGB comes solely from unchanged original mother ONCE through MAX(F,S), not this marked painting.",
+  "submittedPromptSha256": "1e76542d7622c15c70308dace31df62ab8b1c3d5723b9aa2041082928ee754fd",
+  "promptFile": "figure-step1-marked-v2.prompt.txt",
+  "promptFileSha256": "1e58b40b1eeb0b45dd2341c0ea8cf5a9c7208e908c6c23190763730e6159adf7",
+  "requestFile": "figure-step1-marked-v2.request.json",
+  "requestSha256": "64a0dd2512efad5335676a1476c468c0b224d54895ff1e8090d5794c16970905",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-a188d028-c309-449e-9880-678383e8190b.png",
+  "toolOriginalSha256": "cb588ae6028b4d453159242a5c36921154ef62670af86859267d0f20964a7c31",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/night/layers/figure-step1-marked-v2.png",
+    "sha256": "cb588ae6028b4d453159242a5c36921154ef62670af86859267d0f20964a7c31",
+    "bytes": 1942035,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true,
+    "resizedOrRetouched": false
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "status": "HOLD_expanded_arm_slit",
+    "observations": "Whole person/pencil/notebook/shoe selection viewed. Faint internal hand/book/sock tracing is visible in markup and must be filled in final image conversion, never treated as final coverage. Full-shoe outer contour is being qualified against clean original; no old failed F mask fed back.",
+    "observedIssue": "Native original-RGB closeup and read-only source samples show true curtain slit only about x1014 at y480; mask also removes dark blazer at (1016,466)/(1016,472). Rebuild from clean mother, no held input."
+  },
+  "primaryApproved": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "generationInputAllowed": false,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "original360ExactActivityCell": false,
+  "sourceCodeOrRegistryChanged": false,
+  "generationInputScope": "Immediate F2 conversion with exact clean original outside contour context only",
+  "status": "HOLD_expanded_arm_slit"
+}

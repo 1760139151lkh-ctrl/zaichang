@@ -1,0 +1,338 @@
+{
+  "schemaVersion": 1,
+  "key": "sakiko/rest/apricot",
+  "kind": "single-call-joint-coverage-prototype-v2-additional-authorized-round",
+  "status": "producer_hold_internal_coverage_gap_and_sole_edge_concern",
+  "primary": false,
+  "layer": false,
+  "runtime": false,
+  "canvas": [
+    1536,
+    1024
+  ],
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-rest-apricot-literary-pilot-v1.png",
+    "sha256": "144a167d9c7d1bc594051ef1ca3fcf0b92e97f1a8ddbf8cd63eb6b54c8a460f8",
+    "motherApprovalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+    "layerApprovalByMotherReview": false
+  },
+  "background": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "suppliedToImageGen": false
+  },
+  "coverage": {
+    "path": "joint-coverage-v2.png",
+    "sha256": "89352e5ac055d1974d64983ffde1799eeebf9bd06e7d1a647cd9775121019106",
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "generationSource": "joint-coverage-v2.source.json",
+    "role": "Single unmodified ImageGen original-position joint foreground/contact luminance coverage",
+    "actualDecodedMode": "RGB",
+    "hasAlphaChannel": false,
+    "alphaIdempotenceBoundary": "PNG is color type 2, opaque RGB without an alpha channel. This prototype is single joint coverage, not two independent F/S outputs. No runtime registration or same-file MAX claim is approved by this producer record."
+  },
+  "assembly": {
+    "formula": "subject = unchangedMotherRGB × L(jointCoverage); scene = matchingBG then subject once",
+    "nativeSvg": "joint-source-v2.svg",
+    "originalMotherRgbDrawsPerSubject": 1,
+    "maskMode": "luminance",
+    "contactShadow": {
+      "mode": "included"
+    },
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "sharedCanvasIdentity": true,
+    "independentCastShadow": false,
+    "newFigureRgb": false,
+    "pngPixelEditing": false,
+    "thresholding": false,
+    "adaptiveColorDifference": false,
+    "sourceShadowPolygon": false,
+    "nativeSvgSha256": "bb601e33e0619d01be8d59144d31375812073c5c6b44f5989644d67e111a7c37"
+  },
+  "intendedBoundary": [
+    "Fixed exact-source pose only",
+    "Complete head, hair, hands, skirt and whole shoes are required; included semantics do not relax contour completeness",
+    "Narrow original support receivers may be included honestly",
+    "No independent body/limb/shadow movement or transfer to another support"
+  ],
+  "generation": {
+    "callsThisRound": 1,
+    "callLimitThisRound": 1,
+    "totalPrototypeCalls": 2,
+    "retriesWithinRound": 0,
+    "builtInOnly": true,
+    "soleCorrectMotherInput": true,
+    "priorMasksAsInput": false,
+    "largeImageResultStored": false,
+    "sourceRecordSha256": "bcd1562f58284961e43f40ec86dbe2dd4bad779b20e33ec37505fbe32f1a7efe"
+  },
+  "priorMethodReference": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/reading-layers-included-bundle-v3.json",
+  "visualInspection": {
+    "status": "producer_complete_hold",
+    "page": "rest-joint-coverage-observe-v2.html",
+    "pageUrl": "http://127.0.0.1:5188/来源记录/2026-10-25-literary-room/sakiko/rest-joint-coverage-prototype/rest-joint-coverage-observe-v2.html",
+    "rois": [
+      {
+        "id": "face",
+        "sourcePixels": [
+          1065,
+          95,
+          230,
+          250
+        ]
+      },
+      {
+        "id": "palm",
+        "sourcePixels": [
+          1180,
+          505,
+          190,
+          110
+        ]
+      },
+      {
+        "id": "hem",
+        "sourcePixels": [
+          925,
+          495,
+          440,
+          125
+        ]
+      },
+      {
+        "id": "shoes",
+        "sourcePixels": [
+          800,
+          765,
+          270,
+          165
+        ]
+      },
+      {
+        "id": "knee",
+        "sourcePixels": [
+          960,
+          605,
+          85,
+          100
+        ]
+      }
+    ],
+    "at": "2026-10-25T13:54:03.625990+00:00",
+    "browser": "Chrome through cua_repl; existing 127.0.0.1:5188 static viewer only",
+    "statesViewed": [
+      "complete original versus matching BG + v2 joint coverage",
+      "light/dark/checker entire subject upper and lower view with source-pixel shoes",
+      "raw generated mask",
+      "1:1 original/v1 checker/v2 checker/recomposed face and palm/seat",
+      "1:1 entire hem row including horizontally scrolled v2 and recomposed right end",
+      "1:1 original/v1/v2/recomposed full shoes and floor receiver",
+      "1:1 original/v1/v2 knee interior and adjacent leg gap"
+    ],
+    "observations": [
+      "The source head/eyes/hair, hands, plaid hem and full shoe extent remain recognizable and no source RGB, pose or canvas was redrawn.",
+      "The v2 coverage includes a visibly larger narrow original linen receiver at the palm/seat and an irregular original wood receiver around the shoes. This is fixed included material, not a movable independent shadow.",
+      "The formerly missing floor point (905,898) is now covered: v1 (0,0,0), v2 (253,252,253), original mother (65,35,13). The recomposed contact darkness is closer to the original.",
+      "The v2 mask introduces a thin partial-coverage hole along the inner knee/leg contact on actual source flesh. At (998,644), v1 is (254,253,254), v2 is (50,50,48), mother is (142,97,84), while the background is (75,40,18).",
+      "Fine light contours are visible around parts of the shoe soles in the v2 checker/recomposition comparison; this is recorded as a fidelity concern rather than declaring the entire shoe missing.",
+      "Complete scene resemblance and better receiver coverage do not override the newly observed internal coverage gap."
+    ],
+    "issues": [
+      {
+        "id": "inner-leg-partial-coverage-hole",
+        "status": "hold",
+        "sourceRegion": [
+          960,
+          605,
+          85,
+          100
+        ],
+        "evidenceAnchor": "#knee",
+        "finding": "Actual flesh pixel (998,644) is low luminance (50,50,48) in v2 instead of solid foreground white; the joint sprite therefore partially reveals the receiver through the body interior. No source edit/geometry fill is applied.",
+        "readOnlySample": {
+          "sourcePoint": [
+            998,
+            644
+          ],
+          "v1CoverageRGB": [
+            254,
+            253,
+            254
+          ],
+          "v2CoverageRGB": [
+            50,
+            50,
+            48
+          ],
+          "motherRGB": [
+            142,
+            97,
+            84
+          ],
+          "matchingBackgroundRGB": [
+            75,
+            40,
+            18
+          ]
+        }
+      },
+      {
+        "id": "sole-edge-light-line",
+        "status": "hold_visual_fidelity_concern",
+        "sourceRegion": [
+          800,
+          765,
+          270,
+          165
+        ],
+        "evidenceAnchor": "#shoes",
+        "finding": "V2 checker/recomposition shows thin light contour lines along portions of the soles unlike the original dark edge. Entire shoe extent is present, but full unbroken source coverage is not signed."
+      }
+    ],
+    "readOnlyPixelSamples": [
+      {
+        "sourcePoint": [
+          905,
+          898
+        ],
+        "v1CoverageRGB": [
+          0,
+          0,
+          0
+        ],
+        "v2CoverageRGB": [
+          253,
+          252,
+          253
+        ],
+        "motherRGB": [
+          65,
+          35,
+          13
+        ],
+        "matchingBackgroundRGB": [
+          113,
+          80,
+          73
+        ]
+      },
+      {
+        "sourcePoint": [
+          997,
+          645
+        ],
+        "v1CoverageRGB": [
+          254,
+          253,
+          254
+        ],
+        "v2CoverageRGB": [
+          131,
+          135,
+          134
+        ],
+        "motherRGB": [
+          152,
+          103,
+          89
+        ],
+        "matchingBackgroundRGB": [
+          94,
+          56,
+          31
+        ]
+      },
+      {
+        "sourcePoint": [
+          998,
+          644
+        ],
+        "v1CoverageRGB": [
+          254,
+          253,
+          254
+        ],
+        "v2CoverageRGB": [
+          50,
+          50,
+          48
+        ],
+        "motherRGB": [
+          142,
+          97,
+          84
+        ],
+        "matchingBackgroundRGB": [
+          75,
+          40,
+          18
+        ]
+      },
+      {
+        "sourcePoint": [
+          850,
+          887
+        ],
+        "v1CoverageRGB": [
+          247,
+          246,
+          246
+        ],
+        "v2CoverageRGB": [
+          238,
+          239,
+          237
+        ],
+        "motherRGB": [
+          21,
+          10,
+          6
+        ],
+        "matchingBackgroundRGB": [
+          138,
+          119,
+          134
+        ]
+      }
+    ],
+    "pngPixelEditing": false,
+    "thresholding": false,
+    "adaptiveColorDifference": false,
+    "pageSha256": "3d909a3f56dbd282377f2af1e0415b7e36c02a39f46c3db91e78bebd12b732e1"
+  },
+  "review": {
+    "approvedByPrimary": false,
+    "layerApproved": false,
+    "runtimeAccepted": false,
+    "producerDisposition": "hold; contact improved but complete internal coverage is not established; no more ImageGen calls"
+  },
+  "scopeBoundary": {
+    "sourceTsEdits": false,
+    "registration": false,
+    "newTests": false,
+    "portControl": false,
+    "newServices": false,
+    "newChildren": false
+  },
+  "previousVersion": {
+    "bundle": "rest-joint-coverage-bundle-v1.json",
+    "status": "producer_hold_floor_contact_extent_not_adequately_selected",
+    "sha256": "e6010f25807a7b58ec0ccaa69c6baeeca21c9ad3f036500bca6974ab8ce9427a",
+    "preservedUnchanged": true
+  },
+  "sourceUnchangedVerification": {
+    "motherActualSha256": "144a167d9c7d1bc594051ef1ca3fcf0b92e97f1a8ddbf8cd63eb6b54c8a460f8",
+    "motherMatchesApproved": true,
+    "backgroundActualSha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "backgroundMatchesApproved": true,
+    "v2MaskActualSha256": "89352e5ac055d1974d64983ffde1799eeebf9bd06e7d1a647cd9775121019106",
+    "v2MaskUnmodified": true,
+    "v1MaskActualSha256": "88800525fa3479df8bdb4e36258325d2271c4ec7ac64bf7a098b3e37b6e8bf0d",
+    "v1BundleActualSha256": "e6010f25807a7b58ec0ccaa69c6baeeca21c9ad3f036500bca6974ab8ce9427a",
+    "v1PageActualSha256": "1130a346e10e28b92503bdcb963e26c80a56da68962c21c15f03cebd90b2b8ea"
+  }
+}

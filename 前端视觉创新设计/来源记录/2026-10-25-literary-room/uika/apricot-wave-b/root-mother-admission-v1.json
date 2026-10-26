@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 1,
+  "kind": "root-static-mother-approval",
+  "character": "uika",
+  "wave": "apricot-wave-b",
+  "palette": "apricot",
+  "recordedAt": "2026-10-25T12:18:03.097403+00:00",
+  "reviewer": "root",
+  "primaryApproved": true,
+  "primaryMotherApproved": true,
+  "approvalScope": "Exact five static mother PNGs personally viewed in full by root; ten total across Uika/Umiri.",
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "approvalMessage": "root已完整原图亲看Uika wave-b5母，全静态批准：study膝上大本手指页询问有效；listening空手叠膝愿听；play插画本翻花页/开朗小笑有具体趣味；attention翻页一刻看人/指停在页；resume保V开本另一掌座面抬眼相认。5张发眼/书页手指/长裙座支撑/完整鞋均自然，camera大家具稳定，没有硬把笑脸换角色。母图only，root exactSHA record请专属保存，layer/runtimefalse。无需为夹页指不可见额外造图，实际visible保页已足。当前light6照常收束。",
+  "producerSnapshot": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/wave-b-producer-bundle-v1.json",
+    "sha256": "76853c5d7048fd8b1ca4176d02245ec1ce59ebeb1b5cce8f94c1ee838e10f20e",
+    "preservedUnchanged": true
+  },
+  "approvalStateMeaning": "This later primary record is authoritative only for these exact PNG SHAs. False approval fields in unchanged producer source/bundle are historical pre-primary snapshots, not a current rejection.",
+  "outputs": [
+    {
+      "activity": "study",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-study-apricot-literary-wave-b-v1.png",
+      "motherSha256": "e2d564a0893b1a35b182ac78d8b7464883a462c4b7398e54e0798c0c5afdaba9",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-study-apricot-literary-wave-b-v1.source.json",
+      "sourceSha256": "723fd914adb4a734d2ce7f2ce0552d7179987e131a2b89132853094f8ea2cfc4",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-study-apricot-literary-wave-b-v1.prompt.txt",
+      "promptSha256": "00889c6d6b4d3354448e67e1db6f7b6a8a3836d7ce48c702fc056c6d8a441a63",
+      "primaryApproved": true,
+      "primaryMotherApproved": true,
+      "layersApproved": false,
+      "runtimeAccepted": false,
+      "scope": "Exact static mother only",
+      "rootObservations": [
+        "膝上大本、手指页与询问有效。",
+        "发眼、各可见手及完整鞋脚支撑自然，机位与大家具稳定。"
+      ]
+    },
+    {
+      "activity": "listening",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-listening-apricot-literary-wave-b-v1.png",
+      "motherSha256": "4bffbaf285d3a79fff261e1c256f04d12310812c915979fcf14c08aabc50472f",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-listening-apricot-literary-wave-b-v1.source.json",
+      "sourceSha256": "5b4004e91bac9cb1bc019ac1b6d6a85797258359969ceb0f6673c5bceced4c97",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-listening-apricot-literary-wave-b-v1.prompt.txt",
+      "promptSha256": "919ba52301522016b4a7d40ba3fa43970859d84e84c22e216b11622b76dd62e5",
+      "primaryApproved": true,
+      "primaryMotherApproved": true,
+      "layersApproved": false,
+      "runtimeAccepted": false,
+      "scope": "Exact static mother only",
+      "rootObservations": [
+        "空手叠膝，愿意听完。",
+        "发眼、各可见手及完整鞋脚支撑自然，机位与大家具稳定。"
+      ]
+    },
+    {
+      "activity": "play",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-play-apricot-literary-wave-b-v1.png",
+      "motherSha256": "24b81fe7fee7d805b24ab07843e6dbc7c86799036a6f2ffe69eebaaec315e1c3",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-play-apricot-literary-wave-b-v1.source.json",
+      "sourceSha256": "570fedfe9fa172a0597c1851bf489dd12f5e6789cb0d6531061f2023c9a2d3f7",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-play-apricot-literary-wave-b-v1.prompt.txt",
+      "promptSha256": "dce5e5bf2468cfc53bd09bc4a0622f3407d93cef5b3a373358e6455eb83f340a",
+      "primaryApproved": true,
+      "primaryMotherApproved": true,
+      "layersApproved": false,
+      "runtimeAccepted": false,
+      "scope": "Exact static mother only",
+      "rootObservations": [
+        "插画本翻花页、开朗小笑有具体趣味。",
+        "发眼、各可见手及完整鞋脚支撑自然，机位与大家具稳定。"
+      ]
+    },
+    {
+      "activity": "attention",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-attention-apricot-literary-wave-b-v1.png",
+      "motherSha256": "778950ac219b655855e505bfadf13e9bacda47aab34acd1d3ba3586ceb7f3a76",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-attention-apricot-literary-wave-b-v1.source.json",
+      "sourceSha256": "6de2d1f326ea0ca8c6327ab3189274ee8a3588979eb05dbfc59851b51b6033be",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-attention-apricot-literary-wave-b-v1.prompt.txt",
+      "promptSha256": "4f56e77c2d79ca1b33554aa9e7e6c9469caf62e07bee4c9b666aac5023ada357",
+      "primaryApproved": true,
+      "primaryMotherApproved": true,
+      "layersApproved": false,
+      "runtimeAccepted": false,
+      "scope": "Exact static mother only",
+      "rootObservations": [
+        "翻页一刻看人、手指停在页。",
+        "发眼、各可见手及完整鞋脚支撑自然，机位与大家具稳定。"
+      ]
+    },
+    {
+      "activity": "resume",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-resume-apricot-literary-wave-b-v1.png",
+      "motherSha256": "778a668daa34faa58e4da49311564664a0bbd89acbf030d6b25a5dd571f23cc7",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-resume-apricot-literary-wave-b-v1.source.json",
+      "sourceSha256": "903e148068c4f10060812c644427e5949457990ad5f265c8feecfe6df5bd1202",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-resume-apricot-literary-wave-b-v1.prompt.txt",
+      "promptSha256": "f83899113a312f4eb1f2e68390439e386fa74fbe177509bb0eaf242f80834034",
+      "primaryApproved": true,
+      "primaryMotherApproved": true,
+      "layersApproved": false,
+      "runtimeAccepted": false,
+      "scope": "Exact static mother only",
+      "rootObservations": [
+        "保留V开本，另一掌在座面，抬眼相认；实际可见保页已足，无需为夹页指不可见另造图。",
+        "发眼、各可见手及完整鞋脚支撑自然，机位与大家具稳定。"
+      ]
+    }
+  ],
+  "boundary": "No layer generation, runtime or registration approval; six chat-light-wave mothers remain separately unapproved pending root review."
+}

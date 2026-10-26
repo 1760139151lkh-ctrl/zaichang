@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "kind": "literary-room-apricot-wave-a-mother-candidates",
+  "character": "soyo",
+  "authorizedMotherCalls": 3,
+  "completedMotherCalls": 3,
+  "generationStopped": true,
+  "scope": [
+    "reading",
+    "planning",
+    "rest"
+  ],
+  "inputs": "approved clear-day cleanplate + own approved new-room chat identity/clothing/scale only",
+  "cells": [
+    {
+      "id": "soyo-reading-apricot-literary-v1",
+      "briefCell": "soyo/reading/apricot",
+      "activity": "reading",
+      "palette": "apricot",
+      "png": {
+        "path": "soyo-reading-apricot-literary-v1.png",
+        "sha256": "d0d179ddadd7638eea42b51c3e158ed820f1bb65deea5ccc73a625eac459369e",
+        "bytes": 2450763,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "soyo-reading-apricot-literary-v1.prompt.json",
+        "sha256": "e6734c569a892602310cf89ef1fb062c3298e76aaebe6907ff2009f5d9f00398"
+      },
+      "source": {
+        "path": "soyo-reading-apricot-literary-v1.source.json",
+        "sha256": "2fa7a2947c4d73e78d2ed07608d8802ef55300a681319c55dffe65d9581b3444"
+      },
+      "directInspection": "saved-original-PNG-personally-viewed-before-next-generation",
+      "selfDisposition": "awaiting-primary-review",
+      "concerns": [
+        "实际仍接近chat的中右长凳位置与头倾角，未充分移到brief所写格纹靠垫前；阅读新意主要在翻页/书签和疑问神情，留root比较审查。"
+      ],
+      "approvedByPrimary": true,
+      "runtimeAccepted": false,
+      "contentConsistency": {
+        "outputSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "LF": true
+      },
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static original mother only",
+        "rationale": "Root personally viewed and approved original identity, hair/eyes/hands/book and visible real support; static mother only.",
+        "source": "Root direct message 2026-10-25; exact message timestamp not provided"
+      }
+    },
+    {
+      "id": "soyo-planning-apricot-literary-v1",
+      "briefCell": "soyo/planning/apricot",
+      "activity": "planning",
+      "palette": "apricot",
+      "png": {
+        "path": "soyo-planning-apricot-literary-v1.png",
+        "sha256": "270017d960ec00da97493baf8120e16403ba534e4040dc5e9be72ef44e7fe6c9",
+        "bytes": 2428113,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "soyo-planning-apricot-literary-v1.prompt.json",
+        "sha256": "7e1f1f7308b8a1127e5dcd15ecd2f08dca1669e5547064a777b9d5a6a542de11"
+      },
+      "source": {
+        "path": "soyo-planning-apricot-literary-v1.source.json",
+        "sha256": "4902dce8dac66586d2a655000b7f9360202dad6c3f5f0097215cd5803be0a24d"
+      },
+      "directInspection": "saved-original-PNG-personally-viewed-before-next-generation",
+      "selfDisposition": "awaiting-primary-review",
+      "concerns": [
+        "visibility-limit：原前景植物遮住一部分膝下/鞋区，无法直接核完整双鞋和每段小腿，不声明满足完整膝鞋清楚可见。",
+        "偏离brief的小动作：一手托近下巴而非桌面指尖轻触；心理与姿态是否采用待root主审。"
+      ],
+      "approvedByPrimary": true,
+      "runtimeAccepted": false,
+      "contentConsistency": {
+        "outputSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "LF": true
+      },
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static original mother only",
+        "rationale": "Root personally viewed and approved original identity, hair/eyes/hands/book and visible real support; static mother only. Large furniture remains stable; local chair rotation is reasonable. Foreground plant naturally occludes part of legs/shoes; no complete foot contour certification, not a structural anatomy rejection.",
+        "source": "Root direct message 2026-10-25; exact message timestamp not provided"
+      },
+      "contourComplete": false
+    },
+    {
+      "id": "soyo-rest-apricot-literary-v1",
+      "briefCell": "soyo/rest/apricot",
+      "activity": "rest",
+      "palette": "apricot",
+      "png": {
+        "path": "soyo-rest-apricot-literary-v1.png",
+        "sha256": "3bd75a744710a6b112696fbdea7502e54e18f6430bdbe1d785b2861c128d9463",
+        "bytes": 2458190,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "soyo-rest-apricot-literary-v1.prompt.json",
+        "sha256": "ddfda3ea3860864f4c425e2766eceb2b2e9287c162689561e0a1cf1b4e082bfc"
+      },
+      "source": {
+        "path": "soyo-rest-apricot-literary-v1.source.json",
+        "sha256": "1e97b3ee0e8850dbe11dd1b73e2630ebdf07f63776cbbd1fffca316352ecaa23"
+      },
+      "directInspection": "saved-original-PNG-personally-viewed-before-next-generation",
+      "selfDisposition": "awaiting-primary-review",
+      "concerns": [],
+      "approvedByPrimary": true,
+      "runtimeAccepted": false,
+      "contentConsistency": {
+        "outputSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "LF": true
+      },
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static original mother only",
+        "rationale": "Root personally viewed and approved original identity, hair/eyes/hands/book and visible real support; static mother only.",
+        "source": "Root direct message 2026-10-25; exact message timestamp not provided"
+      }
+    }
+  ],
+  "approvedByPrimary": true,
+  "layerWorkStarted": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "primaryAdmissionRecord": {
+    "path": "soyo-apricot-wave-a-primary-mother-admission-v1.json",
+    "sha256": "67be92e197cf8168c27a8fe4b063cfb6f33bb87868259adaae9ab3f8c8928efe"
+  },
+  "approvalScope": "per-cell static mother only"
+}

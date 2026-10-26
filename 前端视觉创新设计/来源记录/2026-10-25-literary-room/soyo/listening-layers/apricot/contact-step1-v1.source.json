@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-listening-apricot-contact-step1-v1",
+  "cell": "soyo/listening/apricot",
+  "stage": "S1",
+  "submittedPrompt": "Use case: precise-object-edit. Asset: original local contact/receiving-material selection markup, STEP S1, for FIXED included joint layer.\nThe ONLY input is the exact root-approved complete Soyo LISTENING apricot mother, 1536x1024. Preserve original full canvas, camera, all furniture and every source coordinate. This is selection markup for unchanged SOURCE RGB, not a new person, another pose, new shadow, color correction, mask from a template or portable body/caster. Output the original 1536x1024 canvas with no crop, resize, zoom, centering, movement, text, arrows, grid or outline.\nKeep the entire person, empty hands, complete hair, all clothing/hem/socks/shoes and the separate closed book in their ORIGINAL COLOR. Paint PURE SOLID WHITE only over existing SMALL LOCAL RECEIVER patches caused by this body/book and these shoes, at their exact original source positions. Follow real irregular linen compression/contact and short local floor shade, never invent a shadow or use rectangles/ellipses.\nSeat receiver: select only the actual little visible linen/contact islands right below the skirt/hip in these tight neighborhoods: tiny left trailing-hem receiver near x807..872,y557..588 and rear-hip/right-hem receiver near x1030..1140,y566..610. These are loose inspection neighborhoods, NOT fill boxes. The garment itself remains colored (it belongs to F), and the EMPTY LONG CUSHION STRIP to either side stays colored. Do not connect the small islands into a long white seat band.\nBook receiver: only the tiny actual linen strip immediately touching the underside of the separate closed book, closed-book bottom receiver near x1110..1270,y565..583; the entire book remains colored.\nSole receivers: only the immediate actual floor contacts/short shade touching the two complete source loafer bottoms, image-left sole near x738..836,y850..898 and image-right sole near x790..919,y857..903. Keep every dark shoe sidewall/sole/heel in original color; shoes belong to F. Do not move floor shade downwards, connect the two into one broad oval, or select unrelated wood-floor sunlight/lamp highlights.\nAll other source RGB stays unchanged, including the face/hair/bow/left-chest crest, hands/knees, skirt folds and dark hem, every shoe, the book, naturally pale linen/pillows, full curtains/flowers/lamp shade, window, floor/rug and furniture. Self-shading on the person and book is not a receiver. No whole bench, bright floor rectangle, sun-window lattice or generic cast shadow selection. Output one opaque full-color original-position 1536x1024 PNG with only those few actual local receiver regions deliberately white. This is included source receiving material, not an independent transferable shadow.\n",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-listening-apricot-literary-v2.png"
+  ],
+  "transparentBackground": false,
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-listening-apricot-literary-v2.png",
+      "sha256": "f242a5b6865d6ac27688ba75bdb8b0e733e6cbb8ea9724b4ea338973288c3862",
+      "role": "sole exact root-approved mother, source RGB untouched"
+    }
+  ],
+  "outputFile": "contact-step1-marked-v1.png",
+  "scope": "selection only; original mother RGB later selected once through MAX(F,S); no layer/runtime approval",
+  "generationStatus": "prepared-not-yet-called",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "actualToolArguments": {
+    "prompt": "Use case: precise-object-edit. Asset: original local contact/receiving-material selection markup, STEP S1, for FIXED included joint layer.\nThe ONLY input is the exact root-approved complete Soyo LISTENING apricot mother, 1536x1024. Preserve original full canvas, camera, all furniture and every source coordinate. This is selection markup for unchanged SOURCE RGB, not a new person, another pose, new shadow, color correction, mask from a template or portable body/caster. Output the original 1536x1024 canvas with no crop, resize, zoom, centering, movement, text, arrows, grid or outline.\nKeep the entire person, empty hands, complete hair, all clothing/hem/socks/shoes and the separate closed book in their ORIGINAL COLOR. Paint PURE SOLID WHITE only over existing SMALL LOCAL RECEIVER patches caused by this body/book and these shoes, at their exact original source positions. Follow real irregular linen compression/contact and short local floor shade, never invent a shadow or use rectangles/ellipses.\nSeat receiver: select only the actual little visible linen/contact islands right below the skirt/hip in these tight neighborhoods: tiny left trailing-hem receiver near x807..872,y557..588 and rear-hip/right-hem receiver near x1030..1140,y566..610. These are loose inspection neighborhoods, NOT fill boxes. The garment itself remains colored (it belongs to F), and the EMPTY LONG CUSHION STRIP to either side stays colored. Do not connect the small islands into a long white seat band.\nBook receiver: only the tiny actual linen strip immediately touching the underside of the separate closed book, closed-book bottom receiver near x1110..1270,y565..583; the entire book remains colored.\nSole receivers: only the immediate actual floor contacts/short shade touching the two complete source loafer bottoms, image-left sole near x738..836,y850..898 and image-right sole near x790..919,y857..903. Keep every dark shoe sidewall/sole/heel in original color; shoes belong to F. Do not move floor shade downwards, connect the two into one broad oval, or select unrelated wood-floor sunlight/lamp highlights.\nAll other source RGB stays unchanged, including the face/hair/bow/left-chest crest, hands/knees, skirt folds and dark hem, every shoe, the book, naturally pale linen/pillows, full curtains/flowers/lamp shade, window, floor/rug and furniture. Self-shading on the person and book is not a receiver. No whole bench, bright floor rectangle, sun-window lattice or generic cast shadow selection. Output one opaque full-color original-position 1536x1024 PNG with only those few actual local receiver regions deliberately white. This is included source receiving material, not an independent transferable shadow.\n",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-listening-apricot-literary-v2.png"
+    ],
+    "transparent_background": false
+  },
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/contact-step1-marked-v1.png",
+    "sha256": "2fb4401de742ce88549306f4bbce1cd7e1f970a76b1304b2c90bbbeb2355aa22",
+    "bytes": 2397874,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "originalToolOutputPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-b7dc34fa-5cf6-4208-aa2a-b187ad73c03d.png",
+  "recordedAtUtc": "2026-10-25T19:22:20.963562+00:00",
+  "submittedPromptSha256": "7a3f937da0f8ac5779a2ffab36eed9af3d7642eba2e76f7b75265d19db906cbb",
+  "producerInspection": {
+    "status": "selection-intermediate-awaiting-mask-conversion",
+    "scope": "selection markup only, not generated person RGB",
+    "observations": [
+      "Whole marked source personally viewed: a few small under-hem receiver whites, narrow book-bottom receiving area and two local sole-floor groups; no whole long empty bench or unrelated solar-grid selection visibly adopted. Exact source receiver geometry remains for MAX/composite review."
+    ]
+  },
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "pngPixelEditing": false
+}

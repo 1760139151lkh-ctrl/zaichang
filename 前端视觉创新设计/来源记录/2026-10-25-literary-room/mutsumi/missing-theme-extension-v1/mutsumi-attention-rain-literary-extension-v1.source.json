@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "recordType": "new-complete-human-theme-mother-candidate",
+  "sceneFamily": "literary-room-v1",
+  "cell": "mutsumi/attention/rain",
+  "character": "mutsumi",
+  "activity": "attention",
+  "palette": "rain",
+  "tool": "image_gen.imagegen",
+  "transparentBackground": false,
+  "recordedAt": "2026-10-25T18:39:18.091372+00:00",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-6e49c144-604d-4cc1-a4e7-f2ce67cd6f54.png",
+  "toolOriginalSha256": "9908c1f92f37f1c5bcf14e84c87566a88864515cf9c6dd9de2b78c409b43b6bc",
+  "generationPlan": {
+    "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\missing-human-mother-production-plan-v1.json",
+    "sha256": "251f83b82c17e5ea7646559e29655dd9daae9b2dcdc370fcce2169bd62debc9f",
+    "brief": {
+      "index": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/mutsumi-prompt-plan.json",
+        "sha256": "66ade9700cb7bb993b43bd7e247b678878b79ad71237b0b5dcd915a43a3be2ca",
+        "bytes": 101958,
+        "capturedAt": "2026-10-25T09:14:03.037840+00:00"
+      },
+      "jsonPointer": "/cells/31",
+      "briefKey": "mutsumi/attention/rain",
+      "producerBriefRef": null
+    },
+    "precedence": "Current explicit14-cell release supersedes historical held brief flags. Actual input list alone was submitted."
+  },
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/mutsumi.md",
+      "sha256": "189d1a17f6e4c2656692437167c50d2a89379cf50b16bc354df3ac8406e4610c",
+      "readScope": "Full personally read current role dossier and full art-direction before role batch; exact read-version bound to call."
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "91fb8b8de3e8d954a9367a585f09b71b8f5a9962d8ed0107249c348390fb7f05",
+      "readScope": "Full personally read current role dossier and full art-direction before role batch; exact read-version bound to call."
+    }
+  ],
+  "seedInspection": {
+    "artifact": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-attention-apricot-v1.png",
+      "sha256": "6a6dd6f09e91cdcf97461452757cbe8ca1ae4ec5bbe382d404d5d0ef8fad3cd8",
+      "bytes": 2459480,
+      "canvas": {
+        "width": 1536,
+        "height": 1024
+      },
+      "format": "PNG",
+      "writtenByUtc": "2026-10-25T11:58:52.691803+00:00"
+    },
+    "personallyViewedWholeExactSeed": true,
+    "actuallyInput": true,
+    "decision": "Approved source personally viewed: healthy supported identity/wardrobe/action used for continuity only."
+  },
+  "targetPlate": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+    "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+    "bytes": 2270751,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "format": "PNG"
+  },
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "role": "primary CLEAN target room/camera/theme"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-attention-apricot-v1.png",
+      "sha256": "6a6dd6f09e91cdcf97461452757cbe8ca1ae4ec5bbe382d404d5d0ef8fad3cd8",
+      "role": "same role/activity root-approved exact healthy apricot continuity reference, not daylight/unchanged copied pixels"
+    }
+  ],
+  "wardrobeId": "mutsumi-tsukinomori-school-source-preserving",
+  "promptFile": "mutsumi-attention-rain-literary-extension-v1.prompt.txt",
+  "promptFileSha256": "b2697dc8bf2f0452ebac5481bfbd96ffddc7be13fea1f54b3195907f0690c106",
+  "submittedPromptTransform": "PythonPath.read_text UTF8 universal newline; no trim; exact below",
+  "exactSubmittedPrompt": "Create ONE newly painted complete literary-room mother illustration, exact LANDSCAPE1536x1024 canvas. This is one continuous physical room and one youthful human character, not a UI mock, collage, figure pasted over scenery, portrait, sprite or theme filter. Image1 is the approved CLEAN target-theme EMPTY room: it is the PRIMARY room/camera/furniture and lighting reference. Retain its camera, full timber window/lake/town/mountain depth, left desk/chair/bookcase/plants, near ceramic lamp/cup/flowers on round side table, long linen window-seat, right plaid cushions/cream knitted throw, wood floor/rug and soft foreground plant. Keep the original whole room, no extra desk, no new furniture, zoom, empty UI panel or divided day/night scene. The LEFT half remains a complete naturally furnished room, not painted blank.\n\nImage2 is ONLY the exact approved healthy mutsumi attention APRICOT mother for this person/outfit/pose continuity. Repaint a complete new person under image1 target lighting; do not transplant its pixels, daylight, fixed face, incorrect skeleton or another character. No other person/image is a reference.\n\nTHE LIVING MOMENT:\nShe had been reading her own small open book. The person beside her asks about one small difference on the same visible page and places a thin cream paper marker beside it. Her GOLD-BROWN eyes settle exactly on that near page/marker relation; head inclines slightly only after the gaze. One finger that was near her chin lowers to pause beside the page edge while the other hand and thighs support the book. She does not trace an answer or point toward empty space. A slight gathering of the brows and a barely parted, considering mouth show she noticed something specific. Quiet is attentive thought, not sadness or vacancy; if the person starts writing, her poised finger has space to pull back.\n\nCHARACTER AND COMPLETE CHOSEN WARDROBE:\nMutsumi Wakaba/若叶睦, youthful soft face with quiet active judgment, long softly straight PALE MINT-GRAY hair, light fine fringe, TWO slim silver temple clips following the accepted own-left/viewer-right temple relation, clear GOLD-BROWN irises. Hair's natural mint hue does not tint the room green. Complete Tsukinomori school wardrobe as in approved own seed: NAVY sailor one-piece uniform dress, wide WHITE sailor collar with fine dark/gray edge, gray-purple bow, subtle front buttons/school detail, white cuff trim, pleated navy skirt with TWO fine white hem stripes. DARK BELOW-KNEE calf socks, exposed knees, BROWN loafers. Not white ankle socks/private lace dress/MaryJanes, not Sakiko cardigan or stageMortis. Youthful eyes with separate lids/fringe, no sleepy doll, adult lip makeup or blank face.\n\nTHE WHOLE THEME IS PHYSICALLY RE-LIT, NOT A COLOR FILTER:\nRAIN NIGHT /夜雨暖金: actual rain stays OUTSIDE the same panes; deep blue wet lake/town distant lamps and mountain silhouettes. Near ceramic lamp gives soft AMBER light to page, fingers, face and warm wood. Dark hair/navy fabric remain distinct with subtle reflected edges, not a black silhouette. No daylight sun streaks, tears, tired/sleepy mood or magical glow.\nThe actual target plate controls the outside weather/time, room values and lamp strength; do NOT keep the apricot source sunshine. Paint matching light on face, hair, paper, cloth, cushion, floor and contact shadows together, preserving intrinsic hair/eye/skin/fabric colors. No blue skin, neon eyes, muddy black figure or glowing page. Night changes light, not her personality into sorrow or sleep.\n\nBODY, OBJECT AND CAMERA:\nSit securely on the RIGHT part of the existing long window bench, hips visibly on linen cushion, small open book truly resting between thighs and supporting hand. Soft modest torso/head turn belongs to the page/person, no unsupported twist. Knees near each other and uncrossed; both lower legs and brown loafers fully visible with natural floor support.\nReal pelvis weight compresses existing bench cushion; shoulder/forearm/hand and book have one continuous weight-bearing relation. Keep both hip-knee-ankle chains coherent, knees uncrossed, socks separate below exposed knees, complete loafers naturally supported by original wood floor, full head/hair and full shoe soles inside safe frame margins. Do not make a long-legged body merely to force the soles flat, mirror the two feet rigidly, lift a heel without support, cross legs with broken joints, hide anatomy behind a prop, move a whole figure pack across furniture or invent a third hand. Keep original bench-person apparent scale, with full head roughly near y110..160 and shoes roughly y850..930 according to natural perspective, not a numeric anatomy stencil. Natural joint/occlusion and real source bench support decide exact positions. One single girl, no other person's hand. A few book/page marks can be softly suggested but NO legible text, formula, answer, user quote or task receipt. No UI/text/title/signature/logo/watermark/arrows/guidelines/split screen or decorative emotion icons.\n\nART:\nYouthful expressive2D anime-derived literary linework integrated with tactile wood/linen and room air. Separate fringe, eyebrows, lids, sclera and irises; natural skin, soft cheek volume and light chin. No mature makeup/model long face, cold stock scowl, glass baby eyes, compulsory blush or advertising smile. Show this role's small specific change of attention. This is a project-original fictional companionship moment, not an assertion that a user file was read, a bookmark found, a promise kept or real work completed. Preserve only the selected healthy family and exact intended target light; output a new whole-scene painting.",
+  "submittedPromptSha256": "82b779a3e2ed193c9ba3c8b5d1fb28ea925697613d9bc2d35f290715e65f0775",
+  "fictionalCompanionScene": true,
+  "privateUserDataUsed": false,
+  "output": {
+    "file": "mutsumi-attention-rain-literary-extension-v1.png",
+    "sha256": "9908c1f92f37f1c5bcf14e84c87566a88864515cf9c6dd9de2b78c409b43b6bc",
+    "bytes": 2316817,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "observation": "Personally viewed full returned complete mother: same youthful mint-haired/gold-brown-eyed Tsukinomori identity, real silver clips, complete sailor wardrobe and below-knee socks. Gaze now specifically joins actual book-page/cream marker; fingertip pauses at that page relation instead of chin/air. Other hand supports small held book; body settles on original bench, coherent uncrossed knees/calves/complete brown loafers on floor. Whole target time/weather/light surrounds and illuminates her, no stale apricot rays. Book is held a little above lap rather than fully resting flat; this is a hand-supported reading/attention variant, not a claimed new furniture topology. Static candidate; parent decides final shared-attention fit.",
+    "staticOnly": true,
+    "cameraRegistration": "Room family/camera visually continuous; not claimed exact empty-plate pixel registration.",
+    "nightLightReassessment": {
+      "decision": "HOLD; not a generation input",
+      "reason": "After current parent night-light correction, source has suspicious overbright diagonal floor/bench patches inconsistent with a dark rain window. Rain glass alone is not nightlight evidence. Rebuild using clean rain plate plus full textual character only; do not feed this candidate."
+    }
+  },
+  "generationStatus": "actual-output-saved-HOLD-night-lighting",
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "postureTopologyCredit": "Same supported activity family theme extension, not new major support topology.",
+  "generationInputAllowed": false
+}

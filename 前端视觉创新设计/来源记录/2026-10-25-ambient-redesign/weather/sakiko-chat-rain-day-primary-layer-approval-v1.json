@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-25T06:20:56Z",
+  "reviewer": "root / primary agent",
+  "scope": "Exact-SHA fixed original-position same-canvas static layer admission only; not runtime, motion, arbitrary travel or weather-owner verification.",
+  "decision": "accepted",
+  "approvedFiles": [
+    {
+      "file": "sakiko-chat-rain-day-mother-v1.png",
+      "sha256": "e287875d209fc367d4316b4dcdb53201fb514f8404de8ebc63cd6fe46a99e7d8"
+    },
+    {
+      "file": "sakiko-chat-rain-day-background-v1.png",
+      "sha256": "13ebf75894baa3d008742573b4d402824cfe2f02a39a31e5579f74fd08193eeb"
+    },
+    {
+      "file": "sakiko-chat-rain-day-figure-mask-v1.png",
+      "sha256": "92661beb0fb2ffa59670f346f9f957921f417be2840d9a493de20673728ac13b"
+    },
+    {
+      "file": "sakiko-chat-rain-day-contact-shadow-mask-v1.png",
+      "sha256": "1a9461ee7023985b75766ba1fb99627ec7c6595c9086ff05061e1f34afd1166c"
+    }
+  ],
+  "primaryEvidence": {
+    "observationPage": "sakiko-chat-rain-day-layers-v1.html",
+    "method": "Primary personally viewed the actual native original-RGB/luminance HTML on its existing normal local static server.",
+    "viewed": [
+      "complete original RGB person on light, dark and checker grounds",
+      "source mother versus layer recomposition at hips, lap book and right palm/cushion support",
+      "both worn shoes and same dry floor region",
+      "complete original-position recomposed room scene"
+    ],
+    "messageVerbatim": "root已实际逐一亲看 dry-night/rain-day 两套本机HTML：alpha浅/深/棋盘完整人物（雨day裙摆已完整）、#seat/#hand源图与合成髋/书/手掌支撑、#shoes两鞋地面同区、#scene整景。接受这2套当前4PNG固定原位layer bundle，精确源RGB+matchingBG+figure mask+各自contact参数（dry#291c16/.38，rain#302c2c/.35），travel0，非runtime。"
+  },
+  "rendering": {
+    "figure": "Exact original mother RGB through same-canvas native luminance figure mask",
+    "shadowColor": "#302c2c",
+    "shadowOpacity": 0.35,
+    "order": "matching background, dark contact mask, original RGB through figure mask"
+  },
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "sourceApprovalBoundary": "Earlier empty weather backgrounds and complete mothers retain their individual approvals. White-in-room files are production intermediates and are not independently admitted runtime layers.",
+  "primaryObservation": "Primary personally confirmed complete skirt in the final figure; rejected white-in-room v1 was never used downstream."
+}

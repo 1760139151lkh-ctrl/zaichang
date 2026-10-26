@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "assetId": "tomori-chat-apricot-literary-v1",
+  "roomFamily": "literary-room-v1",
+  "characterId": "tomori",
+  "activity": "chat",
+  "palette": "apricot",
+  "createdOn": "2026-10-25",
+  "generationMode": "clean-empty-room-plus-character-text",
+  "tool": "image_gen.imagegen (built-in)",
+  "executionId": "exec-c27f08ea-7c27-4753-bcb5-eece6ca3ffdf",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-c27f08ea-7c27-4753-bcb5-eece6ca3ffdf.png",
+  "inputs": [
+    {
+      "file": "../../plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "sole approved clean empty room image input"
+    }
+  ],
+  "brief": "../../briefs/mygo-a/tomori-36-briefs.md#暖杏--想把这点光告诉你",
+  "characterDefinition": "src/shared/persona-portrayals.ts:tomori@2026-10-24.3",
+  "creativeStatus": "Project-original conversational psychology; canonical identity described in text.",
+  "promptFile": "tomori-chat-apricot-literary-v1.prompt.txt",
+  "promptFileSha256": "17577a0450a5c80d971a3f09f0f8ee78fa64e9b7ed351bff5beeb745961b7e24",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd, exactly as submitted",
+  "submittedPromptSha256": "8633557907640fc980282f2857352ea68653fabf924ab98ed0ae6589c33ffabb",
+  "output": {
+    "file": "tomori-chat-apricot-literary-v1.png",
+    "sha256": "f075324f63e151e4045b4ac5ee87f30dc8295295b81f12c97ddb30ab56ac34d9",
+    "bytes": 2446159,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "reviewedOn": "2026-10-25",
+    "decision": "acceptable static mother candidate for primary inspection",
+    "observation": "Full generated original personally viewed. Tomori's short gray-lavender hair and rose-brown eyes remain recognizable; both irises, eyelids and fringe contours are distinct. The low open book rests on her thighs, viewer-left hand holds a page edge and viewer-right palm is on the existing cushion. Pelvis/cushion contact, coherent knees/ankles, complete loafers and floor contact are visible. The close room camera, table/lamp, window, cushions and floor remain legible. The expression reads as small eager sharing; her torso has a modest conversational inclination, without a separately enlarged head.",
+    "limits": "Static mother only. No extracted layers, motion, integrated UI or runtime inspected. Producer inspection predates the separate primary static-mother admission below."
+  },
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "acceptanceScope": "Primary-approved static full-scene mother only; no layer, movement, integrated UI or runtime approval.",
+  "primaryApprovalRecord": "tomori-chat-apricot-literary-v1.primary-approval.json"
+}

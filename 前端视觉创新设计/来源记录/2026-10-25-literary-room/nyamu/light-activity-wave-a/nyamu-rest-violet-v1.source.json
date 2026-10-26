@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "same-activity-whole-light-mother-candidate",
+  "character": "nyamu",
+  "activity": "rest",
+  "palette": "violet",
+  "environmentVariant": "twilight",
+  "wave": "light-activity-wave-a",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-35897b7a-273d-4c99-b655-1919464e332d.png",
+  "executionId": "exec-35897b7a-273d-4c99-b655-1919464e332d",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+      "role": "first input; approved empty environment plate, primary camera and authoritative target whole-room light"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-a/nyamu-rest-apricot-v1.png",
+      "sha256": "dacfe14559f694e2ee69e1ebbc395a279b8ef895441f9ddd2faeb641996cd734",
+      "role": "second input; root-approved exact same-activity apricot mother, correct identity/pose/proportion/props/physical support"
+    }
+  ],
+  "apricotActivityMotherApproval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-a/nyamu-rest-apricot-v1.primary-approval.json",
+  "sourceMotherContourComplete": true,
+  "intendedSupport": "window-seat",
+  "sourceSpecificPose": "Exact source pose: relaxed supported lean into existing plaid cushions, head/eyes turned toward window, one hand on lap and the other on real seat/throw, no handheld prop. Preserve the actual source shoulder/back/hip support, head depth, uncrossed legs and complete shoes; no forced sleepiness.",
+  "brief": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-prompt-plan.json",
+    "sha256": "9f549b3785d8e59d903dec1f220f05880ce0b57213591c5111effa3a98da9dea",
+    "key": "nyamu/rest/apricot",
+    "role": "own role/activity literary psychology; light redirection keeps actual accepted mother pose"
+  },
+  "wholeSceneRelighting": true,
+  "oldApricotHeatSpotsAreNotIdentity": true,
+  "unreviewedLightCandidateUsedAsInput": false,
+  "promptFile": "nyamu-rest-violet-v1.prompt.txt",
+  "promptFileSha256": "2166385f37b91ab8301f58507d87a84de56edd6fb30d2db8117dd63ae85aa049",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; exact submitted text",
+  "submittedPromptSha256": "da6109e7b41298d765468d26ab5bf579940648b3324443b6b05193a2b169599b",
+  "output": {
+    "file": "nyamu-rest-violet-v1.png",
+    "sha256": "3dca852a37b98884daf09003a281a0cea51ac9a5adbaa43d8411f53adc2df6cb",
+    "bytes": 2268152,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved complete mother. Same accepted supported rest lean into original plaid cushions, window gaze, lap hand and full seat-support palm, correct lavender/red-purple identity and complete near-bench head/shoes remain. Actual hip/back/uncrossed-knee/ankle support is readable. Twilight and warm room lamps reach grey cloth, skin, pillow and floor together; leg shading is continuous with warm form highlights, not a flat purple wash. No new object, enlarged head or forced melancholy, and no pixel-identical/root light correctness claim. Root/layer/runtime pending."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "New static mother candidate only, root review pending; no layer, registration or runtime acceptance.",
+  "privateUserDataUsed": false
+}

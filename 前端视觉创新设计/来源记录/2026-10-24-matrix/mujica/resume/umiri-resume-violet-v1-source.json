@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "recordedAt": "2026-10-25T02:23:01.969314+00:00",
+  "character": "umiri",
+  "activity": "resume",
+  "sceneCategory": "S9_RESUME",
+  "palette": "violet",
+  "matrixCell": {
+    "character": "umiri",
+    "activity": "resume",
+    "theme": "violet"
+  },
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "useCase": "lighting-weather",
+  "promptFile": "umiri-resume-violet-v1-prompt.txt",
+  "promptFileSha256": "5fd7ef32ce0d9e3e110590708a51e618e394de2198413f90720d600b1d812ee0",
+  "submittedPrompt": "Use case: lighting-weather.\nAsset type: complete same-room companion mother, matrix cell umiri / resume / violet, S9_RESUME.\nPrimary request: relight the ENTIRE approved Umiri resume mother into violet while preserving all composition, identity, pose and support relationships.\nInput 1 is the EDIT TARGET: umiri-resume-apricot-mother-candidate-v1.png. This is the approved complete person-and-room scene. Preserve its geometry exactly.\nInput 2 is a CLEAN EMPTY ROOM LIGHTING AND WEATHER REFERENCE ONLY. Borrow its coherent exterior weather, illumination and material response. Do not replace the composition with input 2, do not erase the person, and do not paste an unchanged apricot-lit person onto the themed empty room.\n\nComposition lock: one complete opaque 1536 x 1024 landscape scene. Keep the exact original camera, perspective, framing, room corners, window frame, curtain folds, lake/campus landmarks, left shelves and table/chair, central desk/chair/lamp/cup/book, right bench, cushions, throw, floorboards and rug. No crop, zoom, furniture drift, enlarged portrait, added objects, duplicate view, text, UI or watermark.\nPerson lock: the SAME youthful Yahata Umiri, charcoal-gray shoulder-length flipped-tip hair, gray-teal eyes, black short jacket, dark red top, gray skirt, choker/earrings, both full black platform boots. Preserve her exact small restrained smile, eyes-first return gaze, head angle, shoulder line, side-seated pelvis, two distinct uncrossed knee/calf/ankle/boot chains, rear supporting palm on the cushion, fingers, and small half-open notebook resting on her thigh. Preserve original scale and location, original bare-leg lengths, shoe soles and floor contact. Do not turn her into a sad or solemn hostess, alter anatomy, straighten the torso, cross her legs, change the hand gesture or move the notebook.\nRender the person and EVERY surface under the SAME new illumination: hair edge and shadows, readable natural face and skin, jacket reflections, red top, gray skirt, notebook paper, boots, ivory plaster, honey wood, fabric and contact shadows. Retain each material's own color. Create actual coherent relighting, not a flat color filter, translucent tint, black overlay, gradient, or a pasted cutout.\n\nTHEME VIOLET — golden-purple sunset, using room-violet-candidate.png as reference. Same lake and campus silhouettes beneath violet/lavender clouds and a low golden sun. Coherent warm sunset rim on the same person, purple ambient fill in room shadows, warm reflections across the wood floor and fabric, with the existing desk lamp softly ON in the exact same place. Relight the face, hair, black jacket, red top, gray skirt, notebook and full boots together. Keep natural skin and individual material colors. Preserve her original calm small smile; evening does not mean sadness. One continuous sunset scene, no day/night split and no orange overlay. Return the complete 1536 x 1024 image.\n",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mujica/resume/umiri-resume-apricot-mother-candidate-v1.png",
+      "role": "input 1: root-approved complete apricot mother; geometry, person, pose and support edit target; mother approval only",
+      "sha256": "da8cda7c86c6dcc5dabd9b0f246b05033944c652ec10ca9cbe9054789ebcc987"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-violet-candidate.png",
+      "role": "input 2: clean empty room4 lighting and exterior weather reference only",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "output": {
+    "file": "umiri-resume-violet-mother-candidate-v1.png",
+    "toolOriginalPath": "$CODEX_HOME/generated_images/01a17031-f496-78d2-a7d3-b75dbf74f700/exec-2c4b87db-d6f2-43bd-ad7d-4b9faae803bb.png",
+    "sha256": "576c84d6dad663b908d9097d9fcadd3ee2164640b4a65daf4db3a623c4acb8a0",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "bytes": 2206797,
+    "promptSha256": "5fd7ef32ce0d9e3e110590708a51e618e394de2198413f90720d600b1d812ee0"
+  },
+  "review": {
+    "producerPersonallyViewed": true,
+    "producerObservation": "The approved Umiri side seat, head angle, restrained small smile, thigh-supported half-open notebook, rear palm and two complete boot chains remain visible. Sunset violet sky, low golden sun and lake reflection agree with purple room shadows, warm wood/fabric reflections and a lit desk lamp. Hair and jacket edges receive warm rim light while black/red/gray material colors remain distinct. Full-scene inspection shows no obvious furniture, body scale or support drift. This new themed mother is pending primary personal review.",
+    "approvedByPrimary": false,
+    "layers": "not extracted",
+    "runtimeAccepted": false,
+    "primaryApprovalScope": "This new themed mother is pending root personal review; approval of the apricot input does not approve this output."
+  },
+  "observedAnchors": {
+    "coordinateSpace": "normalized original canvas; approximate producer observation, not runtime calibration",
+    "support": "right-window-bench",
+    "seat": [
+      0.85,
+      0.562
+    ],
+    "proposedTravel": 0,
+    "objects": {
+      "notebook": "figure-owned, half-open and thigh-supported",
+      "room": "cushions, throw, desks and chairs remain background"
+    }
+  },
+  "identityBasis": {
+    "officialProfile": "https://anime.bang-dream.com/avemujica/character/umiri/",
+    "boundary": "Identity/pose inherited from the root-approved original project mother. This resume interaction is project-original; no official or third-party character pixels are inputs."
+  }
+}

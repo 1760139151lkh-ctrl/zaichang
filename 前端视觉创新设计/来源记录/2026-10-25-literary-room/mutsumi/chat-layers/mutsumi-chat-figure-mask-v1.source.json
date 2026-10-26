@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "foreground-luminance-mask",
+  "character": "mutsumi",
+  "activity": "chat",
+  "palette": "apricot",
+  "step": "F2",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-6937e5b2-306e-48df-97d6-5f87b4abc5cc.png",
+  "executionId": "exec-6937e5b2-306e-48df-97d6-5f87b4abc5cc",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-figure-mark-v1.png",
+      "sha256": "2e96e033f3f138c827b84f417a213ed84fc8419d754f3e5754294c393e465f7d",
+      "role": "sole immediately preceding F1 original-coordinate white foreground markup; keep its complete contour"
+    }
+  ],
+  "approvedOriginalMother": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.png",
+    "sha256": "9d529789ece89f44b166f39dd259136257598cfd546009e49fae74140cbf8b6d",
+    "approvalEvidence": "root personally reviewed and approved this exact chat mother; central primary-cast-chat-mother-reviews-v1.json"
+  },
+  "intendedAssembly": {
+    "contactShadowMode": "included",
+    "formula": "U=MAX(L(F),L(S)); draw original mother RGB through U exactly once over matching empty BG",
+    "allMotionZero": true,
+    "separateCleanCasterClaim": false,
+    "pngPixelEditing": false
+  },
+  "promptFile": "mutsumi-chat-figure-mask-v1.prompt.txt",
+  "promptFileSha256": "2c70b981accfa0c7c2a386463a8658150ab2b7744b1ffe772466b7b52d0e8a95",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; submitted text exact",
+  "submittedPromptSha256": "5e4b58158c65ffd67099936d94697eab39ecd0252722104d1f0219d3fa194798",
+  "output": {
+    "file": "mutsumi-chat-figure-mask-v1.png",
+    "sha256": "a6d6cef3414154b5201be221e9192b8ce7c42406d4757f893cf16fa0e5824977",
+    "bytes": 461479,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "extrema": [
+      [
+        0,
+        255
+      ],
+      [
+        0,
+        255
+      ],
+      [
+        0,
+        255
+      ]
+    ]
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed full saved F2: original-position white complete subject on black, including full hair perimeter, skirt tips and both shoe bottoms, with leg gap preserved. No large naturally bright room block survives visibly. Exact edge/source-RGB coverage remains for joint-view inspection; no figure RGB taken from generated mask."
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "Raw mask component accepted only within exact root-approved MAX(F,S)/original-RGB fixed included joint assembly; no standalone caster, motion or runtime approval.",
+  "includedAssemblyPrimaryAccepted": true,
+  "includedAssemblyAdmissionRecord": "mutsumi-chat-included-primary-admission-v1.json"
+}

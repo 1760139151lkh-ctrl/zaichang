@@ -917,7 +917,7 @@ export function registerBuiltins(
   register({
     manifest: manifest('weather', 'weather:open-meteo', [
       base('weather.lookup', weatherInput, weatherOutput, ['weather:read'], {
-        version: '5', displayName: '看看那时的天气', description: '按公开地点查当地今天起七天的预报。date看一天，from/to看具体小时；结果保留原预报、当地时区、资料时间和缺测。日统计也会写明实际统计时段，想看某几小时的雨风就沿小时资料判断。场地是否开放另查场馆来源。',
+        version: '6', displayName: '看看那时的天气', description: '按公开地点查当地今天起七天的预报。date看一天，from/to看具体小时；结果保留原预报、当地时区、资料时间和缺测。日统计也会写明实际统计时段，想看某几小时的雨风就沿小时资料判断。场地是否开放另查场馆来源。',
       }),
       base('air_quality.lookup', airQualityInput, airQualityOutput, ['weather:read'], {
         version: '2', displayName: '看看那里的空气预报', description: '按公开地点查PM2.5、PM10及美国、欧洲两种AQI预报，默认未来24小时，也可选当地今天起五天里的时段。结果会写明预报地点、时段与指数制式，方便结合当天实际感受商量出门安排。',

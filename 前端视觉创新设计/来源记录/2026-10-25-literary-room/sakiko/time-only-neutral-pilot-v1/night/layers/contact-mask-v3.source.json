@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-mother-original-rgb-included-layer-production",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "palette": "rain",
+  "timeOfDay": "night",
+  "neutralTime": "night",
+  "weather": "unknown",
+  "original360ExactActivityCell": false,
+  "cell": "sakiko/neutral-presence/rain/night/time-night",
+  "stage": "S2",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: precise-object-edit.\nAsset: exact-position opaque receiving-material luminance selection,1536x1024. Image1 is the ONLY white-marked target to convert; Image2 exact clean original mother only distinguishes deliberately ADDED white from naturally pale surfaces. No prior wrong mask/review image supplied.\n\nCopy ONLY the ADDED-WHITE mark shapes from image1 at EXACT ORIGINAL COORDINATES to solid WHITE. Turn every unmarked source color and naturally pale linen/closed curtain/bookpage to BLACK. Do NOT redraw a pair of shoes, move the white upward, reinterpret coordinates or shrink its FRONT/BOTTOM boundary. No crop/resize/zoom/shift. Do not turn selected white core into gray haze.\n\nThe crucial white FULL CORE directly BELOW the FRONTMOST SHOE TOE must remain WHITE, from the real sole-contact boundary THROUGH THE WHOLE ADDED WHITE BASE IN IMAGE1. It must NOT end at the toe rim. Preserve the visible thick white strip on the wood in front of the foremost toe, approximatelyx850..978,y912..947 where already marked. This copies actual image1 marked receiving dark floor, NOT an invented oval/rectangle. Keep the farther shoe's white toe-floor base and the actual small side/heel receiver, without growing rear/side blobs. Only AFTER this complete opaque core, preserve the short original soft transition at the outer mark edge. Do not move the white core upward to the shoe body or replace it with two thin sole strokes. Slight overlap with actual sole antialias is harmless in MAX union. Use the marked geometry, not a conceptual shoe-shaped hole.\n\nSeat: keep small deliberately white islands directly at original skirt/hip contact. Naturally bright unmarked empty cushion stays BLACK. Entire unmarked girl/hair/ribbons/skin/cloth/hands/openbook/shoes BLACK; incidental deliberately added white overlapping F at the seat boundary may remain because union is MAX, never double RGB. Do not invent a new book receiver or widen an empty bench strip. All unmarked room/floor/lamp reflections/rug/furniture BLACK.\n\nOutput one opaque full1536x1024 BLACK/WHITE/short outer-GRAY mask. No remaining room texture, color/checkerboard/text/UI or new shadow painting. This selects exact unchanged source cloth/wood/contact shadow once throughMAX(F,S), fixed original-place material only, travel/slope/perspective0.",
+  "promptFile": "contact-mask-v3.prompt.txt",
+  "promptFileSHA256": "413e4c9c74af4ccff84b6820454e7594aecf8d404f170f14ae1f06495c6b2b66",
+  "actualToolArguments": {
+    "prompt": "Use case: precise-object-edit.\nAsset: exact-position opaque receiving-material luminance selection,1536x1024. Image1 is the ONLY white-marked target to convert; Image2 exact clean original mother only distinguishes deliberately ADDED white from naturally pale surfaces. No prior wrong mask/review image supplied.\n\nCopy ONLY the ADDED-WHITE mark shapes from image1 at EXACT ORIGINAL COORDINATES to solid WHITE. Turn every unmarked source color and naturally pale linen/closed curtain/bookpage to BLACK. Do NOT redraw a pair of shoes, move the white upward, reinterpret coordinates or shrink its FRONT/BOTTOM boundary. No crop/resize/zoom/shift. Do not turn selected white core into gray haze.\n\nThe crucial white FULL CORE directly BELOW the FRONTMOST SHOE TOE must remain WHITE, from the real sole-contact boundary THROUGH THE WHOLE ADDED WHITE BASE IN IMAGE1. It must NOT end at the toe rim. Preserve the visible thick white strip on the wood in front of the foremost toe, approximatelyx850..978,y912..947 where already marked. This copies actual image1 marked receiving dark floor, NOT an invented oval/rectangle. Keep the farther shoe's white toe-floor base and the actual small side/heel receiver, without growing rear/side blobs. Only AFTER this complete opaque core, preserve the short original soft transition at the outer mark edge. Do not move the white core upward to the shoe body or replace it with two thin sole strokes. Slight overlap with actual sole antialias is harmless in MAX union. Use the marked geometry, not a conceptual shoe-shaped hole.\n\nSeat: keep small deliberately white islands directly at original skirt/hip contact. Naturally bright unmarked empty cushion stays BLACK. Entire unmarked girl/hair/ribbons/skin/cloth/hands/openbook/shoes BLACK; incidental deliberately added white overlapping F at the seat boundary may remain because union is MAX, never double RGB. Do not invent a new book receiver or widen an empty bench strip. All unmarked room/floor/lamp reflections/rug/furniture BLACK.\n\nOutput one opaque full1536x1024 BLACK/WHITE/short outer-GRAY mask. No remaining room texture, color/checkerboard/text/UI or new shadow painting. This selects exact unchanged source cloth/wood/contact shadow once throughMAX(F,S), fixed original-place material only, travel/slope/perspective0.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/night/layers/contact-step1-marked-v2.png",
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/night/layers/contact-step1-marked-v2.png",
+      "sha256": "efc5cadc34549d2c9a73590aedb540f17edd0717deba01989819a1bf7720ee23",
+      "role": "new clean-mother S1 v2 full front-toe receiver markup"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.png",
+      "sha256": "2d571adc2146dd779954f0d014ef015b658a83250d6626d707dcece3c6335d8e",
+      "role": "exact original mother only; no held masks or review images"
+    }
+  ],
+  "mother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.png",
+    "sha256": "2d571adc2146dd779954f0d014ef015b658a83250d6626d707dcece3c6335d8e",
+    "sourceRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.source.json",
+    "sourceRecordSHA256": "c4a7dfd47161498c7801b25e520fd00b0b36fd66f5de1b90da86462d2ec5efe2",
+    "primaryAdmission": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/root-primary-mother-admission-v1.json",
+    "primaryAdmissionSHA256": "1ddf9b15e52dcbc9bc360ec7edd172b9d26c25057efe808e98cbe52f30417666"
+  },
+  "readDependencies": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "bytes": 12246
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "bytes": 12645
+    }
+  ],
+  "dossierVersion": "2026-10-25.1",
+  "wardrobeId": "sakiko-literary-navy-adaptation",
+  "output": {
+    "file": "contact-mask-v3.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-a9fe6e64-06a5-44cd-9502-0c9beec68755.png",
+    "sha256": "1357edba99df8624e3d94dc6bd55b1a76a5ecf32ded0b463d5a9c74f52c4b819",
+    "bytes": 319419,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "status": "producer_candidate_browser_reviewed_pending_root",
+    "observations": [
+      "完整输出亲看：前鞋下方接收白核连续，未在鞋尖处提前灰退；座/腿边少量和F重叠保留，MAX合并不重复绘制RGB。实际柔软落地需浏览原RGB再确认。"
+    ],
+    "browserEvidence": [
+      "browser-observations/01-scene.png",
+      "browser-observations/02-subject.png",
+      "browser-observations/03-face.png",
+      "browser-observations/04-book.png",
+      "browser-observations/05-hem.png",
+      "browser-observations/06-shoes.png",
+      "browser-observations/07-contact.png"
+    ]
+  },
+  "heldInputUsed": false,
+  "originalMotherRGBChanged": false,
+  "pngPixelEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "selectedForAssembly": true,
+  "submittedPromptSHA256": "f8ad19da67ee9f7ee8852d841fe7d90af42a42efc83a9dc6694b52a188d69b51"
+}

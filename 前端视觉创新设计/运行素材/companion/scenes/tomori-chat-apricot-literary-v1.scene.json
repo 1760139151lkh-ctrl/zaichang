@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "id": "tomori-chat-apricot-literary-v1",
+  "sceneFamily": "literary-room-v1",
+  "character": "tomori",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "width": 1536,
+  "height": 1024,
+  "mother": "tomori-chat-apricot-literary-mother-v1.png",
+  "background": "literary-room-clear-day-v1.png",
+  "mask": "tomori-chat-apricot-literary-figure-mask-v1.png",
+  "maskMode": "luminance",
+  "contactMask": "tomori-chat-apricot-literary-contact-mask-v1.png",
+  "seat": [
+    0.7486979166666666,
+    0.5546875
+  ],
+  "ground": [
+    0.5989583333333334,
+    0.849609375
+  ],
+  "bodyBounds": [
+    0.5494791666666666,
+    0.123046875,
+    0.85546875,
+    0.85546875
+  ],
+  "safeTextBoundary": 0.5194791666666666,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "54.947916666666664% 12.3046875%, 85.546875% 12.3046875%, 85.546875% 85.546875%, 54.947916666666664% 85.546875%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/tomori-chat-apricot-literary-included-primary-admission-v1.json",
+    "geometryRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/chat-scene-proposal-v1.json",
+    "geometryStatus": "Own complete source personally viewed; conservative visible body/contact references only; no hidden anatomy or movable support certification.",
+    "geometryEvidence": {
+      "actualVisibleBodyEnvelope": [
+        0.5494791666666666,
+        0.123046875,
+        0.85546875,
+        0.85546875
+      ],
+      "FWholeCoverageDominantPixelBBox": [
+        844,
+        126,
+        1314,
+        876
+      ],
+      "receiverCoverageDominantPixelBBox": [
+        839,
+        523,
+        1331,
+        881
+      ],
+      "readOnlyMeasurement": "fixed >=0.5 luminance for metadata only; raw PNG and continuous runtime luminance unchanged",
+      "placement": {
+        "actualBodyLocation": "tomori own original source; complete mother personally viewed by registration owner",
+        "supportReference": "producer existing visible-contact estimates compared with original; these are static surface references, not unseen hip/foot joints"
+      },
+      "knownIncludedMaterialNotBody": [
+        {
+          "sourceRegion": [
+            1220,
+            530,
+            110,
+            65
+          ],
+          "kind": "small original pillow/linen fragment near supported palm",
+          "bodyClaim": false,
+          "rootAcceptedFixedSourceOnly": true
+        }
+      ],
+      "supportPoints": "visible seat/floor reference points only; not unseen hip/foot joints"
+    },
+    "layerReview": "root exact-SHA fixed included union; original RGB once through MAX(F,S), all motion zero",
+    "runtimeSourceSha256": {
+      "mother": "f075324f63e151e4045b4ac5ee87f30dc8295295b81f12c97ddb30ab56ac34d9",
+      "background": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "F": "ba7035c65d8e8f69a84322d44c1fe42ef815b9aae23c199594ee42b02521ea8f",
+      "S": "b38a654f02628ce4d0d438fa7ffb2df337c112e5dc20af3a5a3a7faf901259c6"
+    }
+  }
+}

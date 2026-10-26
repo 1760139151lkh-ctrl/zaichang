@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "character": "uika",
+  "activity": "resume",
+  "sceneCategory": "S9_RESUME",
+  "palette": "mist",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "uika-resume-mist-v1-prompt.txt",
+  "promptFileSha256": "ed9b85b1feb79a80b96e99c0c79060a2ef5903167da7c9c86502c498d58fd57d",
+  "submittedPrompt": "Exact UTF-8 promptFile contents with trailing newline trimmed.",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mujica/resume/uika-resume-apricot-mother-candidate-v1.png",
+      "role": "primary-personally-reviewed approved apricot mother; exact figure/pose/support edit target",
+      "sha256": "29211468c28e8dd5cb20c50b62851d7b32fa9cd8639dbed4f419335e733c465a"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-mist-candidate.png",
+      "role": "clean empty theme room; whole-scene light/weather reference only",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
+    }
+  ],
+  "output": {
+    "file": "uika-resume-mist-mother-candidate-v1.png",
+    "toolOriginalPath": "$CODEX_HOME/generated_images/01a1702e-1e74-7ac0-9f86-f1d6b1ffcf30/exec-964d4a1f-f219-420d-8ec3-6f8df94386e5.png",
+    "sha256": "cd3f12bfcb5c830358067a2ebe3d6bbe24ed7deac93ef855d4dabf82a1270776",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "bytes": 2126648
+  },
+  "review": {
+    "producerPersonallyViewed": true,
+    "producerObservation": "Full image personally viewed. Shoulder opening, left-oriented lower body, lap/hand-supported half-closed blue book, rear planted palm, long skirt and two canvas sneakers retained. Soft cool morning light reaches skin/white tee/skirt and room together; lake haze and lamp-off daytime are visible. No definite new support or furniture drift seen.",
+    "approvedByPrimary": false,
+    "layers": "not extracted",
+    "runtimeAccepted": false
+  },
+  "sourceSupportReference": "uika-resume-apricot-v1-source.json",
+  "boundary": "Approved apricot INPUT is not approval of this themed OUTPUT. No sourceSupportReference is claimed as new runtime calibration.",
+  "matrixCell": {
+    "character": "uika",
+    "activity": "resume",
+    "theme": "mist"
+  },
+  "identityBasis": {
+    "officialProfile": "https://anime.bang-dream.com/avemujica/character/uika/",
+    "textVerifiedOn": "2026-10-24",
+    "boundary": "Official identity/background; university-companion resume moment is project-original. This relighting uses only approved generated character mother and clean generated theme room, no third-party character pixels."
+  }
+}

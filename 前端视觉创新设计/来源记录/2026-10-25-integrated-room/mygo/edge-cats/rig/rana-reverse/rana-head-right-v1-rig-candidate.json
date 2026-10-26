@@ -1,0 +1,327 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-canvas-source-rgb-edge-cat-static-rig-candidate",
+  "sceneFamily": "edge-meme-cat-v3-family",
+  "characterId": "rana",
+  "assetVariant": "head-right-body-left",
+  "source": {
+    "file": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mygo\\edge-cats\\rig\\rana-reverse\\rana-head-right-v1.png",
+    "sha256": "21a25b80c021b4ad84f3c4d896447d57af89b00819f3969869c726fcba1efa9e",
+    "originalPreserved": true
+  },
+  "readDependencies": [
+    {
+      "path": ".agents\\skills\\zaichang-frontend-director\\references\\characters\\rana.md",
+      "sha256": "d39286e83289d7c67222428a139b8650ff9f60a0e78e49c0a8393b3079f2e892",
+      "scope": "Full relevant text read before each generation call in this production turn"
+    },
+    {
+      "path": ".agents\\skills\\zaichang-frontend-director\\references\\character-art-direction.md",
+      "sha256": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840",
+      "scope": "Full relevant text read before each generation call in this production turn"
+    }
+  ],
+  "files": {
+    "body": {
+      "file": "rana-head-right-v1-body.png",
+      "sha256": "8dff799a03366dfb038e0ab5a31df8864ed698f84db0d49b53b9673fe768d336",
+      "bytes": 748542,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        146,
+        176,
+        1485,
+        869
+      ]
+    },
+    "tail": {
+      "file": "rana-head-right-v1-tail.png",
+      "sha256": "5a0f9faba65933e5fed9e47c77a5d8a0d77de4a785ba7f8609844b8957ed179a",
+      "bytes": 67132,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        33,
+        322,
+        239,
+        697
+      ]
+    },
+    "clean": {
+      "file": "rana-head-right-v1-clean.png",
+      "sha256": "7cb7794ef4e0baf16f80d88976b7b40d166ae3a58d8d697ea57d02b8061906a0",
+      "bytes": 793797,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        33,
+        176,
+        1485,
+        869
+      ]
+    }
+  },
+  "layerOrder": [
+    "tail",
+    "body"
+  ],
+  "calibration": {
+    "id": "rana-reverse",
+    "characterId": "rana",
+    "stem": "rana-head-right-v1",
+    "source": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mygo\\edge-cats\\rig\\rana-reverse\\rana-head-right-v1.png",
+    "sourceSha256": "21a25b80c021b4ad84f3c4d896447d57af89b00819f3969869c726fcba1efa9e",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "sourceMode": "RGBA",
+    "sourceAlphaRange": [
+      0,
+      254
+    ],
+    "tailSide": "left",
+    "tailPivotPx": [
+      199,
+      656
+    ],
+    "tailPivotNormalized": [
+      0.12955729166666666,
+      0.640625
+    ],
+    "paperEdgeSourceY": 832,
+    "paperEdgeNormalized": 0.8125,
+    "frontPawVisualRefsPx": [
+      [
+        953,
+        814
+      ],
+      [
+        1257,
+        799
+      ]
+    ],
+    "pawScope": "Visible paw support/holding references; props belong to fixed body, no hypothetical joints or forced equal paw-bottom rule.",
+    "propOwnership": "blue pick retained with opposite pose holding paw",
+    "bodyArcSamplesY_X": [
+      [
+        600,
+        241
+      ],
+      [
+        610,
+        230
+      ],
+      [
+        620,
+        220
+      ],
+      [
+        640,
+        199
+      ],
+      [
+        650,
+        194
+      ],
+      [
+        660,
+        187
+      ],
+      [
+        670,
+        180
+      ],
+      [
+        690,
+        169
+      ],
+      [
+        700,
+        164
+      ]
+    ],
+    "visibleTailEndY": 696,
+    "wholeGuardExpansionRadius": 14,
+    "sourceSolidOutsideWholeGuardBounds": null,
+    "tailSemanticExpansionRadius": 12,
+    "rootUnderlapPx": 18,
+    "bodyForegroundInkOverlapPx": 4,
+    "mirrorSafe": false,
+    "eyeIdentity": "own-right gold / own-left blue, must use independent facing asset, never flip",
+    "selectedMask": "semantic-mask-v1.png",
+    "selectedMaskToolPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-7453a53c-850e-45d8-a8be-3baed2284321.png",
+    "outputs": {
+      "body": {
+        "sha256": "8dff799a03366dfb038e0ab5a31df8864ed698f84db0d49b53b9673fe768d336",
+        "bytes": 748542,
+        "alphaBounds": [
+          146,
+          176,
+          1485,
+          869
+        ],
+        "visibleRgbDifferenceRange": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "tail": {
+        "sha256": "5a0f9faba65933e5fed9e47c77a5d8a0d77de4a785ba7f8609844b8957ed179a",
+        "bytes": 67132,
+        "alphaBounds": [
+          33,
+          322,
+          239,
+          697
+        ],
+        "visibleRgbDifferenceRange": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "clean": {
+        "sha256": "7cb7794ef4e0baf16f80d88976b7b40d166ae3a58d8d697ea57d02b8061906a0",
+        "bytes": 793797,
+        "alphaBounds": [
+          33,
+          176,
+          1485,
+          869
+        ],
+        "visibleRgbDifferenceRange": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      }
+    },
+    "primaryApproved": false,
+    "runtimeAccepted": false
+  },
+  "processing": {
+    "rgb": "All visible output RGB equal original same-coordinate RGB; transparent-only RGB zeroed. No face, hair, prop, anatomy, colour, crop, scale or orientation redrawn during layer production.",
+    "mask": "Each actual source received its own ImageGen semantic mask, never shared another role mask. Coarse guard expansion is measured per original and all native alpha>=250 solid source pixels are inside guard.",
+    "alpha": "Source alpha max254. Multiply original alpha by a 230-to-250 opacity gate then source-specific semantic guard; wide blue halo exits while original solid ink/colour remains.",
+    "root": "Tail constrained beyond this actual original rump arc, with 18px original-neighbour hidden RGB underlap. Original navy rump foreground remains on body with narrow original-ink-only overlap. Left-tail reverse uses its own original pixels and left-side arc, not a mirror of a right-tail rig.",
+    "props": "Original stone/bird/pick/note/bridge belongs to fixed body together with holding paw; no moved or model-interpreted source prop becomes a business object."
+  },
+  "directVisibleRgbInspection": {
+    "body": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "tail": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "clean": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  "producerReview": {
+    "personallyViewedWholeSource": true,
+    "personallyViewedSourceRoot": true,
+    "personallyViewed128pxAndRootExtremes": true,
+    "evidence": "static-production-review.png",
+    "observed": "Blue broad glow removed; source form, face/eyes/hair and actual held prop remain. Body/paws fixed; tail -5/0/+5 static root details checked. Normal small-size readability reviewed on light/dark.",
+    "mirrorScope": "Rana preview intentionally repeats unchanged orientation rather than making a wrong-eye mirrored instance.",
+    "staticOnly": true
+  },
+  "motionBoundary": {
+    "tailPivotPx": [
+      199,
+      656
+    ],
+    "tailPivotNormalized": [
+      0.12955729166666666,
+      0.640625
+    ],
+    "paperEdgeSourceY": 832,
+    "paperEdgeNormalized": 0.8125,
+    "usualTailRotationDegrees": [
+      -3,
+      3
+    ],
+    "staticViewedExtremesDegrees": [
+      -5,
+      5
+    ],
+    "mirrorSafe": false,
+    "eyeIdentity": "own-right gold / own-left blue, must use independent facing asset, never flip",
+    "facingPairRig": "../rana/rana-edge-meme-cat-v1-rig-candidate.json"
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "fullHumanMatrixCredit": false
+}

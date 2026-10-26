@@ -1,0 +1,334 @@
+{
+  "schemaVersion": 1,
+  "kind": "exact-root-approved-apricot-chat-isolated-registration",
+  "recordedAt": "2026-10-25T12:18:48.170177+00:00",
+  "primaryAdmission": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/sakiko-chat-apricot-literary-included-primary-admission-v1.json",
+    "sha256": "a1fdfd547484e65d68b04220fcd8fcff56e093c218dd0f4c85e5323aa469efbc",
+    "bytes": 3679
+  },
+  "sourceClosure": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/apricot-chat-runtime-closure-v1.json",
+    "sha256": "d6261ede8167941bcb9a0eba596faca70e5a5e42ddb9cc45117cd3bffea64687",
+    "bytes": 3570
+  },
+  "files": [
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/sakiko-chat-apricot-literary-included-primary-admission-v1.json",
+        "sha256": "a1fdfd547484e65d68b04220fcd8fcff56e093c218dd0f4c85e5323aa469efbc",
+        "bytes": 3679
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/sakiko-chat-apricot-literary-included-primary-admission-v1.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/apricot-chat-runtime-closure-v1.json",
+        "sha256": "d6261ede8167941bcb9a0eba596faca70e5a5e42ddb9cc45117cd3bffea64687",
+        "bytes": 3570
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/apricot-chat-runtime-closure-v1.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/apricot-chat.scene-proposal-v1.json",
+        "sha256": "8164189a00b090591623197669046fb22f60d5b4eb5a5c41b4f285c786c89379",
+        "bytes": 2165
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/apricot-chat.scene-proposal-v1.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.png",
+        "sha256": "8d8ca2d001893c16106ab797ec4a8a8c1e6576115a5a4c76ff1dd519eff4e2cd",
+        "bytes": 2459089
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.png",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+        "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+        "bytes": 2524961
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "status": "already_exact",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/figure-mask-v1.png",
+        "sha256": "976e6a52af3fd9fd8b8ef9a7a017cddb37fec6ebae961256c5b1134ad0cba59d",
+        "bytes": 470866
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/figure-mask-v1.png",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/contact-mask-v1.png",
+        "sha256": "9ee1264c492186058e9069b3ab5b86679690a0349363bcf970fc241251a2e159",
+        "bytes": 348393
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/contact-mask-v1.png",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/apricot-chat-included-bundle-v1.json",
+        "sha256": "1d1c49f67e3f8318fe8f44518e1f3e95a77e0f0fe839e3b7c6f33a03de25023c",
+        "bytes": 5885
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/apricot-chat-included-bundle-v1.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/apricot-chat-geometry-proposal-v1.json",
+        "sha256": "09486a35fbe847d2304c976fb9234be7494dff5450ac9c13f94ad024750605b4",
+        "bytes": 1490
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/apricot-chat-geometry-proposal-v1.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/union-source-v1.svg",
+        "sha256": "b5e2e0211f341f578ce93b9854f755509591330eb3936648f19d386c8004c62e",
+        "bytes": 1357
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/union-source-v1.svg",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/apricot-chat-included-observe-v1.html",
+        "sha256": "a0d7ebfa23330978d401e2b6b21181f89ddacfb5fb7d422c17debfd509bd6f33",
+        "bytes": 29513
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/apricot-chat-included-observe-v1.html",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/README.md",
+        "sha256": "a4404b363fcda6a202c4ad13c8835eed752346caefce3583f10a67002980fbc1",
+        "bytes": 1359
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/README.md",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/contact-marked-v1.source.json",
+        "sha256": "ebe315a039811923e8d9d5dae271ba5e42de8b6d4edcce28a98a24e1b558027a",
+        "bytes": 3990
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/contact-marked-v1.source.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/contact-marked-v1.prompt.json",
+        "sha256": "c59e64d38e493042b6439d6a9f5d0fbfbf2aa95f827cf9b4e45cf2fa3f1d8e44",
+        "bytes": 2277
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/contact-marked-v1.prompt.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/contact-mask-v1.source.json",
+        "sha256": "c207eb6117462b54ce722b1c93fb8424800b5b64ef6f2e7e9745551a984597c2",
+        "bytes": 3723
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/contact-mask-v1.source.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/contact-mask-v1.prompt.json",
+        "sha256": "2083fa04b3d87a562b88803b16b308d2f6ad9d45fe37a8df6dc322467f758959",
+        "bytes": 1786
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/contact-mask-v1.prompt.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/figure-marked-v1.source.json",
+        "sha256": "94d24502a2f76da79866016cb0e52efd898ce7d276775d72c4b315e189e324ff",
+        "bytes": 3934
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/figure-marked-v1.source.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/figure-marked-v1.prompt.json",
+        "sha256": "51ec8170180515e2fa6cbe86e4768fc44ca5131a554c15aabc13e87ef35e1a85",
+        "bytes": 2200
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/figure-marked-v1.prompt.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/figure-mask-v1.source.json",
+        "sha256": "36ad0115c59d8710dd79a58faae2e1b81741e166054bff3b716d39626b957ea5",
+        "bytes": 3832
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/figure-mask-v1.source.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/figure-mask-v1.prompt.json",
+        "sha256": "fb7af2cdef047d6eb39359d37c69dd459c2a5ea67f9af7d4bbcb19a20edf7f09",
+        "bytes": 1939
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/figure-mask-v1.prompt.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/figure-marked-v1.png",
+        "sha256": "adc42fb233aed7bd6a8c781330816a70b3798ecacf72edd3cb2877d9645a0f82",
+        "bytes": 2322379
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/figure-marked-v1.png",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/contact-marked-v1.png",
+        "sha256": "979dccd7e62ab1a4857baade881fafd81715746f2e595f6f94b678b26d196393",
+        "bytes": 2387605
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/contact-marked-v1.png",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.source.json",
+        "sha256": "f18c9191161867a158126d7726e8d4826b8aef6280b98870f0839ac61e0a92e5",
+        "bytes": 1341
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.source.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.prompt.txt",
+        "sha256": "1d698ea2705a0bd4d5f6b8a77ef41c0feda2118f8694aa79c0449d8169dbc20b",
+        "bytes": 2932
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.prompt.txt",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json",
+        "sha256": "5425e475efa8264874f2f3b083b8737b4b1f9d35399e9b2c3d86dc561a36cddb",
+        "bytes": 1250
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json",
+      "status": "already_exact",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.prompt.txt",
+        "sha256": "3e854eda45e9e76baed6ad514c67488656035d0990663f089cbf6f24575cae26",
+        "bytes": 1584
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.prompt.txt",
+      "status": "already_exact",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.png",
+        "sha256": "8d8ca2d001893c16106ab797ec4a8a8c1e6576115a5a4c76ff1dd519eff4e2cd",
+        "bytes": 2459089
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-apricot-literary-v1-mother.png",
+      "status": "copied",
+      "role": "runtime-mother"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+        "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+        "bytes": 2524961
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-apricot-literary-v1-background.png",
+      "status": "copied",
+      "role": "runtime-background"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/figure-mask-v1.png",
+        "sha256": "976e6a52af3fd9fd8b8ef9a7a017cddb37fec6ebae961256c5b1134ad0cba59d",
+        "bytes": 470866
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-apricot-literary-v1-mask.png",
+      "status": "copied",
+      "role": "runtime-F"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/contact-mask-v1.png",
+        "sha256": "9ee1264c492186058e9069b3ab5b86679690a0349363bcf970fc241251a2e159",
+        "bytes": 348393
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-apricot-literary-v1-contact-mask.png",
+      "status": "copied",
+      "role": "runtime-S"
+    }
+  ],
+  "scene": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-apricot-literary-v1.scene.json",
+  "sceneSha256": "e7470993948a7807f8a61ce3ff1643f870701a4162fff1029432e28663a4a546",
+  "bodyDominantPixels": [
+    883,
+    114,
+    1350,
+    931
+  ],
+  "receiverDominantPixels": [
+    878,
+    532,
+    1393,
+    936
+  ],
+  "runtimeAccepted": false,
+  "TSModified": false,
+  "ledgerRefreshed": false
+}

@@ -1,0 +1,348 @@
+{
+  "schemaVersion": 1,
+  "cell": "umiri/chat/apricot",
+  "scope": "existing-layer-static-admission-review",
+  "primaryReviewed": true,
+  "runtimeAccepted": false,
+  "producerReviewed": true,
+  "assets": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot-mother-candidate-v2.png",
+      "sha256": "beb0028df130f510fce228bd127495d0375ecf8998c81a50137617e4482af8ee",
+      "bytes": 2120803,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "declaredSha256": "beb0028df130f510fce228bd127495d0375ecf8998c81a50137617e4482af8ee",
+      "matchesDeclaredSha256": true
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot-background-calibrated-v2.png",
+      "sha256": "d9355b9f7cf379f81a50e679691db77b01e9ff9b948cdfa06dbf2ef876a36c8e",
+      "bytes": 2037176,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "declaredSha256": "d9355b9f7cf379f81a50e679691db77b01e9ff9b948cdfa06dbf2ef876a36c8e",
+      "matchesDeclaredSha256": true
+    },
+    "figure": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot-figure-calibrated-v2.png",
+      "sha256": "25669bb74c1f4d1231e1960388e4c5869bf67f51979c612959c4c8832ae5820f",
+      "bytes": 2374788,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBoundsPixels": [
+        741,
+        301,
+        1013,
+        734
+      ],
+      "declaredSha256": "25669bb74c1f4d1231e1960388e4c5869bf67f51979c612959c4c8832ae5820f",
+      "matchesDeclaredSha256": true
+    },
+    "mask": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot-mask-calibrated-v2.png",
+      "sha256": "dab06363ee55d3bddea94202f0b27c9d1cc2bd9bd7577aad7e81980c9ef9df5c",
+      "bytes": 29011,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBoundsPixels": [
+        741,
+        301,
+        1013,
+        734
+      ],
+      "declaredSha256": "dab06363ee55d3bddea94202f0b27c9d1cc2bd9bd7577aad7e81980c9ef9df5c",
+      "matchesDeclaredSha256": true
+    },
+    "shadow": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot-shadow-calibrated-v2.png",
+      "sha256": "b6c6c4dd77cc921c46685f3e2794f548d3b0becc0ec55a6ef958b98a39a4ba17",
+      "bytes": 30837,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBoundsPixels": [
+        740,
+        573,
+        1012,
+        738
+      ],
+      "declaredSha256": "b6c6c4dd77cc921c46685f3e2794f548d3b0becc0ec55a6ef958b98a39a4ba17",
+      "matchesDeclaredSha256": true
+    }
+  },
+  "references": {
+    "scene": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot.scene.json",
+      "sha256": "85264cfbf0f5d4f2ae47bd8d1dce81d1eded0150a6254e46482ecd01e616aec7"
+    },
+    "motherSource": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot-v2-source.json",
+      "sha256": "5a673d1d543b4984d47a7199618abeadb16559bbd4fdb0b74430caad8416a005"
+    },
+    "motherPrompt": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot-v2-prompt.txt",
+      "sha256": "711d4dc5b0dadea931e62e004995ce1a3130f85bf319b828e47d67d18fef40f6",
+      "textSha256NoTrailingNewline": "9c22747d9a01d355e3a04bc161647bf6d2a45915459aff1fa6f1e16f958df94f"
+    },
+    "production": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot-layer-processing-v2.json",
+      "sha256": "b4461a9302ac0cfc2728e46f0b71ca32be8cbbb4f720957c76c004c4c4e72ace"
+    },
+    "parameters": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot-layer-parameters-v2.json",
+      "sha256": "74143d0add7e78b444f07fd4de70b8d3eb87afe23420e133684da49ddd303759"
+    },
+    "layerSource": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot-layer-source.json",
+      "sha256": "49e3689c2efa254c434c4c239f00b2b0379fb7fe88a04e98cc8ee46ea40eabfd"
+    }
+  },
+  "originalRgbEvidence": {
+    "motherRgbSha256": "ef17492980af32e0629a6e5e579e7e9f2c0f76c41d6465f9ac7554dc8539ba68",
+    "figureRgbSha256": "ef17492980af32e0629a6e5e579e7e9f2c0f76c41d6465f9ac7554dc8539ba68",
+    "figureRgbEqualsMother": true,
+    "maskRgbExtrema": [
+      [
+        255,
+        255
+      ],
+      [
+        255,
+        255
+      ],
+      [
+        255,
+        255
+      ]
+    ],
+    "figureAlphaEqualsMaskAlpha": true
+  },
+  "sourceSpecificGeometry": {
+    "support": "desk-chair",
+    "seatPixel": [
+      924,
+      575
+    ],
+    "supportingPalmPixel": [
+      994,
+      578
+    ],
+    "lapPalmPixel": [
+      834,
+      550
+    ],
+    "shoeSolePixels": [
+      [
+        768,
+        721
+      ],
+      [
+        837,
+        733
+      ]
+    ],
+    "actorViewBox": [
+      725,
+      285,
+      305,
+      470
+    ],
+    "details": [
+      [
+        "hip",
+        "髋部与椅垫",
+        [
+          850,
+          525,
+          130,
+          85
+        ]
+      ],
+      [
+        "palm",
+        "撑掌与椅垫",
+        [
+          955,
+          540,
+          70,
+          65
+        ]
+      ],
+      [
+        "shoes",
+        "两靴与地面",
+        [
+          730,
+          625,
+          160,
+          125
+        ]
+      ],
+      [
+        "chair",
+        "椅背、袖缘与座面遮挡",
+        [
+          840,
+          465,
+          195,
+          175
+        ]
+      ]
+    ],
+    "roomOcclusion": "Outward-turned chair back remains behind torso/right arm, cushion below hips and right palm, chair legs behind calves/boots. Chair belongs to background and must not follow the figure.",
+    "measurementStatus": "source-specific visible-contact candidate points; not inferred hidden joint measurements"
+  },
+  "sourceSceneGeometry": {
+    "seat": [
+      0.6015625,
+      0.5615234375
+    ],
+    "ground": [
+      0.546875,
+      0.7158203125
+    ],
+    "bodyBounds": [
+      0.482421875,
+      0.2939453125,
+      0.6595052083333334,
+      0.716796875
+    ],
+    "safeTextBoundary": 0.462891,
+    "support": "desk-chair",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "display": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "transform": "identity",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "order": [
+      "background",
+      "existingShadowAlphaUniformColor",
+      "originalMotherRgbMaskedByExistingMask"
+    ],
+    "nativeSvgOnly": true,
+    "newPngEdits": false,
+    "newGeneration": false,
+    "shadowMode": "alpha",
+    "shadowColor": "#291c16",
+    "shadowOpacity": 0.35
+  },
+  "ownership": {
+    "figure": "person, worn clothing and both worn shoes; no held prop",
+    "background": "entire source-specific room including all furniture, pillows, cushion and throw",
+    "contactShadow": "existing separate normal source-over RGBA residual",
+    "foreground": "no extra foreground file in source scene; source-specific occlusion described in geometry"
+  },
+  "observations": [
+    "Original v2 mother/source prompt personally viewed. Dark jacket, red top, skirt, both boots, both hands belong to figure; no held prop.",
+    "Hip is supported by original outward-turned desk chair cushion. Right palm rests on cushion, left hand rests on knee; chair back remains behind torso/arm, chair legs behind calves and boots. Room furniture is not in actor alpha.",
+    "Whole original figure RGB equals mother RGB byte-for-byte, existing mask alpha equals figure alpha, all exact PNG SHA match selected production record.",
+    "Native source-over at zero transform keeps original body/room registration and seat/palm relation. Existing shoe-contact residual adds a warmer/lighter rim around soles than source mother.",
+    "Selected empty background shows a shallow beige book/pad to the left of the actual blue book in the newly revealed desk area; extraction prompt explicitly asks for bare wood there. The original mother occludes that area, so hidden source content is not independently known."
+  ],
+  "remaining": [
+    "Scene owner integration of exact approved fixed-position rendering",
+    "Actual integrated runtime, motion and hide/restore review"
+  ],
+  "preview": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-b/umiri-chat-apricot-bundle-v1.html",
+    "sha256": "54d70ac23c6fde2dcc8dc41a5221d2bb8698e432500b2964ec793260e0c560c4"
+  },
+  "verification": {
+    "browser": "Chrome extension",
+    "nativeSvgSourceOverPersonallyViewed": true,
+    "views": [
+      "complete mother",
+      "complete recomposition",
+      "empty background PNG",
+      "original RGB masked figure on light/dark/checker",
+      "existing mask",
+      "existing contact shadow on light/dark/checker",
+      "hip and supporting palm at 2x",
+      "both boots at 2x",
+      "chair back/sleeve/cushion occlusion at 2x",
+      "shoe boundary with and without existing shadow at 3x"
+    ],
+    "pngEdited": false,
+    "runtimeInteractionTested": false
+  },
+  "findings": [
+    {
+      "id": "umiri-shoe-contact-rim",
+      "sourceRegionsPixels": [
+        [
+          741,
+          712,
+          804,
+          725
+        ],
+        [
+          807,
+          721,
+          874,
+          735
+        ]
+      ],
+      "layer": "shadow",
+      "observation": "With shadow there is a warm/light sole rim absent from original mother; without shadow original-RGB figure boundary is cleaner but local contact is missing.",
+      "evidence": "umiri-chat-apricot-shoe-boundary-v1.html",
+      "status": "primary_accepted_alpha_rendering_semantics",
+      "resolution": "Exact existing shadow alpha used with #291c16 at opacity 0.35; no PNG/source geometry changes. Primary accepted fixed-position layer candidate; runtime pending."
+    },
+    {
+      "id": "umiri-empty-desk-object",
+      "sourceRegionPixels": [
+        878,
+        481,
+        956,
+        497
+      ],
+      "layer": "background",
+      "observation": "A shallow beige book/pad appears left of original blue book, contrary to selected background-generation prompt object-count constraint.",
+      "evidence": "umiri-chat-apricot-bundle-v1.html#chair",
+      "status": "primary_accepted_generated_deviation",
+      "resolution": "Root accepted overall empty-room composition for this review; hidden original contents remain unknown and no visible original object is claimed removed."
+    }
+  ],
+  "diagnosticPreview": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-b/umiri-chat-apricot-shoe-boundary-v1.html",
+    "sha256": "a55f966820436568e5d96161705d6cb09ba3e642e62cac458d398fe2f0fdf3ec"
+  },
+  "primaryLayerApproved": true,
+  "primaryLayerApproval": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-b/umiri-chat-apricot-primary-layer-approval-v1.json",
+    "sha256": "6eeae9f4d21f52873967610328c9a38ae722ab317ed072cd9d4b0e241e7cfed9"
+  },
+  "status": "primary_fixed_layer_approved_runtime_pending",
+  "shadowRenderingSource": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-b/umiri-chat-apricot-shadow-alpha-candidate-v1.json",
+    "sha256": "8641fda038c0acc5261d3a3cdc19824cc6e8bd5f71af4649f6a8a642b709da7f"
+  },
+  "acceptedBoundaries": [
+    "Fixed original position only; no runtime or motion acceptance.",
+    "Broad mother floor cast/reflection shadow is weaker in alpha 0.35 candidate; narrow contact and visible support are accepted, not pixel-identical restoration.",
+    "Generated empty background reveals a pale desk paper/pad where original mother is occluded. Recorded as generation deviation; root accepts this overall empty-room composition for this review, without asserting original hidden content existed or was absent."
+  ]
+}

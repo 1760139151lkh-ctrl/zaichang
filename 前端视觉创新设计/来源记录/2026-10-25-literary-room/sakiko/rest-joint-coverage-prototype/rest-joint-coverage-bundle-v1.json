@@ -1,0 +1,368 @@
+{
+  "schemaVersion": 1,
+  "key": "sakiko/rest/apricot",
+  "kind": "single-call-joint-coverage-prototype",
+  "status": "producer_hold_floor_contact_extent_not_adequately_selected",
+  "primary": false,
+  "layer": false,
+  "runtime": false,
+  "canvas": [
+    1536,
+    1024
+  ],
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-rest-apricot-literary-pilot-v1.png",
+    "sha256": "144a167d9c7d1bc594051ef1ca3fcf0b92e97f1a8ddbf8cd63eb6b54c8a460f8",
+    "motherApprovalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+    "layerApprovalByMotherReview": false
+  },
+  "background": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "suppliedToImageGen": false
+  },
+  "coverage": {
+    "path": "joint-coverage-v1.png",
+    "sha256": "88800525fa3479df8bdb4e36258325d2271c4ec7ac64bf7a098b3e37b6e8bf0d",
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "generationSource": "joint-coverage-v1.source.json",
+    "role": "Single unmodified ImageGen original-position joint foreground/contact luminance coverage",
+    "actualDecodedMode": "RGB",
+    "hasAlphaChannel": false,
+    "alphaIdempotenceBoundary": "PNG is color type 2, opaque RGB without an alpha channel. This prototype is single joint coverage, not two independent F/S outputs. No runtime registration or same-file MAX claim is approved by this producer record."
+  },
+  "assembly": {
+    "formula": "subject = unchangedMotherRGB × L(jointCoverage); scene = matchingBG then subject once",
+    "nativeSvg": "joint-source-v1.svg",
+    "originalMotherRgbDrawsPerSubject": 1,
+    "maskMode": "luminance",
+    "contactShadow": {
+      "mode": "included"
+    },
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "sharedCanvasIdentity": true,
+    "independentCastShadow": false,
+    "newFigureRgb": false,
+    "pngPixelEditing": false,
+    "thresholding": false,
+    "adaptiveColorDifference": false,
+    "sourceShadowPolygon": false,
+    "nativeSvgSha256": "69a6e63af5e3a12d787b63865668bed691c48973b1f71a06fbc60782721d75e3"
+  },
+  "intendedBoundary": [
+    "Fixed exact-source pose only",
+    "Complete head, hair, hands, skirt and whole shoes are required; included semantics do not relax contour completeness",
+    "Narrow original support receivers may be included honestly",
+    "No independent body/limb/shadow movement or transfer to another support"
+  ],
+  "generation": {
+    "calls": 1,
+    "callLimit": 1,
+    "retries": 0,
+    "builtInOnly": true,
+    "soleCorrectMotherInput": true,
+    "priorMasksAsInput": false,
+    "largeImageResultStored": false,
+    "sourceRecordSha256": "cf3ec6d9bf2e50fef64396a930683e703f9a43e5f545eda9d403787e930c83c5"
+  },
+  "priorMethodReference": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/reading-layers-included-bundle-v3.json",
+  "visualInspection": {
+    "status": "producer_complete_hold",
+    "page": "rest-joint-coverage-observe-v1.html",
+    "pageUrl": "http://127.0.0.1:5188/来源记录/2026-10-25-literary-room/sakiko/rest-joint-coverage-prototype/rest-joint-coverage-observe-v1.html",
+    "rois": [
+      {
+        "id": "face",
+        "sourcePixels": [
+          1065,
+          95,
+          230,
+          250
+        ]
+      },
+      {
+        "id": "palm",
+        "sourcePixels": [
+          1180,
+          505,
+          190,
+          110
+        ]
+      },
+      {
+        "id": "hem",
+        "sourcePixels": [
+          925,
+          495,
+          440,
+          125
+        ]
+      },
+      {
+        "id": "shoes",
+        "sourcePixels": [
+          800,
+          765,
+          270,
+          165
+        ]
+      }
+    ],
+    "at": "2026-10-25T13:39:18Z",
+    "browser": "Chrome through cua_repl, existing 127.0.0.1:5188 static viewer only",
+    "statesViewed": [
+      "full original versus matching BG + source RGB through single coverage",
+      "complete joint subject light/dark/checker upper and lower portions",
+      "raw generated mask",
+      "1:1 face/hair/eyes original/checker/recomposed",
+      "1:1 palm/seat original/checker/recomposed",
+      "1:1 full hem original/checker/recomposed including horizontal row right end",
+      "1:1 full shoes/soles/heels original/checker/recomposed"
+    ],
+    "observations": [
+      "Complete crown, silver-blue hair/ribbons, face/eyes, both hands, skirt/trim, socks and both full shoes remain readable from the unchanged source RGB. No obvious body resizing or replaced RGB is observed.",
+      "The joint subject contains a narrow actual original linen fringe adjoining the seated hem and palm. This is included receiver material and is fixed to the source pose.",
+      "Full recomposition looks close to the mother at the observed normal size; source-pixel shoe comparison exposes a contact extent gap that the full scene alone does not resolve.",
+      "The checker shoes are nearly isolated silhouettes; original floor darkness immediately outside/below the soles is not sufficiently included. The recomposed floor is visibly lighter than the mother around these contacts.",
+      "No conspicuous broad rectangular room block was observed in the reviewed light/dark/checker view. The four sampled unrelated room points are exactly (0,0,0); this limited sampling is not a claim that every room pixel is zero."
+    ],
+    "issues": [
+      {
+        "id": "floor-contact-coverage-gap",
+        "status": "hold",
+        "sourceRegion": [
+          805,
+          855,
+          230,
+          65
+        ],
+        "evidenceAnchor": "#shoes",
+        "finding": "Original floor darkness outside/below the sole/heel boundary is mostly black or near-black in the generated coverage and therefore is not reproduced as original-source contact material. Full shoes alone do not establish complete contact coverage.",
+        "readOnlyPixelSamples": [
+          {
+            "sourcePoint": [
+              850,
+              887
+            ],
+            "coverageRGB": [
+              247,
+              246,
+              246
+            ],
+            "motherRGB": [
+              21,
+              10,
+              6
+            ],
+            "clearBackgroundRGB": [
+              138,
+              119,
+              134
+            ]
+          },
+          {
+            "sourcePoint": [
+              850,
+              893
+            ],
+            "coverageRGB": [
+              6,
+              4,
+              4
+            ],
+            "motherRGB": [
+              70,
+              33,
+              10
+            ],
+            "clearBackgroundRGB": [
+              146,
+              118,
+              128
+            ]
+          },
+          {
+            "sourcePoint": [
+              875,
+              897
+            ],
+            "coverageRGB": [
+              0,
+              0,
+              0
+            ],
+            "motherRGB": [
+              97,
+              57,
+              40
+            ],
+            "clearBackgroundRGB": [
+              129,
+              104,
+              113
+            ]
+          },
+          {
+            "sourcePoint": [
+              905,
+              898
+            ],
+            "coverageRGB": [
+              0,
+              0,
+              0
+            ],
+            "motherRGB": [
+              65,
+              35,
+              13
+            ],
+            "clearBackgroundRGB": [
+              113,
+              80,
+              73
+            ]
+          },
+          {
+            "sourcePoint": [
+              945,
+              897
+            ],
+            "coverageRGB": [
+              3,
+              3,
+              2
+            ],
+            "motherRGB": [
+              91,
+              50,
+              24
+            ],
+            "clearBackgroundRGB": [
+              123,
+              80,
+              63
+            ]
+          },
+          {
+            "sourcePoint": [
+              972,
+              893
+            ],
+            "coverageRGB": [
+              0,
+              0,
+              0
+            ],
+            "motherRGB": [
+              95,
+              58,
+              40
+            ],
+            "clearBackgroundRGB": [
+              135,
+              90,
+              73
+            ]
+          },
+          {
+            "sourcePoint": [
+              1000,
+              880
+            ],
+            "coverageRGB": [
+              1,
+              1,
+              0
+            ],
+            "motherRGB": [
+              91,
+              49,
+              21
+            ],
+            "clearBackgroundRGB": [
+              118,
+              68,
+              40
+            ]
+          }
+        ]
+      }
+    ],
+    "roomReadOnlyPixelSamples": [
+      {
+        "sourcePoint": [
+          20,
+          20
+        ],
+        "coverageRGB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "sourcePoint": [
+          300,
+          300
+        ],
+        "coverageRGB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "sourcePoint": [
+          700,
+          700
+        ],
+        "coverageRGB": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "sourcePoint": [
+          1400,
+          800
+        ],
+        "coverageRGB": [
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "readOnlyPixelInspection": true,
+    "pixelEditing": false,
+    "pageSha256": "1130a346e10e28b92503bdcb963e26c80a56da68962c21c15f03cebd90b2b8ea"
+  },
+  "review": {
+    "approvedByPrimary": false,
+    "layerApproved": false,
+    "runtimeAccepted": false,
+    "producerDisposition": "hold_missing_source_floor_contact_extent; root review only, no layer/runtime admission"
+  },
+  "scopeBoundary": {
+    "sourceTsEdits": false,
+    "registration": false,
+    "newTests": false,
+    "portControl": false,
+    "newServices": false,
+    "newChildren": false
+  },
+  "sourceUnchangedVerification": {
+    "motherActualSha256": "144a167d9c7d1bc594051ef1ca3fcf0b92e97f1a8ddbf8cd63eb6b54c8a460f8",
+    "backgroundActualSha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "coverageActualSha256": "88800525fa3479df8bdb4e36258325d2271c4ec7ac64bf7a098b3e37b6e8bf0d",
+    "motherMatchesApproved": true,
+    "backgroundMatchesApproved": true,
+    "generatedMaskUnmodified": true
+  }
+}

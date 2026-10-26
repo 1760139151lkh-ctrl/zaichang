@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-play-mist-f2-v1",
+  "character": "soyo",
+  "activity": "play",
+  "palette": "mist",
+  "stage": "F2",
+  "producer": "/root/study_reading",
+  "useCase": "background-extraction",
+  "passport": ".agents/skills/zaichang-frontend-director/references/characters/soyo.md",
+  "wardrobe": "tsukinomori-school-uniform",
+  "submittedPrompt": "Use case: background-extraction. Asset: F2 original-position figure/open-book/single-pencil luminance mask. The ONLY input is the 1536x1024 Soyo play mist scene deliberately marked white in F1. Convert only that deliberately WHITE complete figure and her complete open lap-book and full thin pencil into solid WHITE; convert the entire colored environment to pure BLACK. Keep all exact source coordinates, full canvas and scale unchanged. White includes all fine trailing hair locks, face/head/neck/body, every finger, hands, clothing and bow/crest, complete skirt hem, bare knees, below-knee socks, both complete shoes including heel/sole, BOTH entire open book page faces with spine/page block/lower cover edge, and the one exact thin pencil shaft/end/tip from approximately x861,y434 to x909,y497. Do not omit any pencil segment protruding beyond the hand. Faint pencil/page contour lines enclosed within the white F1 selection are not holes: the entire physical page block and pencil interior remain opaque white. Preserve only real narrow background gaps between locks/fingers/legs; no newly invented cutouts or holes. Every colored cushion, bench, floor, rug, plant, window and cast/contact shadow becomes black. Natural white/cream room highlights remain black because they were not deliberately selected in F1. No gray fill, shading or scene texture inside white shape; only a very narrow antialiased edge around the exact silhouette may be edge-gray. No crop, zoom, resize, recenter, new figure outline, checkerboard, transparency, labels or arrows. Output ONE opaque black-and-white 1536x1024 PNG mask. The original approved mother, not this markup, will later supply RGB exactly once; this mask is not new character art.",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/play-layers/mist/figure-step1-marked-v1.png"
+  ],
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/play-layers/mist/figure-step1-marked-v1.png",
+      "sha256": "756847d31092e19f66b4f56f636a832ab437aa05b4e3672cd2ae0c1775459243",
+      "bytes": 2316323
+    }
+  ],
+  "transparentBackground": false,
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/play-layers/mist/figure-mask-v1.png",
+    "sha256": "3fbe9a5b2eacc17c191afd7b8f2eaf64b200286997425dc5c0d91ffabe71b801",
+    "bytes": 447018,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "tool": "image_gen.imagegen",
+  "originalToolPath": "C:/Users/17601/.codex/generated_images/01a17365-8901-7202-bd9e-0859826906dc/exec-8f73cbf3-671f-41f2-94b7-6be4dd9b69de.png",
+  "originalToolSha256": "3fbe9a5b2eacc17c191afd7b8f2eaf64b200286997425dc5c0d91ffabe71b801",
+  "rawToolBytesPreserved": true,
+  "generationStatus": "returned-and-preserved",
+  "motherStaticDirectionApproved": true,
+  "primaryApproved": false,
+  "primaryLayerApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "observations": [
+    "Personally viewed raw full-canvas mask: complete figure and shoes plus open lap-book block remain white, environment and true between-leg/hair gaps black.",
+    "A thin dark page-edge contour persists at the lower book boundary; requires source-RGB close-up to establish whether source physical edge is shaved. Not signed as layer accepted.",
+    "Thin pencil is visible; mist protruding upper shaft appears shifted/farther image-left relative to the mother inspection coordinates, a suspected fidelity gap. Must check exact source RGB before use. Known candidate is not fed back into Image.",
+    "Raw output retained unmodified. Primary/layer/runtime acceptance all false."
+  ],
+  "limitations": [
+    "Selection artwork only; source RGB belongs to exact mother.",
+    "No primary layer or runtime acceptance.",
+    "No raster thresholding, painting, recoloring or morphology performed."
+  ],
+  "recordedAt": "2026-10-25T20:17:35.124Z",
+  "exactMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-play-mist-literary-v2.png",
+    "sha256": "0d6df59d4ade1ff32688d2f9618ca7a42ef7ff4d1ec8fb6c45cebfe80ac7d106",
+    "role": "original source RGB owner; not a generation input unless listed in referencedImagePaths"
+  },
+  "primaryReviewReference": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/root-human-mother-primary-review-20261025.json#soyo/play/mist",
+  "status": "candidate-awaiting-exact-source-rgb-review"
+}

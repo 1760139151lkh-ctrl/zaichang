@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "character": "soyo",
+  "sceneCategory": "S9_RESUME",
+  "semanticAction": "welcome-resume",
+  "palette": "rain",
+  "intendedCanvas": [
+    1536,
+    1024
+  ],
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "executionId": "exec-0d49095b-8e08-417f-9604-f466e918a7fc",
+  "observedAtUtc": "2026-10-25 02:20:52 UTC",
+  "promptFile": "soyo-resume-rain-mother-v1.prompt.txt",
+  "promptFileSha256": "5ab13f582f515b99c2f9eafba63c96cf3c94687b9a9b8d4c177e327f292b9eba",
+  "submittedPrompt": "Exact UTF-8 promptFile contents with leading/trailing whitespace trimmed; identical string submitted to the tool.",
+  "inputs": [
+    {
+      "role": "primary-approved apricot mother; accepted character, pose, limb proportions and contacts",
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/resume/soyo-resume-apricot-mother-v1.png",
+      "sha256": "4507c3185b2728f196a4d0e3bab947fa14fe6c96cb8451eaec8b0618ef4aaa3e"
+    },
+    {
+      "role": "personally viewed clean empty matching night-rain room; complete light/weather reference",
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "transparentBackground": false,
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/resume/soyo-resume-rain-mother-v1.png",
+    "defaultToolPath": "C:/Users/17601/.codex/generated_images/01a16fb5-6e96-71d2-a0fa-07807b277582/exec-0d49095b-8e08-417f-9604-f466e918a7fc.png",
+    "sha256": "bb572138b2545052118673b7d5d2476f8af7204922ebc9ed61e67ea7bae7941a",
+    "bytes": 2123868,
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "copyMethod": "Copy-Item without image processing; default tool output retained"
+  },
+  "status": "candidate-awaiting-primary-review",
+  "review": {
+    "personallyViewedOutput": true,
+    "approvedByPrimary": false,
+    "layersAccepted": false,
+    "runtimeAccepted": false,
+    "note": "Personally viewed the returned complete rainy-night mother. Youthful soyo identity and the accepted lap-supported book/page hands, seated contact and two complete uncrossed leg/shoe chains remain coherent. The whole room is a blue rainy exterior with amber indoor lamp light, without daytime sun patches or a newly sad expression. Intrinsic uniform/hair colors remain recognizable. No layer, runtime or real-owner recovery acceptance is inferred."
+  }
+}

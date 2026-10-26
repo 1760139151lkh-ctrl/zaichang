@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T01:16:55.572Z",
+  "producer": "/root/study_reading",
+  "character": "mutsumi",
+  "purpose": "neutral-presence",
+  "environmentVariant": "time-night",
+  "weather": "unknown",
+  "exactActivityMatrixCredit": 0,
+  "stage": "contact-step1-marked-v1",
+  "tool": "image_gen.imagegen",
+  "originalToolPath": "C:/Users/17601/.codex/generated_images/01a17365-8901-7202-bd9e-0859826906dc/exec-508aaecd-a8cd-433b-9cd2-eb1215300ad7.png",
+  "transparentBackground": false,
+  "submittedPrompt": "Use case: precise-object-edit. S1 COLOR MARKUP ONLY, exact1536x1024 source registration. Use ONLY this clean original Mutsumi NIGHT mother. Keep complete girl, every hair/hand/skirt/leg/sock and full shoes in ORIGINAL SOURCE COLOR; no pose/redraw/shift/crop. Intentionally repaint PURE SATURATED MAGENTA RGB255,0,255 ONLY the ACTUAL source-local receiver/contact surface just OUTSIDE figure: very small compressed cream cushion strips adjoining the seated hip/outer navy skirt, preserving actual irregular source edge; and the ENTIRE local supporting WOOD FLOOR SHADOW below each complete brown loafer, including dense shade immediately under bottom sole/heel and short actual soft fade8..25pixels into surrounding wood below the toes. Do not paint the SHOE itself or its heel/sole; receiver is outside and below brown shoe. Do NOT paint bare knees, skin or skirt; cushion is cream woven fabric outside navy hem. No isolated knee patches. Girl's hands rest on her own knees, no palm-to-seat receiver to invent. The magenta should visibly hug actual seat/floor receiving material, not form huge cushion, ellipse, rectangle, or 2px contour. Preserve source positions EXACTLY, all surroundings and naturally pale curtain/empty cushion/throw remain ORIGINAL COLOR. No generic new shadows, sunlight/lamp/furniture patches, no extra props, no zoom/translation/scale/recenter, no text/UI/transparency. One opaque SOURCE-COLORED room with only small ACTUAL receiving material and full local shoe-ground shadow intentionally magenta, for exact binary trace conversion. Natural whites must remain unchanged to distinguish deliberate marks.",
+  "submittedPromptSha256": "b821d6ab6bc0e80c27782fd541a01dd877070d0551c282184e424f4d6fcdae39",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-night-v1.png"
+  ],
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-night-v1.png",
+      "role": "sole clean root-approved night mother",
+      "sha256": "ecd0ac024c414ae54c94558301e4eeb7d1e4e773cc264a195044fe9030088e36",
+      "bytes": 2240587
+    }
+  ],
+  "originalMother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-night-v1.png",
+    "sha256": "ecd0ac024c414ae54c94558301e4eeb7d1e4e773cc264a195044fe9030088e36",
+    "approvalRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-night-v1.primary-approval.json"
+  },
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/night/layers/contact-step1-marked-v1.png",
+    "sha256": "9ea44d65befc6ed31a501ce42e2e0eec3c57647bb9c1307245e635894751c66c",
+    "bytes": 2229377,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "rawToolBytesPreserved": true,
+  "producerPersonallyViewed": true,
+  "observations": [
+    "Personally viewed: magenta actual compressed cushion at hem and full shoe-floor receiver patches; source girl stays colored; night illumination retained."
+  ],
+  "producerUseDecision": "candidate-awaiting-static-union-review",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "userApproved": false,
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "fixedOriginalCoordinates": true,
+    "travel": 0,
+    "perspective": 0,
+    "slope": 0,
+    "contactShadow": "included"
+  },
+  "method": {
+    "sourceRgb": "exact unchanged mother only",
+    "union": "MAX(L(F),L(S))",
+    "originalRgbDrawsPerUnion": 1,
+    "pngPixelEditing": false,
+    "manualThreshold": false,
+    "morphology": false,
+    "warp": false
+  },
+  "scope": "Production candidate only; native browser union, seam and full source RGB must be personally viewed before primary static-layer admission."
+}

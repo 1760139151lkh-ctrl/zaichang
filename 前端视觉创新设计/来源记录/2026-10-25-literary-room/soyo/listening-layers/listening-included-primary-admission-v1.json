@@ -1,0 +1,831 @@
+{
+  "schemaVersion": 1,
+  "recordType": "root-exact-source-static-layer-admission-and-runtime-registration",
+  "sceneFamily": "literary-room-v1",
+  "character": "soyo",
+  "activity": "listening",
+  "recordedAt": "2026-10-25T20:09:58.488004+00:00",
+  "sourceClosure": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/listening-included-selected-source-closure-v1.json",
+    "sha256": "6e10bfad1f876986e8f04b304c21c82413fd59e77332172444912d9f6647f042"
+  },
+  "review": {
+    "approvedByPrimary": true,
+    "reviewer": "root / primary",
+    "source": "Root direct instruction in this same healthy task, after personally inspecting each exact theme in own hidden IAB.",
+    "primaryPersonallyViewed": true,
+    "perThemeViewed": [
+      "Complete original mother versus full native RGB union composite",
+      "Whole foreground outline on light, dark and checker backgrounds",
+      "Separate closed book cover/spine/page block and source cushion receiver",
+      "Both entire shoes and soft original floor receiving material"
+    ],
+    "primaryObserved": "Fixed union complete; no detached fragment, white edge or hard rectangular seam observed. User explicitly preserves minor theme-specific original-mother differences; no redraw.",
+    "approvalScope": "Only these exact four source sets, fixed original-canvas included union; independent figure movement prohibited.",
+    "runtimeAccepted": false
+  },
+  "renderMethod": {
+    "engine": "Existing CompanionRoomStage contactMask inline SVG path in src/renderer/companion-scenes.tsx",
+    "formula": "U=MAX(L(F),L(S)); original mother RGB drawn once, same-mother generated empty BG underneath",
+    "luminanceWeights": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorInterpolationFilters": "sRGB",
+    "runtimeExternalSvgImgUsed": false,
+    "runtimeAssets": "Native PNG byte copies resolved by existing import.meta.glob; inline feImage/feColorMatrix/lighten mask. No external-link SVG image with missing subresources.",
+    "independentShadow": false,
+    "pngPixelEditing": false,
+    "bodyDeformation": false
+  },
+  "registrations": [
+    {
+      "palette": "apricot",
+      "sceneId": "soyo-listening-apricot-literary-included-v1",
+      "assets": {
+        "mother": {
+          "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-listening-apricot-literary-v2.png",
+          "runtime": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-apricot-literary-included-v1-mother.png",
+          "file": "soyo-listening-apricot-literary-included-v1-mother.png",
+          "sha256": "f242a5b6865d6ac27688ba75bdb8b0e733e6cbb8ea9724b4ea338973288c3862",
+          "bytes": 2445061,
+          "pngBytesUnchanged": true
+        },
+        "background": {
+          "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/listening-background-v1.png",
+          "runtime": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-apricot-literary-included-v1-background.png",
+          "file": "soyo-listening-apricot-literary-included-v1-background.png",
+          "sha256": "fd79e7f727e79c1442be28b3724a1d06ea290b761f17aa3bccc964a9dcaade1a",
+          "bytes": 2407302,
+          "pngBytesUnchanged": true
+        },
+        "figureMask": {
+          "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/figure-mask-v1.png",
+          "runtime": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-apricot-literary-included-v1-mask.png",
+          "file": "soyo-listening-apricot-literary-included-v1-mask.png",
+          "sha256": "e644bdb2df8911ca831b8982e82388418a2879d64223c7df3c23d62d0ea3fa31",
+          "bytes": 418291,
+          "pngBytesUnchanged": true
+        },
+        "contactMask": {
+          "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/contact-mask-v3.png",
+          "runtime": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-apricot-literary-included-v1-contact-mask.png",
+          "file": "soyo-listening-apricot-literary-included-v1-contact-mask.png",
+          "sha256": "f587afa60db2ddc8adc3765de66ddff2497453d0254ecbde92a804ef00254ca6",
+          "bytes": 303673,
+          "pngBytesUnchanged": true
+        }
+      },
+      "geometry": {
+        "bodyBounds": {
+          "sourcePixels": [
+            743,
+            139,
+            1253,
+            882
+          ],
+          "normalized": [
+            0.4837239583333333,
+            0.1357421875,
+            0.8157552083333334,
+            0.861328125
+          ],
+          "includes": "Complete selected F: whole person and separate closed book; not a pure anatomical body measurement.",
+          "basis": "Read-only selected original Image mask luminance envelope >32, cross-checked against this exact whole mother. No mask PNG pixel changes."
+        },
+        "jointReceiverEnvelope": {
+          "sourcePixels": [
+            706,
+            139,
+            1255,
+            905
+          ],
+          "normalized": [
+            0.4596354166666667,
+            0.1357421875,
+            0.8170572916666666,
+            0.8837890625
+          ],
+          "basis": "Read-only MAX(L(F),L(S)) >32 envelope; includes actual local receiver material and soft shoe grounding."
+        },
+        "seat": {
+          "sourcePixels": [
+            1040,
+            578
+          ],
+          "normalized": [
+            0.6770833333333334,
+            0.564453125
+          ],
+          "basis": "Visible skirt-to-linen support reference inspected in this exact mother; not measured hidden hip or a movable pivot."
+        },
+        "ground": {
+          "sourcePixels": [
+            820,
+            878
+          ],
+          "normalized": [
+            0.5338541666666666,
+            0.857421875
+          ],
+          "basis": "Visible sole/floor reference, not a travel pivot."
+        },
+        "shoeContacts": {
+          "sourcePixels": [
+            [
+              770,
+              874
+            ],
+            [
+              838,
+              878
+            ]
+          ],
+          "basis": "Two visible source shoe/ground reference points; finite inspection references rather than anatomical joints."
+        },
+        "hitPolygon": {
+          "sourcePixels": [
+            [
+              899,
+              140
+            ],
+            [
+              973,
+              146
+            ],
+            [
+              1037,
+              228
+            ],
+            [
+              1107,
+              400
+            ],
+            [
+              1120,
+              558
+            ],
+            [
+              1003,
+              592
+            ],
+            [
+              948,
+              697
+            ],
+            [
+              896,
+              845
+            ],
+            [
+              852,
+              880
+            ],
+            [
+              745,
+              876
+            ],
+            [
+              791,
+              666
+            ],
+            [
+              819,
+              545
+            ],
+            [
+              847,
+              440
+            ],
+            [
+              847,
+              264
+            ]
+          ],
+          "scope": "Conservative visible-person interaction outline; separate closed book is retained visually but does not enlarge this handle into empty upper-right window space."
+        },
+        "travel": 0,
+        "slope": 0,
+        "perspective": 0,
+        "contactShadow": "included",
+        "independentMovementAllowed": false
+      },
+      "sourceBundle": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/listening-included-bundle-v1.json",
+        "sha256": "df4852a706b46da771d7b4c736c569a4a47dcdcd2219fe1e03e9f80f38c59896",
+        "bytes": 17208,
+        "role": "per-theme exact selected source bundle"
+      },
+      "nativeUnionEvidence": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/union-source-v1.svg",
+        "sha256": "6fd90b77867c268dc417afa5da0f5686e483ec03d18e083f4c90c87248f93340",
+        "bytes": 1409,
+        "role": "source-RGB joint layer"
+      },
+      "primaryViewedPage": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/listening-included-observe-v1.html",
+      "registration": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-apricot-literary-included-v1.scene.json",
+        "sha256": "7fd47a8afd6b42fbca1f776f949d64bd434f7c548f4db5aab1923fce2059554c"
+      },
+      "staticLayerApproved": true,
+      "runtimeAccepted": false
+    },
+    {
+      "palette": "mist",
+      "sceneId": "soyo-listening-mist-literary-included-v1",
+      "assets": {
+        "mother": {
+          "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-mist-literary-v1.png",
+          "runtime": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-mist-literary-included-v1-mother.png",
+          "file": "soyo-listening-mist-literary-included-v1-mother.png",
+          "sha256": "5fbcbd2acb5bfdf36ab1ac5273dee2ec7567a03bc3a12869751b90a43adea154",
+          "bytes": 2456604,
+          "pngBytesUnchanged": true
+        },
+        "background": {
+          "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/mist/listening-background-v1.png",
+          "runtime": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-mist-literary-included-v1-background.png",
+          "file": "soyo-listening-mist-literary-included-v1-background.png",
+          "sha256": "9495cc9167bd85287b1f0b59f401553fedba9187b51109fe92e56f8ff2537713",
+          "bytes": 2385241,
+          "pngBytesUnchanged": true
+        },
+        "figureMask": {
+          "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/mist/figure-mask-v1.png",
+          "runtime": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-mist-literary-included-v1-mask.png",
+          "file": "soyo-listening-mist-literary-included-v1-mask.png",
+          "sha256": "fd9faa1956dd18f990d409602763de491bad42daa0b76e6e84f5163a7e63771f",
+          "bytes": 426325,
+          "pngBytesUnchanged": true
+        },
+        "contactMask": {
+          "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/mist/contact-mask-v2.png",
+          "runtime": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-mist-literary-included-v1-contact-mask.png",
+          "file": "soyo-listening-mist-literary-included-v1-contact-mask.png",
+          "sha256": "877b09c04dd259353a8fa3de230bb05b79ae7cf8c4e1b5071358d25bf0e8aad7",
+          "bytes": 317089,
+          "pngBytesUnchanged": true
+        }
+      },
+      "geometry": {
+        "bodyBounds": {
+          "sourcePixels": [
+            752,
+            118,
+            1270,
+            912
+          ],
+          "normalized": [
+            0.4895833333333333,
+            0.115234375,
+            0.8268229166666666,
+            0.890625
+          ],
+          "includes": "Complete selected F: whole person and separate closed book; not a pure anatomical body measurement.",
+          "basis": "Read-only selected original Image mask luminance envelope >32, cross-checked against this exact whole mother. No mask PNG pixel changes."
+        },
+        "jointReceiverEnvelope": {
+          "sourcePixels": [
+            720,
+            118,
+            1270,
+            922
+          ],
+          "normalized": [
+            0.46875,
+            0.115234375,
+            0.8268229166666666,
+            0.900390625
+          ],
+          "basis": "Read-only MAX(L(F),L(S)) >32 envelope; includes actual local receiver material and soft shoe grounding."
+        },
+        "seat": {
+          "sourcePixels": [
+            1060,
+            588
+          ],
+          "normalized": [
+            0.6901041666666666,
+            0.57421875
+          ],
+          "basis": "Visible skirt-to-linen support reference inspected in this exact mother; not measured hidden hip or a movable pivot."
+        },
+        "ground": {
+          "sourcePixels": [
+            853,
+            906
+          ],
+          "normalized": [
+            0.5553385416666666,
+            0.884765625
+          ],
+          "basis": "Visible sole/floor reference, not a travel pivot."
+        },
+        "shoeContacts": {
+          "sourcePixels": [
+            [
+              790,
+              867
+            ],
+            [
+              857,
+              906
+            ]
+          ],
+          "basis": "Two visible source shoe/ground reference points; finite inspection references rather than anatomical joints."
+        },
+        "hitPolygon": {
+          "sourcePixels": [
+            [
+              902,
+              119
+            ],
+            [
+              986,
+              134
+            ],
+            [
+              1028,
+              223
+            ],
+            [
+              1093,
+              386
+            ],
+            [
+              1140,
+              571
+            ],
+            [
+              1005,
+              604
+            ],
+            [
+              952,
+              752
+            ],
+            [
+              917,
+              886
+            ],
+            [
+              864,
+              911
+            ],
+            [
+              753,
+              872
+            ],
+            [
+              801,
+              710
+            ],
+            [
+              820,
+              530
+            ],
+            [
+              844,
+              440
+            ],
+            [
+              836,
+              259
+            ]
+          ],
+          "scope": "Conservative visible-person interaction outline; separate closed book is retained visually but does not enlarge this handle into empty upper-right window space."
+        },
+        "travel": 0,
+        "slope": 0,
+        "perspective": 0,
+        "contactShadow": "included",
+        "independentMovementAllowed": false
+      },
+      "sourceBundle": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/mist/listening-included-bundle-v1.json",
+        "sha256": "54895cffb8d123815ee33d52aad33e9e73313ae6a37cd6af488ea93a42753a9b",
+        "bytes": 15440,
+        "role": "per-theme exact selected source bundle"
+      },
+      "nativeUnionEvidence": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/mist/union-source-v1.svg",
+        "sha256": "6f6f505782bf70b1bce5aa87b27263f84336e9a5237783dcbcfc574d771443d7",
+        "bytes": 1390,
+        "role": "source-RGB joint layer"
+      },
+      "primaryViewedPage": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/mist/listening-included-observe-v1.html",
+      "registration": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-mist-literary-included-v1.scene.json",
+        "sha256": "81a604a56067aae4806881995095140f31cc1df9b5d955c8177a89ef5b28bce0"
+      },
+      "staticLayerApproved": true,
+      "runtimeAccepted": false
+    },
+    {
+      "palette": "violet",
+      "sceneId": "soyo-listening-violet-literary-included-v1",
+      "assets": {
+        "mother": {
+          "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-violet-literary-v1.png",
+          "runtime": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-violet-literary-included-v1-mother.png",
+          "file": "soyo-listening-violet-literary-included-v1-mother.png",
+          "sha256": "99ebaaa7158f9cf12c3308fa4fa0231e136b51ad6a81add4693159fb2a103ccb",
+          "bytes": 2335853,
+          "pngBytesUnchanged": true
+        },
+        "background": {
+          "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/listening-background-v1.png",
+          "runtime": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-violet-literary-included-v1-background.png",
+          "file": "soyo-listening-violet-literary-included-v1-background.png",
+          "sha256": "8b34b7661386796db687eb8d35ca4d44da0fc1cf98fd9159ff8daacbad8111ea",
+          "bytes": 2310034,
+          "pngBytesUnchanged": true
+        },
+        "figureMask": {
+          "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/figure-mask-v1.png",
+          "runtime": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-violet-literary-included-v1-mask.png",
+          "file": "soyo-listening-violet-literary-included-v1-mask.png",
+          "sha256": "ff3ec4d3b9c86842f5f4d240294b185bfb2dd112773008547196e229eba5311e",
+          "bytes": 448444,
+          "pngBytesUnchanged": true
+        },
+        "contactMask": {
+          "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/contact-mask-v2.png",
+          "runtime": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-violet-literary-included-v1-contact-mask.png",
+          "file": "soyo-listening-violet-literary-included-v1-contact-mask.png",
+          "sha256": "ff46e988ff55593df734ba040ee2fde7aa846b830e2dae13b2e30bf8c7206fb6",
+          "bytes": 306150,
+          "pngBytesUnchanged": true
+        }
+      },
+      "geometry": {
+        "bodyBounds": {
+          "sourcePixels": [
+            772,
+            114,
+            1259,
+            898
+          ],
+          "normalized": [
+            0.5026041666666666,
+            0.111328125,
+            0.8196614583333334,
+            0.876953125
+          ],
+          "includes": "Complete selected F: whole person and separate closed book; not a pure anatomical body measurement.",
+          "basis": "Read-only selected original Image mask luminance envelope >32, cross-checked against this exact whole mother. No mask PNG pixel changes."
+        },
+        "jointReceiverEnvelope": {
+          "sourcePixels": [
+            733,
+            114,
+            1259,
+            909
+          ],
+          "normalized": [
+            0.4772135416666667,
+            0.111328125,
+            0.8196614583333334,
+            0.8876953125
+          ],
+          "basis": "Read-only MAX(L(F),L(S)) >32 envelope; includes actual local receiver material and soft shoe grounding."
+        },
+        "seat": {
+          "sourcePixels": [
+            1054,
+            590
+          ],
+          "normalized": [
+            0.6861979166666666,
+            0.576171875
+          ],
+          "basis": "Visible skirt-to-linen support reference inspected in this exact mother; not measured hidden hip or a movable pivot."
+        },
+        "ground": {
+          "sourcePixels": [
+            814,
+            886
+          ],
+          "normalized": [
+            0.5299479166666666,
+            0.865234375
+          ],
+          "basis": "Visible sole/floor reference, not a travel pivot."
+        },
+        "shoeContacts": {
+          "sourcePixels": [
+            [
+              814,
+              886
+            ],
+            [
+              953,
+              891
+            ]
+          ],
+          "basis": "Two visible source shoe/ground reference points; finite inspection references rather than anatomical joints."
+        },
+        "hitPolygon": {
+          "sourcePixels": [
+            [
+              908,
+              115
+            ],
+            [
+              994,
+              126
+            ],
+            [
+              1039,
+              222
+            ],
+            [
+              1101,
+              386
+            ],
+            [
+              1115,
+              585
+            ],
+            [
+              1015,
+              610
+            ],
+            [
+              1015,
+              835
+            ],
+            [
+              1008,
+              889
+            ],
+            [
+              920,
+              898
+            ],
+            [
+              860,
+              752
+            ],
+            [
+              850,
+              863
+            ],
+            [
+              801,
+              891
+            ],
+            [
+              772,
+              874
+            ],
+            [
+              812,
+              690
+            ],
+            [
+              817,
+              551
+            ],
+            [
+              843,
+              431
+            ],
+            [
+              838,
+              258
+            ]
+          ],
+          "scope": "Conservative visible-person interaction outline; separate closed book is retained visually but does not enlarge this handle into empty upper-right window space."
+        },
+        "travel": 0,
+        "slope": 0,
+        "perspective": 0,
+        "contactShadow": "included",
+        "independentMovementAllowed": false
+      },
+      "sourceBundle": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/listening-included-bundle-v1.json",
+        "sha256": "d835f6681a164a376e88bce82a126b01bfdf496b6864be325afb17dd98673460",
+        "bytes": 16988,
+        "role": "per-theme exact selected source bundle"
+      },
+      "nativeUnionEvidence": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/union-source-v1.svg",
+        "sha256": "b69fea6ee28c2073a2c93068394459f55ccf6980a155ca7776d951eed1a20853",
+        "bytes": 1400,
+        "role": "source-RGB joint layer"
+      },
+      "primaryViewedPage": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/listening-included-observe-v1.html",
+      "registration": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-violet-literary-included-v1.scene.json",
+        "sha256": "ad0bb50c5f586a20b933018e6274f910aabc0c893d0ae444b7fc50972ade02b6"
+      },
+      "staticLayerApproved": true,
+      "runtimeAccepted": false
+    },
+    {
+      "palette": "rain",
+      "sceneId": "soyo-listening-rain-literary-included-v1",
+      "assets": {
+        "mother": {
+          "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-rain-literary-v1.png",
+          "runtime": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-rain-literary-included-v1-mother.png",
+          "file": "soyo-listening-rain-literary-included-v1-mother.png",
+          "sha256": "dca2dd09063832af700bcb833ddaae40cde16b01aed2d27429204762cd3c7210",
+          "bytes": 2297476,
+          "pngBytesUnchanged": true
+        },
+        "background": {
+          "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/rain/listening-background-v1.png",
+          "runtime": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-rain-literary-included-v1-background.png",
+          "file": "soyo-listening-rain-literary-included-v1-background.png",
+          "sha256": "55cef6e80b38143e14131d51b92f817e19f9ebb23417c900d3999cf5ea843156",
+          "bytes": 2262659,
+          "pngBytesUnchanged": true
+        },
+        "figureMask": {
+          "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/rain/figure-mask-v1.png",
+          "runtime": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-rain-literary-included-v1-mask.png",
+          "file": "soyo-listening-rain-literary-included-v1-mask.png",
+          "sha256": "3be733fa9a261ca69af69642f39b9bb042b84cb30462a56dd3c44c2ece59c38f",
+          "bytes": 402226,
+          "pngBytesUnchanged": true
+        },
+        "contactMask": {
+          "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/rain/contact-mask-v3.png",
+          "runtime": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-rain-literary-included-v1-contact-mask.png",
+          "file": "soyo-listening-rain-literary-included-v1-contact-mask.png",
+          "sha256": "63587481505e221520af104603404157df6aa018105796a171b178009aa1165c",
+          "bytes": 319241,
+          "pngBytesUnchanged": true
+        }
+      },
+      "geometry": {
+        "bodyBounds": {
+          "sourcePixels": [
+            758,
+            138,
+            1264,
+            882
+          ],
+          "normalized": [
+            0.4934895833333333,
+            0.134765625,
+            0.8229166666666666,
+            0.861328125
+          ],
+          "includes": "Complete selected F: whole person and separate closed book; not a pure anatomical body measurement.",
+          "basis": "Read-only selected original Image mask luminance envelope >32, cross-checked against this exact whole mother. No mask PNG pixel changes."
+        },
+        "jointReceiverEnvelope": {
+          "sourcePixels": [
+            731,
+            138,
+            1271,
+            899
+          ],
+          "normalized": [
+            0.4759114583333333,
+            0.134765625,
+            0.8274739583333334,
+            0.8779296875
+          ],
+          "basis": "Read-only MAX(L(F),L(S)) >32 envelope; includes actual local receiver material and soft shoe grounding."
+        },
+        "seat": {
+          "sourcePixels": [
+            1050,
+            577
+          ],
+          "normalized": [
+            0.68359375,
+            0.5634765625
+          ],
+          "basis": "Visible skirt-to-linen support reference inspected in this exact mother; not measured hidden hip or a movable pivot."
+        },
+        "ground": {
+          "sourcePixels": [
+            836,
+            877
+          ],
+          "normalized": [
+            0.5442708333333334,
+            0.8564453125
+          ],
+          "basis": "Visible sole/floor reference, not a travel pivot."
+        },
+        "shoeContacts": {
+          "sourcePixels": [
+            [
+              789,
+              867
+            ],
+            [
+              836,
+              877
+            ]
+          ],
+          "basis": "Two visible source shoe/ground reference points; finite inspection references rather than anatomical joints."
+        },
+        "hitPolygon": {
+          "sourcePixels": [
+            [
+              911,
+              139
+            ],
+            [
+              997,
+              155
+            ],
+            [
+              1040,
+              240
+            ],
+            [
+              1097,
+              410
+            ],
+            [
+              1127,
+              570
+            ],
+            [
+              1015,
+              607
+            ],
+            [
+              955,
+              771
+            ],
+            [
+              916,
+              868
+            ],
+            [
+              837,
+              882
+            ],
+            [
+              758,
+              862
+            ],
+            [
+              809,
+              672
+            ],
+            [
+              815,
+              543
+            ],
+            [
+              850,
+              433
+            ],
+            [
+              851,
+              260
+            ]
+          ],
+          "scope": "Conservative visible-person interaction outline; separate closed book is retained visually but does not enlarge this handle into empty upper-right window space."
+        },
+        "travel": 0,
+        "slope": 0,
+        "perspective": 0,
+        "contactShadow": "included",
+        "independentMovementAllowed": false
+      },
+      "sourceBundle": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/rain/listening-included-bundle-v1.json",
+        "sha256": "970a0c1618f4b0382e5f9d844cde389f3c2c923fdb96d21dd1eac188ba2dbd73",
+        "bytes": 18340,
+        "role": "per-theme exact selected source bundle"
+      },
+      "nativeUnionEvidence": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/rain/union-source-v1.svg",
+        "sha256": "59e71a3f7929a730ef7dea94ee271d3c0c34f2dc511bafd5f7069d2b4865be7e",
+        "bytes": 1390,
+        "role": "source-RGB joint layer"
+      },
+      "primaryViewedPage": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/rain/listening-included-observe-v1.html",
+      "registration": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-rain-literary-included-v1.scene.json",
+        "sha256": "72c2b7325f11342336fa4236173ce9ff5572958b498b0d7818f98831700c0b3a"
+      },
+      "staticLayerApproved": true,
+      "runtimeAccepted": false
+    }
+  ],
+  "scope": {
+    "newHumanMotherCells": 0,
+    "newStaticSceneRegistrations": 4,
+    "newRuntimeAcceptedStates": 0,
+    "dynamicOr360CompletionCredit": 0,
+    "globalLedgerChanged": false,
+    "appOrEdgeChanged": false,
+    "newEngine": false,
+    "newTestsFixturesRunners": false
+  },
+  "runtimeVerification": "Pending root actual same-profile selection of Soyo/listening and all four themes. Registration/type/hash evidence does not sign rendering, responsive safety or motion."
+}

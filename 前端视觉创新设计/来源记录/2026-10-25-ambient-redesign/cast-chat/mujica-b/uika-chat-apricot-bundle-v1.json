@@ -1,0 +1,300 @@
+{
+  "schemaVersion": 1,
+  "cell": "uika/chat/apricot",
+  "scope": "existing-layer-static-admission-review",
+  "primaryReviewed": true,
+  "runtimeAccepted": false,
+  "producerReviewed": true,
+  "assets": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/uika-chat-apricot-mother-candidate-v1.png",
+      "sha256": "4677f8f984cf6f62666c9ae652854803992fca6f77223b4572243a7c878fb44c",
+      "bytes": 2170043,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "declaredSha256": "4677f8f984cf6f62666c9ae652854803992fca6f77223b4572243a7c878fb44c",
+      "matchesDeclaredSha256": true
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/uika-chat-apricot-background-calibrated-v5.png",
+      "sha256": "861058f0ce0c29ab3e3ec9bcceef9b83030d9983a806151856c091be563390f2",
+      "bytes": 2093637,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "declaredSha256": "861058f0ce0c29ab3e3ec9bcceef9b83030d9983a806151856c091be563390f2",
+      "matchesDeclaredSha256": true
+    },
+    "figure": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/uika-chat-apricot-figure-calibrated-v5.png",
+      "sha256": "cea28ccc5d752a2acc327437ada1752b4f3751a662de4eeed9543992b1269729",
+      "bytes": 2440882,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBoundsPixels": [
+        1091,
+        255,
+        1425,
+        770
+      ],
+      "declaredSha256": "cea28ccc5d752a2acc327437ada1752b4f3751a662de4eeed9543992b1269729",
+      "matchesDeclaredSha256": true
+    },
+    "mask": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/uika-chat-apricot-mask-calibrated-v5.png",
+      "sha256": "bb0322774511e0b37e801039246689eb45df4296783144ed3825b842dd2ec090",
+      "bytes": 31745,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBoundsPixels": [
+        1091,
+        255,
+        1425,
+        770
+      ],
+      "declaredSha256": "bb0322774511e0b37e801039246689eb45df4296783144ed3825b842dd2ec090",
+      "matchesDeclaredSha256": true
+    },
+    "shadow": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/uika-chat-apricot-shadow-calibrated-v5.png",
+      "sha256": "0da4a25dfee45d9aa766d916800a080a3bfee6def6d97012977edbbb8bf4c3a1",
+      "bytes": 42717,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBoundsPixels": [
+        1092,
+        571,
+        1428,
+        773
+      ],
+      "declaredSha256": "0da4a25dfee45d9aa766d916800a080a3bfee6def6d97012977edbbb8bf4c3a1",
+      "matchesDeclaredSha256": true
+    }
+  },
+  "references": {
+    "scene": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/uika-chat-apricot.scene.json",
+      "sha256": "30a6bbe8b2507205dc54be6ff1cb2c788c527ed65796e4db753f115303341133"
+    },
+    "motherSource": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/uika-chat-apricot-source.json",
+      "sha256": "ccafb4f18e4e3aee37562875eece9432d5b80e3512ab6139078dab70339af33d"
+    },
+    "motherPrompt": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/uika-chat-apricot-prompt.txt",
+      "sha256": "4b590473deb496db612d0c900449e3fe4c6bbf69cf33029c36daf2866d30d5bf",
+      "textSha256NoTrailingNewline": "bd1380b0a2cef0e9fc8f53641f15e2351ce03bdca2adb741e34d8430b1b14a3c"
+    },
+    "production": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/uika-chat-apricot-layer-processing-v5.json",
+      "sha256": "6bf715b0f6f7e4938e3ad90f7bc91fa4ab2d6add750260dec3b275f6d748804b"
+    },
+    "parameters": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/uika-chat-apricot-layer-parameters-v5.json",
+      "sha256": "b85dc06ebec4146cc4767e50ffb2ee268270ea2589ea82190b07f25c2825c0a6"
+    },
+    "layerSource": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/uika-chat-apricot-layer-source.json",
+      "sha256": "0697c202a6d270a141657e43e827eea12b606ba5a264ac05c4069a8b797c151f"
+    }
+  },
+  "originalRgbEvidence": {
+    "motherRgbSha256": "0e989ba2b22ca087f21fe846849e6b28d0ef7fbafa364241d00c237b4691263d",
+    "figureRgbSha256": "0e989ba2b22ca087f21fe846849e6b28d0ef7fbafa364241d00c237b4691263d",
+    "figureRgbEqualsMother": true,
+    "maskRgbExtrema": [
+      [
+        255,
+        255
+      ],
+      [
+        255,
+        255
+      ],
+      [
+        255,
+        255
+      ]
+    ],
+    "figureAlphaEqualsMaskAlpha": true
+  },
+  "sourceSpecificGeometry": {
+    "support": "window-seat",
+    "seatPixel": [
+      1331,
+      583
+    ],
+    "supportingPalmPixel": [
+      1397,
+      582
+    ],
+    "lapPalmPixel": [
+      1227,
+      538
+    ],
+    "shoeSolePixels": [
+      [
+        1125,
+        754
+      ],
+      [
+        1179,
+        767
+      ]
+    ],
+    "actorViewBox": [
+      1080,
+      245,
+      360,
+      550
+    ],
+    "details": [
+      [
+        "hip",
+        "髋部、裙褶与长凳",
+        [
+          1240,
+          530,
+          145,
+          90
+        ]
+      ],
+      [
+        "palm",
+        "撑掌与坐垫",
+        [
+          1360,
+          545,
+          80,
+          65
+        ]
+      ],
+      [
+        "shoes",
+        "两鞋与地面",
+        [
+          1080,
+          690,
+          160,
+          105
+        ]
+      ]
+    ],
+    "roomOcclusion": "Bench cushion is behind hips/palm; skirt fold and hem occlude bench edge. Center desk chair does not occlude this figure. No extra foreground layer is required for this source pose.",
+    "measurementStatus": "source-specific visible-contact candidate points; not inferred hidden joint measurements"
+  },
+  "sourceSceneGeometry": {
+    "seat": [
+      0.8665364583333334,
+      0.5693359375
+    ],
+    "ground": [
+      0.7682291666666666,
+      0.75
+    ],
+    "bodyBounds": [
+      0.7102864583333334,
+      0.2490234375,
+      0.927734375,
+      0.751953125
+    ],
+    "safeTextBoundary": 0.69,
+    "support": "window-seat",
+    "travel": 0.0078125,
+    "slope": 0.12,
+    "perspective": 0
+  },
+  "display": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "transform": "identity",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "order": [
+      "background",
+      "existingNormalRgbaContactShadow",
+      "originalMotherRgbMaskedByExistingMask"
+    ],
+    "nativeSvgOnly": true,
+    "newPngEdits": false,
+    "newGeneration": false,
+    "shadowMode": "rgba",
+    "shadowPixels": "existing original RGBA PNG unchanged"
+  },
+  "ownership": {
+    "figure": "person, worn clothing and both worn shoes; no held prop",
+    "background": "entire source-specific room including all furniture, pillows, cushion and throw",
+    "contactShadow": "existing separate normal source-over RGBA residual",
+    "foreground": "no extra foreground file in source scene; source-specific occlusion described in geometry"
+  },
+  "observations": [
+    "Original mother/source prompt personally viewed. White tee, long taupe skirt, socks and two worn sneakers belong to figure; no held object.",
+    "Hips supported on the window bench; right palm braced on cushion, other hand on lap. Rear skirt fold remains visibly continuous with front drape; cushion stays behind the cloth edge.",
+    "Whole original figure RGB equals mother RGB byte-for-byte, existing mask alpha equals figure alpha, all exact PNG SHA match selected production record.",
+    "Native source-over at zero transform shows supported shoes and seat/palm contact without a furniture/floor rectangle in the actor. Existing separate shadow layer is narrow and local.",
+    "Recomposed floor contact near sneakers is a little lighter than the broad shadow in the mother; close original sole contact remains visible. This is a static visual difference, not a runtime/motion acceptance."
+  ],
+  "remaining": [
+    "Registration deferred per root; no current primary registry update",
+    "Actual integrated runtime, motion and hide/restore review"
+  ],
+  "preview": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-b/uika-chat-apricot-bundle-v1.html",
+    "sha256": "9d0604cb05df7b2985189063484bd4d1129a380424004cc27637bc91ca7b5440"
+  },
+  "verification": {
+    "browser": "Chrome extension",
+    "nativeSvgSourceOverPersonallyViewed": true,
+    "views": [
+      "complete mother",
+      "complete recomposition",
+      "empty background",
+      "original RGB masked figure on light/dark/checker",
+      "existing mask",
+      "existing contact shadow on light/dark/checker",
+      "hip/skirt fold at 2x",
+      "supporting palm at 2x",
+      "both shoes at 2x"
+    ],
+    "pngEdited": false,
+    "runtimeInteractionTested": false
+  },
+  "primaryLayerApproved": true,
+  "status": "primary_fixed_layer_approved_registration_deferred",
+  "primaryLayerApproval": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-b/uika-chat-apricot-primary-layer-approval-v1.json",
+    "sha256": "093cc01dabd2c74d5b2a11b7c5886bae2939c11a973b932813456dec6f441900"
+  },
+  "depictedEnvironment": {
+    "family": "clear-day",
+    "basis": "Root personal source-image review: blue sky and strong sunlight. This describes the painted scene, not observed real-world weather.",
+    "sourceMotherSha256": "4677f8f984cf6f62666c9ae652854803992fca6f77223b4572243a7c878fb44c"
+  },
+  "acceptedBoundaries": [
+    "Exact current v5 layer files and original RGBA contact-shadow semantics only.",
+    "Existing contact shadow is weaker than the mother broad cast shadow; root accepted visible support and absence of shoe halo, not pixel-identical restoration.",
+    "Fixed original position only; runtime and motion are not accepted by this record."
+  ],
+  "registrationDisposition": {
+    "requested": false,
+    "state": "deferred",
+    "reason": "Root requested no current primary-registry change; later registration is to occur in the independent worktree."
+  }
+}

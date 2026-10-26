@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 1,
+  "key": "taki/neutral-presence/time-day",
+  "kind": "original-source-union-subject-included-contact-candidate",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "weatherClaim": false,
+  "primary": true,
+  "layer": true,
+  "runtime": false,
+  "status": "primary_approved_static_fixed_included_joint_runtime_pending",
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/taki-neutral-time-day-literary-v1.png",
+    "sha256": "66e104b6025d0b65c2ab522a6d76c8cab8cbc94e5ee4edbd3dd2c4d9b5bb6654",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "background": {
+    "path": "background-v1.png",
+    "sha256": "8e2dcd2cb218db1e4e11893e6b796af125b2598af6b3b46c8527e94294c7d86d"
+  },
+  "inputs": {
+    "F": {
+      "path": "figure-mask-v4.png",
+      "sha256": "b9ff82fc2013b9b1ce023c095dfcfc9963c4b8d76fa3e81d3064d89d23429788"
+    },
+    "S": {
+      "path": "contact-mask-v1.png",
+      "sha256": "f46a4af8afd7506045da052a993aab3114b04f40b78d24df18c4d8b9f225a6e0"
+    }
+  },
+  "union": {
+    "formula": "U(x,y)=MAX(L(F(x,y)),L(S(x,y)))",
+    "luminanceWeights": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorSpace": "sRGB",
+    "nativeSvgSource": {
+      "path": "union-source-v1.svg",
+      "sha256": "a5d7f38be7838f18a2855aa06d79a3fdb7a00ded8dd5b0cd9a813c80bc94033e"
+    },
+    "originalMotherRgbDrawsPerSubject": 1,
+    "pngPixelEditing": false,
+    "thresholding": false,
+    "subtraction": false,
+    "extraColorPaint": false
+  },
+  "contactShadow": {
+    "mode": "included",
+    "meaning": "fixed same-mother figure/book/garment/shoes plus original local receiving material; not a portable pure caster"
+  },
+  "composition": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "layerOrder": [
+      "same-mother clean BG",
+      "one unchanged mother RGB image masked by U"
+    ],
+    "sharedStage": true,
+    "transform": {
+      "x": 0,
+      "y": 0,
+      "scale": 1,
+      "rotation": 0
+    },
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "breathing": 0,
+    "relativeTranslation": 0
+  },
+  "allowedPresentation": [
+    "whole fixed-pose union shown/hidden",
+    "whole matching-pose asset replacement",
+    "shared background-and-union viewport scaling"
+  ],
+  "unsupportedPresentation": [
+    "independent body/limb deformation",
+    "relative sliding/travel",
+    "separate shadow movement",
+    "different mother/support/room",
+    "portable pure-caster claim"
+  ],
+  "inspectionViewBoxes": {
+    "subject": [
+      880,
+      80,
+      480,
+      880
+    ],
+    "face": [
+      1000,
+      95,
+      340,
+      365
+    ],
+    "book": [
+      950,
+      435,
+      390,
+      130
+    ],
+    "hem": [
+      950,
+      505,
+      410,
+      150
+    ],
+    "shoes": [
+      885,
+      780,
+      285,
+      170
+    ],
+    "receiver": [
+      900,
+      520,
+      470,
+      430
+    ]
+  },
+  "visualInspection": {
+    "status": "producer_native_browser_review_complete_primary_pending",
+    "page": {
+      "path": "native-observe-v1.html",
+      "sha256": "614c61204853070917d15c0d29a984f660c88d3b6033d9eada7ed1c5ff9b0ee9"
+    },
+    "personallyViewed": true,
+    "reviewedAt": "2026-10-26T01:22:32.086553+00:00",
+    "browser": "Current formal Chrome extension browser3 through cua_repl, existing static5188; CSS source-pixel SVG and actual screenshot at temporary1600x1150; current main9335 untouched",
+    "statesViewed": [
+      "complete same-coordinate clean BG plus sourceRGB union",
+      "whole joint subject on light/dark/checker",
+      "original versus union versus composite face/hair",
+      "complete hands/open book/lower cover",
+      "skirt hem/cushion receiver",
+      "both complete shoes and actual floor-contact receiver"
+    ],
+    "observations": [
+      "Face, hair and actual book/hand RGB remain original mother, no painted actor colors.",
+      "Fixed original-coordinate composite shows coherent seat/skirt and shoe/floor contact without obvious angular room seam in reviewed views.",
+      "Original local cushion/wood receiving material remains visible on isolated light/dark/checker views; this is explicitly included and cannot travel relative to matching BG."
+    ],
+    "screenshots": [
+      {
+        "file": "browser-observations/book-hem-shoes-native-v1.jpg",
+        "sha256": "69d9abcc54795da8dee96b88800f9a24f3972781ac381021748a6a365a728a7c",
+        "bytes": 56125
+      },
+      {
+        "file": "browser-observations/book-native-F4-v1.png",
+        "sha256": "0fd9ec6ba826ab802dfbe64dd2f0f68bbe405d0af56b38ee6408d0eae73f4937",
+        "bytes": 848798
+      },
+      {
+        "file": "browser-observations/book-native-v1.png",
+        "sha256": "b3adef7ad722583af76c5c2374bbe501344ea9654014f5a7f55c2a22f0f20a58",
+        "bytes": 818288
+      },
+      {
+        "file": "browser-observations/face-book-hem-shoes-F4-v1.jpg",
+        "sha256": "38fc33f684dc72c25f50c1dbe09e670f556d4af1ce79daf19a694ab69fca5b14",
+        "bytes": 199051
+      },
+      {
+        "file": "browser-observations/light-dark-checker-F4-v1.jpg",
+        "sha256": "52226ab89febb5ac66c74a1b76da0a93845cdcef7d3bd8e0f95cd90e176593d0",
+        "bytes": 197138
+      },
+      {
+        "file": "browser-observations/shoes-receiver-F4-v1.jpg",
+        "sha256": "045665ed138b914b24a8456023a0087c5faad141b495ee2864af955beed455a8",
+        "bytes": 206303
+      },
+      {
+        "file": "browser-observations/whole-browser-F4-v1.jpg",
+        "sha256": "6281cf29787da9e3fd2671781fa864224c4058c88e5b26980fc283c456382576",
+        "bytes": 251735
+      }
+    ],
+    "limitations": [
+      "static browser construction only; not renderer runtime acceptance",
+      "no independent caster purity or portable body",
+      "travel/perspective/slope/relative translation remain zero"
+    ],
+    "targetedRepair": "F1/F2 v1 lower-cover omission reproduced at native book view; held markup v2/v3 never used as inputs. Direct clean-mother F4 removed the visible lower-cover BG leak; original trigger rechecked in book-native-F4-v1.png.",
+    "postCapturePageEdit": "footer review-status text only; all native SVG geometry/image references unchanged",
+    "primaryInspectedFinalEvidence": [
+      {
+        "path": "browser-observations/whole-browser-F4-v1.jpg",
+        "sha256": "6281cf29787da9e3fd2671781fa864224c4058c88e5b26980fc283c456382576"
+      },
+      {
+        "path": "browser-observations/light-dark-checker-F4-v1.jpg",
+        "sha256": "52226ab89febb5ac66c74a1b76da0a93845cdcef7d3bd8e0f95cd90e176593d0"
+      },
+      {
+        "path": "browser-observations/face-book-hem-shoes-F4-v1.jpg",
+        "sha256": "38fc33f684dc72c25f50c1dbe09e670f556d4af1ce79daf19a694ab69fca5b14"
+      },
+      {
+        "path": "browser-observations/book-native-F4-v1.png",
+        "sha256": "0fd9ec6ba826ab802dfbe64dd2f0f68bbe405d0af56b38ee6408d0eae73f4937"
+      },
+      {
+        "path": "browser-observations/shoes-receiver-F4-v1.jpg",
+        "sha256": "045665ed138b914b24a8456023a0087c5faad141b495ee2864af955beed455a8"
+      }
+    ]
+  },
+  "review": {
+    "primaryApproved": true,
+    "layerApproved": true,
+    "runtimeAccepted": false,
+    "separateCastShadowClaim": false,
+    "producerRecommendation": "submit exact F/S/BG and native SVG fixed included union for primary inspection; no runtime claim",
+    "primaryAdmissionRecord": "root-primary-layer-admission-v1.json"
+  },
+  "countsToward360ExactActivities": false,
+  "userApproved": false,
+  "scopeBoundary": {
+    "srcEdits": false,
+    "newTests": false,
+    "portChanges": false,
+    "children": false
+  },
+  "productionNote": "Direct clean-mother F4 after held markup internal seam artifacts; held files never used as new Image inputs.",
+  "sourceUnchangedVerification": {
+    "method": "actual SHA256 re-read; generated originals copied intact, no PNG pixel editing",
+    "mother": "66e104b6025d0b65c2ab522a6d76c8cab8cbc94e5ee4edbd3dd2c4d9b5bb6654",
+    "F": "b9ff82fc2013b9b1ce023c095dfcfc9963c4b8d76fa3e81d3064d89d23429788",
+    "S": "f46a4af8afd7506045da052a993aab3114b04f40b78d24df18c4d8b9f225a6e0",
+    "BG": "8e2dcd2cb218db1e4e11893e6b796af125b2598af6b3b46c8527e94294c7d86d"
+  },
+  "primaryAdmissionRecord": "root-primary-layer-admission-v1.json"
+}

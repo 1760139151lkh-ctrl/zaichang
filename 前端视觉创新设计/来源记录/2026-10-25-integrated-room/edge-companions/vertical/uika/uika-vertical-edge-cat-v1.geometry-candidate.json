@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "character": "uika",
+  "source": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\uika\\uika-vertical-edge-cat-v1.png",
+    "sha256": "f2096cb90327281ec90d43ec14ec9de66bd8ad8c42736f6f8353818ab8e9cc38",
+    "canvas": [
+      1254,
+      1254
+    ]
+  },
+  "coordinateSpace": "native source PNG pixels, origin upper-left",
+  "inspection": {
+    "personallyViewed": true,
+    "method": "Human inspection of actual full native PNG with 100px grid, explicit candidate line and pawn ROI overlay; not prompt coordinates",
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\uika\\uika-contact-grid-candidate-v1.png",
+    "sha256": "3f749c769a18e6f46ee76402edda60637b7859fe884594ac5336339daa781060"
+  },
+  "contactAxis": {
+    "side": "right",
+    "x": 915,
+    "xNormalized": 0.7296650717703349
+  },
+  "pawRanges": [
+    {
+      "part": "upper-front",
+      "bounds": [
+        844,
+        498,
+        978,
+        625
+      ],
+      "lineContactY": [
+        528,
+        578
+      ]
+    },
+    {
+      "part": "lower-front",
+      "bounds": [
+        777,
+        666,
+        956,
+        804
+      ],
+      "lineContactY": [
+        700,
+        759
+      ]
+    },
+    {
+      "part": "bracing-hind",
+      "bounds": [
+        768,
+        966,
+        943,
+        1142
+      ],
+      "lineContactY": [
+        1000,
+        1074
+      ]
+    }
+  ],
+  "candidateOnly": true,
+  "geometryApproved": false,
+  "runtimeAccepted": false,
+  "boundary": "Visible image grip alignment candidate only. Real-edge overlay, per-surface occlusion, interrupted drag and rig still require actual integration review; never use grid/review sheet as ImageGen input."
+}

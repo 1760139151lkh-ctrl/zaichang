@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "recordType": "new-complete-human-theme-mother-candidate",
+  "sceneFamily": "literary-room-v1",
+  "cell": "taki/resume/mist",
+  "character": "taki",
+  "activity": "resume",
+  "palette": "mist",
+  "tool": "image_gen.imagegen",
+  "transparentBackground": false,
+  "recordedAt": "2026-10-25T18:56:14.830655+00:00",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-2b8b242c-2898-436b-bfaa-a5b9c51e0483.png",
+  "toolOriginalSha256": "0f50c0b0a2d27e5765347e92cdda98da320d5b04b8a70b5ce7f66654be64b243",
+  "generationPlan": {
+    "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\missing-human-mother-production-plan-v1.json",
+    "sha256": "251f83b82c17e5ea7646559e29655dd9daae9b2dcdc370fcce2169bd62debc9f",
+    "brief": {
+      "index": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-a/matrix-72.json",
+        "sha256": "584a74a9a3b540dcebad4902f189a7c722b86eb2ed13825e7d5ed7eb076c051e",
+        "bytes": 74445,
+        "capturedAt": "2026-10-25T09:14:03.039950+00:00"
+      },
+      "jsonPointer": "/cells/69",
+      "briefKey": "taki/resume/mist",
+      "producerBriefRef": null
+    },
+    "precedence": "Current explicit14-cell parent release supersedes historical held flags/obsolete input pointers. Only actual input list was submitted. Taki violet aliases dusk brief wording."
+  },
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/taki.md",
+      "sha256": "48f954585e91b84599430c573ff38e498959d3168f18a9ca46c0c3c1e7f7bc7a",
+      "readScope": "Complete current role dossier and full art-direction personally read before the production; exact unchanged read version bound to this call."
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "91fb8b8de3e8d954a9367a585f09b71b8f5a9962d8ed0107249c348390fb7f05",
+      "readScope": "Complete current role dossier and full art-direction personally read before the production; exact unchanged read version bound to this call."
+    }
+  ],
+  "seedInspection": {
+    "artifact": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/apricot-wave-b/taki-resume-apricot-literary-v1.png",
+      "sha256": "42fc10d73ff8187f26186be1b669c343bf9e78004db1d712ebc7974a12a50a0e",
+      "bytes": 2414760,
+      "canvas": {
+        "width": 1536,
+        "height": 1024
+      },
+      "format": "PNG",
+      "writtenByUtc": "2026-10-25T11:59:54.763171+00:00"
+    },
+    "personallyViewedWholeExactSeed": true,
+    "actuallyInput": true,
+    "decision": "Approved source personally viewed: healthy supported identity/wardrobe/action used for continuity only."
+  },
+  "targetPlate": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+    "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+    "bytes": 2526101,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "format": "PNG"
+  },
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "role": "primary CLEAN target room/camera/theme"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/apricot-wave-b/taki-resume-apricot-literary-v1.png",
+      "sha256": "42fc10d73ff8187f26186be1b669c343bf9e78004db1d712ebc7974a12a50a0e",
+      "role": "same role/activity exact approved healthy apricot identity/pose continuity only"
+    }
+  ],
+  "promptFile": "taki-resume-mist-literary-extension-v1.prompt.txt",
+  "promptFileSha256": "1f9ca6ddef686baf074740c15ca66f693741b1de0955a2a7639ef63e642da2af",
+  "submittedPromptTransform": "PythonPath.read_text UTF8 universal-newline normalization; no trim; exact below",
+  "exactSubmittedPrompt": "Create ONE newly painted complete literary-room mother illustration, exact LANDSCAPE1536x1024 canvas. This is one continuous physical room and one youthful human character, not a UI mock, collage, figure pasted over scenery, portrait, sprite or theme filter. Image1 is the approved CLEAN target-theme EMPTY room: it is the PRIMARY room/camera/furniture and lighting reference. Retain its camera, full timber window/lake/town/mountain depth, left desk/chair/bookcase/plants, near ceramic lamp/cup/flowers on round side table, long linen window-seat, right plaid cushions/cream knitted throw, wood floor/rug and soft foreground plant. Keep the original whole room, no extra desk, no new furniture, zoom, empty UI panel or divided day/night scene. The LEFT half remains a complete naturally furnished room, not painted blank.\n\nImage2 is ONLY the exact approved healthy taki resume APRICOT mother for this person/outfit/pose continuity. Repaint a complete new person under image1 target lighting; do not transplant its pixels, daylight, fixed face, incorrect skeleton or another character. No other person/image is a reference.\n\nTHE LIVING MOMENT:\nHer open thin book remains low at the last place in her lap; one simple cream paper marker sits at its edge. She had been checking that passage for herself. The familiar person returns; she checks the mark with a brief eye movement and then looks toward their nearby face just LEFT of camera. The mouth softens into a short almost-private smile, one brow still earnest as if confirming whether to continue here. No big welcome grin or grievance. One hand loosely keeps the page, the other supports the cover; she slightly turns the book to share without thrusting it out, then pauses and leaves the next move to the person.\n\nCHARACTER AND COMPLETE CHOSEN WARDROBE:\nShiina Taki/椎名立希 from MyGO!!!!!, young high-school face with strong but soft natural brow/eye space, LONG DARK BROWN-NEAR-BLACK hair with angled separated fringe, clear VIOLET eyes, no invented major clip/ribbon. Hanasakigawa school uniform: CAMEL-BROWN sailor one-piece dress, WIDE WHITE collar with fine DARK trim, RED long bow, TWO columns of gold front buttons, matching pleated camel skirt, side-waist white-edged detail where visible, white cuff/dark edge, DARK NAVY BELOW-KNEE calf socks with knees exposed, complete BROWN loafers. Not Rana separate middle-school gray-plaid skirt, not Sakiko navy cardigan or performance costume. Precise gaze and youthful dry directness, not permanent angry teacher or a universal sweet grin.\n\nTHE WHOLE THEME IS PHYSICALLY RE-LIT, NOT A COLOR FILTER:\nOVERCAST DAY /晨雾蓝: use actual supplied soft gray-blue overcast sky and misty lake hills. Diffuse neutral cool window daylight wraps both person and room; timber and skin retain warm local reflected light, lamp softly present rather than sunbeams. No rain/night added, no full blue overlay.\nThe actual target plate controls the outside weather/time, room values and lamp strength; do NOT keep the apricot source sunshine. Paint matching light on face, hair, paper, cloth, cushion, floor and contact shadows together, preserving intrinsic hair/eye/skin/fabric colors. No blue skin, neon eyes, muddy black figure or glowing page. Night changes light, not her personality into sorrow or sleep.\n\nBODY, OBJECT AND CAMERA:\nSit naturally on the existing window bench in its RIGHT half, not the left desk chair. Book/notebook lies low across thighs; hands have distinct supporting/pausing tasks. Hips remain settled in cushion as only upper torso and attention shift; legs uncrossed and complete brown shoes supported by wood floor. Do not move her by pixel translation or invent a nearer desk to support the paper.\nReal pelvis weight compresses existing bench cushion; shoulder/forearm/hand and book have one continuous weight-bearing relation. Keep both hip-knee-ankle chains coherent, knees uncrossed, socks separate below exposed knees, complete loafers naturally supported by original wood floor, full head/hair and full shoe soles inside safe frame margins. Do not make a long-legged body merely to force the soles flat, mirror the two feet rigidly, lift a heel without support, cross legs with broken joints, hide anatomy behind a prop, move a whole figure pack across furniture or invent a third hand. Keep original bench-person apparent scale, with full head roughly near y110..160 and shoes roughly y850..930 according to natural perspective, not a numeric anatomy stencil. Natural joint/occlusion and real source bench support decide exact positions. One single girl, no other person's hand. A few book/page marks can be softly suggested but NO legible text, formula, answer, user quote or task receipt. No UI/text/title/signature/logo/watermark/arrows/guidelines/split screen or decorative emotion icons.\n\nART:\nYouthful expressive2D anime-derived literary linework integrated with tactile wood/linen and room air. Separate fringe, eyebrows, lids, sclera and irises; natural skin, soft cheek volume and light chin. No mature makeup/model long face, cold stock scowl, glass baby eyes, compulsory blush or advertising smile. Show this role's small specific change of attention. This is a project-original fictional companionship moment, not an assertion that a user file was read, a bookmark found, a promise kept or real work completed. Preserve only the selected healthy family and exact intended target light; output a new whole-scene painting.",
+  "submittedPromptSha256": "07bcf6dc422287ba36d502cf65039fc9b76872abae96c9eaa3d175d127ce52a6",
+  "fictionalCompanionScene": true,
+  "privateUserDataUsed": false,
+  "output": {
+    "file": "taki-resume-mist-literary-extension-v1.png",
+    "sha256": "0f50c0b0a2d27e5765347e92cdda98da320d5b04b8a70b5ce7f66654be64b243",
+    "bytes": 2391079,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "observation": "Taki keeps low open book supported on thighs with two distinct hands and a plain visible page place, looking toward familiar interlocutor with a short softened smile and earnest eyes. Youthful violet-eyed/dark-haired identity, camel sailor dress, below-knee socks/exposed knees and full floor-supported brown loafers. No waving or claim of completed work. Target diffuse-day/twilight lighting acts on room and person jointly, same supported bench/camera family. Static candidate, not exact background-pixel identity or runtime proof.",
+    "nightCleanRebuild": false,
+    "staticOnly": true,
+    "cameraRegistration": "Complete room family/camera/support visually continuous. Generated source is NOT claimed pixel-identical to empty plate or pre-aligned/admitted layers."
+  },
+  "generationStatus": "actual-image-output-saved-static-candidate",
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "postureTopologyCredit": "Supported existing activity family with newly redrawn common-object relation; theme cell generation does not prove new major furniture-support topology or dynamics."
+}

@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "recordType": "complete-companion-mother-theme-relighting",
+  "dateLocal": "2026-10-24",
+  "timeZone": "America/Los_Angeles",
+  "character": "anon",
+  "activity": "resume",
+  "theme": "rain",
+  "version": 1,
+  "tool": "image_gen.imagegen (built-in)",
+  "executionId": "exec-d71134c7-438f-445e-99fa-4398f78816ed",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "originalOutput": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-d71134c7-438f-445e-99fa-4398f78816ed.png",
+  "prompt": "anon-resume-rain-mother-v1.prompt.txt",
+  "promptFileSha256": "0703ab3ed1b1ac09af1b6eba6a396cc70e9185afbad9bcb98d6c10d6a5e694d3",
+  "submittedPromptTransform": "UTF-8 prompt file trimEnd, exactly as submitted",
+  "submittedPromptSha256": "4c66fcdee5be815eb7d28ad1e040062a937f9e9afd5b863406f19af892ead7bb",
+  "inputs": [
+    {
+      "file": "anon-resume-apricot-mother-v1.png",
+      "sha256": "4a5a2a9711ab78401cdc57d243b5cf4042f89eef136eb257fb2fc04ca8b84fd5",
+      "role": "sole editable target: exact primary-accepted complete warm resume mother; all geometry, identity, expression and supported activity"
+    },
+    {
+      "file": "../../../assets-design-generated/2026-10-23-companion-matrix/room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "role": "empty whole-room theme light/sky/weather reference only; never a replacement furniture layout or source of character pixels"
+    }
+  ],
+  "identityFromApprovedMotherSource": "anon-resume-apricot-mother-v1.source.json",
+  "output": {
+    "file": "anon-resume-rain-mother-v1.png",
+    "sha256": "bada91b1ff36cebe5d5f5abfa19b3ff38b194ebef288aa512543db6aea56f00a",
+    "bytes": 2085840,
+    "width": 1536,
+    "height": 1024
+  },
+  "approvalScope": "Theme candidate only. Warm mother acceptance does not approve this output, its layers or runtime. Resume remains semantic renewed attention, not a new furniture anchor or wholly new spatial action.",
+  "review": {
+    "producerViewedFullOriginal": true,
+    "primaryViewed": false,
+    "primaryApproved": false,
+    "layersAccepted": false,
+    "runtimeAccepted": false
+  },
+  "status": "rejected for landmark drift; redraw from accepted warm mother plus clean rain plate only",
+  "producerObservation": "Personally viewed full original: gentle expression, supported seat/limbs and complete shoes remain; rainy-night lamp lighting is coherent and no forced sadness appears. However the clocktower has moved left to become visible around x1170, violating original room geometry/actual pink-hair occlusion. Rejected for landmark drift; not supplied as any later image input.",
+  "rejectedReason": "Clocktower moved left instead of preserving its original source placement and actual hair occlusion.",
+  "neverUseAsGenerationInput": true
+}

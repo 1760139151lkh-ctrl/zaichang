@@ -1,6 +1,7 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import type { Bridge, RunEvent } from '../shared/types';
 const bridge: Bridge = {
+  environment: () => ipcRenderer.invoke('environment:read'),
   tiyiStatus: input => ipcRenderer.invoke('tiyi:status', input),
   tiyiConnect: input => ipcRenderer.invoke('tiyi:connect', input),
   tiyiDisconnect: () => ipcRenderer.invoke('tiyi:disconnect'),
@@ -40,7 +41,7 @@ const bridge: Bridge = {
   searchCancel: () => ipcRenderer.invoke('search:cancel'),
   materialsList: input => ipcRenderer.invoke('materials:list', input),
   materialsRead: input => ipcRenderer.invoke('materials:read', input),
-  materialsCancel: () => ipcRenderer.invoke('materials:cancel'),
+  materialsCancel: input => ipcRenderer.invoke('materials:cancel', input),
   materialsExport: input => ipcRenderer.invoke('materials:export', input),
   materialsDiscard: input => ipcRenderer.invoke('materials:discard', input),
   materialsQuote: input => ipcRenderer.invoke('materials:quote', input),
@@ -73,6 +74,7 @@ const bridge: Bridge = {
   saveDraft: (input) => ipcRenderer.invoke('draft:save', input),
   draftInfo: id => ipcRenderer.invoke('draft:info', id),
   unsavedDrafts: () => ipcRenderer.invoke('draft:unsaved'),
+  draftSubmissions: () => ipcRenderer.invoke('draft:submissions'),
   persistDraft: input => ipcRenderer.invoke('draft:persist', input),
   send: (input) => ipcRenderer.invoke('send', input),
   stop: () => ipcRenderer.invoke('stop'),
@@ -87,6 +89,9 @@ const bridge: Bridge = {
   attentionChange: input => ipcRenderer.invoke('attention:change', input),
   adoptWorld: (input) => ipcRenderer.invoke('runtime:adopt-world', input),
   evidence: (id) => ipcRenderer.invoke('runtime:evidence', id),
+  replySources: input => ipcRenderer.invoke('runtime:reply-sources', input),
+  keepSnapshot: input => ipcRenderer.invoke('keep:snapshot', input),
+  agendaOrigin: input => ipcRenderer.invoke('agenda:origin', input),
   goal: (input) => ipcRenderer.invoke('runtime:goal', input),
   feedback: (input) => ipcRenderer.invoke('runtime:feedback', input),
   retryProcessing: (id) => ipcRenderer.invoke('runtime:retry', id),

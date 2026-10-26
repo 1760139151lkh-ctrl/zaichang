@@ -1,0 +1,58 @@
+{
+  "cell": "mutsumi/resume/mist",
+  "theme": "mist",
+  "directory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist",
+  "mother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-mist-literary-extension-v1.png",
+    "sha256": "dbd6bab85718cb6bf4fe53c3502bf7fbc0a3d78b69c8f1e29cba04ceaefea8ef",
+    "bytes": 2434826,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    }
+  },
+  "motherApproval": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/root-human-mother-primary-review-20261025.json",
+    "sha256": "f6b3a0b7ac9974993b61553e907f0ebfa7c39763ebef7d33ca7efb215a99fbb2",
+    "record": {
+      "cell": "mutsumi/resume/mist",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-mist-literary-extension-v1.png",
+        "sha256": "dbd6bab85718cb6bf4fe53c3502bf7fbc0a3d78b69c8f1e29cba04ceaefea8ef",
+        "bytes": 2434826,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.843Z",
+      "observation": "Mutsumi green-tinted hair/gold eyes and anatomical-left paired clips remain; quiet curiosity or recognition is distinct from a stock smiling pose. Hands physically support the book, legs/shoes and bench support are coherent. Small sock decoration in rain remains project illustration, not new official wardrobe fact. Whole mist light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    }
+  },
+  "dossier": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/mutsumi.md",
+    "sha256": "189d1a17f6e4c2656692437167c50d2a89379cf50b16bc354df3ac8406e4610c",
+    "version": "2026-10-25",
+    "readComplete": true
+  },
+  "method": {
+    "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+    "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+    "readComplete": true
+  },
+  "wardrobeId": "mutsumi-tsukinomori-school-source-preserving",
+  "recordedAt": "2026-10-25T20:14:09.412540+00:00",
+  "phase": "S2-v2-seat-preserving-conversion",
+  "assetType": "same-canvas-source-local-contact-luminance-mask",
+  "name": "contact-mask-v2",
+  "promptFile": "contact-mask-v2.prompt.txt",
+  "inputPaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/contact-step1-marked-v1.png",
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-mist-literary-extension-v1.png"
+  ],
+  "productionStatus": "prepared-from-healthy-S1-and-original-only"
+}

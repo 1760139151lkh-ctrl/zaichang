@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "recordType": "complete-companion-mother-theme-relighting",
+  "dateLocal": "2026-10-24",
+  "timeZone": "America/Los_Angeles",
+  "character": "anon",
+  "activity": "resume",
+  "theme": "violet",
+  "version": 1,
+  "tool": "image_gen.imagegen (built-in)",
+  "executionId": "exec-fbfc6ba1-157d-4ae5-81b7-ba67e4694f9a",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "originalOutput": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-fbfc6ba1-157d-4ae5-81b7-ba67e4694f9a.png",
+  "prompt": "anon-resume-violet-mother-v1.prompt.txt",
+  "promptFileSha256": "35f7c9800139db9a05e69451441cfb891c7984861930f26f0e243c8aea1e93c7",
+  "submittedPromptTransform": "UTF-8 prompt file trimEnd, exactly as submitted",
+  "submittedPromptSha256": "fa7a8078234b2a98891e0dadcd2db06f133c7b629ed8c0c1becff851cf9caec4",
+  "inputs": [
+    {
+      "file": "anon-resume-apricot-mother-v1.png",
+      "sha256": "4a5a2a9711ab78401cdc57d243b5cf4042f89eef136eb257fb2fc04ca8b84fd5",
+      "role": "sole editable target: exact primary-accepted complete warm resume mother; all geometry, identity, expression and supported activity"
+    },
+    {
+      "file": "../../../assets-design-generated/2026-10-23-companion-matrix/room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "empty whole-room theme light/sky/weather reference only; never a replacement furniture layout or source of character pixels"
+    }
+  ],
+  "identityFromApprovedMotherSource": "anon-resume-apricot-mother-v1.source.json",
+  "output": {
+    "file": "anon-resume-violet-mother-v1.png",
+    "sha256": "bda774793b9f83446c833d46ff32652417d93ac073e87d081bcf22d7d9d35990",
+    "bytes": 2203478,
+    "width": 1536,
+    "height": 1024
+  },
+  "approvalScope": "Theme candidate only. Warm mother acceptance does not approve this output, its layers or runtime. Resume remains semantic renewed attention, not a new furniture anchor or wholly new spatial action.",
+  "review": {
+    "producerViewedFullOriginal": true,
+    "primaryViewed": false,
+    "primaryApproved": false,
+    "layersAccepted": false,
+    "runtimeAccepted": false
+  },
+  "status": "producer-inspected complete theme mother awaiting primary review",
+  "producerObservation": "Personally viewed full original: one sunset around x1007 with matching lake reflection and continuous rose-gold sky; same pink hair, quiet half-smile, chest-adjacent small greeting, cushion support and complete floor-contact shoes. Original tower area remains naturally obscured by hair rather than moved into the left gap. Shared low light and local lamp read coherently; primary review remains separate."
+}

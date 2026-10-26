@@ -1,0 +1,69 @@
+{
+  "stage": "F1",
+  "cell": "mutsumi/attention/mist",
+  "submittedPrompt": "Use case: precise-object selection markup. F STEP1, original-position whole-foreground selection for the exact root-approved Mutsumi Wakaba ATTENTION mist mother. The ONLY input is this complete1536x1024 original mother. Preserve canvas, camera, all poses, objects and every source coordinate. This is a fixed selection intermediate, NOT a new character or anatomy redraw.\n\nPaint SOLID PURE WHITE over the ENTIRE VISIBLE GIRL AND HER ENTIRE HELD OPEN BOOK/PAPER MARKER, directly at their EXISTING source locations. Include every fine mint-gray hair tip, both silver clips, face/eyes/neck, both hands/every real finger, all navy sailor sleeves/collar/bow/crest/cuffs, every part of the dark pleated skirt including pointed side/underside hem tips and pale hem trim, exposed knees, below-knee dark socks, BOTH COMPLETE BROWN LOAFERS including toe caps, sidewalls, sole rims, heel backs and bottom heel blocks. All internal opaque ink/color becomes plain solid white; NO eye/collar/cloth/skin/shoe holes.\n\nThe held open book belongs to F even its outer dark covers, spine, whole page block, thin lower cover/page edges, curled or pale page tips, and actual small cream marker. Preserve all of it together with holding fingers. Do not omit pale pages as background or dark covers as shadows. Genuine original open room gaps BETWEEN hair strands, arm/book/body and legs stay original colored background, not filled white; but the opaque book/page interiors are fully white.\n\nObservation only, NEVER boxes to fill: full original figure/book approximately x915..1390,y135..905; actual held book approximately x990..1202,y380..500. Follow actual irregular original edges; no erosion/contraction, added white halo, invented connection across a real room gap, shifted silhouette or simplified finger/hair/sole.\n\nKeep ALL other original colored room RGB unchanged: linen seat/plaid/knit beneath and around her, true cushion compression/shadows, dark floor contact softness, desk/chair/table/cup/lamp/flowers, window/lake/town/mountains, curtain/rug/plants. Do not select natural pale linen/lamp/curtain or floor light. Do not turn contact receiver into foreground.\n\nOutput ONE opaque1536x1024 COLOR mother with ONLY entire girl+complete held open book/marker whitened in place. No black background yet, transparency/checkerboard, text, labels, guide boxes, grid, arrows, crop, zoom, scale, translation, recoloring or new anatomy. Original foreground RGB will later come ONLY from original mother, never this marked image.",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-mist-literary-extension-v1.png",
+      "sha256": "d568e4d718b78938e4167d8dbaa43340ed82f19d71f2e49d072b9e3283c7f088"
+    }
+  ],
+  "motherSha256": "d568e4d718b78938e4167d8dbaa43340ed82f19d71f2e49d072b9e3283c7f088",
+  "readDependencies": [
+    {
+      "path": ".agents\\skills\\zaichang-frontend-director\\references\\characters\\mutsumi.md",
+      "sha256": "189d1a17f6e4c2656692437167c50d2a89379cf50b16bc354df3ac8406e4610c",
+      "scope": "Full text personally read before source-fixed layer production."
+    },
+    {
+      "path": ".agents\\skills\\zaichang-frontend-director\\references\\character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "scope": "Full text personally read before source-fixed layer production."
+    }
+  ],
+  "rootMotherApproval": {
+    "path": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\root-human-mother-primary-review-20261025.json",
+    "sha256": "f6b3a0b7ac9974993b61553e907f0ebfa7c39763ebef7d33ca7efb215a99fbb2",
+    "record": {
+      "cell": "mutsumi/attention/mist",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-mist-literary-extension-v1.png",
+        "sha256": "d568e4d718b78938e4167d8dbaa43340ed82f19d71f2e49d072b9e3283c7f088",
+        "bytes": 2466302,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.838Z",
+      "observation": "Mutsumi green-tinted hair/gold eyes and anatomical-left paired clips remain; quiet curiosity or recognition is distinct from a stock smiling pose. Hands physically support the book, legs/shoes and bench support are coherent. Small sock decoration in rain remains project illustration, not new official wardrobe fact. Whole mist light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    }
+  },
+  "outputStem": "figure-step1-marked-v1",
+  "outputDirectory": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\mutsumi\\attention-resume-layers\\attention-mist",
+  "tool": "image_gen.imagegen",
+  "transparentBackground": false,
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-e81d6dd3-723e-46a8-b3f6-6e4fc9b717f2.png",
+  "toolOriginalSha256": "b511ccaa52ec0cfde2da06bb39069fa9e329ea6532a26a95c33b20ae64490e84",
+  "output": {
+    "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\mutsumi\\attention-resume-layers\\attention-mist\\figure-step1-marked-v1.png",
+    "sha256": "b511ccaa52ec0cfde2da06bb39069fa9e329ea6532a26a95c33b20ae64490e84",
+    "bytes": 2246078,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "pngBytesUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Whole returned mark personally viewed. Entire girl including complete held open book/marker whitened; color room remains; thin hair and full shoe outline appear retained. For alpha production only; marked RGB never selected."
+  },
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false
+}

@@ -52,5 +52,7 @@
   "mask": "sakiko-rest-apricot-mask-calibrated-v7.png",
   "shadow": "sakiko-rest-apricot-shadow-calibrated-v7.png",
   "production": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-rest-apricot-layer-processing-v7.json",
-  "parameters": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-rest-apricot-layer-parameters-v7.json"
+  "parameters": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-rest-apricot-layer-parameters-v7.json",
+  "environmentVariant": "clear-day",
+  "environmentAnnotationRecord": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-apricot-clear-day-annotations-2026-10-25.json"
 }

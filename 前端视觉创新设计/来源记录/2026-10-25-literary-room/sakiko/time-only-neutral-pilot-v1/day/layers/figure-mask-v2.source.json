@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "stage": "F2-v2",
+  "tool": "image_gen.imagegen",
+  "recordedAt": "2026-10-25T22:41:41.456259+00:00",
+  "sceneFamily": "literary-room-v1",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "motherSha256": "35a318faaab82305b4a5f28e4f109701986e7ce75b312536835216306c2945af",
+  "inputImages": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/day/layers/figure-step1-marked-v2.png",
+      "sha256": "362b732d5400d28503556df2c8967ad8ff589381febc210b4f40efdd2e0a68e2"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-day-v1.png",
+      "sha256": "35a318faaab82305b4a5f28e4f109701986e7ce75b312536835216306c2945af"
+    }
+  ],
+  "promptFile": "figure-mask-v2.prompt.txt",
+  "promptFileSha256": "069261af1156ffe92da06ea60654064505b4b1b90f86bbf838395c712f0e20f9",
+  "requestFile": "figure-mask-v2.request.json",
+  "exactSubmittedPrompt": "CRITICAL: F1-v2 is a SOLID SINGLE CONNECTED WHITE figure+book+lap. Preserve that featureless interior. There is NO seam/gap anywhere between the open book lower cover and the lap, even if the original contains a dark curve. ALL that curved lowerbookbinding and navyknee/lapregion staysWHITE. Do not reintroduce an inner blackbookline/handoutline/shoeseam from the coloredmother. Only actual outside silhouette gaps are black.\n\nUse case: background-extraction. Exact source-position foreground LUMINANCE MASK conversion F2,1536x1024. Firstinput is the deliberateF1 whiteperson+openbook markup from this same mother. Secondinput is exact clean original mother ONLY to distinguish the true foreground from naturally brightroom and realhair/leg gaps. Keep originalfullcanvas, noresize/crop/zoom/recenter/dilation/erosion/shift.\nOutput one OPAQUE PURE BLACK1536x1024 PNG with only the COMPLETE already-whitened originalperson+WHOLE OPENBOOK SOLID WHITE. No coloredRGB, checker, graybackground, humanfeatures, shadows, labels orroom. All naturallylight closedivorycurtain/cushion/lamp/flowers/roomobjects must be BLACK.\nWHITE includes all blue-lavenderhair strands/tips/darkribbons, head/face/ears/neck, every eyes/mouth/nose region filled as opaqueSOLIDWHITE, everycardigan/collar/clothbow/sleeve/cuff/skirt/outwardlowerhemfold, both completehands/fingers/wrists, fullbarethighs/knees, both below-kneecalfsocks, both completeloafers including darktoes/soleedge/heelblock/bottomoutline, and WHOLE openedbook: bothcovers/spine/pageblock and thin darkunderbinding betweenbookedgeandlap. Faint gray tracing inside the markedwhitehand/book/shoe fromF1 is NOT a hole: FILL interior tracing fully WHITE, no internalbookpage lines, shoeseam, faceeye/mouth mark or clothingfold left gray/black.\nActual true backgroundgaps BETWEEN separatedhair strands/limbs/legs remain BLACK using originalmotherforcontext, not blackholes IN face/hand/book/skirt/shoes. Finegray allowedONLY at actual outer antialiasedperimeter, retain allsourcefinehair/completebookandheels. Don't select naturalwhite room materials. No newshadow or receiverpatch, they belong toS. This only controls coverage; originalRGB will come from exactmother ONCE viaMAX(F,S), no regeneratedsubjectcolor.",
+  "submittedPromptSha256": "26d6f1a928b48d60c4c8842cd64372f9d48a0f9f0fd8986557b053b76ff50a87",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-8526ac36-017f-4858-8383-8f945d6f9820.png",
+  "toolOriginalSha256": "99a56c9ea69b540f06427070203306b9c93417b1e5c92e3bb43a55f69fc20b39",
+  "output": {
+    "file": "figure-mask-v2.png",
+    "sha256": "99a56c9ea69b540f06427070203306b9c93417b1e5c92e3bb43a55f69fc20b39",
+    "bytes": 483784,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "unchangedToolPngBytes": true
+  },
+  "producerReview": "Whole mask returned and viewed: book/lap solidwhite without former curved interiorline; face solidwhite. Native originalRGB/context fullcheck still pending.",
+  "dossierVersion": "2026-10-25.1",
+  "role": "RawImageGen luminance coverage only; originalmotherRGB once throughMAX(F,S), no threshold/crop/morphology/paint.",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "selectionStatus": "producer-selected-after-native-browser-review",
+  "generationInputAllowed": false,
+  "nativeBrowserReview": "neutral-reading-time-day-included-bundle-v1.json"
+}

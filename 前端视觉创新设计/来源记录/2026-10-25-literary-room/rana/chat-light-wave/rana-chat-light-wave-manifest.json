@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "id": "rana-chat-literary-light-wave-v1",
+  "createdAt": "2026-10-25T12:58:33.837547+00:00",
+  "kind": "bounded-complete-mother-source-delivery",
+  "activity": "chat",
+  "callBudget": 3,
+  "callsUsed": 3,
+  "retries": 0,
+  "generatedCells": 3,
+  "rootApprovedCells": 0,
+  "layerAcceptedCells": 0,
+  "runtimeAcceptedCells": 0,
+  "status": "three-generated-personally-viewed-awaiting-root-mother-review",
+  "noRasterPostprocessing": true,
+  "noLayerGeneration": true,
+  "noRuntimeRegistration": true,
+  "audit": [
+    {
+      "palette": "mist",
+      "environment": "overcast-day",
+      "imageMatches": true,
+      "promptFileMatches": true,
+      "exactPromptMatches": true,
+      "inputsMatch": true,
+      "targetPlateRootApproved": true,
+      "originalToolFileExists": true,
+      "personallyViewed": true
+    },
+    {
+      "palette": "violet",
+      "environment": "twilight",
+      "imageMatches": true,
+      "promptFileMatches": true,
+      "exactPromptMatches": true,
+      "inputsMatch": true,
+      "targetPlateRootApproved": true,
+      "originalToolFileExists": true,
+      "personallyViewed": true
+    },
+    {
+      "palette": "rain",
+      "environment": "rain-night",
+      "imageMatches": true,
+      "promptFileMatches": true,
+      "exactPromptMatches": true,
+      "inputsMatch": true,
+      "targetPlateRootApproved": true,
+      "originalToolFileExists": true,
+      "personallyViewed": true
+    }
+  ],
+  "assets": [
+    {
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "title": "没说完的那一半",
+      "mother": "rana-chat-mist-overcast-day-v1.png",
+      "motherSha256": "00f5f20045cb1464e4cdf8fe755c44db46a812c6ad6da75dcd3dc3c9f217b3f0",
+      "bytes": 2370742,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "rana-chat-mist-overcast-day-v1.source.json",
+      "sourceFileSha256": "b1e73f5224b9db7295f134fff40e472d91d693745be76d673d9dc44078aaa8e9",
+      "promptFile": "rana-chat-mist-overcast-day-v1.prompt.json",
+      "promptFileSha256": "54132697e37f0eb1d0f48d3a8bcb3690e947c5aa0c4cf11656ff6be5f8e1a255",
+      "submittedPromptSha256Utf8NoTrailingLF": "2e03d7e081a3308830fd0419dd93c6e10ef45a70a95f7b4840565f0082c86bc1",
+      "producerObservations": [
+        "Cloudy dry daytime exterior matches approved overcast plate; same camera, furniture and soft material warmth remain.",
+        "No old hard window-grid/leaf sun patches observed on entire visible floor, cushion, bare legs or white sleeves; soft diffuse skin/clothing and local lamp warmth are coherent.",
+        "Correct short bob, distinct gold/blue irises and black/white casual outfit; complete head/boots near approved pose scale, knee hand and cushion palm supported."
+      ],
+      "producerIssues": [],
+      "primaryAccepted": false,
+      "layerAccepted": false,
+      "runtimeAccepted": false
+    },
+    {
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "title": "故事拐弯的地方",
+      "mother": "rana-chat-violet-twilight-v1.png",
+      "motherSha256": "535cdfa7a3b9845083bc6836a1e1d33ce1b95d8c69b2cb2200a2066c394c9598",
+      "bytes": 2284958,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "rana-chat-violet-twilight-v1.source.json",
+      "sourceFileSha256": "7753786a3a7ecbd81b5341c02f4a27ca5264bb449d4af08fcb40a785a46d8058",
+      "promptFile": "rana-chat-violet-twilight-v1.prompt.json",
+      "promptFileSha256": "8a6f6e67b1c828c4a788ef85a92cf51dcf2e1972a4dfbcb6ca1cb5e1d97b619f",
+      "submittedPromptSha256Utf8NoTrailingLF": "0b3b4aeb74b5bb1510716f40e53184073af0d24e6d6b1d131dd4b975cbc36152",
+      "producerObservations": [
+        "Continuous rose/lilac dusk outside, warm lit town/reflections and same furniture/camera; no half-day/half-night division.",
+        "Person's silver hair, skin and white sleeves shift to warm/cool dusk, with shaded black top and coherent ambient relation to linen/wood.",
+        "Complete head and boots, clear gold/blue eyes, original knee hand/cushion palm and supported hips/lower legs remain at approved apparent scale."
+      ],
+      "producerIssues": [
+        "Visible floor retains warm/dark structural bands, also present in the approved twilight room; root should judge local source/light correspondence rather than treating every band as removed.",
+        "Actual expression is a relaxed direct question with parted lips, with only a slight hint of delight rather than a pronounced smile."
+      ],
+      "primaryAccepted": false,
+      "layerAccepted": false,
+      "runtimeAccepted": false
+    },
+    {
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "title": "把声音留在灯里",
+      "mother": "rana-chat-rain-rain-night-v1.png",
+      "motherSha256": "36b4ce5e0c04f83d6f2651b4e618454e731a0553831140228d229a80b2a377b7",
+      "bytes": 2210154,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "rana-chat-rain-rain-night-v1.source.json",
+      "sourceFileSha256": "33e64745a669f8539df8bed30df3f45824e08478916e62f093661f5631d79608",
+      "promptFile": "rana-chat-rain-rain-night-v1.prompt.json",
+      "promptFileSha256": "4db3a0f397d879667f1a05d4346964f6b7379e3fcbb55352212e882ae0f8ffa7",
+      "submittedPromptSha256Utf8NoTrailingLF": "05357c006154e9054320c1f7dbc8e73c312f36565f9ebb2277d1e79e1e04840a",
+      "producerObservations": [
+        "Rain drops/trails and dark cloudy night exterior remain outside the glass with warm broken town/lake reflections; interior stays dry, same camera/furniture.",
+        "No hard daylight window-grid/leaf solar patches observed on visible floor, linen, bare legs or sleeves; broad existing lamp pool remains and character is warm/night modeled instead of sunny cutout.",
+        "Silver hair, both unequal irises and original black/white clothes remain legible; full head/boots and knee hand/cushion palm retain original supported near-bench pose.",
+        "Thoughtful direct attention, no forced rain sadness or fabricated waiting/completed-work story."
+      ],
+      "producerIssues": [],
+      "primaryAccepted": false,
+      "layerAccepted": false,
+      "runtimeAccepted": false
+    }
+  ]
+}

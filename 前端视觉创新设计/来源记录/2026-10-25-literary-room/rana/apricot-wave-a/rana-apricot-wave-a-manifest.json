@@ -1,0 +1,313 @@
+{
+  "schemaVersion": 1,
+  "id": "rana-apricot-literary-wave-a",
+  "createdAt": "2026-10-25T12:33:03.035974+00:00",
+  "kind": "bounded-complete-mother-source-delivery",
+  "callBudget": 8,
+  "callsUsed": 8,
+  "retries": 0,
+  "generatedCells": 8,
+  "rootApprovedCells": 0,
+  "layerAcceptedCells": 0,
+  "runtimeAcceptedCells": 0,
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "sole-room-and-camera-input"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.png",
+      "sha256": "060e897c7b9ebdefc5ab84d6fbada2983625b19e6a4ebc57501ede19c5259919",
+      "role": "root-approved-Rana-identity-only"
+    }
+  ],
+  "status": "eight-generated-personally-viewed-awaiting-root-mother-review",
+  "noRasterPostprocessing": true,
+  "noLayerGeneration": true,
+  "noRuntimeRegistration": true,
+  "audit": [
+    {
+      "activity": "study",
+      "imageMatches": true,
+      "promptFileMatches": true,
+      "exactPromptMatches": true,
+      "inputsMatch": true,
+      "originalToolFileExists": true,
+      "personallyViewed": true
+    },
+    {
+      "activity": "reading",
+      "imageMatches": true,
+      "promptFileMatches": true,
+      "exactPromptMatches": true,
+      "inputsMatch": true,
+      "originalToolFileExists": true,
+      "personallyViewed": true
+    },
+    {
+      "activity": "planning",
+      "imageMatches": true,
+      "promptFileMatches": true,
+      "exactPromptMatches": true,
+      "inputsMatch": true,
+      "originalToolFileExists": true,
+      "personallyViewed": true
+    },
+    {
+      "activity": "rest",
+      "imageMatches": true,
+      "promptFileMatches": true,
+      "exactPromptMatches": true,
+      "inputsMatch": true,
+      "originalToolFileExists": true,
+      "personallyViewed": true
+    },
+    {
+      "activity": "listening",
+      "imageMatches": true,
+      "promptFileMatches": true,
+      "exactPromptMatches": true,
+      "inputsMatch": true,
+      "originalToolFileExists": true,
+      "personallyViewed": true
+    },
+    {
+      "activity": "play",
+      "imageMatches": true,
+      "promptFileMatches": true,
+      "exactPromptMatches": true,
+      "inputsMatch": true,
+      "originalToolFileExists": true,
+      "personallyViewed": true
+    },
+    {
+      "activity": "attention",
+      "imageMatches": true,
+      "promptFileMatches": true,
+      "exactPromptMatches": true,
+      "inputsMatch": true,
+      "originalToolFileExists": true,
+      "personallyViewed": true
+    },
+    {
+      "activity": "resume",
+      "imageMatches": true,
+      "promptFileMatches": true,
+      "exactPromptMatches": true,
+      "inputsMatch": true,
+      "originalToolFileExists": true,
+      "personallyViewed": true
+    }
+  ],
+  "assets": [
+    {
+      "activity": "study",
+      "title": "先看那个奇怪的地方",
+      "mother": "rana-study-apricot-literary-v1.png",
+      "motherSha256": "42d51d60de9bfc18eddc76d5eba0936fb10b4756276a44b6b8ba16659270548b",
+      "bytes": 2450933,
+      "width": 1536,
+      "height": 1024,
+      "promptFile": "rana-study-apricot-literary-v1.prompt.json",
+      "promptFileSha256": "435c90a9381374a12aa9d63dfdfd705b6e96ccba4a8a3b2672d85c107c03fb4a",
+      "submittedPromptSha256Utf8NoTrailingLF": "25e71b0b453e8679a18942430676a5f2a48d899914af408c5ec90ae9f0e22828",
+      "sourceFile": "rana-study-apricot-literary-v1.source.json",
+      "sourceFileSha256": "9e820d63249b3b90edced04d6c46851a6f74546aafabcf31969f2aeb45d63484",
+      "producerObservations": [
+        "Actual short silver bob, distinct viewer-left gold/viewer-right blue eyes, original black/white casual outfit.",
+        "Seated at left desk, one forearm/page hand on desktop and other hand holding a pen near cheek; thighs meet visible padded chair seat.",
+        "Both lower legs remain coherent; black boots show natural partial foliage/chair-bar occlusion and visible floor relation; right bench remains empty."
+      ],
+      "producerIssues": [
+        "Occupied chair is pulled farther forward and appears larger than the empty plate chair; changed chair placement/desk-depth composition requires root judgment.",
+        "Some boot outline is hidden by foreground plant/chair; no complete hidden contour or motion certification."
+      ],
+      "primaryAccepted": false,
+      "layerAccepted": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "reading",
+      "title": "句子在指间停一会儿",
+      "mother": "rana-reading-apricot-literary-v1.png",
+      "motherSha256": "6b39aff1ba2f5f95dbec0322714733fe1b2183e075687fa6b4641a5f0df15f96",
+      "bytes": 2440657,
+      "width": 1536,
+      "height": 1024,
+      "promptFile": "rana-reading-apricot-literary-v1.prompt.json",
+      "promptFileSha256": "5b7ab448e39a5e3da1c31ae2b9b7936ef867cbe6eab023351482fb59794d50d8",
+      "submittedPromptSha256Utf8NoTrailingLF": "66866447bd1cce565c4c3ff9f6d1ba7b4901842af7530573867d2d76a8805e7b",
+      "sourceFile": "rana-reading-apricot-literary-v1.source.json",
+      "sourceFileSha256": "fec1c6a73a03c5a70ec10a1797dd25e2bfcb0bb0c176ce9448c3d91b58bacd0c",
+      "producerObservations": [
+        "Clear short bob and readable gold/blue irises, with raised interested gaze rather than a repeated smile.",
+        "Open book held by two simple hands on thighs; sleeves/wrists meet coherently.",
+        "Near-bench scale crown approximately y120, soles near y895; complete boots and cushion/hip/knee/lower-leg relation visible; desk and chair remain empty."
+      ],
+      "producerIssues": [
+        "Gaze lifts toward upper image-right rather than directly to the viewer; this supports a private thought but root should judge intended shared-reading attention.",
+        "Book cover contains faint decorative glyph texture, not reviewed as readable text."
+      ],
+      "primaryAccepted": false,
+      "layerAccepted": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "planning",
+      "title": "给今天留一个没定的角",
+      "mother": "rana-planning-apricot-literary-v1.png",
+      "motherSha256": "98495376accc84e9e5bab4dc3ca4269bd7372bcad9b0aa0f4d9028db785269fc",
+      "bytes": 2439207,
+      "width": 1536,
+      "height": 1024,
+      "promptFile": "rana-planning-apricot-literary-v1.prompt.json",
+      "promptFileSha256": "c2c01314de3516d4d3a8ec88591a2b2301f4aa7fa2ffca34c0d3436a2b9f3854",
+      "submittedPromptSha256Utf8NoTrailingLF": "a866009b88c543fb05ac19d0adbe5844e5d5446c00c4bdc4bf1caf6c03fe3550",
+      "sourceFile": "rana-planning-apricot-literary-v1.source.json",
+      "sourceFileSha256": "dde21c5ec22523b96fcd13848729a224caa53777bb16fff75c56ccb49f78bcb5",
+      "producerObservations": [
+        "Distinct gold/blue irises and bob; direct thoughtful gaze with restrained mouth.",
+        "Thin notebook lies on supported thighs, one hand rests on page; other hand coherently holds a pen near chin.",
+        "Complete head and both boot soles are in frame at near-bench reference depth; hips/cushion, knees/lower legs and floor relation visually coherent."
+      ],
+      "producerIssues": [
+        "Model substituted a simple pen-near-chin gesture for the requested fingertip-on-paper corner; it remains a planning moment, but actual gesture differs.",
+        "Notebook contains faint unreadable line marks rather than entirely blank pages."
+      ],
+      "primaryAccepted": false,
+      "layerAccepted": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "rest",
+      "title": "光慢慢走到鞋尖",
+      "mother": "rana-rest-apricot-literary-v1.png",
+      "motherSha256": "bf9e9784cd5945e357268856d668056e14ac2918ed9b3635acb72bcde6877075",
+      "bytes": 2433393,
+      "width": 1536,
+      "height": 1024,
+      "promptFile": "rana-rest-apricot-literary-v1.prompt.json",
+      "promptFileSha256": "79236cd621e26ae7c652efb5c7e3a3f116c55392acf2653b2a269ef1b65f39dd",
+      "submittedPromptSha256Utf8NoTrailingLF": "601d1daa782496e518dd635121e4a334182f226b453f7942eb51fe9614cd597c",
+      "sourceFile": "rana-rest-apricot-literary-v1.source.json",
+      "sourceFileSha256": "e45fc07e35fa3b51f9e97d5e99c73984ac86ba1716975571ec0ed1f6b6305031",
+      "producerObservations": [
+        "Downward quiet attention, distinct gold/blue eyes and relaxed mouth; no held object or compulsory symbol.",
+        "One hand rests on knee and other palm on cushion, hips/thighs supported, coherent knees and lower legs.",
+        "Full black boots visible; one slightly advances into the sun patch with soles near y900; complete head remains in frame."
+      ],
+      "producerIssues": [
+        "Actual rest pose remains close to approved chat composition, with distinction mainly in quiet gaze and advanced boot; root should judge emotional separation.",
+        "Crown is approximately y120 and lower boot around y900, a small variation from requested y110/y890 rather than head-forward enlargement."
+      ],
+      "primaryAccepted": false,
+      "layerAccepted": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "listening",
+      "title": "她把自己的事停住了",
+      "mother": "rana-listening-apricot-literary-v1.png",
+      "motherSha256": "8dffee56695d45ec3195d298d808e5a2f71c92508e8418f4e46ad0dbfb90b01d",
+      "bytes": 2394841,
+      "width": 1536,
+      "height": 1024,
+      "promptFile": "rana-listening-apricot-literary-v1.prompt.json",
+      "promptFileSha256": "ab9544f3f8c915bd8d1d0f4ddfa7dc8cca9b32c047af40a584fa7e441b088b47",
+      "submittedPromptSha256Utf8NoTrailingLF": "3a7e34253834319eed26237008c4bf90ae1bb4e18990ee2acbe6f25fcef4fe6c",
+      "sourceFile": "rana-listening-apricot-literary-v1.source.json",
+      "sourceFileSha256": "aabbff68a70c02e3c4d053cb763e4a1ff12c30f03236a19e8f783f1679d3a957",
+      "producerObservations": [
+        "Attentive direct gaze and relaxed slightly parted mouth, clear silver bob and heterochromia; no large service smile.",
+        "Both hands simply rest together on supported lap, with continuous sleeves/wrists.",
+        "Crown around y105 and complete boot soles near y890, consistent with correct chat reference rather than head-forward enlargement; seat/knee/boot relation visible."
+      ],
+      "producerIssues": [
+        "The tiny interruption itself is conveyed through gaze and hands in one still frame; no temporal action or interaction is claimed.",
+        "Overlapping fingers are only certified as the visible simple hand relationship, not hidden anatomy."
+      ],
+      "primaryAccepted": false,
+      "layerAccepted": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "play",
+      "title": "一只还没命名的纸鸟",
+      "mother": "rana-play-apricot-literary-v1.png",
+      "motherSha256": "013996c5bc9396bb23c6f36e4be2d6f3e8b3cb81f4e3bd07121692216488aa21",
+      "bytes": 2437608,
+      "width": 1536,
+      "height": 1024,
+      "promptFile": "rana-play-apricot-literary-v1.prompt.json",
+      "promptFileSha256": "6c0ef938d90fa6de29135aaa6812bb3ee66c8c1fe061548553e5f6e196bdc600",
+      "submittedPromptSha256Utf8NoTrailingLF": "7a496bf9697a00c1195d81c4755d27cd52890499890daf4d794d8219895e008f",
+      "sourceFile": "rana-play-apricot-literary-v1.source.json",
+      "sourceFileSha256": "6dcabfef01a42dac48e698f97e54348aaf3bca02efdaafbaec76801302ebf995",
+      "producerObservations": [
+        "Actual small folded off-white bird-like shape held by a visible simple grip, with other hand resting on knee.",
+        "Brief restrained smile and curious gold/blue gaze differentiate the play moment; fine bob, eyelids and irises readable.",
+        "Hips/thighs supported, knees/lower legs continuous, full boots visible near reference depth with soles around y890."
+      ],
+      "producerIssues": [
+        "The model raised the paper to chest/shoulder height rather than just above lap; visible arm/hand still coherent and paper remains below face.",
+        "This is a single original paper-play moment, not a generic activity symbol or temporal proof."
+      ],
+      "primaryAccepted": false,
+      "layerAccepted": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "attention",
+      "title": "嗯，你叫我",
+      "mother": "rana-attention-apricot-literary-v1.png",
+      "motherSha256": "9cc80d33b582b07d376bde1b861dd7231aae51d5ee0437195c35d9d82ad6f84d",
+      "bytes": 2411146,
+      "width": 1536,
+      "height": 1024,
+      "promptFile": "rana-attention-apricot-literary-v1.prompt.json",
+      "promptFileSha256": "543d7c7e9cdea0671a1b797d09ccd10976cc807039ecb9fd33b92c783facb905",
+      "submittedPromptSha256Utf8NoTrailingLF": "f38ab05953ed65313189bf0ce5f4f6a30255f71e29662a4f9de22d6c7c8cf287",
+      "sourceFile": "rana-attention-apricot-literary-v1.source.json",
+      "sourceFileSha256": "650f1efd615373ed047d83e840a3f3d13fcd2931bf93779a4b9240fe4bc43873",
+      "producerObservations": [
+        "Clear refocused gold/blue gaze and slightly parted mouth; intact hair/eyelid/iris boundaries.",
+        "One palm contacts cushion, other hand rests on knee; hips/cushion, thighs/knees/lower legs and full boots visually coherent.",
+        "Crown around y100 and soles around y890, matching approved near-bench scale rather than camera lunge; room layout stable."
+      ],
+      "producerIssues": [
+        "Output remains especially close to approved chat image in body/head pose; activity distinction is mostly the small mouth/gaze response, so emotional differentiation needs root judgment.",
+        "A single still cannot prove the eyes-before-head motion described in the brief."
+      ],
+      "primaryAccepted": false,
+      "layerAccepted": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "resume",
+      "title": "回来时，方向还在",
+      "mother": "rana-resume-apricot-literary-v1.png",
+      "motherSha256": "3ae610c8f7aa21abf062bb24e2851dfc6c4fe2c8c4df7aa455f26cda67400a23",
+      "bytes": 2421580,
+      "width": 1536,
+      "height": 1024,
+      "promptFile": "rana-resume-apricot-literary-v1.prompt.json",
+      "promptFileSha256": "da1117d2b975c5b2df063eeb516887e8b4ed332ea9964ce46bd68db1a0b7d3aa",
+      "submittedPromptSha256Utf8NoTrailingLF": "1f2cf8e9354e77a709041979433aaa1f115c82d565bc4a0b95ae50732375b17d",
+      "sourceFile": "rana-resume-apricot-literary-v1.source.json",
+      "sourceFileSha256": "cfcdf12101c5000ae9d9ba37d460810497837e6ccdbd156a79ba04aa8a22f7f2",
+      "producerObservations": [
+        "Familiar restrained smile and direct gold/blue gaze, distinct from serious listening; identity hair/eye/clothes retained.",
+        "Closed warm brown book lies on thighs with one hand on cover, other palm on cushion; wrists/sleeves and visible support relation coherent.",
+        "Complete head and both black boots visible at correct near-bench apparent depth, crown around y105 and soles near y890."
+      ],
+      "producerIssues": [
+        "Book shows two narrow light ribbon-like protrusions rather than the one unlettered paper bookmark requested; no readable message or prior user state is claimed.",
+        "Body arrangement stays close to chat reference; the actual closed book, relaxed recognition and small smile carry the resume difference."
+      ],
+      "primaryAccepted": false,
+      "layerAccepted": false,
+      "runtimeAccepted": false
+    }
+  ]
+}

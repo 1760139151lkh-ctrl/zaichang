@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-resume-violet-figure-step1-v1",
+  "cell": "soyo/resume/violet",
+  "stage": "figure-step1-v1",
+  "tool": "image_gen.imagegen",
+  "actualToolArguments": {
+    "prompt": "Use case: precise-object-edit. Asset: original-position complete foreground selection markup, F1.\nThe ONLY input is this exact clean root-approved Soyo resume violet mother, 1536x1024. Preserve the entire original canvas, all source coordinates and camera framing. No crop/resize/zoom/centering/shift, no changes to pose, expression, proportions, wardrobe, linework or source geometry. This is technical selection/restoration for a FIXED original-RGB included layer, not a new character illustration. Root approved minor theme/pose differences; preserve this exact original.\nPaint the ENTIRE actual original girl PLUS her complete real lap-held book and any source-held pencil/bookmark SOLID PURE WHITE, an opaque silhouette including every fine hair strand, face/neck, complete hands/fingers, sailor uniform and all skirt hem folds/white trim, both full exposed knees and below-knee socks, and BOTH COMPLETE brown loafers including their darkest sole and heel edges. Keep the complete open book, raised paper edge supported by fingers, both hands and source narrow bookmark/ribbon at book spine. Preserve the whole page/cover contour around x812..1000,y421..497. All foreground object color/interior self-shading becomes fully white; naturally pale book pages must also be deliberately whitened as one complete book, not disappear into background. Keep actual small negative spaces between hair loops, limbs and pencil/hand/book contours in original background color. Do not join unrelated objects across a genuine empty gap. Keep every selected original outline where it already is; no dilation/erosion or template silhouette.\nAll environment remains ORIGINAL COLOR: full naturally pale cushion, curtains, flowers/lamp shade, cup and small books on side table, window/outside town, furniture, floor/rug and all independent floor/seat contact shading. Do not whiten naturally bright room areas, long bench strip or source shadow; those are not F. No new objects, text, arrows, mask checker/grid or background recoloring. Output one opaque full-color 1536x1024 PNG with only the deliberately white complete foreground at original location. Its RGB will never be used; later it only supplies a selection mask over unchanged original mother RGB once.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-resume-violet-literary-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "submittedPromptSha256": "cd22038736d4824012b4c86c3f22a919431d4379abdf8f3cc5b82f25bbd2fc21",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-resume-violet-literary-v1.png",
+      "sha256": "205ea0cd58831c7c830c72f17f7912ae575e35a7fea0b451fa53f542c0f5861f",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-resume-violet-literary-v1.png",
+    "sha256": "205ea0cd58831c7c830c72f17f7912ae575e35a7fea0b451fa53f542c0f5861f",
+    "bytes": 2315480,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    }
+  },
+  "rootPrimaryRecordSha256AtRead": "f6b3a0b7ac9974993b61553e907f0ebfa7c39763ebef7d33ca7efb215a99fbb2",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/violet/figure-step1-marked-v1.png",
+    "sha256": "d28a9b21f2ddddc9c079763f5a8f16a4fd84f85b3c636a55ca04e4f6b71d5dbc",
+    "bytes": 2253771,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-1f750a02-a649-4d94-a831-56738626a7ea.png",
+  "producerObservations": [
+    "Personally viewed full F1: complete person, hair, hands, raised open pages, narrow bookmark and both shoes whitened in original frame; no large environment white selection seen. F2 will flatten interior linework, original mother RGB remains unique."
+  ],
+  "status": "valid-F1-selection-intermediate-awaiting-F2",
+  "pngBytesUnchanged": true,
+  "pngPixelEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0
+}

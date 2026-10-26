@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "cell": "sakiko/attention/mist",
+  "role": "sakiko",
+  "activity": "attention",
+  "palette": "mist",
+  "recordType": "clean-rebuild-human-mother",
+  "dossierVersion": "2026-10-25.1",
+  "wardrobeId": "sakiko-literary-navy-adaptation",
+  "exactPrompt": "完整重绘祥子‘注意同一书页’的mist主题母图。参考1是root亲看合格的同一场景完整暖杏母图，仅承继青春身份、真实书手与全身姿态；参考2是目标主题纯净空房，以它的同一1536×1024房间空间与环境光重新画完整场景。柔和阴日晨雾光，窗外湖山云层安静，室内不留白天硬阳光条纹；不把人物脸涂灰，她的金色眼睛保留温暖。\n为‘在场’创作完整 1536×1024 的细腻二维文学房间人形母图，注意共同书页这一刻。原先暖杏版说明（角色关系仍适用，目标光场以此任务为准）：原始空房只提供已经批准的纯净空房、同一相机、木窗湖山、左侧书桌木椅、右侧窗台软榻及圆边桌与灯，保房间的空间和生活空气。参考图2只提供用户刚选择并精修的丰川祥子青春脸型、金瞳、蓝紫发和两侧深色发带辨识，不把头像贴进房间，重新完整绘制同一人和全身。\n她是MyGO!!!!!/Ave Mujica的丰川祥子，有自己的骄傲和认真，不是成熟学姐或母亲。画成原作少女的青春比例：轻软分缕刘海、清澈稍圆的金色眼型、柔和面颊、自然短下巴，细腻2D手绘感，不3D不塑料不幼儿化。藏青开衫/上衣、白领与浅灰蓝布结、藏青格裙，属于本项目文学日常改编，不是官方校服。深色小腿袜，袜口在膝盖以下，双膝明确露出，完整日常乐福鞋。\n她原本在窗边读自己的书。熟悉的人刚停在同一个有意思的句子，她认真看过那一行，忽然理解为什么对方在这里停住。那一点领会让金色眼睛亮起来；眉间还留一点思索，嘴角悄悄柔和，不摆拍、不营业。此刻她微微抬眼看向身边的你，像是在等你把刚才的想法说完。眼神必须有来处：实际打开的书稳稳放在双膝上，左手在书下托住外侧，右手食指的指腹轻轻落在可见书页中一行的位置，其他手指自然放松地靠在纸边。这不是指向空中、墙壁、屏幕外，也不是举手叫人看。只画一个完整自然、可信的接触动作；书页有厚度，接触手指清楚，手与书不融合。\n人物坐在画面右半窗台软垫，约x950至1370，身体重心明确落在坐垫，髋部/大腿/双膝/小腿/脚踝自然连续，两腿平稳并排略斜向前，双鞋完整落在木地板，座面有真实轻微受压与接触阴影。不是一腿悬空翘起，不交错断腿，不拉长小腿来凑地板。宽阔左半给产品真实文字留位置，但保留完整原房间，不画UI、不画灰底、不画白面板。改用本次目标主题一致的自然环境与灯光，在发丝、金色虹膜、衣料、木头、软垫与鞋上分别发生，人物不是冷光抠贴。手和腿都可见，全景不裁切藏错误。没有文字、图标、标签、引导线、边框、拼贴或额外人物。\n两张参考不是拼图材料。必须重新整体绘制目标主题，不用遮色层/灰条，不把暖杏人物贴进冷背景；保同一少女的细腻2D手绘，实际书页接触、两露膝小腿袜、完整髋膝踝鞋及软垫支撑都要成立。无UI/文字/边框。",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-apricot-shared-page-v2.png",
+      "sha256": "f04805d0e723420c48cf4e16005d4c863df50042339c65290a34491e553de238",
+      "purpose": "approved-same-action-identity-pose-only"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "purpose": "target-clean-theme-environment"
+    }
+  ],
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-mist-shared-page-v2.png",
+    "sha256": "0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88",
+    "bytes": 2442325,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    }
+  },
+  "rebuildReason": "Old attention empty-pointing and direct theme descendants were user rejected; they were not inputs.",
+  "primaryStaticReview": {
+    "status": "approved_static_mother",
+    "reviewer": "root",
+    "observed": "Actual full mother inspected: same youthful figure/book-finger/cushion/shoes, overcast or twilight light affects room and person together. Static direction only, no live motion claim."
+  },
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "generationInputAllowed": true
+}

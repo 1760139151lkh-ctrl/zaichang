@@ -1,0 +1,255 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-listening-four-theme-selected-source-closure-v1",
+  "scope": "Only four existing listening mothers -> fixed included static layer candidates; no runtime registration or global ledger update",
+  "selectedThemes": [
+    {
+      "theme": "apricot",
+      "label": "暖杏",
+      "selected": {
+        "mother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-listening-apricot-literary-v2.png",
+          "sha256": "f242a5b6865d6ac27688ba75bdb8b0e733e6cbb8ea9724b4ea338973288c3862",
+          "bytes": 2445061,
+          "role": "sole source RGB for complete figure/book/contact union; existing root-approved static mother",
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        "background": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/listening-background-v1.png",
+          "sha256": "fd79e7f727e79c1442be28b3724a1d06ea290b761f17aa3bccc964a9dcaade1a",
+          "bytes": 2407302,
+          "role": "actual Image removal from this exact mother; empty receiving scene",
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        "figureMask": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/figure-mask-v1.png",
+          "sha256": "e644bdb2df8911ca831b8982e82388418a2879d64223c7df3c23d62d0ea3fa31",
+          "bytes": 418291,
+          "role": "raw actual Image luminance F, entire person and separate closed book",
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        "contactMask": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/contact-mask-v3.png",
+          "sha256": "f587afa60db2ddc8adc3765de66ddff2497453d0254ecbde92a804ef00254ca6",
+          "bytes": 303673,
+          "role": "raw actual Image luminance S, source-local seat/book/floor receiver and actual grounding shade",
+          "canvas": [
+            1536,
+            1024
+          ]
+        }
+      },
+      "bundle": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/listening-included-bundle-v1.json",
+        "sha256": "df4852a706b46da771d7b4c736c569a4a47dcdcd2219fe1e03e9f80f38c59896",
+        "bytes": 17208,
+        "role": "per-theme exact selected source bundle"
+      },
+      "nativeUnion": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/union-source-v1.svg",
+        "sha256": "6fd90b77867c268dc417afa5da0f5686e483ec03d18e083f4c90c87248f93340",
+        "bytes": 1409,
+        "role": "source-RGB joint layer"
+      },
+      "reviewPage": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/listening-included-observe-v1.html"
+    },
+    {
+      "theme": "mist",
+      "label": "晨雾",
+      "selected": {
+        "mother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-mist-literary-v1.png",
+          "sha256": "5fbcbd2acb5bfdf36ab1ac5273dee2ec7567a03bc3a12869751b90a43adea154",
+          "bytes": 2456604,
+          "role": "sole source RGB for complete figure/book/contact union; existing root-approved static mother",
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        "background": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/mist/listening-background-v1.png",
+          "sha256": "9495cc9167bd85287b1f0b59f401553fedba9187b51109fe92e56f8ff2537713",
+          "bytes": 2385241,
+          "role": "actual Image removal from this exact mother; empty receiving scene",
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        "figureMask": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/mist/figure-mask-v1.png",
+          "sha256": "fd9faa1956dd18f990d409602763de491bad42daa0b76e6e84f5163a7e63771f",
+          "bytes": 426325,
+          "role": "raw actual Image luminance F, entire person and separate closed book",
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        "contactMask": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/mist/contact-mask-v2.png",
+          "sha256": "877b09c04dd259353a8fa3de230bb05b79ae7cf8c4e1b5071358d25bf0e8aad7",
+          "bytes": 317089,
+          "role": "raw actual Image luminance S, source-local seat/book/floor receiver and actual grounding shade",
+          "canvas": [
+            1536,
+            1024
+          ]
+        }
+      },
+      "bundle": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/mist/listening-included-bundle-v1.json",
+        "sha256": "54895cffb8d123815ee33d52aad33e9e73313ae6a37cd6af488ea93a42753a9b",
+        "bytes": 15440,
+        "role": "per-theme exact selected source bundle"
+      },
+      "nativeUnion": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/mist/union-source-v1.svg",
+        "sha256": "6f6f505782bf70b1bce5aa87b27263f84336e9a5237783dcbcfc574d771443d7",
+        "bytes": 1390,
+        "role": "source-RGB joint layer"
+      },
+      "reviewPage": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/mist/listening-included-observe-v1.html"
+    },
+    {
+      "theme": "violet",
+      "label": "暮紫",
+      "selected": {
+        "mother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-violet-literary-v1.png",
+          "sha256": "99ebaaa7158f9cf12c3308fa4fa0231e136b51ad6a81add4693159fb2a103ccb",
+          "bytes": 2335853,
+          "role": "sole source RGB for complete figure/book/contact union; existing root-approved static mother",
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        "background": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/listening-background-v1.png",
+          "sha256": "8b34b7661386796db687eb8d35ca4d44da0fc1cf98fd9159ff8daacbad8111ea",
+          "bytes": 2310034,
+          "role": "actual Image removal from this exact mother; empty receiving scene",
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        "figureMask": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/figure-mask-v1.png",
+          "sha256": "ff3ec4d3b9c86842f5f4d240294b185bfb2dd112773008547196e229eba5311e",
+          "bytes": 448444,
+          "role": "raw actual Image luminance F, entire person and separate closed book",
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        "contactMask": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/contact-mask-v2.png",
+          "sha256": "ff46e988ff55593df734ba040ee2fde7aa846b830e2dae13b2e30bf8c7206fb6",
+          "bytes": 306150,
+          "role": "raw actual Image luminance S, source-local seat/book/floor receiver and actual grounding shade",
+          "canvas": [
+            1536,
+            1024
+          ]
+        }
+      },
+      "bundle": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/listening-included-bundle-v1.json",
+        "sha256": "d835f6681a164a376e88bce82a126b01bfdf496b6864be325afb17dd98673460",
+        "bytes": 16988,
+        "role": "per-theme exact selected source bundle"
+      },
+      "nativeUnion": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/union-source-v1.svg",
+        "sha256": "b69fea6ee28c2073a2c93068394459f55ccf6980a155ca7776d951eed1a20853",
+        "bytes": 1400,
+        "role": "source-RGB joint layer"
+      },
+      "reviewPage": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/listening-included-observe-v1.html"
+    },
+    {
+      "theme": "rain",
+      "label": "夜雨",
+      "selected": {
+        "mother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-rain-literary-v1.png",
+          "sha256": "dca2dd09063832af700bcb833ddaae40cde16b01aed2d27429204762cd3c7210",
+          "bytes": 2297476,
+          "role": "sole source RGB for complete figure/book/contact union; existing root-approved static mother",
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        "background": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/rain/listening-background-v1.png",
+          "sha256": "55cef6e80b38143e14131d51b92f817e19f9ebb23417c900d3999cf5ea843156",
+          "bytes": 2262659,
+          "role": "actual Image removal from this exact mother; empty receiving scene",
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        "figureMask": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/rain/figure-mask-v1.png",
+          "sha256": "3be733fa9a261ca69af69642f39b9bb042b84cb30462a56dd3c44c2ece59c38f",
+          "bytes": 402226,
+          "role": "raw actual Image luminance F, entire person and separate closed book",
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        "contactMask": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/rain/contact-mask-v3.png",
+          "sha256": "63587481505e221520af104603404157df6aa018105796a171b178009aa1165c",
+          "bytes": 319241,
+          "role": "raw actual Image luminance S, source-local seat/book/floor receiver and actual grounding shade",
+          "canvas": [
+            1536,
+            1024
+          ]
+        }
+      },
+      "bundle": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/rain/listening-included-bundle-v1.json",
+        "sha256": "970a0c1618f4b0382e5f9d844cde389f3c2c923fdb96d21dd1eac188ba2dbd73",
+        "bytes": 18340,
+        "role": "per-theme exact selected source bundle"
+      },
+      "nativeUnion": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/rain/union-source-v1.svg",
+        "sha256": "59e71a3f7929a730ef7dea94ee271d3c0c34f2dc511bafd5f7069d2b4865be7e",
+        "bytes": 1390,
+        "role": "source-RGB joint layer"
+      },
+      "reviewPage": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/rain/listening-included-observe-v1.html"
+    }
+  ],
+  "actualImageOutputCount": 30,
+  "browserEvidencePngCount": 20,
+  "sourceIntegrityProblems": [],
+  "method": "native U=MAX(L(F),L(S)); original mother RGB once per union",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "newHumanMotherCells": 0,
+  "newRuntimeStates": 0
+}

@@ -1,0 +1,231 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "createdAt": "2026-10-25T08:44:33.050943+00:00",
+  "scope": {
+    "authority": "production metadata and design intent only; not runtime registry or user facts",
+    "sceneFamily": "literary-room-v1",
+    "legacyCarryover": false,
+    "implementationChanged": false,
+    "matrixDoesNotEstablish": "permission, business action, all page relationships, animation transitions or runtime completion"
+  },
+  "humanSelection": {
+    "quote": "这个感觉很好；要不把所有的布局都改成他吧。所有矩阵都要换一下。",
+    "meaning": "New common spatial and emotional baseline for all roles, activities, themes and affected layouts; not a runtime receipt."
+  },
+  "canvas": {
+    "width": 1536,
+    "height": 1024,
+    "aspect": "3:2",
+    "status": "actual selected source dimensions"
+  },
+  "selectedMother": {
+    "role": "sakiko",
+    "activity": "reading",
+    "palette": "apricot",
+    "generationMode": "text-only",
+    "referencedImages": [],
+    "artifact": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+      "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+      "bytes": 2606101,
+      "canvas": {
+        "width": 1536,
+        "height": 1024
+      },
+      "format": "PNG"
+    },
+    "prompt": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.prompt.txt",
+      "sha256": "ebcef44bd92cfdf510692b140e968ba6bf9abd8564ae8a7f98d82828a2740d94"
+    },
+    "sourceRecord": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.source.json",
+      "sha256": "d9cd4427517d0e0fc050b9777c204e4f7363d8bd19bb585f000f5212f64fe6c3"
+    },
+    "tool": "built-in image_gen",
+    "toolOutputName": "exec-21086a01-b10d-48ae-bdfa-4edd755a0b9e.png",
+    "sourceRecordPrimaryApprovedFlagAtRead": false,
+    "latestReview": {
+      "id": "root-reading-mother-review-20261025",
+      "reviewer": "root",
+      "status": "approved_static_mother",
+      "scope": "selected Sakiko reading apricot full mother only",
+      "evidence": "Root explicitly confirmed complete original inspection: face, head through shoes, bench support and book grip correct.",
+      "limitations": [
+        "alpha extraction not approved",
+        "contact layers not approved",
+        "runtime not approved"
+      ],
+      "source": "explicit parent review message received 2026-10-25"
+    },
+    "flagResolution": "The old source flag is preserved as a historical snapshot. Latest explicit root static-mother review above is authoritative for this new production ledger; runtime stays unapproved."
+  },
+  "approvedEmptyPlate": {
+    "variant": "clear-day",
+    "artifact": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "bytes": 2524961,
+      "canvas": {
+        "width": 1536,
+        "height": 1024
+      },
+      "format": "PNG"
+    },
+    "prompt": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.prompt.txt",
+      "sha256": "3e854eda45e9e76baed6ad514c67488656035d0990663f089cbf6f24575cae26"
+    },
+    "sourceRecord": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json",
+      "sha256": "5425e475efa8264874f2f3b083b8737b4b1f9d35399e9b2c3d86dc561a36cddb"
+    },
+    "inputArtifacts": [
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+        "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd"
+      }
+    ],
+    "tool": "built-in image_gen",
+    "toolOutputName": "exec-58f82fc8-15f6-4703-b926-da3e1768f24b.png",
+    "latestReview": {
+      "id": "root-clear-day-empty-review-20261025",
+      "reviewer": "root",
+      "status": "approved_empty_room_static",
+      "scope": "clear-day empty plate only",
+      "evidenceSourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json",
+      "evidence": "Root personally viewed whole output: selected camera/furniture retained, girl and hand-held book/body shadows removed, continuous cushion/bench front/floor plausible.",
+      "limitations": [
+        "no role or pose approval",
+        "no layer bundle approval",
+        "no runtime approval"
+      ]
+    }
+  },
+  "excludedAlternate": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-room4-v2.png",
+    "sha256": "a33a2ee825a137e62f0a9b7419ca151b5604c2d9f693a0170f55163a06058213",
+    "status": "not_selected_as_family_baseline",
+    "reason": "User selected the first text-only v1. This alternate must not silently restore room4 camera/proportions."
+  },
+  "observations": {
+    "reviewer": "cast_mygo_recovered",
+    "method": "personally viewed both full PNGs; source/prompt bytes hashed",
+    "selectedMother": [
+      "eye-level diagonal room with tall timber windows and lake/town/hill depth",
+      "character sits right on cream bench cushion, holds open dark blue book, complete shoes visible",
+      "wood, woven rug, ceramic lamp and cup establish inhabited warmth; left furnishings still need live-text readability treatment"
+    ],
+    "emptyPlate": [
+      "same visual camera and furniture arrangement at full view",
+      "figure and held book absent",
+      "bench cushion/front and floor remain continuous at full view"
+    ],
+    "notEstablished": [
+      "exact normalized seat/floor/text polygons",
+      "pixel-identical background or automatic composite seam",
+      "alpha/contact extraction quality",
+      "responsive layout or interaction runtime"
+    ]
+  },
+  "newGeometry": {
+    "status": "pending_calibration",
+    "inheritRoom4Coordinates": false,
+    "camera": "selected literary v1 eye-level diagonal camera",
+    "furniture": "same tall wood window, bench, left desk/chair, side table, lamp, cup, pillows, throw and foreground rug",
+    "characterScale": "believable furniture scale and right-side presence; selected artwork is the visual reference, no guessed numerical rig",
+    "textPlacement": "live readable left content without burying the room under opaque panels",
+    "viewportAdaptation": "separate reviewed narrow/half-body/avatar composition if needed; not automatically approved by desktop mother",
+    "candidateSourceGeometry": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/geometry/literary-room-v1-grid.json",
+      "sha256": "ae4be4737d793d452fa4b4f1f69f2da9ef6f0a52e13316870859a62cd43d900c",
+      "scope": "source-space candidate only; no primary/runtime calibration approval"
+    }
+  },
+  "reviewOrder": [
+    "hash exact inputs and prompt",
+    "new empty plates and geometry",
+    "single-role nine-activity mothers with full inspection",
+    "ten-role/four-palette expansion",
+    "same-canvas extraction and composite review",
+    "live components and affected viewport/interaction review"
+  ],
+  "publicSourceClosure": [
+    "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+    "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.prompt.txt",
+    "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.source.json",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.prompt.txt",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json"
+  ],
+  "privacy": "Only repository-relative source paths and generation output basenames are copied here; no profile, credential, SQLite or raw chat log.",
+  "productionLedgerSnapshot": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/production-snapshot-v2.json",
+    "sha256": "39cab3feb0f9a1788f2a0e5dd3ffe21ef45cd986214e14e9e0948b35f7297a15",
+    "closedAt": "2026-10-25T09:14:03.050171+00:00"
+  },
+  "latestMotherAdmission": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+    "sha256": "010ceb6067ad63560676b1af5af8e641102ecba6d773b5310490ac33aab4c48d",
+    "bytes": 9123,
+    "capturedAt": "2026-10-25T09:14:02.908764+00:00"
+  },
+  "latestEmptyPlateAdmission": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/literary-room-empty-plates-primary-admission-v1.json",
+    "sha256": "8ed5c9723ccf61f178ffa5e7f90a66f05b18fc6e44c8ba1124782b679a045c0c",
+    "bytes": 4399,
+    "capturedAt": "2026-10-25T09:14:02.909131+00:00"
+  },
+  "admittedLineageClosure": [
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.png",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.prompt.txt",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.source.json",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-study-apricot-v1.png",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-study-apricot-v1.prompt.txt",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-study-apricot-v1.source.json",
+    "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+    "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.prompt.txt",
+    "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.source.json",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-planning-apricot-literary-pilot-v1.png",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-planning-apricot-literary-pilot-v1.prompt.txt",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-planning-apricot-literary-pilot-v1.source.json",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-rest-apricot-literary-pilot-v1.png",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-rest-apricot-literary-pilot-v1.prompt.json",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-rest-apricot-literary-pilot-v1.source.json",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v2.png",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v2.prompt.txt",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v2.source.json",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-attention-apricot-literary-pilot-v1.png",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-attention-apricot-literary-pilot-v1.prompt.txt",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-attention-apricot-literary-pilot-v1.source.json",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-resume-apricot-literary-pilot-v1.png",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-resume-apricot-literary-pilot-v1.prompt.json",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-resume-apricot-literary-pilot-v1.source.json",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.prompt.txt",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.prompt.txt",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.source.json",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-day-v1.png",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-day-v1.prompt.txt",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-day-v1.source.json",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.prompt.txt",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.source.json",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-dry-night-v1.png",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-dry-night-v1.prompt.txt",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-dry-night-v1.source.json",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.prompt.txt",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.source.json",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.png",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.prompt.txt",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.source.json",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.png",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.prompt.txt",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.source.json"
+  ],
+  "closureBoundary": "Needed exact-source lineage for statically admitted mothers/empty plates. Not automatic Git publication or runtime approval; root selects the actual transfer manifest."
+}

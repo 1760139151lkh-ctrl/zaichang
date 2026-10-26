@@ -1,0 +1,76 @@
+{
+  "cell": "umiri/resume/rain",
+  "role": "umiri",
+  "activity": "resume",
+  "palette": "rain",
+  "seed": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-resume-apricot-literary-wave-b-v1.png",
+    "sha256": "6842a6222779a5607400400a6a1df5e3b732c814777f447defc5d5951413328e",
+    "bytes": 2423675,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "format": "PNG",
+    "writtenByUtc": "2026-10-25T12:00:23.455066+00:00"
+  },
+  "plate": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+    "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+    "bytes": 2270751,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "format": "PNG"
+  },
+  "outputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/missing-theme-extension-v1",
+  "brief": {
+    "index": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-b/umiri-literary-room-36-cells-v1.json",
+      "sha256": "b8f97f1a2ce86161c1068f9b0d12c26370cece95b85680f9f1fc5ef70f701c4b",
+      "bytes": 50290,
+      "capturedAt": "2026-10-25T09:14:03.039466+00:00"
+    },
+    "jsonPointer": "/cells/35",
+    "briefKey": "umiri/resume/rain",
+    "producerBriefRef": null
+  },
+  "exactBrief": {
+    "key": "umiri/resume/rain",
+    "activity": "resume",
+    "activityLabel": "接上刚才那一段",
+    "palette": "rain",
+    "paletteName": "夜雨暖金",
+    "psychologicalBeat": "她确认停点仍在，准备从还成立的那一段继续，而不是要求对方重来一遍。这一页可以继续，也可以先放着，她不替回来的人排下一件事。",
+    "expression": "认出接续关系后的轻微释然，眉眼舒开，不表演热烈欢迎。",
+    "gaze": "先核对手指夹住的页角，再抬眼看回来的人。看过页角后平静抬眼，停住等对方决定。",
+    "companionship": "把已做好的部分留住，也允许这次回来只是坐一会儿。",
+    "poseAndSupport": "书半合放在腿上，手指保留原页，另一手轻放坐垫；坐姿接续原重心，不另起迎宾动作。",
+    "handsAndObjects": "一本原停点未丢的书，不加新完成章、进度条或恢复卡。",
+    "specificLightInteraction": "夜灯照清脸与停页手指，窗外深蓝不压平黑衣轮廓。",
+    "fullLightingRef": "room-and-rendering-brief-v1.json#/lighting/rain",
+    "hairEyesAndMaterialsRef": "room-and-rendering-brief-v1.json#/faceAndHair",
+    "status": "brief_only_waiting_root_empty_plate_and_pilot",
+    "generationStarted": false,
+    "registered": false
+  },
+  "dossier": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/umiri.md",
+    "sha256": "760b038d3ff84a770c80bf6144e52265d8109e41ecd5cb3440408561ac2bc0da",
+    "version": "2026-10-25",
+    "readComplete": true
+  },
+  "method": {
+    "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+    "sha256": "91fb8b8de3e8d954a9367a585f09b71b8f5a9962d8ed0107249c348390fb7f05",
+    "readComplete": true
+  },
+  "baseName": "umiri-resume-rain-literary-extension-v1",
+  "wardrobeId": "umiri-daily-punk-leather-burgundy-grey-skirt-platform-laceup",
+  "inputPaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-resume-apricot-literary-wave-b-v1.png"
+  ],
+  "productionStatus": "prepared-before-actual-image-call"
+}

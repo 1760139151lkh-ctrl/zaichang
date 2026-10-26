@@ -1,0 +1,410 @@
+{
+  "schemaVersion": 1,
+  "kind": "producer-runtime-preparation-bundle",
+  "key": "anon/reading/apricot",
+  "version": "bundle-v1-luminance-mask-plus-source-contact-v3",
+  "createdAtUtc": "2026-10-25T03:48:48.077Z",
+  "scope": "Same approved reading mother; empty-background extraction and original-mother RGB through native SVG luminance mask. Candidate only; public runtime files and registration are unchanged.",
+  "assets": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-reading-apricot-mother-candidate-v1.png",
+      "sha256": "ab281c84f38b313452d13e14cb2f06f98319a619223f744ada27b562b5bcb0c5",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/anon-reading-apricot-bundle-v1-background.png",
+      "sha256": "5d394ea0652d43c25d5e4fd9bb4812a834338d04573473c8b2fed855f774ed4a",
+      "bytes": 2127991,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "mask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/anon-reading-apricot-bundle-v1-mask.png",
+      "sha256": "e4dfbed1671ec81a6153e61cfd4017e0f49dc1279d77b30a3f4da9f0969b1c8c",
+      "bytes": 398186,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "maskMode": "luminance"
+    },
+    "figure": {
+      "kind": "native-svg-original-mother-rgb-through-luminance-mask",
+      "rgbSource": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-reading-apricot-mother-candidate-v1.png",
+      "mask": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/anon-reading-apricot-bundle-v1-mask.png",
+      "maskMode": "luminance",
+      "generatedFigureRgb": false
+    }
+  },
+  "originalLayerSource": {
+    "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/anon-reading-apricot-bundle-v1-source.json"
+  },
+  "sameCanvas": {
+    "width": 1536,
+    "height": 1024,
+    "transform": "identity",
+    "compositeOrder": [
+      "background",
+      "room-fixed-original-mother-source-contact-clip",
+      "original-rgb-figure-through-luminance-mask"
+    ],
+    "blend": "normal source-over"
+  },
+  "motherPrimaryReview": {
+    "decision": "accepted-mother-only",
+    "source": "Root primary review conveyed in delegated task; no layer/runtime admission implied",
+    "matchedBySha256": "ab281c84f38b313452d13e14cb2f06f98319a619223f744ada27b562b5bcb0c5"
+  },
+  "sourceContactRepair": {
+    "kind": "native-svg-clip-of-original-mother",
+    "sourceMotherPath": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-reading-apricot-mother-candidate-v1.png",
+    "sourceMotherSha256": "ab281c84f38b313452d13e14cb2f06f98319a619223f744ada27b562b5bcb0c5",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "polygonPixels": [
+      [
+        1108,
+        756
+      ],
+      [
+        1110,
+        757
+      ],
+      [
+        1115,
+        759
+      ],
+      [
+        1120,
+        761
+      ],
+      [
+        1125,
+        762
+      ],
+      [
+        1130,
+        763
+      ],
+      [
+        1135,
+        763
+      ],
+      [
+        1140,
+        762
+      ],
+      [
+        1145,
+        765
+      ],
+      [
+        1150,
+        767
+      ],
+      [
+        1155,
+        769
+      ],
+      [
+        1160,
+        770
+      ],
+      [
+        1165,
+        771
+      ],
+      [
+        1170,
+        771
+      ],
+      [
+        1175,
+        771
+      ],
+      [
+        1180,
+        770
+      ],
+      [
+        1185,
+        769
+      ],
+      [
+        1190,
+        767
+      ],
+      [
+        1195,
+        763
+      ],
+      [
+        1200,
+        759
+      ],
+      [
+        1205,
+        761
+      ],
+      [
+        1210,
+        761
+      ],
+      [
+        1215,
+        759
+      ],
+      [
+        1220,
+        757
+      ],
+      [
+        1223,
+        757
+      ],
+      [
+        1223,
+        761
+      ],
+      [
+        1220,
+        763
+      ],
+      [
+        1215,
+        765
+      ],
+      [
+        1210,
+        767
+      ],
+      [
+        1205,
+        767
+      ],
+      [
+        1200,
+        765
+      ],
+      [
+        1195,
+        769
+      ],
+      [
+        1190,
+        773
+      ],
+      [
+        1185,
+        775
+      ],
+      [
+        1180,
+        776
+      ],
+      [
+        1175,
+        777
+      ],
+      [
+        1170,
+        777
+      ],
+      [
+        1165,
+        777
+      ],
+      [
+        1160,
+        776
+      ],
+      [
+        1155,
+        775
+      ],
+      [
+        1150,
+        773
+      ],
+      [
+        1145,
+        771
+      ],
+      [
+        1140,
+        768
+      ],
+      [
+        1135,
+        769
+      ],
+      [
+        1130,
+        769
+      ],
+      [
+        1125,
+        768
+      ],
+      [
+        1120,
+        767
+      ],
+      [
+        1115,
+        765
+      ],
+      [
+        1110,
+        763
+      ],
+      [
+        1108,
+        761
+      ]
+    ],
+    "clipPathUnits": "userSpaceOnUse",
+    "imagePosition": [
+      0,
+      0
+    ],
+    "imageDimensions": [
+      1536,
+      1024
+    ],
+    "fixedTo": "shared room canvas, outside any actor transform",
+    "showOnlyFor": {
+      "character": "anon",
+      "activity": "reading",
+      "palette": "apricot",
+      "sourceMotherSha256": "ab281c84f38b313452d13e14cb2f06f98319a619223f744ada27b562b5bcb0c5",
+      "showFigure": true,
+      "motherReady": true,
+      "failedMother": false,
+      "failedLayer": false
+    },
+    "removeWhen": [
+      "figure hidden",
+      "pose, source mother, character or theme changes",
+      "mother or required layer fails"
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "sourceBoundary": "Only the narrow original shoe-to-floor contact fringe, following original sole contours with about 2-4 pixels of floor. No blanket, seat, furniture, room block, new raster or redrawn shadow.",
+    "restores": "Local sole contact darkness only. Does not claim to reconstruct the mother's wider cast shadow.",
+    "newRasterFiles": 0
+  },
+  "calibration": {
+    "basis": "Independently inspected approved reading pose in original 1536x1024 source, plus >200 luminance contour bound observation; no chat/study pose values reused",
+    "seat": [
+      0.8854166666666666,
+      0.5888671875
+    ],
+    "ground": [
+      0.76171875,
+      0.755859375
+    ],
+    "bodyBounds": [
+      0.7213541666666666,
+      0.2998046875,
+      0.966796875,
+      0.755859375
+    ],
+    "safeTextBoundary": 0.7,
+    "support": "window-seat",
+    "contactShadow": {
+      "mode": "separate",
+      "kind": "room-fixed-source-contact-fringe"
+    },
+    "contourComplete": true,
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "directFileInspection": {
+    "allOutputHashesMatch": true,
+    "allLayerCanvases": [
+      1536,
+      1024
+    ],
+    "motherRgbUnmodified": true,
+    "noNewFigureRgb": true,
+    "maskMode": "luminance",
+    "maskLuminanceExtrema": [
+      0,
+      255
+    ],
+    "maskObservedNearWhiteInterior": 254,
+    "maskObservedBlackBackground": 0,
+    "maskGreaterThan200Bounds": [
+      1108,
+      307,
+      1485,
+      774
+    ],
+    "maskNote": "Generated black/white raster has slight near-black/near-white texture. It is consumed directly through native luminance masking; no raster editing or alpha remapping was applied."
+  },
+  "visualInspection": {
+    "personallyViewedByProducer": true,
+    "browser": "Connected Chrome extension through cua_repl",
+    "pages": [
+      "http://127.0.0.1:5188/来源记录/2026-10-24-matrix/mygo/anon-reading-apricot-runtime-bundle-v1.html",
+      "http://127.0.0.1:5188/来源记录/2026-10-24-matrix/mygo/anon-reading-apricot-runtime-bundle-v3.html#source-contact"
+    ],
+    "statesViewed": [
+      "approved full mother",
+      "full extracted empty room",
+      "full composition at same original camera",
+      "original RGB figure on light and dark surfaces",
+      "mother versus composition for held open book and both hands",
+      "mother versus composition for skirt/bench occlusion, both complete socks and shoes",
+      "mother / unpatched / narrow source-contact composition at enlarged same scale",
+      "final v3 full composition after contact change"
+    ],
+    "observations": [
+      "Pink hair, head inclination, open held book, both hands, bent legs, socks and complete shoes remain the original RGB at original placement.",
+      "Fixed blue desk book, cup, lamp, window, bench cushion, pillows and blanket remain room content.",
+      "The first broad contact polygon made a visible floor patch and was rejected; the v3 narrow sole-following original-source fringe avoids that polygon block and restores a small local contact edge.",
+      "At enlarged scale the v3 narrow shoe contact reads darker than the unpatched version; the wider original mother cast shadow is not reproduced. Primary judgment is still required."
+    ],
+    "limitations": [
+      "Primary layer admission remains false.",
+      "Actual Electron runtime scene selection, failure/hide gates and continuity were not executed because this subtask is candidate assets only.",
+      "Source-contact support must be implemented by the owning runtime path before admission; this candidate does not edit that path.",
+      "Generated background is an inpainted reconstruction, not pixel-identical to the original room."
+    ]
+  },
+  "generation": {
+    "additionalImageGenCalls": 2,
+    "tool": "built-in image_gen.imagegen",
+    "newFigureRgbCalls": 0,
+    "pythonImageEdits": 0
+  },
+  "review": {
+    "producerRecommendation": "offer-background-plus-original-rgb-luminance-mask-and-minimal-source-contact-fringe-for-primary-review",
+    "primaryLayerApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  },
+  "rejected": [
+    {
+      "candidate": "runtime-bundle-v1 unpatched composition by itself",
+      "reason": "Shoe contact is visibly lighter than approved mother."
+    },
+    {
+      "candidate": "runtime-bundle-v2 broad source-contact polygon",
+      "reason": "Visible hard polygon block in the floor; not offered."
+    }
+  ]
+}

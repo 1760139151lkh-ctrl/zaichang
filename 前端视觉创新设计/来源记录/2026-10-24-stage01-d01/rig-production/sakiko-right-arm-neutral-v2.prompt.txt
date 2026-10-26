@@ -1,0 +1,12 @@
+Use case: background-extraction.
+Asset type: one exact-size RGBA right-arm component on the FULL 1536×1024 original canvas.
+
+Image 1 is the original approved scene and is the ONLY source of the arm pixels and pose. Image 2 is its clean/body plate without this arm, only to identify the missing region. Extract the small arm present in image 1 but missing in image 2.
+
+The target is the character's anatomical RIGHT arm on the viewer-LEFT side of her cardigan: original shoulder seam near (1240,430), elbow near (1234,490), wrist near (1247,513), hand/fingers on the blue book near (1248,524). It is a SMALL component, about 65 pixels wide and 135 pixels tall in the original scene. All of it stays in the original narrow region approximately x=1208 to 1278, y=405 to 543. The surrounding canvas must remain empty and transparent. Keep exact scene scale and exact absolute position; do NOT enlarge the extracted arm to make it easier to see.
+
+Keep the original connected blue sweater sleeve, sleeve cuff, wrist and hand from image 1. Preserve the original skin, lighting, folds, natural fingers and flattened palm-to-book contact silhouette. Include a small overlap under the front hair/shoulder seam. No torso, no hair, no head, no book or lap, no background, no other supporting arm.
+
+CRITICAL transparent edge requirement: outside the visible sleeve/hand silhouette alpha is exactly zero. No blurry halo, no ambient glow, no drop shadow, no dark rectangle, no vignette, no checkerboard, no light gradient. Use clean opaque sleeve/skin with only a narrow antialiased edge. Do not add a soft transparency field.
+
+Return only that one component as a real transparent PNG, preserving all 1536×1024 transparent outer margins. This is a faithful extraction at source coordinates, not a newly posed or magnified arm.

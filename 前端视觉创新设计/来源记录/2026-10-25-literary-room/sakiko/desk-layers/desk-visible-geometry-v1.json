@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "pose": "desk-writing",
+  "support": "desk-chair",
+  "sourceMother": {
+    "file": "../desk-pilot/sakiko-study-apricot-literary-desk-pilot-v1.png",
+    "sha256": "00629c2e6e5b55901244a534145ab3c9d8c2f9c3cbf2ec2de8668f33037ccb04"
+  },
+  "contourComplete": false,
+  "visibleSeatSupport": {
+    "sourcePixels": [
+      277,
+      539
+    ],
+    "normalized": [
+      0.18033854166666666,
+      0.5263671875
+    ],
+    "basis": "Root actual source-visible skirt/seat support reference, not old empty-chair center or a hidden hip pivot."
+  },
+  "visibleForearmDeskSupport": {
+    "sourcePixels": [
+      194,
+      391
+    ],
+    "normalized": [
+      0.12630208333333334,
+      0.3818359375
+    ],
+    "basis": "Root actual visible forearm/desk support reference."
+  },
+  "visibleHeelGroundReference": {
+    "sourcePixels": [
+      211,
+      716
+    ],
+    "normalized": [
+      0.13736979166666666,
+      0.69921875
+    ],
+    "basis": "Producer approximate visible heel/floor fragment only; no full two-foot contour or invisible sole proof."
+  },
+  "jointCoverageBounds": {
+    "sourcePixels": [
+      85,
+      214,
+      453,
+      728
+    ],
+    "normalized": [
+      0.055338541666666664,
+      0.208984375,
+      0.294921875,
+      0.7109375
+    ],
+    "basis": "Read-only luminance>32 diagnostic envelope of actual unmodified F and S, right/bottom exclusive. Includes admitted adjacent receiver/furniture fragments; not pure anatomy or a rendered threshold."
+  },
+  "workingPaper": {
+    "side": "right",
+    "basis": "Visible source actor occupies left desk; paper/layout must yield to actual left coverage. Runtime layout unverified."
+  },
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "runtimeGeometryAccepted": false,
+  "hiddenFeetSigned": false
+}

@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "scope": "Only original-position Sakiko chat weather layers for three previously approved complete mothers. No new activities, themes, characters, children, matrices, source/registry changes or runtime acceptance.",
+  "producerRuntimeEvidence": {
+    "session": "01a171a6-df24-7153-8594-289decacbc1c",
+    "agentPath": "/root/weather_layers_recovered",
+    "model": "gpt-6.1-sol",
+    "effort": "ultra",
+    "turnId": "01a171a6-e032-72d3-b6ac-ef33965e52fb",
+    "timestamp": "2026-10-25T06:02:06.470Z",
+    "source": "Actual matching rollout session_meta and turn_context, read directly."
+  },
+  "workflow": "Built-in ImageGen only for bitmap edits. Exact original complete mother -> matching empty BG; original person white in unmodified room -> environment black preserving that same white silhouette; independent contact-shadow grayscale mask. Native SVG applies original mother RGB and dark fill through exact full-canvas luminance masks. No Python bitmap editing.",
+  "bundles": [
+    "sakiko-chat-overcast-day-bundle-v1.json",
+    "sakiko-chat-dry-night-bundle-v1.json",
+    "sakiko-chat-rain-day-bundle-v1.json"
+  ],
+  "generatedByReplacement": {
+    "dryNight": [
+      "sakiko-chat-dry-night-background-v1.png",
+      "sakiko-chat-dry-night-white-in-room-v1.png",
+      "sakiko-chat-dry-night-figure-mask-v1.png",
+      "sakiko-chat-dry-night-contact-shadow-mask-v1.png"
+    ],
+    "rainDay": [
+      "sakiko-chat-rain-day-background-v1.png",
+      "sakiko-chat-rain-day-white-in-room-v1.png",
+      "sakiko-chat-rain-day-white-in-room-v2.png",
+      "sakiko-chat-rain-day-figure-mask-v1.png",
+      "sakiko-chat-rain-day-contact-shadow-mask-v1.png"
+    ]
+  },
+  "rejectedIntermediates": [
+    {
+      "file": "sakiko-chat-rain-day-white-in-room-v1.png",
+      "reason": "Missed navy outer skirt cloth; corrected v2 restarts from original approved mother.",
+      "usedDownstream": false
+    }
+  ],
+  "persistence": "Every ImageGen output was copied to this directory and prompt/source/output SHA/original tool path saved in the same awaited exec before returning the generated image.",
+  "verificationObserved": {
+    "sourcePngShaExact": 19,
+    "promptFileShaExact": 19,
+    "submittedPromptShaExact": 19,
+    "observationHtmlLinkedPngShaExact": 12,
+    "jsonParsed": 45,
+    "scope": "Read-only actual source output/content consistency checks. No new test code, fixtures, runners or bitmap manipulation."
+  },
+  "primaryLayerBoundary": {
+    "overcastDay": "accepted in exact-SHA primary approval record; original-position static layers only",
+    "dryNight": "accepted in exact-SHA primary approval record; original-position static layers only; existing subtle contact parameters maintained",
+    "rainDay": "accepted in exact-SHA primary approval record; original-position static layers only"
+  },
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "cleanup": "No files removed. Rejected intermediate retained as provenance/diagnostic evidence outside runtime.",
+  "primaryApprovalRecords": [
+    "sakiko-chat-overcast-day-primary-layer-approval-v1.json",
+    "sakiko-chat-dry-night-primary-layer-approval-v1.json",
+    "sakiko-chat-rain-day-primary-layer-approval-v1.json"
+  ]
+}

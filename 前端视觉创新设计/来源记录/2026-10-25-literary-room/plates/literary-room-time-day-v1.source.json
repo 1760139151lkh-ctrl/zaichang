@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "empty-room-plate",
+  "environmentVariant": "time-day",
+  "weatherClaim": "none; complete opaque inner curtain conceals all outdoor scenery",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "executionId": "exec-3ef33581-ede6-493a-9b45-0b747dad3d35",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-3ef33581-ede6-493a-9b45-0b747dad3d35.png",
+  "inputs": [
+    {
+      "file": "literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "sole approved empty clear-day environment edit target; no person image input",
+      "admissionRecord": "literary-room-clear-day-v1.source.json"
+    }
+  ],
+  "selectedMotherLineage": {
+    "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+    "imageInputForThisCall": false
+  },
+  "promptFile": "literary-room-time-day-v1.prompt.txt",
+  "promptFileSha256": "a437d119e3dea09a8aec40dbfd0eb9c81b262bf915f5f85d971aded2899a30fe",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd, exactly as submitted",
+  "submittedPromptSha256": "ec9bc9b73e3e6673738b6ab5c9f6b01ff1c34215218b115298c6486dcee22e78",
+  "output": {
+    "file": "literary-room-time-day-v1.png",
+    "sha256": "aa4ce3dcab5cd2366c9f1c4eadcff0ab85537ab45e5a3b0643c4d01588e6e247",
+    "bytes": 2512492,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed complete saved original: milk-white woven inner fabric spans the whole former window view, with natural folds/central cloth seam and no readable sky, town, lake, branches, rain or weather scene visible through it. Existing outer tied curtains, bench/cushion/pillows/throw, lamp/table, desk/chair, floor/rug and foreground plant remain in place. Daylight is soft and undifferentiated; hard leaf/window-grid solar patches are absent. Central lower seam/hardware detail remains for primary close review; no outside weather is identified or claimed. Producer inspection only."
+  },
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "approvalScope": "Static time-only empty environment candidate; no inferred weather, character/activity/layers/runtime approval.",
+  "primaryApprovalRecord": "literary-room-time-day-v1.primary-approval.json",
+  "primaryApprovalScope": "Complete static empty environment plate only; same selected close room and corresponding weather/time illumination. No character/activity/layers/motion/runtime approval."
+}

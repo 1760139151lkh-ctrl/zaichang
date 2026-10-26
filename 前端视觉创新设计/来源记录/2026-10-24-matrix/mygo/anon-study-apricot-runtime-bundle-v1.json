@@ -1,0 +1,258 @@
+{
+  "schemaVersion": 1,
+  "kind": "producer-runtime-preparation-bundle",
+  "key": "anon/study/apricot",
+  "version": "bundle-v1-source-layers-v3-plus-source-contact-candidate",
+  "createdAtUtc": "2026-10-25T03:39:13.403Z",
+  "scope": "Existing exact-mother study room4 layers with a minimal source-RGB chair contact repair proposed for primary review. No raster file or public registration changed.",
+  "assets": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-study-apricot-mother-candidate-v1.png",
+      "sha256": "2e9a7c010f52939149c5a93b43eb3f1ab996f9ed25bbcbaa3a7522038b1f9fbe",
+      "bytes": 2196090,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-study-apricot-background-calibrated-v3.png",
+      "sha256": "7a932e6c2c5b59cca7553d1b2a4437f2116a9c5eab92545c9ae9c2bf3ec67349",
+      "bytes": 2118784,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "figure": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-study-apricot-figure-calibrated-v2.png",
+      "sha256": "3a9bb503d78907ffcbfbaeff9bb55d76d77da338cf694ae62dbf4c4e93436b72",
+      "bytes": 2460531,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    "shadow": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-study-apricot-shadow-calibrated-v3.png",
+      "sha256": "1ef0900099b8f3f2f710ef2a94694363a6ceb38cfa9ac2d3284c4b333bb2abc9",
+      "bytes": 87337,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    "mask": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-study-apricot-mask-calibrated-v2.png",
+      "sha256": "baeeb8f7da049e91724f59d76d955ae7ca9826af1f0f999ace6d831ce7519432",
+      "bytes": 24746,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    "scene": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-study-apricot-candidate-v3.scene.json",
+      "sha256": "7b119136673ce9187b984f67461509616d9a55e18c932d44056b55acfd8d5417",
+      "bytes": 3363
+    }
+  },
+  "originalLayerSource": {
+    "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-study-apricot-layer-source-v3.json",
+    "sha256": "f8f532c58f34c141d8e9bf8ca415ad0d52879713f2dda3dae31aaa12092292d5"
+  },
+  "motherPrimaryReview": {
+    "record": "前端视觉创新设计/来源记录/2026-10-24-matrix/primary-direct-review.json",
+    "matchedBySha256": "2e9a7c010f52939149c5a93b43eb3f1ab996f9ed25bbcbaa3a7522038b1f9fbe",
+    "decision": "accepted-mother-only"
+  },
+  "directFileInspection": {
+    "figureRgbByteIdenticalToMother": true,
+    "figureAlphaEqualsMaskAlpha": true,
+    "allRecordedLayerOutputHashesMatch": true,
+    "figureAlphaExtrema": [
+      0,
+      255
+    ],
+    "figureAlphaBounds": [
+      748,
+      329,
+      1033,
+      734
+    ]
+  },
+  "sameCanvas": {
+    "width": 1536,
+    "height": 1024,
+    "transform": "identity",
+    "compositeOrder": [
+      "background-v3",
+      "original-shadow-v3",
+      "room-fixed-source-contact-clip",
+      "original-rgb-figure-v2"
+    ],
+    "blend": "normal source-over, no multiply"
+  },
+  "sceneCandidate": {
+    "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-study-apricot-candidate-v3.scene.json",
+    "sha256": "7b119136673ce9187b984f67461509616d9a55e18c932d44056b55acfd8d5417",
+    "id": "anon-study-apricot-candidate-v3",
+    "calibration": {
+      "seat": [
+        0.5462239583333334,
+        0.576171875
+      ],
+      "ground": [
+        0.6302083333333334,
+        0.7138671875
+      ],
+      "bodyBounds": [
+        0.4869791666666667,
+        0.3212890625,
+        0.6725260416666666,
+        0.716796875
+      ],
+      "safeTextBoundary": 0.46,
+      "support": "desk-chair",
+      "contactShadow": {
+        "mode": "separate"
+      },
+      "contourComplete": true,
+      "travel": 0,
+      "slope": 0,
+      "perspective": 0
+    }
+  },
+  "sourceContactRepair": {
+    "kind": "native-svg-clip-of-original-mother",
+    "sourceMotherPath": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-study-apricot-mother-candidate-v1.png",
+    "sourceMotherSha256": "2e9a7c010f52939149c5a93b43eb3f1ab996f9ed25bbcbaa3a7522038b1f9fbe",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "polygonPixels": [
+      [
+        782,
+        572
+      ],
+      [
+        797,
+        570
+      ],
+      [
+        808,
+        579
+      ],
+      [
+        810,
+        596
+      ],
+      [
+        798,
+        604
+      ],
+      [
+        783,
+        602
+      ],
+      [
+        779,
+        588
+      ]
+    ],
+    "clipPathUnits": "userSpaceOnUse",
+    "imagePosition": [
+      0,
+      0
+    ],
+    "imageDimensions": [
+      1536,
+      1024
+    ],
+    "fixedTo": "shared stage canvas, outside actor transform",
+    "showOnlyFor": {
+      "character": "anon",
+      "activity": "study",
+      "palette": "apricot",
+      "sourceMotherSha256": "2e9a7c010f52939149c5a93b43eb3f1ab996f9ed25bbcbaa3a7522038b1f9fbe",
+      "showFigure": true,
+      "motherReady": true,
+      "failedMother": false
+    },
+    "removeWhen": [
+      "figure hidden",
+      "pose, source mother, character or theme changes",
+      "mother or required layer failed"
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "diagnosedGap": {
+      "coordinate": [
+        790,
+        586
+      ],
+      "motherRgb": [
+        154,
+        120,
+        102
+      ],
+      "backgroundRgb": [
+        237,
+        208,
+        189
+      ],
+      "figureAlpha": 0,
+      "shadowAlpha": 1
+    },
+    "sourceBoundary": "Tiny skirt/hip-to-chair contact area; top/inside edge may include original clothing pixels hidden by the same unmodified figure at zero offset. It is not a transferable general furniture layer.",
+    "newRasterFiles": 0
+  },
+  "visualInspection": {
+    "personallyViewedByProducer": true,
+    "browser": "Chrome extension via cua_repl",
+    "pages": [
+      "http://127.0.0.1:5188/来源记录/2026-10-24-matrix/mygo/anon-study-apricot-runtime-bundle-v1.html",
+      "http://127.0.0.1:5188/来源记录/2026-10-24-matrix/mygo/anon-study-apricot-runtime-bundle-v2.html#seat-repair"
+    ],
+    "statesViewed": [
+      "full original mother and old source-over reconstruction",
+      "empty room",
+      "original-pixel figure on light/dark backgrounds",
+      "original and composition at forearms/desk, chair seat and complete shoe contacts",
+      "source-clipped repair compared with mother and old v3 at same scale",
+      "full room with source contact clip"
+    ],
+    "observations": [
+      "Original focused head inclination, writing hands, forward torso and complete knees/socks/shoes retain source anatomy and original RGB.",
+      "Old v3 left hip/seat had a small pale notch; the proposed native source clip restores the source contact darkness without an observed hard patch seam in the inspected static composition.",
+      "Fine sunlit hair strands retain original apricot highlights. Fixed desk/forearm contact and original chair geometry remain."
+    ],
+    "limitations": [
+      "Primary layer admission and actual product scene selection/continuity remain unverified.",
+      "This repair is valid only for this source SHA and original zero-offset pose. It must not move with actor or survive hiding/changing the figure."
+    ]
+  },
+  "generation": {
+    "additionalImageGenCalls": 0,
+    "preservedRasterSourceFiles": true
+  },
+  "review": {
+    "producerRecommendation": "offer-v3-plus-minimal-source-contact-clip-for-primary-review",
+    "primaryLayerApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  },
+  "rejected": [
+    {
+      "candidate": "unmodified anon-study-apricot-candidate-v3 scene by itself",
+      "reason": "Pale missing contact area at left hip/chair seat; not offered as-is."
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "id": "sakiko-chat-overcast-day-room4-v1",
+  "character": "sakiko",
+  "activity": "chat",
+  "sceneFamily": "room4",
+  "environmentVariant": "overcast-day",
+  "intendedCondition": "cloudy",
+  "isDay": true,
+  "width": 1536,
+  "height": 1024,
+  "mother": { "file": "sakiko-chat-overcast-day-mother-v1.png", "sha256": "a7e10ccb551badc3bb015bdd2c8870969bcf20c8ea23f2a282d2bcf636baa382" },
+  "background": { "file": "sakiko-chat-overcast-day-background-v1.png", "sha256": "2142878f64a444c66e78a7f31a45e6b94c49464ea984058da50427a80de80747" },
+  "mask": {
+    "file": "sakiko-chat-overcast-day-figure-mask-v1.png",
+    "sha256": "aa973c02842fe5d820f1561c70657f7b07fb4f6fbdab95deb9db958bb8632f33",
+    "mode": "luminance",
+    "sourceRgb": "sakiko-chat-overcast-day-mother-v1.png",
+    "method": "ImageGen original person-to-white in its original room, followed by environment-to-black while keeping that same source silhouette. Original mother RGB renders through the native luminance mask."
+  },
+  "shadow": {
+    "file": "sakiko-chat-overcast-day-contact-shadow-mask-v1.png",
+    "sha256": "259c53a5855c7a68908568ab67d52274cdc2c06f71ced008e8b9800c6251b78f",
+    "mode": "luminance",
+    "color": "#302c2c",
+    "opacity": 0.35,
+    "order": "matching background, low-opacity dark contact mask, original mother RGB through figure mask"
+  },
+  "foreground": { "required": false, "reason": "At this fixed original pose the figure, held lap book, right palm and shoes sit in front of their support surfaces. Bench, cushions, blanket, desk blue book, lamp and mug stay room-owned in the matching background." },
+  "provisionalCalibration": {
+    "coordinateSpace": "mother-normalized",
+    "seatPixels": [1294, 594],
+    "seat": [0.8424479166666666, 0.580078125],
+    "groundPixels": [1178, 783],
+    "ground": [0.7669270833333334, 0.7646484375],
+    "bodyBounds": [0.7278645833333334, 0.2626953125, 0.9322916666666666, 0.7666015625],
+    "maskBoundsPixels": [1118, 269, 1432, 785],
+    "maskBoundsMethod": "Read-only measurement of this exact ImageGen figure mask, luminance > 32/255; right and bottom are exclusive. No raster pixels were edited. Very low-value outer compression/antialias pixels extend beyond this practical visible bound.",
+    "safeTextBoundary": 0.64,
+    "support": "window-seat",
+    "hitPolygon": "81.3% 26.3%, 85.0% 26.7%, 87.2% 34.5%, 90.6% 42.0%, 91.7% 47.5%, 90.5% 53.5%, 93.3% 57.1%, 90.0% 58.2%, 84.4% 58.7%, 81.9% 62.7%, 80.4% 75.4%, 78.2% 76.7%, 75.9% 76.2%, 76.2% 73.3%, 74.0% 75.7%, 72.8% 75.2%, 73.0% 73.3%, 75.1% 69.5%, 77.0% 59.2%, 75.8% 56.0%, 78.7% 51.7%, 78.0% 46.0%, 78.8% 40.0%, 80.0% 33.0%, 80.0% 28.5%",
+    "anchorMethod": "Approximate visual hip-seat, lowest shoe-floor and interaction polygon traced from this exact overcast mother/mask after direct inspection. These do not borrow the older large Sakiko metadata and are provisional for the Scene owner to inspect in the integrated Stage.",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "scope": "Original source position only. No arbitrary furniture translation or claim that ordinary pixel shifting is physical motion."
+  },
+  "review": { "motherApprovedByPrimary": true, "layersApprovedByPrimary": true, "approvalRecord": "sakiko-chat-overcast-day-primary-layer-approval-v1.json", "runtimeRegistered": false, "runtimeAccepted": false, "producerViewedOriginalPngs": true, "primaryViewedNativeComposite": true },
+  "observationPage": "sakiko-chat-overcast-day-layers-v1.html",
+  "source": "sakiko-chat-overcast-day-mother-v1.source.json",
+  "status": "primary-admitted-original-position-static-layers-runtime-separate"
+}

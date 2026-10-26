@@ -1,0 +1,37 @@
+{
+  "createdOn": "2026-10-25T06:55:42.650258+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "kind": "generated-original-pose-floor-shadow-rgba",
+  "character": "nyamu",
+  "transparentBackgroundRequested": true,
+  "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-a/nyamu-floor-shadow-rgba-v1.png",
+  "sha256": "9fc287720245dd1981e1380ed670b952035508a6a22c4c9946cb478f7e46f58e",
+  "bytes": 553859,
+  "width": 1536,
+  "height": 1024,
+  "mode": "RGBA",
+  "exactPrompt": "Use case: background-extraction. Extract ONLY Nyamu's existing floor cast/contact SHADOWS into a full-canvas transparent RGBA layer, exactly 1536×1024.\nThe sole input is the correct original complete room mother. The original girl, posture, furniture, scale and light are already correct. Do not redraw them. Return transparent pixels everywhere EXCEPT the actual low-opacity dark warm-brown shadows cast ON THE FLOOR beneath and toward the lower-left of the two black shoes. Preserve the original projected shadow shapes, positions, natural soft falloff and transparent gaps. This is a shadow extraction, not a picture of the shoes, a shoe-shaped solid mask, a foot cutout or a patch of floor. No floorboard/grain/sunlit tiles/room RGB belongs in this layer. Both shoes, ankle straps, heels, legs and every part of the actual person must be completely absent and transparent.\nSource coordinates: left shoe around x1115..1175,y785..818; right shoe around x1217..1295,y790..825. The real soft floor projections extend below/left of these shoes through approximately x1070..1310,y800..866. Use the existing actual source projections, not a generic oval. The broad source shadow between and lower-left of the two shoes matters; a tiny one-pixel contact outline alone is incomplete.\nRender real shadow darkness as modest alpha warm dark brown over TRANSPARENT background, with gently feathered true edges. No hard black fills, huge ellipse, decorative glow, white mask, bright floor plate or checkerboard pixels. Keep the ORIGINAL whole 1536×1024 canvas, no crop, zoom or recenter. No character/legs/shoes, objects, furniture, text, labels, watermark or border. One clean same-coordinate RGBA shadow-only extraction suitable for ordinary source-over at the unchanged original pose.",
+  "promptSha256": "20416c871468a460c4e1193cfcb9257104a1dba50c899f504787498a7fbb91ea",
+  "inputs": [
+    {
+      "role": "sole correct complete original mother",
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-mother-candidate-v1.png",
+      "sha256": "4916b887de5b6ce7ba75068b001ede1ca8d51a331b32141b6fb5969ec26bf305"
+    }
+  ],
+  "originalGeneratedFile": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-a7094969-c581-40bd-a357-54b74e16b619.png",
+  "designerReview": "Rejected: transparent shadow output has nonzero alpha bounds [561,53,1384,886], with stray opacity far above the floor and a diffuse wide brown patch rather than the source-specific projections. Not used in selected SVG or as later image input.",
+  "approvedByPrimary": false,
+  "runtimeAccepted": false,
+  "alphaBounds": [
+    561,
+    53,
+    1384,
+    886
+  ],
+  "alphaExtrema": [
+    0,
+    228
+  ],
+  "designerRejected": true
+}

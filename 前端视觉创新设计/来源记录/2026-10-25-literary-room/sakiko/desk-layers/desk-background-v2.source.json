@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "assetType": "targeted-empty-desk-background-floating-held-pen-remnant-removal",
+  "id": "desk-background-v2",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "desk-background-v2.prompt.json",
+  "promptFileSha256": "daf617c1c8e65b7eab1c2b40df5a42a2c5d3a4c67002e1cc9e31b015d5d2122e",
+  "submittedPrompt": "Use case: precise-object-edit. ONE tiny local repair on the existing EMPTY matching desk background.\nImage1 is the ONLY exact full1536x1024 input. It is already the correct empty new literary room with its chair pulled out; no person is present. Keep its camera, entire room, furniture/wood chair orientation and every coordinate, materials, plants, page/book and lighting unchanged.\nRemove ONLY the unsupported remnant of the former HANDHELD WRITING PEN hanging above the left desk page. This is the thin diagonal brown/black shaft at approximately source x169..196,y358..392, upper tip near(171,360), leaning downward toward(185,387) with a tiny lower curved/tapered trace. It is suspended in front of the dark upright desk books where the girl's writing hand used to be. Remove the WHOLE leftover shaft/trace, not just its top tip, and reconstruct only those few exposed pixels using the immediately adjacent original dark book-spine/background and page/desktop texture.\nKeep the open desk page/book exactly as it is, its paper edges/marks and the wood desk lip unchanged. Keep all legitimate stationary pens/pencils in the far-left holder, books, task lamp, potted plants/leaves, shelves, pulled chair/slats/seat cloth/legs, small side table/lamp/cup/flowers, window/lake/town/hills, empty right bench/pillows/throw and floor/rug/sunlight exactly unchanged. Do not remove any book, redraw paper, add a hand or person, move the chair, repair other areas, relight, recolor, zoom, crop or replace the whole room.\nOutput the SAME opaque RGB1536x1024 empty background, with only that tiny floating former handheld-pen fragment gone. No new objects, text/UI/labels/grid/outlines/border/watermark/transparency.",
+  "submittedPromptSha256Utf8NoTrailingLF": "b1027744f573e5532dcc831589aecd4e8620f9a14ba74df36d152f710b0cf584",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-background-v1.png",
+      "sha256": "1b33255f6535dbb93d103ff52a99774d2cbe51925ff19adb6eefd088910c8498",
+      "role": "sole existing EMPTY matching desk BG; targeted leftover prop repair explicitly authorized by root after browser verification, not a structural human-image reference"
+    }
+  ],
+  "output": {
+    "file": "desk-background-v2.png",
+    "sha256": "2d392c6f3157e2e805ff9e19a619717e78745072bdd6593becb076d1eff78c8f",
+    "bytes": 2405655,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-fe6b2cfc-42f6-4a9a-9c99-335a44d1ca5c.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "specificIssue": "Actual BG1/BG2 native source-pixel comparison confirmed diagonal hanging rod persisted. No source pixels edited manually. Root authorized one different broader semantic attempt."
+  },
+  "status": "diagnostic-targeted-pen-repair-did-not-remove-pen",
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "activity": "study",
+  "palette": "apricot",
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "fullImageResultRetainedInStore": false
+}

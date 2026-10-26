@@ -1,0 +1,19 @@
+{
+  "tool": "built-in image_gen",
+  "promptFile": "room4-time-day-v1.prompt.txt",
+  "input": "../weather/room4-cloudy-day-v1.png",
+  "inputSha256": "d218968a3f057a961dd0e9bfbc88ae9c95fc78c0d6e49dfdaf4c71e78c4e8526",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a16fb3-8f8d-7c72-a744-a441e8907c91\\exec-ed486046-6ab4-447d-bf96-023381c34dd3.png",
+  "output": "room4-time-day-v1.png",
+  "outputSha256": "01782f953ab7f77d693deab531f9164a9b949698c33be5ff09bde88a014f5ed8",
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "scope": "Time-only empty room; no weather claim; waiting original inspection",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "actualMode": "RGB",
+  "submittedPromptSha256": "47c906f2e9a1678c7eae81575dd850c0ef1b7bc361f371e1e531c6a8cca5edc9",
+  "primaryReviewScope": "Primary personally viewed complete generated empty room: same room4 anchors; closed inner curtains conceal outdoor weather; daytime diffuse light or practical warm night lamp. Empty background admission only, no character/layers/runtime acceptance."
+}

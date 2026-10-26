@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "characterId": "taki",
+  "neutralTime": "night",
+  "purpose": "neutral-presence-fixed-included-layer",
+  "kind": "foreground-source-white-markup-F1",
+  "createdAt": "2026-10-26T01:06:27.733173+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "exactPromptFile": "figure-step1-marked-v1.prompt.txt",
+  "promptSha256": "59aea7358972bd061195807dabe98d8bd0937cb58a577f1f3fbac5a5a67ada9b",
+  "requestFile": "figure-step1-marked-v1.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/taki-neutral-time-night-literary-v1.png",
+      "sha256": "79aae6d833d537e9667f9ec77850fe00121aa886031ca3e2cba15ccc49401800",
+      "role": "sole exact root-approved full night mother"
+    }
+  ],
+  "output": {
+    "file": "figure-step1-marked-v1.png",
+    "sha256": "32ba4ae18a5112b7c942eb54cd18b1d9c96ab5596b2da4ca46047c500ab4c74d",
+    "bytes": 1962583,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "originalBasename": "exec-c2374cee-2f92-4ec3-97e7-38c374884355.png",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteOutput": true,
+    "observations": [
+      "Full original-position white foreground includes hair wisps, actual hands/open book, complete hem, legs and both outsole/heels.",
+      "Night room remains colored outside marked foreground; no broad receiver included yet."
+    ],
+    "eligibleAsNextStepInput": true
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "countsToward360ExactActivities": false,
+  "pngPixelEditing": false
+}

@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "assetType": "literary-room-complete-human-mother-candidate",
+  "producer": "/root/mujica_matrix",
+  "cell": "rana/study/mist",
+  "character": "rana",
+  "activity": "study",
+  "palette": "mist",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "创作一张1536×1024横向、完整的“在场”文学房间人形母图。参考图1是当前目标主题的纯净空房，只采用它的相机、窗格、湖镇山景、家具尺度、物件位置与整间房的环境光。参考图2是root本轮已亲看准作参考、我也实际亲看的同activity暖杏乐奈完整母图；它只提供乐奈本人、明确项目私服、对应座面与身体支撑的连续性，不带来白天阳光，不是抠图贴进房间，也不冻结脸和手来换背景。请从一开始把人物、衣料、桌椅软垫、投影与整个目标环境重新画在同一种光里。保留完整窗边生活空间，原有书架/左桌椅/圆桌陶瓷灯杯/右侧长窗榻格纹靠枕针织毯/植物地毯形成同一个房间；不加UI、灰卡、按钮、文字、圆盘、其他人物、猫、吉他或象征装饰。不镜像、不裁成近景，完整头发与鞋尽量在画内，既有前景遮挡按真实深度成立，不编造看不见的轮廓。\n\n要乐奈（要楽奈，Rana Kaname）必须仍是本人：银白分层短发，柔软刘海与淡灰紫阴影，双眼清楚且自身右眼金色、自身左眼蓝色；在本次未翻转、近正面或温和三分之二视角，观者左金、右蓝，不交换、不合成两种同色。年轻有思考的原作少女面相，面颊柔和饱满、自然短下巴，中下面部不过长；不成熟少妇、不尖长成人脸，不幼儿化、不Q版、不玻璃巨眼。保清楚眼睑、虹膜、眉与分开的刘海，目光有确切对象，头部转动和眼球方向一致。保持本项目明确原创的宽松黑短袖叠白长袖、白短裤、黑系带踝靴；不是冒称官方校服，不混红领结或舞台装，不增无来源长袜。人物依然细腻2D手绘而非3D模型，发丝、衣褶与房间材质自然相接。官图本次无图像输入；具体相处是项目原创设想，不冒称原作事件、用户真实历史或业务已完成。人物有自己的兴趣、好恶与节奏，不当客服微笑或无口木偶。\n\n本格：rana/study/mist（共同推敲·晨雾蓝），题为“两条线之间”。她本来在左侧桌前看自己的小本，发现两条手画线之间有一个尚未想清的关系，身边人的一句追问让她也想继续弄清。答案还没有出来，她不催人，也不装作已经知道；安静里是清楚的兴趣。这个瞬间她的视线正在实际桌面那两条淡线之间，眉心只有极轻的专注，嘴唇自然合着、有一点发现新东西的活气；不是苦脸、犯困、直瞪镜头或固定张嘴。下一刻能抬眼确认对方也在看这里，再把发言留给对方。仅用淡淡不可读的线形表达纸页，不烘焙真实公式、正文或求解结论。\n\n她坐在左书桌的真实木椅上，大小服从远处桌椅而比右窗榻人物更小；髋和大腿落在椅面软垫。上身自然朝桌面，前臂在桌面有简单承托，一只手稳住自己够得着的书页，另一手把笔轻轻放低留在纸边，别继续把笔贴嘴，也别向远处伸指。肩颈放松，低头幅度浅，两个异色虹膜仍可辨。膝与踝沿同一双腿自然连接，黑靴与地板/椅横档的深度关系正确；桌腿或前景植物可以局部遮住鞋，不虚构第三肢。右侧长窗榻保持空着，空间从容。\n\n这次必须是图1的明亮阴天：灰蓝云层与湖镇低对比清楚、室内凉而通透的漫射窗光、暖木反光与克制台灯相平衡。清掉暖杏母图的强烈金黄直射窗格和硬阳光斑，人物白袖、短发、脸、纸、座垫都接受同一柔散阴天光；保肤色的温润与黑衣层次，不全图滤蓝、不阴暗发灰。输出一张完整、无界面的新母图，不是色调滤镜或人物贴纸。",
+  "promptSha256Utf8NoTrailingLF": "7c64a0896d68c8d247d9b6157e650757e21a9c4630d89315fa62b3b3e9ea3fc5",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "role": "target-theme-clean-empty-room-camera-and-light-reference",
+      "personallyViewedBeforeCall": true
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/apricot-wave-a/rana-study-apricot-literary-v1.png",
+      "sha256": "42d51d60de9bfc18eddc76d5eba0936fb10b4756276a44b6b8ba16659270548b",
+      "role": "root-approved-exact-activity-apricot-mother-identity-and-support-continuity-only",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/rana.md",
+      "sha256": "d39286e83289d7c67222428a139b8650ff9f60a0e78e49c0a8393b3079f2e892",
+      "readScope": "Complete current text read before this role/cell creation"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "91fb8b8de3e8d954a9367a585f09b71b8f5a9962d8ed0107249c348390fb7f05",
+      "readScope": "Complete current text read before this role/cell creation"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/rana-study-mist.md",
+      "sha256": "7ec0d283a7dbaa7a8d22141931490b311445b54c35f3afc330c1853152d58f7e",
+      "readScope": "Complete current text read before this role/cell creation"
+    }
+  ],
+  "briefIndex": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+    "jsonPointer": "/entries/5"
+  },
+  "rootAuthorization": {
+    "source": "Explicit root task in current healthy session on 2026-10-25",
+    "scope": "Only study/reading/planning/rest × mist/violet/rain, 12 actual ImageGen cells. Root personally viewed eight warm mothers and permits these four exact activity seeds for reference. This later explicit authorization supersedes stale candidate_pending_root input flags in production plan, not the new outputs review.",
+    "seedSha256": "42d51d60de9bfc18eddc76d5eba0936fb10b4756276a44b6b8ba16659270548b"
+  },
+  "officialAndOriginalBoundary": "Rana identity and own-right-gold/own-left-blue eyes follow researched official dossier; black short-sleeve over white long-sleeve, white shorts and black laceup boots are declared project styling, not claimed official casual preference. Exact room, performance and relationship moment are project original. No official raster, held anatomy, cold portrait, collage or UI screenshot input.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-study-mist-literary-extension-v1.png",
+    "sha256": "07fb93f621c29c426e62d3da92596a86076ef7e92bd5873da2770c11719b914f",
+    "bytes": 2426190,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-5ef63738-dbab-4b80-a50d-8a5ec82723b2.png",
+    "sourcePngUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "fullNativeOriginal": true,
+    "observations": "亲看完整1536×1024原图：同一阴天房间，无晴日硬金窗格；乐奈坐左桌木椅，双前臂/手在实际页边，笔已落到桌面纸旁，视线低向内容，双异瞳仍可辨。髋大腿承在椅垫，膝与下腿连续，黑靴与椅横档/地板关系成立；左侧靴局部受前景植物遮挡，不称隐藏轮廓已核。右窗榻空着，黑衣与白袖接受阴天漫光。",
+    "gazeBoundary": "复看并结合只读同行观察：头部仍明显三分之二回向近前人，可作为从实际页上抬眼询问的候选，不能声称瞳孔已经准确停在两条线/转折内。原brief允许偶尔抬眼确认；本次具体表演是否足够须root亲看。"
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "generationInputAllowed": false,
+  "status": "actual-image-saved-producer-viewed-awaiting-root"
+}

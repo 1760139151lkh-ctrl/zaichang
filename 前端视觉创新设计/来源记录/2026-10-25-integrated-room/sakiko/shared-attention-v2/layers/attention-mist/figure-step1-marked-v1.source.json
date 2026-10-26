@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "stage": "F1",
+  "recordType": "same-mother-layer-production",
+  "tool": "image_gen.imagegen",
+  "recordedAt": "2026-10-25T23:29:40.538273+00:00",
+  "sceneFamily": "literary-room-v1",
+  "characterId": "sakiko",
+  "activity": "attention",
+  "palette": "mist",
+  "motherSha256": "0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88",
+  "motherStaticApprovalEvidence": "../../sakiko-attention-mist-shared-page-v2.source.json",
+  "inputImages": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-mist-shared-page-v2.png",
+      "sha256": "0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88"
+    }
+  ],
+  "promptFile": "figure-step1-marked-v1.prompt.txt",
+  "promptFileSha256": "9967785bcd7e502d0f5e96822dc03a63730d8c53bc18738cff647378157f98c1",
+  "requestFile": "figure-step1-marked-v1.request.json",
+  "exactSubmittedPrompt": "Use case: precise-object-edit. STEP F1, complete source-position foreground selection markup. ONLY input is EXACT root-approved Sakiko attention-MIST shared-page-v2 fullmother1536x1024, SHA0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88. Selection only, no newgirl/pose/room/light. Preserve full originalcanvas/camera/every sourcecoordinate; no crop/resize/zoom/recenter/shift/outline/guides/text.\nPaint SOLID FEATURELESS PUREWHITE directly over the ENTIRE visible person AND WHOLE OPENBOOK as ONE CONNECTED FOREGROUND. Every internalarea must be white, NO interiorlines, not even faintgray eye/mouth/hair/clothing/hand/book/shoe traces.\nInclude ALL original blue-lavenderhair strands/tips, darkside ribbons, entire youthfulhead/eyes/face/ears/neck, navycardigan/sleeves/cuffs/buttons, whitecollar and grayblueclothbow, fullnavyplaid skirt with every thin darklower/outwardhemfold, both fullhands/fingers/wrists, thighs/both exposedknees, below-kneecalfsocks, complete darkloafers including toeedges/sidewalls/solebottoms/heelblocks. Include EVERY part ofthe openbook: thin darklowercovers, binding/spine and allpageblocks. The curved darkband between the bookbottom and her lap is REAL FOREGROUND cover/skirt/skin; never leave a line/hole there. Whitebook/hand/lap are connected, no internal contourstroke.\nTrue gaps OUTSIDE actualforeground between separatedhair strands/limbs/legs stay ORIGINAL COLORED room; finegray allowed only existing outerantialiasedperimeter. No contraction/erosion/dilation. Loose inspectionbounds notboxfill: figure/hair/book x900..1380,y110..940; book x995..1265,y460..535; wholepairshoes x900..1110,y805..940.\nAll unselected naturallywhite curtain/linen/lamp/booksonsidetable/flowers/cup, pillows/knitthrow, lake/town/clouds/window, leftdeskchair/plants, floor/rug and independentreceiving shadows remain original COLORED RGB. Do not whiten naturalroomhighlights or seat/floor. No newshadow, checkerboard, border/callout/collage. LaterallRGBcomesONLY fromunchangedapprovedmother throughMAX(F,S), never this markedimage.",
+  "submittedPromptSha256": "bf708eb6cbf0d2de4dd5af827cd672a84446a513e9feea7589a83d7dca780d62",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-1bf05176-15bc-4c8c-92c3-62f4963564c5.png",
+  "toolOriginalSha256": "1f89a73600683d1b5786c66f248a15647bedb2e379e663ec151020eb00dd5187",
+  "output": {
+    "file": "figure-step1-marked-v1.png",
+    "sha256": "1f89a73600683d1b5786c66f248a15647bedb2e379e663ec151020eb00dd5187",
+    "bytes": 2274838,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "unchangedToolPngBytes": true
+  },
+  "producerReview": "Wholeoriginal viewed: complete person/openbook white as connectedfeaturelessforeground, no visible internalbook/hand/face line; exactnativecoverage must still bechecked.",
+  "dossierVersion": "2026-10-25.1",
+  "wardrobeId": "sakiko-literary-navy-adaptation",
+  "selectionStatus": "producer-candidate-await-native-review",
+  "rgbOwner": "Original approvedmother ONLY, not markedimage RGB",
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "sourceConversationId": "01a17364-9725-7bd3-aa74-f7fa6487bfed",
+  "executionId": "exec-1bf05176-15bc-4c8c-92c3-62f4963564c5",
+  "requestSha256": "2c654918b5f1825f85f1c4bde4592d98f326ab87cb421595685730cfdb9776ec",
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256AtArchive": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "fullyReadForThisProduction": true
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256AtArchive": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "fullyReadForThisProduction": true
+    }
+  ]
+}

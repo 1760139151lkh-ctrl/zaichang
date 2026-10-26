@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "assetType": "literary-room-complete-activity-light-mother",
+  "id": "sakiko-reading-rain-literary-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-reading-rain-literary-v1.prompt.json",
+  "promptFileSha256": "eca4c8fcb4759be53956c21391b573f37629da18d466a407436e9f4de4f88187",
+  "submittedPrompt": "Create one complete 1536×1024 landscape literary mother illustration of Togawa Sakiko. FIRST reference is the approved target empty room, camera and all illumination; SECOND is the exact approved same-activity apricot mother for Sakiko's identity, supported pose, apparent head/body size, objects and furniture support only. Preserve image 1's room camera, big window divisions, town/lake/mountains, curtains, shelves/desk, round lamp table, near right linen bench, plaid pillows, knitted throw, rug and foreground plants. Keep image 2's original youthful silver-blue long hair, clear golden irises, navy uniform details and actual body/hand/object relationships; hair strands, eyelids, irises and brows remain distinct. Do not paste a daytime figure or apply a theme tint to old lighting. Apricot hard solar highlights, white noon patches, window-grid/leaf shadows and bright floor rectangles in image 2 are NOT identity or pose and must not transfer. Repaint ALL hair, skin, paper, clothes, receiving furniture and floor under the first reference's actual illumination. No half-day/half-night division, new spotlight, UI, readable text/caption, new person or costume change. Preserve her own thought and judgment; no universal soothing smile, no theme-imposed sadness. One coherent lived-in scene with credible contact shadows.\n\nTarget is RAIN NIGHT. Match image 1's dark cloudy wet window with droplets/trails and warm town/lake reflections, dry warm interior lit by its existing ceramic/desk lamps and subtle cool dark window ambience. No stars, moon or daytime exterior. White fabric/paper is shaded warm off-white, skin/hair darker and gently lamp-lit; clear golden eyes without a spotlight. Remove hard daytime solar window-grid/leaf bands from ENTIRE floor, bench, person and clothes. Broad existing lamp pools/reflections remain, no sun rectangles, wet indoor furniture or automatic sadness.\n\nKeep the selected reading mother's actual near-bench posture, head size and depth, full long hair, book held naturally on thighs and simple supported hands; hips/cushion, knees, lower legs and complete shoes remain coherent. Crown around y110 and soles around y890, never enlarge or advance head toward camera.\n\nLiterary direction (original project performance, not canon or real user memory):\n一句话触到她小心折好的心事。她让它在心里多停一会儿，也在这点停顿里给你留了一处位置。\n承接原选 v1：蓝书自然打开在双手之间，眼睛落在页上，肩膝松下，座垫确实承重。\n雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。",
+  "submittedPromptSha256Utf8NoTrailingLF": "1cbcc573ed9f51d367604a8bf423c4555a4cc7444598bcb863651692cf7356b0",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "role": "first-approved-target-room-and-all-lighting",
+      "approval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.primary-approval.json"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+      "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+      "role": "second-approved-same-activity-identity-pose-scale-not-apricot-sun",
+      "approval": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+        "sha256": "0dc133f5dc0ac1702bce894b279304dde90ab45ddbe57c4107ee9caf360fe8d0",
+        "key": "sakiko/reading/apricot",
+        "decision": "approved",
+        "rootApproved": true
+      }
+    }
+  ],
+  "output": {
+    "file": "sakiko-reading-rain-literary-v1.png",
+    "sha256": "b8323d87e7d840a5be02d7834a606ac670574dd0c2a73f34ea18d6b05a06a73a",
+    "bytes": 2245241,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-aec3d374-801a-488b-9bdc-1fb684270644.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "primaryApproved": false,
+    "layerApproved": false
+  },
+  "status": "producer-viewed-awaiting-root-mother-review",
+  "producerReview": {
+    "reviewedAt": "2026-10-25T13:46:19.685443+00:00",
+    "method": "Personally inspected actual full native ImageGen output at 1536x1024 before next call.",
+    "observations": [
+      "Full original viewed: rainy dark exterior and dry lamp-lit room, shaded paper/uniform/skin and floor together; no observed hard daylight solar patches.",
+      "Book/two hands and supported near-bench reading scale retained, full hair/head and shoes with coherent knees/legs.",
+      "Clear gold eyes and independent hair detail, thoughtful reading rather than rain sadness."
+    ],
+    "issues": [],
+    "rootApprovalRequired": true
+  }
+}

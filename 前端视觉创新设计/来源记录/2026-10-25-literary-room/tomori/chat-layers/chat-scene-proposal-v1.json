@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "kind": "scene-composition-proposal-not-runtime-registration",
+  "id": "tomori-chat-apricot-literary-included-v1",
+  "personaId": "tomori",
+  "activity": "chat",
+  "palette": "apricot",
+  "roomFamily": "literary-room-v1",
+  "canvas": {
+    "width": 1536,
+    "height": 1024
+  },
+  "bundle": "chat-layers-included-bundle-v1.json",
+  "background": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "mother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-pilot/tomori-chat-apricot-literary-v1.png",
+    "sha256": "f075324f63e151e4045b4ac5ee87f30dc8295295b81f12c97ddb30ab56ac34d9",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "figureMask": {
+    "path": "figure-mask-v1.png",
+    "sha256": "ba7035c65d8e8f69a84322d44c1fe42ef815b9aae23c199594ee42b02521ea8f",
+    "bytes": 456565,
+    "generationSource": "figure-step2-source-v1.json"
+  },
+  "contactMask": {
+    "path": "shadow-mask-v1.png",
+    "sha256": "b38a654f02628ce4d0d438fa7ffb2df337c112e5dc20af3a5a3a7faf901259c6",
+    "bytes": 306511,
+    "generationSource": "shadow-step2-source-v1.json"
+  },
+  "composition": {
+    "method": "MAX(luminance(F),luminance(S)) masks one original mother RGB draw",
+    "contactShadowMode": "included",
+    "sourceX": 0,
+    "sourceY": 0,
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "stageTransform": {
+      "x": 0,
+      "y": 0,
+      "scale": 1,
+      "rotation": 0
+    },
+    "relativeTravel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "breathing": 0,
+    "bodyDeformation": false,
+    "independentShadowMotion": false
+  },
+  "knownCoverage": [
+    {
+      "region": [
+        1220,
+        530,
+        110,
+        65
+      ],
+      "observation": "Very small source pillow/linen fragment behind supporting palm is visible on checker; fixed scene position blends into matching background. Kept explicit as included receiver material."
+    }
+  ],
+  "primaryApproved": true,
+  "layerApproved": true,
+  "runtimeAccepted": false,
+  "requires": "Separate runtime-owner integration/admission before registration; exact-source fixed included geometry only.",
+  "primaryAdmissionRecord": "tomori-chat-apricot-literary-included-primary-admission-v1.json"
+}

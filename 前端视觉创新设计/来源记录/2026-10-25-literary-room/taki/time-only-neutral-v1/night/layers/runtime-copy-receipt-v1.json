@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "sceneId": "taki-neutral-presence-time-night-included-v1",
+  "primaryAdmissionRecord": "root-primary-layer-admission-v1.json",
+  "runtimeManifest": "前端视觉创新设计/运行素材/companion/scenes/taki-neutral-presence-time-night-included-v1.scene.json",
+  "runtimeManifestSha256": "8c3722ac93b28d4ce45066d548d8816343772523f1342fefbc99bd15b0644c6d",
+  "sourceBundleSha256": "0238261b06c2746670d2c313af59d82d13a44b9b51c56b05bc171f3be006632e",
+  "copies": [
+    {
+      "role": "mother",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/taki-neutral-time-night-literary-v1.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/taki-neutral-presence-time-night-included-v1-mother.png",
+      "sha256": "79aae6d833d537e9667f9ec77850fe00121aa886031ca3e2cba15ccc49401800",
+      "sourceSha256": "79aae6d833d537e9667f9ec77850fe00121aa886031ca3e2cba15ccc49401800",
+      "bytes": 2195396
+    },
+    {
+      "role": "background",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/night/layers/background-v1.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/taki-neutral-presence-time-night-included-v1-background.png",
+      "sha256": "bcd8d39e53d1be77b273612074968dc56c4e219ba34caa52389ecd5a72de993a",
+      "sourceSha256": "bcd8d39e53d1be77b273612074968dc56c4e219ba34caa52389ecd5a72de993a",
+      "bytes": 2160997
+    },
+    {
+      "role": "F",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/night/layers/figure-mask-v1.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/taki-neutral-presence-time-night-included-v1-mask.png",
+      "sha256": "3d9b95b66393cbc08755f73c1ebe43c131de5f2c51bb6259855df2b3e4d76625",
+      "sourceSha256": "3d9b95b66393cbc08755f73c1ebe43c131de5f2c51bb6259855df2b3e4d76625",
+      "bytes": 444075
+    },
+    {
+      "role": "S",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/night/layers/contact-mask-v1.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/taki-neutral-presence-time-night-included-v1-contact-mask.png",
+      "sha256": "a4c080c247aa1470ba13a5583d0cbb3233c6275e894fffca92a7be52da09d5d5",
+      "sourceSha256": "a4c080c247aa1470ba13a5583d0cbb3233c6275e894fffca92a7be52da09d5d5",
+      "bytes": 307355
+    }
+  ],
+  "runtimeAccepted": false,
+  "staticLayerApproved": true,
+  "noSrcEdits": true,
+  "noMaskPixelEdits": true,
+  "noTestEngineering": true
+}

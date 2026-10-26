@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-mother-original-rgb-included-layer-production",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "palette": "rain",
+  "timeOfDay": "night",
+  "neutralTime": "night",
+  "weather": "unknown",
+  "original360ExactActivityCell": false,
+  "cell": "sakiko/neutral-presence/rain/night/time-night",
+  "stage": "F1",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: precise-object-edit.\nAsset: F1 deliberate FULL foreground selection markup for the exact neutral-presence TIME-ONLY NIGHT Sakiko mother. Input1 is the ONLY edit target: complete root-approved 1536x1024 mother. Preserve full canvas, camera and ALL coordinates. This is selection markup, NOT a new picture, redraw, pose change or identity variant.\n\nPaint SOLID PURE WHITE directly over the ENTIRE actually visible original girl and her ENTIRE open lap book. Include every pale blue-lavender hair curl, separated strand/tip and BOTH dark side hair ribbons; whole face/ears/neck; white collar, dark soft cloth bow, navy cardigan/cuffs/all fingers/hands/wrists; ALL outer navy-plaid skirt pleats/hem points, exposed knees and legs, dark below-knee calf socks; BOTH COMPLETE brown-black loafers including toes, sidewalls, thin sole rims, bottommost heel blocks. Include BOTH complete book covers, every thin dark cover/page-block/spine edge and all visible pages, and both hands including the index fingertip actually touching the page. The book is supported on her lap. There is NO pencil, paper slip, loose object or separate cushion book to invent. Selected interiors are solid white without face/hair/cloth/page linework or holes. Preserve fine original antialias at outer edges. True room gaps between curls/body/arms/legs stay original COLORED room.\n\nLoose inspection neighborhoods, never fill rectangles: whole figure/book approximately x820..1335,y155..925; open book and both hand contacts around x957..1180,y455..550; whole shoes near x822..990,y801..924. Include dark tiny hem/shoe/ribbon tips that are easy to miss. Do not shrink, grow, recenter, crop, zoom or resize.\n\nAll unselected source room remains original colored and unchanged, including naturally pale opaque CLOSED ivory curtain, lamp shade, cushion/knit/plaid pillow, wood bench/floor, desk/round table/cup/flowers/plants/rug and independent local contact-receiving material/shade. The curtain stays edge-to-edge closed with NO readable exterior or invented weather. No labels, checkerboard, text, UI, new silhouette or different face. One opaque full 1536x1024 colored source scene with ONLY the exact full person/open book deliberately pure white. Generated RGB will not replace source person RGB; this supplies only selection luminance.",
+  "promptFile": "figure-step1-marked-v1.prompt.txt",
+  "promptFileSHA256": "38c59dd9fb884a30e5855c92a1c0a5a32af17cf088091b6d70a65a0109b3e0ac",
+  "actualToolArguments": {
+    "prompt": "Use case: precise-object-edit.\nAsset: F1 deliberate FULL foreground selection markup for the exact neutral-presence TIME-ONLY NIGHT Sakiko mother. Input1 is the ONLY edit target: complete root-approved 1536x1024 mother. Preserve full canvas, camera and ALL coordinates. This is selection markup, NOT a new picture, redraw, pose change or identity variant.\n\nPaint SOLID PURE WHITE directly over the ENTIRE actually visible original girl and her ENTIRE open lap book. Include every pale blue-lavender hair curl, separated strand/tip and BOTH dark side hair ribbons; whole face/ears/neck; white collar, dark soft cloth bow, navy cardigan/cuffs/all fingers/hands/wrists; ALL outer navy-plaid skirt pleats/hem points, exposed knees and legs, dark below-knee calf socks; BOTH COMPLETE brown-black loafers including toes, sidewalls, thin sole rims, bottommost heel blocks. Include BOTH complete book covers, every thin dark cover/page-block/spine edge and all visible pages, and both hands including the index fingertip actually touching the page. The book is supported on her lap. There is NO pencil, paper slip, loose object or separate cushion book to invent. Selected interiors are solid white without face/hair/cloth/page linework or holes. Preserve fine original antialias at outer edges. True room gaps between curls/body/arms/legs stay original COLORED room.\n\nLoose inspection neighborhoods, never fill rectangles: whole figure/book approximately x820..1335,y155..925; open book and both hand contacts around x957..1180,y455..550; whole shoes near x822..990,y801..924. Include dark tiny hem/shoe/ribbon tips that are easy to miss. Do not shrink, grow, recenter, crop, zoom or resize.\n\nAll unselected source room remains original colored and unchanged, including naturally pale opaque CLOSED ivory curtain, lamp shade, cushion/knit/plaid pillow, wood bench/floor, desk/round table/cup/flowers/plants/rug and independent local contact-receiving material/shade. The curtain stays edge-to-edge closed with NO readable exterior or invented weather. No labels, checkerboard, text, UI, new silhouette or different face. One opaque full 1536x1024 colored source scene with ONLY the exact full person/open book deliberately pure white. Generated RGB will not replace source person RGB; this supplies only selection luminance.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.png",
+      "sha256": "2d571adc2146dd779954f0d014ef015b658a83250d6626d707dcece3c6335d8e",
+      "role": "only exact root-approved neutral time-night complete mother"
+    }
+  ],
+  "mother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.png",
+    "sha256": "2d571adc2146dd779954f0d014ef015b658a83250d6626d707dcece3c6335d8e",
+    "sourceRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.source.json",
+    "sourceRecordSHA256": "c4a7dfd47161498c7801b25e520fd00b0b36fd66f5de1b90da86462d2ec5efe2",
+    "primaryAdmission": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/root-primary-mother-admission-v1.json",
+    "primaryAdmissionSHA256": "1ddf9b15e52dcbc9bc360ec7edd172b9d26c25057efe808e98cbe52f30417666"
+  },
+  "readDependencies": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "bytes": 12246
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "bytes": 12645
+    }
+  ],
+  "dossierVersion": "2026-10-25.1",
+  "wardrobeId": "sakiko-literary-navy-adaptation",
+  "output": {
+    "file": "figure-step1-marked-v1.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-798278c5-7273-40d5-9b1e-921c90384921.png",
+    "sha256": "658e2bd413333d675b4140796a447924bba5a8b09f904242b392b9eb70dc4e02",
+    "bytes": 1942284,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "status": "producer_candidate_browser_reviewed_pending_root",
+    "observations": [
+      "亲看完整输出：白色选择含完整卷发细丝/两侧暗发带、整个人物、两手指尖/全书/下膝袜/完整鞋；原发丝与腿间真实缝隙保留彩色。"
+    ],
+    "browserEvidence": [
+      "browser-observations/01-scene.png",
+      "browser-observations/02-subject.png",
+      "browser-observations/03-face.png",
+      "browser-observations/04-book.png",
+      "browser-observations/05-hem.png",
+      "browser-observations/06-shoes.png",
+      "browser-observations/07-contact.png"
+    ]
+  },
+  "originalMotherRGBChanged": false,
+  "pngPixelEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "selectedForAssembly": true,
+  "submittedPromptSHA256": "0fcea0729caaca94f479bcb843c914e7034ee0a0663e1b9142035c8318c0ddea"
+}

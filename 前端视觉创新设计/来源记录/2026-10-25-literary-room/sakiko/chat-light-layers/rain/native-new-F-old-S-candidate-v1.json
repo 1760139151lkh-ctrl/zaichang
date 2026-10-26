@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "new-native-F-with-reused-S-qualification-candidate",
+  "palette": "rain",
+  "environmentVariant": "rain-night",
+  "recordedAt": "2026-10-25T13:09:55.540731+00:00",
+  "generationCallsThisPalette": 2,
+  "generationCallsThisWave": 6,
+  "canvas": [
+    1536,
+    1024
+  ],
+  "mother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-rain-v1.png",
+    "sha256": "229156a8a56698f5e0fb73424c3b65dc5fe3adde0fbee3101033ca5df1ce3f2f"
+  },
+  "background": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+    "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1"
+  },
+  "F": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/rain/figure-mask-v1.png",
+    "sha256": "41abda99b88915959f1ef17daacf6812e2a049f6fcf02cfa56b3f9ade32a42f7"
+  },
+  "F1": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/rain/figure-white-environment-v1.png",
+    "sha256": "2f41fa3d590e3b02887e07db8403d16d9664d537bc830ad00d40b882ee889cd6"
+  },
+  "S": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/contact-mask-v1.png",
+    "sha256": "9ee1264c492186058e9069b3ab5b86679690a0349363bcf970fc241251a2e159",
+    "originalScope": "Exact apricot chat receiver selection only",
+    "currentUse": "Pending-qualification selection of this NEW mother RGB, not imported apricot RGB or a current-shadow assertion",
+    "qualifiedForThisMother": false,
+    "producerDecision": "hold-contact-qualification"
+  },
+  "oldMaskOriginalApproval": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/sakiko-chat-apricot-literary-included-primary-admission-v1.json",
+    "sha256": "a1fdfd547484e65d68b04220fcd8fcff56e093c218dd0f4c85e5323aa469efbc"
+  },
+  "composition": {
+    "selection": "MAX(luminance(F),luminance(S))",
+    "originalMotherRgbDraws": 1,
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "pngPostEdited": false,
+    "thresholdOrMorphology": false
+  },
+  "technicalSvg": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/rain/native-new-F-old-S-candidate-v1.svg",
+    "sha256": "7bb05c4e8ac4666cc41f379a8c74a6554428fe222b06300e2f4e0d05078d5da8"
+  },
+  "figureOnlySvg": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/rain/native-new-F-only-candidate-v1.svg",
+    "sha256": "f290105b23cca8486e8eaee9f095d3f713aea1fe4fe87cf643a1929c95775dd4"
+  },
+  "viewer": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/rain/native-new-F-old-S-observe-v1.html",
+    "sha256": "dbbd3c47b59268f0a903d4fce924c3e23e5c87a41a0da737c80c5343895e85d1"
+  },
+  "producerPersonallyViewedNative": true,
+  "producerDecision": "hold-contact-qualification",
+  "rootApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "coreMatrixCompletionCredit": false,
+  "nextGeneration": "No automatic S generation; stop after six F calls and report hold if contact/receiver remains missing or incompatible.",
+  "producerReviewedAt": "2026-10-25T13:13:56.914165+00:00",
+  "FvisualStatus": "At complete-scene and original-pixel face/hair, lap hands/full skirt and both shoes, the previous large crop failures are resolved. Fine alpha/edge qualification remains a root decision, not automatic approval.",
+  "receiverDecision": "hold",
+  "receiverObservation": "The new mother's complete shoes/heels are restored, but the floor immediately below the shoes loses part of the source contact darkening and shows a lighter separated selected floor strip. Old apricot receiver coordinates cannot be treated as current rain-night contact.",
+  "seatObservation": "Both palms remain on lap, full skirt and adjacent cushion were viewed. Old S selects narrow receiver cloth from the NEW mother RGB; it is not copied old RGB and is not accepted solely because cloth looks close. Floor contact failure is sufficient to hold the joint bundle.",
+  "observedViewAnchors": [
+    "scene",
+    "face",
+    "hands",
+    "feet",
+    "receiver",
+    "checker"
+  ],
+  "requiredFollowUp": "Root review of current candidates. Corresponding S1/S2 from exact new mother only if separately authorized; this wave stops at six F calls."
+}

@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T01:34:00.613Z",
+  "producer": "/root/study_reading",
+  "character": "uika",
+  "purpose": "neutral-presence",
+  "environmentVariant": "time-night",
+  "weather": "unknown",
+  "exactActivityMatrixCredit": 0,
+  "stage": "contact-mask-v1",
+  "tool": "image_gen.imagegen",
+  "originalToolPath": "C:/Users/17601/.codex/generated_images/01a17365-8901-7202-bd9e-0859826906dc/exec-cca1de0d-0128-4d59-b631-022cb6c47b11.png",
+  "transparentBackground": false,
+  "submittedPrompt": "Use case: precise-object-edit. S2 exact-coordinate MAGENTA-TO-LUMINANCE TRACE ONLY. ONLY input is correct Uika night S1 source-colored scene with saturated magenta contact receiver. Convert ALL and ONLY existing MAGENTA marked pixels to WHITE255, magenta outer fade into short gray fade at IDENTICAL original coordinates; every NON-magenta pixel becomes BLACK0. Preserve actual marked cushion strip beneath seated hip and splayed side palm/every fingertip, without moving onto skin/skirt/arm. Preserve BOTH entire local magenta WOOD FLOOR patches outside and BELOW full sneaker bottom soles/toe caps/heels, including complete actual short soft supporting shadow perimeter, not thin rim. Any marked hem-ground contact stays exactly where already marked. No semantic re-estimation, no drawing a new shape or phantom hand. Girl/hair/whiteT/skin/taupeskirt/ankles/whitesocks/blackshoes/white toe caps and soles all BLACK unless tiny deliberate contact overlap already magenta; naturally cream curtain/cushion and every room detail BLACK. Exact tracing, no shift/resize/crop/recenter, no islands invented or deleted, no opaque person silhouette, no generic ellipses, alpha/checkerboard/color/text/UI. Output opaque1536x1024 raw grayscale selection; MAX(F,S) will sample unchanged mother RGB ONCE, no colored shadow multiplication.",
+  "submittedPromptSha256": "1e12700b5369da3f481907eb121d1395d99805a1488d31ca7d8d3e59e1a59af6",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/night/layers/contact-step1-marked-v1.png"
+  ],
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/night/layers/contact-step1-marked-v1.png",
+      "role": "source magenta S1 only",
+      "sha256": "80f83888010d2d5b0a716ac01d3033486458d4c38094b02025eb793980a45a6e",
+      "bytes": 2210245
+    }
+  ],
+  "originalMother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-night-v1.png",
+    "sha256": "7c53b03795295ddf3b7b490fe1332db82326a49dcace9fe9f6502b2cee5636d9",
+    "approvalRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-night-v1.primary-approval.json"
+  },
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/night/layers/contact-mask-v1.png",
+    "sha256": "95be09b006d6811de4688ca14de32c4b1426d3aff54814d1d4518a253830c387",
+    "bytes": 353968,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "rawToolBytesPreserved": true,
+  "producerPersonallyViewed": true,
+  "observations": [
+    "Personally viewed: hip/palm receiver plus both whole local shoe/floor patches with short soft edges, no whole room selected; native RGB verification pending."
+  ],
+  "producerUseDecision": "candidate-awaiting-static-union-review",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "userApproved": false,
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "fixedOriginalCoordinates": true,
+    "travel": 0,
+    "perspective": 0,
+    "slope": 0,
+    "contactShadow": "included"
+  },
+  "method": {
+    "sourceRgb": "exact unchanged mother only",
+    "union": "MAX(L(F),L(S))",
+    "originalRgbDrawsPerUnion": 1,
+    "pngPixelEditing": false,
+    "manualThreshold": false,
+    "morphology": false,
+    "warp": false
+  },
+  "scope": "Production candidate only; native browser union, seam and full source RGB must be personally viewed before primary static-layer admission."
+}

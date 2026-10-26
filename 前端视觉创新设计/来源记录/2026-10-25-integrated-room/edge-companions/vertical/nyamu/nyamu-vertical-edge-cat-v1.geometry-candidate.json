@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "character": "nyamu",
+  "source": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\nyamu\\nyamu-vertical-edge-cat-v1.png",
+    "sha256": "0d2f34025797de9f5bd4fe5e40849509e2d57d9bf2e2b2c41b233b61717c2e31",
+    "canvas": [
+      1254,
+      1254
+    ]
+  },
+  "coordinateSpace": "native source PNG pixels, origin upper-left",
+  "inspection": {
+    "personallyViewed": true,
+    "method": "Human inspection of actual full native PNG with 100px grid, explicit candidate line and pawn ROI overlay; not prompt coordinates",
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\nyamu\\nyamu-contact-grid-candidate-v1.png",
+    "sha256": "af139aaa8498ecb0564e019114c4578328a05f12dc9d141c418a7695aa5150c0"
+  },
+  "contactAxis": {
+    "side": "right",
+    "x": 910,
+    "xNormalized": 0.7256778309409888
+  },
+  "pawRanges": [
+    {
+      "part": "upper-front",
+      "bounds": [
+        829,
+        490,
+        970,
+        615
+      ],
+      "lineContactY": [
+        522,
+        576
+      ]
+    },
+    {
+      "part": "lower-front",
+      "bounds": [
+        787,
+        654,
+        955,
+        791
+      ],
+      "lineContactY": [
+        689,
+        748
+      ]
+    },
+    {
+      "part": "bracing-hind",
+      "bounds": [
+        778,
+        930,
+        944,
+        1121
+      ],
+      "lineContactY": [
+        980,
+        1057
+      ]
+    }
+  ],
+  "candidateOnly": true,
+  "geometryApproved": false,
+  "runtimeAccepted": false,
+  "boundary": "Visible image grip alignment candidate only. Real-edge overlay, per-surface occlusion, interrupted drag and rig still require actual integration review; never use grid/review sheet as ImageGen input."
+}

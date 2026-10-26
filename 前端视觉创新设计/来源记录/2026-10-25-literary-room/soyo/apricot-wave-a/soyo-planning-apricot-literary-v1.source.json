@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-planning-apricot-literary-v1",
+  "assetType": "complete-mother-literary-room-apricot-wave-a",
+  "createdAtUtc": "2026-10-25T10:09:19.910543+00:00",
+  "tool": {
+    "name": "image_gen.imagegen",
+    "mode": "edit-cleanplate-add-one-character-with-approved-identity-reference",
+    "originalEventId": "exec-b677e287-110b-4300-9c6c-3bb868560fed",
+    "outputHint": "Generated images are saved to C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270 as C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-b677e287-110b-4300-9c6c-3bb868560fed.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  "prompt": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-a\\soyo-planning-apricot-literary-v1.prompt.json",
+    "fileSHA256": "7e1f1f7308b8a1127e5dcd15ecd2f08dca1669e5547064a777b9d5a6a542de11",
+    "submittedPrompt": "Use case: illustration-story. One complete literary-room companion mother artwork, exactly 1536 × 1024 pixels, horizontal canvas. There are two image inputs, with distinct authority: IMAGE 1 is the primary-approved EMPTY literary room and is the sole authority for the room, camera, furniture and clear-day atmosphere. IMAGE 2 is this same character's newly approved literary-room CHAT mother, used ONLY for her correct identity, school clothing, linework and near-camera human scale. Do not carry over its seated body, gesture, held booklet or activity. Build the entire body anew for the requested situation. No old room4 image, different character image or anatomical silhouette is supplied.\n\nHighest spatial priority: the original round table must remain in its IMAGE 1 position, approximately x=435–690, top near y=500 and legs down to y=760. The existing LEFT desk ends around x=400, its top is around y=380, and the original wooden chair is centered near x=260. These furniture positions MUST NOT shift to make room for a frontal seated figure. Keep the exact close room camera and mild perspective of IMAGE 1. Preserve its complete large wood window, autumn lake-town and mountain view, ivory curtains, left wood writing desk and original wooden chair, shelves/books/frames/plants, round side table and its blue-white porcelain lamp/cup/books/flowers, long wood window bench with linen cushion, blue-gray plaid pillows and knit throw at right, wood floor, woven rug and softly blurred foreground plant. The view is a fictional illustrated literary room, not a claimed actual location. One person only. No new desk, extra chair, moved window, zoom, crop, room redesign, second person or extra off-camera hands. Existing lamp and cup stay on their original table.\n\n文学瞬间：让两个人的愿望都留在桌上。\n心理：她把两种安排摊得很清楚，正要抚平纸角时停了一下：整齐的一版似乎把某个人真正想要的事藏掉了。 她愿意照顾关系，也不愿让自己或对方的愿望总是先退场。 她发现自己偏向的那一版，也值得坦率放到桌上。\n目光：在两页之间停留，然后认真看向当事人。 先看两页，再看对方的反应。\n相处：先把各自想保住的一点说实在，再谈承诺与代价。 把自己的偏向说清楚，留出对方的不同。\n表情：眉眼从容，嘴角收下，思考时指尖有一点小动作。 认真里带一点温和的坚持。\n光线：暖日光照纸与手，桌面层次清楚，不加装饰性图表。\n\nCharacter: Soyo Nagasaki / 長崎そよ, BanG Dream! It's MyGO!!!!!. Keep the youthful identifiable anime face and ordinary student proportions of her approved input: long LIGHT BROWN hair with softly curved side locks and gently curled ends, airy fine bangs, clear BLUE eyes and an observant delicate youthful face. Both eyes and bangs remain clearly drawn and visible. Faithful Tsukinomori uniform: dark NAVY sailor blouse with broad WHITE collar and fine navy trim, gray-blue bow with small GOLD school crest at throat, dark navy pleated knee-length skirt with TWO white hem lines, dark knee socks and BROWN loafers. Preserve these own colors under the light. No blonde/pink/blue borrowed hair, mature model styling or chibi proportions. Modest fully clothed school-day companionship.\n\nNew PLANNING pose and real support: seat her on the ORIGINAL LEFT WOODEN CHAIR at the original LEFT WRITING DESK, not the round lamp table. Keep the same desk footprint, chair identity and room camera. Use an ordinary side-on/three-quarter seated relation to that actual left desk. A small chair rotation within its ORIGINAL footprint is enough; do not translate the chair into the walkway or move the lamp table. Let her face be naturally three-quarter rather than force her entire body frontally toward the viewer; avoid any extreme over-shoulder neck turn. Scale this desk-sitting figure to the original real chair, even if the desk depth makes her slightly smaller than the bench figure. Knees and lower legs should emerge coherently in the available chair/desk opening; furniture may honestly occlude part of the skirt rather than being shifted away. Exactly two small plain sheets lie side by side with equal presence on the finite desktop, no diagram or legible schedule. One hand steadies a paper corner; the other rests nearby on the desk with the thumb and fingertip lightly touching in a small thoughtful gesture. Both arms connect naturally and receive real desk support. She has paused smoothing the paper and looks toward the off-camera companion, seriously but gently holding to a preference of her own. Quiet lips, composed brows, mild personal insistence rather than a hostess smile. No extreme neck/waist twist. The original chair seat supports her hips and its back stays behind the torso, skirt and knees connect correctly, lower legs and both complete brown loafers are visibly grounded near the chair. No cloned chair, standing-on-chair pose, floating stool, forearm through desktop or copied chat body; avoid the crossed-one-knee/two-parallel-feet ambiguity.\n\nScale, anatomy and finish: keep the newly approved close-camera human scale of this same character. A bench pose can have hair top around y=110 and shoes around y=850–900, with the precise shoe depth following the real seat position; the desk pose must follow its real chair and floor perspective rather than mechanically copy bench coordinates. Never enlarge the head, lean the face toward the lens, elongate shins or shrink furniture to force a number. Keep the entire hair, hands, knees, ankles and BOTH complete shoes in frame. Basic joints and the two legs must read continuously and independently; hands have coherent fingers and wrists, no fused limbs, no furniture penetration. Natural soft local contact shadows and honest occlusion. Subtle almond-gold clear-day window light, distinct local hair/skin/clothing colors, clear gentle facial shadow planes, natural white paper and ivory fabric. Refined anime linework and soft anime shading integrated with the detailed literary room, no sticker edge, gray/gold overlay or new colored spotlight. Book/paper marks are faint abstract texture only: no readable quotes, names, dates, calendar, completed task or schedule. No UI, sleep icons, speech, caption, logo, watermark, border, collage or artificial fog.\n",
+    "submittedPromptSHA256": "d3aa574b89e6420ee445b0befb99c7a61e34e673e4d6e9ad62d3b69217652050"
+  },
+  "inputs": [
+    {
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "primary-approved-empty-literary-room; sole authority for room/camera/furniture/light",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\chat-pilot\\soyo-chat-apricot-literary-v1.png",
+      "sha256": "20942d064ae0af479ede2868d689e105433022e8c0448d45301bd7fc9301bfd8",
+      "role": "same-character-primary-approved-new-literary-chat mother; identity/clothing/near-camera scale only, not body/pose/activity",
+      "primaryApprovalEvidence": "Root direct message 2026-10-25: personally reviewed and approved Anon/Soyo chat-apricot mother; accepted Anon deep-seat shoe y825 and Soyo open booklet",
+      "approvedScope": "mother only, not a layer or runtime approval"
+    }
+  ],
+  "brief": {
+    "cellId": "soyo/planning/apricot",
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\briefs\\mygo-b\\soyo-literary-room-briefs-v1.json",
+    "sha256": "14e055e68af80cfdb1302cd1eb3b115323c414dee43f67ab22b0df3f376b8789",
+    "releaseScope": "Root released only Anon/Soyo reading,planning,rest apricot wave A, six mothers total; study and remaining matrix not released"
+  },
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-a\\soyo-planning-apricot-literary-v1.png",
+    "sha256": "270017d960ec00da97493baf8120e16403ba534e4040dc5e9be72ef44e7fe6c9",
+    "bytes": 2428113,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-b677e287-110b-4300-9c6c-3bb868560fed.png"
+  },
+  "review": {
+    "directInspection": "saved-original-PNG-personally-viewed-before-next-generation",
+    "approvedByPrimary": false,
+    "primaryLayerApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observations": [
+      "已亲看保存原图1536×1024；圆几灯杯保持原约x435–690，左书桌总体原位置，原木椅在桌前自然侧向，未再整体搬动圆几腾地。",
+      "Soyo坐在木椅实际座垫，扶纸和思考表情可辨；一手实际改成轻触下巴，另一手落在纸边。",
+      "蓝眼、浅棕长发与原制服可辨；目测头顶约y145、可见鞋底约y735，符合原书桌较深位置的相机尺度。",
+      "膝和下腿关系在可见部分连续，但原左前景植物遮去部分小腿与最左鞋轮廓。"
+    ],
+    "concerns": [
+      "visibility-limit：原前景植物遮住一部分膝下/鞋区，无法直接核完整双鞋和每段小腿，不声明满足完整膝鞋清楚可见。",
+      "偏离brief的小动作：一手托近下巴而非桌面指尖轻触；心理与姿态是否采用待root主审。"
+    ]
+  },
+  "boundaries": [
+    "mother only",
+    "new cleanplate plus own approved new-room chat identity reference only",
+    "no old room4 or invalid character pixels",
+    "no layer extraction, runtime registration or source-code change",
+    "stop after six authorized mother calls"
+  ],
+  "status": "mother-candidate-directly-inspected-awaiting-root-review"
+}

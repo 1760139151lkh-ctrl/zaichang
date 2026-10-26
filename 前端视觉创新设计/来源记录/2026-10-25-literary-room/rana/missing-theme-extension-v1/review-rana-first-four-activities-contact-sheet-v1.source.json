@@ -1,0 +1,115 @@
+{
+  "kind": "inspection-only-not-generation-input-or-primary-anatomy-proof",
+  "sourceImagesUnedited": true,
+  "inputs": [
+    {
+      "cell": "rana/study/mist",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-study-mist-literary-extension-v1.png",
+      "source": "rana-study-mist-literary-extension-v1.source.json",
+      "sha256": "07fb93f621c29c426e62d3da92596a86076ef7e92bd5873da2770c11719b914f",
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "rana/study/violet",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-study-violet-literary-extension-v1.png",
+      "source": "rana-study-violet-literary-extension-v1.source.json",
+      "sha256": "01a886b2f55c90d7bc1299dc82afb78bff0c3204a08ad279a2b3f346ca5e803d",
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "rana/study/rain",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-study-rain-literary-extension-v4.png",
+      "source": "rana-study-rain-literary-extension-v4.source.json",
+      "sha256": "6232d7d84e087f974e9cdff8b26fdde6ea5d0ee80d9a696784f656f979138f7e",
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "rana/reading/mist",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-reading-mist-literary-extension-v1.png",
+      "source": "rana-reading-mist-literary-extension-v1.source.json",
+      "sha256": "cbf2f2a33edec0eb7541af80567cade56f40613b38cfefc3051a35b4c9249fa1",
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "rana/reading/violet",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-reading-violet-literary-extension-v1.png",
+      "source": "rana-reading-violet-literary-extension-v1.source.json",
+      "sha256": "852ac48d0a05a83a1b67f63f2dc989abed2ec904f13007846c146c6209802611",
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "rana/reading/rain",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-reading-rain-literary-extension-v1.png",
+      "source": "rana-reading-rain-literary-extension-v1.source.json",
+      "sha256": "3ac2ca0bf048f177cced315a4a9c224c684a5c0f95199b114ad803827330281c",
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "rana/planning/mist",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-planning-mist-literary-extension-v1.png",
+      "source": "rana-planning-mist-literary-extension-v1.source.json",
+      "sha256": "cf1ccc22629dd48eeed5b863a4031560f2b569970dcf39b91fbec0e2be0170ee",
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "rana/planning/violet",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-planning-violet-literary-extension-v1.png",
+      "source": "rana-planning-violet-literary-extension-v1.source.json",
+      "sha256": "69a97faa9d579a307d3f3af0471de3e5a3e1e14c3b17f5898d712e35ddd247e6",
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "rana/planning/rain",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-planning-rain-literary-extension-v1.png",
+      "source": "rana-planning-rain-literary-extension-v1.source.json",
+      "sha256": "83523803a639bd789cf21235a1469836619dcb008b310b83800d21968dbf404c",
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "rana/rest/mist",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-rest-mist-literary-extension-v2.png",
+      "source": "rana-rest-mist-literary-extension-v2.source.json",
+      "sha256": "fca65495b251e5a15805f8550bc6fb2598c6853a167ce3ad5366b8581a280951",
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "rana/rest/violet",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-rest-violet-literary-extension-v1.png",
+      "source": "rana-rest-violet-literary-extension-v1.source.json",
+      "sha256": "fd2979ccdb92f34fffff8d34c057b6d7149efd9560802d40775b1ebc39734967",
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "rana/rest/rain",
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-rest-rain-literary-extension-v1.png",
+      "source": "rana-rest-rain-literary-extension-v1.source.json",
+      "sha256": "7fb9743c49e846ac2d3786f20f9ad50632abb1e345a758e08b2e336de09e7ba0",
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "reviewSha256": "a84ae2a1e1cb2a0c7a5a0182f63239eebaf5fa3d08d109c288601235f816b1f1"
+}

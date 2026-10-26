@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "sakiko-resume-apricot-recognition-v2",
+  "sceneFamily": "literary-room-v1",
+  "pose": "supported-reading-recognition",
+  "character": "sakiko",
+  "activity": "resume",
+  "light": "morning",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "width": 1536,
+  "height": 1024,
+  "mother": "sakiko-resume-apricot-recognition-v2-mother.png",
+  "background": "literary-room-clear-day-v1.png",
+  "mask": "sakiko-resume-apricot-recognition-v2-mask.png",
+  "maskMode": "luminance",
+  "contactMask": "sakiko-resume-apricot-recognition-v2-contact-mask.png",
+  "seat": [
+    0.7486979166666666,
+    0.5810546875
+  ],
+  "ground": [
+    0.7259114583333334,
+    0.8740234375
+  ],
+  "bodyBounds": [
+    0.6282552083333334,
+    0.115234375,
+    0.865234375,
+    0.8779296875
+  ],
+  "safeTextBoundary": 0.6,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "62.825520833333336% 11.5234375%, 86.5234375% 11.5234375%, 86.5234375% 87.79296875%, 62.825520833333336% 87.79296875%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "layerReview": "primary-approved-static-fixed-included-v2",
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/recognition-v2-layers/recognition-v2-included-layer-bundle-v2.json",
+    "runtimeSourceSha256": {
+      "mother": "a8801f784b77d632509818d102a8b899d0bdda99afe904085196a9e8c5bee279",
+      "background": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "F": "12fab43e02b4afb8c00cca76a208b4905d58919643667f1412bddd6c5e7626d3",
+      "S": "b3c3cb7ef1b9b93836bdfb388d2e3d0db4bc466885c7f5f8277d1af297d367f1"
+    },
+    "geometryEvidence": {
+      "jointReceiverEnvelope": {
+        "sourcePixels": [
+          960,
+          118,
+          1329,
+          904
+        ],
+        "normalized": [
+          0.625,
+          0.115234375,
+          0.865234375,
+          0.8828125
+        ],
+        "basis": "Read-only max(F,S_v2)>32 envelope; includes adjacent real source support material, not pure anatomy."
+      }
+    },
+    "boundary": "Registered static fixed included layer only. Runtime workflow, continuous movement, other activity/theme and full human matrix remain unsigned.",
+    "primaryObserved": "Root personally viewed exact #scene original/union, #subject on light/dark, #seat original/transparent/composite, and #shoes including below-knee sock cuffs, full soles and floor contacts. Original RGB, youthful face/gold eyes and book-page action retained, no large differently colored receiver block.",
+    "approvalScope": "sakiko/resume/apricot exact mother+F+S_v2+clear-day BG only; static travel/slope/perspective=0",
+    "registrationReleasedAt": "2026-10-25T17:10:05.099687+00:00",
+    "registrationReleaseEvidence": "Study reading lane explicitly reported second Luna round done, same Note/PDF recovery checked, composer empty and no pending; authorized manifest HMR without UI operation."
+  }
+}

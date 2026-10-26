@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "same-activity-whole-light-mother-candidate",
+  "character": "nyamu",
+  "activity": "study",
+  "palette": "violet",
+  "environmentVariant": "twilight",
+  "wave": "light-activity-wave-a",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-86d9d25c-4f5c-4486-a6ce-66e571f5a1cf.png",
+  "executionId": "exec-86d9d25c-4f5c-4486-a6ce-66e571f5a1cf",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+      "role": "first input; approved empty environment plate, primary camera and authoritative target whole-room light"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-b/nyamu-study-apricot-v1.png",
+      "sha256": "671dd56f7fddff1d8a63c638d460be8e6d8a5aae046bdff4d45ef116a473d677",
+      "role": "second input; root-approved exact same-activity apricot mother, correct identity/pose/proportion/props/physical support"
+    }
+  ],
+  "apricotActivityMotherApproval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-b/nyamu-study-apricot-v1.primary-approval.json",
+  "sourceMotherContourComplete": false,
+  "intendedSupport": "desk-chair",
+  "sourceSpecificPose": "Exact approved source: actually seated at the LEFT DESK, one hand writes at the desk page, other palm supports cheek with elbow on desk, hips supported by chair seat. Preserve the source's PORTABLE chair orientation and metal-lamp position, which root accepted; do not revert those source-specific support objects to an incompatible empty-chair outline. Retain real foreground plant/chair/desk occlusion of lower legs/shoes; contour is intentionally not a complete visible shoe pair. RIGHT BENCH EMPTY, no bench-sprite shift or near-bench scale inflation.",
+  "brief": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-prompt-plan.json",
+    "sha256": "9f549b3785d8e59d903dec1f220f05880ce0b57213591c5111effa3a98da9dea",
+    "key": "nyamu/study/apricot",
+    "role": "own role/activity literary psychology; light redirection keeps actual accepted mother pose"
+  },
+  "wholeSceneRelighting": true,
+  "oldApricotHeatSpotsAreNotIdentity": true,
+  "unreviewedLightCandidateUsedAsInput": false,
+  "promptFile": "nyamu-study-violet-v1.prompt.txt",
+  "promptFileSha256": "ec50ff26ffde887578c188414dd89e926d8edc35fce3f3864a3a540aadc1adc4",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; exact submitted text",
+  "submittedPromptSha256": "b16f1eb9a23e015c8b83022857d21bc6f6f6bd2b91b8040eeade46cccad0c98a",
+  "output": {
+    "file": "nyamu-study-violet-v1.png",
+    "sha256": "f96e2e466850ff3e54a88734d0dd8b7f829de9ad2f2014303b1e0663079f1478",
+    "bytes": 2330751,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved complete mother. Same approved farther LEFT-DESK study pose with actual writing hand/page, other cheek palm/elbow on desk, accepted portable chair/metal-lamp arrangement and chair-seat support remains, right bench empty. Natural plant/wood occlusion of lower legs/shoes retained; source incomplete visible contour is not upgraded. Visible lavender/red-purple identity, eye/fringe and hand contacts are coherent. Twilight and warm existing sources affect face, arm/skin, grey cloth, paper, desk/chair and floor as a whole; no flat violet wash or forced acting change. Root/layer/runtime pending."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "New static mother candidate only, root review pending; no layer, registration or runtime acceptance.",
+  "privateUserDataUsed": false
+}

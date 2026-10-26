@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "empty-room-plate",
+  "environmentVariant": "twilight",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "executionId": "exec-fa38e050-6280-4ba0-b9f7-530978e4c924",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-fa38e050-6280-4ba0-b9f7-530978e4c924.png",
+  "inputs": [
+    {
+      "file": "literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "sole approved empty environment edit target; no person image input",
+      "admissionRecord": "literary-room-clear-day-v1.source.json"
+    }
+  ],
+  "selectedMotherLineage": {
+    "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+    "imageInputForThisCall": false
+  },
+  "promptFile": "literary-room-twilight-v1.prompt.txt",
+  "promptFileSha256": "b23d108b15ef464bbfc5b905adf40674dc56d9a29d1d90a1659da64b6f904f4f",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd, exactly as submitted",
+  "submittedPromptSha256": "f5b0c958a6aefadaa65ce3a203f087180e765a73b37ea61627b682ff360b6750",
+  "output": {
+    "file": "literary-room-twilight-v1.png",
+    "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+    "bytes": 2350339,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed the complete saved original. Continuous rose-gold/lilac dusk spans the same town, lake and window panes without a split or visible extra sun. The original close camera, mullions, furniture, linen bench/pillows/throw, floor and foreground plant remain visually in place. Warm ceramic light and quieter cool dusk share the whole room; no unchanged noon patches, person or new object observed. Root/runtime approval separate."
+  },
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "approvalScope": "Static empty environment candidate only, not character/activity/layers/runtime approval.",
+  "primaryApprovalRecord": "literary-room-twilight-v1.primary-approval.json",
+  "primaryApprovalScope": "Complete static empty environment plate only; same selected close room and corresponding weather/time illumination. No character/activity/layers/motion/runtime approval."
+}

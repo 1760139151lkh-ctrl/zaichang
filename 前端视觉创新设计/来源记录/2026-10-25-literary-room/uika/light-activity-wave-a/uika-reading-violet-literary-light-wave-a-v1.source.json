@@ -1,0 +1,81 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "bounded-same-activity-weather-light-mother",
+  "character": "uika",
+  "activity": "reading",
+  "palette": "violet",
+  "environmentVariant": "twilight",
+  "sceneFamily": "literary-room-v1",
+  "wave": "light-activity-wave-a",
+  "waveCallIndex": 2,
+  "waveCallLimit": 24,
+  "numberOfImageInputs": 2,
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+      "role": "image 1 approved empty weather/time room and illumination",
+      "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.source.json",
+      "actualSha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+      "approvalRecordSha256": "47104186489b5556e4d9e1b27eeda4641442b5bccca6478e35b39701c0d3e843"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-a/uika-reading-apricot-literary-wave-a-v1.png",
+      "sha256": "5be60c7165f7ea7ea26640ce18402806af876a3db3d1bcaacab692b2f6c1749e",
+      "role": "image 2 root-approved apricot SAME ACTIVITY pose/identity/support",
+      "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-a/root-mother-admission-v1.json",
+      "actualSha256": "5be60c7165f7ea7ea26640ce18402806af876a3db3d1bcaacab692b2f6c1749e",
+      "approvalRecordSha256": "b7e9c283f9026833e5c4e492bb9e49c12e4b46ae42e9f93c4e52d719887d58f9"
+    }
+  ],
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-a/uika-reading-apricot-literary-wave-a-v1.png",
+    "sha256": "5be60c7165f7ea7ea26640ce18402806af876a3db3d1bcaacab692b2f6c1749e",
+    "role": "image 2 root-approved apricot SAME ACTIVITY pose/identity/support",
+    "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-a/root-mother-admission-v1.json",
+    "actualSha256": "5be60c7165f7ea7ea26640ce18402806af876a3db3d1bcaacab692b2f6c1749e",
+    "approvalRecordSha256": "b7e9c283f9026833e5c4e492bb9e49c12e4b46ae42e9f93c4e52d719887d58f9"
+  },
+  "lightingTarget": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+    "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+    "role": "image 1 approved empty weather/time room and illumination",
+    "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.source.json",
+    "actualSha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+    "approvalRecordSha256": "47104186489b5556e4d9e1b27eeda4641442b5bccca6478e35b39701c0d3e843"
+  },
+  "referenceBoundary": "First input exact approved matching weather/time empty plate; second exact root-approved apricot same-activity mother, not unreviewed light/chat or old held Umiri v1. Preserve source pose/identity/camera/scale/support; redraw true complete lighting.",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-abfb2323-6118-4e40-83a7-ffce0cf3fefe.png",
+  "output": "uika-reading-violet-literary-light-wave-a-v1.png",
+  "outputSha256": "75b30645864a1233208487581893425a273cf4f5d46722bf98a3ef53aed70b06",
+  "promptFile": "uika-reading-violet-literary-light-wave-a-v1.prompt.txt",
+  "prompt": "Use case: lighting-weather. Return ONE complete 1536x1024 literary-room activity mother.\nINPUT ROLES: IMAGE 1 is the root-approved EMPTY matching weather/time room, authoritative for full room geometry, camera and LIGHT. IMAGE 2 is the root-approved APRICOT SAME-ACTIVITY mother, authoritative for this character's identity, exact pose, body proportions, image location, support, hands and small objects. Use ONLY these two approved inputs. This is a light/weather change preserving a correct pose, NOT a new activity or free pose redraw.\nLOCK the source camera/perspective/window divisions and all major furniture to image 1: desk/chair, shelves/plants/books/pictures, original ceramic lamp/round table/cup/flowers, right bench/pillows/knitted throw, foreground depth/rug/floor. Preserve image 2's complete source figure: head angle/gaze, hair silhouette, torso/back/pelvis, elbows/wrists/palms/fingers, skirt/legs and complete shoes. Same youthful body size and source positions; no zoom, head enlargement, leaning toward lens, body translation, crop or moved furniture. True hip/cushion, back/pillow, hand/object and shoe/floor contacts remain. Complete head/hair, hands, hem and both shoes in frame. Never replace with chat/listening pose.\nREPAINT physically coherent illumination across the ENTIRE person, hair/skin/clothes, paper/books/pencil where present, cushion/contact receiver, wood and floor to image 1. The old hard sunny window bars, hot skin patches and gold noon rim are NOT identity: remove/repaint them under new weather. Match material reflections, contact softness, exposure and lamp falloff. Not a CSS/global color wash, pasted sunny figure or half-day/half-night split. No added lamp or prop; keep interior dry.\nClear fine original youthful anime linework in rich painted room. Hair groups/cheek strands, eyelids/lashes, iris and pupil readable and separate even in downcast/profile eyes. No dark fringe/eye fusion, mature glamour or chibi. No UI, readable text, labels, card, badge, bubble, trail, arrow, halo, signature, watermark or split view.\n\nUika/三角初华: exact warm blonde short bob, violet irises, plain white tee, taupe-gray long skirt, white ankle socks, black-and-white low canvas sneakers from image 2. Keep distinct blonde/skin/white cloth/paper values. Preserve the source uncrossed skirt drape, two distinct lower legs/ankles and independently floor-supported sneakers; no new crossed-knee ridge or tucked foot.\nREADING — preserve source lowered violet gaze and quiet absorbed mouth, both hands gripping the two lower book covers in front of lap, elbows near torso; original dark blue hardcover open at original angle. Keep actual finger/book contacts, book mass and paper shading. She has found a sentence worth pausing over; not a new smile/greeting.\nVIOLET / TWILIGHT: exact image 1 continuous rose/lilac dusk over all panes, same early town/lake lights, whole room becoming quieter. Original ceramic lamp adds local warm glow from left with real falloff over face/clothes/paper and floor; cool dusk fills far planes. No retained noon hot spots/white sun bars, extra sun disc, half-day view or global purple filter. Preserve true clothing/paper material colors under dusk.",
+  "submittedPromptSha256NoTrailingNewline": "4bfec6211232bfadc7c7a64463d3561d36763e7c1690feed3145322b920213a2",
+  "promptFileSha256": "4bfec6211232bfadc7c7a64463d3561d36763e7c1690feed3145322b920213a2",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "actualMode": "RGB",
+  "pngEdited": false,
+  "cssFilter": false,
+  "largeImageResultStored": false,
+  "producerViewed": true,
+  "primaryMotherApproved": false,
+  "primaryApproved": false,
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "reviewBoundary": "This new light mother only. Approved input mother and plate do not approve this output or layers/runtime.",
+  "remaining": [
+    "Root personally inspect this exact light mother",
+    "No layers, registration or runtime acceptance"
+  ],
+  "producerObservations": [
+    "Personally viewed full saved twilight reading: original downward gaze, two hands/book and seated long-skirt/ankle/shoe supports retained; face/hair/iris and complete shoes readable.",
+    "Continuous dusk window and local lamp illuminate paper/skin/tee/skirt/floor together; room major geometry stable, no split or bright noon figure."
+  ],
+  "producerConcerns": [
+    "Small generated book/finger/hair contour differences remain for root to judge; no pixel-identical pose or hidden hand claim."
+  ]
+}

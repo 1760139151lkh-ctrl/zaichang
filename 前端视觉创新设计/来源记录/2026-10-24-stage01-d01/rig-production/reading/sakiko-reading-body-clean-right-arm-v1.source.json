@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "s01-d01-sakiko-reading-body-clean-right-arm-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "recordedAt": "2026-10-25T08:01:26Z",
+  "generationId": "exec-319170cd-4bb4-492e-b3cc-bbd9ac84bf00",
+  "prompt": "sakiko-reading-body-clean-right-arm-v1.prompt.txt",
+  "inputs": [
+    {
+      "path": "../../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-mother.png",
+      "sha256": "8f2358c0af7a78451259d049517cf3dedfe011023fdbabc44ec4bd850d3e671b",
+      "role": "approved original READING mother; only image reference used for every generation in this folder"
+    }
+  ],
+  "output": "quarantine/sakiko-reading-body-clean-right-arm-v1.png",
+  "sha256": "dbb0273540951634cd76863812786c8818ba305759ba3189012c6d65b8d7e243",
+  "bytes": 2087891,
+  "canvas": {
+    "width": 1536,
+    "height": 1024
+  },
+  "outputMode": "RGB",
+  "character": "sakiko",
+  "sceneFamily": "sakiko-reading-apricot-room4",
+  "classification": "C",
+  "status": "rejected-quarantine",
+  "runtimeAllowed": false,
+  "staticReview": {
+    "producerInspected": true,
+    "observed": "The original small right-hand/finger patch remained at the book's left edge, so the intended erasure was incomplete.",
+    "limitation": "Do not admit the old-finger region as a clean plate. A successful local repair must actually clear that skin patch."
+  },
+  "originalNotOverwritten": true,
+  "noCrossFamilyPixels": true,
+  "motionVerified": false,
+  "inAppVerified": false,
+  "runtimeRig": null,
+  "doNotUseAsGenerationReference": true
+}

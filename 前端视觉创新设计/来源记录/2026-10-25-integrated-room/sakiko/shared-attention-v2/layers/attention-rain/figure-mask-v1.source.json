@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "cell": "sakiko/attention/rain",
+  "character": "sakiko",
+  "activity": "attention",
+  "palette": "rain",
+  "stage": "F2",
+  "assetType": "raw-Image-source-selection-mask-or-markup",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: background-extraction. Asset type: complete original-coordinate foreground luminance mask F2. The ONLY image is the NEW correct 1536x1024 F1 marked current Sakiko ATTENTION RAIN-v3 mother.\n\nKeep the complete already-whitened original figure AND held open book WHITE at EXACTLY their current positions/contours. Include every fine hair/ribbon end, all face/hands/fingers/cardigan/collar/bow/skirt/hem/knees/dark below-knee socks and complete shoes down to outer outsole/heel bottom. The entire open book covers/pages/spine/fine page edge beneath hands stays white. Clear any faint internal F1 book/hand/sole/clothing linework to pure solid white, but do not modify the actual outer contour or grow a new point/outline. No eye holes, fading interior or shoe erosion. Preserve thin actual antialias and real hair/limb/leg gaps as black.\n\nTurn ALL other originally colored/naturally bright source scene PURE BLACK: seat/receiver shade/plaid/knit/curtains, lamp/flowers/cup/table, window/rain/lake/town, shelves/plants/desk/chair, entire unselected floor/rug/lighting/shadows. Only intentionally whitened figure+held book survives. Do not select lamp/linen/page-like room highlights, add foreground area, redraw identity, move limbs, recenter or resize. This is extraction of current F1, not new human art.\n\nOutput exactly ONE opaque 1536x1024 BLACK PNG with unchanged full original-position WHITE foreground, thin outer edge AA only. No colored room/checkerboard/labels/arrows/grid/text/boxes, crop/zoom/resize/translation or artificial bridging of source gaps.",
+  "submittedPromptSha256": "231f7993d28dfc3e769517272e7a2a3331c7a167d5e0f6f4258e4ac1f6c3bb5e",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-rain/figure-step1-marked-v1.png",
+      "sha256": "d4fd3d05d2acb5206b81808e6212859dd4b748010c11007ca58338a81ac3d48b",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    }
+  ],
+  "originalRgbOwner": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.png",
+    "sha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac",
+    "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.source.json",
+    "sourceRecordSha256": "c569c6ae9ac68037fcf95b4d8497bd40369d5576fae1ac0c8c250ae46fe3ebec",
+    "rootMotherStaticReview": {
+      "status": "approved_static_mother",
+      "reviewer": "root",
+      "observed": "Root inspected whole actual output: rain-night room now has local lamp pools and dark wood/reflections without daylight window-grid patches. Youthful gold eyes/blue-purple hair, visible book-page finger contact, physical seated support, two uncovered knees/dark calf socks and complete grounded shoes. Bow is a darker cloth variant of project wardrobe, not asserted official."
+    }
+  },
+  "method": "Actual Image same-mother F1/F2 or S1/S2 chain. F is whole human/ribbons/hands/held book/clothing/knees/calf socks/complete shoes. S includes real source-local seat and full soft grounded floor receiver, not just sole line; original RGB MAX(F,S) drawn once only.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\sakiko\\shared-attention-v2\\layers\\attention-rain\\figure-mask-v1.png",
+    "sha256": "de906de97be3f61d88db039f67f1ea1e7dcf831f33451f281de4c046c23b5470",
+    "bytes": 438311,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-554b1d91-e26d-4c1f-8b03-81eff70b6c83.png",
+    "pngBytesUnchanged": true
+  },
+  "producerObservation": {
+    "personallyViewedFullNative": true,
+    "observation": "Full native 1536×1024 black F2 personally viewed: complete current rain-v3 foreground hair/ribbons/held open book/hands/dark calf socks/whole shoes retained, natural gaps black and no broad room-bright region retained. Faint grey internal linework remains on some book/hand/shoe regions, to inspect only if this layer task is resumed. Saved healthy raw candidate, not assembled or primary-approved. Root new '留下' steering stops any new mask/BG calls; current PNG retained unchanged."
+  },
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "sourceOrigin": [
+      0,
+      0
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": "included",
+    "independentCaster": false
+  },
+  "motherReconstructed": false,
+  "primaryLayerApproved": false,
+  "layerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "status": "producer-HOLD-faint-interior-linework",
+  "inputBoundary": "Only current exact root-approved mother and its correct same-canvas working intermediates. No HOLD rain-attention-v2, white-sock resume-mist-v3, screenshot, audit collage or other mother mask.",
+  "promptFile": "figure-mask-v1.prompt.json",
+  "promptFileSha256": "af620f1b46b2ebe4edbf7ec454cf93e6119dfe210d7f0ae4144565f7ffa475f8",
+  "generationInputAllowed": false,
+  "observedIssue": {
+    "at": "2026-10-25T23:36:43.650Z",
+    "issue": "Full native output still has grey book/hand/shoe interior linework instead of solid F2 selection; preserve raw output, do not feed it to next generation.",
+    "nextInputBoundary": "Only separately verified F1 and clean current rain-v3 mother."
+  }
+}

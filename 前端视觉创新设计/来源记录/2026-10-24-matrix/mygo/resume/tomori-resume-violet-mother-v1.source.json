@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "recordType": "complete-companion-mother-theme-relighting",
+  "dateLocal": "2026-10-24",
+  "timeZone": "America/Los_Angeles",
+  "character": "tomori",
+  "activity": "resume",
+  "theme": "violet",
+  "tool": "image_gen.imagegen (built-in)",
+  "executionId": "exec-56380b83-1040-47c5-9103-d175d0fd7846",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "originalOutput": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-56380b83-1040-47c5-9103-d175d0fd7846.png",
+  "prompt": "tomori-resume-violet-mother-v1.prompt.txt",
+  "promptFileSha256": "c7f2f5110f3cf2ac6262a18e9d1a1c20e9dba95f1727c7dfb1b3e4f7ef34b638",
+  "submittedPromptTransform": "UTF-8 prompt file trimEnd, exactly as submitted",
+  "submittedPromptSha256": "42851021d10d3dbbbd145a190210d8eb1e0a6270cbfc9c192e2985d7df1b1e87",
+  "inputs": [
+    {
+      "file": "tomori-resume-apricot-mother-v1.png",
+      "sha256": "517e715d664e10d33dbf8a08cc359aa3f1a59af3e6f6fb127526d56c3f90ee81",
+      "role": "sole editable target: exact primary-accepted complete warm resume mother; all geometry, identity, expression and supported activity"
+    },
+    {
+      "file": "../../../assets-design-generated/2026-10-23-companion-matrix/room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3",
+      "role": "empty whole-room theme light/sky/weather reference only; never a replacement furniture layout or source of character pixels"
+    }
+  ],
+  "identityFromApprovedMotherSource": "tomori-resume-apricot-mother-v1.source.json",
+  "output": {
+    "file": "tomori-resume-violet-mother-v1.png",
+    "sha256": "21564d61017c282a2fd0e202e3f2574c2490548f4a7a3aad97b15376130b629e",
+    "bytes": 2191294,
+    "width": 1536,
+    "height": 1024
+  },
+  "approvalScope": "Theme candidate only. Warm mother acceptance does not approve this output, its layers or runtime. Resume remains semantic renewed attention, not a new furniture anchor or wholly new spatial action.",
+  "review": {
+    "producerViewedFullOriginal": true,
+    "primaryViewed": false,
+    "primaryApproved": false,
+    "layersAccepted": false,
+    "runtimeAccepted": false
+  },
+  "status": "producer-inspected complete theme mother awaiting primary review",
+  "producerObservation": "Personally viewed complete output: one sunset disc around x1007 with vertical lake reflection, warm low light and violet-grey shadows across room and Tomori. Lamp is on locally; actual open book, both hands, hips/seat, separate legs and complete loafers remain. Eyes/mouth retain recognition rather than a mood rewrite; no second sun or new furniture observed."
+}

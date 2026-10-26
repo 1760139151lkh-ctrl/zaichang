@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "assetType": "new-literary-room-complete-single-sakiko-listening-mother-pilot",
+  "id": "sakiko-listening-apricot-literary-pilot-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-listening-apricot-literary-pilot-v1.prompt.json",
+  "promptFileSha256": "73584a8599f46e2b8766cd8290b11e3af7bff973e687abedbd3d8441a9a45ce2",
+  "submittedPrompt": "Create one complete literary anime mother illustration for 在场: original Sakiko Togawa / LISTENING / apricot clear afternoon.\nThe SINGLE supplied image is the root-approved EMPTY literary room, full1536x1024, the only image input. Preserve its exact close wide camera and framing, timber window with lake/town/hills, left desk/shelves/chair, side table with ceramic lamp/cup/flowers, cream cushioned right bench and checked pillows/knit throw, foreground plants, wooden floor/rug and integrated afternoon sunlight. Keep the room's depth and living detail; no relocation, extra zoom, global tint or generic replacement room.\n\nThe literary moment:\nSakiko had a sentence of her own ready. Then she heard the particular way your last words ended, and chose to leave that sentence unspoken for a little longer. The attention in her face is not blank agreement: she has her own thoughts, her own small pride and judgment, and for this moment she is willing to let your meaning arrive before hers.\nShe is truly listening to something concrete, not posing as a comfort figure. Her golden eyes meet the person near the camera's left side with steady, gentle seriousness. A slight stillness around her lips carries the withheld reply. One hand has settled from a half-formed gesture back toward her own knee; her shoulders are at ease, as if making room without making a ceremony of it. Let the image hold the delicate difference between waiting to speak and hearing another person. She does not need to smile, look tragic, pity the viewer or promise that everything will be fine. There can be warmth in an honest, attentive face.\n\nIdentity and simple physical support:\nOriginal youthful anime Sakiko Togawa from BanG Dream! Ave Mujica: long silver-blue hair and dark navy ribbon accents, luminous golden eyes, navy school cardigan over white blouse with pale collar ribbon, navy plaid skirt, dark knee socks and complete brown loafers. One girl naturally seated on the RIGHT window bench, hips securely supported by the cushion, knees resting naturally, one simple relaxed hand on her own knee/lap and the other beside her on the cushion. No added prop is required. Both full shoes rest naturally on the actual floor. A small turn toward the speaker is enough; do not thrust her head toward the lens.\nPreserve CLOSE furniture-scale framing: crown approximately y110, lowest shoe soles approximately y890 on full1536x1024; full head and both shoes visible, body still belongs at the bench. Do not make her larger than this scale, closer to camera, tiny at the far window, or cropped.\n\nFace/hair and finish:\nA calm three-quarter face, both golden irises, upper eyelids and eyebrows clearly distinct and readable; front locks sweep apart with fine intentional strands rather than merging with eye features. No fused eyelid/fringe/iris, duplicate eye, metallic shard, floating lock or mesh mark. Youthful features, delicate intentional linework, simple plausible fingers/sleeves, continuous knees/ankles and real hip/palm/shoe contacts.\nShared apricot daylight gives the face, hair, navy cloth, cushion and wood one coherent light. Beautiful2D anime character with refined painterly lived-in surroundings, natural subdued expression and clear eyes.\nOne complete opaque RGB1536x1024 scene. No UI, captions, words, icons, controls, arrows, guides, border, watermark, split view or collage.",
+  "submittedPromptSha256Utf8NoTrailingLF": "53d122378d0d3bb43549b50fba610db204a36198d6d780ab1c1c172269385a2a",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "sole root-approved EMPTY new literary room plate; no character or old-room image input"
+    }
+  ],
+  "output": {
+    "file": "sakiko-listening-apricot-literary-pilot-v1.png",
+    "sha256": "ac97872e1632ee8cbfde69fb5ed6a15c55bcc5b7057158f4d3db3e12690ee329",
+    "bytes": 2454944,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-ee0d4acb-1f8b-42d0-955a-adb3a3855154.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observation": "Viewed complete saved1536x1024 original before any next image. Attentive direct gaze and restrained mouth differ from rest. Distinct eyes/lids/hair, secure hip/palm support, continuous legs and two complete floor-contact loafers are visible. However crown is visually around y70 instead of requested near110 and apparent face/head looks closer/larger than selected baseline/rest; soles around y875. This is a visible close-scale drift requiring primary decision, not accepted. Approximate direct observations, not pixel calibration.",
+    "producerScaleIssue": true
+  },
+  "status": "producer-viewed-listening-pilot-with-head-scale-drift-root-review-pending",
+  "character": "sakiko",
+  "activity": "listening",
+  "palette": "apricot",
+  "sceneFamily": "literary-room-v1",
+  "selectedReadingMotherUsedAsInput": false,
+  "oldRoom4OrCharacterImageUsedAsInput": false,
+  "uniqueInputCount": 1,
+  "primaryApproved": false,
+  "rootApproved": false,
+  "runtimeAccepted": false,
+  "scaleReferencePersonallyViewedOnly": {
+    "file": "../../../2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+    "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+    "role": "User-selected image personally viewed for close camera/scale and literary intent only; NOT a tool image input."
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-listening-mist-literary-included-v1",
+  "sceneFamily": "literary-room-v1",
+  "pose": "supported-attentive-listening-with-closed-book",
+  "character": "soyo",
+  "activity": "listening",
+  "light": "morning",
+  "palette": "mist",
+  "environmentVariant": "overcast-day",
+  "width": 1536,
+  "height": 1024,
+  "mother": "soyo-listening-mist-literary-included-v1-mother.png",
+  "background": "soyo-listening-mist-literary-included-v1-background.png",
+  "mask": "soyo-listening-mist-literary-included-v1-mask.png",
+  "maskMode": "luminance",
+  "contactMask": "soyo-listening-mist-literary-included-v1-contact-mask.png",
+  "seat": [
+    0.6901041666666666,
+    0.57421875
+  ],
+  "ground": [
+    0.5553385416666666,
+    0.884765625
+  ],
+  "bodyBounds": [
+    0.4895833333333333,
+    0.115234375,
+    0.8268229166666666,
+    0.890625
+  ],
+  "safeTextBoundary": 0.4583333333333333,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "58.723958% 11.621094%, 64.192708% 13.085938%, 66.927083% 21.777344%, 71.158854% 37.695312%, 74.21875% 55.761719%, 65.429688% 58.984375%, 61.979167% 73.4375%, 59.700521% 86.523438%, 56.25% 88.964844%, 49.023438% 85.15625%, 52.148438% 69.335938%, 53.385417% 51.757812%, 54.947917% 42.96875%, 54.427083% 25.292969%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "layerReview": "root-approved-exact-four-theme-static-fixed-included-union",
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/listening-included-primary-admission-v1.json",
+    "runtimeSourceSha256": {
+      "mother": "5fbcbd2acb5bfdf36ab1ac5273dee2ec7567a03bc3a12869751b90a43adea154",
+      "background": "9495cc9167bd85287b1f0b59f401553fedba9187b51109fe92e56f8ff2537713",
+      "F": "fd9faa1956dd18f990d409602763de491bad42daa0b76e6e84f5163a7e63771f",
+      "S": "877b09c04dd259353a8fa3de230bb05b79ae7cf8c4e1b5071358d25bf0e8aad7"
+    },
+    "geometryEvidence": {
+      "jointReceiverEnvelope": {
+        "sourcePixels": [
+          720,
+          118,
+          1270,
+          922
+        ],
+        "normalized": [
+          0.46875,
+          0.115234375,
+          0.8268229166666666,
+          0.900390625
+        ],
+        "basis": "Read-only MAX(L(F),L(S)) >32 envelope; includes actual local receiver material and soft shoe grounding."
+      }
+    },
+    "boundary": "This exact static same-source RGB/selected MAX-mask union only. No independent body/book/shadow/limb movement, new mother generation, 360 dynamic coverage or runtime acceptance."
+  }
+}

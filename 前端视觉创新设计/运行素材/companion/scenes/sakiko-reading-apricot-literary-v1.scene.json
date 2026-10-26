@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "id": "sakiko-reading-apricot-literary-v1",
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "activity": "reading",
+  "light": "morning",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "width": 1536,
+  "height": 1024,
+  "mother": "sakiko-reading-apricot-literary-v1-mother.png",
+  "background": "sakiko-reading-apricot-literary-v1-background.png",
+  "mask": "sakiko-reading-apricot-literary-v1-mask.png",
+  "maskMode": "luminance",
+  "contactMask": "sakiko-reading-apricot-literary-v1-contact-mask.png",
+  "seat": [
+    0.7473958333333334,
+    0.5576171875
+  ],
+  "ground": [
+    0.6328125,
+    0.8720703125
+  ],
+  "bodyBounds": [
+    0.5677083333333334,
+    0.103515625,
+    0.8795572916666666,
+    0.87890625
+  ],
+  "safeTextBoundary": 0.54,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "56.770833333333336% 10.3515625%, 87.95572916666667% 10.3515625%, 87.95572916666667% 87.890625%, 56.770833333333336% 87.890625%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/sakiko-reading-apricot-literary-included-primary-admission-v1.json",
+    "geometryRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/geometry/literary-room-v1-grid.json",
+    "geometryStatus": "provisional visible-contact references; fixed source pose only; no hidden-hip or drag-support certification",
+    "layerReview": "primary-approved exact-SHA fixed-source included union; runtime pending",
+    "producerNote": "One original mother RGB draw through MAX(luminance(F_v2),luminance(S)); narrow source cushion/floor contact material included. Whole visibility/whole-pose replacement only; no independent body/shadow motion.",
+    "runtimeSourceSha256": {
+      "mother": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+      "background": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "F": "0561235343377c9d760d4aab0a95e197c01904ff1dd9fefab53dd66f0ea7a11d",
+      "S": "971c1c6fce428abfb6457e3a20b58655ea32b8bda10b7af2761500afdd989992"
+    }
+  }
+}

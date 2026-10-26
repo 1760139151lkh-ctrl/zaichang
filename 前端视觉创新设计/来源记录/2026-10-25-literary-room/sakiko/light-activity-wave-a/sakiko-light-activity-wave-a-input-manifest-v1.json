@@ -1,0 +1,314 @@
+{
+  "schemaVersion": 1,
+  "wave": "sakiko-light-activity-wave-a",
+  "callBudget": 24,
+  "activities": [
+    "reading",
+    "planning",
+    "rest",
+    "study",
+    "listening",
+    "play",
+    "attention",
+    "resume"
+  ],
+  "palettes": [
+    "mist",
+    "violet",
+    "rain"
+  ],
+  "mothers": {
+    "reading": {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+      "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+      "matchesApprovedSha": true,
+      "approval": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+        "sha256": "0dc133f5dc0ac1702bce894b279304dde90ab45ddbe57c4107ee9caf360fe8d0",
+        "key": "sakiko/reading/apricot",
+        "decision": "approved",
+        "rootApproved": true
+      },
+      "briefs": {
+        "mist": {
+          "key": "sakiko/reading/mist",
+          "psychologicalBeat": "一句话触到她小心折好的心事。她让它在心里多停一会儿，也在这点停顿里给你留了一处位置。",
+          "bodyAndGaze": "承接原选 v1：蓝书自然打开在双手之间，眼睛落在页上，肩膝松下，座垫确实承重。",
+          "materialLight": "散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。"
+        },
+        "violet": {
+          "key": "sakiko/reading/violet",
+          "psychologicalBeat": "一句话触到她小心折好的心事。她让它在心里多停一会儿，也在这点停顿里给你留了一处位置。",
+          "bodyAndGaze": "承接原选 v1：蓝书自然打开在双手之间，眼睛落在页上，肩膝松下，座垫确实承重。",
+          "materialLight": "窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。"
+        },
+        "rain": {
+          "key": "sakiko/reading/rain",
+          "psychologicalBeat": "一句话触到她小心折好的心事。她让它在心里多停一会儿，也在这点停顿里给你留了一处位置。",
+          "bodyAndGaze": "承接原选 v1：蓝书自然打开在双手之间，眼睛落在页上，肩膝松下，座垫确实承重。",
+          "materialLight": "雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。"
+        }
+      }
+    },
+    "planning": {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-planning-apricot-literary-pilot-v1.png",
+      "sha256": "d3439fe3a604aaa3291889291b3dc7ff93d22297b765af98c21f00bea78269e7",
+      "matchesApprovedSha": true,
+      "approval": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+        "sha256": "0dc133f5dc0ac1702bce894b279304dde90ab45ddbe57c4107ee9caf360fe8d0",
+        "key": "sakiko/planning/apricot",
+        "decision": "approved",
+        "rootApproved": true
+      },
+      "briefs": {
+        "mist": {
+          "key": "sakiko/planning/mist",
+          "psychologicalBeat": "她想让拥挤的一天有一点可以改动的余地。认真仍在，但纸上的空白不是疏忽，是留给另一个人的选择。",
+          "bodyAndGaze": "小本与铅笔靠近腿面并有承托，不悬空端出计划板；目光在真实笔记与对方之间有自然停顿。",
+          "materialLight": "散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。"
+        },
+        "violet": {
+          "key": "sakiko/planning/violet",
+          "psychologicalBeat": "她想让拥挤的一天有一点可以改动的余地。认真仍在，但纸上的空白不是疏忽，是留给另一个人的选择。",
+          "bodyAndGaze": "小本与铅笔靠近腿面并有承托，不悬空端出计划板；目光在真实笔记与对方之间有自然停顿。",
+          "materialLight": "窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。"
+        },
+        "rain": {
+          "key": "sakiko/planning/rain",
+          "psychologicalBeat": "她想让拥挤的一天有一点可以改动的余地。认真仍在，但纸上的空白不是疏忽，是留给另一个人的选择。",
+          "bodyAndGaze": "小本与铅笔靠近腿面并有承托，不悬空端出计划板；目光在真实笔记与对方之间有自然停顿。",
+          "materialLight": "雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。"
+        }
+      }
+    },
+    "rest": {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-rest-apricot-literary-pilot-v1.png",
+      "sha256": "144a167d9c7d1bc594051ef1ca3fcf0b92e97f1a8ddbf8cd63eb6b54c8a460f8",
+      "matchesApprovedSha": true,
+      "approval": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+        "sha256": "0dc133f5dc0ac1702bce894b279304dde90ab45ddbe57c4107ee9caf360fe8d0",
+        "key": "sakiko/rest/apricot",
+        "decision": "approved",
+        "rootApproved": true
+      },
+      "briefs": {
+        "mist": {
+          "key": "sakiko/rest/mist",
+          "psychologicalBeat": "刚才那股要把事情做好 的劲还在，只是暂时不必举着。她望了一会儿窗外，允许这个普通时刻不需要证明什么。",
+          "bodyAndGaze": "身体留在原座位深度，手掌与软垫自然支撑，目光自主朝窗外；不向前倾成近脸肖像。",
+          "materialLight": "散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。"
+        },
+        "violet": {
+          "key": "sakiko/rest/violet",
+          "psychologicalBeat": "刚才那股要把事情做好 的劲还在，只是暂时不必举着。她望了一会儿窗外，允许这个普通时刻不需要证明什么。",
+          "bodyAndGaze": "身体留在原座位深度，手掌与软垫自然支撑，目光自主朝窗外；不向前倾成近脸肖像。",
+          "materialLight": "窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。"
+        },
+        "rain": {
+          "key": "sakiko/rest/rain",
+          "psychologicalBeat": "刚才那股要把事情做好 的劲还在，只是暂时不必举着。她望了一会儿窗外，允许这个普通时刻不需要证明什么。",
+          "bodyAndGaze": "身体留在原座位深度，手掌与软垫自然支撑，目光自主朝窗外；不向前倾成近脸肖像。",
+          "materialLight": "雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。"
+        }
+      }
+    },
+    "study": {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-pilot/sakiko-study-apricot-literary-desk-pilot-v1.png",
+      "sha256": "00629c2e6e5b55901244a534145ab3c9d8c2f9c3cbf2ec2de8668f33037ccb04",
+      "matchesApprovedSha": true,
+      "approval": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/sakiko-desk-writing-literary-included-primary-admission-v1.json",
+        "sha256": "0819eb5326f5cbf678e96ebcc95855c52859bf90376377e2901ada3aa74bba62",
+        "rootApproved": true,
+        "note": "Direct root release selects desk-writing alternative for canonical study cell, not an additional matrix cell."
+      },
+      "briefs": {
+        "mist": {
+          "key": "sakiko/study/mist",
+          "psychologicalBeat": "那一步好像终于通了，她却没有急着庆祝。她还想认真听一听，你是不是在同一个地方看见了不同的路。",
+          "bodyAndGaze": "小本低放腿上，一手稳页、一手握笔，专注来自当前问题；不把人往镜头前推。",
+          "materialLight": "散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。"
+        },
+        "violet": {
+          "key": "sakiko/study/violet",
+          "psychologicalBeat": "那一步好像终于通了，她却没有急着庆祝。她还想认真听一听，你是不是在同一个地方看见了不同的路。",
+          "bodyAndGaze": "小本低放腿上，一手稳页、一手握笔，专注来自当前问题；不把人往镜头前推。",
+          "materialLight": "窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。"
+        },
+        "rain": {
+          "key": "sakiko/study/rain",
+          "psychologicalBeat": "那一步好像终于通了，她却没有急着庆祝。她还想认真听一听，你是不是在同一个地方看见了不同的路。",
+          "bodyAndGaze": "小本低放腿上，一手稳页、一手握笔，专注来自当前问题；不把人往镜头前推。",
+          "materialLight": "雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。"
+        }
+      }
+    },
+    "listening": {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-listening-apricot-literary-pilot-v2.png",
+      "sha256": "e88e85dfba21e9639d5414375518b4a1dc85ef0660e9d7f79772306f14a1113d",
+      "matchesApprovedSha": true,
+      "approval": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+        "sha256": "0dc133f5dc0ac1702bce894b279304dde90ab45ddbe57c4107ee9caf360fe8d0",
+        "key": "sakiko/listening/apricot",
+        "decision": "approved",
+        "rootApproved": true
+      },
+      "briefs": {
+        "mist": {
+          "key": "sakiko/listening/mist",
+          "psychologicalBeat": "她原本也有一句想说的话，此刻却先放下了。对方的停顿不需要她立刻命名，她想等那句话自己长完整。",
+          "bodyAndGaze": "重新从合格空房与身份文字设计直立、安稳的倾听坐姿，手留近膝或座面。禁止用 held v1 的前倾放大头部作输入。",
+          "materialLight": "散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。"
+        },
+        "violet": {
+          "key": "sakiko/listening/violet",
+          "psychologicalBeat": "她原本也有一句想说的话，此刻却先放下了。对方的停顿不需要她立刻命名，她想等那句话自己长完整。",
+          "bodyAndGaze": "重新从合格空房与身份文字设计直立、安稳的倾听坐姿，手留近膝或座面。禁止用 held v1 的前倾放大头部作输入。",
+          "materialLight": "窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。"
+        },
+        "rain": {
+          "key": "sakiko/listening/rain",
+          "psychologicalBeat": "她原本也有一句想说的话，此刻却先放下了。对方的停顿不需要她立刻命名，她想等那句话自己长完整。",
+          "bodyAndGaze": "重新从合格空房与身份文字设计直立、安稳的倾听坐姿，手留近膝或座面。禁止用 held v1 的前倾放大头部作输入。",
+          "materialLight": "雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。"
+        }
+      }
+    },
+    "play": {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v2.png",
+      "sha256": "f3e046d90a4f08c6f4afab56bb38c98cd6634f1731d80b145008041f26287f2d",
+      "matchesApprovedSha": true,
+      "approval": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+        "sha256": "0dc133f5dc0ac1702bce894b279304dde90ab45ddbe57c4107ee9caf360fe8d0",
+        "key": "sakiko/play/apricot",
+        "decision": "approved",
+        "rootApproved": true
+      },
+      "briefs": {
+        "mist": {
+          "key": "sakiko/play/mist",
+          "psychologicalBeat": "纸鸟没有什么用处，她自己却先觉得有趣。那一点藏不住的小得意不是表演，像把一个刚想到的可能性轻轻分你一半。",
+          "bodyAndGaze": "严格沿合格 play v2 的直立躯干、原榻深度与小掌间纸鸟。动作只占一小处，不向镜头探头或伸满画面。",
+          "materialLight": "散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。"
+        },
+        "violet": {
+          "key": "sakiko/play/violet",
+          "psychologicalBeat": "纸鸟没有什么用处，她自己却先觉得有趣。那一点藏不住的小得意不是表演，像把一个刚想到的可能性轻轻分你一半。",
+          "bodyAndGaze": "严格沿合格 play v2 的直立躯干、原榻深度与小掌间纸鸟。动作只占一小处，不向镜头探头或伸满画面。",
+          "materialLight": "窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。"
+        },
+        "rain": {
+          "key": "sakiko/play/rain",
+          "psychologicalBeat": "纸鸟没有什么用处，她自己却先觉得有趣。那一点藏不住的小得意不是表演，像把一个刚想到的可能性轻轻分你一半。",
+          "bodyAndGaze": "严格沿合格 play v2 的直立躯干、原榻深度与小掌间纸鸟。动作只占一小处，不向镜头探头或伸满画面。",
+          "materialLight": "雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。"
+        }
+      }
+    },
+    "attention": {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-attention-apricot-literary-pilot-v1.png",
+      "sha256": "ee521a0bf2b68e4d36c62a5c7755549006400e96d4ce252e0b154fe6587156b9",
+      "matchesApprovedSha": true,
+      "approval": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+        "sha256": "0dc133f5dc0ac1702bce894b279304dde90ab45ddbe57c4107ee9caf360fe8d0",
+        "key": "sakiko/attention/apricot",
+        "decision": "approved",
+        "rootApproved": true
+      },
+      "briefs": {
+        "mist": {
+          "key": "sakiko/attention/mist",
+          "psychologicalBeat": "刚才翻过去的细节忽然有了意思。她先真切地看见它，才想让你也看看；那一点明亮不需要变成一场惊喜仪式。",
+          "bodyAndGaze": "沿合格小幅指向：一手近膝，另一手手指短程指向当前对象；全身与头部尺度不因发现而跳大。",
+          "materialLight": "散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。"
+        },
+        "violet": {
+          "key": "sakiko/attention/violet",
+          "psychologicalBeat": "刚才翻过去的细节忽然有了意思。她先真切地看见它，才想让你也看看；那一点明亮不需要变成一场惊喜仪式。",
+          "bodyAndGaze": "沿合格小幅指向：一手近膝，另一手手指短程指向当前对象；全身与头部尺度不因发现而跳大。",
+          "materialLight": "窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。"
+        },
+        "rain": {
+          "key": "sakiko/attention/rain",
+          "psychologicalBeat": "刚才翻过去的细节忽然有了意思。她先真切地看见它，才想让你也看看；那一点明亮不需要变成一场惊喜仪式。",
+          "bodyAndGaze": "沿合格小幅指向：一手近膝，另一手手指短程指向当前对象；全身与头部尺度不因发现而跳大。",
+          "materialLight": "雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。"
+        }
+      }
+    },
+    "resume": {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-resume-apricot-literary-pilot-v1.png",
+      "sha256": "b13d26385d89f3087c198645b489512f25093db6cbbd221f28b2cd7572368589",
+      "matchesApprovedSha": true,
+      "approval": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+        "sha256": "0dc133f5dc0ac1702bce894b279304dde90ab45ddbe57c4107ee9caf360fe8d0",
+        "key": "sakiko/resume/apricot",
+        "decision": "approved",
+        "rootApproved": true
+      },
+      "briefs": {
+        "mist": {
+          "key": "sakiko/resume/mist",
+          "psychologicalBeat": "书签留下的那一句还在那里。你愿意回来，她先认出的是这个选择；接下来从哪里读，仍可以由你们重新商量。",
+          "bodyAndGaze": "沿合格 resume 母图的书与手、稳固座位和完整鞋位；只承接真实停点，不编造上次经过。",
+          "materialLight": "散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。"
+        },
+        "violet": {
+          "key": "sakiko/resume/violet",
+          "psychologicalBeat": "书签留下的那一句还在那里。你愿意回来，她先认出的是这个选择；接下来从哪里读，仍可以由你们重新商量。",
+          "bodyAndGaze": "沿合格 resume 母图的书与手、稳固座位和完整鞋位；只承接真实停点，不编造上次经过。",
+          "materialLight": "窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。"
+        },
+        "rain": {
+          "key": "sakiko/resume/rain",
+          "psychologicalBeat": "书签留下的那一句还在那里。你愿意回来，她先认出的是这个选择；接下来从哪里读，仍可以由你们重新商量。",
+          "bodyAndGaze": "沿合格 resume 母图的书与手、稳固座位和完整鞋位；只承接真实停点，不编造上次经过。",
+          "materialLight": "雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。"
+        }
+      }
+    }
+  },
+  "plates": {
+    "mist": {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "environmentVariant": "overcast-day",
+      "matchesApprovedSha": true,
+      "rootApproved": true,
+      "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.primary-approval.json",
+      "approvalRecordSha256": "00be824f06a3d5ea16f32264c19898e3da9e8c37c5e3ed4668475e165720efc1"
+    },
+    "violet": {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+      "environmentVariant": "twilight",
+      "matchesApprovedSha": true,
+      "rootApproved": true,
+      "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.primary-approval.json",
+      "approvalRecordSha256": "8606bc7ad5785ad740b4f89a9620eefb9287b62d186855e4bd5807dc461d2ed1"
+    },
+    "rain": {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "environmentVariant": "rain-night",
+      "matchesApprovedSha": true,
+      "rootApproved": true,
+      "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.primary-approval.json",
+      "approvalRecordSha256": "c69b0ffc2ffd0cf8296845ec5320411f966154f00763db65dfe4ff6b415860f4"
+    }
+  },
+  "briefSource": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/sakiko/sakiko-literary-room-36-cells-v1.json",
+    "sha256": "a771f7473ebeb6dfed1d1143ef83cf41f0037885ed750ee1914c01e1a07eec2d"
+  },
+  "status": "exact-inputs-verified-before-generation",
+  "newMotherPrimaryAccepted": false,
+  "layerAccepted": false,
+  "runtimeAccepted": false
+}

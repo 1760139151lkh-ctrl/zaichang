@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-listening-mist-contact-step2-v1",
+  "cell": "soyo/listening/mist",
+  "stage": "S2",
+  "submittedPrompt": "Use case: background-extraction. Asset: fixed INCLUDED contact/receiver luminance mask, STEP S2.\nThe ONLY input is the exact 1536x1024 Soyo LISTENING mist mother already marked for this same-canvas selection. Keep the entire canvas and every existing deliberately marked pixel at its actual coordinates; this is a second-step mask conversion, not a new silhouette or shadow.\nKeep ONLY the ALREADY DELIBERATELY PURE-WHITE small original receiving/contact marks WHITE and make EVERY other pixel BLACK. Preserve all marked local groups; do not drop the tiny seat/book groups just because the neighboring linen is naturally pale.\nThe original S1 marks are the small irregular linen receiver islands immediately BELOW the actual trailing skirt/hip edges (rough neighborhoods x805..1155,y550..620, not a full band); the tiny narrow receiver immediately touching the bottom of the separate closed book at x1108..1285,y565..588; and the two short source floor-contact groups immediately touching the original shoe-bottom contours around x738..940,y850..930. These neighborhoods identify existing marks, NOT rectangles or new white shapes to paint. Follow only actual already-white contours at their original positions. Do not connect distant islands, enlarge into a long bench stripe, move them onto body/book/shoes, or move sole contact downwards.\nThe entire colored girl, all hair/face/eyes/collar/bow/crest/hands/skirts/knees/socks/shoes and the whole closed book become black. Every unmarked natural bright linen, curtains/clouds, flower/lamp/cup, pillow/throw, floor/rug solar patch or lamp reflection, wood grain and unrelated furniture shade also become black. No natural room highlight is a contact selection.\nOutput exactly ONE opaque 1536x1024 black PNG with only those same few local white receiver groups. Thin antialias grey only at existing edges. No new shadow/person, whole cushion, oval/rectangle, text, labels, arrows, grid, checker, crop, resize, zoom, shift or recentering. This will select unchanged original mother RGB once through MAX(F,S) as a FIXED included joint layer, never a portable independent caster.\n",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/mist/contact-step1-marked-v1.png"
+  ],
+  "transparentBackground": false,
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/mist/contact-step1-marked-v1.png",
+      "sha256": "24b00ab3c5ebba91346f06752b7eb1e46e4c1e56d932e5e8288d3a0fbd598fba",
+      "role": "same exact mother deliberate selection intermediate, not an independent person or geometry reference"
+    }
+  ],
+  "outputFile": "contact-mask-v1.png",
+  "scope": "luminance selection only; source mother RGB is never replaced",
+  "generationStatus": "prepared-not-yet-called",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "actualToolArguments": {
+    "prompt": "Use case: background-extraction. Asset: fixed INCLUDED contact/receiver luminance mask, STEP S2.\nThe ONLY input is the exact 1536x1024 Soyo LISTENING mist mother already marked for this same-canvas selection. Keep the entire canvas and every existing deliberately marked pixel at its actual coordinates; this is a second-step mask conversion, not a new silhouette or shadow.\nKeep ONLY the ALREADY DELIBERATELY PURE-WHITE small original receiving/contact marks WHITE and make EVERY other pixel BLACK. Preserve all marked local groups; do not drop the tiny seat/book groups just because the neighboring linen is naturally pale.\nThe original S1 marks are the small irregular linen receiver islands immediately BELOW the actual trailing skirt/hip edges (rough neighborhoods x805..1155,y550..620, not a full band); the tiny narrow receiver immediately touching the bottom of the separate closed book at x1108..1285,y565..588; and the two short source floor-contact groups immediately touching the original shoe-bottom contours around x738..940,y850..930. These neighborhoods identify existing marks, NOT rectangles or new white shapes to paint. Follow only actual already-white contours at their original positions. Do not connect distant islands, enlarge into a long bench stripe, move them onto body/book/shoes, or move sole contact downwards.\nThe entire colored girl, all hair/face/eyes/collar/bow/crest/hands/skirts/knees/socks/shoes and the whole closed book become black. Every unmarked natural bright linen, curtains/clouds, flower/lamp/cup, pillow/throw, floor/rug solar patch or lamp reflection, wood grain and unrelated furniture shade also become black. No natural room highlight is a contact selection.\nOutput exactly ONE opaque 1536x1024 black PNG with only those same few local white receiver groups. Thin antialias grey only at existing edges. No new shadow/person, whole cushion, oval/rectangle, text, labels, arrows, grid, checker, crop, resize, zoom, shift or recentering. This will select unchanged original mother RGB once through MAX(F,S) as a FIXED included joint layer, never a portable independent caster.\n",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/mist/contact-step1-marked-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/mist/contact-mask-v1.png",
+    "sha256": "417be6e1f6454b122d1a11a9464020b08002c4931cc5aa583cfc85e3307129f0",
+    "bytes": 313108,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "originalToolOutputPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-a5c315d9-5657-408d-b340-2bc504ff1eca.png",
+  "recordedAtUtc": "2026-10-25T19:25:37.936684+00:00",
+  "submittedPromptSha256": "9315a24a12e4fcf3708057a9fa1e16ecc8443eb21ace36f42a4331fd3dba2f90",
+  "producerInspection": {
+    "status": "mask-candidate-awaiting-original-rgb-composite-review",
+    "scope": "luminance mask only, not generated person RGB",
+    "observations": [
+      "Complete black contact mask personally viewed: several small seat/hem receiver islands, narrow book-bottom area and two local sole-floor groups survive. No full bench or large room white remains. Some exact receiver positions require native composite inspection; this is not an independently portable cast shadow."
+    ]
+  },
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "pngPixelEditing": false,
+  "currentUseDecision": {
+    "status": "superseded-incomplete-foot-shadow-receiver",
+    "observedIssue": "Original-RGB + dedicated empty background browser view showed only fine sole contact; wider real local source floor shade absent, weakening grounding.",
+    "replacement": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/mist/contact-mask-v2.png",
+      "sha256": "877b09c04dd259353a8fa3de230bb05b79ae7cf8c4e1b5071358d25bf0e8aad7",
+      "bytes": 317089,
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "allowedAsFutureImageInput": false
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "id": "sakiko-study-apricot-literary-desk-v1",
+  "sceneFamily": "literary-room-v1",
+  "pose": "desk-writing",
+  "character": "sakiko",
+  "activity": "study",
+  "light": "morning",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "width": 1536,
+  "height": 1024,
+  "mother": "sakiko-study-apricot-literary-desk-v1-mother.png",
+  "background": "sakiko-study-apricot-literary-desk-v1-background.png",
+  "mask": "sakiko-study-apricot-literary-desk-v1-mask.png",
+  "maskMode": "luminance",
+  "contactMask": "sakiko-study-apricot-literary-desk-v1-contact-mask.png",
+  "seat": [
+    0.18033854166666666,
+    0.5263671875
+  ],
+  "ground": [
+    0.13736979166666666,
+    0.69921875
+  ],
+  "bodyBounds": [
+    0.087890625,
+    0.208984375,
+    0.294921875,
+    0.70703125
+  ],
+  "safeTextBoundary": 0.3157552083333333,
+  "support": "desk-chair",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": false,
+  "hitPolygon": "8.7890625% 20.8984375%, 29.4921875% 20.8984375%, 29.4921875% 70.703125%, 8.7890625% 70.703125%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "workingPaperSide": "right",
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/sakiko-desk-writing-literary-included-primary-admission-v1.json",
+    "geometryRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-visible-geometry-v1.json",
+    "geometryStatus": "Actual left desk-writing source personally viewed; seat277539/forearm194391 and partial visible heel211716 only. bodyBounds separates visible person envelope from receiver/chair fragments; no unseen feet/joints.",
+    "layerReview": "root-approved exact-SHA fixed included desk-writing union; receiver material included; no invisible-foot/motion/runtime approval.",
+    "runtimeSourceSha256": {
+      "mother": "00629c2e6e5b55901244a534145ab3c9d8c2f9c3cbf2ec2de8668f33037ccb04",
+      "background": "75705046089367bc68cb84f5a679dff43f41eb746f28fbb7f26c2924ffa9532b",
+      "F": "bcb7752d297460db826c4add32d93e7ae5d87ce02134a16ab2e0e77987d2ddb8",
+      "S": "09128cff44817ee361ee08b3d897ea70d6c923e2d6492b1d63680cb903055663"
+    },
+    "geometryEvidence": {
+      "actualVisiblePersonEnvelopeSourcePixels": [
+        135,
+        214,
+        453,
+        724
+      ],
+      "basis": "Conservative visual envelope personally compared with complete original; includes visible held pen/hair/cloth/visible heel only, not all receiver furniture.",
+      "jointReceiverEnvelope": {
+        "sourcePixels": [
+          85,
+          214,
+          453,
+          728
+        ],
+        "normalized": [
+          0.055338541666666664,
+          0.208984375,
+          0.294921875,
+          0.7109375
+        ],
+        "basis": "Read-only luminance>32 diagnostic envelope of actual unmodified F and S, right/bottom exclusive. Includes admitted adjacent receiver/furniture fragments; not pure anatomy or a rendered threshold."
+      },
+      "visibleSeatSupport": {
+        "sourcePixels": [
+          277,
+          539
+        ],
+        "normalized": [
+          0.18033854166666666,
+          0.5263671875
+        ],
+        "basis": "Root actual source-visible skirt/seat support reference, not old empty-chair center or a hidden hip pivot."
+      },
+      "visibleForearmDeskSupport": {
+        "sourcePixels": [
+          194,
+          391
+        ],
+        "normalized": [
+          0.12630208333333334,
+          0.3818359375
+        ],
+        "basis": "Root actual visible forearm/desk support reference."
+      },
+      "visibleHeelGroundReference": {
+        "sourcePixels": [
+          211,
+          716
+        ],
+        "normalized": [
+          0.13736979166666666,
+          0.69921875
+        ],
+        "basis": "Producer approximate visible heel/floor fragment only; no full two-foot contour or invisible sole proof."
+      },
+      "hiddenFeetSigned": false,
+      "bodyDeformationCertified": false,
+      "workingPaper": {
+        "side": "right",
+        "basis": "Visible source actor occupies left desk; paper/layout must yield to actual left coverage. Runtime layout unverified."
+      }
+    }
+  }
+}

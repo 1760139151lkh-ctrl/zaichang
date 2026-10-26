@@ -1,0 +1,476 @@
+{
+  "schemaVersion": 2,
+  "recordType": "same-mother-original-rgb-included-layer-candidate-recheck",
+  "cell": "taki/attention/rain",
+  "characterId": "taki",
+  "activity": "attention",
+  "palette": "rain",
+  "recordedAtUTC": "2026-10-25 23:36:40 UTC",
+  "status": "producer_rechecked_existing_candidate_pending_root_layer_review",
+  "scope": "Restore only the three existing attention groups; resume production not authorized this turn.",
+  "mother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-rain-literary-extension-v2.png",
+    "sha256": "90a756337fbfb434a9de07ee77f0148b8e5619b58b88c8772ee2ed4f5355f912",
+    "sourceRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-rain-literary-extension-v2.source.json",
+    "sourceRecordSHA256AtRecheck": "5781603918fbde36f983115af95c4f2dde37679cecea50d0a3ae540ce3a417c0",
+    "wholeOriginalPersonallyViewed": true,
+    "generationOriginalPersonallyRead": true,
+    "primaryStaticAdmission": {
+      "cell": "taki/attention/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-rain-literary-extension-v2.png",
+        "sha256": "90a756337fbfb434a9de07ee77f0148b8e5619b58b88c8772ee2ed4f5355f912",
+        "bytes": 2237125,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.851Z",
+      "observation": "Taki dark hair/purple eyes and brown-red school wardrobe remain. Pencil tip lands on the real lap page; eyes are directed down toward the task. Whole rain light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    "primaryStaticAdmissionFile": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\root-human-mother-primary-review-20261025.json",
+    "primaryStaticAdmissionFileSHA256AtRecheck": "f6b3a0b7ac9974993b61553e907f0ebfa7c39763ebef7d33ca7efb215a99fbb2",
+    "admissionScope": "root static complete-mother admission only; not a layer/runtime approval"
+  },
+  "sourceCanvas": {
+    "width": 1536,
+    "height": 1024
+  },
+  "selected": {
+    "foregroundMarkup": "figure-step1-marked-v1.png",
+    "foregroundMask": "figure-mask-v1.png",
+    "receiverMarkup": "contact-step1-marked-v1.png",
+    "receiverMask": "contact-mask-v1.png",
+    "background": "background-v1.png",
+    "union": "union-source-v1.svg",
+    "composite": "composite-source-v1.svg",
+    "observationPage": "included-observe-v1.html"
+  },
+  "composition": {
+    "formula": "U=MAX(L(F),L(S))",
+    "luminance": "sRGB Rec.709 coefficients:0.2126,0.7152,0.0722",
+    "nativeImplementation": "feColorMatrix -> feBlend(mode=lighten) -> luminance mask",
+    "sourceRGBDrawCountPerUnion": 1,
+    "sourceRGBDrawCountPerComposite": 1,
+    "generatedMarkupRGBAdopted": false,
+    "backgroundFromExactMotherImageRemoval": true,
+    "commonEmptyPlateUsedInsteadOfSameMotherBG": false,
+    "receiverMode": "fixed original-position included original cloth/wood/contact material",
+    "travelPx": 0,
+    "slope": 0,
+    "perspective": 0,
+    "independentActorBookPaperReceiverMotionAllowed": false,
+    "wholeSourcePNGsCroppedOrResized": false,
+    "pngPixelEditing": false,
+    "thresholdOrMorphology": false
+  },
+  "imageGeneration": {
+    "totalExistingCalls": 5,
+    "existingRawPNGCount": 5,
+    "newCallsThisRecheck": 0,
+    "newHumanMothersThisRecheck": 0,
+    "allRawOutputsMatchRecordedAndToolOriginal": true,
+    "allPromptsMatchSubmittedToolAndPromptFiles": true,
+    "allInputSHAsMatch": true
+  },
+  "generationRecords": [
+    {
+      "sourceFile": "background-v1.source.json",
+      "sourceSHA256": "839a6f705b705868cde6da7137ff0af8ed03075c6f0278304b2961e4d4a9bd5a",
+      "stage": "BG",
+      "outputFile": "background-v1.png",
+      "outputSHA256": "bda179e8aff5ab5e3649c9f6b6f1d55cb4fd9293e23288e31b3c91abf34fd042",
+      "recordedOutputSHA256": "bda179e8aff5ab5e3649c9f6b6f1d55cb4fd9293e23288e31b3c91abf34fd042",
+      "toolOriginalSHA256": "bda179e8aff5ab5e3649c9f6b6f1d55cb4fd9293e23288e31b3c91abf34fd042",
+      "promptFile": "background-v1.prompt.txt",
+      "promptFileSHA256": "0162330a3cd8553d162569d43b1bcc441693e41e83e4fb477d20feaf92e858a2",
+      "submittedPromptSHA256": "e24000f23616c31047cdc9926a3c47fa8d870d13452f8450d2cf48068ae540ae",
+      "promptMatchesToolArguments": true,
+      "promptFileMatchesSubmitted": true,
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-rain-literary-extension-v2.png",
+          "role": "exact root-approved complete same mother",
+          "sha256": "90a756337fbfb434a9de07ee77f0148b8e5619b58b88c8772ee2ed4f5355f912",
+          "actualSHA256": "90a756337fbfb434a9de07ee77f0148b8e5619b58b88c8772ee2ed4f5355f912"
+        }
+      ]
+    },
+    {
+      "sourceFile": "contact-mask-v1.source.json",
+      "sourceSHA256": "370b4e0649808616bcb010b8c0d14c6e09a2ca6c4329248f58715905858de9a1",
+      "stage": "S2",
+      "outputFile": "contact-mask-v1.png",
+      "outputSHA256": "be6d80af7f82835bab83527cdbefd3e2fc106ea558a38c4113465fceeaf8d751",
+      "recordedOutputSHA256": "be6d80af7f82835bab83527cdbefd3e2fc106ea558a38c4113465fceeaf8d751",
+      "toolOriginalSHA256": "be6d80af7f82835bab83527cdbefd3e2fc106ea558a38c4113465fceeaf8d751",
+      "promptFile": "contact-mask-v1.prompt.txt",
+      "promptFileSHA256": "60c8dfe4d98a124ea0c1f4539fc6323b104c789e366ec1ce25e2ce2c180c028f",
+      "submittedPromptSHA256": "7a7073c34cbfd9738a56fabe8d1bca70e9155a054454abbf49d3c8616bef8683",
+      "promptMatchesToolArguments": true,
+      "promptFileMatchesSubmitted": true,
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-rain/contact-step1-marked-v1.png",
+          "sha256": "c183a0129bb647b2370551fab21950b78e70cb111b2508b6109d0ade2b04c523",
+          "role": "same-mother deliberate S1 receiver selection",
+          "actualSHA256": "c183a0129bb647b2370551fab21950b78e70cb111b2508b6109d0ade2b04c523"
+        },
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-rain-literary-extension-v2.png",
+          "sha256": "90a756337fbfb434a9de07ee77f0148b8e5619b58b88c8772ee2ed4f5355f912",
+          "role": "exact source distinguishes added white from natural linen",
+          "actualSHA256": "90a756337fbfb434a9de07ee77f0148b8e5619b58b88c8772ee2ed4f5355f912"
+        }
+      ]
+    },
+    {
+      "sourceFile": "contact-step1-marked-v1.source.json",
+      "sourceSHA256": "8798345f5efa98a06940abaff30e6baf21890e995aef4afd4daa8cc2746063fb",
+      "stage": "S1",
+      "outputFile": "contact-step1-marked-v1.png",
+      "outputSHA256": "c183a0129bb647b2370551fab21950b78e70cb111b2508b6109d0ade2b04c523",
+      "recordedOutputSHA256": "c183a0129bb647b2370551fab21950b78e70cb111b2508b6109d0ade2b04c523",
+      "toolOriginalSHA256": "c183a0129bb647b2370551fab21950b78e70cb111b2508b6109d0ade2b04c523",
+      "promptFile": "contact-step1-marked-v1.prompt.txt",
+      "promptFileSHA256": "70d5ebee359cb9412059fb73e28e5d4411b3b52202a5714485ec395e80236639",
+      "submittedPromptSHA256": "cedb23b61d3dda1fa633f91665b5361d548cd930114994cf5e9f89e163695462",
+      "promptMatchesToolArguments": true,
+      "promptFileMatchesSubmitted": true,
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-rain-literary-extension-v2.png",
+          "role": "exact root-approved complete same mother",
+          "sha256": "90a756337fbfb434a9de07ee77f0148b8e5619b58b88c8772ee2ed4f5355f912",
+          "actualSHA256": "90a756337fbfb434a9de07ee77f0148b8e5619b58b88c8772ee2ed4f5355f912"
+        }
+      ]
+    },
+    {
+      "sourceFile": "figure-mask-v1.source.json",
+      "sourceSHA256": "c655e24ad0d57e8954825c1758350baeb6fe6076d4592c055edc33046ae17a92",
+      "stage": "F2",
+      "outputFile": "figure-mask-v1.png",
+      "outputSHA256": "0be770c8723ff41ca7f4b15b4271b1dfb2cd14b4d8c6af164dc985007a664cf5",
+      "recordedOutputSHA256": "0be770c8723ff41ca7f4b15b4271b1dfb2cd14b4d8c6af164dc985007a664cf5",
+      "toolOriginalSHA256": "0be770c8723ff41ca7f4b15b4271b1dfb2cd14b4d8c6af164dc985007a664cf5",
+      "promptFile": "figure-mask-v1.prompt.txt",
+      "promptFileSHA256": "3f37cac41795588a4524f443fdc5f16b59e3793f3ff08f94480129edb44cb3d7",
+      "submittedPromptSHA256": "f5d68a63c04b621e4c936eddcb57b5d796003ffea7b2b90db9ecd31724e11a5e",
+      "promptMatchesToolArguments": true,
+      "promptFileMatchesSubmitted": true,
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-rain/figure-step1-marked-v1.png",
+          "sha256": "93ed9ba553e57fbe69f0cd6350becc1bcc4c16d3fbbd4c5985aeffd1b8ec807c",
+          "role": "same-mother deliberate F1 white selection",
+          "actualSHA256": "93ed9ba553e57fbe69f0cd6350becc1bcc4c16d3fbbd4c5985aeffd1b8ec807c"
+        }
+      ]
+    },
+    {
+      "sourceFile": "figure-step1-marked-v1.source.json",
+      "sourceSHA256": "bba3851c011d3efb704bef2afcaa2aa131c740afe245801d2eb69dfde23e90f1",
+      "stage": "F1",
+      "outputFile": "figure-step1-marked-v1.png",
+      "outputSHA256": "93ed9ba553e57fbe69f0cd6350becc1bcc4c16d3fbbd4c5985aeffd1b8ec807c",
+      "recordedOutputSHA256": "93ed9ba553e57fbe69f0cd6350becc1bcc4c16d3fbbd4c5985aeffd1b8ec807c",
+      "toolOriginalSHA256": "93ed9ba553e57fbe69f0cd6350becc1bcc4c16d3fbbd4c5985aeffd1b8ec807c",
+      "promptFile": "figure-step1-marked-v1.prompt.txt",
+      "promptFileSHA256": "a0920b1e13816236857bda9de65dc0fb48ab5716e613248a14e3fb96b3ccc9fa",
+      "submittedPromptSHA256": "6b51f7a5ab7b70b304d83c07f0f24df0a3ddc13bcacafc8f3cbbe40f2c69126f",
+      "promptMatchesToolArguments": true,
+      "promptFileMatchesSubmitted": true,
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-rain-literary-extension-v2.png",
+          "role": "exact root-approved complete same mother",
+          "sha256": "90a756337fbfb434a9de07ee77f0148b8e5619b58b88c8772ee2ed4f5355f912",
+          "actualSHA256": "90a756337fbfb434a9de07ee77f0148b8e5619b58b88c8772ee2ed4f5355f912"
+        }
+      ]
+    }
+  ],
+  "assemblyAssets": [
+    {
+      "file": "figure-step1-marked-v1.png",
+      "sha256": "93ed9ba553e57fbe69f0cd6350becc1bcc4c16d3fbbd4c5985aeffd1b8ec807c",
+      "bytes": 2105369,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "file": "figure-mask-v1.png",
+      "sha256": "0be770c8723ff41ca7f4b15b4271b1dfb2cd14b4d8c6af164dc985007a664cf5",
+      "bytes": 433927,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "file": "contact-step1-marked-v1.png",
+      "sha256": "c183a0129bb647b2370551fab21950b78e70cb111b2508b6109d0ade2b04c523",
+      "bytes": 2199970,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "file": "contact-mask-v1.png",
+      "sha256": "be6d80af7f82835bab83527cdbefd3e2fc106ea558a38c4113465fceeaf8d751",
+      "bytes": 312606,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "file": "background-v1.png",
+      "sha256": "bda179e8aff5ab5e3649c9f6b6f1d55cb4fd9293e23288e31b3c91abf34fd042",
+      "bytes": 2228898,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "file": "union-source-v1.svg",
+      "sha256": "08e6de5b5952950f9c033e4d727754234cc05a71f80ddf3e935add2949ad0da6",
+      "bytes": 1382
+    },
+    {
+      "file": "composite-source-v1.svg",
+      "sha256": "f0c04e72485ff6ad65f7ba1bacd7a9ad9517ed2be2e175f74d43b637ccf4436c",
+      "bytes": 1486
+    },
+    {
+      "file": "included-observe-v1.html",
+      "sha256": "da8e281facd8e658c88dbec7382e13227fc5182ef35655122e5e3372291ad921",
+      "bytes": 25989
+    }
+  ],
+  "nativeSVGReadback": [
+    {
+      "file": "union-source-v1.svg",
+      "sha256": "08e6de5b5952950f9c033e4d727754234cc05a71f80ddf3e935add2949ad0da6",
+      "sourceRGBReferenceCount": 1,
+      "imageReferences": [
+        "../../missing-theme-extension-v1/taki-attention-rain-literary-extension-v2.png"
+      ],
+      "maskReferences": [
+        "figure-mask-v1.png",
+        "contact-mask-v1.png"
+      ]
+    },
+    {
+      "file": "composite-source-v1.svg",
+      "sha256": "f0c04e72485ff6ad65f7ba1bacd7a9ad9517ed2be2e175f74d43b637ccf4436c",
+      "sourceRGBReferenceCount": 1,
+      "imageReferences": [
+        "background-v1.png",
+        "../../missing-theme-extension-v1/taki-attention-rain-literary-extension-v2.png"
+      ],
+      "maskReferences": [
+        "figure-mask-v1.png",
+        "contact-mask-v1.png"
+      ]
+    }
+  ],
+  "priorProductionBundle": {
+    "file": "included-source-bundle-v1.json",
+    "sha256": "4d0a53e88419d6c2354e2229213f9f84c9e4af01049d658a28a28298a8bf7494",
+    "bytes": 14485
+  },
+  "priorSchedulingHold": "Previous priority_hold was scheduling history, not a new root layer approval or a claim of a malformed PNG. This recheck record is current; original prompts/source facts remain unchanged.",
+  "browserReview": {
+    "method": "formal Chrome CUA browser1; own static artwork pages at5188, no App/9335",
+    "personallyPerformedThisRecheck": true,
+    "wholeMotherAndComposite": true,
+    "lightDarkCheckerUnion": true,
+    "faceHair": true,
+    "bookHandsPaperPencil": true,
+    "hemSeatKnees": true,
+    "wholeShoesAndFloor": true,
+    "receiverOnly": true,
+    "observations": [
+      "本轮亲看完整rain-v2原母并复读原文；它只从clean rain plate重建，root exact SHA已静态准入，旧rain-v1与UI板未作本组输入。",
+      "整幅雨夜/局部灯池在原母与同母BG合成保持；未由分层新增日照窗格、硬太阳斑或更换家具。",
+      "脸/长深发和细丝仍是同一母RGB；书的深色整封边、开放页块、两手和细笔均完整，未见选区把暗封皮当空隙。",
+      "全裙、膝袜鞋与真实座面接触复看完成，鞋前缘与侧后方的原地板接收均在U中；没有仅用空房或无支撑人物顶替。",
+      "浅/棋盘可见偏深棕的本位木地板小瓣，外沿比晨雾更紧实；同母合成中未见漂浮/灰缝。这是固定receiver材质，不是独立caster。"
+    ],
+    "currentEvidence": [
+      {
+        "file": "browser-observations/recheck-v2/01-scene.png",
+        "sha256": "5741ab9ef584eeda1af477b9e9db7e23659b385cbfe3aad2f0b9d9370345dafa",
+        "bytes": 123335,
+        "canvas": [
+          1265,
+          584
+        ],
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "file": "browser-observations/recheck-v2/02-subject.png",
+        "sha256": "95121c7fb230cf6a8b7247099b2601415365c96b2949c587d32ed272557cb3e4",
+        "bytes": 87994,
+        "canvas": [
+          1265,
+          584
+        ],
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "file": "browser-observations/recheck-v2/03-face.png",
+        "sha256": "9f52186b97119c51cef5f5d97dc91e3dda1e44ef37a3cd66253f7d6f16850fc6",
+        "bytes": 123820,
+        "canvas": [
+          1265,
+          584
+        ],
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "file": "browser-observations/recheck-v2/04-book.png",
+        "sha256": "378b0864159221607493d3be6de7a51ad3d79cfaa8a67f4f18758783d497040c",
+        "bytes": 106243,
+        "canvas": [
+          1265,
+          584
+        ],
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "file": "browser-observations/recheck-v2/05-hem.png",
+        "sha256": "31f6ada9d61498bc1809f06427661ddc77bb009eeb8c886374921891929dd442",
+        "bytes": 96445,
+        "canvas": [
+          1265,
+          584
+        ],
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "file": "browser-observations/recheck-v2/06-shoes.png",
+        "sha256": "3c40d1330d6723d47e7a768d79d3d01b29ce175d868a005ee7324bd22c37550d",
+        "bytes": 82702,
+        "canvas": [
+          1265,
+          584
+        ],
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "file": "browser-observations/recheck-v2/07-contact.png",
+        "sha256": "180f2495e8e303ceb5fa4ef4885a1e046bac33ca4012021607f793e2a6eef6ba",
+        "bytes": 71821,
+        "canvas": [
+          1265,
+          584
+        ],
+        "imageGenerationInputAllowed": false
+      }
+    ],
+    "historicEvidence": [
+      {
+        "file": "browser-observations/01-scene.png",
+        "sha256": "5741ab9ef584eeda1af477b9e9db7e23659b385cbfe3aad2f0b9d9370345dafa",
+        "bytes": 123335,
+        "canvas": [
+          1265,
+          584
+        ],
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "file": "browser-observations/02-subject.png",
+        "sha256": "95121c7fb230cf6a8b7247099b2601415365c96b2949c587d32ed272557cb3e4",
+        "bytes": 87994,
+        "canvas": [
+          1265,
+          584
+        ],
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "file": "browser-observations/03-face.png",
+        "sha256": "9f52186b97119c51cef5f5d97dc91e3dda1e44ef37a3cd66253f7d6f16850fc6",
+        "bytes": 123820,
+        "canvas": [
+          1265,
+          584
+        ],
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "file": "browser-observations/04-book.png",
+        "sha256": "378b0864159221607493d3be6de7a51ad3d79cfaa8a67f4f18758783d497040c",
+        "bytes": 106243,
+        "canvas": [
+          1265,
+          584
+        ],
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "file": "browser-observations/05-hem.png",
+        "sha256": "31f6ada9d61498bc1809f06427661ddc77bb009eeb8c886374921891929dd442",
+        "bytes": 96445,
+        "canvas": [
+          1265,
+          584
+        ],
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "file": "browser-observations/06-shoes.png",
+        "sha256": "3c40d1330d6723d47e7a768d79d3d01b29ce175d868a005ee7324bd22c37550d",
+        "bytes": 82702,
+        "canvas": [
+          1265,
+          584
+        ],
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "file": "browser-observations/07-contact.png",
+        "sha256": "180f2495e8e303ceb5fa4ef4885a1e046bac33ca4012021607f793e2a6eef6ba",
+        "bytes": 71821,
+        "canvas": [
+          1265,
+          584
+        ],
+        "imageGenerationInputAllowed": false
+      }
+    ],
+    "screenshotsAreUnchangedOfficialBytes": true,
+    "imageGenerationInputAllowed": false
+  },
+  "boundaries": [
+    "Existing source RGB, original body proportions/gaze and minor weather differences preserved; no mother reconstruction.",
+    "Same-mother BG repairs hidden linen/wood; not a bitwise identity claim for unobservable or all external room pixels.",
+    "F contains the whole person and all props; S carries local original material, can overlap F, and is merged once by MAX.",
+    "This is a fixed same-canvas static candidate. Root layer review, dynamic behavior and actual runtime require separate evidence."
+  ],
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "original360CreditAssigned": false,
+  "appRegistryCSSAndGlobalLedgerChanged": false,
+  "newTestsOrRunnersCreated": false,
+  "cleanup": "none; original production outputs and both rounds of browser evidence retained"
+}

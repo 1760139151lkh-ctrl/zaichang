@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "recordType": "keep-and-continue-competing-ui-direction-image",
+  "direction": "A",
+  "recordedAt": "2026-10-25T21:31:01.765958+00:00",
+  "tool": "image_gen.imagegen",
+  "transparentBackground": false,
+  "inputImages": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "role": "ONLY personally viewed clean empty rain-night literary room; ambient/composition reference, no user screenshot/old UI/person/portrait"
+    }
+  ],
+  "userScreenshotUsedAsInput": false,
+  "priorUiMockUsedAsInput": false,
+  "humanOrAvatarRepainted": false,
+  "readDependencies": [
+    {
+      "path": "docs/design/KEEP_AND_CONTINUE_2026-10-25.md",
+      "sha256AtArchive": "b7868d75e3acb1a80cb1ea544fcd07664eb31b33491aebc5405b956864cd4a87",
+      "scope": "Full main/reference text personally read for current two-direction exploration before generation; imagegen beginning re-read after combined-output truncation."
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/SKILL.md",
+      "sha256AtArchive": "d3dafe3e370dfe2aa6bbd522dd64242efb6e9dbed265daa0b68a9532734e1a58",
+      "scope": "Full main/reference text personally read for current two-direction exploration before generation; imagegen beginning re-read after combined-output truncation."
+    },
+    {
+      "path": "C:/Users/17601/.codex/skills/product-design-director/SKILL.md",
+      "sha256AtArchive": "63e55c05d3a33c1cdd048adf22d82b4cd47370c7580982ab02006909bf09de49",
+      "scope": "Full main/reference text personally read for current two-direction exploration before generation; imagegen beginning re-read after combined-output truncation."
+    },
+    {
+      "path": "C:/Users/17601/.codex/skills/.system/imagegen/SKILL.md",
+      "sha256AtArchive": "706d4d96e1d5c9e6023fe3ccabba1bb34b364024d344fd25b8515ec7d28fe3c4",
+      "scope": "Full main/reference text personally read for current two-direction exploration before generation; imagegen beginning re-read after combined-output truncation."
+    },
+    {
+      "path": "C:/Users/17601/.codex/skills/product-design-director/references/evolve.md",
+      "sha256AtArchive": "ab2ef1a25f0fd115647a65965f824047aae388e3357ce682242f07c40ab19ed4",
+      "scope": "Full main/reference text personally read for current two-direction exploration before generation; imagegen beginning re-read after combined-output truncation."
+    }
+  ],
+  "contentBrief": {
+    "path": "verified-content-brief.json",
+    "sha256": "293dab9c46aabf6fa145c0dd395af265a128bdffb9e00678a0a4a51be9079ce2",
+    "boundary": "Verified original-content/owner values supplied byroot. Generated chat wording is proposed visual-copy, not a measured model answer or fullPDF reading claim."
+  },
+  "promptFile": "direction-a-content-folio-v1.prompt.txt",
+  "promptFileSha256": "cf46db0f3e7d4d8ad79ef94d155ad903dce2777539afb4c513d8528d30569716",
+  "requestFile": "direction-a-content-folio-v1.request.json",
+  "requestSha256": "c28478b8f81c6b42daf244784931a6cf0366bd3317cdfaa0c1cf1f02124c6704",
+  "exactSubmittedPrompt": "Use case: ui-mockup. Create ONE highly polished, coherent full desktop product screen for 在场, LANDSCAPE1536x1024. The ONLY image input is the clean empty literary RAIN-NIGHT room plate. Use that image ONLY for this warm wooden room, rainy lake/town window, curtains, lamp, bench, wood and air. Draw a wholly NEW interface from the human purpose below, not a tracing of any previous product screenshot. No person, portrait/avatar, cat or human figure needs to appear; do not invent a new character. The complete original room is the environment, never a top banner.\n\nEMOTIONAL PURPOSE: A useful sentence, a document, a piece of one's own thinking and a work can be kept without becoming an opaque archive. Returning should feel like finding the actual open page and the conversation beside it. The chat remains the main readable place; the kept object quietly gives it continuity. Crisp, beautiful, humane and restrained, with the window and lamp genuinely breathing between content. No dashboard, file-manager chrome, giant modal or tall smoky brown wall.\n\nTRUE SHARED CONTENT, EXACTLY THE SAME IN BOTH COMPETING DIRECTIONS:\n1. Real retained original file: rolm-icra2023.pdf, SEVEN pages. Its first-page title selection is “RoLM: Radar on LiDAR Map Localization”. Current displayed PDF can be page1/7. It is genuinely retained, not a temporary attachment falsely listed as saved.\n2. One real existing note with the original owner title “rolm-icra2023.pdf · 第1页”. Its exact body is TWO paragraphs:\nRoLM: Radar on LiDAR Map Localization\n\n这句先放在页边，换窗口也别弄丢。\nThis note and that exact original PDF page are genuinely linked. Show the actual note as its own writing, not an assistant quote or a new copied document. A modest short label RoLM · 第1页 is allowed in a compact object preview, while the open context can show the true title.\n3. ONE SEPARATE retained interactive work with exact title “三角钢琴：一次击弦的旅程”. It resumes its ORIGINAL program and conversation. A tiny meaningful keyboard preview may show C4 with ONE warm-amber selected key; do not claim a complete performance, render a screenshot as a resumable program, or invent a wave/audio result. Useful actions are “继续试琴” and “原对话”. This work has NO relationship to RoLM; keep it a clearly separate thing, never group them by filename, AI guess or a shared project.\n\nPRODUCT BEHAVIOR VISIBLE THROUGH LABELS AND RELATIONS:\nTop brand 在场; global navigation “聊天   今天   留下”, with 留下 visibly selected in this open kept-content context. This context may sit alongside the existing conversation so it does not reset one's draft. “留下” must be a readable name, never only a mysterious book glyph.\nChat body is primary, generous readable width and real paragraph rhythm. Its small source quote uses the EXACT RoLM title and “第1页”, not “来源1”, a number badge or machine metadata. You may use this short proposed chat copy for layout:\n“先接着你留在页边的这句。”\nThen the exact RoLM title as a restrained quoted source.\n“你写下的想法仍连着原文第1页。这回想先聊这一句，还是回到原页看看？”\nThese are proposed design words, not a claim that an actual model read the complete paper. Never say 已读完/已分析全文/已同步 or invent a technical answer.\nA compact original composer retains the current context, with a short RoLM · 第1页 reference chip, plus entry and send action. No new duplicate composer, no attachment filename bar, no full-width instructional copy.\nOne independent PDF reading sidecar is open on the RIGHT/lower-right with true readable filename and 1/7. Its actual title selection is visible. The surrounding chrome is dark warm smoke/wood and the true PDF page itself may remain real white. Beyond the supplied title, use only faint non-readable layout strokes, NOT a fabricated paper, author list, formula or paragraphs. The generated page is visual intent; real implementation keeps original PDF pixels/text.\nAt that source selection, show ONE tiny local choice menu with concise actual actions “接着聊”, “留作笔记”, “留笔记与原文”. They are choices, not all already executed. No save-success checkmark/banner. Editing, source opening and sending remain separate. Do not add cloud-sync/long-term-memory consent, calendar creation, accounts or implementation IDs. A note can link “原文 第1页” and “继续编辑”; work can link “原对话”.\n\nNIGHT MATERIAL AND SPACE:\nNO full-height/full-column opaque brown backdrop. NO giant cream chat paper or charcoal paneled dashboard. Text receives only a controlled softly feathered local smoked-tea/amber field directly behind the paragraphs, with gentle local background blur and warm ivory type. Keep a stable readable text contrast; do not put pure transparency over busy high-contrast scenery. The local reading support ENDS after the actual message region and does not reach the ceiling/floor or coat the entire window. Window wood, blue rainy sky, distant town lights and warm linen stay clearly visible especially upper-right and between objects. The ceramic lamp is a genuine local glow; no daytime window-lattice sun patches. No green UI, warning cards, tiny engineer labels or broad alert bands.\nOne consistent typography scale, precise Chinese/Latin baseline and optical spacing, little warm amber accent, delicate paper/copper edge details. Objects are real UI controls, not photoreal physical scraps laid on the desk, no perspective text tricks or fake device mockup. No explanatory subtitle wall, decorative arrow flow, alternate-state collage or storyboard. This is one current full product state, no A/B label in product UI.\n\nDIRECTION A — CONTENT COLLECTION FIRST, an elegant shallow OPEN FOLIO, not folders in a file manager.\nComposition: chat has the largest single readable region in the upper-left/center, around x110..950,y175..600. Its input stays just below. Beneath that, use a low, broad, airy content folio across the LOWER LEFT/CENTER, around x90..1000,y730..950, with three naturally aligned object groups labelled “笔记”, “资料”, “作品”. This shallow folio does not become a tall sidebar or cover the upper room window. Do not wrap each group in a separate heavy card. A single fine shared divider/soft wood field, good gaps and distinct little object previews carry the grouping.\nThe 笔记 group contains the actual RoLM note: a tasteful little warm paper preview with its two true text paragraphs, and quiet actions 原文 第1页 / 继续编辑. It is the currently selected existing object.\nThe 资料 group contains an ORIGINAL bespoke small red cloth booklet cover with a fine cream spine/line motif, short label RoLM and 7页, actual filename secondary and restrained. No stock folded-corner PDF glyph, Adobe logo or “PDF” stamped giant. Clicking it means opening that same retained original, not making another stored copy. Show its relationship to the already open right PDF through the same red cover/detail, not arrows.\nThe 作品 group contains the distinct keyboard/C4 preview and exact piano work title, with 继续试琴 / 原对话. Piano is in its own object group and not visually nested under RoLM.\nThe right PDF frame is around x1110..1480,y340..930: tall enough to read, independent and modest, not a banner. Its local source-selection menu is small and attached to the selection. Keep the UPPER RIGHT original window broad and open, not behind a giant dark rectangle. Leave actual room gaps between chat, lower folio and PDF. Prioritize the first-time clarity of “I kept this note / this original / this work, and each can reopen its own place.” The RoLM title/main chat quote/kept note must be the same content, without a new unrelated dataset.",
+  "submittedPromptSha256": "10d2e89b3009e9a1001233ecc7017730b7dc3120571ade93d2a4a26c19896919",
+  "submittedPromptTransform": "Exact request JSON string passed to built-in tool. Prompttxt raw file has independent finalLF/hash; no implied byte equality.",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-ec60d3ba-7ef4-4a7a-b5dd-9b8a5384eabe.png",
+  "toolOriginalSha256": "b2b70789efa0b36fd2ef2de6fdfb443c92784f1338017418565d3ba8ee45c291",
+  "output": {
+    "file": "direction-a-content-folio-v1.png",
+    "sha256": "b2b70789efa0b36fd2ef2de6fdfb443c92784f1338017418565d3ba8ee45c291",
+    "bytes": 1893177,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "pngBytesUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewedReturnedWholeImage": true,
+    "observed": "Notes/original/work are clearly distinguishable in one shallow three-partfolio. Existing note original-page/edit actions and separatePiano original-chat/resume actions are readable; real filename/page1of7/title/note sentence retained. But chat and folio were rendered as two heavy rounded brown parent panels, reducing room integration. Its clarity is useful; enclosing surfaces are not final design acceptance.",
+    "staticOnly": true
+  },
+  "adoptionBoundaries": [
+    "Generated UI bitmap is not runtime screen/background or a later image reference. Use real components and original room asset.",
+    "PDFonly title/name/page count were supplied and verified; generated body layout strokes and controls are not actualPDF pixels/text or authority.",
+    "Piano keyboard/photo drawings are concept previews, not a resumable work or source screenshot; reopen actual original program/localState.",
+    "A generated counts/type badges andB decorative stockfile/photo/gold icon are not adopted owner facts or approved assets.",
+    "No input/motion/drag/cancel/keyboard/source-change/unavailable/unsaved/narrow-screen interaction has been verified by this art line.",
+    "Root compares/selects before any additional dynamic or operation-state image; root/runtime acceptance is independent."
+  ],
+  "generationInputAllowed": false,
+  "primaryDirectionSelected": false,
+  "runtimeAccepted": false,
+  "sourceOrAppOrLedgerChanged": false
+}

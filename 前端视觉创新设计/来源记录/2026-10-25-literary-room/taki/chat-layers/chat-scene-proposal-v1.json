@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "kind": "scene-composition-proposal-not-runtime-registration",
+  "id": "taki-chat-apricot-literary-included-v1",
+  "personaId": "taki",
+  "activity": "chat",
+  "palette": "apricot",
+  "roomFamily": "literary-room-v1",
+  "canvas": {
+    "width": 1536,
+    "height": 1024
+  },
+  "bundle": "chat-layers-included-bundle-v1.json",
+  "background": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "mother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-pilot/taki-chat-apricot-literary-v1.png",
+    "sha256": "0eb782e67b9954b406130a4994e9e75dd8774c8c3eb2a690d75d3e55338aad16",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "figureMask": {
+    "path": "figure-mask-v1.png",
+    "sha256": "0c9a012634dcafb933a204c3e53150f978d26365e63e46c578687dba57d1781c",
+    "bytes": 466233,
+    "generationSource": "figure-step2-source-v1.json"
+  },
+  "contactMask": {
+    "path": "shadow-mask-v1.png",
+    "sha256": "bbcb8bfbb911c1c7855f455f2159134267235474efeed22cc916c108561eb847",
+    "bytes": 311946,
+    "generationSource": "shadow-step2-source-v1.json"
+  },
+  "composition": {
+    "method": "MAX(luminance(F),luminance(S)) masks one original mother RGB draw",
+    "contactShadowMode": "included",
+    "sourceX": 0,
+    "sourceY": 0,
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "stageTransform": {
+      "x": 0,
+      "y": 0,
+      "scale": 1,
+      "rotation": 0
+    },
+    "relativeTravel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "breathing": 0,
+    "bodyDeformation": false,
+    "independentShadowMotion": false
+  },
+  "knownCoverage": [
+    {
+      "region": [
+        850,
+        475,
+        95,
+        75
+      ],
+      "observation": "F2 extra angular white coverage outside left waist; original source RGB there is room. Evaluate visible patch/furniture continuity in native composite; keep as explicit included-receiver extent, not invented body.",
+      "source": "figure-step2-source-v1.json"
+    }
+  ],
+  "primaryApproved": true,
+  "layerApproved": true,
+  "runtimeAccepted": false,
+  "requires": "Separate runtime-owner integration/admission before registration; exact-source fixed included geometry only.",
+  "primaryAdmissionRecord": "taki-chat-apricot-literary-included-primary-admission-v1.json"
+}

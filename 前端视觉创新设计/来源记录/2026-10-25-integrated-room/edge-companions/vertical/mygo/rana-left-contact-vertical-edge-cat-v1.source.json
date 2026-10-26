@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "assetType": "project-original-left-contact-vertical-edge-meme-cat",
+  "characterId": "rana",
+  "tool": "image_gen.imagegen",
+  "mode": "independently-generated-opposite-body-support-with-preserved-eye-ownership",
+  "promptFile": "rana-left-contact-vertical-edge-cat-v1.prompt.txt",
+  "submittedPrompt": "Create a NEW independently drawn LEFT-CONTACT vertical edge sprite of MyGO!!!!! Kaname Rana in this accepted sparse 2D meme-cat family. Highest priority layout: both FRONT PAWS and the lower HIND PAW reach to the LEFT, and the complete WHITE CAT BODY hangs on the RIGHT of an imagined vertical edge. The edge is located around 22 percent of the canvas width and must NOT be drawn. This is the opposite body support direction from the attached approved sprite, but it is NOT a global image flip. Recompose the limbs and torso from scratch. The face still looks FRONT toward the viewer, straight upright, both eyes on the SAME HORIZONTAL LINE.\n\nCRITICAL IDENTITY: Rana's OWN RIGHT eye remains GOLD; OWN LEFT eye remains BLUE. In this new front-facing, unmirrored head, VIEWER-LEFT eye must be GOLD and VIEWER-RIGHT eye BLUE. Both the reference and the new artwork keep that same eye ownership even though the PAWS change side. Do not reverse eye colors. Do not rotate the face. The silver-white softly layered short bob, a few pale gray-shadow hair groups, white face, small thoughtful mouth and alert interest remain Rana. No Sakiko ribbons, no human uniform or socks, no collar or accessories. Minimal integrated cat ears are anatomy of this project-original form.\n\nThe attached image is accepted for family line simplicity, scale, Rana's silver hair and true eye identity. Use it to understand the SAME visual family, not as a flip-ready sprite or as a body to transform. Draw a new physical relation: one front paw curves LEFT to clasp the imagined edge beside the lower cheek; the second front paw curves LEFT at upper-belly height; their leftmost contact tips align near the same vertical x coordinate. A connected folded hind leg lower down ends in a hind paw bracing LEFT against that same edge. The rounded abdomen, rump, arms and thigh make one uninterrupted coherent body on the RIGHT. No floating, extra or disconnected paws. A complete white tail grows from the lower rump, descends and curves gently down-RIGHT, whole tip visible, naturally counterbalancing the new body direction. It is a vertical hanging cat, never a horizontal loaf turned ninety degrees.\n\nHer own moment: she was exploring a faint rhythmic tap along this edge. A familiar person tries a surprising variation, and she pauses to listen because the variation actually interests her. Keep awake level eyes, nearly relaxed brows with a small lift of curiosity, and a tiny CLOSED short mouth with a very slight amused lift. She has her own interest, not a permanent sleepy face, not an identical welcoming grin. No sound icon, notes, text, speech bubble or visible props.\n\nSame spare hand-drawn flat 2D language for head and entire body: thick clean dark navy outlines with a little soft pen character, a flat WHITE face, round simple eyes with only TWO FLAT COLOR ZONES each, few broad SILVER-WHITE hair shapes with restrained flat gray divisions, complete white body. No human flesh tint, no fur, no plush, no realistic animal material, no 3D, no glass infant eyes, mature makeup or portrait head pasted onto a different kind of cat.\n\nPortrait composition with comfortable transparent clearance around complete ears, head, body, paws and tail. No panel, visible edge/vertical line, rectangle, floor, background, shadow, glow, colored haze, watermark or UI. Genuine transparent RGBA immediately outside the narrow normal antialiased outline. Leave the approved original untouched; create this as a new individual illustration, with left-contact support and the correct unchanged unmirrored heterochromia.",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/edge-companions/vertical/mygo/rana-vertical-edge-cat-v1.png",
+      "role": "root accepted original right-contact Rana drawing for family simplicity and true silver-hair/heterochromia identity; not global-flip input",
+      "sha256": "cb651d1493f1344a0f599d00ad1fb79edec2c7ffa2ed7a0c78cf8720ed8f9dee"
+    }
+  ],
+  "readSources": {
+    "passport": {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/rana.md",
+      "version": "2026-10-25",
+      "fullReadBeforeCall": true,
+      "sha256AtArchive": "d39286e83289d7c67222428a139b8650ff9f60a0e78e49c0a8393b3079f2e892"
+    },
+    "method": {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "version": "2026-10-25/with-avatar-supplement",
+      "fullReadBeforeCall": true,
+      "sha256AtArchive": "8d004e5b3c2065f8af9739c990f09b18df340a4c2e9720c5a9630f67387a365e"
+    }
+  },
+  "facts": {
+    "officialSources": [
+      "https://mygo-movie.bang-dream.com/character/rana/",
+      "https://bang-dream.com/artist/mygo/kaname-rana/"
+    ],
+    "identityObserved": "银白层次短发、自身右金左蓝。新画仍正面观察者左金右蓝；爪侧变化不改变身份左右。",
+    "projectOriginal": "二维人物简笔头+完整白猫竖身、探听边缘敲击节奏与微笑是项目原创相处，不是原作物种变化或真实业务已完成。"
+  },
+  "output": {
+    "file": "rana-left-contact-vertical-edge-cat-v1.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-2bce8c7a-510a-4549-95c7-de1908f704ae.png",
+    "sha256": "1eb313f4e59b4dcc89d0b412a7f2f307912853e734974b3a1a1463d298fbc54e",
+    "bytes": 973786,
+    "width": 1070,
+    "height": 1470,
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "cornerAlpha": 0
+  },
+  "producerReview": {
+    "status": "producer_candidate_pending_primary",
+    "fullImagePersonallyViewed": true,
+    "observations": "新输出亲看：两前爪与弯后爪伸左、完整白猫身体在右、尾根连续向下弯右；脸朝人、眼线近水平、观察者左金右蓝。微闭口弧带一点好奇兴趣，与原稿相近而不是冷困。未执行任何整图flip/裁切/像素重绘。",
+    "contactProposal": {
+      "bodySide": "right-of-imagined-edge",
+      "pawSide": "left",
+      "upperPawApprox": [
+        224,
+        636
+      ],
+      "middlePawApprox": [
+        234,
+        807
+      ],
+      "hindPawApprox": [
+        228,
+        1148
+      ],
+      "proposedEdgeX": 231,
+      "note": "来自亲看原图近似；实际尺寸归档后填。仅供rig起点，不是精确mask或runtime接触签审。",
+      "canvasSize": [
+        1070,
+        1470
+      ]
+    },
+    "smallSizeReview": {
+      "personallyViewed": true,
+      "method": "Chrome实际载入并亲看320/128/64px高深浅底",
+      "page": "rana-left-contact-observe-v1.html",
+      "observation": "爪左身右、尾下弯右、观察者左金右蓝在128px仍可读；未见不透明板、明显晕圈或截尾，64px只保轮廓/眼色。观察线只是接触起点，未签mask或runtime。"
+    }
+  },
+  "mirrorSafe": false,
+  "primaryApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "humanMatrixCoverage": false
+}

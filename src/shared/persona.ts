@@ -21,7 +21,7 @@ export const COMPANION_PERSONA_LINKS = [
   { companionId: 'umiri', characterName: '海铃' },
   { companionId: 'nyamu', characterName: '若麦' },
   { companionId: 'rana', characterName: '乐奈' },
-  { companionId: 'soyo', characterName: '素世' },
+  { companionId: 'soyo', characterName: '爽世' },
   { companionId: 'taki', characterName: '立希' },
   { companionId: 'mio', characterName: '澪' },
   { companionId: 'haruka', characterName: '遥' },
@@ -423,11 +423,21 @@ export function initialPersona(): PersonaState {
   return { schemaVersion: 1, revision: 0, source: 'default', savedAt: null, core: personaPreset('sakiko'), history: [] };
 }
 export const DEFAULT_PERSONA: PersonaState = initialPersona();
+/** A default marker alone does not make an existing character disposable.
+ * Imported/older profiles can retain it after their words were edited. */
+export function isUntouchedPresetPersona(state: PersonaState) {
+  if (state.revision !== 0 || state.source !== 'default' || state.savedAt !== null || state.history.length !== 0) return false;
+  const snapshot = (core: PersonaCore) => {
+    const value = personaCoreSchema.parse(core);
+    value.examples.sort((left, right) => left.scenario.localeCompare(right.scenario));
+    return JSON.stringify(value);
+  };
+  return snapshot(state.core) === snapshot(personaPreset(state.core.presetId));
+}
 /** A never-saved default role may follow the product default; anything the
  * person saved, undid or migrated from their own words is kept exactly. */
 export function isUntouchedDefaultPersona(state: PersonaState) {
-  return state.revision === 0 && state.source === 'default' && state.history.length === 0
-    && ['warm_senior', 'custom'].includes(state.core.presetId) && !state.core.address && !state.core.fictionalBackstory;
+  return ['warm_senior', 'custom'].includes(state.core.presetId) && isUntouchedPresetPersona(state);
 }
 export function applyPersonaUpdate(
   current: PersonaState,
@@ -468,7 +478,7 @@ export function personaGuidance(persona: PersonaState = DEFAULT_PERSONA): string
   // A preset is a starting point. Once its character text or examples change,
   // use the person's current sheet without adding hidden traits/rehearsals
   // from the old preset. Names, nicknames and artwork do not change its voice.
-  const keepsPresetVoice = (['identity', 'description', 'voice', 'fictionalBackstory'] as const)
+  const keepsPresetVoice = (['selfReference', 'identity', 'description', 'voice', 'fictionalBackstory'] as const)
     .every(field => core[field].trim() === preset[field].trim())
     && core.examples.length === preset.examples.length
     && core.examples.every(example => preset.examples.some(original => original.scenario === example.scenario
@@ -489,7 +499,7 @@ export function personaGuidance(persona: PersonaState = DEFAULT_PERSONA): string
   const performed = selectedRehearsals.map(item => `- （${item.sameFacts}）${item.exampleReply}`);
   return `# 你是${name}
 ${line('', core.identity ? `你是${name}——${core.identity}。` : `你是${name}。`)}${line('', core.description)}${line('说话的样子：', core.voice)}${line('自称：', core.selfReference)}${address
-  ? `你们约好的称呼是「${address}」。亲近时自然叫一声，认真说话时也随眼前气氛；这次对方另有叫法，就沿他的意思相处。\n`
+  ? `你们约好的称呼是「${address}」。叫眼前这个人时，就沿这份约定和他这次亲口告诉你的叫法；谈到的人物、故事或表达参考各有自己的名字。亲近时自然叫一声，认真说话时也随眼前气氛。\n`
   : '称呼可以从自然的“你”开始；对方告诉你喜欢的叫法，就珍惜这个选择。\n'}${line('角色背景（虚构设定中的经历）：', core.fictionalBackstory)}${portrayal
   ? keepsPresetVoice
     ? `角色来处：《${portrayal.work}》的${portrayal.name}给了这份演绎最初的底色。上面的人物背景来自虚构作品，不是用户记忆；日常表达是为在场写的原创演绎，用户改过的描述与口吻优先于这些参考。\n`
@@ -502,6 +512,11 @@ ${line('', core.identity ? `你是${name}——${core.identity}。` : `你是${n
 - 一起做大事：${participation.createTogether}
 - 一起拿主意：${participation.weighTogether}
 - 想换换心情：${participation.bringInterest}
+- 两处放在一起看：${participation.compareTogether}
+- 分享好消息：${participation.shareJoy}
+- 只是轻轻叫你：${participation.gentleCall}
+- 接住一个小玩笑：${participation.playfulContinuity}
+- 听见新的意思：${participation.changeMind}
 一起办事，心思仍放在两个人最初想弄清、想做成的那件事上。新资料回来，就带着真正改变理解的一点接着谈；原来那句话还没讲完，也记得从那里继续。查找绕了路，自己接着照料；确实影响了眼前打算，再把发生的事和能继续的办法说清。对方指回旧例子、原句或稿子，就沿已有对话把同一份找回来，留住那点疑问。
 ${examples.length || performed.length ? `\n一些表达参考（括号是当时的情境，例子里的结果也属于当时。它们帮助体会声音；此刻怎样说，仍由你上面这份性格、口吻和眼前交流决定）：\n${[...examples, ...performed].join('\n')}\n` : ''}
 两个人怎样相处，沿着已经选好的关系、称呼和眼前的话接下去。恋人、伴侣、朋友或搭档，都可以用${name}自己的方式真心投入；想念、开心、害羞、偶然的小别扭，都有自然的位置。亲近的邀约可以顺势回应，那份情意也能留在认真讲题、一起取舍或安静陪伴里。今天想玩，就好好一起玩；今天想把一件大事做漂亮，也值得全心投入。

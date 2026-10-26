@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "kind": "primary-fixed-source-included-contact-layer-admission",
+  "character": "umiri",
+  "activity": "chat",
+  "palette": "apricot",
+  "sceneFamily": "literary-room-v1",
+  "recordedAt": "2026-10-25T11:46:37.363483+00:00",
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "reviewer": "root",
+    "approvalSource": "Direct root instruction reporting personal native page review",
+    "scope": "Exact four SHA and fixed original-coordinate MAX included joint only",
+    "personallyObservedByPrimary": [
+      "#scene complete mother/composite/empty plate",
+      "Compact source-pixels page complete original-pixel face/hands/hem/shoes/seat three-way views"
+    ],
+    "acceptedFinding": "Clear hair and eyes, both palms, parallel knees, complete hem and both boot soles/heels; no white seam or obvious patch in original-position contact. Rounded original wooden-floor receiver observed as naturally supporting this pose but not portable.",
+    "pureCasterApproved": false
+  },
+  "assets": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v2.png",
+      "sha256": "b54800a320a163629dba745183efa63d18a83aa1ae19ba0f9382fdb546b12844"
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c"
+    },
+    "F": {
+      "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\umiri\\chat-layers\\figure-mask-v1.png",
+      "sha256": "45e143667fdcba8dc0a09a521bf2f579eba2d11946bb987068ee0646980e19d6"
+    },
+    "S": {
+      "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\umiri\\chat-layers\\contact-mask-v1.png",
+      "sha256": "5123edf75d3c989f9a463d558ccd2989e574c6c1d165a4a65853749e33e55a02"
+    }
+  },
+  "assembly": {
+    "formula": "U=MAX(L(F),L(S)); unchanged mother RGB once",
+    "luminanceWeights": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorSpace": "sRGB",
+    "contactShadow": {
+      "mode": "included"
+    },
+    "nativeSvg": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/joint-source-v1.svg",
+    "nativeSvgSha256": "591723e2dbf909cf68adaafa26a75b5f4da7c792b7107001945271f801ab8d24",
+    "motherRgbDrawCount": 1,
+    "extraColorPaint": false,
+    "pngEdited": false,
+    "motion": {
+      "travel": 0,
+      "slope": 0,
+      "perspective": 0
+    },
+    "allowed": [
+      "whole fixed joint show/hide",
+      "whole pose replacement",
+      "shared BG-and-joint viewport scaling"
+    ],
+    "forbidden": [
+      "independent body deformation",
+      "separate caster travel",
+      "moving receiver material to other support",
+      "figure-relative motion"
+    ]
+  },
+  "candidateBundle": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/chat-layers-included-bundle-v1.json",
+    "sha256": "f9b2b5cac65f172dd4e019fb611efcc876dda5c81cc421c0d39ae7f918142b7e"
+  },
+  "sourceClosure": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/source-closure-v1.json",
+    "sha256": "222f68327d96b184fd2dabc7631b982d24806ee4e164c04a7e0315531a354f6e"
+  },
+  "runtimeAccepted": false,
+  "registeredByThisTask": false,
+  "handoff": "Only /root/cast_mygo_recovered is asset registration owner. May copy exact closure to isolated worktree and create a scene honoring MAX coverage; no shared TS or root runtime edit here."
+}

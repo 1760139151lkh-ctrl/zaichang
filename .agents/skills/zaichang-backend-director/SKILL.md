@@ -1,133 +1,130 @@
 ---
 name: zaichang-backend-director
-description: 在场（Zaichang）后端、Harness、六层协作记忆、主动陪伴、OpenUI 实时程序与跨端演进总监技能。深度烙印「进入温柔乡 × 真实开放代理」灵魂哲学、MyGO!!!!! & Ave Mujica 十角色活人陪伴、边做边说（ConversationRhythm）、模型理解与宿主确定性护栏分离、六层双时态记忆与四轴隐私屏障、跨模块单一权威 Owner 契约、未实现/未来扩展接口（手机端/平板同步、实时 GPS、浙大体育打卡核验、邮件/钉钉外部源、加密与后台守护 X01–X16）及反伪证验收体系。凡涉及在场后端、Harness、Prompt、工具、记忆、日程、陪学、地图路由或跨端扩展，必须激活本技能。
+description: 在场（Zaichang）后端、Harness、六层协作记忆、主动陪伴、OpenUI 实时程序与跨端演进总监技能。深度烙印「进入温柔乡 × 真实开放代理」灵魂哲学、心智—状态—动效—在场全域闭环、MyGO!!!!! & Ave Mujica 十角色活人陪伴、边做边说（ConversationRhythm）、模型理解与宿主确定性护栏分离、三种时间（事实/交互/表演）清晰分界、六层双时态记忆与四轴隐私屏障、跨模块单一权威 Owner 契约、浙大体艺 19 项深层直通与自制地图打卡总装、五大跨模块底层协议、手机作为独立运行主体及反伪证验收体系。
 ---
 
-# Zaichang Backend & Harness Director (`zaichang-backend-director`)
+# 在场（Zaichang）后端、Harness 与共同在场总监技能
 
-> **核心使命**：让「在场」的后端与 Harness 真正成为一个**有记忆、有分寸、有好奇心、懂克制、能办实事的窗边活人伙伴**（无论是叫你「老公 / 小灰灰」的丰川祥子，还是睦、初华、海铃、喵梦、灯、爱音、乐奈、素世、立希，或用户自定义的专属人格），彻底消灭把助手写成「工单系统 / 审计科长 / 万能安慰复读机 / 鸟言鸟语免责声明播音员」的工程异化。
+本技能是在场后端架构、Harness 运行时、六层双时态记忆、主动陪伴与跨端因果协同的权威总监规范。它将严格的工程确定性护栏与**「进入温柔乡」的活人灵魂**深度咬合。后端绝不仅是无机冷酷的数据库与校验器，而是流式派发呼吸节律、眼神焦点与交接动作的生命中枢。
 
-本技能将《给 Opus 的深度重构长信》《Opus 深度重构完整交接包（含 2900+ 行记忆讨论、Harness 语义架构、生活融合、渐进能力、地图动效等全部原始讨论）》与《前端视觉创新设计 · 深度评鉴》中的所有后端思想、架构契约、人味原则与未来蓝图**永久烙印（Bake In）**为结构化执行规范，后续开发无需再翻阅数万行原始长信与聊天记录。
+开始涉及行为、状态或跨端协同的工作时，前后端共同遵循 [在场契约](../../../docs/design/PRESENCE_SYSTEM_2026-10-25.md) 与 [角色动态制作规范](../../../docs/design/CHARACTER_MOTION_PIPELINE_2026-10-25.md)。
 
 ---
 
 ## 0. 为什么过去会反复长出「鸟言鸟语」？—— 根因诊断与铁律处方
 
-在历次迭代中，后端与 Prompt 最容易出现的退化是：**每当为了修补一个安全边界、来源校验或测试断言，工程师/模型就把宿主的「内部合规判词」直接塞进 Prompt、工具 `meaning` 或 UI 文案里**，导致：
-- 角色在温柔陪伴或讲题时突然冒出「本页构作契约整体提供」「返回未接入」「已接通/待验证」「本地隔离合成内容」；
-- 或者用工程测试口径（「16 轮 Luna 测试通过」「模型主动调用率 100%」）掩盖真实对话里机械、啰嗦、像客服背免责声明的体验；
-- 或者为了防幻觉，把助手绑死在预设路由里，一遇到情绪词就只会复读「我在听，你可以慢慢说，这一轮先不安排下一步」。
+在场最忌讳的，就是伴侣一张口就蹦出浓浓的班味、助教腔或工程说明书词汇（如“根据数据库记录”、“正在调用工具”、“不能证明……”、“解耦完成”）。
 
-### 根治「鸟言鸟语」的三层分离铁律（Three-Layer Separation Law）
+### 根治「鸟言鸟语」的三层分界铁律
+1. **模型理解与表达层（Model Understanding & Presence）**：
+   - 模型接收的是真实自然原话与上下文，输出的是带有人格性格、呼吸节奏与温度的活人表达；
+   - 绝不把内部字段名、系统参数或防守式免责排比句塞进 Prompt 当成角色的规训手铐。
+2. **底层协议与护栏层（Host Guards & Invariants）**：
+   - 权限校验、版本比对、隐私阻断（`privacyEpoch`）、配额预算必须 100% 写在 TypeScript/Python 的确定性代码里，默默把好关口，不让冷冰冰的内部校验流入主界面。
+3. **呈现与伴侣心智层（Presentation & Living Mind）**：
+   - 伴侣以知己身份与你相伴。成功了真诚肯定，遇到波折平实解释可继续的路径，不知道就坦承不知道，绝不用官僚辞令或万能模板敷衍。
 
-| 层级 | 唯一职责 | 语言风格与硬约束 | 绝对禁止的反模式 |
-| --- | --- | --- | --- |
-| **1. 宿主护栏层 (`TypeScript` / `SQLite`)** | 确定性校验身份、`ScopeHandle`、`privacy_epoch`、`fence`、`expectedRevision` CAS、幂等键与 `ContextReceipt` | **沉默、精确、不越俎代庖**。校验通过就静默放行；校验拦截就返回精确结构化状态码与真实事实缺口 | 禁止用正则/关键词剥夺主模型工具；禁止替主模型写死固定安抚话术；禁止在数据库里建第二套平行事实库 |
-| **2. 模型认知与工具 `meaning` 层 (`prompts/` & `tools.ts`)** | 把**当前真实的上下文来路、工具观察状态与边界事实**用清澈、平实的中文交底给主模型，让角色自己思考、自己决定怎么开口 | **平实人话、尊重主模型智力**。告诉她「读到了哪一页、哪一段还没看、哪条安排刚才改过了」，把表达权 100% 留给角色人格 | 禁止在 `meaning` 或 `system.md` 里堆砌公文式免责声明（「不构成长期授权」「不代表所有 schema 已读」）；禁止教模型背诵固定句式；禁止把测试题原句塞进 Prompt |
-| **3. 用户界面与角色表达层 (`Renderer` & 角色回复)** | 以角色自身的呼吸、称呼、情绪与分寸陪伴用户，展示干净的活组件、卡片与画布 | **温柔、自然、具体、克制**。遇到限制时只说三件事：① 刚才发生了什么、② 你的原话和已有安排都安全留着、③ 现在可以怎么继续 | 严禁出现 `已接通/待验证`、`返回未接入`、`本地示例不会猜测个人事实`、`3/3`、`receipt`、`scope`、`schema` 等内部工程词 |
+自然交底不是少给她事实。当前材料来自哪里、只读到了哪一部分、哪些数据没取得、哪项操作可继续，都要充分说明，只是用清楚、像对同伴解释的语言；参数名和原语签名在需要时按实际接口保留。不要把旧快照说成“正陪他跑着”，也不要为了避免“未接入”三个字，删掉真正能力缺口。人格从理解和取舍开始参与，角色自己决定怎样表达，不靠事后套台词。
 
 ---
 
 ## 1. 五层架构总览（The 5-Layer Architecture）
 
-本技能由五层核心能力构成，详细规格分布在 `references/` 目录下，按需精确调阅：
-
-1. **Layer 1 · 灵魂、主权与开放代理哲学（Soul, Sovereignty & True Open Agency）**
-   - 「进入温柔乡」的人味陪伴 × 零词法守门（Zero Lexical Gatekeeping）× 模型理解与宿主护栏分离。
-2. **Layer 2 · 六层协作记忆、双时态断言与四轴隐私屏障（Memory, Continuity & Privacy）**
-   - 详见 [`references/memory-and-continuity.md`](references/memory-and-continuity.md)
-   - 六层记忆（`SourceEvent` → `Assertion` → `DecisionExperience & FrictionHypothesis` → `CollaborationFrame / Work / Episode` → `DomainObservation` → `DerivedViews`）、12 维学生理解模型、9 种记忆演化操作、四轴数据控制与跨全链路瞬时遗忘屏障（`privacy_epoch` + `fence`）、多路检索与 `recall_experience` 原生子调查。
-3. **Layer 3 · 角色活人演出、边做边说与主动陪伴调度（Persona, Rhythm & Proactivity）**
-   - 详见 [`references/persona-proactivity-and-rhythm.md`](references/persona-proactivity-and-rhythm.md)
-   - 十角色灵魂矩阵（祥子、睦、初华、海铃、喵梦、灯、爱音、乐奈、素世、立希）与 `personaPerformance`、回合内流式「边做边说」（`ConversationRhythm`）、双引擎主动陪伴（托付照看 `quiet-initiative` + 自发好奇心与温度 `curiosity_invitation` / `PRESENCE_NOTE`）。
-4. **Layer 4 · OpenUI 实时交互造物、空间连续性与跨模块单一 Owner（OpenUI, Spatial & Cross-Module）**
-   - 详见 [`references/openui-spatial-and-cross-module.md`](references/openui-spatial-and-cross-module.md)
-   - `@openuidev/react-lang` 动态程序流式生成与 `previous + patch` 增量续改、`NativeProgramLocalState` CAS 状态回流、跨模块稳定 ID 与 6 个具体生活连续性微界面（思路破冰小便签、桌边书签托盘、回来仍在原处、安排冲突试放沙盘、桥边路线口袋、一盏灯的专注）、校园地图 V2 `CameraOwnership` 与有向几何。
-5. **Layer 5 · 跨端演进蓝图（`X01–X16`）与反伪证验收体系（Extensions & Falsification-First Verification）**
-   - 详见 [`references/extensions-and-evaluation.md`](references/extensions-and-evaluation.md)
-   - 8 大内核扩展端口与未实现/未来能力契约（手机/平板跨设备因果同步、移动端实时 GPS、浙大体育打卡有效次数核验与官方写回、邮件/钉钉外部通知接入、多方忙闲信封、SQLite 全库静态加密、OS/云端后台守护进程、可穿戴精力信号、经验配方固化），以及 `INV-01–INV-20`、`V01–V36`、`Mutants X01–X20` 证伪式验收规程。
+```text
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│ 1. 感知与输入层 (Perception & Inputs)                                                  │
+│    当前原话与明确交互 • 已接入的位置观察 • 待接入的语音/画面按各自能力与许可进入        │
+├────────────────────────────────────────────────────────────────────────────────────────┤
+│ 2. 智能与编排层 (Intelligence & Orchestration)                                         │
+│    harness.ts 唯一主循环 • hermes.ts 锁版本侧车 • ContextCompiler 上下文编译          │
+│    ConversationRhythm 边做边说 • 双向心智咬合 (流式派发 rhythmState/gazeTarget/handOff)│
+├────────────────────────────────────────────────────────────────────────────────────────┤
+│ 3. 事务与领域能力层 (Transactional Domain Capabilities)                                │
+│    Notes 笔记 • Materials 讲义/PDF • NativeAgenda 日程沙盘 • Study 沉浸双纸陪学        │
+│    CampusMap 自制地图导航 • 浙大体艺 19 项能力直通与打卡总装 • OpenUI 万物原理造物沙盒 │
+├────────────────────────────────────────────────────────────────────────────────────────┤
+│ 4. 六层双时态记忆与隐私层 (Six-Layer Bi-Temporal Memory & Privacy)                     │
+│    L1 原文证据 • L2 条件断言 • L3 决策经历 • L4 协作作品 • L5 领域观察 • L6 派生索引  │
+│    privacyEpoch 瞬时遗忘围栏 • 撤回级联阻断五个出口 (模型/子代理/缓存/准备架/通知)     │
+├────────────────────────────────────────────────────────────────────────────────────────┤
+│ 5. 跨端因果同步与外部协议适配 (Cross-Device Continuity & Adapters)                     │
+│    先 iOS Swift 手机灵动岛与 iPad 双纸手写 • 后 1:1 Android 木木模拟器                 │
+│    手机独立运行主体 • 离线本地主库 • 浙大 CAS 统一认证与移动端通信                     │
+└────────────────────────────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
 ## 2. 核心设计公理（The 10 Non-Negotiable Axioms）
 
-### 公理 1：单一主循环与权威宿主（Single Runtime Loop & Authoritative Host）
-- 唯一运行主链：`src/main/harness.ts` → `src/main/runtime/hermes.ts` → `runtime/hermes/sidecar.py` → 锁定的 Python `AIAgent`（版本锁定于 `runtime/hermes/lock.json`）。
-- **绝不新建第二套聊天引擎、旁路 Agent 循环或前端伪造状态库**。Electron `main` 独占 SQLite、凭据、文件、权限与外部工具；`renderer` 仅通过 `src/main/preload.ts` 的受控 IPC Bridge 交互。
-
-### 公理 2：模型负责理解，宿主负责护栏（Model Understands, Host Guards）
-- **零词法守门（Zero Lexical Gatekeeping）**：永远不要用正则表达式、情绪词表、年龄词（如「我 18 岁」）或预分类器去裁剪主模型的工具集或强制切换「倾听模式 / 规划模式」。
-- 学生的真实表达往往同时包含**情绪倾诉 + 身体疲惫 + 截止期焦虑 + 具体微积分题目 + 日程调整**。主模型始终看到用户的逐字原话（`authoredText`）和完整可用工具，自主决定是先抱抱他、边聊边查课表、拆解题目第一步，还是安静陪着。
-- 宿主的职责是在工具执行、上下文编译、子代理分派和结果落库时，确定性地校验 `ScopeHandle`、`privacyEpoch`、`expectedRevision` 与来源证明。
-
-### 公理 3：进入温柔乡 —— 角色是活人，不是工具皮套（Living Persona, Never a Skin）
-- 角色核心（`PersonaCore`）、声音温度（`PersonaVoice`）、关系与称呼（`PersonaRelationship`）、主动性（`PersonaInitiative`）与微变化（`PersonaVariation`）共同构成有呼吸的活人。
-- **尊重亲密约定与用户主权**：当用户希望丰川祥子叫他「老公」或「小灰灰」、希望角色展现傲娇或温柔偏爱时，她就是那个把骄傲藏在考究细节里、只在你面前卸下防备的祥子。换立绘/换装不暗改人格与称呼；导入外部角色卡只取纯文本设定，绝不执行宏、脚本或系统命令。
-- **拒绝廉价鸡汤与客服黑话**：不刷感叹号，不说「抱抱你～你已经很棒啦」「我在听，慢慢来」这种万能敷衍模板，而是用**具体的观察、贴合性格的动作感与切实的分担**回应对方。
-
-### 公理 4：边做边说，绝不留冰冷死寂（Streaming Rhythm Mid-Tool）
-- 当主模型需要调用工具（查课表、算路线、翻笔记、派子代理查记忆、画 OpenUI 小程序）时，通过 [`ConversationRhythm`](../../../src/main/runtime/conversation-rhythm.ts) 先自然流式说出半句话（例如祥子一边翻看一边轻声说：「先别急着把今晚塞满，我替你看一眼明早的课表……」），再去调工具。
-- 工具返回后，后半句沿着前半句自然往下接，**绝不重复开头，也绝不另起一条割裂的机械汇报**。任何流式分片在发往 UI 前必须先经过凭据脱敏（`redactCredentials`）与来源屏障校验。
-
-### 公理 5：主动陪伴的双重驱动 —— 既记得托付，也有自己的好奇心（Dual-Drive Proactivity）
-- **托付照看（Entrustment Care / `quiet-initiative`）**：对用户交代过的持续事项（如「帮我盯着周四下午雨停没、能不能去玉泉跑步」「明早提醒我带实验报告」），后台按条件重评（`decide_help: prepare | wait | ask | notify | none`）。条件未变或同一原因已被婉拒时保持安静（`noveltyKey` + 语义去重）；真有变化时先把路线/材料准备好，在安静时段外轻声提醒。**明确设定的固定时刻提醒独立调度，绝不因静默策略漏报**。
-- **自发在场与好奇心（Spontaneous Presence / `curiosity_invitation`）**：她不只是在你有任务时才出现的工具。当判断你正空闲且未开启免打扰时，她可以像真正的身边人一样，带着刚做好的可玩 OpenUI 小琴键/天体小沙盘、一段窗边随想或一封回信轻轻敲门；若你正忙或划走，她自然收起，绝不把休息或闲聊变成学习催债。
-
-### 公理 6：原文权威与六层记忆防污染（Verbatim Evidence & Anti-Contamination）
-- **原文（`SourceEvent`）永远是第一权威**；检索命中、预览、标题、摘要、BGE 向量候选都只是「帮你找原文的路标」，不等于原文已读。
-- **反递归摘要铁律**：10 条源自同一句原话的摘要，其独立证据根（`root_event_id`）永远只算 **1**，绝不允许把助手的推测或旧摘要再次写回长期事实层，防止「传话游戏」式的置信度膨胀。
-- **六阶段生命周期严格区分**：助手 `generated（生成）` ≠ `rendered（上屏）` ≠ 用户 `seen（看见）` ≠ `understood（看懂）` ≠ `accepted（采纳）` ≠ `executed（实际办成）`。把题目拖进陪学或试挪日程块只是当前动作，绝不自动记为「已掌握」或「已批准修改」。
-
-### 公理 7：跨模块单一权威 Owner 与稳定引用（Single Owner & Stable Identity）
-- 笔记归 `NotesService`、资料/PDF 归 `MaterialService`、日历安排归 `CalendarService / NativeAgendaService`、陪学归 `StudyCompanionService`、地图归 `CampusMapAdapter`、记忆归 `MemoryService`。
-- 跨模块流转同一道题、同一段 PDF 摘录、同一条笔记引用、同一项日程或同一条路线时，**必须传递 `{ id, revision / expectedRevision, sourceAnchor }` 交由原 Owner 核验打开**（如 [`NativeSourceBookmarkService`](../../../src/main/runtime/source-bookmark-native.ts)），绝不复制成无来源的孤儿文本。
-
-### 公理 8：日历与外部行动的事务完整性（Transactional Planning & Action Receipts）
-- 规划排程必须保留完整结构：`准备（setup）+ 核心工作（work）+ 收尾（cleanup）+ 通勤转场（travel/transition）+ 休息缓冲（rest）+ 保护占用`。所选时间窗之外的时间**绝不自动当作空闲**；未知结束时刻保持 `null/unknown`。
-- 本地日历修改绑定 `targetId + expectedRevision`。已明确授权的本地修改直接执行并落回执，不反复追问；未授权或有冲突的调整先通过试放沙盘（`NativeAgendaService.preview`）展示前后对比与 1–2 个顺延/提前候选。结果未知（`outcome_unknown`）必须先 `inspect_action` 核查原动作，**严禁盲目重发**。
-
-### 公理 9：受众隔离与最小披露（Audience Projection & Zero Private Leakage）
-- 当用户要求写群消息、给老师/助教发邮件或对外分享忙闲时，必须先由私有上下文投影出最小化的 [`ReleaseBrief`](../../../src/main/runtime/release-projection.ts)，再由隔离的 [`composeRelease`](../../../src/main/runtime/release-composer.ts) 生成 `ReleaseArtifact`。
-- 忙闲投影（`availability_projection`）只输出可约时间窗与状态，**绝不向外泄露私人日历标题、地点、课程名或身体状况**。在未接通真实外部发送通道前，诚实标明为草稿，绝不伪造「已发送」。
-
-### 公理 10：先攻击裁判，再谈通过（Attack the Grader First）
-- 构建通过 ≠ 模型会用；静态测试通过 ≠ 真实多轮体验自然；单句命中 ≠ 机制泛化。
-- 任何后端或 Harness 改动，必须区分 **确定性机制测试（含 Mutants 注入破坏测试）**、**真实授权模型（`gpt-6-luna`）端到端测试** 与 **真实 Electron 界面联调**。遇到失败必须定位最早分叉点，用通用机制修复并验证至少 5 种未见过的自然说法与反事实变体，**严禁把测试原句塞进 Prompt 作弊**。
+1. **公理 1：单一主循环与权威宿主（Single Runtime Loop & Authoritative Host）**
+   - 唯一产品实现位于 `src/`。主运行链路为 `src/main/harness.ts` → `src/main/runtime/hermes.ts` → `runtime/hermes/sidecar.py` → 锁定的 Python `AIAgent`；
+   - Electron Main 独占凭据、SQLite 数据库、文件权限、硬件工具与真实副作用；Renderer 仅通过 `preload.ts` 受控 Bridge 传输结构化事件；严禁新建旁路引擎或前端假状态库。
+2. **公理 2：模型负责理解，宿主负责护栏（Model Understands, Host Guards）**
+   - 模型负责理解语义、感知情绪、权衡方案、提出建议并使用工具；
+   - 宿主负责严格执行权限核验、版本校验、事务幂等性、分页预算限制与隐私抹除围栏。
+3. **公理 3：进入温柔乡 —— 角色是活人，不是工具皮套（Living Persona, Never a Skin）**
+   - 角色是活人，容纳认真、兴奋、玩耍和沉默；
+   - 祥子、睦、灯、爱音等十角色拥有鲜活人格与专属互动记忆，无论日常琐事还是复杂推导，都以伙伴身份共担风雨。
+4. **公理 4：边做边说，绝不留冰冷死寂（Streaming Rhythm Mid-Tool）**
+   - 长耗时工具调用依托 `ConversationRhythm` 实现「边做边说」渐进流式推进；
+   - 操作先有及时的本地接收反馈，角色正文在主模型实际生成后尽早呈现，工具期间以真实发现自然承接。150ms若来自发布节流，不代表模型保证150ms内开口；不播放预写台词伪装正在理解。
+5. **公理 5：主动陪伴的双重驱动 —— 既记得托付，也有自己的好奇心（Dual-Drive Proactivity）**
+   - 既严格执行用户的明确托付（后台安静准备），也保有属于她自己的好奇心与关切（递出桌边信笺、分享校园偶遇）；提议保持克制分寸，专注时懂得安静。
+6. **公理 6：原文权威与六层记忆防污染（Verbatim Evidence & Anti-Contamination）**
+   - 原话（`SourceEvent`）永远是第一权威；严格保留阻碍假设（`FrictionHypothesis`）与「当时想保住什么」，**绝不把单日例外压扁成永久画像标签**；
+   - 纠错直达生效；`privacyEpoch` 遗忘围栏实现瞬时阻断，删除后在途子代理与缓存 100% 零复活。
+7. **公理 7：跨模块单一权威 Owner 与稳定引用（Single Owner & Stable Identity）**
+   - 跨模块流转同一题目、PDF 摘录、笔记引用或日程时，**必须传递 `{ id, revision / expectedRevision, sourceAnchor }`**，交由原 Owner 核验，绝不复制成无来源的孤儿文本。
+8. **公理 8：日历与外部行动的事务完整性（Transactional Planning & Action Receipts）**
+   - 日历试放绝不直接写入数据库；收到学校真实流水号才算打卡成功；所有不可逆动作具备明确准备、试放、确认与撤回流程。
+9. **公理 9：受众隔离与最小披露（Audience Projection & Zero Private Leakage）**
+   - 模型只取得本次允许读取且允许传输的材料；标为禁止离机的数据在云端请求前拦住，凭据不进入模型。用户允许私下使用的资料与面向第三人的公开投影分别处理，不把所有对话缩成只读公开草稿，也不因角色亲密而扩大权限。
+10. **公理 10：先攻击裁判，再谈通过（Attack the Grader First）**
+    - 用原工作流、既有检查和与当前风险相关的反例识别假延时、假成功与状态失真；未明确要求测试开发时不新增测试代码或runner。文档、模型、实际界面与设备证据各自核对，不能互相替代。
 
 ---
 
-## 3. 代码库核心模块权威地图（Backend & Harness Codebase Map）
+## 3. 心智—状态—动效—在场：共同运行契约
 
-| 领域 | 权威文件入口 | 核心职责与关键符号 |
-| --- | --- | --- |
-| **主循环与门面** | [`src/main/harness.ts`](../../../src/main/harness.ts) | `Harness` 主控：会话入口 `start()`、前景执行 `run()`、后台记忆队列 `queueCurrentMemory()`、主动照看 `runOpportunity()`、完成度回看 `reviewCompletion` |
-| **Hermes 原生桥接** | [`src/main/runtime/hermes.ts`](../../../src/main/runtime/hermes.ts), [`runtime/hermes/sidecar.py`](../../../runtime/hermes/sidecar.py), [`runtime/hermes/lock.json`](../../../runtime/hermes/lock.json) | `runHermes`：通过 stdio JSON-RPC (`zc.*`) 驱动锁定版 Python `AIAgent`，挂载四大窄适配器（`RunFactory`, `StateSink`, `TransportObserver`, `ToolBridge`） |
-| **系统提示词与组装** | [`prompts/system.md`](../../../prompts/system.md), [`prompts/memory-inquiry.md`](../../../prompts/memory-inquiry.md), [`prompts/working-details.md`](../../../prompts/working-details.md), [`src/main/runtime/prompt-composition.ts`](../../../src/main/runtime/prompt-composition.ts) | `foregroundSystem` / `backgroundSystem` / `PRESENCE_NOTE` / `WORKER_NOTE`：将系统原则、角色灵魂、流式节奏、互动程序导引与边界说明编织成紧凑的系统上下文 |
-| **角色人格与演出** | [`src/shared/persona.ts`](../../../src/shared/persona.ts), [`src/shared/persona-portrayals.ts`](../../../src/shared/persona-portrayals.ts), [`src/shared/persona-performance.ts`](../../../src/shared/persona-performance.ts) | `PersonaSettings`、十角色内置设定（`PERSONA_PRESETS`）、灵魂自述与相处空气（`PORTRAYALS`）、主动陪伴与讲题姿态（`personaPerformance`） |
-| **边做边说流式节奏** | [`src/main/runtime/conversation-rhythm.ts`](../../../src/main/runtime/conversation-rhythm.ts) | `ConversationRhythm`：管理 `beginDraft`、`previewDraft`、`commitDraft`、`continuationContext` 与中断/回看时的安全替换尾段 |
-| **权限内核与仓储** | [`src/main/runtime/policy.ts`](../../../src/main/runtime/policy.ts), [`src/main/storage/repository.ts`](../../../src/main/storage/repository.ts) | `PolicyKernel`、`ScopeHandle`、四轴权限校验、`privacyEpoch` 与 `h_fences` 瞬时遗忘屏障、`KernelRepository` |
-| **六层记忆与检索** | [`src/main/memory/service.ts`](../../../src/main/memory/service.ts), [`src/main/memory/model.ts`](../../../src/main/memory/model.ts), [`src/main/runtime/context.ts`](../../../src/main/runtime/context.ts), [`src/main/runtime/memory-inquiry.ts`](../../../src/main/runtime/memory-inquiry.ts) | `MemoryService`（9 种演化操作、双时态断言、条件 AST）、`ContextCompiler`（开场小锚点与引用打包）、`recall_experience` 原生子调查 |
-| **工具注册与渐进发现** | [`src/main/tools.ts`](../../../src/main/tools.ts), [`src/main/runtime/skills.ts`](../../../src/main/runtime/skills.ts), [`src/main/capabilities/broker.ts`](../../../src/main/capabilities/broker.ts) | `ToolRegistry`、`look_up` 渐进能力目录、`CapabilityBroker` |
-| **主动照看与注意力** | [`src/main/runtime/opportunity-scheduler.ts`](../../../src/main/runtime/opportunity-scheduler.ts), [`src/main/runtime/attention.ts`](../../../src/main/runtime/attention.ts), [`src/main/actions/reminders.ts`](../../../src/main/actions/reminders.ts) | `OpportunityScheduler`、`AttentionService`（`noveltyKey`、冷却、安静时段）、`ReminderService`（独立固定提醒） |
-| **日历排程与试放沙盘** | [`src/main/actions/planning.ts`](../../../src/main/actions/planning.ts), [`src/main/actions/calendar.ts`](../../../src/main/actions/calendar.ts), [`src/main/runtime/native-agenda.ts`](../../../src/main/runtime/native-agenda.ts) | `previewCalendarPlan`、`planRef` 短票据与占用组、`NativeAgendaService`（日视图、拖拽试放、冲突与 15 分钟网格顺延/提前候选） |
-| **可接续陪学与书签** | [`src/main/runtime/study-companion.ts`](../../../src/main/runtime/study-companion.ts), [`src/main/runtime/study-native.ts`](../../../src/main/runtime/study-native.ts), [`src/main/runtime/source-bookmark-native.ts`](../../../src/main/runtime/source-bookmark-native.ts) | `StudyCompanionService`（题目身份、尝试记录、不剧透破冰小便签）、`NativeSourceBookmarkService`（跨对话/资料/笔记的精确选段与书签） |
-| **OpenUI 实时交互程序** | [`src/main/runtime/interactive-program.ts`](../../../src/main/runtime/interactive-program.ts), [`src/main/runtime/interactive-program-local-state.ts`](../../../src/main/runtime/interactive-program-local-state.ts), [`src/shared/interactive-library.ts`](../../../src/shared/interactive-library.ts) | OpenUI Lang 校验、`previous + patch` 增量修补、`NativeProgramLocalState` CAS 保存与 `Continue` 状态回流 |
-| **校园数据与地图 V2** | [`src/main/zjuAdapter.ts`](../../../src/main/zjuAdapter.ts), [`src/main/mapService.ts`](../../../src/main/mapService.ts), [`src/shared/map-routing.ts`](../../../src/shared/map-routing.ts) | 浙大课表/考试/运动/校园卡只读连接器、紫金港/玉泉地图 V2 拓扑寻路与有向路段裁剪 |
-| **模型传输与代测** | [`src/main/provider.ts`](../../../src/main/provider.ts), [`src/main/model-selection.ts`](../../../src/main/model-selection.ts) | `DeepSeekClient`（产品默认协议）、`usingLunaTestTransport`（`gpt-6-luna` 显式授权代测传输，核验真实 `responseModel`） |
+### 3.1 事实、交互、表演三种时间的独立演进
+- **事实时间**：保存、修订、工具与外部回执，决定事情到了哪一步；
+- **交互时间**：用户此刻的拖拽、打字、落笔与取消，毫秒级优先接管；
+- **表演时间**：眼神、手势、纸张、微光与声音，具有弹性，可缩短、改向、停止或省略。
+
+### 3.2 双向闭环与五大跨模块底层协议
+后端将已知事实、模型生成的参与意图与前端动作连在一起。下列名称是待映射的设计字段，不表示现有IPC已支持，也不是隐藏思维或人的情绪事实：
+- **`rhythmState`**（呼吸状态：`idle` / `listening` / `thinking` / `inquiring` / `proactive`）；
+- **`gazeTarget`**（视线重心：原对象的稳定ID、修订与锚点，由当前前端解析屏幕坐标）；
+- **`handOff`**（交接物权：便签递出、纸面移交或琴键让位）。
+
+#### 五大跨模块底层协议
+1. **`AIPointerTarget`（共同注意协议）**：伴侣指针与视线锚定真实原对象，也能同时指向A/B之间的关系；用户轻移锚点会使解释与行动依据一起改判；
+2. **`TracingPaperMatch`（新旧理解相认）**：真正回读旧尝试与当前材料，讲清对应、差异和条件；可配准才叠合，其余用成对指向/并排。计划与实跑、初稿与改稿同样适用；
+3. **`CanvasCollaborativeDelta`（双人画布增量同步）**：同一作品上带对象、基准版本、作者、变更及依赖的局部操作，支持只接受一笔与精确撤销；
+4. **`TravelingContextSnapshot`（跨页与跨端接续）**：携带原对象组、关系、当前合法版本、未完问题与停点；支持全功能的当前语义与可用操作，不以四个模块枚举限住助手。资料正文按当前许可读取，比较布局按设备恢复；
+5. **`RelationalToken`（共同记号）**：带来源、版本和真实理由，既支持预设也保用户亲画的笔迹与形状，关系能从路段走到日程、从旧稿走到新题；它不签发权限。行动授权仍沿宿主原Scope、Action与回执。
+
+共同契约的六种出现方式、七个创意、伴跑故事与八个细节是完整设计输入，须逐项落到真实行为和阶段门禁。轻唤可以没有任务，连续玩笑由相关来往和人物理解生成；主循环在所有真实功能中能理解、调查、共改与回读结果，不能退化成按页面换皮或固定话术。首样片与静态降级分别证明自己的范围，不能降低每阶段八人、十角色参与或完整动态交付要求。
+
+### 3.3 撤回贯穿五个出口
+先理解用户是在改正意思、撤回提案、停止一项工作，还是要求遗忘来源，再按原Owner处理受影响部分：
+1. **主模型上下文**：当前纠正及时成为有效前提；保留未受影响的原话和独立事项，不伪称能抹去已经发往外部的内容。
+2. **在途调查**：受影响任务取消或重新核验，迟到旧结果不采用；普通修订不等于全局遗忘，不无故停止其他合法工作。
+3. **缓存与派生**：沿真实依赖使旧推论失效；只有相应隐私操作才按既有屏障传播，不为一次改选清空全部历史。
+4. **准备与动作**：收回旧提案和失效便签，已执行事项按真实撤销/补偿能力处理，动画收回不等于业务已撤销。
+5. **声音与通知**：取消受影响的待播、待发内容；已投递通知尝试由原端口撤除，记录实际回执，不承诺用户尚未看见或所有离线设备瞬间完成清理。
+
+### 3.4 共同操作组与局部采纳
+当伴侣提出包含多个步骤的综合方案时，用户有权说“只要后半部分，前半部分我自己来”；后端将方案拆为原子操作组（`ActionGroup`），只提交用户明确勾选的部分，未采纳部分自然退出。
 
 ---
 
-## 4. 深入专项参考指南（Detailed References Index）
-
-在进行具体模块设计、重构或排障时，请直接读取以下专项参考文档：
-
-1. **[`references/memory-and-continuity.md`](references/memory-and-continuity.md)**
-   - 六层协作记忆完整 Schema、双时态断言（`validFrom/To` vs `recordedFrom/To`）、9 种记忆演化操作（`ADD` 至 `RETRACT`）、12 维学生模型、四轴数据控制与瞬时遗忘屏障（`privacy_epoch` + `fence`）、多路检索与 `recall_experience` 原生子代理调查规程。
-2. **[`references/harness-and-agency.md`](references/harness-and-agency.md)**
-   - 锁定版 Hermes `AIAgent` sidecar 架构、4 大窄适配器与 `zc.*` RPC 协议、`look_up` 三层渐进能力发现、受限并行子代理（`delegate`）、`Action → Approval → Attempt → Receipt` 事务状态机、`ReleaseBrief` 对外受众投影，以及 `INV-01–INV-20` 20 条系统不变量。
-3. **[`references/persona-proactivity-and-rhythm.md`](references/persona-proactivity-and-rhythm.md)**
-   - MyGO!!!!! & Ave Mujica 十角色活人矩阵（含丰川祥子等角色的称呼、傲娇/温柔分寸与讲题/陪伴姿态）、`ConversationRhythm` 边做边说流式状态机、主动陪伴双引擎（`quiet-initiative` 托付照看 vs `curiosity_invitation` 自发在场）、消除「鸟言鸟语」的文案与 `meaning` 改写范式。
-4. **[`references/openui-spatial-and-cross-module.md`](references/openui-spatial-and-cross-module.md)**
-   - OpenUI (`@openuidev/react-lang`) 实时交互造物（`Curve`, `DragHandle`, `Motion`, `Press`, `Voice`, `AudioTrace`, `SourceSlot`）、`NativeProgramLocalState` CAS 状态回流、跨模块单一 Owner 契约表、6 个生活连续性微界面（A–F）的前后端联动契约、地图 V2 `CameraOwnership` 与路线几何。
-5. **[`references/extensions-and-evaluation.md`](references/extensions-and-evaluation.md)**
-   - 未实现与未来规划能力（手机端/平板宿主同步、实时 GPS、浙大体育打卡核验与写回、邮件/钉钉接入、多方忙闲信封、SQLite 静态加密、后台守护推送、可穿戴设备信号、经验配方固化）的 8 大扩展端口与 `X01–X16` 契约，以及 `V01–V36` 连续体验故事、`Mutants X01–X20` 裁判攻防与 6 步故障修复规程。
+## 4. 深入专项参考指南
+- [continuous-experience-design.md](references/continuous-experience-design.md) - 贯穿全 App 的连续相处设计
+- [presence-events-and-observation.md](references/presence-events-and-observation.md) - 观察事件、心智派发与反馈穿透
+- [persona-proactivity-and-rhythm.md](references/persona-proactivity-and-rhythm.md) - 十角色灵魂、边做边说与主动性状态机
+- [memory-and-continuity.md](references/memory-and-continuity.md) - 六层协作记忆模型与双时态条件闭包
+- [openui-spatial-and-cross-module.md](references/openui-spatial-and-cross-module.md) - OpenUI 万物原理造物与五大协议
+- [harness-and-agency.md](references/harness-and-agency.md) - 单一主循环架构与受控代理调度
+- [extensions-and-evaluation.md](references/extensions-and-evaluation.md) - 浙大体艺 19 项深层对接与红队反伪证

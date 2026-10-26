@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "assetId": "tomori-listening-rain-literary-v1",
+  "roomFamily": "literary-room-v1",
+  "characterId": "tomori",
+  "activity": "listening",
+  "palette": "rain",
+  "ambientPlateKey": "rain-night",
+  "createdOn": "2026-10-25",
+  "generationMode": "target-empty-plate-and-approved-exact-activity-mother-relighting",
+  "tool": "image_gen.imagegen (built-in)",
+  "callOrdinalInBoundedBatch": 3,
+  "executionId": "exec-6666f68a-0933-41e1-982e-3a4b3357b84b",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-6666f68a-0933-41e1-982e-3a4b3357b84b.png",
+  "inputs": [
+    {
+      "file": "../../plates/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "role": "image1: approved exact target empty plate and illumination"
+    },
+    {
+      "file": "../apricot-wave-b/tomori-listening-apricot-literary-v1.png",
+      "sha256": "292ccd83be7064fdef9a5dd3cfa729078bd7299f2dc805df145f8830a10b4468",
+      "role": "image2: root-approved actual activity identity/pose/scale/support, not inherited daylight",
+      "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+    }
+  ],
+  "promptFile": "tomori-listening-rain-literary-v1.prompt.txt",
+  "promptFileSha256": "f0575aa9a4c41e4d5072ffd4452b6bb5b6dc777c7bbb8759242de82545c9ef68",
+  "submittedPrompt": "Create ONE 1536×1024 complete landscape literary companion illustration through genuine WHOLE-SCENE RELIGHTING. Image 1 is the ROOT-APPROVED EMPTY environmental plate at the TARGET time/weather and gives camera, room geometry and illumination. Image 2 is this SAME girl's ROOT-APPROVED APRICOT MOTHER OF THIS EXACT ACTIVITY. Retain its actual youthful identity, uniform, exact silhouette/head/body scale/source positions, microexpression, visible hands/objects, true support and occlusion; its DAYLIGHT HIGHLIGHTS are NOT identity or pose constraints.\nRepaint all light on skin/hair/uniform, held or resting paper/book, contact linen, wood/lamps and floor according to image 1, rather than tinting the scene or pasting a day-lit girl into new weather. Old apricot white knee/shin/face hotspots, sunlit hair rims and window-lattice pools do not survive by default.\nLock the close camera/framing and existing window panes/current crop, lake/town/mountain geometry, desk/chair, shelves/books/plants, round table/ceramic lamp/cup/flowers, linen bench/right plaid cushions/cream knit throw, floor/rug and blurred foreground plant. Keep her actual approved seated pelvis/cushion support and exact shoulders/arms/hands/props/knees/ankles/complete shoes at source coordinates. No body translation, enlarged head, reposed/crossed legs or invented hidden hand. Full head/hair and both complete shoes stay within the original image; real limb/strand gaps and overlaps remain.\nPrecise expressive anime character drawing belongs in the tactile softly painterly room. Separate every fringe lock, brow, lash, upper/lower eyelid, sclera and iris boundary, including side/down gaze. Preserve her youthful canonical hair/eye/garment colors under the new light, not a generic adult face, green UI tint, fixed service smile, compulsory blush or stereotyped scowl.\nOnly these two approved images are references. No unreviewed light mother, prior lighting-problem candidate, mask, other character, old room or malformed pose is used. Do not add readable text/schedules/answers/receipts, UI, logos, watermarks, diagrams, another person, split scene, zoom, new furniture or duplicate limbs. This is a project-original fictional performance, not a statement about an actual user's past action or completion.\n\nCHARACTER: Takamatsu Tomori (高松燈), MyGO!!!!!: neck-length layered steel-gray/gray-lavender short hair, muted rose-brown/dusty pink-gray eyes; gray-purple blazer with white piping, white shirt/dark striped tie, checked skirt, dark socks and brown loafers.\nACTUAL APPROVED PERFORMANCE: Preserve the APPROVED ACTUAL closed book resting flat across her thighs, both relaxed hands on/over that book (not an invented separate knee hand), small paused slightly open mouth and direct attentive eyes. This is her quietly leaving her own sentence unsaid to hear the rest. Keep the original comfortable distance and seated support, not a camera greeting.\nTARGET LIGHT: RAINY NIGHT, exactly image 1's actual glass rain, dark clouded lake/town and wet light reflections, NO stars or daylight. Dry interior with existing ceramic-lamp warm key and subordinate cool night-window fill. Repaint face/hair/uniform, paper/book, linen/contact surfaces and floor coherently, no inherited white shin/knee sun patch or hard noon window lattice. A localized lamp reflection is soft and physically related to the lamp. Preserve her original specific listening/play/attention/continuation affect: no automatic sadness, tears or mournful brows just because it rains.",
+  "output": {
+    "file": "tomori-listening-rain-literary-v1.png",
+    "sha256": "2fae3c912a0bad72ad19c3e41ee51096b730c59565b637b0954dc6fadac9a7b2",
+    "bytes": 2194290,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "reviewedOn": "2026-10-25",
+    "decision": "static mother candidate for primary inspection",
+    "observation": "Complete original viewed: actual closed book/both relaxed hands and paused slightly open listening mouth preserved, with clear eyes/fringe/lids. Rainy dark glass/town and warm existing-lamp lighting reach skin/uniform/book/linen/floor consistently without hard noon grid or forced crying/melancholy. Hip/cushion and complete coherent uncrossed legs/shoes retain source support/scale; room stable.",
+    "bodyContour": {
+      "contourComplete": true
+    },
+    "limits": "Static listening/light impression only; primary/layer/runtime remain false."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "acceptanceScope": "Static actual-activity theme mother candidate only; no layer progression or registration."
+}

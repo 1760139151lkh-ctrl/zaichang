@@ -99,7 +99,11 @@ export function InteractiveProgramView({ view, messageId, sessionId, privacyEpoc
   const dataSignature = useMemo(() => JSON.stringify(admitted ? doc?.currentData : undefined), [admitted, doc?.currentData]);
   const library = useMemo(() => createInteractiveLibrary<ComponentRenderer<any>>({ data: admitted ? doc?.currentData : undefined,
     renderers: interactiveRenderers }), [doc?.hash, dataSignature, admitted]);
+  const lastErrorReport = useRef('');
   const reportErrors = useCallback((next: OpenUIError[]) => {
+    const signature = JSON.stringify(next);
+    if (next.length && signature !== lastErrorReport.current) console.error('OpenUI document rendering failed', next);
+    lastErrorReport.current = signature;
     setErrors(previous => JSON.stringify(previous) === JSON.stringify(next) ? previous : next);
   }, []);
   useLayoutEffect(() => () => {

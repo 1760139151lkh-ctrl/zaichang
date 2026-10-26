@@ -1,0 +1,111 @@
+{
+  "recordType": "source-rgb-upright-vertical-edge-cat-static-candidate",
+  "characterId": "sakiko",
+  "source": {
+    "file": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\sakiko\\sakiko-vertical-edge-cat-pilot-v1.png",
+    "sha256": "5bfc229f5c0506f6fcb93646d4058543d42dbba910eafb5f99a5ebdefcb55d05",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaRange": [
+      0,
+      255
+    ],
+    "nativeAlphaBounds": [
+      83,
+      13,
+      1184,
+      1214
+    ],
+    "originalPreserved": true,
+    "staticSourceDirectionApprovedByRoot": true,
+    "approvalSource": "Direct root message: vertical static Sakiko already approved, only clean original RGB transparency edge and anchors; no whole-PNG tail swing."
+  },
+  "output": {
+    "file": "sakiko-vertical-edge-cat-pilot-v1-static-clean.png",
+    "sha256": "df20ec4413dff5e68460b6b46d2f19db2ebf94c85d303e3bb8ee448862a38cbd",
+    "bytes": 773189,
+    "canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaRange": [
+      0,
+      255
+    ],
+    "alphaBounds": [
+      265,
+      13,
+      1028,
+      1207
+    ],
+    "visibleRgbDifferenceRange": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  "processing": {
+    "reason": "Native source already has no wide blue halo. Source alpha1 isolated speckles enlarged raw bounds; preserve native antialias instead of applying previous230..250 opacity gate.",
+    "wholeGuardExpansionRadius": 8,
+    "alpha": "Keep original native alpha where alpha>1 and inside own8px expanded ImageGen silhouette guard; all alpha>=8 original pixels retained. Only fully transparent RGB zeroed.",
+    "removedNonzeroAlphaPixels": 2692,
+    "removedAlphaAtLeast8Pixels": 0,
+    "rgb": "All visible source same-coordinate RGB exactly preserved; no crop/rescale/face/body/ribbon redraw."
+  },
+  "verticalContact": {
+    "contactSide": "right",
+    "gripXSource": 915,
+    "sourceYAnchor": 805,
+    "anchorNormalized": [
+      0.7296650717703349,
+      0.6419457735247209
+    ],
+    "basis": "Axis915 personally viewed through upper-front/lower-front/bracing-hind paw ROIs. Y805 is actual main white torso580..1030 midpoint reference for placement; not a new joint or all-paw contact height.",
+    "frontUpperContactYRange": [
+      495,
+      552
+    ],
+    "frontLowerContactYRange": [
+      661,
+      733
+    ],
+    "hindBracingContactYRange": [
+      984,
+      1061
+    ],
+    "horizontalMirrorCandidate": true,
+    "mirrorAnchorContinuousSource": [
+      339,
+      805
+    ],
+    "mirrorScope": "Horizontal mirror keeps head upright; reviewer must judge final real-edge placement. Never quarter-turn or use horizontal loaf supportY."
+  },
+  "motion": {
+    "kind": "static-complete-sprite",
+    "independentTailLayer": false,
+    "wholeImageTailSwingAllowed": false,
+    "quarterTurnAllowed": false
+  },
+  "producerReview": {
+    "sourceAnd220pxGroundsViewed": true,
+    "clean128pxGroundsAndMirrorViewed": true,
+    "evidence": "static-128-light-dark-grip-review.png",
+    "observation": "Personally viewed complete static-clean and128px light/dark normal+horizontal-mirror. Native simplified upright gold-eyed head, blue-lavender hair/ribbons, complete white body, two front-grips/hind-brace and attached tail retained; no wide glow or opaque backdrop. Line915 passes actual paw contact band in normal orientation; mirrored continuous line339 keeps head upright. No runtime edge drag or tail motion acceptance."
+  },
+  "primaryCleanApproved": false,
+  "runtimeAccepted": false,
+  "fullHumanMatrixCredit": false
+}

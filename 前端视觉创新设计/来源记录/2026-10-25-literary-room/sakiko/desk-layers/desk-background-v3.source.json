@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "assetType": "bounded-semantic-empty-desk-all-writing-tools-removal-background-candidate",
+  "id": "desk-background-v3",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "desk-background-v3.prompt.json",
+  "promptFileSha256": "e00af3d481d49f2eae40e1fd1d8683a7d91684790cae63b3c677dd3ea6239280",
+  "submittedPrompt": "Use case: precise-object-edit. Make the writing desk FREE OF ALL PENS AND PENCILS in this already EMPTY1536x1024 room.\nImage1 is the ONLY reference/edit target: existing empty matching desk background with the correct pulled wooden chair and original room camera. Keep its entire camera, furniture/layout, books/pages, plants, lighting and materials unchanged except writing utensils.\nRemove ALL pens, pencils and loose/unsupported thin writing sticks from the LEFT WRITING DESK area, both lying on it and standing above it. In particular REMOVE the small diagonal dark/brown rod hanging in front of the upright dark book spines, just behind the open notebook: source about x170..185,y358..386. It currently rises from empty air where a hand used to be. That complete slanted rod and its lower tail must disappear. Treat it as a removable pen even if it resembles a bookmark or thin line. Do not preserve ANY part of that unsupported writing stick.\nRemove the other visible writing utensils from the far-left stationery holder too, leaving the holder itself intact. The final desk and air immediately above it contain NO pen, pencil, stylus, floating writing shaft or fragment. Smoothly reconstruct the real book-spine/wall/desk/page surface behind each removed writing tool using the immediately adjacent original texture.\nPreserve the opened book/notebook and all paper edges/marks exactly, all real upright books/bookshelf spines, task lamp including its real metal support, ceramic vase/flowers/plant stems, shelves, pulled wood chair/slats/legs/seat cloth, side table with ceramic lamp/cup, window/lake/town/hills, right empty bench/pillows/knitted throw, floor/rug/sunlight and foreground leaves. Real lamp supports, plant stems and chair slats are structural room objects, not writing sticks: keep them. Do not introduce a person, hand, new object, new page or empty blank desk.\nNo global room redraw, relight, recolor, resize, translation, crop, camera shift, chair reposition or furniture replacement. Output the SAME full opaque RGB1536x1024 empty room with ALL desk writing utensils and the specific hanging slanted pen removed. No UI/text/label/outline/grid/border/watermark/transparency.",
+  "submittedPromptSha256Utf8NoTrailingLF": "d840eb1613bcd46b3ca6f3c42c5a97c6cff47a4419ea7fd2f8c2c04b96c527c3",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-background-v2.png",
+      "sha256": "2d392c6f3157e2e805ff9e19a619717e78745072bdd6593becb076d1eff78c8f",
+      "role": "sole existing EMPTY BG2; root explicitly authorized one different broader writing-tool-removal attempt; no human or wrong-pose input"
+    }
+  ],
+  "output": {
+    "file": "desk-background-v3.png",
+    "sha256": "75705046089367bc68cb84f5a679dff43f41eb746f28fbb7f26c2924ffa9532b",
+    "bytes": 2405557,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-b8b23a75-99b8-4d87-932e-98aee324fdc0.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": true,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observation": "Native browser #bgfix comparing BG1/BG2/BG3 confirmed the diagonal floating pen shaft is removed in BG3. #bg-tools also shows stationery holder and its contents removed, a broader generated change; open pages, upright books, pulled chair and room camera remain visually coherent. Root must decide this material deviation and overall matching.",
+    "primaryLayerApprovalRecord": "sakiko-desk-writing-literary-included-primary-admission-v1.json",
+    "primaryLayerApprovalScope": "Exact fixed desk-writing source RGB MAX included; source differences accepted; no invisible-foot/motion/runtime signoff."
+  },
+  "status": "producer-viewed-background3-pen-removed-primary-review-pending",
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "activity": "study",
+  "palette": "apricot",
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "fullImageResultRetainedInStore": false
+}

@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "activity": "chat",
+  "palette": "mist",
+  "producer": "/root/mujica_matrix",
+  "producedAt": "2026-10-26T01:48:40.259Z",
+  "selected": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-mist-v1.png",
+      "sha256": "6cbd83def33cf8284056992f10315a98101002d8f36f4d3d497548b7b4b73b9f",
+      "bytes": 2461416
+    },
+    "F": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/layers/mist/figure-mask-v1.png",
+      "sha256": "2f13a6a84e4ced9cb2991f5be7b770308a1c8e9fb5bf0140cc16becb1ab1d8c4",
+      "bytes": 465299
+    },
+    "S": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/layers/mist/contact-mask-v1.png",
+      "sha256": "26e9e14d1a6798b04dc4fa26b75df955148a2915264d0ec152eedcaf23d8122f",
+      "bytes": 304885
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/layers/mist/background-v1.png",
+      "sha256": "48274f0e1ee1cf7925b204b64b3cc3176a074956404281df2ee3eb6465efa9d0",
+      "bytes": 2407218
+    }
+  },
+  "assembly": {
+    "formula": "U=MAX(L(F),L(S)); original mother RGB once over actual same-mother empty BG",
+    "luminance": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "canvas": [
+      1536,
+      1024
+    ],
+    "sourceOrigin": [
+      0,
+      0
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": "included",
+    "independentCaster": false,
+    "originalRgbUnchanged": true,
+    "maskPngBytesUnchanged": true
+  },
+  "sourceRecords": [
+    {
+      "path": "figure-step1-marked-v1.source.json",
+      "output": {
+        "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\sakiko\\chat-light-pilot\\layers\\mist\\figure-step1-marked-v1.png",
+        "sha256": "54276d9ff438d9317fc918e37846c77ef59522a62eee302902da403b29975aa9",
+        "bytes": 2261623,
+        "width": 1536,
+        "height": 1024,
+        "pngColorType": 2,
+        "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-da6805ab-093d-4671-a06f-7b38b5b81b9a.png",
+        "pngBytesUnchanged": true
+      },
+      "status": "producer-candidate-awaiting-original-RGB-union-browser-and-root-review"
+    },
+    {
+      "path": "figure-mask-v1.source.json",
+      "output": {
+        "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\sakiko\\chat-light-pilot\\layers\\mist\\figure-mask-v1.png",
+        "sha256": "2f13a6a84e4ced9cb2991f5be7b770308a1c8e9fb5bf0140cc16becb1ab1d8c4",
+        "bytes": 465299,
+        "width": 1536,
+        "height": 1024,
+        "pngColorType": 2,
+        "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-5268d43a-88b0-4a18-89ca-f70112a69d75.png",
+        "pngBytesUnchanged": true
+      },
+      "status": "producer-candidate-awaiting-original-RGB-union-browser-and-root-review"
+    },
+    {
+      "path": "contact-step1-marked-v1.source.json",
+      "output": {
+        "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\sakiko\\chat-light-pilot\\layers\\mist\\contact-step1-marked-v1.png",
+        "sha256": "cec46fce0df795bbaa4e7dc3b5aa46b21260d9ece2f60d2ae27b61487272ac78",
+        "bytes": 2436407,
+        "width": 1536,
+        "height": 1024,
+        "pngColorType": 2,
+        "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-be655e55-6f56-44f8-a103-8f22fa7a6ae7.png",
+        "pngBytesUnchanged": true
+      },
+      "status": "producer-candidate-awaiting-original-RGB-union-browser-and-root-review"
+    },
+    {
+      "path": "contact-mask-v1.source.json",
+      "output": {
+        "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\sakiko\\chat-light-pilot\\layers\\mist\\contact-mask-v1.png",
+        "sha256": "26e9e14d1a6798b04dc4fa26b75df955148a2915264d0ec152eedcaf23d8122f",
+        "bytes": 304885,
+        "width": 1536,
+        "height": 1024,
+        "pngColorType": 2,
+        "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-08396a73-7626-4376-9d0e-a55d78b20879.png",
+        "pngBytesUnchanged": true
+      },
+      "status": "producer-candidate-awaiting-original-RGB-union-browser-and-root-review"
+    },
+    {
+      "path": "background-v1.source.json",
+      "output": {
+        "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\sakiko\\chat-light-pilot\\layers\\mist\\background-v1.png",
+        "sha256": "48274f0e1ee1cf7925b204b64b3cc3176a074956404281df2ee3eb6465efa9d0",
+        "bytes": 2407218,
+        "width": 1536,
+        "height": 1024,
+        "pngColorType": 2,
+        "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-7202f9f3-1ee4-44be-98bf-240d768d386e.png",
+        "pngBytesUnchanged": true
+      },
+      "status": "producer-candidate-awaiting-original-RGB-union-browser-and-root-review"
+    }
+  ],
+  "browser": {
+    "status": "pending actual native Chrome observation",
+    "observations": []
+  },
+  "primaryLayerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "dynamicAdmission": false,
+  "status": "HOLD-S-contact-gap-awaiting-clean-mother-repair",
+  "observedIssue": "Actual native Browser 05-shoes-ground-v1.jpg: narrow light/checker seam between F sole contour and S receiving floor, clearest around toe-to-outsole lower edge; do not claim seamless contact or feed this S2 into correction. Rebuild from clean mother with a tiny real lowest outsole boundary overlap."
+}

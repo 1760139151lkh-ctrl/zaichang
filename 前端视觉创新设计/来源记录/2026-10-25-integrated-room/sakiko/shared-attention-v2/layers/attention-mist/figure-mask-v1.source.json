@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "stage": "F2",
+  "recordType": "same-mother-layer-production",
+  "tool": "image_gen.imagegen",
+  "recordedAt": "2026-10-25T23:31:27.631730+00:00",
+  "sceneFamily": "literary-room-v1",
+  "characterId": "sakiko",
+  "activity": "attention",
+  "palette": "mist",
+  "motherSha256": "0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88",
+  "motherStaticApprovalEvidence": "../../sakiko-attention-mist-shared-page-v2.source.json",
+  "inputImages": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/figure-step1-marked-v1.png",
+      "sha256": "1f89a73600683d1b5786c66f248a15647bedb2e379e663ec151020eb00dd5187"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-mist-shared-page-v2.png",
+      "sha256": "0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88"
+    }
+  ],
+  "promptFile": "figure-mask-v1.prompt.txt",
+  "promptFileSha256": "ed3f0abd4659a927356f7494f6ffdbfd083fddcee5663790cfdaa72f5645bd54",
+  "requestFile": "figure-mask-v1.request.json",
+  "exactSubmittedPrompt": "Use case: background-extraction. STEP F2: exact-source foreground luminancecoverage, one OPAQUE1536x1024 black/whitePNG. INPUT1 is thismother's deliberate F1 whiteperson/openbookmarkup; INPUT2 is exactcleanmother onlyfor truegaps/naturalwhite discrimination. Preserve existing fullcanvas/everycoordinate, no resize/crop/recenter/shift/erosion/dilation.\nKeep COMPLETE intentionallywhitened girl AND WHOLE OPENBOOK SOLID PUREWHITE. Everythingelse PUREBLACK, including naturalwhitecurtain/linen/lamp/flowers/clouds/booksonsidetable and all room/light/receivingpatches. No coloredpersonRGB, no checkers/labels/arrows.\nWHITE contains every originalhairstrand/ribbon, fullhead/face/eyes/mouth/neck, cardigan/collar/clothbow/completehand-fingers-wrists, every darkoutwardskirthem, thighs/exposedknees/below-kneesocks, fullshoes withtoe/side/sole/heel-bottom, and every thin darkbookcover/spine/pageblock.\nCRITICAL: whitebook/hand/navylap/knees are ONE CONNECTED opaqueWHITE foreground. The dark curvedbookbinding againstlap isNOT a backgroundgap; doNOT draw any internalblack/graycurve there or reintroduce book/hand/clothing/shoeseam tracing fromcoloredoriginal. No opaqueholes inface/eyes/mouth/cloth/book/hands. Only ACTUAL outsidegaps between separatedhairstrands/limbs/legs becomeBLACK, usingoriginalmotherforcontext. Finegray ONLY outerantialias, fullinteriorswhite. Keep all originalfinehair/extremehem/bookedge/heelcontours; no contraction. This justselects originalRGB ONCE viaMAX(F,S), not a newperson/movingcaster/shadow.",
+  "submittedPromptSha256": "0928e55b15ec3fb4a7160db7b4fdb8a13b17cf6077d6d010a3d7d2a739871993",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-d3fc8d05-cba0-4c6a-a211-3723a0023735.png",
+  "toolOriginalSha256": "674382410a477e70b8a22085e024f2e292d83c3c7d070daf05e30b0c0c1e47ab",
+  "output": {
+    "file": "figure-mask-v1.png",
+    "sha256": "674382410a477e70b8a22085e024f2e292d83c3c7d070daf05e30b0c0c1e47ab",
+    "bytes": 491188,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "unchangedToolPngBytes": true
+  },
+  "producerReview": "Wholeactualmask viewed: complete solidperson/openbook/lap includingthinbinding, no face/book interiorholes. NativeoriginalRGB review pending.",
+  "dossierVersion": "2026-10-25.1",
+  "wardrobeId": "sakiko-literary-navy-adaptation",
+  "selectionStatus": "producer-selected-after-native-browser-review",
+  "rgbOwner": "Original approvedmother ONLY, not markedimage RGB",
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "generationInputAllowed": false,
+  "sourceConversationId": "01a17364-9725-7bd3-aa74-f7fa6487bfed",
+  "executionId": "exec-d3fc8d05-cba0-4c6a-a211-3723a0023735",
+  "requestSha256": "572c4d1fef28d5ec1f4029187e4dfd7b86e5bfb057874392650715523253fd15",
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256AtArchive": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "fullyReadForThisProduction": true
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256AtArchive": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "fullyReadForThisProduction": true
+    }
+  ],
+  "nativeBrowserReview": "attention-mist-included-bundle-v1.json"
+}

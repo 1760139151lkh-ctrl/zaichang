@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState, type Dispatch, type SetStateAction } from 'react';
-import { ChevronRight, FileText, LoaderCircle, Pause, Pencil, RotateCcw, X } from 'lucide-react';
-import type { Action, Bridge, Message, RuntimeOverview, State } from '../shared/types';
+import { BookOpen, Check, ChevronRight, CircleAlert, FileText, Image as ImageIcon, Layers, Link2, LoaderCircle, MessageSquareText, Minus, PanelsTopLeft, Pause, Pencil, RotateCcw, X } from 'lucide-react';
+import type { Action, Bridge, Message, ReplySourceAddress, ReplySourceDisplay, ReplySourcePage, RuntimeOverview, State, Step } from '../shared/types';
 import type { Condition, EvidenceEvent, MemoryView } from '../shared/harness';
 import { IconButton, Modal, Switch, uiError } from './ui';
 import { formatDateTime, fromTimeInput, toTimeInput } from './time';
 import './entrusted.css';
+import './keep-source-details.css';
 import { EntrustedPanel } from './EntrustedPanel';
 
 const api = window.zaichang;
@@ -83,32 +84,47 @@ const sourceName = (e: EvidenceEvent) =>
     'campus:local': '导入的校园资料',
     'local-agenda': '本地安排',
   }[e.sourceId] ||
-  '资料原文';
+  (e.imageSource ? '你带来的图片' : e.kind === 'user_message' ? '对话中的原话' : e.kind === 'file_import' ? '你带来的文件' : '来源记录');
+function readableEvidenceText(event: EvidenceEvent) {
+  if (event.kind === 'user_control') return '';
+  // Authored JSON can be the person's actual words. Import/tool envelopes
+  // are records about a source and must not masquerade as its readable body.
+  if (event.kind !== 'user_message' && /^[\[{]/.test(event.text.trim())) {
+    try {
+      const value: unknown = JSON.parse(event.text);
+      if (value !== null && typeof value === 'object') return '';
+    } catch { /* An ordinary passage may begin with a bracket. */ }
+  }
+  return event.text;
+}
 export function EvidencePreview({ eventId }: { eventId: string }) {
-  const [e, setEvidence] = useState<EvidenceEvent | null>(),
-    [error, setError] = useState('');
+  const [record, setEvidence] = useState<{ eventId: string; value: EvidenceEvent | null }>(),
+    [error, setError] = useState<{ eventId: string; text: string }>();
   useEffect(() => {
     let current = true;
+    setEvidence(undefined);
+    setError(undefined);
     api
       .evidence(eventId)
       .then((v) => {
-        if (current) setEvidence(v);
+        if (current) setEvidence({ eventId, value: v });
       })
       .catch((e) => {
-        if (current) setError(failureText(e));
+        if (current) setError({ eventId, text: failureText(e) });
       });
     return () => {
       current = false;
     };
   }, [eventId]);
-  if (error)
+  const e = record?.eventId === eventId ? record.value : undefined;
+  if (error?.eventId === eventId)
     return (
       <p className="harness-inline-error" role="alert">
-        {error}
+        {error.text}
       </p>
     );
   if (e === undefined) return <p className="harness-muted">正在打开原文…</p>;
-  if (!e) return <p className="harness-muted">这份原文已删除或不在可查看范围内。</p>;
+  if (!e || e.status === 'deleted') return <p className="harness-muted">这份原文已删除或不在可查看范围内。</p>;
   return (
     <div className="evidence-preview">
       <div>
@@ -116,109 +132,211 @@ export function EvidencePreview({ eventId }: { eventId: string }) {
         <strong>{sourceName(e)}</strong>
         <time>{date(e.receivedAt)}</time>
       </div>
-      <p>{e.text || '内容已删除'}</p>
+      <p>{readableEvidenceText(e) || '这条记录没有可直接展示的正文。'}</p>
       {e.status === 'redacted' && <small>已删除的段落不再显示</small>}
     </div>
   );
 }
-export function ReplyEvidence({ message }: { message: Message }) {
-  const [open, setOpen] = useState(false),
-    [selected, setSelected] = useState('');
-  const r = message.contextReceipt,
-    s = message.scopeSummary;
+function sourcePosition(ranges: ReplySourceDisplay['reading']['ranges']) {
+  return ranges.flatMap(range => {
+    const page = range.page === undefined ? '' : `第 ${range.page} 页`;
+    if (range.unit === 'page_image') return page ? [`${page}${range.crop ? '局部图像' : '图像'}`] : [];
+    if (range.unit === 'program_source' || range.unit === 'program_outline' || range.unit === 'program_states') {
+      if (range.start === undefined || range.end === undefined) return [];
+      const label = range.unit === 'program_source' ? '作品源码' : range.unit === 'program_outline' ? '作品结构' : '交互条件';
+      return [`${label}第 ${range.start + 1}–${range.end} ${range.unit === 'program_source' ? '字符' : '项'}`];
+    }
+    const passage = range.start === undefined || range.end === undefined ? ''
+      : `第 ${range.start + 1}–${range.end} 字`;
+    const position = [page, passage].filter(Boolean).join(' · ');
+    return position ? [position] : [];
+  }).join('；');
+}
+export type ReplySourceOpener = (address: ReplySourceAddress) => void | Promise<void>;
+export function ReplyEvidence({ message, onOpenSource }: { message: Message; onOpenSource?: ReplySourceOpener }) {
+  const [open, setOpen] = useState(false), [reload, setReload] = useState(0);
+  const [sources, setSources] = useState<{ key: string; page: ReplySourcePage }>();
+  const [problem, setProblem] = useState<{ key: string; text: string }>();
+  const [opening, setOpening] = useState<{ key: string; sourceId: string }>();
+  const [openProblem, setOpenProblem] = useState<{ key: string; sourceId: string; text: string }>();
+  const [morePending, setMorePending] = useState(''), [moreProblem, setMoreProblem] = useState<{ key: string; text: string }>();
+  const generation = useRef(0);
+  const r = message.contextReceipt, s = message.scopeSummary;
+  const sourceKey = JSON.stringify({
+    session: message.sessionId, message: message.id, status: message.status,
+    boundary: message.presentationBoundaryKey, epoch: r?.privacyEpoch, policy: r?.policyRevision,
+    evidence: r?.providedEvidenceIds, reads: r?.materialReads, images: r?.imageRequests,
+    notes: r?.noteSources, programs: r?.interactiveProgramSources, programReads: r?.interactiveProgramReads,
+    works: r?.assistantWorkSources, reload,
+  });
+  useEffect(() => {
+    if (!open) return;
+    let current = true;
+    const request = ++generation.current;
+    setSources(undefined); setProblem(undefined); setOpenProblem(undefined); setOpening(undefined);
+    setMorePending(''); setMoreProblem(undefined);
+    if (typeof api.replySources !== 'function') {
+      setProblem({ key: sourceKey, text: '当前窗口暂时无法打开来源。' });
+      return;
+    }
+    api.replySources({ sessionId: message.sessionId, messageId: message.id, limit: 4 })
+      .then(page => { if (current) setSources({ key: sourceKey, page }); })
+      .catch(error => { if (current) setProblem({ key: sourceKey, text: failureText(error) }); });
+    return () => { current = false; if (generation.current === request) generation.current++; };
+  }, [open, sourceKey]);
   if (!r && !s) return null;
-  const scope =
-    s?.retention === 'session_only'
-      ? '本轮不保存'
-      : s?.memoryMode === 'current_sources_only'
-        ? '只用本条与附件'
-        : s?.memoryMode === 'none'
-          ? '未参考记忆'
-          : '参考了什么';
-  const interpretationLabel = s?.interpretation
-    ? {
-        listen: '先听你说',
-        listen_and_local: '先听你说，同时记一件本地安排',
-        analyze: '分析并按需核对',
-        act: '记下你说的安排',
-        mixed: '分别处理这几件事',
-      }[s.interpretation.posture]
-    : '';
-  const surfaceLabel = s?.audience === 'group' ? '群消息草稿' : s?.audience === 'public' ? '公开草稿' : scope;
+  const page = sources?.key === sourceKey ? sources.page : undefined;
+  const sourceError = problem?.key === sourceKey ? problem.text : '';
+  const scope = s?.memoryMode === 'current_sources_only' ? '只允许参考本条消息与附件'
+    : s?.memoryMode === 'none' ? '这轮不使用记忆' : '';
+  async function openSource(source: ReplySourceDisplay) {
+    if (!source.address || !onOpenSource) return;
+    const key = sourceKey, sourceId = source.id;
+    setOpening({ key, sourceId }); setOpenProblem(undefined);
+    try { await onOpenSource(source.address); }
+    catch (error) { setOpenProblem({ key, sourceId, text: failureText(error) }); }
+    finally { setOpening(value => value?.key === key && value.sourceId === sourceId ? undefined : value); }
+  }
+  async function moreSources() {
+    if (!page || page.nextOffset === null || morePending === sourceKey) return;
+    const key = sourceKey, request = generation.current, previous = page;
+    setMorePending(key); setMoreProblem(undefined);
+    try {
+      const next = await api.replySources({ sessionId: message.sessionId, messageId: message.id, offset: previous.nextOffset!, limit: 4 });
+      if (generation.current !== request) return;
+      if (next.privacyEpoch !== previous.privacyEpoch || next.policyRevision !== previous.policyRevision
+        || next.sourceBoundary !== previous.sourceBoundary) { setReload(value => value + 1); return; }
+      setSources(value => value?.key === key ? { key, page: { ...next,
+        items: [...new Map([...value.page.items, ...next.items].map(item => [item.id, item])).values()] } } : value);
+    } catch (error) {
+      if (generation.current === request) setMoreProblem({ key, text: failureText(error) });
+    } finally {
+      if (generation.current === request) setMorePending(value => value === key ? '' : value);
+    }
+  }
   return (
-    <div className="reply-evidence">
-      <button className="text-button evidence-toggle" aria-expanded={open} onClick={() => setOpen(!open)}>
-        <span>{surfaceLabel}</span>
-        <ChevronRight size={13} className={open ? 'rotated' : ''} />
+    <div className="reply-evidence keep-reply-evidence">
+      <button type="button" className="text-button evidence-toggle" aria-expanded={open}
+        aria-controls={`reply-sources-${message.id}`} onClick={() => setOpen(value => !value)}>
+        <span>来源与范围</span><ChevronRight size={13} className={open ? 'rotated' : ''} aria-hidden="true" />
       </button>
-      {open && (
-        <div className="evidence-detail">
-          <p className="harness-muted">
-            这次参考了这些。
-            {s?.release ? '这份草稿留给你决定怎么发送。' : ''}
-            {r
-              ? ` ${r.coverage === 'blocked' ? '还有必要的信息没找到。' : r.coverage === 'conditional' ? '有些资料还需要再看一看。' : `共 ${r.providedEvidenceIds.length} 处来源。`}`
-              : ''}
-          </p>
-          {s?.interpretation && (
-            <div className="interpretation-summary">
-              <strong>我是这样理解的</strong>
-              <p>{interpretationLabel}</p>
-              {!!s.interpretation.unresolvedReferences.length && (
-                <p className="harness-inline-warning">
-                  这几处还想和你说清楚：
-                  {s.interpretation.unresolvedReferences.join('、')}
-                </p>
-              )}
-            </div>
-          )}
-          {s?.release && (
-            <div className="release-summary">
-              <strong>{s.release.mode === 'send' ? '想发送的话，先看看这份草稿' : '写给你过目的草稿'}</strong>
-              <p>
-                收件人：{s.release.recipient} · 目的：{s.release.purpose}
-              </p>
-              <p>
-                语气：{s.release.tone}
-                。在场还不能替你发送；你可以复制到原来的应用里。
-              </p>
-              {!!s.release.allowedFacts.length && <p>允许写入：{s.release.allowedFacts.join('、')}</p>}
-            </div>
-          )}
-          {r?.needResults.length ? (
-            <ul className="need-list">
-              {r.needResults.map((n, i) => (
-                <li key={n.key + i}>
-                  <span>{needName(n.key)}</span>
-                  <span>{knowledge[n.status] || '还需要再看一看'}</span>
-                </li>
-              ))}
-            </ul>
-          ) : null}
-          {s?.retention !== 'session_only' &&
-            r?.providedEvidenceIds.map((id, i) => (
-              <div key={id}>
-                <button
-                  className="text-button evidence-source-button"
-                  onClick={() => setSelected(selected === id ? '' : id)}
-                >
-                  <FileText size={13} />
-                  查看来源 {i + 1}
-                  <ChevronRight size={12} />
-                </button>
-                {selected === id && <EvidencePreview eventId={id} />}
+      {open && <div className="evidence-detail keep-source-details" id={`reply-sources-${message.id}`}>
+        {(scope || s?.retention === 'session_only') && <p className="harness-muted">
+          {scope}{scope && s?.retention === 'session_only' ? ' · ' : ''}
+          {s?.retention === 'session_only' ? '这轮对话不留存' : ''}
+        </p>}
+        {!page && !sourceError && <p className="harness-muted" role="status">正在打开来源…</p>}
+        {sourceError && <div className="keep-source-error" role="alert">
+          <p>{sourceError}</p><button type="button" className="text-button" onClick={() => setReload(value => value + 1)}>再打开一次</button>
+        </div>}
+        {!!page?.items.length && <ul className="keep-source-list" aria-label="来源及读取情况">
+          {page.items.map(source => {
+            const position = sourcePosition(source.reading.ranges);
+            const pending = opening?.key === sourceKey && opening.sourceId === source.id;
+            const error = openProblem?.key === sourceKey && openProblem.sourceId === source.id ? openProblem.text : '';
+            const recoverInConversation = source.availability === 'unavailable' && source.address?.kind === 'conversation';
+            const SourceIcon = source.kind === 'conversation' ? MessageSquareText : source.kind === 'image' ? ImageIcon
+              : source.kind === 'notebook' ? BookOpen : source.kind === 'interactive' ? PanelsTopLeft
+                : source.kind === 'scene' ? Layers : source.kind === 'other' ? Link2 : FileText;
+            const label = <><SourceIcon size={14} aria-hidden="true" /><span>{source.title}</span></>;
+            return <li key={source.id} className={source.availability === 'unavailable' ? 'is-unavailable' : undefined}>
+              {source.address && onOpenSource
+                ? <button type="button" className="text-button evidence-source-button keep-source-open" disabled={pending} aria-busy={pending}
+                    aria-label={recoverInConversation ? `回到${source.title}的原消息` : `打开${source.title}`}
+                    onClick={() => void openSource(source)}>{label}{pending
+                      ? <LoaderCircle size={12} className="spin" aria-hidden="true" />
+                      : <ChevronRight size={12} aria-hidden="true" />}</button>
+                : <div className="keep-source-name">{label}</div>}
+              {recoverInConversation && <p className="keep-source-position">回原消息核对</p>}
+              {position && <p className="keep-source-position">{position}</p>}
+              {source.statusText && <p className="keep-source-status">{source.statusText}</p>}
+              {source.unavailableReason && <p className="keep-source-status">{source.unavailableReason}</p>}
+              {error && <p className="harness-inline-error" role="alert">{error}</p>}
+            </li>;
+          })}
+        </ul>}
+        {page?.nextOffset !== undefined && page.nextOffset !== null && <button type="button"
+          className="text-button keep-source-more" disabled={morePending === sourceKey} onClick={() => void moreSources()}>
+          {morePending === sourceKey ? '正在打开…' : '查看更多来源'}
+        </button>}
+        {moreProblem?.key === sourceKey && <p className="harness-inline-error" role="alert">{moreProblem.text}</p>}
+        {page?.unavailableReason && <p className="harness-muted">{page.unavailableReason}</p>}
+        {page && !page.items.length && !page.unavailableReason && <p className="harness-muted">这条回复暂时没有可直接打开的来源。</p>}
+        {!!r?.needResults.length && <ul className="need-list">
+          {r.needResults.map((need, index) => <li key={need.key + index}>
+            <span>{needName(need.key)}</span><span>{knowledge[need.status] || '还不能确定'}</span>
+          </li>)}
+        </ul>}
+        {s?.release && <div className="release-summary">
+          <strong>草稿的使用范围</strong>
+          <p>收件人：{s.release.recipient} · 目的：{s.release.purpose}</p>
+          <p>语气：{s.release.tone}</p>
+          {!!s.release.allowedFacts.length && <p>允许写入：{s.release.allowedFacts.join('、')}</p>}
+          <p>草稿尚未发送。</p>
+        </div>}
+      </div>}
+    </div>
+  );
+}
+// Older saved steps have no public projection. Only known action labels are
+// retained; their raw detail/scope may contain host instructions, not dialogue.
+const legacyProcessTitles = new Set([
+  '翻看日程安排', '查看地图', '查找相关资料', '把结果摊开给你看',
+  '调整安排', '确认安排的结果', '撤回安排', '展开陪学纸', '一起试着说',
+  '比较几种安排', '查看天气情况', '查询课程与日程', '查询成绩与学分',
+  '查询校园信息', '检索过往记录', '规划路线与时间', '查找地点位置',
+  '查看校园地图全貌', '查看地图信息', '翻看笔记内容', '查找相关笔记',
+  '查看笔记列表', '翻看笔记旧版本', '记录新笔记', '修改笔记内容',
+  '移除这份笔记', '恢复这份笔记', '撤回笔记修改', '整理笔记',
+  '核对日程安排', '添加日程', '调整日程', '整理日程', '再看看原图',
+  '核对原话记录', '查看先前的理解', '回顾过往相处与经历',
+  '准备一份好奇邀请', '写一封生活来信',
+]);
+function publicProcessStep(step: Step) {
+  if (step.userFacing) return { id: step.id, ...step.userFacing };
+  return legacyProcessTitles.has(step.title)
+    ? { id: step.id, title: step.title, status: step.status, detail: undefined, coverage: undefined }
+    : null;
+}
+export function ChatProcess({ message }: { message: Message }) {
+  const [open, setOpen] = useState(false);
+  // set_plan obligations are internal run bookkeeping, not adopted user
+  // tasks or proof that a business action finished.
+  const steps = message.steps.flatMap(step => {
+    const visible = publicProcessStep(step);
+    return visible ? [visible] : [];
+  });
+  const current = message.status === 'running' ? steps.filter(step => step.status === 'running').at(-1) : undefined;
+  const hasDetails = steps.length > 0;
+  const running = message.status === 'running';
+  const unfinished = steps.some(step => step.status === 'blocked');
+  if (!running && !hasDetails) return null;
+  const label = running ? current?.title || '正在回复'
+    : message.status === 'cancelled' ? '停下前的过程'
+      : message.status === 'error' || unfinished ? '查看进行到哪里' : '查看过程';
+  return (
+    <div className={`chat-process${running ? ' is-running' : ''}`}>
+      {hasDetails ? (
+        <button type="button" className="text-button chat-process-toggle" aria-expanded={open}
+          aria-controls={`chat-process-${message.id}`} onClick={() => setOpen(value => !value)}>
+          {running && <LoaderCircle size={13} className="spin" aria-hidden="true" />}
+          <span role={running ? 'status' : undefined}>{label}</span>
+          <ChevronRight size={12} className={open ? 'rotated' : ''} aria-hidden="true" />
+        </button>
+      ) : <p className="chat-process-activity" role="status"><LoaderCircle size={13} className="spin" aria-hidden="true" />{label}</p>}
+      {open && hasDetails && (
+        <div id={`chat-process-${message.id}`} className="chat-process-details">
+          {!!steps.length && <ul className="chat-process-items" aria-label="实际活动">
+            {steps.map(step => <li key={step.id} className={`is-${step.status}`}>
+              {step.status === 'running' && running ? <LoaderCircle size={13} className="spin" aria-hidden="true" />
+                : step.status === 'done' ? <Check size={13} aria-hidden="true" />
+                  : step.status === 'cancelled' || step.status === 'running' ? <Minus size={13} aria-hidden="true" /> : <CircleAlert size={13} aria-hidden="true" />}
+              <div><span className="sr-only">{step.status === 'running' ? running ? '进行中：' : '未确认完成：' : step.status === 'cancelled' ? '已停下：' : step.status === 'blocked' ? '未完成：' : step.coverage === 'partial' ? '已读到部分内容：' : '完成这一步：'}</span>
+                <span>{step.title}</span>
+                {step.detail ? <p>{step.detail}</p> : step.coverage === 'partial' ? <p>这次只读取了其中一部分。</p> : null}
               </div>
-            ))}
-          {(!r?.providedEvidenceIds.length || s?.retention === 'session_only') && (
-            <p className="harness-muted">
-              {s?.retention === 'session_only'
-                ? '仅在本轮使用，关闭对话后不留原文。'
-                : '这次没有可供回看的原文。'}
-            </p>
-          )}
-          {r && r.watermarks.extractionGaps.length > 0 && (
-            <p className="harness-muted">有些原话还没整理清楚；在你允许的范围内，仍可直接参考原文。</p>
-          )}
+            </li>)}
+          </ul>}
         </div>
       )}
     </div>

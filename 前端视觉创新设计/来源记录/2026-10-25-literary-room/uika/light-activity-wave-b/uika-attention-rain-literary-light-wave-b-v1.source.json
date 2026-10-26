@@ -1,0 +1,81 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "bounded-same-activity-weather-light-mother",
+  "wave": "light-activity-wave-b",
+  "character": "uika",
+  "activity": "attention",
+  "palette": "rain",
+  "environmentVariant": "rain-night",
+  "sceneFamily": "literary-room-v1",
+  "waveCallIndex": 9,
+  "waveCallLimit": 24,
+  "numberOfImageInputs": 2,
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "role": "image 1 approved empty target weather/time room/light",
+      "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.source.json",
+      "actualSha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "approvalRecordSha256": "fae6d70ec523dfb8780207d57677bd6ae383d270255acac1856c7d0888cb92e7"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-attention-apricot-literary-wave-b-v1.png",
+      "sha256": "778950ac219b655855e505bfadf13e9bacda47aab34acd1d3ba3586ceb7f3a76",
+      "role": "image 2 root-approved apricot SAME ACTIVITY identity/pose/support",
+      "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/root-mother-admission-v1.json",
+      "actualSha256": "778950ac219b655855e505bfadf13e9bacda47aab34acd1d3ba3586ceb7f3a76",
+      "approvalRecordSha256": "441affb1f1f5cb486df9296e6d1bb61b28e3a9706ec9816ef56888d1340dc1a4"
+    }
+  ],
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-attention-apricot-literary-wave-b-v1.png",
+    "sha256": "778950ac219b655855e505bfadf13e9bacda47aab34acd1d3ba3586ceb7f3a76",
+    "role": "image 2 root-approved apricot SAME ACTIVITY identity/pose/support",
+    "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/root-mother-admission-v1.json",
+    "actualSha256": "778950ac219b655855e505bfadf13e9bacda47aab34acd1d3ba3586ceb7f3a76",
+    "approvalRecordSha256": "441affb1f1f5cb486df9296e6d1bb61b28e3a9706ec9816ef56888d1340dc1a4"
+  },
+  "lightingTarget": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+    "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+    "role": "image 1 approved empty target weather/time room/light",
+    "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.source.json",
+    "actualSha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+    "approvalRecordSha256": "fae6d70ec523dfb8780207d57677bd6ae383d270255acac1856c7d0888cb92e7"
+  },
+  "referenceBoundary": "Approved matching empty weather/time plate first; approved apricot same-activity mother second. No unreviewed new light candidate or old held Umiri v1. Preserve actual approved pose/identity/support/camera/scale; repaint full true lighting.",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-e7fe3155-bdbe-460a-907e-b6e2cbf69c9c.png",
+  "output": "uika-attention-rain-literary-light-wave-b-v1.png",
+  "outputSha256": "99e8e11541c096034d4e43de51edf0f97c2e9700963cee6b328d857ec475d59a",
+  "promptFile": "uika-attention-rain-literary-light-wave-b-v1.prompt.txt",
+  "prompt": "Use case: lighting-weather. ONE complete 1536x1024 literary-room SAME-ACTIVITY mother.\nIMAGE 1 is root-approved EMPTY target weather/time ROOM, authoritative for the whole camera, room geometry and LIGHT. IMAGE 2 is root-approved APRICOT SAME-ACTIVITY MOTHER, authoritative for exact character identity, real current pose/expression, clothing/proportions, hand/object relationships, image position and actual support. Use ONLY these two images. Do not draw a new activity or use a generic chat face/body.\nLOCK camera/perspective/window divisions and ALL major furniture/materials to image 1: desk/chair, shelves/plants/books/pictures, original ceramic lamp/round table/cup/flowers, right bench/plaid pillows/knitted throw, rug/floor/foreground depth. Keep image 2's precise head/gaze/shoulders/torso/back/pelvis, elbows/wrists/palms/fingers, skirt/legs and complete shoes in original pose/location/size. No zoom, crop, head enlargement, lensward lean, body shift or furniture move. Real hip/cushion, palm/object and shoe/floor supports remain. Complete hair/head, hands, hem, ankles and both shoes stay in frame.\nREPAINT COHERENT LIGHT over the ENTIRE person, skin/hair/clothes/shoes, paper/book/plane where present, cushion/contact receiver, wood and floor to image 1's weather. Old sunny bars, sharp noon skin hot patches and bright gold rims are NOT identity: remove and re-light them, especially knees/wrists/shirt shoulders; do NOT merely recolor their old shape. Match material reflections, exposure, local lamp falloff and softened contact. No CSS/global filter, pasted sunny person, split day-night or new fixture. Indoor clothes/paper/floor stay dry.\nFine original youthful anime identity in rich painted room. Hair strands/cheek strands, eyelids/lashes, iris and pupils separate and readable. No fused fringe/black eyes, mature glamour or chibi. No UI/text/labels/badges/cards/bubbles/trails/arrows/halos/watermark/signature/split view. No new hand prop. Preserve the actual distinctive psychology already visible in image 2; rain is not automatically sadness.\n\nUIKA 三角初华: source short warm-blonde bob and VIOLET/PURPLE eyes, plain white short sleeve tee, taupe-gray long skirt, white ankle socks and full black/white canvas sneakers. Distinguish blonde/skin/white cloth/paper values. Keep uncrossed skirt drape with two separate continuous lower legs/ankles and two independently floor-supported sneakers; no tucked foot/new crossed-knee ridge.\nATTENTION: preserve source slightly lifted violet eyelids, small questioning parted lips, modest head turn toward nearby person. Open blue book remains supported ON LAP, lower hand under it, other hand paused on lifted page edge. She hears a light call during her own sentence; no wave, point, alarm, wide-eye shock or new gesture.\nRAIN / RAIN NIGHT: image 1 dark cloudy rainy sky, drops/trails on glass and rain-broken town/lake reflections. Original ceramic lamp gives local warm interior with real falloff, faint cool window fill separates far contours without neon. Person's skin/hair/fabric/leather and ALL WHITE PAPER share NIGHT exposure with cushion/wood/floor. REMOVE old noon geometric skin hot patches, not just orange-tint them; smooth actual lamp-facing skin volumes. No day stripes, moon/stars/new fixture. Clothes/book/plane/cushion/floor remain DRY. Preserve actual activity emotion; never automatically sad, wet or sulking.",
+  "submittedPromptSha256NoTrailingNewline": "fb77972ac83c6c74b5f2db2aa9da5af2eb000d52c67ed35e360c8087a7057b3f",
+  "promptFileSha256": "fb77972ac83c6c74b5f2db2aa9da5af2eb000d52c67ed35e360c8087a7057b3f",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "actualMode": "RGB",
+  "producerViewed": true,
+  "primaryMotherApproved": false,
+  "primaryApproved": false,
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "pngEdited": false,
+  "cssFilter": false,
+  "largeImageResultStored": false,
+  "reviewBoundary": "This new light mother only; approved inputs do not transfer output/layer/runtime approval.",
+  "remaining": [
+    "Root personally review this exact new light mother",
+    "No layer/registration/runtime acceptance"
+  ],
+  "producerObservations": [
+    "Personally viewed complete attention rain: source questioning violet eyes/parted lips and paused page-turn hand/lower book support retained, whole head/hem/ankles/shoes and hip support coherent.",
+    "Rainy glass/local lamp exposure shared across paper/skin/white tee/skirt/floor; dry indoors, no old floor sun lattice or new gesture."
+  ],
+  "producerConcerns": [
+    "Fine page lift/finger contours and warm edge strength remain for root's exact-source assessment."
+  ]
+}

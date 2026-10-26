@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "characterId": "soyo",
+  "neutralTime": "day",
+  "purpose": "neutral-presence-fixed-included-layer",
+  "kind": "foreground-source-white-markup-F1",
+  "createdAt": "2026-10-26T01:24:57.136877+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "exactPromptFile": "figure-step1-marked-v1.prompt.txt",
+  "promptSha256": "f2ec722f0c70fe7610844b3261e69be134212752fd8b1101f6126832e255b7ea",
+  "requestFile": "figure-step1-marked-v1.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/soyo-neutral-time-day-literary-v1.png",
+      "sha256": "b7389951fe91b57019a55aace462bd4e4efc61c455c17499743548b02cc1f062",
+      "role": "sole exact root-approved day mother"
+    }
+  ],
+  "output": {
+    "file": "figure-step1-marked-v1.png",
+    "sha256": "83bc0db11d64eb8d85e229bf0d06f3b29e7f83e4842bbcb05dd5a5b8f096cf11",
+    "bytes": 2207544,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "originalBasename": "exec-525a7989-0359-4338-9c02-3783115fdfce.png",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteOutput": true,
+    "observations": [
+      "Complete connected foreground including held curved page, full book, skirt tips, hair and both shoes selected white.",
+      "No visible interior book-cover seam in this markup; actual source-scale RGB composition still pending."
+    ],
+    "eligibleAsNextStepInput": true
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "countsToward360ExactActivities": false,
+  "pngPixelEditing": false
+}

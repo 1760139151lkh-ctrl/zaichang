@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "characterId": "taki",
+  "completedCalls": 3,
+  "batchCallOrdinals": [
+    4,
+    5,
+    6
+  ],
+  "batchCap": 6,
+  "entries": [
+    {
+      "palette": "mist",
+      "file": "taki-chat-mist-literary-v1.png",
+      "sha256": "ad4125505fbcc0a7c3ef57035f20b604d5024afa06dd9e2fb464a1aaf089b27f",
+      "bytes": 2365541,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "taki-chat-mist-literary-v1.source.json",
+      "producerReview": {
+        "personallyViewed": true,
+        "decision": "static theme mother candidate for primary inspection",
+        "observation": "Complete original viewed: overcast outdoor cloud/lake distance and soft diffuse room/skin/uniform light remove strong apron-day knee/floor hotspots. Original chat pose, closed book to one lap side, relaxed visible hand and natural book-occluded hand, hip/cushion and complete shoes remain visually aligned with the approved mother. Violet eyes and dark fringe/lids are separate; earnest question remains without a forced smile. No hard sunshine lattice or global blue dye.",
+        "limits": "Observed visual coordinate continuity, not pixel-identical calibration or runtime proof. No primary/layer/runtime admission."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "palette": "violet",
+      "file": "taki-chat-violet-literary-v1.png",
+      "sha256": "c45dd022d4a8a2ddc948e6182fefe89f0ad50621e150fb8461e4878a06a6ce47",
+      "bytes": 2249409,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "taki-chat-violet-literary-v1.source.json",
+      "producerReview": {
+        "personallyViewed": true,
+        "decision": "static theme mother candidate for primary inspection",
+        "observation": "Complete original viewed: continuous rose/lavender dusk with town lamps, localized warm ceramic-lamp light and soft cool ambient fill. Strong apricot sun rectangles on lower-right floor and sharp knee hotspot are removed; the floor/linen/skin/uniform read together in softer twilight light. Original head/body scale, closed book/visible hand/natural occluded hand, hip/cushion and complete shoes remain visually aligned; violet eyes and hair/eyelids separate, earnest question retained without scowl.",
+        "limits": "No measured radiometric or pixel-identical calibration claimed. No primary/layer/runtime admission."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "palette": "rain",
+      "file": "taki-chat-rain-literary-v1.png",
+      "sha256": "48134f536e5a65f59ed4d3b91ca5f8acc898a3697894eb8780bb53ef7a7bbddd",
+      "bytes": 2186968,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "taki-chat-rain-literary-v1.source.json",
+      "producerReview": {
+        "personallyViewed": true,
+        "decision": "static theme mother candidate for primary inspection",
+        "observation": "Complete original viewed: rain marks/streaks on glass, dark cloudy lake/town with wet light reflections, warm dry existing-lamp interior and no stars/daylight sky or hard noon window lattice. Taki's skin, uniform, linen and floor read together under warm localized night illumination; hard apricot knee patch is softened. Original chat body scale, closed book/visible hand/occluded hand, hip/cushion and complete shoes remain visually aligned. Violet eyes/hair/lids distinct; direct earnest questioning affect remains rather than automatic sadness.",
+        "limits": "Static visual light/support inspection only; no radiometric calibration, pixel-identical registration or runtime behavior proof. No primary/layer/runtime admission."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "scope": "Three same-pose static chat light candidates; root/layer/runtime pending. No new layers or registration."
+}

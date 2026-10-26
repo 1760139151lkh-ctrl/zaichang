@@ -4,8 +4,11 @@ import { Volume2, VolumeX } from 'lucide-react';
 import type { ProgramStateValues } from '../../shared/interactive-program';
 
 interface Settings { gain: number; velocity: number; harmonics: number[]; attackMs: number; decayMs: number; sustainLevel: number; releaseMs: number }
-interface Voice { gate: boolean; sustain: boolean; trigger?: number | boolean; frequency: number | null; settings: Settings }
-interface Sound { id: string; oscillator: OscillatorNode; gain: GainNode; released: boolean; held: boolean; born: number }
+export interface InteractiveAudioVoice { gate: boolean; sustain: boolean; trigger?: number | boolean; frequency: number | null; settings: Settings;
+  piano?: { brightness: number } }
+type Voice = InteractiveAudioVoice;
+interface Sound { id: string; oscillators: OscillatorNode[]; partials: GainNode[]; ratios: number[]; gain: GainNode;
+  released: boolean; held: boolean; born: number; piano: boolean }
 interface Scope {
   inputs: ProgramStateValues;
   sync: (id: string, voice: Voice) => void;
@@ -16,6 +19,7 @@ interface Scope {
   toggle: (trusted: boolean) => void;
 }
 const AudioScope = createContext<Scope | null>(null);
+export function useInteractiveAudio() { return useContext(AudioScope); }
 const defaults: Settings = { gain: .25, velocity: 1, harmonics: [1], attackMs: 8, decayMs: 250, sustainLevel: .45, releaseMs: 180 };
 
 /** A single local sound owner for one exact delivered work. It creates no
@@ -24,19 +28,22 @@ export function InteractiveAudioScope({ scopeKey, inputs, userAction, disabled, 
   scopeKey: string; inputs: ProgramStateValues; userAction: { serial: number; origin: string }; disabled: boolean; children: ReactNode;
 }) {
   const root = useRef<HTMLDivElement>(null), context = useRef<AudioContext | undefined>(undefined), master = useRef<GainNode | undefined>(undefined);
-  const analyser = useRef<AnalyserNode | undefined>(undefined), samples = useRef(new Float32Array(1024));
+  const analyser = useRef<AnalyserNode | undefined>(undefined), limiter = useRef<DynamicsCompressorNode | undefined>(undefined), samples = useRef(new Float32Array(1024));
   const voices = useRef(new Map<string, Voice>()), sounds = useRef(new Set<Sound>());
   const [enabled, setEnabled] = useState(false), [count, setCount] = useState(0), [issue, setIssue] = useState('');
   const [playing, setPlaying] = useState(0);
   const current = useRef({ enabled, disabled, userAction }); current.current = { enabled, disabled, userAction };
   const armed = useRef(false), visible = useRef(true);
   const mix = () => {
-    if (context.current && master.current) master.current.gain.setTargetAtTime(.7 / Math.max(1, sounds.current.size), context.current.currentTime, .008);
+    if (context.current && master.current) master.current.gain.setTargetAtTime(.7 / Math.sqrt(Math.max(1, sounds.current.size)), context.current.currentTime, .008);
     setPlaying(sounds.current.size);
   };
   const stopAll = () => {
     armed.current = false;
-    for (const sound of sounds.current) { try { sound.oscillator.stop(); } catch { /* already ended */ } sound.oscillator.disconnect(); sound.gain.disconnect(); }
+    for (const sound of sounds.current) {
+      for (const oscillator of sound.oscillators) { oscillator.onended = null; try { oscillator.stop(); } catch { /* already ended */ } oscillator.disconnect(); }
+      sound.partials.forEach(partial => partial.disconnect()); sound.gain.disconnect();
+    }
     sounds.current.clear(); mix();
   };
   const release = (sound: Sound, milliseconds: number) => {
@@ -47,16 +54,18 @@ export function InteractiveAudioScope({ scopeKey, inputs, userAction, disabled, 
     if (typeof parameter.cancelAndHoldAtTime === 'function') parameter.cancelAndHoldAtTime(now);
     else { const value = parameter.value; parameter.cancelScheduledValues(now); parameter.setValueAtTime(value, now); }
     parameter.linearRampToValueAtTime(0, now + milliseconds / 1000);
-    sound.oscillator.stop(now + milliseconds / 1000 + .015);
+    for (const oscillator of sound.oscillators) oscillator.stop(now + milliseconds / 1000 + .015);
   };
   const activate = async () => {
     if (current.current.disabled || !visible.current) return;
     try {
       if (!context.current || context.current.state === 'closed') {
-        const clock = new AudioContext(), output = clock.createGain(), trace = clock.createAnalyser();
+        const clock = new AudioContext(), output = clock.createGain(), trace = clock.createAnalyser(), compression = clock.createDynamicsCompressor();
         trace.fftSize = samples.current.length;
-        output.gain.value = .7; output.connect(trace); trace.connect(clock.destination);
-        context.current = clock; master.current = output; analyser.current = trace;
+        compression.threshold.value = -8; compression.knee.value = 9; compression.ratio.value = 12;
+        compression.attack.value = .003; compression.release.value = .12;
+        output.gain.value = .7; output.connect(compression); compression.connect(trace); trace.connect(clock.destination);
+        context.current = clock; master.current = output; analyser.current = trace; limiter.current = compression;
       }
       // Scheduling during a trusted resume keeps the first press intact.
       // A later blur may disarm it; the resolved promise must not re-arm it.
@@ -69,24 +78,57 @@ export function InteractiveAudioScope({ scopeKey, inputs, userAction, disabled, 
   const play = (id: string, voice: Voice) => {
     const clock = context.current;
     if (!clock || clock.state === 'closed' || !armed.current || !current.current.enabled || current.current.disabled || voice.frequency === null) return;
-    if (sounds.current.size >= 64) {
+    if (sounds.current.size >= 128) {
       const tail = [...sounds.current].filter(sound => sound.released || !sound.held).sort((a, b) => a.born - b.born)[0];
       if (!tail) { setIssue('先松开几个声音，再继续弹。'); return; }
-      try { tail.oscillator.stop(); } catch { /* already ended */ } tail.oscillator.disconnect(); tail.gain.disconnect(); sounds.current.delete(tail);
+      for (const oscillator of tail.oscillators) { oscillator.onended = null; try { oscillator.stop(); } catch { /* already ended */ } oscillator.disconnect(); }
+      tail.partials.forEach(partial => partial.disconnect()); tail.gain.disconnect(); sounds.current.delete(tail);
     }
-    const oscillator = clock.createOscillator(), gain = clock.createGain(), value = voice.settings;
-    const real = new Float32Array(value.harmonics.length + 1), imaginary = new Float32Array(value.harmonics.length + 1);
-    imaginary.set(value.harmonics, 1); oscillator.setPeriodicWave(clock.createPeriodicWave(real, imaginary));
-    oscillator.frequency.value = voice.frequency;
-    const now = clock.currentTime, peak = value.gain * value.velocity;
+    const gain = clock.createGain(), value = voice.settings, now = clock.currentTime;
+    const sound: Sound = { id, oscillators: [], partials: [], ratios: [], gain, released: false, held: voice.gate, born: now, piano: !!voice.piano };
+    gain.connect(master.current!);
+    const peak = value.gain * (voice.piano ? value.velocity ** 1.5 : value.velocity);
     gain.gain.setValueAtTime(0, now); gain.gain.linearRampToValueAtTime(peak, now + value.attackMs / 1000);
-    gain.gain.linearRampToValueAtTime(peak * value.sustainLevel, now + (value.attackMs + value.decayMs) / 1000);
-    oscillator.connect(gain); gain.connect(master.current!);
-    const sound: Sound = { id, oscillator, gain, released: false, held: voice.gate, born: now }; sounds.current.add(sound); mix();
-    oscillator.onended = () => { sounds.current.delete(sound); oscillator.disconnect(); gain.disconnect(); mix(); };
-    oscillator.start();
+    if (voice.piano) {
+      // A bounded modal instrument: string stiffness separates upper partials,
+      // each mode loses energy at its own rate, and a slightly detuned unison
+      // produces beating. These are illustrative parameters, not sampled or
+      // measured coefficients of a particular grand piano.
+      const frequency = voice.frequency, brightness = voice.piano.brightness;
+      const decay = Math.min(5, Math.max(.6, 2.5 * (261.626 / frequency) ** .35));
+      const stiffness = .00008 + .00012 * (frequency / 440) ** .7;
+      const modes = Array.from({ length: 10 }, (_, index) => index + 1)
+        .map(mode => ({ ratio: mode * Math.sqrt((1 + stiffness * mode * mode) / (1 + stiffness)),
+          amplitude: (1 + brightness * value.velocity * Math.max(0, mode - 1) * .45) / mode ** 1.8,
+          decay: decay / (1 + (mode - 1) * (.15 + (1 - brightness) * .08)) }))
+        .filter(mode => frequency * mode.ratio < clock.sampleRate * .46);
+      const normalization = modes.reduce((sum, mode) => sum + mode.amplitude, 0) + .18;
+      const addMode = (ratio: number, amplitude: number, seconds: number) => {
+        const oscillator = clock.createOscillator(), partial = clock.createGain();
+        oscillator.type = 'sine'; oscillator.frequency.value = frequency * ratio;
+        partial.gain.setValueAtTime(amplitude / normalization, now);
+        partial.gain.exponentialRampToValueAtTime(.00001, now + seconds * 4);
+        oscillator.connect(partial); partial.connect(gain);
+        sound.oscillators.push(oscillator); sound.partials.push(partial); sound.ratios.push(ratio);
+        oscillator.start(now); oscillator.stop(now + seconds * 4 + .02);
+      };
+      modes.forEach(mode => addMode(mode.ratio, mode.amplitude, mode.decay));
+      addMode(2 ** (.7 / 1200), .18, decay * .8);
+    } else {
+      gain.gain.linearRampToValueAtTime(peak * value.sustainLevel, now + (value.attackMs + value.decayMs) / 1000);
+      const oscillator = clock.createOscillator(), real = new Float32Array(value.harmonics.length + 1), imaginary = new Float32Array(value.harmonics.length + 1);
+      imaginary.set(value.harmonics, 1); oscillator.setPeriodicWave(clock.createPeriodicWave(real, imaginary)); oscillator.frequency.value = voice.frequency;
+      oscillator.connect(gain); sound.oscillators.push(oscillator); sound.ratios.push(1); oscillator.start();
+    }
+    sounds.current.add(sound); mix();
+    let remaining = sound.oscillators.length;
+    for (const oscillator of sound.oscillators) oscillator.onended = () => {
+      oscillator.disconnect();
+      if (--remaining) return;
+      sounds.current.delete(sound); sound.partials.forEach(partial => partial.disconnect()); gain.disconnect(); mix();
+    };
     if (!voice.gate && !voice.sustain) release(sound, Math.max(value.attackMs + 20, value.releaseMs));
-    else if (value.sustainLevel === 0) oscillator.stop(now + (value.attackMs + value.decayMs) / 1000 + .02);
+    else if (!voice.piano && value.sustainLevel === 0) sound.oscillators[0].stop(now + (value.attackMs + value.decayMs) / 1000 + .02);
   };
   const api = useMemo(() => ({
     signal() {
@@ -112,17 +154,18 @@ export function InteractiveAudioScope({ scopeKey, inputs, userAction, disabled, 
         for (const sound of sounds.current) if (sound.id === id) release(sound, voice.settings.releaseMs);
       if (voice.frequency !== null && context.current) for (const sound of sounds.current)
         if (sound.id === id && !sound.released) {
-          sound.oscillator.frequency.setTargetAtTime(voice.frequency, context.current.currentTime, .01);
-          if (JSON.stringify(before.settings.harmonics) !== JSON.stringify(voice.settings.harmonics)) {
+          sound.oscillators.forEach((oscillator, index) => oscillator.frequency.setTargetAtTime(voice.frequency! * sound.ratios[index], context.current!.currentTime, .01));
+          if (!sound.piano && JSON.stringify(before.settings.harmonics) !== JSON.stringify(voice.settings.harmonics)) {
             const real = new Float32Array(voice.settings.harmonics.length + 1), imaginary = new Float32Array(voice.settings.harmonics.length + 1);
-            imaginary.set(voice.settings.harmonics, 1); sound.oscillator.setPeriodicWave(context.current.createPeriodicWave(real, imaginary));
+            imaginary.set(voice.settings.harmonics, 1); sound.oscillators[0].setPeriodicWave(context.current.createPeriodicWave(real, imaginary));
           }
         }
     },
     remove(id: string) {
       voices.current.delete(id); setCount([...voices.current.values()].filter(value => value.frequency !== null).length);
       for (const sound of [...sounds.current]) if (sound.id === id) {
-        try { sound.oscillator.stop(); } catch { /* already ended */ } sound.oscillator.disconnect(); sound.gain.disconnect(); sounds.current.delete(sound);
+        for (const oscillator of sound.oscillators) { oscillator.onended = null; try { oscillator.stop(); } catch { /* already ended */ } oscillator.disconnect(); }
+        sound.partials.forEach(partial => partial.disconnect()); sound.gain.disconnect(); sounds.current.delete(sound);
       }
       mix();
     },
@@ -135,7 +178,7 @@ export function InteractiveAudioScope({ scopeKey, inputs, userAction, disabled, 
     if (root.current) observer.observe(root.current);
     return () => {
       observer.disconnect(); window.removeEventListener('blur', disarm); document.removeEventListener('visibilitychange', hidden);
-      stopAll(); analyser.current?.disconnect(); void context.current?.close(); context.current = undefined; master.current = undefined; analyser.current = undefined;
+      stopAll(); analyser.current?.disconnect(); limiter.current?.disconnect(); void context.current?.close(); context.current = undefined; master.current = undefined; analyser.current = undefined; limiter.current = undefined;
     };
   }, [scopeKey]);
   useEffect(() => { if (disabled || !enabled) stopAll(); }, [disabled, enabled]);

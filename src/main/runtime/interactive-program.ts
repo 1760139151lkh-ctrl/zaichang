@@ -48,9 +48,9 @@ export function projectInteractiveProgramReadPurpose(request: unknown,
     bindings: (input.bindings || []).map(({ alias, observationId, path }) => ({ alias, observationId, path: [...path] })),
     localFields: { count: Object.keys(fields).length, kinds, ...('patch' in input
       ? { mode: 'explicit_changes', removed: Object.values(fields).filter(value => value === null).length } : {}) },
-    sourceSlotBoundary: 'patch' in input ? 'arguments.sceneRefs plus exact previous surviving SourceSlots after original owner revalidation' : 'arguments.sceneRefs',
+    sourceSlotBoundary: 'patch' in input ? '本轮arguments.sceneRefs，以及由原处重新核过来源、仍沿用的原作SourceSlots' : '本轮arguments.sceneRefs',
     ...('patch' in input ? { editMode: 'statement_patch', explicitInputFields: Object.keys(input.inputChanges || {}).length,
-      inheritance: 'original exact previous source closure; no new permission or new read acknowledgement' } : {}),
+      inheritance: '沿同一原作仍有效的确切来源关系继续；当前是否可读、正文是否已读，仍看这次的许可和实际读取' } : {}),
     meaning: '这里是在准备一件放进回复的作品，或接着修改原作。下面列的是想引用的资料地址，正文是否读到还要看实际读取；能放进作品的原画面也只在所列范围内。可以结合对方这次的原话、当前指着的作品，以及这轮真正读回的原作来理解用途；没有界面引用时，仍可沿已读原作认清是否同一件。应用接着会核对资料能否使用、原作版本和作品写法。',
   } } };
 }
@@ -89,9 +89,9 @@ export function createInteractiveProgramPresentation(host: ProgramHost, session:
       if (currentRefs.has(ref)) continue;
       const allowed = previous.program.sourceSlots?.includes(ref)
         && previous.view.sceneRefs.find(scene => `${scene.id}@${scene.revision}` === ref);
-      if (!allowed) throw new HarnessError('interactive_program_source_slot', '新增原画面先从本轮真实sceneRefs取得，不能由局部稿猜地址。');
+      if (!allowed) throw new HarnessError('interactive_program_source_slot', '这处新增画面还缺原引用，先从本轮实际返回的sceneRefs取得地址，就能接到同一作品里。');
       if (scenes.some(scene => scene.id === allowed.id))
-        throw new HarnessError('duplicate_scene', '同一原画面的不同版本不能混在这次续改里，请明确替换旧引用后再呈现。');
+        throw new HarnessError('duplicate_scene', '这次带来了同一画面的两个版本。选定本次要用的版本、替换旧引用以后，就能接着展开。');
       signal.throwIfAborted();
       const row = host.repo.db.prepare('SELECT session_id FROM messages WHERE id=?').get(previous.source.messageId);
       const sessionId = row ? String(row.session_id) : session.sceneSessionId || session.sessionId;
@@ -130,7 +130,9 @@ export function createInteractiveProgramPresentation(host: ProgramHost, session:
     } : undefined;
     throw new HarnessError(error.code, error.message, error.retry, { ...error.diagnostic,
       ...(previousNavigation ? { previous: previousNavigation } : {}),
-      explanation: '这份稿没有发表，也没有增加修订号。修订时仍沿此次已核过的previous；新稿没有取得programRef。' + error.diagnostic.explanation });
+      explanation: (previousNavigation
+        ? '这份续稿还停在这里，原作品与修订号保持原样；下面的previous连着这次已经读回的那一版，可以接着改。'
+        : '这份初稿还没发表，修好后再取得可回读的programRef。') + error.diagnostic.explanation });
   }
   signal.throwIfAborted(); host.policy.validate(session.ingress.contract.scope);
   return { admission, ...(edit ? { edit } : {}), view: { id: previous?.view.id || randomUUID(), revision: previous ? previous.view.revision + 1 : 1,

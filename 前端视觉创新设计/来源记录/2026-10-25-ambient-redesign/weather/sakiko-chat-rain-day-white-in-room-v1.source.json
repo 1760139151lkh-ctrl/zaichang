@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-canvas-original-person-white-in-room-intermediate",
+  "id": "sakiko-chat-rain-day-white-in-room-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-chat-rain-day-white-in-room-v1.prompt.json",
+  "promptFileSha256": "746741bd4b110d9a58669293533d95cdb11a6c512c9f96e5fff710973471750a",
+  "submittedPrompt": "Use case: precise-object-edit. STEP 1 of registered silhouette extraction: local person-to-white in the original room.\nImage 1 is the ONLY exact full 1536 x 1024 input. Keep ALL original room/camera/window/furniture/object/material/lighting/floor coordinates unchanged. Paint ONLY the original seated girl and her held blue LAP book solid opaque pure WHITE at their exact existing source pixels. This includes visible original hair strands/ribbons, face/neck, blouse/bow/cardigan, skirt, hands/fingers, knees, socks and BOTH WORN loafers. Fill every detail INSIDE that exact silhouette white: no dark eyes/clothing folds/laces/finger lines, colored book edge or gray interiors. Narrow original outer antialiasing only.\nThis step MUST keep the room in its original colors; do not blacken/remove/repaint the room. All background objects remain original, including the separate blue DESK book, mug/lamp, cushion around her hips/right palm, pillows, blanket, dry floor and contact shadows. Do not whiten furniture or shadow. Keep real visible room gaps between existing hair/arms/body/legs/fingers. Never reconstruct hidden anatomy.\nPreserve exact original small in-room size, pose and silhouette. No enlargement, shrinking, translation, crop, zoom, re-center, straightening or new body contour. The crown stays around original y270 and shoe soles around y780 on the unchanged full frame.\nOutput the SAME complete RAINY DAY room with only the exact girl/held lap book filled flat white. No transparency, black backdrop, grid, text, labels, watermark, border or new props. Opaque RGB 1536 x 1024.",
+  "submittedPromptSha256Utf8NoTrailingLF": "ee6420daa7cff382bb61e2a9cc84f24ddbd6705330ebde10e3f3f2d3e8059b3f",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-rain-day-mother-v1.png",
+      "sha256": "e287875d209fc367d4316b4dcdb53201fb514f8404de8ebc63cd6fe46a99e7d8",
+      "role": "sole exact complete approved rainy-day mother; same source silhouette and room"
+    }
+  ],
+  "output": {
+    "file": "sakiko-chat-rain-day-white-in-room-v1.png",
+    "sha256": "9270effe103712b67a8fbef9825f0b37ded747b35fdd70f2fa7d4a3e879795dd",
+    "bytes": 2133675,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-02bc60ee-e0c7-482f-83f1-c37b8bd17a3a.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": false,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  },
+  "status": "rejected-incomplete-white-skirt-segmentation-never-used-downstream",
+  "rejection": {
+    "observed": "Directly viewed output retained visible navy outer skirt fabric at left and right hems outside the white region. Mother anatomy remained accepted; v2 restarts local white fill from exact original mother.",
+    "replacement": "sakiko-chat-rain-day-white-in-room-v2.png",
+    "usedDownstream": false
+  }
+}

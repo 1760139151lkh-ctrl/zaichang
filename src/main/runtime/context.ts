@@ -567,7 +567,7 @@ export class ContextCompiler {
       { category: 'observations', keys: ['recentObservations'] },
       { category: 'continuity', keys: ['currentMatter', 'preparedMaterials', 'openThreads', 'planningIntents', 'continuityCoverage', 'campusReading', 'materialReading'] },
       { category: 'capabilities', keys: ['capabilityDirectory'] },
-      { category: 'focused_work', keys: ['currentPreparation', 'currentPreparationUnavailable', 'currentAgenda', 'currentAgendaUnavailable', 'currentInteractive', 'currentInteractiveUnavailable', 'currentNote', 'currentNoteUnavailable', 'currentMapRoute', 'currentMapRouteUnavailable',
+      { category: 'focused_work', keys: ['currentWorkspace', 'currentPreparation', 'currentPreparationUnavailable', 'currentAgenda', 'currentAgendaUnavailable', 'currentInteractive', 'currentInteractiveUnavailable', 'currentNote', 'currentNoteUnavailable', 'currentMapRoute', 'currentMapRouteUnavailable',
         'currentConversationQuote', 'currentConversationQuoteUnavailable',
         'currentLetter', 'currentLetterUnavailable', 'currentStudy', 'currentCuriosity', 'currentCuriosityUnavailable',
         'currentCompanion', 'currentRehearsal', 'currentRehearsalUnavailable', 'currentCampusReference', 'currentSelection', 'currentSelectionUnavailable'] },

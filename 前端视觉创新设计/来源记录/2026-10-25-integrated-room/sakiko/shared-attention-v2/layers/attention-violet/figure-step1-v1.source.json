@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "stage": "F1",
+  "characterId": "sakiko",
+  "activity": "attention",
+  "palette": "violet",
+  "sceneFamily": "literary-room-v1",
+  "dossierVersion": "2026-10-25.1",
+  "wardrobeId": "sakiko-literary-navy-adaptation",
+  "actualTool": "built-in image_gen.imagegen",
+  "actualPrompt": "Use case: precise-object-edit. Asset: F1 whole-foreground SELECTION MARKUP for the existing root-approved Sakiko attention-violet source, not a new illustration. The ONLY input is the complete approved 1536x1024 mother. Keep the full original canvas, camera and every source coordinate exactly; never zoom, crop, recenter, resize or shift anything.\nMark PURE SOLID WHITE exactly the COMPLETE visible foreground girl AND the ENTIRE open book held on her lap: every fine long blue-violet hair strand and both dark side ribbons, all facial skin including golden eyes/eyelids/mouth as opaque foreground, neck, navy cardigan and white collar/grey bow, both hands and every fingertip including the page-pointing index, complete book covers/spine/page block/thin lower binding, whole plaid skirt including the far right trailing hem, both uncovered knees and complete legs, below-knee calf socks, BOTH entire brown loafers including darkest sidewalls, toe tips, heels and full soles. Fill all dark foreground interior features pure white too: the mouth line, eyes, clothing seams, fingers, book ink/binding lines and dark shoe leather are NOT holes. Preserve genuine empty gaps between separate hair strands and between legs as unmarked original room pixels. The open book is one complete physical opaque object, including thin dark cover edges; no transparent slot through book/lap/hand.\nEverything outside that exact foreground keeps its ORIGINAL full color RGB: cushion, wood floor, contact shadows and receiving linen, plaid pillows, knitted throw, lake/window/sunset, warm lamp/table, left desk/chair/plants, rug and foreground furniture. Do not select shadows, an empty bench strip or unrelated pale fabric. This is white selection paint on the original full-color scene, not grayscale conversion yet. Preserve the youthful same face/pose, the two knees/below-knee socks, actual finger resting on the book line and existing supported seated anatomy; no identity, pose or lighting revision. No checkerboard, transparency, outlines, labels, arrows, boxes, text, second figure or pasted image. Output one opaque 1536x1024 PNG with only this exact complete foreground painted white.",
+  "actualArguments": {
+    "prompt": "Use case: precise-object-edit. Asset: F1 whole-foreground SELECTION MARKUP for the existing root-approved Sakiko attention-violet source, not a new illustration. The ONLY input is the complete approved 1536x1024 mother. Keep the full original canvas, camera and every source coordinate exactly; never zoom, crop, recenter, resize or shift anything.\nMark PURE SOLID WHITE exactly the COMPLETE visible foreground girl AND the ENTIRE open book held on her lap: every fine long blue-violet hair strand and both dark side ribbons, all facial skin including golden eyes/eyelids/mouth as opaque foreground, neck, navy cardigan and white collar/grey bow, both hands and every fingertip including the page-pointing index, complete book covers/spine/page block/thin lower binding, whole plaid skirt including the far right trailing hem, both uncovered knees and complete legs, below-knee calf socks, BOTH entire brown loafers including darkest sidewalls, toe tips, heels and full soles. Fill all dark foreground interior features pure white too: the mouth line, eyes, clothing seams, fingers, book ink/binding lines and dark shoe leather are NOT holes. Preserve genuine empty gaps between separate hair strands and between legs as unmarked original room pixels. The open book is one complete physical opaque object, including thin dark cover edges; no transparent slot through book/lap/hand.\nEverything outside that exact foreground keeps its ORIGINAL full color RGB: cushion, wood floor, contact shadows and receiving linen, plaid pillows, knitted throw, lake/window/sunset, warm lamp/table, left desk/chair/plants, rug and foreground furniture. Do not select shadows, an empty bench strip or unrelated pale fabric. This is white selection paint on the original full-color scene, not grayscale conversion yet. Preserve the youthful same face/pose, the two knees/below-knee socks, actual finger resting on the book line and existing supported seated anatomy; no identity, pose or lighting revision. No checkerboard, transparency, outlines, labels, arrows, boxes, text, second figure or pasted image. Output one opaque 1536x1024 PNG with only this exact complete foreground painted white.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-violet-shared-page-v2.png"
+    ],
+    "transparent_background": false
+  },
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-violet-shared-page-v2.png",
+      "sha256": "69c14d7b7df22f634e3bc884c01396bdcd0d3f0fe70678803a05a10b52366208",
+      "bytes": 2416217,
+      "role": "sole root-approved complete mother; exact edit target"
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "bytes": 12246
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "bytes": 12645
+    }
+  ],
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-step1-marked-v1.png",
+    "sha256": "0e2946702269d396f19c9a1ae34f3fb85e0c0406018da4b0fe5bf5d0fdd4495e",
+    "bytes": 2248423,
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17365-454d-7bb3-8b77-bcaadd75b8a4/exec-a26c08f6-7d23-4c08-847c-ab7cee6c12fa.png",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true
+  },
+  "producerObservation": "Personally viewed actual full generated F1. Complete girl/hair/ribbons/face/hands/open book/skirt/knees/socks/whole shoes are white in original coordinates; actual hair and inter-leg background gaps remain colored. Interior faint book/hand lines are markup details to fill opaque in F2, not true holes. No entire seat/floor was whitened.",
+  "status": "HOLD_book_left_fine_hair_loop_incomplete",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "generationInputAllowed": false,
+  "laterNativeCloseupReview": {
+    "evidence": "browser-observations/04c-book-left-detail.png",
+    "observation": "Actual native original/union/composite detail shows a source blue-violet hair loop under the left book edge, but selected union keeps a short upper fragment with missing lower arc. Full-canvas first view was insufficient; this entire F1/F2 pair is held. Rebuild only from clean original mother, no held mask input.",
+    "primaryLayerApproved": false,
+    "runtimeAccepted": false
+  }
+}

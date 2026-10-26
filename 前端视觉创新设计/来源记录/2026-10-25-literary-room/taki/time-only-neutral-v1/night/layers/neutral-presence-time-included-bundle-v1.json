@@ -1,0 +1,222 @@
+{
+  "schemaVersion": 1,
+  "key": "taki/neutral-presence/time-night",
+  "kind": "original-source-union-subject-included-contact-candidate",
+  "purpose": "neutral-presence",
+  "neutralTime": "night",
+  "weatherClaim": false,
+  "primary": true,
+  "layer": true,
+  "runtime": false,
+  "status": "primary_approved_static_fixed_included_joint_runtime_pending",
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/taki-neutral-time-night-literary-v1.png",
+    "sha256": "79aae6d833d537e9667f9ec77850fe00121aa886031ca3e2cba15ccc49401800",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "background": {
+    "path": "background-v1.png",
+    "sha256": "bcd8d39e53d1be77b273612074968dc56c4e219ba34caa52389ecd5a72de993a"
+  },
+  "inputs": {
+    "F": {
+      "path": "figure-mask-v1.png",
+      "sha256": "3d9b95b66393cbc08755f73c1ebe43c131de5f2c51bb6259855df2b3e4d76625"
+    },
+    "S": {
+      "path": "contact-mask-v1.png",
+      "sha256": "a4c080c247aa1470ba13a5583d0cbb3233c6275e894fffca92a7be52da09d5d5"
+    }
+  },
+  "union": {
+    "formula": "U(x,y)=MAX(L(F(x,y)),L(S(x,y)))",
+    "luminanceWeights": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorSpace": "sRGB",
+    "nativeSvgSource": {
+      "path": "union-source-v1.svg",
+      "sha256": "eae001e45590313aaa390bb68e8ce65355b1e40d172addf78e6882e86bacd84c"
+    },
+    "originalMotherRgbDrawsPerSubject": 1,
+    "pngPixelEditing": false,
+    "thresholding": false,
+    "subtraction": false,
+    "extraColorPaint": false
+  },
+  "contactShadow": {
+    "mode": "included",
+    "meaning": "fixed same-mother figure/book/garment/shoes plus original local receiving material; not a portable pure caster"
+  },
+  "composition": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "layerOrder": [
+      "same-mother clean BG",
+      "one unchanged mother RGB image masked by U"
+    ],
+    "sharedStage": true,
+    "transform": {
+      "x": 0,
+      "y": 0,
+      "scale": 1,
+      "rotation": 0
+    },
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "breathing": 0,
+    "relativeTranslation": 0
+  },
+  "allowedPresentation": [
+    "whole fixed-pose union shown/hidden",
+    "whole matching-pose asset replacement",
+    "shared background-and-union viewport scaling"
+  ],
+  "unsupportedPresentation": [
+    "independent body/limb deformation",
+    "relative sliding/travel",
+    "separate shadow movement",
+    "different mother/support/room",
+    "portable pure-caster claim"
+  ],
+  "inspectionViewBoxes": {
+    "subject": [
+      880,
+      80,
+      480,
+      880
+    ],
+    "face": [
+      1000,
+      95,
+      340,
+      365
+    ],
+    "book": [
+      950,
+      435,
+      390,
+      130
+    ],
+    "hem": [
+      950,
+      505,
+      410,
+      150
+    ],
+    "shoes": [
+      885,
+      780,
+      285,
+      170
+    ],
+    "receiver": [
+      900,
+      520,
+      470,
+      430
+    ]
+  },
+  "visualInspection": {
+    "status": "producer_native_browser_review_complete_primary_pending",
+    "page": {
+      "path": "native-observe-v1.html",
+      "sha256": "45a302bf4fcf8493de5142e28ef3d4a6c49e5bfa07d51607da0a46270337b8e6"
+    },
+    "personallyViewed": true,
+    "reviewedAt": "2026-10-26T01:22:32.102034+00:00",
+    "browser": "Current formal Chrome extension browser3 through cua_repl, existing static5188; CSS source-pixel SVG and actual screenshot at temporary1600x1150; current main9335 untouched",
+    "statesViewed": [
+      "complete same-coordinate clean BG plus sourceRGB union",
+      "whole joint subject on light/dark/checker",
+      "original versus union versus composite face/hair",
+      "complete hands/open book/lower cover",
+      "skirt hem/cushion receiver",
+      "both complete shoes and actual floor-contact receiver"
+    ],
+    "observations": [
+      "Face, hair and actual book/hand RGB remain original mother, no painted actor colors.",
+      "Fixed original-coordinate composite shows coherent seat/skirt and shoe/floor contact without obvious angular room seam in reviewed views.",
+      "Original local cushion/wood receiving material remains visible on isolated light/dark/checker views; this is explicitly included and cannot travel relative to matching BG."
+    ],
+    "screenshots": [
+      {
+        "file": "browser-observations/face-book-hem-shoes-v1.jpg",
+        "sha256": "479f000aea8f704ed5290501fbf6a886b027cb9e74484ba8f352bdbb75ca5e39",
+        "bytes": 194014
+      },
+      {
+        "file": "browser-observations/light-dark-checker-v1.jpg",
+        "sha256": "8fd2a48d80d64f89d7c7566670d05da74e12d7135eaad65771bd5ec1ad1ada70",
+        "bytes": 191544
+      },
+      {
+        "file": "browser-observations/shoes-receiver-v1.jpg",
+        "sha256": "9b6f840c8a98cdfdc7d6cf2a0247dc74d2435a3634a1193325e6c3c5f68effa4",
+        "bytes": 191414
+      },
+      {
+        "file": "browser-observations/whole-browser-v1.jpg",
+        "sha256": "d7716fdc857a139d37ac83a7c20d8781f0ac262aa005f22fa1396ee7260424ae",
+        "bytes": 231943
+      }
+    ],
+    "limitations": [
+      "static browser construction only; not renderer runtime acceptance",
+      "no independent caster purity or portable body",
+      "travel/perspective/slope/relative translation remain zero"
+    ],
+    "postCapturePageEdit": "footer review-status text only; all native SVG geometry/image references unchanged",
+    "primaryInspectedFinalEvidence": [
+      {
+        "path": "browser-observations/whole-browser-v1.jpg",
+        "sha256": "d7716fdc857a139d37ac83a7c20d8781f0ac262aa005f22fa1396ee7260424ae"
+      },
+      {
+        "path": "browser-observations/light-dark-checker-v1.jpg",
+        "sha256": "8fd2a48d80d64f89d7c7566670d05da74e12d7135eaad65771bd5ec1ad1ada70"
+      },
+      {
+        "path": "browser-observations/face-book-hem-shoes-v1.jpg",
+        "sha256": "479f000aea8f704ed5290501fbf6a886b027cb9e74484ba8f352bdbb75ca5e39"
+      },
+      {
+        "path": "browser-observations/shoes-receiver-v1.jpg",
+        "sha256": "9b6f840c8a98cdfdc7d6cf2a0247dc74d2435a3634a1193325e6c3c5f68effa4"
+      }
+    ]
+  },
+  "review": {
+    "primaryApproved": true,
+    "layerApproved": true,
+    "runtimeAccepted": false,
+    "separateCastShadowClaim": false,
+    "producerRecommendation": "submit exact F/S/BG and native SVG fixed included union for primary inspection; no runtime claim",
+    "primaryAdmissionRecord": "root-primary-layer-admission-v1.json"
+  },
+  "countsToward360ExactActivities": false,
+  "userApproved": false,
+  "scopeBoundary": {
+    "srcEdits": false,
+    "newTests": false,
+    "portChanges": false,
+    "children": false
+  },
+  "generationFailureRecord": "contact-mask-v1.failure-1.json; exact same benign prompt retry returned output, same healthy session",
+  "sourceUnchangedVerification": {
+    "method": "actual SHA256 re-read; generated originals copied intact, no PNG pixel editing",
+    "mother": "79aae6d833d537e9667f9ec77850fe00121aa886031ca3e2cba15ccc49401800",
+    "F": "3d9b95b66393cbc08755f73c1ebe43c131de5f2c51bb6259855df2b3e4d76625",
+    "S": "a4c080c247aa1470ba13a5583d0cbb3233c6275e894fffca92a7be52da09d5d5",
+    "BG": "bcd8d39e53d1be77b273612074968dc56c4e219ba34caa52389ecd5a72de993a"
+  },
+  "primaryAdmissionRecord": "root-primary-layer-admission-v1.json"
+}

@@ -1,0 +1,75 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "first-character-literary-chat-pilot",
+  "sceneFamily": "literary-room-v1",
+  "character": "umiri",
+  "activity": "chat",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "generationMode": "sole-approved-empty-plate-input",
+  "numberOfImageInputs": 1,
+  "input": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "role": "sole actual image input, approved clean plate"
+  },
+  "creativeBrief": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-b/umiri-literary-room-36-cells-v1.json",
+    "sha256": "b8f97f1a2ce86161c1068f9b0d12c26370cece95b85680f9f1fc5ef70f701c4b",
+    "cell": "umiri/chat/apricot"
+  },
+  "referenceBoundary": "Sakiko pilots establish room/emotional direction only; no Sakiko image, previous character body or old room4 image was passed as input.",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-cd891001-b9e1-47a9-aed1-7312418f1cde.png",
+  "output": "umiri-chat-apricot-literary-pilot-v1.png",
+  "outputSha256": "3c6dc9fdff30dc91141da199aea07e3c279c14ac6b561a8e07099a2e69905649",
+  "promptFile": "umiri-chat-apricot-literary-pilot-v1.prompt.txt",
+  "prompt": "Use case: stylized-concept, same-room character mother.\nCreate ONE complete 1536 x 1024 warm-apricot literary room illustration. The ONLY image input is the approved CLEAN EMPTY literary room plate. It supplies the exact full room, close camera, furniture, materials, daylight and perspective. No character/face/body reference image is supplied. Paint a complete new Umiri in this room, not a face replacement or a reskinned Sakiko body.\n\nROOM LOCK: preserve the full connected wooden window, lake/mountain town view, sheer curtains, left desk and wooden chair, bookshelves/plants/pictures, round side table with porcelain lamp/books/cup/flowers, continuous upholstered right window bench with plaid pillows and knitted throw, foreground books/plant blur, rug and wooden floor. Keep the exact same camera, positions and scale. No crop, zoom, person close-up, changed furniture, white gradient work area, UI, floating card, speech bubble, icons, arrows or readable text.\n\nCHARACTER: Yahata Umiri (八幡海铃), original youthful BanG Dream! Ave Mujica anime high-school identity. CHARCOAL-GRAY shoulder-length hair with a subtle cool undertone, divided side-swept fringe leaving a small visible forehead, fine cheek strands and slightly outward-flipped shoulder tips. CLEAR GRAY-TEAL irises with visible pupils, eyelid and delicate lashes, not purple or gold eyes. Keep hair fringe, eyelashes and iris separately legible, especially on the dark-haired side. Youthful ordinary build/face and soft young jaw, no mature glamour makeup, adult fashion-model body or chibi head.\nModest natural casual clothes: short black biker jacket with quiet leather folds over a deep-red V-neck top, plain gray short skirt, simple black choker, small silver earrings, complete black lace-up platform boots. Keep her original casual identity, not Sakiko's uniform or loafers. Gray hair, black leather, red fabric, skin and background must remain distinct. No bass, instrument, backstage pass, clipboard, giant calendar or professional service symbol.\n\nCHAT / HER OWN LITERARY FEELING: she has caught one small odd detail in the story and is about to make a dry, gently funny observation with an almost serious face. There is warmth and deliberate amusement underneath the composure. Lips nearly at rest, only a tiny softening at ONE corner and a subtle eyebrow lift; do not give a broad companion smile, cold villain smirk, wink, stern manager face or advertising pose. Calm gray-teal eyes meet the nearby listener at the left foreground, as though waiting half a beat before delivering that particular little remark. This is idle conversation without a task, and she enjoys having nothing to organize.\n\nBASIC REAL SUPPORT: sit on the front half of the RIGHT window bench, torso upright but relaxed, turned a little toward the left foreground. One hand loosely rests on skirt near knee, the other palm lightly supports on the cushion beside hip. Both hands/fingers are coherent and visible, no clenched theatrical gesture. Hips and rear thighs truly meet the cushion; jacket hem and skirt folds respond naturally to the seated body without merging into bench wood.\nKeep the approved close camera human scale: head top approximately y=110..135, pelvis supported at actual bench around y=550..585, both boot soles approximately y=870..900, complete silhouette roughly x=875..1390. Do not lean the head toward the camera or enlarge her face. Two continuous thighs lead to naturally close UNCROSSED knees and ordinary lower legs; two distinct ankles and both complete boots rest on the same original floor plane, one boot may sit slightly ahead. No duplicated knee, stretched calf, floating seat, disconnected ankle or chair penetration. Keep complete head/hair, both hands, skirt hem and both shoes in frame.\n\nSTYLE AND LIGHT: fine youthful Japanese anime linework integrated into the exact rich sunlit literary room. Nuanced apricot window side light and soft room fill keep her face clear. Fine hair groups, upper eyelid, gray-teal iris and pupils must remain distinct. Black leather has restrained material highlights, not a flat black body shape or metallic glamour. The little intentionally serious joke is her emotional center, not a generic cool portrait or stock smile. No new furniture/props, writing, watermark, labels, borders, split-screen, duplicate views or collage. Return only one complete original-size room mother.",
+  "submittedPromptSha256NoTrailingNewline": "a4f8d2e04dd27ff47676843d837f21893ae0588ed5397ba164da7693906a6718",
+  "promptFileSha256": "a4f8d2e04dd27ff47676843d837f21893ae0588ed5397ba164da7693906a6718",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "actualMode": "RGB",
+  "producerViewed": true,
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "reviewBoundary": "One first-role chat mother only. No matrix expansion, layer or runtime acceptance.",
+  "producerObservations": [
+    "Complete fresh output personally viewed after Uika. Charcoal-gray shoulder hair with flipped ends, desaturated gray-teal irises, black jacket/deep-red top/gray skirt/choker/earrings and both black lace-up boots are visible; no Sakiko hair or school-uniform transfer.",
+    "Composed expression with a slight one-corner softness is more restrained than Uika; direct engaged gaze, not a broad advertising smile or stage gesture.",
+    "One hand relaxed near knee, other palm on cushion; hips remain supported by the bench and both entire boots meet the floor at slightly different depths. No held profession prop, floating UI, board or new furniture observed.",
+    "Fringe, upper eyelid and iris remain separately legible in the complete image; dark hair, black leather and red fabric have distinct material shading.",
+    "Head top is visually around y90 and boot soles around y905, so head placement is higher than the approximate y110 target; exact cross-role scale/placement is not signed."
+  ],
+  "producerConcerns": [
+    "Primary should compare higher head placement against Uika/Sakiko and confirm youthful identity rather than relying on outfit alone.",
+    "Gray-teal eye color is desaturated in warm light; primary close identity review remains required."
+  ],
+  "remaining": [
+    "Root identity/youthfulness, emotional restraint, framing and physical support review",
+    "No layer extraction or runtime acceptance"
+  ],
+  "inputApprovalSource": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json",
+    "sha256": "5425e475efa8264874f2f3b083b8737b4b1f9d35399e9b2c3d86dc561a36cddb"
+  },
+  "promptFileMatchesToolInput": true,
+  "primaryReview": {
+    "reviewer": "root",
+    "motherAccepted": false,
+    "status": "held_pose_ambiguity",
+    "outputSha256": "3c6dc9fdff30dc91141da199aea07e3c279c14ac6b561a8e07099a2e69905649",
+    "acceptedPartialScope": [
+      "face and character identity"
+    ],
+    "heldReason": "Knee overlap together with both boots fully on the floor leaves the leg relationship ambiguous.",
+    "allowedAsLayerSource": false,
+    "allowedAsFutureImageInput": false,
+    "runtimeAccepted": false
+  },
+  "heldByPrimary": true,
+  "referenceAllowed": false,
+  "layersApproved": false
+}

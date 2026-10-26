@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "role": "single-call-joint-coverage-prototype",
+  "tool": "built-in image_gen.imagegen",
+  "callNumber": 1,
+  "callLimit": 1,
+  "status": "producer_hold_floor_contact_extent_not_adequately_selected",
+  "promptFile": "joint-coverage-v1.prompt.txt",
+  "submittedPrompt": "Use case: background-extraction.\nAsset type: ONE original-position JOINT SUBJECT + CONTACT COVERAGE LUMINANCE MASK.\nImage 1 is the ONLY input and edit target: the approved original Sakiko REST mother, exactly 1536 x 1024. This is a mask extraction from that source, not a new illustration. Keep its full canvas, camera, original position, proportions and pose exactly unchanged.\n\nOUTPUT only an opaque neutral RGB black-and-white mask on the SAME 1536 x 1024 canvas:\nWHITE = the COMPLETE existing girl AND her immediately adjoining actual source contact/cast-shadow coverage.\nBLACK = everything else in the room.\n\nMake the ENTIRE existing girl solid white, including complete crown and fine outer hair strands, all ribbons, face/eyes/neck, cardigan and sleeves, BOTH hands and every finger, lap, ALL plaid skirt folds and every outward hem tip and thin dark skirt trim, both knees, both socks, BOTH entire brown loafers, full sole rims and complete heel blocks. Do not put black eye holes, hair linework, clothing seams or shoe details inside the white figure. Do not shorten the hair, shave off the skirt edge, cut a hand or crop a shoe. The original full head is near y=108 and the complete soles near y=895; these are position checks, not new targets.\n\nAlso include the REAL narrow source receiver/contact regions adjoining this same girl:\n- Existing compressed cushion and local skirt/hair contact darkness directly beneath and beside her seated weight, approximately within x=935..1330,y=530..605.\n- The palm that rests on the cushion at the right, approximately x=1240..1320,y=540..585: include the complete hand itself plus its immediate real palm-to-linen contact. The other hand rests on her own lap and stays in the solid figure.\n- Existing immediate contact darkness and short cast shade beneath BOTH loafers, approximately within x=805..1035,y=855..920; follow the actual two original sole/heel edges without truncation.\nThese enclosing ranges are guides only: NEVER fill them as rectangles or ellipses. Follow the actual visible source contours. A narrow adjoining strip of original linen or floor receiver may honestly be included with the subject. Keep the coverage local; this joint sprite will never travel or deform independently.\n\nAll window/lake/town, curtains, desk/chair/shelves, ceramic lamp/table/books/cup, plants, unrelated furniture shadows, plaid pillows, knitted throw, broad bright cushion, bench cabinet, rug, sunlit floor grid and unrelated room materials must be BLACK. Do not carry a broad cushion/floor patch or unrelated isolated room fragments.\n\nUse solid white interiors and solid black room; thin original-edge grey antialias is allowed only on the outer coverage contour. No colored figure or room, no new body RGB, no invented shadow, no new pose, no re-centering, no scaling, cropping or canvas-size change. No labels, outlines, arrows, grid, checkerboard, split view, transparency or text.",
+  "promptFileSha256": "27f64c58071fa38ce005ac8fb3cb5fe02a4a4b35e7c024b1abdda6c15a4c6bdd",
+  "input": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-rest-apricot-literary-pilot-v1.png",
+    "sha256": "144a167d9c7d1bc594051ef1ca3fcf0b92e97f1a8ddbf8cd63eb6b54c8a460f8",
+    "width": 1536,
+    "height": 1024,
+    "role": "sole approved correct original rest mother; no mask/old wrong figure input"
+  },
+  "matchingBackground": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "role": "for later SVG comparison only; not supplied to ImageGen"
+  },
+  "primary": false,
+  "layer": false,
+  "runtime": false,
+  "submittedPromptSha256Utf8NoTrailingLF": "a262c2f7a2ae78ab854748995080134348409d2d75414becd7b5ee016fed453b",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/rest-joint-coverage-prototype/joint-coverage-v1.png",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17125-a57d-70f3-9b8f-9ecfd8cef13e\\exec-40f7a282-55ac-4ea8-82bf-6f9a7c0e8919.png",
+    "executionId": "exec-40f7a282-55ac-4ea8-82bf-6f9a7c0e8919",
+    "sha256": "88800525fa3479df8bdb4e36258325d2271c4ec7ac64bf7a098b3e37b6e8bf0d",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 463175,
+    "pngColorType": 2,
+    "toolOriginalLastWriteTimeUtc": "2026-10-25T13:33:25.416217+00:00",
+    "actualDecodedMode": "RGB",
+    "hasAlphaChannel": false
+  },
+  "actualInputSha256AfterCall": "144a167d9c7d1bc594051ef1ca3fcf0b92e97f1a8ddbf8cd63eb6b54c8a460f8",
+  "inspection": "Producer viewed full original/recomposition, light/dark/checker complete subject, source-pixel face, palm/seat, hem and both shoes. Body contour is retained, but real source floor darkness outside the soles is mostly not selected. HOLD; no retry or raster correction."
+}

@@ -1,0 +1,7 @@
+Use case: background-extraction.
+Asset: COMPLETE foreground luminance mask, F step 2 of 2.
+The attached image is the ONLY input: exact 1536×1024 original Nyamu chat scene with her ENTIRE visible person already filled solid WHITE. Preserve the full canvas and exact current white-source coordinates, contours and tiny original antialias edges.
+Keep ALL existing deliberately WHITE foreground: bob hair/strands, full head/neck, choker/blouse/straps/ruffles, both whole arms, the small speaking hand/fingers and the complete seat-support hand/palm/fingertips, all black-skirt frill tips and lower perimeter, thighs/knees/legs/ankles/straps, BOTH complete shoe toe/upper/outsole rims and complete heel blocks.
+Do not erase dark skirt frills, finger tips, black shoe bottom or heel walls as shadow. Do not contract, erode, resize, center or redraw the silhouette. Solid white interior without eyes, face holes, cloth holes or linework. Preserve only real original background gaps, including source arch/floor gaps beneath shoes and gaps between limbs.
+Turn every remaining colored scene PURE BLACK. Naturally bright curtain, cloud, lamp shade, flower, sunlight floor pattern, unmarked linen, plaid pillow stripes, knitted throw, furniture, rug, plants, window and unrelated contact/cast receiving material are not selection marks and become BLACK.
+Output ONE opaque 1536×1024 BLACK PNG canvas with this unchanged COMPLETE original-position WHITE foreground. No colored room, new silhouette, checkerboard, labels, arrows, boxes, grid, text or split view.

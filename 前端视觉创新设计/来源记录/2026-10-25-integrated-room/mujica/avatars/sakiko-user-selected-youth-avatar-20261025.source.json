@@ -1,0 +1,75 @@
+{
+  "date": "2026-10-25",
+  "character": "sakiko",
+  "kind": "user-provided-exact-selected-youth-avatar",
+  "origin": {
+    "type": "user-provided-clipboard-image",
+    "providedFile": "C:/Users/17601/AppData/Local/Temp/codex-clipboard-4e077c52-6c16-4a2e-ab36-d007b7183cb6.png",
+    "originalGenerationKnown": false,
+    "originalGenerationTool": null,
+    "originalPrompt": null,
+    "boundary": "用户提供并明确选择的精确原文件。不能用本线或root旧sakiko-youth-charm-avatar-v2的Prompt、工具来源或SHA替代归因。"
+  },
+  "source": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-user-selected-youth-avatar-20261025.png",
+    "sha256": "bc92a4e0096411b0e58b5e4dfc12d61b48bf255f0fd7a544c039ae9e4cd7fc32",
+    "bytes": 2695211,
+    "width": 1254,
+    "height": 1254,
+    "pngColorType": 6
+  },
+  "copyMethod": "byte-for-byte copy; no crop, stretch, face edit, recolor or PNG rewriting",
+  "userSelection": {
+    "selected": true,
+    "source": "Direct user choice relayed by root, then root and producer separately verified actual upload SHA",
+    "scope": "User selected this exact portrait as current base/reference. Later user-requested bang/eye/chin/cheek refinement is not completed by this copy.",
+    "latestEditComplete": false,
+    "requestedRefinementProduced": true,
+    "latestEditStatus": "v3 image produced; final approval pending"
+  },
+  "producerObservation": "亲看原文件：与旧youth-charm-v2明显不同，面更正、眼位不同、中下面部/下巴更短，闭口柔和笑，蓝紫长发金眼深发带。原生透明。",
+  "primaryReview": {
+    "reviewer": "root",
+    "personallyViewed": true,
+    "scope": "Root personally compared uploaded source with former v2, verified source SHA and relayed exact user selection; final edited candidate and runtime review remain separate."
+  },
+  "runtimeCopy": {
+    "path": "前端视觉创新设计/运行素材/companion/portraits/sakiko-user-selected-youth-avatar-20261025.png",
+    "sha256": "bc92a4e0096411b0e58b5e4dfc12d61b48bf255f0fd7a544c039ae9e4cd7fc32"
+  },
+  "registration": {
+    "registry": "src/renderer/companion-portraits.ts",
+    "avatar": {
+      "left": "-4%",
+      "top": "-6%",
+      "width": "108%"
+    },
+    "note": "Provisional uniform-scale circle framing independently reviewed below; no nonuniform transform or alteration of source face."
+  },
+  "userSelected": true,
+  "userApproved": true,
+  "userApprovalScope": "Exact selected original/base only; not the latest requested refinement or actual UI",
+  "latestRequestedRefinement": {
+    "source": "Latest user direction relayed by root",
+    "requirements": "把刘海、眼型和下巴重新调整，脸颊更柔和，表情更偏可爱温柔，保留细腻2D手绘感",
+    "status": "Image produced as sakiko-selected-soft-youth-edit-v3.png (SHA50ed57c7...), current registry connected for circle inspection; not user-final or runtime approved"
+  },
+  "registered": false,
+  "runtimeAccepted": false,
+  "historicalProvisionalRegistration": {
+    "registry": "src/renderer/companion-portraits.ts",
+    "avatar": {
+      "left": "-4%",
+      "top": "-6%",
+      "width": "108%"
+    },
+    "note": "Provisional uniform-scale circle framing independently reviewed below; no nonuniform transform or alteration of source face."
+  },
+  "currentUse": "Exact user-selected source/reference retained unchanged; current registry uses its requested refinement v3",
+  "refinement": {
+    "source": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-selected-soft-youth-edit-v3.png",
+    "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-selected-soft-youth-edit-v3.source.json",
+    "sha256": "50ed57c7cb690ac52eb49190762f878a2b8e8db5eb75d5d3d3f220e771d86974",
+    "runtime": "前端视觉创新设计/运行素材/companion/portraits/sakiko-selected-soft-youth-edit-v3-20261025.png"
+  }
+}

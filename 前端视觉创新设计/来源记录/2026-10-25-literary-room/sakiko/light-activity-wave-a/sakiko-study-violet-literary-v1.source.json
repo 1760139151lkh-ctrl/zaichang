@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "assetType": "literary-room-complete-activity-light-mother",
+  "id": "sakiko-study-violet-literary-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-study-violet-literary-v1.prompt.json",
+  "promptFileSha256": "8089c0b4abc975485508d06b384599358c855795c876ab1e95899cfc25ed6890",
+  "submittedPrompt": "Create one complete 1536×1024 landscape literary mother illustration of Togawa Sakiko. FIRST reference is the approved target empty room, camera and all illumination; SECOND is the exact approved same-activity apricot mother for Sakiko's identity, supported pose, apparent head/body size, objects and furniture support only. Preserve image 1's room camera, big window divisions, town/lake/mountains, curtains, shelves/desk, round lamp table, near right linen bench, plaid pillows, knitted throw, rug and foreground plants. Keep image 2's original youthful silver-blue long hair, clear golden irises, navy uniform details and actual body/hand/object relationships; hair strands, eyelids, irises and brows remain distinct. Do not paste a daytime figure or apply a theme tint to old lighting. Apricot hard solar highlights, white noon patches, window-grid/leaf shadows and bright floor rectangles in image 2 are NOT identity or pose and must not transfer. Repaint ALL hair, skin, paper, clothes, receiving furniture and floor under the first reference's actual illumination. No half-day/half-night division, new spotlight, UI, readable text/caption, new person or costume change. Preserve her own thought and judgment; no universal soothing smile, no theme-imposed sadness. One coherent lived-in scene with credible contact shadows.\n\nTarget is CONTINUOUS TWILIGHT. Match the exact rose-gold/lilac sunset and dim town/lake view of image 1, existing warm lamp fill plus quieter cool dusk. Relight hair, face, paper, navy/white clothes and indoor floor together. Retain only target-source light/shadow relations; no inherited bright noon patches, extra sun or global purple filter. Natural skin/silver-blue hair retain their own colors. Dusk does not require a sad face.\n\nIMPORTANT STUDY POSE OVERRIDE: image 2 is the root-approved occupied LEFT DESK-CHAIR mother, not the bench study. Preserve its actual occupied chair orientation/back slats and support, body size at farther left desk depth, visible hip/seat around source(277,539), forearm/desktop around(194,391), notebook and pen, portable/local lamp state and foreground plant occlusion. The right bench stays empty. First empty plate controls room camera/large layout and target light, but must NOT reset occupied chair/support to an empty-chair pose or substitute the big right bench figure. Do not force full legs/feet to show through the plant or desk: contourComplete=false, natural original occlusion is valid. Preserve visible anatomy, actual writing grip, table surface and chair occlusion; no scaled/transplanted bench sprite.\nKeep the one actual pen gripped by her writing hand, page on desktop and chin-resting hand/elbow from image 2. Keep the brass desk lamp head/base and ceramic lamp exactly in their original positions/orientations, now lit for target twilight. Remove inherited hard noon patches from chair, skirt, desk, skin and entire floor. Do not reset occupied chair to empty plate.\n\nLiterary direction (original project performance, not canon or real user memory):\n那一步好像终于通了，她却没有急着庆祝。她还想认真听一听，你是不是在同一个地方看见了不同的路。\n认真和一页难题相处，允许未完成；有自己的判断，也愿意与你推敲。身体严格沿第二张正确左桌母图，不采用膝上本的bench姿态。\n窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。",
+  "submittedPromptSha256Utf8NoTrailingLF": "9b334596e79aab0e3d7651a7491a99d9e188e5c76619def194ac5813587e2784",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+      "role": "first-approved-target-room-and-all-lighting",
+      "approval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.primary-approval.json"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-pilot/sakiko-study-apricot-literary-desk-pilot-v1.png",
+      "sha256": "00629c2e6e5b55901244a534145ab3c9d8c2f9c3cbf2ec2de8668f33037ccb04",
+      "role": "second-root-approved-desk-writing-pose-for-canonical-study-not-additional-cell",
+      "approval": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/sakiko-desk-writing-literary-included-primary-admission-v1.json",
+        "sha256": "0819eb5326f5cbf678e96ebcc95855c52859bf90376377e2901ada3aa74bba62",
+        "rootApproved": true,
+        "note": "Direct root release selects desk-writing alternative for canonical study cell, not an additional matrix cell."
+      }
+    }
+  ],
+  "output": {
+    "file": "sakiko-study-violet-literary-v1.png",
+    "sha256": "e2ed252b9027a9d2cda9eca6c0df9253e87feff52a0db9d0fcfa7139f7890308",
+    "bytes": 2277291,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-e2e3a08a-2068-49a2-9260-e9706c60edb6.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "primaryApproved": false,
+    "layerApproved": false
+  },
+  "status": "producer-viewed-awaiting-root-mother-review",
+  "producerReview": {
+    "reviewedAt": "2026-10-25T13:58:00.424191+00:00",
+    "method": "Personally inspected actual full native ImageGen output at 1536x1024 before next call.",
+    "observations": [
+      "Full original viewed: occupied left desk pose/chair orientation with original actual hip and forearm supports retained; right bench empty.",
+      "Warm lamps and continuous dusk relight face/hair/skirt/page/desk/chair/floor; no observed hard source noon rectangles.",
+      "Original chin-resting/writing hands, pen and page coherent, lamp orientation close to mother, natural plant/desk/chair occlusion; contourComplete=false."
+    ],
+    "issues": [
+      "No hidden leg/shoe contour is certified; only visible original occluded relationship is inspected.",
+      "Target twilight floor retains structural warm/dark bands."
+    ],
+    "rootApprovalRequired": true
+  }
+}

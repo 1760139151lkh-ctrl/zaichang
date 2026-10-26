@@ -1,0 +1,239 @@
+{
+  "schemaVersion": 1,
+  "recordType": "primary-fixed-source-included-contact-layer-admission",
+  "sceneId": "sakiko-reading-apricot-literary-v1",
+  "sceneFamily": "literary-room-v1",
+  "recordedAt": "2026-10-25T09:40:21Z",
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "reviewer": "primary-agent",
+    "approvalSource": "Direct root task message in the healthy agent collaboration session",
+    "approvalTimestamp": "not provided by message transport",
+    "approvalQuote": "Root已亲看v3 #scene/#checker/#hem/#heel原母与联合主体，批准固定source联合层（不是独立pure shadow）：原母RGB一次、MAX(F_v2,S)同画布、头眼/掌书/完整裙鞋保留，实际背景接触连续；contactShadow included，travel/slope/perspective0，限整套显隐与整姿态替换，禁止独立body/影运动或借其他支撑。",
+    "scope": "Exact four-SHA fixed-source included union only. This record does not approve the previous independent-shadow extractions, another room/pose/palette, or product-runtime behavior."
+  },
+  "canvas": {
+    "width": 1536,
+    "height": 1024,
+    "origin": "top-left",
+    "units": "source pixels",
+    "allInputs": "x=0,y=0,width=1536,height=1024; identity relative transform"
+  },
+  "assets": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+      "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+      "runtimeFile": "sakiko-reading-apricot-literary-v1-mother.png",
+      "role": "Unchanged approved original RGB; drawn once per subject"
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "runtimeFile": "sakiko-reading-apricot-literary-v1-background.png",
+      "role": "Matching separately generated clear room"
+    },
+    "F": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-mask-v2.png",
+      "sha256": "0561235343377c9d760d4aab0a95e197c01904ff1dd9fefab53dd66f0ea7a11d",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-step2-source-v2.json",
+      "runtimeFile": "sakiko-reading-apricot-literary-v1-mask.png",
+      "role": "Unmodified ImageGen luminance foreground selection"
+    },
+    "S": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/shadow-mask-v1.png",
+      "sha256": "971c1c6fce428abfb6457e3a20b58655ea32b8bda10b7af2761500afdd989992",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/shadow-step2-source-v1.json",
+      "runtimeFile": "sakiko-reading-apricot-literary-v1-contact-mask.png",
+      "role": "Unmodified ImageGen contact selection; known garment/heel residuals are included jointly, not claimed as independent shadow"
+    }
+  },
+  "assembly": {
+    "formula": "U(x,y)=MAX(L(F_v2(x,y)),L(S(x,y))); subject=originalMotherRGB masked by U; scene=matchingBG then subject once",
+    "luminanceWeights": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorSpace": "sRGB",
+    "nativeSvg": "union-source-v3.svg",
+    "nativeSvgSha256": "fa0dfb60ec1107dd42f56f87a3b6d0243e2d242b87bd68290cac1cc7eab97e4a",
+    "method": "Convert each RGB input to replicated luminance with feColorMatrix; feBlend mode=lighten; use result as luminance mask",
+    "motherRgbDrawCount": 1,
+    "contactShadow": {
+      "mode": "included"
+    },
+    "independentFigureRgb": false,
+    "independentShadow": false,
+    "sourceShadowPolygon": false,
+    "newRaster": false,
+    "pngEdits": false,
+    "rejectedRgbaUsed": false
+  },
+  "geometry": {
+    "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/geometry/literary-room-v1-grid.json",
+    "sourceRecordSha256": "ae4be4737d793d452fa4b4f1f69f2da9ef6f0a52e13316870859a62cd43d900c",
+    "sourceGridPage": "前端视觉创新设计/来源记录/2026-10-25-literary-room/geometry/literary-room-v1-source-grid.html",
+    "bodyBounds": {
+      "coordinateOrder": "left,top,right,bottom",
+      "sourcePixels": [
+        872,
+        106,
+        1351,
+        900
+      ],
+      "normalized": [
+        0.5677083333333334,
+        0.103515625,
+        0.8795572916666666,
+        0.87890625
+      ],
+      "basis": "Mask diagnostic bounds cross-checked with the unchanged mother; exact extraction envelope, not hidden skeletal joints"
+    },
+    "seat": {
+      "sourcePixels": [
+        1148,
+        571
+      ],
+      "normalized": [
+        0.7473958333333334,
+        0.5576171875
+      ],
+      "sourceAnchor": "bench-reading-support",
+      "kind": "visible-support-candidate",
+      "confidence": "provisional",
+      "meaning": "Visible skirt/linen contact reference; not a measured hidden hip or a runtime-approved continuous-motion pivot"
+    },
+    "shoeContacts": [
+      {
+        "sourcePixels": [
+          916,
+          881
+        ],
+        "normalized": [
+          0.5963541666666666,
+          0.8603515625
+        ],
+        "sourceAnchor": "reading-left-shoe-contact",
+        "confidence": "provisional"
+      },
+      {
+        "sourcePixels": [
+          972,
+          893
+        ],
+        "normalized": [
+          0.6328125,
+          0.8720703125
+        ],
+        "sourceAnchor": "reading-right-shoe-contact",
+        "confidence": "provisional"
+      }
+    ],
+    "ground": {
+      "sourcePixels": [
+        972,
+        893
+      ],
+      "normalized": [
+        0.6328125,
+        0.8720703125
+      ],
+      "sourceAnchor": "reading-right-shoe-contact",
+      "meaning": "One visible source shoe-contact reference for the fixed pose; both contacts above remain authoritative estimates"
+    },
+    "safeTextBoundary": {
+      "normalized": 0.54,
+      "sourceX": 829.44,
+      "basis": "Provisional UI keep-clear boundary 42.56 source pixels left of the exact subject bounds; no integrated text-layout approval"
+    },
+    "hitPolygon": {
+      "kind": "coarse normalized bounds envelope only",
+      "meaning": "Conservative hit region, not alpha contour or anatomy",
+      "normalized": [
+        [
+          0.5677083333333334,
+          0.103515625
+        ],
+        [
+          0.8795572916666666,
+          0.103515625
+        ],
+        [
+          0.8795572916666666,
+          0.87890625
+        ],
+        [
+          0.5677083333333334,
+          0.87890625
+        ]
+      ]
+    },
+    "support": "window-seat",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "geometryRuntimeAccepted": false,
+    "sourceVisibleContactsRecheckedAgainstMother": true,
+    "floorContactContract": "Not a floor-supported pose; registration omits floorContact. Both visible shoe contacts remain source-space ground references only."
+  },
+  "permitted": [
+    "Whole fixed-pose union visibility changes",
+    "Whole-pose replacement with a separately admitted complete source set",
+    "One shared responsive viewport transform for matching BG and union"
+  ],
+  "prohibited": [
+    "Independent body or limb deformation",
+    "Independent contact/shadow motion",
+    "Continuous travel, slope or perspective changes",
+    "Transferring included cushion/floor pixels to another support",
+    "Reusing this coverage against a different mother, background or environment",
+    "Classifying this as a clean independent cast shadow"
+  ],
+  "opticalEvidence": {
+    "page": "reading-layers-included-observe-v3.html",
+    "pageSha256": "3cd3e4ab9cd898eff368d28df0b0bfcc8abfc7a0e68d7898074b9f8adff54783",
+    "primaryViewed": [
+      "#scene",
+      "#checker",
+      "#hem",
+      "#heel"
+    ],
+    "producerViewed": [
+      "whole scene",
+      "#subject",
+      "#checker",
+      "#face",
+      "#book",
+      "#hem",
+      "#heel"
+    ],
+    "conclusion": "Original head/eyes, hands/book, full hem and shoes are retained; local included source contact material reads continuous with the matching background. Thin original linen and floor-contact fringes remain explicitly part of the fixed union."
+  },
+  "historicalDisposition": {
+    "independentV1": {
+      "bundle": "reading-layers-bundle-v1.json",
+      "primary": false,
+      "runtime": false,
+      "unchanged": true
+    },
+    "independentV2": {
+      "bundle": "reading-layers-bundle-v2.json",
+      "primary": false,
+      "runtime": false,
+      "unchanged": true
+    },
+    "rejectedRgba": "figure-rgba-candidate-v1.* excluded from inputs, source RGB and runtime"
+  },
+  "runtimeBoundary": {
+    "status": "layer admitted; runtime pending primary inspection",
+    "runtimeAccepted": false,
+    "notChecked": [
+      "Live show/hide and whole-pose replacement",
+      "Asynchronous asset failure/late-result handling",
+      "Actual drag/drop to another support",
+      "Responsive integrated content clearance"
+    ],
+    "registration": "前端视觉创新设计/运行素材/companion/scenes/sakiko-reading-apricot-literary-v1.scene.json"
+  }
+}

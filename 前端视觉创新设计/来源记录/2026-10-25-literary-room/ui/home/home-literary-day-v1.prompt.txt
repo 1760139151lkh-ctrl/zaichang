@@ -1,0 +1,28 @@
+Use case: ui-mockup.
+Deliverable: ONE finished desktop home/chat layout proposal for the existing Chinese companion app 在场, 1536×1024, daytime only. A real product composition, no device frame, poster, collage, annotations or side-by-side.
+
+INPUT 1 is the user-selected original full literary-room mother illustration. Treat it as the exact artwork and edit target: add a few carefully composed UI elements OVER this image. Preserve the original artwork's full canvas, close camera, depth, window/lake/town, wood desk and chair, shelves, ceramic lamp/cup table, long cream bench, pillows, throw, floor, rug and foreground plants. Most importantly leave the existing Sakiko figure herself intact: identical face, silver-blue hair/fringe, golden eyes, hands holding the book, navy clothes, supported seated pose, apparent head size and COMPLETE head-to-shoe visibility. Do not redraw, face-swap, crop, move, enlarge or deform her. No old UI or earlier room is supplied. Preserve the warm sunny artwork; no global whitewash, dark tint, green UI or new scenery.
+
+DESIGN INTENT:
+This should feel like being able to stay in this particular lived-in room while having a clear conversation. Warm wood, desk/chair silhouette, ceramic light, plants and the quiet distance through the window are part of the product, not disposable wallpaper. The UI is understated but truly readable. Let the original room remain recognizable across the LEFT half; do not erase it under a full-height opaque white panel or a giant milky rectangle.
+Use a few local light-paper surfaces with restrained frosted translucency, warm natural ivory, almost invisible warm-brown edges and very soft low shadows. The text itself must stay fully opaque dark warm ink; blur/backing belongs behind it. Make the paper enough of a surface that Chinese is easy to read across wood and patterned rug. No ghost text floating directly over busy scenery, no glass blur over the girl's face/book, no repeated nested cards.
+
+ONLY THESE DEFAULT CONTROLS:
+A small, quiet brand “在场” at the upper left. Nearby, one simple navigation group with exactly “聊天” “今天” “留下”; 聊天 is selected through modest ink weight and a small restrained underline, not three button boxes. A single small circular companion avatar at upper right, functioning as the existing account/companion/preferences menu; use a tiny crop-like likeness from the same existing character, without a second large portrait, name label or status dot. No other permanent toolbar buttons.
+One primary chat input in the LEFT lower area, with only a small attachment plus and a send up-arrow. No mic, model selector, activity menu, extra actions, starter chips, tutorials or helper shortcuts.
+
+COMPOSITION AND CONTENT:
+Keep the scene full bleed. Top navigation should occupy a very light visual footprint around the existing top margin, without a tall opaque header. Keep all conversation and input surfaces left of approximately x800, leaving a real gap before the girl and her shoes; no full-width bottom bar that crosses her legs.
+Show a small natural ongoing chat, not a marketing greeting or a giant heading. Use two short readable messages as the composition sample: a modest right-aligned user paper and a somewhat wider left-aligned assistant paper, without speaker badges or timestamps. Place this compact conversation in the lower-left/middle-left region so the upper-left desk, shelves, lamp and window remain appreciable. A narrow margin of plants, wood and rug should still be visible around/between the paper islands.
+Exact sample copy:
+User: “这一句，我还想再读一遍。”
+Assistant, two calm lines: “你想再读，是因为它说中了什么，”
+“还是留了一点没说完的地方？”
+No “User” or “Assistant” label is rendered; render only the Chinese sentences.
+Below these messages place one comfortable low rounded writing surface, about 600–660 pixels wide, clear of the character's shoes, with the existing simple continuation placeholder “接着说…”. A small plus sits at its left edge and a small muted warm-ink circle with an up-arrow at its right edge. This is the main actionable area, not an oversized control dock.
+Use elegant, clear Chinese typography with generous line-height and sensible body size (around 20–22 px at this canvas), natural left alignment, coherent baseline and restrained warm-ink contrast. Brand/navigation are small and quiet. Minimize visual borders and rings; focus on room, words and one next line to write.
+
+DO NOT ADD:
+No nine-scene/activity switches, weather dashboard, palette swatches, settings gear beside the avatar, search/new-chat toolbar icons, “online”/“connected” labels, model or engineering status, card headings, explanation captions, task selector, drag arrows/trails, tooltip text, progress bars, promotional headline, quote slogan, daily cards, made-up features or additional navigation. Existing secondary functions remain behind the one existing avatar menu and are not expanded in this single view.
+Only this DAY page is illustrated. Future night UI should share the same warm paper/ink relationships at lower light, but do not show night, a theme switch, or a comparison inset in this image.
+One polished calm but livable home screen, with the user's original beloved figure and room preserved, actual readable content and extremely few default buttons.

@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 1,
+  "characterId": "tomori",
+  "batch": 1,
+  "totalWaveCap": 24,
+  "completedCalls": 6,
+  "callOrdinals": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "entries": [
+    {
+      "assetId": "tomori-listening-mist-literary-v1",
+      "activity": "listening",
+      "palette": "mist",
+      "callOrdinal": 1,
+      "file": "tomori-listening-mist-literary-v1.png",
+      "sha256": "1c99a4c6bd40490d5df65d4cd6ed392a7da3203a755fd1310fa1bed2c5b32588",
+      "bytes": 2381190,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "tomori-listening-mist-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-b/tomori-listening-apricot-literary-v1.png",
+          "sha256": "292ccd83be7064fdef9a5dd3cfa729078bd7299f2dc805df145f8830a10b4468",
+          "role": "image2: root-approved actual activity identity/pose/scale/support, not inherited daylight",
+          "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: actual closed book across thighs, both relaxed hands over it and attentive paused slightly open mouth retain approved listening performance. Overcast diffuse light softens skin/uniform/book/linen/floor without hard apricot grid/hotspots. Eyes/fringe/lids distinct; hip/cushion and complete uncrossed legs/shoes retain observed scale/support, major room stable.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "Static fictional listening/light inspection only; primary/layer/runtime remain false."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "tomori-listening-violet-literary-v1",
+      "activity": "listening",
+      "palette": "violet",
+      "callOrdinal": 2,
+      "file": "tomori-listening-violet-literary-v1.png",
+      "sha256": "23d304fbc3f21ef2e94e46bee039100d01aaeaaed89ec7623f81c3cb3c82713b",
+      "bytes": 2230500,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "tomori-listening-violet-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-b/tomori-listening-apricot-literary-v1.png",
+          "sha256": "292ccd83be7064fdef9a5dd3cfa729078bd7299f2dc805df145f8830a10b4468",
+          "role": "image2: root-approved actual activity identity/pose/scale/support, not inherited daylight",
+          "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: approved closed-book/both-hands lap support, attentive gaze and slightly parted mouth retained. Continuous dusk and warm existing-lamp light reach face/uniform/book/linen/floor together with no conspicuous right-floor noon grid. Eyes/fringe/lids clear; hip/seat and complete uncrossed legs/shoes at observed source scale; room stable.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "Static listening/light impression only; primary/layer/runtime remain false."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "tomori-listening-rain-literary-v1",
+      "activity": "listening",
+      "palette": "rain",
+      "callOrdinal": 3,
+      "file": "tomori-listening-rain-literary-v1.png",
+      "sha256": "2fae3c912a0bad72ad19c3e41ee51096b730c59565b637b0954dc6fadac9a7b2",
+      "bytes": 2194290,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "tomori-listening-rain-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-b/tomori-listening-apricot-literary-v1.png",
+          "sha256": "292ccd83be7064fdef9a5dd3cfa729078bd7299f2dc805df145f8830a10b4468",
+          "role": "image2: root-approved actual activity identity/pose/scale/support, not inherited daylight",
+          "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: actual closed book/both relaxed hands and paused slightly open listening mouth preserved, with clear eyes/fringe/lids. Rainy dark glass/town and warm existing-lamp lighting reach skin/uniform/book/linen/floor consistently without hard noon grid or forced crying/melancholy. Hip/cushion and complete coherent uncrossed legs/shoes retain source support/scale; room stable.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "Static listening/light impression only; primary/layer/runtime remain false."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "tomori-play-mist-literary-v1",
+      "activity": "play",
+      "palette": "mist",
+      "callOrdinal": 4,
+      "file": "tomori-play-mist-literary-v1.png",
+      "sha256": "2f7e8458ba879978b576a349a44a2cf1347b9384741b39af1b5a911b194c993b",
+      "bytes": 2381941,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "tomori-play-mist-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-b/tomori-play-apricot-literary-v1.png",
+          "sha256": "aff22695d16c32fd4a09877951a33c27812cad8f8ce9a023988b0d1a67322106",
+          "role": "image2: root-approved actual activity identity/pose/scale/support, not inherited daylight",
+          "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: actual tiny folded cream paper between two independent mid-torso hands, closed book on lap and spontaneous small delight retained. Overcast diffuse light reaches fingers/paper/skin/uniform/seat/floor without hard sun grid. Eyes/fringe/lids distinct, prop visibly gripped not floating, hip/cushion and full coherent uncrossed legs/shoes at source scale; room stable.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "No claim of a real performed game or exact origami species; primary/layer/runtime remain false."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "tomori-play-violet-literary-v1",
+      "activity": "play",
+      "palette": "violet",
+      "callOrdinal": 5,
+      "file": "tomori-play-violet-literary-v1.png",
+      "sha256": "cb2bd3bc73820d3f4f6253682b6a21362a27557668e75ab313633c5ca5211630",
+      "bytes": 2237607,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "tomori-play-violet-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-b/tomori-play-apricot-literary-v1.png",
+          "sha256": "aff22695d16c32fd4a09877951a33c27812cad8f8ce9a023988b0d1a67322106",
+          "role": "image2: root-approved actual activity identity/pose/scale/support, not inherited daylight",
+          "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: tiny folded paper between two mid-torso hands, closed lap book and light spontaneous delight preserve approved actual pose. Continuous dusk and warm existing lamp affect paper/fingers/skin/uniform/seat/floor together, no conspicuous right-floor noon grid. Eyes/fringe/lids distinct, prop support/hip contact and full uncrossed legs/shoes coherent at source scale; room stable.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "Static playful/light impression, no actual user-event or primary/layer/runtime claim."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "tomori-play-rain-literary-v1",
+      "activity": "play",
+      "palette": "rain",
+      "callOrdinal": 6,
+      "file": "tomori-play-rain-literary-v1.png",
+      "sha256": "8b05e49386ecb382625b522e1226a548f575f73056833db8f06c5dbb006431f6",
+      "bytes": 2166925,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "tomori-play-rain-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-b/tomori-play-apricot-literary-v1.png",
+          "sha256": "aff22695d16c32fd4a09877951a33c27812cad8f8ce9a023988b0d1a67322106",
+          "role": "image2: root-approved actual activity identity/pose/scale/support, not inherited daylight",
+          "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: actual tiny paper shape between two independent hands at mid-torso, closed lap book and light open-mouth delight retained despite rain. Glass rain/dark town and warm existing-lamp treatment reach hands/paper/skin/uniform/seat/floor coherently with no hard noon window grid. Eyes/fringe/lids clear, paper visibly supported, hip contact and complete coherent uncrossed legs/shoes at source scale; room stable.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "Static playful/light comparison, no measured illumination or primary/layer/runtime claim."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "scope": "Six actually saved and personally viewed same-activity light mother candidates. Root/layer/runtime approval remains separate; no new layers or registration."
+}

@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 2,
+  "recordType": "taki-attention-only-existing-layer-candidate-handoff",
+  "recordedAtUTC": "2026-10-25 23:38:00 UTC",
+  "status": "three_existing_attention_candidates_rechecked_ready_for_root",
+  "scope": {
+    "includedCells": [
+      "taki/attention/mist",
+      "taki/attention/violet",
+      "taki/attention/rain"
+    ],
+    "excludedResumeCells": [
+      "taki/resume/mist",
+      "taki/resume/violet",
+      "taki/resume/rain"
+    ],
+    "resumeState": "not started; await root current mother review and a separate release",
+    "newImageGenerationAuthorizedOnlyForConcreteDefect": "No confirmed mask defect found in these3 rechecks; all healthy PNGs reused."
+  },
+  "groups": [
+    {
+      "cell": "taki/attention/mist",
+      "folder": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-mist",
+      "assembly": "assembly-v2.json",
+      "selected": {
+        "foregroundMarkup": "figure-step1-marked-v1.png",
+        "foregroundMask": "figure-mask-v1.png",
+        "receiverMarkup": "contact-step1-marked-v1.png",
+        "receiverMask": "contact-mask-v1.png",
+        "background": "background-v1.png",
+        "union": "union-source-v1.svg",
+        "composite": "composite-source-v1.svg",
+        "observationPage": "included-observe-v1.html"
+      },
+      "originalMotherSHA256": "e7eef81215132f5963188f53280341c03bc5374fae84aa9040828a2709f2aa77",
+      "existingImageCalls": 5,
+      "newImageCalls": 0,
+      "currentBrowserViews": 7,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "assemblySHA256": "2663d40df611669d9d083369b7b872fc14df3affd355ac7e086996fe8fa89d38"
+    },
+    {
+      "cell": "taki/attention/violet",
+      "folder": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-violet",
+      "assembly": "assembly-v2.json",
+      "selected": {
+        "foregroundMarkup": "figure-step1-marked-v1.png",
+        "foregroundMask": "figure-mask-v1.png",
+        "receiverMarkup": "contact-step1-marked-v1.png",
+        "receiverMask": "contact-mask-v1.png",
+        "background": "background-v1.png",
+        "union": "union-source-v1.svg",
+        "composite": "composite-source-v1.svg",
+        "observationPage": "included-observe-v1.html"
+      },
+      "originalMotherSHA256": "322e2e43b3a93587098bf35f0a36d314d0cd4f23a541782353c2e9bc20cb2a26",
+      "existingImageCalls": 5,
+      "newImageCalls": 0,
+      "currentBrowserViews": 7,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "assemblySHA256": "0be29acfbc4dc41d16f80e2094ddb6b5ce0789afe84db11df64304cb4729e439"
+    },
+    {
+      "cell": "taki/attention/rain",
+      "folder": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-rain",
+      "assembly": "assembly-v2.json",
+      "selected": {
+        "foregroundMarkup": "figure-step1-marked-v1.png",
+        "foregroundMask": "figure-mask-v1.png",
+        "receiverMarkup": "contact-step1-marked-v1.png",
+        "receiverMask": "contact-mask-v1.png",
+        "background": "background-v1.png",
+        "union": "union-source-v1.svg",
+        "composite": "composite-source-v1.svg",
+        "observationPage": "included-observe-v1.html"
+      },
+      "originalMotherSHA256": "90a756337fbfb434a9de07ee77f0148b8e5619b58b88c8772ee2ed4f5355f912",
+      "existingImageCalls": 5,
+      "newImageCalls": 0,
+      "currentBrowserViews": 7,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "assemblySHA256": "8334581eead889a0b3e1a9abd7232313792287109c158dc76c2787bfb144a05f"
+    }
+  ],
+  "existingImageGenerationCalls": 15,
+  "newImageGenerationCallsThisRecheck": 0,
+  "existingRawPNGCount": 15,
+  "currentActualBrowserViewCount": 21,
+  "historicActualBrowserViewCount": 21,
+  "sourceRGBDrawCountPerUnionAndComposite": 1,
+  "composition": "U=MAX(L(F),L(S)); exact same-mother RGB sampled once, same-mother Image-removal BG, fixed included receiver material",
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "originalSourcePNGsModified": false,
+  "priorSchedulingRecord": "attention-resume-included-progress-v1.json",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "original360CreditAssigned": false,
+  "appRegistryCSSAndGlobalLedgerChanged": false,
+  "newTestsOrRunnersCreated": false,
+  "cleanup": "none; retained all existing production/old and new browser provenance"
+}

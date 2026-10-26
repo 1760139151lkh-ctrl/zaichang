@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "edge-meme-cat-v3-family",
+  "character": "uika",
+  "kind": "project-original-2d-human-character-head-and-complete-simple-cat-body",
+  "costumeId": "project-original-edge-cat-no-human-clothes",
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-27ec35b3-a851-443e-86b7-79a600dfa327.png",
+  "transparentBackgroundRequested": true,
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/运行素材/companion/edge/sakiko-meme-cat-v3.png",
+      "sha256": "15b21bfb6c94aef1dfd8ae7b168f970fbe9998cddb705b64ac7dabdceab0c161",
+      "role": "Accepted v3 family line language/full cat body scale reference only; not character identity"
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/uika.md",
+      "sha256": "08e1b6e7dfa31b9c82d2ad5446b482655cd548c2191926b46840af5b515fdf5b",
+      "scope": "Fully read immediately before this character creative call"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840",
+      "scope": "Fully read immediately before this character creative call"
+    }
+  ],
+  "exactSubmittedPrompt": "Draw ONE independent transparent 2D meme-cat companion of Uika Misumi / 三角初华, a project-original small form. She had been quietly listening to the last note of a tune; when the familiar person beside her stops their pen, she lifts her attention with a small, warm, slightly curious 'oh?' expression. A tiny open cat mouth, not a broad service smile, and a subtle head inclination make it feel like she has her own thought that she might share. Keep the mood easy and attentive, not sad, sleepy or theatrical. No words or music symbols are drawn.\nThe sole input is accepted Sakiko meme-cat v3. Reference ONLY its very simple unified 2D line language, approximate head size and horizontal complete white cat anatomy. Independently create UIKA'S HEAD; do not recolor or copy Sakiko's bangs, long hair or bows. Full 1536x1024 RGBA transparent canvas, safe margins and similar low support baseline. Two simple front paws under the little face, one paw a tiny bit forward as if resting near the pen, a long rounded white cat body continuing behind the head toward the right, a complete rear haunch/hind paw and one properly rooted tail curling upward on the right. All paws and belly share the same believable invisible horizontal edge. No shelf or support line is drawn. Full ears/hair/head/paws/body/tail uncut. Keep clear alpha space above for a future independently rendered speech bubble, but draw no bubble.\nUIKA identity rendered in only a few flat graphic shapes: warm pale GOLD-BLONDE SHORT BOB ending around the cheeks/neck, simple wispy straight bangs and a few longer cheek wisps, not long flowing Sakiko hair. Clear big ROUND VIOLET/PURPLE eyes as simple two-tone disks, darker purple upper half and pale lavender lower half, minimal clean eyelids and no complex highlights/pupils/eyelashes. White face like the reference, tiny simple cat mouth. Her gaze is gently toward the familiar person near the camera, curiosity a little ahead of the smile. No hat in this project-original CAT form, no costume/necklace/bows/clips copied from another character; no claim of a canon cat outfit.\nEverything, including hair, human-character cartoon face, ears, paws, torso and tail, uses the SAME ultra-simple hand-drawn meme-cartoon style: bold clean navy outlines, big white areas, a few smooth hair blocks with at most minimal flat shadow, very few lines. The identity is hair/eyes/expression only, on a clean white little cat face and full simplified white cat body, not human skin or a human body. Absolutely no fur texture, realistic animal, plush, 3D, realistic skin shading, flesh colors, makeup, mature face, clothing, school uniform, socks, shoes, ruffles, props, text, logos, watermark, border, background, floor shadow or glow. Preserve real alpha transparency, not a painted black/white/checkerboard background. One complete cat, not a contact sheet or separated parts.",
+  "submittedPromptSha256": "b1b56f45db68cec292cb8792f862a43b8da0451dc4a8507fed33387532ebddfe",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\uika-meme-cat-v1.png",
+    "sha256": "4e47efb50195f79286f944127aa39399749fe04f7b57f59a3b651e024463de74",
+    "bytes": 1355754,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 6
+  },
+  "producerViewed": true,
+  "producerObservation": "Personally viewed full original: independent short warm-blonde bob and purple two-tone round eyes, white little face, small open cat mouth, no Sakiko ribbons or long hair. Complete white horizontal cat torso/paws/hind haunch and attached upward tail, low family support baseline and similar head scale. No human uniform, socks, shoes, flesh face, text or speech bubble. Root review and light/dark small-size alpha review remain separate.",
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "independentTailLayer": false,
+  "independentEyeLayer": false,
+  "privateWechatSourceUsed": false,
+  "officialArtworkInput": false,
+  "pngEdited": false,
+  "fullHumanMatrixCredit": false,
+  "directAlphaObservation": {
+    "mode": "RGBA",
+    "extrema": [
+      0,
+      254
+    ],
+    "transparentPixelsPresent": true,
+    "sourceAlphaPreserved": true
+  },
+  "producerSmallSizeReview": {
+    "personallyViewed": true,
+    "widthPx": 220,
+    "backgrounds": [
+      "#fff9f2",
+      "#20212c"
+    ],
+    "evidence": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\review\\four-cats-light-dark-220px.png",
+    "sha256": "4fa123fc86f0bb00d0842636db5e828a73785a884ab931154429a71aaaab28cf",
+    "observation": "Original full-cat silhouette stays readable on both backgrounds at 220px width; hair/eye identity remains distinct, outline and white face/body clean. This review sheet is engineering evidence only, forbidden as future generation input."
+  }
+}

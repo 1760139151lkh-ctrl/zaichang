@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-canvas-matching-clean-background",
+  "id": "sakiko-chat-overcast-day-background-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-chat-overcast-day-background-v1.prompt.json",
+  "promptFileSha256": "cc5dcf4456751a59a9af5f380580986dde4cbfc57053a8e438a3eb939e4f2440",
+  "submittedPrompt": "Use case: precise-object-edit. Asset: MATCHING SAME-CANVAS clean empty background extracted from the approved complete overcast-day Sakiko chat mother.\nImage 1 is the ONLY input and exact edit target, full 1536 x 1024. This background must match THIS new mother, not the earlier empty room4: keep the mother's exact complete camera, all already visible window frames/mullions, wall edges, furniture, bench and floor/rug positions, materials, cloudy daytime lighting and dry outside window. No crop, zoom, recenter, recolor, resize, redecorate or camera shift.\nRemove ONLY the seated girl on the right bench: all hair/ribbons, skin, cardigan/blouse/skirt/socks, both WORN brown loafers, and the closed small blue book that sits on her lap under her left hand. Remove the contact/cast shadows specifically caused by her hips, supporting right palm and two shoes. Reconstruct only the room surfaces exposed by removal, including the now-empty right bench cushion/support region, small hidden portions of pillows/window scenery and dry floor beneath the worn shoes, using the same nearby texture, perspective and overcast light. No detached shoes, hair, hand, book, ghost silhouette or human-shaped shadow may remain.\nKeep the existing blue book, mug and lamp ON THE CENTER DESK; these are room-owned and separate from her lap book. Keep all existing room furniture, blanket, plants, wall decorations, soft diffuse daylight, gentle pre-existing furniture shadows and natural dry polished-floor reflections. The room remains clearly CLOUDY DAYTIME with gray clouds and dry glass, not sunny, rainy, dusk or night. Do not brighten the bench patch or leave a person-shaped pale stain.\nReturn one clean opaque RGB background exactly registered to this mother at source (0,0), full 1536 x 1024. No UI, text, outlines, masks, grid, border or watermark.",
+  "submittedPromptSha256Utf8NoTrailingLF": "1ba856c9bde57ae5ad86d28bd31cc6a8202cf36af5355f256fc482c5c9ecdba7",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-overcast-day-mother-v1.png",
+      "sha256": "a7e10ccb551badc3bb015bdd2c8870969bcf20c8ea23f2a282d2bcf636baa382",
+      "role": "sole exact-SHA root-approved complete mother; earlier empty weather background deliberately not reused"
+    }
+  ],
+  "output": {
+    "file": "sakiko-chat-overcast-day-background-v1.png",
+    "sha256": "2142878f64a444c66e78a7f31a45e6b94c49464ea984058da50427a80de80747",
+    "bytes": 2093272,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17126-cdea-77e3-9abe-3d71acd87e8b\\exec-01e1f40c-4cd3-4ee6-a37d-d0ca8fc49f2f.png"
+  },
+  "transparentBackground": false,
+  "ownerDecision": "Figure owns hair/body/clothes/socks/both worn loafers/closed lap blue book. Room owns desk blue book, mug/lamp, bench/pillows/blanket, window/floor. No independent empty shoes.",
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": true,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "primaryLayerApprovalRecord": "sakiko-chat-overcast-day-primary-layer-approval-v1.json",
+    "primaryLayerApprovalScope": "Exact-SHA original-position static same-canvas layers only; runtime independent",
+    "primaryNativeCompositeViewed": true
+  },
+  "status": "generated-and-saved-before-personal-layer-review"
+}

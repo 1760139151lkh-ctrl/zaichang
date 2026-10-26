@@ -1,0 +1,10 @@
+Use case: precise-object-edit.
+Asset type: one SAME-SCENE source pose for a controllable right arm and complete hand, 1536×1024 original canvas.
+
+Image 1 is the approved Sakiko READING scene. Preserve her exact identity, silver-blue hair, uniform, reclined window-seat support, crossed legs, blue open book, camera, warm lighting, and every room element.
+
+Change ONLY the anatomical RIGHT arm/hand, on the viewer-LEFT side where the small right hand currently holds the book near (1253,515). She first releases that hand from the book and raises it only a little: keep the original right shoulder and elbow in place, keep both limb lengths, and rotate the forearm gently so the right wrist is approximately 12–16 original-image pixels above its book-rest position. The right hand is relaxed and slightly open, a small invitation toward the page rather than pointing forcefully. Show the COMPLETE connected cuff, wrist, palm, thumb and natural fingers clearly above/in front of the page edge, with no part of the hand hidden behind the book. It must be one anatomically continuous arm and five natural fingers, with the original small hand proportions. No duplicate hand left at the old contact point, no extra limb.
+
+The anatomical LEFT hand on the viewer-RIGHT near (1335,524) stays EXACTLY as in the source, securely supporting the book's front cover/lower edge. The book stays at the same angle, size and position on her lap and in that left hand; it does NOT follow the released right hand or float. Her back/hip remain supported by the same pillow and seat. Do not change head, eyes, torso, left arm, skirt, legs, feet or any support shadow.
+
+This will be used only as a localized right-arm texture source, with shoulder/elbow/wrist registration back to the original pose. Keep the original 1536×1024 framing and scale; no zoom/crop, no restyling or new expression. Keep the gesture very small. Output one normal opaque PNG scene pose, not transparency, an atlas, a storyboard, a diagram or text.

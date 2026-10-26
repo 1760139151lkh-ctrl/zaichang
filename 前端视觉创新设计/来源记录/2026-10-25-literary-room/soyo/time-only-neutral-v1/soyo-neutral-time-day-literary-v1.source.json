@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "sceneFamily": "literary-room-v1",
+  "characterId": "soyo",
+  "paletteHint": "mist",
+  "lightHint": "morning",
+  "environmentVariant": "time-day",
+  "weatherClaim": false,
+  "exactActivityCoverage": false,
+  "createdAt": "2026-10-26T00:18:41.490360+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "generationIntent": "new whole-mother character drawn into the approved clean empty time-only room; no UI or prior full-body character input",
+  "exactPromptFile": "soyo-neutral-time-day-literary-v1.prompt.txt",
+  "promptSha256": "f9c14a50571992dde2c5870bf2b7dca35175bb087a612b69031e54519d38e529",
+  "requestFile": "soyo-neutral-time-day-literary-v1.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.png",
+      "sha256": "aa4ce3dcab5cd2366c9f1c4eadcff0ab85537ab45e5a3b0643c4d01588e6e247",
+      "role": "sole room/camera/weather-unknown daytime plate",
+      "primaryApproval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.primary-approval.json"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/portrait/soyo-avatar-youth-v3.png",
+      "sha256": "735d92cac98476e597a9ca6bb86df60c4de1ccf5481a88597f5d4a17e359c418",
+      "role": "same-character 2D face identity reference only",
+      "primaryApproval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/portrait/soyo-avatar-youth-v3.primary-identity-review.json"
+    }
+  ],
+  "readSources": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/soyo.md",
+      "sha256": "1ec8b260d40f8363c096ed8392547dd276d2318df5aadbe34b1f51e51e2ed04e",
+      "fullReadBeforeCall": true
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "fullReadBeforeCall": true
+    }
+  ],
+  "wardrobeId": "tsukinomori-high-sailor-double-white-hem-under-knee-socks-brown-loafers",
+  "projectOriginalInteraction": "She pauses her own page turn to leave room for an unseen familiar speaker to complete their thought; not a claim of original-series history, real reading or saved work",
+  "output": {
+    "file": "soyo-neutral-time-day-literary-v1.png",
+    "originalBasename": "exec-b7af9c0a-0d07-4e24-a499-ddd845fb4bd6.png",
+    "sha256": "b7389951fe91b57019a55aace462bd4e4efc61c455c17499743548b02cc1f062",
+    "bytes": 2457892,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteMother": true,
+    "observations": [
+      "The closed opaque inner curtains hide all weather and outdoor scenery.",
+      "Soyo sits on the same right cream bench, with believable cushion/skirt support and a full lap-held open book.",
+      "Light brown long hair and blue eyes retain youth; gaze turns toward an off-frame left-front speaker, with a restrained listening smile.",
+      "Dark blue Tsukinomori sailor uniform has white edged collar, grey-blue bow, own-left chest gold badge and two white skirt-hem lines.",
+      "Right hand holds a low connected page arc, left hand supports the book; no floating page or added table.",
+      "Both exposed knees, below-knee dark socks and complete brown loafers contacting the floor are visible; root decides final wardrobe/support/face approval."
+    ],
+    "primaryReviewPending": true
+  },
+  "primaryApproved": true,
+  "userApproved": false,
+  "generationInputAllowed": true,
+  "layersProduced": false,
+  "runtimeAccepted": false,
+  "countsToward360ExactActivities": false,
+  "primaryApprovalScope": "Exact same-character static time-only neutral daytime mother; generation reference for the authorized matching night relight only.",
+  "primaryReviewFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/soyo-neutral-time-day-literary-v1.primary-mother-review.json",
+  "generationInputScope": "Same-character night relight under current root instruction only"
+}

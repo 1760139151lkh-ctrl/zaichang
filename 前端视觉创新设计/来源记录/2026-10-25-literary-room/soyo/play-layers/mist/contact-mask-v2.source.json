@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-play-mist-s2-v2",
+  "character": "soyo",
+  "activity": "play",
+  "palette": "mist",
+  "stage": "S2",
+  "producer": "/root/study_reading",
+  "submittedPrompt": "Precise mark-to-mask conversion, not a new scene or semantic contact inference. The ONLY input is the actual Soyo mist play S1 full-color scene, 1536x1024. Keep its exact canvas. Convert the deliberate pure-white added receiver paint to white at THE SAME POSITIONS, and all original-colored pixels to pure black. Do not move or redesign any selected blob. Ignore natural white paper/cushion/collar because only the solid deliberate added white paint is the selection.\nIn this input the TWO tiny seat marks are immediately outside the actual navy hem: a short narrow white curved patch image-left of the knee near x792..810,y556..581, and a small horizontal white patch underneath the INNER skirt/knee near x958..1000,y586..603. These are reading neighborhoods, NOT rectangles to fill. The right marker is next to the knee at x980, NOT far out on the right empty cushion at x1090. Copy those actual painted shapes in place. Do not place a new upper mark based on a guessed hip. The two shoe-floor marked patches remain exactly the white paint immediately around the source soles near x686..910,y844..905; actual shoe interiors must remain black and actual white receiver paint around them remains white. Keep each footprint complete, with white center and only a few pixels of gray softness at its outer diffuse edge. Do not reduce to a 2px stroke, enlarge to an oval, join unrelated floor shadows, or include rug fringe.\nEverything else black: whole girl and all hair, complete shoes, open lap book/page block, the one pencil, room and naturally pale empty cushion. No other white, no gray silhouettes or texture. No crop, shift, zoom, resize, recenter, perspective change, labels, arrows, checkerboard or transparency. Produce one opaque raw 1536x1024 black/white/edge-gray selection mask with exact same marked outlines and original coordinates. Later only the clean source mother supplies RGB, never this marked scene.",
+  "referencedImagePaths": [
+    "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\play-layers\\mist\\contact-step1-marked-v1.png"
+  ],
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/play-layers/mist/contact-step1-marked-v1.png",
+      "sha256": "50dfc6e5276bbfb5c05a666a9c66369b8da08b83941d87cdfd6549635e50a981",
+      "bytes": 2369202
+    }
+  ],
+  "transparentBackground": false,
+  "tool": "image_gen.imagegen",
+  "originalToolPath": "C:/Users/17601/.codex/generated_images/01a17365-8901-7202-bd9e-0859826906dc/exec-c9d7a56c-30cc-49f7-ab30-40ae053afac2.png",
+  "originalToolSha256": "94e157b7ec1ebff11bc94134ac390968ee3993726b1a803100c624fed8af1557",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/play-layers/mist/contact-mask-v2.png",
+    "sha256": "94e157b7ec1ebff11bc94134ac390968ee3993726b1a803100c624fed8af1557",
+    "bytes": 279945,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "rawToolBytesPreserved": true,
+  "motherStaticDirectionApproved": true,
+  "primaryApproved": false,
+  "primaryLayerApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "status": "candidate-needs-exact-source-rgb-coordinate-review",
+  "observations": [
+    "Personally viewed conversion from the correct colored S1 ONLY; wrong S2-v1 was not a generation input.",
+    "Image-right seat island now sits closer to the original inner skirt/knee receiver, rather than far outer empty cushion. Still suspect small upward displacement of left seat island/overall shoe-area local extent in full-frame view; exact source-RGB union close-up required before selecting.",
+    "Full local shoe-floor white region remains broader than contour line, black shoe interiors, no broad room highlights. Short edge softness differs from prior v1 and must be inspected against originalRGB.",
+    "No raw PNG painting/threshold/morphology or coordinate warp. All primary/layer/runtime acceptance false."
+  ],
+  "generationStatus": "returned-and-preserved",
+  "recordedAt": "2026-10-25T20:24:34.390Z",
+  "exactMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-play-mist-literary-v2.png",
+    "sha256": "0d6df59d4ade1ff32688d2f9618ca7a42ef7ff4d1ec8fb6c45cebfe80ac7d106",
+    "role": "original source RGB owner; not a generation input unless listed in referencedImagePaths"
+  },
+  "primaryReviewReference": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/root-human-mother-primary-review-20261025.json#soyo/play/mist"
+}

@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "same-activity-whole-light-mother-candidate",
+  "character": "mutsumi",
+  "activity": "play",
+  "palette": "violet",
+  "environmentVariant": "twilight",
+  "wave": "light-activity-wave-b",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-98aa1489-64ea-4ea8-9927-769d4222326d.png",
+  "executionId": "exec-98aa1489-64ea-4ea8-9927-769d4222326d",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+      "role": "first input; approved empty environment plate, primary camera and authoritative target whole-room light"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-play-apricot-v1.png",
+      "sha256": "eb6ef92ebbd2197f032c3acbb22c8cbb3a505492d25d063d8ed5a645aa894e05",
+      "role": "second input; root-approved exact same-activity apricot mother, actual accepted psychology/pose/proportion/props/support"
+    }
+  ],
+  "apricotActivityMotherApproval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-play-apricot-v1.primary-approval.json",
+  "sourceMotherContourComplete": true,
+  "intendedSupport": "window-seat",
+  "sourceSpecificPose": "Preserve the actual root-approved WOODEN ACOUSTIC GUITAR pose: guitar rests across the lap/arm, one hand truly touches strings at the body/sound hole, the other naturally holds neck/frets, full connected instrument. Keep exact source body/neck/hand positions, quiet interested look, original seat/legs/full shoes. Illustration only; no sound or actual audio-performance claim.",
+  "brief": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/mutsumi-prompt-plan.json",
+    "sha256": "66ade9700cb7bb993b43bd7e247b678878b79ad71237b0b5dcd915a43a3be2ca",
+    "key": "mutsumi/play/apricot",
+    "role": "own role/activity literary psychology; light redirection keeps actual accepted mother pose"
+  },
+  "wholeSceneRelighting": true,
+  "oldApricotHeatSpotsAreNotIdentity": true,
+  "unreviewedLightCandidateUsedAsInput": false,
+  "promptFile": "mutsumi-play-violet-v1.prompt.txt",
+  "promptFileSha256": "84fc902ad25879f1d0a26d260ccae221eb979517bb8ba6685f743e1b48fbd5c2",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; exact submitted text",
+  "submittedPromptSha256": "350653b6bd02833fe61ccf9bae243f7c8886d86e5d982e5d6f959fe595053bc9",
+  "output": {
+    "file": "mutsumi-play-violet-v1.png",
+    "sha256": "8f3796e20728bbb5c02248729d3e1da65ef5e7f94df3bac2e36275987dd6c7c0",
+    "bytes": 2318795,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved complete mother. Same accepted lap/arm-supported acoustic guitar with connected body/neck, natural string hand and fret hand, quiet source expression, correct mint/golden-brown identity and full head/loafers remain. Hip/seat and uncrossed-leg support are readable. Twilight and warm room lamps reach skin, wood instrument, navy cloth and floor together, without a flat violet wash. Local pale/warm shapes remain on the right skirt and are explicitly not treated as fixed printed identity or preapproved plate illumination. No audio/performance or root quality claim. Root/layer/runtime pending."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "New static mother candidate only, root review pending; no layer, registration or runtime acceptance.",
+  "privateUserDataUsed": false
+}

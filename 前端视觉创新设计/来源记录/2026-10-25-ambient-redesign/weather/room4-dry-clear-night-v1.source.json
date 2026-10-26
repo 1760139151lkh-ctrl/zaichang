@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "assetType": "room4-weather-empty-background",
+  "id": "room4-dry-clear-night-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "room4-dry-clear-night-v1.prompt.json",
+  "promptFileSha256": "96aaf79a69dd93e216d0828379f7cf16d197273a9afdd2b0912b701867e12320",
+  "submittedPrompt": "Use case: lighting-weather. Asset: a clean empty room4 environment candidate, not a UI or a screenshot.\nImage 1 is the ONLY edit target and the sole geometry reference: the approved empty room4, exactly 1536 x 1024. Keep its full canvas, fixed camera, perspective, window-frame positions including both outer edges and mullions, walls, desk and shelves at left, center-right desk and chair, right upholstered window bench/cushions/blanket, original lamp/book/cup, floor, rug edges, and broad left-side reading-safe negative space. Do not crop, zoom, recenter, resize furniture, add objects or add people.\nChange ONLY the environmental time and lighting into a DRY CLEAR NIGHT, with at most a few light clouds. The entire view beyond the window is naturally night: a dark clear blue-charcoal sky, the same distant town/mountains/lake shapes in subdued nocturnal values, a restrained scattering of existing town-window lights and their quiet lake reflections. Do not invent a conspicuous moon or claim a lunar phase. Absolutely NO rain, droplets, falling streaks, wet window, rain haze, storm, snow or wet-road effects. Window glass is dry and clear.\nRe-light the ENTIRE interior coherently for this night, not only the window. Turn on the existing desk lamp with soft warm amber-gold local light, plausible gentle falloff and bounce; the room remains pleasantly readable through this warm source and low cool exterior fill. Replace all original bright daytime sunbeams, sharp leaf-sun shadows and blazing floor reflections with natural subdued night shadows and restrained warm lamp reflections. Walls, curtains, bedding and wood belong to the same nighttime room: muted warm gray/taupe/charcoal and honey wood with limited amber highlights. The left room must not remain white daylight while the window is black. Maintain soft painterly anime architectural detail and material texture, not a global blue/gold tint or a dark translucent veil. Natural plant colors may remain natural, but no green UI or green wash.\nThis is an empty atmospheric room, no character, ghost, detached clothes or human shadow. No buttons, cards, words, labels, tutorial, border, grid, divider, watermark or side-by-side comparison. One complete coherent full-room image, opaque RGB 1536 x 1024.",
+  "submittedPromptSha256Utf8NoTrailingLF": "cbf9951e3cb4fa99b338be8ebaa16956ae003a28db1e5bfd5ec56915033f885f",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-apricot-candidate-v4.png",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+      "role": "sole personally viewed approved clean room4 edit target",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    }
+  ],
+  "transparentBackground": false,
+  "output": {
+    "file": "room4-dry-clear-night-v1.png",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17126-cdea-77e3-9abe-3d71acd87e8b\\exec-b902506a-2a60-434f-98e2-d9645da02e81.png",
+    "sha256": "4e86e26b6b0b59f4bcef537cf593776a10f9134045219117fd1ecf853b7361ea",
+    "bytes": 2149800,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "intendedCondition": "clear",
+  "isDay": false,
+  "rain": false,
+  "designIntent": "真实天气改变整个空间气氛，角色不随雨强迫悲伤、UI纸面协调。图库是表现材料而非天气证据；未知或失效数据不能配假天气。",
+  "review": {
+    "personallyViewed": true,
+    "observation": "Personally viewed the generated full image. The complete window is dry nocturnal blue-charcoal with sparse clouds/stars, subdued original town/lake geometry and warm town reflections; no rain or droplets. The entire room is darkened coherently with the existing warm desk lamp and amber falloff, no white daytime half-room and no retained sharp daytime leaf shadows. Furniture, both window edges and the broad left wall/floor reading space remain visually aligned to room4. This is a visual candidate assessment, not pixel-perfect registration, weather evidence or runtime acceptance.",
+    "approvedByRoot": true,
+    "rootApproval": { "sha256": "4e86e26b6b0b59f4bcef537cf593776a10f9134045219117fd1ecf853b7361ea", "scope": "Same-room pure empty weather background only; no runtime, figure layer or character-mother acceptance.", "evidence": "Root directly reported personally viewing this complete original PNG and accepting preserved furniture/window anchors and dry-night distinction." },
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  },
+  "status": "root-approved-empty-weather-background-only"
+}

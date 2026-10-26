@@ -1,0 +1,9 @@
+<!doctype html><meta charset="utf-8"><title>祥子归来 · rain 独立原位分层 v1 · 候选</title>
+<style>body{margin:24px;color:#382f2a;background:#e9e3db;font:14px/1.5 system-ui}main{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}figure{margin:0}figcaption{margin:0 0 8px}.stage{position:relative;aspect-ratio:3/2;overflow:hidden}.stage img,.shadow{position:absolute;inset:0;width:100%;height:100%}.actor{mask-image:url('./sakiko-resume-rain-mask-v1-tight.png');mask-mode:luminance;mask-size:100% 100%;mask-repeat:no-repeat}.shadow{background:#291c16;opacity:.48;mask-image:url('./sakiko-resume-rain-contact-mask-v1.png');mask-mode:luminance;mask-size:100% 100%;mask-repeat:no-repeat}.light{background:#faf6f0}.dark{background:#17202c}.detail{width:550px;height:650px;aspect-ratio:auto}.detail img,.detail .shadow{width:1536px;height:1024px;left:-1000px;top:-230px}.detail .actor,.detail .shadow{mask-size:1536px 1024px}</style>
+<p>固定版本 rain：人物mask v1-tight，影contact-mask-v1，matching background v1。固定候选：原RGB + figure mask v1；在其下以 ImageGen contact mask v1 显示 #291c16 / 48% 深色影层。contact mask v1 的白色身体区被原RGB遮住，仅接触边缘显影。没有改写图像像素，未签运行。</p>
+<main>
+<figure><figcaption>完整母图</figcaption><div class="stage"><img src="./sakiko-resume-rain-mother-v1.png"></div></figure>
+<figure><figcaption>背景 v1 + 深色影 contact mask v1 + 原RGB / mask v1-tight</figcaption><div class="stage"><img src="./sakiko-resume-rain-background-v1.png"><div class="shadow"></div><img class="actor" src="./sakiko-resume-rain-mother-v1.png"></div></figure>
+<figure><figcaption>原像素浅底</figcaption><div class="stage light detail"><div class="shadow"></div><img class="actor" src="./sakiko-resume-rain-mother-v1.png"></div></figure>
+<figure><figcaption>原像素深底</figcaption><div class="stage dark detail"><div class="shadow"></div><img class="actor" src="./sakiko-resume-rain-mother-v1.png"></div></figure>
+</main>

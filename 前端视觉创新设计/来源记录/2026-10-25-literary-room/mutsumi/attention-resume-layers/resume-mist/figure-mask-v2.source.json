@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "recordType": "native-same-canvas-layer-production-receipt",
+  "assetType": "same-canvas-complete-foreground-luminance-mask",
+  "sceneFamily": "literary-room-v1",
+  "character": "mutsumi",
+  "activity": "resume",
+  "palette": "mist",
+  "phase": "F2-v2-direct-original-source",
+  "recordedAt": "2026-10-25T20:36:02.878370+00:00",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-454d-7bb3-8b77-bcaadd75b8a4\\exec-3983573b-0d44-4cf4-ab3e-0921c03a2ddd.png",
+  "promptFile": "figure-mask-v2.prompt.txt",
+  "promptFileSha256": "0ff24db02e99e35752f1941dac71104fb417b7d673b4962ca20e5f7703687018",
+  "exactSubmittedPrompt": "Use case: background-extraction / exact original-source foreground luminance mask. The ONLY input is the exact root-approved ORIGINAL Mutsumi resume mist mother, complete1536x1024. Produce an OPAQUE RGB BLACK/WHITE LUMINANCE MASK at these identical source coordinates, NOT a cropped cutout or transparency. Entire VISIBLE girl AND her complete OPEN lap BOOK are solid WHITE: all hair strands/clips, head/face/neck, sailor collar/bow/sleeves, BOTH full hands/fingers, all skirt folds and entire double hem trim, both knees, both full calf socks and BOTH complete brown loafers including darkest toe/heel/outsole/sole rims. All book pages/cover/spine/gutter underside/lower dark edge/corners and finger contacts are WHITE too. Do not punch holes in dark book cover, navy fabric or fingers. Keep genuine ROOM gaps between hair strands/arms/legs BLACK, especially the real small WOOD triangle at source forearm/torso around x1160..1175,y455..480; this is NOT clothing. Preserve every complete dark book lower lip/cover/hand at x1040..1225,y440..535 as WHITE, not mistaken for room. Entire remaining ROOM, cushion/contact receivers, floor/shadows, windows/curtains/lamp/furniture/rug/plant are BLACK irrespective of natural brightness. Mask semantic ownership, never a brightness threshold of the RGB room. Narrow native antialias at true outer silhouette only; opaque white owned interiors, black true holes. No original room RGB, eye/fabric/text detail, labels/UI, shadow, enlargement, cut shoe edge, crop, zoom, resized/recentered silhouette, new pose/anatomy or another character. Exact full1536x1024 same origin. No earlier failed markup is an input.\n\nFLAT OPAQUE MATTE, NOT LINE ART: every pixel inside the foreground FACE, eyes, mouth, silver clips, eyebrows, clothing folds/stripes, fingers, knees, sock ornament and shoes/book is WHITE. Do NOT leave thin black eyes, mouth, clips, knee contours, finger creases, cuff lines or any internal drawing. A silhouette mask carries no facial or garment information. Only genuine ROOM openings are black, including that actual tiny wood gap above/right of book between forearm and torso; its precise source position is retained. The source dark book cover and supporting fingers/lap are foreground white, never a gap. There is only the original complete mother input; no previous failed mask or markup is submitted.",
+  "submittedPromptSha256": "93dfa5ce8ce2295fe68aeb49943b2f1e7c9ee028bc00460d82d8184846ce4fda",
+  "submittedPromptTransform": "UTF-8 prompt file without final LF added by patch; exact submitted string",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-mist-literary-extension-v1.png",
+      "sha256": "dbd6bab85718cb6bf4fe53c3502bf7fbc0a3d78b69c8f1e29cba04ceaefea8ef",
+      "role": "Sole exact original mother; earlier mask/markup not submitted"
+    }
+  ],
+  "output": {
+    "file": "figure-mask-v2.png",
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/figure-mask-v2.png",
+    "sha256": "b2ba90f6f762d9c227035c7aef8c68fd3efa7b35334e127be65daf56548855ff",
+    "bytes": 474597,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "dossier": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/mutsumi.md",
+    "sha256": "189d1a17f6e4c2656692437167c50d2a89379cf50b16bc354df3ac8406e4610c",
+    "version": "2026-10-25",
+    "readComplete": true
+  },
+  "method": {
+    "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+    "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+    "readComplete": true
+  },
+  "wardrobeId": "mutsumi-tsukinomori-school-source-preserving",
+  "mother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-mist-literary-extension-v1.png",
+    "sha256": "dbd6bab85718cb6bf4fe53c3502bf7fbc0a3d78b69c8f1e29cba04ceaefea8ef",
+    "bytes": 2434826,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    }
+  },
+  "motherApproval": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/root-human-mother-primary-review-20261025.json",
+    "sha256": "f6b3a0b7ac9974993b61553e907f0ebfa7c39763ebef7d33ca7efb215a99fbb2",
+    "record": {
+      "cell": "mutsumi/resume/mist",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-mist-literary-extension-v1.png",
+        "sha256": "dbd6bab85718cb6bf4fe53c3502bf7fbc0a3d78b69c8f1e29cba04ceaefea8ef",
+        "bytes": 2434826,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.843Z",
+      "observation": "Mutsumi green-tinted hair/gold eyes and anatomical-left paired clips remain; quiet curiosity or recognition is distinct from a stock smiling pose. Hands physically support the book, legs/shoes and bench support are coherent. Small sock decoration in rain remains project illustration, not new official wardrobe fact. Whole mist light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    }
+  },
+  "pngPixelEditing": false,
+  "manualThresholdOrMorphology": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "producerReview": {
+    "personallyViewed": true,
+    "observations": [
+      "Native fresh direct F2-v2 personally viewed: full white girl/book against black; small black openings near hair/face/forearm require actual original-RGB close comparison to distinguish genuine room gaps from wrong internal opacity holes.",
+      "No mask modification or approval inferred from the white silhouette alone.",
+      "Actual5188 native original/rawF/original-RGB union face and book comparison now performed: eye/mouth/skin and full lower book cover/support hand remain complete. Apparent small black marks lie below face among real hair/background openings, not the eyes or mouth. No facial hole observed in actual RGB."
+    ]
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "scope": "Original source-position fixed included layer production only; marked/mask RGB never replaces original mother color. No independent movement, no new mother/dynamic/runtime completion."
+}

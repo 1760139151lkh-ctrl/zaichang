@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "assetId": "taki-play-apricot-literary-v1",
+  "roomFamily": "literary-room-v1",
+  "characterId": "taki",
+  "activity": "play",
+  "palette": "apricot",
+  "createdOn": "2026-10-25",
+  "tool": "image_gen.imagegen (built-in)",
+  "callOrdinalInBoundedBatch": 8,
+  "executionId": "exec-2395d82b-b152-4a23-a996-e15b2f5a4761",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-2395d82b-b152-4a23-a996-e15b2f5a4761.png",
+  "inputs": [
+    {
+      "file": "../../plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "image1: approved clean room geometry/light"
+    },
+    {
+      "file": "../chat-pilot/taki-chat-apricot-literary-v1.png",
+      "sha256": "0eb782e67b9954b406130a4994e9e75dd8774c8c3eb2a690d75d3e55338aad16",
+      "role": "image2: approved same-role identity/uniform/scale only; new body drawn for activity"
+    }
+  ],
+  "brief": "../../briefs/mygo-a/taki-36-briefs.md",
+  "briefCell": "taki/play/apricot",
+  "briefTitle": "折得不齐也挺像",
+  "promptFile": "taki-play-apricot-literary-v1.prompt.txt",
+  "promptFileSha256": "38d6e20718e5d5eed1ba763ae6db9f5b564fc417b15858ab900527fdfc0bbdda",
+  "submittedPrompt": "Create one 1536 × 1024 landscape complete-scene illustration. Image 1 is the approved EMPTY literary room and is the geometry/light source: retain its exact close camera and framing, same window panes/current cropping, autumn lake town/mountains, wood shelves/books/plants, writing desk and wooden chair at the left, round table/ceramic lamp/cup/flowers, linen window bench with right plaid cushions and cream knit throw, wood floor/rug and foreground soft plant. Preserve continuous clear-day warm apricot light, garment colors and neutral skin detail; no whole-image color film. Image 2 is this SAME girl's approved chat mother: use only correct youthful identity, facial features/hair/uniform and room-consistent scale, never its fixed pose or body as a pasted template. Draw the activity completely anew from text. No other room, other girl, mask, extracted layer or rejected figure is an input.\nCareful expressive anime character linework must sit naturally in the tactile softly painterly room. A convincing ordinary body matters more than elaborate gestures: real pelvis/seat support, coherent joints, hands and objects with weight, clothing gravity and honest shadows/occlusion. Keep full head/hair inside the frame. On the bench, keep uncrossed naturally placed legs and complete shoes in frame; do not force mirrored flat soles, stretch anatomy or cross one knee over the other. At the real desk, use its own correct chair/desk scale and natural foreground/furniture occlusion, without inventing hidden feet or moving the foreground plant just to reveal them. Do not put a bench-scale body at the desk or make an enlarged head lean toward the camera.\nKeep each fringe lock, eyebrow, eyelash, upper/lower eyelid, sclera and iris separately readable. Natural downward or side gaze must not merge eyes into fringe shadows. No stock service smile, fixed scowl, compulsory blush or generic comfort performance. Inner intention below is a project-original fictional scene, not a verified user event. No readable user text, equations/answers/schedules, completion receipts, labels, UI, watermarks, logos, diagrams, second person or duplicated limbs. Only one girl and a few simple grounded objects.\n\nCHARACTER:\nShiina Taki (椎名立希), BanG Dream! It's MyGO!!!!!: youthful high-school face, long straight purple-black hair with side-parted fringe, clear violet eyes. Camel-brown Hanasakigawa sailor uniform with white collar/thin dark trim, red ribbon, gold buttons, camel pleated skirt, dark socks and brown loafers. Preserve the approved same-role chat reference identity.\n\n折得不齐也挺像 — PLAY / the fold is not quite what she intended, and that is funny. On the existing right-central bench Taki has carefully folded ONE small plain piece of cream paper into a slightly lopsided simple shape. The paper is modest, only two or three folds with a tangible edge, not a large decorative crane or living bird. One relaxed hand holds its edge just above a closed book on her lap, the other fingertips lightly rest on the book near it; no complicated finger knot or floating prop. She has looked at the result and now glances to the partner with a small crooked almost-laugh, as though first admitting this little thing is amusing. A familiar plain playfulness, clear violet eyes and relaxed eyebrows, no scolding or embarrassed pout. Keep grounded seated support, full head, uncrossed legs and complete shoes.",
+  "output": {
+    "file": "taki-play-apricot-literary-v1.png",
+    "sha256": "1e01dddcae67de37887d7338b3056aa4a3bf04609db7de15c75b83ba2b8f735f",
+    "bytes": 2440128,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "decision": "static mother candidate for primary inspection",
+    "observation": "Complete original viewed: Taki holds one small simply folded cream square/envelope-like paper by its edge near upper chest, the opposite hand rests over a closed book supported on her lap. The prop is higher than the low-book proposal but small and visibly gripped, with no floating paper. A small crooked amused smile and clear violet gaze carry plain playfulness. Hair/eyelids/irises separate. Pelvis/cushion support, uncrossed coherent knees/ankles and complete floor-supported loafers visible; room camera/furniture stable.",
+    "limits": "No claim that the fold is a specific origami animal or that an actual user game happened. Producer observation predates separate exact-SHA primary mother approval; layer/runtime remain false."
+  },
+  "primaryApproved": true,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "acceptanceScope": "Primary-approved exact-SHA static mother only; no layer/runtime admission.",
+  "primaryApprovalRecord": "primary-mother-admission-v1.json",
+  "primaryApprovalAssetId": "taki-play-apricot-literary-v1"
+}

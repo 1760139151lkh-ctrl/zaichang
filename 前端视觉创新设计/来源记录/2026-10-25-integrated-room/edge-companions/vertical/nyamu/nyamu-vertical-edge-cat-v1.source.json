@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "edge-meme-cat-v3-family",
+  "character": "nyamu",
+  "kind": "independently-articulated-upright-face-vertical-edge-clinging-cat",
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-79124342-ab86-479f-83a4-63fe5449f723.png",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/edge-companions/vertical/sakiko/sakiko-vertical-edge-cat-pilot-v1.png",
+      "sha256": "5bfc229f5c0506f6fcb93646d4058543d42dbba910eafb5f99a5ebdefcb55d05",
+      "role": "Approved Sakiko vertical pilot, simple family and vertical contact grammar only; never copy Sakiko head"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/edge-cats/nyamu-meme-cat-v1.png",
+      "sha256": "87e3c75a373ecc2b1e290a38efbf15251aba0347d483b6567fced78b8e12ca2b",
+      "role": "This character accepted clean simple cat; their own identity, head/hair/eye/accessory and personality only"
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/nyamu.md",
+      "sha256": "c5acd92fe6cd9ccf35785bd09e7f71337bca5bf7eb0fdd37629e78780eb9ebe1",
+      "scope": "Fully read before this character vertical cat creative call"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840",
+      "scope": "Fully read before this character vertical cat creative call"
+    }
+  ],
+  "exactSubmittedPrompt": "Create ONE complete newly articulated VERTICAL-EDGE CLINGING meme-cat sprite on genuine transparent RGBA, square 1024x1024. TWO inputs have separate roles: Image 1 is the accepted Sakiko vertical pilot, ONLY the simple 2D family and actual vertical paw/body support arrangement; Image 2 is THIS CHARACTER'S accepted clean horizontal cat, ONLY their own head/hair/eyes/accessory identity and personality. Re-draw one integrated character; do not paste or recolor Sakiko's head, do not rotate a horizontal PNG 90 degrees. No review board/official art is an input.\nKeep the face UPRIGHT nearly frontal to the person with two clearly visible eyes at a near-horizontal level, cat ears pointing up. The compact complete WHITE CAT BODY is vertical beneath/left of the large simple head. TWO naturally connected small front paws clasp an INVISIBLE vertical page edge on HER RIGHT at two clearly DIFFERENT HEIGHTS, one near cheek and one near upper belly. The torso/near shoulder nestles beside the same vertical alignment; bent hind legs are connected to a real rump, with one visible hind paw bracing lower on the same side and the farther leg allowed to be naturally occluded. ONE complete tail grows from the actual rump, hangs/curves downward-left naturally. Head, paws, torso, haunch, rear legs and tail must remain whole inside alpha margins. No extra limbs or floating mittens. Shared compact body/head family and clear grip silhouette, not a long image strip.\nDo NOT draw the imagined paper/panel, a line, wall, rope, pole, support, shelf, frame, background or long white/colored strip. Only the CAT is visible. Actual support will be the real application edge. No text/UI, bubble, logos, watermark, stars, music marks, scenery, floor shadow, halo/glow or painted black/white/checkerboard background. All hair/head/ears/paws/body/tail use the SAME ultra-simple 2D Doro-like meme/cartoon: bold clean navy outlines, a few broad flat hair shapes, WHITE ROUND face and WHITE rounded cat body, simple two-tone ROUND eye disks, tiny minimal mouth/brows, almost no shading. Absolutely no refined human portrait/skin, flesh colors, realistic nose/lips, makeup, mature face, 3D/plush/fur, human torso, clothing, school uniform, socks, shoes or props. Cat form and scene are project-original, no full-human matrix credit.\nNYAMU YUTENJI / 祐天寺若麦: independent short LAVENDER-PURPLE bob, soft uneven fringe and a few longer cheek wisps; big simple TWO-TONE ROSE-MAGENTA/RED-PURPLE eyes (muted red-purple top/pale rose bottom), white little cat face, small OPEN cat smile with a touch of playful pride. A tiny brow angle is a little more lively than the other calm cats, no permanent wink or giant grin. No Sakiko ribbons, long blue hair, Mutsumi clips, beauty makeup, gray human blouse, jewelry or fine avatar skin.\nNYAMU'S MOMENT: she had been quietly finding a little rhythm in the nearby line for herself; the familiar person catches the detail she was pleased with. The eyes answer first, then the little mouth admits a cheeky 'you caught it' warmth, while both front paws keep their real grip rather than letting go to pose. She has her own interest, not a mascot waiting for a command or a performer demanding attention. The tail may finish in a modest playful curve while still growing from the rump and hanging naturally. Retain THIS lavender short-bob head and her own expression from Image 2, and newly articulate a complete vertical white cat with secure distinct-height front paws and lower hind brace.",
+  "submittedPromptSha256": "5fd3908be93f18998c7b544d178e152131be8e4c21c68e6febbdf2e2a074dfcd",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\nyamu\\nyamu-vertical-edge-cat-v1.png",
+    "sha256": "0d2f34025797de9f5bd4fe5e40849509e2d57d9bf2e2b2c41b233b61717c2e31",
+    "bytes": 793083,
+    "width": 1254,
+    "height": 1254,
+    "pngColorType": 6
+  },
+  "intendedSupport": {
+    "kind": "imagined-vertical-paper-edge",
+    "contactSide": "right",
+    "frontPaws": "two connected paws at distinct heights",
+    "body": "complete vertical white cat",
+    "hindPaw": "bent bracing lower",
+    "tail": "rooted at rump, curves downward-left",
+    "actualPanelPixelsDrawn": false
+  },
+  "identitySide": null,
+  "wholeImageQuarterTurn": false,
+  "producerViewed": true,
+  "producerObservation": "Personally viewed complete Nyamu vertical cat: her own short lavender bob/uneven fringe and rose-magenta two-tone round eyes, little open playful-proud mouth and slight brows. White round face, complete vertical white cat body, two connected right-side front grips at distinct heights, lower bent hind brace and rooted tail curving down-left; no Sakiko head/ribbons, 90-degree whole-image turn, human skin/clothes, actual panel or stripe. Root/geometry/rig/runtime review pending.",
+  "primaryApproved": false,
+  "rigApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "independentTailLayer": false,
+  "privateWechatSourceUsed": false,
+  "officialArtworkInput": false,
+  "fullHumanMatrixCredit": false,
+  "pngEdited": false,
+  "contactGeometryCandidate": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\nyamu\\nyamu-vertical-edge-cat-v1.geometry-candidate.json",
+  "directAlphaObservation": {
+    "mode": "RGBA",
+    "extrema": [
+      0,
+      255
+    ],
+    "canvas": [
+      1254,
+      1254
+    ],
+    "nativePixelsUnmodified": true
+  },
+  "producerSmallSizeReview": {
+    "personallyViewed": true,
+    "widthPx": 220,
+    "backgrounds": [
+      "#fff9f2",
+      "#20212c"
+    ],
+    "evidence": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/edge-companions/vertical/ave-four-vertical-220px-light-dark-review.png",
+    "sha256": "d04feb822c8b8605742808dbfd22d7e0370853283ce69924e8efa3d902aee937",
+    "observation": "Upright face and complete vertical white cat/gripping front paws/braced hind paw/rooted hanging tail readable on both backgrounds; individual hair/eyes/expression and Mutsumi viewer-right clips retained. Static review only."
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "assetType": "independent-youth-charm-avatar",
+  "characterId": "taki",
+  "tool": "image_gen.imagegen",
+  "mode": "text-to-image-zero-image-input",
+  "inputs": [],
+  "promptFile": "taki-youth-charm-avatar-v2.prompt.txt",
+  "submittedPrompt": "为“在场”独立新画椎名立希（Shiina Taki，MyGO!!!!!）的青春魅力头像。零图输入，不用旧冷头像、房间裁头、猫图或官网模型图垫。方形真正透明背景，无圆盘、背景、边框、文字、鼓棒、道具或UI。画成很近的脸，脸与深发约占85%，下缘只露一点颈肩、米棕校服领侧、白色水手领的深边及红领结顶端；不要大半身或大片胸前制服。头顶和侧发轮廓留透明余量，长发从底边自然延续，不为收全头发把脸缩远。\n\n这次最动人的地方是她真的放下要反驳的那一句，笑了一下。她原先对一个说法认真得有点较劲，已经准备指出问题；相熟的人没有和她争，只用一个很准确、又意外有点好笑的比喻把她漏看的那一点说清。她听懂，也发现自己刚才实在太绷，反驳的话没有说出口，呼出一声短短的真笑。她不是被训服、害羞卖萌或改成温柔客服，认真与自己的判断都还在；她喜欢这种可以互相指出、又能一起笑的相处。此刻的亲近是项目原创创作，不宣称原作事件、实际答题成功或共同长期记忆。\n\n请把短促、没藏住的真笑画出来，不要只给她永久收眉的冷脸。清楚的紫色双眼抬向观看者，目光利落但已放松，眼尾有笑意、下眼睑随笑轻收，仍能看见眼白与虹膜。眉间原本的一点力气已经松开，一侧眉梢可以残留一点“好吧，确实是这样”的干脆会意，而不是怒气V眉。嘴角明确向上，嘴唇自然微分，画出短短笑声的形状，可以见一点上齿，但不是大张嘴、整排牙的傻笑、发呆圆口或成人妩媚唇。嘴弧、眼尾和松开的眉一起让34–48px圆头像也读到那一笑；不要靠0.1px嘴角或夸张红晕假装有心情。头几乎正向，只一点自然转向说话者，颈肩轻松下来，像认真之后终于能接住一个好玩的停顿。\n\n身份仍是原作青春的立希：深褐近黑的长发、带斜向节奏的分束刘海与自然长侧束，清楚紫色虹膜，年轻柔软的面颊、轻短下颌、小巧自然鼻口；目光有主张却不显老。没有固定大发饰，不加蝴蝶结头饰、猫耳、贴纸或耳机。深发保深炭褐底色和克制暖灰层次，不染成紫短发，不用漆黑块吞掉脸，也不靠浓妆加深眼窝来表示性格。\n\n风格是鲜活青春的二维手绘动画肖像，神情简洁清楚、线条细腻、颜色干净、自然柔光，有真实来往一瞬间的文学性。不是写实摄影、3D塑料、近模型木偶、成熟时尚妆、婴儿巨玻璃眼或半闭细长妩媚眼。肤色不油亮，不画大块硬白鼻高光，不用厚睫毛和油亮唇显精致。透明发缘干净、无彩色光晕、无白底圈。目标是让观看者认出：那个认真、直接的立希，放松下来真正笑的时候，有多么年轻好看。",
+  "readSources": {
+    "passport": {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/taki.md",
+      "version": "2026-10-25",
+      "fullReadBeforeCall": true,
+      "sha256AtArchive": "48f954585e91b84599430c573ff38e498959d3168f18a9ca46c0c3c1e7f7bc7a"
+    },
+    "method": {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "version": "2026-10-25/with-youth-avatar-supplement",
+      "fullReadBeforeCall": true,
+      "note": "sha256AtArchive是归档时文件；头像补充节在前五次调用后由集成线加入，在Taki调用前已完整读到。所有调用均已落实用户新近景/青春/角色心情要求。",
+      "sha256AtArchive": "8d004e5b3c2065f8af9739c990f09b18df340a4c2e9720c5a9630f67387a365e"
+    }
+  },
+  "inspectionOnlyReference": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-youth-charm-avatar-v2.png",
+    "source": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-youth-charm-avatar-v2.source.json",
+    "role": "只亲看/读理解近景与笑意的方法；没有传入ImageGen。"
+  },
+  "wardrobeId": "hanasakigawa-high-sailor-collar-only",
+  "facts": {
+    "officialSources": [
+      "https://mygo-movie.bang-dream.com/character/taki/",
+      "https://bang-dream.com/artist/mygo/shiina-taki/"
+    ],
+    "identityObserved": "深褐近黑长发、斜向分束刘海、紫眼，无固定大型发饰。",
+    "officialArtUse": "官网立绘只通过角色护照身份/衣装观察参考；未下载或传入本次生图，未收入public。",
+    "projectOriginal": "听懂一个准确又好笑的比喻，放下要反驳的话，露出短促真笑。 本次前因后果与相处是项目原创假想瞬间，不声称已查、已做或真实共同记忆。"
+  },
+  "output": {
+    "file": "taki-youth-charm-avatar-v2.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-1cd6d381-adb0-448a-93fa-d020f6645261.png",
+    "sha256": "c83367bce9967601aade4049df5e3153caa4cf7fd9f5a8a7aede88dac14aea80",
+    "bytes": 2226847,
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "cornerAlpha": 0
+  },
+  "producerReview": {
+    "status": "producer_candidate_pending_primary",
+    "fullImagePersonallyViewed": true,
+    "observations": "原图亲看：长深发、紫眼、眉间松开、带少量上齿的短笑，青春与直接同时保留，非冷脸。头冠延出上沿；透明边缘待真实小尺寸再核。",
+    "smallSizeReview": {
+      "method": "Chrome实际静态页面逐行亲看原PNG浅纸/深蓝灰底和真实34px/48px圆裁",
+      "page": "youth-charm-observe-v2.html",
+      "personallyViewed": true,
+      "cropCandidate": {
+        "imageWidthPercent": 100,
+        "imageHeightPercent": 100,
+        "leftPercent": 0,
+        "topPercent": 0,
+        "defaultObjectPosition": "50% 50%",
+        "notOldHalfBody160Percent": true
+      },
+      "observation": "新近景眼与笑意较旧冷稿更直接；未见明显背景板、白圈或发缘红黄框。34px不单独承载复杂心情故事；原图与runtime准入仍由root核。",
+      "runtimeChecked": false
+    }
+  },
+  "supersedesDirection": "旧independent-avatar-v1/Anon-v2仅保历史source和历史root静态结论；最新用户认为冷/无表情，已退出本轮后续输入。新稿零图输入，不是旧稿修嘴角。",
+  "primaryApproved": false,
+  "userApproved": false,
+  "runtimeAccepted": false,
+  "generationInputAllowed": false,
+  "humanMatrixCoverage": false,
+  "registered": true,
+  "currentAdmission": "registered-pending-latest-youth-face-proportion-review",
+  "primaryReview": {
+    "reviewer": "root",
+    "date": "2026-10-25",
+    "decision": "approved-independent-youth-avatar-static-only",
+    "source": "Explicit root collaboration message: personally viewed Ave four complete youth-charm-v2 originals, Ave five 34/48px light/dark circles, and MyGO five complete originals (Rana v3); permitted registry update, runtime still unverified.",
+    "completeOriginalPersonallyViewed": true,
+    "smallSizeCirclePersonallyViewedByRoot": false,
+    "smallSizeEvidence": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mygo/avatars/YOUTH_CHARM_README.md (producer browser observation; root small-size UI review still pending)",
+    "sourceOriginalSha256": "c83367bce9967601aade4049df5e3153caa4cf7fd9f5a8a7aede88dac14aea80",
+    "scope": "Exact independent youth closeup and visible natural smile; not all emotions, full-body scenes, user adoption or runtime approval"
+  },
+  "registration": {
+    "registry": "src/renderer/companion-portraits.ts",
+    "runtimeCopy": "前端视觉创新设计/运行素材/companion/portraits/taki-youth-charm-20261025.png",
+    "runtimeCopySha256": "c83367bce9967601aade4049df5e3153caa4cf7fd9f5a8a7aede88dac14aea80",
+    "sourceCopyUnchanged": true,
+    "avatar": {
+      "left": "0%",
+      "top": "0%",
+      "width": "100%"
+    },
+    "actualRuntimeObserved": false
+  },
+  "historicalRootYouthSmileDirectionApproval": {
+    "reviewer": "root",
+    "date": "2026-10-25",
+    "decision": "approved-independent-youth-avatar-static-only",
+    "source": "Explicit root collaboration message: personally viewed Ave four complete youth-charm-v2 originals, Ave five 34/48px light/dark circles, and MyGO five complete originals (Rana v3); permitted registry update, runtime still unverified.",
+    "completeOriginalPersonallyViewed": true,
+    "smallSizeCirclePersonallyViewedByRoot": false,
+    "smallSizeEvidence": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mygo/avatars/YOUTH_CHARM_README.md (producer browser observation; root small-size UI review still pending)",
+    "sourceOriginalSha256": "c83367bce9967601aade4049df5e3153caa4cf7fd9f5a8a7aede88dac14aea80",
+    "scope": "Exact independent youth closeup and visible natural smile; not all emotions, full-body scenes, user adoption or runtime approval"
+  },
+  "rootYouthSmileDirectionApproved": true,
+  "latestRequirementAccepted": false,
+  "latestUserFaceDirection": {
+    "source": "New user correction relayed by root after the first youth-smile static acceptance",
+    "requirements": "较短中下面部、饱满柔和脸颊、短下巴的原作青春比例，避免成人少妇脸且不幼儿化，保留每人辨识；另对祥子提出刘海、眼型、下巴、温柔可爱表情的精调",
+    "referenceSource": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-user-selected-youth-avatar-20261025.png",
+    "referenceSha256": "bc92a4e0096411b0e58b5e4dfc12d61b48bf255f0fd7a544c039ae9e4cd7fc32",
+    "scope": "Nine existing portraits remain connected but must be re-reviewed against this latest direction. Earlier root static smile approval does not prove all new requirements met.",
+    "runtimeAccepted": false
+  }
+}

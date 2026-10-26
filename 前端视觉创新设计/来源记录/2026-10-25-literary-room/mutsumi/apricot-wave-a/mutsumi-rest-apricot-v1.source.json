@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "character-activity-mother-candidate",
+  "character": "mutsumi",
+  "activity": "rest",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "wave": "apricot-wave-a",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-8fccad4d-951d-4194-a897-9fb1d9df299b.png",
+  "executionId": "exec-8fccad4d-951d-4194-a897-9fb1d9df299b",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "primary approved clean empty environment edit target; room/camera/furniture/light invariant"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.png",
+      "sha256": "9d529789ece89f44b166f39dd259136257598cfd546009e49fae74140cbf8b6d",
+      "role": "root-approved same-character chat mother for correct identity/outfit/apparent scale only; not pose input"
+    }
+  ],
+  "brief": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/mutsumi-prompt-plan.json",
+    "sha256": "66ade9700cb7bb993b43bd7e247b678878b79ad71237b0b5dcd915a43a3be2ca",
+    "key": "mutsumi/rest/apricot",
+    "release": "root released only reading/planning/rest apricot for Mutsumi/Nyamu after selected-room Sakiko cross-scene and each own chat mother acceptance; no other cells released",
+    "transformation": "Own literary narrative/core/lighting and identity retained; correct same-character chat mother added as identity-only input; activity support and fixed room constraints made explicit"
+  },
+  "fictionalCompanionScene": true,
+  "privateUserDataUsed": false,
+  "promptFile": "mutsumi-rest-apricot-v1.prompt.txt",
+  "promptFileSha256": "8af2bcc631e980423eba2835d4eb22b1438e463121dbf36b70d1140d7f76c54a",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; submitted text exact",
+  "submittedPromptSha256": "9f5b104326385211063e757b63c107e6d453dad8f455eb6945755ab9fadf03b9",
+  "output": {
+    "file": "mutsumi-rest-apricot-v1.png",
+    "sha256": "e414a4eae007a1ffdac4d3b4efcfecaed0414ee2a8cc68b20be289f9a314e671",
+    "bytes": 2427353,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved full original before next generation. Same close clear-day room/window/desk/lamp/bench and correct mint-haired sailor identity remain recognizable. New rest pose looks toward the window with one hand supporting the cheek, elbow on a plaid cushion, and the other hand visibly supported on the seat/throw; this differs from the requested idle-hands rear lean. A plaid cushion appears brought forward under the elbow relative to the empty plate/chat arrangement, so root must judge this local cushion-continuity deviation; it is not claimed furniture-exact. Visible eyelid/golden-brown iris versus fringe, complete head/shoes, seated hip support and uncrossed knee/ankle/foot relations read coherently in full view. Character head is naturally lower with this rest pose, not a close-up enlargement. Producer observation predates root mother review; root subsequently accepted the portable-pillow support and exact-SHA static mother in primaryApprovalRecord. Layers/runtime remain unaccepted."
+  },
+  "primaryApproved": true,
+  "primaryApprovalRecord": "mutsumi-rest-apricot-v1.primary-approval.json",
+  "primaryApprovalScope": "Root personally viewed and approved exact-SHA complete static mother only; layer and runtime acceptance remain false.",
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "Root-approved exact-SHA complete static mother only; layer, matrix assembly, motion and runtime acceptance remain false."
+}

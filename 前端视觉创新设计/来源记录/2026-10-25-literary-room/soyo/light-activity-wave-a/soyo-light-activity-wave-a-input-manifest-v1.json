@@ -1,0 +1,285 @@
+{
+  "schemaVersion": 1,
+  "character": "soyo",
+  "waveLimit": 24,
+  "characterLimit": 12,
+  "motherOnly": true,
+  "entries": [
+    {
+      "id": "soyo-reading-mist-literary-v1",
+      "prompt": "soyo-reading-mist-literary-v1.prompt.json",
+      "activity": "reading",
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "inputs": [
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "role": "approved matching empty weather/light plate",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-overcast-day-v1.primary-approval.json"
+        },
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-a\\soyo-reading-apricot-literary-v1.png",
+          "sha256": "d0d179ddadd7638eea42b51c3e158ed820f1bb65deea5ccc73a625eac459369e",
+          "role": "approved same-activity apricot pose/identity/support authority",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-a\\soyo-apricot-wave-a-primary-mother-admission-v1.json"
+        }
+      ],
+      "output": "soyo-reading-mist-literary-v1.png",
+      "source": "soyo-reading-mist-literary-v1.source.json"
+    },
+    {
+      "id": "soyo-reading-violet-literary-v1",
+      "prompt": "soyo-reading-violet-literary-v1.prompt.json",
+      "activity": "reading",
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "inputs": [
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "role": "approved matching empty weather/light plate",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-twilight-v1.primary-approval.json"
+        },
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-a\\soyo-reading-apricot-literary-v1.png",
+          "sha256": "d0d179ddadd7638eea42b51c3e158ed820f1bb65deea5ccc73a625eac459369e",
+          "role": "approved same-activity apricot pose/identity/support authority",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-a\\soyo-apricot-wave-a-primary-mother-admission-v1.json"
+        }
+      ],
+      "output": "soyo-reading-violet-literary-v1.png",
+      "source": "soyo-reading-violet-literary-v1.source.json"
+    },
+    {
+      "id": "soyo-reading-rain-literary-v1",
+      "prompt": "soyo-reading-rain-literary-v1.prompt.json",
+      "activity": "reading",
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "inputs": [
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "role": "approved matching empty weather/light plate",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-rain-night-v1.primary-approval.json"
+        },
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-a\\soyo-reading-apricot-literary-v1.png",
+          "sha256": "d0d179ddadd7638eea42b51c3e158ed820f1bb65deea5ccc73a625eac459369e",
+          "role": "approved same-activity apricot pose/identity/support authority",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-a\\soyo-apricot-wave-a-primary-mother-admission-v1.json"
+        }
+      ],
+      "output": "soyo-reading-rain-literary-v1.png",
+      "source": "soyo-reading-rain-literary-v1.source.json"
+    },
+    {
+      "id": "soyo-planning-mist-literary-v1",
+      "prompt": "soyo-planning-mist-literary-v1.prompt.json",
+      "activity": "planning",
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "inputs": [
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "role": "approved matching empty weather/light plate",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-overcast-day-v1.primary-approval.json"
+        },
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-a\\soyo-planning-apricot-literary-v1.png",
+          "sha256": "270017d960ec00da97493baf8120e16403ba534e4040dc5e9be72ef44e7fe6c9",
+          "role": "approved same-activity apricot pose/identity/support authority",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-a\\soyo-apricot-wave-a-primary-mother-admission-v1.json"
+        }
+      ],
+      "output": "soyo-planning-mist-literary-v1.png",
+      "source": "soyo-planning-mist-literary-v1.source.json"
+    },
+    {
+      "id": "soyo-planning-violet-literary-v1",
+      "prompt": "soyo-planning-violet-literary-v1.prompt.json",
+      "activity": "planning",
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "inputs": [
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "role": "approved matching empty weather/light plate",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-twilight-v1.primary-approval.json"
+        },
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-a\\soyo-planning-apricot-literary-v1.png",
+          "sha256": "270017d960ec00da97493baf8120e16403ba534e4040dc5e9be72ef44e7fe6c9",
+          "role": "approved same-activity apricot pose/identity/support authority",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-a\\soyo-apricot-wave-a-primary-mother-admission-v1.json"
+        }
+      ],
+      "output": "soyo-planning-violet-literary-v1.png",
+      "source": "soyo-planning-violet-literary-v1.source.json"
+    },
+    {
+      "id": "soyo-planning-rain-literary-v1",
+      "prompt": "soyo-planning-rain-literary-v1.prompt.json",
+      "activity": "planning",
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "inputs": [
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "role": "approved matching empty weather/light plate",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-rain-night-v1.primary-approval.json"
+        },
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-a\\soyo-planning-apricot-literary-v1.png",
+          "sha256": "270017d960ec00da97493baf8120e16403ba534e4040dc5e9be72ef44e7fe6c9",
+          "role": "approved same-activity apricot pose/identity/support authority",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-a\\soyo-apricot-wave-a-primary-mother-admission-v1.json"
+        }
+      ],
+      "output": "soyo-planning-rain-literary-v1.png",
+      "source": "soyo-planning-rain-literary-v1.source.json"
+    },
+    {
+      "id": "soyo-rest-mist-literary-v1",
+      "prompt": "soyo-rest-mist-literary-v1.prompt.json",
+      "activity": "rest",
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "inputs": [
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "role": "approved matching empty weather/light plate",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-overcast-day-v1.primary-approval.json"
+        },
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-a\\soyo-rest-apricot-literary-v1.png",
+          "sha256": "3bd75a744710a6b112696fbdea7502e54e18f6430bdbe1d785b2861c128d9463",
+          "role": "approved same-activity apricot pose/identity/support authority",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-a\\soyo-apricot-wave-a-primary-mother-admission-v1.json"
+        }
+      ],
+      "output": "soyo-rest-mist-literary-v1.png",
+      "source": "soyo-rest-mist-literary-v1.source.json"
+    },
+    {
+      "id": "soyo-rest-violet-literary-v1",
+      "prompt": "soyo-rest-violet-literary-v1.prompt.json",
+      "activity": "rest",
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "inputs": [
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "role": "approved matching empty weather/light plate",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-twilight-v1.primary-approval.json"
+        },
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-a\\soyo-rest-apricot-literary-v1.png",
+          "sha256": "3bd75a744710a6b112696fbdea7502e54e18f6430bdbe1d785b2861c128d9463",
+          "role": "approved same-activity apricot pose/identity/support authority",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-a\\soyo-apricot-wave-a-primary-mother-admission-v1.json"
+        }
+      ],
+      "output": "soyo-rest-violet-literary-v1.png",
+      "source": "soyo-rest-violet-literary-v1.source.json"
+    },
+    {
+      "id": "soyo-rest-rain-literary-v1",
+      "prompt": "soyo-rest-rain-literary-v1.prompt.json",
+      "activity": "rest",
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "inputs": [
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "role": "approved matching empty weather/light plate",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-rain-night-v1.primary-approval.json"
+        },
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-a\\soyo-rest-apricot-literary-v1.png",
+          "sha256": "3bd75a744710a6b112696fbdea7502e54e18f6430bdbe1d785b2861c128d9463",
+          "role": "approved same-activity apricot pose/identity/support authority",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-a\\soyo-apricot-wave-a-primary-mother-admission-v1.json"
+        }
+      ],
+      "output": "soyo-rest-rain-literary-v1.png",
+      "source": "soyo-rest-rain-literary-v1.source.json"
+    },
+    {
+      "id": "soyo-study-mist-literary-v1",
+      "prompt": "soyo-study-mist-literary-v1.prompt.json",
+      "activity": "study",
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "inputs": [
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "role": "approved matching empty weather/light plate",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-overcast-day-v1.primary-approval.json"
+        },
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-b\\soyo-study-apricot-literary-desk-v2.png",
+          "sha256": "2aafefdcb31e10b8f91de63a0e5ff6a2ee21d65026763ed072ea3aedb0688dd0",
+          "role": "approved same-activity apricot pose/identity/support authority",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-b\\soyo-apricot-wave-b-primary-mother-admission-v1.json"
+        }
+      ],
+      "output": "soyo-study-mist-literary-v1.png",
+      "source": "soyo-study-mist-literary-v1.source.json"
+    },
+    {
+      "id": "soyo-study-violet-literary-v1",
+      "prompt": "soyo-study-violet-literary-v1.prompt.json",
+      "activity": "study",
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "inputs": [
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "role": "approved matching empty weather/light plate",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-twilight-v1.primary-approval.json"
+        },
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-b\\soyo-study-apricot-literary-desk-v2.png",
+          "sha256": "2aafefdcb31e10b8f91de63a0e5ff6a2ee21d65026763ed072ea3aedb0688dd0",
+          "role": "approved same-activity apricot pose/identity/support authority",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-b\\soyo-apricot-wave-b-primary-mother-admission-v1.json"
+        }
+      ],
+      "output": "soyo-study-violet-literary-v1.png",
+      "source": "soyo-study-violet-literary-v1.source.json"
+    },
+    {
+      "id": "soyo-study-rain-literary-v1",
+      "prompt": "soyo-study-rain-literary-v1.prompt.json",
+      "activity": "study",
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "inputs": [
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "role": "approved matching empty weather/light plate",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-rain-night-v1.primary-approval.json"
+        },
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-b\\soyo-study-apricot-literary-desk-v2.png",
+          "sha256": "2aafefdcb31e10b8f91de63a0e5ff6a2ee21d65026763ed072ea3aedb0688dd0",
+          "role": "approved same-activity apricot pose/identity/support authority",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-b\\soyo-apricot-wave-b-primary-mother-admission-v1.json"
+        }
+      ],
+      "output": "soyo-study-rain-literary-v1.png",
+      "source": "soyo-study-rain-literary-v1.source.json"
+    }
+  ]
+}

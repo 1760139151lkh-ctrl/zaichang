@@ -279,12 +279,12 @@ export function registerWorkout(broker: CapabilityBroker, policy: PolicyKernel,
       effect: 'read', requiredScopes: ['evidence:read'], subjects: ['self'], worlds: ['real'],
       timeoutMs: 5000, maxBytes: 10000, supportsIdempotency: false, supportsInspect: false, supportsCancel: false,
     }], egressHosts: [], platforms: ['*'], simulated: false, offline: 'read_cache', license: 'Project source',
-  }, connectionStatus: () => ({ connected: !!getOwner(), ...(!getOwner() ? { reason: '当前没有本机运动记录入口。' } : {}) }),
+  }, connectionStatus: () => ({ connected: !!getOwner(), ...(!getOwner() ? { reason: '这次还没能读到地图里的本机运动记录，地图连接恢复后可以继续看。' } : {}) }),
   invoke: (_name, _args, ctx): CapabilityResult => {
     check(ctx);
     const owner = getOwner();
     if (!owner) return { status: 'not_connected', sourceId: WORKOUT_SOURCE_ID, simulated: false,
-      reason: '当前没有本机运动记录入口；这次尚未查看运动数据。', coverage: { complete: false, scope: '当前本地运动' } };
+      reason: '这次还没能取得地图里的本机运动记录；已有记录保持原样，地图连接恢复后可以再读。', coverage: { complete: false, scope: '当前本地运动' } };
     const view = workoutSummarySchema.parse(owner.summary());
     check(ctx);
     const meaning = describeWorkout(view);

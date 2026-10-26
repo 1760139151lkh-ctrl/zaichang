@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "directions": [
+    {
+      "direction": "A",
+      "file": "前端视觉创新设计/来源记录/2026-10-25-keep-and-continue/direction-a-content-folio-v1.png",
+      "sha256": "b2b70789efa0b36fd2ef2de6fdfb443c92784f1338017418565d3ba8ee45c291",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "source": "前端视觉创新设计/来源记录/2026-10-25-keep-and-continue/direction-a-content-folio-v1.source.json",
+      "sourceSha256": "1634329199f79ed0fa92c7c804ba9dff34e5353a7ff9282e0f2a90f12bb3f7dd"
+    },
+    {
+      "direction": "B",
+      "file": "前端视觉创新设计/来源记录/2026-10-25-keep-and-continue/direction-b-continue-thread-v1.png",
+      "sha256": "44344bdba529f908614a9410f07b86d9c13a7c67d57c90eb395fcdd654c269e7",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "source": "前端视觉创新设计/来源记录/2026-10-25-keep-and-continue/direction-b-continue-thread-v1.source.json",
+      "sourceSha256": "61875c9e7687c3391c43f5c273c11548823031b85fe1f3a44287e806f2193e8e"
+    }
+  ],
+  "sameActualContent": true,
+  "sameOnlyCleanPlateInput": true,
+  "latestUserSteering": "Quiet one-page Keep; no categories or assistant introduction, role-specific avatar/cat, compare multiple Image sources and copy combinations.",
+  "quietSinglePageDirections": [
+    {
+      "direction": "C",
+      "image": "direction-c-kept-page-v1.png",
+      "source": "direction-c-kept-page-v1.source.json",
+      "sha256": "9640f3f9bc1984a2b7cfc351ff9f0ddbf40186916a3c4d494dc87aecfabc9452",
+      "primarySelected": false
+    },
+    {
+      "direction": "D",
+      "image": "direction-d-within-reach-v1.png",
+      "source": "direction-d-within-reach-v1.source.json",
+      "sha256": "c6f027acfb242d2830efaf4731c1f23146574d4d723741b9dc93f55828c8cb7e",
+      "primarySelected": true,
+      "selectedScope": "Spatial relationship only."
+    }
+  ],
+  "currentProducerJudgment": "D is the stronger quiet main-room relation; C is preserved as dedicated-scene comparison with night-white-paper/physical miniature departures, not final. Root comparison remains independent.",
+  "rootSelectedSpatialDirection": "D with D2 hierarchy/material and nav-only/static plus source-quote relation",
+  "rootSelectionScope": "Root personally viewed all six; spatial/hierarchy/interaction intent admitted. No generatedruntimepixels or runtime/actualmotion admission.",
+  "refinementImages": [
+    {
+      "direction": "D2",
+      "image": "direction-d-within-reach-v2.png",
+      "source": "direction-d-within-reach-v2.source.json",
+      "sha256": "7f75e6d438d0f61661e86cc2cbd6ade72d2a83ad94437506a91744dd37c2e1cc",
+      "primaryApproved": true,
+      "primaryApprovedScope": "Space/hierarchy/interaction intent only; no runtimepixel/asset or actualmotion acceptance."
+    },
+    {
+      "direction": "D-source-quote-state",
+      "image": "direction-d-source-quote-state-v1.png",
+      "source": "direction-d-source-quote-state-v1.source.json",
+      "sha256": "026350d9b908bb8eb7b35c9f8bf22426d29709c29964a5ef972b5f42ec10f454",
+      "primaryApproved": true,
+      "primaryApprovedScope": "Space/hierarchy/interaction intent only; no runtimepixel/asset or actualmotion acceptance."
+    }
+  ],
+  "producerTextJudgment": "極簡 nav-only 留下 is calmer than repeating a large poetic masthead. D2 own-short-thought-first hierarchy is useful. No literal generated component/cat dimensions or duplicatecat adoption.",
+  "preparedNotCalled": [
+    "direction-c-kept-page-v2.request.json"
+  ],
+  "producerRecommendationAtABStage": "B as main entry structure; borrow A clear object names/original-page actions and bespoke red booklet; simplify B left rail/borders/glow before implementation. Static exploration only, root selects.",
+  "sameOnlyCleanPlateInputScope": "A/B only; C/D inputs individually recorded in their source records.",
+  "currentRootAdmission": "root-primary-design-admission.json",
+  "rootPersonallyViewedAllSix": true,
+  "runtimeAcceptedCount": 0,
+  "imageGroupFrozen": true,
+  "publicationScope": {
+    "status": "local-comparison-archive",
+    "publicNavigation": "PUBLIC_PROVENANCE.md",
+    "publicContentBrief": "public-content-brief.json",
+    "actualComparedWideImageCount": 6,
+    "actualComparedNarrowImageCount": 4,
+    "selectedPublicImages": [
+      "direction-d-within-reach-v2.png",
+      "direction-d-source-quote-state-v1.png",
+      "narrow-window/keep-narrow-b-quiet-desk-attachment-v2.png"
+    ],
+    "unselectedComparisonFiles": "Retained locally and not implicitly part of the selected public sync.",
+    "privateValidationBrief": "withheld-local-only; ordinary public navigation uses public-content-brief.json"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "cell": "sakiko/resume/mist",
+  "character": "sakiko",
+  "activity": "resume",
+  "palette": "mist",
+  "stage": "F1",
+  "assetType": "raw-Image-source-selection-mask-or-markup",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: precise-object-edit. Asset type: full foreground source selection markup F1, Sakiko RESUME MIST current v4 dark-sock source. The ONLY input is this exact root-approved complete 1536x1024 original mother, not a screenshot or old held image. Preserve the full original canvas, camera, room, person's pose/expression/proportions, book, every object and SOURCE COORDINATE.\n\nPaint the ENTIRE visible original Sakiko plus the ENTIRE held OPEN BOOK solid PURE WHITE directly over their existing pixels. Include every long blue-lavender hair strand/tip, both dark side ribbons and trailing ties, face/neck, both complete hands/fingers including page-touching fingertip, every cardigan/blouse collar/bow/sleeve/cuff, complete plaid skirt and all dark underside folds/hem tips, both exposed knees, both DARK BELOW-KNEE CALF SOCKS, and BOTH COMPLETE LOAFERS down to every toe, sidewall, dark outsole rim, heel back and heel block. The open book includes both covers, spine, all pages and fine lower page edges beneath the supporting hand. White interiors are completely solid: no face/eye holes, garment linework or book text/color remains. Do not shave dark skirt tips or dark shoe sole rims as if they were receiver shadow.\n\nObservation neighborhoods ONLY, NOT white rectangles: full foreground approximately x810..1375,y86..936; held open book x970..1182,y411..532; complete loafers x809..1007,y827..937. Follow exact natural silhouette/antialias and preserve real background gaps between strands, limbs and book. Do not redraw or resize Sakiko, change socks, straighten legs or move any part to fit these rough limits. Current accepted minor pose/scale/gaze variations are deliberately preserved.\n\nKeep ALL remaining room pixels ORIGINAL COLORED: actual linen cushion/support contact, plaid pillows, knitted throw, lamp/cup/flowers/round table, desk/chair/shelves/plants, curtains/windows/lake/town, floor/rug and independent local room/body/shoe cast/receiving shadows. Natural bright sun/linen/lamp/curtain/flower regions are NOT foreground. Do not whiten the whole bench or window-grid sunlight. Only original figure/ribbons/hands/book/clothes/legs/whole shoes are selected.\n\nOutput ONE opaque original-position 1536x1024 PNG: original colored mother with only the complete girl + held open book painted pure white in place. No black background yet, new person/book/pose/geometry, translation/recentering/zoom/resize/crop, text, arrows, labels, grid, boxes or outlines. This is a same-mother selection intermediate, not new human art.",
+  "submittedPromptSha256": "5b762d3345a589b910b3500258cbeb9851cbcf5ae50627d7b1cddf25967bb2b0",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-resume-mist-soft-recognition-v4.png",
+      "sha256": "9c9e2aa283a1d809a3e6edf9f574e026de3046093e6c8dcd8b7c0316961dc624",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    }
+  ],
+  "originalRgbOwner": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-resume-mist-soft-recognition-v4.png",
+    "sha256": "9c9e2aa283a1d809a3e6edf9f574e026de3046093e6c8dcd8b7c0316961dc624",
+    "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-resume-mist-soft-recognition-v4.source.json",
+    "sourceRecordSha256": "15c8a582a317dd760947eb56b6bfc31d6ed78fd63d06ac4d4bd02c6ae73a0371",
+    "rootMotherStaticReview": {
+      "status": "approved_static_mother",
+      "reviewer": "root",
+      "observed": "Actual whole image inspected. Familiar-person recognition in soft gold eyes/small smile, page-holding hand and supported book; two knees exposed above dark navy below-knee socks, complete grounded shoes; hip/cushion and legs continuous; overcast diffuse room light. New image built only from clean plate and independent identity portrait, not white-sock v3 or old mature resume."
+    }
+  },
+  "method": "Actual Image same-mother F1/F2 or S1/S2 chain. F is whole human/ribbons/hands/held book/clothing/knees/calf socks/complete shoes. S includes real source-local seat and full soft grounded floor receiver, not just sole line; original RGB MAX(F,S) drawn once only.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\sakiko\\shared-attention-v2\\layers\\resume-mist\\figure-step1-marked-v1.png",
+    "sha256": "624a1afb1b5b875bbde547383f5c5f484e71fc1cd2e8dfe97ab372d4b531d9dc",
+    "bytes": 2342231,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-08612d9e-5946-4a82-8b34-bd58b3ac2a3b.png",
+    "pngBytesUnchanged": true
+  },
+  "producerObservation": {
+    "personallyViewedFullNative": true,
+    "observation": "Full native 1536×1024 F1 personally viewed: exact current dark-sock resume-v4 mother figure, all hair/ribbons, both hands and held open navy book, skirt/exposed knees/calf socks/full loafers marked white at source positions; fine internal book/sole lines remain for a later F2 if authorized. Colored room remains original selection context, not layer RGB. Saved healthy incomplete-stage output under root's new '留下' priority; no new call started, no source reconstruction or runtime approval."
+  },
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "sourceOrigin": [
+      0,
+      0
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": "included",
+    "independentCaster": false
+  },
+  "motherReconstructed": false,
+  "primaryLayerApproved": false,
+  "layerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "status": "producer-candidate-awaiting-source-RGB-union-browser-and-root-review",
+  "inputBoundary": "Only current exact root-approved mother and its correct same-canvas working intermediates. No HOLD rain-attention-v2, white-sock resume-mist-v3, screenshot, audit collage or other mother mask.",
+  "promptFile": "figure-step1-marked-v1.prompt.json",
+  "promptFileSha256": "86be9d4bdc086a8b88d0fdf7490910c09902537ce40de4d826a466f0afaee1c9"
+}

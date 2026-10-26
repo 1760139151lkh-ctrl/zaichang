@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "cell": "sakiko/attention/apricot",
+  "character": "sakiko",
+  "activity": "attention",
+  "palette": "apricot",
+  "stage": "F1",
+  "assetType": "raw-Image-source-selection-mask-or-markup",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: precise-object-edit. Asset type: full foreground source selection markup F1, Sakiko ATTENTION APRICOT. The ONLY input is this exact root-approved complete 1536x1024 original mother, not a screenshot or old held image. Preserve the full original canvas, camera, room, person's pose/expression/proportions, book, every object and SOURCE COORDINATE.\n\nPaint the ENTIRE visible original Sakiko plus the ENTIRE held OPEN BOOK solid PURE WHITE directly over their existing pixels. Include every long blue-lavender hair strand/tip, both dark side ribbons and trailing ties, face/neck, both complete hands/fingers including page-touching fingertip, every cardigan/blouse collar/bow/sleeve/cuff, complete plaid skirt and all dark underside folds/hem tips, both exposed knees, both DARK BELOW-KNEE CALF SOCKS, and BOTH COMPLETE LOAFERS down to every toe, sidewall, dark outsole rim, heel back and heel block. The open book includes both covers, spine, all pages and fine lower page edges beneath the supporting hand. White interiors are completely solid: no face/eye holes, garment linework or book text/color remains. Do not shave dark skirt tips or dark shoe sole rims as if they were receiver shadow.\n\nObservation neighborhoods ONLY, NOT white rectangles: complete foreground approximately x900..1370,y112..935; held open book approximately x997..1261,y457..531; original two loafers approximately x902..1100,y823..935. Follow exact natural silhouette/antialias and preserve real background gaps between strands, limbs and book. Do not redraw or resize Sakiko, change socks, straighten legs or move any part to fit these rough limits. Current accepted minor pose/scale/gaze variations are deliberately preserved.\n\nKeep ALL remaining room pixels ORIGINAL COLORED: actual linen cushion/support contact, plaid pillows, knitted throw, lamp/cup/flowers/round table, desk/chair/shelves/plants, curtains/windows/lake/town, floor/rug and independent local room/body/shoe cast/receiving shadows. Natural bright sun/linen/lamp/curtain/flower regions are NOT foreground. Do not whiten the whole bench or window-grid sunlight. Only original figure/ribbons/hands/book/clothes/legs/whole shoes are selected.\n\nOutput ONE opaque original-position 1536x1024 PNG: original colored mother with only the complete girl + held open book painted pure white in place. No black background yet, new person/book/pose/geometry, translation/recentering/zoom/resize/crop, text, arrows, labels, grid, boxes or outlines. This is a same-mother selection intermediate, not new human art.",
+  "submittedPromptSha256": "8ac6f24f599e98517648fa103ca4e3793010c1169785d35ae7e74cbdfcc7b858",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-apricot-shared-page-v2.png",
+      "sha256": "f04805d0e723420c48cf4e16005d4c863df50042339c65290a34491e553de238",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    }
+  ],
+  "originalRgbOwner": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-apricot-shared-page-v2.png",
+    "sha256": "f04805d0e723420c48cf4e16005d4c863df50042339c65290a34491e553de238",
+    "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-apricot-shared-page-v2.source.json",
+    "sourceRecordSha256": "eb4a257d8ba38e8df98eddbd86ce907a0f48cd441881555253b20180c4d434ec",
+    "rootMotherStaticReview": {
+      "status": "approved_static_mother",
+      "reviewer": "root",
+      "observed": "Actual full output inspected: soft youthful gold eyes/blue-purple hair, finger has a visible book-page contact, other hand supports book; hip supported on cushion, two uncovered knees/below-knee calf socks and complete grounded shoes; consistent clear-day warm room. This proves a still shared attention direction, not a live model having read user PDF."
+    }
+  },
+  "method": "Actual Image same-mother F1/F2 or S1/S2 chain. F is whole human/ribbons/hands/held book/clothing/knees/calf socks/complete shoes. S includes real source-local seat and full soft grounded floor receiver, not just sole line; original RGB MAX(F,S) drawn once only.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\sakiko\\shared-attention-v2\\layers\\attention-apricot\\figure-step1-marked-v1.png",
+    "sha256": "4055e8f01d62879f20facec0bea66d7d5ae706c33b6e99ba91d9edcba209e0a4",
+    "bytes": 2299514,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-5464c2dc-7e5b-4541-b5e9-d408baff21d4.png",
+    "pngBytesUnchanged": true
+  },
+  "producerObservation": {
+    "personallyViewedFullNative": true,
+    "observation": "Full native 1536×1024 viewed: entire original long hair/ribbons/figure/book/hands/skirt/knees/calf-socks and complete shoes marked white at original positions; natural hair/leg gaps remain room. Thin faint residual book/sole interior linework remains in F1 and must be made solid in F2; no actual colored figure patch or broad room selection observed. Original colored room retained as selection context only, never adopted as layer RGB."
+  },
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "sourceOrigin": [
+      0,
+      0
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": "included",
+    "independentCaster": false
+  },
+  "motherReconstructed": false,
+  "primaryLayerApproved": false,
+  "layerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "status": "producer-candidate-awaiting-source-RGB-union-browser-and-root-review",
+  "inputBoundary": "Only current exact root-approved mother and its correct same-canvas working intermediates. No HOLD rain-attention-v2, white-sock resume-mist-v3, screenshot, audit collage or other mother mask.",
+  "promptFile": "figure-step1-marked-v1.prompt.json",
+  "promptFileSha256": "f7819b52a08e70bf91c0ae3177a9d86706a8541cb56446d22479dfa3a360437f"
+}

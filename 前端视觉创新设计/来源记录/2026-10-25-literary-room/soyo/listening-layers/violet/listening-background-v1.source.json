@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "character": "soyo",
+  "activity": "listening",
+  "palette": "violet",
+  "stage": "BG",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: precise-object-removal and background inpainting. Create the matching EMPTY BACKGROUND for this exact approved Soyo Nagasaki LISTENING violet mother. This original complete 1536x1024 mother is the ONLY image input. Do NOT use or imitate an older generic empty plate, mask, composite, contact sheet or screenshot.\n\nRemove completely:\n- the entire seated girl, every fine long hair strand, face, both empty hands, all sailor clothing and trailing skirt folds, bare knees, dark socks and both complete brown loafers;\n- the SEPARATE CLOSED BOOK lying flat on the cushion to her image-right, including all covers, page block and spine;\n- ONLY their near local effects: person/garment/book contact/cast shade on immediately adjacent linen, body-weight cushion compression/indentation, book-bottom support/shadow, and the true local sole/floor contact darkness/reflection contributed by their shoes. No human, hair, book, shoe ghost, cutout edge or dark old contact stain may remain.\n\nReconstruct these now-vacant original areas naturally at the SAME source coordinates. Continue the existing cream quilted/linen window-bench cushion, its folds/seam and thickness across where hips/skirt/book were; restore unloaded linen rather than a body-shaped dent. Continue the visible wooden floorboards' perspective, grain, material reflectance and the room's existing light where the legs/shoes were. Continue any background window/lake/town detail previously occluded by the girl coherently from the neighboring source. Do not add new props.\n\nKeep the entire rest of the mother unchanged in composition, original camera and depth, 1536x1024 canvas, window divisions, lake/town/mountains, dusk sky, left desk/chair/shelves/plants, brass desk lamp, original round table/ceramic lamp/cup/flowers, blue plaid pillows, knit throw, rug and floor framing. Do not move or resize the round table, lamp, chair or bench to fill the vacancy. Preserve unrelated real furniture shadows and dusk/lamp illumination; erase only the removed person's/book's local effects.\n\nPreserve this exact VIOLET DUSK light field: orange-pink fading sky and purple-blue mountains, town lights and warm room lamps. New linen and floor material must accept the same light as their neighbors, without a flat white patch, black hole, uniform color fill or blurry clone. Do not keep a person's dark shoe contact when the shoes are gone; do not retint a different plate, introduce a noon sun patch or change room exposure. The result should be a plausible quiet room just after the person and her book have left, not a new room or illustration.\n\nOutput exactly ONE opaque 1536x1024 landscape EMPTY ROOM PNG with the same unshifted source camera/anchors. No person, body, hair, book, shoes, new object, UI, text, frame, arrows, labels, grid, crop, zoom, recentering or rescaling.",
+  "promptSha256Utf8NoTrailingLF": "eca71d225d224c96ce0fc1baa760cfb0c3f0e3a3c164236eef865a4d236a9316",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-violet-literary-v1.png",
+      "sha256": "99ebaaa7158f9cf12c3308fa4fa0231e136b51ad6a81add4693159fb2a103ccb",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "sourceMotherSha256": "99ebaaa7158f9cf12c3308fa4fa0231e136b51ad6a81add4693159fb2a103ccb",
+  "approvalEvidence": "Root static mother approval relayed by openui_creation; new necessary same-mother BG task explicitly delegated after joint source/old-plate mismatch. Exact mother independently viewed and SHA verified. New BG not primary-approved.",
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/soyo.md",
+      "sha256": "1ec8b260d40f8363c096ed8392547dd276d2318df5aadbe34b1f51e51e2ed04e",
+      "readScope": "Complete current text read before this layer task"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "readScope": "Complete current text read before this layer task"
+    }
+  ],
+  "method": "Built-in ImageGen object removal/inpainting from exact approved complete mother ONLY. Remove full person, independent closed book and their local contacts/compression/reflection; reconstruct linen/floor/occluded scene at same canvas. No old plate, mask, composite, color filter or manual pixel editing.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\listening-layers\\violet\\listening-background-v1.png",
+    "sha256": "8b34b7661386796db687eb8d35ca4d44da0fc1cf98fd9159ff8daacbad8111ea",
+    "bytes": 2310034,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-db88f808-a98d-4359-9b05-cb3a1bea458a.png",
+    "pngBytesUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "fullNativeImage": true,
+    "observations": "亲看完整1536×1024：全人物/细发/双鞋和右侧合书均移除，原处软垫连续补回、不见身体形压痕；鞋位回到连续木纹和现有暮色灯光反光，未见人形/鞋底接触残黑。窗格、左桌椅、圆几灯杯、格纹靠垫与毯的主要锚点未见明显移动；被人遮住的窗/湖镇新补为连贯景。没有新道具/人/书。隐藏材质是新推绘，不称原隐藏像素精确还原，最终固定联合仍由caller实看。"
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "status": "producer-candidate-awaiting-fixed-source-RGB-union-and-primary-review",
+  "useBoundary": "New same-mother empty BG candidate for fixed included composition. Previously occluded material is reconstructed, not certified recovered original hidden pixels. Main anchors/light and final original-RGB joint composite require visual primary review.",
+  "assetType": "same-mother-reconstructed-empty-background"
+}

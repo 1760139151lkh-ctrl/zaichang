@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "character": "taki",
+  "sceneCategory": "S9_RESUME",
+  "semanticAction": "welcome-resume",
+  "palette": "rain",
+  "intendedCanvas": [
+    1536,
+    1024
+  ],
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "executionId": "exec-f58d3581-503e-4f59-9827-56eb0863f0cf",
+  "observedAtUtc": "2026-10-25 02:20:52 UTC",
+  "promptFile": "taki-resume-rain-mother-v1.prompt.txt",
+  "promptFileSha256": "16588332fd8c62567d4c88464b16089a8f7e38da569083d3cdf7c7abfb27eda6",
+  "submittedPrompt": "Exact UTF-8 promptFile contents with leading/trailing whitespace trimmed; identical string submitted to the tool.",
+  "inputs": [
+    {
+      "role": "primary-approved apricot mother; accepted character, pose, limb proportions and contacts",
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/resume/taki-resume-apricot-mother-v1.png",
+      "sha256": "cc83d2b25be52d462f2328551a132e61615fe9ddbce71129cef749543a73ef2a"
+    },
+    {
+      "role": "personally viewed clean empty matching night-rain room; complete light/weather reference",
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "transparentBackground": false,
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/resume/taki-resume-rain-mother-v1.png",
+    "defaultToolPath": "C:/Users/17601/.codex/generated_images/01a16fb5-6e96-71d2-a0fa-07807b277582/exec-f58d3581-503e-4f59-9827-56eb0863f0cf.png",
+    "sha256": "b9a33c2a19171c1bc16898e0b1e61b26d4a071c41b4d88258397bab2f648fa46",
+    "bytes": 2110163,
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "copyMethod": "Copy-Item without image processing; default tool output retained"
+  },
+  "status": "candidate-awaiting-primary-review",
+  "review": {
+    "personallyViewedOutput": true,
+    "approvedByPrimary": false,
+    "layersAccepted": false,
+    "runtimeAccepted": false,
+    "note": "Personally viewed the returned complete rainy-night mother. Youthful taki identity and the accepted hand/pad/bench support, seated contact and two complete uncrossed leg/shoe chains remain coherent. The whole room is a blue rainy exterior with amber indoor lamp light, without daytime sun patches or a newly sad expression. Intrinsic uniform/hair colors remain recognizable. No layer, runtime or real-owner recovery acceptance is inferred."
+  }
+}

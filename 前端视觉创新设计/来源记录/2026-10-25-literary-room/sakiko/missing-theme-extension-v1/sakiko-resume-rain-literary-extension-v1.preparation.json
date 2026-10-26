@@ -1,0 +1,47 @@
+{
+  "cell": "sakiko/resume/rain",
+  "role": "sakiko",
+  "activity": "resume",
+  "palette": "rain",
+  "stem": "sakiko-resume-rain-literary-extension-v1",
+  "directory": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\sakiko\\missing-theme-extension-v1",
+  "prompt": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\sakiko\\missing-theme-extension-v1\\sakiko-resume-rain-literary-extension-v1.prompt.txt",
+  "inputFiles": [
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+    "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/sakiko-recognition-apricot-v2.png"
+  ],
+  "approvedSeedInspected": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/sakiko-recognition-apricot-v2.png",
+    "sha256": "a8801f784b77d632509818d102a8b899d0bdda99afe904085196a9e8c5bee279",
+    "bytes": 2460394,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "format": "PNG"
+  },
+  "seedActuallyInput": true,
+  "seedDecision": "Approved source personally viewed: healthy supported identity/wardrobe/action used for continuity only.",
+  "brief": {
+    "index": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/sakiko/sakiko-literary-room-36-cells-v1.json",
+      "sha256": "a771f7473ebeb6dfed1d1143ef83cf41f0037885ed750ee1914c01e1a07eec2d",
+      "bytes": 124020,
+      "capturedAt": "2026-10-25T09:14:03.049739+00:00"
+    },
+    "jsonPointer": "/cells/35",
+    "briefKey": "sakiko/resume/rain",
+    "producerBriefRef": null
+  },
+  "targetPlate": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+    "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+    "bytes": 2270751,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "format": "PNG"
+  },
+  "plan": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\missing-human-mother-production-plan-v1.json"
+}

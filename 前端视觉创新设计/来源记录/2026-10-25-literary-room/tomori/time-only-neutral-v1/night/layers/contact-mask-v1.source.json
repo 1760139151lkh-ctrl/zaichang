@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "recordType": "source-rgb-included-layer-image-stage",
+  "characterId": "tomori",
+  "neutralTime": "night",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "stage": "S2",
+  "tool": "image_gen.imagegen",
+  "toolElapsedMs": 18088,
+  "recordedAt": "2026-10-26T01:36:59.166241+00:00",
+  "sourceConversationId": "01a17365-def4-7ef0-9767-09f785cec060",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/night/layers/contact-step1-marked-v1.png",
+      "sha256": "298356798943a9bfef95e8ca8ab267729e748713e584870ba455d28b0d0335a4",
+      "role": "Only personally inspected healthy night S1 deliberate local receiver markup; same-coordinate mask conversion",
+      "personallyViewedBeforeGeneration": true
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: background-extraction. S2 conversion of ONLY this healthy same-mother NIGHT S1 deliberate white receiver markup into an opaque1536x1024 black/white/soft-edge-gray luminance mask. EXACT canvas and source positions. Do not rediscover, move, resize or redesign the original marked patches. No crop/zoom/recenter.\n\nONLY deliberately added white areas in this input become WHITE: the small actual visible linen receiver immediately under/right seated hem, and FULL short local soft wood receiver footprints around BOTH complete shoes. Preserve their present full-area cores and diffuse outer edge, not shrinking to sole lines and not extending into a broad floor/illumination band. Keep original marked patch positions; no upward shift onto skin/plaid hem, no new empty-cushion island or bench-wide strip. The two shoe receiver areas may touch only where this markup already touches. Shoe leather/sole shapes themselves BLACK; F already preserves full shoes.\n\nEverything else BLACK: entire original colored girl, fine hair/face/clothes/skin/hands/pencil/notebook/legs/socks/shoes, all originally natural warm/pale curtain/linen/throw/lamp/shade/flowers/cup/bookstack, furniture/plants/rug/far floor/reflections, broad warm lamp glow and unrelated cast shade. Natural material brightness is not deliberate flat white markup; this is semantic conversion, never a brightness threshold. No generic oval/rectangle or portable blackblob, new shadow rendering, texture, color, checkerboard, guide or labels.\n\nKeep full WHITE receiver centers so the exact original darkened wood/linen grounding returns, with gray only original marked soft outside boundary. This coverage selects unchanged source RGB once through U=MAX(L(F),L(S)), travel/slope/perspective0, not independently movable shadow.",
+  "submittedPromptSha256": "7356d48e29a1b2ec04d77d053901197211a3c97b7261574337dd826aebcca9ff",
+  "promptFile": "contact-mask-v1.prompt.txt",
+  "promptFileSha256": "52042cf07c13512b8c3a24f0ec933601562caf349f6ca228b4820b20c60328f8",
+  "requestFile": "contact-mask-v1.request.json",
+  "requestSha256": "372b5fb57decd5ee9cb9e39c901524a00d7fcda2b7fce6498ea9043cce38c1d5",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-35e48e04-acee-47bb-aaea-228f469ab9e3.png",
+  "toolOriginalSha256": "0b70195abf477518d1f81159477bb7120962faeb37b924373c7f6df5db919796",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/night/layers/contact-mask-v1.png",
+    "sha256": "0b70195abf477518d1f81159477bb7120962faeb37b924373c7f6df5db919796",
+    "bytes": 322068,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true,
+    "resizedOrRetouched": false
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "status": "candidate_await_original_rgb_review",
+    "observations": "Whole S2 viewed: one short actual right-hem linen receiver and full soft two-shoe floor footprints retained at S1 positions; no forced thigh/hem island, no broad lamp floor pool or empty bench strip selected. Final source-RGB same-mother BG review pending."
+  },
+  "primaryApproved": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "generationInputAllowed": false,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "original360ExactActivityCell": false,
+  "sourceCodeOrRegistryChanged": false
+}

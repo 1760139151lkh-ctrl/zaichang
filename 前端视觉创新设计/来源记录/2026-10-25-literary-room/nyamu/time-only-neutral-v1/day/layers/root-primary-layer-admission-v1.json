@@ -1,0 +1,428 @@
+{
+  "schemaVersion": 1,
+  "recordType": "root-primary-time-only-neutral-static-included-layer-admission",
+  "recordedAtUTC": "2026-10-26T01:21:50.944263+00:00",
+  "character": "nyamu",
+  "sceneFamily": "literary-room-v1",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "mapping": {
+    "palette": "mist",
+    "light": "morning"
+  },
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "weatherClaim": false,
+  "approvalEvidence": {
+    "source": "Direct parent /root message in this healthy task session after root personally viewed all14 exact actual Browser views. This record transcribes static selected-SHA primary approval, not independent runtime evidence.",
+    "messageVerbatim": "Root已亲看Nyamu day/night共14张实际Browser01–07全部，静态层主审准入这两组selectedSHA。日夜都保完整颈带、纸扇薄边/双手，裙布坐面与踝带鞋heel/toe/软接地，原景单次RGB MAX下无可见盒缝；S布木/鞋局部固定included不是caster，无自由平移或动态签字。请于当前Image调用自然完成边界，先记录逐SHAroot-primary-layer-admission并将两套8PNG+2scene.json准确注册Runtime（各自id nyamu-neutral-presence-time-{day,night}-included-v1，purpose neutral-presence，neutralTime、day/mist/morning、night/rain/night、environmentVariant留空；0travel/slope/persp、真实U包络/接收几何不删），参考现Saki两neutral。同族camera不动，Root后亲操unknown场景；不计360。注册后继续Umiri原任务，别替换健康session。不改TS/CSS/9335。source/runtime各selectedSHA字节核齐、npm run check即可。其余agent均不会写你这2文件组。",
+    "primaryPersonallyViewed": true,
+    "views": [
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/browser-observations/01-scene.png",
+        "sha256": "fb873f56a45ab4476767e3b228d0136feae04a9a4913285551b4f961d1e10c04",
+        "bytes": 85473,
+        "canvas": [
+          839,
+          582
+        ],
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/browser-observations/02-subject.png",
+        "sha256": "b7131f03c8442ae8ab39654101ef2c72e82987a49b240859caf9f0584348cf71",
+        "bytes": 65398,
+        "canvas": [
+          839,
+          582
+        ],
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/browser-observations/03-face.png",
+        "sha256": "c6a857e533d38e53a8d3ac35c8667edf892eefdaa910ea473e94cddcefb7e75d",
+        "bytes": 81723,
+        "canvas": [
+          839,
+          582
+        ],
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/browser-observations/04-props.png",
+        "sha256": "8b3f651b5a2b92204476ebb57eb0c254961eb961afe5ebed744e5f4dad7f922b",
+        "bytes": 82421,
+        "canvas": [
+          839,
+          582
+        ],
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/browser-observations/05-seat.png",
+        "sha256": "90bd81fe19dd151227b90976bb6d202e8db3840d629d0379bea2dbfa57910f88",
+        "bytes": 71513,
+        "canvas": [
+          839,
+          582
+        ],
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/browser-observations/06-shoes.png",
+        "sha256": "4562061366ae37a493a176680767104d28941f53b47943a850c934a7f9f70f4c",
+        "bytes": 63527,
+        "canvas": [
+          839,
+          582
+        ],
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/browser-observations/07-contact.png",
+        "sha256": "e9d51cce3ea405795bc291d3b7436e62d81e4918cfcba881a3ae277d018ea486",
+        "bytes": 56008,
+        "canvas": [
+          839,
+          582
+        ],
+        "imageGenerationInputAllowed": false
+      }
+    ]
+  },
+  "primaryLayerApproved": true,
+  "runtimeRegistered": true,
+  "runtimeAccepted": false,
+  "dynamicAdmission": false,
+  "original360CreditAssigned": false,
+  "userApproved": false,
+  "selected": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/nyamu-neutral-presence-time-day-v1.png",
+      "sha256": "5df25df2667581917ee3e312218810da2424bcd573be4418b245ac7d05dc755d",
+      "bytes": 2443868,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "F": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/figure-mask-v1.png",
+      "sha256": "b876a24a6c809f781abcbeeb58005a5dad9dba73d72d15e7267442bad4e3d5c5",
+      "bytes": 422002,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "S": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/contact-mask-v3.png",
+      "sha256": "1676a9c48a2c910346cb0d5f6fa64ae88e0d92e3ce377e6e24fd55fdc279fda9",
+      "bytes": 338563,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "BG": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/background-v1.png",
+      "sha256": "1ffa461cec7b1677fecb84b1b9b6979f4cb867bf6065ad79866d1d7688ded578",
+      "bytes": 2368401,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    }
+  },
+  "productionBundle": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/assembly-v1.json",
+    "sha256": "f96fc16ed3077e481e3a5b6fee63fa8938e33339d5345d3c4f450a5692bc39ff",
+    "bytes": 18642
+  },
+  "originalUnionSvg": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/union-source-v1.svg",
+    "sha256": "1d1370142656b5efd6bd40bf81740e927148f6154a9c0ebd31145ff0dfa855aa",
+    "bytes": 1340
+  },
+  "originalCompositeSvg": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/composite-source-v1.svg",
+    "sha256": "90697e3632e97617de116a9edc65e24a32168cae9cb59978224c7e90f481cb5a",
+    "bytes": 1444
+  },
+  "assembly": {
+    "formula": "U=MAX(L(F),L(S))",
+    "luminanceCoefficients": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorInterpolationFilters": "sRGB",
+    "nativeImplementation": "feColorMatrix then feBlend lighten then luminance mask; original mother image once",
+    "sourceRGBDrawCountPerUnion": 1,
+    "sourceRGBDrawCountPerComposite": 1,
+    "generatedMarkupRGBAdopted": false,
+    "sameMotherImageRemovalBG": true,
+    "commonPlateUsedInsteadOfSameMotherBG": false,
+    "fixedOriginalPositionMaterialReceiver": true,
+    "independentActorPropReceiverMovementAllowed": false,
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "pngPixelEditing": false,
+    "manualMaskPainting": false,
+    "croppingResizingSourcePNG": false,
+    "thresholdMorphologyEditing": false
+  },
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "figureEnvelope": {
+      "sourcePixels": [
+        881,
+        110,
+        1297,
+        874
+      ],
+      "normalized": [
+        0.5735677083333334,
+        0.107421875,
+        0.8444010416666666,
+        0.853515625
+      ]
+    },
+    "jointReceiverEnvelope": {
+      "sourcePixels": [
+        834,
+        110,
+        1297,
+        893
+      ],
+      "normalized": [
+        0.54296875,
+        0.107421875,
+        0.8444010416666666,
+        0.8720703125
+      ]
+    },
+    "basis": "Read-only sRGB Rec.709 F >32 and MAX(L(F),L(S)) >32 geometry, right/bottom exclusive; original continuous PNG luminance unchanged.",
+    "supportAnchors": {
+      "seatPixels": [
+        1180,
+        568
+      ],
+      "groundPixels": [
+        1000,
+        867
+      ],
+      "basis": "Registrar personally viewed this exact full mother. Seat reference is visible lower skirt/linen contact, ground reference lies in local contact area of both complete source ankle-strap shoes; fixed visible support points, not hidden-joint reconstruction or travel calibration."
+    },
+    "existingFamilySceneCount": 23,
+    "priorFamilyUnpaddedBounds": [
+      0.055338541666666664,
+      0.0888671875,
+      0.904948,
+      0.9091796875
+    ],
+    "priorFamilyFramingBounds": [
+      0,
+      0.0771484375,
+      0.967448,
+      0.9208984375
+    ],
+    "newUnionFitsInsideExistingUnpaddedBounds": true,
+    "familyFramingBoundsAfterRegistration": [
+      0,
+      0.0771484375,
+      0.967448,
+      0.9208984375
+    ],
+    "familyCameraCodeChanged": false,
+    "familyFramingBasis": "Current roomFramingBounds in src/renderer/companion-scenes.tsx; admitted body/seat/ground/receiver and interaction geometry plus unchanged96px horizontal/12px vertical safety margins. All current family travel/slope/perspective zero.",
+    "currentFamilyRegistrationFiles": [
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/anon-chat-apricot-literary-v1.scene.json",
+        "sha256": "b0aac58fcd4f820b425a5a6765a782557064eb894691e44be53a3f11a1311958",
+        "bytes": 3618
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/mutsumi-chat-apricot-literary-v1.scene.json",
+        "sha256": "de430c744e17131ab9a82104a91403994065ea92124074ff2b02a97ad142eb03",
+        "bytes": 2671
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/nyamu-chat-apricot-literary-v1.scene.json",
+        "sha256": "20b0e62a649aff8de592f0eef494ec3428baef1bc7710b6fc37873077e90d6e3",
+        "bytes": 2663
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/rana-chat-apricot-literary-v1.scene.json",
+        "sha256": "3ce1a789b7669aec418d2c02fede0f033ef49bab857fe325b16e23e133eb4be7",
+        "bytes": 2688
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-apricot-literary-v1.scene.json",
+        "sha256": "e7470993948a7807f8a61ce3ff1643f870701a4162fff1029432e28663a4a546",
+        "bytes": 2718
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-dry-night-literary-v1.scene.json",
+        "sha256": "683cdfa4d90eeffcd15e1613c28e0f1084de290494cb6bf0a7367a5313c20c74",
+        "bytes": 2897
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-neutral-reading-time-day-included-v1.scene.json",
+        "sha256": "041ab7a2f5c79218682da1c5c49472c19c0e677998a6485271dfee33c36fe3a1",
+        "bytes": 4046
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-neutral-reading-time-night-included-v1.scene.json",
+        "sha256": "f05463c2653a7f8dcfe2777d9a3e19c44f3efbc4956b9fa6037808afecea8545",
+        "bytes": 4155
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-reading-apricot-literary-v1.scene.json",
+        "sha256": "4aff4a06c77a25981ae062a9f8e6ba97942f79798366d74532531e8938b8a018",
+        "bytes": 2311
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-resume-apricot-recognition-v2.scene.json",
+        "sha256": "c7bc48eeedcbd87776200db9dc7916e303679f2d36f736611a17568a38f18d7b",
+        "bytes": 3176
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-study-apricot-literary-desk-v1.scene.json",
+        "sha256": "fb18c66a3d3e3f68f6377114eb414ae1b0b0eeaf3c78c5efae1b7ab18651bd3e",
+        "bytes": 4283
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/soyo-chat-apricot-literary-v1.scene.json",
+        "sha256": "448a1864f4fde82c23c4e4fea7375a5c54ed0f1775305bfac4e28002f417c567",
+        "bytes": 3672
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-apricot-literary-included-v1.scene.json",
+        "sha256": "7fd47a8afd6b42fbca1f776f949d64bd434f7c548f4db5aab1923fce2059554c",
+        "bytes": 2797
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-mist-literary-included-v1.scene.json",
+        "sha256": "81a604a56067aae4806881995095140f31cc1df9b5d955c8177a89ef5b28bce0",
+        "bytes": 2773
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-rain-literary-included-v1.scene.json",
+        "sha256": "72c2b7325f11342336fa4236173ce9ff5572958b498b0d7818f98831700c0b3a",
+        "bytes": 2783
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-violet-literary-included-v1.scene.json",
+        "sha256": "ad0bb50c5f586a20b933018e6274f910aabc0c893d0ae444b7fc50972ade02b6",
+        "bytes": 2860
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/taki-attention-mist-literary-included-v1.scene.json",
+        "sha256": "e79df38b33b057fc27bd1f63e5f5d50dbf6881eae96628a16b9c8ec1f77dd62b",
+        "bytes": 4357
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/taki-attention-rain-literary-included-v1.scene.json",
+        "sha256": "e768d6ef20188e7f14071deb897383ae55272a7af85fea7e076e1553d5cd31c5",
+        "bytes": 4359
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/taki-attention-violet-literary-included-v1.scene.json",
+        "sha256": "226e6724a88513e25683bbd46b1c41ce0d05f26e2033b24726458219b2c9ee97",
+        "bytes": 4326
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/taki-chat-apricot-literary-v1.scene.json",
+        "sha256": "7e69a85804761cc4f7b683fd2365a9d0b01dfc076819acd0e0647d14e5208f41",
+        "bytes": 3302
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/tomori-chat-apricot-literary-v1.scene.json",
+        "sha256": "2cf135f1b90ad078b1d70db3c9733752bdf4c7e0c321add95910df523d388453",
+        "bytes": 3339
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/uika-chat-apricot-literary-v1.scene.json",
+        "sha256": "9969c05a47d84ee143d9b00b0a9b66307eec81f0a61751343cf95e688b451843",
+        "bytes": 2659
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/umiri-chat-apricot-literary-v2.scene.json",
+        "sha256": "6fc0ba1b521305716f2fd18c96bd4895c5a632ed11f5991a8e9375c292a9f981",
+        "bytes": 2789
+      }
+    ],
+    "interactionGeometry": {
+      "path": "前端视觉创新设计/运行素材/companion/scenes/literary-room-v1.interaction.json",
+      "sha256": "6f4910354fe60d25a4e158bbf4712880adcdba8fef59f001d3a97eb4168a91c4",
+      "bytes": 5484
+    },
+    "framingSource": {
+      "path": "src/renderer/companion-scenes.tsx",
+      "sha256": "4c1be7010a81c1cc60df84b1f2487fc45a22f66a5d4f11d986bb8a54803bcfb2",
+      "bytes": 86506
+    }
+  },
+  "runtime": {
+    "registration": {
+      "path": "前端视觉创新设计/运行素材/companion/scenes/nyamu-neutral-presence-time-day-included-v1.scene.json",
+      "sha256": "70251d03ae9a3ecbd39624bb72aaf21a6ffa906c9f5e57c06de82dc6c56e849f",
+      "bytes": 3942
+    },
+    "copies": {
+      "mother": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/nyamu-neutral-presence-time-day-included-v1-mother.png",
+        "sha256": "5df25df2667581917ee3e312218810da2424bcd573be4418b245ac7d05dc755d",
+        "bytes": 2443868,
+        "canvas": [
+          1536,
+          1024
+        ],
+        "mode": "RGB"
+      },
+      "F": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/nyamu-neutral-presence-time-day-included-v1-mask.png",
+        "sha256": "b876a24a6c809f781abcbeeb58005a5dad9dba73d72d15e7267442bad4e3d5c5",
+        "bytes": 422002,
+        "canvas": [
+          1536,
+          1024
+        ],
+        "mode": "RGB"
+      },
+      "S": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/nyamu-neutral-presence-time-day-included-v1-contact-mask.png",
+        "sha256": "1676a9c48a2c910346cb0d5f6fa64ae88e0d92e3ce377e6e24fd55fdc279fda9",
+        "bytes": 338563,
+        "canvas": [
+          1536,
+          1024
+        ],
+        "mode": "RGB"
+      },
+      "BG": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/nyamu-neutral-presence-time-day-included-v1-background.png",
+        "sha256": "1ffa461cec7b1677fecb84b1b9b6979f4cb867bf6065ad79866d1d7688ded578",
+        "bytes": 2368401,
+        "canvas": [
+          1536,
+          1024
+        ],
+        "mode": "RGB"
+      }
+    },
+    "selectionScope": "Existing neutral-presence unknown-weather exact character/time resolver only; no exact activity credit. day maps mist/morning, night maps rain/night; environmentVariant omitted.",
+    "acceptanceRemaining": "Root still owns next build and actual unknown-weather integrated profile interaction."
+  },
+  "originalProductionFlags": "Source stage and assembly candidate flags remain historical; this later exact-SHA admission governs only selected static registration.",
+  "boundary": "No free actor/prop/receiver motion, caster, dynamic/360/user approval. Fixed source MAX union only."
+}

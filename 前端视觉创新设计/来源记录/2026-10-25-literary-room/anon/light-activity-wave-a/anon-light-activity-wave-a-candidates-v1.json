@@ -1,0 +1,563 @@
+{
+  "schemaVersion": 1,
+  "kind": "light-activity-wave-a-mother-candidates",
+  "character": "anon",
+  "waveTotalCallsLimit": 24,
+  "waveCallsCompletedAtHandoff": 24,
+  "characterLimit": 12,
+  "characterCallsCompleted": 12,
+  "characterGenerationStopped": true,
+  "generationStopped": true,
+  "inputManifest": "anon-light-activity-wave-a-input-manifest-v1.json",
+  "cells": [
+    {
+      "id": "anon-reading-mist-literary-v1",
+      "key": "anon/reading/mist",
+      "activity": "reading",
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "png": {
+        "path": "anon-reading-mist-literary-v1.png",
+        "sha256": "15c775cc920dd3337e9720139de0397c79de46be6e6fb3282fd25c20eb7d7265",
+        "bytes": 2386371,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "anon-reading-mist-literary-v1.prompt.json",
+        "sha256": "3682fe36252cf00279b9448356b1f551d74910969c220dbb17882ac4182999a5"
+      },
+      "source": {
+        "path": "anon-reading-mist-literary-v1.source.json",
+        "sha256": "0bd7bb4f424282dd9e9ef459017ded2e73689d3d6cb4d30ebd86cf3ea0fcc747"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "contourComplete": null,
+      "concerns": [],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "approvalRecordSHAs": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "anon-reading-violet-literary-v1",
+      "key": "anon/reading/violet",
+      "activity": "reading",
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "png": {
+        "path": "anon-reading-violet-literary-v1.png",
+        "sha256": "7163d4381da8a2c315abf96ebbf450221bbf7ff793ee6a7d84e6f7fbbf813680",
+        "bytes": 2300546,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "anon-reading-violet-literary-v1.prompt.json",
+        "sha256": "97adac4585895454237d7ce013f596032fe329a76696d9fb20abc18a32ee9050"
+      },
+      "source": {
+        "path": "anon-reading-violet-literary-v1.source.json",
+        "sha256": "cb7e1595bd6865a32811d515ad80b02192fc71ae78fdf2d8bcd8e7fa31d9ec3a"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "contourComplete": null,
+      "concerns": [
+        "嘴角从原母轻张口改为闭口浅笑，为微表情差异待主审。"
+      ],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "approvalRecordSHAs": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "anon-reading-rain-literary-v1",
+      "key": "anon/reading/rain",
+      "activity": "reading",
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "png": {
+        "path": "anon-reading-rain-literary-v1.png",
+        "sha256": "95bc3daae55c64f76f30204482254f2ab0a2db444de96bea9508875f47da957d",
+        "bytes": 2195919,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "anon-reading-rain-literary-v1.prompt.json",
+        "sha256": "1655a2415a515a25628a1a2260d0aabea9dc60b7a2c75c6b5addff51276303f9"
+      },
+      "source": {
+        "path": "anon-reading-rain-literary-v1.source.json",
+        "sha256": "4e2320f6d46342e8856ad221fc8f9f64a74eba32782ef9afe13b6fc014ca2474"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "contourComplete": null,
+      "concerns": [
+        "右侧发缘暖亮边的夜间反光分寸留root照明审查。"
+      ],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "approvalRecordSHAs": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "anon-planning-mist-literary-v1",
+      "key": "anon/planning/mist",
+      "activity": "planning",
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "png": {
+        "path": "anon-planning-mist-literary-v1.png",
+        "sha256": "76f56bf7bc4ad7f1841c4170b2a2d0620874b46b5b00a8442b97f1fdca3050f0",
+        "bytes": 2408939,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "anon-planning-mist-literary-v1.prompt.json",
+        "sha256": "a0456ca4ea2ce40a8feb6983866b63e8532dca66d0f1de0c2dc42ea9f21d17b9"
+      },
+      "source": {
+        "path": "anon-planning-mist-literary-v1.source.json",
+        "sha256": "54844e4d71b700102b8bebe4281299978971e44d55fa372cd9e270b21ccd35b6"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "contourComplete": null,
+      "concerns": [
+        "微表情由原母轻张口变成闭口认真，留root文学主审。"
+      ],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "approvalRecordSHAs": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "anon-planning-violet-literary-v1",
+      "key": "anon/planning/violet",
+      "activity": "planning",
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "png": {
+        "path": "anon-planning-violet-literary-v1.png",
+        "sha256": "8cfe666dc16b14218c30516f1cebcd623d072cc76b70ea494fa757b2325121de",
+        "bytes": 2260741,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "anon-planning-violet-literary-v1.prompt.json",
+        "sha256": "446caf5ddc443c96c302c1a0cb9f001647802a4241fe41393dd840173e818139"
+      },
+      "source": {
+        "path": "anon-planning-violet-literary-v1.source.json",
+        "sha256": "174c000f90841c933e8315b6243e3592a7c964f76648feb25855dade598e8228"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "contourComplete": null,
+      "concerns": [],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "approvalRecordSHAs": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "anon-planning-rain-literary-v1",
+      "key": "anon/planning/rain",
+      "activity": "planning",
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "png": {
+        "path": "anon-planning-rain-literary-v1.png",
+        "sha256": "0b809e1201943644e12ebdd0fcb4423b5ffe6cf81d40bf2df0075e5899e42167",
+        "bytes": 2216833,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "anon-planning-rain-literary-v1.prompt.json",
+        "sha256": "a210cf2cc16ad157ee58c312072742a3a3e312590648469bf9127ca5eda2312f"
+      },
+      "source": {
+        "path": "anon-planning-rain-literary-v1.source.json",
+        "sha256": "18c33db92b9aa80cad7841a3e9c7930405d4a899f4737058a2844a7ae6b45f39"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "contourComplete": null,
+      "concerns": [
+        "较原母张口商量改为闭口认真；发顶暖边夜间光源分寸待root主审。"
+      ],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "approvalRecordSHAs": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "anon-rest-mist-literary-v1",
+      "key": "anon/rest/mist",
+      "activity": "rest",
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "png": {
+        "path": "anon-rest-mist-literary-v1.png",
+        "sha256": "cd6a31db127ce023d7d9a6458f7ddfc146cd4f4ad584a3cfd75b2983000cb26e",
+        "bytes": 2373568,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "anon-rest-mist-literary-v1.prompt.json",
+        "sha256": "74004aa12075d41fd1a9294deb0eff17334147f50adfa9b5c670515ea8ea610a"
+      },
+      "source": {
+        "path": "anon-rest-mist-literary-v1.source.json",
+        "sha256": "e7e1aa1e9b7b7e26a80e8896e87b78df3cec464dcf55c66d1a4edc54200b219d"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "contourComplete": null,
+      "concerns": [],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "approvalRecordSHAs": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "anon-rest-violet-literary-v1",
+      "key": "anon/rest/violet",
+      "activity": "rest",
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "png": {
+        "path": "anon-rest-violet-literary-v1.png",
+        "sha256": "dc81b5ea412cff802b52cf5bfb86cee560f4cb40dfedfea861cbd81666105542",
+        "bytes": 2321925,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "anon-rest-violet-literary-v1.prompt.json",
+        "sha256": "531901a592c12b0bdcd759cc3fe953fdbd8a6e243bdfbef328e97f75c6b687e0"
+      },
+      "source": {
+        "path": "anon-rest-violet-literary-v1.source.json",
+        "sha256": "7de31e02d4dbf5ee324dc2ba1d2fe36bbff7ec17aff741064f34958561c3df50"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "contourComplete": null,
+      "concerns": [],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "approvalRecordSHAs": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "anon-rest-rain-literary-v1",
+      "key": "anon/rest/rain",
+      "activity": "rest",
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "png": {
+        "path": "anon-rest-rain-literary-v1.png",
+        "sha256": "f8a533a6bb6ad4e48fbf544bdaacf69a80d334b7e9ae92229cd539677d0fd0e0",
+        "bytes": 2258482,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "anon-rest-rain-literary-v1.prompt.json",
+        "sha256": "e05fb982e6a2bfc2b33b5858c9ba0fe4f63cd95079f7bd0c5356d17a4f180d08"
+      },
+      "source": {
+        "path": "anon-rest-rain-literary-v1.source.json",
+        "sha256": "421bb539541a3a0fe573df32ca87fc1815faa2312a86a76ed699c0a17b3638e8"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "contourComplete": null,
+      "concerns": [
+        "发顶暖亮边的夜间局部反光分寸待root主审。"
+      ],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "approvalRecordSHAs": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "anon-study-mist-literary-v1",
+      "key": "anon/study/mist",
+      "activity": "study",
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "png": {
+        "path": "anon-study-mist-literary-v1.png",
+        "sha256": "3464ce02aa84f26ec4736fac2ac61689883e340da1a5341f5b9ac8bb5c36fe08",
+        "bytes": 2416105,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "anon-study-mist-literary-v1.prompt.json",
+        "sha256": "4b36e561ee7978866bd834cc5118f15189272472e47e3eb6cb79984223ccbe98"
+      },
+      "source": {
+        "path": "anon-study-mist-literary-v1.source.json",
+        "sha256": "ef7634c4298507e7f0d862299f958e7b11b749267890cf55595606b4a7de764e"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "contourComplete": false,
+      "concerns": [
+        "contourComplete=false：源构图自然plant遮部分鞋/小腿。"
+      ],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "approvalRecordSHAs": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "anon-study-violet-literary-v1",
+      "key": "anon/study/violet",
+      "activity": "study",
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "png": {
+        "path": "anon-study-violet-literary-v1.png",
+        "sha256": "284a25ebcb139a64908bc5222a02e6ce653576d27d90800966e709c4f777e370",
+        "bytes": 2306355,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "anon-study-violet-literary-v1.prompt.json",
+        "sha256": "698cced02fe971ba9a7c9ccc00a29a5416a09bcc1d246497926d8375455ebb52"
+      },
+      "source": {
+        "path": "anon-study-violet-literary-v1.source.json",
+        "sha256": "3e7351d695f3a5dfb616dd957ca007037196931b2868afd7db7e653ef95e294c"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "contourComplete": false,
+      "concerns": [
+        "contourComplete=false：原前景植物遮部分腿鞋。"
+      ],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "approvalRecordSHAs": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "id": "anon-study-rain-literary-v1",
+      "key": "anon/study/rain",
+      "activity": "study",
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "png": {
+        "path": "anon-study-rain-literary-v1.png",
+        "sha256": "616a490b160c9f6883abe139a97943732ace8b3f377262107d96a76a6743118e",
+        "bytes": 2255906,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "anon-study-rain-literary-v1.prompt.json",
+        "sha256": "52ff00602783f39c9f6560ee95753650b8330c0b684c895508cfc07fb4f53090"
+      },
+      "source": {
+        "path": "anon-study-rain-literary-v1.source.json",
+        "sha256": "c442bf55795718a6196304949b0539106f6c53336acf1c66ce84c8b597cc81bb"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "contourComplete": false,
+      "concerns": [
+        "contourComplete=false：原plant自然遮部分腿鞋，不虚签隐藏足部。"
+      ],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "approvalRecordSHAs": [
+          true,
+          true
+        ]
+      }
+    }
+  ],
+  "approvedByPrimary": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "layerWorkStarted": false,
+  "runtimeRegistered": false
+}

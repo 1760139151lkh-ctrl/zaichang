@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "cell": "rana/attention/mist",
+  "generatedAt": "2026-10-25T18:53:55.315Z",
+  "tool": "image_gen.imagegen",
+  "originalOutput": "C:\\Users\\17601\\.codex\\generated_images\\01a17366-5b01-78f3-8d02-c6a9cdf4f220\\exec-bd0b8207-5f20-4206-9162-5d0058d03619.png",
+  "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-attention-mist-literary-v1.prompt.json",
+  "submittedPrompt": "创作一张完整1536×1024横向二维文学房间人形母图，不是头像、贴纸或产品截图。图1为目标主题的纯净空房：以它为唯一相机、家具、窗景、透视和光照空间依据。图2为已经亲看准入的暖杏乐奈完整母图，仅延续人物身份、明确项目私服、近窗榻的真实尺度、活动与承重关系；不要照搬它的晴日光，不拿人物抠贴回图1。重新整体绘画，人物、软垫、木材和阴影都处在图1同一光场。保留左桌椅/书架、陶瓷灯小圆桌、完整湖城山窗景、右侧长窗榻、蓝格靠枕与针织毯、植物/地毯/木地板的原位置与纵深，左桌椅空着。人物位于近处右窗榻，头顶约y110、完整靴底约y890，维持参考尺度而不前冲放大头，镜头不改。\n\n乐奈自己的青春与判断要在眼眉嘴中可见：银白层次短bob、柔软分束刘海与淡灰紫发梢；自身右眼金色、自身左眼蓝色，近正面时观者左金右蓝，转头时仍按本人解剖左右，绝不翻转镜像。眉、眼睑、虹膜与发丝分开可读。保原作年轻柔软面颊和自然短下巴，聪明而不幼儿化，也不画成熟狭眼写真。明确项目原创私服：宽松黑短袖外衣叠白色长袖、白短裤、黑色系带踝靴；不是官方校服，不混舞台服。不加猫耳、猫、吉他、项圈或无来由道具。\n\n身体有真实髋/大腿软垫承托，肩髋和膝踝连续，手腕/袖口/手指清楚，完整头发与双靴留在画幅中。脚位服从这张近窗榻的自然高度，不能为双脚落地机械拉腿；不把靴底踩到浅色靠枕。皮肤、衣服和头发的亮暗来自同一窗光/灯光，保接触影与织物压感。画的是一个有来由、能接得上下一句话的人，不是所有活动同一招牌微笑。无字幕、文字、UI、灰白板、任务图标、额外人物、边框、水印或可读文件内容。\n\n此次整体主题：晨雾蓝/阴天柔窗光：以图1真实阴天湖窗和低对比冷日光为准，陶瓷灯仍在原处有微暖光。无晴日硬光斑、无整图蓝滤镜；银白发、金蓝两眼和皮肤保持清楚细层次。\n\n这一格的完整创作意图（内容用于指导画面，不要写在图上）：\n从窗上取回目光\n乐奈的注意原本落在窗外一个不显眼的地方。你一开口，她没有立刻摆出准备好的表情，只先确认是你在说话，再把那点自己的思绪轻轻放下。回应因此有了来处，也有了真实的分量。\n表演：一个清楚的转眼和很小的头部变化，眼睛仍可读。\n身体与空间：沿同一承重位转向，肩与髋保持连贯，不为反应改变人物尺度。\n光：冷日光柔和，皮肤与白发保留细腻层次，瞳色不失真。\n相处边界：不让头部追逐普通鼠标移动；此格只对应真实唤起注意。\n\n这一次的镜头内因果：她原先在意的是身边/窗外那个实际可见的细节，听见你叫她才先收回目光，再有一个很小的转头，肩髋仍在原承重位。清楚的眼神已接住对方，嘴将要作一句简短回应；一手在膝侧，另一手在自己身旁软垫有掌面支撑。不做空指，不把一般鼠标移动画成应答警报，不画恭候的固定笑。\n\n\n请保住这一次具体心事与真实支撑，而不是只更换道具或颜色。不要把brief标题或任何指令画成文字。",
+  "promptSha256": "a1e24b9275796b8ad998267cd1d2341f7d360d2f2f3ea9ab653625adf75ffc5f",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "role": "target clean room camera and complete light"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/apricot-wave-a/rana-attention-apricot-literary-v1.png",
+      "sha256": "9cc80d33b582b07d376bde1b861dd7231aae51d5ee0437195c35d9d82ad6f84d",
+      "role": "root-reviewed apricot complete Rana mother: identity, outfit, bench scale and activity support"
+    }
+  ],
+  "brief": {
+    "key": "rana-attention-mist",
+    "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\briefs\\rana\\rana-attention-mist.md",
+    "sha256": "ab96da78d243b91a09fa453f397020e5d31cf7361728cce914aa93736af2a198",
+    "matrixJsonPointerObserved": "/entries/29",
+    "planJsonPointerHistorical": "/entries/29"
+  },
+  "dossier": ".agents/skills/zaichang-frontend-director/references/characters/rana.md",
+  "dossierSha256": "d39286e83289d7c67222428a139b8650ff9f60a0e78e49c0a8393b3079f2e892",
+  "wardrobe": "project-original black short sleeve over white long sleeve, white shorts, black lace-up ankle boots",
+  "seedAuthorization": "Root 2026-10-25 direct full-image review permits these exact four apricot seeds as continuity references; old plan pending flag predates this direct instruction.",
+  "artifact": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-attention-mist-literary-v1.png",
+    "sha256": "0e78409d6dcc9c01754229b88961e9cb57168bffc1208a066b3e6bea3d89fe38",
+    "bytes": 2439240,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "format": "PNG"
+  },
+  "producerReview": {
+    "by": "/root/integrated_shell",
+    "fullOriginalViewed": true,
+    "status": "producer-static-candidate-awaiting-root",
+    "observed": "完整晨雾原图亲看：同一右窗榻承重位，一手膝侧、一掌在身旁软垫，头眼小幅回向对方、嘴将要简短回应，和双手膝上的倾听可区分。本人右金左蓝、银白短发与项目私服正确，脸部清醒年轻，双靴完整。冷日光与微暖灯同场；静态只画回眸瞬间，不能证明此前看窗/随后接话的动态过程。"
+  },
+  "motherReviewApproved": false,
+  "generationInputAllowed": false,
+  "layersApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false
+}

@@ -5,7 +5,7 @@ import { redactCredentials } from './redaction';
  * not add a speaker, a model call, a progress agent or a second conversation. */
 export const CONVERSATION_RHYTHM_GUIDANCE = `# 边做边说
 去查之前、查到一部分之后，你写给对方的话都会沿同一条回复逐渐出现在他眼前。接过需要几步查阅或制作的事，先照自己的性格接住他的原话，再去做：此刻听懂的愿望、让你在意的困难、想替他分担的具体一点，都足够成为真实的接话。具体帮到什么份量、结果怎样，等相关资料读清再往下定。还没遇到的麻烦，等真的遇到再和他说当下的影响与继续的办法。简单的交流直接回应；他明确想安静等结果时，也照他的意思来。
-工具回复里既有事情本身的发现，也有目录、参数和下一页的读法。找到这些读法通常只是手边准备，照着继续查就好。读到真实的新事实、需要实质改变判断，或有了能让对方作选择的进展时，再顺着刚才的话告诉他，把与他眼前处境有关的变化说清。手边还有几种可能时，带着暂时采用的理解往下查，等分清再说定。几件事一起查时，也照各自实际回来的结果理解，不用等到最后才把已有发现全倒出来。一份资料刚回来，只说明这一份有了着落；其他还在查的事情仍各自接着做。等待本身没有带来新发现时，留一点安静也很自然。新发现推翻了刚才的判断，就自然地改口，说清让你改主意的那处发现。
+工具回复里既有事情本身的发现，也有目录、参数和下一页的读法。找到这些读法通常只是手边准备，照着继续查就好。读到真实的新事实、需要实质改变判断，或有了能让对方作选择的进展时，可以顺着刚才的话告诉他，把与他眼前处境有关的变化说清。手边还有几种可能时，带着暂时采用的理解往下查，等分清再说定。几件事一起查时，也照各自实际回来的结果理解，不用等到最后才把已有发现全倒出来。一份资料刚回来，只说明这一份有了着落；其他还在查的事情仍各自接着做。等待里顺着刚才的来往亲近一句、带一点自己的玩笑，也可以很自然；这与查询进展各有自己的来由。留一点安静同样合适，照你们眼下的气氛来。新发现推翻了刚才的判断，就自然地改口，说清让你改主意的那处发现。
 这些前段已经是这次回答的一部分，包括已经讲过的发现、数字、限制和明确没有做的事。同一项限制已经解释清楚，后面就沿着能继续的方向做；确实有了新的影响，再说变化的那一点。收尾接着完成还没讲到的问题，或把前面的发现带到眼下的选择里；换个说法重报一遍，仍是在重复。需要修正、作比较或回应他重新追问时，再取用相关细节，并把变化说清。画面里已有的整张表可以留给对方看，你仍可以指出最值得注意的地方。对方中途补一句或改了主意，就从那句话重新理解剩下的工作：已经办成的结果如实留下，尚在查的方向和正在写的末段跟着新的意思转过去。`;
 
 /** IDs are drawn from the source-checked tool observations in this exact
@@ -55,6 +55,10 @@ export class ConversationRhythm {
   }
 
   get hasDraft() { return this.draft !== undefined; }
+
+  /** The generation is also the admission token for a completed proposal.
+   * Withdrawing a visible tail retires its late prose and tool calls together. */
+  isCurrentDraft(generation: number) { return this.draft?.generation === generation; }
 
   /** The caller admits the current scope/source proof immediately before
    * this projection. No provider completion or action success is implied. */
@@ -179,7 +183,7 @@ export class ConversationRhythm {
     const observations = sinceLastContributionIds.length ? {
       newlyAvailable: boundedIds(newlyAvailableIds),
       sinceLastContribution: boundedIds(sinceLastContributionIds),
-      meaning: '这里标出了刚放到手边的工具回复，以及最近一次接话后带来的资料，原文仍在各自的工具回复中。目录、参数、翻页和找到读法通常是手边准备，直接用来继续做。真实的新事实、实质改变的判断，或能让对方作选择的进展，才值得接着告诉他。已经说清的限制留在前段，后面沿能继续的方向做；其他还在查的事情，等各自的结果回来再接着判断。',
+      meaning: '这里标出了刚放到手边的工具回复，以及最近一次接话后带来的资料，原文仍在各自的工具回复中。目录、参数、翻页和找到读法通常是手边准备，直接用来继续做。真实的新事实、实质改变的判断，或能让对方作选择的进展，可以接着告诉他；自然的亲近和玩笑仍沿你们刚才的来往，不必借查询作由头。已经说清的限制留在前段，后面沿能继续的方向做；其他还在查的事情，等各自的结果回来再接着判断。',
     } : undefined;
     // The first request needs the same near-at-hand speaking context as later
     // requests. Requiring existing prose left every request in a silent
@@ -255,7 +259,7 @@ export class ConversationRhythm {
 
 function plainProse(text: string) {
   const trimmed = text.trim();
-  return Array.from(trimmed).length >= 8 && /[。！？.!?…][”’"']?$/.test(trimmed)
+  return (trimmed.match(/[\p{L}\p{N}]/gu)?.length || 0) >= 2 && /[。！？.!?…][”’"']?$/.test(trimmed)
     && !trimmed.replace(/\r?\n[ \t]*\r?\n/g, '').includes('\n')
     && !/(?:^|\n)[ \t]*(?:#{1,6}\s|[-*+]\s|\d+[.)]\s|>|\|)|[`$“”‘’「」『』"'=≠≤≥∑∫√+*/^<>×÷]|~~~|\\(?:begin|\[|\()/.test(text);
 }

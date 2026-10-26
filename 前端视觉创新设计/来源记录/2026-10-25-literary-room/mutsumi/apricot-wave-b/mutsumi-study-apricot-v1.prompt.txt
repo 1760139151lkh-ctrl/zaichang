@@ -1,0 +1,18 @@
+Use case: illustration-story. ONE new complete mutsumi / study / apricot mother, 1536×1024.
+Image 1 is the approved clean EMPTY new literary room and the PRIMARY space input. Keep the exact full canvas, close camera, perspective, timber window/lake/town/hills, desk/chair, shelves/books/plants, ceramic lamp/cup table, cream long bench/plaid pillows/throw, foreground plants, rug and wood floor. No old room4, room redesign, new furniture or camera zoom.
+Image 2 is ONLY this same character's root-approved chat identity/outfit/apparent-person reference. Do not copy the chat body gesture or facial expression; build this different activity as one coherent newly drawn person in the actual room. Do not transplant a face or another character body.
+
+一个条件被悄悄换掉了，她在那一行停下来。她不是急着把答案递过来，只把手指落在那个小小的转折处，好像在说：先别让它混过去。她愿意和你把这条路走完，认真比笑容更能让人放心。
+
+纸边亮着，那个被留住的条件反而显得更清楚。
+
+她话少，注意却从不含糊。真正的在意不是每一帧都含笑，而是肯留在别人已经翻过去的那一点。可以喜欢、认真、困惑，也有很轻的幽默；不要把她画成悲伤的玻璃人或空白的人偶。
+若叶睦的原作青春二次元辨识：柔直的浅薄荷绿长发与轻齐刘海，小银色发夹、温润金棕眼；发色是人物固有色，不给全房染绿。沿已核身份文字维持月之森深藏蓝水手式校服裙、白领与细深色边、灰紫领结、深色袜和棕色便鞋。眼睛与刘海有清楚关系，表情细而有判断，不成熟写实、不换成祥子的脸和开衫。
+暖杏：新空房中透过薄帘的柔金日光落在白领、指尖和纸边，木色给皮肤一点暖反光；浅绿头发仍是浅绿，深蓝衣料仍有层次。她不用为这片阳光额外笑给谁看。
+这是有自己思想、喜好和不同反应的具体人物。用这件事里的注意与心情决定表情，不把同一万能笑容/安慰套进全部情境。原作辨识和衣着沿正确本人身份参考；共同相处情境是项目原创，不是真实用户历史或已完成行动。青春精细二次元人物与柔绘、木纹织物触感的文学房间自然同景。
+
+Basic real support, without a rigid anatomy diagram:
+她在实际左侧木椅上面对原有写字桌坐稳，髋由真实椅面与原有垫布支撑，前臂和单张工作纸由可及的桌面承托。一手稳纸，另一指轻落在刚被换掉的条件处；主要注意纸，脸可轻转向近处的对话者，眼神认真、有自己的判断。不伏在空中，不在窗凳上模拟桌面。椅背/木条/桌边/植物按原空间有真实前后遮挡，保留连续身体逻辑。
+此张只在实际左侧写字桌/原木椅工作，右侧窗凳保持空。桌椅比近处窗凳更远，人体大小必须服从真实家具深度，不强套 chat 近凳 y110/y890 的头鞋高度，不把椅子或桌子搬近镜头。原空椅面约(237,526)、桌面约(208,386)只是可见家具位置参考，不是隐藏髋关节坐标。保留原椅朝向和木条前后，推导真实坐姿与可及桌面；不直接复制祥子 desk 候选曾改变的椅背轮廓。完整头在画内，自然可见的鞋与脚由原地面支撑；若被真实桌/椅/植物遮住，应连贯遮挡，不强行透木显脚、不增腿/鞋、不用裁框掩盖错误。
+衣着自然完整，脸、双手和实际支撑不靠夸张道具遮掉。把脸作为一个完整结构画出，发丝/眉毛/眼睑/可见虹膜分离，视线连贯；不把刘海融进虹膜，不复制眼睛、拼脸、金属碎片、网格线。手指自然不多指、不粘连、不断腕。道具如有必须由真实手/腿/桌承托，不漂浮，不创造第三只手。纸/书只含不需辨读的纹理，不画可读的假解答或清单。
+保持原房间光向与真实强弱，作用于皮肤、固有发色、衣物、实际支撑面与投影/接触影，不全幅套色、不绿UI。一个完整自然房间，禁止UI、文字标签、字幕、按钮、箭头、轨迹、教程、边框、水印、拼贴与分屏。

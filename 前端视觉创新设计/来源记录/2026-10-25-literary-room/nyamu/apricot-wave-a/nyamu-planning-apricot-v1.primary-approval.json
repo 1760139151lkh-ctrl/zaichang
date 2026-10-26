@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "kind": "primary-static-mother-admission",
+  "key": "nyamu/planning/apricot",
+  "reviewer": "root",
+  "evidenceSource": "Explicit root message to cast_settings_recovered after root personally viewed all six wave-a full mothers",
+  "decision": "approved",
+  "primaryPersonallyViewed": true,
+  "mother": {
+    "file": "nyamu-planning-apricot-v1.png",
+    "sha256": "df2fee09026be2e7c6c3842194d668c57a78bd3b4a41ee2cd6c4cf4e743ecf8e",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "sourceRecord": "nyamu-planning-apricot-v1.source.json",
+  "observation": "Root personally viewed complete mother: notebook on lap, separate pen hand and page hand are natural; eyes/fringe, seat support, full feet/shoes and stable camera/major furniture are coherent.",
+  "scope": "Exact-SHA complete static mother only; no layer/extraction/motion/runtime admission.",
+  "layerApproved": false,
+  "runtimeAccepted": false
+}

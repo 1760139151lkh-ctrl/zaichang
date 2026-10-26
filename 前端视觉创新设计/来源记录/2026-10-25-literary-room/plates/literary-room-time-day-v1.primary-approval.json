@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "dateLocal": "2026-10-25",
+  "recordType": "primary-static-empty-plate-admission",
+  "reviewer": "root / primary agent",
+  "asset": {
+    "file": "literary-room-time-day-v1.png",
+    "sha256": "aa4ce3dcab5cd2366c9f1c4eadcff0ab85537ab45e5a3b0643c4d01588e6e247",
+    "width": 1536,
+    "height": 1024
+  },
+  "primaryApproved": true,
+  "scope": "Complete static empty environment plate only; same selected close room and corresponding weather/time illumination. No character/activity/layers/motion/runtime approval.",
+  "evidence": "Root personally viewed the complete original: full opaque milk-white inner curtain, central fine timber/seam detail is hardware or cloth seam with no readable outdoor scenery; neutral daytime, no weather claim.",
+  "producerReviewSeparate": true,
+  "runtimeAccepted": false
+}

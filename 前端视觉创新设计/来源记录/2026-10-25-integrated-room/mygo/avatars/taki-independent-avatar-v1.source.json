@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "assetType": "independently-generated-2d-human-bust-avatar-candidate",
+  "characterId": "taki",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in independent human portrait generation, transparent background",
+  "wardrobeId": "official-observed-hanasakigawa-high-school-upper-tan-buttoned-sailor-dress-white-collar-red-bow",
+  "promptFile": "taki-independent-avatar-v1.prompt.txt",
+  "submittedPrompt": "Create ONE completely new independently drawn HUMAN 2D portrait avatar of Shiina Taki / 椎名立希, MyGO!!!!!. Square 1024x1024 true transparent RGBA, head and upper chest with full crown and both natural shoulder starts. Deliberately leave about 12–15 percent TRANSPARENT headroom and clear side breathing room, so the complete parting and upper hair never touch the image edge. Not a scene-head crop, official render cutout, cat, mascot, circular emblem or UI picture.\nThe ONLY image supplied is a CLEAN EMPTY literary room. Borrow only its softly hand-painted natural-light atmosphere: quiet upper-left window warmth and subtle cool reflected fill. Do not include the room/window/furniture as backdrop, copy a camera or transfer any other character's head/body. Compose and draw Taki's fresh face, neck, shoulders, hair and cloth from words on transparency.\nStable identity: LONG DEEP CHARCOAL-BROWN / near-black hair with clearly separated diagonal fringe groups and long side/back masses; not short gray hair, silver-blue Sakiko hair, purple bob or a glossy plastic black helmet. Clear PURPLE/VIOLET irises, distinct pupils/sclera/eyelids/brows and fringe boundaries. Youthful ordinary teenage anime face with a softly short jaw, small natural nose/lips and alert eyes. Directness is NOT a mature angular face, deep eye sockets, heavy makeup, seductive narrowed lids or exaggerated angry scowl; youth is NOT chibi baby proportions, huge doll eyes or glass-marble watery bewilderment. No invented hair clip, ribbon, jewelry or animal ear.\nThis portrait has a specific thought. She had been examining a condition in a shared page below the frame and was about to object; the other person has just clarified the premise. She has stopped the objection and is genuinely reconsidering. Her head is nearly UPRIGHT, chin level, gaze concentrated toward the nearby person/page relation, shoulders steady rather than tense. Lips remain CLOSED in a small sober line, not a warm smile and not a repeated parted mouth; the brows gather just slightly in focused thought, not in blame. A small easing around the eyes says she is staying to work it out with them. Do not turn her into a stern teacher judging progress, a generic cold girl, a permanently frowning coach, a blushing sweet doll or another girl's tilted soft-smile face. No hands, pointing gestures, paper, drumsticks or prop are shown in this clean close avatar.\nFaithful upper Hanasakigawa HIGH-SCHOOL uniform: modest warm tan buttoned sailor DRESS top, broad WHITE sailor collar with dark trim, RED long bow; the upper double-breasted GOLD buttons may be visible within the chest crop. Do NOT use Rana's knitted/pullover middle-school top, a gray blazer, black stage costume or an invented necklace. No readable logo/name/text. Natural upper-chest crop with coherent neck and shoulders, no detached face.\nGenuinely TWO-DIMENSIONAL anime drawing, restrained pencil/gouache-like line and brush planes that belong beside the literary-room art. Skin is fresh and naturally colored; dark hair is separated from the silhouette by genuine soft interior light, not neon rim. Use readable grouped hair and selected fine accents, soft cloth folds, clear calm violet gaze with restrained small glints, not a wet-sparkle eye material. No 3D/CG/model/plush/plastic finish, photoreal pores, glam retouching or artist-style-name imitation. Keep her individual focused expression readable at 48px.\nTrue transparent surround, clean hair/shoulder alpha edge. Warm hair highlights stay on actual strands, not detached fluorescent red/yellow specks or a contaminated matte outline. No room remnant, outer glow, fog, shadow, circle/disk/frame, gradient/white/black backdrop, fake checkerboard, cat form, speech balloon, UI, caption, watermark or collage. One original standalone transparent human portrait only.",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "role": "only image input: clean empty literary room for 2D painting/light atmosphere only; no face/body/layout to copy",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c"
+    }
+  ],
+  "readSources": {
+    "passport": {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/taki.md",
+      "fullReadBeforeCall": true,
+      "version": "2026-10-25",
+      "sha256AtArchive": "48f954585e91b84599430c573ff38e498959d3168f18a9ca46c0c3c1e7f7bc7a"
+    },
+    "method": {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "fullReadBeforeCall": true,
+      "sha256AtArchive": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840"
+    }
+  },
+  "facts": {
+    "officialSources": [
+      "https://mygo-movie.bang-dream.com/character/taki/",
+      "https://bang-dream.com/artist/mygo/shiina-taki/"
+    ],
+    "identityObserved": "long deep charcoal-brown hair, violet eyes; tan high-school buttoned sailor dress upper relation, white dark-trim collar/red bow, gold double row buttons",
+    "projectOriginal": "fresh independent bust and closed-lip focused reconsideration after clarified premise; no claimed actual user state or canonical private-thought assertion"
+  },
+  "output": {
+    "file": "taki-independent-avatar-v1.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-cf422f0f-0117-4044-80e3-ac636307a7a1.png",
+    "sha256": "91319183d7a83b862fd1b6f4a354eeccbc9522957336aa072c5ef09ebcc72ed1",
+    "bytes": 1833441,
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "cornerAlpha": 0
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "status": "candidate",
+    "observation": "Whole original personally viewed: long charcoal hair/violet eyes, sober closed lips and slightly focused brow rather than shared smile; tan high-school uniform, red bow and double-row buttons. Fresh coherent 2D human bust, no scene crop/disk/cat; sparse colored raw hair-edge residue requires small-size review.",
+    "decision": "candidate for root independent-image review",
+    "smallSizeReview": {
+      "personallyViewed": true,
+      "page": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mygo/avatars/producer-observe-v1.html",
+      "pageSha256": "d3d0f896387a83b07478ec07cf55c48cab3dc5b34d3d88b9ac8a588c891e18e4",
+      "cssImageSize": [
+        48,
+        48
+      ],
+      "viewportDuringExactCapture": [
+        1280,
+        800
+      ],
+      "captureDpr": 1,
+      "method": "original PNG browser composition on light/dark plus 48px; only own observation tab metrics temporarily changed, original measured 1280x591 DPR3 restored",
+      "observation": "48px light/dark: long dark hair and violet gaze remain distinct; sober closed lips/slightly gathered brow differ from smiles; dark background does not erase hair silhouette.",
+      "rawPerimeterBoundary": "Sparse red/yellow fine fringe visible in original black viewer; not conspicuous as a colored external frame in actual light/dark/48px composition. Not all densities/runtime approved."
+    }
+  },
+  "primaryApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "croppedFromScene": false,
+  "officialArtCopied": false,
+  "humanMatrixCoverage": false,
+  "promptFileSha256": "0171d37670ab3212bf557a120d08562e0f307864d2ec946901ce621ca8e7f06d",
+  "submittedPromptSha256": "9e95996932264d18815b694b289a431e578ceee8d3224660c42249ff5ec8cf45",
+  "archivedAtUtc": "2026-10-25T16:49:48.682476+00:00"
+}

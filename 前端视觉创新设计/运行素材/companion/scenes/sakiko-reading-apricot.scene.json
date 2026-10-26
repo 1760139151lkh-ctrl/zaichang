@@ -47,5 +47,7 @@
     "reviewedAt": "2026-10-24T02:21:14.562Z",
     "observed": "已亲看浅深底与原房间，书与人物原像素同层，后背/髋受原靠枕承托，行程0，实机另审。"
   },
-  "production": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-reading-apricot-v2-layer-processing-v3.json"
+  "production": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-reading-apricot-v2-layer-processing-v3.json",
+  "environmentVariant": "clear-day",
+  "environmentAnnotationRecord": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-apricot-clear-day-annotations-2026-10-25.json"
 }

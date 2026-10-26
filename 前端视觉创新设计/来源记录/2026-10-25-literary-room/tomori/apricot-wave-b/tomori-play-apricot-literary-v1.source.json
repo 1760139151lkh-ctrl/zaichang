@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "assetId": "tomori-play-apricot-literary-v1",
+  "roomFamily": "literary-room-v1",
+  "characterId": "tomori",
+  "activity": "play",
+  "palette": "apricot",
+  "createdOn": "2026-10-25",
+  "tool": "image_gen.imagegen (built-in)",
+  "callOrdinalInBoundedBatch": 3,
+  "executionId": "exec-6ee60a13-45f0-4304-ab72-94f8317b5722",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-6ee60a13-45f0-4304-ab72-94f8317b5722.png",
+  "inputs": [
+    {
+      "file": "../../plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "image1: approved clean room geometry/light"
+    },
+    {
+      "file": "../chat-pilot/tomori-chat-apricot-literary-v1.png",
+      "sha256": "f075324f63e151e4045b4ac5ee87f30dc8295295b81f12c97ddb30ab56ac34d9",
+      "role": "image2: approved same-role identity/uniform/scale only; new body drawn for activity"
+    }
+  ],
+  "brief": "../../briefs/mygo-a/tomori-36-briefs.md",
+  "briefCell": "tomori/play/apricot",
+  "briefTitle": "纸角像一只小鸟",
+  "promptFile": "tomori-play-apricot-literary-v1.prompt.txt",
+  "promptFileSha256": "985455923a56565e932467ded0e8c607d0a0b3113fb43ed5012e71ff0998a7c7",
+  "submittedPrompt": "Create one 1536 × 1024 landscape complete-scene illustration. Image 1 is the approved EMPTY literary room and is the geometry/light source: retain its exact close camera and framing, same window panes/current cropping, autumn lake town/mountains, wood shelves/books/plants, writing desk and wooden chair at the left, round table/ceramic lamp/cup/flowers, linen window bench with right plaid cushions and cream knit throw, wood floor/rug and foreground soft plant. Preserve continuous clear-day warm apricot light, garment colors and neutral skin detail; no whole-image color film. Image 2 is this SAME girl's approved chat mother: use only correct youthful identity, facial features/hair/uniform and room-consistent scale, never its fixed pose or body as a pasted template. Draw the activity completely anew from text. No other room, other girl, mask, extracted layer or rejected figure is an input.\nCareful expressive anime character linework must sit naturally in the tactile softly painterly room. A convincing ordinary body matters more than elaborate gestures: real pelvis/seat support, coherent joints, hands and objects with weight, clothing gravity and honest shadows/occlusion. Keep full head/hair inside the frame. On the bench, keep uncrossed naturally placed legs and complete shoes in frame; do not force mirrored flat soles, stretch anatomy or cross one knee over the other. At the real desk, use its own correct chair/desk scale and natural foreground/furniture occlusion, without inventing hidden feet or moving the foreground plant just to reveal them. Do not put a bench-scale body at the desk or make an enlarged head lean toward the camera.\nKeep each fringe lock, eyebrow, eyelash, upper/lower eyelid, sclera and iris separately readable. Natural downward or side gaze must not merge eyes into fringe shadows. No stock service smile, fixed scowl, compulsory blush or generic comfort performance. Inner intention below is a project-original fictional scene, not a verified user event. No readable user text, equations/answers/schedules, completion receipts, labels, UI, watermarks, logos, diagrams, second person or duplicated limbs. Only one girl and a few simple grounded objects.\n\nCHARACTER:\nTakamatsu Tomori (高松燈), BanG Dream! It's MyGO!!!!!: youthful delicate high-school face, neck-length layered steel-gray short hair with muted gray-lavender undertones, clear subdued dusty rose-brown/pink-gray eyes. Gray-purple blazer with white piping, white shirt, dark striped tie, checked pleated skirt, dark socks and brown loafers. Preserve the approved same-role chat reference identity.\n\n纸角像一只小鸟 — PLAY / a paper corner resembles a little bird. On the existing right-central bench she has lightly folded ONE small plain cream scrap of paper and found the shape more interesting than expected. It is only a simple small two-fold paper shape, not a living bird, intricate origami sculpture or magic. Hold it at low lap/chest-bottom height by one small edge between natural fingers, with the other hand lightly steadying the near corner over a closed book resting on her thighs. Her eyes lift toward the partner with a small unhideable smile of delight and a tiny tentative question, rather than an exaggerated grin or performative shyness. Seat her securely; no leaning head enlargement, no floating object, no hand through paper. Keep the room, full head, uncrossed legs and complete shoes.",
+  "output": {
+    "file": "tomori-play-apricot-literary-v1.png",
+    "sha256": "aff22695d16c32fd4a09877951a33c27812cad8f8ce9a023988b0d1a67322106",
+    "bytes": 2434917,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "decision": "static mother candidate for primary inspection",
+    "observation": "Complete original viewed: Tomori holds a small simply folded cream paper shape between two readable connected hands above a closed book supported on her lap. The paper is at mid-torso, higher than the low-lap proposal but modest in scale. A spontaneous open-mouth small laugh/bright sharing expression fits play; eyes/fringe/lids separate. Pelvis/cushion contact, coherent uncrossed legs and both complete floor-supported shoes visible; camera and large furniture stable.",
+    "limits": "Original playful scene impression, not a real performed user action. Producer observation predates separate exact-SHA primary mother approval; layer/runtime remain false."
+  },
+  "primaryApproved": true,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "acceptanceScope": "Primary-approved exact-SHA static mother only; no layer/runtime admission.",
+  "primaryApprovalRecord": "primary-mother-admission-v1.json",
+  "primaryApprovalAssetId": "tomori-play-apricot-literary-v1"
+}

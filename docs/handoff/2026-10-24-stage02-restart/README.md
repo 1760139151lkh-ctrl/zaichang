@@ -1,6 +1,6 @@
-# 2026-10-24 终极融合交接包：上下文保护 · 八路重装子代理 · 全工作区改动地图
+# 2026-10-24 融合交接包：原文理解、阶段职责与工作区改动地图
 
-本目录是开启新会话推进「在场」全栈打磨的**现场交接导航中心**，与最高行动纲领 [`docs/REFACTOR_ROADMAP_2026-10-22.md`](../../REFACTOR_ROADMAP_2026-10-22.md) 完全融合。
+本目录保留当时的工作区与专题交接；实际状态须核对当前源码、Git 与[当前状态](../../CURRENT_STATUS.md)。当前委托决定阅读和实施范围；进入本目录不自动启动阶段研发或团队。先由主代理读懂本次原始输入、相关成果和必要项目材料；协作触发遵循当前 [AGENTS](../../../AGENTS.md)：实际执行十二阶段研发时每阶段强制八人；解释、审读、评审或文档修订不自动触发。下列实施纪律仅在正式阶段研发中适用，不能用于跳过主代理对当前输入和项目全貌的亲读理解。
 
 ---
 
@@ -10,7 +10,7 @@
 
 1. **主代理乱看图片与海量旧文档，一上来就把上下文塞爆**：
    - 前序主代理在启动时把几百份历史记录、前端视觉评鉴文档甚至大量 `.png/.webp` 图稿一口气读进主代理上下文，导致上下文窗口瞬间拥堵、后续智力严重下降。
-   - **本轮铁律**：**在 Stage 01 – Stage 06 期间，主代理 100% 严禁批量打开大图片或长篇视觉评鉴文档自爆上下文（消除歧义：Stage 02 伴跑与地图前端、Stage 06 OpenUI 等贯穿组件由专职子代理正常编写，保留已有前端改动，第二阶段重构严禁破坏后续阶段接口）！** 主代理只读当前阶段的核心路线图与自己直接统筹的 3–5 个入口源码，其余长文行段（按 [`SOURCE_SEGMENTS.md`](../../reading/2026-10-22/SOURCE_SEGMENTS.md) 切分）与子系统代码一律分片交给 8 个子代理去精读！
+   - **当前裁决**：主代理先亲读完整输入、项目全貌和必要原件，再按任务分段深化；避免一次灌入无关大图/长文。3–5个入口只是起步坐标，不能当阅读上限，也不能禁止当前故事需要的标杆、样片和最终集成画面。正式阶段仍固定八人深读并实做各自模块；主代理保有整体理解和最终验收，Stage 02伴跑/地图及后续前端正常实现，保已有成果和接口。原分段坐标见 [`SOURCE_SEGMENTS.md`](../../reading/2026-10-22/SOURCE_SEGMENTS.md)。
 2. **8 个子代理沦为「应付式两行代码 + 八股审查员」**：
    - 前序子代理每人只改两行代码、写一篇审查报告或交接文档就匆匆退出，把繁重的编码全丢给主代理一个人干。
    - **本轮铁律**：**子代理是重装特种工程师，必须承担每阶段 85% 以上的实质代码开发！** 严禁子代理交一篇审查文档充数。子代理交回初版代码后，主代理必须检查 `git diff`，凡是改得浅、只读取了 HTML 空壳（`recordRead: false`）或写了人机话的，**一律通过 `send_message` 打回重做第 2 轮、第 3 轮，直到彻底榨干做精为止**！
@@ -40,7 +40,7 @@
 ### 2. Stage 02 已落地的未提交代码与待彻底打穿的硬骨头
 
 - **已落地文件**：
-  - **浙大教务与 GPA**：`src/main/zjuAdapter.ts`、`src/main/integrations/zju_connector.py`、`src/main/capabilities/campus-query.ts`、`src/main/capabilities/campus-saved-source.ts`（已支持同 `bundle` 跨页续读、单科筛选与四分/五分/主修 GPA 读取）。
+  - **浙大教务与 GPA**：`src/main/zjuAdapter.ts`、`src/main/integrations/zju/scripts/zju.py`、`src/main/capabilities/campus-query.ts`、`src/main/capabilities/campus-saved-source.ts`（已支持同 `bundle` 跨页续读、单科筛选与四分/五分/主修 GPA 读取）。
   - **浙大体艺纯直连与场馆登录**：`src/shared/tiyi.ts`、`src/main/tiyiAdapter.ts`、`src/main/integrations/tiyi_connector.py`、`src/main/tiyiSchoolSession.ts`、`src/main/capabilities/tiyi.ts`、`src/renderer/TiyiConnection.tsx`、`src/renderer/tiyi-connection.css`。
     - _2026-10-24 已攻克_：`tiyi_connector.py` 已修复为 HTTPS UAA 登录（`zjuam.zju.edu.cn/cas/login`）+ 官方 HTTP 业务基址（`http://www.tyys.zju.edu.cn/cgapp-server/` 与 `/ptm/`，显式 `ProxyHandler({})` 直连免 WebVPN），并补齐了场馆两步独立令牌交换（`/venue-server/api/app/login/init` + `/api/login`），已跑通 `profile`、`terms`、`summary`、`records`、`venues/orders` 与场馆目录/时段。
   - **实时运动与定位桥**：`src/shared/workout.ts`、`src/shared/workout-source.ts`、`src/shared/map-workout.ts`、`src/main/runtime/workout-session.ts`、`src/main/runtime/workout-native.ts`、`src/main/runtime/workout-storage.ts`、`src/main/runtime/workout-cadence.ts`、`src/main/device-location.ts`、`src/main/ios-location.ts`、`src/main/map-workout.ts`、`src/main/capabilities/workout.ts`、`src/renderer/map/WorkoutControls.tsx`、`src/renderer/map/workout.css`、`apps/location-bridge/{android,ios}`。
@@ -63,16 +63,16 @@
 
 ### 3. 并发前端已落地的未提交代码（必须完整保留复用，Stage 02/06 正常联动，Stage 08–11 全量深化）
 
-- 已存在于工作区：`src/renderer/SourceBookmarkTray.tsx`、`src/main/runtime/source-bookmark-native.ts`、`src/renderer/StudySceneView.tsx`（书签拖入接收）、`src/renderer/FocusLamp.tsx`、`src/main/runtime/focus-session.ts`、`src/renderer/ReturnBookmark.tsx`、`src/main/runtime/workspace-return.ts`、`src/renderer/EntrustedRevision.tsx`、`src/renderer/motion/use-spring.ts`、`src/renderer/motion/use-split-motion.ts`、`src/renderer/companion-scenes.tsx`（含祥子 5 姿态 `.scene.json`）及 `src/renderer/InteractiveProgramView.tsx`。
+- 已存在于工作区：`src/renderer/SourceBookmarkTray.tsx`、`src/main/runtime/source-bookmark-native.ts`、`src/renderer/presentation/StudySceneView.tsx`（书签拖入接收）、`src/renderer/FocusLamp.tsx`、`src/renderer/focus-session.ts`、`src/renderer/ReturnBookmark.tsx`、`src/renderer/workspace-return.ts`、`src/renderer/EntrustedRevision.tsx`、`src/renderer/motion/use-spring.ts`、`src/renderer/motion/use-split-motion.ts`、`src/renderer/companion-scenes.tsx`（含祥子 5 姿态 `.scene.json`）及 `src/renderer/presentation/InteractiveProgramView.tsx`。
 
 ---
 
-## 三、本目录辅助专题索引（仅供对应阶段的子代理按需查阅，主代理勿一次性全塞！）
+## 三、本目录辅助专题索引（按当前任务读取，关键原文由主代理亲读）
 
-- [`新聊天启动提示词.md`](新聊天启动提示词.md)：直接复制发给新会话的终极启动指令。
-- [`READING_PLAN.md`](READING_PLAN.md)：严格保护主代理上下文的「主代理轻量统筹 + 8 子代理分片精读」计划。
+- [`新聊天启动提示词.md`](新聊天启动提示词.md)：历史实施提示；须先按当前委托判断适用范围。
+- [`READING_PLAN.md`](READING_PLAN.md)：原文、源码与专题的分段阅读定位，不限定阅读人数或主代理只能读少量入口。
 - [`CURRENT_SNAPSHOT.md`](CURRENT_SNAPSHOT.md)：工作区 `git status` 快照说明。
-- `audits/01..08.md`：前期分专题背景梳理（供对应子代理按需参考，绝不替代精读原始用户讨论与源码）：
+- `audits/01..08.md`：前期分专题背景梳理，帮助主代理定位原始讨论与源码，不替代亲读；其中历史团队安排不作为当前启动要求：
   - [`01-original-chat.md`](audits/01-original-chat.md) & [`02-continuation-chat.md`](audits/02-continuation-chat.md)：用户原话与灵魂纠偏脉络
   - [`03-architecture-and-stage01.md`](audits/03-architecture-and-stage01.md)：Stage 01 改动与文件索引
   - [`04-academic-and-campus.md`](audits/04-academic-and-campus.md)：浙大教务与多口径 GPA 细节

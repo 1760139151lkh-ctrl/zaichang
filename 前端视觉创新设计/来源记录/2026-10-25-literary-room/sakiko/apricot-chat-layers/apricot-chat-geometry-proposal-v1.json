@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "support": "window-seat",
+  "contourComplete": true,
+  "sourceMotherSha256": "8d8ca2d001893c16106ab797ec4a8a8c1e6576115a5a4c76ff1dd519eff4e2cd",
+  "jointCoverageBounds": {
+    "sourcePixels": [
+      872,
+      113,
+      1406,
+      940
+    ],
+    "normalized": [
+      0.5677083333333334,
+      0.1103515625,
+      0.9153645833333334,
+      0.91796875
+    ],
+    "basis": "Read-only actual F/S luminance>32 diagnostic envelope, right/bottom exclusive; includes receiver fringe, not hidden anatomy or a render threshold."
+  },
+  "seat": {
+    "sourcePixels": [
+      1250,
+      618
+    ],
+    "normalized": [
+      0.8138020833333334,
+      0.603515625
+    ],
+    "basis": "Producer approximate visible plaid/linen contact region in this exact chat mother, not reading pose hip or empty-plate pivot; primary calibration pending."
+  },
+  "ground": {
+    "sourcePixels": [
+      976,
+      930
+    ],
+    "normalized": [
+      0.6354166666666666,
+      0.908203125
+    ],
+    "basis": "Read-only lowest practical foreground-shoe perimeter midpoint, visually cross-checked with original sole/floor view; a provisional source reference, not a physics pivot."
+  },
+  "bothCompleteShoesVisuallyViewed": true,
+  "safeTextBoundary": 0.54,
+  "hitPolygonKind": "coarse joint coverage bounds only",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "runtimeGeometryAccepted": false
+}

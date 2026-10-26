@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "role": "single-call-joint-coverage-prototype-v2-additional-authorized-call",
+  "tool": "built-in image_gen.imagegen",
+  "callNumberThisRound": 1,
+  "callLimitThisRound": 1,
+  "totalPrototypeCalls": 2,
+  "status": "producer_hold_internal_coverage_gap_and_sole_edge_concern",
+  "promptFile": "joint-coverage-v2.prompt.txt",
+  "promptFileSha256": "7a3cc9bde9fb4ce744d3095a0794920a154609672ca69d73b5f62c81e61a2511",
+  "submittedPrompt": "Use case: background-extraction.\nAsset type: ONE FIXED-POSE JOINT SUBJECT + REAL CONTACT RECEIVER COVERAGE MASK, v2.\nThe ONLY input is the correct approved original Sakiko REST mother, exactly 1536 x 1024. Use the full source as an exact in-place selection target. No previous mask or failed composite is supplied. This is NOT a clean independent cast-shadow matte: it is one joint sprite containing the complete girl AND a small adjoining amount of original seat/floor receiver material.\n\nReturn one OPAQUE RGB black-and-white mask on the SAME 1536 x 1024 source canvas.\nWHITE must include ALL of the original girl: full crown and every fine outer hair strand/ribbon, solid face/eyes/neck, cardigan/sleeves, both complete hands and fingers, lap, every plaid skirt fold/tip and thin dark hem trim, both knees and socks, BOTH full brown loafers with every sole rim and complete heel block. All figure interiors are solid white with no black facial/clothing/shoe linework holes. Do not change or contract the original silhouette, scale, pose or coordinates.\n\nWHITE must ALSO include the actual adjoining SOURCE contact receivers, rather than ending at the body outline:\n1. Under the seated skirt and resting right palm, keep the real immediate compressed-cushion/palm contact darkness plus a narrow original linen receiver strip. Include the complete original hand on the cushion around x1240..1320,y540..585 and the real skirt/seat contact around x935..1330,y530..605. Do not select whole pillows, the knitted throw, broad bright cushion or bench cabinet.\n2. CRITICAL FLOOR COVERAGE: around BOTH loafers, include a small continuous band of the ORIGINAL FLOOR on the left/right sides, directly underneath, and behind each sole/heel. The selected white region must extend approximately 30–60 SOURCE PIXELS beyond the shoe boundary where visible floor exists, following that actual floor and its real dark contact/cast region. It must NOT stop at the leather/sole edge or be only a one-pixel black shoe outline.\nThe complete foot-and-receiver area lies approximately within x775..1070,y820..950, but this is an enclosing limit, NOT a rectangle to fill. Preserve a natural irregular local footprint around the real two shoe contacts. In particular the real dark original floor point (905,898) and its adjoining source contact shade must be INSIDE the white receiver coverage. Cover the actual original darkness near both toe/sole sides and behind the right heel too. A narrow piece of real wood grain, warm floor color or highlight within this local band is deliberately allowed: that original receiver RGB will stay attached to the whole fixed pose. Do not omit it merely because it is floor material rather than the girl's body.\n\nEverything outside the complete girl and these close source contact/receiver bands must be BLACK: all window/lake/town/curtains, desk/chair/shelves, side table/ceramic lamp/books/cup/plants, plaid pillows, knitted throw, unrelated furniture shadows, broad room/floor/rug, and distant sunlit floor lattice. Keep coverage local and attached to the real source contacts; no separate stray room fragments or broad rectangular room block.\n\nOnly recolor the exact source selection WHITE and remaining environment BLACK. Do not generate new character RGB, new floor RGB or a synthetic uniform shadow. Do not invent an oval shadow, move or resize the person/shoes, shift the floor band to a different coordinate, crop or reframe. White interiors and black room; thin grey antialias at original coverage boundary allowed. No transparent RGBA, colored room, checkerboard, labels, outlines, arrows, text, grid or collage. Output exactly one 1536 x 1024 opaque RGB joint luminance coverage PNG.",
+  "submittedPromptSha256Utf8NoTrailingLF": "39d2f591a65875ca0ed266aa88481ae3e008ad231c8e3df7c6ede404029b6307",
+  "input": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-rest-apricot-literary-pilot-v1.png",
+    "sha256": "144a167d9c7d1bc594051ef1ca3fcf0b92e97f1a8ddbf8cd63eb6b54c8a460f8",
+    "width": 1536,
+    "height": 1024,
+    "role": "only correct root-approved rest mother; no prior mask/composite image input"
+  },
+  "matchingBackground": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "suppliedToImageGen": false
+  },
+  "priorHoldEvidence": "rest-joint-coverage-bundle-v1.json",
+  "primary": false,
+  "layer": false,
+  "runtime": false,
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/rest-joint-coverage-prototype/joint-coverage-v2.png",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17125-a57d-70f3-9b8f-9ecfd8cef13e\\exec-1ea3a808-e2e9-4062-855f-73308019c5f9.png",
+    "executionId": "exec-1ea3a808-e2e9-4062-855f-73308019c5f9",
+    "sha256": "89352e5ac055d1974d64983ffde1799eeebf9bd06e7d1a647cd9775121019106",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 497660,
+    "pngColorType": 2,
+    "toolOriginalLastWriteTimeUtc": "2026-10-25T13:46:31.182602+00:00",
+    "actualDecodedMode": "RGB",
+    "hasAlphaChannel": false
+  },
+  "actualInputSha256AfterCall": "144a167d9c7d1bc594051ef1ca3fcf0b92e97f1a8ddbf8cd63eb6b54c8a460f8",
+  "inspection": "Producer inspected full original/recomposition, light/dark/checker complete subject, 1:1 face/palm/hem/shoes/knee, and v1 comparisons. V2 includes the formerly missed floor contact at (905,898), but has partial internal coverage loss at the flesh point (998,644) and visible fine light sole outlines. HOLD; no further calls or pixel repair."
+}

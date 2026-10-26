@@ -1,0 +1,40 @@
+{
+  "key": "anon/attention/violet",
+  "tool": "built-in image_gen.imagegen",
+  "createdAtUtc": "2026-10-25T02:45:05.019Z",
+  "stage": "complete whole-scene lighting edit",
+  "file": "anon-attention-violet-mother-v1.png",
+  "sha256": "6b13edf9789c087c30ef07cbcb143120ad47f3ec1fc6b2d8ec95223a98a90023",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "promptSha256": "4ef1f14a82eddf7c44e74b49668fa1973d36444b752a926a423caf5e79bbd174",
+  "originalOutputBasename": "exec-89b72a1f-3980-41b7-a702-81db7e06aeca.png",
+  "originalOutputEvent": {
+    "sessionId": "01a170ed-b14d-7321-9cf7-3bd222b6ff42",
+    "executionId": "89b72a1f-3980-41b7-a702-81db7e06aeca",
+    "tool": "image_gen.imagegen"
+  },
+  "prompt": "anon-attention-violet-mother-v1.prompt.txt",
+  "inputs": [
+    {
+      "file": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-attention-apricot-mother-candidate-v1.png",
+      "role": "approved apricot complete mother; edit target",
+      "sha256": "f695acaaabfb0395d5b0f33a649fa9bb2d3fefeac454d15d1146d31066550b3d"
+    },
+    {
+      "file": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-violet-candidate.png",
+      "role": "clean-room light reference only",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "officialIdentitySource": "https://anime.bang-dream.com/mygo/character/anon/",
+  "projectOriginalSituation": "Zaichang room companion introducing a newly appeared object; not a claim about original canon",
+  "designerPersonallyViewed": true,
+  "designerObservation": "Personally viewed complete generated original. Original standing posture, two complete grounded loafers, leftward curious gaze, introducing open palm and rear hand-to-window-sill contact are preserved. Low horizon sun, lavender ambient wall light and rose-gold edges on hair and blazer create one dusk room; original lamp is lit. Left work area remains clear, no UI/text or new furniture. Primary approval and layers/runtime are separate.",
+  "primaryMotherReview": "pending_current_root_review",
+  "approvedByPrimary": false,
+  "layers": "not_produced",
+  "runtime": "not_registered"
+}

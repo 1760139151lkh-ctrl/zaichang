@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "scope": "Only Rana apricot chat fixed original-position complete layer repair. No other character/theme/activity, new children, tests, source/runtime/registry modifications.",
+  "originalMother": {
+    "file": "../../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png",
+    "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+    "primaryApproved": true,
+    "approvalRecord": "../../../assets-design-generated/2026-10-23-companion-matrix/primary-other-mother-reviews.json",
+    "originalPrompt": "../../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-prompt.txt",
+    "originalPromptSha256": "fe9287841dd3f2c83059a3914394c5489301f6d51842ae8370f5278c928ad59a",
+    "producerPersonallyViewed": true,
+    "producerReadOriginalPrompt": true
+  },
+  "knownPriorDefect": "Old v9 never-admitted layer lost mother RGB/left a white gap near source (1280,582) at hip-seat contact. Old v9 layer/mask never used as generation input.",
+  "ownerDecision": "Person owns bob hair, body, black distressed shirt, long sleeves, shorts/frilled hem, hands/legs and both worn lace-up boots. No held prop. Room owns cushion/pillows/blanket, floor, blue desk book, cup/lamp and furniture. Actual contact seams are reviewed separately from person.",
+  "method": "ImageGen retains original matching BG, independent full-canvas person matte and cast/contact matte v3. Following explicit root authorization after a residual white triangular gap, native SVG unions that matte with the root-provided source-coordinate polygon and removes figure luminance from the independent shadow layer. Same mother RGB is revealed without scale/recolor/raster modification. Hard and .5 source-pixel Gaussian edge variants are comparison candidates, no automatic approval.",
+  "originalPositionOnly": {
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "knownPointBoundary": "Primary actual v4 comparisons accepted complete cast shadow and cushion/front-plane relationship with narrowed y596 polygon and contained1.2 feather. Static admission only; runtime separate.",
+  "observationPage": "rana-chat-apricot-layers-v4.html",
+  "review": {
+    "primaryLayerApproved": true,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "primaryVariantSelected": "v4-soft-contained1.2",
+    "approvalRecord": "rana-chat-apricot-primary-layer-approval-v1.json"
+  },
+  "latestBundle": "rana-chat-apricot-bundle-v4.json",
+  "generationBoundary": "No further ImageGen calls after root instruction. Native SVG calibration only, no new/edited raster, no handmade fake shadow or separate image patch.",
+  "nativeCalibrationRecord": "rana-chat-apricot-native-cast-calibration-v2.json"
+}

@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 1,
+  "kind": "root-static-mother-approval",
+  "character": "umiri",
+  "wave": "apricot-wave-b",
+  "palette": "apricot",
+  "recordedAt": "2026-10-25T12:18:03.132589+00:00",
+  "reviewer": "root",
+  "primaryApproved": true,
+  "primaryMotherApproved": true,
+  "approvalScope": "Exact five static mother PNGs personally viewed in full by root; ten total across Uika/Umiri.",
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "approvalMessage": "root已逐完整原图亲看Umiri wave-b5母，全部静态批准：study手指本页与另一手扶本、listening空手叠膝侧望、play纸飞机实落合拢本上手指机鼻、attention翻页一刻看人、resume低本保页与一掌座面。发眼/各可见手/腿线膝与双靴独立支撑自然，camera大件稳定，无旧错误交腿。5图root exactSHA record请专属保存、layer/runtimefalse。Uika5也已明确准入消息在队列，两个合计10B母准，不指令生成其层。你light6已止后保健康会话等下一实际任务，不创建替代。",
+  "producerSnapshot": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/wave-b-producer-bundle-v1.json",
+    "sha256": "8c8584902a59be157c0fd6a2024be81e2d8a8cfb4a619fb96ce55d014708c115",
+    "preservedUnchanged": true
+  },
+  "approvalStateMeaning": "This later primary record is authoritative only for these exact PNG SHAs. False approval fields in unchanged producer source/bundle are historical pre-primary snapshots, not a current rejection.",
+  "outputs": [
+    {
+      "activity": "study",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-study-apricot-literary-wave-b-v1.png",
+      "motherSha256": "00e7de1bd0befad8932dc9684af860c982fe853cec855e163f5ad76f455d114a",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-study-apricot-literary-wave-b-v1.source.json",
+      "sourceSha256": "ee4a6bdf51d4f548ed6264c078fb485f6e98ae2c2fa7d54b493a527a4b653a86",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-study-apricot-literary-wave-b-v1.prompt.txt",
+      "promptSha256": "c9ad1abe3334c6f571a89d172bfe2cac6ba0318a6288176a5346b0a4003277da",
+      "primaryApproved": true,
+      "primaryMotherApproved": true,
+      "layersApproved": false,
+      "runtimeAccepted": false,
+      "scope": "Exact static mother only",
+      "rootObservations": [
+        "手指本页与另一手扶本自然。",
+        "发眼、各可见手、腿线双膝与两靴独立支撑自然，机位与大家具稳定，无旧错误交腿。"
+      ]
+    },
+    {
+      "activity": "listening",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-listening-apricot-literary-wave-b-v1.png",
+      "motherSha256": "76f1e619c7570c38c36f028d70ecd4b513b0a3fc982194ebde25b7a738aa6020",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-listening-apricot-literary-wave-b-v1.source.json",
+      "sourceSha256": "01f08abc9db521c95ac1967a0afcc76667798366b35a279fe5a86d870387334d",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-listening-apricot-literary-wave-b-v1.prompt.txt",
+      "promptSha256": "7cf1be0910e54c98ee55970ae9b94c7183437652cd5cc226a1fe4ea57d3d4687",
+      "primaryApproved": true,
+      "primaryMotherApproved": true,
+      "layersApproved": false,
+      "runtimeAccepted": false,
+      "scope": "Exact static mother only",
+      "rootObservations": [
+        "空手叠膝侧望。",
+        "发眼、各可见手、腿线双膝与两靴独立支撑自然，机位与大家具稳定，无旧错误交腿。"
+      ]
+    },
+    {
+      "activity": "play",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-play-apricot-literary-wave-b-v1.png",
+      "motherSha256": "de073cb1a22270d2a4082188de17e890bd43d6efa89bb7cab60c217f434efde1",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-play-apricot-literary-wave-b-v1.source.json",
+      "sourceSha256": "c8ef05bf4fadd00964686ef9b0771784d08e2287415bcf0353d0061ba74a8e49",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-play-apricot-literary-wave-b-v1.prompt.txt",
+      "promptSha256": "c5d7d1800f223ebe35e182831e535db20ef3327af3645cd86415365624c5bd18",
+      "primaryApproved": true,
+      "primaryMotherApproved": true,
+      "layersApproved": false,
+      "runtimeAccepted": false,
+      "scope": "Exact static mother only",
+      "rootObservations": [
+        "纸飞机实落合拢本上、手指机鼻。",
+        "发眼、各可见手、腿线双膝与两靴独立支撑自然，机位与大家具稳定，无旧错误交腿。"
+      ]
+    },
+    {
+      "activity": "attention",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-attention-apricot-literary-wave-b-v1.png",
+      "motherSha256": "debeda36370892960220a12fea5a4e701e2016c0e1210109f1f7e7bd3f4b67bc",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-attention-apricot-literary-wave-b-v1.source.json",
+      "sourceSha256": "921cd812f40dba33af009ab40383a3c2d21fe8ff1637d096024cc8b488df916e",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-attention-apricot-literary-wave-b-v1.prompt.txt",
+      "promptSha256": "e9d4b6e8f988eadd3b64fbd73100a7b3b94c70002ba26798ce0d53c4ed698c05",
+      "primaryApproved": true,
+      "primaryMotherApproved": true,
+      "layersApproved": false,
+      "runtimeAccepted": false,
+      "scope": "Exact static mother only",
+      "rootObservations": [
+        "翻页一刻看人。",
+        "发眼、各可见手、腿线双膝与两靴独立支撑自然，机位与大家具稳定，无旧错误交腿。"
+      ]
+    },
+    {
+      "activity": "resume",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-resume-apricot-literary-wave-b-v1.png",
+      "motherSha256": "6842a6222779a5607400400a6a1df5e3b732c814777f447defc5d5951413328e",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-resume-apricot-literary-wave-b-v1.source.json",
+      "sourceSha256": "07579b368f296161d42a3331e25ecb50fd857b177b6bdf725f972e2c515c4e3d",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-resume-apricot-literary-wave-b-v1.prompt.txt",
+      "promptSha256": "471faadfa99574c6eecf821536202d4a19bdfba80e746a96ad03d0713a24a596",
+      "primaryApproved": true,
+      "primaryMotherApproved": true,
+      "layersApproved": false,
+      "runtimeAccepted": false,
+      "scope": "Exact static mother only",
+      "rootObservations": [
+        "低本保页与一掌座面自然。",
+        "发眼、各可见手、腿线双膝与两靴独立支撑自然，机位与大家具稳定，无旧错误交腿。"
+      ]
+    }
+  ],
+  "boundary": "No layer generation, runtime or registration approval; six chat-light-wave mothers remain separately unapproved pending root review."
+}

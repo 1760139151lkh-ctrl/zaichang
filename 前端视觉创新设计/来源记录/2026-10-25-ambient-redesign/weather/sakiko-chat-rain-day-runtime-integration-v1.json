@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "recordType": "fixed-position-runtime-layer-integration",
+  "recordedAt": "2026-10-25T06:27:33.655920+00:00",
+  "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-rain-day-primary-layer-approval-v1.json",
+  "approvalSha256": "6055c94aae95e53dd56adf9e72fab883e0daca448ebfa7ff18ba0ca565e9a7a5",
+  "sourceBundle": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-rain-day-bundle-v1.json",
+  "sourceBundleSha256": "dbfd49fb995bdf2086b85a07a5e01045815b02a9e689690cf35b926f9d8eb190",
+  "runtimeRegistration": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-rain-day-v1.scene.json",
+  "runtimeRegistrationSha256": "7b3ad7563153b176aff90e56e4324bf9e8676901765deb1a4b03f7de6a0d4754",
+  "files": [
+    {
+      "source": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-rain-day-mother-v1.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-rain-day-mother-v1.png",
+      "sha256": "e287875d209fc367d4316b4dcdb53201fb514f8404de8ebc63cd6fe46a99e7d8",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-rain-day-background-v1.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-rain-day-background-v1.png",
+      "sha256": "13ebf75894baa3d008742573b4d402824cfe2f02a39a31e5579f74fd08193eeb",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-rain-day-figure-mask-v1.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-rain-day-figure-mask-v1.png",
+      "sha256": "92661beb0fb2ffa59670f346f9f957921f417be2840d9a493de20673728ac13b",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-rain-day-contact-shadow-mask-v1.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-rain-day-contact-shadow-mask-v1.png",
+      "sha256": "1a9461ee7023985b75766ba1fb99627ec7c6595c9086ff05061e1f34afd1166c",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    }
+  ],
+  "environmentVariant": "rain-day",
+  "palette": "mist",
+  "light": "morning",
+  "geometry": {
+    "coordinateSpace": "mother-normalized",
+    "seatPixels": [
+      1294,
+      594
+    ],
+    "seat": [
+      0.8424479166666666,
+      0.580078125
+    ],
+    "groundPixels": [
+      1178,
+      783
+    ],
+    "ground": [
+      0.7669270833333334,
+      0.7646484375
+    ],
+    "bodyBounds": [
+      0.728515625,
+      0.263671875,
+      0.93359375,
+      0.765625
+    ],
+    "maskBoundsPixels": [
+      1119,
+      270,
+      1434,
+      784
+    ],
+    "maskBoundsMethod": "Read-only luminance >32/255 measurement of this exact generated figure mask; right/bottom exclusive. No bitmap edits. Very faint antialias values may extend beyond practical visible bounds.",
+    "safeTextBoundary": 0.64,
+    "support": "window-seat",
+    "hitPolygon": "81.2% 26.4%, 85.1% 26.8%, 87.0% 35.0%, 91.7% 43.0%, 91.5% 49.0%, 90.5% 53.0%, 93.4% 57.2%, 90.5% 58.2%, 85.0% 58.5%, 82.0% 61.5%, 80.5% 75.2%, 78.2% 76.6%, 75.9% 76.2%, 76.1% 73.3%, 73.0% 75.6%, 72.8% 73.6%, 75.0% 69.8%, 77.0% 59.2%, 75.8% 55.8%, 78.9% 51.0%, 78.0% 46.3%, 78.7% 40.0%, 80.1% 33.0%",
+    "anchorMethod": "Approximate hip-seat, lowest shoe-floor and interaction contour visually traced from this exact weather source/mask, not inherited from an old large character. Scene owner validates integrated Stage metadata.",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "scope": "Original source position only; no translation/motion/anchor transition claim."
+  },
+  "measuredMaskBounds": [
+    1119,
+    270,
+    1434,
+    784
+  ],
+  "contact": {
+    "mode": "luminance",
+    "color": "#302c2c",
+    "opacity": 0.35
+  },
+  "sourceRecordsModified": false,
+  "pixelEdits": false,
+  "runtimeAccepted": false,
+  "runtimeReview": "pending-root-cold-start-QA"
+}

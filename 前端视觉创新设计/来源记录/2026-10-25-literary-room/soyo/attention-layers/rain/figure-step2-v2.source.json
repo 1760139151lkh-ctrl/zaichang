@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-attention-rain-figure-step2-v2",
+  "cell": "soyo/attention/rain",
+  "stage": "figure-step2-v2",
+  "tool": "image_gen.imagegen",
+  "actualToolArguments": {
+    "prompt": "Use case: precise-object-edit. Exact same-canvas binary selection conversion. Keep the existing 1536x1024 canvas and ALL existing deliberately white foreground pixels at exactly the SAME positions as input. This is only changing the remaining room color to black, never redrawing or moving a silhouette. The complete white girl+held open book is already correctly selected in the input. Keep it white as-is, including faint gray INTERNAL book/hand/uniform lines converted white; all ORIGINAL colored room pixels become pure black. Preserve every hair loop/strand, real colored negative gap and complete soles/heels. Whole shoe group MUST remain exactly where it already is in input, around x711..884,y761..852; do NOT lengthen legs or move feet to y900, do NOT shift book/pose. The white open book left corner remains around x796,y434; preserve original white page corner and outline. These observed coordinates are identification anchors, not new boxes or geometry to draw. Keep original white skirt's hem and both legs source-fixed. Output one 1536x1024 opaque black PNG with only the already existing white complete figure/book. No new person, crop, resize, shift, recenter, new shadow, outline/template, text or room highlights. All foreground contours copied visually from input as unchanged color-conversion target. No erased page edges, hand holes or shoe shaving. No RGB figure image needed, only unchanged-position mask.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/attention-layers/rain/figure-step1-marked-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "submittedPromptSha256": "12774bea1e2f3a7260acf638864e4ce54341d33a9857df8c19729dad3ee60fd9",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/attention-layers/rain/figure-step1-marked-v1.png",
+      "sha256": "850e55f06f5e5fc9664f1a2f8049a3f8bdc38a4617155bcc380bd4d9042d8b36",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-attention-rain-literary-v1.png",
+    "sha256": "5ce538bd49912e4e5dfcd3c28865ff57917e49cbe1ea801457a4b248c8cc3536",
+    "bytes": 2321520,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    }
+  },
+  "rootPrimaryRecordSha256AtRead": "f6b3a0b7ac9974993b61553e907f0ebfa7c39763ebef7d33ca7efb215a99fbb2",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/attention-layers/rain/figure-mask-v2.png",
+    "sha256": "87b08f6ebc7b71895f82d4f8cb0d5d932d258e191ec5aa99725b19f468f88d14",
+    "bytes": 429552,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-6ba64309-405f-4a1b-9e25-7c2281ddb8ac.png",
+  "producerObservations": [
+    "Personally viewed corrected F2 from valid F1 only: original shoe group/book location now follows the proper original source; no lower-left drift seen. Faint gray book interior contours remain for original-RGB closeup review; no layer approval."
+  ],
+  "status": "mask-candidate-awaiting-original-rgb-review",
+  "pngBytesUnchanged": true,
+  "pngPixelEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0
+}

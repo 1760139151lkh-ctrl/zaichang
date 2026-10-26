@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "character": "soyo",
+  "activity": "listening",
+  "palette": "rain",
+  "stage": "BG",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: precise-object-removal and background inpainting. Generate the matching EMPTY BACKGROUND for this exact approved Soyo Nagasaki LISTENING RAIN-NIGHT mother. This original complete 1536x1024 mother is the ONLY image input. Never feed or imitate an old generic empty plate, mask, union/composite, audit sheet or screenshot.\n\nRemove completely the entire seated girl (every hair strand, body, empty hands on knees, sailor clothes/hem, exposed knees, socks, complete brown shoes) AND the independent CLOSED BOOK on the image-right cushion (all covers, spine and pages). Also remove only their genuine near local effects: person/garment/book receiving/cast shadow, cushion compression/indentation under hips and book, and sole contact/shoe-contributed local floor shadow/reflection. No person/hair/shoe/book ghost, dark contact trace or cutout edge may survive.\n\nFill those vacated areas in the SAME original coordinates. Continue the cream quilted linen cushion's existing seams, thickness and natural unloaded folds across the absent hip/skirt/book regions, without body-shaped depressions or a flat white patch. Continue the wooden floorboard perspective, grain and adjacent night material/light across the removed legs/shoes and local shoe contact. Reconstruct previously hidden window/lake/town elements coherently from neighboring visible source. Do not invent props or reinterpret the room.\n\nLock the full original 1536x1024 camera, depth, window framing, rainy lake/town/mountains, left desk/chair/shelves/plants/brass lamp, round table/ceramic lamp/cup/flowers, long bench/plaid cushions/knit throw, rug and floor framing. Do not shift, scale, recenter or move furniture to occupy the vacancy. Preserve unrelated authentic furniture shadows, material reflections and room illumination; remove only the deleted person/book local effects.\n\nThis must remain the mother's COMPLETE NIGHT lighting: blue-black rainy glass, distant warm gold town reflections, warm indoor ceramic and desk lamps with gentle spatial falloff. The reconstructed linen/floor must receive that same night field naturally. No leftover daylight window-lattice hard sun patch, sun shaft, noon bright floor or white daylight sleeve/body ghost; do not create sunshine when removing a person. Existing legitimate soft lamp pools and furniture shadows remain, not flattened to uniform darkness or arbitrarily recolored. Do not only swap a rainy sky while making the room daylit, and do not globally retint the mother or substitute an older plate. Keep the room just as it was, except plausibly unoccupied and unloaded.\n\nOutput exactly ONE opaque 1536x1024 landscape EMPTY ROOM PNG. No girl, hair, hand/body, shoes, closed book, added person/object, text/UI, labels, arrows, frames, grid, crop, resize, zoom, translation or camera change. This is new inpainting of occluded material from the same clean original, not a claim of exact hidden-source pixel recovery.",
+  "promptSha256Utf8NoTrailingLF": "867874c3add45712b412025876a5624d94724addd5fffb7e4e319bfe10079bc1",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-rain-literary-v1.png",
+      "sha256": "dca2dd09063832af700bcb833ddaae40cde16b01aed2d27429204762cd3c7210",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "sourceMotherSha256": "dca2dd09063832af700bcb833ddaae40cde16b01aed2d27429204762cd3c7210",
+  "approvalEvidence": "Root static mother approval relayed by openui_creation; new necessary same-mother BG task explicitly delegated after joint source/old-plate mismatch. Exact mother independently viewed and SHA verified. New BG not primary-approved.",
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/soyo.md",
+      "sha256": "1ec8b260d40f8363c096ed8392547dd276d2318df5aadbe34b1f51e51e2ed04e",
+      "readScope": "Complete current text read before this layer task"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "readScope": "Complete current text read before this layer task"
+    }
+  ],
+  "method": "Built-in ImageGen object removal/inpainting from exact approved complete mother ONLY. Remove full person, independent closed book and their local contacts/compression/reflection; reconstruct linen/floor/occluded scene at same canvas. No old plate, mask, composite, color filter or manual pixel editing.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\listening-layers\\rain\\listening-background-v1.png",
+    "sha256": "55cef6e80b38143e14131d51b92f817e19f9ebb23417c900d3999cf5ea843156",
+    "bytes": 2262659,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-dd04b1ab-dbd6-490b-b90d-41ce98ca971a.png",
+    "pngBytesUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "fullNativeImage": true,
+    "observations": "亲看完整1536×1024：人/细发/双鞋/右合书完整移除，补回无身体印的连贯亚麻软垫、窗湖镇与鞋位连续木纹/夜灯反光，没有人形/书/鞋底残影。窗格、圆几灯杯、左桌椅、格纹靠枕与毯主要位置未见明显漂移。完整蓝黑雨窗与暖灯共存，右座垫/鞋位地板没有新增正午硬窗格日斑，保留原灯光池和家具投影。新补隐藏区域不是已知原像素复原，最终与原RGB MAX联合的边缘/地板反光须caller和root实看。"
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "status": "producer-candidate-awaiting-fixed-source-RGB-union-and-primary-review",
+  "useBoundary": "New same-mother empty BG candidate for fixed included composition. Previously occluded material is reconstructed, not certified recovered original hidden pixels. Main anchors/light and final original-RGB joint composite require visual primary review.",
+  "assetType": "same-mother-reconstructed-empty-background"
+}

@@ -8,23 +8,26 @@ export function focusTime(elapsedMs: number) {
   return `${hours ? `${hours}:` : ''}${String(Math.floor(seconds / 60) % 60).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
 }
 
-export function FocusLamp({ onActiveChange, onFinish, disabled = false }: {
+export function FocusLamp({ onActiveChange, onStatusChange, onFinish, disabled = false }: {
   onActiveChange?: (active: boolean) => void;
+  onStatusChange?: (status: FocusSession['status']) => void;
   onFinish?: (session: FocusSession) => void;
   disabled?: boolean;
 }) {
   const session = useFocusSession(), running = session.status === 'running';
   useEffect(() => { onActiveChange?.(running); }, [running, onActiveChange]);
+  useEffect(() => { onStatusChange?.(session.status); }, [session.status, onStatusChange]);
+  if (session.status === 'idle' && !session.storageUnavailable) return null;
   return <div className="focus-lamp" data-state={session.status} aria-label="一盏灯的专注">
     <span className="focus-lamp-light" aria-hidden="true"><LampDesk size={20} /></span>
-    {session.status === 'idle' ? <button type="button" disabled={disabled} onClick={() => focusSession.start()}>点亮这盏灯</button> : <>
-      <time className="focus-lamp-time" aria-label={`这一段专注 ${focusTime(session.elapsedMs)}`}>{focusTime(session.elapsedMs)}</time>
+    {session.status !== 'idle' && <>
+      <time className="focus-lamp-time" aria-label={`${session.recovered ? '上次停下时' : '这一段专注'} ${focusTime(session.elapsedMs)}`}>{focusTime(session.elapsedMs)}</time>
       {session.status === 'ended' ? <>
         <button type="button" disabled={disabled} onClick={() => focusSession.start()}>再点亮</button>
         <button className="focus-lamp-icon" type="button" aria-label="收起这段计时" onClick={() => focusSession.clear()}><X size={14} /></button>
       </> : <>
         <button type="button" disabled={disabled} onClick={() => running ? focusSession.pause() : focusSession.resume()}>
-          {running ? <Pause size={13} aria-hidden="true" /> : <Play size={13} aria-hidden="true" />}{running ? '暂停' : '接着专注'}
+          {running ? <Pause size={13} aria-hidden="true" /> : <Play size={13} aria-hidden="true" />}{running ? '暂停' : session.recovered ? '继续这段' : '接着专注'}
         </button>
         <button type="button" disabled={disabled} onClick={() => { const ended = focusSession.end(); if (ended) onFinish?.(ended); }}><Square size={11} aria-hidden="true" />结束</button>
       </>}

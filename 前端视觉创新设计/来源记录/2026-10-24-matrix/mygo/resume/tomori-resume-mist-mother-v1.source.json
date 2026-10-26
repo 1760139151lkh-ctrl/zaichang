@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "recordType": "complete-companion-mother-theme-relighting",
+  "dateLocal": "2026-10-24",
+  "timeZone": "America/Los_Angeles",
+  "character": "tomori",
+  "activity": "resume",
+  "theme": "mist",
+  "tool": "image_gen.imagegen (built-in)",
+  "executionId": "exec-cca7eb7f-39eb-4f91-bad0-0a34bbad9d38",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "originalOutput": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-cca7eb7f-39eb-4f91-bad0-0a34bbad9d38.png",
+  "prompt": "tomori-resume-mist-mother-v1.prompt.txt",
+  "promptFileSha256": "d347d1c61b557afa5af4122fbda3d1be720e4d3c4ec35564b2ddaa115e66f05a",
+  "submittedPromptTransform": "UTF-8 prompt file trimEnd, exactly as submitted",
+  "submittedPromptSha256": "acf1244c676d150ff8c13cc61761f5f6af7503409c8198aa4768ed5cf9527c4f",
+  "inputs": [
+    {
+      "file": "tomori-resume-apricot-mother-v1.png",
+      "sha256": "517e715d664e10d33dbf8a08cc359aa3f1a59af3e6f6fb127526d56c3f90ee81",
+      "role": "sole editable target: exact primary-accepted complete warm resume mother; all geometry, identity, expression and supported activity"
+    },
+    {
+      "file": "../../../assets-design-generated/2026-10-23-companion-matrix/room-mist-candidate.png",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "role": "empty whole-room theme light/sky/weather reference only; never a replacement furniture layout or source of character pixels"
+    }
+  ],
+  "identityFromApprovedMotherSource": "tomori-resume-apricot-mother-v1.source.json",
+  "output": {
+    "file": "tomori-resume-mist-mother-v1.png",
+    "sha256": "264e0e01bdd902f66abceca4982719435c190cea76fdb6fb344c58d6a6c49d43",
+    "bytes": 2102695,
+    "width": 1536,
+    "height": 1024
+  },
+  "approvalScope": "Theme candidate only. Warm mother acceptance does not approve this output, its layers or runtime. Resume remains semantic renewed attention, not a new furniture anchor or wholly new spatial action.",
+  "review": {
+    "producerViewedFullOriginal": true,
+    "primaryViewed": false,
+    "primaryApproved": false,
+    "layersAccepted": false,
+    "runtimeAccepted": false
+  },
+  "status": "producer-inspected complete theme mother awaiting primary review",
+  "producerObservation": "Personally viewed complete output: clear blue morning and distant lake mist, original desk lamp off, softened natural room/floor shadows. Tomori's earnest lifted gaze, parted mouth, lap book, page hand, rear cushion palm and both continuous floor-contact loafers remain; same window/furniture and clocktower position visually coherent. No full-image blue wash or new pose observed."
+}

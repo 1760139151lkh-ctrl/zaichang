@@ -1,0 +1,6 @@
+Use case: precise-object-edit.
+Asset type: same-canvas empty-room background extraction for a layered illustration.
+Input image 1 is the ONLY source and edit target: the approved Anon reading apricot mother, exactly 1536 x 1024 pixels.
+Primary request: Remove only Chihaya Anon and the open book she holds from the right-hand window bench. Remove her entire visible pink hair, face, uniform, hands, legs, socks and both shoes, and her person-specific cast/contact shadow. Reconstruct the small hidden portions of the bench cushion, wood front, room and floor naturally.
+Invariants: Output exactly 1536 x 1024. Keep the original canvas, camera, crop, perspective, framing, room geometry, window view, apricot sunlight, curtains, all furniture, floorboards, rug, blanket, pillows and existing fixed room objects in their exact original locations. Keep the blue closed book, cup and lamp on the desk. Keep the room's existing sun patterns and furniture shadows. The empty bench cushion must remain naturally continuous.
+Avoid: no new person, no book replacing the hand-held open book, no new objects, no composition change, no shifted furniture, no new lighting, no text, no labels, no border, no checkerboard, no transparency. This is an empty background plate, not a restaged scene.

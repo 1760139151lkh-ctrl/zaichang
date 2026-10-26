@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "id": "sakiko-chat-rain-day-room4-v1",
+  "character": "sakiko",
+  "activity": "chat",
+  "sceneFamily": "room4",
+  "environmentVariant": "rain-day",
+  "intendedCondition": "rain",
+  "isDay": true,
+  "width": 1536,
+  "height": 1024,
+  "mother": {
+    "file": "sakiko-chat-rain-day-mother-v1.png",
+    "sha256": "e287875d209fc367d4316b4dcdb53201fb514f8404de8ebc63cd6fe46a99e7d8"
+  },
+  "background": {
+    "file": "sakiko-chat-rain-day-background-v1.png",
+    "sha256": "13ebf75894baa3d008742573b4d402824cfe2f02a39a31e5579f74fd08193eeb"
+  },
+  "mask": {
+    "file": "sakiko-chat-rain-day-figure-mask-v1.png",
+    "sha256": "92661beb0fb2ffa59670f346f9f957921f417be2840d9a493de20673728ac13b",
+    "mode": "luminance",
+    "sourceRgb": "sakiko-chat-rain-day-mother-v1.png",
+    "method": "ImageGen original person-to-white in original room, then environment-to-black preserving that source silhouette; original mother RGB renders through native luminance mask."
+  },
+  "shadow": {
+    "file": "sakiko-chat-rain-day-contact-shadow-mask-v1.png",
+    "sha256": "1a9461ee7023985b75766ba1fb99627ec7c6595c9086ff05061e1f34afd1166c",
+    "mode": "luminance",
+    "color": "#302c2c",
+    "opacity": 0.35,
+    "order": "matching background, low-opacity dark contact mask, original mother RGB through figure mask"
+  },
+  "foreground": {
+    "required": false,
+    "reason": "This fixed source pose places visible girl, held book, supporting palm and shoes in front of room-owned support surfaces. Bench, pillows, blanket, desk book, mug and lamp remain in matching background."
+  },
+  "provisionalCalibration": {
+    "coordinateSpace": "mother-normalized",
+    "seatPixels": [
+      1294,
+      594
+    ],
+    "seat": [
+      0.8424479166666666,
+      0.580078125
+    ],
+    "groundPixels": [
+      1178,
+      783
+    ],
+    "ground": [
+      0.7669270833333334,
+      0.7646484375
+    ],
+    "bodyBounds": [
+      0.728515625,
+      0.263671875,
+      0.93359375,
+      0.765625
+    ],
+    "maskBoundsPixels": [
+      1119,
+      270,
+      1434,
+      784
+    ],
+    "maskBoundsMethod": "Read-only luminance >32/255 measurement of this exact generated figure mask; right/bottom exclusive. No bitmap edits. Very faint antialias values may extend beyond practical visible bounds.",
+    "safeTextBoundary": 0.64,
+    "support": "window-seat",
+    "hitPolygon": "81.2% 26.4%, 85.1% 26.8%, 87.0% 35.0%, 91.7% 43.0%, 91.5% 49.0%, 90.5% 53.0%, 93.4% 57.2%, 90.5% 58.2%, 85.0% 58.5%, 82.0% 61.5%, 80.5% 75.2%, 78.2% 76.6%, 75.9% 76.2%, 76.1% 73.3%, 73.0% 75.6%, 72.8% 73.6%, 75.0% 69.8%, 77.0% 59.2%, 75.8% 55.8%, 78.9% 51.0%, 78.0% 46.3%, 78.7% 40.0%, 80.1% 33.0%",
+    "anchorMethod": "Approximate hip-seat, lowest shoe-floor and interaction contour visually traced from this exact weather source/mask, not inherited from an old large character. Scene owner validates integrated Stage metadata.",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "scope": "Original source position only; no translation/motion/anchor transition claim."
+  },
+  "review": {
+    "motherApprovedByPrimary": true,
+    "layersApprovedByPrimary": true,
+    "producerViewedOriginalPngs": true,
+    "producerViewedNativeComposite": false,
+    "primaryViewedNativeComposite": true,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "approvalRecord": "sakiko-chat-rain-day-primary-layer-approval-v1.json"
+  },
+  "observationPage": "sakiko-chat-rain-day-layers-v1.html",
+  "source": "sakiko-chat-rain-day-mother-v1.source.json",
+  "status": "primary-admitted-original-position-static-layers-runtime-separate",
+  "productionNotes": {
+    "whiteIntermediate": "sakiko-chat-rain-day-white-in-room-v2.png",
+    "rejectedIntermediate": "sakiko-chat-rain-day-white-in-room-v1.png",
+    "rejectionReason": "v1 retained navy outer skirt tips; v2 restarted from approved complete mother and filled the full source fabric. Rejected v1 never used downstream."
+  }
+}

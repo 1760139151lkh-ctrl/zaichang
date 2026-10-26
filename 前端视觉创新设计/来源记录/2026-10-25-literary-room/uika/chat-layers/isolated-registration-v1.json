@@ -1,0 +1,291 @@
+{
+  "schemaVersion": 1,
+  "kind": "root-approved-exact-source-isolated-registration",
+  "role": "uika",
+  "recordedAt": "2026-10-25T11:41:51.573918+00:00",
+  "primaryAdmission": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/uika-chat-apricot-joint-primary-admission-v1.json",
+    "sha256": "2b7630083fb80e4d42d2a0622f2c9aceda2e5efa5c768c19efade377c18c20b8",
+    "bytes": 3502
+  },
+  "files": [
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.png",
+        "sha256": "df94d1a87f41775108d5b319a6bcc8ec4372283b770ef05ae764adedf2500c5d",
+        "bytes": 2464320
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+        "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+        "bytes": 2524961
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/figure-mask-v1.png",
+        "sha256": "937cb2e07ce767950ef7f113a8a3131f5b2f21569bd09fcb391050ae88004bea",
+        "bytes": 468033
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/figure-mask-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/contact-mask-v1.png",
+        "sha256": "eae4756cefb4ab68ff3f596128972eac539ca40f664487532e92afd4743f22fd",
+        "bytes": 304522
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/contact-mask-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.source.json",
+        "sha256": "1c090c50692ff6dbc87f15c4706bd221191adeec6601fe3bb798d3b903addd07",
+        "bytes": 8141
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.source.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json",
+        "sha256": "5425e475efa8264874f2f3b083b8737b4b1f9d35399e9b2c3d86dc561a36cddb",
+        "bytes": 1250
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/chat-included-scene-proposal-v1.scene.json",
+        "sha256": "2f760352d38147363c0175f9d5f559706da22f3453206887b3cf95f1f131a5ff",
+        "bytes": 2125
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/chat-included-scene-proposal-v1.scene.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/chat-layers-included-bundle-v1.json",
+        "sha256": "0497e7993451d8708fad137631ab86f92d7ebc33de2644c8c2ce25344af99826",
+        "bytes": 7255
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/chat-layers-included-bundle-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/chat-layers-included-observe-v1.html",
+        "sha256": "953f5439a471f79ad81210b1673c3ef6d5b19b28f99597db269757774e11ae75",
+        "bytes": 8352
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/chat-layers-included-observe-v1.html",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/contact-step1-marked-v1.png",
+        "sha256": "c8d6b6306f640cde30041842099233e6902bf2ec9a4f813a87bbd011611082aa",
+        "bytes": 2380074
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/contact-step1-marked-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/f1-actual-prompt-v1.txt",
+        "sha256": "0f3f507a8968524fcd6a513670cd2732694c6218aac61f28307480b4290d16fd",
+        "bytes": 2202
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/f1-actual-prompt-v1.txt",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/f1-source-v1.json",
+        "sha256": "ac506b406c2a3b3d1dd7c7d6539674eea14c314a039d6e37b10d85ab5bf9d871",
+        "bytes": 4044
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/f1-source-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/f2-actual-prompt-v1.txt",
+        "sha256": "e2550c145511f95d6b6b67d9dd897ffada13f4cf02d3dd9ecd704c5fe8391ab7",
+        "bytes": 2159
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/f2-actual-prompt-v1.txt",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/f2-source-v1.json",
+        "sha256": "c2fb9ae9582a743a83c691f10e8eb77de08787eb9d93bf6a951cfc46c3689344",
+        "bytes": 3974
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/f2-source-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/figure-step1-marked-v1.png",
+        "sha256": "ae39dc2768c45021aa271ce06a17f709812c010e1a7c1090fd382b044742f483",
+        "bytes": 2325659
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/figure-step1-marked-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/joint-source-v1.svg",
+        "sha256": "61825b5c7879510b9b50f6f1d4f32430d2d4908046f8b0c64d5104514bf1687d",
+        "bytes": 1251
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/joint-source-v1.svg",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/s1-actual-prompt-v1.txt",
+        "sha256": "2531e2c587af663d43587fced1f452e4c3743e7fcd6b9328034af2da8a2c3fad",
+        "bytes": 2378
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/s1-actual-prompt-v1.txt",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/s1-source-v1.json",
+        "sha256": "828aa96fc4df3017d79aa2350b8d59ec9be5dd1f8941c098e3509bd37ca5af12",
+        "bytes": 4226
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/s1-source-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/s2-actual-prompt-v1.txt",
+        "sha256": "65ad7daba40315bdbdcc9e6dde59c5efa58847fb6a2933eda827338d62db27bd",
+        "bytes": 1691
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/s2-actual-prompt-v1.txt",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/s2-source-v1.json",
+        "sha256": "7c6bb7a773212f6de4b2cd09f02ddb22c70729c533cfff04236df71bffd3f6d1",
+        "bytes": 3561
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/s2-source-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/source-closure-v1.json",
+        "sha256": "10e2924f16ee11cb6787ac0b6259129f131e93050f817967567a92129ef085c5",
+        "bytes": 4866
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/source-closure-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/uika-chat-apricot-joint-primary-admission-v1.json",
+        "sha256": "2b7630083fb80e4d42d2a0622f2c9aceda2e5efa5c768c19efade377c18c20b8",
+        "bytes": 3502
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/uika-chat-apricot-joint-primary-admission-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.prompt.txt",
+        "sha256": "365d544c2ccbacbe0b3ed062ec6ff1f02af9ea7dc6db66570fd88e7421c93dd3",
+        "bytes": 4207
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.prompt.txt",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.prompt.txt",
+        "sha256": "3e854eda45e9e76baed6ad514c67488656035d0990663f089cbf6f24575cae26",
+        "bytes": 1584
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.prompt.txt",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/literary-room-empty-plates-primary-admission-v1.json",
+        "sha256": "8ed5c9723ccf61f178ffa5e7f90a66f05b18fc6e44c8ba1124782b679a045c0c",
+        "bytes": 4399
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/literary-room-empty-plates-primary-admission-v1.json",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.png",
+        "sha256": "df94d1a87f41775108d5b319a6bcc8ec4372283b770ef05ae764adedf2500c5d",
+        "bytes": 2464320
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/uika-chat-apricot-literary-mother-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+        "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+        "bytes": 2524961
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/literary-room-clear-day-v1.png",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/figure-mask-v1.png",
+        "sha256": "937cb2e07ce767950ef7f113a8a3131f5b2f21569bd09fcb391050ae88004bea",
+        "bytes": 468033
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/uika-chat-apricot-literary-figure-mask-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/contact-mask-v1.png",
+        "sha256": "eae4756cefb4ab68ff3f596128972eac539ca40f664487532e92afd4743f22fd",
+        "bytes": 304522
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/uika-chat-apricot-literary-contact-mask-v1.png",
+      "status": "copied"
+    }
+  ],
+  "sceneJson": "前端视觉创新设计/运行素材/companion/scenes/uika-chat-apricot-literary-v1.scene.json",
+  "sceneSha256": "9969c05a47d84ee143d9b00b0a9b66307eec81f0a61751343cf95e688b451843",
+  "bodyBoundsPixelBasis": [
+    846,
+    116,
+    1319,
+    875
+  ],
+  "receiverPixelBoundsSeparate": [
+    828,
+    468,
+    1330,
+    883
+  ],
+  "runtimeAccepted": false,
+  "sharedTSModified": false,
+  "ledgerRefreshed": false
+}

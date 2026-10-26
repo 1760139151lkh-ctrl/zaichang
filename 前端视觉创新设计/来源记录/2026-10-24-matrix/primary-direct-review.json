@@ -264,6 +264,97 @@
       "decision": "accepted-interaction-relationship",
       "scope": "Direct original view: opposite sine components sum to zero at phase pi; local recovery actions and original composer. Runtime Curve remains authoritative; no runtime acceptance.",
       "sha256": "c6a835b58adf4354379996597efd9702f386b7627a9da58939b32f3affc2577b"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-24-matrix/sakiko/sakiko-resume-mist-mother-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original-image view by primary. Full body, furniture support and continuous room lighting accepted; modest return gestures do not claim a new furniture action. Layer alignment and runtime remain separate.",
+      "sha256": "2c89eaf224cf1032049e533ebf0879098a1ea7eeb8e6db1fdac00652b772063f"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-24-matrix/sakiko/sakiko-resume-violet-mother-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original-image view by primary. Full body, furniture support and continuous room lighting accepted; modest return gestures do not claim a new furniture action. Layer alignment and runtime remain separate.",
+      "sha256": "8cecb9f7025665577e3179abf28f92ca4d9477a41c9b156918faaa17c5430ff4"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-24-matrix/sakiko/sakiko-resume-rain-mother-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original-image view by primary. Full body, furniture support and continuous room lighting accepted; modest return gestures do not claim a new furniture action. Layer alignment and runtime remain separate.",
+      "sha256": "eaac28cd65add943d09cf304afca0f77a4835a3e755092b11be4a07dc0501ea0"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/anon-study-mist-mother-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original-image view by primary. Full body, furniture support and continuous room lighting accepted; modest return gestures do not claim a new furniture action. Layer alignment and runtime remain separate.",
+      "sha256": "6d4884609c89f9a824c0821160a7999a24df7b20111d08cce754f63406c5c6c0"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/resume/tomori-resume-apricot-mother-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original-image view by primary. Full body, furniture support and continuous room lighting accepted; modest return gestures do not claim a new furniture action. Layer alignment and runtime remain separate.",
+      "sha256": "517e715d664e10d33dbf8a08cc359aa3f1a59af3e6f6fb127526d56c3f90ee81"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/resume/anon-resume-apricot-mother-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original-image view by primary. Full body, furniture support and continuous room lighting accepted; modest return gestures do not claim a new furniture action. Layer alignment and runtime remain separate.",
+      "sha256": "4a5a2a9711ab78401cdc57d243b5cf4042f89eef136eb257fb2fc04ca8b84fd5"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/resume/rana-resume-apricot-mother-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original-image view by primary. Full body, furniture support and continuous room lighting accepted; modest return gestures do not claim a new furniture action. Layer alignment and runtime remain separate.",
+      "sha256": "54dd1803e9ff81797c1b3ad69ee36a92b3cde58072705e21f7869a38d17717cb"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/resume/soyo-resume-apricot-mother-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original-image view by primary. Full body, furniture support and continuous room lighting accepted; modest return gestures do not claim a new furniture action. Layer alignment and runtime remain separate.",
+      "sha256": "4507c3185b2728f196a4d0e3bab947fa14fe6c96cb8451eaec8b0618ef4aaa3e"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/resume/taki-resume-apricot-mother-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original-image view by primary. Full body, furniture support and continuous room lighting accepted; modest return gestures do not claim a new furniture action. Layer alignment and runtime remain separate.",
+      "sha256": "cc83d2b25be52d462f2328551a132e61615fe9ddbce71129cef749543a73ef2a"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-24-matrix/mujica/resume/mutsumi-resume-apricot-mother-candidate-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original-image view by primary. Full body, furniture support and continuous room lighting accepted; modest return gestures do not claim a new furniture action. Layer alignment and runtime remain separate.",
+      "sha256": "c78de272c79fd5041e09e18075837392c8696134ff4aba56004b97b1e63501d8"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-24-matrix/mujica/resume/uika-resume-apricot-mother-candidate-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original-image view by primary. Full body, furniture support and continuous room lighting accepted; modest return gestures do not claim a new furniture action. Layer alignment and runtime remain separate.",
+      "sha256": "29211468c28e8dd5cb20c50b62851d7b32fa9cd8639dbed4f419335e733c465a"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-24-matrix/mujica/resume/umiri-resume-apricot-mother-candidate-v1.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original-image view by primary. Full body, furniture support and continuous room lighting accepted; modest return gestures do not claim a new furniture action. Layer alignment and runtime remain separate.",
+      "sha256": "da8cda7c86c6dcc5dabd9b0f246b05033944c652ec10ca9cbe9054789ebcc987"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-24-matrix/mujica/resume/nyamu-resume-apricot-mother-candidate-v2.png",
+      "kind": "mother",
+      "decision": "accepted-mother-only",
+      "scope": "Direct original-image view by primary. Full body, furniture support and continuous room lighting accepted; modest return gestures do not claim a new furniture action. Layer alignment and runtime remain separate.",
+      "sha256": "fe11df2b3080e68bc269dc43a0149f3f0ab05ced35b3629c229cf423d41a671b"
     }
   ]
 }

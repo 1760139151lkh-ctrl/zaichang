@@ -1,0 +1,93 @@
+{
+  "id": "mutsumi",
+  "source": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\mutsumi-meme-cat-v1.png",
+  "sourceSha256": "d6438e8e96199328fd5302af27516881dd52f0120a40a0b22c54f05aaf2dff12",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "tailPivotPx": [
+    1354,
+    660
+  ],
+  "tailPivotNormalized": [
+    0.8815104166666666,
+    0.64453125
+  ],
+  "paperEdgeSourceY": 846,
+  "paperEdgeNormalized": 0.826171875,
+  "frontPawLowerExtentsPx": [
+    [
+      304,
+      862
+    ],
+    [
+      588,
+      877
+    ]
+  ],
+  "bodyArcSamplesY_X": [
+    [
+      610,
+      1332
+    ],
+    [
+      620,
+      1339
+    ],
+    [
+      640,
+      1353
+    ],
+    [
+      650,
+      1356
+    ],
+    [
+      660,
+      1361
+    ],
+    [
+      670,
+      1365
+    ],
+    [
+      690,
+      1373
+    ],
+    [
+      700,
+      1376
+    ]
+  ],
+  "visibleTailEndY": 691,
+  "wholeMaskExpansionRadius": 18,
+  "tailSemanticExpansionRadius": 12,
+  "rootUnderlapPx": 18,
+  "sourceSolidOutsideWholeGuardBounds": null,
+  "bodyAlphaBounds": [
+    32,
+    150,
+    1395,
+    886
+  ],
+  "tailAlphaBounds": [
+    1321,
+    339,
+    1507,
+    692
+  ],
+  "rawTailRedBounds": [
+    1338,
+    349,
+    1496,
+    685
+  ],
+  "outputs": {
+    "body": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\rig\\mutsumi\\mutsumi-meme-cat-v1-body.png",
+    "tail": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\rig\\mutsumi\\mutsumi-meme-cat-v1-tail.png",
+    "clean": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\rig\\mutsumi\\mutsumi-meme-cat-v1-clean.png"
+  },
+  "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-9725-7bd3-aa74-f7fa6487bfed/exec-acb2eb6b-e38d-4a6c-9ad7-06099a7c394d.png",
+  "bodyForegroundInkOverlapPx": 4
+}

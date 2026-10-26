@@ -99,6 +99,10 @@ export function ConversationMap({
     [explaining, setExplaining] = useState(false),
     [progress, setProgress] = useState<number>(),
     [playing, setPlaying] = useState(false);
+  const [surfaceEntered, setSurfaceEntered] = useState(active && !collapsed);
+  useEffect(() => {
+    if (active && !collapsed) setSurfaceEntered(true);
+  }, [active, collapsed]);
   const [entrances, setEntrances] = useState(false);
   const [pickingOrigin, setPickingOrigin] = useState(false), [originPreview, setOriginPreview] = useState<MapRouteResult>();
   const [routePending, setRoutePending] = useState(false), [routeIssue, setRouteIssue] = useState(''), [sharing, setSharing] = useState(false);
@@ -306,7 +310,12 @@ export function ConversationMap({
   }
   useEffect(() => {
     cancelOrigin();
-  }, [scene.id, scene.revision, active, cancelled, interruptionKey]);
+  }, [scene.id, scene.revision]);
+  useEffect(() => {
+    // Leaving the page cancels unfinished work, while a route already chosen
+    // by the user stays beside this same message when they come back.
+    cancelOrigin(false);
+  }, [active, cancelled, interruptionKey]);
   useEffect(() => {
     alive.current = true;
     return () => { alive.current = false; routeRequest.current++; };
@@ -459,10 +468,15 @@ export function ConversationMap({
   }, [ready, cancelled, interruptionKey]);
   useEffect(() => {
     endFocusGesture(true);
-    if (!active && focusState.current) focusMap(false);
+    if (!active) {
+      motionRequest.current++;
+      engine.current?.cancelMotion();
+      setPlaying(false); setExplaining(false);
+      if (focusState.current) focusMap(false);
+    }
   }, [active, scene.revision]);
   useEffect(() => {
-    if (!playing || progress === undefined || !route) return;
+    if (!active || !playing || progress === undefined || !route) return;
     const current = engine.current,
       ticket = current?.ownership.ticket();
     let frame = 0,
@@ -484,7 +498,7 @@ export function ConversationMap({
     };
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [playing, progress === undefined, route]);
+  }, [active, playing, progress === undefined, route]);
   function takeControl() {
     motionRequest.current++;
     memory.manual = true;
@@ -673,10 +687,8 @@ export function ConversationMap({
           </button>
         )}
       </header>
-      {!collapsed && (
-        <>
-          <div className="conversation-map-canvas">
-            {active ? (
+      <div className="conversation-map-canvas" hidden={collapsed}>
+            {surfaceEntered && (
               <MapSurface
                 initialRoute={route}
                 inline
@@ -691,10 +703,10 @@ export function ConversationMap({
                   setReady(!!value);
                 }}
               />
-            ) : (
-              <div className="conversation-map-rest" aria-label="保留的校园地图视图" />
             )}
-          </div>
+      </div>
+      {!collapsed && (
+        <>
           {!!leg && !originPreview && (
             <div className="conversation-map-journey" aria-label="旅程停靠顺序">
               {scene.journey.stops.map((stop, index) => (

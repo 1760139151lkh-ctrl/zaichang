@@ -1,0 +1,188 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "recordedAt": "2026-10-25T09:28:24.295Z",
+  "scope": "Primary full-mother exact-version decisions only; historical held entries retained. No unreviewed wave assets or runtime acceptance.",
+  "records": [
+    {
+      "character": "rana",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.png",
+      "decision": "approved",
+      "observation": "Primary viewed full mother. Distinct curious heterochromatic gaze, short silver hair and original casual identity; palm/seat and both complete boots physically supported. Same close room, no enlarged foreground face.",
+      "key": "rana/chat/apricot",
+      "primaryPersonallyViewed": true,
+      "layerApproved": false,
+      "runtimeAccepted": false,
+      "sha256": "060e897c7b9ebdefc5ab84d6fbada2983625b19e6a4ebc57501ede19c5259919",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.source.json",
+      "sourceRecordSha256": "722ffa0154fd1266a2829d10a0536e9700ef8295ea2eedf493505a85b6516359"
+    },
+    {
+      "character": "anon",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-pilot/anon-chat-apricot-literary-v1.png",
+      "decision": "approved",
+      "observation": "Primary viewed full mother. Fresh conversational expression, clear eye/hair boundaries and coherent book/hand grip. Sits nearer the round-table end of the actual diagonal bench, farther in depth; higher shoe projection is physically plausible, not an automatic scale failure. Actual UI left-content relation still unverified.",
+      "key": "anon/chat/apricot",
+      "primaryPersonallyViewed": true,
+      "layerApproved": false,
+      "runtimeAccepted": false,
+      "sha256": "53ee79ee3e5e210fc875d6ed062543c21cc2001831ede42dad814367a6103b7c",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-pilot/anon-chat-apricot-literary-v1.source.json",
+      "sourceRecordSha256": "6b3fb4659d9b2934aa6875c36e008adaa31ce461674293a66ba540b026a92f5e"
+    },
+    {
+      "character": "soyo",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-pilot/soyo-chat-apricot-literary-v1.png",
+      "decision": "approved",
+      "observation": "Primary viewed full mother. Restrained gentle expression, original recognizable hair/eyes/sailor identity; open booklet with both hands and supported seat/full shoes coherent. Book opening differs from brief but remains a natural chat moment.",
+      "key": "soyo/chat/apricot",
+      "primaryPersonallyViewed": true,
+      "layerApproved": false,
+      "runtimeAccepted": false,
+      "sha256": "20942d064ae0af479ede2868d689e105433022e8c0448d45301bd7fc9301bfd8",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-pilot/soyo-chat-apricot-literary-v1.source.json",
+      "sourceRecordSha256": "b93bed9c534c50c490211625026842288536990504950d035a019981d197cabe"
+    },
+    {
+      "character": "uika",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.png",
+      "decision": "approved",
+      "observation": "Primary viewed full mother. Recognizable blonde/violet-eye identity, light conversational anticipation; visible supporting palm, long skirt and complete sneakers fit bench/floor. Clear face and original close room.",
+      "key": "uika/chat/apricot",
+      "primaryPersonallyViewed": true,
+      "layerApproved": false,
+      "runtimeAccepted": false,
+      "sha256": "df94d1a87f41775108d5b319a6bcc8ec4372283b770ef05ae764adedf2500c5d",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.source.json",
+      "sourceRecordSha256": "9e54fdde8a39200c138a14e86f60801cf32f81992d6caa386fdedbb491aa560f"
+    },
+    {
+      "character": "mutsumi",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.png",
+      "decision": "approved",
+      "observation": "Primary viewed full mother. Restrained attentive expression, original green hair retained without tinting UI; distinct eyes/fringe, lap hands, supported seat and parallel grounded shoes coherent.",
+      "key": "mutsumi/chat/apricot",
+      "primaryPersonallyViewed": true,
+      "layerApproved": false,
+      "runtimeAccepted": false,
+      "sha256": "9d529789ece89f44b166f39dd259136257598cfd546009e49fae74140cbf8b6d",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.source.json",
+      "sourceRecordSha256": "315aeab44f31ab65fc263c68c3428fffe3bf53a323a1acbd8c9ac535508f2987"
+    },
+    {
+      "character": "nyamu",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.png",
+      "decision": "approved",
+      "observation": "Primary viewed full mother. More outward teasing laugh than brief; accepted as this role's distinct conversational energy. Gesturing hand/supporting palm/complete shoes and seat coherent; source room unchanged.",
+      "key": "nyamu/chat/apricot",
+      "primaryPersonallyViewed": true,
+      "layerApproved": false,
+      "runtimeAccepted": false,
+      "sha256": "096bd7f5f0138e8b961c91d52dc8e68b29bcda1600bbb9ca444bd1c7eff75313",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.source.json",
+      "sourceRecordSha256": "367aa043310ea50ac6b2aa5ba8975b6e7e22941be7ce79269952eef6a8c97542"
+    },
+    {
+      "character": "umiri",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v1.png",
+      "decision": "held-for-clearer-leg-support",
+      "observation": "Primary viewed full mother. Face and identity coherent, but knee overlap together with both boots appearing fully grounded leaves support ambiguous. Use a fresh text-led parallel-knee seated variant; do not feed this uncertain pose into repair.",
+      "key": "umiri/chat/apricot",
+      "primaryPersonallyViewed": true,
+      "layerApproved": false,
+      "runtimeAccepted": false,
+      "sha256": "3c6dc9fdff30dc91141da199aea07e3c279c14ac6b561a8e07099a2e69905649",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v1.source.json",
+      "sourceRecordSha256": "6aa200ba22b594b3e5b7acc17dd88fb38df568a0cf240c04ceed38580b482167"
+    },
+    {
+      "character": "tomori",
+      "key": "tomori/chat/apricot",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-pilot/tomori-chat-apricot-literary-v1.png",
+      "sha256": "f075324f63e151e4045b4ac5ee87f30dc8295295b81f12c97ddb30ab56ac34d9",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-pilot/tomori-chat-apricot-literary-v1.source.json",
+      "sourceRecordSha256": "86e5a28292f31d2574068e96231b9d3bf601d9c0cfc22ca49adf82e7c629420e",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "decision": "approved",
+      "primaryPersonallyViewed": true,
+      "reviewer": "root / primary",
+      "recordedAt": "2026-10-25T11:24:09.657584+00:00",
+      "observation": "Root personally viewed full original: distinct sincere performance, hair/eyes, book/hands, supported seat and complete reasonable legs/shoes.",
+      "layerApproved": false,
+      "runtimeAccepted": false,
+      "decisionSource": "Explicit root message 2026-10-25; producer metadata false flags do not override this exact root decision."
+    },
+    {
+      "character": "taki",
+      "key": "taki/chat/apricot",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-pilot/taki-chat-apricot-literary-v1.png",
+      "sha256": "0eb782e67b9954b406130a4994e9e75dd8774c8c3eb2a690d75d3e55338aad16",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-pilot/taki-chat-apricot-literary-v1.source.json",
+      "sourceRecordSha256": "b3d42cef116509ebe5476462d9375b95413bf4852158c20bdf1c22b14fa13aab",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "decision": "approved",
+      "primaryPersonallyViewed": true,
+      "reviewer": "root / primary",
+      "recordedAt": "2026-10-25T11:24:09.657584+00:00",
+      "observation": "Root personally viewed full original: distinct earnest performance, hair/eyes, supported book/lap/seat and complete reasonable legs/shoes.",
+      "layerApproved": false,
+      "runtimeAccepted": false,
+      "decisionSource": "Explicit root message 2026-10-25; producer metadata false flags do not override this exact root decision."
+    },
+    {
+      "character": "umiri",
+      "key": "umiri/chat/apricot",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v2.png",
+      "sha256": "b54800a320a163629dba745183efa63d18a83aa1ae19ba0f9382fdb546b12844",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v2.source.json",
+      "sourceRecordSha256": "79f2bb44da76f89950f0d4a9e96bec6c86137d4772323d7d6440dfa7df2b13b9",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "decision": "approved",
+      "primaryPersonallyViewed": true,
+      "reviewer": "root / primary",
+      "recordedAt": "2026-10-25T11:24:09.657584+00:00",
+      "observation": "Root personally viewed complete v2: parallel knees and independent connected legs/boots resolve v1 support ambiguity; clear hair/eyes and palms/seat/shoes.",
+      "layerApproved": false,
+      "runtimeAccepted": false,
+      "decisionSource": "Explicit root message 2026-10-25; producer metadata false flags do not override this exact root decision."
+    }
+  ],
+  "updatedAt": "2026-10-25T11:24:09.657584+00:00"
+}

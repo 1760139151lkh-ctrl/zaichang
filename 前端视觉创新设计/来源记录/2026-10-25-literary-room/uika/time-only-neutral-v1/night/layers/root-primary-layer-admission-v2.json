@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 1,
+  "recordType": "root-primary-time-only-neutral-static-layer-admission-v2",
+  "recordedAt": "2026-10-26T01:56:29.439Z",
+  "character": "uika",
+  "purpose": "neutral-presence",
+  "neutralTime": "night",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "weatherClaim": false,
+  "mapping": {
+    "palette": "rain",
+    "light": "night"
+  },
+  "approvalEvidence": {
+    "source": "Direct parent /root message in same healthy session after root personally viewed these five corrected exact-assembly Browser screenshots per time.",
+    "messageVerbatim": "Root已亲看Uika day/night v2各5张共10张final：native1536/checker/face-hands-shoes/contact/rear-skirt。主审准入当前两套selected F-v3（day53fef616…3fea / nightf1833c04…b539）及对应S/BG。后裙暗褶/踝后布料已完整保留，短袜/鞋带/厚底无假木透出，侧掌与坐垫/长裙髋、发缘暖光同景，sourceRGB一次MAX；S掌/鞋原位重叠可用fixed included，不称caster或动态。请存逐SHA root-primary-layer-admission-v2 json/md，只这两组8PNG+2scene注册Runtime，id uika-neutral-presence-time-{day,night}-included-v1，purpose neutral-presence，neutralTime，day/mist/morning，night/rain/night，envVariant缺省，0travel/persp/slope，真实U不缩。旧v1/v2mask和旧Browser只HOLD历史/不得input，不盖写。只本组source/runtime不改TS/相机/9335。字节核/npmcheck后冻结，Root最终build亲操。",
+    "views": [
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/night/layers/browser-native-1536-v2.png",
+        "sha256": "c00e0ef98d618be17a1a88196f4102746dae65edcf68530d609f7954e27fd232",
+        "bytes": 224321,
+        "primaryPersonallyViewed": true,
+        "assembly": "selected F-v3 / S-v1 / BG-v1, native unchanged motherRGB once MAX"
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/night/layers/browser-light-dark-checker-v2.png",
+        "sha256": "d54410e04d6cc32e4f4b0d4a1a2e7ce561e32b6f7be939a2d97a21dff3df0ce7",
+        "bytes": 198074,
+        "primaryPersonallyViewed": true,
+        "assembly": "selected F-v3 / S-v1 / BG-v1, native unchanged motherRGB once MAX"
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/night/layers/browser-face-hands-shoes-v2.png",
+        "sha256": "5129657cfc924dbb5009f533e941ec6d35300a8698abf328758e4762d2fd7b9b",
+        "bytes": 194415,
+        "primaryPersonallyViewed": true,
+        "assembly": "selected F-v3 / S-v1 / BG-v1, native unchanged motherRGB once MAX"
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/night/layers/browser-contact-v2.png",
+        "sha256": "3fd372e7582ef53e70bc6361c53d37a12656f1acc6c0769e7a2c8ff6a831f1e0",
+        "bytes": 204746,
+        "primaryPersonallyViewed": true,
+        "assembly": "selected F-v3 / S-v1 / BG-v1, native unchanged motherRGB once MAX"
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/night/layers/browser-rear-skirt-v2.png",
+        "sha256": "95f18bf5b82b8ab9dde60464abcbafb0438987abf76cb5d2444d379425a798ce",
+        "bytes": 193746,
+        "primaryPersonallyViewed": true,
+        "assembly": "selected F-v3 / S-v1 / BG-v1, native unchanged motherRGB once MAX"
+      }
+    ]
+  },
+  "primaryLayerApproved": true,
+  "runtimeRegistered": true,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "dynamicAdmission": false,
+  "original360ExactActivityAdmission": false,
+  "selected": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-night-v1.png",
+      "sha256": "7c53b03795295ddf3b7b490fe1332db82326a49dcace9fe9f6502b2cee5636d9",
+      "bytes": 2215829,
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/night/layers/background-v1.png",
+      "sha256": "0ee667d9b808402c52c22deca94209a429f33836d6f95a1285e3bad21683a7f8",
+      "bytes": 2150916,
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "F": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/night/layers/figure-mask-v3.png",
+      "sha256": "f1833c0423a5d8241c4e69f1a95101bc5643d89b18019f008b53a41ec146b539",
+      "bytes": 467544,
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "S": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/night/layers/contact-mask-v1.png",
+      "sha256": "95be09b006d6811de4688ca14de32c4b1426d3aff54814d1d4518a253830c387",
+      "bytes": 353968,
+      "canvas": [
+        1536,
+        1024
+      ]
+    }
+  },
+  "geometry": {
+    "figureEnvelope": {
+      "sourcePixels": [
+        805,
+        96,
+        1341,
+        894
+      ],
+      "normalized": [
+        0.5240885416666666,
+        0.09375,
+        0.873046875,
+        0.873046875
+      ],
+      "basis": "Read-only original PNG Rec.709 F luminance >32; right/bottom exclusive; diagnostic only, original continuous mask unchanged."
+    },
+    "jointReceiverEnvelope": {
+      "sourcePixels": [
+        787,
+        96,
+        1343,
+        907
+      ],
+      "normalized": [
+        0.5123697916666666,
+        0.09375,
+        0.8743489583333334,
+        0.8857421875
+      ],
+      "basis": "Read-only original MAX(L(F),L(S)) >32 complete real source receiver envelope, never tightened."
+    },
+    "supportAnchors": {
+      "seatPixels": [
+        1188,
+        579
+      ],
+      "groundPixels": [
+        952,
+        893
+      ],
+      "basis": "Registrar personally viewed exact full mother and native sourceRGB closeups: visible lower hip/long-skirt to linen seat, supported side palm on same cushion, full nearer canvas sole grounding into source wood. Fixed visible reference points, not hidden-joint reconstruction or travel calibration."
+    },
+    "familyFramingCodeUnchanged": true,
+    "newJointReceiverFitsExistingFamilyOuterBounds": true
+  },
+  "assembly": {
+    "sourceRgb": "exact unchanged root-approved mother only",
+    "coverage": "U=MAX(L(F),L(S))",
+    "luminanceCoefficients": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "originalRgbDrawsPerUnion": 1,
+    "contact": "included fixed original source cushion/palm/shoe/wood receiver overlap; not caster",
+    "fullRearSkirtFabricPreserved": true,
+    "pngPixelEditing": false,
+    "thresholdOrMorphologyEditing": false,
+    "warp": false
+  },
+  "runtime": {
+    "registration": {
+      "path": "前端视觉创新设计/运行素材/companion/scenes/uika-neutral-presence-time-night-included-v1.scene.json",
+      "sha256": "b4c38ccc270270a07852e6aa2067636675d3119216d5819a5d9455543651c21c",
+      "bytes": 3666
+    },
+    "copies": {
+      "mother": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/uika-neutral-presence-time-night-included-v1-mother.png",
+        "sha256": "7c53b03795295ddf3b7b490fe1332db82326a49dcace9fe9f6502b2cee5636d9",
+        "bytes": 2215829,
+        "sourceByteIdentical": true
+      },
+      "background": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/uika-neutral-presence-time-night-included-v1-background.png",
+        "sha256": "0ee667d9b808402c52c22deca94209a429f33836d6f95a1285e3bad21683a7f8",
+        "bytes": 2150916,
+        "sourceByteIdentical": true
+      },
+      "F": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/uika-neutral-presence-time-night-included-v1-mask.png",
+        "sha256": "f1833c0423a5d8241c4e69f1a95101bc5643d89b18019f008b53a41ec146b539",
+        "bytes": 467544,
+        "sourceByteIdentical": true
+      },
+      "S": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/uika-neutral-presence-time-night-included-v1-contact-mask.png",
+        "sha256": "95be09b006d6811de4688ca14de32c4b1426d3aff54814d1d4518a253830c387",
+        "bytes": 353968,
+        "sourceByteIdentical": true
+      }
+    },
+    "remaining": "Root will build and personally exercise final integrated runtime. This exact-SHA static registration does not grant actual runtime or360 acceptance."
+  },
+  "historicalExcluded": {
+    "stages": [
+      "figure-step1-marked-v1",
+      "figure-mask-v1",
+      "figure-mask-v2"
+    ],
+    "views": [
+      "browser-shin-diagnostic-v1.png"
+    ],
+    "reason": "Old white figure selections omitted actual dark rear skirt fabric behind ankles; earlier day conversion also cut shoe uppers. Only clean mother→corrected F1-v2→F-v3 selected. Old masks/screenshots remain HOLD archives, never generation inputs or final approval."
+  }
+}

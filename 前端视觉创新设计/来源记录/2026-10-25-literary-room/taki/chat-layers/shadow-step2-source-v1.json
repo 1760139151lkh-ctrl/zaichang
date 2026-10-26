@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "characterId": "taki",
+  "activity": "chat",
+  "palette": "apricot",
+  "roomFamily": "literary-room-v1",
+  "stage": "shadow2",
+  "createdOn": "2026-10-25",
+  "tool": "image_gen.imagegen (built-in)",
+  "callOrdinalInBoundedBatch": 8,
+  "executionId": "exec-fafeca33-a95e-4c4c-a220-2884003cfd8e",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-fafeca33-a95e-4c4c-a220-2884003cfd8e.png",
+  "input": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-layers/shadow-step1-marked-v1.png",
+    "sha256": "cb07b19e002479cea9e8caad0d6f7f90fa4f011732dbfa6f648a0ef5508841ac",
+    "role": "only image input; immediately preceding S1 marked contact receiver source"
+  },
+  "promptFile": "shadow-step2-prompt-v1.txt",
+  "promptFileSha256": "dc1d6b8847bf77fda60827b5d94b79fb23416ae677a25c0c00c626af4ade5686",
+  "submittedPrompt": "Use case: background-extraction. Asset: INCLUDED CONTACT luminance mask, STEP S2 of S2.\nImage 1 is the ONLY input: Shiina Taki's original 1536x1024 literary chat source with small contact-receiving regions already deliberately marked pure white.\nKeep ONLY those EXISTING deliberate white marks white at EXACTLY the same source positions/shapes. Turn EVERYTHING ELSE pure BLACK, including the colored girl, book, natural white collar/pages, linen, plaid cushions, curtains/clouds, lamp shade, sunlight, wood floor/rug and scenery. Do not redraw or infer any new contact region from scratch.\nThe marked selection belongs to the small irregular original seat-contact receiving regions (the narrow cushion compression/contact-receiving material immediately beneath the rear hip and camel skirt around x865..1240,y540..615) and the existing local floor contacts (the real irregular floor contact and short local shade directly below both soles around x745..1000,y845..955). These are bounding guides only. Preserve the actual white source marks; never fill a bounding rectangle/ellipse or join distant groups. A deliberate narrow garment/sole-edge overlap remains if already white. Do not move the seat group onto lap/book or the shoe groups up/down.\nThis mask will be used only in MAX(F,S) over the unchanged original mother RGB once, as a FIXED included-contact subject. It is not a portable separate caster. Keep exact original canvas, scale, framing and coordinates. Solid white interior; grey only at fine original antialias boundaries.\nOutput ONE opaque 1536x1024 PNG, pure black canvas with only the same deliberate white contact regions. No colored scene, person redraw, new shadow, crop, zoom, resize, grid, checkerboard, labels, arrows, rectangles or text.",
+  "output": {
+    "file": "shadow-mask-v1.png",
+    "sha256": "bbcb8bfbb911c1c7855f455f2159134267235474efeed22cc916c108561eb847",
+    "bytes": 311946,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Full S2 original viewed: black canvas retains two local seat-contact receiving regions and the short irregular floor contact immediately following the two soles. No whole-room or broad rectangular receiver is present. The sole group has a small adjoining transition between shoes; this belongs to fixed included coverage, not a clean separate caster. Native source-RGB inspection follows."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "representation": "Fixed original-coordinate included-contact union; no independent caster/travel claim."
+}

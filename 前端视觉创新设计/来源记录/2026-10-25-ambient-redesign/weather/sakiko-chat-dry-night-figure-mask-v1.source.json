@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-canvas-original-person-luminance-mask",
+  "id": "sakiko-chat-dry-night-figure-mask-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-chat-dry-night-figure-mask-v1.prompt.json",
+  "promptFileSha256": "2715e6c7c88287ef5b15083e1829fa6fce38b0c65648d954109ec9e09b066168",
+  "submittedPrompt": "Use case: precise-object-edit. STEP 2 of registered local color replacement.\nImage 1 is the SOLE exact full 1536 x 1024 input. It already contains the original small seated person and lap book filled WHITE at their correct original source position. Keep that EXACT existing white silhouette at the same pixels, size, hair strands, contour, hands, skirt, legs and shoes. Do NOT redraw a person or infer a new outline.\nChange ONLY the remaining COLORED ROOM into SOLID PURE BLACK. Windows, night sky/town/lake, curtains, desk/chair/lamp/books/mug, bench/pillows/blanket, walls/plants/floor/rug, shadows and room gaps all become black. The already white PERSON and held LAP BOOK remain pure opaque WHITE. Fill the faint blue book-edge line and any internal eye/fold/lace/skin/finger detail WHITE without changing the existing outer contour. Pale curtains/lamp are background and must be black.\nNo enlarge, shrink, lift, translate, re-center, re-pose, crop, zoom, smooth into a new silhouette or reconstruct hidden anatomy. Her existing crown near y272 and worn soles near y780 stay exactly at their existing coordinates. Preserve genuine background gaps between the existing white hair/limbs/fingers. All furniture and contact shadows stay black.\nReturn ONLY the existing registered flat-white person/book on an otherwise pure black FULL 1536 x 1024 opaque RGB canvas. Narrow source-edge antialiasing only; no gray interior, room texture, colored lines, glow, shadow, text, grid, border, watermark or transparency.",
+  "submittedPromptSha256Utf8NoTrailingLF": "1db7ae7d7c4c68195d7dc3dbf2fbc29476b5cca85b7c47dfb8e7aca4f804028d",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-dry-night-white-in-room-v1.png",
+      "sha256": "1eb8b41c0f7caa9122d523e780af375a299b224ba60bea2219cdd7d563f3ed24",
+      "role": "sole same-canvas local person-white intermediate; blacken room without moving person"
+    }
+  ],
+  "output": {
+    "file": "sakiko-chat-dry-night-figure-mask-v1.png",
+    "sha256": "7559ad8baf82697bdec83689750dd0c3b54f9a5649cc53b89b8c4a4986e7f8e8",
+    "bytes": 362809,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-80d5554f-590f-4337-892f-65c460fc771f.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": true,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observationBoundary": "Producer directly viewed full original PNG output only. Root native original-RGB recomposition review pending; no runtime or movement acceptance.",
+    "primaryNativeCompositeViewed": true,
+    "primaryLayerApprovalRecord": "sakiko-chat-dry-night-primary-layer-approval-v1.json",
+    "primaryLayerApprovalScope": "Exact-SHA original-position static same-canvas layers only; runtime independent"
+  },
+  "status": "primary-admitted-original-position-static-layer-runtime-separate",
+  "maskMode": "luminance",
+  "mother": {
+    "file": "sakiko-chat-dry-night-mother-v1.png",
+    "sha256": "894ea7803e258c79792110d32d9e1ece3f1551d75b0d6f4746ca09065ef296f9"
+  },
+  "rgbMethod": "Original complete mother RGB through native same-canvas luminance mask, no bitmap alpha editing or generated replacement figure RGB."
+}

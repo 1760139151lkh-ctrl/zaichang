@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ArrowUpRight, Check, ChevronRight, LoaderCircle } from 'lucide-react';
 import type { Action, Bridge } from '../shared/types';
 import { formatDateTime, timeZoneLabel } from './time';
+import { uiError } from './ui';
 import './planning-offer.css';
 
 export function PlanningOfferCard({ action, effect, disabled, onSave, onView, onRefresh }: {
@@ -23,7 +24,7 @@ export function PlanningOfferCard({ action, effect, disabled, onSave, onView, on
     if (saving || !ready) return;
     setSaving(true); setError('');
     try { const result = await onSave(action); if (!result.ok) setError(result.error || '这次还没有保存完整。'); }
-    catch (cause) { setError(cause instanceof Error ? cause.message : String(cause)); }
+    catch (cause) { setError(uiError(cause, { operation: 'save' })); }
     finally { try { await onRefresh(); } finally { setSaving(false); } }
   }
   return <section className={`action-card planning-offer${saved ? ' is-saved' : ''}`} aria-label="整份安排">

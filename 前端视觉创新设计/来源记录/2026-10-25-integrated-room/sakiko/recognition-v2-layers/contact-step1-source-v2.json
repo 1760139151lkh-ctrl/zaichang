@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-source-contact-receiver-selection-markup",
+  "id": "sakiko-resume-apricot-recognition-v2-S1v2",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "dossier": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+    "version": "2026-10-25.1",
+    "readComplete": true,
+    "wardrobeId": "sakiko-literary-navy-adaptation"
+  },
+  "method": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+  "promptFile": "contact-step1-prompt-v2.txt",
+  "submittedPrompt": "Use case: precise-object-edit. Asset type: FIXED INCLUDED CONTACT-RECEIVER selection markup, STEP S1 v2. Image 1 is the ONLY input: the complete root-reviewed 1536x1024 Sakiko recognition v2 original mother. This is NOT an independent-shadow extraction and not a redraw. Preserve the exact full source canvas, camera and every person/book/furniture coordinate.\n\nMark in SOLID PURE WHITE the small ACTUAL RECEIVING MATERIALS immediately supporting this seated girl, copied in place from the source. Keep ALL original person, clothes, hands/book, knees, BELOW-KNEE calf socks and shoes unchanged in color. The required seat group is the irregular NARROW PALE LINEN CUSHION STRIP directly touching and immediately below the whole rear-hip/plaid-skirt underside and the supported upper thighs. Follow the real skirt-hem-to-linen boundary, including the small source compression/fold material just BELOW the dark plaid lower edge, especially the lower hanging skirt around original x1000..1160,y585..640 and the adjacent seat contact behind the upper thighs. These coordinates are an inspection region, not a box to fill. White must visibly cover that actual small linen receiver/contact material; do not leave the whole seat unmarked merely because the linen itself is bright. Include only the real narrow adjacent receiver strip and its actual local shade; never the entire bench, pillow or throw. Do not paint over the navy/plaid clothing trim to substitute for this linen strip.\n\nAlso mark the actual very short wood-floor contact receiver regions immediately beneath both complete loafers, retaining their real irregular source extent. Do not repaint shoe soles/heel blocks, draw ovals or invent new shadows. A few original material pixels at these contacts are permitted because this is a fixed INCLUDED source union, never a movable pure shadow.\n\nAll other original room pixels stay colored and unchanged: the whole girl/book, large cushion and plaid pillow, knitted throw, floor sunlight lattice/rug/wood grain outside actual sole contacts, lamp/table/cup/shelves/desk/chair/plants, curtains/window/lake/town. Natural bright linen away from the physical contact is not a selection.\n\nOutput ONE opaque 1536x1024 PNG of the original scene with exactly these small actual linen and floor support receiver materials painted white in their original positions. No new geometry, pose, body RGB, room, cast shadow, crop, resize, zoom, recentering, translation, text, labels, outlines, arrows, grids or boxes.",
+  "inputs": [
+    {
+      "path": "../sakiko-recognition-apricot-v2.png",
+      "sha256": "a8801f784b77d632509818d102a8b899d0bdda99afe904085196a9e8c5bee279",
+      "role": "only exact root-reviewed clean recognition v2 mother; no previous failed mask or held person input",
+      "actualSha256": "a8801f784b77d632509818d102a8b899d0bdda99afe904085196a9e8c5bee279"
+    }
+  ],
+  "output": {
+    "file": "contact-step1-wide-seat-rejected-v2.png",
+    "sha256": "a066a8e2aab59ec4693e889695ab1dc6b4fb03c50348a3ea14844ac2e40d6c6c",
+    "bytes": 2412112,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-454d-7bb3-8b77-bcaadd75b8a4\\exec-56bb3e01-1729-4bc0-acba-9c3ddd44bc52.png"
+  },
+  "review": {
+    "producerPersonallyViewed": true,
+    "observation": "Generated markup whitened most of the long empty bench, contrary to local receiver intent. Rejected from masks, input queue, composition and runtime; next attempt restarts from original correct mother only.",
+    "generationInputAllowed": false,
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  },
+  "status": "rejected-entire-empty-cushion-selected",
+  "submittedPromptSha256Utf8NoTrailingLF": "acff7f3a4204d96130735bdfbeaf3f4a1f350ea5bde1abe8506fccf4d26ddc8f",
+  "promptFileSha256": "d59f93ca0482e6dea91a7f0269df1f6ff0f18a51c10d84bbce88f4d68e4473d5",
+  "promptEncodingBoundary": "submittedPrompt is the exact built-in inline text; prompt file retains its terminal LF independently."
+}

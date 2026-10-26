@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "character": "sakiko",
+  "activity": "play",
+  "palette": "apricot",
+  "sceneFamily": "room4",
+  "motherVersion": "scale-v5",
+  "role": "technical-white-fill-intermediate-not-runtime",
+  "method": "local-colour-replacement-preserving-original-room",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-play-apricot-scale-v5-white-in-room-v1-prompt.txt",
+  "promptFileSha256": "64f814a3f1b4bae30900f0a64a69ab42644856e22248b419e1acfaa048173a7e",
+  "submittedPrompt": "Use case: precise-object-edit. Local colour replacement in the supplied source image, not a new illustration.\nKeep the full original 1536 x 1024 ROOM image exactly as it is: same colours, furniture, window, camera, lights, floor, bench, shadows and every background pixel. Do not zoom, crop, recenter or redesign anything.\nChange ONLY the pixels of the original currently visible seated person and the paper bird she holds into flat opaque pure WHITE. Preserve their exact original silhouette and location pixel for pixel, including all fine hair/ribbon edges, bird tips, fingertips, supporting palm, skirt edge, knee/leg contours and two complete shoe shapes. All holes showing the room between strands, fingers, arms and legs remain the ORIGINAL COLOURED ROOM, not white. Do not move, enlarge, straighten or redraw the person; only replace the colour inside her existing outline with flat white. Her head stays where it is in the supplied image, beginning near y=286; her shoes stay on the supplied floor around y=760..790.\nThe result is the same full-colour original room with a plain WHITE colour-fill exactly inside its original small far-right person and held bird. No face or clothing details inside the white fill. No glow, haze, new shadow, text, grid, border or UI. Background remains unchanged and fully coloured.",
+  "inputs": [
+    {
+      "file": "sakiko-play-apricot-scale-v5-mother.png",
+      "sha256": "876d39377ec165cd6fcbab19c646a7d63d97c2f85b5dc354711d0cb961a22d87",
+      "role": "sole approved V5 mother; no rejected mask supplied"
+    }
+  ],
+  "transparentBackground": false,
+  "output": {
+    "file": "sakiko-play-apricot-scale-v5-white-in-room-v1.png",
+    "originalFile": "C:\\Users\\17601\\.codex\\generated_images\\01a16fb4-beb3-75e2-8677-73edb8072aa0\\exec-6bde4867-90f5-444a-a85e-fe83f3eeb7ae.png",
+    "executionId": "6bde4867-90f5-444a-a85e-fe83f3eeb7ae",
+    "sha256": "0917982685309615c5db3a446c4dc7f121b7148025af95842f286942fba30a73",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "status": "generated-technical-intermediate-awaiting-geometry-inspection",
+  "primaryApproved": false,
+  "layersAccepted": false,
+  "runtimeAccepted": false
+}

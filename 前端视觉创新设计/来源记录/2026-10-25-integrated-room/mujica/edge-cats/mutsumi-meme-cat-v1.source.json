@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "edge-meme-cat-v3-family",
+  "character": "mutsumi",
+  "kind": "project-original-2d-human-character-head-and-complete-simple-cat-body",
+  "costumeId": "project-original-edge-cat-no-human-clothes",
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-004e782e-0836-4908-999c-8bd62f4779f6.png",
+  "transparentBackgroundRequested": true,
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/运行素材/companion/edge/sakiko-meme-cat-v3.png",
+      "sha256": "15b21bfb6c94aef1dfd8ae7b168f970fbe9998cddb705b64ac7dabdceab0c161",
+      "role": "Accepted v3 family line language/full cat body scale reference only; not character identity"
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/mutsumi.md",
+      "sha256": "189d1a17f6e4c2656692437167c50d2a89379cf50b16bc354df3ac8406e4610c",
+      "scope": "Fully read immediately before this character creative call"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840",
+      "scope": "Fully read immediately before this character creative call"
+    }
+  ],
+  "exactSubmittedPrompt": "Create ONE original transparent-background 2D edge companion: Mutsumi Wakaba / 若叶睦 reimagined as a tiny meme cat, a project-original form, not a canon costume. She was quietly following a little tune of her own; a familiar small tap beside her makes her notice the person, and she tips her head just a little without abandoning her soft resting posture. Her expression is quiet and specifically attentive, a tiny closed cat mouth with a restrained almost-smile, never blank, sleepy, tearful or a generic huge grin. No dialogue is printed.\nThe ONE input is the accepted Sakiko meme-cat v3. Use it ONLY as the family drawing-language and full horizontal-cat-body reference: same approximate head size, low front-paw/chin resting baseline, broad white loaf-like cat torso continuing behind the head, complete rear haunch and hind paw, and an attached tail curving up on the right. The new head must be independently drawn for MUTSUMI, not Sakiko with a hue shift. Keep a full 1536x1024 transparent canvas, similar generous safe margins, full ears/hair/paws/body/tail uncut. Her two soft front paws and belly sit on one believable invisible horizontal edge; no floor, furniture or drawn support line. Leave room above for a separately rendered future speech bubble; do not draw a bubble or text. One complete integrated cat, no parts sheet.\nMUTSUMI IDENTITY in a very few flat graphic shapes: pale mint-gray-green LONG STRAIGHT hair suggested by about four broad smooth hair masses around and beside the face, thin simple bangs, a tiny pair of silver hair clips at HER LEFT temple (viewer right). Clear round GOLD-BROWN eyes, each a simple flat two-tone round disk, darker ochre upper half and pale gold lower half; no glossy anime sparkle clusters, realistic pupils, makeup or realistic face planes. Eyes gently attentive toward the person just left of the camera. The face and cat ears/paws/body are clean WHITE with the same simple dark navy outline language as v3. A small head inclination distinguishes her calm response; no copied Sakiko ribbons, no lavender Sakiko hairstyle, no blue eyes.\nDraw EVERYTHING in the SAME extremely simple hand-drawn 2D cartoon/meme style: bold clean dark-navy outlines, few round curves, large white areas, only a few flat hair color blocks and minimal or zero shading. A youthful cartoon HUMAN-CHARACTER HEAD integrated organically with a complete SIMPLIFIED CAT BODY; the human identity is hair/eyes only, with a white little cat face, not flesh skin. No realistic fur, whisker texture, plush toy, 3D render, skin gradients, human body, clothing, school uniform, socks, shoes, wrinkles, eyelashes with makeup, props, ribbons, background, shadow plate, glow, borders, text, logo or watermark. Preserve actual alpha transparency, not a black/white/checkerboard painted background.",
+  "submittedPromptSha256": "751aed50fa4e1536e3c725c52d4c7e5c472ec59ab259034b942117b466f9a91d",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\mutsumi-meme-cat-v1.png",
+    "sha256": "d6438e8e96199328fd5302af27516881dd52f0120a40a0b22c54f05aaf2dff12",
+    "bytes": 1418584,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 6
+  },
+  "producerViewed": true,
+  "producerObservation": "Personally viewed complete candidate: new Mutsumi mint-gray long-hair masses and left-temple twin clips, simple ochre/gold two-tone round eyes, small closed cat mouth and slight head tilt. White face/paws and full horizontal cat torso, hind haunch/paw and attached right tail are complete. Similar low support baseline and family scale. No clothing or burned-in speech bubble; alpha and small-size viewing checked separately. Root decision pending.",
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "independentTailLayer": false,
+  "independentEyeLayer": false,
+  "privateWechatSourceUsed": false,
+  "officialArtworkInput": false,
+  "pngEdited": false,
+  "fullHumanMatrixCredit": false,
+  "directAlphaObservation": {
+    "mode": "RGBA",
+    "extrema": [
+      0,
+      254
+    ],
+    "transparentPixelsPresent": true,
+    "sourceAlphaPreserved": true
+  },
+  "producerSmallSizeReview": {
+    "personallyViewed": true,
+    "widthPx": 220,
+    "backgrounds": [
+      "#fff9f2",
+      "#20212c"
+    ],
+    "evidence": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\review\\four-cats-light-dark-220px.png",
+    "sha256": "4fa123fc86f0bb00d0842636db5e828a73785a884ab931154429a71aaaab28cf",
+    "observation": "Original full-cat silhouette stays readable on both backgrounds at 220px width; hair/eye identity remains distinct, outline and white face/body clean. This review sheet is engineering evidence only, forbidden as future generation input."
+  }
+}

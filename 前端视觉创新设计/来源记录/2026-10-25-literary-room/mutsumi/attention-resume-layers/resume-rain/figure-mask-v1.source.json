@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "recordType": "native-same-canvas-layer-production-receipt",
+  "assetType": "same-canvas-complete-foreground-luminance-mask",
+  "sceneFamily": "literary-room-v1",
+  "character": "mutsumi",
+  "activity": "resume",
+  "palette": "rain",
+  "phase": "F2",
+  "recordedAt": "2026-10-25T20:28:37.089375+00:00",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-454d-7bb3-8b77-bcaadd75b8a4\\exec-5caab61d-352f-46ca-88b9-c5f36b2ac2eb.png",
+  "promptFile": "figure-mask-v1.prompt.txt",
+  "promptFileSha256": "28430b62f4d67e1be6c608baa4b0467005a10b812f6aaf27ca71c06f20b997bb",
+  "exactSubmittedPrompt": "Use case: precise-object-edit. Convert this SINGLE freshly made complete foreground WHITE-IN-COLORED-ROOM source markup into an OPAQUE RGB LUMINANCE MASK on the EXACT same1536x1024 source canvas. The existing pure white GIRL AND WHOLE OPEN BOOK become solid opaque WHITE. ALL original-colored ROOM pixels, true forearm/torso wood triangle, hair gaps, leg gap and floor/shadow/cushion become BLACK, independent of their original brightness. Do NOT select naturally light curtains, lamp shade, cushion or window highlights as white; only the previously intentionally white foreground. Preserve the entire existing hair fine strands/clips/head, all hands/fingers/book pages/cover/spine/dark lower lip, all navy hem folds/double trim, exposed knees/socks and BOTH FULL loafers/outsoles/heel bottom contours without erosion, shaving or shifted boundary. White foreground interiors have no eye/finger/cloth details or unintended holes; real selected-background gaps remain black. No original RGB room, gray mist, text/grid, shadow blobs, crop, zoom, resize, centering, redraw, pose change or transparency. Native narrow source-edge antialias only. This exact source position is for an original-RGB fixed included union; do not reinterpret anatomy or create a free-floating silhouette.",
+  "submittedPromptSha256": "7e2e178624c28a460f4d38082bac6a4bf615f8c257b2f0e73f671a3d98f414fe",
+  "submittedPromptTransform": "UTF-8 prompt file without final LF added by patch; exact submitted string",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-rain/figure-step1-marked-v2.png",
+      "sha256": "c5367c8d635d54ac10ff0c66e672a7b0faef4dd005277593c76798233d4068c9",
+      "role": "Fresh personally inspected F1-v2 native white-in-room markup, source position only"
+    }
+  ],
+  "output": {
+    "file": "figure-mask-v1.png",
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-rain/figure-mask-v1.png",
+    "sha256": "2f3524c73e9e59e609b00e64d8e251e25bce3e4b74eccc4136c9a0a8ea08f249",
+    "bytes": 441745,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "dossier": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/mutsumi.md",
+    "sha256": "189d1a17f6e4c2656692437167c50d2a89379cf50b16bc354df3ac8406e4610c",
+    "version": "2026-10-25",
+    "readComplete": true
+  },
+  "method": {
+    "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+    "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+    "readComplete": true
+  },
+  "wardrobeId": "mutsumi-tsukinomori-school-source-preserving",
+  "mother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-rain-literary-extension-v2.png",
+    "sha256": "948402e09dedcb2a0f8b1777b29d2bc543485419984d4e057a925b1499c62df9",
+    "bytes": 2320363,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    }
+  },
+  "motherApproval": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/root-human-mother-primary-review-20261025.json",
+    "sha256": "f6b3a0b7ac9974993b61553e907f0ebfa7c39763ebef7d33ca7efb215a99fbb2",
+    "record": {
+      "cell": "mutsumi/resume/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-rain-literary-extension-v2.png",
+        "sha256": "948402e09dedcb2a0f8b1777b29d2bc543485419984d4e057a925b1499c62df9",
+        "bytes": 2320363,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.846Z",
+      "observation": "Mutsumi green-tinted hair/gold eyes and anatomical-left paired clips remain; quiet curiosity or recognition is distinct from a stock smiling pose. Hands physically support the book, legs/shoes and bench support are coherent. Small sock decoration in rain remains project illustration, not new official wardrobe fact. Whole rain light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    }
+  },
+  "pngPixelEditing": false,
+  "manualThresholdOrMorphology": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "producerReview": {
+    "personallyViewed": true,
+    "observations": [
+      "Complete native black/white foreground mask personally viewed: full hair/face/held book/hem/legs and both whole shoes remain source-position. Foreground interiors are white except true room gaps, colored room is removed.",
+      "Only candidate alpha for fixed mother RGB union; precise source and shallow/deep/composite/edge comparison remains pending before selection."
+    ]
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "scope": "Original source-position fixed included layer production only; marked/mask RGB never replaces original mother color. No independent movement, no new mother/dynamic/runtime completion."
+}

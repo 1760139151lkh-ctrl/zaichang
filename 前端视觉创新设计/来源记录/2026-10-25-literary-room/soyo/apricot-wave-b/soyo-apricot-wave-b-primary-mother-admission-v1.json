@@ -1,0 +1,161 @@
+{
+  "schemaVersion": 1,
+  "kind": "exact-sha-primary-static-mother-decisions",
+  "character": "soyo",
+  "recordedAtUtc": "2026-10-25T13:18:33.789646+00:00",
+  "approvalScope": "static mother only; no layer/runtime promotion",
+  "cells": [
+    {
+      "key": "soyo/study/apricot",
+      "mother": {
+        "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-b\\soyo-study-apricot-literary-v1.png",
+        "sha256": "a53ed6272d5ee14f9bbf9bebdefa7becfdda3babbda954191d1c58b2a13d9d89",
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "producerSource": "soyo-study-apricot-literary-v1.source.json",
+      "primaryDecision": {
+        "approvedByPrimary": false,
+        "scope": "static mother only",
+        "finding": "REJECT old study v1: whole desk and round table displaced/enlarged; forbidden as all future image input.",
+        "source": "Root direct complete-original review in this healthy session 2026-10-25; exact timestamp not provided"
+      },
+      "contourComplete": false,
+      "contourScope": "original visible mother contour only; no generated-layer certification",
+      "allowedAsFutureImageInput": false,
+      "imageInputBoundary": "forbidden as any future generation input",
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "runtimeRegistered": false
+    },
+    {
+      "key": "soyo/listening/apricot",
+      "mother": {
+        "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-b\\soyo-listening-apricot-literary-v1.png",
+        "sha256": "a3a0c9e80066021508fcbe82274f2aa2c1e0254c6b4d32a9156e2c5e4a001f29",
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "producerSource": "soyo-listening-apricot-literary-v1.source.json",
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static mother only",
+        "finding": "empty hands at knees, serious attentive listening",
+        "source": "Root direct complete-original review in this healthy session 2026-10-25; exact timestamp not provided"
+      },
+      "contourComplete": true,
+      "contourScope": "original visible mother contour only; no generated-layer certification",
+      "allowedAsFutureImageInput": true,
+      "imageInputBoundary": "future task release still required",
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "runtimeRegistered": false
+    },
+    {
+      "key": "soyo/play/apricot",
+      "mother": {
+        "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-b\\soyo-play-apricot-literary-v1.png",
+        "sha256": "dcfe060914aa55fe373104a0f46bab903fda44a7b1ed2120230af81d7d5d60ba",
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "producerSource": "soyo-play-apricot-literary-v1.source.json",
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static mother only",
+        "finding": "pencil near lips, notebook supported on lap, subtle playful smile accepted",
+        "source": "Root direct complete-original review in this healthy session 2026-10-25; exact timestamp not provided"
+      },
+      "contourComplete": true,
+      "contourScope": "original visible mother contour only; no generated-layer certification",
+      "allowedAsFutureImageInput": true,
+      "imageInputBoundary": "future task release still required",
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "runtimeRegistered": false
+    },
+    {
+      "key": "soyo/attention/apricot",
+      "mother": {
+        "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-b\\soyo-attention-apricot-literary-v1.png",
+        "sha256": "f0250da580d8a02c22b69ee2c3f46a2bbf72e78604976baf2e43596ab63712c3",
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "producerSource": "soyo-attention-apricot-literary-v1.source.json",
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static mother only",
+        "finding": "one fingertip preserves the page while eyes answer/question the companion",
+        "source": "Root direct complete-original review in this healthy session 2026-10-25; exact timestamp not provided"
+      },
+      "contourComplete": true,
+      "contourScope": "original visible mother contour only; no generated-layer certification",
+      "allowedAsFutureImageInput": true,
+      "imageInputBoundary": "future task release still required",
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "runtimeRegistered": false
+    },
+    {
+      "key": "soyo/resume/apricot",
+      "mother": {
+        "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-b\\soyo-resume-apricot-literary-v1.png",
+        "sha256": "d79e9a2d7b873932dd1b2c04692eba3bd386007da501996eecc7d3ed62a6cf7a",
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "producerSource": "soyo-resume-apricot-literary-v1.source.json",
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static mother only",
+        "finding": "eyes lift while pink bookmark page remains, natural sincere shallow smile",
+        "source": "Root direct complete-original review in this healthy session 2026-10-25; exact timestamp not provided"
+      },
+      "contourComplete": true,
+      "contourScope": "original visible mother contour only; no generated-layer certification",
+      "allowedAsFutureImageInput": true,
+      "imageInputBoundary": "future task release still required",
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "runtimeRegistered": false
+    },
+    {
+      "key": "soyo/study/apricot",
+      "mother": {
+        "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-b\\soyo-study-apricot-literary-desk-v2.png",
+        "sha256": "2aafefdcb31e10b8f91de63a0e5ff6a2ee21d65026763ed072ea3aedb0688dd0",
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "producerSource": "soyo-study-apricot-literary-desk-v2.source.json",
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static mother only",
+        "finding": "same approved planning desk/round table; forearms on desk, steadying page and writing natural. Far eye partly hidden by lowered-head hair/view angle, not a fused hair-eye anatomy error.",
+        "source": "Root direct complete-original review in this healthy session 2026-10-25; exact timestamp not provided"
+      },
+      "contourComplete": false,
+      "contourScope": "original plant naturally occludes partial lower-leg/shoe contour; far eye partly occluded by lowered head/view",
+      "allowedAsFutureImageInput": true,
+      "imageInputBoundary": "correct desk v2 only for future study; old drifting v1 forbidden",
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "runtimeRegistered": false
+    }
+  ],
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false
+}

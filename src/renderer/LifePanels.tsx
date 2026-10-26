@@ -12,7 +12,7 @@ import {
   X,
 } from 'lucide-react';
 import type { Action, State } from '../shared/types';
-import type { AgendaChangePreview, AgendaFocus, AgendaPreviewChangeInput } from '../shared/agenda';
+import type { AgendaChangePreview, AgendaFocus, AgendaPreviewChangeInput, AgendaReference } from '../shared/agenda';
 import { calendarCommitment } from '../shared/calendar';
 import type { LetterFocusContext } from '../shared/reflective-letter';
 import type {
@@ -48,6 +48,7 @@ export function AgendaEditor({
   boundary,
   includeCampus = false,
   onDiscuss,
+  onOpenOrigin,
   onMap,
   onTrialChange,
   calendarVersionKey,
@@ -68,6 +69,7 @@ export function AgendaEditor({
   boundary?: Required<Pick<State, 'privacyEpoch' | 'policyRevision' | 'sourceBoundary'>>;
   includeCampus?: boolean;
   onDiscuss?: (focus: AgendaFocus, label: string) => void;
+  onOpenOrigin?: (record: AgendaReference) => void;
   onMap?: (id: string) => void;
   onTrialChange?: (startsAt?: string, durationMinutes?: number | null) => void;
   calendarVersionKey?: string;
@@ -126,6 +128,8 @@ export function AgendaEditor({
   const previousException = original.exceptions?.find((item) => item.onDate === occurrenceDate);
   const cancelledOccurrence = once && !!(current ? current.exceptions?.find(item => item.onDate === occurrenceDate) : previousException)?.cancelled;
   const changed = !!current && (current.revision || 1) !== (base.revision || 1);
+  const personalEdits = title !== original.title || detail !== (once ? previousException?.detail ?? original.detail : original.detail)
+    || allDayDate !== (original.allDayDate || '');
 
   const editDrafts = useRef<Record<string, { time: string; detail: string; duration: string }>>({});
   function rememberDraft() {
@@ -512,7 +516,7 @@ export function AgendaEditor({
             {trialInstant ? '先放回' : '取消'}
           </button>
         </div>
-        {onDiscuss && <button type="button" className="text-button agenda-discuss-link" disabled={pending || !current || changed
+        {onDiscuss && <button type="button" className="text-button agenda-discuss-link" disabled={pending || !current || changed || personalEdits
           || !!duration && (!Number.isInteger(Number(duration)) || Number(duration) < 1 || Number(duration) > 1440)}
           onClick={() => {
             if (!current) return;
@@ -522,6 +526,10 @@ export function AgendaEditor({
           }}>{trialInstant && preview?.occupancy && (preview.occupancy.related.length > 0 || preview.occupancy.multipleWorkUnits)
             ? '连同准备和转场一起商量' : trialInstant && original.planRef ? '一起看看整段安排'
               : trialInstant ? '讨论这次试放' : '接着聊这件事'}<ArrowUpRight size={14} /></button>}
+        {onOpenOrigin && <button type="button" className="text-button agenda-origin-link" disabled={pending || !current || changed || personalEdits}
+          title={personalEdits ? '先保存或取消修改，再返回原交流' : '回到当时商量这项安排的原对话'}
+          onClick={() => { if (current) onOpenOrigin({ id: current.id, revision: current.revision || 1, ...(once ? { occurrenceDate } : {}) }); }}>
+          <BookOpen size={14} aria-hidden="true" />原交流</button>}
         {once && !cancelledOccurrence && <button type="button" className="text-button agenda-cancel-once" disabled={pending || !current || changed}
           onClick={() => void save(true)}>取消这一次</button>}
       </form>

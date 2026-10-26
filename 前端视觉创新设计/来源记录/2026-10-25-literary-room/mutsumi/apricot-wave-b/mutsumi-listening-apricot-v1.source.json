@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "character-activity-mother-candidate",
+  "character": "mutsumi",
+  "activity": "listening",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "wave": "apricot-wave-b",
+  "intendedSupport": "window-seat",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-9ecb2c2b-16ce-4026-82d9-4e268a1e61ae.png",
+  "executionId": "exec-9ecb2c2b-16ce-4026-82d9-4e268a1e61ae",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "primary approved clean literary room spatial input"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.png",
+      "sha256": "9d529789ece89f44b166f39dd259136257598cfd546009e49fae74140cbf8b6d",
+      "role": "same character root-approved chat mother for correct identity/outfit only, not new activity pose"
+    }
+  ],
+  "brief": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/mutsumi-prompt-plan.json",
+    "sha256": "66ade9700cb7bb993b43bd7e247b678878b79ad71237b0b5dcd915a43a3be2ca",
+    "key": "mutsumi/listening/apricot",
+    "release": "Root released limited wave-b study/listening/play/attention/resume apricot only, five cells per character; no layers before root mother review",
+    "transformation": "Own literary narrative/core/identity/light retained; support refined from actual empty room. Study uses actual left desk/chair depth instead of unapproved generic bench-study or copied desk-pilot body."
+  },
+  "fictionalCompanionScene": true,
+  "privateUserDataUsed": false,
+  "promptFile": "mutsumi-listening-apricot-v1.prompt.txt",
+  "promptFileSha256": "b5c3a36f254a59e151901d5f1b77a723bee3a98f28381b2890d55462a79208a3",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; exact submitted text",
+  "submittedPromptSha256": "090ecce34a8cb1299bcc28e99dd0107e3c3d278ba036902c7238188d135756ff",
+  "output": {
+    "file": "mutsumi-listening-apricot-v1.png",
+    "sha256": "99ec0d08d7d1dd6e7ef13f70be6c137ba6330bc6a556e7a188757aa47ec86515",
+    "bytes": 2431078,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved complete mother before next generation. Correct mint hair/golden-brown eyes/sailor identity remains on the original right bench, full head and shoes visible. Listening is an empty-hand, subtly closer attentive state with more concerned brows and relaxed slightly parted lips; body pose remains close to chat rather than a dramatic new gesture. Both lap hands, visible eyelids/irises versus fringe, seat support, uncrossed knees/ankles and complete floor-supported loafers read coherently in full view. Original room camera/furniture and shared warm light remain visually stable. Producer view only; root/layers/runtime pending."
+  },
+  "primaryApproved": true,
+  "primaryApprovalRecord": "mutsumi-listening-apricot-v1.primary-approval.json",
+  "primaryApprovalScope": "Root approved exact-SHA static mother only, with actual rendered semantics; layer/runtime remain false.",
+  "contourComplete": true,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "Static mother candidate only, root review pending; no layer, motion or runtime admission."
+}

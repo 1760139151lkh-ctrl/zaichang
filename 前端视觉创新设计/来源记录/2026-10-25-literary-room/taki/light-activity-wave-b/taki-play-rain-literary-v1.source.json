@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "assetId": "taki-play-rain-literary-v1",
+  "roomFamily": "literary-room-v1",
+  "characterId": "taki",
+  "activity": "play",
+  "palette": "rain",
+  "ambientPlateKey": "rain-night",
+  "createdOn": "2026-10-25",
+  "generationMode": "target-empty-plate-and-approved-exact-activity-mother-relighting",
+  "tool": "image_gen.imagegen (built-in)",
+  "callOrdinalInBoundedBatch": 18,
+  "executionId": "exec-194ef958-883e-477c-9460-a7cd9b243fac",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-194ef958-883e-477c-9460-a7cd9b243fac.png",
+  "inputs": [
+    {
+      "file": "../../plates/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "role": "image1: approved exact target empty plate and illumination"
+    },
+    {
+      "file": "../apricot-wave-b/taki-play-apricot-literary-v1.png",
+      "sha256": "1e01dddcae67de37887d7338b3056aa4a3bf04609db7de15c75b83ba2b8f735f",
+      "role": "image2: root-approved actual activity identity/pose/scale/support, not inherited daylight",
+      "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+    }
+  ],
+  "promptFile": "taki-play-rain-literary-v1.prompt.txt",
+  "promptFileSha256": "6f885940f01987880d61db21fcd9582da4b25994363c5f1dacf83c07e9083139",
+  "submittedPrompt": "Create ONE 1536×1024 complete landscape literary companion illustration through genuine WHOLE-SCENE RELIGHTING. Image 1 is the ROOT-APPROVED EMPTY environmental plate at the TARGET time/weather and gives camera, room geometry and illumination. Image 2 is this SAME girl's ROOT-APPROVED APRICOT MOTHER OF THIS EXACT ACTIVITY. Retain its actual youthful identity, uniform, exact silhouette/head/body scale/source positions, microexpression, visible hands/objects, true support and occlusion; its DAYLIGHT HIGHLIGHTS are NOT identity or pose constraints.\nRepaint all light on skin/hair/uniform, held or resting paper/book, contact linen, wood/lamps and floor according to image 1, rather than tinting the scene or pasting a day-lit girl into new weather. Old apricot white knee/shin/face hotspots, sunlit hair rims and window-lattice pools do not survive by default.\nLock the close camera/framing and existing window panes/current crop, lake/town/mountain geometry, desk/chair, shelves/books/plants, round table/ceramic lamp/cup/flowers, linen bench/right plaid cushions/cream knit throw, floor/rug and blurred foreground plant. Keep her actual approved seated pelvis/cushion support and exact shoulders/arms/hands/props/knees/ankles/complete shoes at source coordinates. No body translation, enlarged head, reposed/crossed legs or invented hidden hand. Full head/hair and both complete shoes stay within the original image; real limb/strand gaps and overlaps remain.\nPrecise expressive anime character drawing belongs in the tactile softly painterly room. Separate every fringe lock, brow, lash, upper/lower eyelid, sclera and iris boundary, including side/down gaze. Preserve her youthful canonical hair/eye/garment colors under the new light, not a generic adult face, green UI tint, fixed service smile, compulsory blush or stereotyped scowl.\nOnly these two approved images are references. No unreviewed light mother, prior lighting-problem candidate, mask, other character, old room or malformed pose is used. Do not add readable text/schedules/answers/receipts, UI, logos, watermarks, diagrams, another person, split scene, zoom, new furniture or duplicate limbs. This is a project-original fictional performance, not a statement about an actual user's past action or completion.\n\nCHARACTER: Shiina Taki (椎名立希), MyGO!!!!!: long straight purple-black hair with side fringe, violet eyes; camel Hanasakigawa sailor uniform with trimmed white collar/red ribbon/gold buttons/camel skirt/dark socks/brown loafers.\nACTUAL APPROVED PERFORMANCE: Preserve the APPROVED ACTUAL small simply folded cream square/envelope-like paper gripped by one hand near upper chest, opposite hand over the closed book on her lap, crooked almost-laugh and clear violet glance toward the partner. Do not force a paper animal, lower the actual hand, tangle fingers or invent another fold. Keep the quiet, plain amused moment and real supported pose. RELIGHTING DETAIL: on the image-right thigh/knee region (approximately source x980..1080,y520..670) REMOVE the little hard bright oval/white-yellow apricot sunlight island. Keep coherent knee anatomy but repaint that skin as a smooth soft diffuse warm flesh plane with no isolated bright patch; existing target-lamp light is gentle and must not look like a noon spotlight.\nTARGET LIGHT: RAINY NIGHT, exactly image 1's actual glass rain, dark clouded lake/town and wet light reflections, NO stars or daylight. Dry interior with existing ceramic-lamp warm key and subordinate cool night-window fill. Repaint face/hair/uniform, paper/book, linen/contact surfaces and floor coherently, no inherited white shin/knee sun patch or hard noon window lattice. A localized lamp reflection is soft and physically related to the lamp. Preserve her original specific listening/play/attention/continuation affect: no automatic sadness, tears or mournful brows just because it rains.",
+  "output": {
+    "file": "taki-play-rain-literary-v1.png",
+    "sha256": "02cebac8c3c4a2eabb1741c5965786f0604424e5d99dc6245028aa858b96a0cf",
+    "bytes": 2206838,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "reviewedOn": "2026-10-25",
+    "decision": "static mother candidate for primary inspection",
+    "observation": "Complete original viewed: actual one-hand upper-chest small fold, opposite hand on closed lap book and crooked amused smile retained; paper visibly gripped. After the explicit local relighting instruction the image-right knee/thigh is a smoother warm flesh plane without the strong isolated apricot-style oval island. Rain/dark town and existing warm lamp light integrate paper/fingers/skin/uniform/seat/floor, no noon grid or automatic sadness. Eyes/fringe/lids clear, hip support/full coherent uncrossed legs/shoes at source scale; room stable.",
+    "bodyContour": {
+      "contourComplete": true
+    },
+    "limits": "Visual improvement is not measured radiometry or primary/layer/runtime admission."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "acceptanceScope": "Static actual-activity theme mother candidate only; no layer progression or registration."
+}

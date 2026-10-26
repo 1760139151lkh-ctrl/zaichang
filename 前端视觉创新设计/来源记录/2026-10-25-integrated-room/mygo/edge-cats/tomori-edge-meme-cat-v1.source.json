@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "assetType": "project-original-2d-edge-meme-cat-candidate",
+  "characterId": "tomori",
+  "shapeFamily": "user-selected-sakiko-meme-cat-v3",
+  "wardrobeId": "project-original-meme-cat/no-human-costume",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in transparent original character generation from family style reference",
+  "promptFile": "tomori-edge-meme-cat-v1.prompt.txt",
+  "submittedPrompt": "Create ONE original Tomori Takamatsu (高松灯 / 高松 燈, MyGO!!!!!) edge-companion meme cat, a genuine transparent RGBA PNG, full horizontal complete body.\nThe ONLY image input is the user's accepted Sakiko v3 meme cat. It is a FAMILY STYLE AND SCALE REFERENCE, not an identity or expression template. Match its very simple coherent 2D drawn grammar: bold clean dark-navy outline, flat white face and white loafing cat body, a few readable hair masses, uncomplicated circular two-tone irises, tiny restrained mouth, rounded front paws and complete rump/hind paw/upturned tail. Keep the same head-at-left/body-extending-right composition and broad calm horizontal paper-edge support baseline. No room or visible ledge is drawn; the paws and abdomen should naturally rest along one shared baseline for later placement on a real paper edge. Leave clear transparent breathing room around the entire silhouette and tail.\nRedesign the head as Tomori, from the identity described in words, without copying Sakiko's bangs, hair ribbons, gold eyes or smile. Tomori has a short softly layered gray-lavender/steel-gray bob, separate small cheek and nape hair groups, light uneven grouped bangs, no added hair ornament. Simplify her recognizable short-hair silhouette into only a FEW large graceful flat shapes. Eyes are muted rose-brown / dusty pink-gray, each a simple ROUND iris made from TWO FLAT HORIZONTAL color zones, in the visual language of the reference. No glossy glass marbles, realistic iris texture, eyelashes makeup or extra huge baby eye proportions. Her face stays flat white, without beige skin, flesh folds, nose modeling, blushing gradients or adult glamour. Triangular ears are drawn in the same simple cat/head grammar, not realistic fur.\nThis little creature has her own small thing going on: she was quietly examining one tiny smooth pebble tucked close to the outer edge of her left front paw, wondering why its slight notch looks like a shoreline. Someone nearby has just noticed the same detail. Her attention is still partly on that pebble and has just lifted toward the person, with an earnest small openness rather than a stock greeting. Keep a tiny thoughtful closed mouth and a slight attentive incline of her head; no tears, worried helpless face, exaggerated grin or generic soft smile. A SINGLE small rounded cool-gray pebble, held still by one resting front paw and not floating, is enough to make the shared object visible. The other front paw remains relaxed and available; she is not forcing the pebble toward anyone or pointing at empty air.\nThe cat is a project-original expressive form, not a canonical species change or a human costume. No uniform, skirt, socks, shoes, necktie, jewelry, collar, name badge, notebook panel or text. No real human hands or feet. The complete white cat torso, two front paws, one naturally readable folded hind-paw shape, tail root and full curved tail must connect coherently. Do not crop the body, create a detached tail, duplicated limbs, a cat-head-only bust or a standing kitten. Match the accepted v3 family apparent size and simple graphic weight; do not turn this into a detailed anime human portrait stuck onto a cat.\nStrictly original clean 2D cartoon drawing, white face and body, flat gray-lavender hair blocks, muted rose-gray two-tone eyes, dark-navy contour. TRUE transparency outside the character and the one tiny owned pebble; no black rectangle, white rectangle, fake checkerboard, aura, drop-shadow fog, rim glow, room, floor or background prop. No photoreal fur, 3D plush, plastic model shading, painterly human rendering, watermark, letters, speech bubble or collage. Output one complete standalone transparent asset only.",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/运行素材/companion/edge/sakiko-meme-cat-v3.png",
+      "role": "only image input: user-selected clean v3 simple 2D family grammar/scale, not another character identity",
+      "sha256": "15b21bfb6c94aef1dfd8ae7b168f970fbe9998cddb705b64ac7dabdceab0c161"
+    }
+  ],
+  "readSources": {
+    "passport": {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/tomori.md",
+      "fullReadBeforeCall": true,
+      "version": "2026-10-25",
+      "sha256AtArchive": "3a73a8f8299e7645ea96f6d07051a38bb2ccdb4b4e7e25e19eb08d51e2d08d3c"
+    },
+    "method": {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "fullReadBeforeCall": true,
+      "sha256AtArchive": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840"
+    }
+  },
+  "output": {
+    "file": "tomori-edge-meme-cat-v1.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-c661994e-39cf-4305-abb7-e366f6a9abdb.png",
+    "sha256": "4abb8cf4523d23984ba816ad3d44e3024f0b4e130c21593378a85d7980af3ef3",
+    "bytes": 1346601,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      254
+    ],
+    "cornerAlpha": 0
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Whole original viewed: short gray-lavender hair, muted rose two-tone circular eyes and no borrowed ribbons; complete white horizontal cat body with coherent paws/rump/tail. One pebble rests at a front paw, giving the earnest attention an object. The returned cat is a candidate; reference-like faint contour glow remains visible on dark viewer, to be judged in transparent/small-size review.",
+    "decision": "candidate for root personal review",
+    "transparentBackgroundReview": {
+      "personallyViewed": true,
+      "method": "actual browser rendering of original PNG on warm-light, dark and 160px-width surfaces",
+      "page": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mygo/edge-cats/producer-observe-v1.html",
+      "pageSha256": "7f90deccf18a5180984b74140418619ec4a703ba47745f002b8acca85297be2f",
+      "observations": "Full silhouettes and role hair/eye colors remained readable, including full rump and tail; no opaque background rectangle. Root acceptance, actual UI edges and interactions remain separate."
+    }
+  },
+  "primaryApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "humanMatrixCoverage": false,
+  "promptFileSha256": "85297ee7200b509699096f59aeb8aca689bf3da5b0f2b3d6ce60ca9af9a7d7ae",
+  "submittedPromptSha256": "dbc6c75f44751248288e0d27624d8d68c10c54e61d1cfab35d6a25019176d652",
+  "archivedAtUtc": "2026-10-25T15:59:29.250382+00:00"
+}

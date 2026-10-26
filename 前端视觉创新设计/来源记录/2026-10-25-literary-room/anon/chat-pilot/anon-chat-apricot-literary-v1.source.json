@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "anon-chat-apricot-literary-v1",
+  "assetType": "complete-mother-first-literary-room-pilot",
+  "createdAtUtc": "2026-10-25T09:10:27.281968+00:00",
+  "tool": {
+    "name": "image_gen.imagegen",
+    "mode": "edit-approved-empty-room-add-one-character",
+    "originalEventId": "exec-a4790566-2046-4efa-9a9e-bc2f87abd0fb",
+    "outputHint": "Generated images are saved to C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270 as C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-a4790566-2046-4efa-9a9e-bc2f87abd0fb.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  "prompt": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\chat-pilot\\anon-chat-apricot-literary-v1.prompt.json",
+    "fileSHA256": "9ceb4b00b1b16a5e56949f0629a902ad47c07e435e057431aa53318056019aee",
+    "submittedPrompt": "Use case: illustration-story. Create one complete literary-room companion mother artwork, exactly 1536 × 1024 pixels, horizontal full canvas. The ONLY image input is the approved clean EMPTY literary room. Preserve this input's exact close camera, perspective, room geometry and furniture: the large complete wood window and autumn lake-town view, ivory curtains, left writing desk and wooden chair, bookshelves and framed pictures/plants, the round table with blue-white porcelain lamp, cup, books and flowers, the long wood window bench with linen cushion, the blue-gray plaid pillows and knit throw at right, floor, woven rug and softly blurred foreground plant. Add exactly ONE character into this existing room. Do not replace the room, crop, zoom, change the furniture, add a second person or import the appearance of any previous character.\n\nThe literary moment leads the image: 千早爱音本来为一个普通话题准备了有点漂亮的开场，听见对方讲到具体的人和事，才愿意把下一句说得真实一些。她爱表现的轻快还在，一点没说完的小得意停在嘴角，眼神却比嘴角先认真。笑意只停半拍，眼睛仍然明亮。她接住画外同伴的目光，不忙着找下一个笑点；把一本很薄的小册子稍微转向两人之间，让对方可以继续说下去。This is a small unperformed moment of companionship: the spark of Anon's own personality is visible, with a listening pause, relaxed brows, an almost-smile just beginning to settle, and clear attentive eyes. Do not turn it into a promotional pose, a broad interchangeable happy grin, theatrical sorrow or a welcoming receptionist pose. No written dialogue or readable text.\n\nIdentity entirely from text: Anon Chihaya / 千早愛音, BanG Dream! It's MyGO!!!!!. Faithful youthful Japanese anime identity, long clear PINK hair with natural side-swept bangs, distinctive lively fine-featured youthful face, large clear BLUE-GRAY eyes. BOTH eyes must remain unobscured and well drawn, with coherent fine eyelashes and natural bangs above/around the eyes. Long hair falls with gravity beside her shoulders and seat, not over the eyes. Her original Haneoka school clothes: pale lavender-gray school blazer with white piping and two small gold buttons, white collared shirt, dark green necktie, dark green/gold plaid skirt, dark knee socks, simple BLACK loafers. Preserve these own colors under warm daylight. Ordinary youthful proportions and a modest fully clothed school-day presence, not a mature fashion model, chibi or doll. No Sakiko blue hair, blue bow or borrowed face/body.\n\nBasic real support and composition: she sits on the actual linen window bench near its left end beside the round table, leaving the original table and its lamp/cup intact and the left rear writing desk recognizable. Her seated weight belongs to the cushion, torso gently turned toward the off-camera companion near the viewer, shoulders loose, head upright rather than leaning into the camera. One hand rests naturally on her own knee; the other lightly steadies the thin, partly open booklet at her lap and turns it a little toward their shared space. The booklet has only faint abstract page texture, no legible printed content. The hands and their connection to the arms remain clear; the book does not conceal an anatomical mistake. Let the pose stay ordinary and supported, with each hip, thigh, knee, lower leg and shoe forming a natural continuous body. Both complete black shoes remain visible with believable floor contact and subtle local contact shadows; the cushion supports her hips and thighs, furniture stays behind/around her body with correct occlusion. No extra arm, duplicate hand, missing shoe, fused fingers, or body cutting through furniture.\n\nUse the newly selected near-camera HUMAN scale: the top of her hair is approximately y=110 and the bottom of her shoes approximately y=890 on this 1536×1024 canvas. This is the full seated figure in the close room, not a small distant figure, portrait crop, enlarged head or leaning face. Keep the whole hair, both hands, skirt, knees, ankles and both shoes in frame, with comfortable air around her. The person should feel present at this real furniture scale; do not alter the background camera to obtain the size.\n\nApricot clear-day atmosphere: natural almond-gold window light touches her pink hair tips and the backs of her hands. Preserve clean local colors, nuanced warm skin and a clear gentle shadow side of the face. Light, contact shadows and occlusion integrate her with the same room; avoid a separate gray/gold overlay or sticker outline. Refined 2D anime linework and softly modeled anime shading sit naturally in the detailed literary-room illustration. One coherent complete scene, no UI, collage, border, logo, watermark, captions or artificial foreground fog.",
+    "submittedPromptSHA256": "10d25db70053b200a9130a3d1d963b98213944cdecbbe5c526906078f5f50b76"
+  },
+  "inputs": [
+    {
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "sole-image-input-primary-approved-clean-literary-room-clear-day",
+      "canvas": [
+        1536,
+        1024
+      ]
+    }
+  ],
+  "brief": {
+    "cellId": "anon/chat/apricot",
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\briefs\\mygo-b\\anon-literary-room-briefs-v1.json",
+    "sha256": "1ec7df1a6421c59d25aa041baae6e99e02573b74aecc42b69ece2cde22842918",
+    "releaseScope": "Root released only this chat/apricot first mother pilot; remaining matrix not released"
+  },
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\chat-pilot\\anon-chat-apricot-literary-v1.png",
+    "sha256": "53ee79ee3e5e210fc875d6ed062543c21cc2001831ede42dad814367a6103b7c",
+    "bytes": 2441723,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-a4790566-2046-4efa-9a9e-bc2f87abd0fb.png"
+  },
+  "review": {
+    "directInspection": "saved-original-PNG-personally-viewed",
+    "approvedByPrimary": false,
+    "primaryLayerApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observations": [
+      "1536×1024原尺寸PNG已亲看；新文学房窗、书桌、圆几灯杯、长凳抱枕与织物布局保持可辨。",
+      "粉发、两眼和刘海清楚；轻张口的接话表情，眼神对向画外同伴，非大幅迎宾笑。",
+      "一手落于膝部，一手托住薄册；双手腕接续可辨，两只完整黑鞋落在可见地面，髋与凳垫有实际承托。",
+      "近机位尺度：目测头顶约y110，鞋底约y825；鞋底较本次约y890目标偏高约65px，留作root尺度审查，不宣称完全命中。",
+      "母图仅候选；未做分层、运行注册或primary验收。"
+    ],
+    "concerns": [
+      "shoe-bottom visually approximately y825 rather than requested approximately y890; root to judge near-camera scale"
+    ]
+  },
+  "boundaries": [
+    "mother only",
+    "no layer extraction or runtime registration",
+    "no previous character pixels as input",
+    "next pilot requires direct inspection of this saved output"
+  ],
+  "status": "mother-candidate-directly-inspected-awaiting-root-review",
+  "textualIdentityBasis": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\anon-chat-apricot-prompt.txt",
+    "sha256": "d2a45cd383a8274d3cc1c9bf58d5ad1b64768cbf3691b5d8c903ba8212cea45d",
+    "role": "local public character identity and clothing text only; no character image pixels supplied",
+    "projectOriginalSituation": true
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "tool": "built-in image_gen",
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "activity": "study",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "kind": "clean-empty-room-only"
+    }
+  ],
+  "damagedCharacterInput": false,
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a16fb3-8f8d-7c72-a744-a441e8907c91\\exec-33bf31bc-235d-4d5b-b7d8-a21393d5e7e2.png",
+  "output": "sakiko-study-apricot-v1.png",
+  "outputSha256": "e7181f8b7a73cb57208375b95dd11135c67ff6f71055d59528a83ab6530ee285",
+  "promptFile": "sakiko-study-apricot-v1.prompt.txt",
+  "submittedPromptSha256": "38079c216ee57bace11309815e2520be80364a17b48d6bb492cf6bf5b567577d",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "reviewBoundary": "Primary personally viewed full output: clear face/eyes/fringe, thoughtful focused expression, notebook supported on lap with one hand and pencil held by other, complete supported seat/shoes; same new close room. Full mother only, no layer or runtime approval."
+}

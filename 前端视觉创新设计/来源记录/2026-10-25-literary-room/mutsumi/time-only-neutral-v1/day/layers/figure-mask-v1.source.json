@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T01:08:03.163Z",
+  "producer": "/root/study_reading",
+  "character": "mutsumi",
+  "purpose": "neutral-presence",
+  "environmentVariant": "time-day",
+  "weather": "unknown",
+  "exactActivityMatrixCredit": 0,
+  "stage": "figure-mask-v1",
+  "tool": "image_gen.imagegen",
+  "originalToolPath": "C:/Users/17601/.codex/generated_images/01a17365-8901-7202-bd9e-0859826906dc/exec-93b303db-a36d-437d-aec3-32b77b991b2f.png",
+  "transparentBackground": false,
+  "submittedPrompt": "Use case: precise-object-edit. Convert input1 correct source-coordinate F1 white girl markup into a RAW BLACK-WHITE LUMINANCE FIGURE MASK, exact1536x1024. Input2 clean mother is ONLY for exact-coordinate identity/edge discrimination. This is not illustration or a redraw. Preserve EVERY source pixel location and complete selected silhouette; no crop, shift, resize, recenter or changing pose. All intentionally marked white girl pixels in input1 become pure opaque255white: ALL fine pale mint hair strands/tips, clips/head/face, neck/navy uniform/collar/bow/crest, BOTH hands/fingers on knees, every skirt pleat/hem edge, both knees/legs/dark calf socks, BOTH entire brown loafers including toe tips, bottom sole and heel blocks. White interior must be completely solid, no leftover face/garment/hand/shoe lines, no black internal gaps except REAL open room between hair strands/body/limbs. There is no book or held object. Every other pixel BLACK0 including naturally cream curtains, cushions, lamp, room and receiving seat/floor shadows; do NOT select naturally white room details. Keep original fine hair holes and real body gaps at exact coordinates. Full opaque RGB grayscale mask with only exact F1 girl silhouette white; antialias just original short edge. No shadow, broad halo, extra white islands, checkerboard, transparency, text, UI. Sole sourceRGB for final compositing stays clean mother; mask is never figure color.",
+  "submittedPromptSha256": "f691628674fd62e128a877b29702c75f4ce2a84f426cf17e05c6289c890e0c9a",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/day/layers/figure-step1-marked-v1.png",
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-day-v1.png"
+  ],
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/day/layers/figure-step1-marked-v1.png",
+      "role": "correct F1 selection markup",
+      "sha256": "8d8e786c7e1cb27c032459bcab98b53faade244ed497c11500038ea29535011c",
+      "bytes": 2146811
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-day-v1.png",
+      "role": "clean mother coordinate discrimination",
+      "sha256": "8c1d8e006fa332a85a9d7fed40989170fce6f6956a0b18e351efa83f29404f6f",
+      "bytes": 2440649
+    }
+  ],
+  "originalMother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-day-v1.png",
+    "sha256": "8c1d8e006fa332a85a9d7fed40989170fce6f6956a0b18e351efa83f29404f6f",
+    "approvalRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-day-v1.primary-approval.json"
+  },
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/day/layers/figure-mask-v1.png",
+    "sha256": "9961af4ec90629af0afe86f56ead3d6b2619f736b8ef8c18c428fffdc30ba69a",
+    "bytes": 461973,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "rawToolBytesPreserved": true,
+  "producerPersonallyViewed": true,
+  "observations": [
+    "Personally viewed full F2: full girl white on black, fine hair gaps retained, both complete shoe soles/heel blocks visible; source-coordinate RGB union pending."
+  ],
+  "producerUseDecision": "candidate-awaiting-static-union-review",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "userApproved": false,
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "fixedOriginalCoordinates": true,
+    "travel": 0,
+    "perspective": 0,
+    "slope": 0,
+    "contactShadow": "included"
+  },
+  "method": {
+    "sourceRgb": "exact unchanged mother only",
+    "union": "MAX(L(F),L(S))",
+    "originalRgbDrawsPerUnion": 1,
+    "pngPixelEditing": false,
+    "manualThreshold": false,
+    "morphology": false,
+    "warp": false
+  },
+  "scope": "Production candidate only; native browser union, seam and full source RGB must be personally viewed before primary static-layer admission."
+}

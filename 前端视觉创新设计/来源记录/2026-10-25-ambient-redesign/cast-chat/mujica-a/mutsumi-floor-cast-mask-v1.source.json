@@ -1,0 +1,28 @@
+{
+  "createdOn": "2026-10-25T06:44:19.830868+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "kind": "floor-cast-shadow-selection-mask",
+  "character": "mutsumi",
+  "activity": "chat",
+  "palette": "apricot",
+  "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-a/mutsumi-floor-cast-mask-v1.png",
+  "sha256": "d1753a95147430de16fc71a37f41b2416dd4e0f4e8bfc57a3cbc124005d58277",
+  "bytes": 298380,
+  "width": 1536,
+  "height": 1024,
+  "exactPrompt": "Use case: background-extraction. Asset type: ONE source-registered floor CAST-SHADOW SELECTION MASK, exactly 1536×1024, for a fixed original-pose same-room layer.\nThe SOLE input is the correct approved COMPLETE ORIGINAL MOTHER artwork. Do not redraw, re-pose, crop, zoom, move, relight or repair the original girl/room. This is not a new shadow painting. Select the existing actual shadow pixels already VISIBLE ON THE WOODEN FLOOR caused by this girl's lower legs and shoes. The earlier human-alpha extraction excluded these wider shadows; this mask is only the missing floor cast-shadow selection.\nOUTPUT: the complete original room-sized canvas, SOLID BLACK everywhere, except the actual existing visible human-caused floor shadow shapes which become WHITE. Only their tiny soft boundaries may be grey. All visible human pixels, including shoes, heels, soles, ankles and legs, must be BLACK, not included as white silhouettes. Every face, hair, hand, garment, bench, bench-front wood, desk, chair, wall, window, rug, outdoor view and unrelated plant/furniture/environmental shadow remains BLACK. White may appear ONLY on the floor in the precise local shoe-shadow region described below.\nFollow the original asymmetric organic shadow shapes and their gaps, not a guessed blob or a generic ellipse. Do NOT add a big black/white oval, rectangle, new painted shadow, full floor plate, shoe silhouette, leg silhouette, artificial proof markings or a contact outline alone. Keep every selected shadow at its exact original source location and original size. Region coordinates are location guides, NOT shapes to fill. Outside that region all pixels must stay pure black.\nThis mask will reveal ORIGINAL MOTHER RGB through SVG, without modifying PNG pixels, so selecting unrelated bright floor or fabric would create a visible seam. Select actual cast darkness only; avoid broad unshadowed floor patches. No checkerboard, transparency, RGB girl, lettering, labels, lines, logo or watermark. Return one full exact-size registered grayscale/black-white matte, not a cropped thumbnail.\nSOURCE-SPECIFIC Mutsumi: her complete brown loafers remain around x1120..1185,y730..775 and x1185..1265,y743..789 in this 1536×1024 source. Select the real broader soft dark floor projections beneath/between and extending slightly to the left of those soles, retaining their true source shape and softly fading edges. The permitted search region is approximately x1070..1325,y730..835. DO NOT whiten either brown shoe, navy sock or bench face. Do not paint every pixel in the permitted region white. The girl's quiet seated support is already correct and must not be redesigned.",
+  "promptSha256": "33f430f98f04182b4087578135a66bea640bd8ae3bd2c76a4d769fdbfc1273bc",
+  "inputs": [
+    {
+      "role": "sole correct original mother; existing actual floor cast shapes only",
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-mother-candidate-v1.png",
+      "sha256": "4cf106bfaa30dfbf6527c070cbde92481638fb27397b9a7afc109d6ab179fa2a"
+    }
+  ],
+  "originalGeneratedFile": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-fc3b6861-7b19-43a5-9062-6561445b59f2.png",
+  "methodBoundary": "Selection mask only; no original mother/figure/background PNG pixels edited. Original RGB display and any seam remain visible through fixed-source SVG. No added oval or hand-painted shadow.",
+  "designerReview": "Personally viewed. The first matte contains visible floor texture and is not a pure binary shadow selection; retained as unselected generation provenance.",
+  "approvedByPrimary": false,
+  "runtimeAccepted": false,
+  "pureShadowMatteAccepted": false
+}

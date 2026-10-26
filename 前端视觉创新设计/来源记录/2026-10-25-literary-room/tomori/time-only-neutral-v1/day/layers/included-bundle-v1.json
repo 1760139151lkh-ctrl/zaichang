@@ -1,0 +1,332 @@
+{
+  "schemaVersion": 1,
+  "id": "tomori-neutral-time-day-included-v1",
+  "recordedAt": "2026-10-26T01:25:18.352216+00:00",
+  "character": "tomori",
+  "neutralTime": "day",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "purpose": "neutral-presence",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "selected": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/tomori-neutral-time-day-v1.png",
+      "sha256": "ee943e04da7a50748d3e331ed4339548b842388027d0a5fe360e95a4c2d270b7",
+      "bytes": 2406170,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "role": "SOLE source RGB drawn once for figure + original receiver"
+    },
+    "figureMask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/figure-mask-v3.png",
+      "sha256": "da290969009ad5a936bd387aef77b36f8fe18162cb9f01dd5d091d1768e69177",
+      "bytes": 443076,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "role": "Actual Image F mask, no pixel edits"
+    },
+    "contactMask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/contact-mask-v1.png",
+      "sha256": "dce8d12a86dc23146b4ac9f2b6a993eaba3dfc47edf6c27d9ecf7bb46c8a623c",
+      "bytes": 290716,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "role": "Actual Image S original receiver coverage, no pixel edits"
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/background-v1.png",
+      "sha256": "12a93086d4b9a71567f2c3820df6d4d2ac71a9b351d0178231170064f884f892",
+      "bytes": 2310752,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "role": "Same-mother actual Image removal, reconstructed hidden room"
+    }
+  },
+  "assembly": {
+    "kind": "source-rgb-max-luminance-v1",
+    "coverage": "U=MAX(L(F),L(S))",
+    "originalRgbDrawsPerUnion": 1,
+    "luminanceCoefficients": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorInterpolationFilters": "sRGB",
+    "maxImplementation": "native SVG feBlend mode=lighten",
+    "pngPixelEditing": false,
+    "thresholdOrManualMaskOrMorphology": false,
+    "fullCanvasBitwiseReconstructionClaimed": false
+  },
+  "geometry": {
+    "travelPx": 0,
+    "slope": 0,
+    "perspective": 0,
+    "fixedOriginalSourceCoordinates": true,
+    "sourceReceiverMaterialIncluded": true,
+    "independentlyMovablePersonOrCaster": false
+  },
+  "nativeArtifacts": {
+    "union-source-v1.svg": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/union-source-v1.svg",
+      "sha256": "4490931b349cf6a87adee5b7b525bca47cc23a3ae252a81b3d855a2ace4971c4",
+      "bytes": 1250
+    },
+    "composite-source-v1.svg": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/composite-source-v1.svg",
+      "sha256": "3d023c993ad477e3fc79b88b9d0cf78b1eab0636ed3a8f5bf44706368efa59b8",
+      "bytes": 1366
+    },
+    "contact-source-v1.svg": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/contact-source-v1.svg",
+      "sha256": "e41a43bcedaf065fa4c2da9d2ee7a9729f414739d06f0f71e3cc4acee5945609",
+      "bytes": 481
+    },
+    "native-observe-v1.html": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/native-observe-v1.html",
+      "sha256": "9dc3888a5acb3c8b53c962fe57c43bed6a6f60eee657a3facf61a93dda0d7d46",
+      "bytes": 23977
+    }
+  },
+  "generationReceipts": [
+    {
+      "stage": "BG",
+      "source": "background-v1.source.json",
+      "sha256": "12a93086d4b9a71567f2c3820df6d4d2ac71a9b351d0178231170064f884f892",
+      "toolElapsedMs": 31786,
+      "status": "same_mother_clean_background_candidate"
+    },
+    {
+      "stage": "S2",
+      "source": "contact-mask-v1.source.json",
+      "sha256": "dce8d12a86dc23146b4ac9f2b6a993eaba3dfc47edf6c27d9ecf7bb46c8a623c",
+      "toolElapsedMs": 20340,
+      "status": "candidate_await_original_rgb_union_review"
+    },
+    {
+      "stage": "S1",
+      "source": "contact-step1-marked-v1.source.json",
+      "sha256": "e0c4036488b8e91150252dcc0549dbcc2af40dfabf669df82d7c3e5aab59714f",
+      "toolElapsedMs": 34795,
+      "status": "semantic_receiver_markup_candidate"
+    },
+    {
+      "stage": "F2",
+      "source": "figure-mask-v1.source.json",
+      "sha256": "06f9e287dbb9fb6ae03fd6702f86aa6244967508d75cc017717e7d431e0e3709",
+      "toolElapsedMs": 26907,
+      "status": "HOLD_internal_book_line"
+    },
+    {
+      "stage": "F2-v2",
+      "source": "figure-mask-v2.source.json",
+      "sha256": "3761fc6739a33244790513d7550bd6ea044b14e7ce9b852f6b23dcc4d84f39f9",
+      "toolElapsedMs": 21992,
+      "status": "HOLD_expanded_arm_gap"
+    },
+    {
+      "stage": "F2-v3",
+      "source": "figure-mask-v3.source.json",
+      "sha256": "da290969009ad5a936bd387aef77b36f8fe18162cb9f01dd5d091d1768e69177",
+      "toolElapsedMs": 25605,
+      "status": "candidate_await_native_original_rgb_review"
+    },
+    {
+      "stage": "F1",
+      "source": "figure-step1-marked-v1.source.json",
+      "sha256": "b73e72257cd0dd203d81fee946772b3bf0e7195601bff50e8783af719af60d30",
+      "toolElapsedMs": 41051,
+      "status": "HOLD_lower_book_cover_exclusion"
+    },
+    {
+      "stage": "F1-v2",
+      "source": "figure-step1-marked-v2.source.json",
+      "sha256": "35e988e592f3b8c99f71c77c9af34f8cfc4f686e406506b11dda81258646b279",
+      "toolElapsedMs": 32057,
+      "status": "HOLD_expanded_arm_gap"
+    },
+    {
+      "stage": "F1-v3",
+      "source": "figure-step1-marked-v3.source.json",
+      "sha256": "da963edf705edfa96808ac259643b6a2328f0723f54b1b0445263a1260e1e6a5",
+      "toolElapsedMs": 35610,
+      "status": "healthy_semantic_markup_for_F2"
+    }
+  ],
+  "actualImageCalls": 9,
+  "imageToolElapsedMs": 270143,
+  "browserObservation": {
+    "route": "formal cua_repl Chrome extension, no external CDP/9335",
+    "tabId": "500947797",
+    "url": "http://127.0.0.1:5188/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/native-observe-v1.html",
+    "personallyViewed": true,
+    "views": [
+      "whole mother/composite",
+      "full figure on light/dark/checker",
+      "face/hair",
+      "pencil/whole notebook/lower cover/hands/arm gap",
+      "seat/hem/thigh support",
+      "both complete shoes/floor footprint",
+      "included source receiver alone"
+    ],
+    "evidence": [
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/browser-observations/01-mother-composite.png",
+        "sha256": "d50255a5ffc588b3243fc269a24b614eb4e40815b33d12eae79ea2d2e07e059f",
+        "bytes": 119571,
+        "canvas": [
+          1265,
+          584
+        ],
+        "role": "Actual formal CUA Chrome screenshot bytes; review-only; NEVER Image input",
+        "heldDiagnostic": false,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/browser-observations/02-light-dark-checker.png",
+        "sha256": "47557518de19feca193afc65bb02a7b55d0d8cfe4985bc2ad80b070cfa83552e",
+        "bytes": 78326,
+        "canvas": [
+          1265,
+          584
+        ],
+        "role": "Actual formal CUA Chrome screenshot bytes; review-only; NEVER Image input",
+        "heldDiagnostic": false,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/browser-observations/03-book-hands.png",
+        "sha256": "23e12200fb4412e2c50c9bc0c4e0eb6cfd9e5ba6e5e9540fb2927555885f803c",
+        "bytes": 93666,
+        "canvas": [
+          1265,
+          584
+        ],
+        "role": "Actual formal CUA Chrome screenshot bytes; review-only; NEVER Image input",
+        "heldDiagnostic": false,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/browser-observations/04-face-hair.png",
+        "sha256": "4bd65c3f3f3bf2a2095a752f9fcd41cf7bdf0e14dfde615d503211ed155a69e2",
+        "bytes": 89729,
+        "canvas": [
+          1265,
+          584
+        ],
+        "role": "Actual formal CUA Chrome screenshot bytes; review-only; NEVER Image input",
+        "heldDiagnostic": false,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/browser-observations/05-seat-contact.png",
+        "sha256": "8f8b63b78bcf8e1f3f85f9c5384b3411be7eff1ae510081a8b44ee9ed41e36d4",
+        "bytes": 94751,
+        "canvas": [
+          1265,
+          584
+        ],
+        "role": "Actual formal CUA Chrome screenshot bytes; review-only; NEVER Image input",
+        "heldDiagnostic": false,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/browser-observations/06-complete-shoes-floor.png",
+        "sha256": "a542abff8b803affb75a7fa6f9e713c554c9f736ac6cfc9b8a042c70e2c7b694",
+        "bytes": 81249,
+        "canvas": [
+          1265,
+          584
+        ],
+        "role": "Actual formal CUA Chrome screenshot bytes; review-only; NEVER Image input",
+        "heldDiagnostic": false,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/browser-observations/07-included-receiver.png",
+        "sha256": "994613019107b1c8b6faf9d8976dd63e9d5d063d842886a76b49c8392407bf75",
+        "bytes": 36701,
+        "canvas": [
+          1265,
+          584
+        ],
+        "role": "Actual formal CUA Chrome screenshot bytes; review-only; NEVER Image input",
+        "heldDiagnostic": false,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/browser-observations/f1-arm-gap-v1.png",
+        "sha256": "8762e070fe3848865e2c5011ab34c33df962367f574ffebefe5b27722e97f513",
+        "bytes": 31268,
+        "canvas": [
+          1280,
+          591
+        ],
+        "role": "Actual formal CUA Chrome screenshot bytes; review-only; NEVER Image input",
+        "heldDiagnostic": false,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/browser-observations/HOLD-figure-v2-01-mother-composite.png",
+        "sha256": "400acda056a772117a50d1de18f0a5fc847e796cebde800e75410ededf146f62",
+        "bytes": 119568,
+        "canvas": [
+          1265,
+          584
+        ],
+        "role": "Actual formal CUA Chrome screenshot bytes; review-only; NEVER Image input",
+        "heldDiagnostic": true,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/browser-observations/HOLD-figure-v2-02-light-dark-checker.png",
+        "sha256": "f425c6d1a599953703fecaa302f8eca8327d5b09c6e7e1753148bb26ec3d4bb9",
+        "bytes": 78260,
+        "canvas": [
+          1265,
+          584
+        ],
+        "role": "Actual formal CUA Chrome screenshot bytes; review-only; NEVER Image input",
+        "heldDiagnostic": true,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/browser-observations/HOLD-figure-v2-03-book-hands.png",
+        "sha256": "82c25b94b56fe819f238e352ad4ac4c181573e2749307e01186358f302708e8e",
+        "bytes": 93634,
+        "canvas": [
+          1265,
+          584
+        ],
+        "role": "Actual formal CUA Chrome screenshot bytes; review-only; NEVER Image input",
+        "heldDiagnostic": true,
+        "generationInputAllowed": false
+      }
+    ]
+  },
+  "motherStaticApproved": true,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "original360ExactActivityCell": false,
+  "userApproved": false,
+  "status": "producer_native_browser_reviewed_candidate_await_root_layer_review",
+  "observed": {
+    "figure": "Selected F-v3 restores small blazer strip at narrow true arm/torso gap, complete original face/hair/pencil/notebook/hands/lap/legs/full shoes viewed in native original RGB. Earlier F-v1/v2 held, not inputs.",
+    "book": "Original RGB open notebook lower cover/spine remains continuous against lap; no internal black mask line.",
+    "receiver": "S includes full local original wood receiver around both shoes and source-local seat material; it overlaps F on small lower-hem/skin areas. MAX draws overlapping original RGB once; S is not an independently movable caster. Right seat island includes visible local linen, no whole bench strip.",
+    "composite": "Same-mother generated clean BG behind original RGB union optically preserves support/room. Hidden BG cloth/wood was generated, not exact known original hidden pixels.",
+    "scope": "Producer original-RGB browser observation only, root layer and runtime acceptance remain false."
+  },
+  "producerReviewedAt": "2026-10-26T01:29:27.687787+00:00"
+}

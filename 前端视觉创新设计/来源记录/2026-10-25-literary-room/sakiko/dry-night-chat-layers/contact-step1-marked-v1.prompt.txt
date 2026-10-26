@@ -1,0 +1,12 @@
+Use case: precise-object-edit.
+Asset type: exact source-space INCLUDED contact-receiver selection markup, S STEP 1 of 2.
+The ONLY image input is the approved original opaque 1536 x 1024 Sakiko dry-night CHAT mother. Do not use a previous mask or the white-girl derivative. This is selection markup, not a shadow drawing.
+
+Paint PURE WHITE over the small ORIGINAL visible receiving-surface regions that preserve her immediate physical contact with this room:
+1. the narrow cushion/bench receiving area immediately touching and just beneath her actual seated hip, rear thighs and skirt hem, including the existing close dark compression/contact and its soft original edge;
+2. the actual wood-floor contact directly beneath and immediately around BOTH complete loafers, toe/outsole/heel contacts and the small attached existing cast/contact region joining them to the floor.
+Select the REAL source receiver pixels, even where some are warm wood/cream cloth rather than pure black shadow. This layer will be INCLUDED with the complete person; it is NOT required or allowed to be a pure movable caster. A little overlap at the person/contact boundary is okay because the final original RGB is shown once through a MAX union. Do not carve holes along dark skirt trim or shoe-sole contact.
+
+Keep selection tightly related to those real contacts; do not whiten the whole bench, a rectangle, a large floor patch, the room's lamp glow, carpet, pillows, unrelated bench/corner shadows, window or the entire girl. Do not invent a new shadow shape, darken anything, move a contact or infer hidden surfaces. Leave her face/hair/clothes/skin/shoes and all non-selected room pixels in the ORIGINAL RGB.
+Where an original soft contact edge fades into adjacent receiver, include that same nearby source area, without a hard box. Preserve the entire source image at x0,y0 1536x1024: no translation, crop, zoom, relighting, silhouette redraw, new furniture, labels or text.
+Output ONE same-size opaque original room with only these immediate contact RECEIVER regions painted flat pure white in their exact source positions.

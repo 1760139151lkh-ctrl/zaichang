@@ -1,0 +1,403 @@
+{
+  "schemaVersion": 2,
+  "recordType": "root-primary-exact-activity-static-layer-admission",
+  "recordedAtUTC": "2026-10-25T23:51:49.803480+00:00",
+  "sceneFamily": "literary-room-v1",
+  "character": "taki",
+  "activity": "attention",
+  "purpose": "activity",
+  "mapping": {
+    "palette": "violet",
+    "light": "dusk",
+    "environmentVariant": "twilight"
+  },
+  "approvalEvidence": {
+    "source": "Direct parent /root NEW_TASK in this same healthy subagent session. Parent personally viewed all 21 recheck-v2 actual Browser images; this file transcribes that static exact-layer approval and does not independently certify runtime.",
+    "messageVerbatim": "root刚逐组亲看Taki attention mist/violet/rain全部21张recheck-v2实际Browser图（01全景/02浅暗棋盘/03脸发/04书手笔/05裙座/06全鞋/07receiver），3组均准入STATIC fixed same-source included union：书页/纸条/笔尖全，手持与坐垫/双鞋本位支撑清楚，无可见盒缝；雨夜S紧木瓣只有固定原位合成获准，不是caster。请写各组root-primary-layer-admission-v2.json/md（据本消息，严分runtime false），只登记选定各4原PNG+scene.json到runtime scenes，purpose=现有exact activity，activity attention与主题光线保持原规则，0travel/slope/perspective，F/S MAX原RGB一次，包含sourceSHA/实际母/assembly。不得覆盖已有同ID健康成果；先查已注册ID，已有则报并复用，不造重复。统一家族camera不得漂移，做新union bounds落现包络的直接读取检查，不能因圈入无关support改globalcamera。只有静态登记，不代root运行/360签收，不动App/TS选择器/CSS/9335/总账/其他母。check+SHA/引用检查，不新tests。resume3仍未准生产。",
+    "primaryPersonallyViewed": true,
+    "views": [
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-violet/browser-observations/recheck-v2/01-scene.png",
+        "sha256": "ca90bdc7bc68e920ac5561dca3dbe2d9c97beef5721354a752f19bc9271a1ff0",
+        "bytes": 133213,
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-violet/browser-observations/recheck-v2/02-subject.png",
+        "sha256": "7788ada438368f765f4837f7b1205fa71b641e7990d555715b08ea086f17d8b3",
+        "bytes": 90864,
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-violet/browser-observations/recheck-v2/03-face.png",
+        "sha256": "48bd7efcbc3bab18efe8718524ab305ddab35401ede85d33cd2fd63c0ec60fc5",
+        "bytes": 122849,
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-violet/browser-observations/recheck-v2/04-book.png",
+        "sha256": "980371852e7c4061fba36523308ac57247b8319de91d11ae9a61668515e7a55b",
+        "bytes": 108808,
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-violet/browser-observations/recheck-v2/05-hem.png",
+        "sha256": "568b1153e8c6d972b12b0a2b5a6be31b096dd6731d1a4cc185d5b9000c130321",
+        "bytes": 98501,
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-violet/browser-observations/recheck-v2/06-shoes.png",
+        "sha256": "e81c18ca6c5a8f23d7d4beaa3b4605af885376396eb590aafe2ee895c415d45c",
+        "bytes": 81342,
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-violet/browser-observations/recheck-v2/07-contact.png",
+        "sha256": "0eb6416d87ef4749cd7b29f025aa498e3c29b4fcf2d03a01aa822fccca89a6d3",
+        "bytes": 71398,
+        "imageGenerationInputAllowed": false
+      }
+    ],
+    "observation": "书页、纸条和笔尖完整，手持、裙与坐垫、双鞋及短软原地接收保持原坐标；浅暗棋盘和同母合成无可见盒缝。"
+  },
+  "primaryLayerApproved": true,
+  "runtimeRegistered": true,
+  "runtimeAccepted": false,
+  "dynamicAdmission": false,
+  "original360CreditAssigned": false,
+  "newHumanMotherCount": 0,
+  "selected": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-violet-literary-extension-v1.png",
+      "sha256": "322e2e43b3a93587098bf35f0a36d314d0cd4f23a541782353c2e9bc20cb2a26",
+      "bytes": 2330841,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-violet/background-v1.png",
+      "sha256": "2c37a339857b1a85db2d9a0752c68989a1dd788e3a872669dcb13f0f157ae951",
+      "bytes": 2291420,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "F": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-violet/figure-mask-v1.png",
+      "sha256": "fe8b6621f72244255d9a65401e903bc07cdb6de9b2b73e75dd82b8c00a479bd4",
+      "bytes": 459238,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "S": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-violet/contact-mask-v1.png",
+      "sha256": "1d0f60ca08f8a65d8743192d3788b438ba17893c9db328f591dd8e66f8da6b8d",
+      "bytes": 329670,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    }
+  },
+  "productionBundle": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-violet/assembly-v2.json",
+    "sha256": "0be29acfbc4dc41d16f80e2094ddb6b5ce0789afe84db11df64304cb4729e439",
+    "bytes": 20358
+  },
+  "originalUnionSvg": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-violet/union-source-v1.svg",
+    "sha256": "c467dad86f0d5192da41071d566de123a5e019fa53cbffdce9769e7f3676a93e",
+    "bytes": 1392
+  },
+  "originalCompositeSvg": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-violet/composite-source-v1.svg",
+    "sha256": "5826754a0c1f50f803c6b1611c0460778f018d6c8707ff679f8b255de76cceb5",
+    "bytes": 1496
+  },
+  "assembly": {
+    "kind": "source-rgb-max-luminance-v1",
+    "coverage": "U=MAX(L(F),L(S))",
+    "luminanceCoefficients": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorInterpolationFilters": "sRGB",
+    "originalRgbDrawsPerUnion": 1,
+    "sourceRgb": "Exact unchanged mother PNG only",
+    "implementation": "Existing CompanionSceneStage inline feColorMatrix + feBlend(lighten) + luminance mask; no added renderer or external SVG img.",
+    "receiver": "Fixed same-source local linen/wood/soft shoe contact material included in MAX union, never an independent caster.",
+    "background": "Actual same-mother Image object removal; hidden reconstructed texture is not claimed recovered pixel-for-pixel.",
+    "generatedMarkupRGBAdopted": false,
+    "pngPixelEditing": false,
+    "manualMaskPainting": false,
+    "thresholdOrMorphologyEditing": false,
+    "croppingOrResizingSourcePng": false
+  },
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "figureEnvelope": {
+      "sourcePixels": [
+        888,
+        100,
+        1309,
+        896
+      ],
+      "normalized": [
+        0.578125,
+        0.09765625,
+        0.8522135416666666,
+        0.875
+      ]
+    },
+    "jointReceiverEnvelope": {
+      "sourcePixels": [
+        851,
+        100,
+        1309,
+        911
+      ],
+      "normalized": [
+        0.5540364583333334,
+        0.09765625,
+        0.8522135416666666,
+        0.8896484375
+      ]
+    },
+    "readOnlyGeometryBasis": "sRGB Rec.709 luminance; F >32 and MAX(L(F),L(S)) >32 for envelope metadata only. Original continuous mask PNG bytes and runtime luminance remain unchanged.",
+    "seatPixels": [
+      1176,
+      587
+    ],
+    "groundPixels": [
+      985,
+      886
+    ],
+    "supportAnchorBasis": "Registrar personally viewed exact full mother; visible hip/skirt resting on actual linen seat and local midpoint of complete loafer floor contacts. Fixed visible source references, not unseen joints or travel calibration.",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "existingFamilySceneCount": 20,
+    "priorFamilyUnpaddedBounds": [
+      0.055338541666666664,
+      0.0888671875,
+      0.904948,
+      0.9091796875
+    ],
+    "priorFamilyFramingBounds": [
+      0,
+      0.0771484375,
+      0.967448,
+      0.9208984375
+    ],
+    "newUnionFitsInsideExistingUnpaddedBounds": true,
+    "familyFramingBoundsAfterRegistration": [
+      0,
+      0.0771484375,
+      0.967448,
+      0.9208984375
+    ],
+    "familyCameraCodeChanged": false,
+    "familyFramingBasis": "Existing src/renderer/companion-scenes.tsx roomFramingBounds: body/seat/ground and joint receiver plus sourceShadow/floorCast/interaction geometry; all current admitted family records have zero travel/slope/perspective. 96px horizontal and 12px vertical safety margins unchanged.",
+    "familyFramingSource": {
+      "path": "src/renderer/companion-scenes.tsx",
+      "sha256": "37e7176c4f105d2191bd3e851de18f46424bc93194efac1128011ccef37e924f",
+      "bytes": 85018
+    },
+    "priorFamilyRegistrations": [
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/anon-chat-apricot-literary-v1.scene.json",
+        "sha256": "b0aac58fcd4f820b425a5a6765a782557064eb894691e44be53a3f11a1311958",
+        "bytes": 3618
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/mutsumi-chat-apricot-literary-v1.scene.json",
+        "sha256": "de430c744e17131ab9a82104a91403994065ea92124074ff2b02a97ad142eb03",
+        "bytes": 2671
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/nyamu-chat-apricot-literary-v1.scene.json",
+        "sha256": "20b0e62a649aff8de592f0eef494ec3428baef1bc7710b6fc37873077e90d6e3",
+        "bytes": 2663
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/rana-chat-apricot-literary-v1.scene.json",
+        "sha256": "3ce1a789b7669aec418d2c02fede0f033ef49bab857fe325b16e23e133eb4be7",
+        "bytes": 2688
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-apricot-literary-v1.scene.json",
+        "sha256": "e7470993948a7807f8a61ce3ff1643f870701a4162fff1029432e28663a4a546",
+        "bytes": 2718
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-dry-night-literary-v1.scene.json",
+        "sha256": "683cdfa4d90eeffcd15e1613c28e0f1084de290494cb6bf0a7367a5313c20c74",
+        "bytes": 2897
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-neutral-reading-time-day-included-v1.scene.json",
+        "sha256": "041ab7a2f5c79218682da1c5c49472c19c0e677998a6485271dfee33c36fe3a1",
+        "bytes": 4046
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-neutral-reading-time-night-included-v1.scene.json",
+        "sha256": "f05463c2653a7f8dcfe2777d9a3e19c44f3efbc4956b9fa6037808afecea8545",
+        "bytes": 4155
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-reading-apricot-literary-v1.scene.json",
+        "sha256": "4aff4a06c77a25981ae062a9f8e6ba97942f79798366d74532531e8938b8a018",
+        "bytes": 2311
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-resume-apricot-recognition-v2.scene.json",
+        "sha256": "c7bc48eeedcbd87776200db9dc7916e303679f2d36f736611a17568a38f18d7b",
+        "bytes": 3176
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-study-apricot-literary-desk-v1.scene.json",
+        "sha256": "fb18c66a3d3e3f68f6377114eb414ae1b0b0eeaf3c78c5efae1b7ab18651bd3e",
+        "bytes": 4283
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/soyo-chat-apricot-literary-v1.scene.json",
+        "sha256": "448a1864f4fde82c23c4e4fea7375a5c54ed0f1775305bfac4e28002f417c567",
+        "bytes": 3672
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-apricot-literary-included-v1.scene.json",
+        "sha256": "7fd47a8afd6b42fbca1f776f949d64bd434f7c548f4db5aab1923fce2059554c",
+        "bytes": 2797
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-mist-literary-included-v1.scene.json",
+        "sha256": "81a604a56067aae4806881995095140f31cc1df9b5d955c8177a89ef5b28bce0",
+        "bytes": 2773
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-rain-literary-included-v1.scene.json",
+        "sha256": "72c2b7325f11342336fa4236173ce9ff5572958b498b0d7818f98831700c0b3a",
+        "bytes": 2783
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/soyo-listening-violet-literary-included-v1.scene.json",
+        "sha256": "ad0bb50c5f586a20b933018e6274f910aabc0c893d0ae444b7fc50972ade02b6",
+        "bytes": 2860
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/taki-chat-apricot-literary-v1.scene.json",
+        "sha256": "7e69a85804761cc4f7b683fd2365a9d0b01dfc076819acd0e0647d14e5208f41",
+        "bytes": 3302
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/tomori-chat-apricot-literary-v1.scene.json",
+        "sha256": "2cf135f1b90ad078b1d70db3c9733752bdf4c7e0c321add95910df523d388453",
+        "bytes": 3339
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/uika-chat-apricot-literary-v1.scene.json",
+        "sha256": "9969c05a47d84ee143d9b00b0a9b66307eec81f0a61751343cf95e688b451843",
+        "bytes": 2659
+      },
+      {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/umiri-chat-apricot-literary-v2.scene.json",
+        "sha256": "6fc0ba1b521305716f2fd18c96bd4895c5a632ed11f5991a8e9375c292a9f981",
+        "bytes": 2789
+      }
+    ],
+    "interactionGeometry": {
+      "path": "前端视觉创新设计/运行素材/companion/scenes/literary-room-v1.interaction.json",
+      "sha256": "6f4910354fe60d25a4e158bbf4712880adcdba8fef59f001d3a97eb4168a91c4",
+      "bytes": 5484
+    }
+  },
+  "registrarObservation": {
+    "personallyViewedExactMotherThisRegistration": true,
+    "earlierPersonallyViewedActualBrowserRecheckCount": 7,
+    "method": "Actual original PNG view_image plus unchanged native Browser recheck-v2 screenshots and direct source/SHA/dimension reads. Parent independently viewed the exact 7 current Browser images before admission.",
+    "observation": "书页、纸条和笔尖完整，手持、裙与坐垫、双鞋及短软原地接收保持原坐标；浅暗棋盘和同母合成无可见盒缝。",
+    "minorApprovedMotherDifferencesPreserved": true
+  },
+  "runtime": {
+    "registration": {
+      "path": "前端视觉创新设计/运行素材/companion/scenes/taki-attention-violet-literary-included-v1.scene.json",
+      "sha256": "226e6724a88513e25683bbd46b1c41ce0d05f26e2033b24726458219b2c9ee97",
+      "bytes": 4326
+    },
+    "copies": {
+      "mother": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/taki-attention-violet-literary-included-v1-mother.png",
+        "sha256": "322e2e43b3a93587098bf35f0a36d314d0cd4f23a541782353c2e9bc20cb2a26",
+        "bytes": 2330841,
+        "canvas": [
+          1536,
+          1024
+        ],
+        "mode": "RGB"
+      },
+      "background": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/taki-attention-violet-literary-included-v1-background.png",
+        "sha256": "2c37a339857b1a85db2d9a0752c68989a1dd788e3a872669dcb13f0f157ae951",
+        "bytes": 2291420,
+        "canvas": [
+          1536,
+          1024
+        ],
+        "mode": "RGB"
+      },
+      "F": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/taki-attention-violet-literary-included-v1-mask.png",
+        "sha256": "fe8b6621f72244255d9a65401e903bc07cdb6de9b2b73e75dd82b8c00a479bd4",
+        "bytes": 459238,
+        "canvas": [
+          1536,
+          1024
+        ],
+        "mode": "RGB"
+      },
+      "S": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/taki-attention-violet-literary-included-v1-contact-mask.png",
+        "sha256": "1d0f60ca08f8a65d8743192d3788b438ba17893c9db328f591dd8e66f8da6b8d",
+        "bytes": 329670,
+        "canvas": [
+          1536,
+          1024
+        ],
+        "mode": "RGB"
+      }
+    },
+    "selectionScope": "Existing exact character taki / activity attention / palette and light mapping; purpose activity, not neutral presence. No App or selector changes.",
+    "acceptanceRemaining": "Root owns actual integrated runtime, motion, and original 360 adoption; this static registration cannot certify them."
+  },
+  "historicalProducerFlags": "Original assembly-v2 and source production pending flags remain historical; this later exact-SHA layer admission governs only the selected static registration.",
+  "resumeProduction": "Not started or registered; separate current mother review and release remain required.",
+  "cleanup": "none; all original generation records, marked stages and Browser evidence retained",
+  "verification": {
+    "recordedAtUTC": "2026-10-25T23:52:51.025332+00:00",
+    "existingCommand": "npm run check",
+    "exitCode": 0,
+    "actualResult": "tsc --noEmit completed successfully",
+    "fourSelectedRuntimePNGBytesIdenticalToOriginals": true,
+    "allSelectedSourceAssemblyBrowserRuntimeSHAsReRead": true,
+    "allReferencedFilesAndLocalMarkdownLinksResolved": true,
+    "existingIDScanFoundNoTakiAttentionDuplicatesBeforeRegistration": true,
+    "currentRuntimeSceneIDsUnique": true,
+    "newTestsOrRunnersCreated": false,
+    "actualAppRuntimeOperatedThisTask": false,
+    "runtimeAccepted": false
+  }
+}

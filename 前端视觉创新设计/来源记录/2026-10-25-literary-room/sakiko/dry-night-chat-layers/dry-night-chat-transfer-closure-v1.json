@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 1,
+  "kind": "root-static-approved-source-transfer-closure",
+  "sceneFamily": "literary-room-v1",
+  "createdAt": "2026-10-25T11:18:04.726463+00:00",
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "destinationWorktree": "C:/Users/17601/.codex/worktrees/ambient-simplification/在场",
+  "rule": "Exact root-approved included sources; transfer does not establish runtime acceptance. See separate isolated transfer receipt.",
+  "localBundleFiles": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/contact-mask-v1.png",
+      "sha256": "830db3da88d90f283f6e867cfe56b1389cd6a2a4152b50de1532266f0f4224f6",
+      "bytes": 288855
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/contact-mask-v1.prompt.txt",
+      "sha256": "95f1272cfb6c68db047c14c84f307191bf2b3863211ec1ebf45217d6a912761d",
+      "bytes": 1324
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/contact-mask-v1.source.json",
+      "sha256": "5f40d3926172451036c0e40e08a598e3a95e7cf335446ec6f7039214b073bf44",
+      "bytes": 1866
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/contact-step1-marked-v1.png",
+      "sha256": "000222712a082a0f27250955b5465356a261c4aec2579d340c525c134c3bc847",
+      "bytes": 2295557
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/contact-step1-marked-v1.prompt.txt",
+      "sha256": "774e44eb4647f89e2cae47e9dbe39d4e1e387ed389bca125f62c21cae0eaa66c",
+      "bytes": 2103
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/contact-step1-marked-v1.source.json",
+      "sha256": "f66dcc08713c54d16c50d638868d587c3a16233c7182bed149a9529596283572",
+      "bytes": 2024
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/dry-night-chat-included-bundle-v1.json",
+      "sha256": "3d17415e25c0753ae455c6611da390254d3ab3745603bfa8f174f2e716534c97",
+      "bytes": 7976
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/dry-night-chat-included-observe-v1.html",
+      "sha256": "a0a76244cd7e19a5c63a5d68bb9c54ebc06144eccebb3a2df5d812387c2f7e3d",
+      "bytes": 24398
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/figure-mask-v1.png",
+      "sha256": "e0d20ccc2327b95867319151a5c9fdd52b69008c718fdd5ddaff01a3f6259cea",
+      "bytes": 468116
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/figure-mask-v1.prompt.txt",
+      "sha256": "5609ee7d9b1813af92d53473c2ba126214c5238a13221aa92febe2a26fec3ec8",
+      "bytes": 1390
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/figure-mask-v1.source.json",
+      "sha256": "77e915fe981ebad8e91fd5ae6e1b18b756666fb6b634a09d8afe3431515aa04e",
+      "bytes": 1935
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/figure-step1-marked-v1.png",
+      "sha256": "a89c525504395a61fc1f658f3d53b96376ef07f1f42dce5732f8ca5af13b550f",
+      "bytes": 2160796
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/figure-step1-marked-v1.prompt.txt",
+      "sha256": "c34e8fcb075486d97c48b23ba62decc849e24b9865926671e5f0c4ac53402f13",
+      "bytes": 2034
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/figure-step1-marked-v1.source.json",
+      "sha256": "7aa3bcd6dd48ff97c3463cd160a5f271db660fac834043e00bd6a0bfad8aad05",
+      "bytes": 2208
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/README.md",
+      "sha256": "292856c0f5a67427363fc2f9997f51ca32f5e1f8339fc7a2d49e0c0546ca9c2e",
+      "bytes": 1621
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/sakiko-chat-dry-night-literary-included-primary-admission-v1.json",
+      "sha256": "4e3f3cd07eb093675fc87b24d9c2d9df5217ffd155f8b295a884be64802d2c74",
+      "bytes": 2744
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/union-source-v1.svg",
+      "sha256": "29cebb074a43ef1f7306497a2cc4f0146d5bd41d8d800ae531a650cb9941322a",
+      "bytes": 1349
+    }
+  ],
+  "externalRequiredSourceFiles": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/weather-chat-pilot/sakiko-chat-dry-night-v1.png",
+      "sha256": "c56541389158a7f28539062ae2174da997b4cd4301e022eab9202e34d31ab5c1",
+      "bytes": 2277809
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-dry-night-v1.png",
+      "sha256": "edad31b1ce0c7f21be59d939cc54a0d6230b31d6fe380d0d553af515032fd0f4",
+      "bytes": 2249307
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/weather-chat-pilot/sakiko-chat-dry-night-v1.source.json",
+      "sha256": "b7c03d1a2c2a077c2f0c3384f092b5a931f503922a7e818314c4e811f6428e07",
+      "bytes": 3279
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-dry-night-v1.source.json",
+      "sha256": "888ceb6d45e28082883f5f825f5b9724c0b963f862b6fa9a6a1f30dbffe71d08",
+      "bytes": 2687
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/weather-chat-pilot/sakiko-chat-dry-night-v1.prompt.txt",
+      "sha256": "7a47f7e44a6b8b5abaca80b303a1c9862dacbf00a95c48d056385a75ea456104",
+      "bytes": 3766
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-dry-night-v1.prompt.txt",
+      "sha256": "eb06e8d27cadc636af8b88fb5567a85b35fa415ff9621fcee9b424dbe5d07998",
+      "bytes": 3288
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-dry-night-v1.primary-approval.json",
+      "sha256": "9165f0548a08ffe75560be33354ec8fa89f511cc96345ca945c4bd100e16d3b7",
+      "bytes": 849
+    }
+  ],
+  "runtimeFilePlan": [
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/weather-chat-pilot/sakiko-chat-dry-night-v1.png",
+        "sha256": "c56541389158a7f28539062ae2174da997b4cd4301e022eab9202e34d31ab5c1",
+        "bytes": 2277809,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "targetBasename": "sakiko-chat-dry-night-literary-mother-v1.png"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-dry-night-v1.png",
+        "sha256": "edad31b1ce0c7f21be59d939cc54a0d6230b31d6fe380d0d553af515032fd0f4",
+        "bytes": 2249307,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "targetBasename": "literary-room-dry-night-v1.png",
+      "ifAlreadyExists": "verify exact SHA; never overwrite differing file"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/figure-mask-v1.png",
+        "sha256": "e0d20ccc2327b95867319151a5c9fdd52b69008c718fdd5ddaff01a3f6259cea",
+        "bytes": 468116,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "maskMode": "luminance",
+        "pngBitDepth": 8,
+        "pngColorType": 2
+      },
+      "targetBasename": "sakiko-chat-dry-night-literary-figure-mask-v1.png"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/contact-mask-v1.png",
+        "sha256": "830db3da88d90f283f6e867cfe56b1389cd6a2a4152b50de1532266f0f4224f6",
+        "bytes": 288855,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "maskMode": "luminance",
+        "pngBitDepth": 8,
+        "pngColorType": 2
+      },
+      "targetBasename": "sakiko-chat-dry-night-literary-contact-mask-v1.png"
+    }
+  ],
+  "constraints": {
+    "contactShadow": "included",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "coverage": "MAX(luminance(F),luminance(S))",
+    "sourceRgbDraws": 1
+  },
+  "approvedAt": "2026-10-25T11:24:09.657584+00:00",
+  "primaryAdmission": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/sakiko-chat-dry-night-literary-included-primary-admission-v1.json",
+    "sha256": "4e3f3cd07eb093675fc87b24d9c2d9df5217ffd155f8b295a884be64802d2c74",
+    "bytes": 2744
+  }
+}

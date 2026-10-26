@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "assetId": "taki-listening-mist-literary-v1",
+  "roomFamily": "literary-room-v1",
+  "characterId": "taki",
+  "activity": "listening",
+  "palette": "mist",
+  "ambientPlateKey": "overcast-day",
+  "createdOn": "2026-10-25",
+  "generationMode": "target-empty-plate-and-approved-exact-activity-mother-relighting",
+  "tool": "image_gen.imagegen (built-in)",
+  "callOrdinalInBoundedBatch": 13,
+  "executionId": "exec-ecf5dabb-c2d4-418b-aaa7-8fe6699e6431",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-ecf5dabb-c2d4-418b-aaa7-8fe6699e6431.png",
+  "inputs": [
+    {
+      "file": "../../plates/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "role": "image1: approved exact target empty plate and illumination"
+    },
+    {
+      "file": "../apricot-wave-b/taki-listening-apricot-literary-v1.png",
+      "sha256": "cf48e29b3c636be8cc34b2fca85ad7ceefed5c7956d5417b3e4a5d3958ce3c89",
+      "role": "image2: root-approved actual activity identity/pose/scale/support, not inherited daylight",
+      "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+    }
+  ],
+  "promptFile": "taki-listening-mist-literary-v1.prompt.txt",
+  "promptFileSha256": "136bd0b8cac367fe8daa3d0a739e8ee879445e84cdba4e9ea532382f7a54b0df",
+  "submittedPrompt": "Create ONE 1536×1024 complete landscape literary companion illustration through genuine WHOLE-SCENE RELIGHTING. Image 1 is the ROOT-APPROVED EMPTY environmental plate at the TARGET time/weather and gives camera, room geometry and illumination. Image 2 is this SAME girl's ROOT-APPROVED APRICOT MOTHER OF THIS EXACT ACTIVITY. Retain its actual youthful identity, uniform, exact silhouette/head/body scale/source positions, microexpression, visible hands/objects, true support and occlusion; its DAYLIGHT HIGHLIGHTS are NOT identity or pose constraints.\nRepaint all light on skin/hair/uniform, held or resting paper/book, contact linen, wood/lamps and floor according to image 1, rather than tinting the scene or pasting a day-lit girl into new weather. Old apricot white knee/shin/face hotspots, sunlit hair rims and window-lattice pools do not survive by default.\nLock the close camera/framing and existing window panes/current crop, lake/town/mountain geometry, desk/chair, shelves/books/plants, round table/ceramic lamp/cup/flowers, linen bench/right plaid cushions/cream knit throw, floor/rug and blurred foreground plant. Keep her actual approved seated pelvis/cushion support and exact shoulders/arms/hands/props/knees/ankles/complete shoes at source coordinates. No body translation, enlarged head, reposed/crossed legs or invented hidden hand. Full head/hair and both complete shoes stay within the original image; real limb/strand gaps and overlaps remain.\nPrecise expressive anime character drawing belongs in the tactile softly painterly room. Separate every fringe lock, brow, lash, upper/lower eyelid, sclera and iris boundary, including side/down gaze. Preserve her youthful canonical hair/eye/garment colors under the new light, not a generic adult face, green UI tint, fixed service smile, compulsory blush or stereotyped scowl.\nOnly these two approved images are references. No unreviewed light mother, prior lighting-problem candidate, mask, other character, old room or malformed pose is used. Do not add readable text/schedules/answers/receipts, UI, logos, watermarks, diagrams, another person, split scene, zoom, new furniture or duplicate limbs. This is a project-original fictional performance, not a statement about an actual user's past action or completion.\n\nCHARACTER: Shiina Taki (椎名立希), MyGO!!!!!: long straight purple-black hair with side fringe, violet eyes; camel Hanasakigawa sailor uniform with trimmed white collar/red ribbon/gold buttons/camel skirt/dark socks/brown loafers.\nACTUAL APPROVED PERFORMANCE: Preserve the APPROVED ACTUAL closed book and small paper supported on thighs, one relaxed hand on knee and the other lightly over the paper, head/gaze toward the nearby image-right speaker region, tiny paused part of the mouth. She has caught her own haste and listens to the remaining thought, not scolding or counseling. Keep source shoulder/hip and full leg/shoe support.\nTARGET LIGHT: OVERCAST DAY, exactly image 1's clouded diffuse daylight. Cool softened lake/town distance, natural warm wood local color and only the existing lamps as shown. Repaint skin/hair/uniform/paper/book/linen and floor under this diffuse light. No hard apricot window grid or bright inherited knee/shin/face sun patches; no blue film.",
+  "output": {
+    "file": "taki-listening-mist-literary-v1.png",
+    "sha256": "75ac2c364585fb85f1dee3d1b9d33aeb0fc2e3ccc87038c3bfaa29ffb0497a83",
+    "bytes": 2334382,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "reviewedOn": "2026-10-25",
+    "decision": "static mother candidate for primary inspection",
+    "observation": "Complete original viewed: actual closed book/small paper on thighs, one hand relaxed on knee and other over paper, sideward image-right listening gaze/paused mouth preserved. Overcast diffuse light coherently reaches paper/skin/uniform/seat/floor without hard apricot grid. Clear violet eyes/fringe/lids; hip/cushion and full coherent uncrossed legs/shoes at observed source scale, room stable.",
+    "bodyContour": {
+      "contourComplete": true
+    },
+    "limits": "Static implied nearby-speaker direction, not actual dialogue/person identification; primary/layer/runtime remain false."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "acceptanceScope": "Static actual-activity theme mother candidate only; no layer progression or registration."
+}

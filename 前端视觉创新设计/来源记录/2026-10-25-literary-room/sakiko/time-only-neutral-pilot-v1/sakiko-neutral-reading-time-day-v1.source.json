@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "recordType": "time-only-neutral-presence-human-mother-pilot",
+  "sceneFamily": "literary-room-v1",
+  "purpose": "neutral-presence",
+  "characterId": "sakiko",
+  "activity": "reading",
+  "gesture": "shared-page neutral co-reading; actual right fingertip book contact and left supportinghand",
+  "environmentBasis": "time",
+  "neutralTime": "day",
+  "weather": "unknown",
+  "weatherClaim": "none: full opaque inner curtain conceals readable outdoor scenery",
+  "original360ExactActivityCell": false,
+  "tool": "image_gen.imagegen",
+  "recordedAt": "2026-10-25T22:24:52.281003+00:00",
+  "sourceConversationId": "01a17364-9725-7bd3-aa74-f7fa6487bfed",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.png",
+      "sha256": "aa4ce3dcab5cd2366c9f1c4eadcff0ab85537ab45e5a3b0643c4d01588e6e247",
+      "purpose": "ONLY current literary-room-v1 time-only empty environment/camera/fulltargetlight; opaqueclosedcurtain, no weatherclaim.",
+      "personallyViewedBeforeGeneration": true
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-selected-soft-youth-edit-v3.png",
+      "sha256": "50ed57c7cb690ac52eb49190762f878a2b8e8db5eb75d5d3d3f220e771d86974",
+      "purpose": "Current independent soft-youth-edit-v3 Sakiko face/identity only.",
+      "personallyViewedBeforeGeneration": true
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.png",
+      "sha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac",
+      "purpose": "Same exact root-approved corrected-night sharedpage fullmother for both; ONLY pose/bookhands/wardrobe/scale, not its exteriorweather.",
+      "personallyViewedBeforeGeneration": true
+    }
+  ],
+  "uiOrScreenshotOrRoom4UsedAsInput": false,
+  "existingBadOrHoldMotherUsedAsInput": false,
+  "inputMotherPrimaryApproval": {
+    "source": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.source.json",
+    "status": "approved_static_mother",
+    "reviewer": "root",
+    "generationInputAllowedAtRead": true,
+    "sha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac"
+  },
+  "inputEmptyPlatePrimaryApproval": {
+    "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/literary-room-empty-plates-primary-admission-v1.json",
+    "scope": "exact-SHA static emptytime-only literaryroomplate; no newmother approval inherited"
+  },
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256AtGeneration": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "fullyRead": true
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256AtGeneration": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "fullyRead": true
+    },
+    {
+      "path": "前端视觉创新设计/运行素材/companion/scenes/literary-room-ambient-backgrounds.json",
+      "sha256AtGeneration": "a6c8abd30edfaf794296c1cf9bafae5976bc6727a4f61f394cd1d0af069cdaa0",
+      "fullyRead": true
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/literary-room-empty-plates-primary-admission-v1.json",
+      "sha256AtGeneration": "8ed5c9723ccf61f178ffa5e7f90a66f05b18fc6e44c8ba1124782b679a045c0c",
+      "fullyRead": true
+    }
+  ],
+  "dossierVersion": "2026-10-25.1",
+  "wardrobeId": "sakiko-literary-navy-adaptation",
+  "wardrobeVariant": "darkclothbow matching approvedpose; below-knee calfsocks/uncoveredknees/completeloafers",
+  "promptFile": "sakiko-neutral-reading-time-day-v1.prompt.txt",
+  "promptFileSha256": "fe953f4a29a71aa8487349ff3bdb4f568e7c48f912102d697e3b6452bcdf912b",
+  "requestFile": "sakiko-neutral-reading-time-day-v1.request.json",
+  "requestSha256": "6724aa511b53b55e422287ee5d5e8e5bccc2ecf348ae4e896dd671f5d8c040f2",
+  "exactSubmittedPrompt": "Use case: complete illustrated character-in-room mother, NOT UI. Output exactly1536x1024 landscape, same literary-room-v1 camera and full-room proportions. This is one of TWO matched time-only neutral co-reading pilots for 在场: weather is UNKNOWN. The day and night versions should depict the SAME youthful Sakiko, same body scale, seat anchor, openbook page, hand contact, head/gaze relationship and clothing, changing primarily the whole room/figure light. Do not invent a new pose or weather story for each time.\n\nREFERENCE ROLES ARE STRICT:\nInput1 is the ONLY environmental/camera/light target: the exact root-approved CURRENT literary-room-v1 TIME-ONLY empty plate. Preserve its actual left desk/woodchair/shelves/foreground plants/rug, original central-left ROUND side table and blue-floral ceramic lamp, RIGHT long windowbench/cushion/pillows/knitthrow and full camera. It has a completely CLOSED OPAQUE ivory inner curtain across the ENTIRE former window. No exterior is readable through it.\nInput2 is the current independent youthful Sakiko face reference: blue-lavender hair/darkside ribbons/gold eyes, soft cheeks, natural shortchin and bright thoughtful eyes. It is ONLY a face/identity reference, not a pastedhead or a new portrait composition.\nInput3 is the exact ROOT-APPROVED corrected-night shared-page full Sakiko mother (not a rejected old attention image). It supplies ONLY the same natural fullbodyPOSE/wardrobe/scale/book-hand relation and youthful2D rendering. Its OUTSIDE rain/lake/window/city/branches are NOT the target and must NOT appear. Its former weather or light does not override input1. Do not put any pixel-cutout under CSSlight: rebuild the whole figure in the actual target-room light as one completepainting.\n\nWHO SHE IS, AND THIS MOMENT:\nSakiko Togawa of MyGO!!!!!/Ave Mujica, youthful high-school girl with her own proud sincerity and attention, not a mature tutor/mother, not a toddler. This is a delicate literary2D hand-drawn reinterpretation, not a3D doll/photo/glamour adult. Pale blue-lavender long hair has a real coolbluebase even inwarmlight; her eyes stay gold. Keep the darkside ribbon/parting relationship of input3 and the soft current face identity of input2. Natural youngcheeks, gently shortchin, clear eyes whose gaze has a realcontext, no adult longjaw/heavyfashionlashes/maturelips.\nHer selected wardrobe is project-original sakiko-literary-navy-adaptation, NOT asserted officialschooluniform: the SAME navy cardigan, white collar, darknavy softclothbow variant and navyplaid pleatedskirt from input3. DARK BELOW-KNEE CALF SOCKS, socktops BELOW the kneecaps, BOTH knees uncovered; COMPLETE everydayloafers. No tights, thighhighs, kneecapscovered, boots, randomdress or wardrobechange.\nShe had been quietly reading her own actual openbook. A familiar companion beside her paused on the same interesting line. She has just read that line; her rightindex fingertip STILL physically touches the line on a visible page, the other fingers rest naturally on paper, and her left hand supports the book's actual weight fromunderneath. Her gaze has gently lifted from that exactbook toward the companion atleft-front, not pointed intoemptyair; the eyebrows retain a hint ofthought, and the corners ofthemouth soften in a small private acknowledgment. This is sharedattention and quiet company, not an unsolicited welcome/performance or claim about having read the user's PDF.\nKeep the SAME restrained expression and modest headinclination/torso/legrelationship as input3. The openbook remains on her knees, pages have thickness and both hands are complete, no fused fingers/book and no empty pointing. Book page need not contain readabletext.\n\nANCHORED WHOLE SCENE:\nKeep the approved mother source's basic fullbody bounds approximatelyx820..1360,y155..930 within this SAME1536x1024 room. Crown/headscale, hipcontact on the right cushion, knee/ankle directions and both complete groundedshoe outlines should remain matched between the two pilots. Do not zoom/crop/resize the camera to filltheframe withher. The actual cushion receives her hips/thighs with a little physically credible compression and softcontact; both legs continue naturally hip→knee→calf→ankle into the shoes resting on the real woodenfloor. Do not pullknees apart, float a leg, clipheels, lengthen shins, or shift her into an emptyhover. Preserve natural perspective; not a sticker or outlined cutout.\nThe wide left half remains this complete lived-in room with air for real product text later, not an emptygray block. No UI, captions, controls, logo, icons, contactguides, collagemontage, extra person, cat or avatarcircle. No newfurniture/standinglamp, no repainting the original benchgeometry or curtainpositions to hidebodyerrors.\n\nTIME-ONLY BOUNDARY:\nThe opaque ivory woven inner curtain is fully CLOSED edge-to-edge exactly as input1: continuous substantialfabricfolds and original loweredge behindthebench. Do not open a slit, show a lake/town/trees/sky/raindrops/stars/snow or imply clear/cloudy/rainy weather. No solarwindowgrid/leafshadow pattern. We know only day or night, not weather. Nothing must be labelled “unknown” in the picture.\nAll visible hair/face/cloth/book/wood/cushion/shoes share the SAME physical target illumination, with credible softreceiving shadows. This is a complete coherent painting.\n\nTHIS OUTPUT IS TIME-ONLY DAY. Follow input1 time-day plate's soft broad diffuse daytime luminosity behind the opaque inner curtain, no readableweather and NO hard directsunshine. Cloth and bookpages are softly readable, paleivorycurtain may be bright but never a drawnwhitepanel; shadows stay broad and contactgrounded. The room's existing ceramiclamp is not turned into a blinding artificialspotlight; match the subtle practical presence in the plate. Keep the same gesture/face/scale/seat/shoes as approved pose reference. No nighttown/rain imagery and no sunny windowlattice on thecushion/floor. Preserve subtle2D lineweight and originalroommaterial.",
+  "submittedPromptSha256": "f3a4c471b18a8b20aea9e2f89525e52114460cc37fe99ca5a8be7612088f1f14",
+  "promptTransform": "Exact requeststring submitted; rawpromptfile finalLF has independentSHA.",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-b0226894-ece8-4df9-8da8-69f37c88f7e8.png",
+  "toolOriginalSha256": "35a318faaab82305b4a5f28e4f109701986e7ce75b312536835216306c2945af",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-day-v1.png",
+    "sha256": "35a318faaab82305b4a5f28e4f109701986e7ce75b312536835216306c2945af",
+    "bytes": 2351824,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true,
+    "resizedOrRetouched": false
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "observations": "Personally viewed complete1536x1024 original: same literary desk/chair, roundtable/ceramiclamp, rightbench/pillows/knitthrow and foreground. Closed opaqueivorycurtain conceals outdoorweather; central seam/hardware has no readableoutside. Broad softdaylight, no hard sun/windowgrid. Youthful goldeneyes/blue-lavender hair, fingertip contacts actualbookpage, supportinghand/bookweight, seatedhips/thighs, bothknees uncovered, calf socks belowknees and complete groundedloafers. Figure/cloth/book share softdiffuse targetlight, no pastedcutout. Producer-onlycandidate.",
+    "pairObservation": "Day/night1536x1024 camera/figure scale/crown/book/seat/knee-shoe arrangement optically match; primary change is whole-room/figure light. No identical sourceRGB geometry/pixelregistration claim; no layers/runtimeanchors calibrated.",
+    "staticOnly": true
+  },
+  "primaryApproved": true,
+  "primaryReview": {
+    "reviewer": "root",
+    "status": "approved_static_mother",
+    "scope": "neutral-presence only, exact mapping below; no360activity/layer/runtime admission",
+    "observed": "Root personally viewed whole day/night originals: same youthfulSakiko, fingertip physically onbookpage, both completefeet/belowkneecalfsocks/benchcontact/gaze clear. Minor pose/scale differences retained; main change softdaydiffusion versus warmceramiclamp.",
+    "mapping": {
+      "palette": "mist",
+      "timeOfDay": "morning",
+      "neutralTime": "day"
+    },
+    "record": "root-primary-mother-admission-v1.json"
+  },
+  "generationInputAllowed": true,
+  "layersProduced": false,
+  "runtimeAccepted": false,
+  "motionVerified": false,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "sourceCodeOrSceneRegistryChanged": false,
+  "scopeBoundary": "Only2Sakiko neutral time-only pilots. Not original360 exactactivity/weather completion or frozenlayers; no otherroles expanded."
+}

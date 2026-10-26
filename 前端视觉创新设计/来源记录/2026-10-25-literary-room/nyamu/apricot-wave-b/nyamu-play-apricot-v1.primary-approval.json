@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "kind": "primary-static-mother-admission",
+  "key": "nyamu/play/apricot",
+  "reviewer": "root",
+  "decision": "approved",
+  "primaryPersonallyViewed": true,
+  "mother": {
+    "file": "nyamu-play-apricot-v1.png",
+    "sha256": "0aac1b4a1aa91157a82ffdae22088289c7e5002096a2551354f65d9178b0549d",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "sourceRecord": "nyamu-play-apricot-v1.source.json",
+  "observation": "Root personally viewed full mother: both hands pinch/manipulate a small folded-paper shape with a smile. Actual paper/hand contacts, hair/eyes, supported seat and complete bench-pose shoes are natural; no floating or disconnected hands.",
+  "contourComplete": true,
+  "scope": "Exact-SHA complete static mother only; actual generated pose/prop semantics recorded honestly. No layer, motion, real background action or runtime admission.",
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "evidenceSource": "Explicit root message after personally viewing all five Nyamu wave-b original mothers"
+}

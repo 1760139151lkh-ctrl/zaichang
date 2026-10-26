@@ -1,0 +1,190 @@
+{
+  "schemaVersion": 1,
+  "key": "sakiko/chat/dry-night",
+  "sceneFamily": "literary-room-v1",
+  "kind": "included-union-subject-candidate",
+  "createdAt": "2026-10-25T10:21:29.088950+00:00",
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "registered": false,
+  "mother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/weather-chat-pilot/sakiko-chat-dry-night-v1.png",
+    "sha256": "c56541389158a7f28539062ae2174da997b4cd4301e022eab9202e34d31ab5c1",
+    "bytes": 2277809,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    }
+  },
+  "background": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-dry-night-v1.png",
+    "sha256": "edad31b1ce0c7f21be59d939cc54a0d6230b31d6fe380d0d553af515032fd0f4",
+    "bytes": 2249307,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    }
+  },
+  "motherSource": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/weather-chat-pilot/sakiko-chat-dry-night-v1.source.json",
+    "sha256": "b7c03d1a2c2a077c2f0c3384f092b5a931f503922a7e818314c4e811f6428e07",
+    "bytes": 3279
+  },
+  "backgroundSource": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-dry-night-v1.source.json",
+    "sha256": "888ceb6d45e28082883f5f825f5b9724c0b963f862b6fa9a6a1f30dbffe71d08",
+    "bytes": 2687
+  },
+  "motherApproval": "Explicit root task confirmed full mother static inspection; original producer false flag is historical and is not modified.",
+  "F": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/figure-mask-v1.png",
+    "sha256": "e0d20ccc2327b95867319151a5c9fdd52b69008c718fdd5ddaff01a3f6259cea",
+    "bytes": 468116,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "maskMode": "luminance",
+    "pngBitDepth": 8,
+    "pngColorType": 2
+  },
+  "S": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/contact-mask-v1.png",
+    "sha256": "830db3da88d90f283f6e867cfe56b1389cd6a2a4152b50de1532266f0f4224f6",
+    "bytes": 288855,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "maskMode": "luminance",
+    "pngBitDepth": 8,
+    "pngColorType": 2
+  },
+  "includedSource": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/union-source-v1.svg",
+    "sha256": "29cebb074a43ef1f7306497a2cc4f0146d5bd41d8d800ae531a650cb9941322a",
+    "bytes": 1349
+  },
+  "observationPage": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/dry-night-chat-included-observe-v1.html",
+    "sha256": "a0a76244cd7e19a5c63a5d68bb9c54ebc06144eccebb3a2df5d812387c2f7e3d",
+    "bytes": 24398
+  },
+  "sourceRecords": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/figure-step1-marked-v1.source.json",
+      "sha256": "7aa3bcd6dd48ff97c3463cd160a5f271db660fac834043e00bd6a0bfad8aad05",
+      "bytes": 2208
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/figure-mask-v1.source.json",
+      "sha256": "77e915fe981ebad8e91fd5ae6e1b18b756666fb6b634a09d8afe3431515aa04e",
+      "bytes": 1935
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/contact-step1-marked-v1.source.json",
+      "sha256": "f66dcc08713c54d16c50d638868d587c3a16233c7182bed149a9529596283572",
+      "bytes": 2024
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/contact-mask-v1.source.json",
+      "sha256": "5f40d3926172451036c0e40e08a598e3a95e7cf335446ec6f7039214b073bf44",
+      "bytes": 1866
+    }
+  ],
+  "generationCalls": {
+    "maximum": 4,
+    "successful": 4,
+    "inFlight": false,
+    "furtherCallsAllowed": false
+  },
+  "composition": {
+    "coverage": "MAX(luminance(F), luminance(S))",
+    "luminanceWeights": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "nativeImplementation": "sRGB feColorMatrix luminance + feBlend lighten + luminance mask",
+    "motherRgbDrawCount": 1,
+    "contactShadow": "included",
+    "receiverSurfaceIncluded": true,
+    "pureCaster": false,
+    "independentBodyDeformation": false
+  },
+  "sameCanvas": {
+    "width": 1536,
+    "height": 1024,
+    "x": 0,
+    "y": 0,
+    "scale": 1,
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "layerOrder": [
+      "matching approved clean BG",
+      "original mother RGB once through F/S luminance MAX"
+    ]
+  },
+  "allowedOperations": [
+    "whole included subject visible/hidden",
+    "whole reviewed pose replacement",
+    "common viewport transform with full room"
+  ],
+  "forbiddenOperations": [
+    "relative actor translation",
+    "individual shadow move",
+    "independent body/limb deformation",
+    "PNG pixel edits",
+    "adaptive color-difference generation",
+    "new port or runtime registry edits"
+  ],
+  "inspection": {
+    "individualGenerationOutputsPersonallyViewed": true,
+    "htmlPersonallyViewed": true,
+    "browser": "Chrome through cua_repl",
+    "tabId": "500947757",
+    "viewedAt": "2026-10-25T10:25:17.981304+00:00",
+    "page": "http://127.0.0.1:5188/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/dry-night-chat-included-observe-v1.html",
+    "statesViewed": [
+      "whole mother vs BG+union",
+      "full subject light background upper/lower",
+      "full subject dark background upper/lower",
+      "checker subject upper/lower",
+      "native face/hair mother/subject/composite",
+      "native hands/knees mother/subject/composite",
+      "native complete skirt/seat receiver mother/subject/composite",
+      "native complete shoes/floor receiver mother/subject/composite"
+    ],
+    "observations": [
+      "Full scene retains original head/furniture scale and supported seated location.",
+      "Native face crop preserves original golden eyes, eyebrows, fringe and lamp-lit hair; no redraw or relighting of RGB.",
+      "Hands, knees, full skirt hem and both complete loafers/outsoles/heels remain visible in native RGB comparisons.",
+      "Narrow cushion receiver and floor receiver pixels are visible around the subject on checker/light/dark backgrounds, as expected for an included subject.",
+      "Original-position BG+union views show coherent cushion/floor contact without a visible white gap in the inspected crops; no new shadow/color layer is drawn."
+    ],
+    "issues": [],
+    "limits": [
+      "Receiver bands are not a pure caster and cannot move with an independently translated body.",
+      "Fine static boundary inspection and source integrity do not prove product runtime, responsive behavior, pose switching or weather selection."
+    ]
+  },
+  "saveRecovery": "F1 exact tool image was recovered from known output path after the immediate copy parser included tool prose; no regeneration or replacement session.",
+  "status": "root_static_layer_approved_runtime_pending",
+  "contactShadow": "included",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "motherStaticAdmissionEvidence": {
+    "reviewer": "root",
+    "source": "explicit delegated task 2026-10-25",
+    "sha256": "c56541389158a7f28539062ae2174da997b4cd4301e022eab9202e34d31ab5c1",
+    "scope": "complete dry-night chat mother only; not these new masks or runtime",
+    "observation": "Dark night/stars/town outside; warm dark character lit by ceramic lamp; distinct hair/eyes and complete palms/knees/seat/shoes."
+  },
+  "primaryAdmission": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/sakiko-chat-dry-night-literary-included-primary-admission-v1.json",
+    "sha256": "4e3f3cd07eb093675fc87b24d9c2d9df5217ffd155f8b295a884be64802d2c74",
+    "bytes": 2744
+  }
+}

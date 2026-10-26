@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "cell": "rana/play/rain",
+  "generatedAt": "2026-10-25T18:49:32.261Z",
+  "tool": "image_gen.imagegen",
+  "originalOutput": "C:\\Users\\17601\\.codex\\generated_images\\01a17366-5b01-78f3-8d02-c6a9cdf4f220\\exec-fa0aecba-4f98-4ff0-adcf-73dad54eae5f.png",
+  "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-play-rain-literary-v1.prompt.json",
+  "submittedPrompt": "创作一张完整1536×1024横向二维文学房间人形母图，不是头像、贴纸或产品截图。图1为目标主题的纯净空房：以它为唯一相机、家具、窗景、透视和光照空间依据。图2为已经亲看准入的暖杏乐奈完整母图，仅延续人物身份、明确项目私服、近窗榻的真实尺度、活动与承重关系；不要照搬它的晴日光，不拿人物抠贴回图1。重新整体绘画，人物、软垫、木材和阴影都处在图1同一光场。保留左桌椅/书架、陶瓷灯小圆桌、完整湖城山窗景、右侧长窗榻、蓝格靠枕与针织毯、植物/地毯/木地板的原位置与纵深，左桌椅空着。人物位于近处右窗榻，头顶约y110、完整靴底约y890，维持参考尺度而不前冲放大头，镜头不改。\n\n乐奈自己的青春与判断要在眼眉嘴中可见：银白层次短bob、柔软分束刘海与淡灰紫发梢；自身右眼金色、自身左眼蓝色，近正面时观者左金右蓝，转头时仍按本人解剖左右，绝不翻转镜像。眉、眼睑、虹膜与发丝分开可读。保原作年轻柔软面颊和自然短下巴，聪明而不幼儿化，也不画成熟狭眼写真。明确项目原创私服：宽松黑短袖外衣叠白色长袖、白短裤、黑色系带踝靴；不是官方校服，不混舞台服。不加猫耳、猫、吉他、项圈或无来由道具。\n\n身体有真实髋/大腿软垫承托，肩髋和膝踝连续，手腕/袖口/手指清楚，完整头发与双靴留在画幅中。脚位服从这张近窗榻的自然高度，不能为双脚落地机械拉腿；不把靴底踩到浅色靠枕。皮肤、衣服和头发的亮暗来自同一窗光/灯光，保接触影与织物压感。画的是一个有来由、能接得上下一句话的人，不是所有活动同一招牌微笑。无字幕、文字、UI、灰白板、任务图标、额外人物、边框、水印或可读文件内容。\n\n此次整体主题：夜雨暖金：图1窗外雨滴、湖城灯影与冷夜，室内陶瓷灯给人物、木面与织物同一暖光。夜间仍保脸和异色眼可读，不把白发画成自发光，不把雨当悲伤特效；完整暗部真实而温暖。\n\n这一格的完整创作意图（内容用于指导画面，不要写在图上）：\n桌面有两种声音\n乐奈先轻轻敲了一下，随后停住，像听出了木头和杯旁空处的差别。她看向你，留出接一拍或完全不接的余地。屋里没有变成舞台，只多了一点两个人可以轮流参与的节奏，雨也没有抢走主角。\n表演：目光里有邀约的兴味，动作停在可回应的位置，神情自然亲近。\n身体与空间：只做一次简明指尖动作，手腕有支撑；杯子不被拿来危险叠放。\n光：暖灯下木面和皮肤共享光色，窗外雨为环境而非表演特效。\n相处边界：这是静态创作brief，不声称画面已发声；不强迫用户跟拍或继续玩。\n\n这一次的镜头内因果：她有自己的发现，也乐意把一点有趣分给你。保小动作与手中真实小纸/可达木边的因果，眼神有一点灵动得意和自己的判断，嘴角只是短短、具体的一点笑，不大笑卖萌。不可跨过身体去碰远处圆桌或凭空伸指。\n小折纸仍安稳留在腿侧。她刚用一根指尖在身旁可达的窗榻木边轻点一下，手腕与另一手有膝侧/软垫支撑，然后停住看你，留接一拍的余地；不去够远处圆桌的杯子。这是安静的静态一拍，不暗示图已发声。\n\n请保住这一次具体心事与真实支撑，而不是只更换道具或颜色。不要把brief标题或任何指令画成文字。\n\n夜间硬门禁：无直射太阳、无白昼窗格投到软垫/地板/腿上的明亮矩形硬斑。不要保留图2暖日母图的阳光与地板白亮条。这里只有图1同一柔和室内灯与冷夜窗光，所有皮肤、白袖、软垫、地板都要有一致的夜间明度与自然软影。",
+  "promptSha256": "f6c45d251d072f1f746cde8cbf5f85b9c86b2c392c2cae3c54f33511eebe239e",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "role": "target clean room camera and complete light"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/apricot-wave-a/rana-play-apricot-literary-v1.png",
+      "sha256": "013996c5bc9396bb23c6f36e4be2d6f3e8b3cb81f4e3bd07121692216488aa21",
+      "role": "root-reviewed apricot complete Rana mother: identity, outfit, bench scale and activity support"
+    }
+  ],
+  "brief": {
+    "key": "rana-play-rain",
+    "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\briefs\\rana\\rana-play-rain.md",
+    "sha256": "6d2c429eef801d927076e42db9aa0ec6478587466a46d98588b6686b63c32494",
+    "matrixJsonPointerObserved": "/entries/27",
+    "planJsonPointerHistorical": "/entries/27"
+  },
+  "dossier": ".agents/skills/zaichang-frontend-director/references/characters/rana.md",
+  "dossierSha256": "d39286e83289d7c67222428a139b8650ff9f60a0e78e49c0a8393b3079f2e892",
+  "wardrobe": "project-original black short sleeve over white long sleeve, white shorts, black lace-up ankle boots",
+  "seedAuthorization": "Root 2026-10-25 direct full-image review permits these exact four apricot seeds as continuity references; old plan pending flag predates this direct instruction.",
+  "artifact": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-play-rain-literary-v1.png",
+    "sha256": "1bad9497d6c65107beae4b186f74f76df72c610c924abeace30180ef2aa5f3e2",
+    "bytes": 2239137,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "format": "PNG"
+  },
+  "producerReview": {
+    "by": "/root/integrated_shell",
+    "fullOriginalViewed": true,
+    "status": "HOLD-action-missing-do-not-feed",
+    "observed": "完整夜雨首稿亲看后HOLD：出现右手托腮、另一掌撑软垫，没有小折纸，也没把木边指尖停顿画出；虽然身份、坐姿和夜光大体成立，不能冒充play特定动作。无白昼窗格白亮斑不是动作合格证明；此图禁后续生图输入，将由唯一干净雨夜plate+全文人物/动作重建。",
+    "generationInputAllowed": false
+  },
+  "motherReviewApproved": false,
+  "generationInputAllowed": false,
+  "layersApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false
+}

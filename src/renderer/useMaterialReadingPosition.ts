@@ -30,14 +30,14 @@ function position(value: unknown): MaterialReadingPosition | undefined {
   return { page: Number(item.page), offset: Number(item.offset), view: item.view as 'text' | 'page',
     zoom: item.zoom, scrollTop: item.scrollTop };
 }
-function load(boundary: string): Store {
+function load(boundary: string, key = storageKey): Store {
   const empty: Store = { boundary, entries: [], dirty: false };
   try {
-    const raw = localStorage.getItem(storageKey);
+    const raw = localStorage.getItem(key);
     if (!raw) return empty;
     const saved = JSON.parse(raw);
     if (saved?.version !== 1 || saved.boundary !== persistedBoundary(boundary) || !Array.isArray(saved.entries)) {
-      localStorage.removeItem(storageKey);
+      localStorage.removeItem(key);
       return empty;
     }
     const seen = new Set<string>();
@@ -56,20 +56,24 @@ function load(boundary: string): Store {
 
 /** Addresses only. The caller supplies currently readable owner metadata and
  * reopens through materialsRead; this preference never restores source access. */
-export function useMaterialReadingPosition({ boundary }: { boundary: string }) {
+export function useMaterialReadingPosition({ boundary, readerId }: { boundary: string; readerId?: string }) {
+  const positionKey = readerId ? `${storageKey}:${readerId}` : storageKey;
   const currentBoundary = useRef(boundary);
   currentBoundary.current = boundary;
+  const currentKey = useRef(positionKey); currentKey.current = positionKey;
   const saved = useRef<Store | undefined>(undefined);
+  const savedKey = useRef(positionKey);
+  if (savedKey.current !== positionKey) { saved.current = undefined; savedKey.current = positionKey; }
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const positions = useMemo(() => {
     function current() {
       // A delayed page render from an older source boundary cannot write back.
-      if (currentBoundary.current !== boundary) return;
+      if (currentBoundary.current !== boundary || currentKey.current !== positionKey) return;
       if (saved.current && saved.current.boundary !== boundary) {
         saved.current = { boundary, entries: [], dirty: false };
-        try { localStorage.removeItem(storageKey); } catch { /* Current addresses are cleared in memory too. */ }
+        try { localStorage.removeItem(positionKey); } catch { /* Current addresses are cleared in memory too. */ }
       }
-      saved.current ||= load(boundary);
+      saved.current ||= load(boundary, positionKey);
       return saved.current;
     }
     function flush() {
@@ -78,9 +82,9 @@ export function useMaterialReadingPosition({ boundary }: { boundary: string }) {
       const store = current();
       if (!store?.dirty) return;
       try {
-        if (store.entries.length) localStorage.setItem(storageKey,
+        if (store.entries.length) localStorage.setItem(positionKey,
           JSON.stringify({ version: 1, boundary: persistedBoundary(boundary), entries: store.entries }));
-        else localStorage.removeItem(storageKey);
+        else localStorage.removeItem(positionKey);
         store.dirty = false;
       } catch { /* Keep the in-window address if preferences cannot be saved. */ }
     }
@@ -93,7 +97,10 @@ export function useMaterialReadingPosition({ boundary }: { boundary: string }) {
       if (!resourceValid(resource)) return;
       const store = current();
       if (!store) return;
-      const entry = store.entries.find(item => item.resourceId === resource.resourceId);
+      // A new independent window can inherit its earlier single-reader place;
+      // its later writes stay in its own namespace rather than erasing peers.
+      const entry = store.entries.find(item => item.resourceId === resource.resourceId)
+        || (readerId ? load(boundary).entries.find(item => item.resourceId === resource.resourceId) : undefined);
       if (!entry) return;
       if (entry.sha256 !== resource.sha256) {
         store.entries = store.entries.filter(item => item.resourceId !== resource.resourceId);
@@ -138,7 +145,7 @@ export function useMaterialReadingPosition({ boundary }: { boundary: string }) {
       },
       flush,
     };
-  }, [boundary]);
+  }, [boundary, positionKey]);
   useEffect(() => {
     // Load now so a changed boundary clears old addresses even before a file
     // is opened. No file name, quote, pixel, credential or access key is stored.

@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-canvas-original-person-luminance-mask",
+  "id": "rana-chat-apricot-figure-mask-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "rana-chat-apricot-figure-mask-v1.prompt.json",
+  "promptFileSha256": "01288c38418cb16835e7b82b3adc153d302bc65b577c9e2f38cff012494dc3ed",
+  "submittedPrompt": "Use case: precise-object-edit. STEP 2 of registered local color replacement.\nImage 1 is the ONLY exact full 1536x1024 input. The original small seated girl is already filled WHITE in her original room, at the correct source pixels and original body scale. Preserve that EXACT existing white region: bob hair strands, person contour, shirt/sleeves/shorts, hands/fingers, legs and both boots/laces. Do NOT draw or reconstruct a person again.\nChange ONLY the remaining COLORED ROOM into solid PURE BLACK. Window/sky/clouds/white curtains, bench/cushion/blanket/pillows, plants/walls/furniture, desk book/cup/lamp, floor/rug/sunlight and all cast/contact shadows become black. The existing flat-white PERSON remains opaque pure WHITE. Pale room objects are background and must become black too. Fill any faint interior person line or shade WHITE without moving her existing contour.\nKeep genuine room gaps between original limbs/arm/torso, boot laces and hair as BLACK. Do not include furniture or shadows in the white figure, erase actual white shorts/skin, or create accidental holes INSIDE the existing white figure. No gray interior/person detail, enlargement, reduction, translation, recentering, crop, zoom, reposing, smoothing into another silhouette or inferred hidden anatomy.\nKeep the complete original 1536x1024 canvas: existing crown stays near y286, original supporting palm near y580, left boot sole near y737 and lower/right boot sole near y771. Left content area remains fully black.\nReturn ONLY the exact registered white original person on pure black opaque RGB, full 1536x1024, narrow original outer antialiasing. No room texture, colored fragment, glow, shadow, ghost, text, border, grid, watermark or transparency.",
+  "submittedPromptSha256Utf8NoTrailingLF": "71ec51b730045fce042351addfeccc94f13666c3647d491073680b69e7738c1a",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/rana/rana-chat-apricot-white-in-room-v2.png",
+      "sha256": "f3b2754d630bb7be6b0d1c342b77b4aba146a7f1aa12c17a578d5f7d8c18fec6",
+      "role": "sole same-canvas local white-person intermediate v2; environment blackened only, no rejected old v9 or global mask"
+    }
+  ],
+  "output": {
+    "file": "rana-chat-apricot-figure-mask-v1.png",
+    "sha256": "ea25d04608d3d38903b726cf0040fffe4abcaf1fd06540d99e3d797bcb5c97aa",
+    "bytes": 348949,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-872695bd-6213-4958-b997-99f17db6f15a.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": true,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observationBoundary": "Producer directly viewed exact original PNG only; primary native original-RGB recomposition and known-seat-gap review pending.",
+    "primaryNativeCompositeViewed": true,
+    "primaryLayerApprovalRecord": "rana-chat-apricot-primary-layer-approval-v1.json",
+    "primaryLayerApprovalScope": "Exact admitted static v4 bundle with contained1.2 native geometric calibration; source RGB unchanged; runtime separate."
+  },
+  "status": "primary-admitted-static-v4-bundle-member-runtime-separate",
+  "maskMode": "luminance",
+  "mother": {
+    "file": "../../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png",
+    "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812"
+  },
+  "rgbMethod": "Native original complete mother RGB through full-source luminance mask; no alpha bitmap manipulation."
+}

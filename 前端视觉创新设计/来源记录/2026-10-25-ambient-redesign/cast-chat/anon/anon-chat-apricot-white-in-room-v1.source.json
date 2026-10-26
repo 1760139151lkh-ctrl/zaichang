@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-canvas-white-person-in-original-room",
+  "id": "anon-chat-apricot-white-in-room-v1",
+  "createdAtUtc": "2026-10-25T06:34:12.197213+00:00",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "producerRuntime": {
+    "model": "gpt-6.1-sol",
+    "effort": "ultra",
+    "turnId": "01a171c1-2501-76c3-8a23-286d375357f7"
+  },
+  "submittedPrompt": "Use case: precise-object-edit. STEP 1 of registered silhouette extraction; not a new drawing or a cutout.\nImage 1 is the ONLY source and edit target: the approved Anon Chihaya CHAT/apricot mother, exactly 1536 x 1024. Keep the complete original colored room, original camera and every source coordinate. In that same unchanged room, fill ONLY all originally visible pixels of the seated pink-haired girl with one flat SOLID PURE WHITE region.\nWhite includes the real pink hair strands and their fine tips, complete head/face/eyes/neck, grey blazer and green tie, plaid skirt, both hands and all visible fingers, exposed knees, both dark knee socks, and BOTH COMPLETE black loafers including toes/heels/soles. Keep her small cheerful chest-hand gesture and her other supporting palm on the bench at their exact source positions. No held object exists in this chat pose. All person interiors become fully opaque white with NO face details, clothing lines, shoe details, gray texture or interior holes.\nKeep EVERY non-person room pixel in its original color: window glass and bright reflected window light, clouds, yellow leaves, curtains, bench/cushions, blanket, desk book/cup/lamp, wood and floor shadows. Do not paint bright window flecks, leaf shapes, light reflections or chunks of room WHITE merely because they are near her hair. Only actual hair strands belong to the white person; keep all genuine room gaps between hair strands colored. At the back/right of her head and hair tips carefully exclude disconnected window-light specks outside the real pink-hair contour. Keep source antialiasing narrow; no broad white fringe and no added opaque island beyond the person.\nHer crown remains near original y235, supporting palm near x1430/y580, soles near y798. Preserve exact size/position/silhouette; do not enlarge, move, center, crop, invent hidden anatomy, smooth away strands or change pose.\nReturn the original full colored room with only the existing visible girl filled solid pure white. No black backdrop yet, no labels, text, border, grid, transparency or checkerboard. Output opaque RGB PNG exactly 1536 x 1024.",
+  "submittedPromptSha256Utf8NoTrailingLF": "483286584a4c090408ac11af5c878398b3c3b0b3976f6690b7a5ae9bf65f5049",
+  "promptFile": "anon-chat-apricot-white-in-room-v1.prompt.json",
+  "promptFileSha256": "7b11564ee276f49168866d51ebf42a4eee34939d39564b2330f9c766974a434b",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-chat-apricot-mother-candidate-v1.png",
+      "sha256": "99c8acd4c2b875659afc9471b3c020219d394aae025cba2f164daf47babb5986",
+      "role": "sole approved original mother; no old mask or figure supplied"
+    }
+  ],
+  "output": {
+    "file": "anon-chat-apricot-white-in-room-v1.png",
+    "sha256": "c5ff9b6d17ec729b52e46772125637a486ba7f066ae14d221e2b9ba069e4b529",
+    "bytes": 2028456,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-0ca93313-cf8b-424e-9cd5-01880e2276f6.png",
+    "originalEvent": "exec-0ca93313-cf8b-424e-9cd5-01880e2276f6"
+  },
+  "transparentBackground": false,
+  "review": {
+    "primaryLayerApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "personallyViewed": true
+  },
+  "status": "production-intermediate-personally-inspected"
+}

@@ -1,0 +1,3219 @@
+{
+  "schemaVersion": 1,
+  "recordType": "human-mother-source-production-plan",
+  "sceneFamily": "literary-room-v1",
+  "recordedAt": "2026-10-25T17:09:08.234829+00:00",
+  "ledger": "前端视觉创新设计/来源记录/2026-10-25-literary-room/matrix-ledger-v1.json",
+  "scope": {
+    "humanAxisCount": 360,
+    "physicallyGeneratedCells": 284,
+    "missingNoSavedMother": 76,
+    "missingArtifactCellsOnly": true,
+    "generatedButHeldCellsSeparate": 5,
+    "notCompletionEvidence": [
+      "empty room",
+      "independent portrait",
+      "cat form",
+      "fallback activity",
+      "existing other palette",
+      "fixed layer",
+      "runtime registration"
+    ],
+    "productionOrder": "Inspect existing exact SHA before deciding reuse or clean rebuild. Generate every genuinely missing target with Image, then separately inspect mother/layers/runtime."
+  },
+  "preparation": {
+    "readBeforeEveryRole": [
+      "Complete current character dossier in .agents/skills/zaichang-frontend-director/references/characters/ if present, otherwise current full role-art-direction material and original identity sources; do not copy Sakiko wardrobe to other roles.",
+      "Complete character-art-direction.md and exact literaryBrief entry referenced by each target.",
+      "Original complete available apricot source and relevant source prompt/inputs, whole anatomy/support/face/costume/object/action."
+    ],
+    "noContaminatedInputs": [
+      "All seven exact SHA in currentSourceInventory.currentUserBlockedArtifactSha256",
+      "User-rejected old resume and attention and their direct theme descendants",
+      "Wrong-hosiery recognition v1",
+      "Gray UI screenshots/assembled product collages",
+      "Rejected wide-seat selection",
+      "Malformed anatomy or unsupported figure"
+    ],
+    "camera": "Same 1536x1024 room source coordinates and actual support furniture; whole theme light must act on room and person together. No CSS theme tint can stand in for a generated target.",
+    "activity": "One continuous everyday action and actual object/eye target per cell. No universal commercial smile or hand pointing at empty space.",
+    "wardrobe": "Follow each role dossier and declared project wardrobe; source differs by role. Sakiko current navy adaptation requires calf socks below knee and both knees exposed."
+  },
+  "batchSummary": {
+    "approvedApricotSourceTargets": 28,
+    "pendingApricotInspectionTargets": 48,
+    "rootReviewRequiredBeforeReuse": true,
+    "recommendedOrder": [
+      "Sakiko resume violet/rain using new v2 direction, old mist separately rebuilt rather than reused.",
+      "Mutsumi6, Nyamu12, Taki6, Umiri2 after viewing their exact approved seeds and full dossiers.",
+      "Anon12, Soyo12, Rana24 after root reviews their existing healthy apricot seeds; prefer preserving good originals."
+    ]
+  },
+  "groups": [
+    {
+      "role": "sakiko",
+      "roleName": "祥子",
+      "activity": "resume",
+      "activityMeaning": "中断后认出并接续",
+      "targetCount": 2,
+      "availableApricotSource": {
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/sakiko-recognition-apricot-v2.png",
+          "sha256": "a8801f784b77d632509818d102a8b899d0bdda99afe904085196a9e8c5bee279",
+          "bytes": 2460394,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "currentMotherReviewStatus": "approved_static_mother_direction_only",
+        "motherReviewApproved": true,
+        "generationInputAllowedNow": true,
+        "inputBoundary": "Approved exact complete mother may be a pose/identity continuity reference only after the artist personally checks it and full current dossier. If any structure/costume/performance defect is found, use clean target plate + precise text instead."
+      },
+      "batch": 1,
+      "targets": [
+        {
+          "cell": "sakiko/resume/violet",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "violet",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "bytes": 2350339,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/sakiko/sakiko-literary-room-36-cells-v1.json",
+              "sha256": "a771f7473ebeb6dfed1d1143ef83cf41f0037885ed750ee1914c01e1a07eec2d",
+              "bytes": 124020,
+              "capturedAt": "2026-10-25T09:14:03.049739+00:00"
+            },
+            "jsonPointer": "/cells/34",
+            "briefKey": "sakiko/resume/violet",
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "从当前真实书签或停点抬眼，把书页稍向你倾来；没有实际停点时不演成已经找回上次内容。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "sakiko/resume/rain",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "rain",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "bytes": 2270751,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/sakiko/sakiko-literary-room-36-cells-v1.json",
+              "sha256": "a771f7473ebeb6dfed1d1143ef83cf41f0037885ed750ee1914c01e1a07eec2d",
+              "bytes": 124020,
+              "capturedAt": "2026-10-25T09:14:03.049739+00:00"
+            },
+            "jsonPointer": "/cells/35",
+            "briefKey": "sakiko/resume/rain",
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "从当前真实书签或停点抬眼，把书页稍向你倾来；没有实际停点时不演成已经找回上次内容。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        }
+      ]
+    },
+    {
+      "role": "mutsumi",
+      "roleName": "睦",
+      "activity": "attention",
+      "activityMeaning": "注意共同对象",
+      "targetCount": 3,
+      "availableApricotSource": {
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-attention-apricot-v1.png",
+          "sha256": "6a6dd6f09e91cdcf97461452757cbe8ca1ae4ec5bbe382d404d5d0ef8fad3cd8",
+          "bytes": 2459480,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG",
+          "writtenByUtc": "2026-10-25T11:58:52.691803+00:00"
+        },
+        "currentMotherReviewStatus": "approved_static_mother",
+        "motherReviewApproved": true,
+        "generationInputAllowedNow": true,
+        "inputBoundary": "Approved exact complete mother may be a pose/identity continuity reference only after the artist personally checks it and full current dossier. If any structure/costume/performance defect is found, use clean target plate + precise text instead."
+      },
+      "batch": 1,
+      "targets": [
+        {
+          "cell": "mutsumi/attention/mist",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "mist",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+            "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+            "bytes": 2526101,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/mutsumi-prompt-plan.json",
+              "sha256": "66ade9700cb7bb993b43bd7e247b678878b79ad71237b0b5dcd915a43a3be2ca",
+              "bytes": 101958,
+              "capturedAt": "2026-10-25T09:14:03.037840+00:00"
+            },
+            "jsonPointer": "/cells/29",
+            "briefKey": "mutsumi/attention/mist",
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "顺着你刚指出的地方偏头，手仍留在可信支撑上；看错时先改目光，不表演大幅转身。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "mutsumi/attention/violet",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "violet",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "bytes": 2350339,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/mutsumi-prompt-plan.json",
+              "sha256": "66ade9700cb7bb993b43bd7e247b678878b79ad71237b0b5dcd915a43a3be2ca",
+              "bytes": 101958,
+              "capturedAt": "2026-10-25T09:14:03.037840+00:00"
+            },
+            "jsonPointer": "/cells/30",
+            "briefKey": "mutsumi/attention/violet",
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "顺着你刚指出的地方偏头，手仍留在可信支撑上；看错时先改目光，不表演大幅转身。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "mutsumi/attention/rain",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "rain",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "bytes": 2270751,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/mutsumi-prompt-plan.json",
+              "sha256": "66ade9700cb7bb993b43bd7e247b678878b79ad71237b0b5dcd915a43a3be2ca",
+              "bytes": 101958,
+              "capturedAt": "2026-10-25T09:14:03.037840+00:00"
+            },
+            "jsonPointer": "/cells/31",
+            "briefKey": "mutsumi/attention/rain",
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "顺着你刚指出的地方偏头，手仍留在可信支撑上；看错时先改目光，不表演大幅转身。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        }
+      ]
+    },
+    {
+      "role": "mutsumi",
+      "roleName": "睦",
+      "activity": "resume",
+      "activityMeaning": "中断后认出并接续",
+      "targetCount": 3,
+      "availableApricotSource": {
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-resume-apricot-v1.png",
+          "sha256": "8e8ac48ad4b37993d28ccd8bd8c83f64c98f5f1abf8e43f7791b0c8380b11701",
+          "bytes": 2431327,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG",
+          "writtenByUtc": "2026-10-25T12:00:53.750984+00:00"
+        },
+        "currentMotherReviewStatus": "approved_static_mother",
+        "motherReviewApproved": true,
+        "generationInputAllowedNow": true,
+        "inputBoundary": "Approved exact complete mother may be a pose/identity continuity reference only after the artist personally checks it and full current dossier. If any structure/costume/performance defect is found, use clean target plate + precise text instead."
+      },
+      "batch": 1,
+      "targets": [
+        {
+          "cell": "mutsumi/resume/mist",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "mist",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+            "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+            "bytes": 2526101,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/mutsumi-prompt-plan.json",
+              "sha256": "66ade9700cb7bb993b43bd7e247b678878b79ad71237b0b5dcd915a43a3be2ca",
+              "bytes": 101958,
+              "capturedAt": "2026-10-25T09:14:03.037840+00:00"
+            },
+            "jsonPointer": "/cells/33",
+            "briefKey": "mutsumi/resume/mist",
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "指腹留着当前真实页角，见你回来才把书略打开；没有书签时只留下自然接话的余地。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "mutsumi/resume/violet",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "violet",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "bytes": 2350339,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/mutsumi-prompt-plan.json",
+              "sha256": "66ade9700cb7bb993b43bd7e247b678878b79ad71237b0b5dcd915a43a3be2ca",
+              "bytes": 101958,
+              "capturedAt": "2026-10-25T09:14:03.037840+00:00"
+            },
+            "jsonPointer": "/cells/34",
+            "briefKey": "mutsumi/resume/violet",
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "指腹留着当前真实页角，见你回来才把书略打开；没有书签时只留下自然接话的余地。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "mutsumi/resume/rain",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "rain",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "bytes": 2270751,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/mutsumi-prompt-plan.json",
+              "sha256": "66ade9700cb7bb993b43bd7e247b678878b79ad71237b0b5dcd915a43a3be2ca",
+              "bytes": 101958,
+              "capturedAt": "2026-10-25T09:14:03.037840+00:00"
+            },
+            "jsonPointer": "/cells/35",
+            "briefKey": "mutsumi/resume/rain",
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "指腹留着当前真实页角，见你回来才把书略打开；没有书签时只留下自然接话的余地。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        }
+      ]
+    },
+    {
+      "role": "nyamu",
+      "roleName": "喵梦",
+      "activity": "listening",
+      "activityMeaning": "倾听",
+      "targetCount": 3,
+      "availableApricotSource": {
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-b/nyamu-listening-apricot-v1.png",
+          "sha256": "60a3651486c24f9d1d9904f96414efee5710d88e6d7b05889801f932397644ee",
+          "bytes": 2447542,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG",
+          "writtenByUtc": "2026-10-25T12:04:45.453983+00:00"
+        },
+        "currentMotherReviewStatus": "approved_static_mother",
+        "motherReviewApproved": true,
+        "generationInputAllowedNow": true,
+        "inputBoundary": "Approved exact complete mother may be a pose/identity continuity reference only after the artist personally checks it and full current dossier. If any structure/costume/performance defect is found, use clean target plate + precise text instead."
+      },
+      "batch": 1,
+      "targets": [
+        {
+          "cell": "nyamu/listening/mist",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "mist",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+            "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+            "bytes": 2526101,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-prompt-plan.json",
+              "sha256": "9f549b3785d8e59d903dec1f220f05880ce0b57213591c5111effa3a98da9dea",
+              "bytes": 103955,
+              "capturedAt": "2026-10-25T09:14:03.038468+00:00"
+            },
+            "jsonPointer": "/cells/17",
+            "briefKey": "nyamu/listening/mist",
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "原本抬起的手收回膝上，目光认真落到说话的人；活力不会妨碍她听见反对意见。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "nyamu/listening/violet",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "violet",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "bytes": 2350339,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-prompt-plan.json",
+              "sha256": "9f549b3785d8e59d903dec1f220f05880ce0b57213591c5111effa3a98da9dea",
+              "bytes": 103955,
+              "capturedAt": "2026-10-25T09:14:03.038468+00:00"
+            },
+            "jsonPointer": "/cells/18",
+            "briefKey": "nyamu/listening/violet",
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "原本抬起的手收回膝上，目光认真落到说话的人；活力不会妨碍她听见反对意见。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "nyamu/listening/rain",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "rain",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "bytes": 2270751,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-prompt-plan.json",
+              "sha256": "9f549b3785d8e59d903dec1f220f05880ce0b57213591c5111effa3a98da9dea",
+              "bytes": 103955,
+              "capturedAt": "2026-10-25T09:14:03.038468+00:00"
+            },
+            "jsonPointer": "/cells/19",
+            "briefKey": "nyamu/listening/rain",
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "原本抬起的手收回膝上，目光认真落到说话的人；活力不会妨碍她听见反对意见。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        }
+      ]
+    },
+    {
+      "role": "nyamu",
+      "roleName": "喵梦",
+      "activity": "play",
+      "activityMeaning": "共同玩耍",
+      "targetCount": 3,
+      "availableApricotSource": {
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-b/nyamu-play-apricot-v1.png",
+          "sha256": "0aac1b4a1aa91157a82ffdae22088289c7e5002096a2551354f65d9178b0549d",
+          "bytes": 2407942,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG",
+          "writtenByUtc": "2026-10-25T12:06:30.389454+00:00"
+        },
+        "currentMotherReviewStatus": "approved_static_mother",
+        "motherReviewApproved": true,
+        "generationInputAllowedNow": true,
+        "inputBoundary": "Approved exact complete mother may be a pose/identity continuity reference only after the artist personally checks it and full current dossier. If any structure/costume/performance defect is found, use clean target plate + precise text instead."
+      },
+      "batch": 1,
+      "targets": [
+        {
+          "cell": "nyamu/play/mist",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "mist",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+            "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+            "bytes": 2526101,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-prompt-plan.json",
+              "sha256": "9f549b3785d8e59d903dec1f220f05880ce0b57213591c5111effa3a98da9dea",
+              "bytes": 103955,
+              "capturedAt": "2026-10-25T09:14:03.038468+00:00"
+            },
+            "jsonPointer": "/cells/25",
+            "briefKey": "nyamu/play/mist",
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "用两张色纸试拼一个小小构图，亮给你看自己的配色主张，再故意留一角请你改掉。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "nyamu/play/violet",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "violet",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "bytes": 2350339,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-prompt-plan.json",
+              "sha256": "9f549b3785d8e59d903dec1f220f05880ce0b57213591c5111effa3a98da9dea",
+              "bytes": 103955,
+              "capturedAt": "2026-10-25T09:14:03.038468+00:00"
+            },
+            "jsonPointer": "/cells/26",
+            "briefKey": "nyamu/play/violet",
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "用两张色纸试拼一个小小构图，亮给你看自己的配色主张，再故意留一角请你改掉。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "nyamu/play/rain",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "rain",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "bytes": 2270751,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-prompt-plan.json",
+              "sha256": "9f549b3785d8e59d903dec1f220f05880ce0b57213591c5111effa3a98da9dea",
+              "bytes": 103955,
+              "capturedAt": "2026-10-25T09:14:03.038468+00:00"
+            },
+            "jsonPointer": "/cells/27",
+            "briefKey": "nyamu/play/rain",
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "用两张色纸试拼一个小小构图，亮给你看自己的配色主张，再故意留一角请你改掉。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        }
+      ]
+    },
+    {
+      "role": "nyamu",
+      "roleName": "喵梦",
+      "activity": "attention",
+      "activityMeaning": "注意共同对象",
+      "targetCount": 3,
+      "availableApricotSource": {
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-b/nyamu-attention-apricot-v1.png",
+          "sha256": "21fb4b183cd76e742fcc006fd8f9f492bbec543e9758668c02457314d77783de",
+          "bytes": 2417081,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG",
+          "writtenByUtc": "2026-10-25T12:08:08.709355+00:00"
+        },
+        "currentMotherReviewStatus": "approved_static_mother",
+        "motherReviewApproved": true,
+        "generationInputAllowedNow": true,
+        "inputBoundary": "Approved exact complete mother may be a pose/identity continuity reference only after the artist personally checks it and full current dossier. If any structure/costume/performance defect is found, use clean target plate + precise text instead."
+      },
+      "batch": 1,
+      "targets": [
+        {
+          "cell": "nyamu/attention/mist",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "mist",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+            "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+            "bytes": 2526101,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-prompt-plan.json",
+              "sha256": "9f549b3785d8e59d903dec1f220f05880ce0b57213591c5111effa3a98da9dea",
+              "bytes": 103955,
+              "capturedAt": "2026-10-25T09:14:03.038468+00:00"
+            },
+            "jsonPointer": "/cells/29",
+            "briefKey": "nyamu/attention/mist",
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "看到你改指另一处，先停旧展示，再转向新对象；不用突然贴近镜头来强调发现。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "nyamu/attention/violet",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "violet",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "bytes": 2350339,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-prompt-plan.json",
+              "sha256": "9f549b3785d8e59d903dec1f220f05880ce0b57213591c5111effa3a98da9dea",
+              "bytes": 103955,
+              "capturedAt": "2026-10-25T09:14:03.038468+00:00"
+            },
+            "jsonPointer": "/cells/30",
+            "briefKey": "nyamu/attention/violet",
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "看到你改指另一处，先停旧展示，再转向新对象；不用突然贴近镜头来强调发现。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "nyamu/attention/rain",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "rain",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "bytes": 2270751,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-prompt-plan.json",
+              "sha256": "9f549b3785d8e59d903dec1f220f05880ce0b57213591c5111effa3a98da9dea",
+              "bytes": 103955,
+              "capturedAt": "2026-10-25T09:14:03.038468+00:00"
+            },
+            "jsonPointer": "/cells/31",
+            "briefKey": "nyamu/attention/rain",
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "看到你改指另一处，先停旧展示，再转向新对象；不用突然贴近镜头来强调发现。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        }
+      ]
+    },
+    {
+      "role": "nyamu",
+      "roleName": "喵梦",
+      "activity": "resume",
+      "activityMeaning": "中断后认出并接续",
+      "targetCount": 3,
+      "availableApricotSource": {
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-b/nyamu-resume-apricot-v1.png",
+          "sha256": "f4e361663308d546d801bb6c845742225aba7b953ee60bedbb31a7467d38c874",
+          "bytes": 2435708,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG",
+          "writtenByUtc": "2026-10-25T12:09:18.380140+00:00"
+        },
+        "currentMotherReviewStatus": "approved_static_mother",
+        "motherReviewApproved": true,
+        "generationInputAllowedNow": true,
+        "inputBoundary": "Approved exact complete mother may be a pose/identity continuity reference only after the artist personally checks it and full current dossier. If any structure/costume/performance defect is found, use clean target plate + precise text instead."
+      },
+      "batch": 1,
+      "targets": [
+        {
+          "cell": "nyamu/resume/mist",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "mist",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+            "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+            "bytes": 2526101,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-prompt-plan.json",
+              "sha256": "9f549b3785d8e59d903dec1f220f05880ce0b57213591c5111effa3a98da9dea",
+              "bytes": 103955,
+              "capturedAt": "2026-10-25T09:14:03.038468+00:00"
+            },
+            "jsonPointer": "/cells/33",
+            "briefKey": "nyamu/resume/mist",
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "把确实留下的小作品放回原处，露出接着玩的兴致；没有记录时不假装记得细节。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "nyamu/resume/violet",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "violet",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "bytes": 2350339,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-prompt-plan.json",
+              "sha256": "9f549b3785d8e59d903dec1f220f05880ce0b57213591c5111effa3a98da9dea",
+              "bytes": 103955,
+              "capturedAt": "2026-10-25T09:14:03.038468+00:00"
+            },
+            "jsonPointer": "/cells/34",
+            "briefKey": "nyamu/resume/violet",
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "把确实留下的小作品放回原处，露出接着玩的兴致；没有记录时不假装记得细节。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "nyamu/resume/rain",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "rain",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "bytes": 2270751,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-prompt-plan.json",
+              "sha256": "9f549b3785d8e59d903dec1f220f05880ce0b57213591c5111effa3a98da9dea",
+              "bytes": 103955,
+              "capturedAt": "2026-10-25T09:14:03.038468+00:00"
+            },
+            "jsonPointer": "/cells/35",
+            "briefKey": "nyamu/resume/rain",
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "把确实留下的小作品放回原处，露出接着玩的兴致；没有记录时不假装记得细节。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        }
+      ]
+    },
+    {
+      "role": "taki",
+      "roleName": "立希",
+      "activity": "attention",
+      "activityMeaning": "注意共同对象",
+      "targetCount": 3,
+      "availableApricotSource": {
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/apricot-wave-b/taki-attention-apricot-literary-v1.png",
+          "sha256": "58de13810d18c43ead5764cbaccdf2cfa8e994313b3d938c75c716c0826fe7e9",
+          "bytes": 2448399,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG",
+          "writtenByUtc": "2026-10-25T11:58:50.288990+00:00"
+        },
+        "currentMotherReviewStatus": "approved_static_mother",
+        "motherReviewApproved": true,
+        "generationInputAllowedNow": true,
+        "inputBoundary": "Approved exact complete mother may be a pose/identity continuity reference only after the artist personally checks it and full current dossier. If any structure/costume/performance defect is found, use clean target plate + precise text instead."
+      },
+      "batch": 1,
+      "targets": [
+        {
+          "cell": "taki/attention/mist",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "mist",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+            "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+            "bytes": 2526101,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-a/matrix-72.json",
+              "sha256": "584a74a9a3b540dcebad4902f189a7c722b86eb2ed13825e7d5ed7eb076c051e",
+              "bytes": 74445,
+              "capturedAt": "2026-10-25T09:14:03.039950+00:00"
+            },
+            "jsonPointer": "/cells/65",
+            "briefKey": "taki/attention/mist",
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "跟着明确指向看清新条件，再换指尖位置；原位置错误时先撤回，不强撑姿态。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "taki/attention/violet",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "violet",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "bytes": 2350339,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-a/matrix-72.json",
+              "sha256": "584a74a9a3b540dcebad4902f189a7c722b86eb2ed13825e7d5ed7eb076c051e",
+              "bytes": 74445,
+              "capturedAt": "2026-10-25T09:14:03.039950+00:00"
+            },
+            "jsonPointer": "/cells/66",
+            "briefKey": "taki/attention/dusk",
+            "canonicalKey": "taki/attention/violet",
+            "canonicalAxisAlias": {
+              "field": "palette",
+              "from": "dusk",
+              "to": "violet",
+              "scope": "this creative brief index only",
+              "evidence": "producer paletteName 暮色紫; canonical family axis violet; original index remains untouched"
+            },
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "跟着明确指向看清新条件，再换指尖位置；原位置错误时先撤回，不强撑姿态。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "taki/attention/rain",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "rain",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "bytes": 2270751,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-a/matrix-72.json",
+              "sha256": "584a74a9a3b540dcebad4902f189a7c722b86eb2ed13825e7d5ed7eb076c051e",
+              "bytes": 74445,
+              "capturedAt": "2026-10-25T09:14:03.039950+00:00"
+            },
+            "jsonPointer": "/cells/67",
+            "briefKey": "taki/attention/rain",
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "跟着明确指向看清新条件，再换指尖位置；原位置错误时先撤回，不强撑姿态。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        }
+      ]
+    },
+    {
+      "role": "taki",
+      "roleName": "立希",
+      "activity": "resume",
+      "activityMeaning": "中断后认出并接续",
+      "targetCount": 3,
+      "availableApricotSource": {
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/apricot-wave-b/taki-resume-apricot-literary-v1.png",
+          "sha256": "42fc10d73ff8187f26186be1b669c343bf9e78004db1d712ebc7974a12a50a0e",
+          "bytes": 2414760,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG",
+          "writtenByUtc": "2026-10-25T11:59:54.763171+00:00"
+        },
+        "currentMotherReviewStatus": "approved_static_mother",
+        "motherReviewApproved": true,
+        "generationInputAllowedNow": true,
+        "inputBoundary": "Approved exact complete mother may be a pose/identity continuity reference only after the artist personally checks it and full current dossier. If any structure/costume/performance defect is found, use clean target plate + precise text instead."
+      },
+      "batch": 1,
+      "targets": [
+        {
+          "cell": "taki/resume/mist",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "mist",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+            "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+            "bytes": 2526101,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-a/matrix-72.json",
+              "sha256": "584a74a9a3b540dcebad4902f189a7c722b86eb2ed13825e7d5ed7eb076c051e",
+              "bytes": 74445,
+              "capturedAt": "2026-10-25T09:14:03.039950+00:00"
+            },
+            "jsonPointer": "/cells/69",
+            "briefKey": "taki/resume/mist",
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "翻回确有停点的同一页，指尖留在边缘等你决定怎么接；没有记录就不假装已经找回。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "taki/resume/violet",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "violet",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "bytes": 2350339,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-a/matrix-72.json",
+              "sha256": "584a74a9a3b540dcebad4902f189a7c722b86eb2ed13825e7d5ed7eb076c051e",
+              "bytes": 74445,
+              "capturedAt": "2026-10-25T09:14:03.039950+00:00"
+            },
+            "jsonPointer": "/cells/70",
+            "briefKey": "taki/resume/dusk",
+            "canonicalKey": "taki/resume/violet",
+            "canonicalAxisAlias": {
+              "field": "palette",
+              "from": "dusk",
+              "to": "violet",
+              "scope": "this creative brief index only",
+              "evidence": "producer paletteName 暮色紫; canonical family axis violet; original index remains untouched"
+            },
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "翻回确有停点的同一页，指尖留在边缘等你决定怎么接；没有记录就不假装已经找回。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "taki/resume/rain",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "rain",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "bytes": 2270751,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-a/matrix-72.json",
+              "sha256": "584a74a9a3b540dcebad4902f189a7c722b86eb2ed13825e7d5ed7eb076c051e",
+              "bytes": 74445,
+              "capturedAt": "2026-10-25T09:14:03.039950+00:00"
+            },
+            "jsonPointer": "/cells/71",
+            "briefKey": "taki/resume/rain",
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "翻回确有停点的同一页，指尖留在边缘等你决定怎么接；没有记录就不假装已经找回。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        }
+      ]
+    },
+    {
+      "role": "umiri",
+      "roleName": "海铃",
+      "activity": "resume",
+      "activityMeaning": "中断后认出并接续",
+      "targetCount": 2,
+      "availableApricotSource": {
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-resume-apricot-literary-wave-b-v1.png",
+          "sha256": "6842a6222779a5607400400a6a1df5e3b732c814777f447defc5d5951413328e",
+          "bytes": 2423675,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG",
+          "writtenByUtc": "2026-10-25T12:00:23.455066+00:00"
+        },
+        "currentMotherReviewStatus": "approved_static_mother",
+        "motherReviewApproved": true,
+        "generationInputAllowedNow": true,
+        "inputBoundary": "Approved exact complete mother may be a pose/identity continuity reference only after the artist personally checks it and full current dossier. If any structure/costume/performance defect is found, use clean target plate + precise text instead."
+      },
+      "batch": 1,
+      "targets": [
+        {
+          "cell": "umiri/resume/violet",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "violet",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "bytes": 2350339,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-b/umiri-literary-room-36-cells-v1.json",
+              "sha256": "b8f97f1a2ce86161c1068f9b0d12c26370cece95b85680f9f1fc5ef70f701c4b",
+              "bytes": 50290,
+              "capturedAt": "2026-10-25T09:14:03.039466+00:00"
+            },
+            "jsonPointer": "/cells/34",
+            "briefKey": "umiri/resume/violet",
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "沿真实停点打开同一页，笔留在书旁，等你决定继续哪一项；不恢复过期批准。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "umiri/resume/rain",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "rain",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "bytes": 2270751,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-b/umiri-literary-room-36-cells-v1.json",
+              "sha256": "b8f97f1a2ce86161c1068f9b0d12c26370cece95b85680f9f1fc5ef70f701c4b",
+              "bytes": 50290,
+              "capturedAt": "2026-10-25T09:14:03.039466+00:00"
+            },
+            "jsonPointer": "/cells/35",
+            "briefKey": "umiri/resume/rain",
+            "producerBriefRef": null
+          },
+          "existingProjectDirection": "沿真实停点打开同一页，笔留在书旁，等你决定继续哪一项；不恢复过期批准。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        }
+      ]
+    },
+    {
+      "role": "anon",
+      "roleName": "爱音",
+      "activity": "listening",
+      "activityMeaning": "倾听",
+      "targetCount": 3,
+      "availableApricotSource": {
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/apricot-wave-b/anon-listening-apricot-literary-v1.png",
+          "sha256": "569b85c9dff9b8e6984f68d1d97b85ce6f708b764a203a6f8e3ea0cc7ca53973",
+          "bytes": 2435673,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG",
+          "writtenByUtc": "2026-10-25T11:47:17.459373+00:00"
+        },
+        "currentMotherReviewStatus": "candidate_pending_root",
+        "motherReviewApproved": false,
+        "generationInputAllowedNow": false,
+        "inputBoundary": "Saved complete mother is awaiting primary inspection. Do not feed it forward before root exact-image review. Inspect it first; reuse if healthy and approved, otherwise use clean target plate + complete text reconstruction. Do not regenerate it just to avoid reviewing it."
+      },
+      "batch": 2,
+      "targets": [
+        {
+          "cell": "anon/listening/mist",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "mist",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+            "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+            "bytes": 2526101,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/mygo-b-matrix-v1.json",
+              "sha256": "e744ab94da12aa771b9293b1a52a5f0e9af0f2eaee856c1a3201f95a58032556",
+              "bytes": 23633,
+              "capturedAt": "2026-10-25T09:14:03.040380+00:00"
+            },
+            "jsonPointer": "/cells/17",
+            "briefKey": "anon/listening/mist",
+            "producerBriefRef": "anon-literary-room-briefs-v1.json#/cells/17"
+          },
+          "existingProjectDirection": "刚抬起来的手放回腿上，身体略朝向你，听见具体细节时才有回应。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "anon/listening/violet",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "violet",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "bytes": 2350339,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/mygo-b-matrix-v1.json",
+              "sha256": "e744ab94da12aa771b9293b1a52a5f0e9af0f2eaee856c1a3201f95a58032556",
+              "bytes": 23633,
+              "capturedAt": "2026-10-25T09:14:03.040380+00:00"
+            },
+            "jsonPointer": "/cells/18",
+            "briefKey": "anon/listening/violet",
+            "producerBriefRef": "anon-literary-room-briefs-v1.json#/cells/18"
+          },
+          "existingProjectDirection": "刚抬起来的手放回腿上，身体略朝向你，听见具体细节时才有回应。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "anon/listening/rain",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "rain",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "bytes": 2270751,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/mygo-b-matrix-v1.json",
+              "sha256": "e744ab94da12aa771b9293b1a52a5f0e9af0f2eaee856c1a3201f95a58032556",
+              "bytes": 23633,
+              "capturedAt": "2026-10-25T09:14:03.040380+00:00"
+            },
+            "jsonPointer": "/cells/19",
+            "briefKey": "anon/listening/rain",
+            "producerBriefRef": "anon-literary-room-briefs-v1.json#/cells/19"
+          },
+          "existingProjectDirection": "刚抬起来的手放回腿上，身体略朝向你，听见具体细节时才有回应。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        }
+      ]
+    },
+    {
+      "role": "anon",
+      "roleName": "爱音",
+      "activity": "play",
+      "activityMeaning": "共同玩耍",
+      "targetCount": 3,
+      "availableApricotSource": {
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/apricot-wave-b/anon-play-apricot-literary-v1.png",
+          "sha256": "2c538c5fe334104ebd7b7c4478d0d9ed185ff9df65523dd1b01db79f41619139",
+          "bytes": 2434978,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG",
+          "writtenByUtc": "2026-10-25T11:49:08.154545+00:00"
+        },
+        "currentMotherReviewStatus": "candidate_pending_root",
+        "motherReviewApproved": false,
+        "generationInputAllowedNow": false,
+        "inputBoundary": "Saved complete mother is awaiting primary inspection. Do not feed it forward before root exact-image review. Inspect it first; reuse if healthy and approved, otherwise use clean target plate + complete text reconstruction. Do not regenerate it just to avoid reviewing it."
+      },
+      "batch": 2,
+      "targets": [
+        {
+          "cell": "anon/play/mist",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "mist",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+            "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+            "bytes": 2526101,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/mygo-b-matrix-v1.json",
+              "sha256": "e744ab94da12aa771b9293b1a52a5f0e9af0f2eaee856c1a3201f95a58032556",
+              "bytes": 23633,
+              "capturedAt": "2026-10-25T09:14:03.040380+00:00"
+            },
+            "jsonPointer": "/cells/25",
+            "briefKey": "anon/play/mist",
+            "producerBriefRef": "anon-literary-room-briefs-v1.json#/cells/25"
+          },
+          "existingProjectDirection": "掌心托着小纸鸟，另一手给翅膀做最后一小折，像邀你给这个点子添一点意外。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "anon/play/violet",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "violet",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "bytes": 2350339,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/mygo-b-matrix-v1.json",
+              "sha256": "e744ab94da12aa771b9293b1a52a5f0e9af0f2eaee856c1a3201f95a58032556",
+              "bytes": 23633,
+              "capturedAt": "2026-10-25T09:14:03.040380+00:00"
+            },
+            "jsonPointer": "/cells/26",
+            "briefKey": "anon/play/violet",
+            "producerBriefRef": "anon-literary-room-briefs-v1.json#/cells/26"
+          },
+          "existingProjectDirection": "掌心托着小纸鸟，另一手给翅膀做最后一小折，像邀你给这个点子添一点意外。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "anon/play/rain",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "rain",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "bytes": 2270751,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/mygo-b-matrix-v1.json",
+              "sha256": "e744ab94da12aa771b9293b1a52a5f0e9af0f2eaee856c1a3201f95a58032556",
+              "bytes": 23633,
+              "capturedAt": "2026-10-25T09:14:03.040380+00:00"
+            },
+            "jsonPointer": "/cells/27",
+            "briefKey": "anon/play/rain",
+            "producerBriefRef": "anon-literary-room-briefs-v1.json#/cells/27"
+          },
+          "existingProjectDirection": "掌心托着小纸鸟，另一手给翅膀做最后一小折，像邀你给这个点子添一点意外。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        }
+      ]
+    },
+    {
+      "role": "anon",
+      "roleName": "爱音",
+      "activity": "attention",
+      "activityMeaning": "注意共同对象",
+      "targetCount": 3,
+      "availableApricotSource": {
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/apricot-wave-b/anon-attention-apricot-literary-v1.png",
+          "sha256": "2e2ddf10a45c957268103996550e7b61178e50727cfc8823790b3daeaaf883d7",
+          "bytes": 2422541,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG",
+          "writtenByUtc": "2026-10-25T11:51:23.926950+00:00"
+        },
+        "currentMotherReviewStatus": "candidate_pending_root",
+        "motherReviewApproved": false,
+        "generationInputAllowedNow": false,
+        "inputBoundary": "Saved complete mother is awaiting primary inspection. Do not feed it forward before root exact-image review. Inspect it first; reuse if healthy and approved, otherwise use clean target plate + complete text reconstruction. Do not regenerate it just to avoid reviewing it."
+      },
+      "batch": 2,
+      "targets": [
+        {
+          "cell": "anon/attention/mist",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "mist",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+            "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+            "bytes": 2526101,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/mygo-b-matrix-v1.json",
+              "sha256": "e744ab94da12aa771b9293b1a52a5f0e9af0f2eaee856c1a3201f95a58032556",
+              "bytes": 23633,
+              "capturedAt": "2026-10-25T09:14:03.040380+00:00"
+            },
+            "jsonPointer": "/cells/29",
+            "briefKey": "anon/attention/mist",
+            "producerBriefRef": "anon-literary-room-briefs-v1.json#/cells/29"
+          },
+          "existingProjectDirection": "顺着你指的新对象转眼，原先的展示动作停下；看清后才伸出一根指尖。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "anon/attention/violet",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "violet",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "bytes": 2350339,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/mygo-b-matrix-v1.json",
+              "sha256": "e744ab94da12aa771b9293b1a52a5f0e9af0f2eaee856c1a3201f95a58032556",
+              "bytes": 23633,
+              "capturedAt": "2026-10-25T09:14:03.040380+00:00"
+            },
+            "jsonPointer": "/cells/30",
+            "briefKey": "anon/attention/violet",
+            "producerBriefRef": "anon-literary-room-briefs-v1.json#/cells/30"
+          },
+          "existingProjectDirection": "顺着你指的新对象转眼，原先的展示动作停下；看清后才伸出一根指尖。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "anon/attention/rain",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "rain",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "bytes": 2270751,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/mygo-b-matrix-v1.json",
+              "sha256": "e744ab94da12aa771b9293b1a52a5f0e9af0f2eaee856c1a3201f95a58032556",
+              "bytes": 23633,
+              "capturedAt": "2026-10-25T09:14:03.040380+00:00"
+            },
+            "jsonPointer": "/cells/31",
+            "briefKey": "anon/attention/rain",
+            "producerBriefRef": "anon-literary-room-briefs-v1.json#/cells/31"
+          },
+          "existingProjectDirection": "顺着你指的新对象转眼，原先的展示动作停下；看清后才伸出一根指尖。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        }
+      ]
+    },
+    {
+      "role": "anon",
+      "roleName": "爱音",
+      "activity": "resume",
+      "activityMeaning": "中断后认出并接续",
+      "targetCount": 3,
+      "availableApricotSource": {
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/apricot-wave-b/anon-resume-apricot-literary-v1.png",
+          "sha256": "c1beaeb11e57d6c07bb3d2582aa340e5948aef7643125a102296e333cb617e74",
+          "bytes": 2437624,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG",
+          "writtenByUtc": "2026-10-25T11:53:11.907685+00:00"
+        },
+        "currentMotherReviewStatus": "candidate_pending_root",
+        "motherReviewApproved": false,
+        "generationInputAllowedNow": false,
+        "inputBoundary": "Saved complete mother is awaiting primary inspection. Do not feed it forward before root exact-image review. Inspect it first; reuse if healthy and approved, otherwise use clean target plate + complete text reconstruction. Do not regenerate it just to avoid reviewing it."
+      },
+      "batch": 2,
+      "targets": [
+        {
+          "cell": "anon/resume/mist",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "mist",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+            "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+            "bytes": 2526101,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/mygo-b-matrix-v1.json",
+              "sha256": "e744ab94da12aa771b9293b1a52a5f0e9af0f2eaee856c1a3201f95a58032556",
+              "bytes": 23633,
+              "capturedAt": "2026-10-25T09:14:03.040380+00:00"
+            },
+            "jsonPointer": "/cells/33",
+            "briefKey": "anon/resume/mist",
+            "producerBriefRef": "anon-literary-room-briefs-v1.json#/cells/33"
+          },
+          "existingProjectDirection": "把当前真实留下的小纸或书页摊回原处，兴致从旧停点接上，而不是重新表演开场。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "anon/resume/violet",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "violet",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "bytes": 2350339,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/mygo-b-matrix-v1.json",
+              "sha256": "e744ab94da12aa771b9293b1a52a5f0e9af0f2eaee856c1a3201f95a58032556",
+              "bytes": 23633,
+              "capturedAt": "2026-10-25T09:14:03.040380+00:00"
+            },
+            "jsonPointer": "/cells/34",
+            "briefKey": "anon/resume/violet",
+            "producerBriefRef": "anon-literary-room-briefs-v1.json#/cells/34"
+          },
+          "existingProjectDirection": "把当前真实留下的小纸或书页摊回原处，兴致从旧停点接上，而不是重新表演开场。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "anon/resume/rain",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "rain",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "bytes": 2270751,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/mygo-b-matrix-v1.json",
+              "sha256": "e744ab94da12aa771b9293b1a52a5f0e9af0f2eaee856c1a3201f95a58032556",
+              "bytes": 23633,
+              "capturedAt": "2026-10-25T09:14:03.040380+00:00"
+            },
+            "jsonPointer": "/cells/35",
+            "briefKey": "anon/resume/rain",
+            "producerBriefRef": "anon-literary-room-briefs-v1.json#/cells/35"
+          },
+          "existingProjectDirection": "把当前真实留下的小纸或书页摊回原处，兴致从旧停点接上，而不是重新表演开场。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        }
+      ]
+    },
+    {
+      "role": "soyo",
+      "roleName": "素世",
+      "activity": "listening",
+      "activityMeaning": "倾听",
+      "targetCount": 3,
+      "availableApricotSource": {
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wave-b/soyo-listening-apricot-literary-v1.png",
+          "sha256": "a3a0c9e80066021508fcbe82274f2aa2c1e0254c6b4d32a9156e2c5e4a001f29",
+          "bytes": 2438406,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG",
+          "writtenByUtc": "2026-10-25T11:56:31.081347+00:00"
+        },
+        "currentMotherReviewStatus": "candidate_pending_root",
+        "motherReviewApproved": false,
+        "generationInputAllowedNow": false,
+        "inputBoundary": "Saved complete mother is awaiting primary inspection. Do not feed it forward before root exact-image review. Inspect it first; reuse if healthy and approved, otherwise use clean target plate + complete text reconstruction. Do not regenerate it just to avoid reviewing it."
+      },
+      "batch": 2,
+      "targets": [
+        {
+          "cell": "soyo/listening/mist",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "mist",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+            "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+            "bytes": 2526101,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/mygo-b-matrix-v1.json",
+              "sha256": "e744ab94da12aa771b9293b1a52a5f0e9af0f2eaee856c1a3201f95a58032556",
+              "bytes": 23633,
+              "capturedAt": "2026-10-25T09:14:03.040380+00:00"
+            },
+            "jsonPointer": "/cells/53",
+            "briefKey": "soyo/listening/mist",
+            "producerBriefRef": "soyo-literary-room-briefs-v1.json#/cells/17"
+          },
+          "existingProjectDirection": "原本要整理纸张的动作停下，双手回到自己膝上，完整听完再回应。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "soyo/listening/violet",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "violet",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "bytes": 2350339,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/mygo-b-matrix-v1.json",
+              "sha256": "e744ab94da12aa771b9293b1a52a5f0e9af0f2eaee856c1a3201f95a58032556",
+              "bytes": 23633,
+              "capturedAt": "2026-10-25T09:14:03.040380+00:00"
+            },
+            "jsonPointer": "/cells/54",
+            "briefKey": "soyo/listening/violet",
+            "producerBriefRef": "soyo-literary-room-briefs-v1.json#/cells/18"
+          },
+          "existingProjectDirection": "原本要整理纸张的动作停下，双手回到自己膝上，完整听完再回应。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "soyo/listening/rain",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "rain",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "bytes": 2270751,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/mygo-b-matrix-v1.json",
+              "sha256": "e744ab94da12aa771b9293b1a52a5f0e9af0f2eaee856c1a3201f95a58032556",
+              "bytes": 23633,
+              "capturedAt": "2026-10-25T09:14:03.040380+00:00"
+            },
+            "jsonPointer": "/cells/55",
+            "briefKey": "soyo/listening/rain",
+            "producerBriefRef": "soyo-literary-room-briefs-v1.json#/cells/19"
+          },
+          "existingProjectDirection": "原本要整理纸张的动作停下，双手回到自己膝上，完整听完再回应。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        }
+      ]
+    },
+    {
+      "role": "soyo",
+      "roleName": "素世",
+      "activity": "play",
+      "activityMeaning": "共同玩耍",
+      "targetCount": 3,
+      "availableApricotSource": {
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wave-b/soyo-play-apricot-literary-v1.png",
+          "sha256": "dcfe060914aa55fe373104a0f46bab903fda44a7b1ed2120230af81d7d5d60ba",
+          "bytes": 2442361,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG",
+          "writtenByUtc": "2026-10-25T11:57:38.118426+00:00"
+        },
+        "currentMotherReviewStatus": "candidate_pending_root",
+        "motherReviewApproved": false,
+        "generationInputAllowedNow": false,
+        "inputBoundary": "Saved complete mother is awaiting primary inspection. Do not feed it forward before root exact-image review. Inspect it first; reuse if healthy and approved, otherwise use clean target plate + complete text reconstruction. Do not regenerate it just to avoid reviewing it."
+      },
+      "batch": 2,
+      "targets": [
+        {
+          "cell": "soyo/play/mist",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "mist",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+            "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+            "bytes": 2526101,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/mygo-b-matrix-v1.json",
+              "sha256": "e744ab94da12aa771b9293b1a52a5f0e9af0f2eaee856c1a3201f95a58032556",
+              "bytes": 23633,
+              "capturedAt": "2026-10-25T09:14:03.040380+00:00"
+            },
+            "jsonPointer": "/cells/61",
+            "briefKey": "soyo/play/mist",
+            "producerBriefRef": "soyo-literary-room-briefs-v1.json#/cells/25"
+          },
+          "existingProjectDirection": "试着把一张纸折成能站住的小纸屋，双手停在屋檐两侧，也珍惜你那座不太相同的小房子。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "soyo/play/violet",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "violet",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "bytes": 2350339,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/mygo-b-matrix-v1.json",
+              "sha256": "e744ab94da12aa771b9293b1a52a5f0e9af0f2eaee856c1a3201f95a58032556",
+              "bytes": 23633,
+              "capturedAt": "2026-10-25T09:14:03.040380+00:00"
+            },
+            "jsonPointer": "/cells/62",
+            "briefKey": "soyo/play/violet",
+            "producerBriefRef": "soyo-literary-room-briefs-v1.json#/cells/26"
+          },
+          "existingProjectDirection": "试着把一张纸折成能站住的小纸屋，双手停在屋檐两侧，也珍惜你那座不太相同的小房子。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "soyo/play/rain",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "rain",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "bytes": 2270751,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/mygo-b-matrix-v1.json",
+              "sha256": "e744ab94da12aa771b9293b1a52a5f0e9af0f2eaee856c1a3201f95a58032556",
+              "bytes": 23633,
+              "capturedAt": "2026-10-25T09:14:03.040380+00:00"
+            },
+            "jsonPointer": "/cells/63",
+            "briefKey": "soyo/play/rain",
+            "producerBriefRef": "soyo-literary-room-briefs-v1.json#/cells/27"
+          },
+          "existingProjectDirection": "试着把一张纸折成能站住的小纸屋，双手停在屋檐两侧，也珍惜你那座不太相同的小房子。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        }
+      ]
+    },
+    {
+      "role": "soyo",
+      "roleName": "素世",
+      "activity": "attention",
+      "activityMeaning": "注意共同对象",
+      "targetCount": 3,
+      "availableApricotSource": {
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wave-b/soyo-attention-apricot-literary-v1.png",
+          "sha256": "f0250da580d8a02c22b69ee2c3f46a2bbf72e78604976baf2e43596ab63712c3",
+          "bytes": 2422465,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG",
+          "writtenByUtc": "2026-10-25T11:59:31.491506+00:00"
+        },
+        "currentMotherReviewStatus": "candidate_pending_root",
+        "motherReviewApproved": false,
+        "generationInputAllowedNow": false,
+        "inputBoundary": "Saved complete mother is awaiting primary inspection. Do not feed it forward before root exact-image review. Inspect it first; reuse if healthy and approved, otherwise use clean target plate + complete text reconstruction. Do not regenerate it just to avoid reviewing it."
+      },
+      "batch": 2,
+      "targets": [
+        {
+          "cell": "soyo/attention/mist",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "mist",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+            "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+            "bytes": 2526101,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/mygo-b-matrix-v1.json",
+              "sha256": "e744ab94da12aa771b9293b1a52a5f0e9af0f2eaee856c1a3201f95a58032556",
+              "bytes": 23633,
+              "capturedAt": "2026-10-25T09:14:03.040380+00:00"
+            },
+            "jsonPointer": "/cells/65",
+            "briefKey": "soyo/attention/mist",
+            "producerBriefRef": "soyo-literary-room-briefs-v1.json#/cells/29"
+          },
+          "existingProjectDirection": "顺着当前明确对象看过去，收回原先照料物件的手，让真正需要看的地方露出来。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "soyo/attention/violet",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "violet",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "bytes": 2350339,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/mygo-b-matrix-v1.json",
+              "sha256": "e744ab94da12aa771b9293b1a52a5f0e9af0f2eaee856c1a3201f95a58032556",
+              "bytes": 23633,
+              "capturedAt": "2026-10-25T09:14:03.040380+00:00"
+            },
+            "jsonPointer": "/cells/66",
+            "briefKey": "soyo/attention/violet",
+            "producerBriefRef": "soyo-literary-room-briefs-v1.json#/cells/30"
+          },
+          "existingProjectDirection": "顺着当前明确对象看过去，收回原先照料物件的手，让真正需要看的地方露出来。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "soyo/attention/rain",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "rain",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "bytes": 2270751,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/mygo-b-matrix-v1.json",
+              "sha256": "e744ab94da12aa771b9293b1a52a5f0e9af0f2eaee856c1a3201f95a58032556",
+              "bytes": 23633,
+              "capturedAt": "2026-10-25T09:14:03.040380+00:00"
+            },
+            "jsonPointer": "/cells/67",
+            "briefKey": "soyo/attention/rain",
+            "producerBriefRef": "soyo-literary-room-briefs-v1.json#/cells/31"
+          },
+          "existingProjectDirection": "顺着当前明确对象看过去，收回原先照料物件的手，让真正需要看的地方露出来。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        }
+      ]
+    },
+    {
+      "role": "soyo",
+      "roleName": "素世",
+      "activity": "resume",
+      "activityMeaning": "中断后认出并接续",
+      "targetCount": 3,
+      "availableApricotSource": {
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wave-b/soyo-resume-apricot-literary-v1.png",
+          "sha256": "d79e9a2d7b873932dd1b2c04692eba3bd386007da501996eecc7d3ed62a6cf7a",
+          "bytes": 2442708,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG",
+          "writtenByUtc": "2026-10-25T12:00:31.176774+00:00"
+        },
+        "currentMotherReviewStatus": "candidate_pending_root",
+        "motherReviewApproved": false,
+        "generationInputAllowedNow": false,
+        "inputBoundary": "Saved complete mother is awaiting primary inspection. Do not feed it forward before root exact-image review. Inspect it first; reuse if healthy and approved, otherwise use clean target plate + complete text reconstruction. Do not regenerate it just to avoid reviewing it."
+      },
+      "batch": 2,
+      "targets": [
+        {
+          "cell": "soyo/resume/mist",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "mist",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+            "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+            "bytes": 2526101,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/mygo-b-matrix-v1.json",
+              "sha256": "e744ab94da12aa771b9293b1a52a5f0e9af0f2eaee856c1a3201f95a58032556",
+              "bytes": 23633,
+              "capturedAt": "2026-10-25T09:14:03.040380+00:00"
+            },
+            "jsonPointer": "/cells/69",
+            "briefKey": "soyo/resume/mist",
+            "producerBriefRef": "soyo-literary-room-briefs-v1.json#/cells/33"
+          },
+          "existingProjectDirection": "把真实保留的一页轻轻摊平，停点仍由原书签说明；不擅自替对方打开别的事务。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "soyo/resume/violet",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "violet",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "bytes": 2350339,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/mygo-b-matrix-v1.json",
+              "sha256": "e744ab94da12aa771b9293b1a52a5f0e9af0f2eaee856c1a3201f95a58032556",
+              "bytes": 23633,
+              "capturedAt": "2026-10-25T09:14:03.040380+00:00"
+            },
+            "jsonPointer": "/cells/70",
+            "briefKey": "soyo/resume/violet",
+            "producerBriefRef": "soyo-literary-room-briefs-v1.json#/cells/34"
+          },
+          "existingProjectDirection": "把真实保留的一页轻轻摊平，停点仍由原书签说明；不擅自替对方打开别的事务。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "soyo/resume/rain",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "rain",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "bytes": 2270751,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/mygo-b-matrix-v1.json",
+              "sha256": "e744ab94da12aa771b9293b1a52a5f0e9af0f2eaee856c1a3201f95a58032556",
+              "bytes": 23633,
+              "capturedAt": "2026-10-25T09:14:03.040380+00:00"
+            },
+            "jsonPointer": "/cells/71",
+            "briefKey": "soyo/resume/rain",
+            "producerBriefRef": "soyo-literary-room-briefs-v1.json#/cells/35"
+          },
+          "existingProjectDirection": "把真实保留的一页轻轻摊平，停点仍由原书签说明；不擅自替对方打开别的事务。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        }
+      ]
+    },
+    {
+      "role": "rana",
+      "roleName": "乐奈",
+      "activity": "study",
+      "activityMeaning": "学习",
+      "targetCount": 3,
+      "availableApricotSource": {
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/apricot-wave-a/rana-study-apricot-literary-v1.png",
+          "sha256": "42d51d60de9bfc18eddc76d5eba0936fb10b4756276a44b6b8ba16659270548b",
+          "bytes": 2450933,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG",
+          "writtenByUtc": "2026-10-25T12:19:49.994693+00:00"
+        },
+        "currentMotherReviewStatus": "candidate_pending_root",
+        "motherReviewApproved": false,
+        "generationInputAllowedNow": false,
+        "inputBoundary": "Saved complete mother is awaiting primary inspection. Do not feed it forward before root exact-image review. Inspect it first; reuse if healthy and approved, otherwise use clean target plate + complete text reconstruction. Do not regenerate it just to avoid reviewing it."
+      },
+      "batch": 2,
+      "targets": [
+        {
+          "cell": "rana/study/mist",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "mist",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+            "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+            "bytes": 2526101,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+              "sha256": "302b39c48450afae6cd3e5acd8f87bb3ab234562b6c0ca85f02f5815ff02ea63",
+              "bytes": 50127,
+              "capturedAt": "2026-10-25T09:14:03.040833+00:00"
+            },
+            "jsonPointer": "/entries/5",
+            "briefKey": "rana-study-mist",
+            "producerBriefRef": "rana-study-mist.md"
+          },
+          "existingProjectDirection": "把一条自己觉得直观的关系指给你看，手很快收回，让你试自己的做法。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "rana/study/violet",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "violet",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "bytes": 2350339,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+              "sha256": "302b39c48450afae6cd3e5acd8f87bb3ab234562b6c0ca85f02f5815ff02ea63",
+              "bytes": 50127,
+              "capturedAt": "2026-10-25T09:14:03.040833+00:00"
+            },
+            "jsonPointer": "/entries/6",
+            "briefKey": "rana-study-violet",
+            "producerBriefRef": "rana-study-violet.md"
+          },
+          "existingProjectDirection": "把一条自己觉得直观的关系指给你看，手很快收回，让你试自己的做法。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "rana/study/rain",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "rain",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "bytes": 2270751,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+              "sha256": "302b39c48450afae6cd3e5acd8f87bb3ab234562b6c0ca85f02f5815ff02ea63",
+              "bytes": 50127,
+              "capturedAt": "2026-10-25T09:14:03.040833+00:00"
+            },
+            "jsonPointer": "/entries/7",
+            "briefKey": "rana-study-rain",
+            "producerBriefRef": "rana-study-rain.md"
+          },
+          "existingProjectDirection": "把一条自己觉得直观的关系指给你看，手很快收回，让你试自己的做法。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        }
+      ]
+    },
+    {
+      "role": "rana",
+      "roleName": "乐奈",
+      "activity": "reading",
+      "activityMeaning": "阅读",
+      "targetCount": 3,
+      "availableApricotSource": {
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/apricot-wave-a/rana-reading-apricot-literary-v1.png",
+          "sha256": "6b39aff1ba2f5f95dbec0322714733fe1b2183e075687fa6b4641a5f0df15f96",
+          "bytes": 2440657,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG",
+          "writtenByUtc": "2026-10-25T12:21:29.496383+00:00"
+        },
+        "currentMotherReviewStatus": "candidate_pending_root",
+        "motherReviewApproved": false,
+        "generationInputAllowedNow": false,
+        "inputBoundary": "Saved complete mother is awaiting primary inspection. Do not feed it forward before root exact-image review. Inspect it first; reuse if healthy and approved, otherwise use clean target plate + complete text reconstruction. Do not regenerate it just to avoid reviewing it."
+      },
+      "batch": 2,
+      "targets": [
+        {
+          "cell": "rana/reading/mist",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "mist",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+            "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+            "bytes": 2526101,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+              "sha256": "302b39c48450afae6cd3e5acd8f87bb3ab234562b6c0ca85f02f5815ff02ea63",
+              "bytes": 50127,
+              "capturedAt": "2026-10-25T09:14:03.040833+00:00"
+            },
+            "jsonPointer": "/entries/9",
+            "briefKey": "rana-reading-mist",
+            "producerBriefRef": "rana-reading-mist.md"
+          },
+          "existingProjectDirection": "书松松托在手里，身体以真实软垫承托，读到喜欢的一页便多停一会儿；不强求端正模板。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "rana/reading/violet",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "violet",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "bytes": 2350339,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+              "sha256": "302b39c48450afae6cd3e5acd8f87bb3ab234562b6c0ca85f02f5815ff02ea63",
+              "bytes": 50127,
+              "capturedAt": "2026-10-25T09:14:03.040833+00:00"
+            },
+            "jsonPointer": "/entries/10",
+            "briefKey": "rana-reading-violet",
+            "producerBriefRef": "rana-reading-violet.md"
+          },
+          "existingProjectDirection": "书松松托在手里，身体以真实软垫承托，读到喜欢的一页便多停一会儿；不强求端正模板。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "rana/reading/rain",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "rain",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "bytes": 2270751,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+              "sha256": "302b39c48450afae6cd3e5acd8f87bb3ab234562b6c0ca85f02f5815ff02ea63",
+              "bytes": 50127,
+              "capturedAt": "2026-10-25T09:14:03.040833+00:00"
+            },
+            "jsonPointer": "/entries/11",
+            "briefKey": "rana-reading-rain",
+            "producerBriefRef": "rana-reading-rain.md"
+          },
+          "existingProjectDirection": "书松松托在手里，身体以真实软垫承托，读到喜欢的一页便多停一会儿；不强求端正模板。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        }
+      ]
+    },
+    {
+      "role": "rana",
+      "roleName": "乐奈",
+      "activity": "planning",
+      "activityMeaning": "计划",
+      "targetCount": 3,
+      "availableApricotSource": {
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/apricot-wave-a/rana-planning-apricot-literary-v1.png",
+          "sha256": "98495376accc84e9e5bab4dc3ca4269bd7372bcad9b0aa0f4d9028db785269fc",
+          "bytes": 2439207,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG",
+          "writtenByUtc": "2026-10-25T12:22:54.337279+00:00"
+        },
+        "currentMotherReviewStatus": "candidate_pending_root",
+        "motherReviewApproved": false,
+        "generationInputAllowedNow": false,
+        "inputBoundary": "Saved complete mother is awaiting primary inspection. Do not feed it forward before root exact-image review. Inspect it first; reuse if healthy and approved, otherwise use clean target plate + complete text reconstruction. Do not regenerate it just to avoid reviewing it."
+      },
+      "batch": 2,
+      "targets": [
+        {
+          "cell": "rana/planning/mist",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "mist",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+            "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+            "bytes": 2526101,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+              "sha256": "302b39c48450afae6cd3e5acd8f87bb3ab234562b6c0ca85f02f5815ff02ea63",
+              "bytes": 50127,
+              "capturedAt": "2026-10-25T09:14:03.040833+00:00"
+            },
+            "jsonPointer": "/entries/13",
+            "briefKey": "rana-planning-mist",
+            "producerBriefRef": "rana-planning-mist.md"
+          },
+          "existingProjectDirection": "一张小纸上只留眼前确实要商量的事，手指在空白处停住，给临时改主意留下余地。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "rana/planning/violet",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "violet",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "bytes": 2350339,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+              "sha256": "302b39c48450afae6cd3e5acd8f87bb3ab234562b6c0ca85f02f5815ff02ea63",
+              "bytes": 50127,
+              "capturedAt": "2026-10-25T09:14:03.040833+00:00"
+            },
+            "jsonPointer": "/entries/14",
+            "briefKey": "rana-planning-violet",
+            "producerBriefRef": "rana-planning-violet.md"
+          },
+          "existingProjectDirection": "一张小纸上只留眼前确实要商量的事，手指在空白处停住，给临时改主意留下余地。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "rana/planning/rain",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "rain",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "bytes": 2270751,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+              "sha256": "302b39c48450afae6cd3e5acd8f87bb3ab234562b6c0ca85f02f5815ff02ea63",
+              "bytes": 50127,
+              "capturedAt": "2026-10-25T09:14:03.040833+00:00"
+            },
+            "jsonPointer": "/entries/15",
+            "briefKey": "rana-planning-rain",
+            "producerBriefRef": "rana-planning-rain.md"
+          },
+          "existingProjectDirection": "一张小纸上只留眼前确实要商量的事，手指在空白处停住，给临时改主意留下余地。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        }
+      ]
+    },
+    {
+      "role": "rana",
+      "roleName": "乐奈",
+      "activity": "rest",
+      "activityMeaning": "休息",
+      "targetCount": 3,
+      "availableApricotSource": {
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/apricot-wave-a/rana-rest-apricot-literary-v1.png",
+          "sha256": "bf9e9784cd5945e357268856d668056e14ac2918ed9b3635acb72bcde6877075",
+          "bytes": 2433393,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG",
+          "writtenByUtc": "2026-10-25T12:24:15.828669+00:00"
+        },
+        "currentMotherReviewStatus": "candidate_pending_root",
+        "motherReviewApproved": false,
+        "generationInputAllowedNow": false,
+        "inputBoundary": "Saved complete mother is awaiting primary inspection. Do not feed it forward before root exact-image review. Inspect it first; reuse if healthy and approved, otherwise use clean target plate + complete text reconstruction. Do not regenerate it just to avoid reviewing it."
+      },
+      "batch": 2,
+      "targets": [
+        {
+          "cell": "rana/rest/mist",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "mist",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+            "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+            "bytes": 2526101,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+              "sha256": "302b39c48450afae6cd3e5acd8f87bb3ab234562b6c0ca85f02f5815ff02ea63",
+              "bytes": 50127,
+              "capturedAt": "2026-10-25T09:14:03.040833+00:00"
+            },
+            "jsonPointer": "/entries/21",
+            "briefKey": "rana-rest-mist",
+            "producerBriefRef": "rana-rest-mist.md"
+          },
+          "existingProjectDirection": "选有真实承托的轻松坐姿，手边物件放稳，目光能自在落在窗景上；不机械晃脚。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "rana/rest/violet",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "violet",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "bytes": 2350339,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+              "sha256": "302b39c48450afae6cd3e5acd8f87bb3ab234562b6c0ca85f02f5815ff02ea63",
+              "bytes": 50127,
+              "capturedAt": "2026-10-25T09:14:03.040833+00:00"
+            },
+            "jsonPointer": "/entries/22",
+            "briefKey": "rana-rest-violet",
+            "producerBriefRef": "rana-rest-violet.md"
+          },
+          "existingProjectDirection": "选有真实承托的轻松坐姿，手边物件放稳，目光能自在落在窗景上；不机械晃脚。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "rana/rest/rain",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "rain",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "bytes": 2270751,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+              "sha256": "302b39c48450afae6cd3e5acd8f87bb3ab234562b6c0ca85f02f5815ff02ea63",
+              "bytes": 50127,
+              "capturedAt": "2026-10-25T09:14:03.040833+00:00"
+            },
+            "jsonPointer": "/entries/23",
+            "briefKey": "rana-rest-rain",
+            "producerBriefRef": "rana-rest-rain.md"
+          },
+          "existingProjectDirection": "选有真实承托的轻松坐姿，手边物件放稳，目光能自在落在窗景上；不机械晃脚。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        }
+      ]
+    },
+    {
+      "role": "rana",
+      "roleName": "乐奈",
+      "activity": "listening",
+      "activityMeaning": "倾听",
+      "targetCount": 3,
+      "availableApricotSource": {
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/apricot-wave-a/rana-listening-apricot-literary-v1.png",
+          "sha256": "8dffee56695d45ec3195d298d808e5a2f71c92508e8418f4e46ad0dbfb90b01d",
+          "bytes": 2394841,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG",
+          "writtenByUtc": "2026-10-25T12:25:52.455219+00:00"
+        },
+        "currentMotherReviewStatus": "candidate_pending_root",
+        "motherReviewApproved": false,
+        "generationInputAllowedNow": false,
+        "inputBoundary": "Saved complete mother is awaiting primary inspection. Do not feed it forward before root exact-image review. Inspect it first; reuse if healthy and approved, otherwise use clean target plate + complete text reconstruction. Do not regenerate it just to avoid reviewing it."
+      },
+      "batch": 2,
+      "targets": [
+        {
+          "cell": "rana/listening/mist",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "mist",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+            "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+            "bytes": 2526101,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+              "sha256": "302b39c48450afae6cd3e5acd8f87bb3ab234562b6c0ca85f02f5815ff02ea63",
+              "bytes": 50127,
+              "capturedAt": "2026-10-25T09:14:03.040833+00:00"
+            },
+            "jsonPointer": "/entries/17",
+            "briefKey": "rana-listening-mist",
+            "producerBriefRef": "rana-listening-mist.md"
+          },
+          "existingProjectDirection": "把正在摆弄的东西暂放一旁，目光短短停在说话的人身上，安静听到自己想回应的那处。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "rana/listening/violet",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "violet",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "bytes": 2350339,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+              "sha256": "302b39c48450afae6cd3e5acd8f87bb3ab234562b6c0ca85f02f5815ff02ea63",
+              "bytes": 50127,
+              "capturedAt": "2026-10-25T09:14:03.040833+00:00"
+            },
+            "jsonPointer": "/entries/18",
+            "briefKey": "rana-listening-violet",
+            "producerBriefRef": "rana-listening-violet.md"
+          },
+          "existingProjectDirection": "把正在摆弄的东西暂放一旁，目光短短停在说话的人身上，安静听到自己想回应的那处。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "rana/listening/rain",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "rain",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "bytes": 2270751,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+              "sha256": "302b39c48450afae6cd3e5acd8f87bb3ab234562b6c0ca85f02f5815ff02ea63",
+              "bytes": 50127,
+              "capturedAt": "2026-10-25T09:14:03.040833+00:00"
+            },
+            "jsonPointer": "/entries/19",
+            "briefKey": "rana-listening-rain",
+            "producerBriefRef": "rana-listening-rain.md"
+          },
+          "existingProjectDirection": "把正在摆弄的东西暂放一旁，目光短短停在说话的人身上，安静听到自己想回应的那处。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        }
+      ]
+    },
+    {
+      "role": "rana",
+      "roleName": "乐奈",
+      "activity": "play",
+      "activityMeaning": "共同玩耍",
+      "targetCount": 3,
+      "availableApricotSource": {
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/apricot-wave-a/rana-play-apricot-literary-v1.png",
+          "sha256": "013996c5bc9396bb23c6f36e4be2d6f3e8b3cb81f4e3bd07121692216488aa21",
+          "bytes": 2437608,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG",
+          "writtenByUtc": "2026-10-25T12:27:36.651663+00:00"
+        },
+        "currentMotherReviewStatus": "candidate_pending_root",
+        "motherReviewApproved": false,
+        "generationInputAllowedNow": false,
+        "inputBoundary": "Saved complete mother is awaiting primary inspection. Do not feed it forward before root exact-image review. Inspect it first; reuse if healthy and approved, otherwise use clean target plate + complete text reconstruction. Do not regenerate it just to avoid reviewing it."
+      },
+      "batch": 2,
+      "targets": [
+        {
+          "cell": "rana/play/mist",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "mist",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+            "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+            "bytes": 2526101,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+              "sha256": "302b39c48450afae6cd3e5acd8f87bb3ab234562b6c0ca85f02f5815ff02ea63",
+              "bytes": 50127,
+              "capturedAt": "2026-10-25T09:14:03.040833+00:00"
+            },
+            "jsonPointer": "/entries/25",
+            "briefKey": "rana-play-mist",
+            "producerBriefRef": "rana-play-mist.md"
+          },
+          "existingProjectDirection": "在小纸上随手画一条会拐弯的小路，用指尖当小旅客，走到有趣处停住等你续一笔。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "rana/play/violet",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "violet",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "bytes": 2350339,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+              "sha256": "302b39c48450afae6cd3e5acd8f87bb3ab234562b6c0ca85f02f5815ff02ea63",
+              "bytes": 50127,
+              "capturedAt": "2026-10-25T09:14:03.040833+00:00"
+            },
+            "jsonPointer": "/entries/26",
+            "briefKey": "rana-play-violet",
+            "producerBriefRef": "rana-play-violet.md"
+          },
+          "existingProjectDirection": "在小纸上随手画一条会拐弯的小路，用指尖当小旅客，走到有趣处停住等你续一笔。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "rana/play/rain",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "rain",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "bytes": 2270751,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+              "sha256": "302b39c48450afae6cd3e5acd8f87bb3ab234562b6c0ca85f02f5815ff02ea63",
+              "bytes": 50127,
+              "capturedAt": "2026-10-25T09:14:03.040833+00:00"
+            },
+            "jsonPointer": "/entries/27",
+            "briefKey": "rana-play-rain",
+            "producerBriefRef": "rana-play-rain.md"
+          },
+          "existingProjectDirection": "在小纸上随手画一条会拐弯的小路，用指尖当小旅客，走到有趣处停住等你续一笔。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        }
+      ]
+    },
+    {
+      "role": "rana",
+      "roleName": "乐奈",
+      "activity": "attention",
+      "activityMeaning": "注意共同对象",
+      "targetCount": 3,
+      "availableApricotSource": {
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/apricot-wave-a/rana-attention-apricot-literary-v1.png",
+          "sha256": "9cc80d33b582b07d376bde1b861dd7231aae51d5ee0437195c35d9d82ad6f84d",
+          "bytes": 2411146,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG",
+          "writtenByUtc": "2026-10-25T12:29:24.088075+00:00"
+        },
+        "currentMotherReviewStatus": "candidate_pending_root",
+        "motherReviewApproved": false,
+        "generationInputAllowedNow": false,
+        "inputBoundary": "Saved complete mother is awaiting primary inspection. Do not feed it forward before root exact-image review. Inspect it first; reuse if healthy and approved, otherwise use clean target plate + complete text reconstruction. Do not regenerate it just to avoid reviewing it."
+      },
+      "batch": 2,
+      "targets": [
+        {
+          "cell": "rana/attention/mist",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "mist",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+            "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+            "bytes": 2526101,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+              "sha256": "302b39c48450afae6cd3e5acd8f87bb3ab234562b6c0ca85f02f5815ff02ea63",
+              "bytes": 50127,
+              "capturedAt": "2026-10-25T09:14:03.040833+00:00"
+            },
+            "jsonPointer": "/entries/29",
+            "briefKey": "rana-attention-mist",
+            "producerBriefRef": "rana-attention-mist.md"
+          },
+          "existingProjectDirection": "先凝神看见你指的小细节，再转过一点身体；没有目标时不追着光标跑。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "rana/attention/violet",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "violet",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "bytes": 2350339,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+              "sha256": "302b39c48450afae6cd3e5acd8f87bb3ab234562b6c0ca85f02f5815ff02ea63",
+              "bytes": 50127,
+              "capturedAt": "2026-10-25T09:14:03.040833+00:00"
+            },
+            "jsonPointer": "/entries/30",
+            "briefKey": "rana-attention-violet",
+            "producerBriefRef": "rana-attention-violet.md"
+          },
+          "existingProjectDirection": "先凝神看见你指的小细节，再转过一点身体；没有目标时不追着光标跑。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "rana/attention/rain",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "rain",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "bytes": 2270751,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+              "sha256": "302b39c48450afae6cd3e5acd8f87bb3ab234562b6c0ca85f02f5815ff02ea63",
+              "bytes": 50127,
+              "capturedAt": "2026-10-25T09:14:03.040833+00:00"
+            },
+            "jsonPointer": "/entries/31",
+            "briefKey": "rana-attention-rain",
+            "producerBriefRef": "rana-attention-rain.md"
+          },
+          "existingProjectDirection": "先凝神看见你指的小细节，再转过一点身体；没有目标时不追着光标跑。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        }
+      ]
+    },
+    {
+      "role": "rana",
+      "roleName": "乐奈",
+      "activity": "resume",
+      "activityMeaning": "中断后认出并接续",
+      "targetCount": 3,
+      "availableApricotSource": {
+        "artifact": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/apricot-wave-a/rana-resume-apricot-literary-v1.png",
+          "sha256": "3ae610c8f7aa21abf062bb24e2851dfc6c4fe2c8c4df7aa455f26cda67400a23",
+          "bytes": 2421580,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG",
+          "writtenByUtc": "2026-10-25T12:30:58.607015+00:00"
+        },
+        "currentMotherReviewStatus": "candidate_pending_root",
+        "motherReviewApproved": false,
+        "generationInputAllowedNow": false,
+        "inputBoundary": "Saved complete mother is awaiting primary inspection. Do not feed it forward before root exact-image review. Inspect it first; reuse if healthy and approved, otherwise use clean target plate + complete text reconstruction. Do not regenerate it just to avoid reviewing it."
+      },
+      "batch": 2,
+      "targets": [
+        {
+          "cell": "rana/resume/mist",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "mist",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+            "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+            "bytes": 2526101,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+              "sha256": "302b39c48450afae6cd3e5acd8f87bb3ab234562b6c0ca85f02f5815ff02ea63",
+              "bytes": 50127,
+              "capturedAt": "2026-10-25T09:14:03.040833+00:00"
+            },
+            "jsonPointer": "/entries/33",
+            "briefKey": "rana-resume-mist",
+            "producerBriefRef": "rana-resume-mist.md"
+          },
+          "existingProjectDirection": "沿确实留下的书页或小作品继续摆弄，给你留一个自然接手的位置；不编上次的细节。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "rana/resume/violet",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "violet",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+            "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+            "bytes": 2350339,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+              "sha256": "302b39c48450afae6cd3e5acd8f87bb3ab234562b6c0ca85f02f5815ff02ea63",
+              "bytes": 50127,
+              "capturedAt": "2026-10-25T09:14:03.040833+00:00"
+            },
+            "jsonPointer": "/entries/34",
+            "briefKey": "rana-resume-violet",
+            "producerBriefRef": "rana-resume-violet.md"
+          },
+          "existingProjectDirection": "沿确实留下的书页或小作品继续摆弄，给你留一个自然接手的位置；不编上次的细节。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        },
+        {
+          "cell": "rana/resume/rain",
+          "generationStatus": "missing-no-current-complete-mother-source",
+          "palette": "rain",
+          "background": {
+            "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+            "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+            "bytes": 2270751,
+            "canvas": {
+              "width": 1536,
+              "height": 1024
+            },
+            "format": "PNG"
+          },
+          "backgroundMotherReviewStatus": "approved_empty_room_static",
+          "brief": {
+            "index": {
+              "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/matrix.json",
+              "sha256": "302b39c48450afae6cd3e5acd8f87bb3ab234562b6c0ca85f02f5815ff02ea63",
+              "bytes": 50127,
+              "capturedAt": "2026-10-25T09:14:03.040833+00:00"
+            },
+            "jsonPointer": "/entries/35",
+            "briefKey": "rana-resume-rain",
+            "producerBriefRef": "rana-resume-rain.md"
+          },
+          "existingProjectDirection": "沿确实留下的书页或小作品继续摆弄，给你留一个自然接手的位置；不编上次的细节。",
+          "intendedNewOutputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1",
+          "requires": "One actual Image output saved with exact full submitted prompt/input/output SHA, whole source inspected before layering. No source/pixel reuse can claim generated completion."
+        }
+      ]
+    }
+  ],
+  "generatedButHeldRebuildQueue": [
+    {
+      "cell": "sakiko/attention/apricot",
+      "status": "generated-historical-user-held-no-current-usable-mother",
+      "reason": "held-by-user",
+      "selectedHistoricalArtifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-attention-apricot-literary-pilot-v1.png",
+        "sha256": "ee521a0bf2b68e4d36c62a5c7755549006400e96d4ce252e0b154fe6587156b9",
+        "bytes": 2467510,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG",
+        "writtenByUtc": "2026-10-25T08:57:19.438388+00:00"
+      },
+      "requiresNewMother": true,
+      "generationInputAllowed": false
+    },
+    {
+      "cell": "sakiko/attention/mist",
+      "status": "generated-historical-user-held-no-current-usable-mother",
+      "reason": "held-by-lineage",
+      "selectedHistoricalArtifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/light-activity-wave-a/sakiko-attention-mist-literary-v1.png",
+        "sha256": "864a95a58f5ed85dcda6e83a277c0c0fb9e7a1063283a4147c3811f61be69c3d",
+        "bytes": 2439340,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "requiresNewMother": true,
+      "generationInputAllowed": false
+    },
+    {
+      "cell": "sakiko/attention/violet",
+      "status": "generated-historical-user-held-no-current-usable-mother",
+      "reason": "held-by-lineage",
+      "selectedHistoricalArtifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/light-activity-wave-a/sakiko-attention-violet-literary-v1.png",
+        "sha256": "497c402c9411a01f98c50132d93068cf9841c239126fedb89595da8d8f3f4c83",
+        "bytes": 2281806,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "requiresNewMother": true,
+      "generationInputAllowed": false
+    },
+    {
+      "cell": "sakiko/attention/rain",
+      "status": "generated-historical-user-held-no-current-usable-mother",
+      "reason": "held-by-lineage",
+      "selectedHistoricalArtifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/light-activity-wave-a/sakiko-attention-rain-literary-v1.png",
+        "sha256": "7b9caf4e538c3b4ac4da1923ec14ca2413c01506567e7005f2d15a800e25f2d9",
+        "bytes": 2283471,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "requiresNewMother": true,
+      "generationInputAllowed": false
+    },
+    {
+      "cell": "sakiko/resume/mist",
+      "status": "generated-historical-user-held-no-current-usable-mother",
+      "reason": "held-by-lineage",
+      "selectedHistoricalArtifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/light-activity-wave-a/sakiko-resume-mist-literary-v1.png",
+        "sha256": "7ae96b362f848525b692dd3a1de220e68153fd8e370808f91d0beb65fa394e56",
+        "bytes": 2418404,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "requiresNewMother": true,
+      "generationInputAllowed": false
+    }
+  ],
+  "exactMissingCellKeys": [
+    "anon/attention/mist",
+    "anon/attention/rain",
+    "anon/attention/violet",
+    "anon/listening/mist",
+    "anon/listening/rain",
+    "anon/listening/violet",
+    "anon/play/mist",
+    "anon/play/rain",
+    "anon/play/violet",
+    "anon/resume/mist",
+    "anon/resume/rain",
+    "anon/resume/violet",
+    "mutsumi/attention/mist",
+    "mutsumi/attention/rain",
+    "mutsumi/attention/violet",
+    "mutsumi/resume/mist",
+    "mutsumi/resume/rain",
+    "mutsumi/resume/violet",
+    "nyamu/attention/mist",
+    "nyamu/attention/rain",
+    "nyamu/attention/violet",
+    "nyamu/listening/mist",
+    "nyamu/listening/rain",
+    "nyamu/listening/violet",
+    "nyamu/play/mist",
+    "nyamu/play/rain",
+    "nyamu/play/violet",
+    "nyamu/resume/mist",
+    "nyamu/resume/rain",
+    "nyamu/resume/violet",
+    "rana/attention/mist",
+    "rana/attention/rain",
+    "rana/attention/violet",
+    "rana/listening/mist",
+    "rana/listening/rain",
+    "rana/listening/violet",
+    "rana/planning/mist",
+    "rana/planning/rain",
+    "rana/planning/violet",
+    "rana/play/mist",
+    "rana/play/rain",
+    "rana/play/violet",
+    "rana/reading/mist",
+    "rana/reading/rain",
+    "rana/reading/violet",
+    "rana/rest/mist",
+    "rana/rest/rain",
+    "rana/rest/violet",
+    "rana/resume/mist",
+    "rana/resume/rain",
+    "rana/resume/violet",
+    "rana/study/mist",
+    "rana/study/rain",
+    "rana/study/violet",
+    "sakiko/resume/rain",
+    "sakiko/resume/violet",
+    "soyo/attention/mist",
+    "soyo/attention/rain",
+    "soyo/attention/violet",
+    "soyo/listening/mist",
+    "soyo/listening/rain",
+    "soyo/listening/violet",
+    "soyo/play/mist",
+    "soyo/play/rain",
+    "soyo/play/violet",
+    "soyo/resume/mist",
+    "soyo/resume/rain",
+    "soyo/resume/violet",
+    "taki/attention/mist",
+    "taki/attention/rain",
+    "taki/attention/violet",
+    "taki/resume/mist",
+    "taki/resume/rain",
+    "taki/resume/violet",
+    "umiri/resume/rain",
+    "umiri/resume/violet"
+  ],
+  "generationPerformedByThisPlan": false,
+  "layerOrRuntimeCredit": 0
+}

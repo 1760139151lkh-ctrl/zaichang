@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 1,
+  "key": "mutsumi/chat/apricot",
+  "kind": "original-source-union-subject-included-contact-candidate",
+  "primary": true,
+  "runtime": false,
+  "status": "primary_approved_exact_fixed_source_included_union_runtime_pending",
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.png",
+    "sha256": "9d529789ece89f44b166f39dd259136257598cfd546009e49fae74140cbf8b6d",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "admissionRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-cast-chat-mother-reviews-v1.json"
+  },
+  "background": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "inputs": {
+    "F": {
+      "path": "mutsumi-chat-figure-mask-v1.png",
+      "sha256": "a6d6cef3414154b5201be221e9192b8ce7c42406d4757f893cf16fa0e5824977",
+      "generationSource": "mutsumi-chat-figure-mask-v1.source.json"
+    },
+    "S": {
+      "path": "mutsumi-chat-contact-mask-v1.png",
+      "sha256": "469d1c34a02afa1616626e18300994099bf5f28d4b761b655ed0dcff2b6788b1",
+      "generationSource": "mutsumi-chat-contact-mask-v1.source.json"
+    }
+  },
+  "union": {
+    "formula": "U(x,y)=MAX(L(F(x,y)),L(S(x,y)))",
+    "luminanceWeights": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorSpace": "sRGB",
+    "nativeSvgMethod": "feImage at original source canvas; luminance feColorMatrix; feBlend mode=lighten; luminance mask",
+    "nativeSvgSource": "mutsumi-chat-included-union-v1.svg",
+    "originalMotherRgbDrawsPerSubject": 1,
+    "newRaster": false,
+    "pngPixelEditing": false,
+    "thresholding": false,
+    "subtraction": false,
+    "croppingToHideResidual": false,
+    "extraShadowPaint": false,
+    "nativeSvgSourceSha256": "4b2992346a3b5570ffa0d499e5a3eaf5882f81ee05770ca46512bfd6bbeee924"
+  },
+  "contactShadow": {
+    "mode": "included",
+    "meaning": "Source-fixed whole foreground plus local adjacent seat/palm/floor receiver material; not a clean portable independent caster"
+  },
+  "composition": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "layerOrder": [
+      "matching empty BG",
+      "one unchanged original mother RGB image through U"
+    ],
+    "sharedStage": true,
+    "transform": {
+      "x": 0,
+      "y": 0,
+      "scale": 1,
+      "rotation": 0
+    },
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "calibration": {
+    "seat": [
+      0.800781,
+      0.576172
+    ],
+    "ground": [
+      0.660807,
+      0.875
+    ],
+    "bodyBounds": [
+      0.585938,
+      0.102539,
+      0.904948,
+      0.888672
+    ],
+    "safeTextBoundary": 0.56,
+    "support": "window-seat",
+    "contactShadow": {
+      "mode": "included"
+    },
+    "contourComplete": true,
+    "hitPolygon": "70% 10%, 83% 10%, 91% 53%, 88% 64%, 74% 67%, 73% 90%, 59% 90%, 64% 61%, 64% 53%",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "sourcePixelEstimates": {
+      "seat": [
+        1230,
+        590
+      ],
+      "ground": [
+        1015,
+        896
+      ],
+      "bodyBounds": [
+        900,
+        105,
+        1390,
+        910
+      ]
+    },
+    "basis": "Role-specific manual visual estimates on this exact original mother; no generic chair calibration and no pixel-measurement claim"
+  },
+  "allowedPresentation": [
+    "Entire fixed pose shown/hidden together",
+    "Whole pose replacement with its own mother/masks/matching BG",
+    "Shared scene viewport transform"
+  ],
+  "unsupportedPresentation": [
+    "Independent translation/limb deformation",
+    "Separate shadow motion or alpha effect as caster",
+    "Moving included receiving material to another support/room",
+    "Claiming full-room baked image as layered character"
+  ],
+  "rawGeneration": [
+    {
+      "character": "mutsumi",
+      "step": "F1",
+      "name": "mutsumi-chat-figure-mark-v1",
+      "status": "saved",
+      "sha256": "2e96e033f3f138c827b84f417a213ed84fc8419d754f3e5754294c393e465f7d"
+    },
+    {
+      "character": "mutsumi",
+      "step": "F2",
+      "name": "mutsumi-chat-figure-mask-v1",
+      "status": "saved",
+      "sha256": "a6d6cef3414154b5201be221e9192b8ce7c42406d4757f893cf16fa0e5824977"
+    },
+    {
+      "character": "mutsumi",
+      "step": "S1",
+      "name": "mutsumi-chat-contact-mark-v1",
+      "status": "saved",
+      "sha256": "ba27ff9988d0157305fc074eca8e4a2e64b46a4c6c006dda08d278e16b89bda1"
+    },
+    {
+      "character": "mutsumi",
+      "step": "S2",
+      "name": "mutsumi-chat-contact-mask-v1",
+      "status": "saved",
+      "sha256": "469d1c34a02afa1616626e18300994099bf5f28d4b761b655ed0dcff2b6788b1"
+    }
+  ],
+  "visualInspection": {
+    "status": "current_static_browser_view_complete",
+    "page": "mutsumi-chat-included-observe-v1.html",
+    "pageUrl": "http://127.0.0.1:5188/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-included-observe-v1.html",
+    "pageSha256": "7a866e53f366755af720098d9f53c349feb353e626b529fd0f60eda8b1880b94",
+    "personallyViewedRawSteps": true,
+    "browser": "Chrome CUA static page only; no product/debug target",
+    "statesViewed": [
+      "full original mother versus BG+joint scene",
+      "complete F/S/MAX coverage",
+      "original RGB union on light/dark/checker incl lower shoes",
+      "native face/fringe/eyelids/irises",
+      "native both hands including supporting palm",
+      "native full hem and seat receiver triptych",
+      "native complete shoes/heels/floor receiver triptych"
+    ],
+    "observations": [
+      "Original mother versus matching BG plus union read naturally at observed full-scene size; no obvious white seam, missing body or broad room block.",
+      "Original RGB face/fringe/eyelids/irises and both lap hands preserve source appearance in native source-pixel comparisons.",
+      "Complete navy hem and its two stripes retain their contour. A small original linen/knit receiver patch behind the hip remains visibly included on light/dark/checker.",
+      "Full loafer toe/sole/heel outlines and adjacent original floor receiver are retained; the floor patch is visibly part of the fixed union, not a portable shadow."
+    ],
+    "specificIssues": []
+  },
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "separateCastShadowClaim": false,
+    "scope": "Exact source mother, matching BG, F and S joint fixed static representation only",
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-included-primary-admission-v1.json"
+  },
+  "runtimeIntegration": false,
+  "scopeBoundary": {
+    "srcEdits": false,
+    "registration": false,
+    "pngEdits": false,
+    "newTests": false,
+    "portChanges": false,
+    "children": false
+  },
+  "primaryAdmissionRecord": "mutsumi-chat-included-primary-admission-v1.json"
+}

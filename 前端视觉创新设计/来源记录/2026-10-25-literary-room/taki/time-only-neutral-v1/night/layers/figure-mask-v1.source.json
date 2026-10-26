@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "characterId": "taki",
+  "neutralTime": "night",
+  "purpose": "neutral-presence-fixed-included-layer",
+  "kind": "foreground-luminance-mask-F",
+  "createdAt": "2026-10-26T01:07:04.169662+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "exactPromptFile": "figure-mask-v1.prompt.txt",
+  "promptSha256": "08ee1b89bc1115ab8bab991ba31b6b858bd32cb5dfce4371b8e8ba1cd0649512",
+  "requestFile": "figure-mask-v1.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/night/layers/figure-step1-marked-v1.png",
+      "sha256": "32ba4ae18a5112b7c942eb54cd18b1d9c96ab5596b2da4ca46047c500ab4c74d",
+      "role": "sole personally checked healthy same-source F1 white markup"
+    }
+  ],
+  "output": {
+    "file": "figure-mask-v1.png",
+    "sha256": "3d9b95b66393cbc08755f73c1ebe43c131de5f2c51bb6259855df2b3e4d76625",
+    "bytes": 444075,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "originalBasename": "exec-9c8c6432-6697-44b0-aeec-f9f9b796e9ba.png",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteOutput": true,
+    "observations": [
+      "Full white source-position figure/book/socks/shoes remains; fine hair strand gaps black.",
+      "A faint internal lap line remains to evaluate against unchanged RGB at native scale, without thresholding or pixel repair."
+    ],
+    "eligibleAsNextStepInput": true
+  },
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "countsToward360ExactActivities": false,
+  "pngPixelEditing": false,
+  "primaryStaticLayerApproved": true,
+  "primaryAdmissionRecord": "root-primary-layer-admission-v1.json",
+  "primaryApprovalScope": "Exact static fixed included layer in this same source canvas; no runtime, motion or activity360 acceptance"
+}

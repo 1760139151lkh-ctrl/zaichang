@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "character": "sakiko",
+  "activity": "play",
+  "palette": "apricot",
+  "sceneFamily": "room4",
+  "motherVersion": "scale-v5",
+  "role": "luminance-figure-mask",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-play-apricot-scale-v5-figure-mask-v2-prompt.txt",
+  "promptFileSha256": "714e43d36eac0291d8b0600a200e8c83b914a014ab2516d31816e3bb68c47bff",
+  "submittedPrompt": "Use case: precise-object-edit. Make an exact registered segmentation/opacity map of the SINGLE supplied source image. Do not draw a new silhouette or a standard character portrait.\nThe source is the approved 1536 x 1024 Sakiko paper-bird V5 mother. Convert its exact visible girl and held paper bird to WHITE, and every source room/window/furniture/floor pixel and enclosed gap to BLACK. Plain white interior, narrow source-edge antialiasing only. Output one opaque 1536 x 1024 grayscale mask; no contact-shadow fringe, colour, UI or text.\nSOURCE COORDINATES ARE IMMUTABLE. This V5 girl is smaller than a typical character cutout. ALL pixels above y=280 must be BLACK because her actual head starts around y=286. All pixels below y=795 must be BLACK. All pixels left of x=1115 or right of x=1460 must be BLACK. Inside that region trace the actual source, do not fill the region as a box. At (1285,260) there is only window/sky and the mask MUST be BLACK. Her actual hair top stays near (1285,286), face centre near (1298,367), hips on the existing bench near (1310,590), supporting palm near (1410,586), and shoes remain around the source y=760..790. Do not lift her head to y=253, lower shoes below y=795, stretch legs, straighten her lean, or enlarge the silhouette.\nPreserve the true paper-bird tip/fingers, hair/ribbon outline and hair holes, cardigan/skirt edge, visible knees/legs and both complete shoe silhouettes at their original source pixels. Background sky, cushion, floor and any shadow are black. No previous mask or wrong-scale image is supplied. No crop, zoom, translation, recentering, extra limb, glow, haze or soft field. Exact source geometry takes priority over smoothing or prettifying the outline.",
+  "inputs": [
+    {
+      "file": "sakiko-play-apricot-scale-v5-mother.png",
+      "sha256": "876d39377ec165cd6fcbab19c646a7d63d97c2f85b5dc354711d0cb961a22d87",
+      "role": "sole approved V5 mother; V1 rejected mask and V4 wrong-scale mother not supplied"
+    }
+  ],
+  "transparentBackground": false,
+  "output": {
+    "file": "sakiko-play-apricot-scale-v5-figure-mask-v2.png",
+    "originalFile": "C:\\Users\\17601\\.codex\\generated_images\\01a16fb4-beb3-75e2-8677-73edb8072aa0\\exec-69e8a4bc-1ae7-4258-8b05-0374c6885896.png",
+    "executionId": "69e8a4bc-1ae7-4258-8b05-0374c6885896",
+    "sha256": "6584743ff910f17e2abdea0028c7d81403fca76792b70f566cded6be95fd4d32",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "status": "producer-rejected-scale-registration",
+  "motherPrimaryApproved": true,
+  "primaryApproved": false,
+  "layersAccepted": false,
+  "runtimeAccepted": false,
+  "producerObservation": {
+    "maskWhiteBounds": [
+      1056,
+      245,
+      1449,
+      856
+    ],
+    "reason": "second global black-white conversion still enlarged/shifted the silhouette; input was only approved V5 mother; not used as downstream input or runtime"
+  }
+}

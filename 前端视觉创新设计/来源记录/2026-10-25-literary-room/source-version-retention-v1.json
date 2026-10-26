@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "recordedAt": "2026-10-25T13:40:59.269738+00:00",
+  "snapshot": "production-snapshot-v3.json",
+  "cutoffUtc": "2026-10-25T13:13:57+00:00",
+  "scope": "Exact source-record byte retention for this lane's six F records. Reconstructed serialized bytes were accepted only after matching the already frozen SHA exactly. This does not alter the source cutoff or approvals.",
+  "records": [
+    {
+      "originalPath": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/mist/figure-mask-v1.source.json",
+      "capturedSha256": "4595e5c3c1b7fc9fa51bcb8e485cb218dfc43b3640b9f6c8873e99ae636e6663",
+      "exactArchivedPath": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/mist/cutoff-v3-F2-provenance.json",
+      "currentSourceSha256": "03bb315c7d96516c302386c92ff2304408a659fde9a9259c6826080c36ba2d0f",
+      "reason": "Later explicit prompt LF/CRLF reproduction notes added; original PNG, prompt text and submitted SHA unchanged."
+    },
+    {
+      "originalPath": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/mist/figure-white-environment-v1.source.json",
+      "capturedSha256": "cd6acd2f7024eeb47189505b3ccb3d97a3adbabd7a133eb7deb25df8dd01b1cc",
+      "exactArchivedPath": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/mist/cutoff-v3-F1-provenance.json",
+      "currentSourceSha256": "07e96dd00073ae15344a993b1aa028bdddca2010eae8f2327d23c43e26ceeeb5",
+      "reason": "Later explicit prompt LF/CRLF reproduction notes added; original PNG, prompt text and submitted SHA unchanged."
+    },
+    {
+      "originalPath": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/rain/figure-mask-v1.source.json",
+      "capturedSha256": "421356a1716176d4bbdce9b679b129f0780dab0860d3e5be4b6487d9279d2669",
+      "exactArchivedPath": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/rain/cutoff-v3-F2-provenance.json",
+      "currentSourceSha256": "e16085625de1c8686607e020a19b647d5dca06e080c08d3172b391cf06a4a517",
+      "reason": "Later explicit prompt LF/CRLF reproduction notes added; original PNG, prompt text and submitted SHA unchanged."
+    },
+    {
+      "originalPath": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/rain/figure-white-environment-v1.source.json",
+      "capturedSha256": "17033735f1bec0ccae6854fa3a2a3c12bcff7d6ca81302b0038b1cd6f3ac70c5",
+      "exactArchivedPath": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/rain/cutoff-v3-F1-provenance.json",
+      "currentSourceSha256": "b8d498f88b0d8011e3e74118149ffb9d62ffe7c731267fb495e3efa6f12ce5a1",
+      "reason": "Later explicit prompt LF/CRLF reproduction notes added; original PNG, prompt text and submitted SHA unchanged."
+    },
+    {
+      "originalPath": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/violet/figure-mask-v1.source.json",
+      "capturedSha256": "7a99b993e1dbdfbc15088cadb2072551bd89bb3a5e6a3084669e58dc88962195",
+      "exactArchivedPath": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/violet/cutoff-v3-F2-provenance.json",
+      "currentSourceSha256": "5b26331a039039857ab1e9686fdc93a967f4b8835983255c95459e3f80d355e7",
+      "reason": "Later explicit prompt LF/CRLF reproduction notes added; original PNG, prompt text and submitted SHA unchanged."
+    },
+    {
+      "originalPath": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/violet/figure-white-environment-v1.source.json",
+      "capturedSha256": "2b4aedbefa519b18264e26888a96846f178d9b7369d14c084bfac0c536f51d01",
+      "exactArchivedPath": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/violet/cutoff-v3-F1-provenance.json",
+      "currentSourceSha256": "70a019176296f8270e52de7f4b83f2b8867dc6566f8f511582b9c739a21d2cde",
+      "reason": "Later explicit prompt LF/CRLF reproduction notes added; original PNG, prompt text and submitted SHA unchanged."
+    }
+  ]
+}

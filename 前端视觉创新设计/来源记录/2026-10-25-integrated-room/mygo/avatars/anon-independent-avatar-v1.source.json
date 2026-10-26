@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "assetType": "independently-generated-2d-human-bust-avatar-candidate",
+  "characterId": "anon",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in independent human portrait generation, transparent background",
+  "wardrobeId": "official-observed-haneoka-upper-blazer-white-shirt-green-striped-tie",
+  "promptFile": "anon-independent-avatar-v1.prompt.txt",
+  "submittedPrompt": "Create ONE independently drawn original human portrait avatar of Chihaya Anon / 千早爱音 / 千早 愛音, MyGO!!!!!. Square 1024x1024 transparent RGBA, head and upper chest, full crown and both shoulder starts comfortably visible. It must be a fresh 2D drawing, not a scene-head crop, official standing-render cutout, cat, mascot or medallion.\nThe ONLY supplied picture is a CLEAN EMPTY literary room. Refer only to its softly hand-painted air and quiet warm-cool natural window illumination. Do not put any part of that room in the avatar, copy its camera, or borrow another girl's face/body. Independently compose and paint Anon's face, hair, neck, shoulders and cloth from these words, on real transparency.\nIdentity: LONG PINK hair with light separated bangs and naturally flowing side groups, no Sakiko ribbons or invented ornament. Pale GRAY-BLUE irises with distinct pupils, sclera, eyelids, brows and hair boundaries. A recognizably youthful ordinary teenage anime face: gently short jaw, small natural nose and lips, lively clear eye proportions; not mature fashion-model sharpness, heavy makeup, glossy doll skin, chibi/baby head or giant water-filled eyes. Keep the hair pink under light, not blonde, red or uniform colored glow.\nHer own small project just met an unexpected response. She had been rather pleased with a clever little fold she was trying; the nearby person has changed the 'wrong' corner and it looks better. She looks toward them almost ready to claim she meant that, then lets a tiny CLOSED, slightly asymmetric smile admit the surprise. One brow lifts just a little, the eyes stay lucid and engaged, the mouth remains closed instead of repeating another girl's parted-lips bewilderment. There is bright willingness to be corrected, a touch of pride and being caught, not a compulsory wink, shouting grin, tearful vulnerability or generic sweet companion smile. Shoulders are relaxed with a slight natural turn, head nearly upright, both eyes clearly readable. The paper work stays below/outside this bust; no pointing hand or prop needs to be shown.\nShow only the upper relation of her faithful Haneoka school outfit: gray-purple blazer with light piping, white collared shirt and a modest dark-green diagonally striped tie. No text, name badge, elaborate jewelry or borrowed sailor bow. The crop stops naturally at the upper chest with a complete face/neck/shoulder relation, not a detached floating head or bust on a disk.\nRefined genuinely TWO-DIMENSIONAL anime linework, softly hand-painted pencil/gouache-like light and cloth planes, matching the literary product atmosphere. Soft upper-left window light and quiet cool fill are modeled with restrained painted shapes; skin is fresh rather than plastic, hair uses readable grouped strands rather than a high-frequency tangle. No 3D/CG model material, photographic pores, neon rim, mature glamour, thick makeup or overly wet glass eyes. At small avatar size, her long pink silhouette, gray-blue gaze and contained lively smile should remain distinct.\nTrue transparency surrounds the new bust. Keep the cutout alpha edge clean: fine hair belongs to the hair itself; no detached fluorescent red/yellow specks, contaminated matte fringe, background residue or outer glow. Warm highlights are inside real hair, not a halo. No circle, frame, gradient backdrop, black/white rectangle, fake checkerboard, room fragment, vignette, fog, shadow, speech bubble, letters, title, UI, logo, watermark or collage. One standalone original 2D human avatar only.",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "role": "only image input: clean empty literary room for 2D painting/light atmosphere only; no face/body/layout to copy",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c"
+    }
+  ],
+  "readSources": {
+    "passport": {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/anon.md",
+      "fullReadBeforeCall": true,
+      "version": "2026-10-25",
+      "sha256AtArchive": "de7782a11d0e620b3d25de33ac7a964142a39322e6fa8f0ceceea2bc6d501b19"
+    },
+    "method": {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "fullReadBeforeCall": true,
+      "sha256AtArchive": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840"
+    }
+  },
+  "facts": {
+    "officialSources": [
+      "https://mygo-movie.bang-dream.com/character/anon/",
+      "https://bang-dream.com/artist/mygo/chihaya-anon/"
+    ],
+    "identityObserved": "long pink hair, gray-blue eyes; gray-purple piping blazer, white collar, green striped tie; no large fixed hair ornament in observed art",
+    "projectOriginal": "fresh bust and closed caught-out smile responding to a changed fold; no claimed actual user event or clothing preference"
+  },
+  "output": {
+    "file": "anon-independent-avatar-v1.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-6e647e32-a41d-44f9-98a9-8dd1740a3421.png",
+    "sha256": "1309d9da3226545be180884574a4755a8beb11571c497cb82706b2556190bc63",
+    "bytes": 1991105,
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "cornerAlpha": 0
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "status": "held_framing",
+    "observation": "Original independently generated portrait personally viewed: pink long hair/gray-blue eyes, closed asymmetric smile and coherent upper uniform. Crown touches/clips the top boundary; held and superseded by fresh-empty-room v2. This version was not used as an image input.",
+    "decision": "held, not selected and not used as later image input",
+    "selectedForSmallSizeReview": false
+  },
+  "primaryApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "croppedFromScene": false,
+  "officialArtCopied": false,
+  "humanMatrixCoverage": false,
+  "promptFileSha256": "c00920f23424d0b5e9f6b788408f73939870ff780c2f1892623297695096879c",
+  "submittedPromptSha256": "5014b69eaeb653ed8c0a20e07cea13001e39e4d3ec1ad86030b30e3b662ae09f",
+  "archivedAtUtc": "2026-10-25T16:49:48.564767+00:00"
+}

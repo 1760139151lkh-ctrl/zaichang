@@ -1,0 +1,370 @@
+{
+  "schemaVersion": 1,
+  "kind": "soyo-owned-human-mother-production-summary",
+  "recordedAtUtc": "2026-10-25T18:57:27.953598+00:00",
+  "scope": "Soyo listening/play/attention/resume: mist/violet/rain missing complete human mothers plus four separate apricot wardrobe corrections",
+  "newMissingCellCount": 12,
+  "existingWarmCorrectionCount": 4,
+  "physicalImageOutputs": 17,
+  "producerCandidates": 16,
+  "heldOutputCount": 1,
+  "primaryApprovalCount": 0,
+  "layerApprovalCount": 0,
+  "runtimeAcceptanceCount": 0,
+  "topologyBoundary": "These are four meaningful activity/hand/eye situations in the same bench-support family; not a claim of twelve new major body topologies or running motion.",
+  "inputBoundary": "Every new output used exactly one already approved clean empty-room plate plus complete text. No held warm mother, held duplicate-pencil output, dirty UI, montage or cropped character was supplied.",
+  "wardrobeCorrection": "All new outputs specify plain gray-blue fabric bow knot and gold school crest on her left chest. The four old warm source records retain history and now explicitly hold the observed throat/bow ornament issue.",
+  "inputAudit": {
+    "method": "mujica_matrix bounded read-only peer audit, cross-checked before generation",
+    "finding": "all 12 plan plate paths/SHA/bytes/canvases and exact index/producer brief pointers matched actual files; old plan root-review flags treated as historical, current root instruction controls clean-plate reconstruction"
+  },
+  "contentConsistency": {
+    "actualOutputShaAndCanvasChecked": true,
+    "actualInputShaChecked": true,
+    "issues": []
+  },
+  "entries": [
+    {
+      "cell": "soyo/attention/mist",
+      "id": "soyo-attention-mist-literary-v1",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-attention-mist-literary-v1.png",
+        "sha256": "34f51931954d0d3db7c9a89a1195113f794768bfed32b7a21855a50c98773b48",
+        "bytes": 2481568,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-attention-mist-literary-v1.source.json",
+      "promptRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-attention-mist-literary-v1.prompt.json",
+      "producerStatus": "candidate-awaiting-primary-review",
+      "category": "genuinely-missing-theme-cell",
+      "primaryMotherApproved": false,
+      "runtimeRegistered": false
+    },
+    {
+      "cell": "soyo/attention/rain",
+      "id": "soyo-attention-rain-literary-v1",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-attention-rain-literary-v1.png",
+        "sha256": "5ce538bd49912e4e5dfcd3c28865ff57917e49cbe1ea801457a4b248c8cc3536",
+        "bytes": 2321520,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-attention-rain-literary-v1.source.json",
+      "promptRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-attention-rain-literary-v1.prompt.json",
+      "producerStatus": "candidate-awaiting-primary-review",
+      "category": "genuinely-missing-theme-cell",
+      "primaryMotherApproved": false,
+      "runtimeRegistered": false
+    },
+    {
+      "cell": "soyo/attention/violet",
+      "id": "soyo-attention-violet-literary-v1",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-attention-violet-literary-v1.png",
+        "sha256": "deee535f86c75f30fbcf67ec786fa060400787af8384f893efa113caa99c01cb",
+        "bytes": 2365264,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-attention-violet-literary-v1.source.json",
+      "promptRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-attention-violet-literary-v1.prompt.json",
+      "producerStatus": "candidate-awaiting-primary-review",
+      "category": "genuinely-missing-theme-cell",
+      "primaryMotherApproved": false,
+      "runtimeRegistered": false
+    },
+    {
+      "cell": "soyo/listening/mist",
+      "id": "soyo-listening-mist-literary-v1",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-mist-literary-v1.png",
+        "sha256": "5fbcbd2acb5bfdf36ab1ac5273dee2ec7567a03bc3a12869751b90a43adea154",
+        "bytes": 2456604,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-mist-literary-v1.source.json",
+      "promptRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-mist-literary-v1.prompt.json",
+      "producerStatus": "candidate-awaiting-primary-review",
+      "category": "genuinely-missing-theme-cell",
+      "primaryMotherApproved": false,
+      "runtimeRegistered": false
+    },
+    {
+      "cell": "soyo/listening/rain",
+      "id": "soyo-listening-rain-literary-v1",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-rain-literary-v1.png",
+        "sha256": "dca2dd09063832af700bcb833ddaae40cde16b01aed2d27429204762cd3c7210",
+        "bytes": 2297476,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-rain-literary-v1.source.json",
+      "promptRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-rain-literary-v1.prompt.json",
+      "producerStatus": "candidate-awaiting-primary-review",
+      "category": "genuinely-missing-theme-cell",
+      "primaryMotherApproved": false,
+      "runtimeRegistered": false
+    },
+    {
+      "cell": "soyo/listening/violet",
+      "id": "soyo-listening-violet-literary-v1",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-violet-literary-v1.png",
+        "sha256": "99ebaaa7158f9cf12c3308fa4fa0231e136b51ad6a81add4693159fb2a103ccb",
+        "bytes": 2335853,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-violet-literary-v1.source.json",
+      "promptRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-violet-literary-v1.prompt.json",
+      "producerStatus": "candidate-awaiting-primary-review",
+      "category": "genuinely-missing-theme-cell",
+      "primaryMotherApproved": false,
+      "runtimeRegistered": false
+    },
+    {
+      "cell": "soyo/play/mist",
+      "id": "soyo-play-mist-literary-v1",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-play-mist-literary-v1.png",
+        "sha256": "82ad96613480006cde2d576e72c102d916aa926433cb926c4be7b9a11b5a265f",
+        "bytes": 2444029,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-play-mist-literary-v1.source.json",
+      "promptRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-play-mist-literary-v1.prompt.json",
+      "producerStatus": "held-for-prop-correction",
+      "category": "genuinely-missing-theme-cell",
+      "primaryMotherApproved": false,
+      "runtimeRegistered": false
+    },
+    {
+      "cell": "soyo/play/mist",
+      "id": "soyo-play-mist-literary-v2",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-play-mist-literary-v2.png",
+        "sha256": "0d6df59d4ade1ff32688d2f9618ca7a42ef7ff4d1ec8fb6c45cebfe80ac7d106",
+        "bytes": 2474859,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-play-mist-literary-v2.source.json",
+      "promptRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-play-mist-literary-v2.prompt.json",
+      "producerStatus": "candidate-awaiting-primary-review",
+      "category": "genuinely-missing-theme-cell",
+      "primaryMotherApproved": false,
+      "runtimeRegistered": false
+    },
+    {
+      "cell": "soyo/play/rain",
+      "id": "soyo-play-rain-literary-v1",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-play-rain-literary-v1.png",
+        "sha256": "af55c0e673c5034caa12918f86fcbd572eb54c5d19c58f07a7abd202025329d9",
+        "bytes": 2280481,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-play-rain-literary-v1.source.json",
+      "promptRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-play-rain-literary-v1.prompt.json",
+      "producerStatus": "candidate-awaiting-primary-review",
+      "category": "genuinely-missing-theme-cell",
+      "primaryMotherApproved": false,
+      "runtimeRegistered": false
+    },
+    {
+      "cell": "soyo/play/violet",
+      "id": "soyo-play-violet-literary-v1",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-play-violet-literary-v1.png",
+        "sha256": "9736097a25ed857e8dbc998b194963913773d8ea5223f38cd97b3777aff3cb34",
+        "bytes": 2405500,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-play-violet-literary-v1.source.json",
+      "promptRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-play-violet-literary-v1.prompt.json",
+      "producerStatus": "candidate-awaiting-primary-review",
+      "category": "genuinely-missing-theme-cell",
+      "primaryMotherApproved": false,
+      "runtimeRegistered": false
+    },
+    {
+      "cell": "soyo/resume/mist",
+      "id": "soyo-resume-mist-literary-v1",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-resume-mist-literary-v1.png",
+        "sha256": "a7fc19f9af9788ce88964d4b532dd770407700500bb96ecf87a26a6e99b9dc55",
+        "bytes": 2503359,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-resume-mist-literary-v1.source.json",
+      "promptRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-resume-mist-literary-v1.prompt.json",
+      "producerStatus": "candidate-awaiting-primary-review",
+      "category": "genuinely-missing-theme-cell",
+      "primaryMotherApproved": false,
+      "runtimeRegistered": false
+    },
+    {
+      "cell": "soyo/resume/rain",
+      "id": "soyo-resume-rain-literary-v1",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-resume-rain-literary-v1.png",
+        "sha256": "e9626878846a6566239bf002c24aeaf964ee0c4ba302eb8f9871db0304c0eef0",
+        "bytes": 2310721,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-resume-rain-literary-v1.source.json",
+      "promptRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-resume-rain-literary-v1.prompt.json",
+      "producerStatus": "candidate-awaiting-primary-review",
+      "category": "genuinely-missing-theme-cell",
+      "primaryMotherApproved": false,
+      "runtimeRegistered": false
+    },
+    {
+      "cell": "soyo/resume/violet",
+      "id": "soyo-resume-violet-literary-v1",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-resume-violet-literary-v1.png",
+        "sha256": "205ea0cd58831c7c830c72f17f7912ae575e35a7fea0b451fa53f542c0f5861f",
+        "bytes": 2315480,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-resume-violet-literary-v1.source.json",
+      "promptRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-resume-violet-literary-v1.prompt.json",
+      "producerStatus": "candidate-awaiting-primary-review",
+      "category": "genuinely-missing-theme-cell",
+      "primaryMotherApproved": false,
+      "runtimeRegistered": false
+    },
+    {
+      "cell": "soyo/attention/apricot",
+      "id": "soyo-attention-apricot-literary-v2",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-attention-apricot-literary-v2.png",
+        "sha256": "31a7653701242d58e9cc464a18b0131f0e50a8fcdd7e4f078695e4a379e02f1e",
+        "bytes": 2445247,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-attention-apricot-literary-v2.source.json",
+      "promptRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-attention-apricot-literary-v2.prompt.json",
+      "producerStatus": "candidate-awaiting-primary-review",
+      "category": "correction-of-existing-warm-mother-not-missing-76-increment",
+      "primaryMotherApproved": false,
+      "runtimeRegistered": false
+    },
+    {
+      "cell": "soyo/listening/apricot",
+      "id": "soyo-listening-apricot-literary-v2",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-listening-apricot-literary-v2.png",
+        "sha256": "f242a5b6865d6ac27688ba75bdb8b0e733e6cbb8ea9724b4ea338973288c3862",
+        "bytes": 2445061,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-listening-apricot-literary-v2.source.json",
+      "promptRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-listening-apricot-literary-v2.prompt.json",
+      "producerStatus": "candidate-awaiting-primary-review",
+      "category": "correction-of-existing-warm-mother-not-missing-76-increment",
+      "primaryMotherApproved": false,
+      "runtimeRegistered": false
+    },
+    {
+      "cell": "soyo/play/apricot",
+      "id": "soyo-play-apricot-literary-v2",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-play-apricot-literary-v2.png",
+        "sha256": "82bca80705934963059213bfb9ab31eb9edb9765ead04194cd1125cf98191d3c",
+        "bytes": 2474782,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-play-apricot-literary-v2.source.json",
+      "promptRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-play-apricot-literary-v2.prompt.json",
+      "producerStatus": "candidate-awaiting-primary-review",
+      "category": "correction-of-existing-warm-mother-not-missing-76-increment",
+      "primaryMotherApproved": false,
+      "runtimeRegistered": false
+    },
+    {
+      "cell": "soyo/resume/apricot",
+      "id": "soyo-resume-apricot-literary-v2",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-resume-apricot-literary-v2.png",
+        "sha256": "4381d5f5faeeeedf1b84bf9e69bad71fe4a6dc06a7d8653c8b1f88b48c559cbe",
+        "bytes": 2473344,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        },
+        "format": "PNG"
+      },
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-resume-apricot-literary-v2.source.json",
+      "promptRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-resume-apricot-literary-v2.prompt.json",
+      "producerStatus": "candidate-awaiting-primary-review",
+      "category": "correction-of-existing-warm-mother-not-missing-76-increment",
+      "primaryMotherApproved": false,
+      "runtimeRegistered": false
+    }
+  ],
+  "globalLedgerModified": false,
+  "applicationOrBackendModifiedByThisAssetBatch": false
+}

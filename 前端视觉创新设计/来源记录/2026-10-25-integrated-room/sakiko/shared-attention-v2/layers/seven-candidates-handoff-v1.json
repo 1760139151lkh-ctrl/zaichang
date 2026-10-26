@@ -1,0 +1,1207 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T00:31:48.559Z",
+  "owner": "/root/mujica_matrix",
+  "scope": "Only seven previously root-approved Sakiko still mothers and source-local candidate F/S/BG/Browser closure; not a global ledger or 360 coverage declaration.",
+  "status": "seven-producer-candidates-awaiting-root-original-RGB-layer-review",
+  "selectedPipeline": "original mother RGB drawn once under native MAX(L(F),L(S)), same-mother actual Image empty BG, fixed included material, travel/slope/perspective0",
+  "preservedOriginalWipImageCount": 10,
+  "actualImagePngs": 50,
+  "actualImagePngBytes": 71588562,
+  "separateFailedToolAttempts": [
+    {
+      "cell": "resume-rain",
+      "path": "resume-rain/contact-mask-v1-attempt1-failed.json",
+      "output": null,
+      "countAsSuccessfulPng": false
+    }
+  ],
+  "candidates": [
+    {
+      "cell": "attention-apricot",
+      "producer": "/root/mujica_matrix",
+      "bundle": {
+        "path": "attention-apricot/attention-apricot-included-bundle-v2.json",
+        "sha256": "925ccc90a17b4cb505e192f94a11af5b3369db8ddea9828dcd8f960e164364e2"
+      },
+      "nativeObservationPage": {
+        "path": "attention-apricot/attention-apricot-included-observe-v2.html",
+        "sha256": "73f266aaeca3190e1cba967f48edae101f9d66d0fa5ac90cc98e4a2e640cd6b2"
+      },
+      "selected": {
+        "mother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-apricot-shared-page-v2.png",
+          "recordedSha256": "f04805d0e723420c48cf4e16005d4c863df50042339c65290a34491e553de238",
+          "actualSha256": "f04805d0e723420c48cf4e16005d4c863df50042339c65290a34491e553de238",
+          "bytes": 2523617
+        },
+        "background": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-apricot/background-v1.png",
+          "recordedSha256": "a1d2b37b4f404b4217a093ca22c1cda916e227922822c32859faf7f6901931bf",
+          "actualSha256": "a1d2b37b4f404b4217a093ca22c1cda916e227922822c32859faf7f6901931bf",
+          "bytes": 2436356
+        },
+        "figureMask": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-apricot/figure-mask-v2.png",
+          "recordedSha256": "63c8a0a3953f741cc687f324f4045f5856506de3010d84f92c85f94f24d81b46",
+          "actualSha256": "63c8a0a3953f741cc687f324f4045f5856506de3010d84f92c85f94f24d81b46",
+          "bytes": 472091
+        },
+        "contactMask": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-apricot/contact-mask-v1.png",
+          "recordedSha256": "68cede6cd8df635abb1208bb1829d8f6ca67cd8528aa8de434999f60a78927f0",
+          "actualSha256": "68cede6cd8df635abb1208bb1829d8f6ca67cd8528aa8de434999f60a78927f0",
+          "bytes": 341848
+        }
+      },
+      "actualImagePngs": 6,
+      "primaryLayerApproved": false,
+      "runtimeRegistered": false,
+      "runtimeAccepted": false,
+      "cameraAdmission": false
+    },
+    {
+      "cell": "attention-mist",
+      "producer": "/root/room_art_direction",
+      "bundle": {
+        "path": "attention-mist/attention-mist-included-bundle-v1.json",
+        "sha256": "05f907a0e3effe0d245995a8555887bb4d11f25418a0242948f4370ec797ea34"
+      },
+      "nativeObservationPage": {
+        "path": "attention-mist/native-observe-v1.html",
+        "sha256": "9414e8b39bfa6c37cdfb105642850eb4e0fc9159453cc0f30b515d0d89da8264"
+      },
+      "selected": {
+        "mother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-mist-shared-page-v2.png",
+          "recordedSha256": "0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88",
+          "actualSha256": "0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88",
+          "bytes": 2442325
+        },
+        "background": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/background-v1.png",
+          "recordedSha256": "db4e12b935f35db0a1351fda73714b6d7de7668d842ee07ebadf6c9c41650c1f",
+          "actualSha256": "db4e12b935f35db0a1351fda73714b6d7de7668d842ee07ebadf6c9c41650c1f",
+          "bytes": 2370083
+        },
+        "figureMask": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/figure-mask-v1.png",
+          "recordedSha256": "674382410a477e70b8a22085e024f2e292d83c3c7d070daf05e30b0c0c1e47ab",
+          "actualSha256": "674382410a477e70b8a22085e024f2e292d83c3c7d070daf05e30b0c0c1e47ab",
+          "bytes": 491188
+        },
+        "contactMask": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/contact-mask-v2.png",
+          "recordedSha256": "01b4fe55552c04a7d4340bcc5b210a157d6eb6b3c274cbbaa41b308122f29b7f",
+          "actualSha256": "01b4fe55552c04a7d4340bcc5b210a157d6eb6b3c274cbbaa41b308122f29b7f",
+          "bytes": 328516
+        }
+      },
+      "actualImagePngs": 6,
+      "primaryLayerApproved": false,
+      "runtimeRegistered": false,
+      "runtimeAccepted": false,
+      "cameraAdmission": false
+    },
+    {
+      "cell": "attention-violet",
+      "producer": "/root/spatial_motion",
+      "bundle": {
+        "path": "attention-violet/included-layer-bundle-v1.json",
+        "sha256": "efeeb5ead8dac56522bac68ca972122163e98a5bed28da94096b3d6d367d32bc"
+      },
+      "nativeObservationPage": {
+        "path": "attention-violet/native-observe-v1.html",
+        "sha256": "0c43913f8115032d130f488dc32ffab085421af0c063e1fdfc3f7797b3326098"
+      },
+      "selected": {
+        "mother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-violet-shared-page-v2.png",
+          "recordedSha256": "69c14d7b7df22f634e3bc884c01396bdcd0d3f0fe70678803a05a10b52366208",
+          "actualSha256": "69c14d7b7df22f634e3bc884c01396bdcd0d3f0fe70678803a05a10b52366208",
+          "bytes": 2416217
+        },
+        "background": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/background-v1.png",
+          "recordedSha256": "1aa2ca1254bcbb917cae56db6c09d1725f6b17d2f10d8b43b81189ea95068d6b",
+          "actualSha256": "1aa2ca1254bcbb917cae56db6c09d1725f6b17d2f10d8b43b81189ea95068d6b",
+          "bytes": 2314719
+        },
+        "figureMask": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-mask-v2.png",
+          "recordedSha256": "5285f653e453905d38e5992bbd20cc46f54d0d390cd59308a1dc13dde11b5061",
+          "actualSha256": "5285f653e453905d38e5992bbd20cc46f54d0d390cd59308a1dc13dde11b5061",
+          "bytes": 456239
+        },
+        "contactMask": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/contact-mask-v1.png",
+          "recordedSha256": "89cf69bd67f18c81c4170e4897850cc0d7e88c896c815b2fa4c6bdc40ae4c967",
+          "actualSha256": "89cf69bd67f18c81c4170e4897850cc0d7e88c896c815b2fa4c6bdc40ae4c967",
+          "bytes": 329971
+        }
+      },
+      "actualImagePngs": 8,
+      "primaryLayerApproved": false,
+      "runtimeRegistered": false,
+      "runtimeAccepted": false,
+      "cameraAdmission": false
+    },
+    {
+      "cell": "attention-rain",
+      "producer": "/root/mujica_matrix",
+      "bundle": {
+        "path": "attention-rain/attention-rain-included-bundle-v4.json",
+        "sha256": "b59d637ebf7975ffe59bd930db320aa87f1b45fe83577ea03eb03ad3030ba149"
+      },
+      "nativeObservationPage": {
+        "path": "attention-rain/attention-rain-included-observe-v4.html",
+        "sha256": "2a5d2c070fd98fc67db7dd6719d5183a5f73acd166895b86e3138e698f74833b"
+      },
+      "selected": {
+        "mother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.png",
+          "recordedSha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac",
+          "actualSha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac",
+          "bytes": 2343269
+        },
+        "background": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-rain/background-v1.png",
+          "recordedSha256": "942f027ea58b53feb2b0a2c50f20fcd8f80f54d50332837f4a6a9c050a5ce463",
+          "actualSha256": "942f027ea58b53feb2b0a2c50f20fcd8f80f54d50332837f4a6a9c050a5ce463",
+          "bytes": 2283004
+        },
+        "figureMask": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-rain/figure-mask-v4.png",
+          "recordedSha256": "8694a78182b5d234fcc2e532a492536cbeec1286c6c7b15f852186db2babb65e",
+          "actualSha256": "8694a78182b5d234fcc2e532a492536cbeec1286c6c7b15f852186db2babb65e",
+          "bytes": 464753
+        },
+        "contactMask": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-rain/contact-mask-v1.png",
+          "recordedSha256": "43f9770fbde6eaf407d174362c1d6c4ae61f6e3552d35fecc98bb29bcbd5d992",
+          "actualSha256": "43f9770fbde6eaf407d174362c1d6c4ae61f6e3552d35fecc98bb29bcbd5d992",
+          "bytes": 341304
+        }
+      },
+      "actualImagePngs": 9,
+      "primaryLayerApproved": false,
+      "runtimeRegistered": false,
+      "runtimeAccepted": false,
+      "cameraAdmission": false
+    },
+    {
+      "cell": "resume-mist",
+      "producer": "/root/mujica_matrix",
+      "bundle": {
+        "path": "resume-mist/resume-mist-included-bundle-v1.json",
+        "sha256": "b6e8a659862a253a41c88924af3dab93ea0da051f26d27c38ba081ea50ef9b85"
+      },
+      "nativeObservationPage": {
+        "path": "resume-mist/resume-mist-included-observe-v1.html",
+        "sha256": "54e9df5487aacf2d8ca773256f6d19ae31637d9b2a167f91dd7b4b30bf638084"
+      },
+      "selected": {
+        "mother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-resume-mist-soft-recognition-v4.png",
+          "recordedSha256": "9c9e2aa283a1d809a3e6edf9f574e026de3046093e6c8dcd8b7c0316961dc624",
+          "actualSha256": "9c9e2aa283a1d809a3e6edf9f574e026de3046093e6c8dcd8b7c0316961dc624",
+          "bytes": 2566569
+        },
+        "background": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-mist/background-v1.png",
+          "recordedSha256": "cb609191291dfa5ff189878c890569ea4377cecded41b1962feb14746db3d7ad",
+          "actualSha256": "cb609191291dfa5ff189878c890569ea4377cecded41b1962feb14746db3d7ad",
+          "bytes": 2445924
+        },
+        "figureMask": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-mist/figure-mask-v1.png",
+          "recordedSha256": "a48c3f85d41b27e58eb3080cf6e3279edd743bb509da669e47793e2fc292941a",
+          "actualSha256": "a48c3f85d41b27e58eb3080cf6e3279edd743bb509da669e47793e2fc292941a",
+          "bytes": 507969
+        },
+        "contactMask": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-mist/contact-mask-v2.png",
+          "recordedSha256": "4dcb075e2072eeb42c44a2caba82f50c48335eccce9e537ba81f7cb72f89afb0",
+          "actualSha256": "4dcb075e2072eeb42c44a2caba82f50c48335eccce9e537ba81f7cb72f89afb0",
+          "bytes": 314009
+        }
+      },
+      "actualImagePngs": 8,
+      "primaryLayerApproved": false,
+      "runtimeRegistered": false,
+      "runtimeAccepted": false,
+      "cameraAdmission": false
+    },
+    {
+      "cell": "resume-violet",
+      "producer": "/root/mujica_matrix",
+      "bundle": {
+        "path": "resume-violet/resume-violet-included-bundle-v1.json",
+        "sha256": "40afc01578d5d7728a28f9da128ce82be03c599dcf2424a1945153ce8915a4f6"
+      },
+      "nativeObservationPage": {
+        "path": "resume-violet/resume-violet-included-observe-v1.html",
+        "sha256": "901ea6e4f796b842d1c4000acb94368f0f7b3cb837608fd92bc8acec6bd0a5b7"
+      },
+      "selected": {
+        "mother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-violet-literary-extension-v1.png",
+          "recordedSha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973",
+          "actualSha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973",
+          "bytes": 2367723
+        },
+        "background": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-violet/background-v1.png",
+          "recordedSha256": "a05b00ade84a17de62e1f61813db70647dddd70f51f364a5bca3a486944c1327",
+          "actualSha256": "a05b00ade84a17de62e1f61813db70647dddd70f51f364a5bca3a486944c1327",
+          "bytes": 2328735
+        },
+        "figureMask": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-violet/figure-mask-v1.png",
+          "recordedSha256": "a4001631c77753fe3cc6643a8ffc5823c1b8b440756875aa56ca67065f6e2717",
+          "actualSha256": "a4001631c77753fe3cc6643a8ffc5823c1b8b440756875aa56ca67065f6e2717",
+          "bytes": 456111
+        },
+        "contactMask": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-violet/contact-mask-v1.png",
+          "recordedSha256": "763f3247f1bb48d3b0645d94b161c8c65f4668f0877675d981c02f1f57d2c09d",
+          "actualSha256": "763f3247f1bb48d3b0645d94b161c8c65f4668f0877675d981c02f1f57d2c09d",
+          "bytes": 297094
+        }
+      },
+      "actualImagePngs": 5,
+      "primaryLayerApproved": false,
+      "runtimeRegistered": false,
+      "runtimeAccepted": false,
+      "cameraAdmission": false
+    },
+    {
+      "cell": "resume-rain",
+      "producer": "/root/mujica_matrix",
+      "bundle": {
+        "path": "resume-rain/resume-rain-included-bundle-v3.json",
+        "sha256": "f6bd864184be6a5b21d2cd435b35f83316d4cacc255862b306edacb81b016dfc"
+      },
+      "nativeObservationPage": {
+        "path": "resume-rain/resume-rain-included-observe-v3.html",
+        "sha256": "a9a6b3e3b4316da242f2feed2b21aa0389a8e4c85b8cf853a0ca1495ce98d876"
+      },
+      "selected": {
+        "mother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.png",
+          "recordedSha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9",
+          "actualSha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9",
+          "bytes": 2242270
+        },
+        "background": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-rain/background-v1.png",
+          "recordedSha256": "853958136489141916ebcf8b67f00afd073e8c24d3fea3ef82a0d0b98a1680c7",
+          "actualSha256": "853958136489141916ebcf8b67f00afd073e8c24d3fea3ef82a0d0b98a1680c7",
+          "bytes": 2209674
+        },
+        "figureMask": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-rain/figure-mask-v1.png",
+          "recordedSha256": "4fe64d73e8fa4e31acd1de7fbcf95fb6975f9bc289376f86bb662cc683144e5c",
+          "actualSha256": "4fe64d73e8fa4e31acd1de7fbcf95fb6975f9bc289376f86bb662cc683144e5c",
+          "bytes": 459960
+        },
+        "contactMask": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-rain/contact-mask-v3.png",
+          "recordedSha256": "9270e99fa777b8d1a9ff485b86a0918d8c2222285580aff083b6a1f4bd77bb9e",
+          "actualSha256": "9270e99fa777b8d1a9ff485b86a0918d8c2222285580aff083b6a1f4bd77bb9e",
+          "bytes": 287522
+        }
+      },
+      "actualImagePngs": 8,
+      "primaryLayerApproved": false,
+      "runtimeRegistered": false,
+      "runtimeAccepted": false,
+      "cameraAdmission": false
+    }
+  ],
+  "sourceClosure": [
+    {
+      "cell": "attention-apricot",
+      "record": "background-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-apricot/background-v1.png",
+      "recordedSha256": "a1d2b37b4f404b4217a093ca22c1cda916e227922822c32859faf7f6901931bf",
+      "actualSha256": "a1d2b37b4f404b4217a093ca22c1cda916e227922822c32859faf7f6901931bf",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-3e025188-96d5-40ab-a926-eef5722d8cfe.png",
+      "toolOriginalActualSha256": "a1d2b37b4f404b4217a093ca22c1cda916e227922822c32859faf7f6901931bf",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-apricot-shared-page-v2.png",
+          "recordedSha256": "f04805d0e723420c48cf4e16005d4c863df50042339c65290a34491e553de238",
+          "actualSha256": "f04805d0e723420c48cf4e16005d4c863df50042339c65290a34491e553de238"
+        }
+      ]
+    },
+    {
+      "cell": "attention-apricot",
+      "record": "contact-mask-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-apricot/contact-mask-v1.png",
+      "recordedSha256": "68cede6cd8df635abb1208bb1829d8f6ca67cd8528aa8de434999f60a78927f0",
+      "actualSha256": "68cede6cd8df635abb1208bb1829d8f6ca67cd8528aa8de434999f60a78927f0",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-8612cc8d-de8b-470d-aafc-a2eb3fe89f3b.png",
+      "toolOriginalActualSha256": "68cede6cd8df635abb1208bb1829d8f6ca67cd8528aa8de434999f60a78927f0",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-apricot/contact-step1-marked-v1.png",
+          "recordedSha256": "1efe63bff3c4d85e2fbdaad6642b1651353e897cd6666cf115348585bb2f9642",
+          "actualSha256": "1efe63bff3c4d85e2fbdaad6642b1651353e897cd6666cf115348585bb2f9642"
+        },
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-apricot-shared-page-v2.png",
+          "recordedSha256": "f04805d0e723420c48cf4e16005d4c863df50042339c65290a34491e553de238",
+          "actualSha256": "f04805d0e723420c48cf4e16005d4c863df50042339c65290a34491e553de238"
+        }
+      ]
+    },
+    {
+      "cell": "attention-apricot",
+      "record": "contact-step1-marked-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-apricot/contact-step1-marked-v1.png",
+      "recordedSha256": "1efe63bff3c4d85e2fbdaad6642b1651353e897cd6666cf115348585bb2f9642",
+      "actualSha256": "1efe63bff3c4d85e2fbdaad6642b1651353e897cd6666cf115348585bb2f9642",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-2c3c0f61-3c92-4476-b27f-94ad19c82532.png",
+      "toolOriginalActualSha256": "1efe63bff3c4d85e2fbdaad6642b1651353e897cd6666cf115348585bb2f9642",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-apricot-shared-page-v2.png",
+          "recordedSha256": "f04805d0e723420c48cf4e16005d4c863df50042339c65290a34491e553de238",
+          "actualSha256": "f04805d0e723420c48cf4e16005d4c863df50042339c65290a34491e553de238"
+        }
+      ]
+    },
+    {
+      "cell": "attention-apricot",
+      "record": "figure-mask-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-apricot/figure-mask-v1.png",
+      "recordedSha256": "51c1c3a83a7930c64be4cd2a8eae33e7b5a9d250fa366b19a822edfe57ce7fab",
+      "actualSha256": "51c1c3a83a7930c64be4cd2a8eae33e7b5a9d250fa366b19a822edfe57ce7fab",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-30963fd2-975d-463a-848f-ede7feb03e97.png",
+      "toolOriginalActualSha256": "51c1c3a83a7930c64be4cd2a8eae33e7b5a9d250fa366b19a822edfe57ce7fab",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-apricot/figure-step1-marked-v1.png",
+          "recordedSha256": "4055e8f01d62879f20facec0bea66d7d5ae706c33b6e99ba91d9edcba209e0a4",
+          "actualSha256": "4055e8f01d62879f20facec0bea66d7d5ae706c33b6e99ba91d9edcba209e0a4"
+        }
+      ]
+    },
+    {
+      "cell": "attention-apricot",
+      "record": "figure-mask-v2.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-apricot/figure-mask-v2.png",
+      "recordedSha256": "63c8a0a3953f741cc687f324f4045f5856506de3010d84f92c85f94f24d81b46",
+      "actualSha256": "63c8a0a3953f741cc687f324f4045f5856506de3010d84f92c85f94f24d81b46",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-af483989-9dd5-4e81-85fd-08410c1cd1e5.png",
+      "toolOriginalActualSha256": "63c8a0a3953f741cc687f324f4045f5856506de3010d84f92c85f94f24d81b46",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-apricot/figure-step1-marked-v1.png",
+          "recordedSha256": "4055e8f01d62879f20facec0bea66d7d5ae706c33b6e99ba91d9edcba209e0a4",
+          "actualSha256": "4055e8f01d62879f20facec0bea66d7d5ae706c33b6e99ba91d9edcba209e0a4"
+        },
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-apricot-shared-page-v2.png",
+          "recordedSha256": "f04805d0e723420c48cf4e16005d4c863df50042339c65290a34491e553de238",
+          "actualSha256": "f04805d0e723420c48cf4e16005d4c863df50042339c65290a34491e553de238"
+        }
+      ]
+    },
+    {
+      "cell": "attention-apricot",
+      "record": "figure-step1-marked-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-apricot/figure-step1-marked-v1.png",
+      "recordedSha256": "4055e8f01d62879f20facec0bea66d7d5ae706c33b6e99ba91d9edcba209e0a4",
+      "actualSha256": "4055e8f01d62879f20facec0bea66d7d5ae706c33b6e99ba91d9edcba209e0a4",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-5464c2dc-7e5b-4541-b5e9-d408baff21d4.png",
+      "toolOriginalActualSha256": "4055e8f01d62879f20facec0bea66d7d5ae706c33b6e99ba91d9edcba209e0a4",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-apricot-shared-page-v2.png",
+          "recordedSha256": "f04805d0e723420c48cf4e16005d4c863df50042339c65290a34491e553de238",
+          "actualSha256": "f04805d0e723420c48cf4e16005d4c863df50042339c65290a34491e553de238"
+        }
+      ]
+    },
+    {
+      "cell": "attention-mist",
+      "record": "background-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/background-v1.png",
+      "recordedSha256": "db4e12b935f35db0a1351fda73714b6d7de7668d842ee07ebadf6c9c41650c1f",
+      "actualSha256": "db4e12b935f35db0a1351fda73714b6d7de7668d842ee07ebadf6c9c41650c1f",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-28bad77c-6872-4ef6-bb7c-53cda9310287.png",
+      "toolOriginalActualSha256": "db4e12b935f35db0a1351fda73714b6d7de7668d842ee07ebadf6c9c41650c1f",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-mist-shared-page-v2.png",
+          "recordedSha256": "0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88",
+          "actualSha256": "0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88"
+        }
+      ]
+    },
+    {
+      "cell": "attention-mist",
+      "record": "contact-mask-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/contact-mask-v1.png",
+      "recordedSha256": "829518f21544f8493f42a8c75d3a2722909330fe17545fbae575a4eb7a221cbe",
+      "actualSha256": "829518f21544f8493f42a8c75d3a2722909330fe17545fbae575a4eb7a221cbe",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-1a130a15-41b4-4912-aab5-49f0f28d6a17.png",
+      "toolOriginalActualSha256": "829518f21544f8493f42a8c75d3a2722909330fe17545fbae575a4eb7a221cbe",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/contact-step1-marked-v1.png",
+          "recordedSha256": "02806e36dae91488fecb4ca44eada303f94d6e3c8fe02070fc8bf1890782d2f8",
+          "actualSha256": "02806e36dae91488fecb4ca44eada303f94d6e3c8fe02070fc8bf1890782d2f8"
+        },
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-mist-shared-page-v2.png",
+          "recordedSha256": "0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88",
+          "actualSha256": "0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88"
+        }
+      ]
+    },
+    {
+      "cell": "attention-mist",
+      "record": "contact-mask-v2.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/contact-mask-v2.png",
+      "recordedSha256": "01b4fe55552c04a7d4340bcc5b210a157d6eb6b3c274cbbaa41b308122f29b7f",
+      "actualSha256": "01b4fe55552c04a7d4340bcc5b210a157d6eb6b3c274cbbaa41b308122f29b7f",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-1121ab6f-0e55-407b-a526-a40c23b4b821.png",
+      "toolOriginalActualSha256": "01b4fe55552c04a7d4340bcc5b210a157d6eb6b3c274cbbaa41b308122f29b7f",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/contact-step1-marked-v1.png",
+          "recordedSha256": "02806e36dae91488fecb4ca44eada303f94d6e3c8fe02070fc8bf1890782d2f8",
+          "actualSha256": "02806e36dae91488fecb4ca44eada303f94d6e3c8fe02070fc8bf1890782d2f8"
+        },
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-mist-shared-page-v2.png",
+          "recordedSha256": "0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88",
+          "actualSha256": "0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88"
+        }
+      ]
+    },
+    {
+      "cell": "attention-mist",
+      "record": "contact-step1-marked-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/contact-step1-marked-v1.png",
+      "recordedSha256": "02806e36dae91488fecb4ca44eada303f94d6e3c8fe02070fc8bf1890782d2f8",
+      "actualSha256": "02806e36dae91488fecb4ca44eada303f94d6e3c8fe02070fc8bf1890782d2f8",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-c07fe2be-3a39-4476-8aec-ea539e3d1870.png",
+      "toolOriginalActualSha256": "02806e36dae91488fecb4ca44eada303f94d6e3c8fe02070fc8bf1890782d2f8",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-mist-shared-page-v2.png",
+          "recordedSha256": "0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88",
+          "actualSha256": "0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88"
+        }
+      ]
+    },
+    {
+      "cell": "attention-mist",
+      "record": "figure-mask-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/figure-mask-v1.png",
+      "recordedSha256": "674382410a477e70b8a22085e024f2e292d83c3c7d070daf05e30b0c0c1e47ab",
+      "actualSha256": "674382410a477e70b8a22085e024f2e292d83c3c7d070daf05e30b0c0c1e47ab",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-d3fc8d05-cba0-4c6a-a211-3723a0023735.png",
+      "toolOriginalActualSha256": "674382410a477e70b8a22085e024f2e292d83c3c7d070daf05e30b0c0c1e47ab",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/figure-step1-marked-v1.png",
+          "recordedSha256": "1f89a73600683d1b5786c66f248a15647bedb2e379e663ec151020eb00dd5187",
+          "actualSha256": "1f89a73600683d1b5786c66f248a15647bedb2e379e663ec151020eb00dd5187"
+        },
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-mist-shared-page-v2.png",
+          "recordedSha256": "0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88",
+          "actualSha256": "0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88"
+        }
+      ]
+    },
+    {
+      "cell": "attention-mist",
+      "record": "figure-step1-marked-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/figure-step1-marked-v1.png",
+      "recordedSha256": "1f89a73600683d1b5786c66f248a15647bedb2e379e663ec151020eb00dd5187",
+      "actualSha256": "1f89a73600683d1b5786c66f248a15647bedb2e379e663ec151020eb00dd5187",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-1bf05176-15bc-4c8c-92c3-62f4963564c5.png",
+      "toolOriginalActualSha256": "1f89a73600683d1b5786c66f248a15647bedb2e379e663ec151020eb00dd5187",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-mist-shared-page-v2.png",
+          "recordedSha256": "0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88",
+          "actualSha256": "0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88"
+        }
+      ]
+    },
+    {
+      "cell": "attention-violet",
+      "record": "background-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/background-v1.png",
+      "recordedSha256": "1aa2ca1254bcbb917cae56db6c09d1725f6b17d2f10d8b43b81189ea95068d6b",
+      "actualSha256": "1aa2ca1254bcbb917cae56db6c09d1725f6b17d2f10d8b43b81189ea95068d6b",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17365-454d-7bb3-8b77-bcaadd75b8a4/exec-13f92120-cfb8-47a4-b122-bc152242fe00.png",
+      "toolOriginalActualSha256": "1aa2ca1254bcbb917cae56db6c09d1725f6b17d2f10d8b43b81189ea95068d6b",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-violet-shared-page-v2.png",
+          "recordedSha256": "69c14d7b7df22f634e3bc884c01396bdcd0d3f0fe70678803a05a10b52366208",
+          "actualSha256": "69c14d7b7df22f634e3bc884c01396bdcd0d3f0fe70678803a05a10b52366208"
+        }
+      ]
+    },
+    {
+      "cell": "attention-violet",
+      "record": "contact-step1-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/contact-step1-marked-v1.png",
+      "recordedSha256": "f1ad584389adcf654106262fad3bafd8f142e7507d8885d8200917d8614bd550",
+      "actualSha256": "f1ad584389adcf654106262fad3bafd8f142e7507d8885d8200917d8614bd550",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17365-454d-7bb3-8b77-bcaadd75b8a4/exec-1e6a9c66-90c3-4bd4-bcd8-d27331ef1545.png",
+      "toolOriginalActualSha256": "f1ad584389adcf654106262fad3bafd8f142e7507d8885d8200917d8614bd550",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-violet-shared-page-v2.png",
+          "recordedSha256": "69c14d7b7df22f634e3bc884c01396bdcd0d3f0fe70678803a05a10b52366208",
+          "actualSha256": "69c14d7b7df22f634e3bc884c01396bdcd0d3f0fe70678803a05a10b52366208"
+        }
+      ]
+    },
+    {
+      "cell": "attention-violet",
+      "record": "contact-step1-v2.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/contact-step1-marked-v2.png",
+      "recordedSha256": "294ac0bd6a570b2c444ab1c9cacef3b6da64076fad68f43097a866fce862f054",
+      "actualSha256": "294ac0bd6a570b2c444ab1c9cacef3b6da64076fad68f43097a866fce862f054",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17365-454d-7bb3-8b77-bcaadd75b8a4/exec-ee087e69-792a-4e26-803c-0cd66da6b27d.png",
+      "toolOriginalActualSha256": "294ac0bd6a570b2c444ab1c9cacef3b6da64076fad68f43097a866fce862f054",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-violet-shared-page-v2.png",
+          "recordedSha256": "69c14d7b7df22f634e3bc884c01396bdcd0d3f0fe70678803a05a10b52366208",
+          "actualSha256": "69c14d7b7df22f634e3bc884c01396bdcd0d3f0fe70678803a05a10b52366208"
+        }
+      ]
+    },
+    {
+      "cell": "attention-violet",
+      "record": "contact-step2-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/contact-mask-v1.png",
+      "recordedSha256": "89cf69bd67f18c81c4170e4897850cc0d7e88c896c815b2fa4c6bdc40ae4c967",
+      "actualSha256": "89cf69bd67f18c81c4170e4897850cc0d7e88c896c815b2fa4c6bdc40ae4c967",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17365-454d-7bb3-8b77-bcaadd75b8a4/exec-64c3f80f-246d-4fa2-a700-8c65d7d0973c.png",
+      "toolOriginalActualSha256": "89cf69bd67f18c81c4170e4897850cc0d7e88c896c815b2fa4c6bdc40ae4c967",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/contact-step1-marked-v2.png",
+          "recordedSha256": "294ac0bd6a570b2c444ab1c9cacef3b6da64076fad68f43097a866fce862f054",
+          "actualSha256": "294ac0bd6a570b2c444ab1c9cacef3b6da64076fad68f43097a866fce862f054"
+        },
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-violet-shared-page-v2.png",
+          "recordedSha256": "69c14d7b7df22f634e3bc884c01396bdcd0d3f0fe70678803a05a10b52366208",
+          "actualSha256": "69c14d7b7df22f634e3bc884c01396bdcd0d3f0fe70678803a05a10b52366208"
+        }
+      ]
+    },
+    {
+      "cell": "attention-violet",
+      "record": "figure-step1-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-step1-marked-v1.png",
+      "recordedSha256": "0e2946702269d396f19c9a1ae34f3fb85e0c0406018da4b0fe5bf5d0fdd4495e",
+      "actualSha256": "0e2946702269d396f19c9a1ae34f3fb85e0c0406018da4b0fe5bf5d0fdd4495e",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17365-454d-7bb3-8b77-bcaadd75b8a4/exec-a26c08f6-7d23-4c08-847c-ab7cee6c12fa.png",
+      "toolOriginalActualSha256": "0e2946702269d396f19c9a1ae34f3fb85e0c0406018da4b0fe5bf5d0fdd4495e",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-violet-shared-page-v2.png",
+          "recordedSha256": "69c14d7b7df22f634e3bc884c01396bdcd0d3f0fe70678803a05a10b52366208",
+          "actualSha256": "69c14d7b7df22f634e3bc884c01396bdcd0d3f0fe70678803a05a10b52366208"
+        }
+      ]
+    },
+    {
+      "cell": "attention-violet",
+      "record": "figure-step1-v2.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-step1-marked-v2.png",
+      "recordedSha256": "abddc802ed4c100d9c2ad87d10b5749636984a654a5b9c254fcd641e60701abf",
+      "actualSha256": "abddc802ed4c100d9c2ad87d10b5749636984a654a5b9c254fcd641e60701abf",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17365-454d-7bb3-8b77-bcaadd75b8a4/exec-6a58aea6-47aa-46fb-84eb-6400cf9ec6d3.png",
+      "toolOriginalActualSha256": "abddc802ed4c100d9c2ad87d10b5749636984a654a5b9c254fcd641e60701abf",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-violet-shared-page-v2.png",
+          "recordedSha256": "69c14d7b7df22f634e3bc884c01396bdcd0d3f0fe70678803a05a10b52366208",
+          "actualSha256": "69c14d7b7df22f634e3bc884c01396bdcd0d3f0fe70678803a05a10b52366208"
+        }
+      ]
+    },
+    {
+      "cell": "attention-violet",
+      "record": "figure-step2-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-mask-v1.png",
+      "recordedSha256": "3f66bf613fe35579168e6337dce84350efc914af0ed9d596b6ea7243aa2ec4f6",
+      "actualSha256": "3f66bf613fe35579168e6337dce84350efc914af0ed9d596b6ea7243aa2ec4f6",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17365-454d-7bb3-8b77-bcaadd75b8a4/exec-be9759f7-76b5-4dbc-a0d7-452ce4efee0e.png",
+      "toolOriginalActualSha256": "3f66bf613fe35579168e6337dce84350efc914af0ed9d596b6ea7243aa2ec4f6",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-step1-marked-v1.png",
+          "recordedSha256": "0e2946702269d396f19c9a1ae34f3fb85e0c0406018da4b0fe5bf5d0fdd4495e",
+          "actualSha256": "0e2946702269d396f19c9a1ae34f3fb85e0c0406018da4b0fe5bf5d0fdd4495e"
+        }
+      ]
+    },
+    {
+      "cell": "attention-violet",
+      "record": "figure-step2-v2.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-mask-v2.png",
+      "recordedSha256": "5285f653e453905d38e5992bbd20cc46f54d0d390cd59308a1dc13dde11b5061",
+      "actualSha256": "5285f653e453905d38e5992bbd20cc46f54d0d390cd59308a1dc13dde11b5061",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17365-454d-7bb3-8b77-bcaadd75b8a4/exec-80b2766d-ebf9-40fe-922a-d9d59e080e15.png",
+      "toolOriginalActualSha256": "5285f653e453905d38e5992bbd20cc46f54d0d390cd59308a1dc13dde11b5061",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-step1-marked-v2.png",
+          "recordedSha256": "abddc802ed4c100d9c2ad87d10b5749636984a654a5b9c254fcd641e60701abf",
+          "actualSha256": "abddc802ed4c100d9c2ad87d10b5749636984a654a5b9c254fcd641e60701abf"
+        }
+      ]
+    },
+    {
+      "cell": "attention-rain",
+      "record": "background-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-rain/background-v1.png",
+      "recordedSha256": "942f027ea58b53feb2b0a2c50f20fcd8f80f54d50332837f4a6a9c050a5ce463",
+      "actualSha256": "942f027ea58b53feb2b0a2c50f20fcd8f80f54d50332837f4a6a9c050a5ce463",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-729f5e63-20b6-4e08-a7ad-460f0e5e1068.png",
+      "toolOriginalActualSha256": "942f027ea58b53feb2b0a2c50f20fcd8f80f54d50332837f4a6a9c050a5ce463",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.png",
+          "recordedSha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac",
+          "actualSha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac"
+        }
+      ]
+    },
+    {
+      "cell": "attention-rain",
+      "record": "contact-mask-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-rain/contact-mask-v1.png",
+      "recordedSha256": "43f9770fbde6eaf407d174362c1d6c4ae61f6e3552d35fecc98bb29bcbd5d992",
+      "actualSha256": "43f9770fbde6eaf407d174362c1d6c4ae61f6e3552d35fecc98bb29bcbd5d992",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-6bbb46a2-4d83-444b-b799-188463dbe071.png",
+      "toolOriginalActualSha256": "43f9770fbde6eaf407d174362c1d6c4ae61f6e3552d35fecc98bb29bcbd5d992",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-rain/contact-step1-marked-v1.png",
+          "recordedSha256": "c058bf60692088f0e3a74168995a1dcb2553f3b2ca5b4b13631aca20346735e8",
+          "actualSha256": "c058bf60692088f0e3a74168995a1dcb2553f3b2ca5b4b13631aca20346735e8"
+        },
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.png",
+          "recordedSha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac",
+          "actualSha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac"
+        }
+      ]
+    },
+    {
+      "cell": "attention-rain",
+      "record": "contact-step1-marked-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-rain/contact-step1-marked-v1.png",
+      "recordedSha256": "c058bf60692088f0e3a74168995a1dcb2553f3b2ca5b4b13631aca20346735e8",
+      "actualSha256": "c058bf60692088f0e3a74168995a1dcb2553f3b2ca5b4b13631aca20346735e8",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-6e86cec1-6064-40d0-9100-75e996a1e2fe.png",
+      "toolOriginalActualSha256": "c058bf60692088f0e3a74168995a1dcb2553f3b2ca5b4b13631aca20346735e8",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.png",
+          "recordedSha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac",
+          "actualSha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac"
+        }
+      ]
+    },
+    {
+      "cell": "attention-rain",
+      "record": "figure-mask-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-rain/figure-mask-v1.png",
+      "recordedSha256": "de906de97be3f61d88db039f67f1ea1e7dcf831f33451f281de4c046c23b5470",
+      "actualSha256": "de906de97be3f61d88db039f67f1ea1e7dcf831f33451f281de4c046c23b5470",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-554b1d91-e26d-4c1f-8b03-81eff70b6c83.png",
+      "toolOriginalActualSha256": "de906de97be3f61d88db039f67f1ea1e7dcf831f33451f281de4c046c23b5470",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-rain/figure-step1-marked-v1.png",
+          "recordedSha256": "d4fd3d05d2acb5206b81808e6212859dd4b748010c11007ca58338a81ac3d48b",
+          "actualSha256": "d4fd3d05d2acb5206b81808e6212859dd4b748010c11007ca58338a81ac3d48b"
+        }
+      ]
+    },
+    {
+      "cell": "attention-rain",
+      "record": "figure-mask-v2.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-rain/figure-mask-v2.png",
+      "recordedSha256": "f73d46f43aeec3f665c6c42c41a7b3fccb825ee2d7dde086bf240a469d9f4064",
+      "actualSha256": "f73d46f43aeec3f665c6c42c41a7b3fccb825ee2d7dde086bf240a469d9f4064",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-5432a86d-16cd-42e6-95f9-e2358e76773b.png",
+      "toolOriginalActualSha256": "f73d46f43aeec3f665c6c42c41a7b3fccb825ee2d7dde086bf240a469d9f4064",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-rain/figure-step1-marked-v1.png",
+          "recordedSha256": "d4fd3d05d2acb5206b81808e6212859dd4b748010c11007ca58338a81ac3d48b",
+          "actualSha256": "d4fd3d05d2acb5206b81808e6212859dd4b748010c11007ca58338a81ac3d48b"
+        },
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.png",
+          "recordedSha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac",
+          "actualSha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac"
+        }
+      ]
+    },
+    {
+      "cell": "attention-rain",
+      "record": "figure-mask-v3.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-rain/figure-mask-v3.png",
+      "recordedSha256": "f79ed7cd34fb2a0dbd615b68ad2189243b10ddf850364b0627721e419b778470",
+      "actualSha256": "f79ed7cd34fb2a0dbd615b68ad2189243b10ddf850364b0627721e419b778470",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-aefd47d6-fcf2-4a08-b25b-35b5f5cd06ff.png",
+      "toolOriginalActualSha256": "f79ed7cd34fb2a0dbd615b68ad2189243b10ddf850364b0627721e419b778470",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.png",
+          "recordedSha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac",
+          "actualSha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac"
+        }
+      ]
+    },
+    {
+      "cell": "attention-rain",
+      "record": "figure-mask-v4.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-rain/figure-mask-v4.png",
+      "recordedSha256": "8694a78182b5d234fcc2e532a492536cbeec1286c6c7b15f852186db2babb65e",
+      "actualSha256": "8694a78182b5d234fcc2e532a492536cbeec1286c6c7b15f852186db2babb65e",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-dc3797cb-f98b-4464-8454-5bd5befc4043.png",
+      "toolOriginalActualSha256": "8694a78182b5d234fcc2e532a492536cbeec1286c6c7b15f852186db2babb65e",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-rain/figure-step1-marked-v2.png",
+          "recordedSha256": "30630e1495c86b3dfe41835d4f6d58d8f7e4ac0922c22470acb99e409754473a",
+          "actualSha256": "30630e1495c86b3dfe41835d4f6d58d8f7e4ac0922c22470acb99e409754473a"
+        }
+      ]
+    },
+    {
+      "cell": "attention-rain",
+      "record": "figure-step1-marked-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-rain/figure-step1-marked-v1.png",
+      "recordedSha256": "d4fd3d05d2acb5206b81808e6212859dd4b748010c11007ca58338a81ac3d48b",
+      "actualSha256": "d4fd3d05d2acb5206b81808e6212859dd4b748010c11007ca58338a81ac3d48b",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-80ff68d5-04b2-42e8-9fb0-cdc3a48de864.png",
+      "toolOriginalActualSha256": "d4fd3d05d2acb5206b81808e6212859dd4b748010c11007ca58338a81ac3d48b",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.png",
+          "recordedSha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac",
+          "actualSha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac"
+        }
+      ]
+    },
+    {
+      "cell": "attention-rain",
+      "record": "figure-step1-marked-v2.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-rain/figure-step1-marked-v2.png",
+      "recordedSha256": "30630e1495c86b3dfe41835d4f6d58d8f7e4ac0922c22470acb99e409754473a",
+      "actualSha256": "30630e1495c86b3dfe41835d4f6d58d8f7e4ac0922c22470acb99e409754473a",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-d5e1480d-bf7a-4314-8c69-7107a6767173.png",
+      "toolOriginalActualSha256": "30630e1495c86b3dfe41835d4f6d58d8f7e4ac0922c22470acb99e409754473a",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-rain/figure-step1-marked-v1.png",
+          "recordedSha256": "d4fd3d05d2acb5206b81808e6212859dd4b748010c11007ca58338a81ac3d48b",
+          "actualSha256": "d4fd3d05d2acb5206b81808e6212859dd4b748010c11007ca58338a81ac3d48b"
+        }
+      ]
+    },
+    {
+      "cell": "resume-mist",
+      "record": "background-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-mist/background-v1.png",
+      "recordedSha256": "cb609191291dfa5ff189878c890569ea4377cecded41b1962feb14746db3d7ad",
+      "actualSha256": "cb609191291dfa5ff189878c890569ea4377cecded41b1962feb14746db3d7ad",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-b26eb52b-ff49-4a7e-a637-b387403bda23.png",
+      "toolOriginalActualSha256": "cb609191291dfa5ff189878c890569ea4377cecded41b1962feb14746db3d7ad",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-resume-mist-soft-recognition-v4.png",
+          "recordedSha256": "9c9e2aa283a1d809a3e6edf9f574e026de3046093e6c8dcd8b7c0316961dc624",
+          "actualSha256": "9c9e2aa283a1d809a3e6edf9f574e026de3046093e6c8dcd8b7c0316961dc624"
+        }
+      ]
+    },
+    {
+      "cell": "resume-mist",
+      "record": "contact-mask-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-mist/contact-mask-v1.png",
+      "recordedSha256": "60b8e86411d5766e3f4906922a787f0b371ad99d837144f89d267f4531e61295",
+      "actualSha256": "60b8e86411d5766e3f4906922a787f0b371ad99d837144f89d267f4531e61295",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-cf45e51e-1509-480f-a711-b7982c16f121.png",
+      "toolOriginalActualSha256": "60b8e86411d5766e3f4906922a787f0b371ad99d837144f89d267f4531e61295",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-mist/contact-step1-marked-v1.png",
+          "recordedSha256": "4f2935c16284a5bcca37cbc9ed13c28e9485a1a5f47a55acac63237d9b8542e4",
+          "actualSha256": "4f2935c16284a5bcca37cbc9ed13c28e9485a1a5f47a55acac63237d9b8542e4"
+        },
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-resume-mist-soft-recognition-v4.png",
+          "recordedSha256": "9c9e2aa283a1d809a3e6edf9f574e026de3046093e6c8dcd8b7c0316961dc624",
+          "actualSha256": "9c9e2aa283a1d809a3e6edf9f574e026de3046093e6c8dcd8b7c0316961dc624"
+        }
+      ]
+    },
+    {
+      "cell": "resume-mist",
+      "record": "contact-mask-v2.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-mist/contact-mask-v2.png",
+      "recordedSha256": "4dcb075e2072eeb42c44a2caba82f50c48335eccce9e537ba81f7cb72f89afb0",
+      "actualSha256": "4dcb075e2072eeb42c44a2caba82f50c48335eccce9e537ba81f7cb72f89afb0",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-d03e2207-dbcd-4c29-bde1-2bbb31633ec6.png",
+      "toolOriginalActualSha256": "4dcb075e2072eeb42c44a2caba82f50c48335eccce9e537ba81f7cb72f89afb0",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-mist/contact-step1-marked-v2.png",
+          "recordedSha256": "f64679824fcb61a8fc2727ac79ba1db4ba41a50edb2801f6ecf92566645d026e",
+          "actualSha256": "f64679824fcb61a8fc2727ac79ba1db4ba41a50edb2801f6ecf92566645d026e"
+        },
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-resume-mist-soft-recognition-v4.png",
+          "recordedSha256": "9c9e2aa283a1d809a3e6edf9f574e026de3046093e6c8dcd8b7c0316961dc624",
+          "actualSha256": "9c9e2aa283a1d809a3e6edf9f574e026de3046093e6c8dcd8b7c0316961dc624"
+        }
+      ]
+    },
+    {
+      "cell": "resume-mist",
+      "record": "contact-step1-marked-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-mist/contact-step1-marked-v1.png",
+      "recordedSha256": "4f2935c16284a5bcca37cbc9ed13c28e9485a1a5f47a55acac63237d9b8542e4",
+      "actualSha256": "4f2935c16284a5bcca37cbc9ed13c28e9485a1a5f47a55acac63237d9b8542e4",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-67a3d538-df4a-4669-af09-eba605f23b3f.png",
+      "toolOriginalActualSha256": "4f2935c16284a5bcca37cbc9ed13c28e9485a1a5f47a55acac63237d9b8542e4",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-resume-mist-soft-recognition-v4.png",
+          "recordedSha256": "9c9e2aa283a1d809a3e6edf9f574e026de3046093e6c8dcd8b7c0316961dc624",
+          "actualSha256": "9c9e2aa283a1d809a3e6edf9f574e026de3046093e6c8dcd8b7c0316961dc624"
+        }
+      ]
+    },
+    {
+      "cell": "resume-mist",
+      "record": "contact-step1-marked-v2.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-mist/contact-step1-marked-v2.png",
+      "recordedSha256": "f64679824fcb61a8fc2727ac79ba1db4ba41a50edb2801f6ecf92566645d026e",
+      "actualSha256": "f64679824fcb61a8fc2727ac79ba1db4ba41a50edb2801f6ecf92566645d026e",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-7b1ef267-511d-4a02-894f-0203213203a4.png",
+      "toolOriginalActualSha256": "f64679824fcb61a8fc2727ac79ba1db4ba41a50edb2801f6ecf92566645d026e",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-resume-mist-soft-recognition-v4.png",
+          "recordedSha256": "9c9e2aa283a1d809a3e6edf9f574e026de3046093e6c8dcd8b7c0316961dc624",
+          "actualSha256": "9c9e2aa283a1d809a3e6edf9f574e026de3046093e6c8dcd8b7c0316961dc624"
+        }
+      ]
+    },
+    {
+      "cell": "resume-mist",
+      "record": "figure-mask-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-mist/figure-mask-v1.png",
+      "recordedSha256": "a48c3f85d41b27e58eb3080cf6e3279edd743bb509da669e47793e2fc292941a",
+      "actualSha256": "a48c3f85d41b27e58eb3080cf6e3279edd743bb509da669e47793e2fc292941a",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-c32bdad7-e508-49b0-91e1-6094c9998789.png",
+      "toolOriginalActualSha256": "a48c3f85d41b27e58eb3080cf6e3279edd743bb509da669e47793e2fc292941a",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-mist/figure-step1-marked-v2.png",
+          "recordedSha256": "88c3102934e89201252a54a3885ffa1403fe45dde68ee6fe99122f17012f68e2",
+          "actualSha256": "88c3102934e89201252a54a3885ffa1403fe45dde68ee6fe99122f17012f68e2"
+        }
+      ]
+    },
+    {
+      "cell": "resume-mist",
+      "record": "figure-step1-marked-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-mist/figure-step1-marked-v1.png",
+      "recordedSha256": "624a1afb1b5b875bbde547383f5c5f484e71fc1cd2e8dfe97ab372d4b531d9dc",
+      "actualSha256": "624a1afb1b5b875bbde547383f5c5f484e71fc1cd2e8dfe97ab372d4b531d9dc",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-08612d9e-5946-4a82-8b34-bd58b3ac2a3b.png",
+      "toolOriginalActualSha256": "624a1afb1b5b875bbde547383f5c5f484e71fc1cd2e8dfe97ab372d4b531d9dc",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-resume-mist-soft-recognition-v4.png",
+          "recordedSha256": "9c9e2aa283a1d809a3e6edf9f574e026de3046093e6c8dcd8b7c0316961dc624",
+          "actualSha256": "9c9e2aa283a1d809a3e6edf9f574e026de3046093e6c8dcd8b7c0316961dc624"
+        }
+      ]
+    },
+    {
+      "cell": "resume-mist",
+      "record": "figure-step1-marked-v2.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-mist/figure-step1-marked-v2.png",
+      "recordedSha256": "88c3102934e89201252a54a3885ffa1403fe45dde68ee6fe99122f17012f68e2",
+      "actualSha256": "88c3102934e89201252a54a3885ffa1403fe45dde68ee6fe99122f17012f68e2",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-abe2204b-76b9-46ea-87d8-eb31d80c5b90.png",
+      "toolOriginalActualSha256": "88c3102934e89201252a54a3885ffa1403fe45dde68ee6fe99122f17012f68e2",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-mist/figure-step1-marked-v1.png",
+          "recordedSha256": "624a1afb1b5b875bbde547383f5c5f484e71fc1cd2e8dfe97ab372d4b531d9dc",
+          "actualSha256": "624a1afb1b5b875bbde547383f5c5f484e71fc1cd2e8dfe97ab372d4b531d9dc"
+        }
+      ]
+    },
+    {
+      "cell": "resume-violet",
+      "record": "background-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-violet/background-v1.png",
+      "recordedSha256": "a05b00ade84a17de62e1f61813db70647dddd70f51f364a5bca3a486944c1327",
+      "actualSha256": "a05b00ade84a17de62e1f61813db70647dddd70f51f364a5bca3a486944c1327",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-644748b0-29f5-42be-93cb-dd1152a6e668.png",
+      "toolOriginalActualSha256": "a05b00ade84a17de62e1f61813db70647dddd70f51f364a5bca3a486944c1327",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-violet-literary-extension-v1.png",
+          "recordedSha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973",
+          "actualSha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973"
+        }
+      ]
+    },
+    {
+      "cell": "resume-violet",
+      "record": "contact-mask-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-violet/contact-mask-v1.png",
+      "recordedSha256": "763f3247f1bb48d3b0645d94b161c8c65f4668f0877675d981c02f1f57d2c09d",
+      "actualSha256": "763f3247f1bb48d3b0645d94b161c8c65f4668f0877675d981c02f1f57d2c09d",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-a3f1b477-5052-49b7-9487-ceeb0f95b810.png",
+      "toolOriginalActualSha256": "763f3247f1bb48d3b0645d94b161c8c65f4668f0877675d981c02f1f57d2c09d",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-violet/contact-step1-marked-v1.png",
+          "recordedSha256": "025ec089a2768b4036b2030c8b510e705d18679d022a44eca8abb36f35b5f14b",
+          "actualSha256": "025ec089a2768b4036b2030c8b510e705d18679d022a44eca8abb36f35b5f14b"
+        },
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-violet-literary-extension-v1.png",
+          "recordedSha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973",
+          "actualSha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973"
+        }
+      ]
+    },
+    {
+      "cell": "resume-violet",
+      "record": "contact-step1-marked-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-violet/contact-step1-marked-v1.png",
+      "recordedSha256": "025ec089a2768b4036b2030c8b510e705d18679d022a44eca8abb36f35b5f14b",
+      "actualSha256": "025ec089a2768b4036b2030c8b510e705d18679d022a44eca8abb36f35b5f14b",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-60261634-2781-4873-94e4-7e3657fbe746.png",
+      "toolOriginalActualSha256": "025ec089a2768b4036b2030c8b510e705d18679d022a44eca8abb36f35b5f14b",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-violet-literary-extension-v1.png",
+          "recordedSha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973",
+          "actualSha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973"
+        }
+      ]
+    },
+    {
+      "cell": "resume-violet",
+      "record": "figure-mask-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-violet/figure-mask-v1.png",
+      "recordedSha256": "a4001631c77753fe3cc6643a8ffc5823c1b8b440756875aa56ca67065f6e2717",
+      "actualSha256": "a4001631c77753fe3cc6643a8ffc5823c1b8b440756875aa56ca67065f6e2717",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-efba4c87-a280-46c8-a2cd-5f51d74a9d67.png",
+      "toolOriginalActualSha256": "a4001631c77753fe3cc6643a8ffc5823c1b8b440756875aa56ca67065f6e2717",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-violet/figure-step1-marked-v1.png",
+          "recordedSha256": "4d4a0046fc0ca45fc49fe6816fd9321585ef37c61faf3b7fe5df8cb18c4cd6ab",
+          "actualSha256": "4d4a0046fc0ca45fc49fe6816fd9321585ef37c61faf3b7fe5df8cb18c4cd6ab"
+        }
+      ]
+    },
+    {
+      "cell": "resume-violet",
+      "record": "figure-step1-marked-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-violet/figure-step1-marked-v1.png",
+      "recordedSha256": "4d4a0046fc0ca45fc49fe6816fd9321585ef37c61faf3b7fe5df8cb18c4cd6ab",
+      "actualSha256": "4d4a0046fc0ca45fc49fe6816fd9321585ef37c61faf3b7fe5df8cb18c4cd6ab",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-45ef91be-d108-422c-83df-390e199a7007.png",
+      "toolOriginalActualSha256": "4d4a0046fc0ca45fc49fe6816fd9321585ef37c61faf3b7fe5df8cb18c4cd6ab",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-violet-literary-extension-v1.png",
+          "recordedSha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973",
+          "actualSha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973"
+        }
+      ]
+    },
+    {
+      "cell": "resume-rain",
+      "record": "background-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-rain/background-v1.png",
+      "recordedSha256": "853958136489141916ebcf8b67f00afd073e8c24d3fea3ef82a0d0b98a1680c7",
+      "actualSha256": "853958136489141916ebcf8b67f00afd073e8c24d3fea3ef82a0d0b98a1680c7",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-cda01bd4-99cb-4b7f-89d3-24d412c9c54c.png",
+      "toolOriginalActualSha256": "853958136489141916ebcf8b67f00afd073e8c24d3fea3ef82a0d0b98a1680c7",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.png",
+          "recordedSha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9",
+          "actualSha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9"
+        }
+      ]
+    },
+    {
+      "cell": "resume-rain",
+      "record": "contact-mask-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-rain/contact-mask-v1.png",
+      "recordedSha256": "d0cf45216fc6e6c67560ee92f6a171fe04de64ae51f3c66743b8afee04d2743f",
+      "actualSha256": "d0cf45216fc6e6c67560ee92f6a171fe04de64ae51f3c66743b8afee04d2743f",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-90ecdf97-e579-438e-a7b9-21fad17f1e04.png",
+      "toolOriginalActualSha256": "d0cf45216fc6e6c67560ee92f6a171fe04de64ae51f3c66743b8afee04d2743f",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-rain/contact-step1-marked-v1.png",
+          "recordedSha256": "833131b10886b69da82cef4973d214ad13458a1518e8938d2f318a4b024cbf11",
+          "actualSha256": "833131b10886b69da82cef4973d214ad13458a1518e8938d2f318a4b024cbf11"
+        },
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.png",
+          "recordedSha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9",
+          "actualSha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9"
+        }
+      ]
+    },
+    {
+      "cell": "resume-rain",
+      "record": "contact-mask-v2.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-rain/contact-mask-v2.png",
+      "recordedSha256": "b00c3fdd5071b1a45450b90add2344d5a725ecc20f054195f13a5b223e1598ec",
+      "actualSha256": "b00c3fdd5071b1a45450b90add2344d5a725ecc20f054195f13a5b223e1598ec",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-531da138-1a13-473b-88d5-ae6483f79727.png",
+      "toolOriginalActualSha256": "b00c3fdd5071b1a45450b90add2344d5a725ecc20f054195f13a5b223e1598ec",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-rain/contact-step1-marked-v1.png",
+          "recordedSha256": "833131b10886b69da82cef4973d214ad13458a1518e8938d2f318a4b024cbf11",
+          "actualSha256": "833131b10886b69da82cef4973d214ad13458a1518e8938d2f318a4b024cbf11"
+        },
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.png",
+          "recordedSha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9",
+          "actualSha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9"
+        }
+      ]
+    },
+    {
+      "cell": "resume-rain",
+      "record": "contact-mask-v3.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-rain/contact-mask-v3.png",
+      "recordedSha256": "9270e99fa777b8d1a9ff485b86a0918d8c2222285580aff083b6a1f4bd77bb9e",
+      "actualSha256": "9270e99fa777b8d1a9ff485b86a0918d8c2222285580aff083b6a1f4bd77bb9e",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-ef276b65-7008-4707-bf3e-cbe192f956f1.png",
+      "toolOriginalActualSha256": "9270e99fa777b8d1a9ff485b86a0918d8c2222285580aff083b6a1f4bd77bb9e",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-rain/contact-step1-marked-v2.png",
+          "recordedSha256": "58ed555d4b8ed0b86aaf20dfd87de193a020a5b38873bd4fd15a2e1837844bf0",
+          "actualSha256": "58ed555d4b8ed0b86aaf20dfd87de193a020a5b38873bd4fd15a2e1837844bf0"
+        }
+      ]
+    },
+    {
+      "cell": "resume-rain",
+      "record": "contact-step1-marked-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-rain/contact-step1-marked-v1.png",
+      "recordedSha256": "833131b10886b69da82cef4973d214ad13458a1518e8938d2f318a4b024cbf11",
+      "actualSha256": "833131b10886b69da82cef4973d214ad13458a1518e8938d2f318a4b024cbf11",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-7eca7dc0-55e3-4600-8801-3866fdb1ddfd.png",
+      "toolOriginalActualSha256": "833131b10886b69da82cef4973d214ad13458a1518e8938d2f318a4b024cbf11",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.png",
+          "recordedSha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9",
+          "actualSha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9"
+        }
+      ]
+    },
+    {
+      "cell": "resume-rain",
+      "record": "contact-step1-marked-v2.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-rain/contact-step1-marked-v2.png",
+      "recordedSha256": "58ed555d4b8ed0b86aaf20dfd87de193a020a5b38873bd4fd15a2e1837844bf0",
+      "actualSha256": "58ed555d4b8ed0b86aaf20dfd87de193a020a5b38873bd4fd15a2e1837844bf0",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-6f4a4c24-660f-4797-af3e-558161cbc467.png",
+      "toolOriginalActualSha256": "58ed555d4b8ed0b86aaf20dfd87de193a020a5b38873bd4fd15a2e1837844bf0",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.png",
+          "recordedSha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9",
+          "actualSha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9"
+        }
+      ]
+    },
+    {
+      "cell": "resume-rain",
+      "record": "figure-mask-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-rain/figure-mask-v1.png",
+      "recordedSha256": "4fe64d73e8fa4e31acd1de7fbcf95fb6975f9bc289376f86bb662cc683144e5c",
+      "actualSha256": "4fe64d73e8fa4e31acd1de7fbcf95fb6975f9bc289376f86bb662cc683144e5c",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-fa7e43fc-6533-4c05-929b-972e011eb352.png",
+      "toolOriginalActualSha256": "4fe64d73e8fa4e31acd1de7fbcf95fb6975f9bc289376f86bb662cc683144e5c",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-rain/figure-step1-marked-v1.png",
+          "recordedSha256": "e42ab3d74dd11270850e18b8d0d8c7a396275de66792bab9e2774f0f7a78c8a0",
+          "actualSha256": "e42ab3d74dd11270850e18b8d0d8c7a396275de66792bab9e2774f0f7a78c8a0"
+        }
+      ]
+    },
+    {
+      "cell": "resume-rain",
+      "record": "figure-step1-marked-v1.source.json",
+      "output": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-rain/figure-step1-marked-v1.png",
+      "recordedSha256": "e42ab3d74dd11270850e18b8d0d8c7a396275de66792bab9e2774f0f7a78c8a0",
+      "actualSha256": "e42ab3d74dd11270850e18b8d0d8c7a396275de66792bab9e2774f0f7a78c8a0",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-816150cb-83ed-4f53-aa9a-d8129ad43a39.png",
+      "toolOriginalActualSha256": "e42ab3d74dd11270850e18b8d0d8c7a396275de66792bab9e2774f0f7a78c8a0",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.png",
+          "recordedSha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9",
+          "actualSha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9"
+        }
+      ]
+    }
+  ],
+  "observations": {
+    "producerOwnFive": "Personally inspected actual Chrome original RGB complete/light-dark-checker/face/book-seat/shoes comparisons after targeted Image corrections; five selected screenshots per own cell.",
+    "delegatedTwo": "Personally reviewed submitted actual Browser original-RGB whole/book-contact/full-shoe evidence and exact selected file SHAs from Room and Spatial; root remains final authority.",
+    "knownCameraBoundary": "Attention-violet source U>32 envelope [880,115,1375,937], bottom937 exceeds Spatial previous18-family bottom931 by6px. No new family camera/runtime crop admission made.",
+    "limits": "Held outputs and diagnostic screenshots retained, never subsequent known-fault Image inputs; source contact may contain fixed cloth/wood and tiny outsole overlap, not portable independent shadows. Original mother pose/scale/weather microdifferences preserved under user steering. No App/CSS/runtime registry/global ledger/9335 edits; no new tests/runner."
+  },
+  "primaryLayerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "sourcePointerCorrections": [
+    {
+      "cell": "resume-mist",
+      "record": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-mist/svg-reference-correction-v2.json",
+      "oldBundleSha256": "b6e7eff2e5295b218efc0968ccacc34228443d8b3b86d98810f0ac5ddfddb192",
+      "newBundleSha256": "b6e8a659862a253a41c88924af3dab93ea0da051f26d27c38ba081ea50ef9b85",
+      "pngsAndBrowserEvidenceUnchanged": true
+    }
+  ]
+}

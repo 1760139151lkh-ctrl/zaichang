@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "assetId": "taki-chat-apricot-literary-v1",
+  "reviewedOn": "2026-10-25",
+  "reviewer": "root primary agent",
+  "evidence": "Direct primary-agent message after personally viewing both complete generated mother originals.",
+  "output": {
+    "file": "taki-chat-apricot-literary-v1.png",
+    "sha256": "0eb782e67b9954b406130a4994e9e75dd8774c8c3eb2a690d75d3e55338aad16",
+    "bytes": 2433343,
+    "width": 1536,
+    "height": 1024
+  },
+  "decision": "approved",
+  "scope": "Static full-scene mother only",
+  "observations": "Distinct earnest listening performance; clear eyebrows/eyelids/fringe/eyes; book/lap, cushion and complete shoe support accepted. The naturally book-occluded hand is accepted; no false exposure required.",
+  "layerApproved": false,
+  "runtimeAccepted": false
+}

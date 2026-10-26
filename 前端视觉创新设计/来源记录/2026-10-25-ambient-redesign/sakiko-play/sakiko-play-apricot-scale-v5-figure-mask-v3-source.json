@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "character": "sakiko",
+  "activity": "play",
+  "palette": "apricot",
+  "sceneFamily": "room4",
+  "motherVersion": "scale-v5",
+  "role": "luminance-figure-mask",
+  "method": "two-step-local-colour-replacement",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-play-apricot-scale-v5-figure-mask-v3-prompt.txt",
+  "promptFileSha256": "5e8e1b9027c1cce9790836df7b849cf2868ff65b1a972a885dd5bdaf14feb8a4",
+  "submittedPrompt": "Use case: precise-object-edit. Second step of a local colour-replacement workflow.\nThe SINGLE supplied image is already the correct full 1536 x 1024 original room with its original small far-right person and paper bird filled flat WHITE. Keep that existing flat white region at EXACTLY the same source pixels, apparent scale, outline and positions. Do not redraw or infer a new silhouette.\nChange ONLY the remaining ROOM/BACKGROUND into pure BLACK: windows/sky/clouds/curtains, desk/chair/lamp/books/mug, bench/cushions/blanket, walls/plants/floor/rug and shadows all become black. White clouds, white curtains and light furniture are background and must also become black. All visible gaps between the existing white hair, fingers/bird, arm/body and legs become black. The existing flat white person and held paper bird remain pure white; remove any faint internal line detail by filling it white, not by changing the outer silhouette.\nThis is a colour replacement, no camera or shape transformation. Head stays at its EXISTING small source location around y=284..286, shoes at their EXISTING source locations around y=760..790. Keep the entire original 1536 x 1024 canvas with the left 1110 pixels black. Do not crop, enlarge, shrink, lift the head, lengthen legs, lower shoes, smooth into a different body shape, recenter, or add a shadow/glow. Output one opaque black/white technical mask with narrow source-edge antialiasing only, plain white interior and no text/UI/grid/border. Preserve the already-correct white silhouette exactly.",
+  "inputs": [
+    {
+      "file": "sakiko-play-apricot-scale-v5-white-in-room-v1.png",
+      "sha256": "0917982685309615c5db3a446c4dc7f121b7148025af95842f286942fba30a73",
+      "role": "sole same-room flat-white-person intermediate from approved V5 mother; no V4 or rejected mask"
+    }
+  ],
+  "transparentBackground": false,
+  "output": {
+    "file": "sakiko-play-apricot-scale-v5-figure-mask-v3.png",
+    "originalFile": "C:\\Users\\17601\\.codex\\generated_images\\01a16fb4-beb3-75e2-8677-73edb8072aa0\\exec-82bc2e6b-761c-4f0f-ad18-45a6811e0e88.png",
+    "executionId": "82bc2e6b-761c-4f0f-ad18-45a6811e0e88",
+    "sha256": "4ddd7cd99109a2987b054b2e189a2d78a9a686d734917cd5fb8f9c00b7329a9a",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "status": "producer-composite-viewed-primary-review-pending",
+  "motherPrimaryApproved": true,
+  "primaryApproved": false,
+  "layersAccepted": false,
+  "runtimeAccepted": false,
+  "producerObservation": {
+    "maskWhiteBounds": [
+      1126,
+      283,
+      1430,
+      779
+    ],
+    "viewed": [
+      "source-pixel light ground",
+      "source-pixel dark ground",
+      "original mother ROI versus matching BG plus original RGB/mask",
+      "chat versus V5 full source camera"
+    ],
+    "note": "Two-step local edit retained V5 apparent body scale. Hair holes, paper bird, supporting palm and both complete loafers inspected. No contact layer yet; no runtime acceptance."
+  }
+}

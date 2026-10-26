@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "recordType": "root-primary-time-only-neutral-mother-admission",
+  "recordedAt": "2026-10-25T22:30:23.682704+00:00",
+  "sceneFamily": "literary-room-v1",
+  "purpose": "neutral-presence",
+  "source": "Direct parent root final message after personally viewing correct-family actual day/night originals",
+  "mothers": [
+    {
+      "file": "sakiko-neutral-reading-time-day-v1.png",
+      "sha256": "35a318faaab82305b4a5f28e4f109701986e7ce75b312536835216306c2945af",
+      "rootPersonallyViewedWholeOriginal": true,
+      "primaryStaticApproved": true,
+      "mapping": {
+        "palette": "mist",
+        "timeOfDay": "morning",
+        "neutralTime": "day"
+      },
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "file": "sakiko-neutral-reading-time-night-v1.png",
+      "sha256": "2d571adc2146dd779954f0d014ef015b658a83250d6626d707dcece3c6335d8e",
+      "rootPersonallyViewedWholeOriginal": true,
+      "primaryStaticApproved": true,
+      "mapping": {
+        "palette": "rain",
+        "timeOfDay": "night",
+        "neutralTime": "night"
+      },
+      "layersApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "minorDayNightScalePoseDifferences": "Retain current two originals; do not redraw for minor differences.",
+  "approvalScope": "Static neutral-presence mothers only. Day mist/morning/time-day; night rain/night/time-night. Not original360 exactactivity admission.",
+  "layerProduction": "Day exclusive room_art_direction day/layers; night ownedMygo; same-mother originalRGB once withMAX(F,S) and ImageGen personremovedBG only.",
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "layersApproved": false,
+  "runtimeAccepted": false
+}

@@ -4,6 +4,7 @@ import { useRenderNode, useStateField, type ComponentRenderProps } from '@openui
 import { checkedProgramPatch, resetProgramState, validateProgramState, programNodeIdSchema,
   type InteractiveProgramDocument, type InteractiveStateDeclarations, type ProgramStateValues } from '../../shared/interactive-program';
 import { InteractiveAudioScope, InteractiveSoundToggle } from './interactive-audio';
+import { uiError } from '../ui';
 
 export interface InteractiveHost {
   document: InteractiveProgramDocument;
@@ -45,7 +46,7 @@ export const InteractivePressAppearance = createContext<'plain' | 'light' | 'dar
 class InteractivePartBoundary extends Component<{ children: ReactNode; resetKey: string; graphic: boolean }, { failed: boolean }> {
   state = { failed: false };
   static getDerivedStateFromError() { return { failed: true }; }
-  componentDidCatch(_error: Error, _info: ErrorInfo) { /* The native renderer also reports structured errors. */ }
+  componentDidCatch(error: Error, info: ErrorInfo) { console.error('OpenUI component rendering failed', error, info); }
   componentDidUpdate(previous: Readonly<{ resetKey: string }>) {
     if (this.state.failed && previous.resetKey !== this.props.resetKey) this.setState({ failed: false });
   }
@@ -120,7 +121,8 @@ export function InteractiveDocument({ props }: ComponentRenderProps<Record<strin
       }
       setError(''); return true;
     } catch (cause) {
-      setError(cause instanceof Error ? cause.message : '这组局部输入超出当前范围。'); return false;
+      console.error('OpenUI local input update failed', cause);
+      setError(uiError(cause)); return false;
     }
   };
   const controls: InteractiveControls = {

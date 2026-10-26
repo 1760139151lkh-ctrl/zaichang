@@ -40,11 +40,13 @@
     "originalCompanionSituation": "她把自己的练习纸和笔暂搁窗榻，肩膀放松后率直看向归来的人；关切在停下自己的动作，不监督进度。",
     "peerReviewBeforeGeneration": "recover_visuals suggested keeping the pad on a supported lap/bench and showing welcome through relaxed shoulders without requiring a smile; adopted in the exact prompt. cast_mygo was messaged and its healthy in-flight session was retained; its output review is pending."
   },
-  "status": "candidate-awaiting-primary-review",
+  "status": "approved-mother-only",
   "review": {
     "personallyViewedOutput": true,
-    "approvedByPrimary": false,
+    "approvedByPrimary": true,
     "runtimeAccepted": false,
+    "primaryReviewScope": "Primary agent personally viewed the original PNG through its image page and approved this mother only. Layers and runtime are not approved. The hand/cushion support is visible; do not claim an independently clear pen-setting action.",
+    "peerOutputReview": "recover_visuals and cast_mygo personally viewed the original PNG, found youthful identity, direct relaxed expression and natural hand/bench/leg/shoe support with no immediate structural rejection.",
     "observations": "Subagent saw youthful purple-black-haired, purple-eyed Taki with the existing tan/white/red school styling; her right-side hand and small practice pad meet the bench cushion, one hand rests near her own thigh, hips and thighs have cushion support, and both uncrossed complete leg/shoe chains meet the floor. The released-pen gesture is subtle and is not claimed as an animated or completed real action. Room, camera and left content space remain coherent; real drafts/stopping points still belong to product owners."
   }
 }

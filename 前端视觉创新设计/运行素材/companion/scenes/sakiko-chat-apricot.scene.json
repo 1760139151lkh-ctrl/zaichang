@@ -47,5 +47,7 @@
     "reviewedAt": "2026-10-24T02:21:14.536Z",
     "observed": "已亲看浅深底、原房间及±12px原影端点，人物边缘/座面/双鞋支承成立，实机另审。"
   },
-  "production": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-apricot-layer-processing-v3.json"
+  "production": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-apricot-layer-processing-v3.json",
+  "environmentVariant": "clear-day",
+  "environmentAnnotationRecord": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-apricot-clear-day-annotations-2026-10-25.json"
 }

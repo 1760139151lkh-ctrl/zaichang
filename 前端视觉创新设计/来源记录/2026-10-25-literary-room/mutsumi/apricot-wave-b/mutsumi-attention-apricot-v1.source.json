@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "character-activity-mother-candidate",
+  "character": "mutsumi",
+  "activity": "attention",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "wave": "apricot-wave-b",
+  "intendedSupport": "window-seat",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-5bd9b497-0426-4f4d-b310-9ae197100b70.png",
+  "executionId": "exec-5bd9b497-0426-4f4d-b310-9ae197100b70",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "primary approved clean literary room spatial input"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.png",
+      "sha256": "9d529789ece89f44b166f39dd259136257598cfd546009e49fae74140cbf8b6d",
+      "role": "same character root-approved chat mother for correct identity/outfit only, not new activity pose"
+    }
+  ],
+  "brief": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/mutsumi-prompt-plan.json",
+    "sha256": "66ade9700cb7bb993b43bd7e247b678878b79ad71237b0b5dcd915a43a3be2ca",
+    "key": "mutsumi/attention/apricot",
+    "release": "Root released limited wave-b study/listening/play/attention/resume apricot only, five cells per character; no layers before root mother review",
+    "transformation": "Own literary narrative/core/identity/light retained; support refined from actual empty room. Study uses actual left desk/chair depth instead of unapproved generic bench-study or copied desk-pilot body."
+  },
+  "fictionalCompanionScene": true,
+  "privateUserDataUsed": false,
+  "promptFile": "mutsumi-attention-apricot-v1.prompt.txt",
+  "promptFileSha256": "93b95fa0b0c1ff4843255204f467cb10a78fe9aae5833597e16ae37acabc57cc",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; exact submitted text",
+  "submittedPromptSha256": "83251155bb397f0028132a8738c83e33dea2a42f3d3f775c7313bf756fd5ffa7",
+  "output": {
+    "file": "mutsumi-attention-apricot-v1.png",
+    "sha256": "6a6dd6f09e91cdcf97461452757cbe8ca1ae4ec5bbe382d404d5d0ef8fad3cd8",
+    "bytes": 2459480,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved complete mother before next generation. Identity, coherent face/eyes/fringe, supported bench sitting, complete hands/legs/shoes, uncrossed knees/ankles and stable room camera/furniture remain visually readable. The model added an open book held in one hand and a finger-near-chin thinking gesture, instead of the requested empty-hand side-turn toward a shared offscreen new object. Producer notes a reading/thinking emphasis as a deviation from the submitted pose; this does not determine root qualification or disqualification. Root decides its fit for shared attention after viewing the actual mother. This pending candidate is not supplied as a later character/pose input. Root/layers/runtime pending."
+  },
+  "primaryApproved": true,
+  "primaryApprovalRecord": "mutsumi-attention-apricot-v1.primary-approval.json",
+  "primaryApprovalScope": "Root approved exact-SHA static mother only, with actual rendered semantics; layer/runtime remain false.",
+  "contourComplete": true,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "Static mother candidate only, root review pending; no layer, motion or runtime admission."
+}

@@ -1,0 +1,172 @@
+{
+  "recordType": "native-alpha-preserved-upright-vertical-edge-cat-static-production",
+  "characterId": "rana",
+  "assetVariant": "rana-vertical-edge-cat-v1",
+  "source": {
+    "file": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\rana-vertical-edge-cat-v1.png",
+    "sha256": "cb651d1493f1344a0f599d00ad1fb79edec2c7ffa2ed7a0c78cf8720ed8f9dee",
+    "sourceRecord": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\rana-vertical-edge-cat-v1.source.json",
+    "sourceRecordSha256": "97222069d374078bb48d9cea025ca847930fe5bdae716a3b5dbb430f8ae972a2",
+    "canvas": [
+      1070,
+      1470
+    ],
+    "mode": "RGBA",
+    "alphaRange": [
+      0,
+      255
+    ],
+    "alphaBounds": [
+      90,
+      62,
+      1050,
+      1446
+    ],
+    "alphaThresholdBounds": {
+      "1": [
+        90,
+        62,
+        1050,
+        1446
+      ],
+      "2": [
+        149,
+        62,
+        922,
+        1414
+      ],
+      "8": [
+        151,
+        64,
+        920,
+        1412
+      ],
+      "32": [
+        151,
+        65,
+        920,
+        1412
+      ],
+      "128": [
+        151,
+        65,
+        919,
+        1411
+      ],
+      "230": [
+        152,
+        66,
+        919,
+        1410
+      ],
+      "250": [
+        152,
+        66,
+        919,
+        1410
+      ]
+    },
+    "originalPreserved": true,
+    "staticDirectionApprovedByRoot": true,
+    "approvalSource": "Direct root message: personally viewed allAve4+Mutsumi-left and MyGO5(Tomori/Anonv2,Rana/Soyo/Takiv1), static identity/simple whole vertical grip approved; clean/contacts pending personal128 review."
+  },
+  "output": {
+    "file": "rana-vertical-edge-cat-v1-static-clean.png",
+    "sha256": "4784be274974e9cce9be05125bfea09b1628588415ad325c0ce75fb2a044c617",
+    "bytes": 862061,
+    "canvas": [
+      1070,
+      1470
+    ],
+    "mode": "RGBA",
+    "alphaRange": [
+      0,
+      255
+    ],
+    "alphaBounds": [
+      90,
+      62,
+      1050,
+      1446
+    ],
+    "visibleBoundsAtAlpha8": [
+      151,
+      64,
+      920,
+      1412
+    ],
+    "visibleRgbDifferenceRange": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "alphaDifferenceRange": [
+      0,
+      0
+    ]
+  },
+  "productionDecision": {
+    "nativeAlphaAlreadyClean": true,
+    "imageGenerationNeeded": false,
+    "reason": "Full source inspected. Raw tool black RGB preview can show broad bluecloud, but those RGB pixels are A0. Actual native-alpha composites on light/dark retain no broad visible halo. Do not regenerate mask or apply230..250 gate to already clean subject.",
+    "rgb": "Only RGB under exactly zero source alpha normalized to0. Every source pixel with any alpha>0 keeps exact original RGB and alpha; no crop, resize, redraw, removal, outline/face/color change.",
+    "alpha": "Native alpha byte-for-byte preserved, including low-alpha antialias and tiny A1 speckles. AlphaBounds truthfully includes those speckles; alpha>=8 bounds separately records practical visible silhouette.",
+    "hiddenRgbPixelCountNormalized": 980
+  },
+  "verticalContact": {
+    "contactSide": "right",
+    "gripXSource": 790,
+    "sourceYAnchor": 935,
+    "anchorNormalized": [
+      0.7383177570093458,
+      0.6360544217687075
+    ],
+    "actualCanvas": [
+      1070,
+      1470
+    ],
+    "sourceTorsoApproximateYRange": [
+      660,
+      1210
+    ],
+    "anchorMeaning": "Y is a personally observed main-torso placement reference; not an invented animated joint or same-height paw rule. X independently checked through all three actual source paw crops.",
+    "pawContactReferenceCentersY": [
+      642,
+      827,
+      1196
+    ],
+    "previousProducerApproximateX": 808,
+    "adjustmentReason": "Previous rough line touched outer dark rim or missed white contact at middle/hind paw. Chosen source X moved inward to cross real gripping white areas of all three paws.",
+    "mirrorSafe": false,
+    "mirrorAnchorContinuousSource": null,
+    "identityConstraint": "No image flip; own-right gold/own-left blue eyes retained. Opposite direction needs independent art."
+  },
+  "readDependencies": [],
+  "provenanceBoundary": "Upstream character dossier/prompt/imagegen original belong to linked source record. This production makes no new art or character interpretation.",
+  "producerReview": {
+    "fullOriginalPersonallyViewed": true,
+    "nativeAlphaOnLightDark128PersonallyViewed": true,
+    "eachNativePawContactPersonallyViewed": true,
+    "review": "static-128-light-dark-grip-review.png",
+    "contactEvidence": "source-contact-coordinate-review.png",
+    "observation": "Personally viewed whole source, three actual native paw crops and128px-tall normal light/dark. No visible broad bluecloud; entire cat head/body/feet/tail and source antialias retained. Own source axis crosses upper/middle/hind gripping white regions. Horizontal mirror viewed only where mirrorSafe true; Mutsumi both real directions and Rana never mirrored."
+  },
+  "motion": {
+    "kind": "static-complete-sprite",
+    "independentTailLayer": false,
+    "wholeImageTailSwingAllowed": false,
+    "quarterTurnAllowed": false
+  },
+  "primaryStaticCleanApproved": false,
+  "runtimeAccepted": false,
+  "fullHumanMatrixCredit": false
+}

@@ -1,0 +1,806 @@
+{
+  "schemaVersion": 1,
+  "recordType": "user-priority-checkpoint-no-new-image-calls",
+  "recordedAt": "2026-10-25T20:41:26.855229+00:00",
+  "reason": "Root relayed explicit new user priority: understand and redesign 留下/book/source/chat/obscuredwindow chain first. Stop newMutsumi images. No model failure; healthy session continues.",
+  "producer": "/root/room_art_direction",
+  "noImageInFlight": true,
+  "attention": {
+    "attention-mist": {
+      "status": "producer-native-static-reviewed-awaiting-primary-layer-review",
+      "selected": [
+        "figure-mask-v1.png",
+        "contact-mask-v1.png",
+        "background-v1.png",
+        "union-source-v1.svg",
+        "composite-source-v1.svg",
+        "included-observe-v1.html"
+      ],
+      "held": [],
+      "unstarted": [],
+      "checks": "Actual Chrome native SVG full mother/composite, light/dark/checker, face/hair, complete held book/page/marker/hands, full hem/seat seam and both whole shoes/local receiver personally viewed. Six actual screenshot bytes preserved. Source fixed included receiver has real floor/seat seam material, not portable transparent shadow. No primary/runtime signoff.",
+      "files": [
+        {
+          "path": "attention-mist/background-v1.png",
+          "bytes": 2432117,
+          "sha256": "6f773bae144a28f3ba39fe7f29ea3177e81e3d29ae72e9128ca6de6a48805077",
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGB"
+        },
+        {
+          "path": "attention-mist/background-v1.prompt.json",
+          "bytes": 4964,
+          "sha256": "4f3ec59822614ad029d468461e24785b5ef5cf1c5f2acd79a2e518208da32c7f"
+        },
+        {
+          "path": "attention-mist/background-v1.result.json",
+          "bytes": 955,
+          "sha256": "978838dc1f956ab3cafa481d853720d76e00638aa947890e7ad2f3ddf4acb832"
+        },
+        {
+          "path": "attention-mist/background-v1.source.json",
+          "bytes": 6133,
+          "sha256": "4db9f0a7ba82ca449131ab01ca92e90c70c1b7fd8b0a5a14c3258f014e421a84"
+        },
+        {
+          "path": "attention-mist/browser-observations/book-edge-original-union-composite-v1.png",
+          "bytes": 99605,
+          "sha256": "ed9509e5127b9bccbcd3556ec97d54552e85576eb52129ce773dce1a74227bd9",
+          "canvas": [
+            1265,
+            584
+          ],
+          "mode": "RGB"
+        },
+        {
+          "path": "attention-mist/browser-observations/contact-receiver-v1.png",
+          "bytes": 30525,
+          "sha256": "f8a0980bc2cd7de027cd883135463dbe9476c32bf1b9183ecae4e517d1d5943e",
+          "canvas": [
+            1265,
+            584
+          ],
+          "mode": "RGB"
+        },
+        {
+          "path": "attention-mist/browser-observations/face-hair-original-union-composite-v1.png",
+          "bytes": 95237,
+          "sha256": "f8fc5c300035537c93d3760e65eafe2415e9cc1d20771aa2200b7e884be07561",
+          "canvas": [
+            1265,
+            584
+          ],
+          "mode": "RGB"
+        },
+        {
+          "path": "attention-mist/browser-observations/hem-seat-original-union-composite-v1.png",
+          "bytes": 93854,
+          "sha256": "fa006c842cd05cabf3d57e63148e6464b0800893d4a6a0e1304e330eb05cb896",
+          "canvas": [
+            1265,
+            584
+          ],
+          "mode": "RGB"
+        },
+        {
+          "path": "attention-mist/browser-observations/light-dark-checker-v1.png",
+          "bytes": 73218,
+          "sha256": "9ed18f19cbadd40902eb4029caf7a238348a7a7efa5677d893822e721d15ddc7",
+          "canvas": [
+            1265,
+            584
+          ],
+          "mode": "RGB"
+        },
+        {
+          "path": "attention-mist/browser-observations/mother-composite-v1.png",
+          "bytes": 126099,
+          "sha256": "fa43d1b6bf016bb70145e4532cb2e5d030453c080839732539d9ff97b6a1f449",
+          "canvas": [
+            1265,
+            584
+          ],
+          "mode": "RGB"
+        },
+        {
+          "path": "attention-mist/composite-source-v1.svg",
+          "bytes": 1478,
+          "sha256": "2a8259c5b7bdba03f849376a6c8b2369c9e0785f9997fa1a45e10a47dd6bd9e1"
+        },
+        {
+          "path": "attention-mist/contact-mask-v1.png",
+          "bytes": 313919,
+          "sha256": "dc1ec71a8655a6947883563c76fa706cb0cb33e91f6c740d4e80d6ed9123d6cf",
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGB"
+        },
+        {
+          "path": "attention-mist/contact-mask-v1.prompt.json",
+          "bytes": 4702,
+          "sha256": "1e74f86b19e7b813bdc5d6a288d16bb031a3fcffe963221af8c12c4c7a0981c5"
+        },
+        {
+          "path": "attention-mist/contact-mask-v1.result.json",
+          "bytes": 972,
+          "sha256": "1f56c438fb91f61d9e6087342d29ff4a701cf66463d2c99e7668302ba357b6a7"
+        },
+        {
+          "path": "attention-mist/contact-mask-v1.source.json",
+          "bytes": 5998,
+          "sha256": "f6a5e349d3a7fa6bd5d9b5fca0a4a7b44fb1048bc090ff5f995b43ac198d8f47"
+        },
+        {
+          "path": "attention-mist/contact-step1-marked-v1.png",
+          "bytes": 2338994,
+          "sha256": "382c6b1db9ed0db83dc2754cad31552bb7c182545588e32ccf3271da97dc1fd7",
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGB"
+        },
+        {
+          "path": "attention-mist/contact-step1-marked-v1.prompt.json",
+          "bytes": 5618,
+          "sha256": "50d53cee0bdffcf6c2a5f07069c75180b78338928e6256bc3f65264fb28292b3"
+        },
+        {
+          "path": "attention-mist/contact-step1-marked-v1.result.json",
+          "bytes": 1014,
+          "sha256": "c2af446d43edf16885f94b6623fdd66b175fa0b13f8d3bda36831189cd08cc67"
+        },
+        {
+          "path": "attention-mist/contact-step1-marked-v1.source.json",
+          "bytes": 6856,
+          "sha256": "f9cf207155e8414cca1d2f8320787bba70057b394207a47b9dd1f4cafd78477a"
+        },
+        {
+          "path": "attention-mist/figure-mask-v1.png",
+          "bytes": 442261,
+          "sha256": "7402f83d64e6b87afc30dd8c264f8a19eac3cc7f58f9778f2b5b045536226778",
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGB"
+        },
+        {
+          "path": "attention-mist/figure-mask-v1.prompt.json",
+          "bytes": 4534,
+          "sha256": "cd30a361fce93fc85882a71c79f499d1f672214705d23a1d79e96f526dad3752"
+        },
+        {
+          "path": "attention-mist/figure-mask-v1.result.json",
+          "bytes": 920,
+          "sha256": "0126fd142647f7a0acebd186d13ce236e7c0701f6849baf828e163b64b1f7ee2"
+        },
+        {
+          "path": "attention-mist/figure-mask-v1.source.json",
+          "bytes": 5777,
+          "sha256": "90c25d159f017fed7b330e5ae12b35d99d02f028689c9fddafa6aac01a1da6a2"
+        },
+        {
+          "path": "attention-mist/figure-step1-marked-v1.png",
+          "bytes": 2246078,
+          "sha256": "b511ccaa52ec0cfde2da06bb39069fa9e329ea6532a26a95c33b20ae64490e84",
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGB"
+        },
+        {
+          "path": "attention-mist/figure-step1-marked-v1.prompt.json",
+          "bytes": 5137,
+          "sha256": "2468578e4c3d1b4a06079815d7ae8fd3286944953e9d694a6a1866e1b9ea89a0"
+        },
+        {
+          "path": "attention-mist/figure-step1-marked-v1.result.json",
+          "bytes": 958,
+          "sha256": "8b501bc220a7bec06e105bfb52c88445655f02901a6ee82a74a8159b2a667ca1"
+        },
+        {
+          "path": "attention-mist/figure-step1-marked-v1.source.json",
+          "bytes": 6318,
+          "sha256": "f2d14294631d6e01aea00c488189db9a685ae185d2e6d4e9746d8815902eb2a7"
+        },
+        {
+          "path": "attention-mist/included-observe-v1.html",
+          "bytes": 22397,
+          "sha256": "49a3e140638f0d4ede2273613695d1a99473f3e900dd6578364b815cccf57537"
+        },
+        {
+          "path": "attention-mist/union-source-v1.svg",
+          "bytes": 1375,
+          "sha256": "a22370383c8f75e2970877fe004fe922dee1de68c403a21ff1a5056b3311c49e"
+        }
+      ],
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "travel": 0,
+      "slope": 0,
+      "perspective": 0
+    },
+    "attention-violet": {
+      "status": "outputs-saved-native-preview-written-final-browser-review-not-yet-done",
+      "selected": [
+        "figure-step1-marked-v2.png",
+        "figure-mask-v2.png",
+        "contact-step1-marked-v1.png",
+        "contact-mask-v1.png",
+        "background-v1.png",
+        "union-source-v1.svg",
+        "composite-source-v1.svg",
+        "included-observe-v1.html"
+      ],
+      "held": [
+        "figure-step1-marked-v1.png",
+        "figure-mask-v1.png"
+      ],
+      "unstarted": [
+        "Actual Chrome inspection/screenshot of corrected final native MAX union",
+        "Per-theme final included bundle/selected-source closure"
+      ],
+      "checks": "Original-vs-mask enlarged face inspection proved old opaque mouth hole, so F1/F2-v1 areHOLD and not reused. Fresh F1-v2 from original and F2-v2 from good marked image alone saved. Whole outputs viewed; final native union not yet observed.",
+      "files": [
+        {
+          "path": "attention-violet/background-v1.png",
+          "bytes": 2333527,
+          "sha256": "1e588fb34ef90d21b9f35a265b0cd79435a76ba1d407c792907124631c595f73",
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGB"
+        },
+        {
+          "path": "attention-violet/background-v1.prompt.json",
+          "bytes": 4968,
+          "sha256": "33cf18fd4de5d42d9f30469a1ce93eb1e67dc916710ea53446ba431abc1dfd22"
+        },
+        {
+          "path": "attention-violet/background-v1.result.json",
+          "bytes": 981,
+          "sha256": "c87df32bd689a04db8202a92b01f0e0f723f1c29fe2b1a37213dfda51342a85e"
+        },
+        {
+          "path": "attention-violet/background-v1.source.json",
+          "bytes": 6166,
+          "sha256": "735be57afb0bf8c9206a314fe1dfe367828bfadc1536514da0f41d9c9c47c80e"
+        },
+        {
+          "path": "attention-violet/composite-source-v1.svg",
+          "bytes": 1488,
+          "sha256": "ff4bf6df3c2cb75de3f540295abaa6412c7e9397e413142e24af8afbe8e071cc"
+        },
+        {
+          "path": "attention-violet/contact-mask-v1.png",
+          "bytes": 344169,
+          "sha256": "cdc55f8a01c1aff5d004d0228719bf9aa2ded3395c112fcd3cf0e4d72f31df68",
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGB"
+        },
+        {
+          "path": "attention-violet/contact-mask-v1.prompt.json",
+          "bytes": 4718,
+          "sha256": "39c2670e71707e4cb970644f977a27af38253b5a6ce0c754c0c68f909da9d3af"
+        },
+        {
+          "path": "attention-violet/contact-mask-v1.result.json",
+          "bytes": 961,
+          "sha256": "59b73b8916e37b9b4dd76e16020c2023000672f505f6dafc1993619890954a64"
+        },
+        {
+          "path": "attention-violet/contact-mask-v1.source.json",
+          "bytes": 6006,
+          "sha256": "d14b85c12619f97fa7b4170e2f064b24babc9c5fbd16901bc5ed6daf0a63b216"
+        },
+        {
+          "path": "attention-violet/contact-step1-marked-v1.png",
+          "bytes": 2282068,
+          "sha256": "8d19960e7e5381daa15faa39457b428e823f15c190668697e6fc8f86b73161e4",
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGB"
+        },
+        {
+          "path": "attention-violet/contact-step1-marked-v1.prompt.json",
+          "bytes": 5622,
+          "sha256": "6c1a5265abaebee9e53e5e3fe59a6e701b87581659b818f128aca8ef7ce8e1cc"
+        },
+        {
+          "path": "attention-violet/contact-step1-marked-v1.result.json",
+          "bytes": 992,
+          "sha256": "b46f8f49ac6e9dbac2bf431f075b1053beacc538cec2d847e6e870ac307dc6c6"
+        },
+        {
+          "path": "attention-violet/contact-step1-marked-v1.source.json",
+          "bytes": 6840,
+          "sha256": "a0bdddd6f8fe7b7e504bf78ef6154d02600f330f4ead5c01cbf99bc8dd4f6705"
+        },
+        {
+          "path": "attention-violet/face-gap-original-mask-inspection.png",
+          "bytes": 155887,
+          "sha256": "1f03b4629127c96c8ff344b84b468702cb3985a0760997ec8899832783339a8b",
+          "canvas": [
+            780,
+            300
+          ],
+          "mode": "RGB"
+        },
+        {
+          "path": "attention-violet/figure-mask-v1.png",
+          "bytes": 458301,
+          "sha256": "1d7925694d179d8e68e192eae1c903882c257fc285f3a235fda885ff0b798b49",
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGB"
+        },
+        {
+          "path": "attention-violet/figure-mask-v1.prompt.json",
+          "bytes": 4550,
+          "sha256": "9744359970ea66dc39db8482947ecdff0a3663a65bbb49dfdca01fcb66915b3d"
+        },
+        {
+          "path": "attention-violet/figure-mask-v1.result.json",
+          "bytes": 1034,
+          "sha256": "9f2e94ec7d69e5054304dd0ec6fd6e6e09f9f7094524afbc70aedadf5f64ac5d"
+        },
+        {
+          "path": "attention-violet/figure-mask-v1.source.json",
+          "bytes": 5876,
+          "sha256": "81966bd23830b72a65f433a63001e94b5877b148cd1baebdb3640608fec63b4a"
+        },
+        {
+          "path": "attention-violet/figure-mask-v2.png",
+          "bytes": 462889,
+          "sha256": "71639316d454fd3a33aeaf4893b91b94be9353900065ce4168f839a936f574df",
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGB"
+        },
+        {
+          "path": "attention-violet/figure-mask-v2.prompt.json",
+          "bytes": 4576,
+          "sha256": "7035c2704a70826d4f43db711052ab782ddf13b091906c5ba07a75b83e2f8ff7"
+        },
+        {
+          "path": "attention-violet/figure-mask-v2.result.json",
+          "bytes": 1023,
+          "sha256": "131213579de0a052f254654d5d332499ea3adb7c5381d8e002e29cab207855dc"
+        },
+        {
+          "path": "attention-violet/figure-mask-v2.source.json",
+          "bytes": 5816,
+          "sha256": "3a9fe1eb4949c67bb293315b87fd11d9e73bad8e74e92a65cc5aeeb9e803c5f4"
+        },
+        {
+          "path": "attention-violet/figure-step1-marked-v1.png",
+          "bytes": 2218773,
+          "sha256": "dc8311f787698efb116d252896945566ef26d4a0041a226aff2f52a7fcb39fd5",
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGB"
+        },
+        {
+          "path": "attention-violet/figure-step1-marked-v1.prompt.json",
+          "bytes": 5152,
+          "sha256": "e1946e1f9a1f267c6926b9225198bff32623087a0c7acf4dea6baeb9ebbeb0a6"
+        },
+        {
+          "path": "attention-violet/figure-step1-marked-v1.result.json",
+          "bytes": 992,
+          "sha256": "e0546900b1c1aa3352c4f89c8eb88d3a215f094a5e78afcedaef0cd4541f4fd2"
+        },
+        {
+          "path": "attention-violet/figure-step1-marked-v1.source.json",
+          "bytes": 6644,
+          "sha256": "2283ffc59795ce3fd8dbaad7edefb3d9ae5fcd46243da2c73c5437bc1c807d59"
+        },
+        {
+          "path": "attention-violet/figure-step1-marked-v2.png",
+          "bytes": 2236204,
+          "sha256": "2d74160154eaaeb739c822aa3150ec566c89c3735acc7baafe595d8673833f22",
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGB"
+        },
+        {
+          "path": "attention-violet/figure-step1-marked-v2.prompt.json",
+          "bytes": 6068,
+          "sha256": "623a61c7e4eebbd8ff881a2bdfe2353f58afeef641c25bfd0ed84bd345dce93c"
+        },
+        {
+          "path": "attention-violet/figure-step1-marked-v2.result.json",
+          "bytes": 946,
+          "sha256": "81ac69e9a8e19512ed148ba5c96e2149c4a45a05d80acada83dcb8c3d62e4780"
+        },
+        {
+          "path": "attention-violet/figure-step1-marked-v2.source.json",
+          "bytes": 7240,
+          "sha256": "03f56ad7c7e6f758495c1edcc95d871f4d0f333e9d3281c66bc167a7d4592fc9"
+        },
+        {
+          "path": "attention-violet/included-observe-v1.html",
+          "bytes": 22437,
+          "sha256": "0789f6d9aed859a1b03dbf94efc35ebc73f3317fa7df28f84be6a92e133ca98f"
+        },
+        {
+          "path": "attention-violet/union-source-v1.svg",
+          "bytes": 1385,
+          "sha256": "27e6131eab29168aea07ca87e9ee57d3bbadbb2b178a1d78c2279aaaf53e97be"
+        }
+      ],
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "travel": 0,
+      "slope": 0,
+      "perspective": 0
+    },
+    "attention-rain": {
+      "status": "partial-F1-mark-only-no-pure-mask-background-union-yet",
+      "selected": [
+        "figure-step1-marked-v1.png"
+      ],
+      "held": [],
+      "unstarted": [
+        "Image F2 from prepared figure-mask-v1.prompt.json",
+        "Image S1 from prepared contact-step1-marked-v1.prompt.json",
+        "S2 preparation and actual Image conversion",
+        "Image BG from prepared background-v1.prompt.json",
+        "Native SVG union/composite/observation page",
+        "Actual Chrome full/source/grounds/book/seat/shoe review",
+        "Per-theme final included bundle/selected-source closure"
+      ],
+      "checks": "Only actual original-source F1 mark completed and saved. All other prompt-only files are preparation, not generated coverage.",
+      "files": [
+        {
+          "path": "attention-rain/background-v1.prompt.json",
+          "bytes": 5004,
+          "sha256": "ff17ac59a3c66dcac7932ee756a1464b01aa6293230d2aa5dde8da8a1f25adce"
+        },
+        {
+          "path": "attention-rain/contact-step1-marked-v1.prompt.json",
+          "bytes": 5657,
+          "sha256": "6bbbbd51768675f92afe182493c865df2aedb13d8e37832b7f7c60ef8f9b332d"
+        },
+        {
+          "path": "attention-rain/figure-mask-v1.prompt.json",
+          "bytes": 4559,
+          "sha256": "d00e457e67ad48e184652c4dc228223595e8c9c83fb6bc62b50a9e67d3686c2f"
+        },
+        {
+          "path": "attention-rain/figure-step1-marked-v1.png",
+          "bytes": 2154336,
+          "sha256": "ef8a298a5266affd73b80da8f11b774b2f3158197a1c8c6305a70d5b3651714d",
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGB"
+        },
+        {
+          "path": "attention-rain/figure-step1-marked-v1.prompt.json",
+          "bytes": 5501,
+          "sha256": "0b16219cceb389fafeafc31de8e0316d6152001e76e465d5d55f990a09a5b36d"
+        },
+        {
+          "path": "attention-rain/figure-step1-marked-v1.result.json",
+          "bytes": 1023,
+          "sha256": "ea57fc0a0f10feed6dda71bd995d6d2c377152c956f64a2bb00219bf940a3f5a"
+        },
+        {
+          "path": "attention-rain/figure-step1-marked-v1.source.json",
+          "bytes": 6748,
+          "sha256": "34a2008d858c4f8dfa0c0f365903fcb873ee3e7fbece6995839df0bbeddc26ea"
+        }
+      ],
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "travel": 0,
+      "slope": 0,
+      "perspective": 0
+    }
+  },
+  "resumeDelegation": {
+    "agent": "/root/spatial_motion",
+    "status": "Stopped newImage; all prior calls returned and source saved; no in-flight.",
+    "actualSavedImagePngCount": 17,
+    "newImagesStopped": true,
+    "reports": [
+      {
+        "directory": "resume-mist",
+        "checkpoint": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-mist/production-preservation-v1.json",
+        "sha256": "75173c76b01ef164ff87b020d3b2e1e3af76d56b7fe2ebb9e0de419ee34361d2",
+        "actualImageOutputsSaved": 7,
+        "inFlightCalls": 0,
+        "currentProducerCandidates": {
+          "foreground": {
+            "file": "figure-mask-v2.png",
+            "scope": "Producer candidate only. Native original/rawF/original-RGB face and book compared; whole BG/receiver/contour acceptance remains incomplete."
+          },
+          "contact": null,
+          "background": null,
+          "completeBundle": null,
+          "primaryLayerApproved": false,
+          "runtimeAccepted": false
+        },
+        "heldNativeOutputs": [
+          {
+            "file": "figure-step1-marked-v1.png",
+            "generationInputAllowed": false,
+            "selectionAllowed": false,
+            "sourceRecord": "figure-step1-marked-v1.source.json"
+          },
+          {
+            "file": "figure-step1-marked-v2.png",
+            "generationInputAllowed": false,
+            "selectionAllowed": false,
+            "sourceRecord": "figure-step1-marked-v2.source.json"
+          },
+          {
+            "file": "figure-mask-v1.png",
+            "generationInputAllowed": false,
+            "selectionAllowed": false,
+            "sourceRecord": "figure-mask-v1.source.json"
+          },
+          {
+            "file": "contact-mask-v1.png",
+            "generationInputAllowed": false,
+            "selectionAllowed": false,
+            "sourceRecord": "contact-mask-v1.source.json"
+          }
+        ],
+        "notStarted": [
+          {
+            "promptFile": "resume-background-v1.prompt.txt",
+            "requestFile": "resume-background-v1.request.json",
+            "imageCallStarted": false,
+            "resultExists": false,
+            "scope": "Same-mother Image background removal not yet called."
+          },
+          {
+            "promptFile": "contact-mask-v2.prompt.txt",
+            "requestFile": "contact-mask-v2.request.json",
+            "imageCallStarted": false,
+            "resultExists": false,
+            "scope": "Prepared S1+original seat-preserving conversion only; never submitted."
+          }
+        ],
+        "notVerified": [
+          "Same-mother empty BG, not generated",
+          "Complete whole-scene BG+MAX union",
+          "Final all-face/full-hem/seat/both-full-shoes/deep-light-checker optical pass for this exact whole set",
+          "Root layer approval",
+          "Runtime or nonzero movement"
+        ],
+        "diagnosticUnion": {
+          "file": "union-source-v1.svg",
+          "notRuntimeAsset": true,
+          "notSelectedBundle": true,
+          "usesHeldContactForInspectionOnly": true,
+          "boundary": "Diagnostic raw RGB/MAX view, no complete source BG or final static composition; do not adopt as approved layer."
+        },
+        "actualListedPngShaRead": [
+          {
+            "file": "contact-mask-v1.png",
+            "exists": true,
+            "shaMatches": true
+          },
+          {
+            "file": "contact-step1-marked-v1.png",
+            "exists": true,
+            "shaMatches": true
+          },
+          {
+            "file": "figure-mask-v1.png",
+            "exists": true,
+            "shaMatches": true
+          },
+          {
+            "file": "figure-mask-v2.png",
+            "exists": true,
+            "shaMatches": true
+          },
+          {
+            "file": "figure-step1-marked-v1.png",
+            "exists": true,
+            "shaMatches": true
+          },
+          {
+            "file": "figure-step1-marked-v2.png",
+            "exists": true,
+            "shaMatches": true
+          },
+          {
+            "file": "figure-step1-marked-v3.png",
+            "exists": true,
+            "shaMatches": true
+          }
+        ]
+      },
+      {
+        "directory": "resume-violet",
+        "checkpoint": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-violet/production-preservation-v1.json",
+        "sha256": "4798801d6181c376a5436c7a8ff8fcf4e6eae6727b37001601edd9e1d6e5a110",
+        "actualImageOutputsSaved": 5,
+        "inFlightCalls": 0,
+        "currentProducerCandidates": {
+          "foreground": {
+            "file": "figure-mask-v1.png",
+            "scope": "Producer candidate only. Native raw F output viewed; full original-RGB face/book/hem/shoe and same-mother BG composition inspection remains incomplete."
+          },
+          "contact": {
+            "file": "contact-mask-v1.png",
+            "scope": "Producer mask candidate only; exact original RGB receiving-material/composite inspection not complete."
+          },
+          "background": null,
+          "completeBundle": null,
+          "primaryLayerApproved": false,
+          "runtimeAccepted": false
+        },
+        "heldNativeOutputs": [
+          {
+            "file": "figure-step1-marked-v1.png",
+            "generationInputAllowed": false,
+            "selectionAllowed": false,
+            "sourceRecord": "figure-step1-marked-v1.source.json"
+          }
+        ],
+        "notStarted": [
+          {
+            "promptFile": "resume-background-v1.prompt.txt",
+            "requestFile": "resume-background-v1.request.json",
+            "imageCallStarted": false,
+            "resultExists": false,
+            "scope": "Same-mother Image background removal not yet called."
+          }
+        ],
+        "notVerified": [
+          "Same-mother empty BG, not generated",
+          "Complete whole-scene BG+MAX union",
+          "Final all-face/full-hem/seat/both-full-shoes/deep-light-checker optical pass for this exact whole set",
+          "Root layer approval",
+          "Runtime or nonzero movement"
+        ],
+        "diagnosticUnion": {
+          "file": "union-source-v1.svg",
+          "notRuntimeAsset": true,
+          "notSelectedBundle": true,
+          "usesHeldContactForInspectionOnly": false,
+          "boundary": "Diagnostic raw RGB/MAX view, no complete source BG or final static composition; do not adopt as approved layer."
+        },
+        "actualListedPngShaRead": [
+          {
+            "file": "contact-mask-v1.png",
+            "exists": true,
+            "shaMatches": true
+          },
+          {
+            "file": "contact-step1-marked-v1.png",
+            "exists": true,
+            "shaMatches": true
+          },
+          {
+            "file": "figure-mask-v1.png",
+            "exists": true,
+            "shaMatches": true
+          },
+          {
+            "file": "figure-step1-marked-v1.png",
+            "exists": true,
+            "shaMatches": true
+          },
+          {
+            "file": "figure-step1-marked-v2.png",
+            "exists": true,
+            "shaMatches": true
+          }
+        ]
+      },
+      {
+        "directory": "resume-rain",
+        "checkpoint": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-rain/production-preservation-v1.json",
+        "sha256": "75cf039df2441d120a030b0860ea60b46d66d58724cde6a33a56980e4fdac722",
+        "actualImageOutputsSaved": 5,
+        "inFlightCalls": 0,
+        "currentProducerCandidates": {
+          "foreground": {
+            "file": "figure-mask-v1.png",
+            "scope": "Producer candidate only. Native raw F output viewed; full original-RGB face/book/hem/shoe and same-mother BG composition inspection remains incomplete."
+          },
+          "contact": {
+            "file": "contact-mask-v1.png",
+            "scope": "Producer mask candidate only; exact original RGB receiving-material/composite inspection not complete."
+          },
+          "background": null,
+          "completeBundle": null,
+          "primaryLayerApproved": false,
+          "runtimeAccepted": false
+        },
+        "heldNativeOutputs": [
+          {
+            "file": "figure-step1-marked-v1.png",
+            "generationInputAllowed": false,
+            "selectionAllowed": false,
+            "sourceRecord": "figure-step1-marked-v1.source.json"
+          }
+        ],
+        "notStarted": [
+          {
+            "promptFile": "resume-background-v1.prompt.txt",
+            "requestFile": "resume-background-v1.request.json",
+            "imageCallStarted": false,
+            "resultExists": false,
+            "scope": "Same-mother Image background removal not yet called."
+          }
+        ],
+        "notVerified": [
+          "Same-mother empty BG, not generated",
+          "Complete whole-scene BG+MAX union",
+          "Final all-face/full-hem/seat/both-full-shoes/deep-light-checker optical pass for this exact whole set",
+          "Root layer approval",
+          "Runtime or nonzero movement"
+        ],
+        "diagnosticUnion": {
+          "file": "union-source-v1.svg",
+          "notRuntimeAsset": true,
+          "notSelectedBundle": true,
+          "usesHeldContactForInspectionOnly": false,
+          "boundary": "Diagnostic raw RGB/MAX view, no complete source BG or final static composition; do not adopt as approved layer."
+        },
+        "actualListedPngShaRead": [
+          {
+            "file": "contact-mask-v1.png",
+            "exists": true,
+            "shaMatches": true
+          },
+          {
+            "file": "contact-step1-marked-v1.png",
+            "exists": true,
+            "shaMatches": true
+          },
+          {
+            "file": "figure-mask-v1.png",
+            "exists": true,
+            "shaMatches": true
+          },
+          {
+            "file": "figure-step1-marked-v1.png",
+            "exists": true,
+            "shaMatches": true
+          },
+          {
+            "file": "figure-step1-marked-v2.png",
+            "exists": true,
+            "shaMatches": true
+          }
+        ]
+      }
+    ],
+    "approvalBoundary": "No complete resume bundle; all3BGs uncalled, mistS2-v2 uncalled, diagnostic unions not runtime assets. Parent source/RGB review not performed beyond recorded child preservation boundary."
+  },
+  "motherPngMutations": false,
+  "totalLedgerOrAppMutation": false,
+  "newTestsOrRunner": false,
+  "cleanup": "No generated originals, source JSON, static native pages or evidence removed."
+}

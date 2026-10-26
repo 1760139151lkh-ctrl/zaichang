@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "dateLocal": "2026-10-25",
+  "recordType": "primary-static-empty-plate-admission",
+  "reviewer": "root / primary agent",
+  "asset": {
+    "file": "literary-room-time-night-v1.png",
+    "sha256": "d9c41c4278dd8a4efae1a91102e16349ad4dcf9829963c31ddc421dfc3652253",
+    "width": 1536,
+    "height": 1024
+  },
+  "primaryApproved": true,
+  "scope": "Complete static empty environment plate only; same selected close room and corresponding weather/time illumination. No character/activity/layers/motion/runtime approval.",
+  "evidence": "Root personally viewed the complete original: full opaque inner curtain and warm dim lamp lighting with no visible exterior or inferred weather.",
+  "producerReviewSeparate": true,
+  "runtimeAccepted": false
+}

@@ -1,0 +1,235 @@
+{
+  "circles": [
+    {
+      "height": 34,
+      "size": "34",
+      "version": "v3",
+      "width": 34
+    },
+    {
+      "height": 48,
+      "size": "48",
+      "version": "v3",
+      "width": 48
+    },
+    {
+      "height": 96,
+      "size": "96",
+      "version": "v3",
+      "width": 96
+    },
+    {
+      "height": 34,
+      "size": "34",
+      "version": "current",
+      "width": 34
+    },
+    {
+      "height": 48,
+      "size": "48",
+      "version": "current",
+      "width": 48
+    },
+    {
+      "height": 96,
+      "size": "96",
+      "version": "current",
+      "width": 96
+    },
+    {
+      "height": 34,
+      "size": "34",
+      "version": "v3",
+      "width": 34
+    },
+    {
+      "height": 48,
+      "size": "48",
+      "version": "v3",
+      "width": 48
+    },
+    {
+      "height": 96,
+      "size": "96",
+      "version": "v3",
+      "width": 96
+    },
+    {
+      "height": 34,
+      "size": "34",
+      "version": "current",
+      "width": 34
+    },
+    {
+      "height": 48,
+      "size": "48",
+      "version": "current",
+      "width": 48
+    },
+    {
+      "height": 96,
+      "size": "96",
+      "version": "current",
+      "width": 96
+    },
+    {
+      "height": 34,
+      "size": "34",
+      "version": "v3",
+      "width": 34
+    },
+    {
+      "height": 48,
+      "size": "48",
+      "version": "v3",
+      "width": 48
+    },
+    {
+      "height": 96,
+      "size": "96",
+      "version": "v3",
+      "width": 96
+    },
+    {
+      "height": 34,
+      "size": "34",
+      "version": "current",
+      "width": 34
+    },
+    {
+      "height": 48,
+      "size": "48",
+      "version": "current",
+      "width": 48
+    },
+    {
+      "height": 96,
+      "size": "96",
+      "version": "current",
+      "width": 96
+    }
+  ],
+  "images": [
+    {
+      "complete": true,
+      "naturalHeight": 1254,
+      "naturalWidth": 1254,
+      "url": "http://127.0.0.1:5188/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/tomori/time-only-neutral-v1/portrait/tomori-avatar-youth-v3.png"
+    },
+    {
+      "complete": true,
+      "naturalHeight": 1254,
+      "naturalWidth": 1254,
+      "url": "http://127.0.0.1:5188/%E8%BF%90%E8%A1%8C%E7%B4%A0%E6%9D%90/companion/portraits/tomori-youth-charm-20261025.png"
+    },
+    {
+      "complete": true,
+      "naturalHeight": 1254,
+      "naturalWidth": 1254,
+      "url": "http://127.0.0.1:5188/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/anon/time-only-neutral-v1/portrait/anon-avatar-youth-v3.png"
+    },
+    {
+      "complete": true,
+      "naturalHeight": 1254,
+      "naturalWidth": 1254,
+      "url": "http://127.0.0.1:5188/%E8%BF%90%E8%A1%8C%E7%B4%A0%E6%9D%90/companion/portraits/anon-youth-charm-20261025.png"
+    },
+    {
+      "complete": true,
+      "naturalHeight": 1254,
+      "naturalWidth": 1254,
+      "url": "http://127.0.0.1:5188/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/rana/time-only-neutral-v1/portrait/rana-avatar-youth-v3.png"
+    },
+    {
+      "complete": true,
+      "naturalHeight": 1254,
+      "naturalWidth": 1254,
+      "url": "http://127.0.0.1:5188/%E8%BF%90%E8%A1%8C%E7%B4%A0%E6%9D%90/companion/portraits/rana-youth-charm-20261025.png"
+    },
+    {
+      "complete": true,
+      "naturalHeight": 1254,
+      "naturalWidth": 1254,
+      "url": "http://127.0.0.1:5188/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/soyo/time-only-neutral-v1/portrait/soyo-avatar-youth-v3.png"
+    },
+    {
+      "complete": true,
+      "naturalHeight": 1254,
+      "naturalWidth": 1254,
+      "url": "http://127.0.0.1:5188/%E8%BF%90%E8%A1%8C%E7%B4%A0%E6%9D%90/companion/portraits/soyo-youth-charm-20261025.png"
+    },
+    {
+      "complete": true,
+      "naturalHeight": 1254,
+      "naturalWidth": 1254,
+      "url": "http://127.0.0.1:5188/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/taki/time-only-neutral-v1/portrait/taki-avatar-youth-v3.png"
+    },
+    {
+      "complete": true,
+      "naturalHeight": 1254,
+      "naturalWidth": 1254,
+      "url": "http://127.0.0.1:5188/%E8%BF%90%E8%A1%8C%E7%B4%A0%E6%9D%90/companion/portraits/taki-youth-charm-20261025.png"
+    },
+    {
+      "complete": true,
+      "naturalHeight": 1254,
+      "naturalWidth": 1254,
+      "url": "http://127.0.0.1:5188/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-avatar-youth-v3.png"
+    },
+    {
+      "complete": true,
+      "naturalHeight": 1254,
+      "naturalWidth": 1254,
+      "url": "http://127.0.0.1:5188/%E8%BF%90%E8%A1%8C%E7%B4%A0%E6%9D%90/companion/portraits/mutsumi-youth-charm-20261025.png"
+    },
+    {
+      "complete": true,
+      "naturalHeight": 1254,
+      "naturalWidth": 1254,
+      "url": "http://127.0.0.1:5188/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-avatar-youth-v3.png"
+    },
+    {
+      "complete": true,
+      "naturalHeight": 1254,
+      "naturalWidth": 1254,
+      "url": "http://127.0.0.1:5188/%E8%BF%90%E8%A1%8C%E7%B4%A0%E6%9D%90/companion/portraits/uika-youth-charm-20261025.png"
+    },
+    {
+      "complete": true,
+      "naturalHeight": 1254,
+      "naturalWidth": 1254,
+      "url": "http://127.0.0.1:5188/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/umiri/time-only-neutral-v1/avatars/umiri-avatar-youth-v3.png"
+    },
+    {
+      "complete": true,
+      "naturalHeight": 1254,
+      "naturalWidth": 1254,
+      "url": "http://127.0.0.1:5188/%E8%BF%90%E8%A1%8C%E7%B4%A0%E6%9D%90/companion/portraits/umiri-youth-charm-20261025.png"
+    },
+    {
+      "complete": true,
+      "naturalHeight": 1254,
+      "naturalWidth": 1254,
+      "url": "http://127.0.0.1:5188/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/nyamu/time-only-neutral-v1/avatars/nyamu-avatar-youth-v3.png"
+    },
+    {
+      "complete": true,
+      "naturalHeight": 1254,
+      "naturalWidth": 1254,
+      "url": "http://127.0.0.1:5188/%E8%BF%90%E8%A1%8C%E7%B4%A0%E6%9D%90/companion/portraits/nyamu-youth-charm-20261025.png"
+    },
+    {
+      "complete": true,
+      "naturalHeight": 1254,
+      "naturalWidth": 1254,
+      "url": "http://127.0.0.1:5188/%E8%BF%90%E8%A1%8C%E7%B4%A0%E6%9D%90/companion/portraits/sakiko-selected-soft-youth-edit-v3-20261025.png"
+    }
+  ],
+  "url": "http://127.0.0.1:5188/%E6%9D%A5%E6%BA%90%E8%AE%B0%E5%BD%95/2026-10-25-literary-room/portrait-youth-v3-review/index.html#tomori",
+  "viewport": {
+    "dpr": 3,
+    "height": 592,
+    "width": 854
+  },
+  "visibleRole": "tomori"
+}

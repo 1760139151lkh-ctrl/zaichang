@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "kind": "primary-fixed-source-included-contact-layer-admission",
+  "character": "uika",
+  "activity": "chat",
+  "palette": "apricot",
+  "sceneFamily": "literary-room-v1",
+  "recordedAt": "2026-10-25T11:33:41.582298+00:00",
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "reviewer": "root",
+    "approvalSource": "Direct root instruction reporting personal native page review",
+    "scope": "Exact four SHA and fixed original-coordinate included joint only",
+    "personallyObservedByPrimary": [
+      "whole mother/recomposition/empty plate",
+      "#face complete hair/face at 2x",
+      "#hands both palms, lap skirt and local linen receiver",
+      "#shoes toe/sole/heel plus local floor receiver"
+    ],
+    "acceptedFinding": "No white seam or sticker disconnection in original-position recomposition; whole person/proportions preserved.",
+    "pureCasterApproved": false
+  },
+  "assets": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.png",
+      "sha256": "df94d1a87f41775108d5b319a6bcc8ec4372283b770ef05ae764adedf2500c5d"
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c"
+    },
+    "F": {
+      "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\uika\\chat-layers\\figure-mask-v1.png",
+      "sha256": "937cb2e07ce767950ef7f113a8a3131f5b2f21569bd09fcb391050ae88004bea"
+    },
+    "S": {
+      "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\uika\\chat-layers\\contact-mask-v1.png",
+      "sha256": "eae4756cefb4ab68ff3f596128972eac539ca40f664487532e92afd4743f22fd"
+    }
+  },
+  "assembly": {
+    "formula": "U=MAX(L(F),L(S)); unchanged mother RGB once",
+    "luminanceWeights": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorSpace": "sRGB",
+    "contactShadow": {
+      "mode": "included"
+    },
+    "nativeSvg": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/joint-source-v1.svg",
+    "nativeSvgSha256": "61825b5c7879510b9b50f6f1d4f32430d2d4908046f8b0c64d5104514bf1687d",
+    "motherRgbDrawCount": 1,
+    "extraColorPaint": false,
+    "pngEdited": false,
+    "motion": {
+      "travel": 0,
+      "slope": 0,
+      "perspective": 0
+    },
+    "allowed": [
+      "whole fixed joint show/hide",
+      "whole pose replacement",
+      "shared BG-and-joint viewport scaling"
+    ],
+    "forbidden": [
+      "independent body deformation",
+      "separate caster travel",
+      "moving receiver material to other support",
+      "figure-relative motion"
+    ]
+  },
+  "candidateBundle": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/chat-layers-included-bundle-v1.json",
+    "sha256": "0497e7993451d8708fad137631ab86f92d7ebc33de2644c8c2ce25344af99826"
+  },
+  "sourceClosure": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/source-closure-v1.json",
+    "sha256": "10e2924f16ee11cb6787ac0b6259129f131e93050f817967567a92129ef085c5"
+  },
+  "runtimeAccepted": false,
+  "registeredByThisTask": false,
+  "handoff": "Asset registration owner may copy this exact closure to isolated worktree and create a scene honoring MAX coverage. No shared TS or root runtime edit here."
+}

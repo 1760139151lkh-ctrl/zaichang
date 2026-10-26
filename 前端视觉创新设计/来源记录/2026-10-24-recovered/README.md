@@ -43,3 +43,31 @@
 本目录仅保存精选生成图、它们的图像 Prompt 和必要来源元数据；没有保存 raw sessions、私人消息正文、账号、凭据、数据库或浏览器资料。
 
 本轮公开提交的精确选取见 [publication-scope.json](publication-scope.json)，Prompt 与来源的隐私审读边界见 [公开素材审读](PUBLICATION_REVIEW.md)。清单只选当前四个生产组合及其原输入，不允许递归强制加入全部视觉工作目录。
+
+## 本轮主聊天及子代理的未汇报成功图复查
+
+另存的 [current-run-unreported.json](current-run-unreported.json) 只追本轮 `01a16fb3-8f8d-7c72-a744-a441e8907c91` 和 session 元数据能证明的真实子孙，不覆盖上面的旧 541 张基线。纳入两路仍健康的乐奈子代理、`cast_mujica_recovered` 子树，以及三条已由主代理确认失败的原会话；后者本次只读，原失败证据没有改写，也没有在失败会话中续跑工作。同 ID 的两份主聊天日志按生图执行 ID 去重。
+
+本轮快照共 15 个会话、117 条生图结束事件，其中 111 张成功原图全部找到，原文件与工具事件的图片字节 SHA 一致。109 张已有项目副本，剩余两张是原生产记录明确拒绝的祥子透明提取：放大/泛光，没有重新恢复进项目。其余 6 条是无成功图像的工具事件，不冒充丢失图片或新的模型会话故障。
+
+实际补回主代理视野的是九个此前尚未按完整 bundle 汇报的祥子主题工件。它们原本已经由健康生产者立即复制到唯一生产目录，本恢复线逐张打开并把精确事件 Prompt、原路径和项目地址补存进新索引，随后按九条短路径发给主代理；没有为了声称“救回”而再造第二份 PNG。
+
+| 类别 | 项目原文件，均位于 `来源记录/2026-10-24-matrix/sakiko/` |
+| --- | --- |
+| 三种净空背景 | `sakiko-resume-mist-background-v1.png`、`sakiko-resume-violet-background-v1.png`、`sakiko-resume-rain-background-v1.png` |
+| 当前人物轮廓 | `sakiko-resume-mist-mask-v1.png`、`sakiko-resume-violet-mask-v1.png`、`sakiko-resume-rain-mask-v1-tight.png` |
+| 独立接触范围 | `sakiko-resume-mist-contact-mask-v1.png`、`sakiko-resume-violet-contact-mask-v1.png`、`sakiko-resume-rain-contact-mask-v1.png` |
+
+原生产者随后完成了 [theme-layer-production.json](../2026-10-24-matrix/sakiko/theme-layer-production.json) 和 [resume-theme-layer-bundles.json](../2026-10-24-matrix/sakiko/resume-theme-layer-bundles.json)，并报告已发送三个原房间/浅深底预览地址。它们仍由原生产者和主代理负责审查；本次没有修改这些来源、运行注册或审签。两个带蓝窗边的旧雨夜 mask 保留原拒绝记录，不列入九个当前候选。
+
+“已生成”“已 copy”“制作者 final 列过”“已给主代理发路径”“主代理真正打开”“批准”在新索引里分开记录。没有足够直接回执的项保留未确定，不凭图片数量、文件存在或制作者口头判断宣称主代理已收组或通过。没有发现因响应终止而遗漏复制的合格完整人物母图，也没有因此重生整套图。
+
+### 2026-10-25 三条终止会话的限定复核
+
+[current-run-unreported-v2.json](current-run-unreported-v2.json) 仅复核主代理指定的三条失败会话（祥子 master、weather child、quiet fallback）、已存在的 `weather_layers_recovered` 和当前主聊天，共五个会话；没有扩到无关聊天、重跑旧 541 基线、建立替代会话或继续失败会话。原失败证据与上一份回收索引的文件哈希前后相同。
+
+流式核对得到 66 条生图结束事件、63 张成功原图。63 张均与工具事件的图像字节 SHA 一致，并找到明确的输出 SHA 来源记录和现有 Prompt 文件。61 张有项目内相同 SHA 副本；另两张仍是此前已明确拒绝的透明人物提取，没有恢复进项目。没有新的未归宗成功图，因此本轮没有复制新 PNG，也没有打开一批旧图或重新生图。
+
+重点核到：V5 母图、背景、最终人物 mask-v3 与接触 mask；weather 失败前的阴天母图、净空背景与分离工件；主代理补齐的 time-only 日/夜背景，均已有精确 SHA 的项目副本及生产来源。quiet fallback 没有成功生图事件，默认生成目录也不存在；日/夜两张来自主聊天的真实成功事件，未算到 quiet 名下。三个非成功生图工具事件不冒充成功图或模型终止证据。
+
+本次只补来源核对记录，没有修改生产 source、运行注册、并行角色目录或原审签；现有素材的采用范围仍沿各自真实生产记录。

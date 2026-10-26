@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "id": "taki-neutral-presence-time-night-included-v1",
+  "sceneFamily": "literary-room-v1",
+  "pose": "supported-neutral-presence-paused-page-looking-back",
+  "character": "taki",
+  "activity": "chat",
+  "purpose": "neutral-presence",
+  "neutralTime": "night",
+  "light": "night",
+  "palette": "rain",
+  "width": 1536,
+  "height": 1024,
+  "mother": "taki-neutral-presence-time-night-included-v1-mother.png",
+  "background": "taki-neutral-presence-time-night-included-v1-background.png",
+  "mask": "taki-neutral-presence-time-night-included-v1-mask.png",
+  "maskMode": "luminance",
+  "contactMask": "taki-neutral-presence-time-night-included-v1-contact-mask.png",
+  "seat": [
+    0.791015625,
+    0.58203125
+  ],
+  "ground": [
+    0.6686197916666666,
+    0.888671875
+  ],
+  "bodyBounds": [
+    0.59375,
+    0.1025390625,
+    0.857421875,
+    0.8935546875
+  ],
+  "safeTextBoundary": 0.55,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "59.375% 10.25390625%, 85.7421875% 10.25390625%, 85.7421875% 89.35546875%, 59.375% 89.35546875%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "dynamicAdmission": false,
+    "original360ExactActivityAdmission": false,
+    "layerReview": "root-approved-time-only-neutral-fixed-original-source-max-union",
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/night/layers/root-primary-layer-admission-v1.json",
+    "sourceAssembly": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/night/layers/neutral-presence-time-included-bundle-v1.json",
+      "sha256": "0238261b06c2746670d2c313af59d82d13a44b9b51c56b05bc171f3be006632e",
+      "bytes": 7269
+    },
+    "runtimeSourceSha256": {
+      "mother": "79aae6d833d537e9667f9ec77850fe00121aa886031ca3e2cba15ccc49401800",
+      "background": "bcd8d39e53d1be77b273612074968dc56c4e219ba34caa52389ecd5a72de993a",
+      "F": "3d9b95b66393cbc08755f73c1ebe43c131de5f2c51bb6259855df2b3e4d76625",
+      "S": "a4c080c247aa1470ba13a5583d0cbb3233c6275e894fffca92a7be52da09d5d5"
+    },
+    "geometryEvidence": {
+      "figureEnvelope": {
+        "sourcePixels": [
+          912,
+          105,
+          1317,
+          915
+        ],
+        "normalized": [
+          0.59375,
+          0.1025390625,
+          0.857421875,
+          0.8935546875
+        ],
+        "basis": "Read-only original PNG Rec.709 luminance F >8 envelope; right/bottom exclusive. Conservative fine-edge diagnostic only, original continuous PNG unchanged."
+      },
+      "jointReceiverEnvelope": {
+        "sourcePixels": [
+          912,
+          105,
+          1335,
+          918
+        ],
+        "normalized": [
+          0.59375,
+          0.1025390625,
+          0.869140625,
+          0.896484375
+        ],
+        "basis": "Read-only MAX(L(F),L(S)) >8 envelope including actual fixed local receiver; no contour contraction or alpha change."
+      },
+      "allNonzeroEnvelope": {
+        "F": [
+          0,
+          0,
+          1536,
+          1024
+        ],
+        "U": [
+          0,
+          0,
+          1536,
+          1024
+        ],
+        "note": "Tiny generated near-black luminance exists over the full canvas; runtime keeps all original continuous mask pixels, not thresholded. Visible-envelope metadata does not clip the native SVG."
+      },
+      "visibleEnvelopeAt32": {
+        "F": [
+          915,
+          107,
+          1317,
+          913
+        ],
+        "U": [
+          914,
+          107,
+          1333,
+          917
+        ]
+      },
+      "supportAnchors": {
+        "seatPixels": [
+          1215,
+          596
+        ],
+        "groundPixels": [
+          1027,
+          910
+        ],
+        "basis": "Producer personally viewed exact original mother and native source RGB comparison. Seat is visible lower skirt/linen contact; ground is a complete source loafer sole-to-wood contact reference. Fixed visible points, not inferred hidden anatomy or travel calibration."
+      },
+      "familyFramingCodeUnchanged": true,
+      "naturalFamilyBoundaryEffect": "Existing shared family fit receives the exact conservative joint source envelope; no TS camera override, artificial shrink or per-character source transform."
+    },
+    "approvalScope": "Exact static neutral-presence/time-only weather-unknown source assembly, unchanged mother RGB once under native MAX(F,S), local receiving cloth/wood fixed included; no caster, relative travel, dynamic, exact activity360 or integrated runtime acceptance."
+  }
+}

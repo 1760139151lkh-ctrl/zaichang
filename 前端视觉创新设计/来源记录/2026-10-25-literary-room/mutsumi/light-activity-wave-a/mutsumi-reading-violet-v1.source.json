@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "same-activity-whole-light-mother-candidate",
+  "character": "mutsumi",
+  "activity": "reading",
+  "palette": "violet",
+  "environmentVariant": "twilight",
+  "wave": "light-activity-wave-a",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-06f66c60-fb01-4a6e-81d7-5dfa5e8ce4ac.png",
+  "executionId": "exec-06f66c60-fb01-4a6e-81d7-5dfa5e8ce4ac",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+      "role": "first input; approved empty environment plate, primary camera and authoritative target whole-room light"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-a/mutsumi-reading-apricot-v1.png",
+      "sha256": "06a522f2cc641ea454cc14187bb2a4a7c0063403b28cb5bbb2fa7a6adb9d4a6c",
+      "role": "second input; root-approved exact same-activity apricot mother, correct identity/pose/proportion/props/physical support"
+    }
+  ],
+  "apricotActivityMotherApproval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-a/mutsumi-reading-apricot-v1.primary-approval.json",
+  "sourceMotherContourComplete": true,
+  "intendedSupport": "window-seat",
+  "sourceSpecificPose": "Exact source pose: quietly looking down toward the open book, both hands supporting its actual edges near lap height, supported bench seat, uncrossed knees/ankles and complete loafers. Keep the book size, page angle and head depth from image 2, not chat.",
+  "brief": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/mutsumi-prompt-plan.json",
+    "sha256": "66ade9700cb7bb993b43bd7e247b678878b79ad71237b0b5dcd915a43a3be2ca",
+    "key": "mutsumi/reading/apricot",
+    "role": "own role/activity literary psychology; light redirection keeps actual accepted mother pose"
+  },
+  "wholeSceneRelighting": true,
+  "oldApricotHeatSpotsAreNotIdentity": true,
+  "unreviewedLightCandidateUsedAsInput": false,
+  "promptFile": "mutsumi-reading-violet-v1.prompt.txt",
+  "promptFileSha256": "3ec59b3cfa2443184c81acbed76d6a62c5d948dad7712f655afa82d702370a76",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; exact submitted text",
+  "submittedPromptSha256": "fffca809ff26637e4e9ae879e93a389a8dfba3cd6c8cdb1198892449b4e42e3a",
+  "output": {
+    "file": "mutsumi-reading-violet-v1.png",
+    "sha256": "72a41fe4d43bd27753f83219ba052c400192880a4982bcb1f31605c8e621bd43",
+    "bytes": 2277108,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved complete mother. Same accepted reading pose and mint-haired sailor identity, book/page angle, both real hands, supported bench/uncrossed legs and full head/shoes remain visually stable. Rose/lilac dusk and warm lamps affect face, hair edges, paper, navy cloth and wood together; paper is warm and subdued rather than a white beacon. Local warm folds/patterned low illumination remain, without a flat purple wash or forced farewell expression. Eyes/eyelids stay separate from fringe. Producer makes no pixel-identical light or root qualification claim; root/layer/runtime pending."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "New static mother candidate only, root review pending; no layer, registration or runtime acceptance.",
+  "privateUserDataUsed": false
+}

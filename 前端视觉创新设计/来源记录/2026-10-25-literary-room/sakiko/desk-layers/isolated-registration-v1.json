@@ -1,0 +1,431 @@
+{
+  "schemaVersion": 1,
+  "kind": "exact-root-approved-desk-writing-isolated-registration",
+  "recordedAt": "2026-10-25T12:14:42.694709+00:00",
+  "primaryAdmission": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/sakiko-desk-writing-literary-included-primary-admission-v1.json",
+    "sha256": "0819eb5326f5cbf678e96ebcc95855c52859bf90376377e2901ada3aa74bba62",
+    "bytes": 4033
+  },
+  "sourceClosure": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-included-runtime-closure-v1.json",
+    "sha256": "1212041afc579ef38da4d3dd666947e809b1cc9a2b354b7e6445b81468acabc9",
+    "bytes": 4571
+  },
+  "sourceGeometry": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-visible-geometry-v1.json",
+    "sha256": "f58a96686de08ed03a2e1e1e5ebda652c4d8122d48b938c3073ee3e94b5f2dac",
+    "bytes": 1893
+  },
+  "files": [
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/sakiko-desk-writing-literary-included-primary-admission-v1.json",
+        "sha256": "0819eb5326f5cbf678e96ebcc95855c52859bf90376377e2901ada3aa74bba62",
+        "bytes": 4033
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/sakiko-desk-writing-literary-included-primary-admission-v1.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-visible-geometry-v1.json",
+        "sha256": "f58a96686de08ed03a2e1e1e5ebda652c4d8122d48b938c3073ee3e94b5f2dac",
+        "bytes": 1893
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-visible-geometry-v1.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-writing.scene-proposal-v1.json",
+        "sha256": "0091b99789860423a5487e4cf7f6c40b5c3e582017502136bdf9d53a49438bf1",
+        "bytes": 2289
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-writing.scene-proposal-v1.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-included-runtime-closure-v1.json",
+        "sha256": "1212041afc579ef38da4d3dd666947e809b1cc9a2b354b7e6445b81468acabc9",
+        "bytes": 4571
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-included-runtime-closure-v1.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-pilot/sakiko-study-apricot-literary-desk-pilot-v1.png",
+        "sha256": "00629c2e6e5b55901244a534145ab3c9d8c2f9c3cbf2ec2de8668f33037ccb04",
+        "bytes": 2453484
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-pilot/sakiko-study-apricot-literary-desk-pilot-v1.png",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-background-v3.png",
+        "sha256": "75705046089367bc68cb84f5a679dff43f41eb746f28fbb7f26c2924ffa9532b",
+        "bytes": 2405557
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-background-v3.png",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-figure-mask-v1.png",
+        "sha256": "bcb7752d297460db826c4add32d93e7ae5d87ce02134a16ab2e0e77987d2ddb8",
+        "bytes": 436357
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-figure-mask-v1.png",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-contact-mask-v1.png",
+        "sha256": "09128cff44817ee361ee08b3d897ea70d6c923e2d6492b1d63680cb903055663",
+        "bytes": 402546
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-contact-mask-v1.png",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-layers-included-bundle-v1.json",
+        "sha256": "e40e4d0d2efd87d9172d6b55edf9d8fa8d6b2d063203e1e993ab55f4037f8353",
+        "bytes": 10865
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-layers-included-bundle-v1.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-union-source-v1.svg",
+        "sha256": "24e0b9241a82f0ddf0af47618b4f4f7889adebba901ed26d7fa90b4db4458023",
+        "bytes": 1385
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-union-source-v1.svg",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-layers-included-observe-v3.html",
+        "sha256": "2102c79e77274ad3d94804cecd10f6c94d27084f4134bbca70192158f24e3be8",
+        "bytes": 37416
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-layers-included-observe-v3.html",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-background-v1.source.json",
+        "sha256": "ddfe04a8e444d341de1cbcdc891f421c82a52fca642df57af6dbb5ffe1de1bdd",
+        "bytes": 3927
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-background-v1.source.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-background-v1.prompt.json",
+        "sha256": "681fe923bcd779509bfd4fcff792f47638e71870a7332937d76233b6a8e56364",
+        "bytes": 2035
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-background-v1.prompt.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-background-v2.source.json",
+        "sha256": "db7a60e24c1682fbb8e64bf46402a29a6d05b5cdbd131c44fe1ad65c4dfa2a3c",
+        "bytes": 3745
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-background-v2.source.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-background-v2.prompt.json",
+        "sha256": "daf617c1c8e65b7eab1c2b40df5a42a2c5d3a4c67002e1cc9e31b015d5d2122e",
+        "bytes": 1812
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-background-v2.prompt.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-background-v3.source.json",
+        "sha256": "14f692c52b5eef7c29f799400e19d5e083d1ff6bdd1114e567ab1cf324622b5f",
+        "bytes": 4651
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-background-v3.source.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-background-v3.prompt.json",
+        "sha256": "e00af3d481d49f2eae40e1fd1d8683a7d91684790cae63b3c677dd3ea6239280",
+        "bytes": 2306
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-background-v3.prompt.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-contact-marked-v1.source.json",
+        "sha256": "07670f7c84b7d27183a939102b715df36b2e681b6eb8050dac73d94c438085b5",
+        "bytes": 4205
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-contact-marked-v1.source.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-contact-marked-v1.prompt.json",
+        "sha256": "dab4d07969fa0b15cb28d76d964b7351b600a3fd3a6fd005a4b4663aea2ba3cd",
+        "bytes": 2466
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-contact-marked-v1.prompt.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-contact-mask-v1.source.json",
+        "sha256": "65e22b54e0ca625cda012282cdf07a532c7236a05c39beaaf37b83ffef230367",
+        "bytes": 4259
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-contact-mask-v1.source.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-contact-mask-v1.prompt.json",
+        "sha256": "458cd6347ef84ad549f03ec5480a580bf9b64e10a3f6e3530f1b0102cb27f2eb",
+        "bytes": 1956
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-contact-mask-v1.prompt.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-figure-marked-v1.source.json",
+        "sha256": "6c4f6d68d6a97bd17d71b0e09b9c55872cdd0afe6c294db3b6e3d1c9389e4199",
+        "bytes": 4074
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-figure-marked-v1.source.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-figure-marked-v1.prompt.json",
+        "sha256": "6414b028a9d31552bf77b90711f7f42e396a91d3b066d0d02f063ecce807bb04",
+        "bytes": 2367
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-figure-marked-v1.prompt.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-figure-mask-v1.source.json",
+        "sha256": "211947a43f1123249a63c4fe4a0073ce533db5e5d4e165d8cfc064c4c423816c",
+        "bytes": 3868
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-figure-mask-v1.source.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-figure-mask-v1.prompt.json",
+        "sha256": "32619730e38297bf573edd5f642ed98188f61fd8512518c2540539fe15cd0ddb",
+        "bytes": 1691
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-figure-mask-v1.prompt.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-figure-marked-v1.png",
+        "sha256": "fbd0f2a8a4d1f80cbfd25194cbe7ae15a3efa2133699e24f235fecf214f77555",
+        "bytes": 2368823
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-figure-marked-v1.png",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-contact-marked-v1.png",
+        "sha256": "7d075a1badcd439c0bf3e55fcc4b54462eee7b51efd4632eb1e6b3954f0765c2",
+        "bytes": 2454334
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-contact-marked-v1.png",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-background-v1.png",
+        "sha256": "1b33255f6535dbb93d103ff52a99774d2cbe51925ff19adb6eefd088910c8498",
+        "bytes": 2440565
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-background-v1.png",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-background-v2.png",
+        "sha256": "2d392c6f3157e2e805ff9e19a619717e78745072bdd6593becb076d1eff78c8f",
+        "bytes": 2405655
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-background-v2.png",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-layers-included-observe-v1.html",
+        "sha256": "6bc303b801679b9e674be80077b1dc0142d31df17c4fad9f2e69168aeea0ab0f",
+        "bytes": 35386
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-layers-included-observe-v1.html",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-layers-included-observe-v2.html",
+        "sha256": "5cc4e6af53697d7b6892f42e8aa1a4a90eaa6ddfb269217b843e99219dab7ae5",
+        "bytes": 36305
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-layers-included-observe-v2.html",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/README.md",
+        "sha256": "a96aff3c1ebc124150f35d03ec8364456e00d3cc33c4884ed6b453c2ae9eea38",
+        "bytes": 1795
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/README.md",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-pilot/sakiko-study-apricot-literary-desk-pilot-v1.source.json",
+        "sha256": "566a96089307c2df9d3d0f45c8740b50d7e0893c532152a009d22a95390ae785",
+        "bytes": 8792
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-pilot/sakiko-study-apricot-literary-desk-pilot-v1.source.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-pilot/sakiko-study-apricot-literary-desk-pilot-v1.prompt.json",
+        "sha256": "5d998625466090eaeb82476a1c3a768831d47311e31541e55948d09f9af1dd7e",
+        "bytes": 4400
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-pilot/sakiko-study-apricot-literary-desk-pilot-v1.prompt.json",
+      "status": "copied",
+      "role": "source"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-pilot/sakiko-study-apricot-literary-desk-pilot-v1.png",
+        "sha256": "00629c2e6e5b55901244a534145ab3c9d8c2f9c3cbf2ec2de8668f33037ccb04",
+        "bytes": 2453484
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/sakiko-study-apricot-literary-desk-v1-mother.png",
+      "status": "copied",
+      "role": "runtime-mother"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-background-v3.png",
+        "sha256": "75705046089367bc68cb84f5a679dff43f41eb746f28fbb7f26c2924ffa9532b",
+        "bytes": 2405557
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/sakiko-study-apricot-literary-desk-v1-background.png",
+      "status": "copied",
+      "role": "runtime-background"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-figure-mask-v1.png",
+        "sha256": "bcb7752d297460db826c4add32d93e7ae5d87ce02134a16ab2e0e77987d2ddb8",
+        "bytes": 436357
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/sakiko-study-apricot-literary-desk-v1-mask.png",
+      "status": "copied",
+      "role": "runtime-F"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-contact-mask-v1.png",
+        "sha256": "09128cff44817ee361ee08b3d897ea70d6c923e2d6492b1d63680cb903055663",
+        "bytes": 402546
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/sakiko-study-apricot-literary-desk-v1-contact-mask.png",
+      "status": "copied",
+      "role": "runtime-S"
+    }
+  ],
+  "scene": "前端视觉创新设计/运行素材/companion/scenes/sakiko-study-apricot-literary-desk-v1.scene.json",
+  "sceneSha256": "fb18c66a3d3e3f68f6377114eb414ae1b0b0eeaf3c78c5efae1b7ab18651bd3e",
+  "bodyEnvelopePixels": [
+    135,
+    214,
+    453,
+    724
+  ],
+  "receiverEnvelope": {
+    "sourcePixels": [
+      85,
+      214,
+      453,
+      728
+    ],
+    "normalized": [
+      0.055338541666666664,
+      0.208984375,
+      0.294921875,
+      0.7109375
+    ],
+    "basis": "Read-only luminance>32 diagnostic envelope of actual unmodified F and S, right/bottom exclusive. Includes admitted adjacent receiver/furniture fragments; not pure anatomy or a rendered threshold."
+  },
+  "visibleSupport": "desk-chair seat277539 and forearm194391; partial heel211716 only",
+  "contourComplete": false,
+  "allMotionZero": true,
+  "runtimeAccepted": false,
+  "TSModified": false,
+  "ledgerSnapshotRefreshed": false
+}

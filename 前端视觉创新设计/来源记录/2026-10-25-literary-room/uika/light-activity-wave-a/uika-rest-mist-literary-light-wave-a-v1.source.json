@@ -1,0 +1,81 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "bounded-same-activity-weather-light-mother",
+  "character": "uika",
+  "activity": "rest",
+  "palette": "mist",
+  "environmentVariant": "overcast-day",
+  "sceneFamily": "literary-room-v1",
+  "wave": "light-activity-wave-a",
+  "waveCallIndex": 7,
+  "waveCallLimit": 24,
+  "numberOfImageInputs": 2,
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "role": "image 1 approved empty weather/time room and illumination",
+      "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.source.json",
+      "actualSha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "approvalRecordSha256": "85e4b1e7f3de6186b46cd6e1add64d12a243c1f796033067eef48e5c5b9b716c"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-a/uika-rest-apricot-literary-wave-a-v1.png",
+      "sha256": "0b102ab90b2b2e20f71927f74f6ca7b67d9e39d617d00800dc20047b66b30e24",
+      "role": "image 2 root-approved apricot SAME ACTIVITY pose/identity/support",
+      "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-a/root-mother-admission-v1.json",
+      "actualSha256": "0b102ab90b2b2e20f71927f74f6ca7b67d9e39d617d00800dc20047b66b30e24",
+      "approvalRecordSha256": "b7e9c283f9026833e5c4e492bb9e49c12e4b46ae42e9f93c4e52d719887d58f9"
+    }
+  ],
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-a/uika-rest-apricot-literary-wave-a-v1.png",
+    "sha256": "0b102ab90b2b2e20f71927f74f6ca7b67d9e39d617d00800dc20047b66b30e24",
+    "role": "image 2 root-approved apricot SAME ACTIVITY pose/identity/support",
+    "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-a/root-mother-admission-v1.json",
+    "actualSha256": "0b102ab90b2b2e20f71927f74f6ca7b67d9e39d617d00800dc20047b66b30e24",
+    "approvalRecordSha256": "b7e9c283f9026833e5c4e492bb9e49c12e4b46ae42e9f93c4e52d719887d58f9"
+  },
+  "lightingTarget": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+    "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+    "role": "image 1 approved empty weather/time room and illumination",
+    "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.source.json",
+    "actualSha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+    "approvalRecordSha256": "85e4b1e7f3de6186b46cd6e1add64d12a243c1f796033067eef48e5c5b9b716c"
+  },
+  "referenceBoundary": "First input exact approved matching weather/time empty plate; second exact root-approved apricot same-activity mother, not unreviewed light/chat or old held Umiri v1. Preserve source pose/identity/camera/scale/support; redraw true complete lighting.",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-24947a3e-9676-43dc-b13d-d3b9a4f6238b.png",
+  "output": "uika-rest-mist-literary-light-wave-a-v1.png",
+  "outputSha256": "855be7781b76b12ce17f2fd44b59df043a34a8ae2324de6718bf306276f57c12",
+  "promptFile": "uika-rest-mist-literary-light-wave-a-v1.prompt.txt",
+  "prompt": "Use case: lighting-weather. Return ONE complete 1536x1024 literary-room activity mother.\nINPUT ROLES: IMAGE 1 is the root-approved EMPTY matching weather/time room, authoritative for full room geometry, camera and LIGHT. IMAGE 2 is the root-approved APRICOT SAME-ACTIVITY mother, authoritative for this character's identity, exact pose, body proportions, image location, support, hands and small objects. Use ONLY these two approved inputs. This is a light/weather change preserving a correct pose, NOT a new activity or free pose redraw.\nLOCK the source camera/perspective/window divisions and all major furniture to image 1: desk/chair, shelves/plants/books/pictures, original ceramic lamp/round table/cup/flowers, right bench/pillows/knitted throw, foreground depth/rug/floor. Preserve image 2's complete source figure: head angle/gaze, hair silhouette, torso/back/pelvis, elbows/wrists/palms/fingers, skirt/legs and complete shoes. Same youthful body size and source positions; no zoom, head enlargement, leaning toward lens, body translation, crop or moved furniture. True hip/cushion, back/pillow, hand/object and shoe/floor contacts remain. Complete head/hair, hands, hem and both shoes in frame. Never replace with chat/listening pose.\nREPAINT physically coherent illumination across the ENTIRE person, hair/skin/clothes, paper/books/pencil where present, cushion/contact receiver, wood and floor to image 1. The old hard sunny window bars, hot skin patches and gold noon rim are NOT identity: remove/repaint them under new weather. Match material reflections, contact softness, exposure and lamp falloff. Not a CSS/global color wash, pasted sunny figure or half-day/half-night split. No added lamp or prop; keep interior dry.\nClear fine original youthful anime linework in rich painted room. Hair groups/cheek strands, eyelids/lashes, iris and pupil readable and separate even in downcast/profile eyes. No dark fringe/eye fusion, mature glamour or chibi. No UI, readable text, labels, card, badge, bubble, trail, arrow, halo, signature, watermark or split view.\n\nUika/三角初华: exact warm blonde short bob, violet irises, plain white tee, taupe-gray long skirt, white ankle socks, black-and-white low canvas sneakers from image 2. Keep distinct blonde/skin/white cloth/paper values. Preserve the source uncrossed skirt drape, two distinct lower legs/ankles and independently floor-supported sneakers; no new crossed-knee ridge or tucked foot.\nREST — preserve the source recline into existing plaid cushion, LOWER head position and quiet sideward/downward violet gaze, both empty hands resting together on long-skirt lap. No book/pencil or nap prop. The approved lower head is part of the rested posture: do not normalize it into taller upright chat. She is letting a thought settle, not automatically sad or asleep.\nMIST / OVERCAST DAY: exact image 1 dry cloudy silver-gray daytime, softly veiled original lake/town/mountains, soft diffuse cool-neutral window light with modest original lamp warmth. Not rain/night. No hard sunny stripe on hair/skin/paper/fabric or floor. Skin/clothes and white paper stay dimensional, not chalky blue. All existing material/contact shadows soften consistently.",
+  "submittedPromptSha256NoTrailingNewline": "282d3dedd95bee49de6e3dc5317bc331c12aa231636856c8205345e21553cf3e",
+  "promptFileSha256": "282d3dedd95bee49de6e3dc5317bc331c12aa231636856c8205345e21553cf3e",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "actualMode": "RGB",
+  "pngEdited": false,
+  "cssFilter": false,
+  "largeImageResultStored": false,
+  "producerViewed": true,
+  "primaryMotherApproved": false,
+  "primaryApproved": false,
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "reviewBoundary": "This new light mother only. Approved input mother and plate do not approve this output or layers/runtime.",
+  "remaining": [
+    "Root personally inspect this exact light mother",
+    "No layers, registration or runtime acceptance"
+  ],
+  "producerObservations": [
+    "Personally viewed whole rest mist: source lower head/recline into plaid cushion, empty relaxed hands on skirt lap, quiet sideward violet gaze retained; hip/back and complete two-shoe supports coherent.",
+    "Diffuse cloudy daytime across hair/white tee/skin/skirt/floor; no sunny grid/hot patches or new prop. Camera and major room furniture stable."
+  ],
+  "producerConcerns": [
+    "Naturally overlapping resting hands conceal inner surfaces; root must judge visible fingers and source pose, not hidden anatomy."
+  ]
+}

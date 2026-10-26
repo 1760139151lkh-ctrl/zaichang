@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 1,
+  "character": "uika",
+  "purpose": "neutral-presence",
+  "environmentVariant": "time-day",
+  "weather": "unknown",
+  "exactActivityMatrixCredit": 0,
+  "mother": {
+    "path": "../../uika-neutral-time-day-v1.png",
+    "sha256": "e05d24ff0a1943e66e635880d5265fb79a66dac13e8656ca6d820b1b171ebbea",
+    "primaryApproval": "../../uika-neutral-time-day-v1.primary-approval.json"
+  },
+  "assets": {
+    "figureMask": {
+      "path": "figure-mask-v2.png",
+      "sha256": "652565e02d20f82e623daf8161c892b835be873ccbdeaa5f480db81cd4674b92",
+      "bytes": 478793
+    },
+    "contactMask": {
+      "path": "contact-mask-v1.png",
+      "sha256": "ca010cca06ad628fba48a5b8434c9ac7256a92dc99bb17230dd072bbad6dfa3e",
+      "bytes": 334862
+    },
+    "cleanBackground": {
+      "path": "background-v1.png",
+      "sha256": "f603f08f07afdba3b184dc39ddb4d273f210ccc46dbadee4172312e72ac56e97",
+      "bytes": 2294651
+    },
+    "union": {
+      "path": "union-source-v1.svg",
+      "sha256": "dfeb42c343993ada63405b04ca812b1daf6d2c1d23baa83def6ced874de94d1f",
+      "bytes": 1267
+    },
+    "composite": {
+      "path": "composite-source-v1.svg",
+      "sha256": "8231f92fe7569f623f135634d4fa7a04fc08a19931daaddb4f224458fa5b5ed8",
+      "bytes": 1358
+    },
+    "observationPage": {
+      "path": "included-observe-v1.html",
+      "sha256": "6b68ebb2ea4843a0ebe9c144c265adceac4c238aef0f09246344c8889eab35ed",
+      "bytes": 21083
+    }
+  },
+  "stages": [
+    {
+      "source": "background-v1.source.json",
+      "stage": "background-v1",
+      "sha256": "f603f08f07afdba3b184dc39ddb4d273f210ccc46dbadee4172312e72ac56e97",
+      "decision": "candidate-awaiting-static-union-review"
+    },
+    {
+      "source": "contact-mask-v1.source.json",
+      "stage": "contact-mask-v1",
+      "sha256": "ca010cca06ad628fba48a5b8434c9ac7256a92dc99bb17230dd072bbad6dfa3e",
+      "decision": "candidate-awaiting-static-union-review"
+    },
+    {
+      "source": "contact-step1-marked-v1.source.json",
+      "stage": "contact-step1-marked-v1",
+      "sha256": "22cea089529305cdc3ebeddf3ffbd9dcf14406f2d7e66d0d3df59aa014899e07",
+      "decision": "candidate-awaiting-static-union-review"
+    },
+    {
+      "source": "figure-mask-v1.source.json",
+      "stage": "figure-mask-v1",
+      "sha256": "ea854f7e079ec87d45097ac57acc12e2e9ec5c297d09371b61bbd479927f22ef",
+      "decision": "HOLD-shoe-upper-interiors-incorrectly-cut"
+    },
+    {
+      "source": "figure-mask-v2.source.json",
+      "stage": "figure-mask-v2",
+      "sha256": "652565e02d20f82e623daf8161c892b835be873ccbdeaa5f480db81cd4674b92",
+      "decision": "candidate-awaiting-static-union-review"
+    },
+    {
+      "source": "figure-step1-marked-v1.source.json",
+      "stage": "figure-step1-marked-v1",
+      "sha256": "2db42989c84cf67bb0ef79f6fe57438b08c3b515f8665ddb38e63497dbe8ed68",
+      "decision": "candidate-awaiting-static-union-review"
+    }
+  ],
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "travel": 0,
+    "perspective": 0,
+    "slope": 0
+  },
+  "nativeMethod": {
+    "sourceRgb": "exact original mother",
+    "originalRgbDraws": 1,
+    "union": "MAX(L(F),L(S))",
+    "luminance": "native feColorMatrix sRGB then feBlend lighten",
+    "mask": "native SVG luminance mask",
+    "contact": "included fixed original receiving seat/wood material; not a mobile caster",
+    "pixelEditing": false,
+    "threshold": false,
+    "warp": false
+  },
+  "browser": {
+    "tabId": "500947839",
+    "viewport": [
+      1590,
+      1130
+    ],
+    "cssSourcePixelCloseups": true,
+    "observations": [
+      "实际Chrome亲看全景、1536原尺寸、浅暗棋盘、脸发/双手侧掌/裙边/完整鞋与S-only。",
+      "F-v1错误把黑色帆布鞋面/鞋带内部当透明，已HOLD；只用正确F1独立转F-v2，原RGB组合鞋面不再破洞。",
+      "S保原位髋/掌下局部布面与鞋木面接收；有与F指/鞋底少量重叠，MAX仅取一次RGB不叠深。",
+      "同母BG移除完整人物并重建隐藏坐垫木面，非旧plate；静态层/runtime仍待root分项准入。"
+    ],
+    "evidence": [
+      {
+        "path": "browser-contact-v1.png",
+        "sha256": "cbb288aa5d8b35f59453f836ed13f781fb7615024f678ede782ece46b9240361",
+        "bytes": 209962,
+        "personallyViewed": true,
+        "method": "actual Chrome formal Browser screenshot; local native inline SVG"
+      },
+      {
+        "path": "browser-face-hands-shoes-v1.png",
+        "sha256": "fb692d55ff4d2c60cb12c5222f09a0ecf4e6944fac54cdbe0aa177b2da6ec6d3",
+        "bytes": 196631,
+        "personallyViewed": true,
+        "method": "actual Chrome formal Browser screenshot; local native inline SVG"
+      },
+      {
+        "path": "browser-light-dark-checker-v1.png",
+        "sha256": "5dd34f81bb68f7824d363111316b6c49a4b56fd4d4768e2638aa8c6e02fb8b15",
+        "bytes": 197349,
+        "personallyViewed": true,
+        "method": "actual Chrome formal Browser screenshot; local native inline SVG"
+      },
+      {
+        "path": "browser-native-1536-v1.png",
+        "sha256": "cfbc14aa35348b1af6eba927d4a55a04f2fb712ebdf2d7bf8f677098bffc5504",
+        "bytes": 234254,
+        "personallyViewed": true,
+        "method": "actual Chrome formal Browser screenshot; local native inline SVG"
+      },
+      {
+        "path": "browser-scene-v1.png",
+        "sha256": "6459c1460966e11b57a816091ba806eb1b85ed66dbd7481a134c8d2c24728f4f",
+        "bytes": 254590,
+        "personallyViewed": true,
+        "method": "actual Chrome formal Browser screenshot; local native inline SVG"
+      }
+    ]
+  },
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "userApproved": false,
+  "status": "HOLD-old-F-cuts-rear-skirt-fabric",
+  "laterMaterialDiagnosis": "Night4x native source diagnosis found actual rear long-skirt cloth behind ankles cut in old F1. Day same defect. All browser-*-v1 day observations are held historical diagnostics, not final approval. Correct clean mother F1-v2 repair in progress."
+}

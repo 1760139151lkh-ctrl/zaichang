@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "key": "taki/chat/apricot",
+  "reviewedOn": "2026-10-25",
+  "reviewer": "root primary agent",
+  "evidence": "Direct root message after personal native inspection of #scene original/composite/BG/MAX, #face source pixels, and #fixed source-pixel hand/book/hem/wood receiver/complete soles/floor original versus composite pairs.",
+  "decision": "approved",
+  "scope": "Exact-SHA static fixed-coordinate included joint layer only",
+  "assets": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-pilot/taki-chat-apricot-literary-v1.png",
+      "sha256": "0eb782e67b9954b406130a4994e9e75dd8774c8c3eb2a690d75d3e55338aad16",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "F": {
+      "path": "figure-mask-v1.png",
+      "sha256": "0c9a012634dcafb933a204c3e53150f978d26365e63e46c578687dba57d1781c",
+      "bytes": 466233,
+      "generationSource": "figure-step2-source-v1.json"
+    },
+    "S": {
+      "path": "shadow-mask-v1.png",
+      "sha256": "bbcb8bfbb911c1c7855f455f2159134267235474efeed22cc916c108561eb847",
+      "bytes": 311946,
+      "generationSource": "shadow-step2-source-v1.json"
+    },
+    "nativeSvg": {
+      "path": "union-source-v1.svg",
+      "sha256": "3f7d30bf9429230118ce540a3d7c5df146e9505ad87875960da321ffc709a188"
+    }
+  },
+  "reviewedObservationPage": {
+    "path": "chat-layers-included-observe-v1.html",
+    "sha256": "1fbccfe7892fd1cc08b0fe72052593f4155e95802a6553510e504c8adaba1426"
+  },
+  "observations": [
+    "No obvious white seam, missing real body or misjoined wood surface in the original-coordinate composite.",
+    "The roughly 80px extra source wood receiver outside the left waist was personally inspected and blends into the same-position wood surface. It remains fixed included material."
+  ],
+  "relativeMotion": {
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "rotation": 0,
+    "breathing": 0,
+    "translation": 0
+  },
+  "independentCasterClaim": false,
+  "primaryApproved": true,
+  "staticJointLayerApproved": true,
+  "runtimeAccepted": false
+}

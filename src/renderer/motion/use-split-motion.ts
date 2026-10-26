@@ -4,6 +4,7 @@ import { useSpringValue } from './use-spring';
 interface SplitBounds { min: number; max: number }
 interface SplitOptions {
   bounds: SplitBounds;
+  direction?: 1 | -1;
   onValue: (value: number, moving: boolean) => void;
   onCommit: (value: number) => void;
 }
@@ -81,8 +82,9 @@ export function useSplitMotion(initial: number, options: SplitOptions) {
     }
     if (event.key === 'Enter') { event.preventDefault(); event.stopPropagation(); acceptKeyboard(); return; }
     const value = spring.get().value;
-    const next = event.key === 'ArrowLeft' ? value - (event.shiftKey ? .5 : 2)
-      : event.key === 'ArrowRight' ? value + (event.shiftKey ? .5 : 2)
+    const direction = callbacks.current.direction || 1;
+    const next = event.key === 'ArrowLeft' ? value - (event.shiftKey ? .5 : 2) * direction
+      : event.key === 'ArrowRight' ? value + (event.shiftKey ? .5 : 2) * direction
         : event.key === 'Home' ? limits.current.min : event.key === 'End' ? limits.current.max : undefined;
     if (next === undefined) return;
     event.preventDefault(); event.stopPropagation();

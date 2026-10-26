@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "characterId": "taki",
+  "activity": "chat",
+  "palette": "apricot",
+  "roomFamily": "literary-room-v1",
+  "stage": "figure1",
+  "createdOn": "2026-10-25",
+  "tool": "image_gen.imagegen (built-in)",
+  "callOrdinalInBoundedBatch": 5,
+  "executionId": "exec-ce5dff6f-b4df-4f2d-84a4-59fcc81a6fb5",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-ce5dff6f-b4df-4f2d-84a4-59fcc81a6fb5.png",
+  "input": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-pilot/taki-chat-apricot-literary-v1.png",
+    "sha256": "0eb782e67b9954b406130a4994e9e75dd8774c8c3eb2a690d75d3e55338aad16",
+    "role": "only image input; primary-approved original mother"
+  },
+  "promptFile": "figure-step1-prompt-v1.txt",
+  "promptFileSha256": "a34769034aa7e1f6ad4889686d2d7eb63f66ca1c56ca23e573a201931d10d608",
+  "submittedPrompt": "Use case: precise-object-edit. Asset: complete foreground selection markup, STEP F1 of F2.\nImage 1 is the ONLY input: the PRIMARY-APPROVED original Shiina Taki literary chat mother, exactly 1536x1024. Preserve its exact source camera, framing, scale, every coordinate and pose. This is annotation over the source image, not a newly drawn person.\nPaint SOLID PURE WHITE directly over the ENTIRE existing visible girl AND her ENTIRE lap book: the whole long dark purple-black hair and all fine fringe/strand tips, face and neck, sailor collar/red ribbon/camel blouse and sleeves, every VISIBLE hand and finger (one hand is naturally occluded around the book; do not invent hidden anatomy), ALL covers/pages of the closed book on her lap, every camel skirt fold and complete dark lower hem, both thighs/knees, both dark socks and both complete brown loafers. White interiors must be completely solid, without eyes, seams, printed text, garment folds or book detail.\nCRITICAL: the complete dark skirt hem, thin clothing perimeter and every outward fold are foreground, not shadow (roughly x865..1220,y470..600). Both complete shoes include toe tips, uppers, all dark outsole rims, whole bottom contours, back/side heel walls and heel blocks (roughly x765..965,y790..925). Retain their actual antialiased outer perimeter; do not erode dark edges or shave off narrow hair/garment/shoe tips.\nLeave ALL environment in its original source color: linen cushion, existing plaid cushions and throw, table, lamp, window, lake, floor and rug. Keep genuine gaps between arms/body, hair strands, legs and shoes as original background. Do not whiten room shadows or expand the person into support materials. Do not invent occluded hands or limbs.\nOutput ONE opaque 1536x1024 PNG of the original colored room with only the complete source foreground filled pure white in place. No black-mask conversion yet, no new face/body, crop, zoom, movement, labels, arrows, boxes, checkerboard or text.",
+  "output": {
+    "file": "figure-step1-marked-v1.png",
+    "sha256": "a12ca0ce3f98ab531b339765660e956d8e4813ef4c898992057d1cf200be8971",
+    "bytes": 2314223,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Full F1 marked original viewed: full long hair, existing visible body/hand/book/skirt and complete shoe contours are white in place; actual limb/hair gaps remain colored. No hidden second hand has been invented. Native source-RGB union inspection follows."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "representation": "Fixed original-coordinate included-contact union; no independent caster/travel claim."
+}

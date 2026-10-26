@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "characterId": "soyo",
+  "neutralTime": "night",
+  "purpose": "neutral-presence-fixed-included-layer",
+  "kind": "included-contact-source-white-markup-S1",
+  "createdAt": "2026-10-26T01:32:58.427397+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "exactPromptFile": "contact-step1-marked-v1.prompt.txt",
+  "promptSha256": "a08f91fecd7cbdb472d01a76431ab40c4678c84de0764b79a5476f7c85329300",
+  "requestFile": "contact-step1-marked-v1.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/soyo-neutral-time-night-literary-v1.png",
+      "sha256": "82a918b778cbe9549572410ceba0c27af7c0e11d33f9f2ae14614a280e36d9b6",
+      "role": "sole exact root-approved night mother"
+    }
+  ],
+  "output": {
+    "file": "contact-step1-marked-v1.png",
+    "sha256": "14b6289e7db6a92c9922ef8bcd861228f9910c38062df63d0e5ffc0e5311a9cd",
+    "bytes": 2161558,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "originalBasename": "exec-3a375624-b77b-4522-b883-07e12b3e5edb.png",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteOutput": true,
+    "observations": [
+      "Two local seat/cushion receiving regions and each real shoe-to-floor contact selected in original place.",
+      "Rest of person and scene remains colored; no broad floor ellipse or seat/floor bridge."
+    ],
+    "eligibleAsNextStepInput": true
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "countsToward360ExactActivities": false,
+  "pngPixelEditing": false
+}

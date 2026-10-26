@@ -57,9 +57,16 @@
   "review": {
     "producerPersonallyViewed": true,
     "producerObservation": "Forward lean is now visible without relying on the paper object: shoulder center lies clearly left of hip, head lifts toward user while chest remains diagonally toward handwork. Rear palm meets the cushion; near wrist/palm side visibly meets the thigh, but the entire forearm is not clearly resting along it. Both knees lead to separate calves and complete ankle-strap shoes with floor contacts. Original room continuity and youthful anime identity retained. Needs primary independent mother review before theme expansion or extraction.",
-    "approvedByPrimary": false,
+    "approvedByPrimary": true,
     "layers": "not extracted",
     "runtimeAccepted": false,
-    "mutualReview": "Second reviewer personally viewed v2: clear new forward-lean silhouette even with paper object hidden; seated hip, rear palm, two knee-ankle-shoe chains coherent, no new definite anatomical defect. Corrected whole-forearm support claim to visible wrist/palm-side contact. Does not replace primary or runtime acceptance."
+    "mutualReview": "Second reviewer personally viewed v2: clear new forward-lean silhouette even with paper object hidden; seated hip, rear palm, two knee-ankle-shoe chains coherent, no new definite anatomical defect. Corrected whole-forearm support claim to visible wrist/palm-side contact. Does not replace primary or runtime acceptance.",
+    "primaryApprovalScope": "Root personally viewed the original PNG: youthful identity, hip/seat support, two knee-ankle-shoe chains, full shoes; Uika lap-supported half-closed book, Nyamu independent forward-lean silhouette. Mother only; no layer/runtime acceptance.",
+    "primaryApprovalDate": "2026-10-24"
+  },
+  "matrixCell": {
+    "character": "nyamu",
+    "activity": "resume",
+    "theme": "apricot"
   }
 }

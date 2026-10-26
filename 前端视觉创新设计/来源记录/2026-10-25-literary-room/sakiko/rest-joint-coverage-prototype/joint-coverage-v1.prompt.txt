@@ -1,0 +1,19 @@
+Use case: background-extraction.
+Asset type: ONE original-position JOINT SUBJECT + CONTACT COVERAGE LUMINANCE MASK.
+Image 1 is the ONLY input and edit target: the approved original Sakiko REST mother, exactly 1536 x 1024. This is a mask extraction from that source, not a new illustration. Keep its full canvas, camera, original position, proportions and pose exactly unchanged.
+
+OUTPUT only an opaque neutral RGB black-and-white mask on the SAME 1536 x 1024 canvas:
+WHITE = the COMPLETE existing girl AND her immediately adjoining actual source contact/cast-shadow coverage.
+BLACK = everything else in the room.
+
+Make the ENTIRE existing girl solid white, including complete crown and fine outer hair strands, all ribbons, face/eyes/neck, cardigan and sleeves, BOTH hands and every finger, lap, ALL plaid skirt folds and every outward hem tip and thin dark skirt trim, both knees, both socks, BOTH entire brown loafers, full sole rims and complete heel blocks. Do not put black eye holes, hair linework, clothing seams or shoe details inside the white figure. Do not shorten the hair, shave off the skirt edge, cut a hand or crop a shoe. The original full head is near y=108 and the complete soles near y=895; these are position checks, not new targets.
+
+Also include the REAL narrow source receiver/contact regions adjoining this same girl:
+- Existing compressed cushion and local skirt/hair contact darkness directly beneath and beside her seated weight, approximately within x=935..1330,y=530..605.
+- The palm that rests on the cushion at the right, approximately x=1240..1320,y=540..585: include the complete hand itself plus its immediate real palm-to-linen contact. The other hand rests on her own lap and stays in the solid figure.
+- Existing immediate contact darkness and short cast shade beneath BOTH loafers, approximately within x=805..1035,y=855..920; follow the actual two original sole/heel edges without truncation.
+These enclosing ranges are guides only: NEVER fill them as rectangles or ellipses. Follow the actual visible source contours. A narrow adjoining strip of original linen or floor receiver may honestly be included with the subject. Keep the coverage local; this joint sprite will never travel or deform independently.
+
+All window/lake/town, curtains, desk/chair/shelves, ceramic lamp/table/books/cup, plants, unrelated furniture shadows, plaid pillows, knitted throw, broad bright cushion, bench cabinet, rug, sunlit floor grid and unrelated room materials must be BLACK. Do not carry a broad cushion/floor patch or unrelated isolated room fragments.
+
+Use solid white interiors and solid black room; thin original-edge grey antialias is allowed only on the outer coverage contour. No colored figure or room, no new body RGB, no invented shadow, no new pose, no re-centering, no scaling, cropping or canvas-size change. No labels, outlines, arrows, grid, checkerboard, split view, transparency or text.

@@ -1,0 +1,8 @@
+Use case: precise-object-edit.
+Asset type: COMPLETE FOREGROUND MASK F, step 2 of 2.
+The ONLY input is the original 1536 x 1024 literary room where the complete Rana figure has intentionally been painted flat PURE WHITE at her exact source pixels.
+
+Preserve precisely that complete deliberately painted white figure and her original outline: entire short bob and fine wisps, whole head/neck/body, loose outer shirt including tiny distressed hem tips, both pale undersleeves, BOTH hands/fingers including far supporting palm extended right on the cushion, entire white shorts and all hems, both complete legs, and BOTH WHOLE thick-soled lace-up boots including lace ends, ankle shafts, toes, outsole/rubber tread and heels.
+Turn EVERY other room pixel SOLID PURE BLACK. Original white/bright curtains, lamp, cup, seat cloth, floor sun patches, scenery and all receiver/contact shadows are background and must be black. Only the intentionally painted Rana stays white. Do not accidentally retain original white surroundings, or erase her white clothes/shorts/hand into the background.
+Keep true gaps between hair strands, fingers or legs black. Solid complete white selected interior with no eyes, laces, garment drawing or texture; only fine natural antialiasing along the unchanged visible perimeter.
+No thinning/erosion, expanding, new silhouette, translation, crop, zoom, hidden-anatomy reconstruction, labels or text. Return one opaque grayscale 1536 x 1024 full-canvas coverage mask at x0,y0.

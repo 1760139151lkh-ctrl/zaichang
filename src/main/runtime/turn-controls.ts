@@ -30,10 +30,14 @@ export type TurnControlProposal = z.infer<typeof proposalSchema> & { sources: 'u
 
 /** Produced only by current owner reads; contains no old title, prose,
  * personal fact, source permission or client-asserted world assignment. */
-export interface TurnControlInteractionContext {
+export interface TurnControlInteractionIdentity {
   activity: 'shared_creation' | 'shared_exploration' | 'co_work' | 'study' | 'planning' | 'discussion' | 'reflective_letter' | 'relationship_rehearsal' | 'note_reading' | 'material_reading' | 'interactive_program' | 'prepared_help' | 'message_reading';
   contentIdentity: 'creation' | 'public_reference' | 'mixed' | 'source_bound_work' | 'assistant_interpretation' | 'simulation' | 'user_note' | 'external_document' | 'interactive_work' | 'retained_user_message';
   focus: 'sentence_or_passage' | 'line_or_step' | 'source_object' | 'shared_object';
+}
+export interface TurnControlInteractionContext extends TurnControlInteractionIdentity {
+  objects?: Array<TurnControlInteractionIdentity & { slot: 'A' | 'B' }>;
+  relation?: { kind: 'compare' | 'same_question' | 'continuation'; from: 'A'; to: 'B' };
 }
 
 /** Every cloud-admissible turn receives the same semantic control check before
@@ -55,7 +59,11 @@ const privacyVoiceBoundary = /但是|不过|然而|可是|(?<!不)但|现实中|
 const privacyAdoption = /(?:遵守|遵循|按|按照|照着|记住|记牢|执行|照办)(?:这条|这个|以下|这句|我说的|要求|约定|意思|限制|原则|[:：\s])*$/u;
 const englishPrivacyAdoption = /\b(?:follow|obey|apply|remember|honou?r|enforce)\s*(?:(?:this|the|my|following)\s+)?(?:(?:instruction|rule|request|choice|requirement|policy)\s*)?[:：]?\s*$/iu;
 const privacyPreference = /(?:我|本人)(?:现在|这次|本次|本轮)?(?:希望|要求|想要|要|选择)(?:是|就是)?[:：\s]*$|\bI\s+(?:want|require|choose|prefer)\s*:?\s*$/iu;
-const privacySameChoice = /^(?:(?:我的|对我)(?:这轮|本轮|这次|当前)?(?:也|同样)(?:一样|如此|适用)|(?:我|本人)(?:也|同样)(?:是|有)(?:这个|这条|这样的)(?:要求|限制|选择))|^(?:the same (?:goes )?for me|same for me|that is (?:also )?what I want)\b/iu;
+const privacySameChoice = /^(?:(?:我的|对我)(?:这轮|本轮|这次|当前)?(?:也|同样)(?:一样|如此|适用)|(?:我|本人)(?:也|同样)(?:是|有)(?:这个|这条|这样的)(?:要求|限制|选择)|(?:我|本人)(?:这轮|本轮|这次|当前)?(?:也|同样)(?:这么|这样|如此)(?:要求|希望|选择)|(?:这|以上|前面|上述)(?:也|同样)是(?:我|本人)(?:这轮|本轮|这次|当前)?的?(?:要求|约定|限制|选择))|^(?:the same (?:goes )?for me|same for me|that is (?:also )?what I want)\b/iu;
+// An author can adopt a quoted choice after the quote as well as before it.
+// Require a complete imperative so a language question about “照做” remains
+// discussion of the words rather than a new privacy instruction.
+const privacyFollowChoice = /^(?:(?:请|就|务必)(?:遵守|遵循|执行)(?:(?:这条|这个|这句|上述|以上|前述|刚才的?)(?:要求|约定|限制|规则|原则)?)?|(?:请|就|务必)?(?:照办|照做)|(?:请|就|务必)?(?:按|按照|照着)(?:这条|这个|这句|上述|以上|前述|刚才的?)(?:要求|约定|限制|规则|原则)?(?:处理|做|办|执行|来))(?=$|[\s，,。！？；;.!?])|^(?:please\s+)?(?:follow|obey|apply|honou?r|enforce)\s+(?:this|that|the above)(?:\s+(?:instruction|request|requirement|choice|policy|rule))?(?=$|[\s,;.!?])/iu;
 
 /** A mentioned privacy choice is material, not a choice for this request. Only
  * explicit reporting, language questions and closed hypothetical questions are
@@ -74,7 +82,7 @@ function mentionedPrivacyChoice(before: string, after: string): boolean {
     || /^(?:以下|下面|接下来|这里)(?:是|给你)(?:我的|这次的)?(?:真实|实际)(?:资料|数据|内容|原文|记录)/u.test(value)
     || /^(?:this\s+is\s+my|is\s+my)\s+(?:(?:actual|current|real)\s+)?(?:instruction|request|requirement|choice|policy)\b/iu.test(value)
     || /^(?:please\s+)?(?:follow|obey|apply|honou?r|enforce)\s+(?:this|that|the above)\s+(?:instruction|request|requirement|choice|policy|rule)\b/iu.test(value)
-    || privacySameChoice.test(value))) return false;
+    || privacySameChoice.test(value) || privacyFollowChoice.test(value))) return false;
   // A comma continues a reported/hypothetical sentence until the author
   // explicitly takes over. Do not mistake that takeover for more reported text.
   if (clausePrefix !== prefix && /^(?:(?:而|至于)\s*)?(?:(?:我|本人)(?:的|这次|本次|本轮|现在|要求|希望)|(?:这次|本次|本轮|现在)(?:我|请|也|就))/u.test(clausePrefix)) return false;
@@ -114,9 +122,9 @@ function mentionedPrivacyChoice(before: string, after: string): boolean {
   if (/^(?:imagine|suppose|consider)\s+(?:(?:a|the|an)\s+)?(?:system|app|application|architecture|design|scenario)\b/iu.test(prefix)) return true;
   // A real conditional request (“if this file stays here, how can you help?”)
   // still chooses a local boundary. Bare if/如果 is not a hypothetical voice.
-  const hypothetical = /(?:^|[:：])\s*(?:(?:我们|咱们|请|来|先|试着|我想)(?:讨论|考虑|分析|想想|看看)?\s*)*(?:假设|假如|假想|设想|比如|例如)/u.test(prefix)
+  const hypothetical = /(?:^|[:：])\s*(?:(?:我们|咱们|请|来|先|试着|我想)(?:讨论|考虑|分析|想想|看看)?\s*)*(?:假设|假如|假想|设想|比如|例如|譬如|打个比方|举个例子|用个比喻|做个比喻)/u.test(prefix)
     || /(?:^|[:：])\s*(?:(?:我们|咱们|请|来|先|试着|我想)\s*)*(?:讨论|分析|比较|设想)(?:一下|一个情景|一种情况)?[:：\s]*(?:如果|要是|倘若)/u.test(prefix);
-  return hypothetical && /(?:会(?:怎么|怎样|如何|不会)|(?:应|该|可以|能|要)(?:该)?(?:怎么|怎样|如何)|怎么办|意味着什么|是什么意思|是否|算不算|有什么(?:区别|影响)|如何(?:设计|实现|处理|回应|理解)|(?:帮我|请你|我们来|我想)(?:设计|讨论|分析|实现))/u.test(suffix)
+  return hypothetical && /(?:会(?:怎么|怎样|如何|不会)|(?:应|该|可以|能|要)(?:该)?(?:怎么|怎样|如何)|怎么|怎样|如何|怎么办|意味着什么|是什么意思|是否|算不算|有什么(?:区别|影响)|(?:能|会)(?:做|发生|提供)什么|(?:帮我|请你|我们来|我想)(?:设计|讨论|分析|实现))/u.test(suffix)
     || /^(?:(?:suppose|imagine|assume)\b|if\s+(?:I|we|someone|(?:a|the)\s+user)\s+(?:say|said|ask|asked|were to (?:say|ask))\b)/iu.test(prefix)
       && /\b(?:how|what|would|should)\b/iu.test(suffix);
 }
@@ -125,12 +133,12 @@ interface PrivacyQuote { start: number; end: number; children: PrivacyQuote[]; }
 const blankPrivacyMaterial = (value: string) => value.replace(/[^\r\n]/gu, ' ');
 function adoptsPrivacyChoice(before: string, after: string): boolean {
   const adopted = privacyAdoption.test(before) || englishPrivacyAdoption.test(before) || privacyPreference.test(before)
-    || /(?:遵守|遵循|按|按照|执行)[^，,。！？；;\n]{1,40}的(?:要求|约定|限制|规则|原则)[:：\s]*$/u.test(before)
+    || /(?:遵守|遵循|按|按照|执行)[^，,。！？；;\n]{1,40}的(?:要求|约定|限制|规则|原则)(?:处理|做|办|执行|来)?[:：\s]*$/u.test(before)
     || /(?:^|[:：])\s*(?:(?:我|本人)(?:这轮|本轮|这次|当前)?|(?:这轮|本轮|这次|当前)(?:我|本人)?)(?:的)?(?:要求|约定|意思|限制|选择)(?:是|就是|如下|为)[:：\s]*$/u.test(before)
     || /^(?:这|以上|前面|上述)(?:是|就是)(?:我|本人)?(?:这轮|本轮|这次|当前)?的?(?:真实|实际|正式|真正)?(?:要求|约定|意思|限制|选择)/u.test(after)
     || /\bmy\s+(?:(?:actual|current|real)\s+)?(?:instruction|request|requirement|choice|policy)\s+is\s*:?\s*$/iu.test(before)
     || /^(?:this\s+is\s+my|is\s+my)\s+(?:(?:actual|current|real)\s+)?(?:instruction|request|requirement|choice|policy)\b/iu.test(after)
-    || privacySameChoice.test(after);
+    || privacySameChoice.test(after) || privacyFollowChoice.test(after);
   return adopted && !mentionedPrivacyChoice(before.replace(privacyAdoption, '').replace(englishPrivacyAdoption, ''), after);
 }
 const privacySentenceBoundary = /[。！？；;.!?\n]/u;
@@ -186,7 +194,7 @@ export function localRetentionRestriction(text: string): boolean {
   const sentences = authored.split(privacySentenceBoundary);
   for (const [index, sentence] of sentences.entries()) {
     const adoption = adoptsPrivacyChoice('', (sentences[index + 1] || '').trim()) ? ',' + sentences[index + 1] : '';
-    for (const match of sentence.matchAll(/(?:只用于|仅用于|只用在|只用|仅限|仅).*本轮.*(?:不保存|不记录)|(?:这段|这句|本轮|此轮|临时).*不保存|不要保存这段|临时模式|session.only|do not (?:save|store)|don't (?:save|store)|don’t (?:save|store)/giu))
+    for (const match of sentence.matchAll(/(?:只用于|仅用于|只用在|只用|仅限|仅).*本轮.*(?:不保存|不记录)|(?:这段|这句|本轮|此轮|临时)(?:聊天|对话|话|文字|内容|消息)?(?:请|也|就|先|暂时|现在|都|[:：\s])*(?:不(?:要|必|用)?|别|勿)(?:再)?(?:保存|记录)|不要保存这段|临时模式|session.only|do not (?:save|store)|don't (?:save|store)|don’t (?:save|store)/giu))
       if (!mentionedPrivacyChoice(sentence.slice(0, match.index), sentence.slice(match.index + match[0].length) + adoption)) return true;
   }
   return false;
@@ -231,8 +239,9 @@ export function localCloudRestriction(text: string): boolean {
   const outgoingTransfer = new RegExp('^(?:(?:再|将|把|让|用|使用|通过)\\s*)?' + transfer + '|^(?:把|将|让).+?' + transfer, 'u');
   const recipientFirstTransfer = /^(?:再\s*)?(?:向|往|给).+?(?:上传|发送|传输|传送|提交|交付|提供|递交)/u;
   const remoteProcessing = new RegExp('^(?:让|允许|由|用|使用|调用|交给|交由|交予|通过)?(?:任何|一个|这个|这些|已配置的)?(?:' + remoteRecipient.source + ')(?:的)?(?:语言)?(?:模型|服务)?(?:来|去|接收|处理|分析|阅读|理解|回答|推理|读取|收到|看到|读|看|(?:了|吧|呀)?$)', 'iu');
-  const englishTransfer = /\b(?:do not|don't|don’t|never|must not|mustn't|mustn’t)\s+(upload|send|transmit|share)\b/giu;
-  const englishProcessing = new RegExp("\\b(?:do not|don't|don’t|never|must not|mustn't|mustn’t)\\s+(?:use|call)\\s+(?:a\\s+|the\\s+)?(?:(?:cloud|remote|online)\\s+(?:model|service)|" + modelService + ')', 'giu');
+  const englishProhibition = "\\b(?:do not|don't|don’t|never|must not|mustn't|mustn’t)\\s+(?:(?:want|allow|permit)\\s+(?:you|anyone|anybody)\\s+to\\s+)?";
+  const englishTransfer = new RegExp(englishProhibition + '(upload|send|transmit|share)\\b', 'giu');
+  const englishProcessing = new RegExp(englishProhibition + '(?:use|call)\\s+(?:a\\s+|the\\s+)?(?:(?:cloud|remote|online)\\s+(?:model|service)|' + modelService + ')', 'giu');
   const prohibition = /(?:不要|不许|禁止|不得|不准|不能|不可|别|勿|不允许|不希望|不想|无需|不用|不必|不)\s*/gu;
   for (const { text: clause, before, tail } of clauses) {
     const operative = (start: number, end: number) => !mentionedPrivacyChoice(before + clause.slice(0, start), clause.slice(end) + tail);
@@ -251,7 +260,11 @@ export function localCloudRestriction(text: string): boolean {
     for (const match of clause.matchAll(prohibition)) {
       if (!operative(match.index, match.index + match[0].length)) continue;
       // Passive voice governs the same outgoing operation as active voice.
-      const operation = clause.slice(match.index + match[0].length).trim().replace(/^再\s*/u, '').replace(/^被\s*/u, '');
+      const operation = clause.slice(match.index + match[0].length).trim()
+        .replace(/^(?:你|您|你们)(?:再|来|去)?\s*/u, '')
+        .replace(/^再\s*/u, '')
+        .replace(/^(?:(?:这条|本条|这些|这份|我的|任何|全部|所有|私人|个人|用户的)?(?:内容|资料|数据|原文|消息|文本|信息|文件))(?:再)?被\s*/u, '')
+        .replace(/^被\s*/u, '');
       if (objectLeavesDevice.test(operation)) return true;
       if (/^(?:再)?(?:外传|传出去)/u.test(operation)) return true;
       if (remoteProcessing.test(operation) || /^(?:把|将)?(?:这条|本条|这些|这份|我的|任何)?(?:内容|资料|数据|原文|消息|文本)(?:再|拿去)?(?:外传|传出去|带出本机)/u.test(operation)) return true;
@@ -297,7 +310,7 @@ export async function parseTurnControls(text: string, client: Pick<DeepSeekClien
     { role: 'system', content: "同一句话里几件事可能各有范围。先看对方限制的是参与方式、实际行动，还是可读材料：只比较、先别改是在选择怎样帮忙，比较所需的原记录、相关条件和可能冲突的占用仍有各自的用途；提到一个任务对象，也没有因此排除一切其它判断依据。对方确实只愿意拿出某页、某几项或限定某份草稿的材料时，再把那份读取限制和适用对象放在scopedSourceLimits，单一任务也一样。材料对象与存放来源又是不同的事：明确只看当前页两项、不再翻页时，原件也许在刚才的聊天、笔记或账号记录里，找到并核对那两项仍可能是完成比较的一部分。整类来源的选择，比如明确不读聊天或不查学校账号，再对应sourceAllowlist/sourceExclusions。还不知道原页在哪儿时，保留真实的对象限制，让主助手沿原用途找到它，比把所有可能承载它的来源都排除更贴近原意；这并不允许顺便读其它记录。local-agenda是本人已登记的本机日程，课程也可能在里面；campus:local是另行导入的旧资料，campus:zju-account也保有账号采集后存于本机的快照。沿保存资料计算、暂不刷新，是关于使用哪一版和是否新采集的约定，原来源身份不随之改变；把这份读取条件保留下来，再按真实工具参数照顾它。" },
     { role: 'system', content: "聊天原文的保留和从中形成长期理解，是两种不同选择。比如愿意留下聊天但暂时不提取长期记忆，对应history_no_inference；明确只留这轮、结束就清理聊天，才对应session_only。理解时可以多留意“不保存”实际指什么。更正某个旧理由也可能正是希望你们按新情况相处，而不是拒绝保留这次新的话。" },
     { role: 'system', content: "来源名字有一点容易混淆：map:local是存在本机的公共地名和路网，local描述存放位置。本人地点角色来自work:self，设备位置或地图选点另有当前分享许可。weather:open-meteo给明确公共参考地点的天气，web:public是公开网页。对方想查两个明确地点的路线，又不想读其它个人资料时，这些公开材料与私人资料可以分开照顾；对方若明确不许地图、联网或只看当前材料，那份选择当然仍然适用。" },
-    ...(catalog?.currentInteraction ? [{ role: 'system' as const, content: "这条话带着同一对话里一处真实共同内容的临时引用，currentInteraction只告诉你活动类型与作品身份，旧正文并没有随它一起进来。指向作品是此刻真实的交流，作品中的第一人称则可能属于虚构角色；现实协作和作品命题可以以mixed并存。只评论、管理或指向作品时，也照实际交流理解。点到一处本身还没表达读旧文、长期保存、继续托付或实际行动的许可，对方此刻明确换了主体、受众或资料范围，仍照新的意思来。" }] : []),
+    ...(catalog?.currentInteraction ? [{ role: 'system' as const, content: "这条话带着同一对话里真实共同内容的临时引用，currentInteraction只告诉你活动类型与作品身份，旧正文并没有随它一起进来。objects出现时分别保留A/B各自的身份，relation说明这次两处怎样相连；一处可能是现实笔记，另一处可能是作品或试说，可以带着各自的来由理解这次共同问题。指向作品是此刻真实的交流，作品中的第一人称则可能属于虚构角色；现实协作和作品命题可以以mixed并存。只评论、管理或指向作品时，也照实际交流理解。点到一处本身还没表达读旧文、长期保存、继续托付或实际行动的许可，对方此刻明确换了主体、受众或资料范围，仍照新的意思来。" }] : []),
     ...(catalog ? [{ role: 'system' as const, content: "下面是可用的非敏感来源名字和能力说明，帮助你把对方的意思对应到实际材料；允许读哪些仍来自这次的约定：" + JSON.stringify(catalog) }] : []),
   ] as Parameters<DeepSeekClient['complete']>[0];
   for (let attempt = 0; attempt < 2; attempt++) {

@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "assetType": "literary-room-complete-activity-light-mother",
+  "id": "sakiko-listening-violet-literary-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-listening-violet-literary-v1.prompt.json",
+  "promptFileSha256": "9be09cb56f5995530b5553ed36731cc98adadc62c324d2619f771d87a476f04a",
+  "submittedPrompt": "Create one complete 1536×1024 landscape literary mother illustration of Togawa Sakiko. FIRST reference is the approved target empty room, camera and all illumination; SECOND is the exact approved same-activity apricot mother for Sakiko's identity, supported pose, apparent head/body size, objects and furniture support only. Preserve image 1's room camera, big window divisions, town/lake/mountains, curtains, shelves/desk, round lamp table, near right linen bench, plaid pillows, knitted throw, rug and foreground plants. Keep image 2's original youthful silver-blue long hair, clear golden irises, navy uniform details and actual body/hand/object relationships; hair strands, eyelids, irises and brows remain distinct. Do not paste a daytime figure or apply a theme tint to old lighting. Apricot hard solar highlights, white noon patches, window-grid/leaf shadows and bright floor rectangles in image 2 are NOT identity or pose and must not transfer. Repaint ALL hair, skin, paper, clothes, receiving furniture and floor under the first reference's actual illumination. No half-day/half-night division, new spotlight, UI, readable text/caption, new person or costume change. Preserve her own thought and judgment; no universal soothing smile, no theme-imposed sadness. One coherent lived-in scene with credible contact shadows.\n\nTarget is CONTINUOUS TWILIGHT. Match the exact rose-gold/lilac sunset and dim town/lake view of image 1, existing warm lamp fill plus quieter cool dusk. Relight hair, face, paper, navy/white clothes and indoor floor together. Retain only target-source light/shadow relations; no inherited bright noon patches, extra sun or global purple filter. Natural skin/silver-blue hair retain their own colors. Dusk does not require a sad face.\n\nUse only the approved listening V2 upright bench depth, apparent head size and simple supported hand/knee/cushion relationships. Do not reproduce the rejected older head-forward enlarged listening pose. Same complete head/hair and shoes, crown about110/soles about890; upright relaxed torso, no head lunge.\nThe second input is the correct fully approved V2; retain this supported seated body and subtle tilt, not a new leaning listening pose. Repaint old bright skin/fabric solar highlights into smooth target lamp/dusk light.\n\nLiterary direction (original project performance, not canon or real user memory):\n她原本也有一句想说的话，此刻却先放下了。对方的停顿不需要她立刻命名，她想等那句话自己长完整。\n她认真倾听，有自己的判断，愿意被对方的话改变，不套大眼服务笑或万能安慰。\n窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。",
+  "submittedPromptSha256Utf8NoTrailingLF": "013052fbe6e35aa26cce8a4ead33990349e5c64ca4f346730649bdc5d44720f4",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+      "role": "first-approved-target-room-and-all-lighting",
+      "approval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.primary-approval.json"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-listening-apricot-literary-pilot-v2.png",
+      "sha256": "e88e85dfba21e9639d5414375518b4a1dc85ef0660e9d7f79772306f14a1113d",
+      "role": "second-approved-listening-v2-identity-pose-scale-not-apricot-sun",
+      "approval": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+        "sha256": "0dc133f5dc0ac1702bce894b279304dde90ab45ddbe57c4107ee9caf360fe8d0",
+        "key": "sakiko/listening/apricot",
+        "decision": "approved",
+        "rootApproved": true
+      }
+    }
+  ],
+  "output": {
+    "file": "sakiko-listening-violet-literary-v1.png",
+    "sha256": "0423e957727a458acdf37f28fe13b6e030827947c1e2f30515b35c270fa804c6",
+    "bytes": 2283902,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-b72518c1-f2ae-4149-8d12-27fdf376bc97.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "primaryApproved": false,
+    "layerApproved": false
+  },
+  "status": "producer-viewed-awaiting-root-mother-review",
+  "producerReview": {
+    "reviewedAt": "2026-10-25T14:01:55.198835+00:00",
+    "method": "Personally inspected actual full native ImageGen output at 1536x1024 before next call.",
+    "observations": [
+      "Viewed full original: supported upright V2-style depth/head size and coherent knee hand/cushion palm/hips/legs/full shoes.",
+      "Warm/cool target dusk relights hair, face, uniform, skin, linen and floor without apparent daylight split or noon patches.",
+      "Golden eyes remain independently readable; restrained attention rather than default smile."
+    ],
+    "issues": [
+      "Head lowers slightly/crown around y130 versus V2 near y110; small tilt/position change without head enlargement.",
+      "Target twilight floor retains structural warm/dark bands."
+    ],
+    "rootApprovalRequired": true
+  }
+}

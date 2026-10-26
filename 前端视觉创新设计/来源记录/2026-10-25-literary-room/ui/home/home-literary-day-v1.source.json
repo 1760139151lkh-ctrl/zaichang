@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "ui-home-layout-proposal",
+  "page": "home/chat",
+  "environmentVariant": "clear-day",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-636a4048-43ed-4b75-b36a-0cea87f664a3.png",
+  "executionId": "exec-636a4048-43ed-4b75-b36a-0cea87f664a3",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+      "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+      "role": "sole user-selected literary room/character mother image and edit target; preserve full original character and space"
+    }
+  ],
+  "intent": "One daytime whole-home composition proposal only, existing three navigation entries plus one avatar and one composer; local readable light-paper surfaces preserve the left room.",
+  "readOnlyProductSources": [
+    {
+      "file": "src/renderer/Navigation.tsx",
+      "observed": "Existing 聊天/今天/留下 navigation and companion menu; secondary functions remain existing routes, not newly invented features"
+    },
+    {
+      "file": "src/renderer/App.tsx",
+      "observed": "Existing continuation placeholder 接着说… and add-material attachment control"
+    },
+    {
+      "file": "src/renderer/ComposerActions.tsx",
+      "observed": "Existing send up-arrow; this single image represents a non-busy conversation only"
+    }
+  ],
+  "sampleConversation": {
+    "fictionalCompositionCopy": true,
+    "fromPrivateUserHistory": false,
+    "actualModelResponse": false
+  },
+  "promptFile": "home-literary-day-v1.prompt.txt",
+  "promptFileSha256": "9b8e028ecf9506fd3c65fcbfb1982739550e726a67966fd3acb570f14d2c334e",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; submitted text exact",
+  "submittedPromptSha256": "7e847e0081728a568aded88aae743599ceacb72097d26827ae3910252df09615",
+  "output": {
+    "file": "home-literary-day-v1.png",
+    "sha256": "295bafb2382d939d8cd20384730a24cb4680a869e18e06bbb5bdf000eaa84a94",
+    "bytes": 2397555,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed complete saved 1536x1024 proposal. The original room remains recognizable across both halves: desk/chair, wood, lamp table, plants, window/lake and foreground depth are visible around local paper islands rather than hidden by a full-height white sidebar. Character face/fringe, book-holding hands, supported seated pose and complete head/shoes remain visually coherent and in a comparable position/scale; no obvious limb or facial deformation observed, but no pixel-identical preservation claim. Exactly three navigation labels, one small brand, one avatar and one composer with plus/up-arrow are shown, with no activity/weather/status/tooltips. Chinese sample text is legible. Message type and avatar are larger, composer wider, and paper more opaque than intended; refine these in implementation rather than treating generated UI dimensions/material as approved. This is a static composition proposal only, not a functional or responsive runtime check."
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "implementationStatus": "Design proposal only; no source edits, interaction or responsive/runtime validation.",
+  "approvalScope": "Single static daytime composition/readability proposal only; no functionality, night rendering or runtime acceptance."
+}

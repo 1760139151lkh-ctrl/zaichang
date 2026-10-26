@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "id": "anon-chat-apricot-literary-shadow-step1-v1",
+  "assetType": "native-luminance-source-selection-intermediate-or-mask",
+  "createdAtUtc": "2026-10-25T11:21:39.826601+00:00",
+  "stage": "shadow-step1-v1",
+  "tool": {
+    "name": "image_gen.imagegen",
+    "mode": "same-canvas-in-place-selection",
+    "originalEventId": "exec-d87f8a14-bdae-4ed1-a6fd-6ceadfd5f62e",
+    "outputHint": "Generated images are saved to C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270 as C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-d87f8a14-bdae-4ed1-a6fd-6ceadfd5f62e.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  "prompt": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\chat-layers\\shadow-step1-v1.prompt.json",
+    "fileSHA256": "eff30b2acfc4bcb862660d5e61dd73aebc1b745010a65818310f085568bff274",
+    "submittedPrompt": "Use case: precise-object-edit.\nAsset type: local original-source contact/receiving-surface selection markup, S STEP 1, for a FIXED included joint layer.\nImage 1 is the ONLY input: the primary-approved original Anon Chihaya / 千早愛音 literary-room CHAT mother, exactly 1536×1024. Keep the original full room, entire person, held booklet, camera, scale and all source coordinates unchanged.\nPaint SOLID PURE WHITE ONLY over the REAL VISIBLE local cushion compression/contact darkness and adjacent short cast/contact material caused by this seated person and held booklet. This selects original receiving-surface pixels for an included source union, not a new shadow drawing. Trace the actual soft irregular source patches, without generic ellipses or rectangles.\nCushion receiving contact: approximately x635..945,y525..590, the narrow real dark linen band directly under the rear hip/skirt and immediately adjacent visible hair/seat cast shade. Follow its taper and soft extent, not the whole bright cushion. Preserve the actual garment, fingers, thighs and hair themselves in original color. Do not confuse navy/green skirt hem and its dark trim with linen; the complete garment remains foreground.\nFloor receiving contact: approximately x600..775,y795..860, immediately below the original BOTH shoes, including the true grounded sole contacts and short existing local floor shade. Keep the entire actual shoe RGB and dark outsole/heel walls unchanged; those are figure, not floor shadow. Follow each real sole individually. Do not invent another shoe, shift contact downwards, add a shared oval or select the window's unrelated sunlight lattice.\nIf an actual independent hand/book cast mark touches a room surface, select only that existing local receiving patch; self-shading on hands, body, clothes or book remains original figure RGB. All coordinates above are enclosing observation limits, not painted boxes.\nAll unrelated pixels retain their original source color: complete girl/book, white linen outside actual contact, pillow plaid, knitted throw, inherent wood colors, furniture shadows, lamp, cup, flower petals, shelves, plants, curtain, lake, room highlights and rug. Do not redraw RGB, repaint the room or move any object.\nOutput one opaque 1536×1024 original colored mother with ONLY those real existing local contacts whitened in place. No black mask yet; no new geometry, labels, arrows, boxes, text, crop, zoom or translation.\n",
+    "submittedPromptSHA256": "8055adf96e684e99a426465268b29557d9ee2bc9ec2d5d07abff0d5b8e262102"
+  },
+  "inputs": [
+    {
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\chat-pilot\\anon-chat-apricot-literary-v1.png",
+      "sha256": "53ee79ee3e5e210fc875d6ed062543c21cc2001831ede42dad814367a6103b7c",
+      "role": "sole ImageGen input; original approved mother for STEP1, previous marked output for STEP2"
+    }
+  ],
+  "sourceMother": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\chat-pilot\\anon-chat-apricot-literary-v1.png",
+    "sha256": "53ee79ee3e5e210fc875d6ed062543c21cc2001831ede42dad814367a6103b7c",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "approval": "Root personally approved chat mother only on 2026-10-25; no layer/runtime approval implied"
+  },
+  "matchingBackground": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "role": "existing approved empty clear-day composition background; not supplied to this selection call"
+  },
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\chat-layers\\shadow-step1-marked-v1.png",
+    "sha256": "89f1aed9e5eef7609cdf51c94b765502d7b25d284c534bc36b72338d0a2793ae",
+    "bytes": 2411699,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-d87f8a14-bdae-4ed1-a6fd-6ceadfd5f62e.png"
+  },
+  "compositionIntent": {
+    "formula": "U = MAX(L(F), L(S)); original mother RGB drawn exactly once through U",
+    "contactShadow": "included",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "independentCasterClaim": false
+  },
+  "review": {
+    "directInspection": "original generated output viewed in session; final F/S also viewed in native SVG original-RGB composition",
+    "approvedByPrimary": false,
+    "runtimeAccepted": false,
+    "observation": "Fixed source selection only; final MAX union contact/edge observations are recorded in chat-included-bundle-v1.json"
+  },
+  "boundaries": [
+    "exact approved mother coordinates",
+    "no new RGB figure",
+    "no PNG pixel editing",
+    "maximum four calls per character",
+    "no layer/runtime admission"
+  ],
+  "largeImageResultStored": false,
+  "status": "saved-source-selection-composed-in-native-union-awaiting-primary-review"
+}

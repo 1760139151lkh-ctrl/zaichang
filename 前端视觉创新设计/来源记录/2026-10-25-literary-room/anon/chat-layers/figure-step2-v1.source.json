@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "id": "anon-chat-apricot-literary-figure-step2-v1",
+  "assetType": "native-luminance-source-selection-intermediate-or-mask",
+  "createdAtUtc": "2026-10-25T11:20:50.376261+00:00",
+  "stage": "figure-step2-v1",
+  "tool": {
+    "name": "image_gen.imagegen",
+    "mode": "same-canvas-in-place-selection",
+    "originalEventId": "exec-55f4f350-ffef-4909-a4be-432e29eb5924",
+    "outputHint": "Generated images are saved to C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270 as C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-55f4f350-ffef-4909-a4be-432e29eb5924.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  "prompt": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\chat-layers\\figure-step2-v1.prompt.json",
+    "fileSHA256": "7ebf67821548dbc6e4e0d1c4d6acb17d60377410078650bb718441e43a6673cf",
+    "submittedPrompt": "Use case: background-extraction.\nAsset type: complete original-position foreground luminance mask, F STEP 2.\nImage 1 is the ONLY input: the previous 1536×1024 original mother with the entire Anon Chihaya / 千早愛音 plus entire held OPEN booklet painted white. Keep ALL of the deliberately painted white foreground at exactly its existing source coordinates and preserve its complete contour; change ONLY the remaining colored environment to PURE BLACK.\nKeep the entire hair/face/neck/clothing, both complete hands and fingers, all covers/pages of the held booklet, thighs/knees/socks and BOTH complete shoes SOLID WHITE. Preserve all dark garment/skirt lower edges and outward hem folds already covered white. Preserve every white shoe sole rim, complete heel block and toe contour. Do not erode, contract, resize, move, center or redesign the silhouette. Thin grey is allowed ONLY on its existing antialiased outer edge; no eye holes or clothing linework in the white interior.\nFigure extent approximately x610..940,y105..830; critical skirt edge approximately x640..930,y490..580; full shoes approximately x605..755,y745..835. These limits identify the existing selection; they are NOT white rectangles. Only actual deliberately whitened figure/book pixels survive.\nThe linen cushion, pillows, throw, table/lamp/cup/flowers, chair/desk/shelves, curtains, clouds, lake, window highlights, floor/rug and all independent room/contact/cast shadows become BLACK, including naturally white parts of the room. True hair/limb/book gaps become black. Do not mistake a natural bright window/linen patch for selected foreground.\nOutput exactly ONE opaque 1536×1024 BLACK canvas with the unchanged full original-position WHITE foreground. No color, transparent checker, grid, labels, arrows, rectangles or text. No new silhouette and no movement.\n",
+    "submittedPromptSHA256": "eb1af2d64a7d783caea3497f3eb8566327be11be516420fdfeff7ca29d063bbb"
+  },
+  "inputs": [
+    {
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\chat-layers\\figure-step1-marked-v1.png",
+      "sha256": "9f144540a80d122bcde5c68d03c01cb1e9838161b822ef901aed6bac6ac43b20",
+      "role": "sole ImageGen input; original approved mother for STEP1, previous marked output for STEP2"
+    }
+  ],
+  "sourceMother": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\chat-pilot\\anon-chat-apricot-literary-v1.png",
+    "sha256": "53ee79ee3e5e210fc875d6ed062543c21cc2001831ede42dad814367a6103b7c",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "approval": "Root personally approved chat mother only on 2026-10-25; no layer/runtime approval implied"
+  },
+  "matchingBackground": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "role": "existing approved empty clear-day composition background; not supplied to this selection call"
+  },
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\chat-layers\\figure-mask-v1.png",
+    "sha256": "c4aba1f3593f5255b56c2bdcf14873fc5400f8c9fc6e71f346df1c3f00cca0fd",
+    "bytes": 441359,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-55f4f350-ffef-4909-a4be-432e29eb5924.png"
+  },
+  "compositionIntent": {
+    "formula": "U = MAX(L(F), L(S)); original mother RGB drawn exactly once through U",
+    "contactShadow": "included",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "independentCasterClaim": false
+  },
+  "review": {
+    "directInspection": "original generated output viewed in session; final F/S also viewed in native SVG original-RGB composition",
+    "approvedByPrimary": false,
+    "runtimeAccepted": false,
+    "observation": "Fixed source selection only; final MAX union contact/edge observations are recorded in chat-included-bundle-v1.json"
+  },
+  "boundaries": [
+    "exact approved mother coordinates",
+    "no new RGB figure",
+    "no PNG pixel editing",
+    "maximum four calls per character",
+    "no layer/runtime admission"
+  ],
+  "largeImageResultStored": false,
+  "status": "saved-source-selection-composed-in-native-union-awaiting-primary-review"
+}

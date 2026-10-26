@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "character-activity-mother-candidate",
+  "character": "sakiko",
+  "activity": "chat",
+  "environmentVariant": "dry-night",
+  "variantKind": "weather-and-time-depiction",
+  "newUIPaletteOption": false,
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-3b9dc627-7e65-4818-b890-18634d3d6501.png",
+  "executionId": "exec-3b9dc627-7e65-4818-b890-18634d3d6501",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-dry-night-v1.png",
+      "sha256": "edad31b1ce0c7f21be59d939cc54a0d6230b31d6fe380d0d553af515032fd0f4",
+      "role": "sole approved clean empty room environment image input; fresh character from text",
+      "admissionRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-dry-night-v1.primary-approval.json"
+    }
+  ],
+  "selectedMotherLineage": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+    "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+    "imageInputForThisCall": false,
+    "purpose": "personally viewed space-emotion and human-scale basis only"
+  },
+  "weatherBoundary": "Generated scene depicts this weather/time; it is not a weather observation. Runtime selection remains with the real environment owner, not a new UI palette control.",
+  "promptFile": "sakiko-chat-dry-night-v1.prompt.txt",
+  "promptFileSha256": "7a47f7e44a6b8b5abaca80b303a1c9862dacbf00a95c48d056385a75ea456104",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; submitted text exact",
+  "submittedPromptSha256": "2ee8799a29aa8d76a727b261d11a68cd94b9f196ba516dd698dbb3987659bd22",
+  "output": {
+    "file": "sakiko-chat-dry-night-v1.png",
+    "sha256": "c56541389158a7f28539062ae2174da997b4cd4301e022eab9202e34d31ab5c1",
+    "bytes": 2277809,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed complete saved original before proceeding to rain-day. The dry clear dark-blue sky, faint stars, town/lake and original window/furniture anchors remain visually in place. Character crown near y110 and complete soles near y915 preserve a comparable intimate scale; lap hands, seated cushion support, connected knees/ankles and complete shoes read coherently in full view. Golden irises, eyelids and silver-blue fringe remain distinct. Her awake, reserved attention does not impose sleepiness or sadness. Warm lamp influence reaches face, hair edges, hands, navy cloth and floor while the exterior stays dark blue; no daytime sun-grid/leaf patches or obvious white-daylit-character/black-window mismatch observed. Producer static view only; root, layers and runtime acceptance remain pending."
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "Producer-viewed single-character static weather-variant mother candidate only; root review pending, no layer, matrix, motion or runtime acceptance."
+}

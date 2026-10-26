@@ -1,0 +1,25 @@
+{
+  "createdAt": "2026-10-25",
+  "tool": "built-in image_gen.imagegen",
+  "useCase": "ui-mockup",
+  "prompt": "Use case: ui-mockup. Asset type: high-fidelity design reference for the existing Chinese Windows companion app 在场, one complete 1536x1024 daily schedule view. Primary request: make a cross-midnight schedule trial feel clear, humane, airy and calm, with Apple-like precision and restrained warm paper. This is a real calendar interaction design, not a dashboard. Do not use any previous app screenshot as an input. Scene: a broad continuous warm ivory paper desk with a softly sunlit wood window alcove only at the far right margin; no illustrated person is needed because the schedule must have room. Top navigation stays stable: 在场 at left, 聊天 今天 留下 centered, 今天 selected. Main title 今天 and date 10月26日 周一. On the left two-thirds, show a readable vertical timeline 00:00 through 04:00 with generous space. The same real one-hour event 整理报告 originally runs 10月25日 23:30 to 10月26日 00:30; on this day's timeline the original visible 00:00–00:30 portion is a fine dashed ghost, with a discreet continuation edge at midnight, not a second event. A single lifted pale-gold trial card now runs 00:15–01:15, and lightly striped overlap at 01:00–01:15 shows a fixed pale-blue block 线上讨论 01:00–01:30 staying in place. The right one-third is one clean paper edit sheet, with heading 整理报告 and readable original full range 10月25日 23:30 — 10月26日 00:30, proposed full range 10月26日 00:15 — 01:15, duration 一小时. Give two quiet actual-time alternative actions 00:00 — 01:00 and 01:30 — 02:30. Primary native button 采用这个时间 and secondary text button 先放回, with a subtle 一起想想 action. A small three-date landing row above the timeline shows 10月25日 / 10月26日 / 10月27日; these move the whole event by a local date while preserving its identity and full duration. Original and trial are visually connected by their title and subtle gold edge, not arrows or a giant diagram. Render real Chinese typography, dark readable text, paper surface receiving soft real window light, minimum necessary borders, stable alignment, no nested gray boxes, no glass panels on top of glass, no giant labels explaining the implementation. No green UI, no progress, achievements, charts, engineering field names, meters, split day/night, fake success receipt or full page image pretending to be an implemented app. This image is a visual design reference; all event facts, text and controls will be implemented natively by the calendar owner.",
+  "inputImages": [],
+  "output": "前端视觉创新设计/补充图稿/2026-10-25-life-continuity/cross-midnight-sandbox-v1.png",
+  "sourceOutput": "C:/Users/17601/.codex/generated_images/01a17365-b42b-78a2-ab86-03d6e6b2af84/exec-283e888f-3b71-478e-bc78-52f42c9dec0b.png",
+  "outputSha256": "00823407b40abc9677f6a43e96355970ca4403b64e17706edef8e15025cf7517",
+  "outputBytes": 1602049,
+  "adoption": "只采用当日片段与完整原新时间并存、固定约定不移动、冲突边带和局部确认关系。真实时间轴、日程文字与动作由原 Agenda owner 和组件提供。",
+  "review": {
+    "agentViewed": true,
+    "primaryViewed": false,
+    "classification": "C-交互关系",
+    "observations": [
+      "纸面与窗光连续、原新完整时间可对照、蓝色固定安排与金色试放区分清楚。",
+      "图中原位虚影越过00:00刻度，属于不采用的构图瑕疵；运行时按真实当日窗口裁切，不能将图中像素当作时间几何。",
+      "未取得主代理审美签字或实机结果，图稿不直接进入运行素材。"
+    ]
+  },
+  "implementation": [
+    "src/renderer/AgendaDayTimeline.tsx"
+  ]
+}

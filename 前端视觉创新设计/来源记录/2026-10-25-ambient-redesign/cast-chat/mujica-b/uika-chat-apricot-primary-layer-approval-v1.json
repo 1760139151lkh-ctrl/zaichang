@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "kind": "primary-fixed-layer-approval",
+  "cell": "uika/chat/apricot",
+  "reviewer": "root",
+  "recordedAt": "2026-10-25T07:40:14.995139+00:00",
+  "primaryReviewed": true,
+  "primaryLayerApproved": true,
+  "runtimeAccepted": false,
+  "registeredByThisTask": false,
+  "assets": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/uika-chat-apricot-mother-candidate-v1.png",
+      "sha256": "4677f8f984cf6f62666c9ae652854803992fca6f77223b4572243a7c878fb44c",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/uika-chat-apricot-background-calibrated-v5.png",
+      "sha256": "861058f0ce0c29ab3e3ec9bcceef9b83030d9983a806151856c091be563390f2",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "figure": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/uika-chat-apricot-figure-calibrated-v5.png",
+      "sha256": "cea28ccc5d752a2acc327437ada1752b4f3751a662de4eeed9543992b1269729",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    "mask": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/uika-chat-apricot-mask-calibrated-v5.png",
+      "sha256": "bb0322774511e0b37e801039246689eb45df4296783144ed3825b842dd2ec090",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    "shadow": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/uika-chat-apricot-shadow-calibrated-v5.png",
+      "sha256": "0da4a25dfee45d9aa766d916800a080a3bfee6def6d97012977edbbb8bf4c3a1",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    }
+  },
+  "approvedRendering": {
+    "shadowMode": "rgba",
+    "shadowPixels": "exact existing shadow PNG RGB and alpha, unchanged",
+    "compositing": "normal source-over",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "transform": "identity",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "newShadowGeometry": false,
+    "motherRoiPatch": false,
+    "pngModified": false
+  },
+  "depictedEnvironment": {
+    "family": "clear-day",
+    "basis": "Root personal source-image review: blue sky and strong sunlight. This describes the painted scene, not observed real-world weather.",
+    "sourceMotherSha256": "4677f8f984cf6f62666c9ae652854803992fca6f77223b4572243a7c878fb44c"
+  },
+  "reviewedPreview": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-b/uika-chat-apricot-bundle-v1.html",
+    "sha256": "9d0604cb05df7b2985189063484bd4d1129a380424004cc27637bc91ca7b5440"
+  },
+  "primaryObserved": [
+    "Complete original RGB figure on light/dark/checker, including hair, supporting palm, skirt folds and complete shoes",
+    "Hip and supporting palm original/recomposition/empty background at 2x",
+    "Whole original mother, recomposition and empty room",
+    "Both shoes and floor at 2x; supported with no sole halo or floating contact"
+  ],
+  "reviewMethodReportedByRoot": "After a scrolling screenshot tool returned a locally blank region, root used formal Tab.screenshot({fullPage:true}) and personally saw the complete source page.",
+  "acceptedBoundaries": [
+    "Exact current v5 layer files and original RGBA contact-shadow semantics only.",
+    "Existing contact shadow is weaker than the mother broad cast shadow; root accepted visible support and absence of shoe halo, not pixel-identical restoration.",
+    "Fixed original position only; runtime and motion are not accepted by this record."
+  ],
+  "registrationDisposition": {
+    "requested": false,
+    "state": "deferred",
+    "reason": "Root requested no current primary-registry change; later registration is to occur in the independent worktree."
+  },
+  "notApprovedByThisRecord": [
+    "Runtime rendering, motion or hide/restore behavior",
+    "Different files, activities or themes",
+    "Real-world clear weather facts"
+  ],
+  "sourceOfApproval": "Direct root instruction reporting personal visual review and bounded static layer acceptance."
+}

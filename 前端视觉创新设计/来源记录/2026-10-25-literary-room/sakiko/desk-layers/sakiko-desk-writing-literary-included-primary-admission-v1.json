@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "recordType": "primary-fixed-source-desk-included-contact-layer-admission",
+  "sceneId": "sakiko-study-apricot-literary-desk-v1",
+  "sceneFamily": "literary-room-v1",
+  "pose": "desk-writing",
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "reviewer": "root / primary agent",
+    "approvalSource": "Direct root task message in same healthy collaboration session",
+    "approvalQuote": "root现完整亲看 v3 #scene母/复合/BG/MAX，#face发眼与椅背关系，#hand笔握/本/前臂桌面/无人BG，#seat实际裙髋椅面及椅栏遮挡，#shoe可见下腿鞋/plant原位三联，#bgfix BG1/2/3笔残影对比。BG3确去悬空笔；移走笔筒属可移动桌面物件，camera/大桌/圆几/椅支撑原位，接触保持合理。原桌前大暗部在复合较浅，如实保留此来源差异；可见短桌沿接触与身体承托成立，未发现漂浮/断体/椅错接。批准 exact BG3 SHA75705046…532b +母00629c2e…cb04 +当前F/S bundle的MAX included固定层、contourComplete=false/allmotion0/非purecaster，未签不可见鞋、运动、runtime。",
+    "scope": "Exact mother/BG3/F/S native MAX included fixed-source layer only, no invisible feet/motion/runtime admission."
+  },
+  "assets": {
+    "mother": {
+      "file": "../desk-pilot/sakiko-study-apricot-literary-desk-pilot-v1.png",
+      "sha256": "00629c2e6e5b55901244a534145ab3c9d8c2f9c3cbf2ec2de8668f33037ccb04"
+    },
+    "background": {
+      "file": "desk-background-v3.png",
+      "sha256": "75705046089367bc68cb84f5a679dff43f41eb746f28fbb7f26c2924ffa9532b"
+    },
+    "F": {
+      "file": "desk-figure-mask-v1.png",
+      "sha256": "bcb7752d297460db826c4add32d93e7ae5d87ce02134a16ab2e0e77987d2ddb8"
+    },
+    "S": {
+      "file": "desk-contact-mask-v1.png",
+      "sha256": "09128cff44817ee361ee08b3d897ea70d6c923e2d6492b1d63680cb903055663"
+    }
+  },
+  "assembly": {
+    "formula": "U=MAX(L(F),L(S)); matchingBG3 then originalMotherRGB once through U",
+    "contactShadow": {
+      "mode": "included"
+    },
+    "nativeSvg": "desk-union-source-v1.svg",
+    "nativeSvgSha256": "24e0b9241a82f0ddf0af47618b4f4f7889adebba901ed26d7fa90b4db4458023",
+    "originalRgbDrawCount": 1,
+    "newRaster": false,
+    "pngEdits": false,
+    "thresholding": false,
+    "pureCaster": false
+  },
+  "geometryRecord": {
+    "file": "desk-visible-geometry-v1.json",
+    "sha256": "f58a96686de08ed03a2e1e1e5ebda652c4d8122d48b938c3073ee3e94b5f2dac"
+  },
+  "contourComplete": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "acceptedSourceDifferences": [
+    "BG3 removed the unsupported held-pen remnant. Removed stationery holder/tools are movable desk objects, accepted by root.",
+    "Camera, large writing desk, small round table and chair support remain at source positions.",
+    "Original broad desk-front darkness is shallower in composite; visible short desk-edge contact and body support accepted, no pixel-identical broad shadow restoration claim.",
+    "F/S include local room receiver material and fine source-edge residuals; admitted as fixed joint, not pure foreground or independent caster."
+  ],
+  "opticalEvidence": {
+    "page": "desk-layers-included-observe-v3.html",
+    "pageSha256": "2102c79e77274ad3d94804cecd10f6c94d27084f4134bbca70192158f24e3be8",
+    "primaryViewed": [
+      "#scene",
+      "#face",
+      "#hand",
+      "#seat",
+      "#shoe",
+      "#bgfix"
+    ],
+    "producerViewed": [
+      "whole scene",
+      "light/dark upper/lower",
+      "checker upper/lower",
+      "face",
+      "hand/pen/forearm",
+      "seat/skirt",
+      "chair occlusion",
+      "visible shoe/plant",
+      "BG1/BG2/BG3 tool changes"
+    ]
+  },
+  "notSigned": [
+    "Invisible shoe contours or unseen floor contacts",
+    "Body/shadow travel or limb deformation",
+    "Product runtime or actual drag-to-desk behavior"
+  ],
+  "runtimeAccepted": false,
+  "recordedAt": "2026-10-25T12:07:47Z"
+}

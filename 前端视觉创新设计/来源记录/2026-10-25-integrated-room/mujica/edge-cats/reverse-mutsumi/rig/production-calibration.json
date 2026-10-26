@@ -1,0 +1,196 @@
+{
+  "id": "mutsumi-head-right",
+  "characterId": "mutsumi",
+  "stem": "mutsumi-meme-cat-head-right-v1",
+  "source": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\reverse-mutsumi\\mutsumi-meme-cat-head-right-v1.png",
+  "sourceSha256": "3edcb5c85458c4150e196056347c3a8214d229392fc784aad4e49f4682432b74",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "sourceMode": "RGBA",
+  "sourceAlphaRange": [
+    0,
+    254
+  ],
+  "tailSide": "left",
+  "tailPivotPx": [
+    230,
+    626
+  ],
+  "tailPivotNormalized": [
+    0.14973958333333334,
+    0.611328125
+  ],
+  "paperEdgeSourceY": 833,
+  "paperEdgeNormalized": 0.8134765625,
+  "supportSourceObservation": "Stable horizontal belly ink at x475/495 spans source y828..838; support center y833. Front paws overhang that edge naturally.",
+  "frontPawVisualRefsPx": [
+    [
+      968,
+      859
+    ],
+    [
+      1230,
+      858
+    ]
+  ],
+  "pawScope": "Actual visible front-paw lower holding references, not hypothetical animated joints.",
+  "bodyArcSamplesY_X": [
+    [
+      550,
+      321
+    ],
+    [
+      570,
+      289
+    ],
+    [
+      580,
+      275
+    ],
+    [
+      590,
+      265
+    ],
+    [
+      600,
+      254
+    ],
+    [
+      610,
+      244
+    ],
+    [
+      620,
+      235
+    ],
+    [
+      630,
+      227
+    ],
+    [
+      640,
+      219
+    ],
+    [
+      650,
+      212
+    ],
+    [
+      655,
+      208
+    ],
+    [
+      660,
+      206
+    ],
+    [
+      670,
+      200
+    ]
+  ],
+  "visibleTailEndY": 656,
+  "wholeGuardExpansionRadius": 14,
+  "sourceSolidOutsideWholeGuardBounds": null,
+  "tailSemanticExpansionRadius": 12,
+  "rootUnderlapPx": 18,
+  "bodyForegroundInkOverlapPx": 4,
+  "mirrorSafe": false,
+  "identityConstraint": "Own-left twin silver temple clips stay viewer-right in near-frontal head. Use separately drawn facing asset, never flip whole image.",
+  "selectedMask": "semantic-mask-v1.png",
+  "outputs": {
+    "body": {
+      "file": "mutsumi-meme-cat-head-right-v1-body.png",
+      "sha256": "850e04388eaa0fe91ad66a9e84c5a5429275ee07af5667bc063275b342a7d939",
+      "bytes": 816334,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        156,
+        151,
+        1510,
+        876
+      ],
+      "visibleRgbDifferenceRange": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    "tail": {
+      "file": "mutsumi-meme-cat-head-right-v1-tail.png",
+      "sha256": "81bdb30c9fdd87d6d16af67023abfa9fd3564a9869c1bd66868f34a2db84f3b2",
+      "bytes": 68152,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        23,
+        267,
+        264,
+        657
+      ],
+      "visibleRgbDifferenceRange": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    "clean": {
+      "file": "mutsumi-meme-cat-head-right-v1-clean.png",
+      "sha256": "d2471b37a51e0b36e8b83c34e58c5c501c2ebb7fbd589a8fa148e217e3540f98",
+      "bytes": 865334,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        23,
+        151,
+        1510,
+        876
+      ],
+      "visibleRgbDifferenceRange": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    }
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false
+}

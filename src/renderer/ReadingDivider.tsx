@@ -10,14 +10,16 @@ const initial = () => {
 
 /** One direct divider for the existing reader and composer. No content moves
  * between stores when space changes; both panes keep their DOM and selection. */
-export function ReadingDivider() {
+export function ReadingDivider({ presentationSide = 'start' }: { presentationSide?: 'start' | 'end' }) {
   const divider = useRef<HTMLDivElement>(null);
   const [initialValue] = useState(initial);
   const motion = useSplitMotion(initialValue, {
     bounds: { min: 35, max: 70 },
+    direction: presentationSide === 'end' ? -1 : 1,
     onValue: value => divider.current?.parentElement?.style.setProperty('--reading-split', `${value}%`),
     onCommit: value => { try { localStorage.setItem(storageKey, String(value)); } catch { /* Layout still works without persistence. */ } },
   });
+  useEffect(() => { motion.cancel(); }, [presentationSide]);
   useEffect(() => {
     const parent = divider.current?.parentElement;
     if (!parent) return;
@@ -35,7 +37,7 @@ export function ReadingDivider() {
   }, []);
   function move(event:PointerEvent<HTMLDivElement>) {
     const rect=divider.current?.parentElement?.getBoundingClientRect();
-    if (rect?.width) motion.move((event.clientX-rect.left)/rect.width*100, event.pointerId);
+    if (rect?.width) motion.move((presentationSide === 'end' ? rect.right-event.clientX : event.clientX-rect.left)/rect.width*100, event.pointerId);
   }
   return <div ref={divider} className={`reading-divider${motion.moving?' is-moving':''}`} role="separator"
     tabIndex={0} aria-label="调整原文和对话的宽度" aria-orientation="vertical"

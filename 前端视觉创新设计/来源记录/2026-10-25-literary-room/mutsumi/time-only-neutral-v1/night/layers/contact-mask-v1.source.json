@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T01:17:54.014Z",
+  "producer": "/root/study_reading",
+  "character": "mutsumi",
+  "purpose": "neutral-presence",
+  "environmentVariant": "time-night",
+  "weather": "unknown",
+  "exactActivityMatrixCredit": 0,
+  "stage": "contact-mask-v1",
+  "tool": "image_gen.imagegen",
+  "originalToolPath": "C:/Users/17601/.codex/generated_images/01a17365-8901-7202-bd9e-0859826906dc/exec-ed195caa-d5ce-44e5-83ca-30cf4e677ff6.png",
+  "transparentBackground": false,
+  "submittedPrompt": "Use case: precise-object-edit. EXACT SAME COORDINATE COLOR-TO-MASK TRACE CONVERSION, NOT semantic scene editing. ONLY input is correct source-colored S1 with intentionally MAGENTA receiver marks. Output opaque1536x1024 raw grayscale. Convert ONLY those already-magenta pixels to white255 at IDENTICAL original pixel positions. Their short magenta outer fade becomes short grayscale fade; vivid solid magenta cores solid white. Every NON-MAGENTA pixel becomes pure BLACK0, including all girl's original hair/skin/navy dress/skirt/socks/brown shoes, naturally cream cushion/curtain, lamp/room/wood. Preserve all actual magenta shapes without translating them: the magenta cushion patches touching LEFT and RIGHT skirt hem remain precisely at their existing locations; the TWO complete magenta wooden-floor patches under both full shoes remain BELOW the shoe bottoms, with full local fade footprint. Do not redraw silhouette, reinterpret where hands or knees are, move receiver onto legs/shoes, shrink contact to thin contour, or invent new islands. NO coordinates to re-estimate, simply exact tracing existing magenta marks. No crop/resize/recenter/warp/shadow creation, no color/transparency/checkerboard/text/UI. All magenta and only magenta -> same-place luminance selection; every other pixel black. The sourceRGB will be sampled from the original mother exactly once via MAX(F,S), so no baked color in mask.",
+  "submittedPromptSha256": "a1eb7d915e43b3321dcc8c9860a97ae5589faf83cfa5600da1fc27a6406a1ffb",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/night/layers/contact-step1-marked-v1.png"
+  ],
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/night/layers/contact-step1-marked-v1.png",
+      "role": "correct magenta S1",
+      "sha256": "9ea44d65befc6ed31a501ce42e2e0eec3c57647bb9c1307245e635894751c66c",
+      "bytes": 2229377
+    }
+  ],
+  "originalMother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-night-v1.png",
+    "sha256": "ecd0ac024c414ae54c94558301e4eeb7d1e4e773cc264a195044fe9030088e36",
+    "approvalRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-night-v1.primary-approval.json"
+  },
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/night/layers/contact-mask-v1.png",
+    "sha256": "4296a97883d68a7b5b19592cefce6c0b708cd1eabba73df1765f59e7337c73e3",
+    "bytes": 321004,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "rawToolBytesPreserved": true,
+  "producerPersonallyViewed": true,
+  "observations": [
+    "Personally viewed: both cushion and both complete foot-floor groups at intended areas; short local gray fade. Exact source RGB review next."
+  ],
+  "producerUseDecision": "candidate-awaiting-static-union-review",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "userApproved": false,
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "fixedOriginalCoordinates": true,
+    "travel": 0,
+    "perspective": 0,
+    "slope": 0,
+    "contactShadow": "included"
+  },
+  "method": {
+    "sourceRgb": "exact unchanged mother only",
+    "union": "MAX(L(F),L(S))",
+    "originalRgbDrawsPerUnion": 1,
+    "pngPixelEditing": false,
+    "manualThreshold": false,
+    "morphology": false,
+    "warp": false
+  },
+  "scope": "Production candidate only; native browser union, seam and full source RGB must be personally viewed before primary static-layer admission."
+}

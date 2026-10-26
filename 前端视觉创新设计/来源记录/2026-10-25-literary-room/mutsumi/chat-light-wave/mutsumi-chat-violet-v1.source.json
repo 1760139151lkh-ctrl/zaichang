@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "whole-scene-chat-light-mother-candidate",
+  "character": "mutsumi",
+  "activity": "chat",
+  "palette": "violet",
+  "environmentVariant": "twilight",
+  "wave": "chat-light-wave",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-b403cafe-c5bc-4127-bf18-e6a51fa44a5d.png",
+  "executionId": "exec-b403cafe-c5bc-4127-bf18-e6a51fa44a5d",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.png",
+      "sha256": "9d529789ece89f44b166f39dd259136257598cfd546009e49fae74140cbf8b6d",
+      "role": "primary exact approved same-character apricot-chat mother, identity/pose/geometry edit target"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+      "role": "approved corresponding empty literary room environment/whole-light reference"
+    }
+  ],
+  "inputAcceptanceBasis": "Root explicitly approved each same-character apricot chat mother and the matching empty plate; no unreviewed wave-b or old-room figure used.",
+  "wholeSceneRelighting": true,
+  "newUIPaletteOption": false,
+  "promptFile": "mutsumi-chat-violet-v1.prompt.txt",
+  "promptFileSha256": "cfc54fcdca1ef6dafe164135802c39b91d42fa8ae05e910c0bcf0abd8ff2b43f",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; exact submitted text",
+  "submittedPromptSha256": "1e867798b77c5b0a503879ddb9255d196164f6f2b16ef6ddb97d4caafc7eab64",
+  "output": {
+    "file": "mutsumi-chat-violet-v1.png",
+    "sha256": "e439ccaa9f6583f92075c251f6dfd8ad3312bb184347ce8c00a4694dc4788de3",
+    "bytes": 2355946,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved complete mother and re-viewed approved twilight plate before next light. Continuous rose/lilac dusk, town/lake lights and local warm lamps affect mint hair edges, face, hands, navy cloth and the room together; intrinsic colors remain readable without a flat purple wash. Source lap-hand pose, hip/seat contact, full head/shoes, uncrossed knees/ankles and comparable apparent scale/coordinates remain stable. Warm patterned low floor light also exists in the approved plate; candidate floor pattern appears somewhat more contrastful, so no pixel-identical lighting claim is made and root decides its fit. No split day/night or forced farewell/sadness. Producer static observation only; root/layers/runtime pending."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "Whole-scene static mother candidate only; root review pending. Apricot layer masks do not grant light-variant layer acceptance.",
+  "privateUserDataUsed": false
+}

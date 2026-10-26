@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 1,
+  "recordType": "root-primary-time-only-neutral-static-layer-admission",
+  "recordedAt": "2026-10-25T23:10:49.768281+00:00",
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "mapping": {
+    "palette": "mist",
+    "light": "morning"
+  },
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "weatherClaim": false,
+  "approvalEvidence": {
+    "source": "Direct parent /root message in this same healthy task session after root personally viewed the actual native Browser source views. This record transcribes that approval; it is not an independent runtime sign-off.",
+    "messageExcerptVerbatim": "root已亲看day母、完整合成、浅暗棋盘、书手、face-hair、hem-shoes、contact-receiver全部6Browser原图，静态准入同母固定坐标 F=figure-mask-v2 SHA99a56c9ea69b540f06427070203306b9c93417b1e5c92e3bb43a55f69fc20b39，S=contact-mask-v1 SHA31be1a964933513b6e5199f0656d145bcdc0866fc248179ea0ce3a34b08ba204，BG=background-v1 SHAff438a04b35a7a3a86b21b1cb21f11534b1a991dcb32bf2033ff6ad3de0ecb67。",
+    "primaryPersonallyViewed": true,
+    "views": [
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/day/layers/browser-observations/mother-union-composite-v1.png",
+        "sha256": "9072c9f4799febf7e994eff08a17829365538a247dfb235d2ff3850a83a71601",
+        "bytes": 113849
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/day/layers/browser-observations/light-dark-checker-v1.png",
+        "sha256": "d0fa02dabf459d84370ad013dfc24840038418db61ad617f9d2a2908cf878453",
+        "bytes": 81440
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/day/layers/browser-observations/book-edge-original-union-composite-v1.png",
+        "sha256": "4464fae95e9d837b2749ec2711ccff78272e09b392cbe2dcd3d4d145d16e1f1a",
+        "bytes": 110425
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/day/layers/browser-observations/face-hair-original-union-composite-v1.png",
+        "sha256": "8a9c11d7757bbcbd7cc2c2d851b96f919c45ce1fdbf8bc9dbafcbba2d58b7f29",
+        "bytes": 109449
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/day/layers/browser-observations/hem-shoes-original-union-composite-v1.png",
+        "sha256": "2300cd722c63879d3fae832661faac860e0ea69257061b5b1780654a20cafc89",
+        "bytes": 113687
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/day/layers/browser-observations/contact-receiver-v1.png",
+        "sha256": "f0391f7e169bed5f03d412ad8549bffa1d8eaa22c52bae56756e58066983e501",
+        "bytes": 114405
+      }
+    ]
+  },
+  "primaryLayerApproved": true,
+  "runtimeRegistered": true,
+  "runtimeAccepted": false,
+  "original360ExactActivityAdmission": false,
+  "newHumanMotherCount": 0,
+  "dynamicAdmission": false,
+  "selected": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-day-v1.png",
+      "sha256": "35a318faaab82305b4a5f28e4f109701986e7ce75b312536835216306c2945af",
+      "bytes": 2351824,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/day/layers/background-v1.png",
+      "sha256": "ff438a04b35a7a3a86b21b1cb21f11534b1a991dcb32bf2033ff6ad3de0ecb67",
+      "bytes": 2239428,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "F": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/day/layers/figure-mask-v2.png",
+      "sha256": "99a56c9ea69b540f06427070203306b9c93417b1e5c92e3bb43a55f69fc20b39",
+      "bytes": 483784,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "S": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/day/layers/contact-mask-v1.png",
+      "sha256": "31be1a964933513b6e5199f0656d145bcdc0866fc248179ea0ce3a34b08ba204",
+      "bytes": 298653,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    }
+  },
+  "productionBundle": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/day/layers/neutral-reading-time-day-included-bundle-v1.json",
+    "sha256": "812fc30f0a1caa10993c6c9649133535f6cdd6cc619307788b9200e0b69f7a3f",
+    "bytes": 17569
+  },
+  "originalUnionSvg": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/day/layers/union-source-v1.svg",
+    "sha256": "0b876d65e5b5476d6839823c8572fb1e1fc7d2971d0c7bccc972f779651a5db4",
+    "bytes": 1242
+  },
+  "originalCompositeSvg": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/day/layers/composite-source-v1.svg",
+    "sha256": "c2f4e9a499aa2929d88725538beddfe7f0fdf39fdcac86bd6ebb240addb04f03",
+    "bytes": 1341
+  },
+  "assembly": {
+    "kind": "source-rgb-max-luminance-v1",
+    "coverage": "U = MAX(L(F), L(S))",
+    "luminanceCoefficients": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorInterpolationFilters": "sRGB",
+    "originalRgbDrawsPerUnion": 1,
+    "sourceRgb": "Exact unchanged mother PNG only",
+    "runtimeImplementation": "Existing CompanionSceneStage inline MAX luminance assembly in src/renderer/companion-scenes.tsx; no external SVG img and no new renderer.",
+    "receiver": "Source-local linen/wood/soft shoe footprint receiving material, including allowed foreground overlap merged through MAX; never drawn independently as a moving caster.",
+    "background": "Actual Image removal from this exact mother; generated hidden texture is not claimed bitwise recovered.",
+    "pngPixelEditing": false,
+    "manualMaskPainting": false,
+    "thresholdOrMorphologyEditing": false,
+    "croppingOrResizingSourcePng": false
+  },
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "figureEnvelope": {
+      "sourcePixels": [
+        824,
+        157,
+        1325,
+        920
+      ],
+      "normalized": [
+        0.5364583333333334,
+        0.1533203125,
+        0.8626302083333334,
+        0.8984375
+      ]
+    },
+    "jointReceiverEnvelope": {
+      "sourcePixels": [
+        801,
+        157,
+        1346,
+        928
+      ],
+      "normalized": [
+        0.521484375,
+        0.1533203125,
+        0.8763020833333334,
+        0.90625
+      ]
+    },
+    "seatPixels": [
+      1184,
+      594
+    ],
+    "groundPixels": [
+      906,
+      915
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "fixedOriginalSourceCoordinates": true,
+    "independentActorBookReceiverMotionAllowed": false,
+    "onlyWholeOriginalPositionOpacityAndSameCanvasScale": true,
+    "existingFamilySceneCount": 18,
+    "priorFamilyUnpaddedBounds": [
+      0.055338541666666664,
+      0.0888671875,
+      0.904948,
+      0.9091796875
+    ],
+    "priorFamilyFramingBounds": [
+      0,
+      0.0771484375,
+      0.967448,
+      0.9208984375
+    ],
+    "newUnionFitsInsideExistingUnpaddedBounds": true,
+    "familyCameraCodeChanged": false
+  },
+  "registrarObservation": {
+    "personallyViewedFiles": [
+      "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-day-v1.png",
+      "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/day/layers/figure-mask-v2.png",
+      "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/day/layers/contact-mask-v1.png",
+      "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/day/layers/background-v1.png"
+    ],
+    "method": "Local original PNG view_image for calibration plus direct source/SHA/dimension reads; root native Browser composite acceptance is recorded separately.",
+    "observation": "Youthful Sakiko with original golden eyes, blue-violet long hair and side ribbons, exact hands/open book and navy adapted outfit; body and both full shoes align with these same-canvas masks. Closed opaque curtain gives no readable exterior weather. Same-mother empty background has no remaining person or book. Minor day/night scale and pose differences retained as approved."
+  },
+  "runtime": {
+    "registration": {
+      "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-neutral-reading-time-day-included-v1.scene.json",
+      "sha256": "041ab7a2f5c79218682da1c5c49472c19c0e677998a6485271dfee33c36fe3a1",
+      "bytes": 4046
+    },
+    "copies": {
+      "mother": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-neutral-reading-time-day-included-v1-mother.png",
+        "sha256": "35a318faaab82305b4a5f28e4f109701986e7ce75b312536835216306c2945af",
+        "bytes": 2351824
+      },
+      "background": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-neutral-reading-time-day-included-v1-background.png",
+        "sha256": "ff438a04b35a7a3a86b21b1cb21f11534b1a991dcb32bf2033ff6ad3de0ecb67",
+        "bytes": 2239428
+      },
+      "F": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-neutral-reading-time-day-included-v1-mask.png",
+        "sha256": "99a56c9ea69b540f06427070203306b9c93417b1e5c92e3bb43a55f69fc20b39",
+        "bytes": 483784
+      },
+      "S": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-neutral-reading-time-day-included-v1-contact-mask.png",
+        "sha256": "31be1a964933513b6e5199f0656d145bcdc0866fc248179ea0ce3a34b08ba204",
+        "bytes": 298653
+      }
+    },
+    "selectionScope": "Only automatic unknown-weather time fallback with the exact character/palette/light/neutralTime, through existing neutral-presence resolver. Exact activity lookup excludes this purpose.",
+    "acceptanceRemaining": "Root still owns actual integrated profile and runtime view acceptance; this source registration is static only."
+  },
+  "heldAndSuperseded": "Only the selected exact PNG hashes above are copied. Earlier F/S/markup and screenshots stay evidence-only and are not revived or used as generation inputs. Producer bundle/mother admission pending flags remain historical production evidence; this later exact-SHA layer admission governs the selected registration."
+}

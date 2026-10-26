@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "assetType": "literary-room-complete-chat-light-mother",
+  "id": "rana-chat-mist-overcast-day-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "rana-chat-mist-overcast-day-v1.prompt.json",
+  "promptFileSha256": "54132697e37f0eb1d0f48d3a8bcb3690e947c5aa0c4cf11656ff6be5f8e1a255",
+  "submittedPrompt": "Create one complete 1536×1024 landscape mother illustration: Rana chatting in the approved OVERCAST-DAY literary room.\n\nREFERENCE PRIORITY: image 1 is the approved target environment and ALL lighting. Preserve its exact camera, original furniture/depth, window divisions, cloudy dry daytime lake/town/mountain view, curtains, left desk and chair, round table/lamp/cup, right cream cushioned bench with plaid cushions and knit throw, foreground plants, rug and wood floor. Image 2 is only the correct Rana Kaname identity, outfit, supported bench pose and apparent head/body scale reference. Its apricot hard sun, bright skin patches, warm sunlight-striped clothes, window-grid/leaf shadows and floor sun rectangles are NOT identity or pose information. Do not copy them.\n\nRe-create the original Rana seated at the same near-right bench depth and support: hips/thighs on cushion, one hand naturally near her own knee and other palm touching cushion beside her, connected knees/lower legs/ankles, complete black boots and honest floor relation. Maintain the same apparent head size and proportion, crown roughly y105 and soles near y890, no head lunge toward camera, no enlarged face, no cropped shoes. Keep basic natural anatomy and simple support, original room furniture stays in place.\n\nLiterary psychology: “The unfinished half.” You stopped halfway through a sentence because the next word had not arrived. Rana does not complete it for you. Her head turns just a little and her alert eyes attend to that particular pause, with a small questioning interest. She does not think silence is broken. Her relaxed lips and steady candid gaze leave you time to speak again. She has her own curiosity and judgment, not a pitying therapist expression or universal reassuring smile. The air can be quiet without becoming sad.\n\nRana's original youthful identity is exact: short silver-white bob with faint lavender ends, softly separated bangs, own-right iris golden yellow and own-left iris blue (viewer-left gold/viewer-right blue when front-facing). Eyelids, irises, brows and hair strands remain distinct and clearly readable. Loose black short-sleeve outer top over pale white long sleeves, white shorts, black lace-up ankle boots. Repaint her hair, face, bare legs, black/white clothing and shoes under image 1's SOFT DIFFUSE CLOUDY DAYLIGHT, sharing the same dimmer soft illumination as the linen and floor. White sleeves have subtle shaded folds, not leftover glowing noon patches; skin is evenly modeled and not an apricot solar cutout. Existing small lamp warmth may remain local exactly as image 1. Remove hard solar window-grid and leaf patches from the ENTIRE room floor, bench, clothes and person. Cloudy daylight stays recognizably daytime, not foggy night. No split day/night, no global blue filter, no haze concealing eyes, no hard sun rays, no new weather. Preserve material warmth in wood and a cohesive whole scene. No UI, captions, readable writing, new prop, cat, guitar, extra person or costume change.",
+  "submittedPromptSha256Utf8NoTrailingLF": "2e03d7e081a3308830fd0419dd93c6e10ef45a70a95f7b4840565f0082c86bc1",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "role": "first-approved-target-room-camera-and-lighting"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.png",
+      "sha256": "060e897c7b9ebdefc5ab84d6fbada2983625b19e6a4ebc57501ede19c5259919",
+      "role": "second-root-approved-Rana-identity-and-supported-pose-only-not-sunny-lighting"
+    }
+  ],
+  "output": {
+    "file": "rana-chat-mist-overcast-day-v1.png",
+    "sha256": "00f5f20045cb1464e4cdf8fe755c44db46a812c6ad6da75dcd3dc3c9f217b3f0",
+    "bytes": 2370742,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-79c77b3b-6448-483e-b000-4150ff6fb219.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "primaryApproved": false,
+    "layerApproved": false
+  },
+  "status": "producer-viewed-awaiting-root-mother-review",
+  "producerReview": {
+    "reviewedAt": "2026-10-25T12:54:09.243083+00:00",
+    "method": "Personally inspected actual full native ImageGen output at 1536x1024 before next call.",
+    "observations": [
+      "Cloudy dry daytime exterior matches approved overcast plate; same camera, furniture and soft material warmth remain.",
+      "No old hard window-grid/leaf sun patches observed on entire visible floor, cushion, bare legs or white sleeves; soft diffuse skin/clothing and local lamp warmth are coherent.",
+      "Correct short bob, distinct gold/blue irises and black/white casual outfit; complete head/boots near approved pose scale, knee hand and cushion palm supported."
+    ],
+    "issues": [],
+    "rootApprovalRequired": true
+  },
+  "character": "rana",
+  "activity": "chat",
+  "palette": "mist",
+  "environmentVariant": "overcast-day",
+  "creativeBrief": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/rana-chat-mist.md",
+    "sha256": "e32a560ad7f89d146364e76eafa907b4d3d4c004f1079e236ecf43cde6129e7a",
+    "title": "没说完的那一半",
+    "role": "literary-direction-text-only"
+  },
+  "targetPlatePrimaryApproval": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.primary-approval.json",
+    "sha256": "00be824f06a3d5ea16f32264c19898e3da9e8c37c5e3ed4668475e165720efc1",
+    "scope": "empty-target-environment-only"
+  },
+  "referencePriority": {
+    "firstInput": "approved-target-plate-camera-room-and-all-lighting",
+    "secondInput": "correct-Rana-identity-outfit-supported-pose-and-apparent-scale-only",
+    "excludedFromSecondInput": "apricot hard sunlight, solar skin/clothes patches, window-grid/leaf daylight shadows and floor solar rectangles"
+  },
+  "generationBudget": {
+    "wave": "rana-chat-light-wave",
+    "maxCalls": 3,
+    "callOrdinal": 1,
+    "callsForThisCell": 1,
+    "retries": 0
+  },
+  "approvalBoundary": {
+    "primaryAccepted": false,
+    "layerAccepted": false,
+    "runtimeAccepted": false,
+    "runtimeRegistered": false,
+    "rootReviewPending": true,
+    "motherOnly": true
+  }
+}

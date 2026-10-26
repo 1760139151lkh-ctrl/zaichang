@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "assetType": "literary-room-complete-mother",
+  "id": "rana-reading-apricot-literary-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "rana-reading-apricot-literary-v1.prompt.json",
+  "promptFileSha256": "5b7ab448e39a5e3da1c31ae2b9b7936ef867cbe6eab023351482fb59794d50d8",
+  "submittedPrompt": "Create one complete 1536×1024 landscape literary mother illustration. Image 1 is the approved clear room: preserve its camera, exact furniture layout and scale, broad lake-town window, warm apricot daylight, left desk/chair, round table with lamp and cup, long cream cushioned right window bench, plaid pillows, knit throw, foreground plants and rug. Image 2 is the correct Rana Kaname identity and near-bench scale reference ONLY. Draw a new self-contained moment from the clear room, not the same chat face/arms with a pasted book.\n\n“Let the sentence stay between her fingers for a moment.” Rana has paused at a peculiar metaphor. She privately tries the sound of it, then lifts her eyes with a very particular interest, as if a word has a curious edge. The desire to share has arrived before she says anything. She is comfortable keeping her own opinion; her curiosity may be sharp and a little odd. She is not displaying Sakiko's formal composure, a universal reassuring smile, or a generic book-reading advertisement. This small internal discovery matters more than a showy gesture.\n\nSeat Rana securely on the near RIGHT window bench at the same depth and apparent body size as her approved identity reference: crown roughly y110 and full boot soles near y890, without leaning her head toward the camera. An ordinary open small book rests on her thighs/lap; her hands hold its edges simply, with coherent sleeves, wrists and a few naturally legible fingers. Her torso is relaxed and upright, hips visibly sink into the cushion, bent knees and lower legs connect naturally, black boots relate honestly to the floor. A slight independent head turn and lifted gaze from the book bring this moment alive. Keep complete head, hair and boots inside the frame. Do not reach across empty space to the distant writing desk. No copied chat hand-on-bench pose.\n\nIdentity remains unmistakable: short silver-white soft bob with pale lavender tips and relaxed bangs; Rana's own right iris gold, own left iris blue (front-facing viewer-left gold/viewer-right blue). Separate eyelids, irises, brows and fine strands; readable eyes not hidden by bangs. Original loose black short sleeve outer shirt over pale white long sleeves, white shorts and black lace-up ankle boots. Youthful anime rendering integrated into richly textured luminous fabric, wood and sunlight; face has awake private interest, perhaps a small parted mouth, not a forced grin. Keep shared environment light and grounded contact shadows, finely separated eyelashes and hair. Book typography is only faint unreadable texture. No UI, captions, readable message, cat, guitar, extra people, costume change or artificial glow. Preserve the room as one cohesive complete scene.",
+  "submittedPromptSha256Utf8NoTrailingLF": "66866447bd1cce565c4c3ff9f6d1ba7b4901842af7530573867d2d76a8805e7b",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "sole-room-and-camera-input"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.png",
+      "sha256": "060e897c7b9ebdefc5ab84d6fbada2983625b19e6a4ebc57501ede19c5259919",
+      "role": "root-approved-Rana-identity-and-near-bench-scale-only"
+    }
+  ],
+  "output": {
+    "file": "rana-reading-apricot-literary-v1.png",
+    "sha256": "6b39aff1ba2f5f95dbec0322714733fe1b2183e075687fa6b4641a5f0df15f96",
+    "bytes": 2440657,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-c487a03f-a546-4191-bc7d-4bdc3bc1dc6c.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "primaryApproved": false,
+    "layerApproved": false
+  },
+  "status": "producer-viewed-awaiting-root-mother-review",
+  "producerReview": {
+    "reviewedAt": "2026-10-25T12:21:48.954732+00:00",
+    "method": "Personally inspected actual full native ImageGen output at 1536x1024 before next call.",
+    "observations": [
+      "Clear short bob and readable gold/blue irises, with raised interested gaze rather than a repeated smile.",
+      "Open book held by two simple hands on thighs; sleeves/wrists meet coherently.",
+      "Near-bench scale crown approximately y120, soles near y895; complete boots and cushion/hip/knee/lower-leg relation visible; desk and chair remain empty."
+    ],
+    "issues": [
+      "Gaze lifts toward upper image-right rather than directly to the viewer; this supports a private thought but root should judge intended shared-reading attention.",
+      "Book cover contains faint decorative glyph texture, not reviewed as readable text."
+    ],
+    "rootApprovalRequired": true
+  },
+  "character": "rana",
+  "activity": "reading",
+  "palette": "apricot",
+  "creativeBrief": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/rana-reading-apricot.md",
+    "sha256": "5c5f0f3baa61761065345da2219f01cd2d0b398322ade528c755d85875ad6d09",
+    "title": "句子在指间停一会儿",
+    "role": "literary-direction-text-only"
+  },
+  "generationBudget": {
+    "wave": "rana-apricot-wave-a",
+    "maxCalls": 8,
+    "callOrdinal": 2,
+    "callsForThisCell": 1,
+    "retries": 0
+  },
+  "approvalBoundary": {
+    "primaryAccepted": false,
+    "layerAccepted": false,
+    "runtimeAccepted": false,
+    "runtimeRegistered": false,
+    "rootReviewPending": true,
+    "motherOnly": true
+  }
+}

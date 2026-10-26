@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "sceneId": "soyo-neutral-presence-time-day-included-v1",
+  "primaryAdmissionRecord": "root-primary-layer-admission-v1.json",
+  "runtimeManifest": "前端视觉创新设计/运行素材/companion/scenes/soyo-neutral-presence-time-day-included-v1.scene.json",
+  "runtimeManifestSha256": "e920b316b9b54f49e6d7f0b91cfbbe156fc708cf2fe46147ef456830cf50a37b",
+  "sourceBundleSha256": "c6ece873cac19b9333295b71754301e8974321be8751de0c60f45f17262dd6ee",
+  "copies": [
+    {
+      "role": "mother",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/soyo-neutral-time-day-literary-v1.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/soyo-neutral-presence-time-day-included-v1-mother.png",
+      "sha256": "b7389951fe91b57019a55aace462bd4e4efc61c455c17499743548b02cc1f062",
+      "sourceSha256": "b7389951fe91b57019a55aace462bd4e4efc61c455c17499743548b02cc1f062",
+      "bytes": 2457892
+    },
+    {
+      "role": "background",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/day/layers/background-v1.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/soyo-neutral-presence-time-day-included-v1-background.png",
+      "sha256": "acd11ffbe64460d73cd272e3dcbbdb9a0c7a6986fa9f4c0a081602614c255576",
+      "sourceSha256": "acd11ffbe64460d73cd272e3dcbbdb9a0c7a6986fa9f4c0a081602614c255576",
+      "bytes": 2314295
+    },
+    {
+      "role": "F",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/day/layers/figure-mask-v2.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/soyo-neutral-presence-time-day-included-v1-mask.png",
+      "sha256": "9e087f87a2006c9ba0ab6b663ca7728bfa68d9d3260cd54d2633463a93333869",
+      "sourceSha256": "9e087f87a2006c9ba0ab6b663ca7728bfa68d9d3260cd54d2633463a93333869",
+      "bytes": 499148
+    },
+    {
+      "role": "S",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/day/layers/contact-mask-v1.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/soyo-neutral-presence-time-day-included-v1-contact-mask.png",
+      "sha256": "2b48805e45b2988ca7982427fe5742ae728cc4350311e59a37bca9ef755108f6",
+      "sourceSha256": "2b48805e45b2988ca7982427fe5742ae728cc4350311e59a37bca9ef755108f6",
+      "bytes": 305372
+    }
+  ],
+  "runtimeAccepted": false,
+  "staticLayerApproved": true,
+  "noSrcEdits": true,
+  "noMaskPixelEdits": true,
+  "noTestEngineering": true
+}

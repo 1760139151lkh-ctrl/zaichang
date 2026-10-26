@@ -1,0 +1,159 @@
+{
+  "kind": "native-svg-shadow-rendering-candidate",
+  "character": "umiri",
+  "activity": "chat",
+  "palette": "apricot",
+  "primaryReviewed": true,
+  "runtimeAccepted": false,
+  "registered": false,
+  "producerViewed": true,
+  "sourceBundle": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-b/umiri-chat-apricot-bundle-v1.json",
+    "sha256AtCandidateCreation": "9689fd1e2ad0dd08f1aa035794285c09149d359ce128642216c763d200d4ff14",
+    "scope": "Historical source bundle content hash at candidate creation; current bounded approval is linked separately."
+  },
+  "assets": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot-mother-candidate-v2.png",
+      "sha256": "beb0028df130f510fce228bd127495d0375ecf8998c81a50137617e4482af8ee",
+      "bytes": 2120803,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "declaredSha256": "beb0028df130f510fce228bd127495d0375ecf8998c81a50137617e4482af8ee",
+      "matchesDeclaredSha256": true
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot-background-calibrated-v2.png",
+      "sha256": "d9355b9f7cf379f81a50e679691db77b01e9ff9b948cdfa06dbf2ef876a36c8e",
+      "bytes": 2037176,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "declaredSha256": "d9355b9f7cf379f81a50e679691db77b01e9ff9b948cdfa06dbf2ef876a36c8e",
+      "matchesDeclaredSha256": true
+    },
+    "figure": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot-figure-calibrated-v2.png",
+      "sha256": "25669bb74c1f4d1231e1960388e4c5869bf67f51979c612959c4c8832ae5820f",
+      "bytes": 2374788,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBoundsPixels": [
+        741,
+        301,
+        1013,
+        734
+      ],
+      "declaredSha256": "25669bb74c1f4d1231e1960388e4c5869bf67f51979c612959c4c8832ae5820f",
+      "matchesDeclaredSha256": true
+    },
+    "mask": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot-mask-calibrated-v2.png",
+      "sha256": "dab06363ee55d3bddea94202f0b27c9d1cc2bd9bd7577aad7e81980c9ef9df5c",
+      "bytes": 29011,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBoundsPixels": [
+        741,
+        301,
+        1013,
+        734
+      ],
+      "declaredSha256": "dab06363ee55d3bddea94202f0b27c9d1cc2bd9bd7577aad7e81980c9ef9df5c",
+      "matchesDeclaredSha256": true
+    },
+    "shadow": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot-shadow-calibrated-v2.png",
+      "sha256": "b6c6c4dd77cc921c46685f3e2794f548d3b0becc0ec55a6ef958b98a39a4ba17",
+      "bytes": 30837,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBoundsPixels": [
+        740,
+        573,
+        1012,
+        738
+      ],
+      "declaredSha256": "b6c6c4dd77cc921c46685f3e2794f548d3b0becc0ec55a6ef958b98a39a4ba17",
+      "matchesDeclaredSha256": true
+    }
+  },
+  "rendering": {
+    "sourceAlpha": "existing shadow PNG alpha channel only",
+    "maskType": "alpha",
+    "fill": "#291c16",
+    "opacity": 0.35,
+    "compositing": "normal source-over",
+    "transform": "identity",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "order": [
+      "originalBackground",
+      "existingShadowAlphaUniformTint",
+      "originalMotherRgbMaskedFigure"
+    ],
+    "newShadowGeometry": false,
+    "motherRoiPatch": false,
+    "pngModified": false,
+    "shadowMode": "alpha",
+    "shadowColor": "#291c16",
+    "shadowOpacity": 0.35
+  },
+  "preview": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-b/umiri-chat-apricot-shadow-alpha-candidate-v1.html",
+    "sha256": "9d7e05dc789d3bdb9262a54000a5ff11bc02e968ce1d2cf60be9f197395ec430"
+  },
+  "observations": [
+    "Uniform #291c16 at opacity 0.35, masked by existing shadow alpha, removes the conspicuous light/warm rim created by the old RGBA shoe residual in the 3x comparison.",
+    "Original hip, palm and cushion remain in the same relationship at 2x; the local contact is subtler than old residual rather than a bright contour.",
+    "Existing alpha footprint remains unchanged; no new shadow shape, PNG edit, source-mother ROI patch, translation or registration change.",
+    "The mother has a broader floor contact/reflection shadow than this narrow low-opacity candidate; this candidate is a rendering-semantics comparison, not pixel-identical shadow restoration."
+  ],
+  "verification": {
+    "browser": "Chrome extension",
+    "viewsPersonallySeen": [
+      "same-scale three-way complete room",
+      "mother/old RGBA/uniform tint at shoe sole 3x",
+      "mother/old RGBA/uniform tint at hip/palm/cushion 2x",
+      "old RGBA and alpha-only uniform tint on light/dark/checker"
+    ],
+    "allPngByteHashesUnchanged": true,
+    "actualShadowAlphaExtrema": [
+      0,
+      202
+    ],
+    "sourceAlphaMaskType": "alpha (not luminance)",
+    "sourceGeometryUnmodified": true,
+    "runtimeInteractionTested": false
+  },
+  "status": "primary_fixed_layer_approved_runtime_pending",
+  "remaining": [
+    "Scene owner may integrate only exact approved assets/rendering at fixed original position",
+    "Actual integrated runtime acceptance remains pending"
+  ],
+  "primaryLayerApproved": true,
+  "primaryLayerApproval": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-b/umiri-chat-apricot-primary-layer-approval-v1.json",
+    "sha256": "6eeae9f4d21f52873967610328c9a38ae722ab317ed072cd9d4b0e241e7cfed9"
+  },
+  "acceptedBoundaries": [
+    "Fixed original position only; no runtime or motion acceptance.",
+    "Broad mother floor cast/reflection shadow is weaker in alpha 0.35 candidate; narrow contact and visible support are accepted, not pixel-identical restoration.",
+    "Generated empty background reveals a pale desk paper/pad where original mother is occluded. Recorded as generation deviation; root accepts this overall empty-room composition for this review, without asserting original hidden content existed or was absent."
+  ]
+}

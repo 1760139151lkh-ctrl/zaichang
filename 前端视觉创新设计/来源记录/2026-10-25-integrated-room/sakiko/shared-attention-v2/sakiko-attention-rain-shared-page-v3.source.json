@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "cell": "sakiko/attention/rain",
+  "role": "sakiko",
+  "activity": "attention",
+  "palette": "rain",
+  "recordType": "clean-rebuild-human-mother",
+  "dossierVersion": "2026-10-25.1",
+  "wardrobeId": "sakiko-literary-navy-adaptation",
+  "exactPrompt": "完整1536×1024细腻2D手绘文学房间母图。第一参考唯一决定房间相机/窗/左侧木桌椅/右侧窗台软榻/圆边桌/灯和完整环境光；第二参考只定丰川祥子青春身份，不是要把头像贴进房间。完整重新画同一少女全身：淡蓝紫长发、两侧深色发带、金眼，轻软分缕刘海，清澈眼型、柔和面颊与自然短下巴，不成人长脸、不3D、不幼儿化。藏青开衫、白领与浅灰蓝纯布结、藏青格裙属于项目原创日常改编；小腿袜袜口在膝盖以下，双膝露出，完整日常乐福鞋。她坐在画面右侧软垫x950至1370处，髋/大腿/膝/小腿/脚踝自然连续，重心压在座面，两腿自然并排斜向前，两鞋在地板有支撑。膝上书由真实的手稳稳承托，手指清楚不融合。左半完整房间留真实内容空间，不画UI、文字、图标、白卡、灰条、边框、额外人、拼贴。人物属于房间同一光场。\n这是祥子注意到同一书页的雨夜。她本在读自己的书，发现你停在同一句，先读那行再温柔抬眼等你说下去，认真里藏一点被理解的亮光。右手食指指腹明确触在实际打开书页的一行，余指靠纸边，左手承书的重量。绝不举指画外空处。\n以参考1的真实深蓝雨夜和边桌灯柔和衰减为全部照明。窗外没有太阳，也无强聚光。屋内只有左边几灯和书桌灯的柔暖灯池，靠灯的桌面、窗帘、木椅局部温暖，向远处自然变暗；右侧祥子的脸从左方得到克制柔暖侧光，远侧脸和衣料有夜色。地板是暗木色的柔和灯光反射，没有白昼斜照、没有窗格投在地板或软垫上的明亮矩形、没有从右窗射进的金色光束；床垫和人物不比灯罩更亮。窗玻璃雨滴、湖面镇灯自然同处完整夜景。绝不能只把白天窗外换夜景而屋里仍保太阳光。",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "purpose": "only-clean-environment-with-correct-light"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-selected-soft-youth-edit-v3.png",
+      "sha256": "50ed57c7cb690ac52eb49190762f878a2b8e8db5eb75d5d3d3f220e771d86974",
+      "purpose": "identity-only-reference"
+    }
+  ],
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.png",
+    "sha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac",
+    "bytes": 2343269,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    }
+  },
+  "rebuildReason": "Old attention empty-pointing and direct theme descendants were user rejected; they were not inputs.",
+  "primaryStaticReview": {
+    "status": "approved_static_mother",
+    "reviewer": "root",
+    "observed": "Root inspected whole actual output: rain-night room now has local lamp pools and dark wood/reflections without daylight window-grid patches. Youthful gold eyes/blue-purple hair, visible book-page finger contact, physical seated support, two uncovered knees/dark calf socks and complete grounded shoes. Bow is a darker cloth variant of project wardrobe, not asserted official."
+  },
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "generationInputAllowed": true
+}

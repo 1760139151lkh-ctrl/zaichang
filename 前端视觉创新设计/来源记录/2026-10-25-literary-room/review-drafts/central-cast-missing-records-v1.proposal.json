@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "kind": "unsigned-central-review-reconciliation-proposal",
+  "createdAt": "2026-10-25T11:18:04.774361+00:00",
+  "centralRecordAtRead": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-cast-chat-mother-reviews-v1.json",
+    "sha256": "107ad50b7b0051144d3f110b3902b091828bef6e46cd71c68b62b6120ff5fc72",
+    "bytes": 7320
+  },
+  "centralFileModified": false,
+  "signedByRoot": false,
+  "preserveExistingHeldV1": [
+    {
+      "character": "umiri",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v1.png",
+      "decision": "held-for-clearer-leg-support",
+      "observation": "Primary viewed full mother. Face and identity coherent, but knee overlap together with both boots appearing fully grounded leaves support ambiguous. Use a fresh text-led parallel-knee seated variant; do not feed this uncertain pose into repair.",
+      "key": "umiri/chat/apricot",
+      "primaryPersonallyViewed": true,
+      "layerApproved": false,
+      "runtimeAccepted": false,
+      "sha256": "3c6dc9fdff30dc91141da199aea07e3c279c14ac6b561a8e07099a2e69905649",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v1.source.json",
+      "sourceRecordSha256": "6aa200ba22b594b3e5b7acc17dd88fb38df568a0cf240c04ceed38580b482167"
+    }
+  ],
+  "mergeRule": "Append exact-version records only after root signs; preserve held Umiri v1 and never replace history merely by character key.",
+  "proposals": [
+    {
+      "key": "tomori/chat/apricot",
+      "image": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-pilot/tomori-chat-apricot-literary-v1.png",
+        "sha256": "f075324f63e151e4045b4ac5ee87f30dc8295295b81f12c97ddb30ab56ac34d9",
+        "bytes": 2446159
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-pilot/tomori-chat-apricot-literary-v1.source.json",
+        "sha256": "86e5a28292f31d2574068e96231b9d3bf601d9c0cfc22ca49adf82e7c629420e",
+        "bytes": 2803
+      },
+      "individualRootEvidence": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-pilot/tomori-chat-apricot-literary-v1.primary-approval.json",
+        "sha256": "eb9c75cb25176999e1c29f13ffbf896e7e0bb2bf78ddefd4f06b7c2fa86bb271",
+        "bytes": 745
+      },
+      "individualRecordedDecision": "approved",
+      "individualRecordedObservations": "Distinct sincere conversational performance; clear eyebrows/eyelids/fringe/eyes; hand/book, cushion and complete shoe support accepted.",
+      "centralSignaturePending": true,
+      "newVisualDecisionByThisAgent": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "key": "taki/chat/apricot",
+      "image": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-pilot/taki-chat-apricot-literary-v1.png",
+        "sha256": "0eb782e67b9954b406130a4994e9e75dd8774c8c3eb2a690d75d3e55338aad16",
+        "bytes": 2433343
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-pilot/taki-chat-apricot-literary-v1.source.json",
+        "sha256": "b3d42cef116509ebe5476462d9375b95413bf4852158c20bdf1c22b14fa13aab",
+        "bytes": 3016
+      },
+      "individualRootEvidence": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-pilot/taki-chat-apricot-literary-v1.primary-approval.json",
+        "sha256": "147a8e8a00fc32c848c2a9757e4f7787c414ef2a5b4d7c90f6c21b0b6ad44c5d",
+        "bytes": 809
+      },
+      "individualRecordedDecision": "approved",
+      "individualRecordedObservations": "Distinct earnest listening performance; clear eyebrows/eyelids/fringe/eyes; book/lap, cushion and complete shoe support accepted. The naturally book-occluded hand is accepted; no false exposure required.",
+      "centralSignaturePending": true,
+      "newVisualDecisionByThisAgent": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "key": "umiri/chat/apricot",
+      "image": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v2.png",
+        "sha256": "b54800a320a163629dba745183efa63d18a83aa1ae19ba0f9382fdb546b12844",
+        "bytes": 2456064
+      },
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v2.source.json",
+        "sha256": "79f2bb44da76f89950f0d4a9e96bec6c86137d4772323d7d6440dfa7df2b13b9",
+        "bytes": 8878
+      },
+      "individualRootEvidence": null,
+      "proposedDecision": "await_root_signature",
+      "observations": null,
+      "centralSignaturePending": true,
+      "newVisualDecisionByThisAgent": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "character-activity-mother-candidate",
+  "character": "sakiko",
+  "activity": "chat",
+  "palette": "violet",
+  "environmentVariant": "twilight",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-4d51477f-cc73-4177-8f1c-e42edc9813f0.png",
+  "executionId": "exec-4d51477f-cc73-4177-8f1c-e42edc9813f0",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+      "role": "sole approved clean empty room environment input; fresh character from text",
+      "approvalEvidence": "root delegated chat-light-pilot task explicitly states plate personally viewed and admitted"
+    }
+  ],
+  "selectedMotherLineage": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+    "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+    "imageInputForThisCall": false,
+    "purpose": "personally viewed human scale and space-emotion reference only"
+  },
+  "promptFile": "sakiko-chat-violet-v1.prompt.txt",
+  "promptFileSha256": "63bf73aa2f63d852e8dec3f560d1491d88a0c381c14211a7ac363c91435bb330",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; submitted text exact",
+  "submittedPromptSha256": "7dbe554bb658666817c63065bff637cf65d5dd28328ce98b0b43eb27c7fcdcba",
+  "output": {
+    "file": "sakiko-chat-violet-v1.png",
+    "sha256": "3115fb3058cff052bddc376d4612aa842c96925e6708a809b434097980274b84",
+    "bytes": 2309955,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved full original. Same close room, lake/town, window divisions, desk, lamp table and bench remain visually in place. Crown is near y110, complete shoes near y910; the character retains a comparable apparent head scale and a supported seated pose. Overlapping relaxed hands, visible knees and full shoes read coherently in the full view. Eyelids, golden irises and silver-blue strands are distinct; relaxed lips and sustained gaze read as a conversation allowed to pause, without a broad smile or staged sadness. Dusk warmth acts on face, hair edges, hands and clothes against continuous cooler twilight, rather than a flat purple filter. Producer static observation only; root/layers/runtime remain pending."
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "Producer-viewed single-character static mother candidate only; root review pending, no layer, matrix, motion or runtime acceptance."
+}

@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "cell": "anon/listening/rain",
+  "characterId": "anon",
+  "activity": "listening",
+  "palette": "rain",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in exact-activity whole-scene relighting",
+  "promptFile": "anon-listening-rain-integrated-v1.prompt.txt",
+  "submittedPrompt": "Use case: lighting-weather. Asset: one complete 1536 x 1024 literary-room mother for the existing 在场 companion product.\nImage 1 is the clean EMPTY literary room at the target weather/time and governs the complete room's physical light, camera and furniture. Image 2 is this SAME CHARACTER'S personally inspected, structurally coherent APRICOT mother of this EXACT ACTIVITY; it governs her actual face, hair, clothes, body proportions, silhouette, hand/prop relationships, position and support. Repaint the whole room and girl together, not a tinted or pasted sunny cutout.\nKeep the complete connected wood window/lake/town/mountain, curtains, left writing desk/chair, shelves/books/plants/frames, round side table with porcelain lamp/flowers/cup/books, long cream window bench, plaid pillows/knitted throw, floor/rug and foreground blur at their exact source scale and location. Preserve image 2's head/torso/hips/limbs/fingers/knees/calves/ankles and both full shoes. Hips genuinely meet the cushion, two separate continuous legs and both shoes remain naturally supported. Do not change the pose, crop, zoom, enlarge the head, move furniture, add hidden limbs, or invent a new activity.\nMaintain youthful original anime identity, separated fringe strands/eyelids/iris/pupil, tactile fabric and rich painterly room. Recalculate skin, hair, cloth, paper, seat/contact and floor shadows for the target light; remove former sunny geometric hotspots and gold rims rather than orange/blue-tinting them. No UI, panels, text, letters, readable schedules, arrows, labels, split daylight/night, border, watermark or another person. No new props, and no compulsory sadness or consolation smile.\nCHARACTER: Chihaya Anon / 千早爱音. Long pink hair, gray-blue eyes, gray-lavender school blazer with white piping, white shirt, dark green tie and checked skirt, dark knee socks, black loafers.\nEXACT ACTIVITY — LISTENING: Preserve her gently forward but securely seated torso, small inclined head and clear attentive questioning eyes toward the nearby person, closed quiet lips; her BOTH EMPTY HANDS rest together on her own knees. The closed book lies to her right on the bench, not in her hands. Her usual lively initiative has paused because she wants to hear the specific rest of this account. Keep this personal active listening, without a stock grin or sadness.\nTARGET: RAIN NIGHT: dark cloudy rainy sky, drops/trails on window and rain-broken lake reflections. Existing ceramic lamp is the local warm source with real falloff; cool night fill separates contours. Repaint face/skin/hair/uniform/book/cushion/floor to NIGHT exposure, no retained sunny skin patches, no noon floor grid. Clothes and interior stay dry; no stars or added fixture. Listening remains attentive rather than automatically sad.",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+      "role": "clean target empty room and physical light",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/apricot-wave-b/anon-listening-apricot-literary-v1.png",
+      "role": "personally inspected same-character same-activity mother",
+      "sha256": "569b85c9dff9b8e6984f68d1d97b85ce6f708b764a203a6f8e3ea0cc7ca53973"
+    }
+  ],
+  "output": {
+    "file": "anon-listening-rain-integrated-v1.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-7682c2c2-dcdd-4175-906d-c6b7d3c482c0.png",
+    "sha256": "f6e214a3261b3218ff189371a7cbd1bd14f58d97755d88b2e4fc182eeca0b7dc",
+    "bytes": 2230168,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Complete original inspected: attentive listening retains the same youthful face, inclined head and two resting empty hands. Rain-night window, warm practical lamp with falloff and dark material exposure are coherent; clothes and room remain dry, complete shoes and bench support intact. No added comfort gesture or prop.",
+    "decision": "candidate only; current expansion paused by root after user correction"
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "notes": "In-flight call completed before root stop arrived. Preserve candidate and exact source; theme asset does not establish a new posture topology or dynamic performance.",
+  "promptFileSha256": "d4b2df71ce86a360a49de5e38dc9e37e48714b407e0c27f115696ea7002aca69",
+  "submittedPromptSha256": "2ccaad6aefc7f7d3e01df151a76386165f3927715f767a6e1a1265905604abb2",
+  "archivedAtUtc": "2026-10-25T14:35:25.116882+00:00"
+}

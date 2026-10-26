@@ -104,6 +104,13 @@ primitive('AudioTrace', '显示本作品Voice经过合成与总音量后的真�
   label: z.string().min(1).max(160), height: z.number().int().min(80).max(240).default(120),
   magnification: finite.min(1).max(16).default(4), color: color.default('accent'),
 });
+primitive('Piano', '一件可弹奏的88键三角钢琴原理作品；由原作品AudioScope合成有限模态声音，不用采样或另一个声音引擎。selectedField是21至108的MIDI音号，heldField是transient且initial:[]的number sequence（范围21至108，maxItems至少88），pedalField是transient且initial:false的boolean；phaseField是transient且initial:0、范围0至1的number。四个字段须独立。按键、和弦、延音、击弦机构及实际输出共用当前输入，键盘焦点内可弹奏；慢放只拉长教学机构过程，不改变音高。velocity是明确选定的力度，不伪称鼠标测得；slowMotion为1至100倍过程时长。音高以tuningHz的A4基准和十二平均律计算，再乘sqrt(tensionRatio/densityRatio)/lengthRatio，让理想弦参数有可听的因果；这些比例不是某型号钢琴的实测尺寸。brightness改变模态激励分布。可用Number、Formula、Text与AudioTrace在同一Document中继续组织，参数读$ui并按原程序保存，Continue仍带回同一作品。声音需明确开启；重开不恢复按住、踏板、机构过程或发声。', 'view', {
+  heldField: programKeySchema, selectedField: programKeySchema, pedalField: programKeySchema, phaseField: programKeySchema,
+  velocity: finite.min(.05).max(1).default(.65), slowMotion: finite.min(1).max(100).default(1),
+  tuningHz: finite.min(400).max(480).default(440), lengthRatio: finite.min(.5).max(2).default(1),
+  tensionRatio: finite.min(.25).max(4).default(1), densityRatio: finite.min(.25).max(4).default(1),
+  brightness: finite.min(0).max(1).default(.55), showMechanism: z.boolean().default(true), disabled: z.boolean().default(false),
+});
 primitive('Button', '执行一个checked局部变更、恢复初值或Continue；不运行原生Set/Run/工具/外链/自动发送。', 'view', {
   label: z.string().min(1).max(160), action: localAction, emphasis: z.enum(['quiet', 'normal']).default('quiet'), disabled: z.boolean().default(false),
 });
@@ -177,7 +184,7 @@ graphicRefs = neutralDefinitions.filter(def => ['graphic', 'motion', 'control'].
 export const interactiveComponentSpecs: readonly PrimitiveSpec[] = Object.freeze(specs);
 export const interactiveComponentNames: readonly string[] = Object.freeze(specs.map(spec => spec.name));
 export type InteractiveComponentName = 'Document' | 'Flow' | 'Paper' | 'Text' | 'Formula' | 'Number' | 'TextInput' | 'SequenceInput'
-  | 'Choice' | 'Toggle' | 'Press' | 'Voice' | 'AudioTrace' | 'Button' | 'SourceSlot' | 'Graphic' | 'Group' | 'Line' | 'Polyline' | 'Curve' | 'Circle' | 'Rect' | 'Polygon' | 'Label' | 'DragHandle' | 'Motion';
+  | 'Choice' | 'Toggle' | 'Press' | 'Voice' | 'AudioTrace' | 'Piano' | 'Button' | 'SourceSlot' | 'Graphic' | 'Group' | 'Line' | 'Polyline' | 'Curve' | 'Circle' | 'Rect' | 'Polygon' | 'Label' | 'DragHandle' | 'Motion';
 
 export function createInteractiveLibrary<C = null>(options: { data?: ProgramDataMap; renderers?: Partial<Record<InteractiveComponentName, C>> } = {}) {
   const components = neutralDefinitions.map(def => ({ ...def,
@@ -312,6 +319,22 @@ export function inspectInteractivePrimitiveProperties(name: string, raw: Record<
   }
   if (spec.stateKind && (typeof raw.field !== 'string' || states[raw.field]?.kind !== spec.stateKind))
     return reject(`部件${name}需要对应已声明的${spec.stateKind}局部字段。`, 'state_kind', [['field']]);
+  if (name === 'Piano') {
+    const fields = ['heldField', 'selectedField', 'pedalField', 'phaseField'];
+    if (new Set(fields.map(key => raw[key])).size !== fields.length)
+      return reject('琴键、所选音、踏板与机构过程需要独立字段。', 'state_kind', fields.map(key => [key]));
+    const held = states[String(raw.heldField)], selected = states[String(raw.selectedField)],
+      pedal = states[String(raw.pedalField)], phase = states[String(raw.phaseField)];
+    if (held?.kind !== 'sequence' || held.element !== 'number' || !held.transient || held.initial.length
+      || held.min !== 21 || held.max !== 108 || held.maxItems < 88)
+      return reject('88键按住状态需要transient:true、initial:[]、范围21至108且maxItems至少88的number sequence。', 'state_kind', [['heldField']]);
+    if (selected?.kind !== 'number' || selected.min !== 21 || selected.max !== 108 || selected.step !== 1)
+      return reject('所选音需要范围21至108、step:1的number字段。', 'state_kind', [['selectedField']]);
+    if (pedal?.kind !== 'boolean' || !pedal.transient || pedal.initial !== false)
+      return reject('延音踏板需要transient:true、initial:false的boolean字段。', 'state_kind', [['pedalField']]);
+    if (phase?.kind !== 'number' || !phase.transient || phase.initial !== 0 || phase.min !== 0 || phase.max !== 1)
+      return reject('击弦过程需要transient:true、initial:0、范围0至1的number字段。', 'state_kind', [['phaseField']]);
+  }
   if (name === 'Press' || name === 'Voice') {
     if (name === 'Voice' && raw.triggerField != null && raw.trigger !== undefined)
       return reject('同一声音只选triggerField计数或trigger表达式中的一种。', 'state_kind', [['triggerField'], ['trigger']]);

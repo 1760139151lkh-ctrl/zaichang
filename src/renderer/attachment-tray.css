@@ -1,0 +1,42 @@
+/* Independent small objects on the same reading surface. No tray-shaped card
+   or generated page pixels stand between the original files and the reader. */
+.attachment-tray { --attachment-ink:var(--text-secondary); --attachment-accent:var(--accent); --attachment-edge:var(--separator); --attachment-close:var(--surface-raised); position:relative; display:flex; flex:none; flex-wrap:wrap; align-items:flex-start; gap:6px 12px; grid-column:1 / -1; width:fit-content; max-width:100%; margin:0 0 5px; padding:4px 2px 2px; list-style:none; color:var(--attachment-ink); user-select:none; }
+.attachment-tray-slot { position:relative; flex:0 0 64px; width:64px; min-width:0; margin:0; padding:0; }
+.attachment-tray-tile { position:relative; }
+.attachment-tray-open { appearance:none; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; gap:6px; box-sizing:border-box; width:100%; min-height:68px; margin:0; padding:4px 2px 3px; border:0; border-radius:8px; background:transparent; color:inherit; font:inherit; line-height:1.3; text-align:center; text-decoration:none; cursor:pointer; touch-action:manipulation; }
+.attachment-tray-mark { position:relative; display:grid; flex:none; place-items:center; width:fit-content; min-width:36px; max-width:54px; height:46px; border-radius:4px; }
+.attachment-tray-mark > .material-file-cover { box-sizing:border-box; width:36px; height:46px; }
+.attachment-tray-thumbnail { display:block; box-sizing:border-box; width:54px; height:40px; border:1px solid color-mix(in srgb,var(--attachment-edge,var(--separator)) 70%,transparent); border-radius:3px; object-fit:cover; box-shadow:0 2px 5px #21160d1f; }
+.attachment-tray-name { display:block; max-width:64px; overflow:hidden; color:inherit; font-size:10.5px; font-weight:450; line-height:1.35; text-overflow:ellipsis; white-space:nowrap; }
+.attachment-tray-slot[data-active] .attachment-tray-mark::after { position:absolute; inset:-3px; content:''; border:1px solid var(--attachment-accent); border-radius:6px; box-shadow:0 0 0 1px color-mix(in srgb,var(--attachment-accent) 13%,transparent); pointer-events:none; }
+.attachment-tray-open:focus-visible { outline:1px solid var(--attachment-accent); outline-offset:2px; }
+.attachment-tray-open:disabled { cursor:default; }
+.attachment-tray[data-reorderable] .attachment-tray-open { cursor:grab; touch-action:none; }
+.attachment-tray.is-sorting .attachment-tray-open { cursor:grabbing; }
+.attachment-tray-remove { position:absolute; z-index:1; top:-5px; right:1px; display:grid; place-items:center; box-sizing:border-box; width:24px; height:24px; margin:0; padding:0; border:0; border-radius:50%; background:transparent; color:inherit; opacity:0; visibility:hidden; cursor:pointer; }
+.attachment-tray-remove::before { position:absolute; inset:4px; content:''; border:1px solid var(--attachment-edge); border-radius:50%; background:var(--attachment-close); box-shadow:0 1px 3px #20150c18; }
+.attachment-tray-remove > svg { position:relative; }
+.attachment-tray-slot[data-active] .attachment-tray-remove,
+.attachment-tray-tile:focus-within .attachment-tray-remove,
+.attachment-tray-tile:hover .attachment-tray-remove { opacity:1; visibility:visible; }
+.attachment-tray-remove:focus-visible { outline:1px solid var(--attachment-accent); outline-offset:0; }
+.attachment-tray-slot.is-placeholder::before { position:absolute; top:4px; left:50%; box-sizing:border-box; width:36px; height:46px; content:''; border:1px dashed color-mix(in srgb,var(--attachment-accent) 65%,transparent); border-radius:4px; background:color-mix(in srgb,var(--attachment-accent) 6%,transparent); transform:translateX(-50%); }
+.attachment-tray-slot.is-placeholder:has(.attachment-tray-thumbnail)::before { top:7px; width:54px; height:40px; }
+.attachment-tray-slot.is-placeholder .attachment-tray-tile { opacity:0; }
+.attachment-tray-slot.is-placeholder .attachment-tray-remove { visibility:hidden; }
+.attachment-tray-flight { box-sizing:border-box; color:var(--text-secondary); filter:drop-shadow(0 6px 6px #21110945); }
+.attachment-tray-flight > .attachment-tray-open { transform:rotate(-2deg) scale(1.035); }
+.attachment-tray-announcement { position:absolute; width:1px; height:1px; overflow:hidden; padding:0; border:0; white-space:nowrap; clip-path:inset(50%); }
+.message .attachment-tray { margin-block:8px 2px; }
+.message .attachment-tray-open { min-height:64px; }
+:root[data-palette='rain'] .attachment-tray,
+:root[data-palette='rain'] .attachment-tray-flight { --attachment-ink:#e0c9a7; --attachment-accent:#d6ae76; --attachment-edge:#b996655c; --attachment-close:#513a2c; color:var(--attachment-ink); }
+@media (max-width:600px) {
+  .attachment-tray { gap:6px 8px; }
+  .attachment-tray-slot { flex-basis:60px; width:60px; }
+  .attachment-tray-name { max-width:60px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .attachment-tray-flight > .attachment-tray-open { transform:none; }
+}
+:root[data-motion='reduced'] .attachment-tray-flight > .attachment-tray-open { transform:none; }

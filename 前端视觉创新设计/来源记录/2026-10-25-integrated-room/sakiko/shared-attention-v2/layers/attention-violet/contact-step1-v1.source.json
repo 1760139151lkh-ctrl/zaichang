@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "stage": "S1-v1",
+  "characterId": "sakiko",
+  "activity": "attention",
+  "palette": "violet",
+  "sceneFamily": "literary-room-v1",
+  "dossierVersion": "2026-10-25.1",
+  "wardrobeId": "sakiko-literary-navy-adaptation",
+  "actualTool": "built-in image_gen.imagegen",
+  "actualPrompt": "Use case: precise-object-edit. Asset: S1 actual LOCAL RECEIVING MATERIAL selection markup for an unchanged original-RGB fixed included layer. The ONLY input is this exact approved Sakiko attention-violet mother, 1536x1024. Keep the entire original full-color scene, person, open book, pose, youthful face/golden eyes/hair/ribbons, below-knee socks/uncovered knees and both whole loafers in their ORIGINAL COLORS and EXACT original coordinates. Never redraw, move, zoom, crop, resize, relight or change this approved mother.\nMark solid PURE WHITE ONLY on the actual small source-local receiving surfaces and existing immediate contact shade physically touching this seated figure: (1) the narrow irregular pale linen/pressed cushion immediately under the lower plaid hem and supported hips/thighs near x990..1385,y540..625, following only the real touching compressed fabric, NOT the empty long left bench, large plaid pillow or knitted blanket; (2) the COMPLETE actual soft wood-floor contact footprint immediately below/around BOTH complete loafers near x900..1107,y884..947. These are loose inspection neighborhoods, NOT shapes/boxes to fill. Follow each real sole, heel and toe shadow/wood-grain receiver with its soft original fade. Include the dark original floor core immediately touching each toe/heel as well as the near peripheral soft shade where it exists (roughly 8..30 source pixels past the sole). Do not reduce grounding to a 1-2 pixel white shoe outline; do not invent a new oval, rectangle or long floor strip. The actual shoes themselves stay fully COLORED, because the figure mask already preserves them. Do not whiten knee/skin/skirt/book/hand, broad sunset floor reflections, room-wide sun patches, rug/fringe or unrelated furniture shadows. Where the two real shoe contact regions naturally join, a small real connected receiver is okay; do not connect it to empty floor or bench.\nAll unmarked mother pixels keep original RGB, including naturally pale curtains/cushion, blouse/collar, book pages, lamp/flowers, sunset/window/lake, plants/furniture. This is only deliberate white receiving-material selection on a full-color source, not a black-white mask yet. It selects the original source cloth/wood/shadow pixels under MAX(F,S), with travel/slope/perspective=0. It is not a separately portable cast shadow. No broad empty seat, invented shadow, outline, labels, arrows, grid, transparency, checkerboard, second figure or text. Output one opaque full-canvas 1536x1024 PNG.",
+  "actualArguments": {
+    "prompt": "Use case: precise-object-edit. Asset: S1 actual LOCAL RECEIVING MATERIAL selection markup for an unchanged original-RGB fixed included layer. The ONLY input is this exact approved Sakiko attention-violet mother, 1536x1024. Keep the entire original full-color scene, person, open book, pose, youthful face/golden eyes/hair/ribbons, below-knee socks/uncovered knees and both whole loafers in their ORIGINAL COLORS and EXACT original coordinates. Never redraw, move, zoom, crop, resize, relight or change this approved mother.\nMark solid PURE WHITE ONLY on the actual small source-local receiving surfaces and existing immediate contact shade physically touching this seated figure: (1) the narrow irregular pale linen/pressed cushion immediately under the lower plaid hem and supported hips/thighs near x990..1385,y540..625, following only the real touching compressed fabric, NOT the empty long left bench, large plaid pillow or knitted blanket; (2) the COMPLETE actual soft wood-floor contact footprint immediately below/around BOTH complete loafers near x900..1107,y884..947. These are loose inspection neighborhoods, NOT shapes/boxes to fill. Follow each real sole, heel and toe shadow/wood-grain receiver with its soft original fade. Include the dark original floor core immediately touching each toe/heel as well as the near peripheral soft shade where it exists (roughly 8..30 source pixels past the sole). Do not reduce grounding to a 1-2 pixel white shoe outline; do not invent a new oval, rectangle or long floor strip. The actual shoes themselves stay fully COLORED, because the figure mask already preserves them. Do not whiten knee/skin/skirt/book/hand, broad sunset floor reflections, room-wide sun patches, rug/fringe or unrelated furniture shadows. Where the two real shoe contact regions naturally join, a small real connected receiver is okay; do not connect it to empty floor or bench.\nAll unmarked mother pixels keep original RGB, including naturally pale curtains/cushion, blouse/collar, book pages, lamp/flowers, sunset/window/lake, plants/furniture. This is only deliberate white receiving-material selection on a full-color source, not a black-white mask yet. It selects the original source cloth/wood/shadow pixels under MAX(F,S), with travel/slope/perspective=0. It is not a separately portable cast shadow. No broad empty seat, invented shadow, outline, labels, arrows, grid, transparency, checkerboard, second figure or text. Output one opaque full-canvas 1536x1024 PNG.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-violet-shared-page-v2.png"
+    ],
+    "transparent_background": false
+  },
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-violet-shared-page-v2.png",
+      "sha256": "69c14d7b7df22f634e3bc884c01396bdcd0d3f0fe70678803a05a10b52366208",
+      "bytes": 2416217,
+      "role": "sole approved complete mother"
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "bytes": 12246
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "bytes": 12645
+    }
+  ],
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/contact-step1-marked-v1.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17365-454d-7bb3-8b77-bcaadd75b8a4/exec-1e6a9c66-90c3-4bd4-bcd8-d27331ef1545.png",
+    "sha256": "f1ad584389adcf654106262fad3bafd8f142e7507d8885d8200917d8614bd550",
+    "bytes": 2371214,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true
+  },
+  "producerObservation": "Personally viewed actual S1 full source. The white seat receiver extends too far to image-left of the trailing hem into an empty pale cushion island around x900..985, not just the actual narrow support. Retain evidence, HOLD this markup; do not convert it to S2 or feed it as a later input. Both full source shoes stay colored and local floor has coverage, but that does not excuse the empty-seat over-selection.",
+  "status": "HOLD_empty_seat_overselection",
+  "generationInputAllowed": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0
+}

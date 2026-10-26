@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "s01-d01-sakiko-reading-book-repair-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "recordedAt": "2026-10-25T08:01:26Z",
+  "generationId": "exec-6f3d210d-9397-49cf-91f9-1e5c16bf63fc",
+  "prompt": "sakiko-reading-book-repair-v1.prompt.txt",
+  "inputs": [
+    {
+      "path": "../../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-mother.png",
+      "sha256": "8f2358c0af7a78451259d049517cf3dedfe011023fdbabc44ec4bd850d3e671b",
+      "role": "approved original READING mother; only image reference used for every generation in this folder"
+    }
+  ],
+  "output": "sakiko-reading-book-repair-v1.png",
+  "sha256": "4587c213d9cb1576750c2cb4d66f11fc641457490e480ef2e193bb40c295340a",
+  "bytes": 2083622,
+  "canvas": {
+    "width": 1536,
+    "height": 1024
+  },
+  "outputMode": "RGB",
+  "character": "sakiko",
+  "sceneFamily": "sakiko-reading-apricot-room4",
+  "classification": "B",
+  "status": "approved-local-component",
+  "runtimeAllowed": "only the registered local component/repair paths",
+  "staticReview": {
+    "producerInspected": true,
+    "alsoInspectedBy": "s01_04_participation",
+    "observed": "Both hand patches were intentionally removed and the blue book/page/clothing behind them reconstructed. The old right fingers are actually cleared; book angle and lap relationship visually retained.",
+    "limitation": "Only the old right-arm repair and clean book foreground are admitted. The original left supporting hand/forearm must be restored; the whole no-hand plate never becomes the actor."
+  },
+  "originalNotOverwritten": true,
+  "noCrossFamilyPixels": true,
+  "motionVerified": false,
+  "inAppVerified": false,
+  "runtimeRig": "sakiko-reading-d01-rig-v1.json"
+}

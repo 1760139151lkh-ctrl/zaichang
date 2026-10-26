@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { calendarDate, localCalendarChangeSchema } from './calendar';
 import type { Action } from './types';
+import type { LocalSearchLocator } from './search';
 
 const boundary = {
   privacyEpoch: z.number().int().nonnegative(),
@@ -26,6 +27,15 @@ export type AgendaFocus = z.infer<typeof agendaFocusSchema>;
 
 export const agendaDayInputSchema = z.object({ date: calendarDate, timeZone, ...boundary }).strict();
 export type AgendaDayInput = z.infer<typeof agendaDayInputSchema>;
+
+export const agendaOriginInputSchema = z.object({ record: agendaReferenceSchema, ...boundary }).strict();
+export type AgendaOriginInput = z.infer<typeof agendaOriginInputSchema>;
+/** A currently checked navigation address. It contains neither the original
+ * words nor a permission to reuse them or to execute the former action. */
+export interface AgendaOrigin {
+  locator: Extract<LocalSearchLocator, { kind: 'conversation' }>;
+  relation: 'declared_source' | 'action_dependency';
+}
 
 export interface AgendaOccurrence {
   record: AgendaReference;
@@ -92,4 +102,5 @@ export interface AgendaChangePreview {
 export interface AgendaBridge {
   agendaDay(input: AgendaDayInput): Promise<AgendaDayResult>;
   agendaPreviewChange(input: AgendaPreviewChangeInput): Promise<AgendaChangePreview>;
+  agendaOrigin(input: AgendaOriginInput): Promise<AgendaOrigin | null>;
 }

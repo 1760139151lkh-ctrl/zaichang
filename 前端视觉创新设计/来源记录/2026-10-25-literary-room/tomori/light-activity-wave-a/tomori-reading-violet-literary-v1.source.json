@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "assetId": "tomori-reading-violet-literary-v1",
+  "roomFamily": "literary-room-v1",
+  "characterId": "tomori",
+  "activity": "reading",
+  "palette": "violet",
+  "ambientPlateKey": "twilight",
+  "createdOn": "2026-10-25",
+  "generationMode": "target-empty-plate-and-approved-exact-activity-mother-relighting",
+  "tool": "image_gen.imagegen (built-in)",
+  "callOrdinalInBoundedBatch": 2,
+  "executionId": "exec-486d663e-4325-453b-a9e5-2836af1f180b",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-486d663e-4325-453b-a9e5-2836af1f180b.png",
+  "inputs": [
+    {
+      "file": "../../plates/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+      "role": "image1: approved exact target empty plate and illumination"
+    },
+    {
+      "file": "../apricot-wave-a/tomori-reading-apricot-literary-v1.png",
+      "sha256": "f81a5056794cf1618eb03ce7922b49b43478179aafd3fd9cffe2c60f763880f5",
+      "role": "image2: root-approved exact activity identity/pose/scale/support reference; original daylight not retained",
+      "primaryApprovalRecord": "../apricot-wave-a/primary-mother-admission-v1.json"
+    }
+  ],
+  "inheritedRootMotherContour": {
+    "contourComplete": true,
+    "note": "Complete head and shoes in root-approved apricot mother; output inspection follows."
+  },
+  "promptFile": "tomori-reading-violet-literary-v1.prompt.txt",
+  "promptFileSha256": "ef544db37370787aeadb8c225815c1ee46243c276efa39004000220becf06f97",
+  "submittedPrompt": "Create ONE complete 1536×1024 landscape literary companion scene by genuine WHOLE-SCENE RELIGHTING. Image 1 is the PRIMARY-APPROVED EMPTY environmental plate at the TARGET time/weather: it supplies the exact camera, global room and target illumination. Image 2 is this SAME character's ROOT-APPROVED APRICOT MOTHER OF THIS EXACT ACTIVITY: use its exact youthful identity/uniform, body pose, scale/source coordinates, facial activity, hands/objects and true support/occlusion, NOT its daylight highlights.\nRepaint the girl's skin, hair, clothing, paper/book, cushion/chair/desk contacts and the floor under image 1's target light. Original apricot skin/garment hot patches, sunlit hair rims and window-lattice pools are NOT identity/pose constraints and must not survive by default. This is not a tinted film, simple hue swap, pasted day-lit figure or separate day/night halves.\nLock the close camera, full framing, wooden window panes/current crop, lake/town/mountains, shelves/books/plants, desk/chair, round table/ceramic lamp/cup/flowers, linen bench/right plaid cushions/cream throw, floor/rug and foreground plant. Where the approved occupied study mother contains an adjusted chair or portable task lamp relative to the unoccupied plate, preserve THAT mother's actual occupied-chair support geometry and small-object position; use the empty plate for illumination, not to replace the occupied chair beneath her.\nKeep the exact activity mother silhouette/head/body proportions and source locations; no head enlargement, leaning toward camera, translation, crossed-knee rearrangement, new hand gesture or changed physical support. Preserve all actual limb/strand gaps and natural occlusion. On bench poses, whole head/hair and both complete shoes stay in frame. On desk study poses, natural source plant/furniture occlusion is intentional, contourComplete=false; do not add false visible feet through objects.\nDetailed expressive anime character drawing belongs inside tactile softly painterly room materials. Keep youthful original character identity, correct canonical hair/eye/uniform colors under the light. Separate each fringe lock, eyebrow, lash, upper/lower eyelid, sclera and iris boundary, even with downward gaze. No hair-eye fusion, generic adult face, service smile, compulsory blush or stereotyped scowl.\nOnly these two approved images are inputs. No unreviewed mother, earlier lighting problem candidate, mask, different character, old room or rejected pose is a reference. No readable user text/equations/business receipts, labels, UI, watermarks, new character, diagrams, split screen or duplicate limbs. This original fictional activity illustration does not assert an actual user's action or completed work.\n\nACTIVITY PERSON: Takamatsu Tomori (高松燈), MyGO!!!!!, short gray-lavender/steel-gray layered neck-length hair, muted rose-brown eyes, gray-purple white-piped blazer/striped tie/checked skirt/dark socks/brown loafers.\nAPPROVED EXACT-ACTIVITY PERFORMANCE: Preserve her approved inward reading: a quiet absorbed face, moderately lowered head with readable irises, open book resting on thighs and both real hands at its page/cover edges, subtle side-sit. Not camera greeting.\nTARGET LIGHT: NATURAL TWILIGHT: exactly image 1's continuous rose/lavender dusk outside and existing softly warm ceramic-lamp interior, with subdued cool window fill and town lights. Keep the floor and seat SOFTLY lit like image 1. No bright orange rectangular noon window-lattice pools on the lower-right floor, no inherited apricot knee/shin/face hot patches. Daylight highlights are not identity or anatomy. Repaint skin, uniform, paper and local contacts with proper mixed lamp/window light instead of a purple or amber overlay.",
+  "output": {
+    "file": "tomori-reading-violet-literary-v1.png",
+    "sha256": "57d7e6a8f854cb580a1d0664e8b92b7425ff498fceaee2f1f0c4de3a6c4ad1bd",
+    "bytes": 2232527,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "reviewedOn": "2026-10-25",
+    "decision": "static mother candidate for primary inspection",
+    "observation": "Complete original viewed: inward reading/book-edge hands, lap/hip support and complete shoes retained. Continuous dusk and warm existing-lamp treatment reach paper, uniform, skin, linen and floor; no conspicuous lower-right noon window grid. Downward eyes remain readable and separated from fringe. Head inclination is subtly lower than apricot, while observed body/foot scale and source support remain stable.",
+    "bodyContour": {
+      "contourComplete": true
+    },
+    "limits": "Minor head-inclination difference disclosed; no pixel-identical pose or primary/layer/runtime claim."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "acceptanceScope": "Static same-activity light mother candidate only; no layer progression or registration."
+}

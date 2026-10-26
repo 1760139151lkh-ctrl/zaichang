@@ -1,0 +1,56 @@
+{
+  "cell": "taki/resume/violet",
+  "role": "taki",
+  "activity": "resume",
+  "palette": "violet",
+  "stem": "taki-resume-violet-literary-extension-v1",
+  "directory": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\taki\\missing-theme-extension-v1",
+  "prompt": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\taki\\missing-theme-extension-v1\\taki-resume-violet-literary-extension-v1.prompt.txt",
+  "inputFiles": [
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/apricot-wave-b/taki-resume-apricot-literary-v1.png"
+  ],
+  "approvedSeedInspected": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/apricot-wave-b/taki-resume-apricot-literary-v1.png",
+    "sha256": "42fc10d73ff8187f26186be1b669c343bf9e78004db1d712ebc7974a12a50a0e",
+    "bytes": 2414760,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "format": "PNG",
+    "writtenByUtc": "2026-10-25T11:59:54.763171+00:00"
+  },
+  "seedActuallyInput": true,
+  "seedDecision": "Approved source personally viewed: healthy supported identity/wardrobe/action used for continuity only.",
+  "brief": {
+    "index": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-a/matrix-72.json",
+      "sha256": "584a74a9a3b540dcebad4902f189a7c722b86eb2ed13825e7d5ed7eb076c051e",
+      "bytes": 74445,
+      "capturedAt": "2026-10-25T09:14:03.039950+00:00"
+    },
+    "jsonPointer": "/cells/70",
+    "briefKey": "taki/resume/dusk",
+    "canonicalKey": "taki/resume/violet",
+    "canonicalAxisAlias": {
+      "field": "palette",
+      "from": "dusk",
+      "to": "violet",
+      "scope": "this creative brief index only",
+      "evidence": "producer paletteName 暮色紫; canonical family axis violet; original index remains untouched"
+    },
+    "producerBriefRef": null
+  },
+  "targetPlate": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+    "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+    "bytes": 2350339,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "format": "PNG"
+  },
+  "plan": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\missing-human-mother-production-plan-v1.json"
+}

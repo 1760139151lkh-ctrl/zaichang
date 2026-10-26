@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "kind": "primary-fixed-layer-approval",
+  "cell": "umiri/chat/apricot",
+  "reviewer": "root",
+  "recordedAt": "2026-10-25T07:06:53.389927+00:00",
+  "primaryReviewed": true,
+  "primaryLayerApproved": true,
+  "runtimeAccepted": false,
+  "registeredByThisTask": false,
+  "assets": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot-mother-candidate-v2.png",
+      "sha256": "beb0028df130f510fce228bd127495d0375ecf8998c81a50137617e4482af8ee",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot-background-calibrated-v2.png",
+      "sha256": "d9355b9f7cf379f81a50e679691db77b01e9ff9b948cdfa06dbf2ef876a36c8e",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "figure": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot-figure-calibrated-v2.png",
+      "sha256": "25669bb74c1f4d1231e1960388e4c5869bf67f51979c612959c4c8832ae5820f",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    "mask": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot-mask-calibrated-v2.png",
+      "sha256": "dab06363ee55d3bddea94202f0b27c9d1cc2bd9bd7577aad7e81980c9ef9df5c",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    "shadow": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot-shadow-calibrated-v2.png",
+      "sha256": "b6c6c4dd77cc921c46685f3e2794f548d3b0becc0ec55a6ef958b98a39a4ba17",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    }
+  },
+  "approvedRendering": {
+    "shadowMode": "alpha",
+    "shadowColor": "#291c16",
+    "shadowOpacity": 0.35,
+    "contactShadow": {
+      "mode": "separate"
+    },
+    "canvas": [
+      1536,
+      1024
+    ],
+    "transform": "identity",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "sourceAlpha": "exact existing shadow PNG alpha only",
+    "newShadowGeometry": false,
+    "motherRoiPatch": false,
+    "pngModified": false
+  },
+  "reviewedPreviews": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-b/umiri-chat-apricot-bundle-v1.html",
+      "sha256": "54d70ac23c6fde2dcc8dc41a5221d2bb8698e432500b2964ec793260e0c560c4"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-b/umiri-chat-apricot-shadow-alpha-candidate-v1.html",
+      "sha256": "9d7e05dc789d3bdb9262a54000a5ff11bc02e968ce1d2cf60be9f197395ec430"
+    }
+  ],
+  "primaryObserved": [
+    "Original RGB figure alpha on light/dark/checker with complete head, palm and both shoes",
+    "Whole mother / old RGBA shadow / alpha uniform-color shadow compositions",
+    "Shoe sole mother/old/new at 3x; old warm light rim removed by alpha rendering",
+    "Hip, supporting palm and chair cushion mother/old/new at 2x"
+  ],
+  "acceptedBoundaries": [
+    "Fixed original position only; no runtime or motion acceptance.",
+    "Broad mother floor cast/reflection shadow is weaker in alpha 0.35 candidate; narrow contact and visible support are accepted, not pixel-identical restoration.",
+    "Generated empty background reveals a pale desk paper/pad where original mother is occluded. Recorded as generation deviation; root accepts this overall empty-room composition for this review, without asserting original hidden content existed or was absent."
+  ],
+  "notApprovedByThisRecord": [
+    "Runtime rendering or motion",
+    "Other activities, themes or source SHAs",
+    "Uika static layer admission"
+  ],
+  "sourceOfApproval": "Direct root instruction reporting its personal visual review and bounded acceptance."
+}

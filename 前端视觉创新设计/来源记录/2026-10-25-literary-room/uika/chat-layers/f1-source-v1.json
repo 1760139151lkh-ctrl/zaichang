@@ -1,0 +1,39 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "two-step-source-selection",
+  "character": "uika",
+  "activity": "chat",
+  "palette": "apricot",
+  "sceneFamily": "literary-room-v1",
+  "step": "F1",
+  "roleCallSequence": 1,
+  "roleCallBudget": 4,
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.png",
+    "sha256": "df94d1a87f41775108d5b319a6bcc8ec4372283b770ef05ae764adedf2500c5d"
+  },
+  "numberOfImageInputs": 1,
+  "actualInput": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.png",
+    "sha256": "df94d1a87f41775108d5b319a6bcc8ec4372283b770ef05ae764adedf2500c5d",
+    "role": "sole approved chat mother; held variants excluded"
+  },
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-0b21a2eb-4856-41a6-b083-05daacb97af9.png",
+  "output": "figure-step1-marked-v1.png",
+  "outputSha256": "ae39dc2768c45021aa271ce06a17f709812c010e1a7c1090fd382b044742f483",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "actualMode": "RGB",
+  "promptFile": "f1-actual-prompt-v1.txt",
+  "actualPrompt": "Use case: precise-object-edit. COMPLETE FOREGROUND source selection markup, STEP F1.\nImage 1 is the ONLY input: approved original UIKA literary CHAT mother, complete 1536x1024 canvas. Keep source camera, scale, pose and every object pixel position unchanged. Paint SOLID PURE WHITE directly over ALL visible character-owned source pixels, not a new drawing or a resized silhouette.\nINCLUDE: short blonde hair and every fine tip, violet-eyed face/neck, entire white T-shirt including all sleeve edges, both complete arms/hands/fingers, entire long taupe skirt including all folded hem tips and its dark lower outline, both calves/ankles, white socks, BOTH complete black-and-white sneakers with laces, toe caps, dark sole rims, heels and full bottom contours. There is NO held prop in this chat mother. Fill all subject interiors white irrespective of original dark linework, eye features, jacket/skirt folds or black shoes; no internal holes where the original is subject. Preserve real room gaps between hair strands, limbs, fingers and shoes.\nEXACT SOURCE GUIDES, not boxes to fill: head/hair near x970..1175,y120..320; white tee/arms near x990..1305,y285..580; long taupe skirt near x865..1235,y470..798; two complete sneakers near x842..1015,y775..879; supporting palm near x1225..1310,y548..585. Do not zoom, center, move or grow the figure. The entire garment lower perimeter and every actual dark shoe sole/heel pixel are FOREGROUND, not cast shadow. Do not erode/shave the dark trim, hem tips, heel block or thin outsole to make a clean shape. Include true source antialias edges but do not invent hidden anatomy or expand into cushion/floor.\nEVERYTHING ELSE stays in its original colors: cushion, plaid pillows, throw, wood, side table/lamp/cup/flowers, desk/chair, shelves/plants/window/lake/rug/floor, independent cast/contact shadow and sunlight pattern. In this F1 image whiten only actual person/clothing/shoes, not room receiver material. No background conversion yet.\nReturn ONE opaque 1536x1024 source-colored mother with the complete existing foreground painted white exactly in place. No new person RGB, changed room, crop/warp, labels, outlines, arrows, rectangles, text or collage.",
+  "actualPromptSha256NoTrailingNewline": "0f3f507a8968524fcd6a513670cd2732694c6218aac61f28307480b4290d16fd",
+  "promptFileSha256": "0f3f507a8968524fcd6a513670cd2732694c6218aac61f28307480b4290d16fd",
+  "producerViewed": true,
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "representation": "F/S union is fixed original-source joint subject with included local receiver material; not portable caster or new RGB figure.",
+  "pngEdited": false,
+  "rawOutputObservation": "Complete marked source personally viewed: full source figure white in original room; full long hem and shoe perimeter retained."
+}

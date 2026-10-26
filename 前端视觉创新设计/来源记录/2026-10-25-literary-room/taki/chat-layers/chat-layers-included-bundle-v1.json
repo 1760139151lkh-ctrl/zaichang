@@ -1,0 +1,197 @@
+{
+  "schemaVersion": 1,
+  "key": "taki/chat/apricot",
+  "kind": "original-source-union-subject-included-contact-candidate",
+  "primary": true,
+  "layer": true,
+  "runtime": false,
+  "status": "primary_approved_static_fixed_included_joint_runtime_pending",
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-pilot/taki-chat-apricot-literary-v1.png",
+    "sha256": "0eb782e67b9954b406130a4994e9e75dd8774c8c3eb2a690d75d3e55338aad16",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "background": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "inputs": {
+    "F": {
+      "path": "figure-mask-v1.png",
+      "sha256": "0c9a012634dcafb933a204c3e53150f978d26365e63e46c578687dba57d1781c",
+      "bytes": 466233,
+      "generationSource": "figure-step2-source-v1.json"
+    },
+    "S": {
+      "path": "shadow-mask-v1.png",
+      "sha256": "bbcb8bfbb911c1c7855f455f2159134267235474efeed22cc916c108561eb847",
+      "bytes": 311946,
+      "generationSource": "shadow-step2-source-v1.json"
+    }
+  },
+  "union": {
+    "formula": "U(x,y)=MAX(L(F(x,y)),L(S(x,y)))",
+    "luminanceWeights": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorSpace": "sRGB",
+    "nativeSvgMethod": "Each source-canvas feImage converted to luminance; feBlend lighten; mask-type luminance; original RGB drawn once.",
+    "nativeSvgSource": "union-source-v1.svg",
+    "originalMotherRgbDrawsPerSubject": 1,
+    "pngPixelEditing": false,
+    "thresholding": false,
+    "subtraction": false,
+    "extraColorPaint": false,
+    "nativeSvgSourceSha256": "3f7d30bf9429230118ce540a3d7c5df146e9505ad87875960da321ffc709a188"
+  },
+  "contactShadow": {
+    "mode": "included",
+    "meaning": "Fixed mother figure, garment/shoe perimeter and local source receiving material are one joint subject; no independent physically portable caster."
+  },
+  "composition": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "layerOrder": [
+      "matching empty BG",
+      "one unchanged mother RGB image masked by U"
+    ],
+    "sharedStage": true,
+    "transform": {
+      "x": 0,
+      "y": 0,
+      "scale": 1,
+      "rotation": 0
+    },
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "breathing": 0,
+    "relativeTranslation": 0
+  },
+  "sourceCoordinateBounds": {
+    "subject": [
+      735,
+      70,
+      530,
+      885
+    ],
+    "face": [
+      880,
+      70,
+      280,
+      265
+    ],
+    "book": [
+      860,
+      440,
+      385,
+      170
+    ],
+    "hem": [
+      835,
+      475,
+      420,
+      155
+    ],
+    "heel": [
+      735,
+      775,
+      285,
+      180
+    ],
+    "note": "Inspection viewBoxes only; not pixel crops or registration placement."
+  },
+  "allowedPresentation": [
+    "Whole fixed-pose union shown/hidden",
+    "Whole matching-pose asset replacement",
+    "Shared BG-and-union viewport scaling"
+  ],
+  "unsupportedPresentation": [
+    "Independent figure/limb deformation",
+    "Relative sliding/travel",
+    "Separate shadow movement",
+    "Different support surface/room/mother",
+    "Portable pure-caster claim"
+  ],
+  "knownCoverage": [
+    {
+      "region": [
+        850,
+        475,
+        95,
+        75
+      ],
+      "observation": "F2 extra angular white coverage outside left waist; original source RGB there is room. Evaluate visible patch/furniture continuity in native composite; keep as explicit included-receiver extent, not invented body.",
+      "source": "figure-step2-source-v1.json"
+    }
+  ],
+  "generation": {
+    "newCalls": 4,
+    "totalBatchCalls": 8,
+    "largeImageResultStored": false
+  },
+  "visualInspection": {
+    "status": "current_native_browser_view_complete",
+    "personallyViewed": true,
+    "reviewedOn": "2026-10-25",
+    "browser": "Chrome extension through cua_repl; existing 5188 static server",
+    "page": "chat-layers-included-observe-v1.html",
+    "pageSha256": "5c78afe7ea6b942a79f6e0fdfd19ccc921b8a56cb634820784bef0f3e1366348",
+    "statesViewed": [
+      "Original mother versus matching BG plus union in complete scene",
+      "Source-pixel full subject upper and lower sections on light and dark backgrounds",
+      "Checker view of hair/upper subject and included receiving material around hem/palm",
+      "Source-pixel face/eyes/fringe comparison",
+      "Source-pixel complete visible hand/book comparison",
+      "Source-pixel hem and sole/heel comparison",
+      "Source-pixel original versus fixed composite of actual seat/wood/palm and floor receiving regions (#fixed)"
+    ],
+    "observations": [
+      "Mother RGB preserves face/eyes, long hair, actual visible hand and closed book, camel hem and complete shoe contours.",
+      "The F2 extra coverage forms a visible source wood wedge outside the left wrist on light/dark/checker views; the seat and floor contact materials also remain included.",
+      "In the fixed original-coordinate full scene and source-pixel #fixed pairs, the wood wedge meets matching room wood with no obvious angular edge, misjoined furniture or missing real body observed. This supports only the fixed included proposal, not portable foreground isolation."
+    ],
+    "limits": [
+      "Static native construction only; no live renderer show/hide/pose-switch/failure-gate exercised",
+      "Included original receiver pixels cannot be moved relative to the matching room or mapped to another support surface",
+      "No independent caster purity, portable body cutout or relative sliding claimed"
+    ],
+    "primaryInspectedPageSha256": "1fbccfe7892fd1cc08b0fe72052593f4155e95802a6553510e504c8adaba1426",
+    "postPrimaryPageEdit": "Footer status text only; native geometry and image references unchanged."
+  },
+  "review": {
+    "producerRecommendation": "Primary approved exact-SHA fixed included union; runtime owner integration still required",
+    "primaryApproved": true,
+    "layerApproved": true,
+    "runtimeAccepted": false,
+    "separateCastShadowClaim": false,
+    "primaryAdmissionRecord": "taki-chat-apricot-literary-included-primary-admission-v1.json"
+  },
+  "scopeBoundary": {
+    "srcEdits": false,
+    "worktreeRegistration": false,
+    "newTests": false,
+    "portChanges": false,
+    "children": false
+  },
+  "sourceUnchangedVerification": {
+    "method": "Actual SHA256 re-read after construction",
+    "mother": "0eb782e67b9954b406130a4994e9e75dd8774c8c3eb2a690d75d3e55338aad16",
+    "background": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "F": "0c9a012634dcafb933a204c3e53150f978d26365e63e46c578687dba57d1781c",
+    "S": "bbcb8bfbb911c1c7855f455f2159134267235474efeed22cc916c108561eb847",
+    "originalGeneratedPngCopyEquality": true
+  },
+  "primaryAdmissionRecord": "taki-chat-apricot-literary-included-primary-admission-v1.json"
+}

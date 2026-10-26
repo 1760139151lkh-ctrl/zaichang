@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "id": "anon-study-apricot-literary-v1",
+  "assetType": "complete-mother-literary-room-apricot-wave-b",
+  "createdAtUtc": "2026-10-25T11:46:07.319039+00:00",
+  "tool": {
+    "name": "image_gen.imagegen",
+    "mode": "edit-cleanplate-add-one-character-with-approved-identity-reference",
+    "originalEventId": "exec-72f212e5-128a-42a5-a965-f2066670d3f9",
+    "outputHint": "Generated images are saved to C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270 as C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-72f212e5-128a-42a5-a965-f2066670d3f9.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  "prompt": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-b\\anon-study-apricot-literary-v1.prompt.json",
+    "fileSHA256": "7230997414f075ebba3d427ae3dda1a98892210ea85b3b506bb2320fe1179842",
+    "submittedPrompt": "Use case: illustration-story. One complete literary-room companion mother artwork, exactly 1536 × 1024 pixels, horizontal canvas. There are two image inputs, with distinct authority: IMAGE 1 is the primary-approved EMPTY literary room and is the sole authority for the room, camera, furniture and clear-day atmosphere. IMAGE 2 is this same character's newly approved literary-room CHAT mother, used ONLY for her correct identity, school clothing, linework and near-camera human scale. Do not carry over its seated body, gesture, held booklet or activity. Build the entire body anew for the requested situation. No old room4 image, different character image or anatomical silhouette is supplied.\n\nKeep the exact close room camera and mild perspective of IMAGE 1. Preserve its complete large wood window, autumn lake-town and mountain view, ivory curtains, left wood writing desk and original wooden chair, shelves/books/frames/plants, round side table and its blue-white porcelain lamp/cup/books/flowers, long wood window bench with linen cushion, blue-gray plaid pillows and knit throw at right, wood floor, woven rug and softly blurred foreground plant. The view is a fictional illustrated literary room, not a claimed actual location. One person only. No new desk, extra chair, moved window, zoom, crop, room redesign, second person or extra off-camera hands. Existing lamp and cup stay on their original table.\n\nSpatial priority: keep the round table at its original x≈435–690, top near y500; keep the LEFT desk top near y380 ending around x400 and its original chair centered near x260. Do not enlarge the desktop or translate the table/chair into the walkway to make a frontal body. The chair may rotate locally for real occupancy. For desk activity use a natural three-quarter side relation, not an extreme over-shoulder twist. Honest existing foreground-plant occlusion is preferable to changing furniture. All other activity uses the real bench.\n\n文学瞬间：先承认那一步读快了。\n心理：她已经兴冲冲写出一个解法，重新对照条件时发现自己跳过了一句。此刻的吸引力在于她肯把那一步拿回来重想。 想做得漂亮与愿意认错同时存在，认真没有抹掉她的鲜活。 刚才的自信还没全收回，她已经肯把错处给人看。\n目光：眼睛沿桌上的两小段过程来回，抬头时带着要一起确认的意思。 先盯条件，再抬眼确认对方是否也看见分岔。\n相处：自己先承担一处具体改动，再把可比较的两版留给对方。 将两页并排，自己把笔尖移回最早不同处。\n表情：嘴唇轻抿，眉梢有一点被自己逗到的窘意。 轻抿后松开，有一点干脆的自嘲。\n光线：暖日光显出纸与木纹，铜桌灯不制造第二组夸张阴影。\n\nCharacter: Anon Chihaya / 千早愛音, BanG Dream! It's MyGO!!!!!. Keep the youthful identifiable anime face and ordinary student proportions of her approved input: long clear PINK hair, natural side-swept bangs, bright BLUE-GRAY eyes, fine lively youthful face. Both eyes and bangs must remain clearly drawn and visible. Faithful Haneoka clothes: pale lavender-gray school blazer, white piping and two small gold buttons, white collared shirt, dark green necktie, dark green/gold plaid skirt, dark knee socks, BLACK loafers. Preserve her own colors under the light. No borrowed face/uniform, mature model styling or chibi proportions. Modest fully clothed school-day companionship.\n\n\nNew activity and basic real support: Sit genuinely on the original LEFT wooden chair at the original writing desk, three-quarter side-on, chair seat carrying her hips, not on the bench or round table. Two small draft pages and one plain pen occupy the existing finite desk surface. One hand steadies the page edge; her other holds the pen paused at the earliest point that differs between the drafts. Forearms receive real desk support. At this instant her lips lightly press then ease, a tiny self-aware embarrassment in the brow; her eyes have just shifted from the condition on paper toward the companion to check what she rushed past. A lively person admitting a specific mistake, not a posed grin. Keep original desk/lamp/chair geometry, natural skirt-to-knee-to-lower-leg paths and grounded black shoes. Existing plant may naturally occlude a lower-leg/shoe portion; do not invent or move furniture to expose it.\nPreserve the approved near-camera human scale, with the whole original-style person within the frame. Bench figures may have hair top around y110–140 and shoe depth following the real seat; a desk figure follows the actual deeper chair perspective, never a mechanically pasted bench scale. Do not enlarge the head, lean toward the lens, stretch shins or resize furniture to force coordinates. Both eyes/bangs, hands/wrists and visible limb connections remain coherent; no extra limb, fused fingers, furniture penetration or one crossed knee pretending both parallel feet are flat. Keep every actually visible shoe edge truthful; do not invent hidden anatomy behind the existing foreground plant. Gentle local contact shadows. Apricot almond-gold clear-day light on hair, hands and paper, with clear natural face shadow planes and local clothing colors. Refined 2D anime linework and soft anime shading integrated with the exact detailed literary room. Plain paper/book marks remain faint abstract texture, with no readable quotes, dates, names, schedules or completed-action claims. No UI, captions, icons, logos, watermark, collage, border, fog or gray/gold overlay.\n",
+    "submittedPromptSHA256": "d4959867aaeb23f6e743ca76b8ac0bf8de6a6f2dac7d50f774431eac40e29ea0"
+  },
+  "inputs": [
+    {
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "primary-approved-empty-literary-room; sole authority for room/camera/furniture/light",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\chat-pilot\\anon-chat-apricot-literary-v1.png",
+      "sha256": "53ee79ee3e5e210fc875d6ed062543c21cc2001831ede42dad814367a6103b7c",
+      "role": "same-character-primary-approved-new-literary-chat mother; identity/clothing/near-camera scale only, not body/pose/activity",
+      "primaryApprovalEvidence": "Root direct message 2026-10-25: personally reviewed and approved Anon/Soyo chat-apricot mother; accepted Anon deep-seat shoe y825 and Soyo open booklet",
+      "approvedScope": "mother only, not a layer or runtime approval"
+    }
+  ],
+  "brief": {
+    "cellId": "anon/study/apricot",
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\briefs\\mygo-b\\anon-literary-room-briefs-v1.json",
+    "sha256": "1ec7df1a6421c59d25aa041baae6e99e02573b74aecc42b69ece2cde22842918",
+    "releaseScope": "Root released Anon/Soyo study,listening,play,attention,resume apricot wave B, one mother each, ten calls maximum; no layers before primary review"
+  },
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-b\\anon-study-apricot-literary-v1.png",
+    "sha256": "a0e5ce5637ca48e6f16f36722c5a835d3421ab601a3780439ca0e7483d5c8fda",
+    "bytes": 2432886,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-72f212e5-128a-42a5-a965-f2066670d3f9.png"
+  },
+  "review": {
+    "directInspection": "original full-resolution tool PNG personally viewed after generation; archived copy is byte-identical",
+    "approvedByPrimary": true,
+    "primaryLayerApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observations": [
+      "原尺寸工具输出已亲看；左原书桌两页/持笔/扶页和椅面承托可辨，圆几保持原位置。",
+      "闭口轻抿与认真眉眼区别于chat；发/双眼/制服保持Anon。"
+    ],
+    "concerns": [
+      "原前景植物自然遮住部分小腿和鞋，完整双鞋轮廓不能签；木椅有局部拉转，留root空间主审。"
+    ],
+    "producer": {
+      "inspected": true,
+      "recommendation": "mother candidate for root review",
+      "contourLimit": "natural original foreground plant occludes part of leg/shoe"
+    },
+    "primary": {
+      "approved": true,
+      "scope": "static mother only",
+      "record": "anon-apricot-wave-b-primary-mother-admission-v1.json",
+      "finding": "left desk writing/steadying page and true chair support; chair naturally pulled locally, original plant occludes feet"
+    },
+    "runtime": {
+      "accepted": false,
+      "registered": false
+    }
+  },
+  "boundaries": [
+    "mother only",
+    "new cleanplate plus own approved new-room chat identity reference only",
+    "no old room4 or invalid character pixels",
+    "no layer extraction, runtime registration or source-code change",
+    "stop after ten authorized wave B calls; metadata handoff after five"
+  ],
+  "status": "primary-approved-static-mother-only",
+  "contourComplete": false,
+  "sourceConsistency": {
+    "outputSHA": true,
+    "toolOriginalSHA": true,
+    "promptFileSHA": true,
+    "submittedPromptSHA": true,
+    "inputSHAs": [
+      true,
+      true
+    ]
+  },
+  "primaryAdmissionRecord": "anon-apricot-wave-b-primary-mother-admission-v1.json",
+  "allowedAsImageInput": true
+}

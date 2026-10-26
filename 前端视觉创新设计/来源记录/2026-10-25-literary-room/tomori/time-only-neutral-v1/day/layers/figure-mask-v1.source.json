@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "recordType": "source-rgb-included-layer-image-stage",
+  "characterId": "tomori",
+  "neutralTime": "day",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "stage": "F2",
+  "tool": "image_gen.imagegen",
+  "toolElapsedMs": 26907,
+  "recordedAt": "2026-10-26T01:07:33.320099+00:00",
+  "sourceConversationId": "01a17365-def4-7ef0-9767-09f785cec060",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/figure-step1-marked-v1.png",
+      "sha256": "b73e72257cd0dd203d81fee946772b3bf0e7195601bff50e8783af719af60d30",
+      "role": "Personally inspected healthy same-mother white F1 selection markup only",
+      "personallyViewedBeforeGeneration": true
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/tomori-neutral-time-day-v1.png",
+      "sha256": "ee943e04da7a50748d3e331ed4339548b842388027d0a5fe360e95a4c2d270b7",
+      "role": "Exact clean approved mother for foreground identity and true gaps only",
+      "personallyViewedBeforeGeneration": true
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: background-extraction. F2 exact original-position foreground LUMINANCE MASK conversion, 1536x1024 OPAQUE PNG. Input 1 is the personally inspected healthy F1 markup: Tomori plus WHOLE pencil and open notebook deliberately painted pure white. Input 2 is the exact root-approved clean original mother ONLY to distinguish actual foreground/perimeter/gaps from naturally light room. Do not redraw body or relocate anything. Same full canvas and all source coordinates, no crop/resize/zoom/recenter/erosion/dilation/shift.\n\nOutput PURE BLACK background and the COMPLETE already-whitened original foreground SOLID FEATURELESS WHITE: every short hair strand/tip, full head/face/eyes/ears/neck, all blazer/shirt/collar/sleeves/cuffs/skirt/lowest hem, both complete hands/fingers/wrists, bare thighs/knees, both calf socks, BOTH COMPLETE loafers including toe sidewalls/sole rims/heel blocks/bottommost edges, the WHOLE THIN PENCIL from upper end to point, and entire OPEN NOTEBOOK including all dark cover/spine/lower binding resting against lap. No black inner cover seam, clothing fold, eye/mouth, pencil centerline, hand outline or shoe seam. Faint internal tracing is not a hole; fill selected interiors fully white.\n\nPreserve only real outside/background gaps BETWEEN separated hair strands, arm and torso, or legs as BLACK. The narrow original room slit between the viewer-left bent arm and torso around x1000..1020,y460..500 is a genuine outside gap: follow the exact original/F1 gap, no new holes in the sleeve or notebook. The thin notebook lower cover against lap is foreground and stays WHITE, not a gap. Fine gray allowed only at existing outer antialiased edges, full hair/pencil/cover/sole contour retained.\n\nEverything unselected BLACK: naturally bright closed ivory curtains/linen/collar-like room highlights, cushion/pillows/knitthrow, lamp/shade/flowers/cup/table/books/left room/rug/floor and separate contact shadows. Not brightness thresholding. No color, checkerboard, gray backdrop, labels, outlines, new shadows or receiver patches. This mask only controls coverage; RGB later comes from untouched original mother ONCE under MAX(F,S).",
+  "submittedPromptSha256": "5b4798ea6987fb8446832699f38bdb24e2a296441eaa6f8a81fadf9a12e6daad",
+  "promptFile": "figure-mask-v1.prompt.txt",
+  "promptFileSha256": "42689e6beea2cca1354fb5fcbb9ede5cd11d82725b5ded3a9484700eeae82749",
+  "requestFile": "figure-mask-v1.request.json",
+  "requestSha256": "c563cc82b279a9abdbe6acb69ae1c9b98b63f9d5bac2949f79c18c33b0ac8844",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-edf090d2-933a-4830-b956-3d52cf965c22.png",
+  "toolOriginalSha256": "06f9e287dbb9fb6ae03fd6702f86aa6244967508d75cc017717e7d431e0e3709",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/figure-mask-v1.png",
+    "sha256": "06f9e287dbb9fb6ae03fd6702f86aa6244967508d75cc017717e7d431e0e3709",
+    "bytes": 451274,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true,
+    "resizedOrRetouched": false
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "status": "HOLD",
+    "observedIssue": "F2 invents a thin black interior line along lower notebook cover/lap around x895..1050,y514..526; actual book/cover/lap is selected foreground. This mask must never become a generation input or selected layer."
+  },
+  "primaryApproved": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "generationInputAllowed": false,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "original360ExactActivityCell": false,
+  "sourceCodeOrRegistryChanged": false,
+  "status": "HOLD_internal_book_line"
+}

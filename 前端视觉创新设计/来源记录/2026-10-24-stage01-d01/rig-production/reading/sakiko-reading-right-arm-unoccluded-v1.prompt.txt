@@ -1,0 +1,12 @@
+Use case: precise-object-edit.
+Asset type: ONE occlusion-repair source plate for a reading character rig. This is an underlayer, never a final full scene.
+
+Image 1 is the approved original READING scene. Do not change either arm's pose or create a gesture. Keep exactly the existing TWO arms and TWO hands at their original positions.
+
+Remove ONLY the open blue BOOK and its pages from between the hands. Reveal and carefully complete the previously book-hidden part of the anatomical RIGHT forearm and hand on the viewer-LEFT, connecting continuously from the original right sleeve/cuff to the original small hand near (1253,515). The right shoulder, elbow, wrist and existing visible fingers remain at their source positions; fill only the hand/forearm skin or sleeve that was occluded by the book. Preserve natural same-scale palm, thumb and five fingers, gently curved in the original holding shape. No new hand above the book, no extra wrist, no added arm, and no second finger cluster.
+
+The anatomical LEFT arm/hand on the viewer-RIGHT near (1335,524) also stays in the original holding pose. It is fine that both hands now hold empty space in this technical plate. Do not invent another prop or a new resting pose. Reconstruct only the fabric/lap previously hidden by the removed book, keeping the crossed legs and torso unchanged.
+
+Everything else is locked to the source: exact identity, head/eyes/hair, uniform, reclined back and hips on the pillow/seat, legs/feet, room, camera, light and original 1536×1024 canvas. No crop, zoom, magnification, pose redesign, transparency, labels or diagrams.
+
+The purpose is to provide a complete connected RIGHT arm/hand texture underneath the original book occlusion. The renderer will put the ORIGINAL book and original left supporting hand back over it; this bookless plate itself will never be shown as a finished scene. Output one normal opaque PNG.

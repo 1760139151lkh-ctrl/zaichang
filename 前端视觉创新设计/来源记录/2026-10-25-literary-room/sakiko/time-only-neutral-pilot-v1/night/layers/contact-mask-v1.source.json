@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-mother-original-rgb-included-layer-production",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "palette": "rain",
+  "timeOfDay": "night",
+  "neutralTime": "night",
+  "weather": "unknown",
+  "original360ExactActivityCell": false,
+  "cell": "sakiko/neutral-presence/rain/night/time-night",
+  "stage": "S2",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: precise-object-edit.\nAsset: S2 opaque black/white/soft-gray LOCAL receiving-material luminance mask for exact neutral time-night Sakiko. Input1 is deliberate S1 white-marked receiver target; input2 is EXACT original mother solely to distinguish ADDED white from naturally pale closed curtain/linen. Preserve full1536x1024 canvas and original mark coordinates. No crop, resize, recenter, new silhouette or shifted floor patch.\n\nConvert ONLY intentionally ADDED WHITE local receiver marks from image1 to white cores with short natural gray outer antialias/soft fades. Small seat receiver islands directly at original hips/outer skirt-hem compression stay selected; ALL unmarked pale empty linen and closed curtain BLACK. Full original COLORED girl, hair/ribbons, all hands/legs/clothing/socks/shoes and ENTIRE OPEN LAP BOOK BLACK. No independent cushion book exists, no book receiver tail.\n\nGROUNDING is the complete small actual floor-contact footprint around BOTH soles/toe/heel, not a thin sole-outline stroke. Keep the actual marked dark contact centers white and a short SOFT GRAY fade at the true diffuse outer source receiver boundary, so original source wood/shadow restores natural grounding at fixed place. Shoe interiors/sidewalls/soles/heels themselves BLACK; F has whole shoes. Preserve marked footprint width, roughly8..35 source pixels outside source soles where actual shadow exists; don't replace it with two thin rings, a generic oval, polygon, floor stripe or newly large shadow. Existing meeting between close patches is permitted only where S1 marks it. Do not turn far lamp reflection into receiver. Gray only at source-local diffuse edges, not room-wide.\n\nEverything else solid PURE BLACK: original colored object pixels, all unmarked room floor/rug/curtains/lamp/cloth/cushions/plants/furniture and independent shadows. Output one opaque1536x1024 BLACK/WHITE/short-edge-GRAY mask, no color/checkerboard/text/UI. Raw luminance alone joins F through MAX to select original mother RGB ONCE; these fixed receiving material pixels cannot travel independently, travel/slope/perspective0.",
+  "promptFile": "contact-mask-v1.prompt.txt",
+  "promptFileSHA256": "859263a0f5f9e58b5867e6ded4bb150a49f0cf3a685773c76b21d6c63ff651e4",
+  "actualToolArguments": {
+    "prompt": "Use case: precise-object-edit.\nAsset: S2 opaque black/white/soft-gray LOCAL receiving-material luminance mask for exact neutral time-night Sakiko. Input1 is deliberate S1 white-marked receiver target; input2 is EXACT original mother solely to distinguish ADDED white from naturally pale closed curtain/linen. Preserve full1536x1024 canvas and original mark coordinates. No crop, resize, recenter, new silhouette or shifted floor patch.\n\nConvert ONLY intentionally ADDED WHITE local receiver marks from image1 to white cores with short natural gray outer antialias/soft fades. Small seat receiver islands directly at original hips/outer skirt-hem compression stay selected; ALL unmarked pale empty linen and closed curtain BLACK. Full original COLORED girl, hair/ribbons, all hands/legs/clothing/socks/shoes and ENTIRE OPEN LAP BOOK BLACK. No independent cushion book exists, no book receiver tail.\n\nGROUNDING is the complete small actual floor-contact footprint around BOTH soles/toe/heel, not a thin sole-outline stroke. Keep the actual marked dark contact centers white and a short SOFT GRAY fade at the true diffuse outer source receiver boundary, so original source wood/shadow restores natural grounding at fixed place. Shoe interiors/sidewalls/soles/heels themselves BLACK; F has whole shoes. Preserve marked footprint width, roughly8..35 source pixels outside source soles where actual shadow exists; don't replace it with two thin rings, a generic oval, polygon, floor stripe or newly large shadow. Existing meeting between close patches is permitted only where S1 marks it. Do not turn far lamp reflection into receiver. Gray only at source-local diffuse edges, not room-wide.\n\nEverything else solid PURE BLACK: original colored object pixels, all unmarked room floor/rug/curtains/lamp/cloth/cushions/plants/furniture and independent shadows. Output one opaque1536x1024 BLACK/WHITE/short-edge-GRAY mask, no color/checkerboard/text/UI. Raw luminance alone joins F through MAX to select original mother RGB ONCE; these fixed receiving material pixels cannot travel independently, travel/slope/perspective0.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/night/layers/contact-step1-marked-v1.png",
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/night/layers/contact-step1-marked-v1.png",
+      "sha256": "3e8a4cfe02a82a05754ddd35df7d1751690f206866432d9fa8a11f26a7360303",
+      "role": "same-mother deliberate receiving material S1 markup"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.png",
+      "sha256": "2d571adc2146dd779954f0d014ef015b658a83250d6626d707dcece3c6335d8e",
+      "role": "exact approved source distinguishes added white from natural linen"
+    }
+  ],
+  "mother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.png",
+    "sha256": "2d571adc2146dd779954f0d014ef015b658a83250d6626d707dcece3c6335d8e",
+    "sourceRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.source.json",
+    "sourceRecordSHA256": "c4a7dfd47161498c7801b25e520fd00b0b36fd66f5de1b90da86462d2ec5efe2",
+    "primaryAdmission": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/root-primary-mother-admission-v1.json",
+    "primaryAdmissionSHA256": "1ddf9b15e52dcbc9bc360ec7edd172b9d26c25057efe808e98cbe52f30417666"
+  },
+  "readDependencies": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "bytes": 12246
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "bytes": 12645
+    }
+  ],
+  "dossierVersion": "2026-10-25.1",
+  "wardrobeId": "sakiko-literary-navy-adaptation",
+  "output": {
+    "file": "contact-mask-v1.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-ec06b5f6-a857-47a9-a782-a79e8a4c493e.png",
+    "sha256": "6f10ea11b6a8fb9e8b71056707840f49ef1b859a5c40961ff69983034e8772ab",
+    "bytes": 334904,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "status": "producer_held_receiver_shifted_up_missing_front_toe_contact",
+    "observations": [
+      "完整输出亲看：座面两局部岛与双鞋接收区白核/软灰缘；黑底无独立彩色房间。本版仍须原RGB联合浏览确认实际对位。",
+      "正式Chrome原RGB浏览实看：接收足迹相对原鞋上移，前端鞋底暗接收丢失，合成下前鞋地面变亮；不采用此S2，不作后续Image输入。"
+    ],
+    "browserEvidence": [
+      "browser-observations/held-s-v1-shoes-detail.png",
+      "browser-observations/held-s-v1-contact.png"
+    ]
+  },
+  "generationInputAllowed": false,
+  "selectedForAssembly": false,
+  "originalMotherRGBChanged": false,
+  "pngPixelEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "submittedPromptSHA256": "c3401dcd9d300f80e907b7ed141cd052304761159a88cb2a4cef435a57fdd8bd"
+}

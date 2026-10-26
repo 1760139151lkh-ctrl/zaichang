@@ -1,0 +1,12 @@
+Use case: precise-object-edit.
+Asset type: exact source-space INCLUDED CONTACT-RECEIVER selection markup S, step 1 of 2.
+The ONLY input is the approved original 1536 x 1024 Rana literary CHAT clear-day mother, not any prior figure marking or mask.
+
+Paint PURE WHITE over ONLY the small ORIGINAL visible receiving surfaces needed for her real immediate contact:
+- the narrow cushion band touching and just below her actual supported hip/thighs and the shorts/outer-shirt hem;
+- the small cushion receiver immediately under and beside her RIGHT-side supporting hand/palm/fingertips on the seat (viewer-right of her body);
+- the original wood-floor receiver directly beneath and immediately around BOTH whole thick-soled black boots, including actual toe/outsole/tread/heel contacts and their small attached existing soft contact area.
+This is an INCLUDED source receiving-surface selection, not a newly drawn pure cast shadow. Include original near-contact cream cloth and warm wood pixels as well as dark source contact pixels; a small overlap with the foreground at shared edges is allowed because original RGB is shown once through the MAX union.
+Keep original visible local positions and shapes. Do not infer hidden cushion or feet. Do not draw a new shadow, expand to a broad patch, whiten a whole bench/floor rectangle, or select the distant room shadows, sun-grid patches, rug, pillars, pillows or entire person.
+All the girl, clothes, white undersleeves/shorts, black boots, face/hair and every unselected room pixel stay in ORIGINAL RGB with no redraw or relighting. No moved palm, shifted floor contact, altered furniture, text, box, labels or arrows.
+Return one opaque full 1536 x 1024 original scene with just these immediate contact RECEIVER regions painted flat pure white at their exact original coordinates.

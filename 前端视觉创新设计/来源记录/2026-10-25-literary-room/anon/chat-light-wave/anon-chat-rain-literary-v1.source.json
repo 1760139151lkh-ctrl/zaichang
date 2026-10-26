@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "id": "anon-chat-rain-literary-v1",
+  "assetType": "complete-mother-light-chat-wave",
+  "character": "anon",
+  "palette": "rain",
+  "environmentVariant": "rain-night",
+  "createdAtUtc": "2026-10-25T12:16:15.729660+00:00",
+  "tool": {
+    "name": "image_gen.imagegen",
+    "mode": "whole-room-and-character-lighting-weather-edit",
+    "originalEventId": "exec-4b7fa93e-cdc5-452a-992d-caf99464b385",
+    "outputHint": "Generated images are saved to C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270 as C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-4b7fa93e-cdc5-452a-992d-caf99464b385.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  "prompt": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\chat-light-wave\\anon-chat-rain-literary-v1.prompt.json",
+    "fileSHA256": "f722e43d80b1bf23a9cc4948932a9c332c99104bcd14dfa4c7e07add482cff7b",
+    "submittedPrompt": "Use case: lighting-weather. Create ONE complete same-room CHAT mother, exactly 1536×1024 horizontal canvas. IMAGE 1 is the PRIMARY-APPROVED EMPTY rain-night literary-room plate: sole authority for the entire room's weather/time, light direction, exposure, window atmosphere and furniture geometry. IMAGE 2 is this same character's PRIMARY-APPROVED APRICOT CHAT mother: sole authority for character identity/clothing, exact camera-space body position, supported seated pose, proportions, hands/book and feet. Combine these two approved authorities by REPAINTING coherent illumination through the WHOLE room and WHOLE figure. This is a new complete relit mother artwork, not a color filter or an unchanged sunny cutout pasted into a dark BG.\n\nPreserve the exact complete near-room camera and mild perspective, full wooden window, original lake-town/mountains/trees, curtains, LEFT writing desk/chair/shelves/plants/art, ROUND side table with its porcelain lamp/cup/flowers/books, long linen bench, blue-gray plaid pillows and knitted throw, wood floor/rug/foreground plant. Do not shift furniture, crop, zoom, split the room into light halves, add a new object/person, or redesign the window. Round table remains x≈435–690, top near y500; desk remains its original left footprint. Follow the input empty plate rather than guessing a theme.\n\nLiterary companionship: 爱音仍像刚把一个漂亮开场说给你听，眼神先接住你的回应，轻快里愿意留一个认真停顿。Keep the exact small open conversational expression and clear outward sharing of her approved chat mother, not a generic wide grin or a solemn rain face.\n她本来给一个普通话题准备了有点漂亮的开场，听到对方讲到具体的人和事，才发现接下来不该只顾好玩。 爱表现的轻快还在，也愿意让一个不那么机灵的停顿留在两人之间。 雨声让音量自然收近，她仍有灵动的小主意，却不抢着铺满房间。\n暖灯照清眼睛与手，窗外暗蓝雨痕不盖住人物轮廓。\n\nCharacter identity:  Anon Chihaya / 千早愛音, BanG Dream! It's MyGO!!!!!. Faithful youthful Japanese anime identity, long clear PINK hair with natural side-swept bangs, distinctive lively fine-featured youthful face, large clear BLUE-GRAY eyes. BOTH eyes must remain unobscured and well drawn, with coherent fine eyelashes and natural bangs above/around the eyes. Long hair falls with gravity beside her shoulders and seat, not over the eyes. Her original Haneoka school clothes: pale lavender-gray school blazer with white piping and two small gold buttons, white collared shirt, dark green necktie, dark green/gold plaid skirt, dark knee socks, simple BLACK loafers. Preserve these own colors under warm daylight. Ordinary youthful proportions and a modest fully clothed school-day presence, not a mature fashion model, chibi or doll. No Sakiko blue hair, blue bow or borrowed face/body.\n\n\n\nPose/support invariant: Preserve her exact original seated body near the ROUND-TABLE END of the bench, head/hair scale and position, hip/knee/shin/BLACK-shoe relations, supporting knee hand and the other hand holding the SAME small open booklet. Head top near y110 and shoe soles near y825 follow this correct deeper seat; do not move her to the far-right pillows or enlarge her body. Both eyes and bangs remain clear, the entire hair/hands/book/skirt/knees/ankles and BOTH complete shoes stay in frame. All visible original joints and limb contours stay continuous; no crossed-one-knee/two-flat-feet ambiguity, duplicate limb, fused finger, hand through book or furniture penetration. Cushion weight and local shoe-floor contacts remain believable at these same positions. Do not use any B-wave or rejected drifting mother as input.\n\nWhole-scene light instruction: Match the approved RAIN-NIGHT empty plate: real raindrops/rain streaks on dark glass, cloudy night over the same lake town, restrained warm town reflections, dry warm interior illuminated by the ORIGINAL lamps. Repaint the ENTIRE figure, hair, skin, uniform, white collar/shirt, booklet and shoe/floor contacts coherently under this warm near-table lamp and cool dim window fill. Remove apricot sunlight rims and sunlight lattice on the floor/seat; no daytime-white figure in a night room. Keep the face/eyes/hands/shoes readable through legitimate local light without a spotlight or glowing outline. Rain does not imply tears, sadness, loneliness, or a changed personality. No stars, daylight sky, rain indoors or decorative blue/gold wash.\n\nRetain refined youthful 2D anime linework and naturally modeled shading integrated with the detailed literary-room illustration. No recasting, mature model styling, new body, cropped feet, gray/gold overlay, extra spotlight, halo, neon, UI, captions, readable book text, logo, watermark, collage, borders or artificial foreground fog. No old room4 reference is supplied. Output the complete requested environment and this one original-position character together.\n",
+    "submittedPromptSHA256": "c4cfcd457c83c17a3782319472a32572fb23624246e21f2a30ab6c4cf740c3e0"
+  },
+  "inputs": [
+    {
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "role": "primary-approved corresponding empty atmosphere plate; entire-room weather/light/camera/furniture authority",
+      "primaryApprovalRecord": {
+        "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-rain-night-v1.primary-approval.json",
+        "sha256": "c69b0ffc2ffd0cf8296845ec5320411f966154f00763db65dfe4ff6b415860f4"
+      }
+    },
+    {
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\chat-pilot\\anon-chat-apricot-literary-v1.png",
+      "sha256": "53ee79ee3e5e210fc875d6ed062543c21cc2001831ede42dad814367a6103b7c",
+      "role": "same-character primary-approved apricot chat mother; correct identity/clothing/pose/scale/hand-book/hip-knee-shoe support authority",
+      "approvalScope": "mother static only; root explicitly authorized use for this six-call light wave"
+    }
+  ],
+  "brief": {
+    "cellId": "anon/chat/rain",
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\briefs\\mygo-b\\anon-literary-room-briefs-v1.json",
+    "sha256": "1ec7df1a6421c59d25aa041baae6e99e02573b74aecc42b69ece2cde22842918",
+    "releaseScope": "Root released exactly Anon/Soyo × mist(overcast-day)/violet(twilight)/rain(rain-night), six mothers maximum; primary review before any layers"
+  },
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\chat-light-wave\\anon-chat-rain-literary-v1.png",
+    "sha256": "e57bc61b2a9ae7d5d376ef5e4c9919bd10e0eb2ea9fd827efee3e521f4f0c9ef",
+    "bytes": 2218320,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-4b7fa93e-cdc5-452a-992d-caf99464b385.png"
+  },
+  "review": {
+    "producer": {
+      "inspected": true,
+      "method": "original full-resolution tool PNG personally viewed after generation; archived PNG byte-identical",
+      "observations": [
+        "原尺寸工具输出亲看；真实雨窗/暗蓝外景与室内暖灯，地板无太阳网格；人物衣肤/纸页/腿鞋整体按夜色降明，非白天人物贴夜景。",
+        "原chat圆几端坐姿与头手书膝鞋支持稳定，双眼/完整双黑鞋可辨，外向接话神情保留，未自动悲伤。"
+      ],
+      "concerns": [
+        "发顶右侧仍有较暖的轮廓亮边，其夜间光源关系留root整图照明主审。"
+      ],
+      "recommendation": "mother candidate for root complete-image review"
+    },
+    "primary": {
+      "approved": false,
+      "scope": "not yet reviewed; approved inputs do not approve output"
+    },
+    "approvedByPrimary": false,
+    "primaryLayerApproved": false,
+    "runtimeAccepted": false,
+    "runtimeRegistered": false
+  },
+  "authorization": {
+    "waveCallsAllowed": 6,
+    "thisCallCount": 1
+  },
+  "largeImageResultStored": false,
+  "boundaries": [
+    "only approved own apricot chat plus approved corresponding empty plate",
+    "no unreviewed B mother or rejected planning/study input",
+    "whole-room coherent lighting rather than filter or split day/night",
+    "mother only; no layers or runtime registration"
+  ],
+  "status": "directly-inspected-light-chat-mother-candidate-awaiting-primary-review",
+  "sourceConsistency": {
+    "outputSHA": true,
+    "toolOriginalSHA": true,
+    "promptFileSHA": true,
+    "submittedPromptSHA": true,
+    "inputSHAs": [
+      true,
+      true
+    ],
+    "plateApprovalRecordSHA": true
+  },
+  "futureLayerBoundary": "new relit mother requires own primary approval and own exact-source layer calibration; no automatic reuse of apricot mask approval"
+}

@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "kind": "stationary-source-layout-metadata-correction",
+  "recordedAt": "2026-10-25T11:48:14.101251+00:00",
+  "source": "root instruction: actual person bodyBounds must not be a receiving-material rectangle",
+  "scene": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-dry-night-literary-v1.scene.json",
+  "sceneSha256": "683cdfa4d90eeffcd15e1613c28e0f1084de290494cb6bf0a7367a5313c20c74",
+  "bodyBounds": [
+    0.5826822916666666,
+    0.107421875,
+    0.8834635416666666,
+    0.8935546875
+  ],
+  "actualPersonDominantPixelBBox": [
+    895,
+    110,
+    1357,
+    915
+  ],
+  "receiverDominantPixelBBox": [
+    881,
+    539,
+    1343,
+    925
+  ],
+  "sourcePNGsChanged": false,
+  "MAXAssemblyChanged": false,
+  "motionUnchanged": true,
+  "runtimeAccepted": false
+}

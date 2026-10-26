@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T01:32:45.080Z",
+  "producer": "/root/study_reading",
+  "character": "uika",
+  "purpose": "neutral-presence",
+  "environmentVariant": "time-night",
+  "weather": "unknown",
+  "exactActivityMatrixCredit": 0,
+  "stage": "background-v1",
+  "tool": "image_gen.imagegen",
+  "originalToolPath": "C:/Users/17601/.codex/generated_images/01a17365-8901-7202-bd9e-0859826906dc/exec-e52dbf5e-d66a-4d7a-a054-2928c03a62be.png",
+  "transparentBackground": false,
+  "submittedPrompt": "Use case: precise-object-edit. Same-mother clean EMPTY background, exact Uika neutral TIME-NIGHT1536x1024 mother, ONLY input. Remove complete girl including all bob hair/flyaways, face/whiteT/arms/hands/fingers, whole hanging long skirt/legs/socks and BOTH entire black/white sneakers; remove only her own seat/palm pressure and local footwear/hem ground-contact shadows. Reconstruct hidden cushion textile continuously with existing original perspective and original warm indoor NIGHT lamp lighting, softly relax compressed seat/palm fabric, reconstruct hidden woodbench and floorboard grain naturally. Preserve sourcecanvas1536x1024/camera/furniture/closedopaque innercurtain and rest of entire room as original. Do NOT redesign or move plaidpillow, knitthrow, lamp/table/cup/flowers, desk/chair/shelves/plants/rug; no broad repaint or phantom skin/skirt/shoe/shadow. No outdoors/weather details through curtain, no new hard sunlight grids. Unrelated furniture/lamp shadows remain. Complete opaque empty scene at exact original geometry, no remaining person/prop/text/UI/checkerboard. Used beneath single unchanged sourceRGB MAX(F,S) union; hidden scene inpainted, not claimed bitwise original. Preserve the original whole NIGHT curtain/cushion/wood illumination gradient; do not brighten room into daylight, erase unrelated lamp pool, or leave phantom person shade.",
+  "submittedPromptSha256": "05a336368d547b04d34f37a18829b5c6aa5afd969ef9bfe3d346224223862fe6",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-night-v1.png"
+  ],
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-night-v1.png",
+      "role": "sole approved clean Uika night mother",
+      "sha256": "7c53b03795295ddf3b7b490fe1332db82326a49dcace9fe9f6502b2cee5636d9",
+      "bytes": 2215829
+    }
+  ],
+  "originalMother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-night-v1.png",
+    "sha256": "7c53b03795295ddf3b7b490fe1332db82326a49dcace9fe9f6502b2cee5636d9",
+    "approvalRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-night-v1.primary-approval.json"
+  },
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/night/layers/background-v1.png",
+    "sha256": "0ee667d9b808402c52c22deca94209a429f33836d6f95a1285e3bad21683a7f8",
+    "bytes": 2150916,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "rawToolBytesPreserved": true,
+  "producerPersonallyViewed": true,
+  "observations": [
+    "Personally viewed: complete opaque closed-curtain warm night empty room, person/skirt/shoes gone, seat and wooden floor continuous, original broad lamp illumination retained."
+  ],
+  "producerUseDecision": "candidate-awaiting-static-union-review",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "userApproved": false,
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "fixedOriginalCoordinates": true,
+    "travel": 0,
+    "perspective": 0,
+    "slope": 0,
+    "contactShadow": "included"
+  },
+  "method": {
+    "sourceRgb": "exact unchanged mother only",
+    "union": "MAX(L(F),L(S))",
+    "originalRgbDrawsPerUnion": 1,
+    "pngPixelEditing": false,
+    "manualThreshold": false,
+    "morphology": false,
+    "warp": false
+  },
+  "scope": "Production candidate only; native browser union, seam and full source RGB must be personally viewed before primary static-layer admission."
+}

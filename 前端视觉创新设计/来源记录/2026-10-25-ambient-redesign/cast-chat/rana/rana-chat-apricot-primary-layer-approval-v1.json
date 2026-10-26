@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-25T08:13:23Z",
+  "reviewer": "root / primary agent",
+  "stage": "layer-admission-original-position",
+  "decision": "accepted",
+  "scope": "Exact original RGB plus admitted ImageGen luminance masks and narrowed native SVG cast calibration. Fixed original position static layers only, not runtime or motion acceptance.",
+  "approvedFiles": [
+    {
+      "role": "mother",
+      "file": "../../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png",
+      "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812"
+    },
+    {
+      "role": "background",
+      "file": "rana-chat-apricot-background-v1.png",
+      "sha256": "f013eb51f07da78849cc6b789f0251ba18db1a6305e0c6e3176be7b9dff844cb"
+    },
+    {
+      "role": "figure-mask",
+      "file": "rana-chat-apricot-figure-mask-v1.png",
+      "sha256": "ea25d04608d3d38903b726cf0040fffe4abcaf1fd06540d99e3d797bcb5c97aa"
+    },
+    {
+      "role": "cast-contact-matte",
+      "file": "rana-chat-apricot-contact-shadow-mask-v3.png",
+      "sha256": "5c0963db7cd7c2c393c07fd69d0de7b06cc361df1afa7e6dd154d3f600e166ae"
+    }
+  ],
+  "acceptedNativeCalibration": {
+    "file": "rana-chat-apricot-native-cast-calibration-v2.json",
+    "sha256": "36a6c3af4c6bf4fb794ca8ef1649f98e2c631d535f7fa376b46933511c6881a9",
+    "selectedVariant": "soft",
+    "sourceShadowFeather": 1.2,
+    "sourceShadowPolygon": [
+      [
+        1255,
+        573
+      ],
+      [
+        1327,
+        573
+      ],
+      [
+        1338,
+        576
+      ],
+      [
+        1341,
+        579
+      ],
+      [
+        1320,
+        584
+      ],
+      [
+        1308,
+        589
+      ],
+      [
+        1298,
+        594
+      ],
+      [
+        1283,
+        596
+      ],
+      [
+        1264,
+        596
+      ],
+      [
+        1261,
+        591
+      ],
+      [
+        1258,
+        584
+      ],
+      [
+        1254,
+        579
+      ]
+    ],
+    "bottomSourceY": 596,
+    "oldBottom606Allowed": false,
+    "featherContainment": "Native SVG clip to same narrowed polygon, as in personally reviewed v4 observation.",
+    "source": "Root-supplied source-coordinate technical geometry calibrated to actual horizontal cushion. Polygon/feather are not ImageGen output."
+  },
+  "primaryEvidence": {
+    "observationPage": "rana-chat-apricot-layers-v4.html",
+    "observationPageSha256": "126e053faea5898808c3ab0cc78a638b61b2678c453a1b0a80a223a2ee5c8a5c",
+    "viewed": [
+      "#known-defect original mother / old v3 / v4 hard / v4 contained1.2 feather",
+      "#scene complete recomposition",
+      "#alpha light/dark/checker full person",
+      "#hand supporting palm comparison",
+      "#boots both complete boots/floor comparison"
+    ],
+    "messageVerbatim": "Root已亲看v4 #known-defect原母/v3/v4hard/1.2feather、#scene整景、#alpha浅深棋盘、#hand/#boots对照。批准v4的1.2 source px feather（收拢polygon止y596，禁止旧y606），原RGB+生成mask+几何union固定travel/slope/perspective0，sourceShadowPolygon/Feather为技术校准非生图。"
+  },
+  "acceptedBoundaries": [
+    "Same exact mother RGB, no raster RGB edit/recolor/resize.",
+    "ImageGen figure matte and independent cast/contact matte remain separate; native shadow mask excludes the figure.",
+    "Narrowed source polygon stops at y596 on horizontal cushion; rejected old y606 polygon must not return.",
+    "The admitted1.2 source-pixel feather is contained within the narrowed calibration footprint; runtime renderer alignment is separate.",
+    "Hide/pose change removes the whole fixed bundle; no independent shadow travel or across-pose reuse."
+  ],
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "runtimeAccepted": false
+}

@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T01:10:10.490Z",
+  "producer": "/root/study_reading",
+  "character": "mutsumi",
+  "purpose": "neutral-presence",
+  "environmentVariant": "time-day",
+  "weather": "unknown",
+  "exactActivityMatrixCredit": 0,
+  "stage": "contact-mask-v2",
+  "tool": "image_gen.imagegen",
+  "originalToolPath": "C:/Users/17601/.codex/generated_images/01a17365-8901-7202-bd9e-0859826906dc/exec-ee86b6c3-9d69-44e4-8854-0a348a065255.png",
+  "transparentBackground": false,
+  "submittedPrompt": "Use case: precise-object-edit. STRICT TRACE CONVERSION ONLY of input1 intentional white selection marks, full1536x1024; input2 is the untouched original for detecting which whites were ADDED. Produce contact mask S, white-added marks WHITE255, all other pixels BLACK0. There are THREE RECEIVER GROUPS TO RETAIN at EXACT positions: (1) IMPORTANT the added bright WHITE SMALL CUSHION STRIPS directly under/around the seated navy skirt at the RIGHT HIP, including the marked crescent on the right behind dress nearx1240..1323,y550..615 AND the short marked under-hem strip nearx1118..1190,y616..640; preserve each actual added mark's original exact outline, not all of these bounding boxes. They are deliberate markers, must NOT be dropped just because the ORIGINAL cushion was cream. (2) added white wood contact patch immediately under full imageLEFT brown loafer, nearx875..1010,y872..905, (3) added white wood contact patch under full imageRIGHT loafer, nearx1013..1166,y904..943. Keep the complete marked wood bases and short soft perimeter, not just thin rim; preserve original white marks on both shoes' supporting floor BELOW toes and heel. All coordinates are location aids, not rectangles to draw. The girl, all colored hair/skin/navy dress/skirt/socks/shoes are BLACK, all room/curtain/lamp/ordinary cream cushion BLACK. Only input1 pixels visibly changed from original to deliberate white count. The actual cushion marks MUST be present together with BOTH flooring groups. Short1..4pixel gray fade only at outer receiver edges. No re-imagining source, no silhouette, shift, moving marks toward girl, resize/crop/rotate, no extra islands/transparency/text/UI. Final opaque raw grayscale contact mask, EXACT SAME CANVAS/REGISTRATION.",
+  "submittedPromptSha256": "f86d4de95d7ea681ba855b0b34b88c7bdbbd7f42cb2c04987746eed4366d8111",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/day/layers/contact-step1-marked-v1.png",
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-day-v1.png"
+  ],
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/day/layers/contact-step1-marked-v1.png",
+      "role": "correct S1 contact markup",
+      "sha256": "34fb6f263152fb0b431cc45eef02c5c545eef1e5033c6bc6799db4b71f7fd0b3",
+      "bytes": 2305277
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-day-v1.png",
+      "role": "clean mother discrimination",
+      "sha256": "8c1d8e006fa332a85a9d7fed40989170fce6f6956a0b18e351efa83f29404f6f",
+      "bytes": 2440649
+    }
+  ],
+  "originalMother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-day-v1.png",
+    "sha256": "8c1d8e006fa332a85a9d7fed40989170fce6f6956a0b18e351efa83f29404f6f",
+    "approvalRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-day-v1.primary-approval.json"
+  },
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/day/layers/contact-mask-v2.png",
+    "sha256": "31a7cad758a73b0d197e452dcdd9f3358af202ee04d5d7ad9f1a2996b6afbf87",
+    "bytes": 312349,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "rawToolBytesPreserved": true,
+  "producerPersonallyViewed": true,
+  "observations": [
+    "Personally viewed: two shoe patches and seat islands now visible; left seat island appears moved upward relative to S1 actual under-hem receiver, pending exact source RGB diagnosis. Not approved for downstream generation."
+  ],
+  "producerUseDecision": "HOLD-suspected-seat-registration-drift",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "userApproved": false,
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "fixedOriginalCoordinates": true,
+    "travel": 0,
+    "perspective": 0,
+    "slope": 0,
+    "contactShadow": "included"
+  },
+  "method": {
+    "sourceRgb": "exact unchanged mother only",
+    "union": "MAX(L(F),L(S))",
+    "originalRgbDrawsPerUnion": 1,
+    "pngPixelEditing": false,
+    "manualThreshold": false,
+    "morphology": false,
+    "warp": false
+  },
+  "scope": "Production candidate only; native browser union, seam and full source RGB must be personally viewed before primary static-layer admission."
+}

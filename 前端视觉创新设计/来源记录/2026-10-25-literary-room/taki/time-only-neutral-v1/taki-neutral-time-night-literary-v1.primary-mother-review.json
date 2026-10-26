@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "root / primary agent",
+  "recordType": "primary-static-whole-mother-admission",
+  "recordedAt": "2026-10-26T01:01:28.196979+00:00",
+  "file": "taki-neutral-time-night-literary-v1.png",
+  "sha256": "79aae6d833d537e9667f9ec77850fe00121aa886031ca3e2cba15ccc49401800",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "personallyViewedCompleteOriginal": true,
+  "approved": true,
+  "scope": "Exact same-character static time-only neutral night mother; reference for authorized same-canvas fixed included-mask layer production only.",
+  "exactPrimaryMessage": "作者快照补丁已收，将主代理实机复核。继续同一健康会话转回你负责Taki/Soyo图像：根代理刚已亲看两张night母图 Taki79aae6…1800、Soyo82a918…d9b6，neutral-presence/time-only静态母图准入：立希翻页停手回视、素世半页未翻的侧向倾听各有性格，手书坐垫/双鞋地影合理，闭不透明帘/暖灯完整落人体木作，不冒报天气；非exact activity360/runtime。请记录逐SHAroot准入，然后制作两角色日夜4张同画布included固定F/S masks+cleanBG bundle，原景RGB只绘一次MAX(F,S)、0travel/persp/slope，完整脸发/手书坐面/鞋地影，复用Saki/Taki健康方法。所有图像编辑/新mask用Image；坏mask/HOLD/审核拼图禁作后续输入，只用干净母图/已核健康mask。不Python画修。先一角色日夜完整后另一个，只写各自source子目录，不再改src/runtime/registry/9335。实际Browser原尺寸组合/浅暗棋盘/细部观察页供Root亲审。禁新tests/fixtures/runners，保所有原约束及健康会话。",
+  "checks": [
+    "closed opaque curtains make no weather claim",
+    "youthful recognizable 2D character and specific attentive expression",
+    "hands and actual open-book/page contact",
+    "cushion support and complete shoes with floor contact",
+    "night lamp light acts on person and original woodwork together"
+  ],
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "countsToward360ExactActivities": false
+}

@@ -1,0 +1,32 @@
+{
+  "key": "anon/rest/rain",
+  "tool": "built-in image_gen.imagegen",
+  "createdAtUtc": "2026-10-25T02:13:05.260Z",
+  "stage": "complete whole-scene lighting edit",
+  "file": "anon-rest-rain-mother-v1.png",
+  "sha256": "97f9aae14531603c334a4040fab73dd6cad0f79eac4e88ed20ac0d886b2730b2",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "originalOutputBasename": "exec-7da32404-87ac-44f7-bf70-80191400c378.png",
+  "prompt": "anon-rest-rain-mother-v1.prompt.txt",
+  "inputs": [
+    {
+      "file": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\anon-rest-apricot-mother-candidate-v1.png",
+      "role": "approved apricot complete mother; edit target",
+      "sha256": "55d2d4d6873bb1089bef893e5fe4e9d953a3e8d1eca651d50a575532e8c0ffbd"
+    },
+    {
+      "file": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-rain-candidate-v2.png",
+      "role": "clean-room light reference only",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "designerPersonallyViewed": true,
+  "primaryMotherReview": "pending_current_root_review",
+  "layers": "not_produced",
+  "runtime": "not_registered",
+  "promptSha256": "a254cab1055611db61e92f7b5195bedca6a1cb9b8f8e81484d34a68699245815",
+  "designerObservation": "Personally viewed the complete generated original. Head stays toward the window, body remains supported on the bench, two connected legs and whole shoes retained; no forced viewer smile. Complete requested environment light and natural skin bounce are present, with no split scene, text or UI. Primary approval and integrated layer/runtime remain separate."
+}

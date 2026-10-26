@@ -1,0 +1,76 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "bounded-apricot-literary-wave-a",
+  "character": "umiri",
+  "activity": "planning",
+  "palette": "apricot",
+  "sceneFamily": "literary-room-v1",
+  "environmentVariant": "clear-day",
+  "numberOfImageInputs": 2,
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "image 1, approved empty room and camera"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v2.png",
+      "sha256": "b54800a320a163629dba745183efa63d18a83aa1ae19ba0f9382fdb546b12844",
+      "role": "image 2, approved same-character identity/clothes/scale only; v2, never held v1"
+    }
+  ],
+  "identitySourceApproval": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v2.source.json",
+    "sha256": "79f2bb44da76f89950f0d4a9e96bec6c86137d4772323d7d6440dfa7df2b13b9",
+    "scope": "approved chat mother for identity/clothing/scale only; not activity pose"
+  },
+  "creativeBrief": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-b/umiri-literary-room-36-cells-v1.json",
+    "sha256": "b8f97f1a2ce86161c1068f9b0d12c26370cece95b85680f9f1fc5ef70f701c4b",
+    "cell": "umiri/planning/apricot"
+  },
+  "referenceBoundary": "New activity drawn from words; no held Umiri v1, old room4, different character body or chat-pose copy input.",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-6ba2ca92-75af-41dc-81aa-ebbc4bb836ae.png",
+  "output": "umiri-planning-apricot-literary-wave-a-v1.png",
+  "outputSha256": "51f175f589262c767b68e08f21d18569c05910558dda13fc1fa2017bdc8497ac",
+  "promptFile": "umiri-planning-apricot-literary-wave-a-v1.prompt.txt",
+  "prompt": "Use case: stylized-concept, a newly drawn same-room activity mother. Return ONE full 1536 x 1024 warm-apricot literary room image.\nIMAGE 1 is the ROOT-APPROVED CLEAN EMPTY literary room plate: exact room, close camera, furniture, materials, perspective and daylight. IMAGE 2 is THIS CHARACTER'S ROOT-APPROVED CHAT mother: identity, hair/eyes, clothing, ordinary youthful proportions and close-camera scale ONLY. Do NOT copy the chat action, hand pose, head gesture or facial expression. Recompose the new activity from words with complete anatomy. No held/rejected image, old room4, different character, face swap, pasted-body translation or calibration input.\nLOCK THE ENTIRE ROOM to image 1: connected wooden window/lake/mountain town, sheer curtains, left desk and chair, shelves/books/plants/pictures, round side table with porcelain lamp/books/cup/flowers, continuous right bench, plaid pillows and knitted throw, foreground books/plant blur, rug and floor. Same camera and object locations/scale. No zoom, crop, furniture move, gradient/blank work area, new furniture, floating UI, readable text, icons, arrows, badges or profession props.\nKeep the close human scale of image 2: head around y=110..145 depending on natural tilt, hip supported on actual bench around y=550..585, complete shoe soles around y=870..910. Do not enlarge or lean the head toward the camera. Body must truly sit on cushion; complete head, hair, hands, hem, ankles and both shoes remain visible.\nEye/hair craft: fine distinguishable hair groups and cheek strands, separately readable upper eyelids, lashes, irises and pupils. Lowered or half-closed eyes retain anatomically readable iris, not black eye slits; no fringe/lash/iris dark patch. Distinguish skin, hair, cloth, leather and wood in the original window light. Youthful original anime identity, not mature glamour, not chibi. Fine Japanese anime figure linework integrated into the richly painted literary room. No generic stock smile or vacant doll gaze.\n\nCHARACTER: Yahata Umiri (八幡海铃). Follow image 2's charcoal-gray shoulder hair with divided side fringe/small forehead/fine flipped tips and clear GRAY-TEAL irises. Her short black biker jacket, deep-red top, plain gray short skirt, black choker, small earrings and two complete black lace-up platform boots remain stable. Black leather, gray hair and red fabric need separate material shading; no Sakiko uniform or professional-manager symbols.\nBASIC LEG TOPOLOGY: freshly draw the supported thighs, knees and lower legs without copying a pose. Two independently visible KNEES SIDE BY SIDE at similar height with a small natural gap, neither knee covering the other. Lower legs descend nearly parallel to their own ankles. Both complete boots are separated and individually bear weight on the original floor at similar depth. No knee-over-knee crossing, ankle crossing, raised/tucked leg or hidden duplicate limb. Hands/book/notebook do not conceal the crucial knee separation. Ordinary seated foreshortening, no calf stretch to chase a coordinate.\n\nNEW ACTIVITY — PLANNING: she sees how two arrangements press on each other but does not assume efficiency should decide the day. She has set aside the easiest version to hear what the other person actually wants to protect. A clear inquisitive eye line toward the nearby listener after checking a SMALL notebook on her thighs; brow slightly engaged, mouth not issuing a command. One hand holds page edge, the other pauses a pencil beside an OPEN EMPTY SPACE. Notebook sits flat/low on lap, not a raised book or a professional calendar board. Keep visible side-by-side knees and natural gap, parallel shins and separated grounded boots. Real hip support and complete hands. No floating planning cards, success signs or backstage symbols; a little blank time can be worth keeping.\n\nReturn exactly one coherent complete 1536x1024 mother. This is an apricot daylight activity drawing, not a layer, animation, portrait cutout, split view or fake product screenshot. No labels, logo, signature, watermark or borders.",
+  "submittedPromptSha256NoTrailingNewline": "1930c6fea2f74f820423e668e10fbdafa4c2e0a4972adb2c9fe7eb9f4507e4f1",
+  "promptFileSha256": "1930c6fea2f74f820423e668e10fbdafa4c2e0a4972adb2c9fe7eb9f4507e4f1",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "actualMode": "RGB",
+  "producerViewed": true,
+  "primaryApproved": true,
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "reviewBoundary": "One of six bounded mother images only; no study/other palette expansion, layer or runtime acceptance.",
+  "producerObservations": [
+    "Complete fresh image personally viewed before final rest. Raised questioning gaze and paused pencil near lip differ from downward reading, with restrained brow/lips and no professional planning board.",
+    "Spiral notebook bottom rests near lap, held by one hand; both knees remain independently visible below it, lower legs connect to separate grounded complete boots. Hip/cushion support remains visible.",
+    "Charcoal hair, gray-teal eyes/eyelids, red top and black leather material remain clear. Camera/furniture stable, head top about y145 and boots about y910 by visual estimate."
+  ],
+  "producerConcerns": [
+    "Notebook is more upright than the requested flat/low lap position; pencil is at lower lip rather than beside open blank page. This resembles a conventional thinking pose and needs primary emotional judgment.",
+    "No self-approval of exact knee gap, comfort or cross-role scale from this static image."
+  ],
+  "promptFileMatchesToolInput": true,
+  "remaining": [
+    "No layer or runtime acceptance; no study or other-palette expansion in this wave."
+  ],
+  "primaryApprovalScope": "mother_only_static",
+  "primaryMotherReview": {
+    "reviewer": "root",
+    "approved": true,
+    "exactMotherSha256": "51f175f589262c767b68e08f21d18569c05910558dda13fc1fa2017bdc8497ac",
+    "scope": "This exact mother only; no layer or runtime acceptance.",
+    "observations": [
+      "笔靠唇边，独立握笔与本。",
+      "Camera and large furniture stable; clear hair/eyes and complete shoe support; no erroneous crossed-leg topology."
+    ],
+    "approvalMessage": "root 已逐张完整亲看 Uika/Umiri wave-a6母图，批准mother静态：Uika低头读页清晰握本、plan笔近下颌但独立手指/纸承重自然、rest靠格垫后倚双手自然；Umiri读页parallel knees/独立靴底、plan笔靠唇边独立握笔与本、rest转向窗/软化目光。6张camera/大家具稳定，clear hair/eyes/完整鞋脚支撑，无错误交腿。rest头低是后倚/视角姿态合理不自动比例错。请在专属wave目录落exactSHA root母图准入，layer/runtimefalse，chat层主任务先交，别扩母图。"
+  }
+}

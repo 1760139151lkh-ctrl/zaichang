@@ -1,0 +1,10 @@
+Use case: precise-object-edit.
+Create a precise same-canvas BLACK-AND-WHITE COVERAGE MASK from the single supplied source painting. Output1536×1024, no crop, no resizing, no pose or coordinate changes.
+
+WHITE: the whole seated girl, all hair wisps, every limb, garment, calf sock, complete shoe including sole and heel, the whole pencil, and the ENTIRE open notebook including the thin lower cover. Use solid opaque featureless white for the complete selected area.
+BLACK: the entire surrounding room, all furniture, floor, cushion, curtain, lamp, and all shadows.
+
+The white area must contain ZERO fully enclosed black holes. Fill the enclosed loop formed by her bent arm, torso and notebook solid white, as part of one continuous filled silhouette. Fill all notebook page/cover seams white too. This is an intentionally FILLED silhouette, NOT a physically transparent cutout. Keep the OUTER boundary accurate to the painting; do not grow it outward. Preserve BLACK only in EXTERIOR open spaces such as the gap between her legs and outside hair wisps. Do not join her legs. Do not cut white garment because it is dark in the source. No internal tracing at all.
+
+Keep exact source coordinates for hair crown, pencil end, book corners and BOTH shoes; do not enlarge, stretch, shift or simplify the figure. Do not add a seat strip or any ground shadow to this figure mask. Smooth antialiased outer edge, black room, white complete girl/props, no color, no gray interior detail, no labels.
+This mask supports a strictly fixed original-source RGB layer: tiny enclosed original curtain pixels are included by design, source RGB will be used once, travel0.

@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-chat-apricot-literary-v1",
+  "sceneFamily": "literary-room-v1",
+  "character": "soyo",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "width": 1536,
+  "height": 1024,
+  "mother": "../chat-pilot/soyo-chat-apricot-literary-v1.png",
+  "background": "../../plates/literary-room-clear-day-v1.png",
+  "mask": "figure-mask-v1.png",
+  "maskMode": "luminance",
+  "contactMask": "shadow-mask-v1.png",
+  "seat": [
+    0.6770833333333334,
+    0.576171875
+  ],
+  "ground": [
+    0.5403645833333334,
+    0.8447265625
+  ],
+  "bodyBounds": [
+    0.4869791666666667,
+    0.1025390625,
+    0.7473958333333334,
+    0.8642578125
+  ],
+  "safeTextBoundary": 0.46,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "layerReview": "exact-SHA static included union primary-approved; proposal not registered by producer",
+    "contactAssemblyRecord": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\chat-layers\\soyo-chat-apricot-literary-included-primary-admission-v1.json",
+    "geometryStatus": "own actual visible source bounds/contact references, fixed pose only; no hidden hip or movable support certification",
+    "producerNote": "one original mother RGB through MAX(luminance(F),luminance(S)); local source receiving material included, fixed source only",
+    "runtimeSourceSha256": {
+      "mother": "20942d064ae0af479ede2868d689e105433022e8c0448d45301bd7fc9301bfd8",
+      "background": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "F": "5ba1a554039012e7bf744e028f18a4c16b335a6e12a8bbf426b2e371e6578200",
+      "S": "f170ba21bfff70b2db41ef2fa559318f70f1994556dd85253825cc3ec7ee0c90"
+    },
+    "producerVisibleContour": "complete visible head/hands/book/garment/shoes observed; contourComplete remains uncertified until primary review",
+    "placement": {
+      "sourceCanvas": [
+        1536,
+        1024
+      ],
+      "bodyBoundsNormalized": [
+        0.4869791666666667,
+        0.1025390625,
+        0.7473958333333334,
+        0.8642578125
+      ],
+      "boundsStatus": "conservative visual references from this exact visible source, not hidden anatomy certification",
+      "sourceSeat": [
+        0.6770833333333334,
+        0.576171875
+      ],
+      "sourceGround": [
+        0.5403645833333334,
+        0.8447265625
+      ],
+      "actualBodyLocation": "middle-right window bench, use this own source bounds, not Sakiko template",
+      "layoutRecommendation": "choose paper/stacked from this own visible source bounds; no template substitution",
+      "safeTextBoundaryStatus": "provisional single-side reference only, not permission to force left paper layout"
+    }
+  }
+}

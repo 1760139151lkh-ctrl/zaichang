@@ -1,0 +1,19 @@
+Use case: illustration-story. ONE complete new literary-room mother image, nyamu / rest / apricot, 1536×1024.
+Image 1 is the PRIMARY EDIT TARGET: the approved clean EMPTY clear-day literary room. Keep its full 1536×1024 canvas and original closer eye-level camera, exact window divisions and lake/town/clock tower, shelves, desk and wooden chair, ceramic lamp/cup table, long cream bench, plaid cushions, knitted throw, foreground plants, floor, warm sunny illumination and perspective. Do not redesign or move the furniture, zoom the camera, replace the space, or add a desk/tray in front of the character. Leave the left room open.
+Image 2 is ONLY the same character's ROOT-APPROVED CHAT identity/clothes/scale reference. It is not the pose target. Keep that person's own face, hair, eye color and outfit, but create the new activity coherently as a whole. Do not copy the chat gesture, paste a face piece, substitute Sakiko, use any old room4, or carry over an inappropriate body pose.
+
+她终于不用把下一次登场也准备得漂漂亮亮。靠住软垫时，肩膀先松下来，眼神却没有被抹成空白；她也会享受一点什么都不必展示的时间。那一口松气是自己的，不是被谁判定该休息。
+
+柔软织物把那一点松气留住，阳光不要求她再出彩。
+
+她想被记住，也肯把让人记住的那几秒练扎实。自信、竞争心、得意和锋芒都可以存在；亲近时会交出不那么漂亮的一遍，听见难处又能把表现欲收住。不要把她固定成直播镜头前的笑脸，也不要在严肃时抹掉她自己的活力。
+祐天寺若麦的原作青春二次元辨识：短至下颌与颈侧的薰衣草紫 bob，柔软不齐刘海与侧边发丝，红紫眼；细致而鲜活的年轻脸。维持已核身份文字中的灰色荷叶边短袖上衣与细肩带、黑色细颈圈、黑短裙及低稳跟踝带鞋，衣着自然完整。不是成熟写实时装照，不用过重妆容或魅惑摆拍代替性格；不自动塞入正在拍摄的手机或相机。
+暖杏：清亮的金色窗光落在短发边缘、指尖和织物褶皱，皮肤是健康自然的暖色；紫发、红紫眼、灰衣与黑颈圈仍保固有色。得意来自她正在做的事，不是被阳光统一涂上的大笑。
+
+这是一位有自己思想和兴趣的具体人物。心理与正在发生的事决定表情，不把同一万能微笑套进阅读、安排和休息。原作身份与固有色沿本人正确身份参考；此处相处情境是项目原创，不是原作履历或真实用户历史。年轻精细二次元人物与房间柔绘、木纹织物触感同景自然成立。
+
+Basic pose — only necessary support:
+在原有长凳右端自然向已有格纹靠垫后倚，肩背和髋部的重量确实由靠垫与座面接住。手闲放身侧，一手可轻落座垫，另一手松放裙膝，不持杯、不举手、不摆pose。朝窗外看一眼，保留清楚的三分之四侧脸与红紫眼，放松但不空白。双膝双踝自然不交叉，两只完整踝带黑鞋仍得到木地面支撑；不要横躺、不要夸张伸长腿或改变机位。
+保留近机位的自然人物体量与完整头鞋：头部含发视觉宽度约180–195像素，普通坐姿头顶约 y110、鞋底约 y890；休息时肩背真实倚靠可让头部自然稍低，但不因情景而探头放大或缩小全身。手、膝、踝、两鞋的关系应清楚；本轮是简单不交腿坐姿，不要画成上腿交叠却双鞋并排平贴的含混关系。衣着完整自然，不靠裁切掩盖肢体。
+脸作为完整结构绘制：发丝、眉毛、眼睑和可见虹膜各自清楚，视线自然；发丝不融进虹膜，不复制眼睛、不贴补脸片、不出现网格线。手指自然清晰，不多指、粘连、断腕。书/纸若存在是实际物件，落在真实手腿支撑上，不漂浮，不产生第三只手；只有自然不需辨读的印刷/笔记纹理，不加 UI 或业务清单。
+保持原房间暖杏窗光的方向与强弱，在脸、发、衣料、指尖、座垫与木地面形成一致光影和真实接触/投影，不是全幅套色。人物固有绿/紫发色不染成全房绿色。无 UI、字幕、文字标签、箭头、轨迹、教程、边框、水印、拼贴、分屏或额外人物。

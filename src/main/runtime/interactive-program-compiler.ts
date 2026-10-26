@@ -56,7 +56,7 @@ function componentFailure(name: string, problem: NonNullable<ReturnType<typeof i
   throw new HarnessError('interactive_program', problem.message, 'never', { rejectedDimensions: ['component_properties'],
     component: { name, signature: definition.signature, ...(statementOrdinal === undefined ? {} : { statementOrdinal }), issues: problem.issues.slice(0, 4),
       read: { tool: 'read_skill', arguments: { id: INTERACTIVE_PROGRAM_METHOD_ID, section: 'components', names: [name], limit: 1 } } },
-    explanation: 'component给出当前真实签名；issues仅含已知schema字段或数字下标，不含输入值。parameterIndex从0计，表示该字段在组件签名中的参数位置；statementOrdinal只在源码遍历确知时给出，从1计，同声明可有多个同类部件，不猜具体出现位置。按实际约束修订同一作品，未发表新版本。' });
+    explanation: 'component带着当前组件签名，issues指出这次能定位的字段或数字下标，原输入值留在原稿里。parameterIndex从0计，沿签名找参数；statementOrdinal从1计，回到对应原声明。同一声明里有几个同类部件时，这个编号先帮你找到声明，再结合原稿看具体一处。沿所附read展开需要的参数说明，就能继续修这一件作品。' });
 }
 
 /** Bound data remains a live projection; neither this clone nor its digest is
@@ -235,11 +235,11 @@ function evaluateProgram(sourceDsl: string, states: InteractiveProgramDocument['
       return { code: error.code, ...(statementOrdinal === undefined ? {} : { statementOrdinal }), ...(property ? { property } : {}), ...(contract ? { contract } : {}) };
     });
     const input: NativeParserInput = { tool: 'present_view', layer: 'native_parser', flags, counts, errors };
-    throw new HarnessError('interactive_program_parse', '交互的原生解析或校验尚未完成，请按解析提示修订。', 'never', {
+    throw new HarnessError('interactive_program_parse', '这份画面的写法还没接上，下面留着这次的解析结果和可继续的读法。', 'never', {
       rejectedDimensions: ([['native_parser.incomplete', flags.incomplete], ['native_parser.unresolved', flags.unresolved],
         ['native_parser.parse_errors', flags.parseErrors], ['native_parser.query', flags.query], ['native_parser.mutation', flags.mutation]] as const)
         .filter(([, blocked]) => blocked).map(([name]) => name), input,
-      explanation: 'input的flags和counts来自这一次原生parse；unresolved是未定义引用的条数，不是orphaned的未使用声明。ordinal从1计且只映射当前原声明；property.path只含当前组件schema固定字段和数组下标，parameterIndex从0计，是组件签名参数位置，不是源码位置。同声明有多个同名部件时不伪造精确出现位置。pathComplete=false表示在未知或record键前停止；expected取固定schema类型。contract只取当前registry签名。未返回原错误文本、输入值、任意字段名或查询内容，也未发表新版本。沿实际触发门修订同一作品。',
+      explanation: 'input的flags和counts记着这一次原生解析遇到什么，unresolved数的是尚未定义的引用，orphaned另指未使用声明。statementOrdinal按原声明从1编号；property.path沿组件的固定字段和数组下标找位置，parameterIndex从0计，对应签名中的参数。一个声明里若有几个同名部件，先回到这条声明，再结合原稿确定具体一处。pathComplete=false表示路径读到未知或record键前停住，expected给出共享定义里的类型，contract带着当前签名和read入口。批注按这次能确定的位置、类型与读法展开，输入内容仍可沿原稿回看。',
     });
   }
   if (Object.keys(parsed.stateDeclarations).length !== 1 || !Object.hasOwn(parsed.stateDeclarations, PROGRAM_AST_RULES.stateRoot))

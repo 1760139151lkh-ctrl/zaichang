@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "characterId": "soyo",
+  "neutralTime": "night",
+  "purpose": "neutral-presence-fixed-included-layer",
+  "kind": "clean-night-mother-foreground-luminance-mask-F",
+  "createdAt": "2026-10-26T01:31:22.216754+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "exactPromptFile": "figure-mask-v3.prompt.txt",
+  "promptSha256": "c0ad5f11c042d692949fb4702b79392847caf353410bf110ab09bd1cf8972195",
+  "requestFile": "figure-mask-v3.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/soyo-neutral-time-night-literary-v1.png",
+      "sha256": "82a918b778cbe9549572410ceba0c27af7c0e11d33f9f2ae14614a280e36d9b6",
+      "role": "authoritative root-approved night full mother coordinates"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/day/layers/figure-mask-v2.png",
+      "sha256": "9e087f87a2006c9ba0ab6b663ca7728bfa68d9d3260cd54d2633463a93333869",
+      "role": "only healthy same-character flat silhouette guide; actually native-browser reviewed before call; no RGB or light source"
+    }
+  ],
+  "output": {
+    "file": "figure-mask-v3.png",
+    "sha256": "0775f81ebda27f9294d1e08cc888d8a795f555e4aa02921e19f0bb821aa13e79",
+    "bytes": 464409,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "originalBasename": "exec-e90693ef-91d8-4ebf-b3b7-0cbb5742c189.png",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteOutput": true,
+    "observations": [
+      "Complete flat white foreground interior with no invented book crease; original contour hair/skirt/legs/full shoes remains.",
+      "Night original-RGB composition pending; no held mask/markup used."
+    ],
+    "eligibleAsNextStepInput": true
+  },
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "countsToward360ExactActivities": false,
+  "pngPixelEditing": false,
+  "primaryStaticLayerApproved": true,
+  "primaryAdmissionRecord": "root-primary-layer-admission-v1.json",
+  "primaryApprovalScope": "Exact static fixed included layer in this same source canvas; no runtime, motion or activity360 acceptance"
+}

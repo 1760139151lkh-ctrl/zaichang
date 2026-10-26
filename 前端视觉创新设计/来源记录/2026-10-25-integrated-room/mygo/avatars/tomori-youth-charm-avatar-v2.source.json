@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "assetType": "independent-youth-charm-avatar",
+  "characterId": "tomori",
+  "tool": "image_gen.imagegen",
+  "mode": "text-to-image-zero-image-input",
+  "inputs": [],
+  "promptFile": "tomori-youth-charm-avatar-v2.prompt.txt",
+  "submittedPrompt": "为“在场”独立新画高松灯（高松 燈 / Takamatsu Tomori，MyGO!!!!!）的一张青春魅力头像。零图输入，从本次文字重新画，绝不是背景中的头部裁切、旧头像修嘴角或官网3D立绘的贴装。方形真实透明背景。请画到足够近：脸与头发约占画面85%，只在下缘留一点短颈、白衬衫领和灰紫外套领边；不能画成胸像或用大半张画衣服。完整短发头顶、两侧发梢仍留约5%的透明安全余量，禁止切掉头冠。无圆盘、无底圈、无框、文字、道具、场景。\n\n头像要让熟悉她的人看见她笑起来的年轻和可贵，而不是一张核对发眼色的冷设定照。这一次自己的小事是，她把一个很难说清的感觉写成一句话，原本还在担心别人会把它理解成另一件事。熟悉的人读完，用自己的话准确地说出了她最在意的那一点。她先有一瞬不好意思，随后确认“原来你真的看见了”，忍不住朝那个人笑起来。她的羞赧里有喜悦与终于能分享的安心，仍有自己的感受，不是求保护、讨夸、客服式安抚或对虚空礼貌营业。这个相处瞬间是项目原创设想，不声称原作事件或已经发生的共同历史。\n\n请把心情落实为小尺寸可读的神情：柔和粉褐／灰玫瑰色眼睛抬起看向观看者，眼睛清楚明亮，眼尾和下眼睑因真正的笑意稍柔和，上眼睑不压成困倦半闭眼。眉间舒展，眉梢仍带一点腼腆，不能全程忧虑下垂。嘴角明确向上，画一抹看得清的、很想藏却没有藏住的闭口微笑；嘴弧足够清楚，缩到34–48px仍先读到笑，绝不是只动0.1px的平直嘴线。脸颊只是轻轻发暖，不画通红条纹、泪眼、咬唇或幼儿小圆嘴。头可极轻地偏一点，颈肩已经松下，像她终于允许自己的高兴被看见。喜悦有实在幅度，但不夸张傻笑，不把她变成爱音式外放表演。\n\n原作身份必须稳定：灰紫／钢灰色的层次短发，长度在下颌到后颈之间，刘海分束有疏密、两颊与后颈有柔软短发束；柔和粉褐虹膜；青春学生的自然面部，柔软面颊、轻短下颌、小巧鼻口。没有固定大型发饰，不添加蝴蝶结、贴纸、猫耳和异色眼。衣装只露一点羽丘式灰紫外套与白领，胸前被裁掉的部分不要编造领带纹样。头像不是猫化。\n\n风格：鲜活青春、细腻但神情概括清楚的二维手绘动画肖像，线条有温度，肤色与发色干净，自然柔光，没有房间背景。发束可以有少量暖光色面，但不能把灰紫发漂成白发。不是摄影、模型塑料、3D呆偶、成熟浓妆、长尖下颌、妩媚细长眼、巨大玻璃婴儿眼。不要硬白鼻高光、油亮皮肤、厚眼妆或堆满星光。双眼、眉和清楚的笑意是视觉中心，发缘干净无彩色光晕。请让这张近景体现：那个曾经难以表达的人，此刻确实因为被懂得而快乐起来。",
+  "readSources": {
+    "passport": {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/tomori.md",
+      "version": "2026-10-25",
+      "fullReadBeforeCall": true,
+      "sha256AtArchive": "3a73a8f8299e7645ea96f6d07051a38bb2ccdb4b4e7e25e19eb08d51e2d08d3c"
+    },
+    "method": {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "version": "2026-10-25/before-late-avatar-supplement",
+      "fullReadBeforeCall": true,
+      "note": "sha256AtArchive是归档时文件；头像补充节在前五次调用后由集成线加入，在Taki调用前已完整读到。所有调用均已落实用户新近景/青春/角色心情要求。",
+      "sha256AtArchive": "8d004e5b3c2065f8af9739c990f09b18df340a4c2e9720c5a9630f67387a365e"
+    }
+  },
+  "inspectionOnlyReference": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-youth-charm-avatar-v2.png",
+    "source": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-youth-charm-avatar-v2.source.json",
+    "role": "只亲看/读理解近景与笑意的方法；没有传入ImageGen。"
+  },
+  "wardrobeId": "haneoka-uniform-collar-only",
+  "facts": {
+    "officialSources": [
+      "https://mygo-movie.bang-dream.com/character/tomori/",
+      "https://bang-dream.com/artist/mygo/takamatsu-tomori/"
+    ],
+    "identityObserved": "灰紫/钢灰层次短发、柔和粉褐眼，无固定大型发饰。",
+    "officialArtUse": "官网立绘只通过角色护照身份/衣装观察参考；未下载或传入本次生图，未收入public。",
+    "projectOriginal": "自己难说清的感受被准确理解，腼腆却藏不住喜悦。 本次前因后果与相处是项目原创假想瞬间，不声称已查、已做或真实共同记忆。"
+  },
+  "output": {
+    "file": "tomori-youth-charm-avatar-v2.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-0d687e0b-157f-47fc-9d11-dab882056711.png",
+    "sha256": "8c829c4380843fab92cb66bd4343a9d696d2bbcff7bcd50514f8d228f3ed4b43",
+    "bytes": 2038965,
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "cornerAlpha": 0
+  },
+  "producerReview": {
+    "status": "producer_candidate_pending_primary",
+    "fullImagePersonallyViewed": true,
+    "observations": "原图亲看：粉褐眼、短灰紫发、明确上扬闭口笑与轻微羞赧，近脸只一点领口。头冠贴上沿，未签Prompt要求的5%余量完全满足。",
+    "smallSizeReview": {
+      "method": "Chrome实际静态页面逐行亲看原PNG浅纸/深蓝灰底和真实34px/48px圆裁",
+      "page": "youth-charm-observe-v2.html",
+      "personallyViewed": true,
+      "cropCandidate": {
+        "imageWidthPercent": 110,
+        "imageHeightPercent": 110,
+        "leftPercent": -5,
+        "topPercent": -14,
+        "defaultObjectPosition": "50% 50%",
+        "notOldHalfBody160Percent": true
+      },
+      "observation": "新近景眼与笑意较旧冷稿更直接；未见明显背景板、白圈或发缘红黄框。34px不单独承载复杂心情故事；原图与runtime准入仍由root核。",
+      "runtimeChecked": false
+    }
+  },
+  "supersedesDirection": "旧independent-avatar-v1/Anon-v2仅保历史source和历史root静态结论；最新用户认为冷/无表情，已退出本轮后续输入。新稿零图输入，不是旧稿修嘴角。",
+  "primaryApproved": false,
+  "userApproved": false,
+  "runtimeAccepted": false,
+  "generationInputAllowed": false,
+  "humanMatrixCoverage": false,
+  "registered": true,
+  "currentAdmission": "registered-pending-latest-youth-face-proportion-review",
+  "primaryReview": {
+    "reviewer": "root",
+    "date": "2026-10-25",
+    "decision": "approved-independent-youth-avatar-static-only",
+    "source": "Explicit root collaboration message: personally viewed Ave four complete youth-charm-v2 originals, Ave five 34/48px light/dark circles, and MyGO five complete originals (Rana v3); permitted registry update, runtime still unverified.",
+    "completeOriginalPersonallyViewed": true,
+    "smallSizeCirclePersonallyViewedByRoot": false,
+    "smallSizeEvidence": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mygo/avatars/YOUTH_CHARM_README.md (producer browser observation; root small-size UI review still pending)",
+    "sourceOriginalSha256": "8c829c4380843fab92cb66bd4343a9d696d2bbcff7bcd50514f8d228f3ed4b43",
+    "scope": "Exact independent youth closeup and visible natural smile; not all emotions, full-body scenes, user adoption or runtime approval"
+  },
+  "registration": {
+    "registry": "src/renderer/companion-portraits.ts",
+    "runtimeCopy": "前端视觉创新设计/运行素材/companion/portraits/tomori-youth-charm-20261025.png",
+    "runtimeCopySha256": "8c829c4380843fab92cb66bd4343a9d696d2bbcff7bcd50514f8d228f3ed4b43",
+    "sourceCopyUnchanged": true,
+    "avatar": {
+      "left": "-5%",
+      "top": "-14%",
+      "width": "110%"
+    },
+    "actualRuntimeObserved": false
+  },
+  "historicalRootYouthSmileDirectionApproval": {
+    "reviewer": "root",
+    "date": "2026-10-25",
+    "decision": "approved-independent-youth-avatar-static-only",
+    "source": "Explicit root collaboration message: personally viewed Ave four complete youth-charm-v2 originals, Ave five 34/48px light/dark circles, and MyGO five complete originals (Rana v3); permitted registry update, runtime still unverified.",
+    "completeOriginalPersonallyViewed": true,
+    "smallSizeCirclePersonallyViewedByRoot": false,
+    "smallSizeEvidence": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mygo/avatars/YOUTH_CHARM_README.md (producer browser observation; root small-size UI review still pending)",
+    "sourceOriginalSha256": "8c829c4380843fab92cb66bd4343a9d696d2bbcff7bcd50514f8d228f3ed4b43",
+    "scope": "Exact independent youth closeup and visible natural smile; not all emotions, full-body scenes, user adoption or runtime approval"
+  },
+  "rootYouthSmileDirectionApproved": true,
+  "latestRequirementAccepted": false,
+  "latestUserFaceDirection": {
+    "source": "New user correction relayed by root after the first youth-smile static acceptance",
+    "requirements": "较短中下面部、饱满柔和脸颊、短下巴的原作青春比例，避免成人少妇脸且不幼儿化，保留每人辨识；另对祥子提出刘海、眼型、下巴、温柔可爱表情的精调",
+    "referenceSource": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-user-selected-youth-avatar-20261025.png",
+    "referenceSha256": "bc92a4e0096411b0e58b5e4dfc12d61b48bf255f0fd7a544c039ae9e4cd7fc32",
+    "scope": "Nine existing portraits remain connected but must be re-reviewed against this latest direction. Earlier root static smile approval does not prove all new requirements met.",
+    "runtimeAccepted": false
+  }
+}

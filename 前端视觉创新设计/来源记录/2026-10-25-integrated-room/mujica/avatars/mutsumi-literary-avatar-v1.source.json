@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "kind": "brand-new-independent-hand-drawn-2d-bust-avatar",
+  "character": "mutsumi",
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-6daeb543-df22-4267-ad8f-06248df5558d.png",
+  "inputs": [],
+  "officialReferences": [
+    "https://anime.bang-dream.com/avemujica/character/mutsumi/",
+    "https://anime.bang-dream.com/mygo/character/mutsumi/"
+  ],
+  "officialBoundary": "Public official pages used as identity/clothing research only, no official raster file copied, no official image used as generation input or runtime artwork.",
+  "originalProjectBoundary": "Specific responding emotional moment, painted linework/natural literary-room light, independent portrait composition are original project interpretation. Not a crop, not a canon relationship or actual business action.",
+  "costumeId": "mutsumi-tsukinomori-school-mygo",
+  "readDependencies": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/mutsumi.md",
+      "sha256": "189d1a17f6e4c2656692437167c50d2a89379cf50b16bc354df3ac8406e4610c",
+      "scope": "Fully read immediately before independent portrait creation"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840",
+      "scope": "Fully read immediately before independent portrait creation"
+    }
+  ],
+  "exactSubmittedPrompt": "Generate ONE new independent hand-drawn 2D anime bust portrait asset of Mutsumi Wakaba / 若叶睦 / 若葉 睦, recognizable as her youthful high-school self from BanG Dream! Ave Mujica / It's MyGO!!!!!. Square 1024x1024 RGBA, genuinely transparent background. Upper-chest close-up, complete head/crown and both natural shoulders, safe margin around the hair silhouette; long hair can continue to the lower frame. No circle/disc/frame, room scene, text, logos, UI, speech bubble, hands/props, cat ears or chibi. This is a newly drawn human portrait, never a crop of a scene or official character image, never a 3D/model cutout.\nSPECIFIC MOMENT: She had been absorbed in a small musical interval of her own. The familiar person beside her notices the same tiny difference she was about to mention. Her attention lifts slowly toward that person just right of the viewer: GOLD-BROWN eyes become a little clearer and more intent, the brow gently opens rather than collapsing into sadness, and her small closed mouth is still holding the shortest, precise reply. There is a quiet little pleasure at being understood, not a standard polite smile. Her head has a slight natural inclination, shoulders stay easy, as if her private thought has not disappeared just because she is responding. She is not vacant, sleepy, timidly obedient, crying, or a generic gentle adult woman. Express a thoughtful young person with her own attention and one particular feeling.\nIDENTITY: long straight PALE MINT-GRAY-GREEN hair, fine thin bangs and a pair of tiny SILVER hair clips at HER LEFT temple (viewer right); do not invent stars, flowers or large ribbons in her hair. Clear gold-brown irises, natural small nose and unpainted small mouth, softly youthful cheeks and light not elongated chin. Preserve her own hair/eye/face relationship, not Sakiko with green hair. Delicate human anime eyes with clear iris/pupil/lid detail, never simple meme-cat disks or huge glass doll eyes. Hair retains mint-gray base under warm light, not saturated green overall.\nSELECT ONE COHERENT OUTFIT from the official MyGO Tsukinomori school visual: navy sailor-style school dress, broad WHITE sailor collar with gray stripe edging, PURPLE/LAVENDER bow, original small chest crest and navy front buttons. In this bust crop show the collar/bow/chest structure naturally. Do not mix the cream lace casual collar/teal bow/black choker or red-black stage costume into this school outfit. Clothing is researched identity structure, not the official model texture or pose.\nUNIFIED ART DIRECTION: refined Japanese hand-drawn 2D anime illustration with fine varied ink lines, subtle softly brushed flat color and gently drawn facial planes; warm natural literary-room window light from upper left, a little cool reflected fill in mint hair, nuanced but restrained skin and navy-cloth shadows. Keep an open youthful face and a specific natural gaze. No glossy/plastic 3D, photoreal skin pores, mature lips/heavy makeup/eyelashes, adult sharp jaw, glamour photo, stiff standing-doll expression, generic service smile, painted backdrop, glow halo, vignette, floor shadow or checkerboard. Independent full transparent portrait with no borrowed scene pixels.",
+  "submittedPromptSha256": "d02dbefc6e62c5593b36d0352fdce0637210b66acc9c531ad84f505a240c0345",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\avatars\\mutsumi-literary-avatar-v1.png",
+    "sha256": "12bbda620c8a6e2bc7bec6af8a1c2429481d77ec55e8d7ad24f39e85ba146941",
+    "bytes": 1650632,
+    "width": 1254,
+    "height": 1254,
+    "pngColorType": 6
+  },
+  "transparentBackgroundRequested": true,
+  "producerViewed": true,
+  "producerObservation": "Personally viewed independent Mutsumi portrait: mint-gray long straight hair/twin silver clips, gold-brown eyes, slight quiet attentive tilt and near-closed small mouth; navy school sailor collar/lavender bow coherent and youthful 2D. Not a Sakiko recolor or scene crop. Small upper hair tuft reaches top canvas edge; add real transparent breathing margin before final handoff. Primary pending.",
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "sceneHeadCrop": false,
+  "catForm": false,
+  "pngEdited": false,
+  "currentAdmission": "held-by-latest-avatar-direction",
+  "currentUseAllowed": false,
+  "userAccepted": false,
+  "excludedFromFutureGenerationInputs": true,
+  "latestDirection": {
+    "date": "2026-10-25",
+    "source": "Direct latest user correction relayed verbatim by root",
+    "userQuote": "头像和背景是不一样的，头像呢一定要做的那种有青春风，有青春的感觉。然后头像是最体现一个角色的魅力的那种一个展现方式，一定要用相应的合理的方式去表达他。比方说展示角色最亮点的那种，比如说微笑起来的状态等等之类的。",
+    "reason": "用户指出旧头像冷、机器人、面无表情；头像应以青春与角色魅力为中心，具体笑意与心理需可读。旧静态root批准仅为历史，不是用户采用。"
+  }
+}

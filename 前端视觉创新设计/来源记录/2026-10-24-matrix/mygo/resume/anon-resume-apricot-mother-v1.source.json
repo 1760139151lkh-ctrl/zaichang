@@ -37,6 +37,7 @@
     "height": 1024
   },
   "producerObservation": "Full original personally viewed. Long pink hair, blue-grey eyes and the grey blazer/green tie/plaid remain youthful and recognizable. Knees angle left while torso gently opens to the visitor, hand greeting stays close to her own body and support palm meets cushion. Separate continuous legs and complete black loafers meet the floor, seat compression and room light coherent. The generated greeting sits somewhat higher than the requested waist, so primary should judge whether its small wave and shoulder return remain sufficiently quiet/distinct from chat. It is not pre-approved.",
-  "review": { "producerViewedFullOriginal": true, "primaryViewed": false, "primaryApproved": false, "layersAccepted": false, "runtimeAccepted": false },
-  "status": "complete mother candidate awaiting primary review; no theme expansion yet"
+  "review": { "producerViewedFullOriginal": true, "primaryViewed": true, "primaryApproved": true, "layersAccepted": false, "runtimeAccepted": false },
+  "primaryObservation": "Root personally viewed original PNG: chest-adjacent greeting is slightly higher than requested but remains restrained and acceptable. Do not describe it as strictly waist-level. Accepted as complete resume mother only; small renewed attention is not a new furniture anchor or wholly new spatial action.",
+  "status": "primary-accepted complete warm mother; theme relighting authorized; layers/runtime remain unaccepted"
 }

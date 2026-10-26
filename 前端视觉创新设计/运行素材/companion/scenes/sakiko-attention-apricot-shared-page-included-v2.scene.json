@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "id": "sakiko-attention-apricot-shared-page-included-v2",
+  "sceneFamily": "literary-room-v1",
+  "pose": "supported-shared-page-attention-with-real-open-lap-book",
+  "character": "sakiko",
+  "activity": "attention",
+  "purpose": "activity",
+  "light": "morning",
+  "environmentVariant": "clear-day",
+  "palette": "apricot",
+  "width": 1536,
+  "height": 1024,
+  "mother": "sakiko-attention-apricot-shared-page-included-v2-mother.png",
+  "background": "sakiko-attention-apricot-shared-page-included-v2-background.png",
+  "mask": "sakiko-attention-apricot-shared-page-included-v2-mask.png",
+  "maskMode": "luminance",
+  "contactMask": "sakiko-attention-apricot-shared-page-included-v2-contact-mask.png",
+  "seat": [
+    0.7682291666666666,
+    0.576171875
+  ],
+  "ground": [
+    0.6516927083333334,
+    0.892578125
+  ],
+  "bodyBounds": [
+    0.5865885416666666,
+    0.109375,
+    0.8938802083333334,
+    0.9072265625
+  ],
+  "safeTextBoundary": 0.5423177083333334,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "58.658854166666664% 10.9375%, 89.38802083333334% 10.9375%, 89.38802083333334% 90.72265625%, 58.658854166666664% 90.72265625%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "dynamicAdmission": false,
+    "original360CreditAssigned": false,
+    "userApproval": false,
+    "layerReview": "root-approved-exact-seven-cell-static-fixed-same-source-included-union",
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-apricot/root-primary-layer-admission-v1.json",
+    "sourceAssembly": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-apricot/attention-apricot-included-bundle-v2.json",
+      "sha256": "925ccc90a17b4cb505e192f94a11af5b3369db8ddea9828dcd8f960e164364e2",
+      "bytes": 12644
+    },
+    "runtimeSourceSha256": {
+      "mother": "f04805d0e723420c48cf4e16005d4c863df50042339c65290a34491e553de238",
+      "background": "a1d2b37b4f404b4217a093ca22c1cda916e227922822c32859faf7f6901931bf",
+      "F": "63c8a0a3953f741cc687f324f4045f5856506de3010d84f92c85f94f24d81b46",
+      "S": "68cede6cd8df635abb1208bb1829d8f6ca67cd8528aa8de434999f60a78927f0"
+    },
+    "actualMotherSource": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-apricot-shared-page-v2.png",
+      "sha256": "f04805d0e723420c48cf4e16005d4c863df50042339c65290a34491e553de238",
+      "bytes": 2523617,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "geometryEvidence": {
+      "figureEnvelope": {
+        "sourcePixels": [
+          901,
+          112,
+          1373,
+          929
+        ],
+        "normalized": [
+          0.5865885416666666,
+          0.109375,
+          0.8938802083333334,
+          0.9072265625
+        ],
+        "basis": "sRGB Rec.709 luminance; F >32, S >32 and MAX(L(F),L(S)) >32 are read-only envelope metadata only. Original continuous ImageGen mask PNG bytes and runtime luminance are unchanged; no thresholded or hand-edited image is created."
+      },
+      "contactReceiverEnvelope": {
+        "sourcePixels": [
+          849,
+          547,
+          1376,
+          948
+        ],
+        "normalized": [
+          0.552734375,
+          0.5341796875,
+          0.8958333333333334,
+          0.92578125
+        ],
+        "basis": "sRGB Rec.709 luminance; F >32, S >32 and MAX(L(F),L(S)) >32 are read-only envelope metadata only. Original continuous ImageGen mask PNG bytes and runtime luminance are unchanged; no thresholded or hand-edited image is created."
+      },
+      "jointReceiverEnvelope": {
+        "sourcePixels": [
+          849,
+          112,
+          1376,
+          948
+        ],
+        "normalized": [
+          0.552734375,
+          0.109375,
+          0.8958333333333334,
+          0.92578125
+        ],
+        "basis": "sRGB Rec.709 luminance; F >32, S >32 and MAX(L(F),L(S)) >32 are read-only envelope metadata only. Original continuous ImageGen mask PNG bytes and runtime luminance are unchanged; no thresholded or hand-edited image is created."
+      },
+      "supportAnchors": {
+        "seatPixels": [
+          1180,
+          590
+        ],
+        "groundPixels": [
+          1001,
+          914
+        ],
+        "basis": "Registrar personally viewed this exact full mother. Fixed visible skirt/hip-to-linen resting region and midpoint of the complete sole-floor contacts, not hidden joints or travel calibration."
+      },
+      "candidateSevenUnionPixels": [
+        762,
+        86,
+        1378,
+        955
+      ],
+      "candidateSevenProtectedPixels": [
+        666,
+        74,
+        1474,
+        967
+      ],
+      "candidateSevenProtectedHeight": 893,
+      "protectedMarginSourcePixels": {
+        "x": 96,
+        "y": 12
+      },
+      "framing": "Current shared literary-room protected-fit/safe-cover function is untouched. Actual family envelope is recomputed by that function across registered same-family sources; no mask edge is removed to fit.",
+      "cameraFunctionModified": false
+    },
+    "boundary": "This exact activity/palette/light/weather static same-mother fixed included composition only. U=MAX(L(F),L(S)); original mother RGB drawn once. S includes original cloth/wood receiver and intentional F overlap, never a portable caster or independently translated shadow. travel/slope/perspective=0. No user-signature, runtime-experience, dynamic, or 360-matrix completion claim."
+  }
+}

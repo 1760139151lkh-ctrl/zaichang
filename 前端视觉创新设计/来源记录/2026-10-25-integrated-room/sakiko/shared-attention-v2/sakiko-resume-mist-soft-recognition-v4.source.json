@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "cell": "sakiko/resume/mist",
+  "role": "sakiko",
+  "activity": "resume",
+  "palette": "mist",
+  "recordType": "clean-rebuild-human-mother",
+  "dossierVersion": "2026-10-25.1",
+  "wardrobeId": "sakiko-literary-navy-adaptation",
+  "exactPrompt": "完整1536×1024细腻2D手绘文学房间母图。第一参考唯一决定房间相机/窗/左侧木桌椅/右侧窗台软榻/圆边桌/灯和完整环境光；第二参考只定丰川祥子青春身份，不是要把头像贴进房间。完整重新画同一少女全身：淡蓝紫长发、两侧深色发带、金眼，轻软分缕刘海，清澈眼型、柔和面颊与自然短下巴，不成人长脸、不3D、不幼儿化。藏青开衫、白领与浅灰蓝纯布结、藏青格裙属于项目原创日常改编；小腿袜袜口在膝盖以下，双膝露出，完整日常乐福鞋。她坐在画面右侧软垫x950至1370处，髋/大腿/膝/小腿/脚踝自然连续，重心压在座面，两腿自然并排斜向前，两鞋在地板有支撑。膝上书由真实的手稳稳承托，手指清楚不融合。左半完整房间留真实内容空间，不画UI、文字、图标、白卡、灰条、边框、额外人、拼贴。人物属于房间同一光场。\n这是阴日晨雾中因熟悉的人回来而认出的瞬间。她本在读自己的书，门边熟悉的脚步让她眼神先迎过来，稍偏头，金眼亮了些，端正的嘴角藏着可爱而克制的高兴，不是迎宾拍照。右手拇指仍夹住刚读到的页角，书页稍翻起但仍有清楚接触；左手稳稳承托书的外侧，书在膝上，不展示指向动作。她仍有自己的事，留页的手尚未松开，回望是自然的小幅接续，不演已经替用户读完任何真实资料。\n参考1是自然柔和的阴日雾蓝光，整个房间、她的发丝/脸/衣料/木板/软垫统一被漫射天光包围；边桌小灯一点温暖。地板和软垫没有明亮直射太阳窗格条纹，也不是冷灰滤镜。亲近和聪明、青春和端庄同时成立。\n【这一幅必须重建的明确衣装细节】她穿的是深藏青、近黑色的不透明小腿袜，左右两只袜子都为同一深色，袜口停在膝盖以下，双膝皮肤清楚露出。DARK NAVY/BLACK below-knee calf socks, uncovered knees. 白色只在上衣领口和少量袖口，不在腿上；没有白袜、米白袜、浅灰袜、连裤袜、过膝袜或舞台长靴。完整重新从纯净阴日空房+头像身份参考画全身，不沿用任何上轮穿错白袜的图。",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "purpose": "only-clean-overcast-room"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-selected-soft-youth-edit-v3.png",
+      "sha256": "50ed57c7cb690ac52eb49190762f878a2b8e8db5eb75d5d3d3f220e771d86974",
+      "purpose": "youthful-identity-only-reference"
+    }
+  ],
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-resume-mist-soft-recognition-v4.png",
+    "sha256": "9c9e2aa283a1d809a3e6edf9f574e026de3046093e6c8dcd8b7c0316961dc624",
+    "bytes": 2566569,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    }
+  },
+  "rebuildReason": "Old attention empty-pointing and direct theme descendants were user rejected; they were not inputs.",
+  "primaryStaticReview": {
+    "status": "approved_static_mother",
+    "reviewer": "root",
+    "observed": "Actual whole image inspected. Familiar-person recognition in soft gold eyes/small smile, page-holding hand and supported book; two knees exposed above dark navy below-knee socks, complete grounded shoes; hip/cushion and legs continuous; overcast diffuse room light. New image built only from clean plate and independent identity portrait, not white-sock v3 or old mature resume."
+  },
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "generationInputAllowed": true
+}

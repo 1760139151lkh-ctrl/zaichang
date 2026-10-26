@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T02:07:12.075Z",
+  "stage": "F2",
+  "characterId": "anon",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "palette": "mist",
+  "light": "morning",
+  "sceneFamily": "literary-room-v1",
+  "dossierVersion": "2026-10-25",
+  "wardrobeId": "anon-movie-haneoka-school-uniform",
+  "actualTool": "built-in image_gen.imagegen",
+  "actualPrompt": "Use case: precise-object-edit. Convert the deliberately WHITE foreground selection in this new Anon F1 markup into one pure neutral LUMINANCE MASK. Preserve the same full 1536x1024 canvas and EXACT source coordinates. No refit, move, crop, resize, recenter or redraw. All deliberate painted figure-and-little-paper foreground becomes WHITE, every unpainted original room/background becomes BLACK, with only true edge-coverage greys.\nPreserve every fine long hair strand and complete hair LOOP around both sleeves/behind the torso, leaving each real background hole INSIDE a hair loop black, not filling it with cushion/curtain/wood. Preserve both complete hands/every fingertip/wrist/cuff, the ENTIRE tiny folded paper with all thin edges and corners, whole blazer/shirt/tie/pleated skirt/trailing hem, both uncovered knees and calf socks, both complete black loafers including darkest toe/heel/sidewall/full sole. Do not shave black leather or leave source paper partially transparent. Naturally pale unpainted curtain/cushion/lamp/book objects in the room remain BLACK because they were never selected.\nAll FOREGROUND INTERIOR details must be opaque WHITE: face/eyes/mouth/hairline/ear features, finger creases, paper folds, collar/tie and clothing seams, knees/sock detail and shoe grooves are NOT background holes. Faint grey or colored intrinsic strokes inside the white markup are semantic foreground details: fill them white rather than punching a slot/pinhole through face, paper, hands, forearm, knee or hem. Only real unpainted gaps between hair strands/loops, arm and torso, between the legs, or below the actual paper if genuinely open source air, stay black. No source contact shadows/seat/floor receiver in F; those are selected separately.\nNo photographed grayscale texture, dilation/erosion, expanded outline/halo, invented curls, detached background fragments, shadow/caster, text/labels/checkerboard or transparency. One opaque full-canvas neutral black/white 1536x1024 PNG, source geometry unchanged. It will reveal ORIGINAL mother RGB once through MAX(F,S), never supply replacement colored person pixels.",
+  "actualArguments": {
+    "prompt": "Use case: precise-object-edit. Convert the deliberately WHITE foreground selection in this new Anon F1 markup into one pure neutral LUMINANCE MASK. Preserve the same full 1536x1024 canvas and EXACT source coordinates. No refit, move, crop, resize, recenter or redraw. All deliberate painted figure-and-little-paper foreground becomes WHITE, every unpainted original room/background becomes BLACK, with only true edge-coverage greys.\nPreserve every fine long hair strand and complete hair LOOP around both sleeves/behind the torso, leaving each real background hole INSIDE a hair loop black, not filling it with cushion/curtain/wood. Preserve both complete hands/every fingertip/wrist/cuff, the ENTIRE tiny folded paper with all thin edges and corners, whole blazer/shirt/tie/pleated skirt/trailing hem, both uncovered knees and calf socks, both complete black loafers including darkest toe/heel/sidewall/full sole. Do not shave black leather or leave source paper partially transparent. Naturally pale unpainted curtain/cushion/lamp/book objects in the room remain BLACK because they were never selected.\nAll FOREGROUND INTERIOR details must be opaque WHITE: face/eyes/mouth/hairline/ear features, finger creases, paper folds, collar/tie and clothing seams, knees/sock detail and shoe grooves are NOT background holes. Faint grey or colored intrinsic strokes inside the white markup are semantic foreground details: fill them white rather than punching a slot/pinhole through face, paper, hands, forearm, knee or hem. Only real unpainted gaps between hair strands/loops, arm and torso, between the legs, or below the actual paper if genuinely open source air, stay black. No source contact shadows/seat/floor receiver in F; those are selected separately.\nNo photographed grayscale texture, dilation/erosion, expanded outline/halo, invented curls, detached background fragments, shadow/caster, text/labels/checkerboard or transparency. One opaque full-canvas neutral black/white 1536x1024 PNG, source geometry unchanged. It will reveal ORIGINAL mother RGB once through MAX(F,S), never supply replacement colored person pixels.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/time-only-neutral-v1/day/layers/figure-step1-marked-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/time-only-neutral-v1/day/layers/figure-step1-marked-v1.png",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17365-454d-7bb3-8b77-bcaadd75b8a4/exec-06d6b429-b664-4a64-a018-093694c9e65f.png",
+      "sha256": "554bba436ed7b50a6f0fb2c6b8375adbac847ed66d393b0b8ecbba123b584ce6",
+      "bytes": 2211217,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "toolPngBytesUnchanged": true,
+      "role": "new deliberate white foreground markup from this same clean mother only"
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/anon.md",
+      "sha256": "de7782a11d0e620b3d25de33ac7a964142a39322e6fa8f0ceceea2bc6d501b19",
+      "bytes": 11006
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "bytes": 12645
+    }
+  ],
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/time-only-neutral-v1/day/layers/figure-mask-v1.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17365-454d-7bb3-8b77-bcaadd75b8a4/exec-c67d371f-bb26-4eaa-807c-61e7961c877a.png",
+    "sha256": "68df356d3540fad4d87ae850c37c36ad57959928c519656f00935aebf79149e6",
+    "bytes": 462389,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true
+  },
+  "producerObservation": "Personally viewed actual full black-white F2. Whole figure/hair/paper/full shoes remain in source coordinates. Some dark fine lines around the hands/paper and hair junctions require immediate native original-RGB close-up to distinguish genuine gaps from an intrinsic foreground seam; no claim of intact opacity before that review.",
+  "status": "HOLD_foreground_neck_collar_internal_holes",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "original360ExactActivityCell": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "generationInputAllowed": false,
+  "laterNativeReview": {
+    "evidence": "browser-observations/early-F-v1-face.png",
+    "observation": "Actual source/F-only on light/dark shows several pale/dark background stripes through the solid hair/neck/collar/blazer junction below image-left chin. These are intrinsic foreground, not real empty room gaps. F1/F2 pair held after native review; no onward input.",
+    "rootApproved": false
+  }
+}

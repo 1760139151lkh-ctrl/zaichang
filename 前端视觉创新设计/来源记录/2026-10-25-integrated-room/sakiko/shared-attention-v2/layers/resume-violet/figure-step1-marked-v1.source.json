@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "cell": "sakiko/resume/violet",
+  "character": "sakiko",
+  "activity": "resume",
+  "palette": "violet",
+  "stage": "F1",
+  "assetType": "raw-Image-source-selection-mask-or-markup",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: precise-object-edit. Make an ORIGINAL-POSITION foreground SELECTION MARKUP from this exact clean approved 1536x1024 mother. Keep the camera, whole original person/book silhouette, pose, source coordinates and every unselected room pixel unchanged. Do not recreate or improve the character.\n\nPaint ALL visible original person AND the entire actual held open book as one featureless PURE WHITE filled foreground. Include every real thin hair strand/ribbon end and tiny hair loop, full face/neck/hands/fingers, every sleeve/collar/bow/skirt/hem tip, both exposed knees, dark below-knee calf socks, and both COMPLETE original shoes including toes/outsole/heel blocks. The book includes covers/spine/all page blocks and edges. Preserve real original gaps between hair strands, between limbs and the two legs. Do not add a new gap or bridge real background openings. Every INNER pixel of selected foreground is SOLID WHITE: no eye/face/hand/garment/book/page/shoe contours or grey linework, no features, no pinhole. Where book meets hands or clothes they are the same selected foreground, so no interior outline between them.\n\nKeep ALL remaining scene ORIGINAL COLORED, including actual cushion/seat contact receiver, soft floor shadow/wood reflection outside shoes, pillows/knit, windows/town/lake/curtains, lamps/cup/flowers/table/desk/chair/plants/shelves, floor/rug. Natural cream/white highlights are NOT additional selection. Do not select empty bench or wood ledge beside book.\n\nOutput ONE opaque same-coordinate 1536x1024 color scene with only the complete exact original foreground solid-white. No black background yet, interior line art, new figure/book/pose/shadow/geometry, crop/zoom/resize/recenter/translation, checkerboard/text/UI/arrows/grid/labels/boxes. This is technical source selection, not new human art.\n\nThis is the current RESUME VIOLET mother's supported seated figure looking toward the returning person, with the book held higher/right. Preserve that exact state and sunset light; do not substitute the lower lap-book pose of another theme. Full person roughly x950..1340,y120..905, real upright book near x1130..1325,y360..490, complete shoes near x1060..1235,y800..905. Ranges are inspection hints, never filled boxes.",
+  "submittedPromptSha256": "0149e522f93763259a55cd6964598b852730f3f3cc0ddc57b3384c21fd035e3a",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-violet-literary-extension-v1.png",
+      "sha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    }
+  ],
+  "originalRgbOwner": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-violet-literary-extension-v1.png",
+    "sha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973",
+    "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-violet-literary-extension-v1.source.json",
+    "sourceRecordSha256": "097fe6bded9b9c54b0190de457584fcb7ed76958ab72068bea16e8652e985be6",
+    "rootMotherStaticReview": {
+      "status": "approved_static_mother",
+      "reviewer": "root",
+      "observed": "Youthful blue-purple hair/gold eyes, recognition looking toward a returning familiar person; actual hands support the book, two exposed knees/dark calf socks/complete shoes. Whole violet light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "reviewRecord": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/root-human-mother-primary-review-20261025.json"
+    }
+  },
+  "method": "Actual Image same-mother F1/F2 or S1/S2 chain. F is whole human/ribbons/hands/held book/clothing/knees/calf socks/complete shoes. S includes real source-local seat and full soft grounded floor receiver, not just sole line; original RGB MAX(F,S) drawn once only.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\sakiko\\shared-attention-v2\\layers\\resume-violet\\figure-step1-marked-v1.png",
+    "sha256": "4d4a0046fc0ca45fc49fe6816fd9321585ef37c61faf3b7fe5df8cb18c4cd6ab",
+    "bytes": 2252487,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-45ef91be-d108-422c-83df-390e199a7007.png",
+    "pngBytesUnchanged": true
+  },
+  "producerObservation": {
+    "personallyViewedFullNative": true,
+    "observation": "Full native F1 viewed: complete original violet resume pose, upright held book, all hair/ribbons/skirt/knees/calf-socks/whole shoes marked featureless white at original positions; natural room gaps remain. No new body or weather reconstruction."
+  },
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "sourceOrigin": [
+      0,
+      0
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": "included",
+    "independentCaster": false
+  },
+  "motherReconstructed": false,
+  "primaryLayerApproved": false,
+  "layerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "status": "producer-candidate-awaiting-source-RGB-union-browser-and-root-review",
+  "inputBoundary": "Only current exact root-approved mother and its correct same-canvas working intermediates. No HOLD rain-attention-v2, white-sock resume-mist-v3, screenshot, audit collage or other mother mask.",
+  "promptFile": "figure-step1-marked-v1.prompt.json",
+  "promptFileSha256": "0b58f9d93ad133126590b019f4638fe36ab91a9918fb1a57bad03d72c5fd0feb",
+  "generatedAt": "2026-10-26T00:04:57.991Z"
+}

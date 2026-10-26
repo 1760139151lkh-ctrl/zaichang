@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "same-activity-whole-light-mother-candidate",
+  "character": "mutsumi",
+  "activity": "study",
+  "palette": "rain",
+  "environmentVariant": "rain-night",
+  "wave": "light-activity-wave-a",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-1aba3191-151a-4c14-a2f0-3e4729efd477.png",
+  "executionId": "exec-1aba3191-151a-4c14-a2f0-3e4729efd477",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "role": "first input; approved empty environment plate, primary camera and authoritative target whole-room light"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-study-apricot-v1.png",
+      "sha256": "0fed56bbb3ae86b4ee81f1957e243b1d01b9e7f40c56e79e285ac686a1b6c5ac",
+      "role": "second input; root-approved exact same-activity apricot mother, correct identity/pose/proportion/props/physical support"
+    }
+  ],
+  "apricotActivityMotherApproval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-study-apricot-v1.primary-approval.json",
+  "sourceMotherContourComplete": false,
+  "intendedSupport": "desk-chair",
+  "sourceSpecificPose": "Exact approved source: at the ACTUAL LEFT DESK, one hand/page supported by the reachable desk, other hand/pen near lips, hips/skirt supported by the actual chair cushion. Preserve source chair orientation/back-slats, real desk reach and foreground-plant occlusion; root approved the portable support arrangement. RIGHT BENCH EMPTY. Do not translate a bench body or inflate her to near-bench scale. Complete head and naturally visible shoes stay inside frame; do not invent/force a complete pair through wood or plants.",
+  "brief": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/mutsumi-prompt-plan.json",
+    "sha256": "66ade9700cb7bb993b43bd7e247b678878b79ad71237b0b5dcd915a43a3be2ca",
+    "key": "mutsumi/study/apricot",
+    "role": "own role/activity literary psychology; light redirection keeps actual accepted mother pose"
+  },
+  "wholeSceneRelighting": true,
+  "oldApricotHeatSpotsAreNotIdentity": true,
+  "unreviewedLightCandidateUsedAsInput": false,
+  "promptFile": "mutsumi-study-rain-v1.prompt.txt",
+  "promptFileSha256": "ed093e795bb938023c2545dd00d6c75de5f9a1f53b3c0fc7f2cddd386101892e",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; exact submitted text",
+  "submittedPromptSha256": "32bcd44d04b4ea056db437df2fe259bd10c086a50f4574b2ccbf380207f6b2b2",
+  "output": {
+    "file": "mutsumi-study-rain-v1.png",
+    "sha256": "10c140af8e4de0fe27639cac49d273e939239cc9cd3033e6d4bd832de37bd35e",
+    "bytes": 2280401,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved complete mother at twelve-call checkpoint. Same actual LEFT-DESK source pose/support and farther body scale, paper/forearm/desk and chair-seat relationships remain; natural plant/chair occlusion is retained, no complete shoe-pair claim, right bench empty. Rainy dark exterior and warm lamps coherently relight mint hair, face, navy cloth, paper, desk/chair/floor without retained white day-body or hard window sunlight lattice. The existing metal desk lamp is now visibly farther left/more exposed than the apricot source; this portable-object/illumination variation is explicitly recorded for root, not claimed position-identical. Visible eye/fringe and hands are coherent, paper directly lamplit rather than self-emissive. Root/layer/runtime pending."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "New static mother candidate only, root review pending; no layer, registration or runtime acceptance.",
+  "privateUserDataUsed": false
+}

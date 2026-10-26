@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-canvas-original-person-luminance-mask",
+  "id": "sakiko-chat-overcast-day-figure-mask-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-chat-overcast-day-figure-mask-v1.prompt.json",
+  "promptFileSha256": "4439ac9f44106789272ceb8774bab109435987bbcdc53db4199bac2b922be757",
+  "submittedPrompt": "Use case: precise-object-edit. STEP 2 of registered segmentation. Image 1 is the sole input, an existing full 1536 x 1024 room image in which the original girl and her lap book are already filled solid white. Do NOT draw a person again.\nKeep that EXACT existing white seated-person/held-book silhouette at exactly the same original source pixels, size, position, contour, hair strands, hands, skirt, legs and worn shoes. Change ONLY the entire surrounding COLORED ROOM into SOLID PURE BLACK. The curtains, walls, clouds and all other naturally pale/white room objects are background and must also become black; only the already painted white GIRL and her held LAP book remain white.\nNo enlargement, reduction, translation, reposing, crop, zoom, recentering, smoothing away hair, filling real room gaps or generic portrait reconstruction. Keep her crown/soles in the same existing positions near y270/y783 on the unchanged full canvas. Do not infer or reconstruct hidden anatomy. The girl/book's entire interior is completely opaque pure white without black clothing folds, eyes, face lines, laces, book markings, finger outlines, gray shading or accidental holes. Preserve genuine visible background gaps between hair/limbs/fingers as black. All cast/contact shadows and every furniture part remain black.\nReturn only this exact registered white silhouette on an otherwise pure black FULL 1536 x 1024 opaque RGB canvas, with narrow original outer antialiasing. No room color or texture, ghost, shadow, label, grid, border, text, watermark or transparency.",
+  "submittedPromptSha256Utf8NoTrailingLF": "cf1b67648f8d7b75ce071ad4af9d15f48f8d354f7c16b6ac78ab5f74ac0d3d4c",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-overcast-day-white-in-room-v1.png",
+      "sha256": "5a9adb59ac1ad6eba4958d94024016e658e7bc84ede65a41de8e08240a340b5e",
+      "role": "sole same-canvas white-person-in-original-room intermediate; blacken room only without reconstructing person"
+    }
+  ],
+  "mother": {
+    "file": "sakiko-chat-overcast-day-mother-v1.png",
+    "sha256": "a7e10ccb551badc3bb015bdd2c8870969bcf20c8ea23f2a282d2bcf636baa382"
+  },
+  "output": {
+    "file": "sakiko-chat-overcast-day-figure-mask-v1.png",
+    "sha256": "aa973c02842fe5d820f1561c70657f7b07fb4f6fbdab95deb9db958bb8632f33",
+    "bytes": 386789,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17126-cdea-77e3-9abe-3d71acd87e8b\\exec-71b2c02b-eda5-499c-ad37-302031f30161.png"
+  },
+  "transparentBackground": false,
+  "maskMode": "luminance",
+  "rgbMethod": "Original complete mother RGB shown through this mask by native inline SVG; no new figure RGB or raster alpha processing.",
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": true,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "primaryLayerApprovalRecord": "sakiko-chat-overcast-day-primary-layer-approval-v1.json",
+    "primaryLayerApprovalScope": "Exact-SHA original-position static same-canvas layers only; runtime independent",
+    "primaryNativeCompositeViewed": true
+  },
+  "status": "generated-and-saved-awaiting-native-original-RGB-contour-observation"
+}

@@ -1,0 +1,378 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-listening-apricot-included-candidate-v1",
+  "character": "soyo",
+  "activity": "listening",
+  "palette": "apricot",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "producer": "/root/openui_creation",
+  "maskSupportProducer": null,
+  "motherStaticDirectionApproved": true,
+  "motherApprovalEvidence": "Root personally viewed exact four current listening mother PNGs and approved static mother direction only; latest steering preserves their small theme/pose differences. This does not approve new layers.",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "status": "producer-reviewed-fixed-included-candidate-awaiting-root-static-layer-review",
+  "selected": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-listening-apricot-literary-v2.png",
+      "sha256": "f242a5b6865d6ac27688ba75bdb8b0e733e6cbb8ea9724b4ea338973288c3862",
+      "bytes": 2445061,
+      "role": "sole source RGB for complete figure/book/contact union; existing root-approved static mother",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/listening-background-v1.png",
+      "sha256": "fd79e7f727e79c1442be28b3724a1d06ea290b761f17aa3bccc964a9dcaade1a",
+      "bytes": 2407302,
+      "role": "actual Image removal from this exact mother; empty receiving scene",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "figureMask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/figure-mask-v1.png",
+      "sha256": "e644bdb2df8911ca831b8982e82388418a2879d64223c7df3c23d62d0ea3fa31",
+      "bytes": 418291,
+      "role": "raw actual Image luminance F, entire person and separate closed book",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "contactMask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/contact-mask-v3.png",
+      "sha256": "f587afa60db2ddc8adc3765de66ddff2497453d0254ecbde92a804ef00254ca6",
+      "bytes": 303673,
+      "role": "raw actual Image luminance S, source-local seat/book/floor receiver and actual grounding shade",
+      "canvas": [
+        1536,
+        1024
+      ]
+    }
+  },
+  "method": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "nativeSvg": true,
+    "union": "U = MAX(L(F), L(S))",
+    "luminanceCoefficients": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorInterpolationFilters": "sRGB",
+    "maxOperation": "feBlend mode=lighten over FL,SL",
+    "originalRgbDrawsPerUnion": 1,
+    "alpha": "raw Image mask luminance; overlap maximized, not summed",
+    "sourceRgb": "mother only",
+    "bg": "same-mother actual Image removal, separate from RGB owner",
+    "pngPixelEditing": false,
+    "manualThresholdOrColorDiff": false,
+    "fullCanvasBitwiseReconstructionClaimed": false
+  },
+  "geometry": {
+    "anchorMode": "fixed-original-canvas",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": "included",
+    "allowedTransforms": [
+      "whole source posture visibility",
+      "shared uniform viewport scaling of background and union"
+    ],
+    "forbidden": [
+      "independent figure/body/book/limb translation or deformation",
+      "independent caster movement",
+      "reuse mask on another mother",
+      "claiming new dynamic scene coverage"
+    ]
+  },
+  "observed": [
+    "Producer personally viewed full mother, all selected Image outputs, native browser original/composite, light/dark/checker union, face/hair, empty hands/knees, complete hem/seat contact, book cover/spine/page block/lower edge and both whole shoes/local floor shade.",
+    "Original face/hair/uniform/skin/shoe/book RGB is taken only from this mother; marked scene RGB is never adopted. No broad clipped hair group, dropped book page block or shaved shoe sole was observed in the compared views.",
+    "Final S restores real local source floor material and soft contact shade around the soles. This carries a small warm/cool source receiver patch and local seat/book material; light/dark views expose it honestly. It is not an independently portable transparent shadow.",
+    "The native MAX union draws mother RGB once, including F/S overlap; no double body/book/sole color accumulation. F and S remain original tool PNG bytes. No manual raster painting, threshold, color-diff extraction, crop, recoloring or morphological mask edit was used.",
+    "Same-mother empty background was actually generated with Image after old common plate floor reflection differences were observed. Hidden room continuation is generated, so full-canvas bitwise reproduction of every original room pixel is not claimed. Final static optical comparison shows continuous receiver material without a large rectangular seam.",
+    "Only static source-fixed included candidate is delivered. No independent body/limb/book/shadow motion, no cross-room pixel translation and no additional dynamic/runtime cell credit.",
+    "S2-v1 natural empty cushion misselection was held after visible detached left cushion fragment. S2-v2 corrected that, then S2-v3 from clean mother -> S1-v2 restores fuller sole grounding. Original mother/F unchanged."
+  ],
+  "browserObservation": {
+    "tool": "cua_repl current Chrome extension",
+    "url": "http://127.0.0.1:5188/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/listening-included-observe-v1.html",
+    "screenshots": [
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/browser-observations/book-edge-original-union-composite-v1.png",
+        "sha256": "18cd2cb8ca99089734fc91d8a8500bccc18e63934975068c0c93396a8b7d7745",
+        "bytes": 103743,
+        "role": "browser observation only; NEVER Image reference input",
+        "canvas": [
+          1265,
+          584
+        ]
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/browser-observations/contact-receiver-v1.png",
+        "sha256": "9c38095890e92ba068c491cfc4582954bb0332acabe0fbdeb7ecd73c52d2cece",
+        "bytes": 42619,
+        "role": "browser observation only; NEVER Image reference input",
+        "canvas": [
+          1265,
+          584
+        ]
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/browser-observations/hem-shoes-original-union-composite-v1.png",
+        "sha256": "c8f70bb96bf6cfddab4ce785900f05da66a3a6933f5ac194ae0fabdcb96037ec",
+        "bytes": 102835,
+        "role": "browser observation only; NEVER Image reference input",
+        "canvas": [
+          1265,
+          584
+        ]
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/browser-observations/light-dark-checker-v1.png",
+        "sha256": "46172e5f29b7bc5d63b1f4ea7895df95498a969f6884ab64b2c7e63133d2c506",
+        "bytes": 92237,
+        "role": "browser observation only; NEVER Image reference input",
+        "canvas": [
+          1265,
+          584
+        ]
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/browser-observations/mother-composite-v1.png",
+        "sha256": "baed8f8eba0bfc12d0fb17a2fdf35528aa2b6a281cc456ddcbf90c46ace4643b",
+        "bytes": 134663,
+        "role": "browser observation only; NEVER Image reference input",
+        "canvas": [
+          1265,
+          584
+        ]
+      }
+    ],
+    "note": "Comparison screenshots are review evidence, not generative input. Earlier hem-shoes screenshot precedes later addition of a separate book closeup to HTML; exact selected F/S/BG/mother assets are unchanged."
+  },
+  "nativeArtifacts": {
+    "union": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/union-source-v1.svg",
+      "sha256": "6fd90b77867c268dc417afa5da0f5686e483ec03d18e083f4c90c87248f93340",
+      "bytes": 1409,
+      "role": "native same-canvas source-RGB MAX union"
+    },
+    "composite": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/composite-source-v1.svg",
+      "sha256": "aa708b8b033e8e8c5046a57ae1ad1cfe51bb1439a097b07c8fe296266b8c5c15",
+      "bytes": 1523,
+      "role": "native same-canvas generated empty BG + source-RGB union"
+    },
+    "browser": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/listening-included-observe-v1.html",
+      "sha256": "fb970d32e78797bb8cbd1d79eae25e0d50db9b8fa82883f3015f50ef5bbc294c",
+      "bytes": 31587,
+      "role": "static observation page"
+    }
+  },
+  "generationReceipts": [
+    {
+      "record": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/background-v1.source.json",
+        "sha256": "5b49524c21a2f2d13e18fa92d24ae535f2314216483cf5b6c402f748fd421043",
+        "bytes": 4077,
+        "role": "actual Image prompt/input/output/observation receipt"
+      },
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/listening-background-v1.png",
+        "sha256": "fd79e7f727e79c1442be28b3724a1d06ea290b761f17aa3bccc964a9dcaade1a",
+        "bytes": 2407302,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "status": "background-candidate-awaiting-original-rgb-composite-review",
+      "currentUseDecision": null
+    },
+    {
+      "record": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/contact-step1-v1.source.json",
+        "sha256": "0b1ba97766a8ecd1a76665ab1270ab7c3eb4f44b1615face1df8cb2ca125f4c3",
+        "bytes": 7993,
+        "role": "actual Image prompt/input/output/observation receipt"
+      },
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/contact-step1-marked-v1.png",
+        "sha256": "2fb4401de742ce88549306f4bbce1cd7e1f970a76b1304b2c90bbbeb2355aa22",
+        "bytes": 2397874,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "status": null,
+      "currentUseDecision": null
+    },
+    {
+      "record": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/contact-step1-v2.source.json",
+        "sha256": "d98854838205f90e70d70378fe113773d5129153c13d7a9503a5921aea8b4ebd",
+        "bytes": 4697,
+        "role": "actual Image prompt/input/output/observation receipt"
+      },
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/contact-step1-marked-v2.png",
+        "sha256": "c58e007f4f0f16d0c24bd2ad2f4f2131124a41527e615a7c76c7780bc1d39235",
+        "bytes": 2424279,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "status": "S1-selection-intermediate",
+      "currentUseDecision": null
+    },
+    {
+      "record": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/contact-step2-v1.source.json",
+        "sha256": "0df16182599442e6611c928f50f182c8022010c313896518b9fb9a37a0bb2447",
+        "bytes": 7418,
+        "role": "actual Image prompt/input/output/observation receipt"
+      },
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/contact-mask-v1.png",
+        "sha256": "b148f62bfb9cc4a06de94be5d12ba5709de8bc0c32b02ab44c4d41dea8bdac94",
+        "bytes": 342462,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "status": null,
+      "currentUseDecision": {
+        "status": "held-natural-cushion-misselection",
+        "observedIssue": "Original-RGB shallow/deep browser view revealed a detached jagged natural bright cushion patch left of skirt, not an actual deliberate contact.",
+        "replacement": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/contact-mask-v2.png",
+          "sha256": "54e736454d24a0892f8a32ad2cf3e1c9def7723f6b2d8e7132a0a3e2c4ed283d",
+          "bytes": 319783,
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        "allowedAsFutureImageInput": false
+      }
+    },
+    {
+      "record": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/contact-step2-v2.source.json",
+        "sha256": "ab5fde33acd9a700c604b82c4d3f75baea071d9665809e8ce4f472b174125d1b",
+        "bytes": 5481,
+        "role": "actual Image prompt/input/output/observation receipt"
+      },
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/contact-mask-v2.png",
+        "sha256": "54e736454d24a0892f8a32ad2cf3e1c9def7723f6b2d8e7132a0a3e2c4ed283d",
+        "bytes": 319783,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "status": "mask-candidate-awaiting-original-rgb-review",
+      "currentUseDecision": {
+        "status": "superseded-incomplete-foot-shadow-receiver",
+        "observedIssue": "Original-RGB + dedicated empty background browser view showed only fine sole contact; wider real local source floor shade absent, weakening grounding.",
+        "replacement": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/contact-mask-v3.png",
+          "sha256": "f587afa60db2ddc8adc3765de66ddff2497453d0254ecbde92a804ef00254ca6",
+          "bytes": 303673,
+          "canvas": [
+            1536,
+            1024
+          ]
+        },
+        "allowedAsFutureImageInput": false
+      }
+    },
+    {
+      "record": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/contact-step2-v3.source.json",
+        "sha256": "46d7c3b01b939595f8807f492d94ae2b48493533b9966812e9516b465592e47f",
+        "bytes": 4911,
+        "role": "actual Image prompt/input/output/observation receipt"
+      },
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/contact-mask-v3.png",
+        "sha256": "f587afa60db2ddc8adc3765de66ddff2497453d0254ecbde92a804ef00254ca6",
+        "bytes": 303673,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "status": "mask-candidate-awaiting-original-rgb-composite-review",
+      "currentUseDecision": null
+    },
+    {
+      "record": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/figure-step1-v1.source.json",
+        "sha256": "c44b677bb7b1fa566e68ef9b488fe6a7b9831a347b591cf4b56182715f556fcc",
+        "bytes": 7316,
+        "role": "actual Image prompt/input/output/observation receipt"
+      },
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/figure-step1-marked-v1.png",
+        "sha256": "7d58298826d3388b36a7e59d225c53a0ae83b1d0f3ab73d90b1725abea25154b",
+        "bytes": 2312052,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "status": null,
+      "currentUseDecision": null
+    },
+    {
+      "record": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/figure-step2-v1.source.json",
+        "sha256": "3ceccf5ce1f408d353687c87201ea9bd9fe6e8f5b2ac2956a2a410ed758b20f5",
+        "bytes": 6397,
+        "role": "actual Image prompt/input/output/observation receipt"
+      },
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/figure-mask-v1.png",
+        "sha256": "e644bdb2df8911ca831b8982e82388418a2879d64223c7df3c23d62d0ea3fa31",
+        "bytes": 418291,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "status": null,
+      "currentUseDecision": null
+    }
+  ],
+  "sourceIntegrity": {
+    "allListedInputAndOutputShaReRead": true,
+    "problems": []
+  },
+  "scope": {
+    "newHumanMotherCells": 0,
+    "newRuntimeStates": 0,
+    "globalLedgerWritten": false,
+    "appOrBackendWritten": false,
+    "newTestsFixturesRunners": false,
+    "cleanup": "No original outputs, source records or review evidence removed."
+  }
+}

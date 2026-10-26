@@ -1,0 +1,757 @@
+{
+  "schemaVersion": 1,
+  "kind": "literary-room-creative-brief-index",
+  "owner": "mygo-b",
+  "status": "brief-only-awaiting-root-plate-and-Sakiko-pilot",
+  "cellCount": 72,
+  "characters": [
+    "anon",
+    "soyo"
+  ],
+  "activities": [
+    "chat",
+    "study",
+    "reading",
+    "planning",
+    "listening",
+    "rest",
+    "play",
+    "attention",
+    "resume"
+  ],
+  "palettes": [
+    "apricot",
+    "mist",
+    "violet",
+    "rain"
+  ],
+  "basis": "room-and-character-basis-v1.json",
+  "readableBriefs": {
+    "anon": "anon-literary-room-briefs-v1.md",
+    "soyo": "soyo-literary-room-briefs-v1.md"
+  },
+  "generationStarted": false,
+  "runtimeRegistered": false,
+  "cells": [
+    {
+      "id": "anon/chat/apricot",
+      "character": "anon",
+      "activity": "chat",
+      "palette": "apricot",
+      "title": "漂亮开场后，愿意把真话接住",
+      "support": "window-bench-near-table",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/0",
+      "generationReady": false
+    },
+    {
+      "id": "anon/chat/mist",
+      "character": "anon",
+      "activity": "chat",
+      "palette": "mist",
+      "title": "漂亮开场后，愿意把真话接住",
+      "support": "window-bench-near-table",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/1",
+      "generationReady": false
+    },
+    {
+      "id": "anon/chat/violet",
+      "character": "anon",
+      "activity": "chat",
+      "palette": "violet",
+      "title": "漂亮开场后，愿意把真话接住",
+      "support": "window-bench-near-table",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/2",
+      "generationReady": false
+    },
+    {
+      "id": "anon/chat/rain",
+      "character": "anon",
+      "activity": "chat",
+      "palette": "rain",
+      "title": "漂亮开场后，愿意把真话接住",
+      "support": "window-bench-near-table",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/3",
+      "generationReady": false
+    },
+    {
+      "id": "anon/study/apricot",
+      "character": "anon",
+      "activity": "study",
+      "palette": "apricot",
+      "title": "先承认那一步读快了",
+      "support": "writing-desk-chair",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/4",
+      "generationReady": false
+    },
+    {
+      "id": "anon/study/mist",
+      "character": "anon",
+      "activity": "study",
+      "palette": "mist",
+      "title": "先承认那一步读快了",
+      "support": "writing-desk-chair",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/5",
+      "generationReady": false
+    },
+    {
+      "id": "anon/study/violet",
+      "character": "anon",
+      "activity": "study",
+      "palette": "violet",
+      "title": "先承认那一步读快了",
+      "support": "writing-desk-chair",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/6",
+      "generationReady": false
+    },
+    {
+      "id": "anon/study/rain",
+      "character": "anon",
+      "activity": "study",
+      "palette": "rain",
+      "title": "先承认那一步读快了",
+      "support": "writing-desk-chair",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/7",
+      "generationReady": false
+    },
+    {
+      "id": "anon/reading/apricot",
+      "character": "anon",
+      "activity": "reading",
+      "palette": "apricot",
+      "title": "读到一点不愿立刻承认的自己",
+      "support": "window-bench-right",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/8",
+      "generationReady": false
+    },
+    {
+      "id": "anon/reading/mist",
+      "character": "anon",
+      "activity": "reading",
+      "palette": "mist",
+      "title": "读到一点不愿立刻承认的自己",
+      "support": "window-bench-right",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/9",
+      "generationReady": false
+    },
+    {
+      "id": "anon/reading/violet",
+      "character": "anon",
+      "activity": "reading",
+      "palette": "violet",
+      "title": "读到一点不愿立刻承认的自己",
+      "support": "window-bench-right",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/10",
+      "generationReady": false
+    },
+    {
+      "id": "anon/reading/rain",
+      "character": "anon",
+      "activity": "reading",
+      "palette": "rain",
+      "title": "读到一点不愿立刻承认的自己",
+      "support": "window-bench-right",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/11",
+      "generationReady": false
+    },
+    {
+      "id": "anon/planning/apricot",
+      "character": "anon",
+      "activity": "planning",
+      "palette": "apricot",
+      "title": "给最期待的事争取一席",
+      "support": "writing-desk-chair",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/12",
+      "generationReady": false
+    },
+    {
+      "id": "anon/planning/mist",
+      "character": "anon",
+      "activity": "planning",
+      "palette": "mist",
+      "title": "给最期待的事争取一席",
+      "support": "writing-desk-chair",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/13",
+      "generationReady": false
+    },
+    {
+      "id": "anon/planning/violet",
+      "character": "anon",
+      "activity": "planning",
+      "palette": "violet",
+      "title": "给最期待的事争取一席",
+      "support": "writing-desk-chair",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/14",
+      "generationReady": false
+    },
+    {
+      "id": "anon/planning/rain",
+      "character": "anon",
+      "activity": "planning",
+      "palette": "rain",
+      "title": "给最期待的事争取一席",
+      "support": "writing-desk-chair",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/15",
+      "generationReady": false
+    },
+    {
+      "id": "anon/listening/apricot",
+      "character": "anon",
+      "activity": "listening",
+      "palette": "apricot",
+      "title": "把准备好的玩笑收回去",
+      "support": "window-bench-near-table",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/16",
+      "generationReady": false
+    },
+    {
+      "id": "anon/listening/mist",
+      "character": "anon",
+      "activity": "listening",
+      "palette": "mist",
+      "title": "把准备好的玩笑收回去",
+      "support": "window-bench-near-table",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/17",
+      "generationReady": false
+    },
+    {
+      "id": "anon/listening/violet",
+      "character": "anon",
+      "activity": "listening",
+      "palette": "violet",
+      "title": "把准备好的玩笑收回去",
+      "support": "window-bench-near-table",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/18",
+      "generationReady": false
+    },
+    {
+      "id": "anon/listening/rain",
+      "character": "anon",
+      "activity": "listening",
+      "palette": "rain",
+      "title": "把准备好的玩笑收回去",
+      "support": "window-bench-near-table",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/19",
+      "generationReady": false
+    },
+    {
+      "id": "anon/rest/apricot",
+      "character": "anon",
+      "activity": "rest",
+      "palette": "apricot",
+      "title": "不必一直负责有趣",
+      "support": "window-bench-right",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/20",
+      "generationReady": false
+    },
+    {
+      "id": "anon/rest/mist",
+      "character": "anon",
+      "activity": "rest",
+      "palette": "mist",
+      "title": "不必一直负责有趣",
+      "support": "window-bench-right",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/21",
+      "generationReady": false
+    },
+    {
+      "id": "anon/rest/violet",
+      "character": "anon",
+      "activity": "rest",
+      "palette": "violet",
+      "title": "不必一直负责有趣",
+      "support": "window-bench-right",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/22",
+      "generationReady": false
+    },
+    {
+      "id": "anon/rest/rain",
+      "character": "anon",
+      "activity": "rest",
+      "palette": "rain",
+      "title": "不必一直负责有趣",
+      "support": "window-bench-right",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/23",
+      "generationReady": false
+    },
+    {
+      "id": "anon/play/apricot",
+      "character": "anon",
+      "activity": "play",
+      "palette": "apricot",
+      "title": "给一个小主意当场搭台",
+      "support": "window-bench-near-table",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/24",
+      "generationReady": false
+    },
+    {
+      "id": "anon/play/mist",
+      "character": "anon",
+      "activity": "play",
+      "palette": "mist",
+      "title": "给一个小主意当场搭台",
+      "support": "window-bench-near-table",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/25",
+      "generationReady": false
+    },
+    {
+      "id": "anon/play/violet",
+      "character": "anon",
+      "activity": "play",
+      "palette": "violet",
+      "title": "给一个小主意当场搭台",
+      "support": "window-bench-near-table",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/26",
+      "generationReady": false
+    },
+    {
+      "id": "anon/play/rain",
+      "character": "anon",
+      "activity": "play",
+      "palette": "rain",
+      "title": "给一个小主意当场搭台",
+      "support": "window-bench-near-table",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/27",
+      "generationReady": false
+    },
+    {
+      "id": "anon/attention/apricot",
+      "character": "anon",
+      "activity": "attention",
+      "palette": "apricot",
+      "title": "被轻轻叫到，念头还留在原处",
+      "support": "window-bench-near-table",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/28",
+      "generationReady": false
+    },
+    {
+      "id": "anon/attention/mist",
+      "character": "anon",
+      "activity": "attention",
+      "palette": "mist",
+      "title": "被轻轻叫到，念头还留在原处",
+      "support": "window-bench-near-table",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/29",
+      "generationReady": false
+    },
+    {
+      "id": "anon/attention/violet",
+      "character": "anon",
+      "activity": "attention",
+      "palette": "violet",
+      "title": "被轻轻叫到，念头还留在原处",
+      "support": "window-bench-near-table",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/30",
+      "generationReady": false
+    },
+    {
+      "id": "anon/attention/rain",
+      "character": "anon",
+      "activity": "attention",
+      "palette": "rain",
+      "title": "被轻轻叫到，念头还留在原处",
+      "support": "window-bench-near-table",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/31",
+      "generationReady": false
+    },
+    {
+      "id": "anon/resume/apricot",
+      "character": "anon",
+      "activity": "resume",
+      "palette": "apricot",
+      "title": "先把刚才那一页转回来",
+      "support": "window-bench-right",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/32",
+      "generationReady": false
+    },
+    {
+      "id": "anon/resume/mist",
+      "character": "anon",
+      "activity": "resume",
+      "palette": "mist",
+      "title": "先把刚才那一页转回来",
+      "support": "window-bench-right",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/33",
+      "generationReady": false
+    },
+    {
+      "id": "anon/resume/violet",
+      "character": "anon",
+      "activity": "resume",
+      "palette": "violet",
+      "title": "先把刚才那一页转回来",
+      "support": "window-bench-right",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/34",
+      "generationReady": false
+    },
+    {
+      "id": "anon/resume/rain",
+      "character": "anon",
+      "activity": "resume",
+      "palette": "rain",
+      "title": "先把刚才那一页转回来",
+      "support": "window-bench-right",
+      "briefRef": "anon-literary-room-briefs-v1.json#/cells/35",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/chat/apricot",
+      "character": "soyo",
+      "activity": "chat",
+      "palette": "apricot",
+      "title": "把“都可以”轻轻改成自己的选择",
+      "support": "window-bench-near-table",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/0",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/chat/mist",
+      "character": "soyo",
+      "activity": "chat",
+      "palette": "mist",
+      "title": "把“都可以”轻轻改成自己的选择",
+      "support": "window-bench-near-table",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/1",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/chat/violet",
+      "character": "soyo",
+      "activity": "chat",
+      "palette": "violet",
+      "title": "把“都可以”轻轻改成自己的选择",
+      "support": "window-bench-near-table",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/2",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/chat/rain",
+      "character": "soyo",
+      "activity": "chat",
+      "palette": "rain",
+      "title": "把“都可以”轻轻改成自己的选择",
+      "support": "window-bench-near-table",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/3",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/study/apricot",
+      "character": "soyo",
+      "activity": "study",
+      "palette": "apricot",
+      "title": "把难开口的基础问题放稳",
+      "support": "writing-desk-chair",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/4",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/study/mist",
+      "character": "soyo",
+      "activity": "study",
+      "palette": "mist",
+      "title": "把难开口的基础问题放稳",
+      "support": "writing-desk-chair",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/5",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/study/violet",
+      "character": "soyo",
+      "activity": "study",
+      "palette": "violet",
+      "title": "把难开口的基础问题放稳",
+      "support": "writing-desk-chair",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/6",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/study/rain",
+      "character": "soyo",
+      "activity": "study",
+      "palette": "rain",
+      "title": "把难开口的基础问题放稳",
+      "support": "writing-desk-chair",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/7",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/reading/apricot",
+      "character": "soyo",
+      "activity": "reading",
+      "palette": "apricot",
+      "title": "听见漂亮句子背后的停顿",
+      "support": "window-bench-right",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/8",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/reading/mist",
+      "character": "soyo",
+      "activity": "reading",
+      "palette": "mist",
+      "title": "听见漂亮句子背后的停顿",
+      "support": "window-bench-right",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/9",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/reading/violet",
+      "character": "soyo",
+      "activity": "reading",
+      "palette": "violet",
+      "title": "听见漂亮句子背后的停顿",
+      "support": "window-bench-right",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/10",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/reading/rain",
+      "character": "soyo",
+      "activity": "reading",
+      "palette": "rain",
+      "title": "听见漂亮句子背后的停顿",
+      "support": "window-bench-right",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/11",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/planning/apricot",
+      "character": "soyo",
+      "activity": "planning",
+      "palette": "apricot",
+      "title": "让两个人的愿望都留在桌上",
+      "support": "writing-desk-chair",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/12",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/planning/mist",
+      "character": "soyo",
+      "activity": "planning",
+      "palette": "mist",
+      "title": "让两个人的愿望都留在桌上",
+      "support": "writing-desk-chair",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/13",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/planning/violet",
+      "character": "soyo",
+      "activity": "planning",
+      "palette": "violet",
+      "title": "让两个人的愿望都留在桌上",
+      "support": "writing-desk-chair",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/14",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/planning/rain",
+      "character": "soyo",
+      "activity": "planning",
+      "palette": "rain",
+      "title": "让两个人的愿望都留在桌上",
+      "support": "writing-desk-chair",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/15",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/listening/apricot",
+      "character": "soyo",
+      "activity": "listening",
+      "palette": "apricot",
+      "title": "接住一句不那么周全的真话",
+      "support": "window-bench-near-table",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/16",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/listening/mist",
+      "character": "soyo",
+      "activity": "listening",
+      "palette": "mist",
+      "title": "接住一句不那么周全的真话",
+      "support": "window-bench-near-table",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/17",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/listening/violet",
+      "character": "soyo",
+      "activity": "listening",
+      "palette": "violet",
+      "title": "接住一句不那么周全的真话",
+      "support": "window-bench-near-table",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/18",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/listening/rain",
+      "character": "soyo",
+      "activity": "listening",
+      "palette": "rain",
+      "title": "接住一句不那么周全的真话",
+      "support": "window-bench-near-table",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/19",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/rest/apricot",
+      "character": "soyo",
+      "activity": "rest",
+      "palette": "apricot",
+      "title": "杯子放回去，自己也坐下来",
+      "support": "window-bench-near-table",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/20",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/rest/mist",
+      "character": "soyo",
+      "activity": "rest",
+      "palette": "mist",
+      "title": "杯子放回去，自己也坐下来",
+      "support": "window-bench-near-table",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/21",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/rest/violet",
+      "character": "soyo",
+      "activity": "rest",
+      "palette": "violet",
+      "title": "杯子放回去，自己也坐下来",
+      "support": "window-bench-near-table",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/22",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/rest/rain",
+      "character": "soyo",
+      "activity": "rest",
+      "palette": "rain",
+      "title": "杯子放回去，自己也坐下来",
+      "support": "window-bench-near-table",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/23",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/play/apricot",
+      "character": "soyo",
+      "activity": "play",
+      "palette": "apricot",
+      "title": "给漂亮借口留一处破绽",
+      "support": "window-bench-near-table",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/24",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/play/mist",
+      "character": "soyo",
+      "activity": "play",
+      "palette": "mist",
+      "title": "给漂亮借口留一处破绽",
+      "support": "window-bench-near-table",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/25",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/play/violet",
+      "character": "soyo",
+      "activity": "play",
+      "palette": "violet",
+      "title": "给漂亮借口留一处破绽",
+      "support": "window-bench-near-table",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/26",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/play/rain",
+      "character": "soyo",
+      "activity": "play",
+      "palette": "rain",
+      "title": "给漂亮借口留一处破绽",
+      "support": "window-bench-near-table",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/27",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/attention/apricot",
+      "character": "soyo",
+      "activity": "attention",
+      "palette": "apricot",
+      "title": "那句圆满话里，有个词还没落下",
+      "support": "window-bench-near-table",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/28",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/attention/mist",
+      "character": "soyo",
+      "activity": "attention",
+      "palette": "mist",
+      "title": "那句圆满话里，有个词还没落下",
+      "support": "window-bench-near-table",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/29",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/attention/violet",
+      "character": "soyo",
+      "activity": "attention",
+      "palette": "violet",
+      "title": "那句圆满话里，有个词还没落下",
+      "support": "window-bench-near-table",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/30",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/attention/rain",
+      "character": "soyo",
+      "activity": "attention",
+      "palette": "rain",
+      "title": "那句圆满话里，有个词还没落下",
+      "support": "window-bench-near-table",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/31",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/resume/apricot",
+      "character": "soyo",
+      "activity": "resume",
+      "palette": "apricot",
+      "title": "把礼貌松开一点，接回真实那页",
+      "support": "window-bench-right",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/32",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/resume/mist",
+      "character": "soyo",
+      "activity": "resume",
+      "palette": "mist",
+      "title": "把礼貌松开一点，接回真实那页",
+      "support": "window-bench-right",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/33",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/resume/violet",
+      "character": "soyo",
+      "activity": "resume",
+      "palette": "violet",
+      "title": "把礼貌松开一点，接回真实那页",
+      "support": "window-bench-right",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/34",
+      "generationReady": false
+    },
+    {
+      "id": "soyo/resume/rain",
+      "character": "soyo",
+      "activity": "resume",
+      "palette": "rain",
+      "title": "把礼貌松开一点，接回真实那页",
+      "support": "window-bench-right",
+      "briefRef": "soyo-literary-room-briefs-v1.json#/cells/35",
+      "generationReady": false
+    }
+  ]
+}

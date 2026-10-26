@@ -1,0 +1,116 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "cell": "sakiko/resume/violet",
+  "character": "sakiko",
+  "activity": "resume",
+  "palette": "violet",
+  "stage": "S2",
+  "assetType": "raw-Image-source-selection-mask-or-markup",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: background-extraction. Convert the correct newly marked S1 mother (image 1) to FINAL S2 fixed included receiving-material luminance mask. Image 2 is its exact clean approved mother only to distinguish deliberate flat-white marks from naturally pale linen/lamp/page highlights. Preserve exact source 1536x1024 canvas/coordinates.\n\nKeep ALL AND ONLY deliberate flat-white S1 receiver pieces WHITE with their TRUE edge/soft GREY falloff: the actual tiny/narrow underhem and hip contact fragments plus the complete compact floor-shadow receiver OUTSIDE and immediately below the two full shoes. The original colored shoes including all toe/outsole/heel pixels must become BLACK holes within/above the floor selection; do not fill shoe-shaped white blobs or redraw generic floor ovals. Preserve every actual marked seat fragment, no loss of a tiny island. Keep the actual source-local extent, no geometric expansion or reducing floor to thin sole line.\n\nTurn ALL other colored/naturally pale pixels PURE BLACK: full original person/hair/ribbons/face/hands/book/pages/covers/clothes/knees/calf socks/complete shoes, long unoccupied bench/pillows/knit, lamp/curtain/flowers/windows/lake/town/table/desk/chair/plants/shelves, all unmarked floor/rug/reflections and unrelated lighting/shadows. Natural patterned pale fabric must not survive as large support islands. No brightness-key threshold, no copied linen/wood pattern inside white or outline artwork.\n\nOutput ONE opaque exact 1536x1024 BLACK PNG with only unchanged intended local receivers white/true-soft-edge grey. No colored room/new shadow/body/objects, checkerboard/text/UI/grid/arrows/labels/boxes, crop/zoom/resize/recenter/shift. Original RGB will be drawn ONCE with MAX(F,S), fixed source with travel/slope/perspective0, not a portable independent caster.\n\nFor this VIOLET mother, ALL empty linen at x<940 must be BLACK. Real deliberate seat fragments lie only immediately below existing skirt/hip, not a long bench. Both shoe holes are near x1065..1240,y800..905, with exterior receiver near x1045..1270,y850..935; these ranges identify actual mark neighborhoods, never boxes to fill.",
+  "submittedPromptSha256": "c5199e0639325fdb017aec62780fe68662231f9f97d74ab4162a765ce87e36ce",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-violet/contact-step1-marked-v1.png",
+      "sha256": "025ec089a2768b4036b2030c8b510e705d18679d022a44eca8abb36f35b5f14b",
+      "personallyViewedBeforeCall": true
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-violet-literary-extension-v1.png",
+      "sha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    }
+  ],
+  "originalRgbOwner": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-violet-literary-extension-v1.png",
+    "sha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973",
+    "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-violet-literary-extension-v1.source.json",
+    "sourceRecordSha256": "097fe6bded9b9c54b0190de457584fcb7ed76958ab72068bea16e8652e985be6",
+    "rootMotherStaticReview": {
+      "status": "approved_static_mother",
+      "reviewer": "root",
+      "observed": "Youthful blue-purple hair/gold eyes, recognition looking toward a returning familiar person; actual hands support the book, two exposed knees/dark calf socks/complete shoes. Whole violet light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "reviewRecord": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/root-human-mother-primary-review-20261025.json"
+    }
+  },
+  "method": "Actual Image same-mother F1/F2 or S1/S2 chain. F is whole human/ribbons/hands/held book/clothing/knees/calf socks/complete shoes. S includes real source-local seat and full soft grounded floor receiver, not just sole line; original RGB MAX(F,S) drawn once only.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\sakiko\\shared-attention-v2\\layers\\resume-violet\\contact-mask-v1.png",
+    "sha256": "763f3247f1bb48d3b0645d94b161c8c65f4668f0877675d981c02f1f57d2c09d",
+    "bytes": 297094,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-a3f1b477-5052-49b7-9487-ceeb0f95b810.png",
+    "pngBytesUnchanged": true
+  },
+  "producerObservation": {
+    "personallyViewedFullNative": true,
+    "observation": "Full native black/white S2 viewed: narrow actual underhem/hip receivers and complete compact floor area outside the two black complete shoe silhouettes; unoccupied seat black, no broad natural-linen island or body. Exact original-RGB review pending."
+  },
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "sourceOrigin": [
+      0,
+      0
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": "included",
+    "independentCaster": false
+  },
+  "motherReconstructed": false,
+  "primaryLayerApproved": false,
+  "layerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "status": "producer-browser-inspected-awaiting-root-layer-review",
+  "inputBoundary": "Only current exact root-approved mother and its correct same-canvas working intermediates. No HOLD rain-attention-v2, white-sock resume-mist-v3, screenshot, audit collage or other mother mask.",
+  "promptFile": "contact-mask-v1.prompt.json",
+  "promptFileSha256": "80018761e8c763a39b6a9a03e1c39c28cff2a9e93fbdd02bf123783dacdb633d",
+  "generatedAt": "2026-10-26T00:12:46.257Z",
+  "nativeBrowserObservation": {
+    "at": "2026-10-26T00:27:48.611Z",
+    "reviewer": "/root/mujica_matrix",
+    "method": "Actual native SVG same original RGB once under MAX(L(F),L(S)), source/BG/union closeups",
+    "observations": [
+      {
+        "file": "browser-observations/mother-composite-v1.png",
+        "sha256": "f1095c711a00926a9ef9e53df30b65d3f4e3d497d99a196f3005a603a98991c7"
+      },
+      {
+        "file": "browser-observations/light-dark-checker-full-v1.png",
+        "sha256": "8362654b78b6f186ab0d0e04b3d2b8126cc2b8c04e0191b09795c19e1fea593f"
+      },
+      {
+        "file": "browser-observations/face-hair-original-union-composite-v1.png",
+        "sha256": "cd40ba24120cf1499b6e8669e872cad64889f401dfc13bf2ab636ec67e3f6a44"
+      },
+      {
+        "file": "browser-observations/book-seat-original-union-composite-v1.png",
+        "sha256": "8e66ad6b516c929b875cd6ac5e3e6a2109e6184dfa81bc921891ac6ed588a439"
+      },
+      {
+        "file": "browser-observations/shoes-contact-original-union-composite-v1.png",
+        "sha256": "9e0a70cd0eafcb320b1d1270674dbcaadd3080bcf063fed1659b1ab73e15acd0"
+      }
+    ]
+  }
+}

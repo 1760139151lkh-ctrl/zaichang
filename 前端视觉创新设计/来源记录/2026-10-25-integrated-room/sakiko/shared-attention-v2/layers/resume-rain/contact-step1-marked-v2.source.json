@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "cell": "sakiko/resume/rain",
+  "character": "sakiko",
+  "activity": "resume",
+  "palette": "rain",
+  "stage": "S1-fixed-outsole-contact-band",
+  "assetType": "raw-Image-source-selection-mask-or-markup",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Technical fixed-contact selection markup for this exact clean peaceful illustrated room, 1536x1024. Keep the whole original scene/person/book/camera unchanged. Paint white the real small cushion contact fragments below skirt/hip and the actual floor-contact footprint around both shoes.\n\nIMPORTANT precise contact convention: include the NARROW LOWEST ORIGINAL SHOE OUTSOLE CONTACT BAND together with its immediately adjoining floor shadow. Deliberately paint the real dark bottom rim along the toes, sole edge and heel-bottom WHITE, joined continuously to the white adjacent floor receiver. This band is part of the fixed original RGB contact footprint. Do not keep an unmarked/colored buffer or moat at that meeting line. Most of each shoe (vamp, upper, toe top, side panels, socks) stays original colored; ONLY its lowest actual outsole/floor-touch strip is included. A few pixels of real outsole overlap with the foreground mask are intentional and correct because the ORIGINAL RGB will be drawn ONCE under MAX(F,S), not twice. This is not an independent shadow layer.\n\nFollow the real original bottom contours of both complete shoes near x1030..1170,y800..905; mark the original toe/outsole/heel-bottom contact rims and the directly adjacent soft floor receiving material as one continuous selected patch. Preserve the original exterior soft shadow footprint near x1010..1200,y850..935, without broad new oval/rectangle or distant floor expansion. The existing object coordinates, shoes and their physical shapes must not be redrawn, shifted or scaled. All mentioned coordinates identify inspection neighborhoods, never fill boxes.\n\nSeat marks stay only the actual tiny/narrow underhem/hip touching fabric near x980..1320,y545..620. No long empty left seat, broad cushion, pillow/knit or naturally bright lamp/curtain/page selection. All unselected person/hair/ribbons/face/hands/held book/clothes/knees/calf socks/shoe uppers, window/furniture/lake/rug/room remain original COLORED. Preserve night local lamp pools, no new daylight patch.\n\nOutput one opaque exact 1536x1024 original-color room with ONLY intended contact material (including that very narrow actual outsole meeting band) painted FLAT WHITE and true soft outer falloff grey. No internal selection texture, new shadow/body/object, black background yet, text/UI/grid/arrows/labels/boxes, crop/zoom/resize/recenter/translation. Fixed source contact, travel/slope/perspective0.",
+  "submittedPromptSha256": "89fb65d7e83382a798909f5c81a68f5c039c2f79cabc840d3d0340eb8f3dbace",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.png",
+      "sha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    }
+  ],
+  "originalRgbOwner": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.png",
+    "sha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9",
+    "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.source.json",
+    "sourceRecordSha256": "1cf9daa11db3353467feae4a9ca4f68c711dce9b43be483e895e00b1f81440df",
+    "rootMotherStaticReview": {
+      "status": "approved_static_mother",
+      "reviewer": "root",
+      "observed": "Youthful blue-purple hair/gold eyes, recognition looking toward a returning familiar person; actual hands support the book, two exposed knees/dark calf socks/complete shoes. Whole rain light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "reviewRecord": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/root-human-mother-primary-review-20261025.json"
+    }
+  },
+  "method": "Actual Image same-mother F1/F2 or S1/S2 chain. F is whole human/ribbons/hands/held book/clothing/knees/calf socks/complete shoes. S includes real source-local seat and full soft grounded floor receiver, not just sole line; original RGB MAX(F,S) drawn once only.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\sakiko\\shared-attention-v2\\layers\\resume-rain\\contact-step1-marked-v2.png",
+    "sha256": "58ed555d4b8ed0b86aaf20dfd87de193a020a5b38873bd4fd15a2e1837844bf0",
+    "bytes": 2237739,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-6f4a4c24-660f-4797-af3e-558161cbc467.png",
+    "pngBytesUnchanged": true
+  },
+  "producerObservation": {
+    "personallyViewedFullNative": true,
+    "observation": "Full native revised S1 inspected: original small underhem contact and a tight continuous floor/outsole meeting selection directly beneath both shoes, with same local soft outer falloff; original scene stays colored and fixed. Deliberate contact convention includes narrow actual sole-contact band if needed under MAX once."
+  },
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "sourceOrigin": [
+      0,
+      0
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": "included",
+    "independentCaster": false
+  },
+  "motherReconstructed": false,
+  "primaryLayerApproved": false,
+  "layerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "status": "producer-candidate-awaiting-source-RGB-union-browser-and-root-review",
+  "inputBoundary": "Only current exact root-approved mother and its correct same-canvas working intermediates. No HOLD rain-attention-v2, white-sock resume-mist-v3, screenshot, audit collage or other mother mask.",
+  "promptFile": "contact-step1-marked-v2.prompt.json",
+  "promptFileSha256": "f69129e0559aecb59e7e3f579f153321a71a7521002309fb683a857221b347ce",
+  "generatedAt": "2026-10-26T00:24:14.898Z"
+}

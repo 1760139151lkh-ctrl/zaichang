@@ -1,0 +1,7 @@
+Use case: precise-object-edit.
+Asset type: exact source-space INCLUDED contact-receiver MASK, S STEP 2 of 2.
+The ONLY image input is a full 1536 x 1024 dry-night room mother with two intentional PURE WHITE receiver selections already painted in place: a narrow cushion/seat band immediately beneath the girl's real hip/thigh/skirt hem, and the small wood-floor contact band directly around/beneath BOTH shoes.
+
+Keep ONLY these deliberately painted white receiver areas WHITE at their EXACT existing source pixels and shapes. Turn ALL other source pixels to SOLID PURE BLACK, including the complete girl/hair/skin/cloth/shoes, all lamp highlights, window/town/stars, pillows, throw, room and floor outside those selected contact bands. This is conversion of the existing intentional white marking, not a newly drawn shadow.
+Preserve the marked contact perimeter, the small near-boundary overlaps and real holes; do not broaden, move, carve, simplify, recenter, invent a shadow or add white elsewhere. Do not whiten the whole bench/floor, and do not make a duplicate girl silhouette.
+Return ONE opaque grayscale black-and-white 1536 x 1024 mask, same original full canvas and x0,y0 coordinates. Solid white selected interiors, solid black elsewhere, fine natural edge only. No crop, zoom, offset, blur, labels, arrows or text.

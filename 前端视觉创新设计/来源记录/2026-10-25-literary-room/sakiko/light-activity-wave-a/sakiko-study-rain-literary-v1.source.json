@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "assetType": "literary-room-complete-activity-light-mother",
+  "id": "sakiko-study-rain-literary-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-study-rain-literary-v1.prompt.json",
+  "promptFileSha256": "51d21402741a2702d4f59f887dfff49bf647e12f113549697967ec4a32da2f6b",
+  "submittedPrompt": "Create one complete 1536×1024 landscape literary mother illustration of Togawa Sakiko. FIRST reference is the approved target empty room, camera and all illumination; SECOND is the exact approved same-activity apricot mother for Sakiko's identity, supported pose, apparent head/body size, objects and furniture support only. Preserve image 1's room camera, big window divisions, town/lake/mountains, curtains, shelves/desk, round lamp table, near right linen bench, plaid pillows, knitted throw, rug and foreground plants. Keep image 2's original youthful silver-blue long hair, clear golden irises, navy uniform details and actual body/hand/object relationships; hair strands, eyelids, irises and brows remain distinct. Do not paste a daytime figure or apply a theme tint to old lighting. Apricot hard solar highlights, white noon patches, window-grid/leaf shadows and bright floor rectangles in image 2 are NOT identity or pose and must not transfer. Repaint ALL hair, skin, paper, clothes, receiving furniture and floor under the first reference's actual illumination. No half-day/half-night division, new spotlight, UI, readable text/caption, new person or costume change. Preserve her own thought and judgment; no universal soothing smile, no theme-imposed sadness. One coherent lived-in scene with credible contact shadows.\n\nTarget is RAIN NIGHT. Match image 1's dark cloudy wet window with droplets/trails and warm town/lake reflections, dry warm interior lit by its existing ceramic/desk lamps and subtle cool dark window ambience. No stars, moon or daytime exterior. White fabric/paper is shaded warm off-white, skin/hair darker and gently lamp-lit; clear golden eyes without a spotlight. Remove hard daytime solar window-grid/leaf bands from ENTIRE floor, bench, person and clothes. Broad existing lamp pools/reflections remain, no sun rectangles, wet indoor furniture or automatic sadness.\n\nIMPORTANT STUDY POSE OVERRIDE: image 2 is the root-approved occupied LEFT DESK-CHAIR mother, not the bench study. Preserve its actual occupied chair orientation/back slats and support, body size at farther left desk depth, visible hip/seat around source(277,539), forearm/desktop around(194,391), notebook and pen, portable/local lamp state and foreground plant occlusion. The right bench stays empty. First empty plate controls room camera/large layout and target light, but must NOT reset occupied chair/support to an empty-chair pose or substitute the big right bench figure. Do not force full legs/feet to show through the plant or desk: contourComplete=false, natural original occlusion is valid. Preserve visible anatomy, actual writing grip, table surface and chair occlusion; no scaled/transplanted bench sprite.\nKeep the one actual pen gripped by her writing hand, page on desktop and chin-resting hand/elbow from image 2. Keep the brass desk lamp head/base and ceramic lamp exactly in their original positions/orientations, now lit for target rainy night. Remove inherited hard noon patches from chair, skirt, desk, skin and entire floor. Do not reset occupied chair to empty plate. No extra loose or floating pen.\n\nLiterary direction (original project performance, not canon or real user memory):\n那一步好像终于通了，她却没有急着庆祝。她还想认真听一听，你是不是在同一个地方看见了不同的路。\n认真和一页难题相处，允许未完成；有自己的判断，也愿意与你推敲。身体严格沿第二张正确左桌母图，不采用膝上本的bench姿态。\n雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。",
+  "submittedPromptSha256Utf8NoTrailingLF": "5e923dcfcc5cedc75fac710e816b93fc8c9c926bd41ac5f0abdc73aceb40a33e",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "role": "first-approved-target-room-and-all-lighting",
+      "approval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.primary-approval.json"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-pilot/sakiko-study-apricot-literary-desk-pilot-v1.png",
+      "sha256": "00629c2e6e5b55901244a534145ab3c9d8c2f9c3cbf2ec2de8668f33037ccb04",
+      "role": "second-root-approved-desk-writing-pose-for-canonical-study-not-additional-cell",
+      "approval": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/sakiko-desk-writing-literary-included-primary-admission-v1.json",
+        "sha256": "0819eb5326f5cbf678e96ebcc95855c52859bf90376377e2901ada3aa74bba62",
+        "rootApproved": true,
+        "note": "Direct root release selects desk-writing alternative for canonical study cell, not an additional matrix cell."
+      }
+    }
+  ],
+  "output": {
+    "file": "sakiko-study-rain-literary-v1.png",
+    "sha256": "b126b6b6b0b2880a693bf8671b1cafacd68f521e56c9b5843c9e99a88639c2d4",
+    "bytes": 2230695,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-8f6e2451-2a3f-4a1a-89ee-079ead69938d.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "primaryApproved": false,
+    "layerApproved": false
+  },
+  "status": "producer-viewed-awaiting-root-mother-review",
+  "producerReview": {
+    "reviewedAt": "2026-10-25T13:59:04.398166+00:00",
+    "method": "Personally inspected actual full native ImageGen output at 1536x1024 before next call.",
+    "observations": [
+      "Viewed full original: original left desk seated support/chair state preserved, right bench empty; visible hip/seat and forearm/table relation consistent with correct source.",
+      "Rain outside, dry room, actual two lamps relight person/page/desk/chair/floor coherently; no observed noon grid/leaf solar patches or floating extra pen.",
+      "Chin and writing hands coherent; foreground plant/chair naturally obscure lower contour, contourComplete=false, no unseen feet claimed."
+    ],
+    "issues": [],
+    "rootApprovalRequired": true
+  }
+}

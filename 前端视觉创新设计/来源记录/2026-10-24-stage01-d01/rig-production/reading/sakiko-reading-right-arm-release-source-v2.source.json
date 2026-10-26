@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "s01-d01-sakiko-reading-right-arm-release-source-v2",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "recordedAt": "2026-10-25T08:01:26Z",
+  "generationId": "exec-5d1f8870-fc26-4f5d-b37e-b5ef41ded186",
+  "prompt": "sakiko-reading-right-arm-release-source-v2.prompt.txt",
+  "inputs": [
+    {
+      "path": "../../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-mother.png",
+      "sha256": "8f2358c0af7a78451259d049517cf3dedfe011023fdbabc44ec4bd850d3e671b",
+      "role": "approved original READING mother; only image reference used for every generation in this folder"
+    }
+  ],
+  "output": "quarantine/sakiko-reading-right-arm-release-source-v2.png",
+  "sha256": "6cb26a6e357f0df9530c53b99b71d0310f22a40d84f26f3b3e414a6f36a15321",
+  "bytes": 2105729,
+  "canvas": {
+    "width": 1536,
+    "height": 1024
+  },
+  "outputMode": "RGB",
+  "character": "sakiko",
+  "sceneFamily": "sakiko-reading-apricot-room4",
+  "classification": "C",
+  "status": "rejected-quarantine",
+  "runtimeAllowed": false,
+  "staticReview": {
+    "producerInspected": true,
+    "observed": "Second same-scene release attempt still retained the original hand and added a raised one. It remained a three-hand scene and the new hand was too high.",
+    "limitation": "Stopped this repeated pose-generation route after the second same-type failure; returned only to the approved mother and changed to an unocclusion source plate."
+  },
+  "originalNotOverwritten": true,
+  "noCrossFamilyPixels": true,
+  "motionVerified": false,
+  "inAppVerified": false,
+  "runtimeRig": null,
+  "doNotUseAsGenerationReference": true
+}

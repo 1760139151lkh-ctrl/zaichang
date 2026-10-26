@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-attention-violet-figure-step1-v1",
+  "cell": "soyo/attention/violet",
+  "stage": "figure-step1-v1",
+  "tool": "image_gen.imagegen",
+  "actualToolArguments": {
+    "prompt": "Use case: precise-object-edit. Asset: original-position complete foreground selection markup, F1.\nThe ONLY input is this exact clean root-approved Soyo attention violet mother, 1536x1024. Preserve the entire original canvas, all source coordinates and camera framing. No crop/resize/zoom/centering/shift, no changes to pose, expression, proportions, wardrobe, linework or source geometry. This is technical selection/restoration for a FIXED original-RGB included layer, not a new character illustration. Root approved minor theme/pose differences; preserve this exact original.\nPaint the ENTIRE actual original girl PLUS her complete real lap-held book and any source-held pencil/bookmark SOLID PURE WHITE, an opaque silhouette including every fine hair strand, face/neck, complete hands/fingers, sailor uniform and all skirt hem folds/white trim, both full exposed knees and below-knee socks, and BOTH COMPLETE brown loafers including their darkest sole and heel edges. Keep source finger resting on the real lap book, both full hands and entire open book around x823..1030,y460..516; no invented pencil. All foreground object color/interior self-shading becomes fully white; naturally pale book pages must also be deliberately whitened as one complete book, not disappear into background. Keep actual small negative spaces between hair loops, limbs and pencil/hand/book contours in original background color. Do not join unrelated objects across a genuine empty gap. Keep every selected original outline where it already is; no dilation/erosion or template silhouette.\nAll environment remains ORIGINAL COLOR: full naturally pale cushion, curtains, flowers/lamp shade, cup and small books on side table, window/outside town, furniture, floor/rug and all independent floor/seat contact shading. Do not whiten naturally bright room areas, long bench strip or source shadow; those are not F. No new objects, text, arrows, mask checker/grid or background recoloring. Output one opaque full-color 1536x1024 PNG with only the deliberately white complete foreground at original location. Its RGB will never be used; later it only supplies a selection mask over unchanged original mother RGB once.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-attention-violet-literary-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "submittedPromptSha256": "58670b347d31b90dec763ba6a8c04513c3f5445090939f6226399afc7a6b4b83",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-attention-violet-literary-v1.png",
+      "sha256": "deee535f86c75f30fbcf67ec786fa060400787af8384f893efa113caa99c01cb",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-attention-violet-literary-v1.png",
+    "sha256": "deee535f86c75f30fbcf67ec786fa060400787af8384f893efa113caa99c01cb",
+    "bytes": 2365264,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    }
+  },
+  "rootPrimaryRecordSha256AtRead": "f6b3a0b7ac9974993b61553e907f0ebfa7c39763ebef7d33ca7efb215a99fbb2",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/attention-layers/violet/figure-step1-marked-v1.png",
+    "sha256": "b23999e964441950a813234ef7e264fe3536194eff3e17dc23f32b39f26716be",
+    "bytes": 2281923,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-1216635b-9c77-4ef8-8c14-c4c6dc09d42d.png",
+  "producerObservations": [
+    "Personally viewed full actual F1 output: entire person including fine hair/hands/complete lap book/whole shoes deliberately white; scene left colored, no large detached room selection seen.",
+    "Faint book/hand interior lines in selection markup need F2 to flatten opaque white; selected source RGB will still come from clean mother only."
+  ],
+  "status": "valid-F1-selection-intermediate-awaiting-F2",
+  "pngBytesUnchanged": true,
+  "pngPixelEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0
+}

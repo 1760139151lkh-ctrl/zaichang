@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "characterId": "soyo",
+  "neutralTime": "day",
+  "purpose": "neutral-presence-fixed-included-layer",
+  "kind": "same-mother-clean-empty-background",
+  "createdAt": "2026-10-26T01:28:46.528795+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "exactPromptFile": "background-v1.prompt.txt",
+  "promptSha256": "9acefb6583903b1d8ec8c2e7c7b7bc3d20618b5b233836ccaa9580d0d0c4b24f",
+  "requestFile": "background-v1.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/soyo-neutral-time-day-literary-v1.png",
+      "sha256": "b7389951fe91b57019a55aace462bd4e4efc61c455c17499743548b02cc1f062",
+      "role": "sole exact root-approved full day mother"
+    }
+  ],
+  "output": {
+    "file": "background-v1.png",
+    "sha256": "acd11ffbe64460d73cd272e3dcbbdb9a0c7a6986fa9f4c0a081602614c255576",
+    "bytes": 2314295,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "originalBasename": "exec-23fc9708-9192-4858-b5cb-6899a5d1a6a7.png",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteOutput": true,
+    "observations": [
+      "Girl/open book/shoes and local contacts removed, same opaque curtains and right bench/cushion/floor reconstructed.",
+      "Original camera and warm diffuse daytime room preserved; fixed union matching awaits native browser."
+    ],
+    "eligibleAsNextStepInput": true
+  },
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "countsToward360ExactActivities": false,
+  "pngPixelEditing": false,
+  "primaryStaticLayerApproved": true,
+  "primaryAdmissionRecord": "root-primary-layer-admission-v1.json",
+  "primaryApprovalScope": "Exact static fixed included layer in this same source canvas; no runtime, motion or activity360 acceptance"
+}

@@ -1,0 +1,32 @@
+Create one complete new literary-room companion mother artwork for cell anon/listening/rain, horizontal EXACT 1536 × 1024. TWO clean image inputs have distinct roles: IMAGE 1 is the target-theme EMPTY room, sole authority for room camera, furniture, view and full lighting. IMAGE 2 is the root-personally-approved APRICOT listening mother of THIS SAME Anon, a continuity reference for her correct youthful identity, clothing, actual seated body support, real object and human scale. Repaint the whole person and room into one unified target light field. Do NOT paste/cut out a figure, apply a flat color overlay, retain the sunny seed background, borrow another character, or create a UI screenshot.
+
+这是千早爱音／千早 愛音，MyGO!!!!!，不是祥子换色。她有长粉发与分束刘海、清楚灰蓝眼，青春学生的柔软面颊和不过长的轻下颌，聪明鲜活而非婴儿、木偶或成熟泛脸。羽丘原作服装结构：灰紫校服外套、浅色滚边、小金纽扣、白衬衫、深绿斜条领带、深绿与黄绿/金线格裙、深绿色膝下小腿长袜（袜口在膝以下、膝盖露出）、完整黑色乐福鞋。固有绿只属于衣服和自然植物，不成为绿色UI或全局染色。各色在当前光下自然变化，不能统一改灰。没有大型发饰，不加祥子的深发带、乐奈异色眼或猫元素。
+
+本幅相处，先有自己的事与真实共同对象：
+她把原本准备接的一句玩笑收回去，认真听对方还没讲完的细节。不是失去青春的冷脸，也不需要固定微笑；她的灰蓝眼有清醒而亲近的落点，双手已经安静落在膝边，闭合的薄册还在自己的座位旁。让视线与轻微身体朝向接住同一个画外说话者，给对方讲完的余地。
+这是项目原创的相处设想，册面只保留微淡不可读纸纹，不画能读出的引语、姓名、日期、历史消息、已经准备完成的声明或工具回执。
+
+Exact target creative brief, all details apply as a living moment rather than mechanical labels:
+id: anon/listening/rain
+character: anon
+activity: listening
+palette: rain
+title: 把准备好的玩笑收回去
+psychology: 她原本想接一句俏皮话，听出对方的话还没说完，便把那句暂时收在嘴边。 热闹不是她必须维持的任务；此刻的主动是认真留下来。 雨声没有替人把话说完，她愿意在近处听到结尾。
+gaze: 看向说话者，视线安定，偶尔落到自己放松的手。 看向同伴，偶尔随声音轻微侧头。
+relating: 给对方讲完的余地，自己的回应可以等一等。 把被需要的兴奋收小，让对方不必照顾她的反应。
+expression: 嘴唇轻合，眉眼清醒，笑没有固定挂着。 安静而有精神，眼里带关切。
+posture: 坐在长凳靠圆几的一端，身体微向同伴，双手自然落于膝边。
+support: window-bench-near-table
+props: 薄册合着放在自己身旁，杯留在圆几上。
+composition: 两人之间保留可说话的空处，灯和花作安静侧景。
+lighting: 暖灯照出眼与手的细节，夜窗保持低对比。
+
+夜雨暖金／完整雨夜：第一张空景的低对比深蓝雨窗、朦胧岸灯和室内暖瓷灯共同成立。暖光照出脸、手、纸折或书口，人物没有发光白边，深发/衣料有局部色层；雨滴在窗外/玻璃而非室内，不能保留晴日天光或把整屋压成黑。
+Material continuity: local shadow planes must still describe young face, hands, cloth folds, white collar, dark-green socks, black loafers and pink hair. Keep eyes/bangs readable in the room scale. Natural warmth is a relation of the actual light sources, never a global amber/gray wash. Expressions follow this activity's exact brief, not a universal grin or Sakiko avatar smile.
+
+Preserve IMAGE 1's complete close literary camera and mild perspective: large wooden window, same autumn lake town/mountains, ivory curtains, left writing desk and its original wood chair, shelf books/frames/plants, original round side table with blue-white porcelain lamp/cup/books/flowers, long wood window bench, linen cushion, right plaid cushions and knitted throw, wood floor/rug and softly blurred foreground plant. No furniture added or translated, no zoom/crop, moved window, extra desktop or floating stool. One person only, no extra off-camera hand. Table remains near original x435–690/top y500, left desk ends near x400 and chair stays near x260; these are room relations, not instructions to stretch the person.
+
+Retain the approved activity's real placement on the ACTUAL BENCH: the near-table bench position, leaving the table its original room. Hips and thighs visibly rest on and compress the cushion, knees connect through natural lower legs and ankles to complete black loafers with honest floor/contact shadows. Preserve the near-camera whole-body scale and complete visible head/hands/knees/shoes; do not lengthen shins, enlarge head, distort joints, or move furniture merely to fit a rectangle. Parallel or gently offset legs must be coherent, not a crossed-knee pose pretending two parallel flat feet. No fused hands, extra fingers, broken wrists or unsupported paper. Existing foreground occlusion stays honest; never move a limb into a gap without support.
+
+Keep real open visual breathing room on BOTH sides of the character, respecting the seed's useful placement and the intact room; leave the left desk/window air and the free right cushion/window readable. Do not add gray/white panels, fake content, bright blank cards or an artificial UI safe-zone. No collaged edges, stickers, labels, borders, logos, icons, overlays, arrows, watermark or split day/night. Refined fresh TWO-DIMENSIONAL hand-drawn anime figure and soft painted room must share the same air, light and contact; no official near-3D model material. Produce the whole coherent scene as a new original image.

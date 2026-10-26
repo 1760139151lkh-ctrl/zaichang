@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "root / primary agent",
+  "recordedAt": "2026-10-26T00:16:26.662839+00:00",
+  "source": "direct root collaboration message in this healthy session",
+  "exactPrimaryMessage": "root亲看Tomori day原PNG ee943e…70b7：闭帘无天气、2D青春灰紫短发/玫褐眼、笔停真实页/另一手扶页、坐垫髋腿与全鞋落地成立，准STATIC mother且可作同角色后续time-night完整姿势基底，不准layer/runtime/360。Tomori avatar-v3 986470…a9b9也亲看：短柔颊下巴、抬眼的亮意与不对称闭口笑、细2D发色眼色身份成立；准原画面部审美与identity generation参考，细发透明边缘/34/48真实圆框与runtime仍未验，不签它们。请保存root本消息分项准入，不把userApproved改true；后续night只准day母+已准头像+time-night净plate，别用别人脸/天气母/截图。其余Anon/Rana独立头像/日母继续，优先头像交根。",
+  "items": [
+    {
+      "file": "tomori-neutral-time-day-v1.png",
+      "sha256": "ee943e04da7a50748d3e331ed4339548b842388027d0a5fe360e95a4c2d270b7",
+      "approvedScope": "static time-only day mother and same-character time-night full-pose generation base",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false,
+      "original360ExactActivityCell": false
+    },
+    {
+      "file": "portrait/tomori-avatar-youth-v3.png",
+      "sha256": "986470992b8c303016d9b7b383138d5f2c66f962fb4453939cf0feeb43c6a9b9",
+      "approvedScope": "original portrait face aesthetics and identity generation reference only",
+      "generationInputAllowed": true,
+      "fineAlphaEdgesVerified": false,
+      "real34And48CircleVerified": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "userApproved": false
+}

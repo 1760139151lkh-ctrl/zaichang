@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-source-apricot-chat-complete-visible-person-white-in-room-intermediate",
+  "id": "figure-marked-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "figure-marked-v1.prompt.json",
+  "promptFileSha256": "51ec8170180515e2fa6cbe86e4768fc44ca5131a554c15aabc13e87ef35e1a85",
+  "submittedPrompt": "Use case: precise-object-edit. STEP1 COMPLETE original-position FOREGROUND markup, full1536x1024.\nImage1 is the ONLY input: the correct approved original Sakiko literary APRICOT CHAT mother. Keep the entire camera, person scale/pose, room objects, light and every coordinate unchanged.\nPaint the ENTIRE VISIBLE original Sakiko SOLID opaque PURE WHITE in that SAME colored room: all long hair strands/ribbons, face/neck, blouse/collar bow/cardigan/sleeves, both complete clasped hands/fingers resting on lap, every original plaid-skirt fold/pleat/dark lower trim and tip, both visible thighs/knees, both complete socks and BOTH complete brown loafers.\nFull foreground ownership is critical: include the ENTIRE dark PLAID SKIRT HEM and fine navy/black lower edging, even where it meets the cushion and could resemble shadow. Include every folded/outward fabric tip around original source x985..1325,y525..647. Include BOTH complete shoe uppers, toe ends, dark outsole/sole rims, heel walls and heel blocks, full bottom contour, around x878..1072,y819..934. These are search regions, not boxes to fill. Do not erode or shave off dark original figure-edge pixels as shadows.\nAll person interiors become opaque WHITE without eye/facial/finger/clothing/lace details or accidental holes; narrow original outer antialias only. Keep genuine background gaps between strands/limbs/fingers original color. Do not infer hidden anatomy or enlarge the silhouette.\nEverything non-person remains its ORIGINAL COLOR: cushion/pillows/knit throw, actual independent seat/floor shadows, side-table lamp/cup/books/flowers, desk/chair/shelves/plants, curtains/window/lake/town/hills, wood floor/rug and sunlight. Both hands are on her lap; there is NO held prop to add or select. Do not whiten room furniture or natural highlights and do not blacken/remove room in this step.\nNo redraw, resize, translation, pose change, crop, zoom, centering or new object. Return the SAME full1536x1024 opaque RGB source room with only this COMPLETE existing person flat WHITE. No UI/text/labels/grid/border/watermark/transparency.",
+  "submittedPromptSha256Utf8NoTrailingLF": "d69f4033412eef42ef106393daf1fc6b3a743c2283bbcf38ade131fa6d153fea",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.png",
+      "sha256": "8d8ca2d001893c16106ab797ec4a8a8c1e6576115a5a4c76ff1dd519eff4e2cd",
+      "role": "sole correct root-approved complete apricot chat mother; complete clothes/hands/legs/shoes at original coordinates, no wrong/old character input"
+    }
+  ],
+  "output": {
+    "file": "figure-marked-v1.png",
+    "sha256": "adc42fb233aed7bd6a8c781330816a70b3798ecacf72edd3cb2877d9645a0f82",
+    "bytes": 2322379,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-07ed6614-8315-4aac-8d3f-744004fe79e7.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  },
+  "status": "producer-viewed-original-output-included-chat-candidate-primary-pending",
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "activity": "chat",
+  "palette": "apricot",
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "fullImageResultRetainedInStore": false
+}

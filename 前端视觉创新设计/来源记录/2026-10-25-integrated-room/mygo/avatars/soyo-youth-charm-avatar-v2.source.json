@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "assetType": "independent-youth-charm-avatar",
+  "characterId": "soyo",
+  "tool": "image_gen.imagegen",
+  "mode": "text-to-image-zero-image-input",
+  "inputs": [],
+  "promptFile": "soyo-youth-charm-avatar-v2.prompt.txt",
+  "submittedPrompt": "为“在场”新创作长崎素世（長崎そよ / Nagasaki Soyo，MyGO!!!!!）的独立青春魅力头像。零图输入，重新画她此刻的人与心情，不用旧头像、场景裁头、别人的头换色或官网3D素材。方形真实透明背景，无圆盘、框、字、道具和房间。脸与头发约占85%，下缘只露很少颈肩及月之森校服的一点深蓝衣领、白色水手领深细边和灰蓝领结顶端；不画胸像、不为衣装占去半张画。头冠与两侧发轮廓留透明安全边，长发从下缘自然延续即可。\n\n这一张要表现她自己的愿望被认真珍惜以后，终于不再把笑当作得体礼貌。她本来习惯先顾着别人，刚刚却很直白地说了自己也想保留下来的一件小事。相熟的人没有把它当任性或随口一提，而是认真回应“那当然也要有你想要的那一份”。她意识到自己不必再绕着说，不必藏好每一种愿望，于是坦然地朝那个人笑出来。喜悦里有放下防备的一点轻松和年轻的明亮，也保有自己的主张，不是成熟母亲、姐姐客服或全盘迁就。这是本项目原创插画瞬间，不是宣称实际规划已改、原作往事或用户共同历史。\n\n请让青春的笑直接可见。头几乎正向、自然端正，别惯性大幅歪头或眯眼妩媚。清楚蓝色的双眼看向观看者，眼神坦荡、明亮，眼尾随笑意轻抬，下眼睑有轻轻的弧度，双眼仍睁开，不是半垂无情绪或冷淡的职业笑。眉间真正松开，一侧眉尾可有一点“你真的记得我也想要”的会意。闭合的嘴画出清楚、舒展的上扬笑弧，嘴角两边有自然细微不对称；不是平直嘴线、不只是0.1px变化，也不是大口傻笑或成人唇妆。笑带动面颊一点点，34–48px圆头像里仍先读到柔亮的笑与眼神，而非一张名字正确却冷的脸。脸颊只有健康暖意，不用红条纹、泪水、爱心说明心情。肩颈可以轻轻卸下，但画面只见一点。\n\n身份必须是同一位青春的素世：长浅棕头发，分束刘海、柔和弯曲的颊侧长发、略有卷势的发尾；蓝色虹膜；年轻学生的柔软面颊和轻而不过长的下颌、小巧自然鼻口。不要画成金发大波浪成年女性或成熟窄眼、浓妆、厚唇。没有固定大型发饰，不加蝴蝶结头饰、猫耳或贴纸。她能优雅也能清楚表达自己，这次的好看来自坦然快乐，而非母性或营业的讨好。\n\n二维手绘动画近景，干净的浅棕发与蓝眼、柔和自然日光、线条细腻而五官表达概括清楚，有生活里被接住的一瞬文学意味。不要写实照片、3D模型塑料、精修时尚肖像、巨大玻璃婴儿眼、妩媚半闭眼。鼻部不画硬白光块，皮肤与嘴唇不油亮，睫毛不靠厚妆。透明边缘干净，无彩色晕光、底圈或场景色块。让观看者看见的是：那个往往把愿望藏在周到后面的年轻女孩，此刻终于安心承认自己也很高兴。",
+  "readSources": {
+    "passport": {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/soyo.md",
+      "version": "2026-10-25",
+      "fullReadBeforeCall": true,
+      "sha256AtArchive": "1ec8b260d40f8363c096ed8392547dd276d2318df5aadbe34b1f51e51e2ed04e"
+    },
+    "method": {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "version": "2026-10-25/before-late-avatar-supplement",
+      "fullReadBeforeCall": true,
+      "note": "sha256AtArchive是归档时文件；头像补充节在前五次调用后由集成线加入，在Taki调用前已完整读到。所有调用均已落实用户新近景/青春/角色心情要求。",
+      "sha256AtArchive": "8d004e5b3c2065f8af9739c990f09b18df340a4c2e9720c5a9630f67387a365e"
+    }
+  },
+  "inspectionOnlyReference": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-youth-charm-avatar-v2.png",
+    "source": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-youth-charm-avatar-v2.source.json",
+    "role": "只亲看/读理解近景与笑意的方法；没有传入ImageGen。"
+  },
+  "wardrobeId": "tsukinomori-sailor-collar-only",
+  "facts": {
+    "officialSources": [
+      "https://mygo-movie.bang-dream.com/character/soyo/",
+      "https://bang-dream.com/artist/mygo/nagasaki-soyo/"
+    ],
+    "identityObserved": "长浅棕发、柔弯侧束与蓝眼，无固定大型发饰。",
+    "officialArtUse": "官网立绘只通过角色护照身份/衣装观察参考；未下载或传入本次生图，未收入public。",
+    "projectOriginal": "自己的愿望被珍惜，不再只把笑当礼貌，坦然明亮地高兴。 本次前因后果与相处是项目原创假想瞬间，不声称已查、已做或真实共同记忆。"
+  },
+  "output": {
+    "file": "soyo-youth-charm-avatar-v2.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-ce2e1136-abfb-4f24-80ac-4215fa4d5520.png",
+    "sha256": "f14cf584972ef3d165a2834a6240ea7a6183edda97ad8290e618f1ff1952df81",
+    "bytes": 2147405,
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "cornerAlpha": 0
+  },
+  "producerReview": {
+    "status": "producer_candidate_pending_primary",
+    "fullImagePersonallyViewed": true,
+    "observations": "原图亲看：浅棕长发和蓝眼、舒展闭口笑，正向近脸，颈肩只一点。眉里有轻微迟疑，后续小图需看是否仍读成温暖而非担心。",
+    "smallSizeReview": {
+      "method": "Chrome实际静态页面逐行亲看原PNG浅纸/深蓝灰底和真实34px/48px圆裁",
+      "page": "youth-charm-observe-v2.html",
+      "personallyViewed": true,
+      "cropCandidate": {
+        "imageWidthPercent": 114,
+        "imageHeightPercent": 114,
+        "leftPercent": -7,
+        "topPercent": -12,
+        "defaultObjectPosition": "50% 50%",
+        "notOldHalfBody160Percent": true
+      },
+      "observation": "新近景眼与笑意较旧冷稿更直接；未见明显背景板、白圈或发缘红黄框。34px不单独承载复杂心情故事；原图与runtime准入仍由root核。",
+      "runtimeChecked": false
+    }
+  },
+  "supersedesDirection": "旧independent-avatar-v1/Anon-v2仅保历史source和历史root静态结论；最新用户认为冷/无表情，已退出本轮后续输入。新稿零图输入，不是旧稿修嘴角。",
+  "primaryApproved": false,
+  "userApproved": false,
+  "runtimeAccepted": false,
+  "generationInputAllowed": false,
+  "humanMatrixCoverage": false,
+  "registered": true,
+  "currentAdmission": "registered-pending-latest-youth-face-proportion-review",
+  "primaryReview": {
+    "reviewer": "root",
+    "date": "2026-10-25",
+    "decision": "approved-independent-youth-avatar-static-only",
+    "source": "Explicit root collaboration message: personally viewed Ave four complete youth-charm-v2 originals, Ave five 34/48px light/dark circles, and MyGO five complete originals (Rana v3); permitted registry update, runtime still unverified.",
+    "completeOriginalPersonallyViewed": true,
+    "smallSizeCirclePersonallyViewedByRoot": false,
+    "smallSizeEvidence": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mygo/avatars/YOUTH_CHARM_README.md (producer browser observation; root small-size UI review still pending)",
+    "sourceOriginalSha256": "f14cf584972ef3d165a2834a6240ea7a6183edda97ad8290e618f1ff1952df81",
+    "scope": "Exact independent youth closeup and visible natural smile; not all emotions, full-body scenes, user adoption or runtime approval"
+  },
+  "registration": {
+    "registry": "src/renderer/companion-portraits.ts",
+    "runtimeCopy": "前端视觉创新设计/运行素材/companion/portraits/soyo-youth-charm-20261025.png",
+    "runtimeCopySha256": "f14cf584972ef3d165a2834a6240ea7a6183edda97ad8290e618f1ff1952df81",
+    "sourceCopyUnchanged": true,
+    "avatar": {
+      "left": "-7%",
+      "top": "-12%",
+      "width": "114%"
+    },
+    "actualRuntimeObserved": false
+  },
+  "historicalRootYouthSmileDirectionApproval": {
+    "reviewer": "root",
+    "date": "2026-10-25",
+    "decision": "approved-independent-youth-avatar-static-only",
+    "source": "Explicit root collaboration message: personally viewed Ave four complete youth-charm-v2 originals, Ave five 34/48px light/dark circles, and MyGO five complete originals (Rana v3); permitted registry update, runtime still unverified.",
+    "completeOriginalPersonallyViewed": true,
+    "smallSizeCirclePersonallyViewedByRoot": false,
+    "smallSizeEvidence": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mygo/avatars/YOUTH_CHARM_README.md (producer browser observation; root small-size UI review still pending)",
+    "sourceOriginalSha256": "f14cf584972ef3d165a2834a6240ea7a6183edda97ad8290e618f1ff1952df81",
+    "scope": "Exact independent youth closeup and visible natural smile; not all emotions, full-body scenes, user adoption or runtime approval"
+  },
+  "rootYouthSmileDirectionApproved": true,
+  "latestRequirementAccepted": false,
+  "latestUserFaceDirection": {
+    "source": "New user correction relayed by root after the first youth-smile static acceptance",
+    "requirements": "较短中下面部、饱满柔和脸颊、短下巴的原作青春比例，避免成人少妇脸且不幼儿化，保留每人辨识；另对祥子提出刘海、眼型、下巴、温柔可爱表情的精调",
+    "referenceSource": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-user-selected-youth-avatar-20261025.png",
+    "referenceSha256": "bc92a4e0096411b0e58b5e4dfc12d61b48bf255f0fd7a544c039ae9e4cd7fc32",
+    "scope": "Nine existing portraits remain connected but must be re-reviewed against this latest direction. Earlier root static smile approval does not prove all new requirements met.",
+    "runtimeAccepted": false
+  }
+}

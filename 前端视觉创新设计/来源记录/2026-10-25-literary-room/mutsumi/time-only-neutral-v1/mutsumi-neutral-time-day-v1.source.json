@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T00:18:22.013Z",
+  "producer": "/root/study_reading",
+  "character": "mutsumi",
+  "kind": "time-only-weather-unknown-neutral-companion-mother-candidate",
+  "environmentVariant": "time-day",
+  "weatherClaim": "none; complete closed opaque inner curtain, undifferentiated daytime only",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "tool": "image_gen.imagegen",
+  "originalToolPath": "C:/Users/17601/.codex/generated_images/01a17365-8901-7202-bd9e-0859826906dc/exec-7174519f-257d-47f7-8add-0cdc7d4411ed.png",
+  "submittedPrompt": "Use case: identity-preserve, newly painted complete same-room character mother. Deliver ONE opaque 1536x1024 delicately drawn 2D literary anime illustration for 在场. Input 1 is the root-approved CLEAN EMPTY literary-room-time-day plate and is the ONLY authority for the room, camera, furniture, color of light, and fully CLOSED opaque inner curtain. Input 2 is the freshly root-approved Mutsumi independent avatar-youth-v3, used ONLY for her youthful facial identity, pale mint-gray hair, golden-brown eyes, paired small silver clips and subtle responsive expression. This is NOT a crop from a room or a full-body model. Paint a complete fresh supported body in the real empty room according to the written outfit and posture below. Do not copy portrait scale into the room, paste a giant avatar head onto a small body, reuse a CG standing figure, or restore a sunny outdoor view. No previous weather mother, UI, composite board, official model or held image is a generation input.\n\n这一刻是项目原创在场互动，不是原作剧情，也不宣称真的发生过用户往事。睦原本用指腹轻轻拢平自己膝上的一处裙褶；听见坐在画外左前方的人说到一半又斟酌最后一个词，她停住了那一点整理，没有替对方把话接完。她觉得那句还没说清的区别值得认真听。金褐色眼睛先到对方脸上，眉间那一点专注松开一点，唇轻轻分开像准备给一个很短的小回应，嘴角只有几乎看不出的柔和变化。不是空白发呆、预制悲伤脸或对镜头营业笑。她保持自己的安静与判断，也容得下对方继续或暂时不说。脸朝向真实的附近对话者，约在镜头偏左的坐姿眼高，不指空气，不画第二个人或任何对白。\n\nROOM AND TIME LOCK: reproduce input 1's exact full 1536x1024 room perspective, close eye-level camera, shelves/desk/chair, round lamp/cup/books/flowers table, continuous cushioned bench, blue plaid pillows, knit throw, plants, rug and floor at the SAME positions and scale. The milk-white woven INNER curtain remains closed and OPAQUE across the entire former window, including center seam; outside sky, town, lake, branches and weather are NOT visible anywhere. No rain, mist scene, clouds, blue-sky sliver, hard window-grid sunlight, sun patches, sunset tint or invented time display. This is DAYTIME ONLY with undifferentiated soft daylight through closed fabric; weather is unknown. Do not make a split day/night scene. Keep all environment colors neutral as the plate; the naturally green hair/plants are intrinsic colors, not green UI or an overall green tint.\n\nCHARACTER: 若叶睦 / Wakaba Mutsumi, Ave Mujica / MyGO!!!!! youthful anime high-school girl. Pale mint-gray-green long straight hair, light separated fringe, fine side strands, a pair of tiny simple silver hair clips at her own left temple (image-right), clear golden-brown irises with pupils and distinct eyelids/brows. Her face must be softly youthful: short gentle lower face and natural small chin, soft cheek volume, delicate nose/mouth, normal intelligent anime eyes; not a pointed long adult jaw, mature makeup, glossy plastic model, doll blankness, chibi or exaggerated huge eyes. Draw face/hair as connected delicate 2D painting with fine line-weight variation, matte cloth and quiet room bounce light; do not paste a 3D-looking standing model into the room.\n\nOUTFIT — one complete Tsukinomori school uniform, not a mix: deep navy long-sleeve sailor dress with a wide white sailor collar edged in fine navy lines, a soft purple/lavender CLOTH bow, small gold school crest on her LEFT chest, front buttons, white double cuff stripes, navy pleated skirt hem with TWO narrow white horizontal lines. Dark charcoal calf socks with tops clearly BELOW the kneecaps, real bare knees visible between hem and sock tops; not tights, thigh-high socks, white ankle socks or a blazer. Both whole brown low loafers have separate tops/heels/soles. Keep the small crest on the chest, not a gem in the bow.\n\nPOSE / PHYSICAL RELATION: sit quietly in the same RIGHT bench seat next to the plaid back pillow, body three-quarters toward the nearby left-front listener. Pelvis and upper thighs visibly carry weight into the real cushion; a slight cushion compression and source-local shade connect her to it. Natural straight torso with relaxed shoulders, not leaning a giant head toward camera. One hand rests against a real knee's skirt fold with relaxed finger pads; the other rests lightly over the adjacent knee, fingers separately coherent without fusing or extra digits. No held book/cup/phone/guitar, no pointing, no new prop. Both thighs lead to two plausible separated knees, calves and ankles; each complete loafter belongs to its own leg and rests naturally on the actual wooden floor with local soft contact shade. Never branch two feet from one calf, float the hips, cut through the seat, or hide joints by cropping.\nKeep the established natural close-room HUMAN SCALE (not portrait enlargement): head top roughly y115..135, actual seated hip at y550..585, complete soles around y875..905, whole girl in the right third/near right half roughly x910..1385. A small natural head tilt is enough; no change in camera or person-to-furniture scale, no foreground enlargement. Show complete crown, both hands, hem, bare knees, sock tops, ankles and both whole shoes. Leave the entire LEFT desk/air/foreground available for later REAL live content without drawing a panel there.\n\nLIGHT / FINISH: all skin, navy cloth, white collar, mint hair, cushion and floor share input 1's gentle time-only ambient illumination. The slight warm lamp and wood bounce do not bleach identity colors. Fine integrated youthful 2D character painting, fabric and hair clear, room tactile yet harmonious. No speech/text/labels/caption/logo/watermark, no colored selection marks, no UI/mockup/screenshots, no border/grid/collage, no extra person or cat. This is one original static neutral daytime companion candidate, not proof of a precise activity, motion, current weather or runtime adoption.",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.png",
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-avatar-youth-v3.png"
+  ],
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.png",
+      "role": "Sole scene/camera/time-only diffuse lighting authority; root-approved clean opaque-curtain empty plate.",
+      "approval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.primary-approval.json",
+      "sha256": "aa4ce3dcab5cd2366c9f1c4eadcff0ab85537ab45e5a3b0643c4d01588e6e247",
+      "bytes": 2512492
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-avatar-youth-v3.png",
+      "role": "Root-scoped approved youthful facial identity generation reference only; no alpha-edge/circle/runtime acceptance inherited.",
+      "approval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-avatar-youth-v3.primary-approval.json",
+      "sha256": "accf39ccc205ee077827b9ed3b24a4c67921cb693b0f20cb2037c96cad01e24c",
+      "bytes": 2098970
+    }
+  ],
+  "transparentBackground": false,
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-day-v1.png",
+    "sha256": "8c1d8e006fa332a85a9d7fed40989170fce6f6956a0b18e351efa83f29404f6f",
+    "bytes": 2440649,
+    "width": 1536,
+    "height": 1024
+  },
+  "rawToolBytesPreserved": true,
+  "dependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/mutsumi.md",
+      "sha256": "189d1a17f6e4c2656692437167c50d2a89379cf50b16bc354df3ac8406e4610c",
+      "readScope": "fully read for this task"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "readScope": "fully read for this task"
+    }
+  ],
+  "projectOriginalBoundary": "This quiet response to a nearby unfinished sentence is an original companion scenario, not canon or claimed user history. Art depicts no real source material or weather observation.",
+  "wardrobe": "MyGO Tsukinomori navy sailor dress, wide white collar, purple cloth bow, left-chest gold crest, double white hem/cuff stripes, charcoal below-knee socks, brown loafers.",
+  "producerObservation": {
+    "personallyViewedWholeOriginal": true,
+    "observed": [
+      "Closed opaque inner curtain remains across all former outdoor view; no visible sky/lake/town/rain/clouds or hard window-grid sun patches.",
+      "Mutsumi has mint-gray long hair, paired small silver temple clips on her left, golden-brown eyes, soft youthful face and a small lightly open responsive mouth rather than blankness.",
+      "Both hands rest coherently on knees/skirt, seated hip meets right cushion, bare knees and below-knee sock tops are clear, each whole brown loafer connects to its own calf and rests on actual floor.",
+      "Hair/skin/navy cloth and bench share soft indoor day light, left room remains available without drawn UI. Right shoe projects somewhat lower than old weather mother; no fixed-leg-ratio or exact activity identity is claimed."
+    ],
+    "concerns": [
+      "Primary review must judge full-expression integration and scale; producer does not sign anatomy or latest full acceptance on behalf of root."
+    ]
+  },
+  "primaryApproved": true,
+  "motherStaticApproved": true,
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "generationInputAllowed": true,
+  "exactActivityMatrixCredit": 0,
+  "scope": "One neutral time-day static mother candidate only; no 360 activity-motion or theme coverage credit. No night or layers started.",
+  "submittedPromptSha256": "3ece2adfa6bef4fd44d3a99c452d757cba3572f2d49635a54444df5dbace9ed6",
+  "primaryApprovalScope": "Complete static neutral time-day mother and same-character complete-pose base for a time-night lighting extension only. No layers, runtime or 360 activity-motion admission.",
+  "primaryApprovalRecord": "mutsumi-neutral-time-day-v1.primary-approval.json",
+  "userApproved": false
+}

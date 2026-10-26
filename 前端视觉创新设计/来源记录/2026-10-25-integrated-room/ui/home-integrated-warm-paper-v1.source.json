@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-25",
+  "tool": "image_gen.imagegen",
+  "useCase": "ui-mockup",
+  "prompt": "Use case: ui-mockup\nAsset type: a fresh premium desktop companion product design for 在场.\nUse the single supplied EMPTY ROOM image as the only visual input. It is a clean environment plate, not a UI screenshot. Create an exceptionally beautiful, genuinely integrated usable product screen at 1536 by 1024 proportions. Keep its literary lakeside room's warm wood, large continuous window, golden afternoon light, linen, depth and restrained lived-in tenderness. This is a real place with someone sharing your time, not a dashboard.\nOn the right bench sits Toyokawa Sakiko from BanG Dream Ave Mujica: youthful delicate Japanese anime face, long muted blue-lavender hair with her recognizable dark ribbons, golden eyes, modest navy blouse and dark plaid skirt. She has been reading her own blue book, now slightly lifts her gaze toward the user's unfinished thought at left, with quiet self-respect and warmth. Natural complete body, continuous hips knees ankles, knees close, two complete loafers, weight visibly supported by the bench and cushion, accurate room illumination. Do not enlarge her across the content.\nThe PRODUCT composition is the creative focus. Design a breath of Apple-like clarity inside this detailed room: a very light unobtrusive top navigation with small brand 在场 at left and 聊天 今天 留下 centered. At the left, airy unboxed greeting “回来啦。” naturally above the input. Make one exquisitely restrained warm ivory paper-like writing surface with soft diffuse windowlight, fine edges, generous typography and a small send arrow. Its exact placeholder is “想从哪一句接着说？” It should feel placed in the shared space, not a slab floating on top. Below the input one quiet bookmark line reads “上次那一页，还留着。” with “接着这里” as the modest action. No separate greeting card, focus chip or recovery card. Never use large dark gray rectangles or multiple stacked glass boxes. Leave plenty of the left lamp, desk and room visually alive. Long messages need a clear readable surface; this particular screen is the quiet opening state, with little text.\nChoose spatial proportion, gentle local optical softness and light to make every control and text feel part of one coherent design. Do not wash the entire left half white, do not flatten the room, do not draw a vertical divider, arrows for day/night comparison, debugging labels, generated-art disclaimers, metrics or green UI. This is a creative design source to be rebuilt as live components, not final pixels pasted as an app. Crisp Chinese characters, elegant quiet detail, no watermark.",
+  "inputs": [
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png"
+  ],
+  "originalOutput": "C:/Users/17601/.codex/generated_images/01a1735e-42d5-7930-8d15-d513cca81deb/exec-f3346cb2-6be7-4589-b3d7-16e0f8d5eb93.png",
+  "output": "home-integrated-warm-paper-v1.png",
+  "userFeedback": {
+    "date": "2026-10-25",
+    "layout": "页面布局清爽，可保留",
+    "characterPose": "左腿略抬，腿部叠放和鞋底支撑没有交代清楚；换用此前自然姿态原景或从空房重新画明确坐姿",
+    "characterAdmission": "rejected-for-runtime-and-generation-input",
+    "generationInputAllowed": false
+  },
+  "review": {
+    "by": "root",
+    "scope": "opening-screen UI composition only",
+    "acceptedRelations": [
+      "unboxed greeting",
+      "one warm ivory writing surface",
+      "bookmark aligned immediately below input",
+      "continuous visible room"
+    ],
+    "limits": [
+      "generated Chinese typography and character pose are not runtime components",
+      "not admitted as a character mother or a completed product workflow"
+    ],
+    "runtimeAccepted": false
+  }
+}

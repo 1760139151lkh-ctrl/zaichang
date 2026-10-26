@@ -1,34 +1,45 @@
 import { Portal, IconButton, Modal, WindowControls, uiError } from './ui';
 import { SettingsPanel, type SettingsDraft } from './SettingsPanel';
 import { NotesPanel } from './NotesPanel';
+import type { KeepPage, KeepSnapshot, KeepSnapshotInput, KeepWorkLocator } from '../shared/keep';
+import { KeepPanel, type KeepSectionKind } from './KeepPanel';
 import { MaterialsPanel, type MaterialQuote } from './MaterialsPanel';
-import { materialQuoteAddress, type MaterialQuoteReference } from '../shared/materials';
+import { materialQuoteAddress, type MaterialQuoteReference, type MaterialItem } from '../shared/materials';
+import { MATERIAL_DOCUMENT_MIME, readMaterialDocumentTransfer, type MaterialDocumentAddress } from './materials/material-document-transfer';
 import { noteQuoteAddress, type NoteQuote, type NoteQuoteReference } from '../shared/notes';
-import type { AgendaFocus } from '../shared/agenda';
+import type { AgendaFocus, AgendaReference } from '../shared/agenda';
 import type { SharedMapRoute } from '../shared/map-context';
 import { LocalSearchPanel } from './LocalSearchPanel';
 import { ComposerActions } from './ComposerActions';
 import { FocusContextChip } from './FocusContextChip';
+import { currentWorkspaceTarget, resolveWorkspaceTargetRect, sameWorkspaceTarget, workspaceSendContext, workspaceSurface, workspaceTargetAtSend, workspaceTargetKey } from './workspace-context';
+import type { CompanionD01Target } from './companion-d01-motion';
+import { workspaceSettingsContextSchema, type WorkspaceSettingsContext, type WorkspaceTarget } from '../shared/workspace-context';
+import { readAppearance } from './appearance';
 import { environmentTimeLabels } from './presentation/environment-time';
 import { LetterHistoryCard } from './LetterHistoryCard';
 import { PlanningOfferCard } from './PlanningOfferCard';
 import { ConversationComposerDockContext, useConversationComposerDock } from './ConversationComposerDock';
 import { ReadingDivider } from './ReadingDivider';
+import { ReadingDesk, type ReadingDeskItem, type OpeningRect } from './ReadingDesk';
+import { AttachmentTray, type AttachmentTrayItem } from './AttachmentTray';
+import { QuietNotice } from './QuietNotice';
 import { SourceBookmarkProvider, type StudyBookmarkDestination } from './SourceBookmarkTray';
 import type { SourceBookmarkReference, ConversationBookmarkReference } from '../shared/source-bookmark';
-import { MessageBookmarkSource } from './MessageBookmarkSource';
+import { MessageBookmarkSource, authoredMessageContent } from './MessageBookmarkSource';
 import { SCENE_FRAME_MIME, readSceneFrameTransfer } from '../shared/scene-transfer';
 import { discussionArtworkLabel } from '../shared/discussion-scene';
 import './scene-transfer.css';
 import { FocusLamp } from './FocusLamp';
-import { focusSession } from './focus-session';
+import { EdgeCompanion, type EdgeCompanionPlacement } from './EdgeCompanion';
+import { focusSession, type FocusSession } from './focus-session';
 import { ReturnBookmark } from './ReturnBookmark';
 import { useWorkspaceReturn, type WorkspaceReturnAddress, type WorkspaceReturnCheckpoint,
   type MaterialReturnAddress, type NoteReturnAddress, type AgendaReturnAddress } from './workspace-return';
 import { companionSceneMoment } from './companion-variants';
 import { currentCompanionActivity } from '../shared/companion-activity';
 import { ConversationTextFocusContext } from './ConversationTextFocus';
-import { createPortal } from 'react-dom';
+import { createPortal, flushSync } from 'react-dom';
 import type { LocalSearchLocator } from '../shared/search';
 import type { StudyInteraction, StudyNativeInput } from '../shared/study-presentation';
 import type { CompanionFollowupReference } from '../shared/companion-source';
@@ -39,9 +50,10 @@ import type { NoteNativeInput, NoteReference } from '../shared/note-presentation
 import type { RehearsalInteraction, RehearsalRef } from '../shared/relationship-rehearsal';
 import './workspace-continuation.css';
 import './composer-continuation.css';
+import './reading-desk-integration.css';
 import { AgendaView, type AgendaViewPosition, type WorkspaceView } from './Workspace';
 import { Navigation } from './Navigation';
-import { CompanionAvatar, CompanionScene, RestSpace, prefersQuietMotion, useCompanion } from './companion';
+import { CompanionAvatar, CompanionScene, RestSpace, companionAuthorArtwork, companionRoomFrame, prefersQuietMotion, useCompanion, type CompanionRoomLayout } from './companion';
 import { Fragment, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import {
   ArrowDown,
@@ -64,9 +76,10 @@ import {
   Monitor,
   Quote,
   Pencil,
-  Coffee,
+  LampDesk,
   BookOpen,
   SlidersHorizontal,
+  Columns2,
 } from 'lucide-react';
 import { RichText } from './RichText';
 import { DEFAULT_TIME_ZONE, formatDateTime, fromTimeInput, timeZoneLabel, toTimeInput } from './time';
@@ -79,7 +92,7 @@ import {
   type MatterInteractionUpdate,
 } from './LifePanels';
 import type { PreparationFocusContext, PreparationFocusReference, SharedMatterView, SurfaceView } from '../shared/presentation';
-import type { Action, ActionEffectRef, Draft, Memory, Message, NavigationTarget, ReleaseArtifact, State } from '../shared/types';
+import { getDraftAttachments, withDraftAttachments, type ReplySourceAddress, type DraftAttachment, type TextAttachment, type Action, type ActionEffectRef, type Draft, type Memory, type Message, type NavigationTarget, type ReleaseArtifact, type State } from '../shared/types';
 import { LIMITS } from '../shared/limits';
 import { emptyRoute, type MapRouteResult } from '../shared/map-v2';
 import { MapRouteCard, type MapContextHandoff } from './map/CampusMap';
@@ -90,6 +103,7 @@ import { flushProgramLocalStates } from './presentation/program-local-state';
 import { campusExamTypeLabel, interleaveViews, type PresentationView, type ViewAnchor, type SemanticSelection } from '../shared/scenes';
 import {
   ReplyEvidence,
+  ChatProcess,
   ScopeSettings,
   FeedbackControl,
   needName,
@@ -100,6 +114,29 @@ import {
 const api = window.zaichang;
 type Panel = 'history' | null;
 type ActionResult = { ok: boolean; error?: string };
+interface RoomPaperPosition {
+  sourceKey: string;
+  mode: 'side' | 'stacked';
+  paperSide: 'left' | 'right';
+  left: number;
+  width: number;
+  stageLeft: number;
+  stageTop: number;
+  stageWidth: number;
+  stageHeight: number;
+  contentTop: number;
+}
+interface UnsentSubmission {
+  kind?: 'draft';
+  id: string;
+  ownerKey: string;
+  sequence: number;
+  draftKey: string;
+  boundary: string;
+  draft: Draft;
+  delivery: 'not-sent' | 'unconfirmed';
+  processing?: boolean;
+}
 type PresentationFollowup = { text: string; studyInteraction?: StudyInteraction; companionReference?: CompanionFollowupReference;
   curiosityReference?: CuriosityFollowupReference; letterReference?: LetterReference; focusOnly?: boolean; focusLabel?: string;
   programReference?: ProgramFollowupReference; preparationReference?: PreparationFocusReference;
@@ -108,6 +145,7 @@ type PresentationFollowup = { text: string; studyInteraction?: StudyInteraction;
 type ComposerFollowup = PresentationFollowup & {
   token: number; sessionId?: string; messageId: string; boundary: string; insertedText?: string;
 };
+type WorkspaceComparisonReference = { target: WorkspaceTarget; label: string; readProgramInputs?: () => ProgramStateValues | undefined };
 function automaticFollowupKey(request: PresentationFollowup, messageId: string) {
   return request.curiosityReference ? `${messageId}/${request.curiosityReference.id}/${request.curiosityReference.revision}`
     : request.rehearsalInteraction ? `${messageId}/rehearsal/${request.rehearsalInteraction.ref.id}/${request.rehearsalInteraction.ref.revision}` : '';
@@ -121,6 +159,9 @@ function isPrimaryHelp(ref: NonNullable<Message['helpRefs']>[number], primary: M
 const formatDate = formatDateTime;
 function errorText(error: unknown) {
   return uiError(error);
+}
+function appendKeepPage<T>(first: KeepPage<T>, next: KeepPage<T>, identity: (value: T) => string): KeepPage<T> {
+  return { ...next, offset: first.offset, items: [...new Map([...first.items, ...next.items].map(item => [identity(item), item])).values()] };
 }
 
 export function App() {
@@ -144,12 +185,40 @@ export function App() {
   const [sessionId, setSessionId] = useState<string>();
   const sessionRef = useRef<string | undefined>(undefined);
   const [input, setInput] = useState('');
-  const [attachment, setAttachment] = useState<Draft['attachment']>(null);
+  const [composerFocused, setComposerFocused] = useState(false);
+  const [composerWriting, setComposerWriting] = useState(false);
+  const [attachments, setAttachments] = useState<DraftAttachment[]>([]);
+  const attachment = attachments[0] || null;
   const draftRef = useRef<Draft>({ text: '', attachment: null }),
     draftKey = useRef('new'),
     draftRevision = useRef(0),
     navigation = useRef(0);
   const settingsDraft = useRef<SettingsDraft>({});
+  const [settingsContext, setSettingsContext] = useState<WorkspaceSettingsContext>();
+  const settingsContextRef = useRef<WorkspaceSettingsContext | undefined>(undefined);
+  function clearSettingsContext() { settingsContextRef.current = undefined; setSettingsContext(undefined); }
+  function snapshotSettingsContext(returnView: 'settings' | 'companion' | 'memory') {
+    if (!state) return;
+    const navigation = settingsDraft.current.navigation, room = settingsDraft.current.companion;
+    const tab = navigation?.tab || (returnView === 'companion' ? '陪伴' : returnView === 'memory' ? '记忆' : '偏好');
+    const savedAppearance = readAppearance();
+    const saved = { character: companion.character, palette: savedAppearance.palette, environmentMode: savedAppearance.environmentMode,
+      presence: companion.presence, reducedMotion: companion.reducedMotion, readingScale: savedAppearance.readingScale, density: savedAppearance.density };
+    const preview = room ? { ...saved, character: room.preference.character, palette: room.palette,
+      environmentMode: room.environmentMode || saved.environmentMode, presence: room.preference.presence, reducedMotion: room.preference.reducedMotion } : undefined;
+    const personaPreview = settingsDraft.current.personaPreview?.candidate.core || settingsDraft.current.persona?.core;
+    const section = tab === '陪伴' ? 'companion' : tab === '交流' ? 'persona' : tab === '偏好' ? 'reading'
+      : tab === '资料' ? 'campus_connection' : tab === '记忆' ? 'memory' : 'connection';
+    const parsed = workspaceSettingsContextSchema.safeParse({ section,
+      phase: tab === '陪伴' && room ? 'preview' : tab === '交流' && settingsDraft.current.personaPreview ? 'import_preview'
+        : tab === '交流' && settingsDraft.current.persona ? 'editing' : 'saved',
+      ...(navigation?.tiyiFocus ? { connectionFocus: navigation.tiyiFocus } : {}),
+      appearance: { saved, ...(preview ? { preview } : {}) },
+      persona: { revision: state.settings.persona.revision, selectedPreset: state.settings.persona.core.presetId,
+        ...(personaPreview ? { previewPreset: personaPreview.presetId } : {}) }, returnTo: { view: returnView, tab } });
+    if (!parsed.success) return;
+    settingsContextRef.current = parsed.data; setSettingsContext(parsed.data);
+  }
   const [memoryWorkspace, setMemoryWorkspace] = useState(emptyMemoryWorkspace);
   const [draftReady, setDraftReady] = useState(false);
   const [loadAttempt, setLoadAttempt] = useState(0),
@@ -164,12 +233,55 @@ export function App() {
   const [memoryNotice, setMemoryNotice] = useState<Memory | null>(null);
   const [panel, setPanel] = useState<Panel>(null);
   const [view, setView] = useState<WorkspaceView>('chat');
+  const previousSettingsView = useRef(view);
+  useEffect(() => {
+    const previous = previousSettingsView.current;
+    if (previous !== view && (previous === 'settings' || previous === 'companion' || previous === 'memory')) snapshotSettingsContext(previous);
+    previousSettingsView.current = view;
+  }, [view]);
   const [readingPane, setReadingPane] = useState<'reader' | 'chat'>('reader');
+  const [edgeAnchor, setEdgeAnchor] = useState<HTMLFormElement | null>(null);
+  const [edgePlacement, setEdgePlacement] = useState<EdgeCompanionPlacement>(() => {
+    try {
+      const value = JSON.parse(localStorage.getItem('zaichang.edge-companion-placement.v1') || 'null');
+      if (value && typeof value.edgeId === 'string' && value.edgeId.length <= 180
+        && ['top', 'right', 'bottom', 'left'].includes(value.side) && Number.isFinite(value.ratio) && value.ratio >= 0 && value.ratio <= 1) return value;
+      const saved = localStorage.getItem('zaichang.edge-companion-position.v1'), ratio = Number(saved);
+      return { edgeId: 'composer', side: 'top', ratio: saved !== null && Number.isFinite(ratio) ? Math.max(0, Math.min(1, ratio)) : .82 };
+    } catch { return { edgeId: 'composer', side: 'top', ratio: .82 }; }
+  });
+  const edgeCall = useRef<{ sequence: number; navigation: number; boundary: string; sessionId?: string; messageIds: Set<string> } | undefined>(undefined);
+  const [readingSide, setReadingSide] = useState<'start' | 'end'>(() => {
+    try { return localStorage.getItem('zaichang.reading-side.v1') === 'end' ? 'end' : 'start'; } catch { return 'start'; }
+  });
+  const swapReadingSide = () => setReadingSide(previous => {
+    const next = previous === 'start' ? 'end' : 'start';
+    try { localStorage.setItem('zaichang.reading-side.v1', next); } catch { /* The same papers can still change sides. */ }
+    return next;
+  });
   const [resting, setResting] = useState(false);
-  const [focusActive, setFocusActive] = useState(false);
+  const [focusStatus, setFocusStatus] = useState<FocusSession['status']>(() => focusSession.get().status);
+  const focusActive = focusStatus === 'running';
+  const appMainRef = useRef<HTMLDivElement>(null);
+  const conversationSpaceRef = useRef<HTMLDivElement>(null);
+  const [roomLayout, setRoomLayout] = useState<CompanionRoomLayout | null>(null);
+  const [roomPaperPosition, setRoomPaperPosition] = useState<RoomPaperPosition | null>(null);
+  const roomPaperPositionRef = useRef(roomPaperPosition);
+  roomPaperPositionRef.current = roomPaperPosition;
+  const startFocus = useCallback(() => {
+    if (focusSession.get().status === 'paused') focusSession.resume();
+    else focusSession.start();
+  }, []);
+  const openRest = useCallback(() => setResting(true), []);
   const [chatSpace, setChatSpace] = useState<'auto' | 'window' | 'reading'>('auto');
   const [compactConversation, setCompactConversation] = useState(() => matchMedia('(max-width: 900px)').matches);
-  useEffect(() => { setChatSpace('auto'); }, [sessionId]);
+  useEffect(() => {
+    const call = edgeCall.current;
+    if (call && call.sequence === sendSequence.current && call.sessionId === sessionId
+      && call.navigation === navigation.current && call.boundary === boundaryRevision.current) return;
+    edgeCall.current = undefined;
+    setChatSpace('auto');
+  }, [sessionId]);
   useEffect(() => {
     const media = matchMedia('(max-width: 900px)');
     const resize = () => { rememberReadingPosition(); setCompactConversation(media.matches); };
@@ -177,10 +289,28 @@ export function App() {
     return () => media.removeEventListener('change', resize);
   }, []);
   const [notesOpened, setNotesOpened] = useState(false);
+  const [keepOpened, setKeepOpened] = useState(false);
   const [materialsOpened, setMaterialsOpened] = useState(false);
   const [agendaOpened, setAgendaOpened] = useState(false);
   const [notesUnsaved, setNotesUnsaved] = useState(false);
   const [materialUnsaved, setMaterialUnsaved] = useState(false);
+  const bookmarkUnsaved = useRef(false);
+  const [bookmarkResetKey, setBookmarkResetKey] = useState(0);
+  const [keepContentRevision, setKeepContentRevision] = useState(0);
+  const [keepWriting, setKeepWriting] = useState(false);
+  const keepSelection = useRef<{ boundary: string; key: string } | undefined>(undefined);
+  const [keepSelectionRequest, setKeepSelectionRequest] = useState<{ key: string; requestId: number }>();
+  const [keepResult, setKeepResult] = useState<{ boundary: string; snapshot: KeepSnapshot }>();
+  const [keepLoading, setKeepLoading] = useState(false), [keepLoadingMore, setKeepLoadingMore] = useState<KeepSectionKind>();
+  const [keepError, setKeepError] = useState('');
+  const keepRequest = useRef(0);
+  const actionEdits = useRef(new Map<string, { sessionId: string; messageId: string; dirty: boolean; pending: boolean }>());
+  const reportActionEdit = useCallback((sessionId: string, messageId: string, id: string, dirty: boolean, pending: boolean) => {
+    const key = `${sessionId}/${messageId}/${id}`;
+    if (dirty || pending) actionEdits.current.set(key, { sessionId, messageId, dirty, pending });
+    else actionEdits.current.delete(key);
+  }, []);
+  useEffect(() => { actionEdits.current.clear(); }, [state?.privacyEpoch, state?.policyRevision, state?.sourceBoundary]);
   const [agendaPosition, setAgendaPosition] = useState<AgendaViewPosition>();
   const [searchTarget, setSearchTarget] = useState<{ locator: LocalSearchLocator; requestId: number }>();
   const [preparationRequest, setPreparationRequest] = useState<PreparationFocusReference & { requestId: number }>();
@@ -188,9 +318,11 @@ export function App() {
   const searchNavigation = useRef(0), locatedSearch = useRef(0);
   useEffect(() => { setSearchTarget(undefined); }, [state?.privacyEpoch, state?.policyRevision, state?.sourceBoundary]);
   useEffect(() => {
-    if (searchTarget && view !== ({ conversation: 'chat', note: 'notes', material: 'materials' } as const)[searchTarget.locator.kind]) setSearchTarget(undefined);
+    if (searchTarget && !(view === 'keep' && searchTarget.locator.kind === 'material')
+      && view !== ({ conversation: 'chat', note: 'notes', material: 'materials' } as const)[searchTarget.locator.kind]) setSearchTarget(undefined);
   }, [view]);
   useEffect(() => { if (view === 'notes') setNotesOpened(true); }, [view]);
+  useEffect(() => { if (view === 'keep') setKeepOpened(true); }, [view]);
   useEffect(() => { if (view === 'materials') setMaterialsOpened(true); }, [view]);
   useEffect(() => { if (view === 'agenda') setAgendaOpened(true); }, [view]);
   const viewRef = useRef(view);
@@ -202,6 +334,8 @@ export function App() {
   const returnInteraction = useRef(false), returnDismissedGesture = useRef(-1), returnNavigation = useRef(0), returnRestoring = useRef(false);
   const returnOwners = useRef<{ material?: MaterialReturnAddress; note?: NoteReturnAddress; agenda?: AgendaReturnAddress }>({});
   const [materialResume, setMaterialResume] = useState<{ address: MaterialReturnAddress; requestId: number }>();
+  const unsettledKeepMaterial = useRef<{ resourceId: string; sha256: string } | undefined>(undefined);
+  const [keepReaderReadyRevision, setKeepReaderReadyRevision] = useState(0);
   const [noteResume, setNoteResume] = useState<{ address: NoteReturnAddress; requestId: number }>();
   const [agendaResume, setAgendaResume] = useState<{ address: AgendaReturnAddress; requestId: number }>();
   const pendingReturnPosition = useRef<{ checkpoint: WorkspaceReturnCheckpoint; ticket: number; boundary: string; gesture: number;
@@ -226,10 +360,11 @@ export function App() {
     }
     returnStudyToken.current = undefined;
     returnNavigation.current++; returnRestoring.current = false; pendingReturnPosition.current = undefined;
-    setMaterialResume(undefined); setNoteResume(undefined); setAgendaResume(undefined);
+    setMaterialResume(undefined); setNoteResume(undefined); setAgendaResume(undefined); setKeepSelectionRequest(undefined);
   }
   function clearReturnBoundary() {
-    cancelReturnResume(); returnOwners.current = {}; returnInteraction.current = false;
+    cancelReturnResume(); returnOwners.current = {}; returnInteraction.current = false; keepSelection.current = undefined;
+    unsettledKeepMaterial.current = undefined;
     returnTaskFocus.current = 'surface';
     startupReturnBoundary.current = ''; setStartupReturn(undefined); workspaceReturn.forget();
     if (returnCaptureTimer.current) clearTimeout(returnCaptureTimer.current);
@@ -268,6 +403,10 @@ export function App() {
   const reportMaterialReturn = useCallback((address: MaterialReturnAddress | undefined) => {
     if (returnBoundary !== boundaryRevision.current || surfaceMode.current === 'public') return;
     returnOwners.current.material = address; queueReturnCapture();
+    if (address && unsettledKeepMaterial.current?.resourceId === address.resourceId
+      && unsettledKeepMaterial.current.sha256 === address.sha256) {
+      unsettledKeepMaterial.current = undefined; setKeepReaderReadyRevision(value => value + 1);
+    }
   }, [returnBoundary]);
   const reportNoteReturn = useCallback((address: NoteReturnAddress | undefined) => {
     if (returnBoundary !== boundaryRevision.current || surfaceMode.current === 'public') return;
@@ -298,6 +437,9 @@ export function App() {
   const [toast, setToast] = useState('');
   const [starting, setStarting] = useState(false);
   const sendPending = useRef(false), sendSequence = useRef(0);
+  const queueHostAvailable = useRef<boolean | undefined>(undefined);
+  const sendReceipts = useRef(new Map<string, { sequence: number; receive: (message: Message) => void }>());
+  const [unsentSubmissions, setUnsentSubmissions] = useState<UnsentSubmission[]>([]);
   const composing = useRef(false);
   const [composerFollowup, setComposerFollowup] = useState<ComposerFollowup>();
   const composerFollowupRef = useRef<ComposerFollowup | undefined>(undefined);
@@ -323,6 +465,32 @@ export function App() {
   const sceneSelectionRequest=useRef(0);
   const [materialQuote, setMaterialQuote] = useState<MaterialQuote>();
   const materialQuoteRef = useRef<MaterialQuote | undefined>(undefined);
+  type DocumentReference = { reference: MaterialDocumentAddress; name: string; mediaType: string };
+  const [materialDocument, setMaterialDocument] = useState<DocumentReference>();
+  const materialDocumentRef = useRef<DocumentReference | undefined>(undefined);
+  const [deskOpenRequest, setDeskOpenRequest] = useState<{ id: string; requestId: number }>();
+  const [deskOpeningRect, setDeskOpeningRect] = useState<OpeningRect>();
+  const readerReturnFocus = useRef<HTMLElement | null>(null);
+  const deskOpenSequence = useRef(0);
+  const [activeDeskId, setActiveDeskId] = useState<string>();
+  const dirtyDeskIds = useRef(new Set<string>());
+  const [deskExtras, setDeskExtras] = useState<{ boundary: string; items: ReadingDeskItem[] }>({ boundary: '', items: [] });
+  const [materialLibrary, setMaterialLibrary] = useState<{ boundary: string; items: MaterialItem[] }>({ boundary: '', items: [] });
+  const [documentPreview, setDocumentPreview] = useState<DocumentReference>(), [documentPreviewPending, setDocumentPreviewPending] = useState(false);
+  const [documentDropActive, setDocumentDropActive] = useState(false), [documentReaderDropActive, setDocumentReaderDropActive] = useState(false), [documentPreviewIssue, setDocumentPreviewIssue] = useState('');
+  const documentRequest = useRef(0), documentReturnFocus = useRef<HTMLElement | null>(null);
+  function clearMaterialDocument(clearPreview = true) {
+    materialDocumentRef.current = undefined; setMaterialDocument(undefined);
+    if (clearPreview) {
+      documentRequest.current++; setDocumentPreview(undefined); setDocumentPreviewPending(false); setDocumentPreviewIssue(''); setDocumentDropActive(false);
+      documentReturnFocus.current = null;
+    }
+  }
+  function cancelDocumentPreview(restoreFocus = false) {
+    documentRequest.current++; setDocumentPreview(undefined); setDocumentPreviewPending(false); setDocumentPreviewIssue(''); setDocumentDropActive(false);
+    const origin = documentReturnFocus.current; documentReturnFocus.current = null;
+    if (restoreFocus && origin?.isConnected) origin.focus({ preventScroll: true });
+  }
   const materialConversationTarget = useRef<HTMLElement>(null);
   function clearMaterialQuote() { materialQuoteRef.current = undefined; setMaterialQuote(undefined); }
   const [noteQuote, setNoteQuote] = useState<NoteQuote>();
@@ -333,6 +501,170 @@ export function App() {
   function clearConversationQuote() { conversationQuoteRef.current = undefined; setConversationQuote(undefined); }
   const [agendaContext, setAgendaContext] = useState<{ focus: AgendaFocus; label: string }>();
   const agendaContextRef = useRef<typeof agendaContext>(undefined);
+  const [comparisonAnchor, setComparisonAnchor] = useState<WorkspaceComparisonReference>();
+  const comparisonAnchorRef = useRef<typeof comparisonAnchor>(undefined);
+  const [comparisonContinuation, setComparisonContinuation] = useState<WorkspaceComparisonReference>();
+  const comparisonContinuationRef = useRef<typeof comparisonContinuation>(undefined);
+  const noteAddressChanges = useRef(new Map<string, { revision: number; sha256: string; state: 'active' | 'deleted' }>());
+  const [noteAddressRevision, setNoteAddressRevision] = useState(0);
+  async function loadKeptContent(kind?: KeepSectionKind) {
+    if (!state || isPublicSurface() || viewRef.current !== 'keep') return;
+    const request = ++keepRequest.current, boundary = boundaryRevision.current;
+    const previous = keepResult?.boundary === boundary ? keepResult.snapshot : undefined;
+    const page = kind ? previous?.[kind] : undefined;
+    if (kind && (!page?.hasMore || page.nextOffset === undefined)) return;
+    const offsets = { notes: 'notesOffset', materials: 'materialsOffset', works: 'worksOffset', conversations: 'conversationsOffset' } as const;
+    const input: KeepSnapshotInput = kind ? { [offsets[kind]]: page!.nextOffset } : {};
+    if (kind) setKeepLoadingMore(kind); else setKeepLoading(true);
+    setKeepError('');
+    try {
+      const next = await api.keepSnapshot(input);
+      if (request !== keepRequest.current || boundary !== boundaryRevision.current || isPublicSurface()) return;
+      const nextBoundary = `${next.boundary.privacyEpoch}:${next.boundary.policyRevision}:${next.boundary.sourceBoundary}`;
+      if (nextBoundary !== boundary) return;
+      setKeepResult(current => {
+        if (!kind || !current || current.boundary !== boundary || current.snapshot !== previous) return { boundary, snapshot: next };
+        const snapshot = { ...current.snapshot, boundary: next.boundary };
+        if (kind === 'notes') snapshot.notes = appendKeepPage(snapshot.notes, next.notes, item => item.id);
+        else if (kind === 'materials') snapshot.materials = appendKeepPage(snapshot.materials, next.materials, item => item.resourceId);
+        else if (kind === 'conversations') snapshot.conversations = appendKeepPage(snapshot.conversations, next.conversations, item => item.id);
+        else snapshot.works = appendKeepPage(snapshot.works, next.works, item => `${item.locator.sessionId}/${item.locator.messageId}/${item.locator.programId}/${item.locator.revision}`);
+        return { boundary, snapshot };
+      });
+    } catch (error) {
+      if (request === keepRequest.current && boundary === boundaryRevision.current && !isPublicSurface()) setKeepError(uiError(error, { operation: 'open' }));
+    } finally {
+      if (request === keepRequest.current) { setKeepLoading(false); setKeepLoadingMore(undefined); }
+    }
+  }
+  useEffect(() => {
+    if (view === 'keep' && draftReady && state?.presentation?.mode !== 'public') void loadKeptContent();
+    return () => { keepRequest.current++; };
+  }, [view, draftReady, state?.privacyEpoch, state?.policyRevision, state?.sourceBoundary, keepContentRevision, noteAddressRevision, state?.conversations]);
+  const attachmentInventory = attachments.map(item => item.attachmentId || (item.kind === 'text' ? item.resource?.resourceId || item.name : item.name)).join('|');
+  useEffect(() => {
+    if (!draftReady || view !== 'materials' || surfaceMode.current === 'public') return;
+    const boundary = boundaryRevision.current;
+    let live = true;
+    void api.materialsList({ sessionId }).then(items => {
+      if (live && boundary === boundaryRevision.current && surfaceMode.current !== 'public') setMaterialLibrary({ boundary, items });
+    }).catch(error => { if (live && boundary === boundaryRevision.current && surfaceMode.current !== 'public') notify(uiError(error, { operation: 'open' })); });
+    return () => { live = false; };
+  }, [draftReady, view, sessionId, state?.privacyEpoch, state?.policyRevision, state?.sourceBoundary, attachmentInventory, messages.length, messages.at(-1)?.status, noteAddressRevision]);
+  function attachmentViewId(item: DraftAttachment) {
+    return item.kind === 'text' && item.resource ? item.resource.resourceId : item.attachmentId || `${item.kind}:${item.name}`;
+  }
+  function attachmentDeskItem(item: DraftAttachment): ReadingDeskItem {
+    if (item.kind === 'image') return { id: attachmentViewId(item), kind: 'image', name: item.name, image: item };
+    return item.resource ? { id: item.resource.resourceId, kind: 'material', name: item.name, pending: item,
+      address: { resourceId: item.resource.resourceId, sha256: item.resource.sha256,
+        ...(item.resource.mediaType === 'application/pdf' ? { page: 1 } : {}), offset: 0 } }
+      : { id: attachmentViewId(item), kind: 'text', name: item.name, text: item.text };
+  }
+  function attachmentTrayItem(item: DraftAttachment): AttachmentTrayItem {
+    return { id: attachmentViewId(item), kind: item.kind === 'image' ? 'image' : item.resource ? 'document' : 'text',
+      name: item.name, ...(item.kind === 'image' ? { image: item } : { mediaType: item.resource?.mediaType }) };
+  }
+  const readingDeskItems: ReadingDeskItem[] = [...new Map<string, ReadingDeskItem>([
+    ...attachments.map(attachmentDeskItem),
+    ...(materialLibrary.boundary === boundaryRevision.current ? materialLibrary.items.map((item): ReadingDeskItem => ({ id: item.resourceId,
+      kind: 'material', name: item.name, address: { resourceId: item.resourceId, sha256: item.sha256,
+        ...(item.mediaType === 'application/pdf' ? { page: 1 } : {}), offset: 0 } })) : []),
+    ...(deskExtras.boundary === boundaryRevision.current ? deskExtras.items : []),
+  ].reverse().map(item => [item.id, item] as const)).values()].reverse();
+  function openDeskItem(item: ReadingDeskItem) {
+    if (!draftReady || navigationPending.current || isPublicSurface()) return;
+    const boundary = boundaryRevision.current;
+    setDeskExtras(previous => ({ boundary, items: [...(previous.boundary === boundary ? previous.items.filter(value => value.id !== item.id) : []), item] }));
+    const requestId = ++deskOpenSequence.current;
+    if (viewRef.current === 'keep') {
+      const main = appMainRef.current?.getBoundingClientRect(), object = appMainRef.current?.querySelector<HTMLElement>('.keep-object')?.getBoundingClientRect();
+      const header = appMainRef.current?.querySelector<HTMLElement>('.titlebar')?.getBoundingClientRect();
+      if (main && object && header) {
+        const top = header.bottom + 12;
+        const openFrames = appMainRef.current?.querySelectorAll('.reading-desk-frame:not([hidden])').length || 0;
+        setDeskOpeningRect({ id: item.id, requestId, rect: { x: object.left + Math.min(2, openFrames) * 24, y: top, width: Math.min(540, object.width),
+          height: 250 } });
+      }
+    } else { setDeskOpeningRect(undefined); setView('materials'); }
+    setDeskOpenRequest({ id: item.id, requestId });
+    setMaterialsOpened(true); setReadingPane('reader');
+  }
+  function openAttachment(item: DraftAttachment) { openDeskItem(attachmentDeskItem(item)); }
+  function clearDeskReadings() {
+    unsettledKeepMaterial.current = undefined;
+    setDeskExtras({ boundary: '', items: [] }); setMaterialLibrary({ boundary: '', items: [] });
+    setDeskOpenRequest(undefined); setActiveDeskId(undefined); dirtyDeskIds.current.clear();
+    setDeskOpeningRect(undefined);
+  }
+  function openDocumentFrame(address: MaterialDocumentAddress) {
+    const queued = getDraftAttachments(draftRef.current).find(item => item.kind === 'text' && item.resource?.resourceId === address.resourceId);
+    const available = readingDeskItems.find(item => item.id === address.resourceId);
+    if (queued) { openAttachment(queued); return; }
+    const name = available?.name || materialDocumentRef.current?.name || '这一份资料';
+    openDeskItem({ id: address.resourceId, kind: 'material', name, address });
+  }
+  function removeAttachment(id: string) {
+    if (busy || !draftReady || navigationPending.current || isPublicSurface()) return;
+    const original = getDraftAttachments(draftRef.current).find(item => attachmentViewId(item) === id);
+    if (!original) return;
+    const originalResource = original.kind === 'text' ? original.resource?.resourceId : undefined;
+    if (dirtyDeskIds.current.has(originalResource || id)) {
+      notify('页边还有没留好的字，先把它留好或清空。');
+      return;
+    }
+    replaceDraft(withDraftAttachments(draftRef.current, getDraftAttachments(draftRef.current).filter(item => attachmentViewId(item) !== id)));
+    setDeskExtras(previous => ({ ...previous, items: previous.items.filter(item => item.id !== (originalResource || id)) }));
+    if (originalResource && materialDocumentRef.current?.reference.resourceId === originalResource) clearMaterialDocument();
+    if (originalResource && materialQuoteRef.current?.resourceId === originalResource) clearMaterialQuote();
+  }
+  function clearComparisonContinuation() { comparisonContinuationRef.current = undefined; setComparisonContinuation(undefined); }
+  function clearComparison() {
+    comparisonAnchorRef.current = undefined; setComparisonAnchor(undefined);
+    clearComparisonContinuation();
+  }
+  function currentWorkspaceReference(includePage = true): WorkspaceTarget | undefined {
+    if (materialDocumentRef.current) return { kind: 'material', reference: materialDocumentRef.current.reference };
+    const followup = composerFollowupRef.current;
+    const selected = currentWorkspaceTarget({ selection: sceneSelectionRef.current,
+      materialQuote: materialQuoteRef.current ? materialQuoteAddress(materialQuoteRef.current) : undefined,
+      noteQuote: noteQuoteRef.current ? noteQuoteAddress(noteQuoteRef.current) : undefined,
+      conversationQuote: conversationQuoteRef.current?.reference, agendaFocus: agendaContextRef.current?.focus,
+      mapRouteReference: sharedMapContextRef.current?.routeReference,
+      study: followup?.studyInteraction?.focus || studyDockRef.current?.focus,
+      programReference: followup?.programReference, companionReference: followup?.companionReference,
+      curiosityReference: followup?.curiosityReference, preparationReference: followup?.preparationReference,
+      letterReference: followup?.letterReference, noteReference: followup?.noteReference,
+      rehearsal: followup?.rehearsalInteraction?.ref });
+    if (selected) return selected;
+    if (!includePage) return;
+    const material = viewRef.current === 'materials' ? returnOwners.current.material : undefined;
+    if (material) return { kind: 'material', reference: { resourceId: material.resourceId, sha256: material.sha256,
+      page: material.page, offset: material.offset } };
+    const note = viewRef.current === 'notes' ? returnOwners.current.note : undefined;
+    if (note && note.id !== 'new' && note.revision && note.sha256)
+      return { kind: 'notebook', reference: { id: note.id, revision: note.revision, sha256: note.sha256 } };
+    const agenda = viewRef.current === 'agenda' ? returnOwners.current.agenda : undefined;
+    if (agenda) return { kind: 'agenda', reference: { record: agenda.record, ...(agenda.trial ? { trial: agenda.trial } : {}) } };
+  }
+  function currentWorkspaceLabel() {
+    const document = materialDocumentRef.current;
+    if (document) return `${document.name}${document.reference.page ? ` · 第 ${document.reference.page} 页` : ''}`;
+    const quote = materialQuoteRef.current || noteQuoteRef.current;
+    if (quote) return `${'name' in quote ? quote.name : quote.title} · ${Array.from(quote.text).slice(0, 72).join('')}`;
+    return conversationQuoteRef.current?.title
+      || agendaContextRef.current?.label || sharedMapContextRef.current?.label || composerFollowupRef.current?.focusLabel
+      || sceneSelectionLabel || '刚才的这一处';
+  }
+  function compareCurrentReference() {
+    const target = currentWorkspaceReference();
+    if (!target) return;
+    const selected = { target: structuredClone(target), label: currentWorkspaceLabel(),
+      ...(target.kind === 'interactive' && composerFollowupRef.current?.readProgramInputs
+        ? { readProgramInputs: composerFollowupRef.current.readProgramInputs } : {}) };
+    comparisonAnchorRef.current = selected; setComparisonAnchor(selected);
+    comparisonContinuationRef.current = undefined; setComparisonContinuation(undefined);
+  }
   function clearAgendaContext() { agendaContextRef.current = undefined; setAgendaContext(undefined); }
   function clearMapContext(stop = true) {
     const previous = sharedMapContextRef.current;
@@ -340,7 +672,7 @@ export function App() {
     if (stop && previous) void api.shareMapContext({ enabled: false,
       ...(previous.selectionId ? { expectedSelectionId: previous.selectionId } : {}) }).catch(() => {});
   }
-  function clearNativeReferences() { clearNoteQuote(); clearConversationQuote(); clearAgendaContext(); clearMapContext(); }
+  function clearNativeReferences() { clearMaterialDocument(); clearNoteQuote(); clearConversationQuote(); clearAgendaContext(); clearMapContext(); }
   function clearFollowup(dismiss = false) {
     const previous = composerFollowupRef.current;
     if (dismiss && previous) dismissedFollowup.current = automaticFollowupKey(previous, previous.messageId);
@@ -352,12 +684,24 @@ export function App() {
     setSceneDropActive(false); setSceneDropIssue('');
   }
   useEffect(() => {
-    const finished = () => setSceneDropActive(false);
+    const finished = () => { setSceneDropActive(false); setDocumentDropActive(false); setDocumentReaderDropActive(false); };
     window.addEventListener('dragend', finished); window.addEventListener('drop', finished);
     return () => { window.removeEventListener('dragend', finished); window.removeEventListener('drop', finished); };
   }, []);
-  useEffect(()=>{clearSceneSelection();clearFollowup();clearMaterialQuote();clearNoteQuote();clearAgendaContext();},[sessionId]);
+  useEffect(() => {
+    if (!documentPreview && !documentPreviewPending && !documentPreviewIssue) return;
+    const cancel = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape' || event.isComposing || composing.current || !(event.target instanceof Element)
+        || event.target !== documentReturnFocus.current && !event.target.closest('.document-reference-preview')) return;
+      event.preventDefault(); event.stopPropagation(); cancelDocumentPreview(true);
+    };
+    window.addEventListener('keydown', cancel, true);
+    return () => window.removeEventListener('keydown', cancel, true);
+  }, [documentPreview, documentPreviewPending, documentPreviewIssue]);
+  useEffect(()=>{clearSceneSelection();clearFollowup();clearMaterialQuote();clearMaterialDocument();clearNoteQuote();clearAgendaContext();},[sessionId]);
   useEffect(()=>{clearSceneSelection();clearFollowup();clearMaterialQuote();clearNativeReferences();clearConversationMapViews();},[state?.privacyEpoch,state?.policyRevision,state?.sourceBoundary]);
+  useEffect(() => { clearComparison(); clearSettingsContext(); noteAddressChanges.current.clear(); }, [state?.privacyEpoch, state?.policyRevision, state?.sourceBoundary]);
+  useEffect(() => { cancelDocumentPreview(); }, [view]);
   useEffect(() => {
     const selected = agendaContextRef.current;
     if (selected && state && !state.agenda.some(item => item.id === selected.focus.record.id
@@ -422,12 +766,15 @@ export function App() {
       }catch{}
     }
   }
-  const privateReturn = useRef<{ sessionId?: string; view: WorkspaceView }>({ view: 'chat' });
+  const privateReturn = useRef<{ sessionId?: string; view: WorkspaceView; boundary?: string;
+    checkpoint?: WorkspaceReturnCheckpoint }>({ view: 'chat' });
   const [previewImage, setPreviewImage] = useState<Message['image']>();
   const scrollRef = useRef<HTMLDivElement>(null),
     inputRef = useRef<HTMLTextAreaElement>(null),
     followRef = useRef(true);
   const [composerHome, setComposerHome] = useState<HTMLDivElement | null>(null);
+  const [keepComposerHome, setKeepComposerHome] = useState<HTMLDivElement | null>(null);
+  const pendingReadFocus = useRef<{ owns: () => boolean; gesture: number; navigation: number; search: number; boundary: string; sessionId?: string } | undefined>(undefined);
   const composerHost = useMemo(() => {
     const element = document.createElement('div');
     element.className = 'conversation-composer-host';
@@ -482,12 +829,15 @@ export function App() {
         { transformOrigin: 'top left', transform: 'none', opacity: 1 },
       ], { duration: 280, easing: 'cubic-bezier(.2,.7,.25,1)' });
       composerMoveAnimation.current = animation;
-      animation.onfinish = () => { if (composerMoveAnimation.current === animation) composerMoveAnimation.current = undefined; };
+      animation.onfinish = () => { if (composerMoveAnimation.current === animation) {
+        composerMoveAnimation.current = undefined; revealKeepComposer();
+      } };
     }
   }
   function placeComposer() {
-    const parent = composerDock.target?.element || composerHome;
+    const parent = view === 'keep' && keepWriting && keepComposerHome ? keepComposerHome : composerDock.target?.element || composerHome;
     if (parent) moveComposer(parent);
+    settleReadFocus();
   }
   function revealPaperComposer() {
     const viewport = scrollRef.current;
@@ -497,7 +847,17 @@ export function App() {
       : writer.top < visible.top + 16 ? writer.top - visible.top - 16 : 0;
     if (shift) viewport.scrollTo({ top: viewport.scrollTop + shift, behavior: prefersQuietMotion() ? 'instant' : 'smooth' });
   }
-  useLayoutEffect(placeComposer, [composerHome, composerHost, composerDock.target, view, draftReady, navigating]);
+  function revealKeepComposer() {
+    if (viewRef.current !== 'keep' || composerMoveAnimation.current) return;
+    const scroll = keepComposerHome?.closest<HTMLElement>('.keep-panel'), form = inputRef.current?.closest<HTMLElement>('.composer');
+    if (!scroll || !form || !scroll.clientHeight) return;
+    const visible = scroll.getBoundingClientRect(), writer = form.getBoundingClientRect();
+    const shift = writer.bottom > visible.bottom - 16 ? writer.bottom - visible.bottom + 16
+      : writer.top < visible.top + 16 ? writer.top - visible.top - 16 : 0;
+    if (shift) scroll.scrollTo({ top: scroll.scrollTop + shift, behavior: prefersQuietMotion() ? 'instant' : 'smooth' });
+  }
+  useLayoutEffect(placeComposer, [composerHome, keepComposerHome, keepWriting, composerHost, composerDock.target, view, draftReady, navigating]);
+  useEffect(() => { if (view !== 'keep') setKeepWriting(false); }, [view]);
   const readingAnchor = useRef<{ element: HTMLElement; offset: number } | undefined>(undefined);
   function rememberReadingPosition() {
     const viewport = scrollRef.current;
@@ -515,10 +875,11 @@ export function App() {
     if (!state || returnBoundary !== boundaryRevision.current || !draftReady || navigationPending.current || surfaceMode.current === 'public' || !returnCaptureReady.current
       || !returnInteraction.current || returnRestoring.current || pendingReturnPosition.current
       || readingGesture.current <= returnDismissedGesture.current
-      || !['chat', 'materials', 'notes', 'agenda'].includes(viewRef.current)) return;
+      || viewRef.current === 'keep' && !!unsettledKeepMaterial.current
+      || !['chat', 'materials', 'notes', 'agenda', 'keep'].includes(viewRef.current)) return;
     const ephemeral = turnControlsRef.current.retention === 'session_only' || temporaryConversation;
     const currentSession = !ephemeral ? sessionRef.current : undefined;
-    const material = viewRef.current === 'materials' || materialQuoteRef.current
+    const material = viewRef.current === 'materials' || viewRef.current === 'keep' && !!activeDeskId || materialQuoteRef.current
       && materialQuoteRef.current.resourceId === returnOwners.current.material?.resourceId ? returnOwners.current.material : undefined;
     const note = viewRef.current === 'notes' || noteQuoteRef.current?.id === returnOwners.current.note?.id ? returnOwners.current.note : undefined;
     const agenda = viewRef.current === 'agenda' || agendaContextRef.current?.focus.record.id === returnOwners.current.agenda?.record.id
@@ -527,6 +888,8 @@ export function App() {
       || viewRef.current === 'agenda' && !agenda) return;
     const address: WorkspaceReturnAddress = { view: viewRef.current as WorkspaceReturnAddress['view'],
       ...(currentSession ? { sessionId: currentSession } : {}), ...(material ? { material } : {}), ...(note ? { note } : {}), ...(agenda ? { agenda } : {}) };
+    if (address.view === 'keep' && keepSelection.current?.boundary === returnBoundary)
+      address.keep = { selectedKey: keepSelection.current.key, writing: keepWriting };
     if (viewRef.current === 'materials') address.readingPane = readingPane;
     if (ephemeral && address.view === 'chat') address.view = material ? 'materials' : note ? 'notes' : agenda ? 'agenda' : 'chat';
     const viewport = scrollRef.current;
@@ -541,6 +904,7 @@ export function App() {
     if (!ephemeral && editor) address.composer = { start: editor.selectionStart, end: editor.selectionEnd, direction: editor.selectionDirection,
       focused: returnTaskFocus.current === 'composer' };
     if (!ephemeral) {
+      if (materialDocumentRef.current) address.materialDocument = materialDocumentRef.current.reference;
       address.quote = materialQuoteRef.current ? { kind: 'material', reference: materialQuoteAddress(materialQuoteRef.current) }
         : noteQuoteRef.current ? { kind: 'notebook', reference: noteQuoteAddress(noteQuoteRef.current) }
           : conversationQuoteRef.current ? { kind: 'conversation', reference: conversationQuoteRef.current.reference } : undefined;
@@ -548,7 +912,7 @@ export function App() {
       if (currentSession && paper?.messageId && messages.some(message => message.id === paper.messageId && message.retention !== 'session_only'))
         address.study = { messageId: paper.messageId, focus: paper.focus };
     }
-    if (!currentSession && !material && !note && !agenda && (ephemeral || !draftRef.current.text.trim() && !draftRef.current.attachment)) return;
+    if (!currentSession && !material && !note && !agenda && !address.keep && !address.materialDocument && (ephemeral || !draftRef.current.text.trim() && !getDraftAttachments(draftRef.current).length)) return;
     if (workspaceReturn.remember(address) && startupReturn) setStartupReturn(undefined);
   }
   captureReturnRef.current = captureWorkspaceReturn;
@@ -557,12 +921,18 @@ export function App() {
     window.addEventListener('beforeunload', close); window.addEventListener('pagehide', close);
     return () => { window.removeEventListener('beforeunload', close); window.removeEventListener('pagehide', close); };
   }, [workspaceReturn]);
-  const busy = starting || messages.some((m) => m.status === 'running');
+  const busy = starting || messages.some((m) => m.status === 'running') || unsentSubmissions.some(item => item.processing);
   const empty = messages.length === 0;
   const latestAssistant = messages.filter(message => message.role === 'assistant' && !message.proactive).at(-1);
+  const edgeReply = edgeCall.current?.sequence === sendSequence.current
+    && edgeCall.current.navigation === navigation.current && edgeCall.current.boundary === boundaryRevision.current
+    && edgeCall.current.sessionId === sessionId && latestAssistant
+    && !edgeCall.current.messageIds.has(latestAssistant.id) ? latestAssistant : undefined;
+  const edgeReplyText = edgeReply ? (edgeReply.responseText ?? edgeReply.content).trim() : '';
+  const edgeSpeech = edgeReply?.status === 'done' && Array.from(edgeReplyText).length <= 96 ? edgeReplyText : '';
   const hasScene = !!latestAssistant?.views?.length || !!latestAssistant?.scenes?.length;
   const needsReadingRoom = !!latestAssistant && (latestAssistant.content.length >= 560 || latestAssistant.content.split('\n').length >= 14);
-  const readingSelectedWork = !!sceneSelection || !!composerDock.target
+  const readingSelectedWork = !!sceneSelection || !!composerDock.target || !!materialDocument
     || !!currentComposerFollowup && currentComposerFollowup.messageId !== latestAssistant?.id;
   const selectedCompanionScene = sceneSelection ? messages.flatMap(message => message.scenes || []).find(scene =>
     scene.id === sceneSelection.sceneId && scene.revision === sceneSelection.sceneRevision) : undefined;
@@ -576,14 +946,36 @@ export function App() {
     : presentedCompanionScenes.map(companionSceneMoment).find(moment => moment !== undefined);
   const companionHint = currentCompanionActivity(messages);
   const hintNeedsPaper = companionHint !== undefined && ['study', 'reading', 'planning', 'attention'].includes(companionHint);
+  const d01CurrentTarget = currentWorkspaceReference(false) || comparisonContinuation?.target;
+  const d01First = comparisonAnchor?.target || d01CurrentTarget;
+  const d01Second = comparisonAnchor && d01CurrentTarget && workspaceTargetKey(comparisonAnchor.target) !== workspaceTargetKey(d01CurrentTarget)
+    ? d01CurrentTarget : undefined;
+  const d01FirstKey = d01First ? workspaceTargetKey(d01First) : '', d01SecondKey = d01Second ? workspaceTargetKey(d01Second) : '';
+  const showCurrentWorkspaceReference = !comparisonAnchor || !!d01Second;
+  const d01Keys = useRef(new Set<string>()); d01Keys.current = new Set([d01FirstKey, d01SecondKey].filter(Boolean));
+  const d01Local = useRef({ view, notesUnsaved }); d01Local.current = { view, notesUnsaved };
+  const d01Boundary = boundaryRevision.current;
+  const d01Targets = useMemo<readonly CompanionD01Target[]>(() => {
+    const entries = [...(d01First ? [{ slot: 'A' as const, target: d01First }] : []),
+      ...(d01Second ? [{ slot: 'B' as const, target: d01Second }] : [])];
+    return entries.map(({ slot, target }) => {
+      const key = workspaceTargetKey(target);
+      return { key: `${d01Boundary}:${key}`, slot, resolve: signal => resolveWorkspaceTargetRect(target, () => ({
+        ...d01Local.current, note: returnOwners.current.note, material: returnOwners.current.material,
+        noteChanges: noteAddressChanges.current,
+        isCurrent: () => boundaryRevision.current === d01Boundary && d01Keys.current.has(key)
+          && !navigationPending.current && surfaceMode.current !== 'public',
+      }), signal) };
+    });
+  }, [d01FirstKey, d01SecondKey, d01Boundary, view, notesUnsaved, noteAddressRevision]);
   // Current direct references take precedence over the latest displayed paper.
   // This selects artwork only; no source is read, adopted or changed here.
   const companionActivity = focusActive || composerDock.target || currentComposerFollowup?.studyInteraction ? 'study'
     : currentComposerFollowup?.rehearsalInteraction ? 'listening'
-    : view === 'materials' || materialQuote || noteQuote || conversationQuote || currentComposerFollowup?.noteReference ? 'reading'
+    : view === 'materials' || materialQuote || materialDocument || noteQuote || conversationQuote || currentComposerFollowup?.noteReference ? 'reading'
       : agendaContext ? 'planning'
         : currentComposerFollowup?.curiosityReference ? 'play'
-          : view === 'chat' && empty && startupReturn && startupReturnBoundary.current === boundaryRevision.current ? 'resume'
+          : empty && startupReturn && startupReturnBoundary.current === boundaryRevision.current ? 'resume'
           : companionSceneMoment(selectedCompanionScene) || companionHint || presentedCompanionMoment
             || (chatSpace === 'reading' || needsReadingRoom || readingSelectedWork || hasScene ? 'reading' : 'chat');
   const canToggleRoom = view === 'chat' && companion.presence === 'window' && !compactConversation && !hasScene && !readingSelectedWork;
@@ -591,6 +983,63 @@ export function App() {
     && !focusActive && chatSpace !== 'reading' && !readingSelectedWork
     && (chatSpace === 'window' || !hintNeedsPaper)
     && (empty || (!compactConversation && !hasScene && (chatSpace === 'window' || !needsReadingRoom)));
+  useLayoutEffect(() => {
+    const main = appMainRef.current, space = conversationSpaceRef.current, workspace = materialConversationTarget.current;
+    if (!roomLayout || !main || !space || !workspace || view !== 'chat' && view !== 'materials') {
+      setRoomPaperPosition(null);
+      return;
+    }
+    let frameRequest = 0;
+    const measure = () => {
+      const mainBox = main.getBoundingClientRect(), spaceBox = space.getBoundingClientRect(), workspaceBox = workspace.getBoundingClientRect();
+      if (!mainBox.width || !mainBox.height || !spaceBox.width) return;
+      const workspaceWidth = workspaceBox.width || spaceBox.width;
+      const workspaceLeft = workspaceBox.width ? workspaceBox.left : spaceBox.left;
+      const gutter = mainBox.width <= 600 ? 20 : 24;
+      // Always project into the full, unstacked stage. The compact stage's
+      // own resize report must not flip the decision back and forth.
+      const fullFrame = companionRoomFrame(mainBox.width, mainBox.height, roomLayout.sourceCanvas.width, roomLayout.sourceCanvas.height);
+      const actor = roomLayout.actorVisible ? roomLayout.actorSourceRect : null;
+      const readingTask = view === 'materials' || !atWindow || hasScene || readingSelectedWork;
+      let spanLeft = gutter, spanRight = Math.max(gutter, workspaceWidth - gutter), paperSide: 'left' | 'right' = 'left';
+      if (actor && !readingTask) {
+        const actorLeft = mainBox.left + fullFrame.x + actor.left * fullFrame.scale - workspaceLeft;
+        const actorRight = actorLeft + actor.width * fullFrame.scale;
+        const leftEnd = Math.min(spanRight, actorLeft - 24), rightStart = Math.max(gutter, actorRight + 24);
+        if (spanRight - rightStart > leftEnd - gutter) { spanLeft = rightStart; paperSide = 'right'; }
+        else spanRight = leftEnd;
+      }
+      const held = !readingTask && roomLayout.interaction && roomLayout.interaction !== 'idle' ? roomPaperPositionRef.current : null;
+      const stacked = !readingTask && (held ? held.mode === 'stacked' : mainBox.width <= 600 || spanRight - spanLeft < 320);
+      if (stacked) { spanLeft = gutter; spanRight = Math.max(gutter, workspaceWidth - gutter); }
+      const spanWidth = Math.max(0, spanRight - spanLeft), width = Math.min(readingTask ? hasScene ? 1160 : 800 : 720, spanWidth);
+      const stageHeight = Math.min(280, spaceBox.width * 2 / 3, mainBox.height * .36);
+      const stageWidth = stageHeight * 1.5;
+      const next: RoomPaperPosition = {
+        sourceKey: roomLayout.sourceKey, mode: stacked ? 'stacked' : 'side', paperSide,
+        left: Math.round(spanLeft + (spanWidth - width) / 2), width: Math.floor(width),
+        stageLeft: held?.stageLeft ?? (stacked ? Math.round(spaceBox.left - mainBox.left + (spaceBox.width - stageWidth) / 2) : 0),
+        stageTop: held?.stageTop ?? (stacked ? Math.round(spaceBox.top - mainBox.top) : 0),
+        stageWidth: held?.stageWidth ?? (stacked ? stageWidth : mainBox.width),
+        stageHeight: held?.stageHeight ?? (stacked ? stageHeight : mainBox.height),
+        contentTop: held?.contentTop ?? (stacked ? Math.ceil(stageHeight + 20) : 0),
+      };
+      setRoomPaperPosition(current => current && (Object.keys(next) as (keyof RoomPaperPosition)[]).every(key => current[key] === next[key]) ? current : next);
+    };
+    const schedule = () => { cancelAnimationFrame(frameRequest); frameRequest = requestAnimationFrame(measure); };
+    measure();
+    const observer = new ResizeObserver(schedule);
+    observer.observe(main); observer.observe(space); observer.observe(workspace);
+    window.addEventListener('resize', schedule);
+    window.addEventListener('scroll', schedule, true);
+    return () => { observer.disconnect(); cancelAnimationFrame(frameRequest); window.removeEventListener('resize', schedule); window.removeEventListener('scroll', schedule, true); };
+  }, [roomLayout, view, readingPane, readingSide, empty, compactConversation, atWindow, hasScene, readingSelectedWork]);
+  const roomPaperStyle = roomPaperPosition ? {
+    '--room-paper-left': `${roomPaperPosition.left}px`, '--room-paper-width': `${roomPaperPosition.width}px`,
+    '--room-stage-left': `${roomPaperPosition.stageLeft}px`, '--room-stage-top': `${roomPaperPosition.stageTop}px`,
+    '--room-stage-width': `${roomPaperPosition.stageWidth}px`, '--room-stage-height': `${roomPaperPosition.stageHeight}px`,
+    '--room-content-top': `${roomPaperPosition.contentTop}px`,
+  } as CSSProperties : undefined;
   useLayoutEffect(() => {
     const viewport = scrollRef.current, anchor = readingAnchor.current;
     if (!viewport) return;
@@ -601,7 +1050,7 @@ export function App() {
   function beginRehearsalCurrentRead(sourceSessionId: string | undefined, messageId: string, boundary: string, rehearsalId: string) {
     if (!draftReady || navigationPending.current || surfaceMode.current === 'public'
       || sourceSessionId !== sessionRef.current || boundary !== boundaryRevision.current
-      || sceneSelectionRef.current || materialQuoteRef.current || noteQuoteRef.current
+      || sceneSelectionRef.current || materialQuoteRef.current || materialDocumentRef.current || noteQuoteRef.current
       || agendaContextRef.current || sharedMapContextRef.current || studyDockRef.current) return;
     const previous = composerFollowupRef.current;
     if (previous && !(previous.focusOnly && previous.messageId === messageId
@@ -616,7 +1065,7 @@ export function App() {
         || selectedNavigation !== navigation.current || searchRequest !== searchNavigation.current
         || selectionRequest !== sceneSelectionRequest.current
         || followupVersion !== followupSequence.current || sendVersion !== sendSequence.current
-        || composerFollowupRef.current !== previous || sceneSelectionRef.current || materialQuoteRef.current
+        || composerFollowupRef.current !== previous || sceneSelectionRef.current || materialQuoteRef.current || materialDocumentRef.current
         || noteQuoteRef.current || conversationQuoteRef.current || agendaContextRef.current || sharedMapContextRef.current || studyDockRef.current) return;
       accepted = true;
       // This is the result of the user's own open gesture, not an automatic
@@ -636,7 +1085,7 @@ export function App() {
       const latestAssistant = messages.filter(message => message.role === 'assistant').at(-1);
       const key = automaticFollowupKey(request, messageId);
       if (messageId !== latestAssistant?.id || composerFollowupRef.current && !composerFollowupRef.current.focusOnly
-        || sceneSelectionRef.current || materialQuoteRef.current || noteQuoteRef.current || conversationQuoteRef.current || agendaContextRef.current
+        || sceneSelectionRef.current || materialQuoteRef.current || materialDocumentRef.current || noteQuoteRef.current || conversationQuoteRef.current || agendaContextRef.current
         || sharedMapContextRef.current || key && key === dismissedFollowup.current) return;
       if (key && composerFollowupRef.current?.messageId === messageId
         && automaticFollowupKey(composerFollowupRef.current, messageId) === key) return;
@@ -699,6 +1148,7 @@ export function App() {
     // response to finish stopping. The user's draft and focus stay in place.
     sendSequence.current++;
     await attempt(() => api.stop());
+    await attempt(() => recoverSubmissions());
   }
   function useSuggestion(text: string, context?: LetterFocusContext | PreparationFocusContext) {
     searchNavigation.current++;
@@ -730,6 +1180,7 @@ export function App() {
   }
   function updateState(next: State) {
     if (next.presentation && next.presentation.revision < surfaceRevision.current) return;
+    const incompleteReturn = returnRestoring.current || !!pendingReturnPosition.current;
     // A private IPC response may arrive after a newer privacy/permission event.
     // It must not roll the boundary back and make old UI work valid again.
     if (next.presentation?.mode !== 'public' && boundaryRevision.current) {
@@ -742,16 +1193,26 @@ export function App() {
         return;
     }
     const nextBoundary = `${next.privacyEpoch}:${next.policyRevision}:${next.sourceBoundary ?? 0}`;
-    if (boundaryRevision.current && nextBoundary !== boundaryRevision.current) clearReturnBoundary();
+    if (next.presentation?.mode !== 'public' && boundaryRevision.current && nextBoundary !== boundaryRevision.current) {
+      clearReturnBoundary();
+      clearDeskReadings();
+      sendReceipts.current.clear();
+      setUnsentSubmissions([]);
+    }
     if (next.presentation?.mode === 'public') cancelReturnResume();
     if (next.presentation) surfaceRevision.current = next.presentation.revision;
     if (next.presentation?.mode === 'public') {
-      if (surfaceMode.current !== 'public')
-        privateReturn.current = { sessionId: sessionRef.current, view: viewRef.current };
+      if (surfaceMode.current !== 'public') {
+        if (!incompleteReturn) { captureWorkspaceReturn(); workspaceReturn.flush(); }
+        const checkpoint = workspaceReturn.read();
+        privateReturn.current = { sessionId: sessionRef.current, view: viewRef.current, boundary: boundaryRevision.current,
+          ...(checkpoint?.view === viewRef.current && checkpoint.sessionId === sessionRef.current ? { checkpoint } : {}) };
+      }
       surfaceMode.current = 'public';
+      clearDeskReadings();
       setMessages([]);
       setInput('');
-      setAttachment(null);
+      setAttachments([]);
       setMemoryNotice(null);
       setToast('');
       clearMapContext(); setAgendaPosition(undefined);
@@ -763,6 +1224,8 @@ export function App() {
       setScopeOpen(false);
       setDisplayReview(undefined);
       setAttachmentMenu(false);
+      sendReceipts.current.clear();
+      setUnsentSubmissions([]);
       setState(next);
       return;
     }
@@ -775,8 +1238,11 @@ export function App() {
       setMemoryWorkspace(emptyMemoryWorkspace());
       setMatterInteractions({});
     }
+    if (boundaryRevision.current && revision !== boundaryRevision.current) {
+      clearSceneSelection(); clearFollowup(); clearMaterialQuote(); clearNativeReferences(); clearComparison(); clearSettingsContext();
+      noteAddressChanges.current.clear();
+    }
     if (boundaryRevision.current && revision !== boundaryRevision.current && sessionRef.current) {
-      clearSceneSelection(); clearFollowup(); clearMaterialQuote(); clearNativeReferences();
       const selected = sessionRef.current;
       void api
         .messages(selected)
@@ -802,18 +1268,28 @@ export function App() {
       throw new Error('这次还没取得保存草稿所需的信息，原稿仍留在输入框里。');
     return epoch;
   }
+  function hostDraft(value: Draft): Draft {
+    if (queueHostAvailable.current !== false) return value;
+    const items = getDraftAttachments(value);
+    if (items.length > 1) throw new Error('这几份原稿仍在窗口里，请重启在场后再一起留好。');
+    const first = items[0];
+    if (!first) return { text: value.text, attachment: null };
+    const { attachmentId: _attachmentId, ...legacy } = first;
+    return { text: value.text, attachment: legacy };
+  }
   function replaceDraft(next: Draft, persist = true) {
     const boundary = boundaryRevision.current;
+    next = withDraftAttachments(next, getDraftAttachments(next).map(item => item.attachmentId ? item : { ...item, attachmentId: crypto.randomUUID() }));
     draftRevision.current++;
     draftRef.current = next;
     setInput(next.text);
-    setAttachment(next.attachment);
+    setAttachments(getDraftAttachments(next));
     setDraftSaved(false);
     if (persist)
       void attempt(() =>
         api.saveDraft({
           id: draftKey.current,
-          draft: next,
+          draft: hostDraft(next),
           privacyEpoch: draftPrivacyEpoch(boundary),
           ...(turnControlsRef.current.retention === 'session_only'
             ? { retention: 'session_only' as const }
@@ -829,7 +1305,7 @@ export function App() {
       draft = draftRef.current;
     setSavingDraft(true);
     await attempt(async () => {
-      await api.saveDraft({ id, draft, privacyEpoch: draftPrivacyEpoch(boundary) });
+      await api.saveDraft({ id, draft: hostDraft(draft), privacyEpoch: draftPrivacyEpoch(boundary) });
       const info = await api.draftInfo(id);
       if (revision !== draftRevision.current || id !== draftKey.current || boundary !== boundaryRevision.current)
         throw new Error('原稿或所在对话已经有了变化，这次没有继续保存。');
@@ -847,9 +1323,11 @@ export function App() {
     if (!keepUnsavedEdits('关闭')) return;
     if (closePending.current) return;
     closePending.current = true;
+    const closeBoundary = boundaryRevision.current, closeNavigation = navigation.current;
     try {
-      await flushProgramLocalStates();
+      if (!await keepProgramAdjustments()) return;
       const pending = await api.unsavedDrafts();
+      if (closeBoundary !== boundaryRevision.current || closeNavigation !== navigation.current || isPublicSurface()) return;
       if (!pending.length) {
         api.window('close-confirmed');
         return;
@@ -857,9 +1335,10 @@ export function App() {
       const previews = await Promise.all(
         pending.map(async (item) => {
           const draft = await api.draft(item.id);
-          return { ...item, text: draft.text, attachmentName: draft.attachment?.name };
+          return { ...item, text: draft.text, attachmentName: getDraftAttachments(draft).map(item => item.name).join('、') || undefined };
         }),
       );
+      if (closeBoundary !== boundaryRevision.current || closeNavigation !== navigation.current || isPublicSurface()) return;
       setCloseError('');
       setClosingDrafts(previews);
     } catch (error) {
@@ -869,7 +1348,35 @@ export function App() {
     }
   }
   requestCloseRef.current = requestClose;
+  async function keepProgramAdjustments() {
+    const result = await flushProgramLocalStates();
+    if (result.ok) return true;
+    const source = result.issues.find(issue => issue.sessionId === sessionRef.current);
+    if (source) {
+      setPanel(null); setView('chat');
+      requestAnimationFrame(() => scrollRef.current?.querySelector<HTMLElement>(`[data-message-id="${CSS.escape(source.messageId)}"]`)
+        ?.scrollIntoView({ block: 'center', behavior: 'auto' }));
+    }
+    notify(result.issues.some(issue => issue.reason === 'conflict')
+      ? '这页作品在另一处也改过。眼前的调整还在，先回到作品选择要保留的版本。'
+      : '这页作品的调整还没留好。眼前的内容还在，可以回到作品再试一次。');
+    return false;
+  }
   function keepUnsavedEdits(action: string) {
+    if (bookmarkUnsaved.current) {
+      setPanel(null);
+      notify(`这段想法还没留好，先保存或放下，再${action}。`);
+      return false;
+    }
+    const edit = [...actionEdits.current.values()].find(item => item.dirty || item.pending);
+    if (edit) {
+      setPanel(null); setView('chat');
+      requestAnimationFrame(() => scrollRef.current?.querySelector<HTMLElement>(`[data-message-id="${CSS.escape(edit.messageId)}"]`)
+        ?.scrollIntoView({ block: 'center', behavior: 'auto' }));
+      notify(edit.pending ? `这项安排正在处理，等结果回来再${action}。`
+        : `安排的修改还没采用，先留好或取消修改，再${action}。`);
+      return false;
+    }
     if (materialUnsaved) {
       setView('materials'); setReadingPane('reader');
       notify(`批注还有没保存的修改，先把它留好或放下，再${action}。`);
@@ -928,7 +1435,103 @@ export function App() {
   useEffect(() => api?.onNavigate?.(target => navigateRef.current(target)), []);
   function updateDraft(part: Partial<Draft>) {
     if (navigationPending.current) return;
+    if ('attachment' in part) {
+      if (part.attachment) appendAttachment(part.attachment);
+      else replaceDraft(withDraftAttachments(draftRef.current, getDraftAttachments(draftRef.current).slice(1)));
+      return;
+    }
     replaceDraft({ ...draftRef.current, ...part });
+  }
+  function appendAttachment(value: DraftAttachment) {
+    if (!draftReady || navigationPending.current || isPublicSurface()) return false;
+    const current = getDraftAttachments(draftRef.current);
+    let issue = current.length >= LIMITS.attachments ? '一次最多一起看三份文件或图片。'
+      : queueHostAvailable.current === false && current.length ? '这次先保留眼前这一份。重启在场后，可以一起放三份。' : '';
+    if (value.kind === 'image' && current.reduce((n, item) => n + (item.kind === 'image' ? item.dataUrl.length : 0), value.dataUrl.length) > LIMITS.imageDataUrls)
+      issue = '这些图片合起来较大，请先留两张再继续。';
+    if (current.some(item => item.kind === value.kind && (item.kind === 'image' && value.kind === 'image' ? item.dataUrl === value.dataUrl
+      : item.kind === 'text' && value.kind === 'text' ? item.resource && value.resource ? item.resource.sha256 === value.resource.sha256 && item.resource.mediaType === value.resource.mediaType
+        : item.name === value.name && item.text === value.text : false))) issue = '这份已经放进来了。';
+    if (issue) {
+      notify(issue);
+      if (value.kind === 'text' && value.resource && !current.some(item => item.kind === 'text' && item.resource?.resourceId === value.resource!.resourceId))
+        void attempt(() => api.materialsDiscard({ reference: value.resource! }));
+      return false;
+    }
+    replaceDraft(withDraftAttachments(draftRef.current, [...current, { ...value, attachmentId: value.attachmentId || crypto.randomUUID() }]));
+    return true;
+  }
+  async function chooseAttachment(kind: 'image' | 'text') {
+    const key = draftKey.current, boundary = boundaryRevision.current, selectedNavigation = navigation.current;
+    const selected = kind === 'image' ? await api.attachImage() : await api.attachText();
+    if (!selected) return;
+    if (key !== draftKey.current || boundary !== boundaryRevision.current || selectedNavigation !== navigation.current || isPublicSurface()) {
+      if (selected.kind === 'text' && selected.resource) await api.materialsDiscard({ reference: selected.resource });
+      return;
+    }
+    appendAttachment(selected);
+    inputRef.current?.focus({ preventScroll: true });
+  }
+  async function recoverSubmissions(boundary = boundaryRevision.current) {
+    let pending: Awaited<ReturnType<typeof api.draftSubmissions>> = [];
+    try {
+      if (typeof api.draftSubmissions === 'function') { pending = await api.draftSubmissions(); queueHostAvailable.current = true; }
+      else queueHostAvailable.current = false;
+    }
+    catch (error) {
+      const raw = String(error instanceof Error ? error.message : error);
+      if (/No handler registered for ['"]draft:submissions['"]/.test(raw)) queueHostAvailable.current = false;
+      else throw error;
+    }
+    const [nativeDrafts, currentState] = await Promise.all([api.unsavedDrafts(), api.state()]);
+    const knownSessions = new Set(currentState.conversations.map(item => item.id));
+    const orphanDrafts = await Promise.all(nativeDrafts.filter(item => item.id !== 'new' && item.id !== draftKey.current
+      && !item.id.startsWith('submission-') && !knownSessions.has(item.id)).slice(0, 16).map(async item => ({ id: item.id, draft: await api.draft(item.id) })));
+    if (boundary !== boundaryRevision.current || isPublicSurface()) return;
+    const recovered = pending.filter(item => !item.admitted).map((item, index): UnsentSubmission => ({
+      id: item.draft.submission!.id, ownerKey: item.id, sequence: -(index + 1),
+      draftKey: item.draft.submission!.draftKey === draftKey.current || knownSessions.has(item.draft.submission!.draftKey)
+        ? item.draft.submission!.draftKey : 'new',
+      boundary, draft: item.draft, delivery: 'unconfirmed', processing: item.processing,
+    }));
+    recovered.push(...orphanDrafts.map((item, index): UnsentSubmission => ({ kind: 'draft', id: 'draft:' + item.id, ownerKey: item.id,
+      sequence: -17 - index, draftKey: 'new', boundary, draft: item.draft, delivery: 'not-sent', processing: false })));
+    const ids = new Set(recovered.map(item => item.id));
+    setUnsentSubmissions(current => [...current.filter(item => ids.has(item.id)).map(item => ({ ...item,
+      processing: recovered.find(value => value.id === item.id)?.processing })),
+      ...recovered.filter(item => !current.some(old => old.id === item.id))]);
+  }
+  async function restoreUnsentSubmission(submission: UnsentSubmission) {
+    if (sendPending.current || navigationPending.current || !draftReady || isPublicSurface()
+      || submission.boundary !== boundaryRevision.current || submission.draftKey !== draftKey.current
+      || draftRef.current.text.length || getDraftAttachments(draftRef.current).length) return;
+    const boundary = boundaryRevision.current, key = draftKey.current, revision = draftRevision.current;
+    await attempt(async () => {
+      const status = submission.kind === 'draft' ? { draft: await api.draft(submission.ownerKey), processing: false, admitted: undefined }
+        : (await api.draftSubmissions()).find(item => item.id === submission.ownerKey);
+      if (status?.processing) { notify('这条还在确认使用范围，先停下这次处理，再取回原稿。'); return; }
+      if (!status || status.admitted) {
+        setUnsentSubmissions(current => current.filter(item => item.id !== submission.id));
+        sendReceipts.current.delete(submission.id);
+        notify(status?.admitted ? '这条已经被收下了，原件留在那条消息里。' : '这份原稿已不在未发区，可以先回原对话核对。'); return;
+      }
+      const { submission: _submission, ...restored } = structuredClone(status.draft);
+      let restoredDocument: DocumentReference | undefined;
+      if (_submission?.materialDocument) {
+        try { restoredDocument = await readMaterialDocument(_submission.materialDocument, getDraftAttachments(restored)); }
+        catch (error) { notify(errorText(error)); }
+      }
+      await api.saveDraft({ id: key, draft: hostDraft(restored), privacyEpoch: draftPrivacyEpoch(boundary),
+        ...(_submission?.controls?.retention === 'session_only' || _submission?.controls?.memoryMode === 'session_only' ? { retention: 'session_only' as const } : {}) });
+      if (key !== draftKey.current || boundary !== boundaryRevision.current || revision !== draftRevision.current || isPublicSurface()) return;
+      replaceDraft(restored, false);
+      if (_submission?.controls) { turnControlsRef.current = structuredClone(_submission.controls); setTurnControls(turnControlsRef.current); }
+      if (restoredDocument) { materialDocumentRef.current = restoredDocument; setMaterialDocument(restoredDocument); }
+      await api.saveDraft({ id: submission.ownerKey, draft: hostDraft({ text: '', attachment: null, attachments: [] }), privacyEpoch: draftPrivacyEpoch(boundary) });
+      sendReceipts.current.delete(submission.id);
+      setUnsentSubmissions(current => current.filter(item => item.id !== submission.id));
+      inputRef.current?.focus({ preventScroll: true });
+    });
   }
   useEffect(() => {
     if (!api) {
@@ -946,12 +1549,22 @@ export function App() {
           replaceDraft(saved, false);
           setDraftSaved(info.persisted && !info.empty);
         }
+        await recoverSubmissions();
         setDraftReady(true);
       } catch (error) {
-        setLoadError(errorText(error));
+        setLoadError(uiError(error, { operation: 'open' }));
       }
     })();
     return api.onEvent((event) => {
+      if (event.type === 'note_changed') {
+        const previous = noteAddressChanges.current.get(event.note.id);
+        if (!previous || event.note.revision > previous.revision
+          || event.note.revision === previous.revision && (event.note.sha256 !== previous.sha256 || event.note.state !== previous.state)) {
+          noteAddressChanges.current.set(event.note.id, event.note);
+          setNoteAddressRevision(value => value + 1);
+        }
+        return;
+      }
       if (event.type === 'conversations') {
         setState((current) => (current ? { ...current, conversations: event.conversations } : current));
         return;
@@ -961,6 +1574,13 @@ export function App() {
         if (added && activeRun.current) setMemoryNotice(added);
         updateState(event.state);
         return;
+      }
+      if (event.message.submissionId) sendReceipts.current.get(event.message.submissionId)?.receive(event.message);
+      if (event.message.role === 'user' && event.message.authoredSource && event.message.submissionId) {
+        const admittedId = event.message.submissionId;
+        setUnsentSubmissions(current => current.filter(item => item.id !== admittedId));
+      } else if (event.message.role === 'assistant' && event.message.status !== 'running' && event.message.submissionId) {
+        void attempt(() => recoverSubmissions());
       }
       if (!sessionRef.current) {
         sessionRef.current = event.message.sessionId;
@@ -1022,19 +1642,21 @@ export function App() {
         menu = attachmentMenuRef.current;
       if (!trigger || !menu) return;
       const anchor = trigger.getBoundingClientRect(),
-        bounds = menu.getBoundingClientRect();
+        parent = (menu.offsetParent || trigger.parentElement) as HTMLElement | null;
+      if (!parent) return;
+      const origin = parent.getBoundingClientRect();
       const margin = 12,
         width = Math.min(238, window.innerWidth - margin * 2);
-      const height = Math.min(bounds.height, window.innerHeight - margin * 2);
+      const height = Math.min(menu.scrollHeight + menu.offsetHeight - menu.clientHeight, window.innerHeight - margin * 2);
       const above = anchor.top - height - 8;
       setAttachmentMenuPosition({
-        position: 'fixed',
+        position: 'absolute',
         width,
-        left: Math.max(margin, Math.min(anchor.left, window.innerWidth - width - margin)),
+        left: Math.max(margin, Math.min(anchor.left, window.innerWidth - width - margin)) - origin.left + parent.scrollLeft - parent.clientLeft,
         top: Math.max(
           margin,
           Math.min(above >= margin ? above : anchor.bottom + 8, window.innerHeight - height - margin),
-        ),
+        ) - origin.top + parent.scrollTop - parent.clientTop,
         bottom: 'auto',
         maxHeight: window.innerHeight - margin * 2,
       });
@@ -1095,7 +1717,8 @@ export function App() {
     return () => window.removeEventListener('keydown', key);
   }, [busy, panel, attachmentMenu, mapSheet, view]);
   async function newChat() {
-    if (busy || sendPending.current || navigationPending.current) return;
+    if (busy || sendPending.current || navigationPending.current || closePending.current) return;
+    if (!keepUnsavedEdits('开始新的对话')) return;
     captureWorkspaceReturn(); workspaceReturn.flush();
     navigationPending.current = true;
     setNavigating(true);
@@ -1103,8 +1726,9 @@ export function App() {
     setToast('');
     setMemoryNotice(null);
     setAttachmentMenu(false);
-    clearSceneSelection(); clearFollowup(); clearMaterialQuote(); clearNativeReferences();
     try {
+      if (!await keepProgramAdjustments() || token !== navigation.current) return;
+      clearSceneSelection(); clearFollowup(); clearMaterialQuote(); clearNativeReferences(); clearComparison(); clearSettingsContext();
       await attempt(async () => {
         if (sharedMapContext) {
           await api.shareMapContext({ enabled: false });
@@ -1114,6 +1738,7 @@ export function App() {
         const saved = await api.draft('new');
         if (token !== navigation.current) return;
         draftKey.current = 'new';
+        clearDeskReadings();
         replaceDraft(saved, false);
         sessionRef.current = undefined;
         setSessionId(undefined);
@@ -1135,7 +1760,8 @@ export function App() {
       notify('先停止当前回复，再打开另一段对话。');
       return;
     }
-    if (navigationPending.current) return;
+    if (navigationPending.current || closePending.current) return;
+    if (id !== sessionRef.current && !keepUnsavedEdits('打开另一段对话')) return;
     if (!stillRequested) { captureWorkspaceReturn(); workspaceReturn.flush(); }
     navigationPending.current = true;
     setNavigating(true);
@@ -1143,9 +1769,11 @@ export function App() {
     setToast('');
     setMemoryNotice(null);
     setAttachmentMenu(false);
-    clearSceneSelection(); clearFollowup(); clearMaterialQuote(); clearNativeReferences();
     let opened: Message[] | undefined;
     try {
+      if (!await keepProgramAdjustments() || token !== navigation.current || stillRequested && !stillRequested()) return;
+      if (id !== sessionRef.current) { clearComparison(); clearSettingsContext(); }
+      clearSceneSelection(); clearFollowup(); clearMaterialQuote(); clearNativeReferences();
       const read = async () => {
         if (sharedMapContext) {
           await api.shareMapContext({ enabled: false });
@@ -1156,14 +1784,19 @@ export function App() {
         const readBoundary = boundaryRevision.current;
         const [next, saved, info] = await Promise.all([api.messages(id), api.draft(id), api.draftInfo(id)]);
         if (token !== navigation.current || readBoundary !== boundaryRevision.current || stillRequested && !stillRequested()) return;
-        if (stillRequested && !next.length && !saved.text.trim() && !saved.attachment && !state?.conversations.some(item => item.id === id))
-          throw new Error('那段对话已经不在这里了。');
+        if (stillRequested && !next.length && !saved.text.trim() && !getDraftAttachments(saved).length) {
+          const owners = await api.state();
+          if (token !== navigation.current || readBoundary !== boundaryRevision.current || !stillRequested()) return;
+          if (owners.presentation?.mode === 'public' || `${owners.privacyEpoch}:${owners.policyRevision}:${owners.sourceBoundary ?? 0}` !== readBoundary
+            || !owners.conversations.some(item => item.id === id)) throw new Error('那段对话已经不在这里了。');
+        }
         if (destination && !next.some(message => message.id === destination.messageId)) {
           notify('这句话已经不在原来的位置了，请重新找找。');
           return;
         }
         setSearchTarget(destination ? { locator: destination, requestId: ++searchNavigation.current } : undefined);
         draftKey.current = id;
+        if (id !== sessionRef.current) clearDeskReadings();
         replaceDraft(saved, false);
         setDraftSaved(info.persisted && !info.empty);
         sessionRef.current = id;
@@ -1188,7 +1821,7 @@ export function App() {
     const expectedSearch = searchNavigation.current;
     returnRestoring.current = true;
     const originalSession = sessionRef.current;
-    const previousReferences = { material: materialQuoteRef.current, note: noteQuoteRef.current, conversation: conversationQuoteRef.current,
+    const previousReferences = { material: materialQuoteRef.current, document: materialDocumentRef.current, note: noteQuoteRef.current, conversation: conversationQuoteRef.current,
       agenda: agendaContextRef.current, followup: composerFollowupRef.current };
     const current = () => ticket === returnNavigation.current && boundary === boundaryRevision.current
       && gesture === readingGesture.current && expectedNavigation === navigation.current && expectedSearch === searchNavigation.current && !isPublicSurface();
@@ -1204,11 +1837,21 @@ export function App() {
         if (!result) throw new Error('这段对话这次没能打开，原来的书签仍留在这里。');
         opened = result;
         if (checkpoint.message && !opened.some(message => message.id === checkpoint.message!.id)) delete restored.message;
+      } else {
+        if (!await keepProgramAdjustments() || !current()) return;
+        if (sessionRef.current) updateState(await api.endConversation(sessionRef.current));
+        if (!current()) return;
+        const [saved, info] = await Promise.all([api.draft('new'), api.draftInfo('new')]);
+        if (!current()) return;
+        draftKey.current = 'new'; replaceDraft(saved, false); setDraftSaved(info.persisted && !info.empty);
+        if (sessionRef.current) clearDeskReadings();
+        sessionRef.current = undefined; setSessionId(undefined); setMessages([]); opened = [];
       }
       if (!current()) return;
+      clearSceneSelection(); clearFollowup(); clearMaterialQuote(); clearNativeReferences();
       setSearchTarget(undefined); setPanel(null);
       pendingReturnPosition.current = { checkpoint: restored, ticket, boundary, gesture, navigation: expectedNavigation, search: expectedSearch, ready: false };
-      if (restored.study && restored.sessionId && !restored.quote) {
+      if (restored.study && restored.sessionId && !restored.quote && !restored.materialDocument) {
         try {
           const saved = restored.study;
           const original = opened.find(message => message.id === saved.messageId)?.scenes?.find(scene =>
@@ -1236,11 +1879,24 @@ export function App() {
           delete restored.study;
           restorationProblems.push(`陪学纸这次没接回：${uiError(problem)}。可以从原对话里的纸页重新打开`);
         }
-      } else if (restored.quote) delete restored.study;
+      } else if (restored.quote || restored.materialDocument) delete restored.study;
+      if (restored.quote) delete restored.materialDocument;
+      if (restored.materialDocument) {
+        try {
+          const next = await readMaterialDocument(restored.materialDocument);
+          if (!current()) return;
+          materialDocumentRef.current = next; setMaterialDocument(next);
+        } catch (problem) {
+          if (!current()) return;
+          delete restored.materialDocument;
+          restorationProblems.push(`这份资料这次没接回：${uiError(problem)}。原草稿还在，可以重新打开文件`);
+        }
+      }
       if (restored.quote) {
         try {
           let address = restored.quote;
-          const attached = draftRef.current.attachment;
+          const materialId = address.kind === 'material' ? address.reference.resourceId : undefined;
+          const attached = getDraftAttachments(draftRef.current).find(item => item.kind === 'text' && item.resource?.resourceId === materialId);
           if (address.kind === 'material' && attached?.kind === 'text' && attached.resource?.resourceId === address.reference.resourceId)
             address = { ...address, target: { kind: 'pending', reference: attached.resource } };
           const preview = await api.sourceBookmarkPreview(address);
@@ -1296,6 +1952,38 @@ export function App() {
       }
       if (!current()) return;
       const requestId = ticket;
+      if (restored.view === 'keep') {
+        setKeepLoading(true); setKeepError('');
+        try {
+          const fresh = await api.keepSnapshot();
+          if (!current()) return;
+          if (`${fresh.boundary.privacyEpoch}:${fresh.boundary.policyRevision}:${fresh.boundary.sourceBoundary}` !== boundary)
+            throw new Error('留下的内容刚有变化，请重新打开这一页。');
+          setKeepResult({ boundary, snapshot: fresh });
+        } finally { if (current()) setKeepLoading(false); }
+        setKeepOpened(true);
+        setKeepWriting(!!restored.keep?.writing);
+        if (restored.keep) setKeepSelectionRequest({ key: restored.keep.selectedKey, requestId });
+        if (restored.material) {
+          try {
+            const address = restored.material;
+            const original = await readMaterialDocument({ resourceId: address.resourceId, sha256: address.sha256,
+              page: address.page, offset: address.offset });
+            if (!current()) return;
+            const queued = getDraftAttachments(draftRef.current).find(item => item.kind === 'text'
+              && item.resource?.resourceId === address.resourceId && item.resource.sha256 === address.sha256);
+            const item: ReadingDeskItem = queued ? attachmentDeskItem(queued)
+              : { id: address.resourceId, kind: 'material', name: original.name, address: original.reference };
+            setDeskExtras(previous => ({ boundary, items: [...(previous.boundary === boundary
+              ? previous.items.filter(value => value.id !== item.id) : []), item] }));
+            unsettledKeepMaterial.current = { resourceId: address.resourceId, sha256: address.sha256 };
+          } catch (problem) {
+            if (!current()) return;
+            delete restored.material;
+            restorationProblems.push(`这份原文这次没接回：${uiError(problem)}。笔记和草稿仍留在这里`);
+          }
+        }
+      }
       if (restored.material) { setMaterialsOpened(true); setMaterialResume({ address: restored.material, requestId }); }
       if (restored.note) { setNotesOpened(true); setNoteResume({ address: restored.note, requestId }); }
       if (restored.agenda) { setAgendaOpened(true); setAgendaResume({ address: restored.agenda, requestId }); }
@@ -1310,6 +1998,7 @@ export function App() {
         pendingReturnPosition.current = undefined;
         if (sessionRef.current === originalSession) {
           materialQuoteRef.current = previousReferences.material; setMaterialQuote(previousReferences.material);
+          materialDocumentRef.current = previousReferences.document; setMaterialDocument(previousReferences.document);
           noteQuoteRef.current = previousReferences.note; setNoteQuote(previousReferences.note);
           conversationQuoteRef.current = previousReferences.conversation; setConversationQuote(previousReferences.conversation);
           agendaContextRef.current = previousReferences.agenda; setAgendaContext(previousReferences.agenda);
@@ -1339,6 +2028,7 @@ export function App() {
       }
     }
     if (!pending.ready) return;
+    if (saved.view === 'keep' && saved.material && unsettledKeepMaterial.current) return;
     if (saved.study && view === 'chat') {
       const focus = saved.study.focus;
       const target = composerDock.target;
@@ -1352,15 +2042,17 @@ export function App() {
       }
     }
     const editor = inputRef.current;
-    if (editor && saved.composer?.focused && (view === 'chat' || view === 'materials')) {
+    if (saved.view === 'keep' && saved.keep?.writing && (!keepComposerHome || !keepComposerHome.contains(composerHost))) return;
+    if (editor && saved.composer?.focused && (view === 'chat' || view === 'materials' || view === 'keep' && keepWriting)) {
       editor.focus({ preventScroll: true });
       editor.setSelectionRange(Math.min(editor.value.length, saved.composer.start), Math.min(editor.value.length, saved.composer.end), saved.composer.direction);
+      if (view === 'keep') revealKeepComposer();
     } else if (view === 'chat' && saved.message && viewport) {
       [...viewport.querySelectorAll<HTMLElement>('[data-message-id]')].find(node => node.dataset.messageId === saved.message!.id)?.focus({ preventScroll: true });
     }
     pendingReturnPosition.current = undefined; returnRestoring.current = false;
     queueReturnCapture();
-  }, [messages, view, sessionId, composerDock.target?.key, startupReturn, currentComposerFollowup?.token]);
+  }, [messages, view, sessionId, composerDock.target?.key, startupReturn, currentComposerFollowup?.token, keepWriting, keepComposerHome, keepReaderReadyRevision]);
   async function openSearchResult(locator: LocalSearchLocator) {
     if (surfaceMode.current === 'public' || navigationPending.current) return;
     if (locator.kind === 'conversation') { await openConversation(locator.sessionId, locator); return; }
@@ -1392,10 +2084,12 @@ export function App() {
     consumeDraft = true,
     retryImage?: Message['image'],
     retryControls?: TurnControls,
+    summonEdge = false,
   ) {
     const text = value, comparisonText = text.trim();
     if (!comparisonText || composing.current || sendPending.current || (!consumeDraft && busy) || navigationPending.current || !draftReady
-      || surfaceMode.current === 'public') return;
+      || surfaceMode.current === 'public' || closePending.current) return;
+    if (queueHostAvailable.current === false) { notify('这条还没有发出，原稿留在这里。重启在场后再继续就好。'); return; }
     sendPending.current = true;
     const sequence = ++sendSequence.current;
     const revision = draftRevision.current,
@@ -1403,21 +2097,59 @@ export function App() {
       selectedSessionId = sessionRef.current,
       selectedBoundary = boundaryRevision.current,
       selectedNavigation = navigation.current;
-    const selectedControls = consumeDraft ? turnControlsRef.current : retryControls;
+    if (summonEdge) edgeCall.current = { sequence, navigation: selectedNavigation, boundary: selectedBoundary,
+      sessionId: selectedSessionId, messageIds: new Set(messages.map(message => message.id)) };
+    const selectedControls = consumeDraft || summonEdge ? turnControlsRef.current : retryControls;
     const controls = selectedControls ? structuredClone(selectedControls) : undefined;
-    const selectedAttachment = consumeDraft ? draftRef.current.attachment : null;
-    const file = selectedAttachment ? structuredClone(selectedAttachment) : null,
-      image = file?.kind === 'image' ? file : retryImage;
+    const selectedAttachments = consumeDraft ? getDraftAttachments(draftRef.current) : [];
+    const files = structuredClone(selectedAttachments), image = consumeDraft ? undefined : retryImage;
+    const submissionId = crypto.randomUUID(), ownerKey = 'submission-' + submissionId;
     const selectedScene = consumeDraft ? sceneSelectionRef.current : undefined;
-    const selectedMaterialQuote = consumeDraft ? materialQuoteRef.current : undefined;
-    const selectedNoteQuote = consumeDraft ? noteQuoteRef.current : undefined;
-    const selectedConversationQuote = consumeDraft ? conversationQuoteRef.current : undefined;
+    const selectedMaterialQuote = consumeDraft || summonEdge ? materialQuoteRef.current : undefined;
+    const edgeOriginal = !consumeDraft && summonEdge && selectedMaterialQuote ? getDraftAttachments(draftRef.current)
+      .find(item => item.kind === 'text' && item.resource?.resourceId === selectedMaterialQuote.resourceId
+        && item.resource.sha256 === selectedMaterialQuote.sha256) : undefined;
+    // An explicit quotation may refer to an original still owned by this
+    // draft. Admit that exact file through the existing native ingress; no
+    // other queued attachment or unfinished words join the cat's request.
+    const selectedMaterialDocument = consumeDraft ? materialDocumentRef.current
+      : edgeOriginal?.kind === 'text' && edgeOriginal.resource ? { reference: { resourceId: edgeOriginal.resource.resourceId,
+        sha256: edgeOriginal.resource.sha256 }, name: edgeOriginal.name, mediaType: edgeOriginal.resource.mediaType } : undefined;
+    const selectedNoteQuote = consumeDraft || summonEdge ? noteQuoteRef.current : undefined;
+    const selectedConversationQuote = consumeDraft || summonEdge ? conversationQuoteRef.current : undefined;
     const selectedAgendaContext = consumeDraft ? agendaContextRef.current : undefined;
     const selectedMapContext = consumeDraft ? sharedMapContextRef.current : undefined;
     const selectedFollowup = consumeDraft ? composerFollowupRef.current : undefined;
+    const selectedComparison = consumeDraft ? comparisonAnchorRef.current : undefined;
+    const selectedComparisonContinuation = consumeDraft ? comparisonContinuationRef.current : undefined;
+    const currentSelectedWorkspaceTarget = consumeDraft ? currentWorkspaceReference(false) : undefined;
+    const selectedWorkspaceInputReader = currentSelectedWorkspaceTarget?.kind === 'interactive' ? selectedFollowup?.readProgramInputs
+      : selectedComparisonContinuation?.readProgramInputs;
+    const selectedWorkspaceAddress = consumeDraft ? currentSelectedWorkspaceTarget
+      || (selectedComparison ? selectedComparisonContinuation?.target : undefined) || currentWorkspaceReference()
+      : summonEdge ? currentWorkspaceTarget({ materialQuote: selectedMaterialQuote ? materialQuoteAddress(selectedMaterialQuote) : undefined,
+        noteQuote: selectedNoteQuote ? noteQuoteAddress(selectedNoteQuote) : undefined,
+        conversationQuote: selectedConversationQuote?.reference }) : undefined;
+    const selectedWorkspaceTarget = workspaceTargetAtSend(selectedWorkspaceAddress, selectedWorkspaceInputReader);
+    const selectedComparisonTarget = workspaceTargetAtSend(selectedComparison?.target, selectedComparison?.readProgramInputs);
+    if (selectedWorkspaceAddress?.kind === 'interactive' && selectedWorkspaceInputReader && !selectedWorkspaceTarget
+      || selectedComparison?.target.kind === 'interactive' && selectedComparison.readProgramInputs && !selectedComparisonTarget) {
+      sendPending.current = false;
+      notify('这页刚有变化，请重新点选想聊的部分，草稿还在。');
+      inputRef.current?.focus({ preventScroll: true });
+      return;
+    }
+    const selectedWorkspaceLabel = currentWorkspaceLabel();
+    const selectedSettingsContext = consumeDraft ? settingsContextRef.current : undefined;
+    const focusedSettingsContext = !selectedWorkspaceTarget && !selectedComparison ? selectedSettingsContext : undefined;
+    const workspaceContext = workspaceSendContext(focusedSettingsContext ? focusedSettingsContext.section === 'companion' ? 'characters'
+      : focusedSettingsContext.section === 'reading' ? 'appearance' : focusedSettingsContext.section === 'memory' ? 'memory' : 'settings'
+      : workspaceSurface(viewRef.current, messages.length === 0, selectedWorkspaceTarget),
+      selectedWorkspaceTarget, selectedComparisonTarget, selectedFollowup?.messageId);
+    if (focusedSettingsContext) workspaceContext.settingsContext = structuredClone(focusedSettingsContext);
     const validFollowup = selectedFollowup && selectedFollowup.sessionId === selectedSessionId && selectedFollowup.boundary === selectedBoundary
       ? selectedFollowup : undefined;
-    const selectedStudyDock = consumeDraft && !validFollowup && !selectedScene && !selectedMaterialQuote
+    const selectedStudyDock = consumeDraft && !validFollowup && !selectedScene && !selectedMaterialQuote && !selectedMaterialDocument
       && !selectedNoteQuote && !selectedConversationQuote && !selectedAgendaContext && !selectedMapContext ? studyDockRef.current : undefined;
     const studyInteraction: StudyInteraction | undefined = validFollowup?.studyInteraction
       ? validFollowup.studyInteraction.kind !== 'request' && validFollowup.studyInteraction.kind !== 'attempt'
@@ -1440,23 +2172,53 @@ export function App() {
         revision: programReference.revision, nodeId: programReference.nodeId,
         ...(inputs !== undefined ? { inputs } : {}) };
     }
-    const attachment = file?.kind === 'text' && !file.resource ? { name: file.name, text: file.text } : undefined;
+    const documentQueued = selectedMaterialDocument && files.some(item => item.kind === 'text' && item.resource?.resourceId === selectedMaterialDocument.reference.resourceId && item.resource.sha256 === selectedMaterialDocument.reference.sha256);
+    if (files.length + (selectedMaterialDocument && !documentQueued ? 1 : 0) > LIMITS.attachments || sendReceipts.current.size >= 16
+      || text.length + files.reduce((n, item) => n + item.name.length + (item.kind === 'text' && !item.resource ? item.text.length : 0), 0) > LIMITS.message
+      || files.reduce((n, item) => n + (item.kind === 'image' ? item.dataUrl.length : 0), 0) > LIMITS.imageDataUrls) {
+      sendPending.current = false; notify(sendReceipts.current.size >= 16 ? '还有未确认的原稿，先取回处理好再继续。' : '一次最多三份，文字和图片也要留在可一起读取的大小内。原稿还在。'); return;
+    }
     let studyAddressUnavailable = false;
     const stillCurrent = () => sequence === sendSequence.current && selectedNavigation === navigation.current
       && selectedSessionId === sessionRef.current && selectedBoundary === boundaryRevision.current && !isPublicSurface()
+      && (!summonEdge || selectedControls === turnControlsRef.current && selectedMaterialQuote === materialQuoteRef.current
+        && selectedNoteQuote === noteQuoteRef.current && selectedConversationQuote === conversationQuoteRef.current)
       && (!consumeDraft || selectedControls === turnControlsRef.current && selectedScene === sceneSelectionRef.current
         && selectedMaterialQuote === materialQuoteRef.current
+        && selectedMaterialDocument === materialDocumentRef.current
         && selectedNoteQuote === noteQuoteRef.current && selectedConversationQuote === conversationQuoteRef.current
         && selectedAgendaContext === agendaContextRef.current
         && selectedMapContext === sharedMapContextRef.current
+        && selectedComparison === comparisonAnchorRef.current
+        && selectedComparisonContinuation === comparisonContinuationRef.current
+        && selectedSettingsContext === settingsContextRef.current
         && selectedFollowup?.token === composerFollowupRef.current?.token
         && (!selectedStudyDock || studyAddressUnavailable || selectedStudyDock.key === studyDockRef.current?.key));
+    const submittedDraft: Draft = withDraftAttachments({ text, attachment: null, submission: { id: submissionId, draftKey: previousKey, ...(controls ? { controls } : {}),
+      ...(selectedMaterialDocument ? { materialDocument: { resourceId: selectedMaterialDocument.reference.resourceId, sha256: selectedMaterialDocument.reference.sha256 } } : {}) } }, files);
+    let detachedRevision = revision, accepted = false, ipcStarted = false, ownerClaimed = false;
     setStarting(true);
     setToast('');
     setMemoryNotice(null);
     setAttachmentMenu(false);
-    followRef.current = true;
+    if (summonEdge) {
+      followRef.current = false;
+      rememberReadingPosition();
+    } else followRef.current = true;
     try {
+      if (consumeDraft) {
+        // Claim every immutable original before detaching this editor. Its
+        // next draft may release those files independently during admission.
+        await api.saveDraft({ id: ownerKey, draft: submittedDraft, privacyEpoch: draftPrivacyEpoch(selectedBoundary),
+          ...(controls?.retention === 'session_only' || temporaryConversation ? { retention: 'session_only' as const } : {}) });
+        ownerClaimed = true;
+        if (!stillCurrent()) return;
+        const current = draftRef.current, sentIds = new Set(files.map(item => item.attachmentId));
+        const remaining = getDraftAttachments(current).filter(item => !sentIds.has(item.attachmentId));
+        const nextText = current.text === text ? '' : current.text.startsWith(text) ? current.text.slice(text.length) : current.text;
+        flushSync(() => replaceDraft(withDraftAttachments({ ...current, text: nextText }, remaining)));
+        detachedRevision = draftRevision.current;
+      }
       if (consumeDraft && (busy || activeRun.current)) await api.stop();
       if (!stillCurrent()) return;
       if (studyInteraction && selectedSessionId) {
@@ -1493,6 +2255,11 @@ export function App() {
         }
       }
       if (!stillCurrent()) return;
+      if (selectedMaterialDocument && !documentQueued) {
+        try { await readMaterialDocument(selectedMaterialDocument.reference); }
+        catch (error) { if (stillCurrent()) { clearMaterialDocument(); notify(errorText(error)); } return; }
+      }
+      if (!stillCurrent()) return;
       if (selectedMapContext && Date.parse(selectedMapContext.expiresAt) <= Date.now()) {
         clearMapContext(); notify('这次地图参考已经收起，草稿还在。可以重新选这条路。'); return;
       }
@@ -1509,8 +2276,85 @@ export function App() {
         catch (error) { if (stillCurrent()) { clearConversationQuote(); notify(errorText(error)); } return; }
       }
       if (!stillCurrent()) return;
-      const result = await api.send({ sessionId: selectedSessionId, content: text, controls,
-        ...(attachment ? { attachment } : {}),
+      let progressSessionId: string | undefined;
+      const adoptProgress = (nextSessionId: string) => {
+        progressSessionId = nextSessionId;
+        if (sequence !== sendSequence.current || selectedNavigation !== navigation.current
+          || selectedBoundary !== boundaryRevision.current || isPublicSurface()
+          || draftKey.current !== previousKey && draftKey.current !== nextSessionId
+          || sessionRef.current !== selectedSessionId && sessionRef.current !== nextSessionId) return;
+        sessionRef.current = nextSessionId;
+        if (edgeCall.current?.sequence === sequence && edgeCall.current.navigation === selectedNavigation
+          && edgeCall.current.boundary === selectedBoundary) edgeCall.current.sessionId = nextSessionId;
+        setSessionId(nextSessionId);
+        const previousDraftKey = draftKey.current;
+        draftKey.current = nextSessionId;
+        // Only the independently edited next draft changes its owner key.
+        // The immutable submission keeps its own native owner until admission.
+        if (previousDraftKey !== nextSessionId && (consumeDraft || summonEdge)) {
+          replaceDraft({ ...draftRef.current });
+          if (previousDraftKey === 'new') void attempt(() => api.saveDraft({ id: 'new',
+            draft: { text: '', attachment: null, attachments: [] }, privacyEpoch: draftPrivacyEpoch(selectedBoundary) }));
+        }
+        setUnsentSubmissions(current => current.map(item => item.draftKey === previousKey && item.boundary === selectedBoundary
+          ? { ...item, draftKey: nextSessionId } : item));
+      };
+      const acknowledgeSubmission = (acceptedSessionId: string) => {
+        if (accepted) return;
+        accepted = true;
+        sendReceipts.current.delete(submissionId);
+        setUnsentSubmissions(current => current.filter(item => item.id !== submissionId));
+        adoptProgress(acceptedSessionId);
+        if (sequence !== sendSequence.current || selectedNavigation !== navigation.current
+          || selectedBoundary !== boundaryRevision.current || isPublicSurface()
+          || sessionRef.current !== acceptedSessionId) return;
+        if (consumeDraft && selectedControls === turnControlsRef.current) { turnControlsRef.current = {}; setTurnControls({}); }
+        if (consumeDraft && composerFollowupRef.current?.token === selectedFollowup?.token) clearFollowup();
+        if (consumeDraft && sceneSelectionRef.current === selectedScene) clearSceneSelection();
+        if (consumeDraft && materialQuoteRef.current === selectedMaterialQuote) clearMaterialQuote();
+        if (consumeDraft && materialDocumentRef.current === selectedMaterialDocument) clearMaterialDocument(false);
+        if (consumeDraft && noteQuoteRef.current === selectedNoteQuote) clearNoteQuote();
+        if (consumeDraft && conversationQuoteRef.current === selectedConversationQuote) clearConversationQuote();
+        if (consumeDraft && agendaContextRef.current === selectedAgendaContext) clearAgendaContext();
+        if (consumeDraft && selectedSettingsContext === settingsContextRef.current) clearSettingsContext();
+        if (selectedComparison && selectedWorkspaceTarget && !sameWorkspaceTarget(selectedComparison.target, selectedWorkspaceTarget)) {
+          const continued = { target: structuredClone(selectedWorkspaceTarget), label: selectedWorkspaceLabel,
+            ...(selectedWorkspaceInputReader ? { readProgramInputs: selectedWorkspaceInputReader } : {}) };
+          comparisonContinuationRef.current = continued; setComparisonContinuation(continued);
+        }
+      };
+      const previousMessageIds = new Set(messages.map(message => message.id));
+      sendReceipts.current.set(submissionId, { sequence, receive: message => {
+        if (message.submissionId !== submissionId || previousMessageIds.has(message.id)
+          || selectedSessionId !== undefined && message.sessionId !== selectedSessionId
+          || message.presentationBoundaryKey !== selectedBoundary) return;
+        if (message.role === 'assistant') {
+          if (message.status !== 'running' && !accepted) {
+            sendReceipts.current.delete(submissionId);
+            setUnsentSubmissions(current => current.map(item => item.id === submissionId ? { ...item, delivery: 'not-sent', processing: false } : item));
+          }
+          return;
+        }
+        if (message.role !== 'user' || message.status !== 'done') return;
+        adoptProgress(message.sessionId);
+        // A preliminary echo has no authoredSource. The host stamps this only
+        // after the real authored/file/image events and each material binding.
+        if (!message.authoredSource || message.authoredSource.eventId !== message.id
+          || Array.from(message.content).slice(0, message.authoredSource.displayEnd).join('') !== text) return;
+        const actual = message.attachments || [];
+        const matching = actual.filter(item => files.some(file => file.attachmentId === item.attachmentId));
+        if (consumeDraft && (matching.length !== files.length || files.some((file, index) => {
+          const item = matching[index];
+          if (!item || item.attachmentId !== file.attachmentId || item.kind !== file.kind) return true;
+          return file.kind === 'image' ? item.kind !== 'image' || item.dataUrl !== file.dataUrl
+            : item.kind !== 'text' || item.resource?.resourceId !== file.resource?.resourceId || item.resource?.sha256 !== file.resource?.sha256;
+        }))) return;
+        if (!consumeDraft && message.image?.dataUrl !== image?.dataUrl) return;
+        acknowledgeSubmission(message.sessionId);
+      } });
+      ipcStarted = true;
+      const result = await api.send({ sessionId: selectedSessionId, submissionId, content: text, controls, workspaceContext,
+        ...(consumeDraft ? { attachments: files } : {}),
         ...(selectedScene ? { selection: selectedScene } : {}), ...(studyInteraction ? { studyInteraction } : {}),
         ...(validFollowup?.companionReference ? { companionReference: validFollowup.companionReference } : {}),
         ...(validFollowup?.curiosityReference ? { curiosityReference: validFollowup.curiosityReference } : {}),
@@ -1521,35 +2365,50 @@ export function App() {
         ...(selectedMaterialQuote ? { materialQuote: materialQuoteAddress(selectedMaterialQuote) } : {}),
         ...(selectedNoteQuote ? { noteQuote: noteQuoteAddress(selectedNoteQuote) } : {}),
         ...(selectedConversationQuote ? { conversationQuote: selectedConversationQuote.reference } : {}),
+        ...(selectedMaterialDocument ? { materialDocument: { resourceId: selectedMaterialDocument.reference.resourceId,
+          sha256: selectedMaterialDocument.reference.sha256 } } : {}),
         ...(selectedAgendaContext ? { agendaFocus: selectedAgendaContext.focus } : {}),
         ...(selectedMapContext?.routeReference ? { mapRouteReference: selectedMapContext.routeReference } : {}),
         ...(rehearsalInteraction ? { rehearsalInteraction } : {}),
-        ...(file?.kind === 'text' && file.resource ? { material: file.resource } : {}), ...(image ? { image } : {}) });
+        ...(image ? { image } : {}) });
+      adoptProgress(result.sessionId);
       if (isPublicSurface() || selectedNavigation !== navigation.current || selectedBoundary !== boundaryRevision.current) return;
-      sessionRef.current = result.sessionId;
-      setSessionId(result.sessionId);
-      draftKey.current = result.sessionId;
-      if (consumeDraft && revision === draftRevision.current) replaceDraft({ text: '', attachment: null });
-      else if (consumeDraft) replaceDraft({ ...draftRef.current,
-        attachment: draftRef.current.attachment === selectedAttachment ? null : draftRef.current.attachment });
-      if (previousKey === 'new')
-        void attempt(() => api.saveDraft({ id: 'new', draft: { text: '', attachment: null }, privacyEpoch: draftPrivacyEpoch(selectedBoundary) }));
-      if (consumeDraft && selectedControls === turnControlsRef.current) {
-        turnControlsRef.current = {};
-        setTurnControls({});
-      }
-      if (consumeDraft && composerFollowupRef.current?.token === selectedFollowup?.token) clearFollowup();
-      if (consumeDraft && sceneSelectionRef.current === selectedScene) clearSceneSelection();
-      if (consumeDraft && materialQuoteRef.current === selectedMaterialQuote) clearMaterialQuote();
-      if (consumeDraft && noteQuoteRef.current === selectedNoteQuote) clearNoteQuote();
-      if (consumeDraft && conversationQuoteRef.current === selectedConversationQuote) clearConversationQuote();
-      if (consumeDraft && agendaContextRef.current === selectedAgendaContext) clearAgendaContext();
     } catch (e) {
-      notify(errorText(e));
+      if (selectedNavigation === navigation.current && selectedBoundary === boundaryRevision.current && !isPublicSurface()) notify(errorText(e));
     } finally {
+      if (consumeDraft && ownerClaimed && !accepted && selectedBoundary === boundaryRevision.current && !isPublicSurface()) {
+        let status: Awaited<ReturnType<typeof api.draftSubmissions>>[number] | undefined;
+        let statusKnown = false, restored = false;
+        try { status = (await api.draftSubmissions()).find(item => item.id === ownerKey); statusKnown = true; }
+        catch (error) { notify(errorText(error)); }
+        // This exact native owner is removed only by a matching real admission
+        // (or this editor's explicit restore). IPC return alone never removes it.
+        if (!accepted && statusKnown && !status && ipcStarted) {
+          accepted = true; sendReceipts.current.delete(submissionId);
+          setUnsentSubmissions(current => current.filter(item => item.id !== submissionId));
+        }
+        const sameOwner = selectedNavigation === navigation.current && previousKey === draftKey.current && selectedSessionId === sessionRef.current;
+        if (!accepted && !ipcStarted && sameOwner && detachedRevision === draftRevision.current) {
+          try {
+            const { submission: _submission, ...original } = submittedDraft;
+            await api.saveDraft({ id: previousKey, draft: original, privacyEpoch: draftPrivacyEpoch(selectedBoundary) });
+            if (sameOwner && detachedRevision === draftRevision.current && selectedBoundary === boundaryRevision.current) {
+              replaceDraft(original, false);
+              await api.saveDraft({ id: ownerKey, draft: { text: '', attachment: null, attachments: [] }, privacyEpoch: draftPrivacyEpoch(selectedBoundary) });
+              restored = true;
+            }
+          } catch (error) { notify(errorText(error)); }
+        }
+        if (!accepted && !restored) setUnsentSubmissions(current => current.some(item => item.id === submissionId) ? current : [...current, {
+          id: submissionId, ownerKey, sequence, draftKey: selectedNavigation === navigation.current ? draftKey.current : previousKey,
+          boundary: selectedBoundary, draft: submittedDraft,
+          delivery: ipcStarted && (!statusKnown || status?.processing) ? 'unconfirmed' : 'not-sent', processing: status?.processing,
+        }]);
+        if (!ipcStarted || statusKnown && !status?.processing) sendReceipts.current.delete(submissionId);
+      } else if (accepted || !ipcStarted || !ownerClaimed) sendReceipts.current.delete(submissionId);
       sendPending.current = false;
       setStarting(false);
-      inputRef.current?.focus();
+      if (!summonEdge && selectedNavigation === navigation.current && selectedBoundary === boundaryRevision.current && !isPublicSurface()) inputRef.current?.focus({ preventScroll: true });
     }
   }
   async function saveAction(
@@ -1584,7 +2443,7 @@ export function App() {
     await attempt(async () => {
       await api.saveDraft({
         id: draftKey.current,
-        draft: draftRef.current,
+        draft: hostDraft(draftRef.current),
         privacyEpoch: draftPrivacyEpoch(boundary),
         ...(turnControlsRef.current.retention === 'session_only'
           ? { retention: 'session_only' as const }
@@ -1602,6 +2461,11 @@ export function App() {
     const next = await api.setPresentationSurface('private');
     updateState(next);
     const previous = privateReturn.current;
+    if (previous.checkpoint && previous.boundary === boundaryRevision.current) {
+      await restoreWorkspace(previous.checkpoint);
+      await recoverSubmissions(); setDraftReady(true);
+      return;
+    }
     if (previous.sessionId) await openConversation(previous.sessionId);
     else {
       const saved = await api.draft('new');
@@ -1612,6 +2476,7 @@ export function App() {
       sessionRef.current = undefined;
     }
     setView(previous.view);
+    await recoverSubmissions();
     setDraftReady(true);
   }
   function quotePassage(text: string) {
@@ -1630,38 +2495,108 @@ export function App() {
     requestAnimationFrame(() => inputRef.current?.focus({ preventScroll: true }));
   }
   function focusComposerAfterRead(owns: () => boolean) {
-    const gesture = readingGesture.current, selectedNavigation = navigation.current, selectedRead = searchNavigation.current,
-      boundary = boundaryRevision.current, selectedSession = sessionRef.current;
-    requestAnimationFrame(() => {
-      if (gesture !== readingGesture.current || selectedNavigation !== navigation.current || selectedRead !== searchNavigation.current
-        || boundary !== boundaryRevision.current || selectedSession !== sessionRef.current || isPublicSurface()
-        || !['chat', 'materials'].includes(viewRef.current) || !owns()) return;
-      inputRef.current?.focus({ preventScroll: true });
-    });
+    pendingReadFocus.current = { owns, gesture: readingGesture.current, navigation: navigation.current,
+      search: searchNavigation.current, boundary: boundaryRevision.current, sessionId: sessionRef.current };
+    requestAnimationFrame(settleReadFocus);
   }
-  function quoteMaterial(quote: MaterialQuote) {
+  function settleReadFocus() {
+    const request = pendingReadFocus.current;
+    if (!request) return;
+    if (request.gesture !== readingGesture.current || request.navigation !== navigation.current || request.search !== searchNavigation.current
+      || request.boundary !== boundaryRevision.current || request.sessionId !== sessionRef.current || isPublicSurface()
+      || !['chat', 'materials', 'keep'].includes(viewRef.current) || !request.owns()) { pendingReadFocus.current = undefined; return; }
+    const input = inputRef.current;
+    if (!input?.isConnected || !input.getClientRects().length || input.disabled) return;
+    input.focus({ preventScroll: true }); pendingReadFocus.current = undefined; revealKeepComposer();
+  }
+  function quoteMaterial(quote: MaterialQuote, stayHere = false) {
     if (!draftReady || navigating || navigationPending.current || isPublicSurface()) return false;
     searchNavigation.current++;
     if (studyDockRef.current) { requestComposerMove(); composerDock.returnToChat(); }
     clearSceneSelection(); clearFollowup(); clearNativeReferences();
     materialQuoteRef.current = quote; setMaterialQuote(quote);
+    if (stayHere && viewRef.current === 'keep') setKeepWriting(true);
     setReadingPane('chat');
     queueReturnCapture();
     focusComposerAfterRead(() => materialQuoteRef.current === quote);
     return true;
   }
-  function quoteNote(quote: NoteQuote) {
+  async function readMaterialDocument(reference: MaterialDocumentAddress, originals = getDraftAttachments(draftRef.current)): Promise<DocumentReference> {
+    const attached = originals.find(item => item.kind === 'text' && item.resource?.resourceId === reference.resourceId);
+    const pending = attached?.kind === 'text' ? attached.resource : undefined;
+    if (pending && pending.sha256 !== reference.sha256) throw new Error('这份资料已经换过，回原文件重新拿起就好。');
+    const page = await api.materialsRead({ target: pending ? { kind: 'pending', reference: pending }
+      : { kind: 'saved', resourceId: reference.resourceId }, page: reference.page || 1, offset: reference.offset || 0, view: 'text' });
+    if (page.item.sha256 !== reference.sha256) throw new Error('这份资料已经换过，回原文件重新拿起就好。');
+    // Only owner metadata and an address survive this local read. Neither a
+    // synthetic excerpt nor the returned body is added to the authored draft.
+    return { reference: { resourceId: page.item.resourceId, sha256: page.item.sha256,
+      ...(page.page ? { page: page.page } : {}), offset: page.start }, name: page.item.name, mediaType: page.item.mediaType };
+  }
+  async function pickMaterialDocument(reference: MaterialDocumentAddress) {
+    if (!draftReady || navigating || navigationPending.current || isPublicSurface()) return;
+    const request = ++documentRequest.current, boundary = boundaryRevision.current, selectedSession = sessionRef.current,
+      selectedNavigation = navigation.current, gesture = readingGesture.current;
+    const owns = () => request === documentRequest.current && boundary === boundaryRevision.current && selectedSession === sessionRef.current;
+    const current = () => owns() && selectedNavigation === navigation.current && gesture === readingGesture.current
+      && !navigationPending.current && !isPublicSurface();
+    documentReturnFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    setDocumentPreview(undefined); setDocumentPreviewPending(true); setDocumentPreviewIssue('');
+    try { const next = await readMaterialDocument(reference); if (current()) setDocumentPreview(next); }
+    catch (error) { if (current()) setDocumentPreviewIssue(errorText(error)); }
+    finally { if (owns()) setDocumentPreviewPending(false); }
+  }
+  async function acceptMaterialDocument() {
+    if (!documentPreview || documentPreviewPending || !draftReady || navigating || navigationPending.current || isPublicSurface()) return;
+    const selected = documentPreview, request = ++documentRequest.current, boundary = boundaryRevision.current,
+      selectedSession = sessionRef.current, selectedNavigation = navigation.current, gesture = readingGesture.current;
+    const owns = () => request === documentRequest.current && boundary === boundaryRevision.current && selectedSession === sessionRef.current;
+    const current = () => owns() && selectedNavigation === navigation.current && gesture === readingGesture.current
+      && !navigationPending.current && !isPublicSurface();
+    setDocumentPreviewPending(true); setDocumentPreviewIssue('');
+    try {
+      const next = await readMaterialDocument(selected.reference);
+      if (!current()) return;
+      searchNavigation.current++;
+      if (studyDockRef.current) { requestComposerMove(); composerDock.returnToChat(); }
+      clearSceneSelection(); clearFollowup(); clearMaterialQuote(); clearNativeReferences(); clearSettingsContext();
+      materialDocumentRef.current = next; setMaterialDocument(next); documentReturnFocus.current = null;
+      setReadingPane('chat'); queueReturnCapture();
+      focusComposerAfterRead(() => materialDocumentRef.current === next);
+    } catch (error) { if (current()) setDocumentPreviewIssue(errorText(error)); }
+    finally { if (owns()) setDocumentPreviewPending(false); }
+  }
+  async function openMaterialDocumentSource(reference: MaterialDocumentAddress) {
+    if (navigationPending.current || isPublicSurface()) return;
+    if (viewRef.current === 'keep') readerReturnFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const request = ++searchNavigation.current, boundary = boundaryRevision.current, selectedSession = sessionRef.current,
+      selectedNavigation = navigation.current, gesture = readingGesture.current;
+    const current = () => request === searchNavigation.current && boundary === boundaryRevision.current && selectedSession === sessionRef.current
+      && selectedNavigation === navigation.current && gesture === readingGesture.current && !navigationPending.current && !isPublicSurface();
+    try {
+      const next = await readMaterialDocument(reference);
+      if (!current()) return;
+      const offset = next.reference.offset || 0;
+      openDeskItem({ id: next.reference.resourceId, kind: 'material', name: next.name, address: next.reference });
+      setSearchTarget({ locator: { kind: 'material', resourceId: next.reference.resourceId, sha256: next.reference.sha256,
+        ...(next.reference.page ? { page: next.reference.page } : {}), field: 'body', offset, end: offset }, requestId: request });
+      setReadingPane('reader');
+    } catch (error) { if (current()) throw error; }
+  }
+  function quoteNote(quote: NoteQuote, stayHere = false) {
     if (!draftReady || navigating || navigationPending.current || isPublicSurface()) return false;
     searchNavigation.current++;
     if (studyDockRef.current) { requestComposerMove(); composerDock.returnToChat(); }
     clearSceneSelection(); clearFollowup(); clearMaterialQuote(); clearNativeReferences();
     noteQuoteRef.current = quote; setNoteQuote(quote);
-    setView('chat'); setReadingPane('chat');
+    if (stayHere && viewRef.current === 'keep') setKeepWriting(true); else setView('chat');
+    setReadingPane('chat');
     queueReturnCapture();
     focusComposerAfterRead(() => noteQuoteRef.current === quote);
     return true;
   }
   async function discussBookmark(reference: SourceBookmarkReference) {
+    const stayHere = viewRef.current === 'keep';
     const boundary = boundaryRevision.current, selectedSession = sessionRef.current, gesture = readingGesture.current,
       selectedNavigation = navigation.current, selectedRead = ++searchNavigation.current;
     const current = () => boundary === boundaryRevision.current && selectedSession === sessionRef.current
@@ -1671,11 +2606,11 @@ export function App() {
     if (reference.kind === 'material') {
       const quote = await api.materialsQuote({ target: reference.target || { kind: 'saved', resourceId: reference.reference.resourceId },
         quote: materialQuoteAddress(reference.reference) });
-      return current() && quoteMaterial(quote);
+      return current() && quoteMaterial(quote, stayHere);
     }
     if (reference.kind === 'notebook') {
       const quote = await api.notesQuote(noteQuoteAddress(reference.reference));
-      return current() && quoteNote(quote);
+      return current() && quoteNote(quote, stayHere);
     }
     const preview = await api.sourceBookmarkPreview(reference);
     if (!current() || preview.reference.kind !== 'conversation') return false;
@@ -1684,7 +2619,8 @@ export function App() {
     clearSceneSelection(); clearFollowup(); clearMaterialQuote(); clearNativeReferences();
     const selected = { reference: preview.reference.reference, title: preview.title };
     conversationQuoteRef.current = selected; setConversationQuote(selected);
-    setView('chat'); setReadingPane('chat');
+    if (stayHere) setKeepWriting(true); else setView('chat');
+    setReadingPane('chat');
     queueReturnCapture();
     focusComposerAfterRead(() => conversationQuoteRef.current === selected);
     return true;
@@ -1732,6 +2668,111 @@ export function App() {
       || navigationPending.current || isPublicSurface()) return;
     if (preview.locator) await openSearchResult(preview.locator);
   }
+  async function openBookmarkSource(source: SourceBookmarkReference) {
+    if (viewRef.current === 'keep') readerReturnFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    if (source.kind === 'material') await openMaterialSource(source.reference);
+    else if (source.kind === 'notebook') await openNoteSource(source.reference);
+    else await openConversationSource(source.reference);
+  }
+  async function openKeptWork(source: KeepWorkLocator) {
+    const boundary = boundaryRevision.current;
+    const opened = await openConversation(source.sessionId);
+    if (!opened || boundary !== boundaryRevision.current || source.sessionId !== sessionRef.current || isPublicSurface()) return;
+    const message = opened.find(item => item.id === source.messageId);
+    const view = message?.views?.find(item => item.id === source.programId && item.revision === source.revision);
+    if (!view || view.program && view.program.hash !== source.programHash) throw new Error('这份作品后来有了变化，可以从原对话看看现在这一版。');
+    setView('chat'); setReadingPane('chat'); followRef.current = false;
+    requestAnimationFrame(() => {
+      const article = scrollRef.current?.querySelector<HTMLElement>(`[data-message-id="${CSS.escape(source.messageId)}"]`);
+      const program = article?.querySelector<HTMLElement>(`[data-program-id="${CSS.escape(source.programId)}"]`) || article;
+      program?.scrollIntoView({ block: 'start', behavior: 'auto' });
+      program?.querySelector<HTMLElement>('.interactive-document')?.focus({ preventScroll: true });
+    });
+  }
+  async function openReplySource(source: ReplySourceAddress) {
+    if (navigationPending.current || isPublicSurface()) return;
+    const boundary = boundaryRevision.current, selectedSession = sessionRef.current, gesture = readingGesture.current;
+    const current = () => boundary === boundaryRevision.current && selectedSession === sessionRef.current
+      && gesture === readingGesture.current && !navigationPending.current && !isPublicSurface();
+    if (source.kind === 'notebook') {
+      if (source.end > source.start) await openNoteSource({ id: source.noteId, revision: source.revision, sha256: source.sha256, start: source.start, end: source.end });
+      else openMaterialNote(source.noteId, source.revision);
+      return;
+    }
+    if (source.kind === 'interactive') { await openKeptWork(source); return; }
+    if (source.kind === 'scene') {
+      const opened = await openConversation(source.sessionId);
+      if (!opened || boundary !== boundaryRevision.current || source.sessionId !== sessionRef.current || isPublicSurface()) return;
+      const message = opened.find(item => item.id === source.messageId);
+      if (!message?.scenes?.some(scene => scene.id === source.sceneId && scene.revision === source.revision))
+        throw new Error('这一页原来的内容这会儿读不到，可以回原对话看看现在的进展。');
+      followRef.current = false;
+      requestAnimationFrame(() => scrollRef.current?.querySelector<HTMLElement>(`[data-message-id="${CSS.escape(source.messageId)}"]`)
+        ?.scrollIntoView({ block: 'center', behavior: 'auto' }));
+      return;
+    }
+    if (source.kind === 'material') {
+      const read = await api.materialsRead({ target: source.target, page: source.page || 1, offset: source.start || 0, view: 'text' });
+      if (!current()) return;
+      if (read.item.resourceId !== source.resourceId || read.item.sha256 !== source.sha256) throw new Error('原文件后来有了变化，请重新打开这份资料。');
+      openDeskItem({ id: source.resourceId, kind: 'material', name: read.item.name,
+        ...(source.target.kind === 'pending' ? { pending: { kind: 'text', name: read.item.name, text: '', resource: source.target.reference } } : {}),
+        address: { resourceId: source.resourceId, sha256: source.sha256, page: source.page || 1, offset: source.start || 0 } });
+      const start = source.start || 0, end = source.end !== undefined && source.end - start <= 4000 ? source.end : start;
+      setSearchTarget({ locator: { kind: 'material', resourceId: source.resourceId, sha256: source.sha256,
+        ...(read.item.mediaType === 'application/pdf' ? { page: source.page || 1 } : {}), field: 'body', offset: start, end }, requestId: ++searchNavigation.current });
+      return;
+    }
+    const originals = await api.messages(source.sessionId);
+    if (!current()) return;
+    const message = originals.find(item => item.id === source.messageId);
+    if (!message) throw new Error('这处原文现在读不到了，可以回原来的位置重新选择。');
+    if (source.kind === 'conversation') {
+      if (message.authoredSource && message.authoredSource.contentVersion !== source.contentVersion) throw new Error('这句原话后来有了变化，请重新选择现在这一版。');
+      const text = authoredMessageContent(message), end = Math.min(Array.from(text).length, 4000);
+      if (!end) throw new Error('这句原话现在没有可打开的内容。');
+      const sha256 = [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)))].map(value => value.toString(16).padStart(2, '0')).join('');
+      if (!current()) return;
+      await openConversationSource({ sessionId: source.sessionId, messageId: source.messageId, contentVersion: source.contentVersion,
+        sha256, start: 0, end });
+    } else {
+      const image = (message.attachments || (message.image ? [message.image] : [])).find(item => item.kind === 'image'
+        && ('sourceEventId' in item && item.sourceEventId === source.sourceEventId
+          || source.attachmentId && item.attachmentId === source.attachmentId || !message.attachments?.length && item === message.image));
+      if (!image || image.kind !== 'image') throw new Error('原图片现在读不到了，可以从原消息重新添加。');
+      const bytes = Uint8Array.from(atob(image.dataUrl.split(',')[1] || ''), value => value.charCodeAt(0));
+      const sha256 = [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map(value => value.toString(16).padStart(2, '0')).join('');
+      if (!current()) return;
+      if (sha256 !== source.sha256) throw new Error('原图片后来有了变化，请重新选择要看的那张。');
+      openAttachment(image);
+    }
+  }
+  async function openWorkspaceReference(target: WorkspaceTarget) {
+    if (target.kind === 'material_quote') return openMaterialSource(target.reference);
+    if (target.kind === 'note_quote') return openNoteSource(target.reference);
+    if (target.kind === 'conversation_quote') return openConversationSource(target.reference);
+    if (target.kind === 'preparation') return openPreparationReference(target.reference);
+    if (target.kind === 'agenda') { setView('agenda'); return; }
+    if (target.kind === 'notebook') { setView('notes'); return; }
+    if (target.kind === 'material') return openMaterialDocumentSource(target.reference);
+    if (target.kind === 'map_route') {
+      const map = sharedMapContextRef.current;
+      if (map?.routeReference?.selectionId === target.reference.selectionId && map.previewRoute)
+        openMap(map.previewRoute, map.routeConditions, map.previewMemory);
+      else notify('这条路线已经收起，可以从原来的地图重新选。');
+      return;
+    }
+    const referenceMessageId = 'messageId' in target.reference ? target.reference.messageId : undefined;
+    const message = target.kind === 'scene' ? messages.find(message => message.scenes?.some(scene => scene.id === target.reference.sceneId))
+      : target.kind === 'study' ? messages.find(message => message.scenes?.some(scene => (scene.kind === 'study' || scene.kind === 'study_reference')
+        && scene.owner.id === target.reference.studyId))
+        : referenceMessageId ? messages.find(message => message.id === referenceMessageId) : undefined;
+    if (!message) { notify('原来的那一处已经不在当前页，可以从原消息重新打开。'); return; }
+    if (target.kind === 'study') return openBookmarkedStudy({ sessionId: message.sessionId, messageId: message.id, studyId: target.reference.studyId });
+    setView('chat'); setReadingPane('chat');
+    requestAnimationFrame(() => scrollRef.current?.querySelector<HTMLElement>(`[data-message-id="${CSS.escape(message.id)}"]`)
+      ?.scrollIntoView({ block: 'center', behavior: 'auto' }));
+  }
   function discussAgenda(focus: AgendaFocus, label: string) {
     if (!draftReady || navigationPending.current || isPublicSurface() || !state?.agenda.some(item =>
       item.id === focus.record.id && (item.revision || 1) === focus.record.revision)) return;
@@ -1760,7 +2801,7 @@ export function App() {
     const next = text ? draftRef.current.text ? draftRef.current.text + '\n' + text : text : draftRef.current.text;
     if (next.length > LIMITS.draftText) { notify('原稿还在，先删减一点再带回地点。'); return false; }
     if (studyDockRef.current) { requestComposerMove(); composerDock.returnToChat(); }
-    clearSceneSelection(); clearFollowup(); clearMaterialQuote(); clearNoteQuote(); clearConversationQuote(); clearAgendaContext();
+    clearSceneSelection(); clearFollowup(); clearMaterialQuote(); clearMaterialDocument(); clearNoteQuote(); clearConversationQuote(); clearAgendaContext();
     sharedMapContextRef.current = value; setSharedMapContext(value);
     if (text) replaceDraft({ ...draftRef.current, text: next });
     setView('chat'); setReadingPane('chat');
@@ -1785,21 +2826,43 @@ export function App() {
     const boundary = boundaryRevision.current, selectedSession = sessionRef.current, request = ++searchNavigation.current;
     const current = () => request === searchNavigation.current && boundary === boundaryRevision.current
       && selectedSession === sessionRef.current && !navigationPending.current && !isPublicSurface();
-    const attached = draftRef.current.attachment;
+    const attached = getDraftAttachments(draftRef.current).find(item => item.kind === 'text' && item.resource?.resourceId === source.resourceId);
     const target = attached?.kind === 'text' && attached.resource?.resourceId === source.resourceId
       ? { kind: 'pending' as const, reference: attached.resource } : { kind: 'saved' as const, resourceId: source.resourceId };
     try {
       const quote = await api.materialsQuote({ target, quote: materialQuoteAddress(source) });
       if (!current()) return;
+      openDeskItem({ id: quote.resourceId, kind: 'material', name: quote.name,
+        ...(attached?.kind === 'text' ? { pending: attached } : {}),
+        address: { resourceId: quote.resourceId, sha256: quote.sha256, ...(quote.page ? { page: quote.page } : {}), offset: quote.start } });
       setSearchTarget({ locator: { kind: 'material', resourceId: quote.resourceId, sha256: quote.sha256,
         ...(quote.page ? { page: quote.page } : {}), field: 'body', offset: quote.start, end: quote.end }, requestId: request });
-      setView('materials'); setReadingPane(discuss ? 'chat' : 'reader');
-      if (discuss) quoteMaterial(quote);
+      setReadingPane(discuss ? 'chat' : 'reader');
+      if (discuss) quoteMaterial(quote, viewRef.current === 'keep');
     } catch (error) { if (current()) throw error; }
   }
   function openMaterialNote(id: string, revision: number) {
     setSearchTarget({ locator: { kind: 'note', noteId: id, revision, field: 'body', offset: 0, end: 0 }, requestId: ++searchNavigation.current });
     setView('notes');
+  }
+  function openAgendaItem(item?: Action, occurrenceDate?: string) {
+    const owner = item && state?.agenda.find(current => current.id === item.id);
+    if (owner) setAgendaResume({ address: { record: { id: owner.id, revision: owner.revision || 1,
+      ...(owner.recurrence && occurrenceDate ? { occurrenceDate } : {}) },
+      timeZone: owner.timeZone || state?.settings.timeZone || DEFAULT_TIME_ZONE }, requestId: ++returnNavigation.current });
+    setAgendaOpened(true); setView('agenda');
+  }
+  async function openAgendaOrigin(record: AgendaReference) {
+    if (!state || navigationPending.current || isPublicSurface() || !keepUnsavedEdits('回到原交流')) return;
+    const boundary = boundaryRevision.current, gesture = readingGesture.current, selectedNavigation = navigation.current;
+    const privacyEpoch = state.privacyEpoch, policyRevision = state.policyRevision;
+    if (privacyEpoch === undefined || policyRevision === undefined) throw new Error('这一天的资料范围还没接上，请重新打开后再试。');
+    const current = () => boundary === boundaryRevision.current && gesture === readingGesture.current && selectedNavigation === navigation.current
+      && !navigationPending.current && !isPublicSurface() && !!state.agenda.find(item => item.id === record.id && (item.revision || 1) === record.revision);
+    const source = await api.agendaOrigin({ record, privacyEpoch, policyRevision, sourceBoundary: state.sourceBoundary ?? 0 });
+    if (!current()) return;
+    if (!source) { notify('这项安排暂没有可返回的原交流，可以就这件事接着聊。'); return; }
+    await openSearchResult(source.locator);
   }
   async function showPlace(placeId: string) {
     await attempt(async () => {
@@ -1811,6 +2874,15 @@ export function App() {
     .reverse()
     .find((message) => message.scopeSummary?.retentionScope === 'conversation')?.scopeSummary;
   const temporaryConversation = conversationRetention?.retention === 'session_only';
+  const hasMessageScope = temporaryConversation || Object.values(turnControls).some(value => value !== undefined);
+  const messageScopeLabel = turnControls.transmission === 'local_only' ? '先留在这里'
+    : temporaryConversation ? '这次不留下'
+      : turnControls.retention === 'session_only' ? '这条不留下'
+        : turnControls.memoryMode === 'current_sources_only' ? '只看这条'
+          : turnControls.memoryMode === 'none' ? '不参考记忆与历史'
+            : turnControls.retention === 'history_no_inference' ? '不记成长期偏好'
+              : turnControls.audience === 'public' ? '准备公开的草稿'
+                : turnControls.audience === 'group' ? '准备给群里的草稿' : '这条消息的使用范围';
   const memoryHint = memoryNotice && (
     <div className="memory-notice" role="status">
       <span>
@@ -1850,13 +2922,22 @@ export function App() {
       onCancelTrial: () => { const original = { ...selection }; delete original.planningTrial; void selectScene(original); } };
   })();
   const composer = (
-    <div className={`composer-area${composerDock.target ? ' is-study-writing' : ''}${sceneDropActive ? ' is-scene-drop' : ''}`}
+    <div className={`composer-area${composerDock.target ? ' is-study-writing' : ''}${sceneDropActive ? ' is-scene-drop' : ''}${documentDropActive ? ' is-document-drop' : ''}`}
       onDragOver={event => {
+        if (event.dataTransfer.types.includes(MATERIAL_DOCUMENT_MIME)) {
+          if (!draftReady || navigating || surfaceMode.current === 'public') return;
+          event.preventDefault(); event.stopPropagation(); event.dataTransfer.dropEffect = 'copy'; setDocumentDropActive(true); return;
+        }
         if (!event.dataTransfer.types.includes(SCENE_FRAME_MIME) || !draftReady || navigating || surfaceMode.current === 'public') return;
         event.preventDefault(); event.stopPropagation(); event.dataTransfer.dropEffect = 'copy'; setSceneDropActive(true);
       }}
-      onDragLeave={event => { if (!(event.relatedTarget instanceof Node) || !event.currentTarget.contains(event.relatedTarget)) setSceneDropActive(false); }}
+      onDragLeave={event => { if (!(event.relatedTarget instanceof Node) || !event.currentTarget.contains(event.relatedTarget)) { setSceneDropActive(false); setDocumentDropActive(false); } }}
       onDrop={event => {
+        if (event.dataTransfer.types.includes(MATERIAL_DOCUMENT_MIME)) {
+          event.preventDefault(); event.stopPropagation(); setDocumentDropActive(false);
+          const carried = readMaterialDocumentTransfer(event.dataTransfer);
+          if (carried) void pickMaterialDocument(carried); return;
+        }
         if (!event.dataTransfer.types.includes(SCENE_FRAME_MIME)) return;
         event.preventDefault(); event.stopPropagation(); setSceneDropActive(false);
         const carried = readSceneFrameTransfer(event.dataTransfer);
@@ -1868,6 +2949,14 @@ export function App() {
         void selectScene(carried.selection);
       }}
       onKeyDownCapture={event => {
+        if (event.key === 'Escape' && !event.nativeEvent.isComposing && !composing.current && !attachmentMenu) {
+          if (documentPreview || documentPreviewPending || documentPreviewIssue) {
+            event.preventDefault(); event.stopPropagation(); cancelDocumentPreview(true); return;
+          }
+          if (materialDocumentRef.current) {
+            event.preventDefault(); event.stopPropagation(); clearMaterialDocument(); clearComparisonContinuation(); inputRef.current?.focus({ preventScroll: true }); return;
+          }
+        }
         if (event.key === 'Escape' && !event.nativeEvent.isComposing && !composing.current && !attachmentMenu
           && sceneSelectionRef.current?.kind === 'discussion_artwork') {
           event.preventDefault(); event.stopPropagation(); clearSceneSelection(); inputRef.current?.focus({ preventScroll: true });
@@ -1879,41 +2968,85 @@ export function App() {
           requestComposerMove();
           composerDock.returnToChat(); requestAnimationFrame(() => inputRef.current?.focus({ preventScroll: true }));
         }}>回到聊天</button></div>}
-      {sceneSelection && <FocusContextChip label={sceneSelectionLabel} trial={planningTrial} onClear={clearSceneSelection} />}
+      {settingsContext && !comparisonAnchor && !currentWorkspaceReference(false) && <FocusContextChip
+        label={`${settingsContext.phase === 'saved' ? '刚才的' : '正在试的'}${settingsContext.section === 'companion' ? '陪伴与光线'
+          : settingsContext.section === 'persona' ? '相处约定' : settingsContext.section === 'reading' ? '阅读样式'
+            : settingsContext.section === 'campus_connection' ? '学校连接' : settingsContext.section === 'memory' ? '记忆设置' : '连接设置'}`}
+        onOpen={() => setView(settingsContext.returnTo.view)} onClear={clearSettingsContext} />}
+      {comparisonAnchor && <FocusContextChip label={`对照 · ${comparisonAnchor.label}`} onClear={clearComparison}
+        targetKey={workspaceTargetKey(comparisonAnchor.target)}
+        onOpen={() => void attempt(() => openWorkspaceReference(comparisonAnchor.target))} />}
+      {comparisonAnchor && comparisonContinuation && !currentWorkspaceReference(false) && <FocusContextChip
+        targetKey={workspaceTargetKey(comparisonContinuation.target)}
+        label={`另一处 · ${comparisonContinuation.label}`} onOpen={() => void attempt(() => openWorkspaceReference(comparisonContinuation.target))} onClear={() => {
+          clearComparisonContinuation();
+        }} />}
+      {sceneSelection && showCurrentWorkspaceReference && <FocusContextChip label={sceneSelectionLabel} trial={planningTrial} onClear={() => { clearSceneSelection(); clearComparisonContinuation(); }}
+        targetKey={workspaceTargetKey({ kind: 'scene', reference: sceneSelection })}
+        onCompare={!comparisonAnchor ? compareCurrentReference : undefined} />}
       {sceneDropIssue && <p className="scene-drop-message" role="status">{sceneDropIssue}</p>}
-      {materialQuote && <div className="material-composer-quote">
-        <button type="button" className="material-quote-source" title={materialQuote.text} onClick={() => void attempt(() => openMaterialSource(materialQuote))}>
-          <FileText size={16} /><span>{materialQuote.name}{materialQuote.page ? ` · 第 ${materialQuote.page} 页` : ''}</span>
-        </button>
-        <button type="button" className="icon-button" aria-label="取消资料引用" onClick={() => { searchNavigation.current++; clearMaterialQuote(); inputRef.current?.focus({ preventScroll: true }); }}><X size={14} /></button>
+      {(documentPreview || documentPreviewPending || documentPreviewIssue) && <section className="document-preview-mark" aria-label="资料试放" aria-busy={documentPreviewPending}>
+        {documentPreview && <AttachmentTray items={[{ id: documentPreview.reference.resourceId, kind: 'document', name: documentPreview.name, mediaType: documentPreview.mediaType }]}
+          disabled={documentPreviewPending} onOpen={() => openDocumentFrame(documentPreview.reference)} />}
+        {documentPreviewPending && <span role="status"><LoaderCircle size={14} className="spin" aria-label="正在打开这份资料" /></span>}
+        {documentPreview && <IconButton label="用这份资料接着聊" disabled={documentPreviewPending} onClick={() => void acceptMaterialDocument()}><Check size={15} /></IconButton>}
+        <IconButton label="放回这份资料" onClick={() => cancelDocumentPreview(true)}><X size={14} /></IconButton>
+        {documentPreviewIssue && <QuietNotice message={documentPreviewIssue} />}
+      </section>}
+      {materialDocument && showCurrentWorkspaceReference && !attachments.some(item => item.kind === 'text' && item.resource?.resourceId === materialDocument.reference.resourceId) && <div className="document-focus-tray"
+        data-workspace-target={workspaceTargetKey({ kind: 'material', reference: materialDocument.reference })}>
+        <AttachmentTray items={[{ id: materialDocument.reference.resourceId, kind: 'document', name: materialDocument.name, mediaType: materialDocument.mediaType }]}
+          activeId={materialDocument.reference.resourceId} disabled={!draftReady || navigating} busy={busy}
+          onOpen={() => openDocumentFrame(materialDocument.reference)} onRemove={() => { clearMaterialDocument(); clearComparisonContinuation(); }} />
+        {!comparisonAnchor && <button type="button" className="icon-button" aria-label="留作对照，再选另一处" title="留作对照，再选另一处" onClick={compareCurrentReference}><Columns2 size={14} /></button>}
       </div>}
-      {noteQuote && <FocusContextChip label={noteQuote.title || '这页笔记'}
+      {materialQuote && showCurrentWorkspaceReference && <div className="material-composer-quote" data-workspace-target={workspaceTargetKey({ kind: 'material_quote', reference: materialQuoteAddress(materialQuote) })}>
+        <button type="button" className="material-quote-source" title={materialQuote.text} onClick={() => void attempt(() => openMaterialSource(materialQuote))}>
+          <FileText size={16} /><span>{comparisonAnchor ? `另一处 · ${Array.from(materialQuote.text).slice(0, 100).join('')}`
+            : `${materialQuote.name}${materialQuote.page ? ` · 第 ${materialQuote.page} 页` : ''}`}</span>
+        </button>
+        {!comparisonAnchor && <button type="button" className="icon-button" aria-label="留作对照，再选另一处" title="留作对照，再选另一处"
+          onPointerDown={event => { if (event.button === 0) event.preventDefault(); }} onClick={compareCurrentReference}><Columns2 size={14} /></button>}
+        <button type="button" className="icon-button" aria-label="取消资料引用" onClick={() => { searchNavigation.current++; clearMaterialQuote(); clearComparisonContinuation(); inputRef.current?.focus({ preventScroll: true }); }}><X size={14} /></button>
+      </div>}
+      {noteQuote && showCurrentWorkspaceReference && <FocusContextChip label={comparisonAnchor ? `另一处 · ${Array.from(noteQuote.text).slice(0, 100).join('')}` : noteQuote.title || '这页笔记'}
+        targetKey={workspaceTargetKey({ kind: 'note_quote', reference: noteQuoteAddress(noteQuote) })}
+        onCompare={!comparisonAnchor ? compareCurrentReference : undefined}
         onOpen={() => void attempt(() => openNoteSource(noteQuote))}
-        onClear={() => { searchNavigation.current++; clearNoteQuote(); inputRef.current?.focus({ preventScroll: true }); }} />}
-      {conversationQuote && <FocusContextChip label={conversationQuote.title}
+        onClear={() => { searchNavigation.current++; clearNoteQuote(); clearComparisonContinuation(); inputRef.current?.focus({ preventScroll: true }); }} />}
+      {conversationQuote && showCurrentWorkspaceReference && <FocusContextChip label={conversationQuote.title}
+        targetKey={workspaceTargetKey({ kind: 'conversation_quote', reference: conversationQuote.reference })}
+        onCompare={!comparisonAnchor ? compareCurrentReference : undefined}
         onOpen={() => void attempt(() => openConversationSource(conversationQuote.reference))}
-        onClear={() => { searchNavigation.current++; clearConversationQuote(); inputRef.current?.focus({ preventScroll: true }); }} />}
-      {agendaContext && <div className="material-composer-quote">
+        onClear={() => { searchNavigation.current++; clearConversationQuote(); clearComparisonContinuation(); inputRef.current?.focus({ preventScroll: true }); }} />}
+      {agendaContext && showCurrentWorkspaceReference && <div className="material-composer-quote" data-workspace-target={workspaceTargetKey({ kind: 'agenda', reference: agendaContext.focus })}>
         <button type="button" className="material-quote-source" onClick={() => setView('agenda')}>
           <CalendarDays size={16} /><span>{agendaContext.label}</span>
         </button>
-        <button type="button" className="icon-button" aria-label="取消安排引用" onClick={() => { clearAgendaContext(); inputRef.current?.focus({ preventScroll: true }); }}><X size={14} /></button>
+        {!comparisonAnchor && <button type="button" className="icon-button" aria-label="留作对照，再选另一处" title="留作对照，再选另一处"
+          onPointerDown={event => { if (event.button === 0) event.preventDefault(); }} onClick={compareCurrentReference}><Columns2 size={14} /></button>}
+        <button type="button" className="icon-button" aria-label="取消安排引用" onClick={() => { clearAgendaContext(); clearComparisonContinuation(); inputRef.current?.focus({ preventScroll: true }); }}><X size={14} /></button>
       </div>}
-      {composerFollowup && <FocusContextChip label={composerFollowup.focusLabel || (composerFollowup.studyInteraction ? '接着这一页聊'
+      {composerFollowup && showCurrentWorkspaceReference && <FocusContextChip label={composerFollowup.focusLabel || (composerFollowup.studyInteraction ? '接着这一页聊'
         : composerFollowup.companionReference ? '从刚才停下的地方接着聊'
           : composerFollowup.curiosityReference?.focus ? '就刚才指的这一句聊聊'
             : composerFollowup.curiosityReference ? '接着这个小发现'
               : composerFollowup.rehearsalInteraction ? '接着刚才这一段试说'
                 : composerFollowup.noteReference ? '接着这页笔记聊'
                   : composerFollowup.programReference ? '接着这份小作品聊' : '接着刚才这段聊')}
+        targetKey={currentWorkspaceReference(false) ? workspaceTargetKey(currentWorkspaceReference(false)!) : undefined}
+        onCompare={!comparisonAnchor ? compareCurrentReference : undefined}
         onOpen={composerFollowup.preparationReference ? () => void attempt(() => openPreparationReference(composerFollowup.preparationReference!)) : undefined}
-        onClear={() => clearFollowup(true)} />}
-      {sharedMapContext && (
-        <div className="shared-map-context" role="status">
+        onClear={() => { clearFollowup(true); clearComparisonContinuation(); }} />}
+      {sharedMapContext && showCurrentWorkspaceReference && (
+        <div className="shared-map-context" role="status" data-workspace-target={sharedMapContext.routeReference
+          ? workspaceTargetKey({ kind: 'map_route', reference: sharedMapContext.routeReference }) : undefined}>
           {sharedMapContext.routeReference && sharedMapContext.previewRoute
             ? <button type="button" className="material-quote-source" aria-label={`回到这条路线：${sharedMapContext.label}`}
                 onClick={() => openMap(sharedMapContext.previewRoute!, sharedMapContext.routeConditions, sharedMapContext.previewMemory)}>{sharedMapContext.label}</button>
             : <span>本次起点：{sharedMapContext.label}</span>}
+          {!comparisonAnchor && sharedMapContext.routeReference && <button type="button" aria-label="留作对照，再选另一处" title="留作对照，再选另一处"
+            onPointerDown={event => { if (event.button === 0) event.preventDefault(); }} onClick={compareCurrentReference}><Columns2 size={13} /></button>}
           <button
             type="button"
             aria-label="停止这次地点参考"
@@ -1929,28 +3062,25 @@ export function App() {
           </button>
         </div>
       )}
+      {attachments.length > 0 && <div className="attachment-shelf" data-workspace-target={materialDocument && attachments.some(item => item.kind === 'text' && item.resource?.resourceId === materialDocument.reference.resourceId)
+        ? workspaceTargetKey({ kind: 'material', reference: materialDocument.reference }) : undefined}><AttachmentTray items={attachments.map(attachmentTrayItem)} busy={busy}
+        disabled={!draftReady || navigating} activeId={activeDeskId}
+        onOpen={id => { const item = getDraftAttachments(draftRef.current).find(item => attachmentViewId(item) === id); if (item) openAttachment(item); }}
+        onRemove={removeAttachment} onReorder={ids => {
+          if (busy || !draftReady || navigationPending.current || isPublicSurface()) return;
+          const current = getDraftAttachments(draftRef.current), byId = new Map(current.map(item => [attachmentViewId(item), item]));
+          if (ids.length !== current.length || new Set(ids).size !== ids.length || ids.some(id => !byId.has(id))) return;
+          replaceDraft(withDraftAttachments(draftRef.current, ids.map(id => byId.get(id)!)));
+        }} /></div>}
       <form
-        className={`composer ${busy ? 'is-busy' : ''} ${!empty ? 'is-conversation' : ''} ${attachment ? 'has-attachment' : ''}`}
+        ref={setEdgeAnchor}
+        data-presence-edge="composer" data-presence-edge-sides="top right bottom left" data-presence-edge-label="输入边缘"
+        className={`composer edge-companion-anchor ${busy ? 'is-busy' : ''} ${!empty ? 'is-conversation' : ''}`}
         onSubmit={(e) => {
           e.preventDefault();
-          void send();
+          void send(undefined, true, undefined, undefined, viewRef.current === 'keep');
         }}
       >
-        {attachment && (
-          <div className="attachment">
-            {attachment.kind === 'image' ? (
-              <img className="attachment-preview" src={attachment.dataUrl} alt="" />
-            ) : (
-              <FileText size={15} />
-            )}
-            <span>{attachment.name}</span>
-            <small>{attachment.kind === 'image' ? '图片 · 随本条发送' : '随本条发送'}</small>
-            {attachment.kind === 'text' && attachment.resource && <button type="button" className="text-button" onClick={() => { setReadingPane('reader'); setView('materials'); }}>打开原文</button>}
-            <IconButton label="移除附件" onClick={() => updateDraft({ attachment: null })}>
-              <X size={14} />
-            </IconButton>
-          </div>
-        )}
         <textarea
           ref={inputRef}
           aria-label="和在场说说"
@@ -1959,9 +3089,11 @@ export function App() {
           rows={1}
           maxLength={LIMITS.draftText}
           disabled={!draftReady || navigating}
-          onCompositionStart={() => { composing.current = true; }}
+          onCompositionStart={() => { composing.current = true; setComposerWriting(true); }}
           onCompositionEnd={() => { composing.current = false; requestAnimationFrame(placeComposer); }}
-          onChange={(e) => { updateDraft({ text: e.target.value }); queueReturnCapture(); }}
+          onFocus={() => { setComposerFocused(true); setComposerWriting(false); }}
+          onBlur={() => { setComposerFocused(false); setComposerWriting(false); }}
+          onChange={(e) => { setComposerWriting(true); updateDraft({ text: e.target.value }); queueReturnCapture(); }}
           onSelect={queueReturnCapture}
           onKeyDown={(e) => {
             if (
@@ -1971,7 +3103,7 @@ export function App() {
               e.nativeEvent.keyCode !== 229
             ) {
               e.preventDefault();
-              void send();
+              void send(undefined, true, undefined, undefined, viewRef.current === 'keep');
             }
           }}
         />
@@ -1982,8 +3114,8 @@ export function App() {
                 ref={attachmentTrigger}
                 className="icon-button"
                 type="button"
-                aria-label="添加资料"
-                title="添加资料"
+                aria-label="添加与更多操作"
+                title="添加与更多操作"
                 aria-haspopup="menu"
                 aria-expanded={attachmentMenu}
                 onClick={() => setAttachmentMenu(!attachmentMenu)}
@@ -1997,11 +3129,11 @@ export function App() {
                   ref={attachmentMenuRef}
                   style={attachmentMenuPosition}
                   role="menu"
-                  aria-label="添加资料"
+                  aria-label="添加与更多操作"
                   onKeyDown={(e) => {
                     const items = [
                       ...e.currentTarget.querySelectorAll<HTMLButtonElement>('[role="menuitem"]'),
-                    ];
+                    ].filter(item => !item.disabled);
                     const i = items.indexOf(document.activeElement as HTMLButtonElement);
                     if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
                       e.preventDefault();
@@ -2026,11 +3158,7 @@ export function App() {
                     type="button"
                     onClick={() => {
                       setAttachmentMenu(false);
-                      void attempt(async () => {
-                        const image = await api.attachImage();
-                        if (image) updateDraft({ attachment: image });
-                        inputRef.current?.focus();
-                      });
+                      void attempt(() => chooseAttachment('image'));
                     }}
                   >
                     <ImageIcon size={18} />
@@ -2043,11 +3171,7 @@ export function App() {
                     type="button"
                     onClick={() => {
                       setAttachmentMenu(false);
-                      void attempt(async () => {
-                        const file = await api.attachText();
-                        if (file) updateDraft({ attachment: file });
-                        inputRef.current?.focus();
-                      });
+                      void attempt(() => chooseAttachment('text'));
                     }}
                   >
                     <Paperclip size={18} />
@@ -2055,32 +3179,39 @@ export function App() {
                       添加文件<small>文本、Markdown 与 PDF</small>
                     </span>
                   </button>
+                  <div className="composer-menu-divider" role="separator" />
+                  <button role="menuitem" type="button" disabled={navigating} onClick={() => {
+                    setAttachmentMenu(false); setScopeOpen(true);
+                  }}>
+                    <SlidersHorizontal size={18} /><span>这条消息的使用范围</span>
+                  </button>
+                  {canToggleRoom && <button role="menuitem" type="button" onClick={() => {
+                    setAttachmentMenu(false); rememberReadingPosition(); setChatSpace(atWindow ? 'reading' : 'window');
+                    requestAnimationFrame(() => inputRef.current?.focus({ preventScroll: true }));
+                  }}>
+                    <BookOpen size={18} /><span>{atWindow ? '安静阅读' : '回到窗边'}</span>
+                  </button>}
+                  {(focusStatus === 'idle' || focusStatus === 'ended') && <button role="menuitem" type="button" disabled={!draftReady || navigating} onClick={() => {
+                    setAttachmentMenu(false); startFocus(); inputRef.current?.focus({ preventScroll: true });
+                  }}>
+                    <LampDesk size={18} /><span>开始专注</span>
+                  </button>}
                 </div>
               )}
             </div>
-            <button
+            {hasMessageScope && <button
               type="button"
               className={`composer-context-button ${Object.keys(turnControls).length ? 'selected' : ''}`}
               onClick={() => setScopeOpen(true)}
-              aria-label="这次怎么聊"
+              aria-label={`这条消息的使用范围：${messageScopeLabel}`}
               disabled={navigating}
             >
               <SlidersHorizontal size={14} />
               <span>
-                {turnControls.transmission === 'local_only'
-                  ? '先留在这里'
-                  : temporaryConversation
-                    ? '这次不留下'
-                    : turnControls.retention === 'session_only'
-                      ? '这条不留下'
-                      : turnControls.memoryMode === 'current_sources_only'
-                        ? '只看这条'
-                        : turnControls.audience && turnControls.audience !== 'self'
-                          ? '写给别人'
-                          : '这次怎么聊'}
+                {messageScopeLabel}
               </span>
               <ChevronDown size={12} />
-            </button>
+            </button>}
           </div>
           <div className="composer-right">
             <ComposerActions busy={busy} submitting={starting || !draftReady || navigating}
@@ -2088,11 +3219,40 @@ export function App() {
           </div>
         </div>
       </form>
+      <EdgeCompanion host={appMainRef.current} anchor={edgeAnchor} character={companion.character} placement={edgePlacement} text={edgeSpeech} busy={busy}
+        replyAvailable={!!edgeReplyText && edgeReply?.status !== 'running'} onOpenReply={() => {
+          if (!edgeReply) return;
+          setView('chat'); setReadingPane('chat');
+          requestAnimationFrame(() => scrollRef.current?.querySelector<HTMLElement>(`[data-message-id="${CSS.escape(edgeReply.id)}"]`)
+            ?.scrollIntoView({ block: 'center', behavior: 'auto' }));
+        }}
+        name={state?.settings.persona.core.name || '祥子'}
+        active={!resting && (view === 'keep' || view === 'materials' || view === 'chat' && !atWindow)}
+        hidden={companion.presence === 'hidden' || surfaceMode.current === 'public'}
+        onPlacementChange={placement => {
+          setEdgePlacement(placement);
+          try { localStorage.setItem('zaichang.edge-companion-placement.v1', JSON.stringify(placement)); } catch { /* The placement still works in this window. */ }
+        }}
+        onCall={() => {
+          if (busy || !draftReady || navigating || surfaceMode.current === 'public') return;
+          if (view === 'chat') setChatSpace('reading');
+          const quoted = materialQuoteRef.current || noteQuoteRef.current || conversationQuoteRef.current;
+          void send(quoted ? '就我引用的这一段，和我说一两句吧。'
+            : `${state?.settings.persona.core.name?.trim() || '祥子'}，想听你说句话，一两句就好。`, false, undefined, undefined, true);
+        }} />
+      {unsentSubmissions.filter(item => item.draftKey === draftKey.current && item.boundary === boundaryRevision.current).map(item => (
+        <details className="composer-unsent" key={item.id}>
+          <summary>{item.kind === 'draft' ? '还有一份没发的草稿' : item.delivery === 'unconfirmed' ? '这条还没确认发出' : '这条没有发出'}</summary>
+          <p>{item.draft.text}</p>
+          {getDraftAttachments(item.draft).map(file => <span className="composer-unsent-attachment" key={file.attachmentId || file.name}>{file.name}</span>)}
+          <button type="button" className="text-button"
+            disabled={starting || !draftReady || navigating || input.length > 0 || !!attachment}
+            title={input.length || attachment ? '输入框里还有新草稿' : undefined}
+            onClick={() => void restoreUnsentSubmission(item)}>取回输入框</button>
+        </details>
+      ))}
       <div className="composer-presence-tools">
-        <FocusLamp disabled={!draftReady || navigating} onActiveChange={setFocusActive} />
-        {canToggleRoom && <button type="button" className="text-button" onClick={() => {
-          rememberReadingPosition(); setChatSpace(atWindow ? 'reading' : 'window');
-        }}>{atWindow ? '安静阅读' : '回到窗边'}</button>}
+        <FocusLamp disabled={!draftReady || navigating} onStatusChange={setFocusStatus} />
       </div>
       <div className="composer-foot">
         {temporaryConversation && (
@@ -2177,7 +3337,9 @@ export function App() {
           matters={state?.matters || []}
           onSave={saveAction}
           onRevoke={undoAction}
-          onViewAgenda={() => setView('agenda')}
+          onViewAgenda={openAgendaItem}
+          onActionEditChange={reportActionEdit}
+          onOpenSource={openReplySource}
           onCorrect={() => useSuggestion('刚才有一点需要改正：')}
           onReviseDraft={(recipient) => useSuggestion(`刚才给${recipient}的草稿，请这样修改：`)}
           onPresent={(artifact) =>
@@ -2247,6 +3409,7 @@ export function App() {
           sceneInterruptionKey={messages.filter(message=>message.role==='user').at(-1)?.id}
           onContinueScene={()=>{setView('chat');requestAnimationFrame(()=>inputRef.current?.focus());}}
           onPreviewImage={setPreviewImage}
+          onOpenAttachment={openAttachment}
           onCopyText={(text, label = '回复') =>
             void attempt(async () => {
               await api.copyText(text);
@@ -2281,8 +3444,6 @@ export function App() {
       currentComposerFollowup?.programReference?.revision, currentComposerFollowup?.programReference?.nodeId],
   );
 
-  if (state?.presentation?.mode === 'public')
-    return <PublicDisplay surface={state.presentation} onEnd={endDisplay} notice={publicCloseNotice} />;
   const activeMatter = state?.matters?.find((matter) => matter.sessionId === sessionId);
   const materials = (
     <PreparationShelf
@@ -2296,12 +3457,20 @@ export function App() {
   return (
     <SourceBookmarkProvider boundaryKey={`${sessionId}:${state?.privacyEpoch}:${state?.policyRevision}:${state?.sourceBoundary ?? 0}`}
       onDiscuss={discussBookmark} onOpenNote={openMaterialNote} getInteractionVersion={() => readingGesture.current}
+      active={!isPublicSurface()} resetKey={bookmarkResetKey}
+      onUnsavedChange={value => { bookmarkUnsaved.current = value; }} onOpenSource={openBookmarkSource}
+      onNoteSaved={() => setKeepContentRevision(value => value + 1)}
       onOpenStudy={location => { void attempt(() => openBookmarkedStudy(location)); }}>
-    <ConversationTextFocusContext.Provider value={textFocus}>
+    {state?.presentation?.mode === 'public' ? <PublicDisplay surface={state.presentation} onEnd={endDisplay} notice={publicCloseNotice} /> : <ConversationTextFocusContext.Provider value={textFocus}>
     <ConversationComposerDockContext.Provider value={composerDock.value}>
     <div className={`app-shell ${atWindow ? 'has-window' : ''}${focusActive ? ' is-focusing' : ''}`}>
-      <div className="app-main">
-        {(view === 'chat' || view === 'materials') && <CompanionScene quiet={view !== 'chat' || !atWindow} moment={companionActivity} />}
+      <div className="app-main" ref={appMainRef} style={roomPaperStyle} data-workspace-view={view}
+        data-room-layout={roomPaperPosition?.mode} data-room-paper-side={roomPaperPosition?.paperSide} data-room-source={roomPaperPosition?.sourceKey}>
+        {(view === 'chat' || view === 'materials' || view === 'keep' || view === 'notes') && <CompanionScene quiet={view !== 'chat' || !atWindow}
+          representation={view === 'keep' ? compactConversation ? 'portrait' : 'scene' : view === 'materials' || view === 'notes' || hasScene || readingSelectedWork ? 'portrait' : 'auto'}
+          ambientFit={view === 'keep' && compactConversation ? 'cover' : 'room'}
+          yieldToInput={composerFocused && composerWriting && !navigating && view !== 'keep'} moment={view === 'keep' || view === 'notes' ? 'reading' : companionActivity}
+          onRoomLayout={setRoomLayout} onStartFocus={draftReady && !navigating ? startFocus : undefined} onRest={openRest} focusActive={focusActive} />}
         <header className="titlebar">
           <button className="brand" onClick={() => setView('chat')} aria-label="在场，回到对话">
             <Portal size={25} />
@@ -2315,58 +3484,101 @@ export function App() {
             onNew={() => void newChat()}
             onHistory={() => { searchNavigation.current++; setPanel('history'); }}
             onMap={() => { searchNavigation.current++; openMap(emptyRoute()); }}
+            onRest={openRest}
           />
           <WindowControls onClose={() => void requestClose()} />
         </header>
-        {(view === 'notes' || view === 'materials') && <div className="retained-heading">
-          <div><h1>留下</h1></div>
-          <nav aria-label="留下的内容">
-            <button type="button" aria-current={view === 'notes' ? 'page' : undefined} onClick={() => setView('notes')}>笔记</button>
-            <button type="button" aria-current={view === 'materials' ? 'page' : undefined} onClick={() => { setView('materials'); setReadingPane('reader'); }}>资料</button>
-            <button type="button" onClick={() => setPanel('history')}>对话</button>
-          </nav>
-          {view === 'materials' && <div className="reading-pane-switch" aria-label="阅读与对话">
+        {view === 'notes' && <div className="retained-heading"><h1>留下</h1>
+          <button type="button" className="text-button" onClick={() => setView('keep')}>返回留下<ChevronRight size={13} /></button>
+        </div>}
+        {view === 'materials' && <div className="retained-heading reading-workspace-heading">
+          <button type="button" className="text-button" onClick={() => setView('chat')}>回到对话</button>
+          <div className="reading-pane-switch" aria-label="阅读与对话">
             <button type="button" aria-pressed={readingPane === 'reader'} onClick={() => setReadingPane('reader')}>原文</button>
             <button type="button" aria-pressed={readingPane === 'chat'} onClick={() => setReadingPane('chat')}>一起聊</button>
-          </div>}
+          </div>
         </div>}
-        <div className={`conversation-space ${view === 'materials' ? 'with-materials' : ''}`} data-reading-pane={readingPane} hidden={view !== 'chat' && view !== 'materials'}>
+        {(keepOpened || view === 'keep') && state && <KeepPanel active={view === 'keep'} snapshot={keepResult?.boundary === returnBoundary ? keepResult.snapshot : undefined}
+          selectionRequest={keepSelectionRequest} onSelectionChange={key => {
+            if (viewRef.current !== 'keep' || returnBoundary !== boundaryRevision.current || isPublicSurface()) return;
+            keepSelection.current = key ? { boundary: returnBoundary, key } : undefined; queueReturnCapture();
+          }}
+          onSelectionResolved={result => {
+            if (viewRef.current !== 'keep' || returnBoundary !== boundaryRevision.current || isPublicSurface()
+              || result.requestId !== keepSelectionRequest?.requestId) return;
+            if (result.status === 'pending') {
+              const kind: KeepSectionKind | undefined = result.key.startsWith('note:') ? 'notes'
+                : result.key.startsWith('material:') ? 'materials' : result.key.startsWith('work:') ? 'works'
+                  : result.key.startsWith('conversation:') ? 'conversations' : undefined;
+              if (kind && !keepLoading && !keepLoadingMore) void loadKeptContent(kind);
+              return;
+            }
+            setKeepSelectionRequest(undefined);
+            if (result.status === 'unavailable') notify('上次留在这里的内容，这次还没找到。草稿还在，可以重新选一页。');
+          }}
+          loading={keepLoading} loadingMore={keepLoadingMore} error={keepError} disabled={!draftReady || navigating}
+          timeZone={state.settings.timeZone} onRetry={() => loadKeptContent()} onLoadMore={loadKeptContent}
+          onOpenNote={openMaterialNote} onOpenMaterial={openMaterialDocumentSource} onOpenWork={openKeptWork}
+          onOpenSource={openBookmarkSource} onDiscussSource={discussBookmark}
+          onOpenConversation={async (id, messageId) => {
+            const opened = await openConversation(id);
+            if (opened && messageId && opened.some(message => message.id === messageId)) requestAnimationFrame(() =>
+              scrollRef.current?.querySelector<HTMLElement>(`[data-message-id="${CSS.escape(messageId)}"]`)?.scrollIntoView({ block: 'center', behavior: 'auto' }));
+          }}
+          onBrowseNotes={() => setView('notes')} onBrowseMaterials={() => { setView('materials'); setReadingPane('reader'); }}
+          onHistory={() => setPanel('history')} onNewNote={() => {
+            setNoteResume({ address: { id: 'new' }, requestId: ++returnNavigation.current }); setNotesOpened(true); setView('notes');
+          }} composer={keepWriting ? <div className="keep-writing">
+            <button type="button" className="text-button keep-writing-close" onClick={() => { setKeepWriting(false); }} aria-label="收起写作，保留草稿"><X size={14} /></button>
+            <div className="composer-home" ref={setKeepComposerHome} />
+          </div> : undefined} />}
+        <div ref={conversationSpaceRef} className={`conversation-space ${view === 'materials' ? 'with-materials has-reading-desk' : ''}${activeDeskId ? ' has-open-reading-window' : ''}${documentReaderDropActive ? ' is-document-reader-drop' : ''}`} data-reading-pane={readingPane}
+          data-reading-side={readingSide} hidden={view !== 'chat' && view !== 'materials'}
+          onDragOverCapture={event => {
+            if (!event.dataTransfer.types.includes(MATERIAL_DOCUMENT_MIME) || !(event.target instanceof Element)
+              || !event.target.closest('.materials-panel') || navigationPending.current || isPublicSurface()) return;
+            event.preventDefault(); event.stopPropagation(); event.dataTransfer.dropEffect = 'copy'; setDocumentReaderDropActive(true);
+          }}
+          onDragLeave={event => { if (!(event.relatedTarget instanceof Node) || !event.currentTarget.contains(event.relatedTarget)) setDocumentReaderDropActive(false); }}
+          onDropCapture={event => {
+            if (!event.dataTransfer.types.includes(MATERIAL_DOCUMENT_MIME) || !(event.target instanceof Element) || !event.target.closest('.materials-panel')) return;
+            event.preventDefault(); event.stopPropagation(); setDocumentReaderDropActive(false);
+            const carried = readMaterialDocumentTransfer(event.dataTransfer);
+            if (carried) openDocumentFrame(carried);
+          }}>
         {(materialsOpened || view === 'materials') && state && <MaterialsPanel
-          active={view === 'materials'} refreshKey={`${messages.length}:${messages.at(-1)?.status || ''}`} compact pending={attachment?.kind === 'text' ? attachment : null} sessionId={sessionId} draftEnabled={draftReady && !navigating}
-          onReturnAddressChange={reportMaterialReturn} resume={materialResume}
+          active={view === 'materials' && !activeDeskId} refreshKey={`${messages.length}:${messages.at(-1)?.status || ''}`} compact pending={attachments.find(item => item.kind === 'text') as TextAttachment | undefined || null} sessionId={sessionId} draftEnabled={draftReady && !navigating}
           boundary={`${state.privacyEpoch}:${state.policyRevision}:${state.sourceBoundary ?? 0}`}
-          reference={materialQuote} onUnsavedChange={setMaterialUnsaved}
+          onOpenDocument={openDocumentFrame}
+          presentationSide={readingSide} onSwapReadingSide={swapReadingSide} onPickDocument={pickMaterialDocument}
           conversationTarget={materialConversationTarget}
           focus={searchTarget?.locator.kind === 'material' ? { locator: searchTarget.locator, requestId: searchTarget.requestId } : undefined}
-          onAttach={value => { if (!draftReady || navigating || navigationPending.current) return false; updateDraft({ attachment: value }); return true; }} onQuote={quoteMaterial} onOpenNote={openMaterialNote} onClose={() => setView('chat')}
+          onAttach={value => appendAttachment(value)} onQuote={quoteMaterial} onOpenNote={openMaterialNote} onClose={() => setView('chat')}
         />}
-        {view === 'materials' && <ReadingDivider />}
-        <main ref={materialConversationTarget} className={`workspace ${empty && view !== 'materials' ? 'welcome' : 'conversation'}`}>
+        {view === 'materials' && !activeDeskId && <ReadingDivider presentationSide={readingSide} />}
+        <main ref={materialConversationTarget} className={`workspace ${empty && view !== 'materials' ? 'welcome' : 'conversation'}`}
+          data-presence-edge="conversation-paper" data-presence-edge-sides="top right bottom left" data-presence-edge-label="对话纸边"
+          data-presence-edge-disabled={view === 'materials' || atWindow ? 'true' : undefined}>
           {empty && view !== 'materials' ? (
             <div className="welcome-inner">
-              <p className="welcome-date">{new Date().toLocaleDateString('zh-CN', { timeZone: state?.settings.timeZone || DEFAULT_TIME_ZONE, weekday: 'long' })}</p>
-              <h1>{state?.settings.persona.core.address.trim() ? `${state.settings.persona.core.address.trim()}，回来啦。` : '回来啦。'}</h1>
-              {loadError && (
-                <div className="harness-inline-error" role="alert">
-                  <p>这次没能打开。{loadError}</p>
-                  <button className="text-button" onClick={() => setLoadAttempt((n) => n + 1)}>
-                    重新打开
-                  </button>
-                </div>
-              )}
+              <div className="welcome-greeting">
+                <p className="welcome-date">{new Date().toLocaleDateString('zh-CN', { timeZone: state?.settings.timeZone || DEFAULT_TIME_ZONE, weekday: 'long' })}</p>
+                <h1>{state?.settings.persona.core.address.trim() ? `${state.settings.persona.core.address.trim()}，回来啦。` : '回来啦。'}</h1>
+              </div>
+              {loadError && <QuietNotice message={loadError} action={{ label: '重新打开', onClick: () => setLoadAttempt(n => n + 1) }} />}
               {!draftReady && !loadError && (
                 <p className="startup-status" role="status">
                   正在回到这里…
                 </p>
               )}
               <div className="composer-home" ref={setComposerHome} />
-              <div className="welcome-next" aria-label="从这里继续">
-                {startupReturn && startupReturnBoundary.current === boundaryRevision.current ? null : previousConversation ? <button type="button" onClick={() => void openConversation(previousConversation.id)} disabled={busy || navigating}><History size={18} /><span>接着上次<small>{previousConversation.title}</small></span><ArrowUpRight size={14} /></button> : <button type="button" onClick={() => setView('agenda')}><CalendarDays size={18} /><span>看看今天</span><ArrowUpRight size={14} /></button>}
-                <button type="button" onClick={() => setResting(true)}><Coffee size={18} /><span>先坐一会儿</span></button>
-              </div>
+              {!(startupReturn && startupReturnBoundary.current === boundaryRevision.current) && previousConversation && <div className="welcome-next" aria-label="从这里继续">
+                <button type="button" onClick={() => void openConversation(previousConversation.id)} disabled={busy || navigating}><History size={18} /><span>接着上次<small>{previousConversation.title}</small></span><ArrowUpRight size={14} /></button>
+              </div>}
               {startupReturn && startupReturnBoundary.current === boundaryRevision.current && <ReturnBookmark disabled={!draftReady || busy || navigating}
                 point={{ id: String(startupReturn.savedAt),
-                  title: startupReturn.sessionId ? state?.conversations.find(item => item.id === startupReturn.sessionId)?.title || '桌边留着的那段话'
+                  title: startupReturn.view === 'keep' ? '留下的那一页'
+                    : startupReturn.sessionId ? state?.conversations.find(item => item.id === startupReturn.sessionId)?.title || '桌边留着的那段话'
                     : startupReturn.note ? '留下的那一页' : startupReturn.agenda ? state?.agenda.find(item => item.id === startupReturn.agenda?.record.id)?.title || '那次试放的安排'
                       : startupReturn.material ? '上次读到的那一页' : '还没写完的这句话',
                   ...(startupReturn.material ? { detail: `第 ${startupReturn.material.page} 页` } : {}),
@@ -2420,6 +3632,25 @@ export function App() {
           )}
         </main>
         </div>
+        {state && materialsOpened && <ReadingDesk items={readingDeskItems} requestOpen={deskOpenRequest} openingRect={deskOpeningRect}
+          active={view === 'keep' || view === 'materials' && (!compactConversation || readingPane === 'reader')}
+          boundary={`${state.privacyEpoch}:${state.policyRevision}:${state.sourceBoundary ?? 0}`} sessionId={sessionId}
+          draftEnabled={draftReady && !navigating} refreshKey={`${messages.length}:${messages.at(-1)?.status || ''}`}
+          conversationTarget={materialConversationTarget} reference={materialQuote ? materialQuoteAddress(materialQuote) : undefined}
+          focus={searchTarget?.locator.kind === 'material' ? { locator: searchTarget.locator, requestId: searchTarget.requestId } : undefined}
+          resume={materialResume} onActiveChange={setActiveDeskId} onReturnAddressChange={reportMaterialReturn}
+          onUnsavedChange={setMaterialUnsaved} onDraftStateChange={(id, dirty) => {
+            if (dirty) dirtyDeskIds.current.add(id); else dirtyDeskIds.current.delete(id);
+          }} onAttach={appendAttachment} onQuote={quote => quoteMaterial(quote, viewRef.current === 'keep')}
+          onCloseFrame={id => { if (unsettledKeepMaterial.current?.resourceId === id) {
+            unsettledKeepMaterial.current = undefined; queueReturnCapture();
+          } if (viewRef.current === 'keep') requestAnimationFrame(() => {
+            if (!document.hasFocus() || appMainRef.current?.querySelector('.reading-desk-frame:not([hidden])')) return;
+            const current = document.activeElement;
+            if (current !== document.body && current instanceof HTMLElement && current.getClientRects().length) return;
+            const target = readerReturnFocus.current;
+            if (target?.isConnected && target.getClientRects().length) target.focus({ preventScroll: true });
+          }); }} onPickDocument={pickMaterialDocument} onOpenNote={openMaterialNote} />}
         {(agendaOpened || view === 'agenda') && state && (
           <AgendaView
             key={`${state.privacyEpoch}:${state.policyRevision}:${state.sourceBoundary ?? 0}`}
@@ -2437,15 +3668,17 @@ export function App() {
             onPresentMatter={(matter) => void prepareDisplay({ matter })}
             onMap={(id) => void showPlace(id)}
             onDiscuss={discussAgenda} focus={agendaContext?.focus} position={agendaPosition} onPositionChange={setAgendaPosition}
+            onOpenOrigin={record => void attempt(() => openAgendaOrigin(record))}
             onReturnAddressChange={reportAgendaReturn} resume={agendaResume}
           />
         )}
-        {notesOpened && state && <NotesPanel embedded key={state.privacyEpoch} active={view === 'notes'} onReturnAddressChange={reportNoteReturn} resume={noteResume} focus={searchTarget?.locator.kind === 'note' ? { locator: searchTarget.locator, requestId: searchTarget.requestId } : undefined} onUnsavedChange={setNotesUnsaved} onOpenMaterialSource={openMaterialSource} onOpenConversationSource={openConversationSource} onOpenMaterials={() => setView('materials')} onQuote={quoteNote} quoteEnabled={draftReady && !navigating} quoteContext={`${sessionId || 'new'}:${state.privacyEpoch}:${state.policyRevision}:${state.sourceBoundary ?? 0}`} quoteBoundary={`${state.privacyEpoch}:${state.policyRevision}:${state.sourceBoundary ?? 0}`} onClose={() => setView('chat')} timeZone={state.settings.timeZone} />}
+        {notesOpened && state && <NotesPanel embedded key={state.privacyEpoch} active={view === 'notes'} refreshKey={`${keepContentRevision}:${noteAddressRevision}`} onReturnAddressChange={reportNoteReturn} resume={noteResume} focus={searchTarget?.locator.kind === 'note' ? { locator: searchTarget.locator, requestId: searchTarget.requestId } : undefined} onUnsavedChange={setNotesUnsaved} onOpenMaterialSource={openMaterialSource} onOpenConversationSource={openConversationSource} onOpenMaterials={() => setView('materials')} onQuote={quoteNote} quoteEnabled={draftReady && !navigating} quoteContext={`${sessionId || 'new'}:${state.privacyEpoch}:${state.policyRevision}:${state.sourceBoundary ?? 0}`} quoteBoundary={`${state.privacyEpoch}:${state.policyRevision}:${state.sourceBoundary ?? 0}`} onClose={() => setView('chat')} timeZone={state.settings.timeZone} />}
         {(view === 'settings' || view === 'memory' || view === 'companion') && state && (
           <SettingsPanel
             key={`${view}:${state.privacyEpoch}`}
             embedded
             initialTab={view === 'memory' ? '记忆' : view === 'companion' ? '陪伴' : '偏好'}
+            companionMoment={companionActivity}
             state={state}
             busy={busy}
             onClose={() => setView('chat')}
@@ -2457,17 +3690,20 @@ export function App() {
                 setMemoryWorkspace(change);
             }}
             notify={notify}
-            onClear={() => { clearReturnBoundary(); focusSession.clear(); void newChat(); }}
+            onClear={() => { bookmarkUnsaved.current = false; setBookmarkResetKey(value => value + 1); clearReturnBoundary(); focusSession.clear(); void newChat(); }}
             onBeforeForget={() => keepUnsavedEdits('清空资料')}
           />
         )}
       </div>
-      {resting && <RestSpace onClose={() => setResting(false)} />}
-      {toast && (
-        <div className="toast" role="status">
-          {toast}
-        </div>
-      )}
+      {resting && <RestSpace onClose={() => {
+        setResting(false);
+        requestAnimationFrame(() => {
+          const editor = inputRef.current;
+          if ((viewRef.current === 'chat' || viewRef.current === 'materials') && editor?.getClientRects().length) editor.focus({ preventScroll: true });
+          else appMainRef.current?.querySelector<HTMLButtonElement>('.companion-menu-trigger')?.focus({ preventScroll: true });
+        });
+      }} />}
+      {toast && <div className="toast"><QuietNotice message={toast} tone="status" onDismiss={() => setToast('')} /></div>}
       <div className="sr-only" aria-live="polite" aria-atomic="true">
         {busy ? '让我想一想。' : messages.at(-1)?.status === 'done' ? '可以接着聊了。' : ''}
       </div>
@@ -2530,11 +3766,7 @@ export function App() {
                 </article>
               ))}
             </div>
-            {closeError && (
-              <p className="harness-inline-error" role="alert">
-                {closeError}
-              </p>
-            )}
+            {closeError && <QuietNotice message={closeError} />}
             <div className="field-buttons">
               {closingDrafts.some((d) => !d.temporary) && (
                 <button
@@ -2614,7 +3846,7 @@ export function App() {
       {scopeOpen && (
         <ScopeSettings
           value={turnControls}
-          onClose={() => setScopeOpen(false)}
+          onClose={() => { setScopeOpen(false); requestAnimationFrame(() => inputRef.current?.focus({ preventScroll: true })); }}
           onChange={(value) => {
             const boundary = boundaryRevision.current;
             clearFollowup(); clearSceneSelection(); clearMaterialQuote(); clearNativeReferences();
@@ -2624,19 +3856,19 @@ export function App() {
               void attempt(() =>
                 api.saveDraft({
                   id: draftKey.current,
-                  draft: draftRef.current,
+                  draft: hostDraft(draftRef.current),
                   retention: 'session_only',
                   privacyEpoch: draftPrivacyEpoch(boundary),
                 }),
               );
-            else void attempt(() => api.saveDraft({ id: draftKey.current, draft: draftRef.current, privacyEpoch: draftPrivacyEpoch(boundary) }));
+            else void attempt(() => api.saveDraft({ id: draftKey.current, draft: hostDraft(draftRef.current), privacyEpoch: draftPrivacyEpoch(boundary) }));
           }}
         />
       )}
       {createPortal(composer, composerHost)}
     </div>
     </ConversationComposerDockContext.Provider>
-    </ConversationTextFocusContext.Provider>
+    </ConversationTextFocusContext.Provider>}
     </SourceBookmarkProvider>
   );
 }
@@ -2656,9 +3888,12 @@ function MessageView({
   onMessageChanged,
   onQuote,
   onViewAgenda,
+  onActionEditChange,
+  onOpenSource,
   onOpenMap,
   onUseMapContext,
   onPreviewImage,
+  onOpenAttachment,
   sceneSelection,
   programFocus,
   onSceneSelect,
@@ -2699,10 +3934,13 @@ function MessageView({
   onPresent: (artifact: ReleaseArtifact) => void;
   onMessageChanged: (message: Message) => void;
   onQuote: (text: string) => void;
-  onViewAgenda: () => void;
+  onViewAgenda: (item?: Action, occurrenceDate?: string) => void;
+  onActionEditChange: (sessionId: string, messageId: string, id: string, dirty: boolean, pending: boolean) => void;
+  onOpenSource: (source: ReplySourceAddress) => void | Promise<void>;
   onOpenMap: (route: MapRouteResult) => void;
   onUseMapContext: (value: MapContextHandoff) => boolean;
   onPreviewImage: (image: NonNullable<Message['image']>) => void;
+  onOpenAttachment: (attachment: DraftAttachment) => void;
   sceneSelection?:SemanticSelection;
   programFocus?:ProgramFollowupReference;
   onSceneSelect:(selection:SemanticSelection)=>void;
@@ -2720,7 +3958,6 @@ function MessageView({
   busy: boolean;
   boundary: string;
 }) {
-  const [expanded, setExpanded] = useState(false);
   const [selectedPassage, setSelectedPassage] = useState('');
   const livePresentation=useRef(m.status==='running');
   const article = useRef<HTMLElement>(null),
@@ -2797,101 +4034,22 @@ function MessageView({
           </span>
         </div>
         <div className="user-message-stack">
-          {m.image && (
-            <button
-              type="button"
-              className="sent-image-preview"
-              aria-label={`预览图片：${m.image.name}`}
-              onClick={() => onPreviewImage(m.image!)}
-            >
-              <img src={m.image.dataUrl} alt={`已上传的图片：${m.image.name}`} />
-            </button>
-          )}
+          {!!(m.attachments?.length || m.image) && <AttachmentTray
+            items={(m.attachments || (m.image ? [m.image] : [])).map((item, index) => ({
+              id: item.kind === 'text' && item.resource ? item.resource.resourceId : item.attachmentId || `${m.id}:${index}`,
+              name: item.name, kind: item.kind === 'image' ? 'image' : item.resource ? 'document' : 'text',
+              ...(item.kind === 'image' ? { image: item } : { mediaType: item.resource?.mediaType }),
+            }))}
+            onOpen={id => {
+              const item = (m.attachments || (m.image ? [m.image] : [])).find((value, index) =>
+                (value.kind === 'text' && value.resource ? value.resource.resourceId : value.attachmentId || `${m.id}:${index}`) === id);
+              if (item) onOpenAttachment(item);
+            }} />}
           <MessageBookmarkSource message={m} />
         </div>
       </article>
     );
-  const running = m.steps.filter((s) => s.status === 'running'),
-    current = running.at(-1);
-  const hasUnfinishedItems = m.obligations.some(item => item.status === 'blocked');
-  const processBlock = m.steps.length || m.obligations.length ? (
-    <div className={`process ${m.status === 'running' ? 'live' : ''}`}>
-      <button
-        className="process-summary"
-        aria-expanded={expanded}
-        aria-controls={`process-${m.id}`}
-        onClick={() => setExpanded(!expanded)}
-      >
-        {m.status === 'running' ? (
-          <LoaderCircle size={14} className="spin" />
-        ) : m.status === 'error' || hasUnfinishedItems ? (
-          <CircleAlert size={14} />
-        ) : m.status === 'cancelled' ? (
-          <Minus size={14} />
-        ) : (
-          <Check size={14} />
-        )}
-        <span>
-          {(m.status === 'running' ? current?.title : undefined) ||
-            (m.status === 'cancelled'
-              ? '停下前做了什么'
-              : m.status === 'error'
-                ? '刚才做到了哪一步'
-                : hasUnfinishedItems
-                  ? '还有没办完的'
-                  : '刚才做了什么')}
-        </span>
-        <ChevronRight size={13} className={expanded ? 'rotated' : ''} />
-      </button>
-      <div
-        id={`process-${m.id}`}
-        className={`process-reveal ${expanded ? 'open' : ''}`}
-        aria-hidden={!expanded}
-      >
-        <div className="process-clip">
-          <div className="process-detail">
-            {m.obligations.length > 0 && (
-              <div className="obligations">
-                <span className="minor-label">本次包含</span>
-                {m.obligations.map((o) => (
-                  <div key={o.id} className={o.status}>
-                    <span aria-hidden="true">
-                      {o.status === 'done' ? '✓' : o.status === 'blocked' ? '–' : '·'}
-                    </span>
-                    <span className="sr-only">
-                      {o.status === 'done' ? '已完成：' : o.status === 'blocked' ? '未完成：' : '还在继续：'}
-                    </span>
-                    {o.title}
-                  </div>
-                ))}
-              </div>
-            )}
-            {m.steps
-              .filter((s) => !m.obligations.some((o) => o.title === s.title))
-              .filter((s) => !(m.hostStatus?.code === 'scope_expired' && s.id.startsWith('host-failure:')))
-              .map((s) => (
-                <div className={`step ${s.status}`} key={s.id}>
-                  {s.status === 'running' ? (
-                    <LoaderCircle size={13} className="spin" />
-                  ) : s.status === 'done' ? (
-                    <Check size={13} />
-                  ) : (
-                    <CircleAlert size={13} />
-                  )}
-                  <div>
-                    <span>
-                      {s.scope && <em>{s.scope} / </em>}
-                      {s.title}
-                    </span>
-                    {s.detail && <p>{s.detail}</p>}
-                  </div>
-                </div>
-              ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  ) : null;
+  const processBlock = <ChatProcess message={m} />;
   const response=m.responseText??m.content;
   const renderedResponse = primaryBodyPresented ? '' : response;
   const paragraphBreak=m.views?.length?renderedResponse.search(/\n\s*\n/):-1;
@@ -2948,12 +4106,14 @@ function MessageView({
     :interleaveViews(renderedResponse,presentationItems).map((part,index)=>part.kind==='text'
       ?<div className="markdown" key={`text-${index}`}><RichText text={part.text}/></div>
       :part.view.view ? renderView(part.view.view) : renderActivity());
+  // An unstamped legacy author must not borrow whichever picture is current.
+  const authorArtwork = m.authorCompanionId || companionAuthorArtwork(m.authorName);
   return (
     <article className="assistant-message" ref={article} data-message-id={m.id} tabIndex={-1}
       onMouseUp={selectionChanged} onKeyUp={selectionChanged}>
       <div className="assistant-name">
-        <CompanionAvatar size={31} />
-        <span>{m.authorName || companionName || '在场'}</span>
+        {authorArtwork && <CompanionAvatar size={31} characterId={authorArtwork} />}
+        <span>{m.authorName || '在场'}</span>
         {m.demo && <small>示例</small>}
         {m.proactive && <small className="assistant-proactive" title={new Date(m.createdAt).toLocaleString()}>{m.proactive === 'check_in' ? '来找你' : '替你留意到'}</small>}
       </div>
@@ -2989,6 +4149,7 @@ function MessageView({
           onSave={onSave}
           onRevoke={onRevoke}
           onView={onViewAgenda}
+          onEditStateChange={(id, dirty, pending) => onActionEditChange(m.sessionId, m.id, id, dirty, pending)}
           disabled={busy}
           boundary={boundary}
         />
@@ -3041,7 +4202,7 @@ function MessageView({
             ]
           : [];
       })}
-      <ReplyEvidence key={boundary} message={m} />
+      <ReplyEvidence key={boundary} message={m} onOpenSource={onOpenSource} />
       {!m.scenes?.some(scene=>scene.kind==='map')&&m.mapCards?.map((card, cardIndex) => (
         <MapRouteCard key={cardIndex} card={card} onOpen={() => onOpenMap(card.route)} />
       ))}
@@ -3263,15 +4424,17 @@ function ActionCard({
   onView,
   disabled,
   boundary,
+  onEditStateChange,
 }: {
   action: Action;
   timeZone: string;
   saved: boolean;
   onSave: (item: Action) => Promise<ActionResult>;
   onRevoke: (effect: ActionEffectRef) => Promise<ActionResult>;
-  onView: () => void;
+  onView: (item?: Action, occurrenceDate?: string) => void;
   disabled: boolean;
   boundary: string;
+  onEditStateChange: (id: string, dirty: boolean, pending: boolean) => void;
 }) {
   const zone = action.timeZone || timeZone;
   const [editing, setEditing] = useState(false),
@@ -3283,6 +4446,11 @@ function ActionCard({
   const [saving, setSaving] = useState(false),
     [actionError, setActionError] = useState('');
   const editBase = useRef(action);
+  const reportEdit = useRef(onEditStateChange); reportEdit.current = onEditStateChange;
+  const edited = editing && (title !== editBase.current.title || detail !== editBase.current.detail
+    || time !== toTimeInput(editBase.current.startsAt, editBase.current.timeZone || timeZone));
+  useLayoutEffect(() => { reportEdit.current(action.id, edited, saving || revoking); }, [action.id, boundary, edited, saving, revoking]);
+  useLayoutEffect(() => () => reportEdit.current(action.id, false, false), [action.id, boundary]);
   useEffect(() => {
     if (!editing) {
       setTitle(action.title);
@@ -3353,7 +4521,8 @@ function ActionCard({
   const changingOccurrence = changeOperation === 'change_occurrence';
   const cancellingOccurrence = changingOccurrence && occurrenceCancellation === true;
   const restoringOccurrence = changingOccurrence && occurrenceCancellation === false;
-  if (action.planningOffer) return <PlanningOfferCard action={action} effect={effect} disabled={disabled} onSave={onSave} onView={onView}
+  const viewArrangement = () => onView(effect?.localRecord || action, changingOccurrence ? occurrenceDate : undefined);
+  if (action.planningOffer) return <PlanningOfferCard action={action} effect={effect} disabled={disabled} onSave={onSave} onView={viewArrangement}
     onRefresh={async () => { setEffect(await api.actionState(action.effectActionId || action.id)); }} />;
   const deletingCalendarItem = changeOperation === 'delete';
   const planStateLabel = (state: NonNullable<Action['planning']>['state']) => ({ invitation: '尚未答应的邀请', wish: '愿望', proposed: '待选择的方案', accepted: '已接受的安排' })[state];
@@ -3378,7 +4547,7 @@ function ActionCard({
         <button className="text-button" onClick={() => void revoke()} disabled={disabled || revoking}>
           {revoking ? '正在撤销…' : '撤销'}
         </button>
-        <button className="text-button" onClick={onView}>
+        <button className="text-button" onClick={viewArrangement}>
           查看安排
           <ChevronRight size={14} />
         </button>
@@ -3419,7 +4588,7 @@ function ActionCard({
         >
           {revoking ? '正在撤销…' : '撤销'}
         </button>
-        <button className="text-button" onClick={onView}>
+        <button className="text-button" onClick={viewArrangement}>
           查看安排
           <ChevronRight size={14} />
         </button>
@@ -3438,7 +4607,7 @@ function ActionCard({
                 ? '结果还不能确认，请先核对再继续。'
                 : '这项安排的保存结果暂时无法核对。'}
           </p>
-          <button className="text-button" onClick={onView} disabled={disabled}>
+          <button className="text-button" onClick={viewArrangement} disabled={disabled}>
             看看结果
           </button>
         </div>
@@ -3453,7 +4622,7 @@ function ActionCard({
           {cancellationConfirmed || cancelledBeforeDispatch
             ? <small>{cancellationConfirmed ? isCalendarChange ? '这次修改已撤销。' : '这项安排已撤销。' : '这项提议已收起。'}</small>
             : <p>这项操作已停止，结果需要核对。</p>}
-          <button className="text-button" onClick={onView} disabled={disabled}>
+          <button className="text-button" onClick={viewArrangement} disabled={disabled}>
             查看安排
           </button>
         </div>
@@ -3489,7 +4658,7 @@ function ActionCard({
           </p>
           <button
             className="text-button"
-            onClick={onView}
+            onClick={viewArrangement}
             disabled={disabled}
           >
             {[

@@ -1,0 +1,741 @@
+{
+  "schemaVersion": 1,
+  "id": "sakiko-attention-violet-shared-page-v2-included-candidate-v1",
+  "recordedAt": "2026-10-25T23:53:30.988067+00:00",
+  "recordType": "same-mother-original-rgb-fixed-included-layer-candidate",
+  "character": "sakiko",
+  "activity": "attention",
+  "palette": "violet",
+  "light": "dusk",
+  "sceneFamily": "literary-room-v1",
+  "dossierVersion": "2026-10-25.1",
+  "wardrobeId": "sakiko-literary-navy-adaptation",
+  "motherStaticDirectionApproved": true,
+  "motherSourceRecord": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-violet-shared-page-v2.source.json",
+    "sha256": "41b01427fbc3525aa7e9ff7aab35eccedeb36d71ae4b6cb00d7e77343a48543e",
+    "bytes": 4958
+  },
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "newHumanMotherCount": 0,
+  "original360ExactActivityAdmission": false,
+  "status": "producer-native-browser-reviewed-candidate-await-root",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "selected": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-violet-shared-page-v2.png",
+      "sha256": "69c14d7b7df22f634e3bc884c01396bdcd0d3f0fe70678803a05a10b52366208",
+      "bytes": 2416217,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "foregroundMarkup": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-step1-marked-v2.png",
+      "sha256": "abddc802ed4c100d9c2ad87d10b5749636984a654a5b9c254fcd641e60701abf",
+      "bytes": 2241369,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "foregroundMask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-mask-v2.png",
+      "sha256": "5285f653e453905d38e5992bbd20cc46f54d0d390cd59308a1dc13dde11b5061",
+      "bytes": 456239,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "receiverMarkup": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/contact-step1-marked-v2.png",
+      "sha256": "294ac0bd6a570b2c444ab1c9cacef3b6da64076fad68f43097a866fce862f054",
+      "bytes": 2338181,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "receiverMask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/contact-mask-v1.png",
+      "sha256": "89cf69bd67f18c81c4170e4897850cc0d7e88c896c815b2fa4c6bdc40ae4c967",
+      "bytes": 329971,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/background-v1.png",
+      "sha256": "1aa2ca1254bcbb917cae56db6c09d1725f6b17d2f10d8b43b81189ea95068d6b",
+      "bytes": 2314719,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    }
+  },
+  "actualImageGenerationCalls": 8,
+  "rawImageOutputCount": 8,
+  "productionReceipts": [
+    {
+      "stage": "BG",
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/background-v1.source.json",
+        "sha256": "ec0dfadaf20e7b526bf701acc49e5b241aab0afdcc384f65be05b7fc435a09b8",
+        "bytes": 7136
+      },
+      "promptFile": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/background-v1.prompt.txt",
+        "sha256": "5a09bde04063d2d3afd677407c3cea41609c4763bd92668513b53168792552cd",
+        "bytes": 1967
+      },
+      "requestFile": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/background-v1.request.json",
+        "sha256": "e01cbb02b99cd0423673a3699e5ccde2e0253abbf4654f37b5fff99856f69cc5",
+        "bytes": 2238
+      },
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/background-v1.png",
+        "sha256": "1aa2ca1254bcbb917cae56db6c09d1725f6b17d2f10d8b43b81189ea95068d6b",
+        "bytes": 2314719,
+        "canvas": [
+          1536,
+          1024
+        ],
+        "mode": "RGB"
+      },
+      "inputs": [
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-violet-shared-page-v2.png",
+          "sha256": "69c14d7b7df22f634e3bc884c01396bdcd0d3f0fe70678803a05a10b52366208",
+          "role": "sole approved complete mother; no older empty plate or any mask/composite input"
+        }
+      ],
+      "status": "producer-native-browser-reviewed-candidate-await-root"
+    },
+    {
+      "stage": "S1-v1",
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/contact-step1-v1.source.json",
+        "sha256": "67ff939f602f38ff63b00d8b97414d09fa328071c288ec91fc5c28ea977e599e",
+        "bytes": 7725
+      },
+      "promptFile": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/contact-step1-v1.prompt.txt",
+        "sha256": "092f4d1694f99488fadf07cea598908f39c4d5591a8271438102465b92faad38",
+        "bytes": 2497
+      },
+      "requestFile": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/contact-step1-v1.request.json",
+        "sha256": "239ec3148f837b560e337271b73b418555e4699dccb1b88e091ce79ed28f0c9d",
+        "bytes": 2768
+      },
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/contact-step1-marked-v1.png",
+        "sha256": "f1ad584389adcf654106262fad3bafd8f142e7507d8885d8200917d8614bd550",
+        "bytes": 2371214,
+        "canvas": [
+          1536,
+          1024
+        ],
+        "mode": "RGB"
+      },
+      "inputs": [
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-violet-shared-page-v2.png",
+          "sha256": "69c14d7b7df22f634e3bc884c01396bdcd0d3f0fe70678803a05a10b52366208",
+          "role": "sole approved complete mother"
+        }
+      ],
+      "status": "HOLD_empty_seat_overselection"
+    },
+    {
+      "stage": "S1-v2",
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/contact-step1-v2.source.json",
+        "sha256": "784612099f5f3c67c0d6ce0f7c1874f7c88b1bacb52f1fbc56a307517cc7c6bb",
+        "bytes": 7713
+      },
+      "promptFile": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/contact-step1-v2.prompt.txt",
+        "sha256": "e2470f9055c4b1ba0a06ace4a8ff1b7616a4e82480b6a47f1073b4ee58495e50",
+        "bytes": 2467
+      },
+      "requestFile": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/contact-step1-v2.request.json",
+        "sha256": "502208dee12b1454391d5368a1dab81be87f8578e0a9a9c8e82c468c33efbbe7",
+        "bytes": 2739
+      },
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/contact-step1-marked-v2.png",
+        "sha256": "294ac0bd6a570b2c444ab1c9cacef3b6da64076fad68f43097a866fce862f054",
+        "bytes": 2338181,
+        "canvas": [
+          1536,
+          1024
+        ],
+        "mode": "RGB"
+      },
+      "inputs": [
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-violet-shared-page-v2.png",
+          "sha256": "69c14d7b7df22f634e3bc884c01396bdcd0d3f0fe70678803a05a10b52366208",
+          "role": "sole approved complete mother; held S1-v1 never used"
+        }
+      ],
+      "status": "producer-candidate"
+    },
+    {
+      "stage": "S2",
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/contact-step2-v1.source.json",
+        "sha256": "ffb76604bed5516729f1263398d7415d1c1339c8320daf499880be82fbc1a8d8",
+        "bytes": 7981
+      },
+      "promptFile": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/contact-step2-v1.prompt.txt",
+        "sha256": "c2d654c7b2f70862d68aa97acc1367571a1c3889284f838ce177e1918cc437e5",
+        "bytes": 1979
+      },
+      "requestFile": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/contact-step2-v1.request.json",
+        "sha256": "721682b3dfa1fe368bd5a471d0489fde075ddf6736d9f1a5c474c4eff4c6de62",
+        "bytes": 2441
+      },
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/contact-mask-v1.png",
+        "sha256": "89cf69bd67f18c81c4170e4897850cc0d7e88c896c815b2fa4c6bdc40ae4c967",
+        "bytes": 329971,
+        "canvas": [
+          1536,
+          1024
+        ],
+        "mode": "RGB"
+      },
+      "inputs": [
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/contact-step1-marked-v2.png",
+          "sha256": "294ac0bd6a570b2c444ab1c9cacef3b6da64076fad68f43097a866fce862f054",
+          "role": "healthy newly generated tight S1-v2 markup"
+        },
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-violet-shared-page-v2.png",
+          "sha256": "69c14d7b7df22f634e3bc884c01396bdcd0d3f0fe70678803a05a10b52366208",
+          "role": "same clean mother to distinguish deliberately added white from original pale linen"
+        }
+      ],
+      "status": "producer-native-browser-reviewed-candidate-await-root"
+    },
+    {
+      "stage": "F1",
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-step1-v1.source.json",
+        "sha256": "4408fc062cbd8a15a1c1df0d81a7f15e99f8ec232eb7d894959a67569f326cdd",
+        "bytes": 7611
+      },
+      "promptFile": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-step1-v1.prompt.txt",
+        "sha256": "41f6c0c5d83466be0149fafcf2a030e97cc949d1b893f6cab043558424eec10d",
+        "bytes": 2178
+      },
+      "requestFile": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-step1-v1.request.json",
+        "sha256": "c871065b172d50578fa5dc855843e222d84b59383cc7dea21d0311ea079aa9ff",
+        "bytes": 2449
+      },
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-step1-marked-v1.png",
+        "sha256": "0e2946702269d396f19c9a1ae34f3fb85e0c0406018da4b0fe5bf5d0fdd4495e",
+        "bytes": 2248423,
+        "canvas": [
+          1536,
+          1024
+        ],
+        "mode": "RGB"
+      },
+      "inputs": [
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-violet-shared-page-v2.png",
+          "sha256": "69c14d7b7df22f634e3bc884c01396bdcd0d3f0fe70678803a05a10b52366208",
+          "role": "sole root-approved complete mother; exact edit target"
+        }
+      ],
+      "status": "HOLD_book_left_fine_hair_loop_incomplete"
+    },
+    {
+      "stage": "F1-v2",
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-step1-v2.source.json",
+        "sha256": "062d9f0c827dd8adf2f764cd66da8004f9c548ae45f097f0f1454ca0d181658d",
+        "bytes": 8875
+      },
+      "promptFile": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-step1-v2.prompt.txt",
+        "sha256": "57d31f923938e730e096e3d74942a02b5adf62405041571cad151dc9f7f49c58",
+        "bytes": 3059
+      },
+      "requestFile": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-step1-v2.request.json",
+        "sha256": "05c390cd7445d3cc7036c2d0620daf2d4cf332e6f1a46d09016afed608c6111b",
+        "bytes": 3331
+      },
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-step1-marked-v2.png",
+        "sha256": "abddc802ed4c100d9c2ad87d10b5749636984a654a5b9c254fcd641e60701abf",
+        "bytes": 2241369,
+        "canvas": [
+          1536,
+          1024
+        ],
+        "mode": "RGB"
+      },
+      "inputs": [
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-violet-shared-page-v2.png",
+          "sha256": "69c14d7b7df22f634e3bc884c01396bdcd0d3f0fe70678803a05a10b52366208",
+          "role": "sole clean approved mother, no held F1/F2 or review screenshot"
+        }
+      ],
+      "status": "producer-stage-candidate"
+    },
+    {
+      "stage": "F2",
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-step2-v1.source.json",
+        "sha256": "9b94ba91afc6a92ef090d37e13eb470c38d27be52221105f92b3f0962da78888",
+        "bytes": 6733
+      },
+      "promptFile": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-step2-v1.prompt.txt",
+        "sha256": "9daebff61ecc0c0a525230d9bf043bc5c569c35689282a00ab8c8aac3e6c8246",
+        "bytes": 1580
+      },
+      "requestFile": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-step2-v1.request.json",
+        "sha256": "4edffa607b49d5a3a667f1f4fb4a88e080cfca6c8141e1cf498c29ba6f8a4855",
+        "bytes": 1858
+      },
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-mask-v1.png",
+        "sha256": "3f66bf613fe35579168e6337dce84350efc914af0ed9d596b6ea7243aa2ec4f6",
+        "bytes": 476443,
+        "canvas": [
+          1536,
+          1024
+        ],
+        "mode": "RGB"
+      },
+      "inputs": [
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-step1-marked-v1.png",
+          "sha256": "0e2946702269d396f19c9a1ae34f3fb85e0c0406018da4b0fe5bf5d0fdd4495e",
+          "role": "new healthy exact-mother F1 deliberate white markup only"
+        }
+      ],
+      "status": "HOLD_book_left_fine_hair_loop_incomplete"
+    },
+    {
+      "stage": "F2-v2",
+      "sourceRecord": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-step2-v2.source.json",
+        "sha256": "537cb812cd177d2c845ea9b3f76b1ef29f11a3878636c0cfbd9032f0637eed2b",
+        "bytes": 7938
+      },
+      "promptFile": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-step2-v2.prompt.txt",
+        "sha256": "d50c083a8b3ef4766ea6ace3118cafab64109fc4263d7a21c0e46ede7f91596a",
+        "bytes": 2262
+      },
+      "requestFile": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-step2-v2.request.json",
+        "sha256": "64ba39b2ddb4d89197fb7b23082d3cdfcabfe9a3984c40168579ff25a9ff5b88",
+        "bytes": 2541
+      },
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-mask-v2.png",
+        "sha256": "5285f653e453905d38e5992bbd20cc46f54d0d390cd59308a1dc13dde11b5061",
+        "bytes": 456239,
+        "canvas": [
+          1536,
+          1024
+        ],
+        "mode": "RGB"
+      },
+      "inputs": [
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-step1-marked-v2.png",
+          "sha256": "abddc802ed4c100d9c2ad87d10b5749636984a654a5b9c254fcd641e60701abf",
+          "role": "new F1-v2 rebuilt solely from clean mother; no held F mask/markup/screenshot"
+        }
+      ],
+      "status": "producer-native-browser-reviewed-candidate-await-root"
+    }
+  ],
+  "assembly": {
+    "formula": "U = MAX(L(F), L(S))",
+    "luminanceCoefficients": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "nativeImplementation": "SVG feColorMatrix + feBlend(mode=lighten), sRGB luminance mask, exact original mother RGB drawn once.",
+    "sourceRGBDrawCount": 1,
+    "pngPixelEditing": false,
+    "manualMaskPainting": false,
+    "thresholdOrMorphologyEditing": false,
+    "croppingOrResizingOriginalPNG": false,
+    "sameMotherImageRemovalBackground": true,
+    "bitwiseHiddenBackgroundReconstructionClaimed": false,
+    "assets": [
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/union-source-v1.svg",
+        "sha256": "373042e752950c483b15fadcd7e8285bb6e9a9135641e8728a2bdc9748689756",
+        "bytes": 1266,
+        "sourceRGBDrawCount": 1
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/composite-source-v1.svg",
+        "sha256": "57fe8a231d9238e064419926dd0654cc9441ecee6d85ba4ed63c386b78035ccf",
+        "bytes": 1353,
+        "sourceRGBDrawCount": 1
+      }
+    ]
+  },
+  "geometry": {
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "fixedOriginalSourceCoordinates": true,
+    "sourceReceiverMaterialIncluded": true,
+    "independentActorBookReceiverMotionAllowed": false,
+    "onlyWholeLayerOpacityAndSameViewportScaling": true,
+    "placementOrRuntimeCameraCalibrationPerformed": false,
+    "readOnlyDiagnosticEnvelopes": {
+      "F": {
+        "readOnlyLuminanceGt32Pixels": [
+          904,
+          115,
+          1375,
+          928
+        ],
+        "normalized": [
+          0.5885416666666666,
+          0.1123046875,
+          0.8951822916666666,
+          0.90625
+        ]
+      },
+      "S": {
+        "readOnlyLuminanceGt32Pixels": [
+          880,
+          541,
+          1366,
+          937
+        ],
+        "normalized": [
+          0.5729166666666666,
+          0.5283203125,
+          0.8893229166666666,
+          0.9150390625
+        ]
+      },
+      "U": {
+        "readOnlyLuminanceGt32Pixels": [
+          880,
+          115,
+          1375,
+          937
+        ],
+        "normalized": [
+          0.5729166666666666,
+          0.1123046875,
+          0.8951822916666666,
+          0.9150390625
+        ]
+      }
+    },
+    "envelopeThresholdIsNotAnEditedMaskOrRuntimeCrop": true
+  },
+  "producerNativeBrowserReview": {
+    "method": "Formal CUA Chrome extension, existing browser binding 3, own local static 5188 observation tab500947829 only. No external browser engine, App/9335 or model call.",
+    "page": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/native-observe-v1.html",
+      "sha256": "0c43913f8115032d130f488dc32ffab085421af0c063e1fdfc3f7797b3326098",
+      "bytes": 33320
+    },
+    "url": "http://127.0.0.1:5188/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/native-observe-v1.html",
+    "personallyViewed": [
+      "whole mother/union/same-mother composite",
+      "light/dark/checker complete figure contour",
+      "face/golden eyes/mouth/finehair/ribbons",
+      "whole open book/touching fingertip/lower cover/supporting hand",
+      "extra source hair-loop/book-left detail",
+      "hem/uncovered knees/below-knee socks/real local seat receiver",
+      "both complete loafers including toes/full soles/heels and soft local grounding",
+      "fixed source receiver RGB alone on light/dark and MAX union"
+    ],
+    "observations": [
+      "Original youthful Sakiko identity, pose and clothing RGB remain from the exact approved source; no mother redraw or theme/scale reconstruction.",
+      "F1/F2-v1 native detail dropped the lower arc of a genuine thin hair loop below the image-left book edge. Both held after this discovery, rebuilt F1-v2 from clean mother then F2-v2; final native original/union/composite shows continuous source hair loop and true inner background gap.",
+      "Book complete, fingers/left supporting hand and thin lower cover remain opaque; no detached wood trim or visible transparent interior slot in final selected views.",
+      "Face/eyes/mouth stay original and opaque; real hair gaps remain clear on dark and checker backdrops.",
+      "S1-v1 selected an empty left cushion island. It was held and never sent to S2; S1-v2 was rebuilt from clean mother. Selected S contains only tight actual receiver islands and original cloth/wood shade, with small foreground-edge overlap merged once via MAX.",
+      "Both entire original shoes remain present with a short soft original floor receiver. S alone contains wood/cloth material and is never represented as a movable independent caster.",
+      "Full same-mother composite personally viewed without a visible broad wrong-color receiver block or hard rectangular seam; hidden linen/wood repair still generated, not bitwise recovered."
+    ],
+    "captureDiagnostics": "Initial own-tab DPR3 and all-section SVG painting caused local capture timeouts/blank or first-mask-decode frames. Healthy browser/session retained; own static page paints only selected section and formal per-tab CDP Emulation uses1265x720 DPR1. Final clear source screenshots acquired; pending/held frames preserved but excluded from selected evidence. No original PNG altered.",
+    "evidence": [
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/browser-observations/01-scene.png",
+        "sha256": "24d383c5e4d3d10717f41457a023f0c14f020d1262931fd4bd16904223d4762e",
+        "bytes": 104747,
+        "canvas": [
+          1265,
+          720
+        ],
+        "mode": "RGB",
+        "selectedFinalEvidence": true,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/browser-observations/02-subject.png",
+        "sha256": "7b4feacb1ae0807b4affe970da8d5fe1f2f3ebe5cb27401888d4d465c1b3bc6d",
+        "bytes": 113882,
+        "canvas": [
+          1265,
+          720
+        ],
+        "mode": "RGB",
+        "selectedFinalEvidence": true,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/browser-observations/02b-checker.png",
+        "sha256": "cdd57a08318b2c0ce96eb51b347732892c557d48c9a57af85ae4106b0876e926",
+        "bytes": 46653,
+        "canvas": [
+          839,
+          582
+        ],
+        "mode": "RGB",
+        "selectedFinalEvidence": false,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/browser-observations/03-face.png",
+        "sha256": "a89f62111478f43a3e5253cd47d6183ab95e3cf62aaff801608fe15c95d39d47",
+        "bytes": 101373,
+        "canvas": [
+          1265,
+          720
+        ],
+        "mode": "RGB",
+        "selectedFinalEvidence": true,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/browser-observations/04b-book-union.png",
+        "sha256": "406f3d252f200b905283a28e775ceac26e37f55b097107ee378e1a1f1832d6ed",
+        "bytes": 60917,
+        "canvas": [
+          839,
+          582
+        ],
+        "mode": "RGB",
+        "selectedFinalEvidence": true,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/browser-observations/04c-book-left-detail.png",
+        "sha256": "8c8d95d276c77f721d4edcde74f913a7433c36829b722df89628beb771199035",
+        "bytes": 52044,
+        "canvas": [
+          1265,
+          720
+        ],
+        "mode": "RGB",
+        "selectedFinalEvidence": true,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/browser-observations/04d-book-composite.png",
+        "sha256": "877e743d62ef1e828efa1ebf179ad82249a6eb5f09c606a1fa2e44acff5d90a7",
+        "bytes": 59014,
+        "canvas": [
+          837,
+          592
+        ],
+        "mode": "RGB",
+        "selectedFinalEvidence": true,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/browser-observations/05-hem.png",
+        "sha256": "eaae27b34f37ba2b22208a0eec179b72dbfc1a166682b97b14f604478e81ec8e",
+        "bytes": 64359,
+        "canvas": [
+          1265,
+          720
+        ],
+        "mode": "RGB",
+        "selectedFinalEvidence": true,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/browser-observations/06-shoes.png",
+        "sha256": "de96055ed0c9a184ffb54a4f5dcf717ea437076eb423253e6199329529757048",
+        "bytes": 54906,
+        "canvas": [
+          1265,
+          720
+        ],
+        "mode": "RGB",
+        "selectedFinalEvidence": true,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/browser-observations/07-contact.png",
+        "sha256": "ef7802397d8f67113d595cc78a3d3ccd5cac4c46ab5fdb3d37431c7b7ed781e5",
+        "bytes": 55581,
+        "canvas": [
+          1265,
+          720
+        ],
+        "mode": "RGB",
+        "selectedFinalEvidence": true,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/browser-observations/held-F-v1-01-scene.png",
+        "sha256": "80ef66d475e37c0c9d9069c80c55b157279b4db02a7f8b07805e78a327360855",
+        "bytes": 69242,
+        "canvas": [
+          839,
+          582
+        ],
+        "mode": "RGB",
+        "selectedFinalEvidence": false,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/browser-observations/held-F-v1-04a-book-original.png",
+        "sha256": "f5571f34faff0579f768796fb58f41b0862bbaf8a03a0a89b9a81746c3dd5ba1",
+        "bytes": 57319,
+        "canvas": [
+          839,
+          582
+        ],
+        "mode": "RGB",
+        "selectedFinalEvidence": false,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/browser-observations/held-F-v1-04b-book-union.png",
+        "sha256": "04bdebb0264323ee6d206c5fa285c2eae2bf533d30528ffbad3234b366f79b36",
+        "bytes": 58636,
+        "canvas": [
+          839,
+          582
+        ],
+        "mode": "RGB",
+        "selectedFinalEvidence": false,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/browser-observations/held-F-v1-04c-book-left-detail.png",
+        "sha256": "f22ed573f20f37e4d148223f56a51a27625e413175a4ee87280ca93cc968b3fe",
+        "bytes": 32960,
+        "canvas": [
+          839,
+          582
+        ],
+        "mode": "RGB",
+        "selectedFinalEvidence": false,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/browser-observations/pending-mask-decode-book-left-v2.png",
+        "sha256": "9dda9377e55a83777faef0eb4b577033264b09e1a8f2da35bff50efdf5506fb2",
+        "bytes": 31786,
+        "canvas": [
+          839,
+          582
+        ],
+        "mode": "RGB",
+        "selectedFinalEvidence": false,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/browser-observations/pending-navigation-05-hem.png",
+        "sha256": "0bf21df2182bc8f44e30997a5ff5ef5424b4a0004766214403df95dda20ff96d",
+        "bytes": 5312,
+        "canvas": [
+          837,
+          592
+        ],
+        "mode": "RGB",
+        "selectedFinalEvidence": false,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/browser-observations/pending-navigation-06-shoes.png",
+        "sha256": "d05f865fb6606c65fa282645ed83c2cae36c9e6bdf7c4d160ce34c7f56999c8a",
+        "bytes": 3228,
+        "canvas": [
+          837,
+          592
+        ],
+        "mode": "RGB",
+        "selectedFinalEvidence": false,
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/browser-observations/review-before-viewbox-clip-book-v1.png",
+        "sha256": "cab22570bfdd8320a015b3cf1d458c79c95246111a9be8a74630d680893fcfa8",
+        "bytes": 86300,
+        "canvas": [
+          839,
+          582
+        ],
+        "mode": "RGB",
+        "selectedFinalEvidence": false,
+        "generationInputAllowed": false
+      }
+    ]
+  },
+  "held": [
+    {
+      "file": "figure-step1-marked-v1.png",
+      "reason": "Native book-left fine hair loop incomplete; original prompt/output retained; not used after HOLD."
+    },
+    {
+      "file": "figure-mask-v1.png",
+      "reason": "Same pair: short upper hair-loop fragment instead of complete lower arc under left book; not used as later Image input."
+    },
+    {
+      "file": "contact-step1-marked-v1.png",
+      "reason": "Over-selected an empty left cushion island; never used for S2 or later generation."
+    }
+  ],
+  "integrity": {
+    "problems": [],
+    "selectedMotherSha256Unchanged": "69c14d7b7df22f634e3bc884c01396bdcd0d3f0fe70678803a05a10b52366208",
+    "allToolOutputPngBytesPreserved": true
+  },
+  "scope": "Only this attention-violet source directory. No App/CSS/runtime registry/global ledger/9335 edits, no new tests or runner. Main authority/runtime acceptance remains root.",
+  "cleanup": "No files deleted; original Image outputs, prompts, selected/held sources, native diagnostics and screenshot evidence retained."
+}

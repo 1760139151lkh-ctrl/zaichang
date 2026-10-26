@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "id": "anon-chat-apricot-literary-v1",
+  "sceneFamily": "literary-room-v1",
+  "character": "anon",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "width": 1536,
+  "height": 1024,
+  "mother": "anon-chat-apricot-literary-mother-v1.png",
+  "background": "literary-room-clear-day-v1.png",
+  "mask": "anon-chat-apricot-literary-figure-mask-v1.png",
+  "maskMode": "luminance",
+  "contactMask": "anon-chat-apricot-literary-contact-mask-v1.png",
+  "seat": [
+    0.546875,
+    0.537109375
+  ],
+  "ground": [
+    0.4427083333333333,
+    0.80078125
+  ],
+  "bodyBounds": [
+    0.3971354166666667,
+    0.10546875,
+    0.6119791666666666,
+    0.8125
+  ],
+  "safeTextBoundary": 0.36,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "39.71354166666667% 10.546875%, 61.197916666666664% 10.546875%, 61.197916666666664% 81.25%, 39.71354166666667% 81.25%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/anon-chat-apricot-literary-included-primary-admission-v1.json",
+    "geometryRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/anon-chat-apricot-literary-v1.scene-proposal.json",
+    "geometryStatus": "Own complete source personally viewed; conservative visible body/contact references only; no hidden anatomy or movable support certification.",
+    "geometryEvidence": {
+      "actualVisibleBodyEnvelope": [
+        0.3971354166666667,
+        0.10546875,
+        0.6119791666666666,
+        0.8125
+      ],
+      "FWholeCoverageDominantPixelBBox": [
+        612,
+        109,
+        937,
+        829
+      ],
+      "receiverCoverageDominantPixelBBox": [
+        608,
+        528,
+        1025,
+        837
+      ],
+      "readOnlyMeasurement": "fixed >=0.5 luminance for metadata only; raw PNG and continuous runtime luminance unchanged",
+      "placement": {
+        "sourceCanvas": [
+          1536,
+          1024
+        ],
+        "bodyBoundsNormalized": [
+          0.3971354166666667,
+          0.10546875,
+          0.6119791666666666,
+          0.8125
+        ],
+        "boundsStatus": "conservative visual references from this exact visible source, not hidden anatomy certification",
+        "sourceSeat": [
+          0.546875,
+          0.537109375
+        ],
+        "sourceGround": [
+          0.4427083333333333,
+          0.80078125
+        ],
+        "actualBodyLocation": "bench end beside original round table, middle-left of room; NOT Sakiko far-right daybed template",
+        "layoutRecommendation": "right-side paper or stacked; consume this character own source bounds",
+        "safeTextBoundaryStatus": "provisional single-side reference only, not permission to force left paper layout"
+      },
+      "knownIncludedMaterialNotBody": [],
+      "supportPoints": "visible seat/floor reference points only; not unseen hip/foot joints"
+    },
+    "layerReview": "root exact-SHA fixed included union; original RGB once through MAX(F,S), all motion zero",
+    "runtimeSourceSha256": {
+      "mother": "53ee79ee3e5e210fc875d6ed062543c21cc2001831ede42dad814367a6103b7c",
+      "background": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "F": "c4aba1f3593f5255b56c2bdcf14873fc5400f8c9fc6e71f346df1c3f00cca0fd",
+      "S": "39b57bb13040463ed0d70a1403e8475100fc5974b5bae8d2e1ccca73c18dbc9c"
+    }
+  }
+}

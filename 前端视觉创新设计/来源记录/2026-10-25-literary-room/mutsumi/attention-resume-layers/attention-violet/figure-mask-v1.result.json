@@ -1,0 +1,7 @@
+{
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-747d82cf-9186-4634-b77d-eb4eebd8a4c8.png",
+  "output_hint": "Generated images are saved to C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed as C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-747d82cf-9186-4634-b77d-eb4eebd8a4c8.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+  "observed": "HOLD: enlarged comparison confirms opaque mouth/face/hair-line pixels were left black as small internal holes. Not true background. Do not input this mask or its bad F1; rebuild selection from original approved mother.",
+  "productionStatus": "HOLD-opaque-face-hole",
+  "generationInputAllowed": false
+}

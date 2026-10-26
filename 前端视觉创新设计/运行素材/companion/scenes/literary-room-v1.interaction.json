@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 1,
+  "roomFamily": "literary-room-v1",
+  "width": 1536,
+  "height": 1024,
+  "coordinateSpace": "original source pixels; shared Stage frame only",
+  "sourceReferences": [
+    {
+      "id": "clear-day-plate",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "scope": "root-approved empty room"
+    },
+    {
+      "id": "reading-mother",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+      "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+      "scope": "human-selected original close-camera mother"
+    },
+    {
+      "id": "desk-pilot",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-pilot/sakiko-study-apricot-literary-desk-pilot-v1.png",
+      "sha256": "00629c2e6e5b55901244a534145ab3c9d8c2f9c3cbf2ec2de8668f33037ccb04",
+      "scope": "root-viewed fixed desk-chair mother candidate; no layer/runtime approval"
+    }
+  ],
+  "dropTargets": [
+    {
+      "support": "desk-chair",
+      "regions": [
+        {
+          "state": "empty-chair",
+          "polygon": [
+            [
+              219,
+              516
+            ],
+            [
+              280,
+              516
+            ],
+            [
+              302,
+              526
+            ],
+            [
+              284,
+              540
+            ],
+            [
+              215,
+              535
+            ]
+          ],
+          "source": "clear-day-plate",
+          "meaning": "clear exposed right empty-chair seat; excludes the foreground plant and occluded left cloth; not the target person hip"
+        },
+        {
+          "state": "desk-chair-pose",
+          "polygon": [
+            [
+              224,
+              541
+            ],
+            [
+              306,
+              545
+            ],
+            [
+              396,
+              550
+            ],
+            [
+              398,
+              563
+            ],
+            [
+              313,
+              572
+            ],
+            [
+              224,
+              563
+            ]
+          ],
+          "source": "desk-pilot",
+          "meaning": "visible pulled/turned chair seat strip; no air bridge to empty-chair outline"
+        }
+      ]
+    },
+    {
+      "support": "window-seat",
+      "regions": [
+        {
+          "state": "all",
+          "polygon": [
+            [
+              704,
+              533
+            ],
+            [
+              1246,
+              551
+            ],
+            [
+              1280,
+              561
+            ],
+            [
+              1268,
+              578
+            ],
+            [
+              1024,
+              585
+            ],
+            [
+              704,
+              564
+            ]
+          ],
+          "source": "clear-day-plate",
+          "meaning": "inner horizontal cushion top; excludes front cream vertical face, wood cabinet and knitted throw"
+        }
+      ]
+    }
+  ],
+  "hotspots": [
+    {
+      "action": "start-focus",
+      "polygon": [
+        [
+          470,
+          286
+        ],
+        [
+          535,
+          288
+        ],
+        [
+          564,
+          382
+        ],
+        [
+          548,
+          390
+        ],
+        [
+          540,
+          407
+        ],
+        [
+          548,
+          452
+        ],
+        [
+          538,
+          486
+        ],
+        [
+          512,
+          494
+        ],
+        [
+          484,
+          486
+        ],
+        [
+          482,
+          448
+        ],
+        [
+          489,
+          408
+        ],
+        [
+          478,
+          390
+        ],
+        [
+          448,
+          383
+        ]
+      ],
+      "source": "clear-day-plate",
+      "meaning": "ceramic lamp shade/body only; calls existing FocusSession callback"
+    },
+    {
+      "action": "rest",
+      "polygon": [
+        [
+          712,
+          538
+        ],
+        [
+          850,
+          542
+        ],
+        [
+          862,
+          566
+        ],
+        [
+          711,
+          561
+        ]
+      ],
+      "source": "clear-day-plate",
+      "meaning": "visible empty left cushion portion; calls existing rest entrance"
+    }
+  ],
+  "deskPoseSupportReference": {
+    "visibleSeatContactCandidate": [
+      277,
+      539
+    ],
+    "forearmDeskCandidate": [
+      194,
+      391
+    ],
+    "contourComplete": false,
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "status": "provisional visible garment/seat-cloth contact, not hidden-hip calibration; never overwrite pose seat from a drop receiver",
+    "occlusion": "legs/shoes are genuinely obscured by plant/desk/chair; not a complete two-shoe contour claim"
+  },
+  "behavior": {
+    "dropReceiverIsNotPoseSeat": true,
+    "duringPreview": "Retain source-visible start furniture region and decoded preview furniture region together for one active gesture.",
+    "independentScaling": false,
+    "newTimer": false,
+    "missingCallback": "no action button",
+    "runtimeAccepted": false
+  },
+  "provenance": {
+    "author": "Scene implementation owner; direct original-image observation",
+    "geometryIsImageGenOutput": false,
+    "rasterModified": false,
+    "primaryRuntimeAcceptance": false
+  }
+}

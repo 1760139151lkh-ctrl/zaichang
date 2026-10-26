@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "recordType": "narrow-keep-candidate-comparison",
+  "intent": "A complete supported narrow Keep page without flat contain gaps, while retaining original owner/source/draft continuity.",
+  "scope": {
+    "sourceOnly": true,
+    "viewportIntent": {
+      "width": 760,
+      "height": 768
+    },
+    "productionUiOperatedByProducer": false,
+    "codeCssRegistryOrTotalLedgerChanged": false,
+    "newTestsOrRunnersCreated": false
+  },
+  "runtimeBaseline": {
+    "authority": "Current root direct production observations supplied in collaboration; producer did not operate9335.",
+    "wideVerified": {
+      "viewport": [
+        1220,
+        768
+      ],
+      "writerHeight": 108,
+      "noteTop": 343.625,
+      "readerBottom": 334,
+      "clearGap": 9.625
+    },
+    "additionalFileProblem": "Root observed one64px pending attachment shelf making auto-bottom push the note from343.6 toabout278 under the source window. This is a layout-coupling problem, not a reason to hide attachment/reference/draft controls.",
+    "narrowProblem": "Root observed the supported760x768 contain view preserving the whole figure but producing large flat gray-brown upper/lower gaps; native minimum width420."
+  },
+  "candidates": [
+    {
+      "id": "A2",
+      "png": "keep-narrow-a-full-room-extension-v2.png",
+      "source": "keep-narrow-a-full-room-extension-v2.source.json",
+      "prompt": "keep-narrow-a-full-room-extension-v2.prompt.txt",
+      "selection": "full-room direction for root comparison only",
+      "strength": "Full person, whole shoes, own book and shared room remain visible. Natural curtain/window/floor/rug across all edges is materially better than flat letterbox bars.",
+      "limit": "The generative concept still repaints/reframes the source instead of proving a pixel-identical contain camera. Exact actor/receiver/camera invariance is NOT approved. Cat and some typography differ from actual scales. Current body/masks must not be replaced with this PNG.",
+      "implementationBurden": "A future clean extension would need root-admitted empty environment and the original actor/receiver/F/S layers kept in one unchanged source transform. No new pose or existing-body reconstruction. Extension continuity must be checked in actual supported sizes and themes."
+    },
+    {
+      "id": "B2",
+      "png": "keep-narrow-b-quiet-desk-attachment-v2.png",
+      "source": "keep-narrow-b-quiet-desk-attachment-v2.source.json",
+      "prompt": "keep-narrow-b-quiet-desk-attachment-v2.prompt.txt",
+      "selection": "root-approved narrow representation/object relationship only; native implementation still pending production verification",
+      "strength": "An actual dedicated avatar and one cat retain role identity while the person yields all reading space. Continuous lamp/wood/rain material has no contain bars. One pending PDF cover remains inside the same writer, distinct from saved entrances. The note has a stable starting position and extra files grow the page downward.",
+      "limit": "It is a newly composed desk concept, not an approved clean runtime background. Cat is about150CSSpx rather than70–90 and must use the existing rig dimensions. Printed PDF texture is invented; actual PDF bytes/pages and all controls remain native. The pending file name was not supplied, so no fictional name/thumbnail was invented.",
+      "implementationBurden": "Use the existing scene/portrait representation boundary and approved avatar/cat, with no body under the work. The smallest alternative to a new desk asset is a safe cover-crop of the existing clean empty plate in narrow Keep, because there is no actor/support to crop. A dedicated new clean desk background, if chosen, needs a separate root static gate; never crop this UI mock."
+    }
+  ],
+  "heldHistory": [
+    {
+      "id": "A",
+      "png": "keep-narrow-a-full-room-extension-v1.png",
+      "reason": "Enlarged/recomposed actor and broad header slab; not exact contain geometry.",
+      "label": "A1"
+    },
+    {
+      "id": "B",
+      "png": "keep-narrow-b-quiet-desk-v1.png",
+      "reason": "Oversized PDF/cat and unwanted generated green macOS dot; no pending-file state.",
+      "label": "B1"
+    }
+  ],
+  "layoutRecommendation": {
+    "stableStart": "While writing, use one ordinary flow column from a stable top chosen from the existing source-window geometry/default safe boundary. Remove composer-height-dependent auto-bottom anchoring for that state. The native reader frame remains its original owner; do not create another geometry or content store.",
+    "growth": "Keep source chip and actual draft state in their compact first row, then all1–3 original attachments/thumbnails, then the same form. Added rows increase page length below the note. Saved icon entrances continue below and remain reachable by ordinary vertical scrolling. No controls/files/text hidden, no new input.",
+    "unknown": "Exact final contentTop and how saved user-resized reader geometry participates remain parent implementation choices; concept coordinates are intentions, not current DOM measurements. No CSS or business change authorized by this comparison.",
+    "authorizedDefaultObjectTopRelativeToPanel": 274,
+    "implementationStatus": "Scoped ambient empty-plate cover and stable-writing flow implemented; type check passed, production not yet verified."
+  },
+  "admissionBoundary": {
+    "primaryReviewed": true,
+    "primaryApproved": false,
+    "runtimeAccepted": false,
+    "generationInputAllowed": false,
+    "allFourUiConceptPngsForbiddenAsImageInputs": true,
+    "preserveExistingCharacterAssets": true,
+    "doNotRegenerateExistingMinorWeatherDifferences": true,
+    "spatialRelationshipApproved": true
+  },
+  "createdAt": "2026-10-25T23:50:34.949Z",
+  "outputs": [
+    {
+      "id": "A",
+      "file": "keep-narrow-a-full-room-extension-v1.png",
+      "source": "keep-narrow-a-full-room-extension-v1.source.json",
+      "sha256": "1f230ccc8a65d0cf3f534a02f096c3f32e4cb5382d112527244137e6448aab6f",
+      "bytes": 2185516,
+      "width": 1254,
+      "height": 1254,
+      "pngBytesUnchanged": true,
+      "sourceSha256": "71c137bbfea054aa4beb7a405e2f48ab099f026c34a029f0cff81c44ead5c4d2",
+      "inputStable": true
+    },
+    {
+      "id": "B",
+      "file": "keep-narrow-b-quiet-desk-v1.png",
+      "source": "keep-narrow-b-quiet-desk-v1.source.json",
+      "sha256": "f6c881751a82a133475857c8a215512e107a44aea836f5e9844068e8cc1f2ba4",
+      "bytes": 1751946,
+      "width": 1254,
+      "height": 1254,
+      "pngBytesUnchanged": true,
+      "sourceSha256": "4822949ab63f948d3ea65e4b8bc06360658ac00ec1727f01ba2340b329f63034",
+      "inputStable": true
+    },
+    {
+      "id": "A2",
+      "file": "keep-narrow-a-full-room-extension-v2.png",
+      "source": "keep-narrow-a-full-room-extension-v2.source.json",
+      "sha256": "ca345f9d236322c56585194954a9c1a04c0a206968c05b27ebee408cf661f949",
+      "bytes": 2306585,
+      "width": 1254,
+      "height": 1254,
+      "pngBytesUnchanged": true,
+      "sourceSha256": "145108d9bc5f62a7b363710deab7355996932a28b224785b292ec7a6bd81469a",
+      "inputStable": true
+    },
+    {
+      "id": "B2",
+      "file": "keep-narrow-b-quiet-desk-attachment-v2.png",
+      "source": "keep-narrow-b-quiet-desk-attachment-v2.source.json",
+      "sha256": "78c01827b801cc0b932da84ea3f7c200d344e95adcf211320a1cdafe66dd8663",
+      "bytes": 1867944,
+      "width": 1254,
+      "height": 1254,
+      "pngBytesUnchanged": true,
+      "sourceSha256": "4c654e7305bd3784cc281ee50288b3e183693edda2e7dc84dddf3af4306592c4",
+      "inputStable": true
+    }
+  ],
+  "updatedAt": "2026-10-26T00:03:23.975Z",
+  "primaryDirectionDecision": {
+    "file": "root-direction-admission.json",
+    "sha256": "c591e5fc74b5e0177c67242895b61e54e597bd7e10d94fb49e44bccfdd471c8e",
+    "selected": "B2 relationship only",
+    "runtimeAccepted": false
+  }
+}

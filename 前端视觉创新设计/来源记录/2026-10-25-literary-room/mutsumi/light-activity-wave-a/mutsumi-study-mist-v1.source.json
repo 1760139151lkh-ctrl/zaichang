@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "same-activity-whole-light-mother-candidate",
+  "character": "mutsumi",
+  "activity": "study",
+  "palette": "mist",
+  "environmentVariant": "overcast-day",
+  "wave": "light-activity-wave-a",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-23025514-7b74-4664-8e62-2a11790d22d3.png",
+  "executionId": "exec-23025514-7b74-4664-8e62-2a11790d22d3",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "role": "first input; approved empty environment plate, primary camera and authoritative target whole-room light"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-study-apricot-v1.png",
+      "sha256": "0fed56bbb3ae86b4ee81f1957e243b1d01b9e7f40c56e79e285ac686a1b6c5ac",
+      "role": "second input; root-approved exact same-activity apricot mother, correct identity/pose/proportion/props/physical support"
+    }
+  ],
+  "apricotActivityMotherApproval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-study-apricot-v1.primary-approval.json",
+  "sourceMotherContourComplete": false,
+  "intendedSupport": "desk-chair",
+  "sourceSpecificPose": "Exact approved source: at the ACTUAL LEFT DESK, one hand/page supported by the reachable desk, other hand/pen near lips, hips/skirt supported by the actual chair cushion. Preserve source chair orientation/back-slats, real desk reach and foreground-plant occlusion; root approved the portable support arrangement. RIGHT BENCH EMPTY. Do not translate a bench body or inflate her to near-bench scale. Complete head and naturally visible shoes stay inside frame; do not invent/force a complete pair through wood or plants.",
+  "brief": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/mutsumi-prompt-plan.json",
+    "sha256": "66ade9700cb7bb993b43bd7e247b678878b79ad71237b0b5dcd915a43a3be2ca",
+    "key": "mutsumi/study/apricot",
+    "role": "own role/activity literary psychology; light redirection keeps actual accepted mother pose"
+  },
+  "wholeSceneRelighting": true,
+  "oldApricotHeatSpotsAreNotIdentity": true,
+  "unreviewedLightCandidateUsedAsInput": false,
+  "promptFile": "mutsumi-study-mist-v1.prompt.txt",
+  "promptFileSha256": "b8ac74165e6d92fce5799104e67695d6d8203a4732df9e93f0d582b74fe68a7d",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; exact submitted text",
+  "submittedPromptSha256": "caf07643e4cc9664aab070abc960b92777beef877c4a93e8b86d64d3ae732a1a",
+  "output": {
+    "file": "mutsumi-study-mist-v1.png",
+    "sha256": "ce372fe549aad1f45a890b9a65e83efc1ba25f99feba26c7cbc695ffd3231bea",
+    "bytes": 2363084,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved complete mother. Actual approved LEFT-DESK study pose remains at farther source depth with paper/forearm on reachable desk, other hand/pen near lips, hip/skirt on chair cloth and accepted chair/slat orientation; right bench remains empty. Natural plant/chair occlusion of lower legs/shoes is preserved, no invented complete pair; source contourComplete=false not upgraded. Mint hair/visible eye/eyelid and actual hand/page/desk support read coherently. Dry overcast diffuse light reaches face, navy cloth, paper, desk/chair and floor without original hard clear-day skin/floor patches. Root/layer/runtime pending."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "New static mother candidate only, root review pending; no layer, registration or runtime acceptance.",
+  "privateUserDataUsed": false
+}

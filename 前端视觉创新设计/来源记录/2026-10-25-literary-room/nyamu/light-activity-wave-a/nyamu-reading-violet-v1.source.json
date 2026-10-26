@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "same-activity-whole-light-mother-candidate",
+  "character": "nyamu",
+  "activity": "reading",
+  "palette": "violet",
+  "environmentVariant": "twilight",
+  "wave": "light-activity-wave-a",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-b3db1928-3669-4b5d-8dc6-e9a402cc754f.png",
+  "executionId": "exec-b3db1928-3669-4b5d-8dc6-e9a402cc754f",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+      "role": "first input; approved empty environment plate, primary camera and authoritative target whole-room light"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-a/nyamu-reading-apricot-v1.png",
+      "sha256": "f47b5fbc4103e0b58ff155996eb944f63796e3cdbefc73ae54a78398a633b587",
+      "role": "second input; root-approved exact same-activity apricot mother, correct identity/pose/proportion/props/physical support"
+    }
+  ],
+  "apricotActivityMotherApproval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-a/nyamu-reading-apricot-v1.primary-approval.json",
+  "sourceMotherContourComplete": true,
+  "intendedSupport": "window-seat",
+  "sourceSpecificPose": "Exact source pose: reading with one hand supporting the open book near lap height and the other hand lightly near the lips, thoughtful rather than an objectless performance. Preserve actual wrist/finger/book contacts, head depth, uncrossed knees/ankles and complete low-heel ankle-strap shoes.",
+  "brief": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-prompt-plan.json",
+    "sha256": "9f549b3785d8e59d903dec1f220f05880ce0b57213591c5111effa3a98da9dea",
+    "key": "nyamu/reading/apricot",
+    "role": "own role/activity literary psychology; light redirection keeps actual accepted mother pose"
+  },
+  "wholeSceneRelighting": true,
+  "oldApricotHeatSpotsAreNotIdentity": true,
+  "unreviewedLightCandidateUsedAsInput": false,
+  "promptFile": "nyamu-reading-violet-v1.prompt.txt",
+  "promptFileSha256": "1c0e86b0fef7ea058f3ea2b8d4c952bf338b7b6c757d7a48962a3f44fb74c68c",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; exact submitted text",
+  "submittedPromptSha256": "8c6feffaaa7c85d868ed87556f4086ebd979a3605bad83ea98e17e34024b3304",
+  "output": {
+    "file": "nyamu-reading-violet-v1.png",
+    "sha256": "f50bd9d264dd1ab0262bbf19d9c71ffc9976df7f6ef329ad66750ef42060f61b",
+    "bytes": 2323144,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved complete mother. Same accepted one-hand book/other-finger-near-lips reading arrangement, correct lavender/red-purple identity, visible eye/fringe, hand/book/lap support, full head/shoes and uncrossed leg relation remain readable at near-bench scale. Twilight and warm lamps relight grey ruffles, black skirt, paper, skin and room together; intrinsic colors not covered by flat violet filter. The knee/upper-leg highlight is prominent in this warm dusk candidate and is recorded for root light-source correspondence review, not assumed an identity mark or preapproved. No new prop arrangement or forced melancholy. Root/layer/runtime pending."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "New static mother candidate only, root review pending; no layer, registration or runtime acceptance.",
+  "privateUserDataUsed": false
+}

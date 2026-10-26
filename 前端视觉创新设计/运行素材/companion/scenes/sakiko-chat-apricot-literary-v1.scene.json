@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "id": "sakiko-chat-apricot-literary-v1",
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "width": 1536,
+  "height": 1024,
+  "mother": "sakiko-chat-apricot-literary-v1-mother.png",
+  "background": "sakiko-chat-apricot-literary-v1-background.png",
+  "mask": "sakiko-chat-apricot-literary-v1-mask.png",
+  "maskMode": "luminance",
+  "contactMask": "sakiko-chat-apricot-literary-v1-contact-mask.png",
+  "seat": [
+    0.8138020833333334,
+    0.603515625
+  ],
+  "ground": [
+    0.6354166666666666,
+    0.908203125
+  ],
+  "bodyBounds": [
+    0.5748697916666666,
+    0.111328125,
+    0.87890625,
+    0.9091796875
+  ],
+  "safeTextBoundary": 0.54,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "57.486979166666664% 11.1328125%, 87.890625% 11.1328125%, 87.890625% 90.91796875%, 57.486979166666664% 90.91796875%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/sakiko-chat-apricot-literary-included-primary-admission-v1.json",
+    "geometryRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/apricot-chat-geometry-proposal-v1.json",
+    "geometryStatus": "Complete actual chat original personally viewed; actual F body envelope, receiving surface separately recorded; provisional visible static seat/ground only, no hidden hip or movable pivot.",
+    "layerReview": "Root approved exact source-SHA fixed included MAX; runtime pending.",
+    "runtimeSourceSha256": {
+      "mother": "8d8ca2d001893c16106ab797ec4a8a8c1e6576115a5a4c76ff1dd519eff4e2cd",
+      "background": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "F": "976e6a52af3fd9fd8b8ef9a7a017cddb37fec6ebae961256c5b1134ad0cba59d",
+      "S": "9ee1264c492186058e9069b3ab5b86679690a0349363bcf970fc241251a2e159"
+    },
+    "geometryEvidence": {
+      "actualPersonDominantCoverageBBox": [
+        883,
+        114,
+        1350,
+        931
+      ],
+      "receiverDominantCoverageBBox": [
+        878,
+        532,
+        1393,
+        936
+      ],
+      "basis": "Read-only >=0.5 luminance envelope for conservative layout only; F body and S receiving material are distinct. Raw source/masks and continuous MAX assembly unchanged.",
+      "visibleSupport": "This exact chat source visible plaid/linen and full shoe-floor references; no reading-pose geometry copied."
+    }
+  }
+}

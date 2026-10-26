@@ -1,0 +1,276 @@
+{
+  "schemaVersion": 1,
+  "kind": "bounded-same-activity-light-mother-producer-batch",
+  "wave": "light-activity-wave-b",
+  "character": "uika",
+  "tool": "built-in image_gen",
+  "completedSharedCalls": 12,
+  "sharedCallLimit": 24,
+  "batchFirstCall": 7,
+  "batchLastCall": 12,
+  "batchCalls": 6,
+  "producerViewedAll": true,
+  "primaryMotherApproved": false,
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "pngEdited": false,
+  "largeImageResultStored": false,
+  "outputs": [
+    {
+      "call": 7,
+      "activity": "attention",
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-b/uika-attention-mist-literary-light-wave-b-v1.png",
+      "motherSha256": "c7be0003210977d102a694d0d8f237cd6208c63bc700a18b2cb625e48fffda28",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-b/uika-attention-mist-literary-light-wave-b-v1.source.json",
+      "sourceSha256": "8188b4916184548b7366ba83352c3405ce29fd7e7cf35f44e8feae5235c0b36d",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-b/uika-attention-mist-literary-light-wave-b-v1.prompt.txt",
+      "promptSha256": "72f63046b6dcbf5537834934d130e00b5718205ca58f9397aab940b6299c8485",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Small turning-page/finger contours vary slightly; root must judge exact visible contact and subtle questioning expression."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "call": 8,
+      "activity": "attention",
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-b/uika-attention-violet-literary-light-wave-b-v1.png",
+      "motherSha256": "45c80b780a6b752bb3c9e024a0244570b372a7ea11f6a4745efab6f81dac7f09",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-b/uika-attention-violet-literary-light-wave-b-v1.source.json",
+      "sourceSha256": "c49bd4c52340344a23f19aceaaa4b06fa4451b0f992c921c8c5183c96091a23c",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-b/uika-attention-violet-literary-light-wave-b-v1.prompt.txt",
+      "promptSha256": "fc3de862ddcf4efe10f7bf8bb05a301689f51f8d7b7c4b77aa21439b80d27bc2",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Fine finger/page shape and warm hair/skin edge strength remain generated details for root review, not exact pixel transfer."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "call": 9,
+      "activity": "attention",
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-b/uika-attention-rain-literary-light-wave-b-v1.png",
+      "motherSha256": "99e8e11541c096034d4e43de51edf0f97c2e9700963cee6b328d857ec475d59a",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-b/uika-attention-rain-literary-light-wave-b-v1.source.json",
+      "sourceSha256": "99e34429b0e7f8163fd3161d05490694f9db7b7245a2ef8840acbd8454b8871a",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-b/uika-attention-rain-literary-light-wave-b-v1.prompt.txt",
+      "promptSha256": "fb77972ac83c6c74b5f2db2aa9da5af2eb000d52c67ed35e360c8087a7057b3f",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Fine page lift/finger contours and warm edge strength remain for root's exact-source assessment."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "call": 10,
+      "activity": "resume",
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-b/uika-resume-mist-literary-light-wave-b-v1.png",
+      "motherSha256": "cc57fd474cbd1dc60462c53bc46690d0a7938baf971fe1a7beac8ab7931cf8bd",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-b/uika-resume-mist-literary-light-wave-b-v1.source.json",
+      "sourceSha256": "e0cbb5093977637106a66f5c8a35536f58e08acfb6afc858f8e930a5ce1e0016",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-b/uika-resume-mist-literary-light-wave-b-v1.prompt.txt",
+      "promptSha256": "cc578ab0f4b618a36f4a5fd4f8d3ba14c388ad12460d5e9b1074d1ae6c54dad9",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Small book/palm/finger contours vary; visible page retention is preserved without inventing a separately proven bookmark finger, root judgment pending."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "call": 11,
+      "activity": "resume",
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-b/uika-resume-violet-literary-light-wave-b-v1.png",
+      "motherSha256": "944878db64f53021f38879d8e4e450dd748acc76253809ba57a6d33b8f453119",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-b/uika-resume-violet-literary-light-wave-b-v1.source.json",
+      "sourceSha256": "6e0924f56598438c1b97a4d8d401fb03b23fb7cea3bb3718b137c62f838dbbee",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-b/uika-resume-violet-literary-light-wave-b-v1.prompt.txt",
+      "promptSha256": "fec3ccd5c9f9cac9d01173b00c2ed7adc6da63f8822c5bf7e20326cdc7be2769",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Fine book/page/palm contours and warm edging remain generated variations for root judgment; no separate invisible bookmark-finger claim."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "call": 12,
+      "activity": "resume",
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-b/uika-resume-rain-literary-light-wave-b-v1.png",
+      "motherSha256": "8f49cb4b7c60cefaec5664094f6c073964bdf128b3e891bf4c249b7018b46a74",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-b/uika-resume-rain-literary-light-wave-b-v1.source.json",
+      "sourceSha256": "a053a95959ac171669fbe442375b262676129b0f6cdbb441c73a8f49d75176cc",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-b/uika-resume-rain-literary-light-wave-b-v1.prompt.txt",
+      "promptSha256": "efa8d1e15daad86bd2a325228c7c648e355d05a26c9a85d207b6c75f51acba4f",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Fine page/palm contour variation and local warm edge strength remain for root's exact light/support judgment; no pixel-identical or invisible bookmark-finger claim."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "directFileVerification": [
+    {
+      "call": 7,
+      "imageShaMatch": true,
+      "toolOriginalShaMatch": true,
+      "inputShaMatches": [
+        true,
+        true
+      ],
+      "exactPromptMatches": true,
+      "promptShaMatch": true,
+      "noTrailingNewline": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true
+    },
+    {
+      "call": 8,
+      "imageShaMatch": true,
+      "toolOriginalShaMatch": true,
+      "inputShaMatches": [
+        true,
+        true
+      ],
+      "exactPromptMatches": true,
+      "promptShaMatch": true,
+      "noTrailingNewline": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true
+    },
+    {
+      "call": 9,
+      "imageShaMatch": true,
+      "toolOriginalShaMatch": true,
+      "inputShaMatches": [
+        true,
+        true
+      ],
+      "exactPromptMatches": true,
+      "promptShaMatch": true,
+      "noTrailingNewline": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true
+    },
+    {
+      "call": 10,
+      "imageShaMatch": true,
+      "toolOriginalShaMatch": true,
+      "inputShaMatches": [
+        true,
+        true
+      ],
+      "exactPromptMatches": true,
+      "promptShaMatch": true,
+      "noTrailingNewline": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true
+    },
+    {
+      "call": 11,
+      "imageShaMatch": true,
+      "toolOriginalShaMatch": true,
+      "inputShaMatches": [
+        true,
+        true
+      ],
+      "exactPromptMatches": true,
+      "promptShaMatch": true,
+      "noTrailingNewline": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true
+    },
+    {
+      "call": 12,
+      "imageShaMatch": true,
+      "toolOriginalShaMatch": true,
+      "inputShaMatches": [
+        true,
+        true
+      ],
+      "exactPromptMatches": true,
+      "promptShaMatch": true,
+      "noTrailingNewline": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true
+    }
+  ],
+  "reviewBoundary": "Exact approved weather plate first, approved same-activity apricot mother second. Every new output independently pending root mother review; no layer or runtime approval."
+}

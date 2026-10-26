@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "scope": "Only three single-Sakiko new literary-family apricot complete mother pilots: rest/listening/resume. No multi-character release, layers, runtime registration, source changes or tests.",
+  "input": {
+    "file": "../../plates/literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "rootApprovedEmptyPlate": true,
+    "uniqueImageInputPerCall": 1
+  },
+  "persistence": "Each generated PNG and exact prompt/source/SHA/original tool path saved in the same awaited exec before returning the image. No full image result retained in store after persistence.",
+  "production": {
+    "calls": 3,
+    "retries": 0,
+    "generatedSize": [
+      1536,
+      1024
+    ],
+    "sequence": "rest viewed and recorded, then listening viewed and recorded, then resume viewed and recorded"
+  },
+  "producerSummary": {
+    "rest": "Whole-room scale/support/clear eyes and restrained self-directed rest appear coherent; no major source defect observed.",
+    "listening": "Attention and support read coherently, but crown around70 instead of110 and apparent head closer/larger: scale drift; not accepted.",
+    "resume": "Recognition/book/support and close scale appear coherent; small added gold stocking motif needs original-costume/detail review."
+  },
+  "entries": [
+    {
+      "activity": "rest",
+      "palette": "apricot",
+      "file": "sakiko-rest-apricot-literary-pilot-v1.png",
+      "sha256": "144a167d9c7d1bc594051ef1ca3fcf0b92e97f1a8ddbf8cd63eb6b54c8a460f8",
+      "promptFile": "sakiko-rest-apricot-literary-pilot-v1.prompt.json",
+      "sourceFile": "sakiko-rest-apricot-literary-pilot-v1.source.json",
+      "producerViewed": true,
+      "producerScaleIssue": false,
+      "producerObservation": "Viewed full saved1536x1024 original. Crown visually near y110 and full shoe soles near y895 at the selected close scale, not enlarged toward lens. Silver-blue hair, distinct golden eyes/lids and navy school layers readable. One hand rests on lap and other on cushion; hips sit supported, both uncrossed legs continue into complete grounded loafers. Windowward thoughtful gaze and relaxed mouth avoid generic welcome smile. Shared warm room light and original furniture/camera remain coherent. These are approximate direct visual observations, not measured runtime calibration.",
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "listening",
+      "palette": "apricot",
+      "file": "sakiko-listening-apricot-literary-pilot-v1.png",
+      "sha256": "ac97872e1632ee8cbfde69fb5ed6a15c55bcc5b7057158f4d3db3e12690ee329",
+      "promptFile": "sakiko-listening-apricot-literary-pilot-v1.prompt.json",
+      "sourceFile": "sakiko-listening-apricot-literary-pilot-v1.source.json",
+      "producerViewed": true,
+      "producerScaleIssue": true,
+      "producerObservation": "Viewed complete saved1536x1024 original before any next image. Attentive direct gaze and restrained mouth differ from rest. Distinct eyes/lids/hair, secure hip/palm support, continuous legs and two complete floor-contact loafers are visible. However crown is visually around y70 instead of requested near110 and apparent face/head looks closer/larger than selected baseline/rest; soles around y875. This is a visible close-scale drift requiring primary decision, not accepted. Approximate direct observations, not pixel calibration.",
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "resume",
+      "palette": "apricot",
+      "file": "sakiko-resume-apricot-literary-pilot-v1.png",
+      "sha256": "b13d26385d89f3087c198645b489512f25093db6cbbd221f28b2cd7572368589",
+      "promptFile": "sakiko-resume-apricot-literary-pilot-v1.prompt.json",
+      "sourceFile": "sakiko-resume-apricot-literary-pilot-v1.source.json",
+      "producerViewed": true,
+      "producerScaleIssue": false,
+      "producerObservation": "Viewed full saved1536x1024 original. Crown visually around y128 and complete soles around y885, close to intended new-room scale without leaning head into lens. Warm recognition gaze and small private smile are distinct from rest/listening. Both eyes/lids and separate front locks readable. Open book has simple supported two-hand hold above lap, hips supported by cushion, both natural uncrossed lower legs end in full grounded loafers. Room camera/furniture/light remain coherent. A small gold stocking motif and decorative book-cover details were newly drawn relative to prior samples; original costume/detail accuracy remains for primary review. Approximate direct visual observations, not measured calibration.",
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "stage": "complete-mother-pilots-only",
+  "generationStoppedAfterRequestedThree": true,
+  "cleanup": "No files deleted; all original outputs retained as production evidence."
+}

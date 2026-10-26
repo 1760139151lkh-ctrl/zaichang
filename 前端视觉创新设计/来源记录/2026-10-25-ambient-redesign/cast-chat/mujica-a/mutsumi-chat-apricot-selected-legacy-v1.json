@@ -1,0 +1,238 @@
+{
+  "schemaVersion": 1,
+  "kind": "legacy-static-selected-layer-bundle",
+  "character": "mutsumi",
+  "activity": "chat",
+  "palette": "apricot",
+  "canvas": {
+    "width": 1536,
+    "height": 1024
+  },
+  "recordedOn": "2026-10-25T08:31:34.324474+00:00",
+  "rootStaticReview": {
+    "reviewer": "root",
+    "personallyViewed": true,
+    "accepted": true,
+    "scope": "Legacy room4 original-pose static source-layer combination only.",
+    "views": [
+      "floor-repair: complete mother, original-RGB restoration, 18 percent dark comparison, shoe-floor source pixels",
+      "alpha: original RGB on light, dark and checker backgrounds",
+      "contacts: head, palms/seat and shoes"
+    ],
+    "recordedOn": "2026-10-25T08:31:34.324474+00:00",
+    "runtimeAccepted": false
+  },
+  "selectedFiles": {
+    "mother": {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-mother-candidate-v1.png",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-mother-candidate-v1.png",
+      "sha256": "4cf106bfaa30dfbf6527c070cbde92481638fb27397b9a7afc109d6ab179fa2a",
+      "bytes": 2216372,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB",
+      "rgbSha256": "585b3d6129214e5829bf846b334f6babb432fe7d727e5b51101c875247cd8f85"
+    },
+    "background": {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-background-calibrated-v4.png",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-background-calibrated-v4.png",
+      "sha256": "9bdce012c68db8aeb96d7e39dc53cbe754f42d52104312cf973f73516fa0a6b7",
+      "bytes": 2135045,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB",
+      "rgbSha256": "1fe94c033424eef3b6a6fb1678ecfb4e85d3137e505f86622c13faaa7446eb90"
+    },
+    "figure": {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-figure-calibrated-v4.png",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-figure-calibrated-v4.png",
+      "sha256": "06973bd9adb7c0098d36df7fc83d3997d931b7026d20aa295a751db99be5acf3",
+      "bytes": 2479834,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGBA",
+      "rgbSha256": "585b3d6129214e5829bf846b334f6babb432fe7d727e5b51101c875247cd8f85",
+      "alphaBounds": [
+        1120,
+        260,
+        1418,
+        789
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaSha256": "6a743be00fd2be2518fd232607b837f34e19e1c8d4fd2a9eea4188f0ea3f9c9b",
+      "alphaNonzeroPixels": 63445,
+      "alphaPartialPixels": 7634
+    },
+    "mask": {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-mask-calibrated-v4.png",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-mask-calibrated-v4.png",
+      "sha256": "a2b1bed87321dfa868d101b15e23eb2519b64faf8ad02755be6883ce03da8380",
+      "bytes": 28236,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGBA",
+      "rgbSha256": "c9bd2aa628c888e2eb30ca79390f4eb910f3cf93453d20d5df2e09455575f801",
+      "alphaBounds": [
+        1120,
+        260,
+        1418,
+        789
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaSha256": "6a743be00fd2be2518fd232607b837f34e19e1c8d4fd2a9eea4188f0ea3f9c9b",
+      "alphaNonzeroPixels": 63445,
+      "alphaPartialPixels": 7634
+    },
+    "shadow": {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-shadow-calibrated-v4.png",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-shadow-calibrated-v4.png",
+      "sha256": "fa3d4be8e05cfa74ee397c6161e13e1032160e88731472ecc3c575429f7fd14d",
+      "bytes": 41224,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGBA",
+      "rgbSha256": "0390ddc2cd7d5ec0a4a4562aeb8e08b1cfe03e5ebf588aabc2c061c3338bbac6",
+      "alphaBounds": [
+        1119,
+        597,
+        1399,
+        792
+      ],
+      "alphaExtrema": [
+        0,
+        205
+      ],
+      "alphaSha256": "369973c0b943584b01ff697166c3f3f6ceae94cd414cd6cbfd3939c19a5d915e",
+      "alphaNonzeroPixels": 1721,
+      "alphaPartialPixels": 1721
+    }
+  },
+  "selectedFloorProjection": {
+    "kind": "fixed-original-rgb-receiver-restoration",
+    "source": {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-mother-candidate-v1.png",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-mother-candidate-v1.png",
+      "sha256": "4cf106bfaa30dfbf6527c070cbde92481638fb27397b9a7afc109d6ab179fa2a",
+      "bytes": 2216372,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB",
+      "rgbSha256": "585b3d6129214e5829bf846b334f6babb432fe7d727e5b51101c875247cd8f85"
+    },
+    "generatedMatte": {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-a/mutsumi-floor-cast-mask-v2.png",
+      "href": "mutsumi-floor-cast-mask-v2.png",
+      "sha256": "81c48e1bbbe26429974832651745ca1a6b32054e4e4856cc11ccccd7d9f6d086",
+      "bytes": 313627,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    },
+    "svg": {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-a/mutsumi-floor-cast-rgb-v2.svg",
+      "href": "mutsumi-floor-cast-rgb-v2.svg",
+      "sha256": "d26cd263826beb6acc513a3b1748458b03c756041bdda2bd82eef4a2376bcf5f",
+      "bytes": 1016
+    },
+    "clipRegionPixels": [
+      1060,
+      720,
+      300,
+      160
+    ],
+    "receiverContainsFloorRgb": true,
+    "pureCastShadowLayer": false,
+    "matteCalibration": "Original generated grayscale selection; figure alpha subtracted in SVG.",
+    "coordinateSpace": "Original floor/world coordinates. Identity transform. Render only with this exact original pose/figure visibility; never move it with a dragged actor.",
+    "travel": 0,
+    "operator": "normal source-over",
+    "producerObservation": "Personally viewed source-pixel shoe and full perimeter comparisons after final change. Original broad floor projections return compared with the old edge-only residual. No hard rectangular patch boundary was evident in the displayed perimeter; original floor texture is intentionally present, so primary inspection remains required.",
+    "comparisonSvg": {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-a/mutsumi-floor-cast-dark-v2.svg",
+      "href": "mutsumi-floor-cast-dark-v2.svg",
+      "sha256": "d72394f535ac9422cb6a934cdfc072102281ece67ea3d811bcd6e4afbf5b01f2",
+      "bytes": 937
+    },
+    "comparisonNote": "18% warm-dark shape is displayed as an unselected alternative; it did not reproduce the original RGB floor projection as faithfully.",
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "approvalScope": "root-reviewed legacy static source combination only"
+  },
+  "calibration": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-a/mutsumi-chat-apricot-native-calibration-legacy-v1.json",
+    "sha256": "77c149ad2428c8343d3c8d196748ae66ed480c0ab4ef841b34b120e2cab5f9e6"
+  },
+  "originalBundle": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-a/mutsumi-chat-apricot-existing-bundle-v1.json",
+    "sha256": "e8ab384ce97b67205484f95acee5baebe9aea33efce5ec71629cc251fb8446ad"
+  },
+  "sourcePrompts": [
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-prompt.txt",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-prompt.txt",
+      "sha256": "bb4a2e678b012b31acd2af2b121226d07f077725437dd2e324b2f0a0f320bb21",
+      "bytes": 3850
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-background-extraction-v1-prompt.txt",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-background-extraction-v1-prompt.txt",
+      "sha256": "b2ceae18bb03ffe29c00b2931d0426d20dfb39595162cde707c8b2f0a741e4de",
+      "bytes": 1347
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-mask-extraction-v2-prompt.txt",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-mask-extraction-v2-prompt.txt",
+      "sha256": "dad3ba45063c5714b031216f702c681a054e1d9c0fbb8f5cb89c76552c361782",
+      "bytes": 1235
+    }
+  ],
+  "sourceProvenance": [
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-source.json",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-source.json",
+      "sha256": "f9242867567693e7f6075ad7009a621b3d667ff09dfdef98e2f7ac47467c5f4d",
+      "bytes": 1513
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-layer-processing-v4.json",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-layer-processing-v4.json",
+      "sha256": "1198800718ac2d4cfb9ca3acea1f7e0c019424d826d3858bbc78733317b37ae0",
+      "bytes": 4720
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-layer-parameters-v4.json",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-layer-parameters-v4.json",
+      "sha256": "15b5fcdff9e5a2ccbdc9d5be80823521bb6b544fb7137c29231435aec1ab1d05",
+      "bytes": 2934
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-background-extraction-v1-source.json",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-background-extraction-v1-source.json",
+      "sha256": "776f2211585094c9b30ddbd8e7124711febcdff7b4c47680947c0e186a86e9cf",
+      "bytes": 1391
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-mask-extraction-v2-source.json",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-mask-extraction-v2-source.json",
+      "sha256": "20678e8d030e35c698546f204370d0240c00cb3cf363b7f2614d9a531ef285f3",
+      "bytes": 1366
+    }
+  ],
+  "freeze": {
+    "state": "frozen_after_user_layout_change",
+    "reason": "User selected sakiko-reading-apricot-literary-v1 as the new layout/room basis and required all layouts and matrices to change. Old room4 runtime registration stopped.",
+    "newBasis": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+    "applicableToNewBasis": false
+  },
+  "layerAdmissionStatus": "accepted for legacy room4 static pose, frozen before runtime registration",
+  "approvedByPrimary": true,
+  "approvalScope": "legacy static source layers only; not the literary layout",
+  "runtimeAccepted": false,
+  "registered": false
+}

@@ -1,0 +1,32 @@
+{
+  "cell": "rana/play/rain",
+  "submittedPrompt": "唯一输入是1536×1024干净雨夜空房。完整重新画一张相同比例、相同相机的二维文学同景母图，不提供、不复制任何旧人物或失败夜图。完整保留原湖城雨窗、左书桌椅与书架、圆桌陶瓷暖灯、右长窗榻/蓝格靠枕/白针织毯、木地板与地毯，不裁镜头、不增减或改造家具。乐奈坐在原右近窗榻，头顶约y110，完整靴底约y890，身体尺度和相机深度自然，不向前冲到镜头前。\n\n乐奈是年轻而聪明的原作少女：银白层次短bob、分束软刘海、淡灰紫发梢；自身右眼金黄、自身左眼蓝，近正面为观者左金右蓝，禁止镜像颠倒。眉、眼睑、虹膜和发丝独立清楚；青春饱满面颊、自然短下巴，不幼儿化、不成熟狭眼长脸，不怜悯式营业笑。明确项目私服是无图案的宽松黑短袖叠白色长袖、白短裤、黑色系带踝靴，只有这些衣服，无项链、吊坠、印花或额外饰品。髋与大腿实落软垫，肩髋/膝踝/手腕袖口连贯，双靴完整，脚位服从实际承重与地板。\n\n夜间光线严格沿唯一空房：只有柔软室内暖灯和暗蓝雨夜窗光，人物、皮肤、白袖、软垫、木地板共享同一夜光与自然软暗部。无太阳、无直射日光、无窗格硬投影、无白昼亮斑。皮肤与白袖不画孤立白亮点、不出现叶片形日照光斑，不用油亮皮肤、白发自发光或新聚光灯替代可读性。保暖而有真实夜暗，不把全图机械染蓝。\n\n她刚在身旁木柜面轻敲了一拍，自己觉得这个小发现有趣，停住看你会不会接一拍；眼神有一点灵动得意，嘴角只是小小会意，不傻笑、不催你回应。右手低低捏稳一只很小的折纸鸟，纸在自己腿上方而非脸前。左肩和左臂自然放松下垂到身体左侧，左手明确在白软垫下方：两根轻弯的指腹轻触原有垂直木柜前板中上部，接触点低于软垫底边、木板本身清晰在指腹后方。左手不要搭在软垫、针织毯或大腿上，不要朝下空指。手腕顺着自然下垂前臂，不需要新增承托物。请画得像刚轻敲后停住的手，而不是展示手指。既有木柜不能增添水平小台、侧桌或托盘。右手和左手都不托腮或扶脸，头眼只小幅朝对方，重心仍在原窗榻软垫上。\n\n脸与眼睛仍要能读到人物自己此刻的意思。画面无文字、UI、灰白板、额外人物、猫、吉他、字幕、水印或新道具。人物、衣料、纸书与接触影必须是在房间里一起画出的完整母图。",
+  "promptSha256": "38d60893cf9086358269e2bd15296a3445983467b1118614172b862de543ce34",
+  "shaConvention": "Exact submittedPrompt UTF-8 bytes without added trailing LF.",
+  "referenced_image_paths": [
+    "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-rain-night-v1.png"
+  ],
+  "inputSha256": [
+    "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1"
+  ],
+  "inputRoles": [
+    "only input: approved clean rainy-night empty room; full Rana identity/outfit/action redrawn from complete text"
+  ],
+  "briefKey": "rana-play-rain",
+  "briefPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\briefs\\rana\\rana-play-rain.md",
+  "briefSha256": "6d2c429eef801d927076e42db9aa0ec6478587466a46d98588b6686b63c32494",
+  "briefSnapshot": "# 乐奈 · 同乐 · 夜雨暖金\n\n创作 brief · 尚未出图 · 等待 root 新空 plate 与对应单祥子样板\n\n## 桌面有两种声音\n\n乐奈先轻轻敲了一下，随后停住，像听出了木头和杯旁空处的差别。她看向你，留出接一拍或完全不接的余地。屋里没有变成舞台，只多了一点两个人可以轮流参与的节奏，雨也没有抢走主角。\n\n## 表演与画面\n\n目光里有邀约的兴味，动作停在可回应的位置，神情自然亲近。\n\n## 简明身体与空间\n\n只做一次简明指尖动作，手腕有支撑；杯子不被拿来危险叠放。\n\n## 这一格的光线\n\n暖灯下木面和皮肤共享光色，窗外雨为环境而非表演特效。\n\n## 相处的分寸\n\n这是静态创作brief，不声称画面已发声；不强迫用户跟拍或继续玩。\n\n本格是项目原创演出。身份、清晰五官、新空间与生成门槛遵循 [共用导演说明](README.md)。不烘焙界面文字；没有图像、分层或运行时准入。\n",
+  "matrixJsonPointerObserved": "/entries/27",
+  "planJsonPointerHistorical": "/entries/27",
+  "dossier": ".agents/skills/zaichang-frontend-director/references/characters/rana.md",
+  "dossierSha256": "d39286e83289d7c67222428a139b8650ff9f60a0e78e49c0a8393b3079f2e892",
+  "wardrobe": "project-original black short sleeve over white long sleeve, white shorts, black lace-up ankle boots",
+  "authorization": "Root requires unique clean rain plate plus full text rebuild after night-source drift/lighting ambiguity. No failed night image or warm figure is provided in this call.",
+  "intendedOutput": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-play-rain-literary-v5.png",
+  "heldAttemptsExcluded": [
+    "rana-play-rain-literary-v1.png",
+    "rana-play-rain-literary-v2.png",
+    "rana-play-rain-literary-v3.png",
+    "rana-play-rain-literary-v4.png"
+  ]
+}

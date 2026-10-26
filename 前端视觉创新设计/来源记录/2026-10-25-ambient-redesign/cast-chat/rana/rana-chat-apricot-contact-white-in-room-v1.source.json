@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-canvas-local-contact-white-in-room-intermediate",
+  "id": "rana-chat-apricot-contact-white-in-room-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "rana-chat-apricot-contact-white-in-room-v1.prompt.json",
+  "promptFileSha256": "0b5f4ac7f8fe46126514fe9e6dc803ebff9634239b75eaa6ba1dc2ef63b56102",
+  "submittedPrompt": "Use case: precise-object-edit. STEP 1: local CONTACT-SHADOW color replacement IN THE ORIGINAL ROOM. Not a black background mask and not a new shadow drawing.\nImage 1 is the ONLY exact full 1536x1024 target. Keep the ENTIRE original room, original seated girl, camera, lighting and all pixels/geometry unchanged EXCEPT the few existing exposed contact-shadow pixels described below. Do not remove the person or room.\nIn the existing ORIGINAL LOCATION, recolor ONLY the actual dark contact seam on the cushion directly below the seated bare thigh/white shorts/hip, the tiny contact darkness directly beneath/outside the supporting right palm, and the actual narrow dry-floor contact shadows immediately around/below both boot soles. Those real darkest cores become PURE WHITE with their existing feathered edges soft GRAY. The shadow topology and source locations must stay unchanged, not moved upward onto the shorts/hand or shoes.\nThe narrow hip-to-cushion brown seam is really around y578..590, including the known original brown pixel at (1280,582); preserve that EXACT SOURCE LOCATION and whiten the existing contact-darkness there. Do NOT invent a bright patch at y535..565 on the bare thigh/shorts. The right palm contact lies just beneath its actual fingers around y580..587; left boot sole contact around y733..741 and right boot sole contact around y766..775. These identify actual original dark pixels and do not authorize new ovals, rectangles or shifted shapes.\nThe girl herself, including face/hair, black top, white shorts/skin, arms/hands and both complete black boots, remains ORIGINAL COLOR. All unshadowed cushion, blanket, window, furniture, natural bright highlights/sunlight, floor texture and normal furniture shadows remain ORIGINAL COLOR. Do not whiten person surfaces or add any shape that was not an exposed original contact shadow.\nMaintain original 1536x1024 canvas, same camera, no resizing/reposition/crop/zoom/recenter or shadow expansion. Output the SAME full colored original scene with only these few exact existing contact shadows locally white/gray. Opaque RGB, no labels, marks, border, grid, text, watermark or transparency.",
+  "submittedPromptSha256Utf8NoTrailingLF": "2ce0a9fc5fee2bb754e67ebae54b925d26e21159f0dc585df0dc7db68ff72352",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png",
+      "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+      "role": "sole exact original mother; local existing contact shadow positions only; rejected shifted contactmask never used"
+    }
+  ],
+  "output": {
+    "file": "rana-chat-apricot-contact-white-in-room-v1.png",
+    "sha256": "3d572ef228e337320ff389586d465d3c0c263eb990c9d177633a7f5728584505",
+    "bytes": 2092427,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-c5523956-2c2f-4ed1-b70b-33f4e9f22f97.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observationBoundary": "Producer directly viewed exact original PNG only; primary native original-RGB recomposition and known-seat-gap review pending."
+  },
+  "status": "producer-exact-output-viewed-primary-native-composite-review-pending"
+}

@@ -1,0 +1,199 @@
+{
+  "schemaVersion": 1,
+  "cell": "rana/rest/apricot",
+  "primaryReviewed": false,
+  "runtimeReady": false,
+  "status": "producer_reviewed_pending_parent",
+  "mother": {
+    "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-rest-apricot-mother-candidate-v1.png",
+    "sha256": "ec8691c20d844b33cbe0bd31042bd9985d70be75d6770ca0de6cbc557e8d2ea7",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "producerViewed": true
+  },
+  "coordinateSpace": {
+    "width": 1536,
+    "height": 1024,
+    "transform": "identity",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "ownership": {
+    "figure": [
+      "Rana",
+      "all clothing",
+      "bare legs",
+      "white sock resting on seat",
+      "black boot worn on lowered foot",
+      "both hands"
+    ],
+    "background": [
+      "room",
+      "furniture",
+      "seat cushions",
+      "pillows",
+      "blanket",
+      "independent empty boot on floor at right"
+    ],
+    "heldObject": null,
+    "sourceContact": {
+      "type": "nativeSvgMotherClip",
+      "owner": "room_fixed",
+      "order": [
+        "background",
+        "sourceContact",
+        "originalRgbMaskedFigure"
+      ],
+      "polygons": [
+        "1240,575 1290,581 1346,578 1367,571 1368,586 1345,588 1290,589 1240,583",
+        "1100,715 1127,723 1154,725 1177,721 1179,732 1156,735 1124,735 1100,729"
+      ],
+      "sourceSha256": "ec8691c20d844b33cbe0bd31042bd9985d70be75d6770ca0de6cbc557e8d2ea7",
+      "contains": [
+        "shorts lowest edge",
+        "seat cushion",
+        "worn boot sole",
+        "floor"
+      ],
+      "gates": [
+        "pose=rest",
+        "exactMotherSha256",
+        "showFigure",
+        "motherReady"
+      ],
+      "newShadowPainted": false,
+      "producerViewed": true,
+      "parentReviewed": false
+    }
+  },
+  "generations": {
+    "background": {
+      "tool": "built-in image_gen",
+      "inputSha256": "ec8691c20d844b33cbe0bd31042bd9985d70be75d6770ca0de6cbc557e8d2ea7",
+      "prompt": "Use case: precise-object-edit\nAsset type: same-canvas empty room background extraction, 1536x1024.\nInput image 1 is the sole edit target and exact source. Remove only the silver-haired girl Rana and the items she is wearing, revealing a coherent empty room behind her. Preserve the complete 1536x1024 canvas, the original camera, every room boundary, the landscape, curtains, desk, chairs, lamp, cup, book, bench, cushions, plaid pillow and knitted blanket exactly in place and at the same scale. No crop, zoom, reframing, translation, relighting or redesign.\nOwnership: the girl is on the right bench. Her hair, head, black shirt over white long sleeves, white shorts, bare legs, one white sock resting across the bench cushion, both hands, and the black boot worn on the lowered foot are character-owned and must disappear. The other upright black boot standing empty on the floor to the right of the worn boot is an independent room object: retain that loose boot exactly in place. No handheld object is present. Retain all furniture and textiles, restore the seat cushion and window area naturally under the removed body and hand. Remove only the girl's local contact shadows, leaving the room's architectural sunlight and existing furniture shadows intact.\nOutput one opaque RGB room image, full canvas 1536x1024. Do not include any person, human silhouette, floating sock, hand, clothing remnant or additional object. Do not produce a mask or collage.",
+      "promptSha256NoTrailingNewline": "09d371280ec9ae7d1da21f7c87577df29660b4486378daf19dcadc6aab8b6529",
+      "promptFile": "rana-rest-apricot-bundle-v1-background-v1.prompt.txt",
+      "requestedSize": [
+        1536,
+        1024
+      ],
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-cc1771af-69cd-4d4c-bfbd-7fa9e6444a0b.png",
+      "outputPath": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-rest-apricot-bundle-v1-background-v1.png",
+      "outputSha256": "399cb7719175a054797efc11b18d41d7c14480250c4713629ba01a854459ca6e",
+      "actualSize": [
+        1536,
+        1024
+      ],
+      "actualMode": "RGB",
+      "producerViewed": true,
+      "observation": "Complete empty room personally viewed. Loose empty boot retained, girl and worn boot removed; reconstructed cushion and window."
+    },
+    "mask": {
+      "tool": "built-in image_gen",
+      "inputSha256": "ec8691c20d844b33cbe0bd31042bd9985d70be75d6770ca0de6cbc557e8d2ea7",
+      "prompt": "Use case: precise-object-edit\nAsset type: full-canvas binary luminance character mask, 1536x1024.\nInput image 1 is the sole exact source. Produce a registration mask that traces the visible girl Rana at her exact original coordinates on the complete 1536x1024 canvas. Pure white is all visible character-owned pixels; pure black is everything else. Do not redraw or move the pose, do not crop, zoom, center, rescale, or alter the silhouette. Small antialiased gray edge pixels are allowed only on the true contour.\nWhite ownership: silver bob hair and head, neck, black distressed shirt over white long sleeves, white shorts, both bare legs, both hands including the right hand braced on the bench, the white sock on the bent foot laid across the seat cushion, and the black boot worn on the lowered foot at the left of the loose boot. No object is held. Include every visible finger, hair tip, clothing edge and worn shoe. Keep the original visible anatomy and occlusion exactly.\nBlack ownership: the entire room and landscape, all furniture, bench, cushion, pillows, blanket, desk, lamp, mug, book and all shadows. In particular the separate upright empty black boot on the floor to the right is NOT worn and must be pure black. Black must remain between legs and around the body wherever room pixels are visible. Do not include seat cushion, chair pieces, rectangular patches or a shadow halo as white.\nOutput a single opaque black-and-white RGB luminance mask at exactly 1536x1024, black background and white subject silhouette; no transparency, no labels, no color, no collage.",
+      "promptSha256NoTrailingNewline": "af4654153f51fe1c5fa9e6b06113ba79800bf2d8f9bb476c2a5923bda9d5a19a",
+      "promptFile": "rana-rest-apricot-bundle-v1-mask-v1.prompt.txt",
+      "requestedSize": [
+        1536,
+        1024
+      ],
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-df0c4e6d-dd4d-420d-9ca5-e5dccbc2c4b5.png",
+      "outputPath": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-rest-apricot-bundle-v1-mask-v1.png",
+      "outputSha256": "fadfc0334bf1eb20f4f28bfa19f66a87dff640ffd78ebf1030bcfaa684166fc0",
+      "actualSize": [
+        1536,
+        1024
+      ],
+      "actualMode": "RGB",
+      "producerViewed": true,
+      "observation": "Visible contour drift: head too high and worn boot too low relative to source; candidate rejected, identity coordinates required.",
+      "accepted": false
+    },
+    "maskV2": {
+      "tool": "built-in image_gen",
+      "inputSha256": "ec8691c20d844b33cbe0bd31042bd9985d70be75d6770ca0de6cbc557e8d2ea7",
+      "prompt": "Edit the supplied original image into a strictly registered segmentation mask. This is a pixel location tracing task, not a new drawing. Keep output canvas exactly 1536x1024. Paint the existing visible Rana pixels pure white and every other existing pixel pure black. Keep the original silhouette in its original pixel locations. Do not enlarge, extend, move or straighten any part.\nRegistration anchors in this source: head top about (1321,304); hair occupies approximately x1271..1374 y304..407; body reaches approximately x1250..1393 y395..581; right fingertips end near (1426,586); the lowered worn black boot occupies about x1104..1175 y660..731. The other white sock rests on the bench near x1206..1265 y565..608. Treat these as location constraints and trace the actual contours in the source, never invent a bigger pose.\nWhite includes her silver hair, skin, black T-shirt, white undersleeves, white shorts, legs, hands, white sock resting on seat, and black boot on the lowered foot. Black includes the cushion, blanket, pillows, window, all furniture, shadows, and the separate empty boot around x1200..1267 y684..756. That separate empty boot must remain black. Preserve the black negative-space openings between limbs and furniture. No shadow in the white silhouette, no room patches, no labels. Return only the full size black background with white exact subject silhouette. Do not add color or transparency.",
+      "promptSha256NoTrailingNewline": "1c327eaf4ac8a3267ef6f2c8d43bb24f1379d5c3fa34b6c4f7a252720178567a",
+      "promptFile": "rana-rest-apricot-bundle-v1-mask-v2.prompt.txt",
+      "requestedSize": [
+        1536,
+        1024
+      ],
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-941116e8-1348-4dd3-b3fc-39976f7ea9f8.png",
+      "outputPath": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-rest-apricot-bundle-v1-mask-v2.png",
+      "outputSha256": "c58c3e55cd0e375a2813d91331e2ba764c627462d96ae5a23d6bcc1778607865",
+      "actualSize": [
+        1536,
+        1024
+      ],
+      "actualMode": "RGB",
+      "producerViewed": true,
+      "observation": "Superseded after browser observed sock/left-wrist background fringe.",
+      "accepted": false
+    },
+    "maskV3": {
+      "tool": "built-in image_gen",
+      "inputSha256": "ec8691c20d844b33cbe0bd31042bd9985d70be75d6770ca0de6cbc557e8d2ea7",
+      "prompt": "Convert the supplied original image to one exact full-canvas subject segmentation mask. Output 1536x1024. Trace the existing pixels of Rana, without redrawing, expanding, shifting, scaling or changing any contour. Pure white for visible person; pure black everywhere else. This is an exact registered mask, not an illustration of a similar silhouette.\nKeep the head at source x1271..1374 y304..407, the lowered boot at x1104..1175 y660..731 and right fingertips around x1426 y586. All silver hair, skin, clothing, worn boot and the single sock on the bent foot are white. The separate empty boot on the floor at right is black. Room and all contact shadows are black.\nPay particular attention to the white sock resting on the seat around x1205..1265 y565..609 and the left white sleeve/wrist above the lap around x1220..1260 y485..529. Trace only the true visible sock, sleeve and hand pixels; the golden cushion, skin exposed behind the sock, sunlit window and orange room slivers immediately next to these contours must not be added to the person mask. Keep all true clothing highlights inside the silhouette. Keep the real narrow black gaps between the bent limbs and the left arm/torso; do not invent a new separating black line where the visible subject is continuous. Tight edge tracing, no bright background halo, no contour redesign. No contact shadow, furniture, cushion, background wedges or rectangles are part of the subject.\nOnly the exact full 1536x1024 opaque black-and-white luminance mask. No transparency, labels, colors, resizing, centering or crop.",
+      "promptSha256NoTrailingNewline": "ec8899d15cc8360b5f95a279286b74242065ae34ea8a6c25d1fef1e21dde896f",
+      "promptFile": "rana-rest-apricot-bundle-v1-mask-v3.prompt.txt",
+      "requestedSize": [
+        1536,
+        1024
+      ],
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-65272943-9ec8-4803-b541-c455411374de.png",
+      "outputPath": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-rest-apricot-bundle-v1-mask-v3.png",
+      "outputSha256": "ea6d426acb497883e50714d40dfb800ba4a7c94de489e11f36a2b39e45471507",
+      "actualSize": [
+        1536,
+        1024
+      ],
+      "actualMode": "RGB",
+      "producerViewed": true,
+      "acceptedByProducer": true,
+      "observation": "Personally viewed raw mask and original-RGB luminance source-over on light/dark/checker; sock and left-wrist contour fringe improved."
+    }
+  },
+  "observations": [
+    "Original mother personally viewed; one worn boot, one sock on seat, independent empty boot remains in background.",
+    "Loose empty boot remains room-owned; worn boot and sock remain figure-owned.",
+    "Only two tiny original-source contact polygons retained. No generated contact-shadow layer, no figure RGB regeneration, no pixel edits or alignment transforms.",
+    "Source contact includes lowest shorts edge/seat cushion and worn boot sole/floor; room fixed and gated by pose, exact mother SHA, showFigure and motherReady."
+  ],
+  "verification": {
+    "browserSourceOver": true,
+    "browser": "Chrome extension",
+    "previewPage": "rana-rest-apricot-bundle-v1-preview-v2.html",
+    "viewsPersonallySeen": [
+      "mother",
+      "emptyBackground",
+      "composite",
+      "lightFigure",
+      "darkFigure",
+      "checkerFigure",
+      "seatAndHands2x",
+      "boots2x"
+    ],
+    "hideFigureRemovesContact": true,
+    "differentPoseRemovesContact": true,
+    "restoreOriginalPoseSeen": true,
+    "parentReviewed": false,
+    "runtimeTested": false
+  },
+  "selected": {
+    "background": "background",
+    "mask": "maskV3",
+    "figureRgb": "mother"
+  },
+  "preview": {
+    "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-rest-apricot-bundle-v1-preview-v2.html",
+    "status": "frozen_for_parent_review",
+    "frozenEarlierPage": "rana-rest-apricot-runtime-bundle-v1.html",
+    "sha256": "c0edd84187721fe506c1d186140db90bdbc48c1b8545ad582b077f379aa75cb2"
+  }
+}

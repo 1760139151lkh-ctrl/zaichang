@@ -1,0 +1,81 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "bounded-chat-weather-light-mother",
+  "character": "uika",
+  "activity": "chat",
+  "palette": "violet",
+  "environmentVariant": "twilight",
+  "sceneFamily": "literary-room-v1",
+  "waveCallIndex": 2,
+  "waveCallLimit": 6,
+  "numberOfImageInputs": 2,
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+      "role": "image 1 approved matching full weather/time room and light",
+      "approvalSource": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.source.json",
+      "actualSha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+      "approvalSourceSha256": "47104186489b5556e4d9e1b27eeda4641442b5bccca6478e35b39701c0d3e843"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.png",
+      "sha256": "df94d1a87f41775108d5b319a6bcc8ec4372283b770ef05ae764adedf2500c5d",
+      "role": "image 2 approved own apricot chat, exact identity/clothes/pose/scale/support",
+      "approvalSource": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.source.json",
+      "actualSha256": "df94d1a87f41775108d5b319a6bcc8ec4372283b770ef05ae764adedf2500c5d",
+      "approvalSourceSha256": "1c090c50692ff6dbc87f15c4706bd221191adeec6601fe3bb798d3b903addd07"
+    }
+  ],
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.png",
+    "sha256": "df94d1a87f41775108d5b319a6bcc8ec4372283b770ef05ae764adedf2500c5d",
+    "role": "image 2 approved own apricot chat, exact identity/clothes/pose/scale/support",
+    "approvalSource": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.source.json",
+    "actualSha256": "df94d1a87f41775108d5b319a6bcc8ec4372283b770ef05ae764adedf2500c5d",
+    "approvalSourceSha256": "1c090c50692ff6dbc87f15c4706bd221191adeec6601fe3bb798d3b903addd07"
+  },
+  "lightingTarget": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+    "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+    "role": "image 1 approved matching full weather/time room and light",
+    "approvalSource": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.source.json",
+    "actualSha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+    "approvalSourceSha256": "47104186489b5556e4d9e1b27eeda4641442b5bccca6478e35b39701c0d3e843"
+  },
+  "referenceBoundary": "Only approved own apricot-chat mother and matching approved empty environment plate. Umiri v2 only; no held v1 or other activity mother. Repaint real unified light, preserve original close camera/pose/support/scale.",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-a5fc254b-0e96-4102-89e0-28900b8af28a.png",
+  "output": "uika-chat-violet-literary-light-v1.png",
+  "outputSha256": "ef8c3a76dd064300432ea74b8fe926bac3afb564aba4683b6781f94dfc532404",
+  "promptFile": "uika-chat-violet-literary-light-v1.prompt.txt",
+  "prompt": "Use case: lighting-weather. ONE complete 1536x1024 literary-room CHAT mother with the approved character's exact seated chat pose under unified new room/weather lighting.\nIMAGE 1 is the ROOT-APPROVED MATCHING EMPTY WEATHER ROOM: it is authoritative for the ENTIRE environment and light. IMAGE 2 is the ROOT-APPROVED APRICOT CHAT MOTHER: authoritative for THIS character's identity, clothing, pose, body proportions, image location and actual contact/support. Use ONLY these two images. Preserve the complete original camera, room perspective/window divisions, desk/chair/shelves/books/plants/pictures, ceramic lamp/round table/cup/flowers, bench/plaid pillows/knitted throw, rug/floor and foreground depth from image 1. Place the same character from image 2 in her original position/size on that bench and REPAINT her and contact receiver material in image 1's light.\nPOSE IS LOCKED to image 2: preserve head tilt/eye direction, shoulder/torso lean, pelvis position, arms/elbows/wrists and hand placement; one palm rests on the real cushion beside hip at the viewer-right, other hand rests on lap/skirt. Both hands EMPTY. Don't invent a book, cup, gesture, outfit change, face swap or new activity. No crop, enlargement, leaning toward lens, zoom, moved furniture or separate body translation. Keep complete hair/head, both hands, hem, legs and both complete shoes.\nRedraw coherent physical light and material response across face/hair/skin/clothing/shoes, cushion, contact shadows, wood and floor. This is not an overlay, global color wash, CSS tint or left/right day-night split. REMOVE all mismatching hard sunny leaf/bar highlights and noon outlines inherited from apricot image 2. Cast/contact softness, skin exposure, leather/fabric highlights and floor reflections must agree with image 1's actual light. Original lamp is the only local warm practical here; do not add another lamp.\nFine original youthful Japanese anime identity integrated into richly painted room, not mature/chibi. Separate hair strands, cheek strands, upper eyelids/lashes, iris and pupils. All eyes remain readable, never dark fringe merged into iris. No UI, text, badges, speech bubbles, arrows, motion trails, halo, signature, watermark or split view. One opaque whole room mother, not a cutout/layer.\n\nCHARACTER AND EXACT POSE: Misumi Uika (三角初华), image 2's short warm-blonde chin-to-neck bob, uneven light fringe and clear PURPLE/VIOLET irises; same plain white short-sleeved tee, soft taupe-gray long skirt, white ankle socks and black-and-white low canvas sneakers. Preserve her original seated chat silhouette and complete clothing; no silver-blue long hair, amber eyes or uniform. Head top near y120, hip around y550..580, whole soles near y875, matching image 2. Uncrossed skirt-draped thighs, two naturally separate socked ankles and two complete sneakers each actually on original floor, no altered crossed-knee ridge or tucked/detached foot.\nLITERARY CHARACTER BEAT: she is ready to let the nearby person's whole thought finish, lightly responsive, violet eyes engaged and small natural chat mouth, not a fixed stage smile. Preserve her existing conversational head tilt and warmer readiness without exaggerating it into pity or surprise. Changed weather does not invent sadness or a new personality.\n\nTARGET LIGHT — VIOLET / TWILIGHT: Follow image 1's CONTINUOUS rose/lilac dusk across the whole sky/window, same town/lake with early lights and reflections. Dusk fills the entire room softly; existing ceramic lamp provides local warm light from viewer-left that falls naturally over nearby skin/hair/fabric and receiver surfaces, with quieter cool dusk fill in far planes. No unchanged noon patches, hard sunny rim on head/skin, added sun disc, half-day/half-night window or midnight replacement. Clothing retains actual colors/materials under sunset and lamp; no global purple paint.",
+  "submittedPromptSha256NoTrailingNewline": "62c007e807ede55e4fbdbcca99ed89204a506e9fd9f5398550ee6ff3ee039f90",
+  "promptFileSha256": "62c007e807ede55e4fbdbcca99ed89204a506e9fd9f5398550ee6ff3ee039f90",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "actualMode": "RGB",
+  "pngEdited": false,
+  "cssFilter": false,
+  "producerViewed": true,
+  "primaryMotherApproved": false,
+  "primaryApproved": false,
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "reviewBoundary": "This one weather/time chat mother only. Prior apricot mother and empty-plate approvals do not transfer approval to this new mother, layers or runtime.",
+  "remaining": [
+    "Root personally review exact mother identity/pose/support and complete weather light",
+    "No layers, registration or runtime acceptance"
+  ],
+  "producerObservations": [
+    "Personally viewed complete saved twilight mother before rain. Continuous rose/lilac dusk across all panes and unchanged room furniture/camera; character skin, hair, tee/skirt and floor are coherently dimmer/warmer than overcast/apricot.",
+    "Lamp warmth and dusk fill extend through cushion, exposed ankles and shoes; no half-day/half-night view or new prop observed. Whole soles and supporting palm remain visible.",
+    "Original chat lap hand/cushion palm, hip and skirt/ankle arrangement preserved visually; clear violet eyes and gentle responsive expression, no forced sadness."
+  ],
+  "producerConcerns": [
+    "Head top appears around y140 versus around y120 in approved apricot source; body/shoes remain in original seating area. This small head/upper-body pose drift must be judged by root rather than called pixel-exact pose transfer.",
+    "Light fidelity is observed across whole source image; no runtime light transition or independent layers claimed."
+  ]
+}

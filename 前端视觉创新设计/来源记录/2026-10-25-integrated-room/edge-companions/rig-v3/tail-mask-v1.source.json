@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-9725-7bd3-aa74-f7fa6487bfed/exec-4dc6fd80-7e30-434d-b428-ff1fdb5e4473.png",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计\\运行素材\\companion\\edge\\sakiko-meme-cat-v3.png",
+      "sha256": "15b21bfb6c94aef1dfd8ae7b168f970fbe9998cddb705b64ac7dabdceab0c161",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGBA",
+      "userAcceptedForm": true,
+      "originalPreserved": true
+    }
+  ],
+  "promptFile": "tail-mask-v1.prompt.txt",
+  "submittedPromptSha256": "8cf34d4e0ca8bee22ea9aefb13a18b5fe079baf493416f54d9264921883566bb",
+  "output": {
+    "file": "tail-mask-v1.png",
+    "sha256": "d0d2e4a87a0570621adc7bec7acd8b017f78fdacf961688603b846ef4b39d407",
+    "bytes": 303754,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "alphaBounds": null
+  },
+  "producerReview": "rejected as exact layer matte: white-fur interior selected, navy outer stroke omitted",
+  "primaryApproved": false,
+  "runtimeAccepted": false
+}

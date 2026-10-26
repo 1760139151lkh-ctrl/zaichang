@@ -36,9 +36,10 @@
     "mode": "RGB"
   },
   "producerPersonallyViewed": true,
-  "motherApprovedByPrimary": false,
+  "motherApprovedByPrimary": true,
   "approvedByPrimary": false,
   "runtimeAccepted": false,
-  "status": "complete-mother-awaiting-primary-review-and-same-canvas-layers",
-  "observation": "Youthful identity, real cushion/hip and complete knees/shoes, restrained lifted gaze; light matches the corresponding whole-room plate. No layers or runtime admission implied."
+  "status": "mother-approved-layers-not-yet-admitted",
+  "observation": "Youthful identity, real cushion/hip and complete knees/shoes, restrained lifted gaze; light matches the corresponding whole-room plate. No layers or runtime admission implied.",
+  "primaryApprovalRecord": "primary-resume-approval.json"
 }

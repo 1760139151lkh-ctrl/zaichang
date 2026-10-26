@@ -70,7 +70,7 @@ export async function reviewCompletion(input: {
   original: string; reply: string; requests: unknown[]; actions: unknown[]; observations: unknown[]; hostState?: unknown;
   coverageCandidates?: CompletionCoverageCandidate[];
   sourceContext?: EvidenceEvent['sourceContext'];
-  attachedMaterial?: { id: string; name: string; text: string; artifactId?: string; speaker: 'external'; authority: 'quotation' };
+  attachedMaterial?: { id: string; name: string; text: string; artifactId?: string; speaker: 'external'; authority: 'quotation' } | { id: string; name: string; text: string; artifactId?: string; speaker: 'external'; authority: 'quotation' }[];
 }, complete: DeepSeekClient['complete'], signal: AbortSignal): Promise<CompletionReview> {
   const requestIds = [...new Set(input.requests.flatMap(value => {
     const id = value && typeof value === 'object' ? (value as { id?: unknown }).id : undefined;

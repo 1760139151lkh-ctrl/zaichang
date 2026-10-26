@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "root / primary agent",
+  "recordType": "primary-static-whole-mother-admission",
+  "recordedAt": "2026-10-26T00:26:17.252698+00:00",
+  "file": "taki-neutral-time-day-literary-v1.png",
+  "sha256": "66e104b6025d0b65c2ab522a6d76c8cab8cbc94e5ee4edbd3dd2c4d9b5bb6654",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "personallyViewedCompleteOriginal": true,
+  "approved": true,
+  "scope": "Exact same-character static time-only neutral daytime mother; generation reference for the authorized matching night relight only.",
+  "exactPrimaryMessage": "Root刚逐完整PNG亲看Taki day66e104b6…6654与Soyo dayb7389951…f062，均准STATIC mother：闭帘无天气、角色青春辨识/坐垫髋膝踝/全鞋落地、手与真实书页成立；Soyo视线面向左侧交流者自然，Taki手停页抬眼自然。请存精确SHA与本消息分项准入，不签layer/runtime/360/userApproved。可继续各自1张time-night新母：仅准同角色day全姿势母＋准v3 identity＋time-night净plate，保体量/同一动作/眼神对象与肢体，角色/软垫/木面一起转灯光夜色，合闭内帘不透天气，不把白日亮斑残留；不更换家具相机、不用别人母，不做layers。先night各1候选交root，健康session继续。",
+  "checks": [
+    "closed opaque curtains make no weather claim",
+    "youthful recognizable 2D character",
+    "cushion hip-knee-ankle support",
+    "complete shoes touch floor",
+    "hands and actual book/page contact",
+    "gaze relates to a left-front off-frame speaker"
+  ],
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "countsToward360ExactActivities": false
+}

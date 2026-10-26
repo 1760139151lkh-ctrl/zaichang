@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "kind": "primary-static-mother-admission",
+  "key": "nyamu/attention/apricot",
+  "reviewer": "root",
+  "decision": "approved",
+  "primaryPersonallyViewed": true,
+  "mother": {
+    "file": "nyamu-attention-apricot-v1.png",
+    "sha256": "21fb4b183cd76e742fcc006fd8f9f492bbec543e9758668c02457314d77783de",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "sourceRecord": "nyamu-attention-apricot-v1.source.json",
+  "observation": "Root personally viewed full mother: cheek-on-palm gaze toward the side responds to a shared focus. The accepted distinction is gaze and response, not a forced new full-body action. Hair/eyes, hand/seat support and complete bench-pose shoes are natural, with no wrong crossed knees.",
+  "contourComplete": true,
+  "scope": "Exact-SHA complete static mother only; actual generated pose/prop semantics recorded honestly. No layer, motion, real background action or runtime admission.",
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "evidenceSource": "Explicit root message after personally viewing all five Nyamu wave-b original mothers"
+}

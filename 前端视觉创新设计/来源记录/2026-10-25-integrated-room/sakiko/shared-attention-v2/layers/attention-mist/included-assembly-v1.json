@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "activity": "attention",
+  "palette": "mist",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "selected": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-mist-shared-page-v2.png",
+      "sha256": "0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88",
+      "bytes": 2442325,
+      "role": "SOLE root-approved original RGB of completeperson/openbook/localreceiver, drawnONCE",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/background-v1.png",
+      "sha256": "db4e12b935f35db0a1351fda73714b6d7de7668d842ee07ebadf6c9c41650c1f",
+      "bytes": 2370083,
+      "role": "Actual ImageGen removal fromTHIS exactmother, no otherplate/room/weather",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "figureMask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/figure-mask-v1.png",
+      "sha256": "674382410a477e70b8a22085e024f2e292d83c3c7d070daf05e30b0c0c1e47ab",
+      "bytes": 491188,
+      "role": "Raw actualImageGen F2 completeforeground coverage; allface/book/hand/lap/hem/wholefeet",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "contactMask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/contact-mask-v2.png",
+      "sha256": "01b4fe55552c04a7d4340bcc5b210a157d6eb6b3c274cbbaa41b308122f29b7f",
+      "bytes": 328516,
+      "role": "Raw actualImageGen S2-v2, bothlocalunderhemreceivers plus complete source-connected shortshoefloorfootprint; may overlapF, fixedsource material notcaster",
+      "canvas": [
+        1536,
+        1024
+      ]
+    }
+  },
+  "assembly": {
+    "kind": "source-rgb-max-luminance-v1",
+    "sourceRgb": "approvedmother only",
+    "originalRgbDrawsPerUnion": 1,
+    "union": "U=MAX(L(F),L(S))",
+    "luminanceCoefficients": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorInterpolationFilters": "sRGB",
+    "maxOperation": "nativeSVG feBlend lighten overFL,SL",
+    "pngPixelEditing": false,
+    "manualMaskPainting": false,
+    "thresholdOrColorDiffOrMorphology": false,
+    "cropResizeOrSourceRgbRetouch": false,
+    "background": "same-mother actualImageGen removal",
+    "fullCanvasBitwiseReconstructionClaimed": false
+  },
+  "nativeArtifacts": {
+    "union": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/union-source-v1.svg",
+      "sha256": "58ce2660e22baf14fd8264c63210239d75605a8132c019c2605ee3795caa0ba6",
+      "bytes": 1244,
+      "role": "One sourceRGB draw underMAX mask"
+    },
+    "composite": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/composite-source-v1.svg",
+      "sha256": "53b1aa7b84f10934adbd8dff3b210ea34b896b8adaf55fe893718cfb111bafae",
+      "bytes": 1343,
+      "role": "Same-mother generatedBG plus sourceRGB once underMAX"
+    }
+  },
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false
+}

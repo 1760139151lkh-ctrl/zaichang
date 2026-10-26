@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "character-activity-mother-candidate",
+  "character": "nyamu",
+  "activity": "study",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "wave": "apricot-wave-b",
+  "intendedSupport": "desk-chair",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-73d8b427-6b86-47d7-a21e-4534fa53a3df.png",
+  "executionId": "exec-73d8b427-6b86-47d7-a21e-4534fa53a3df",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "primary approved clean literary room spatial input"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.png",
+      "sha256": "096bd7f5f0138e8b961c91d52dc8e68b29bcda1600bbb9ca444bd1c7eff75313",
+      "role": "same character root-approved chat mother for correct identity/outfit only, not new activity pose"
+    }
+  ],
+  "brief": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-prompt-plan.json",
+    "sha256": "9f549b3785d8e59d903dec1f220f05880ce0b57213591c5111effa3a98da9dea",
+    "key": "nyamu/study/apricot",
+    "release": "Root released limited wave-b study/listening/play/attention/resume apricot only, five cells per character; no layers before root mother review",
+    "transformation": "Own literary narrative/core/identity/light retained; support refined from actual empty room. Study uses actual left desk/chair depth instead of unapproved generic bench-study or copied desk-pilot body."
+  },
+  "studySpatialTextReference": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-pilot/sakiko-study-apricot-literary-desk-pilot-v1.prompt.json",
+    "imageInput": false,
+    "purpose": "read-only left-desk intent; does not inherit changed chair geometry or pending candidate approval",
+    "sha256": "5d998625466090eaeb82476a1c3a768831d47311e31541e55948d09f9af1dd7e"
+  },
+  "fictionalCompanionScene": true,
+  "privateUserDataUsed": false,
+  "promptFile": "nyamu-study-apricot-v1.prompt.txt",
+  "promptFileSha256": "bdb37af943c4d278b7dd492a07524dcfdda8cd96eca8e973791240eb9c4de1d4",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; exact submitted text",
+  "submittedPromptSha256": "443bc1aa5c311e5f57527b4288621ca6e4a98ebfd63953ea5fcd12ddae0e2876",
+  "output": {
+    "file": "nyamu-study-apricot-v1.png",
+    "sha256": "671dd56f7fddff1d8a63c638d460be8e6d8a5aae046bdff4d45ef116a473d677",
+    "bytes": 2477289,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved complete mother before next generation. Correct lavender bob/red-purple eyes/grey ruffled blouse/black choker-skirt identity is seated at actual left desk with right bench empty, at a farther furniture scale rather than a moved bench sprite. One hand writes at the desk page, the other supports cheek with elbow on reachable desk; hip/skirt rests on chair cushion and chair slats visibly sit behind torso. Chair-back outline/orientation differs from empty plate and the brass desk lamp appears farther left; these are concrete room-object changes for root judgment, not a furniture-exact claim. Foreground plant/chair occlude part of the lower legs and shoes; one full side-profile ankle-strap shoe is visible, not a verified complete two-shoe/floor pair. Face/eye/fringe and coherent warm room light remain readable. Producer observation only; no root pass/fail determination, layer or runtime admission.",
+    "phase": "producer observation before subsequent primary mother-only admission"
+  },
+  "primaryApproved": true,
+  "primaryApprovalRecord": "nyamu-study-apricot-v1.primary-approval.json",
+  "primaryApprovalScope": "Root approved exact-SHA static mother only, including actual portable-object and gaze/prop variations. Layer/runtime remain false.",
+  "contourComplete": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "Root-approved exact-SHA static mother only; no layer/motion/runtime acceptance."
+}

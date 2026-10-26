@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-canvas-independent-contact-shadow-luminance-mask",
+  "id": "rana-chat-apricot-contact-shadow-mask-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "rana-chat-apricot-contact-shadow-mask-v1.prompt.json",
+  "promptFileSha256": "eef1f3f5d087737e6d039b22899daa50d52c147f2becc9d4dc1b3c425b102e00",
+  "submittedPrompt": "Use case: precise-object-edit. Independent CONTACT-SHADOW OPACITY MASK at original full-canvas source coordinates.\nImage 1 is the approved complete Rana apricot chat mother, exactly 1536x1024, and exact source authority. Image 2 is this mother's new matching clean background, used only to identify shadows caused by the person rather than normal room/furniture shade. Keep all original contacts unmoved; no new body/footprint or spatial transform.\nOutput an opaque black-background grayscale opacity mask. Pure BLACK everywhere except the mother's ACTUAL cushion/room-surface shadows made by her contact: (a) narrow original cushion darkness along the seated thigh/white shorts/hip underside, including the real warm-brown contact seam around source (1280,582) and the original ruffled-hem underside to its right, (b) tiny cushion-contact shadow immediately below/outside her supporting right palm/fingers, (c) immediate dry-floor contact and short attached cast shadows adjoining BOTH original ankle boot soles. At darkest real contact core use WHITE, with original natural fading edges in soft GRAY. Brightness encodes dark-fill opacity, not surface color.\nKeep source supports exact: hips/shorts/cushion seam around x1260..1385,y574..592; right supporting palm around x1400..1454,y570..585; left boot sole around x1115..1183,y729..742 and right boot sole around x1237..1309,y758..774. Coordinates guide actual source locations, not fabricated bars/ellipses. Follow the actual sunny apricot lighting directions; no broad invented shadow.\nEvery actual person pixel, including white shorts/skin, black shirt, hair, hands, boots/toes/heels/laces/soles themselves, stays PURE BLACK. All bench/cushion/blanket/floor RGB, cushion grid, wood grain, sunlight/window shapes, normal furniture shadows and room objects are BLACK. No white person, white shoes, colored floor patch, full-cushion rectangle, broad tabletop, ghost, distant oval or bright stain.\nPreserve ONLY real independent exposed contact shadows adjacent to actual support. Full opaque grayscale RGB 1536x1024, smooth natural fades; no transparency/text/UI/grid/labels/watermark/border or new objects.",
+  "submittedPromptSha256Utf8NoTrailingLF": "bc9e58d606762261d21cf432ea1e1124f12c8adc813cc2a5a4ed83daf5b496be",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png",
+      "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+      "role": "complete approved mother source-coordinate authority including exact warm-brown hip-seat seam"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/rana/rana-chat-apricot-background-v1.png",
+      "sha256": "f013eb51f07da78849cc6b789f0251ba18db1a6305e0c6e3176be7b9dff844cb",
+      "role": "matching empty room distinguishes person contact from normal furniture shadows"
+    }
+  ],
+  "output": {
+    "file": "rana-chat-apricot-contact-shadow-mask-v1.png",
+    "sha256": "de2312352c0d61ce7155367322d7334b1014b070b0e3d6e0a07891f3adcc948f",
+    "bytes": 307682,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-fe307145-6a9e-4caf-9f39-e05eb4631923.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observationBoundary": "Producer directly viewed exact original PNG only; primary native original-RGB recomposition and known-seat-gap review pending."
+  },
+  "status": "rejected-shifted-seat-contact-mask-never-used-downstream",
+  "rejection": "Generated bright seat patch y535..565 instead of original y578..590; known point (1280,582) remained zero. Never used as input.",
+  "replacement": "rana-chat-apricot-contact-shadow-mask-v2.png"
+}

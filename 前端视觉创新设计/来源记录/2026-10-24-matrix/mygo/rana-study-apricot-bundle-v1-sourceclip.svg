@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024">
+  <title>Rana study apricot: fixed original-source chair-edge repair</title>
+  <desc>Exact original mother RGB through a small source-coordinate clip. Includes chair back and seat plus the adjacent black coat hem and white shorts edge. It is not a pure furniture or independent shadow layer. Identity only; keep fixed to the room, below the unchanged figure, and remove whenever the matching figure or verified mother is unavailable.</desc>
+  <defs>
+    <clipPath id="rana-study-apricot-chair-edge-v1" clipPathUnits="userSpaceOnUse">
+      <polygon points="843,467 831,508 823,519 821,548 825,562 838,573 840,580 823,580 810,572 800,562 800,550 804,540 801,530 803,520 807,506 812,491 818,480 829,472"/>
+    </clipPath>
+  </defs>
+  <image x="0" y="0" width="1536" height="1024" preserveAspectRatio="none" href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-study-apricot-mother-candidate-v2.png?sha256=fb66bbcfffc5f3d42b421c8769cc53ae7f1b605246a68187f5043435eabbe205" clip-path="url(#rana-study-apricot-chair-edge-v1)"/>
+</svg>

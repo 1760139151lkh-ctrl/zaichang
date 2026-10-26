@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "kind": "imagegen-source-layer-extraction",
+  "key": "anon/reading/apricot",
+  "createdAtUtc": "2026-10-25T03:42:17.985Z",
+  "producerRuntime": {
+    "model": "gpt-6.1-sol",
+    "effort": "ultra",
+    "evidence": "C:/Users/17601/.codex/sessions/2026/10/24/rollout-2026-10-24T20-40-12-01a17124-fe06-7350-a049-f395856b9270.jsonl turn_context timestamp 2026-10-25T03:40:14.098Z"
+  },
+  "input": {
+    "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-reading-apricot-mother-candidate-v1.png",
+    "sha256": "ab281c84f38b313452d13e14cb2f06f98319a619223f744ada27b562b5bcb0c5",
+    "role": "only-source-and-edit-target"
+  },
+  "generation": [
+    {
+      "layer": "background",
+      "tool": "built-in image_gen.imagegen",
+      "originalEvent": "exec-42780fd7-6484-48fa-b73b-61f26c6b5477",
+      "originalPath": "C:/Users/17601/.codex/generated_images/01a17124-fe06-7350-a049-f395856b9270/exec-42780fd7-6484-48fa-b73b-61f26c6b5477.png",
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/anon-reading-apricot-bundle-v1-background.png",
+      "sha256": "5d394ea0652d43c25d5e4fd9bb4812a834338d04573473c8b2fed855f774ed4a",
+      "prompt": "Use case: precise-object-edit.\nAsset type: same-canvas empty-room background extraction for a layered illustration.\nInput image 1 is the ONLY source and edit target: the approved Anon reading apricot mother, exactly 1536 x 1024 pixels.\nPrimary request: Remove only Chihaya Anon and the open book she holds from the right-hand window bench. Remove her entire visible pink hair, face, uniform, hands, legs, socks and both shoes, and her person-specific cast/contact shadow. Reconstruct the small hidden portions of the bench cushion, wood front, room and floor naturally.\nInvariants: Output exactly 1536 x 1024. Keep the original canvas, camera, crop, perspective, framing, room geometry, window view, apricot sunlight, curtains, all furniture, floorboards, rug, blanket, pillows and existing fixed room objects in their exact original locations. Keep the blue closed book, cup and lamp on the desk. Keep the room's existing sun patterns and furniture shadows. The empty bench cushion must remain naturally continuous.\nAvoid: no new person, no book replacing the hand-held open book, no new objects, no composition change, no shifted furniture, no new lighting, no text, no labels, no border, no checkerboard, no transparency. This is an empty background plate, not a restaged scene.",
+      "transparent_background": false
+    },
+    {
+      "layer": "luminance-mask",
+      "tool": "built-in image_gen.imagegen",
+      "originalEvent": "exec-54496595-0c29-43c7-9599-4319c88bf9ec",
+      "originalPath": "C:/Users/17601/.codex/generated_images/01a17124-fe06-7350-a049-f395856b9270/exec-54496595-0c29-43c7-9599-4319c88bf9ec.png",
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/anon-reading-apricot-bundle-v1-mask.png",
+      "sha256": "e4dfbed1671ec81a6153e61cfd4017e0f49dc1279d77b30a3f4da9f0969b1c8c",
+      "prompt": "Use case: background-extraction.\nAsset type: exact original-pixel luminosity silhouette mask, black and white only.\nInput image 1 is the ONLY source and edit target: approved Anon reading apricot mother, canvas exactly 1536 x 1024.\nOutput a 1536 x 1024 OPAQUE BLACK IMAGE with a pure WHITE silhouette for precisely all visible pixels belonging to the one pink-haired girl Chihaya Anon at the right, INCLUDING the open book she holds. Preserve exact source x/y placement, scale, pose and contour; no recentering or crop.\nWhite foreground includes every visible pink hair strand, whole head and uniform, both arms and all fingers, held open book, skirt, both exposed knees and legs, both long dark socks and COMPLETE BOTH black shoes including their soles. Preserve the tiny gaps between arms/book/torso, legs and feet as black wherever the source background is visible. Use clean finely antialiased silhouette edges only; solid white interiors with no facial/clothing/book detail.\nBlack background includes all window, scenery, bench cushion, blue pillows, knitted blanket, floor, ALL furniture and furniture visible through body gaps, and all separate cast/contact shadows outside the girl and held book. Do not include the desk blue closed book, cup, lamp or any furniture in the silhouette. The right hair/bench/pillow boundaries and every shoe contour must follow the original occlusion exactly.\nConstraints: black=0 hide; white=255 keep. No transparency, no checkerboard, no gray shadow, no text, no border, no extra objects, no restaging, no new drawing of the girl. This is a pixel-registered luminance mask for showing the unmodified original RGB, not a new character rendering.",
+      "transparent_background": false
+    }
+  ],
+  "review": {
+    "primaryLayerApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "recordedAt": "2026-10-25T13:37:12.441930+00:00",
+  "kind": "incremental-root-reported-runtime-observation-scopes",
+  "extends": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/root-observed-runtime-scopes-v1.json",
+    "sha256": "751619a0849c5a0a3dbdfecc61619fb9e5f25ca68f4d4e36909057b62361f4eb"
+  },
+  "source": "Explicit root follow-up message in this healthy delegated session; no new UI/model/weather request by ledger lane.",
+  "generationSnapshotUnchanged": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/production-snapshot-v3.json",
+    "sha256": "6881f85ee4b420d6ef8fa94d019685bbb8984b9a1c42b6541fb55e1b95e01cc9",
+    "cutoffUtc": "2026-10-25T13:13:57+00:00"
+  },
+  "reportedBuild": "82503",
+  "weatherObservation": {
+    "observedAtUtc": "2026-10-25T13:20:41Z",
+    "reportedBridgeStatus": "fresh",
+    "reportedCondition": "clear",
+    "reportedWmo": 0,
+    "reportedIsDay": false,
+    "reportedTimeZone": "Asia/Shanghai",
+    "reportedReference": "Hangzhou fixed public reference",
+    "reportedUserLocation": false,
+    "reportedCurrentAt": "2026-10-25 12:45 UTC",
+    "reportedExpiresAtUtc": "2026-10-25T13:26:50Z",
+    "freshOnlyAtReportedObservationTime": true,
+    "notCurrentWeatherClaimAtRecording": true
+  },
+  "observedScopes": [
+    {
+      "sceneId": "sakiko-chat-dry-night-literary-v1",
+      "scope": "Selecting follow-window environment immediately yielded coherent warm-dark whole settings preview and fixed original character. After adopting, main kept same night room/dark paper/full shoes and hand/seat support; root personally viewed."
+    },
+    {
+      "sceneId": "sakiko-study-apricot-literary-desk-v1",
+      "scope": "Original Focus owner resumed paused26:54 by actual lamp click through27:09 and desk pose. No new timer or activity engine."
+    },
+    {
+      "sceneId": "anon-chat-apricot-literary-v1",
+      "requestedActivity": "study",
+      "displayedVisualRole": "approved same-role neutral-chat fallback",
+      "scope": "Focus settings Anon preview retained complete new actor. After adopting, actual round-table-end body bounds made main paper shrink/yield on the left. This does not complete missing study visual layer."
+    },
+    {
+      "scope": "Welcome and preview neutral-chat fallback retain visible actor. This is display fallback only, not resume/study missing-cell completion."
+    }
+  ],
+  "proofs": [
+    {
+      "file": ".test-data/ambient-final-ui/weather-night-settings-preview-v2.png",
+      "workspace": "primary",
+      "sha256": "bacfca1a856a0d8963b7c4bab234a84e049394173877a878af58eb17162733c6",
+      "existsAtRecording": true,
+      "visualWitness": "root; this ledger lane checks file/hash only"
+    },
+    {
+      "file": ".test-data/ambient-final-ui/weather-night-live-home-v2.png",
+      "workspace": "primary",
+      "sha256": "27cf91d4172f294dfe84c35452a747de3ea3fb2d8ca94390954fd76af753343a",
+      "existsAtRecording": true,
+      "visualWitness": "root; this ledger lane checks file/hash only"
+    },
+    {
+      "file": ".test-data/ambient-final-ui/anon-focus-preview-v2.png",
+      "workspace": "primary",
+      "sha256": "a6814169c34485191386d16414b2fe5d9cd771ad4a8651c8f5563baf19c5332f",
+      "existsAtRecording": true,
+      "visualWitness": "root; this ledger lane checks file/hash only"
+    }
+  ],
+  "notYetObservedInThisReport": [
+    "Navigation capture fix has not been rebuilt or inspected",
+    "Intermediate frames of paper fading during drag",
+    "Remaining roles and all responsive/environment/motion relationships"
+  ],
+  "allSceneRuntimeAcceptedRemainsFalse": true,
+  "newCoreMatrixCompletionCredit": 0
+}

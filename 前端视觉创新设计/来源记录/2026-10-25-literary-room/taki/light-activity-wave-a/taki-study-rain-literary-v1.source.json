@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "assetId": "taki-study-rain-literary-v1",
+  "roomFamily": "literary-room-v1",
+  "characterId": "taki",
+  "activity": "study",
+  "palette": "rain",
+  "ambientPlateKey": "rain-night",
+  "createdOn": "2026-10-25",
+  "generationMode": "target-empty-plate-and-approved-exact-activity-mother-relighting",
+  "tool": "image_gen.imagegen (built-in)",
+  "callOrdinalInBoundedBatch": 24,
+  "executionId": "exec-80bcfa6c-c377-490b-b2ca-b49530a03847",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-80bcfa6c-c377-490b-b2ca-b49530a03847.png",
+  "inputs": [
+    {
+      "file": "../../plates/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "role": "image1: approved exact target empty plate and illumination"
+    },
+    {
+      "file": "../apricot-wave-b/taki-study-apricot-literary-v1.png",
+      "sha256": "cbfbe17eb125d85813864ac15a700c3b1580cf840ea769ff1c1bc6187cb5b4ab",
+      "role": "image2: root-approved exact activity identity/pose/scale/support reference; original daylight not retained",
+      "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+    }
+  ],
+  "inheritedRootMotherContour": {
+    "contourComplete": false,
+    "note": "Root-approved natural plant/furniture occlusion; no hidden-foot claims."
+  },
+  "promptFile": "taki-study-rain-literary-v1.prompt.txt",
+  "promptFileSha256": "76fbee70d5cb709c3debe019f0806fac251017aa27dd0fbe3a24178ad7aa6d35",
+  "submittedPrompt": "Create ONE complete 1536×1024 landscape literary companion scene by genuine WHOLE-SCENE RELIGHTING. Image 1 is the PRIMARY-APPROVED EMPTY environmental plate at the TARGET time/weather: it supplies the exact camera, global room and target illumination. Image 2 is this SAME character's ROOT-APPROVED APRICOT MOTHER OF THIS EXACT ACTIVITY: use its exact youthful identity/uniform, body pose, scale/source coordinates, facial activity, hands/objects and true support/occlusion, NOT its daylight highlights.\nRepaint the girl's skin, hair, clothing, paper/book, cushion/chair/desk contacts and the floor under image 1's target light. Original apricot skin/garment hot patches, sunlit hair rims and window-lattice pools are NOT identity/pose constraints and must not survive by default. This is not a tinted film, simple hue swap, pasted day-lit figure or separate day/night halves.\nLock the close camera, full framing, wooden window panes/current crop, lake/town/mountains, shelves/books/plants, desk/chair, round table/ceramic lamp/cup/flowers, linen bench/right plaid cushions/cream throw, floor/rug and foreground plant. Where the approved occupied study mother contains an adjusted chair or portable task lamp relative to the unoccupied plate, preserve THAT mother's actual occupied-chair support geometry and small-object position; use the empty plate for illumination, not to replace the occupied chair beneath her.\nKeep the exact activity mother silhouette/head/body proportions and source locations; no head enlargement, leaning toward camera, translation, crossed-knee rearrangement, new hand gesture or changed physical support. Preserve all actual limb/strand gaps and natural occlusion. On bench poses, whole head/hair and both complete shoes stay in frame. On desk study poses, natural source plant/furniture occlusion is intentional, contourComplete=false; do not add false visible feet through objects.\nDetailed expressive anime character drawing belongs inside tactile softly painterly room materials. Keep youthful original character identity, correct canonical hair/eye/uniform colors under the light. Separate each fringe lock, eyebrow, lash, upper/lower eyelid, sclera and iris boundary, even with downward gaze. No hair-eye fusion, generic adult face, service smile, compulsory blush or stereotyped scowl.\nOnly these two approved images are inputs. No unreviewed mother, earlier lighting problem candidate, mask, different character, old room or rejected pose is a reference. No readable user text/equations/business receipts, labels, UI, watermarks, new character, diagrams, split screen or duplicate limbs. This original fictional activity illustration does not assert an actual user's action or completed work.\n\nACTIVITY PERSON: Shiina Taki (椎名立希), MyGO!!!!!, long straight purple-black hair and side fringe, violet eyes, camel Hanasakigawa sailor uniform with white trimmed collar/red ribbon/gold buttons/camel skirt/dark socks/brown loafers.\nAPPROVED EXACT-ACTIVITY PERFORMANCE: Preserve the approved left-desk looking-back study at its actual farther scale: paper/pencil/wrists supported at existing desktop, hip/skirt on same chair seat, same chair frame/angle and long-hair/slat overlap. Foreground plant naturally occludes shoes/lower legs; do not invent hidden feet or move the plant to expose them. Right bench remains empty. Preserve readable thoughtful violet eyes without a fixed scowl.\nTARGET LIGHT: RAINY NIGHT: exactly image 1's genuine rain on window glass, dark cloudy outside, wet town/lake light reflections, NO stars or daylight. Dry room warmly lit by the existing ceramic lamp and other existing light as shown, with subordinate cool night-window fill. Repaint skin, hair, uniform, paper, wood/linen and floor together; no pasted day-lit person, no hard window-grid sun pools and no inherited white shin/knee hotspot. A lamp reflection is localized and soft, not a noon lattice. Preserve the activity's original specific attention or ease: rain does NOT automatically add grief, tears or melancholy.",
+  "output": {
+    "file": "taki-study-rain-literary-v1.png",
+    "sha256": "ac349fb31d87f5410587431c0fa723fa350d6e1c6b1ec8034497d71d67caa5b7",
+    "bytes": 2193623,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "reviewedOn": "2026-10-25",
+    "decision": "static mother candidate for primary inspection",
+    "observation": "Complete original viewed: root-approved left-desk look-back/chair-seat geometry, supported forearms/paper/pencil and hair/slat occlusion remain at original activity scale; bench empty. Rainy dark outside, warm task/ceramic lights and soft cool fill repaint face/uniform/page/chair/wood/floor together without noon lattice or added grief. Eyes/fringe readable; actually exposed shoe portions coherent behind original plant occlusion.",
+    "bodyContour": {
+      "contourComplete": false,
+      "reason": "Natural source foreground/furniture occlusion retained, no hidden-foot reconstruction."
+    },
+    "limits": "No full two-sole proof or primary/layer/runtime admission."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "acceptanceScope": "Static same-activity light mother candidate only; no layer progression or registration."
+}

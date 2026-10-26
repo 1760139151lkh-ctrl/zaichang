@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "character-activity-mother-candidate",
+  "character": "nyamu",
+  "activity": "resume",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "wave": "apricot-wave-b",
+  "intendedSupport": "window-seat",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-e9cf13c0-9760-4b2f-babf-189393599e6f.png",
+  "executionId": "exec-e9cf13c0-9760-4b2f-babf-189393599e6f",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "primary approved clean literary room spatial input"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.png",
+      "sha256": "096bd7f5f0138e8b961c91d52dc8e68b29bcda1600bbb9ca444bd1c7eff75313",
+      "role": "same character root-approved chat mother for correct identity/outfit only, not new activity pose"
+    }
+  ],
+  "brief": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-prompt-plan.json",
+    "sha256": "9f549b3785d8e59d903dec1f220f05880ce0b57213591c5111effa3a98da9dea",
+    "key": "nyamu/resume/apricot",
+    "release": "Root released limited wave-b study/listening/play/attention/resume apricot only, five cells per character; no layers before root mother review",
+    "transformation": "Own literary narrative/core/identity/light retained; support refined from actual empty room. Study uses actual left desk/chair depth instead of unapproved generic bench-study or copied desk-pilot body."
+  },
+  "fictionalCompanionScene": true,
+  "privateUserDataUsed": false,
+  "promptFile": "nyamu-resume-apricot-v1.prompt.txt",
+  "promptFileSha256": "b1f613451ffca2c228071489fbab349553f54b605f3c061bd22a1fd5e0c7fa7e",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; exact submitted text",
+  "submittedPromptSha256": "24b3e3c7e4337c4651d80f1c84610738c093bf28216e158ede89044307181226",
+  "output": {
+    "file": "nyamu-resume-apricot-v1.png",
+    "sha256": "f4e361663308d546d801bb6c845742225aba7b953ee60bedbb31a7467d38c874",
+    "bytes": 2435708,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved complete mother at the ten-call limit. Correct lavender bob/red-purple eyes/grey blouse/black choker-skirt-shoes identity remains on original right bench. She returns gaze with a familiar small open smile, one real hand holding a small paper crane and the other visibly supporting on the seat. Several folded/paper pieces are newly present beside her, a richer prop scene than the submitted single unfinished piece pinned beside the knee; producer does not claim literal same-object continuity or actual completed work. Root decides the resume semantic/quality fit. Fingers/crane and supporting palm contacts, visible eyes/eyelids versus fringe, full head/shoes, hip/seat support and uncrossed knee/ankle/floor relations are readable. Same room camera/major furniture and warm light remain. Root/layers/runtime pending; this unreviewed mother is not used for later light/layer generation.",
+    "phase": "producer observation before subsequent primary mother-only admission"
+  },
+  "primaryApproved": true,
+  "primaryApprovalRecord": "nyamu-resume-apricot-v1.primary-approval.json",
+  "primaryApprovalScope": "Root approved exact-SHA static mother only, including actual portable-object and gaze/prop variations. Layer/runtime remain false.",
+  "contourComplete": true,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "Root-approved exact-SHA static mother only; no layer/motion/runtime acceptance."
+}

@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "characterId": "soyo",
+  "neutralTime": "night",
+  "purpose": "neutral-presence-fixed-included-layer",
+  "kind": "included-contact-luminance-mask-S",
+  "createdAt": "2026-10-26T01:33:38.716931+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "exactPromptFile": "contact-mask-v1.prompt.txt",
+  "promptSha256": "b626ae18142e88d1e16b231b2cc36c7afca07ba0df54841cc3ca76e3566f774e",
+  "requestFile": "contact-mask-v1.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/night/layers/contact-step1-marked-v1.png",
+      "sha256": "14b6289e7db6a92c9922ef8bcd861228f9910c38062df63d0e5ffc0e5311a9cd",
+      "role": "sole personally checked healthy S1 contact markup"
+    }
+  ],
+  "output": {
+    "file": "contact-mask-v1.png",
+    "sha256": "2c5e517a2dfdf400f4e5b053fb30c96d6eaca52a6a52046fc0c1c31bf4e8b5cb",
+    "bytes": 304889,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "originalBasename": "exec-1903fcb2-b4de-48f7-842b-b912d2440778.png",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteOutput": true,
+    "observations": [
+      "Only separate local original seat/hem contact and shoe-to-floor contact groups retained.",
+      "No big rectangle/ellipse, distant connection or person redraw; fixed included-receiver use only."
+    ],
+    "eligibleAsNextStepInput": true
+  },
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "countsToward360ExactActivities": false,
+  "pngPixelEditing": false,
+  "primaryStaticLayerApproved": true,
+  "primaryAdmissionRecord": "root-primary-layer-admission-v1.json",
+  "primaryApprovalScope": "Exact static fixed included layer in this same source canvas; no runtime, motion or activity360 acceptance"
+}

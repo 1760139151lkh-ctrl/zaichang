@@ -1,0 +1,410 @@
+{
+  "schemaVersion": 1,
+  "recordType": "fixed-position-runtime-layer-integration",
+  "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-play/primary-play-v5-layer-approval.json",
+  "approvalSha256": "2b706d3f592257b0f82a962d654d7491684097e4ed27fe6fd257ef54ff098818",
+  "sourceBundle": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-play/sakiko-play-apricot-scale-v5-bundle.json",
+  "sourceBundleSha256": "559d679734a3808329aa6447111a4c66214bb2218fcc2e384f352b1fbec0d48d",
+  "runtimeRegistration": "前端视觉创新设计/运行素材/companion/scenes/sakiko-play-apricot-v4.scene.json",
+  "runtimeRegistrationSha256": "d098e9f36b4a81b941b31d71656ddc7643770c8b45e609c1b9cd0b5884cbe53f",
+  "stableSceneId": "sakiko-play-apricot-v4",
+  "files": [
+    {
+      "source": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-play/sakiko-play-apricot-scale-v5-mother.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/sakiko-play-apricot-scale-v5-mother.png",
+      "sha256": "876d39377ec165cd6fcbab19c646a7d63d97c2f85b5dc354711d0cb961a22d87",
+      "mode": "RGB",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-play/sakiko-play-apricot-scale-v5-background-v1.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/sakiko-play-apricot-scale-v5-background-v1.png",
+      "sha256": "8219bb91988495693880f7cea53ff65a6c40c36813fc68d1f138f3e5df418ed1",
+      "mode": "RGB",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-play/sakiko-play-apricot-scale-v5-figure-mask-v3.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/sakiko-play-apricot-scale-v5-figure-mask-v3.png",
+      "sha256": "4ddd7cd99109a2987b054b2e189a2d78a9a686d734917cd5fb8f9c00b7329a9a",
+      "mode": "RGB",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-play/sakiko-play-apricot-scale-v5-contact-mask-v1.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/sakiko-play-apricot-scale-v5-contact-mask-v1.png",
+      "sha256": "9aeee1e208d96f5b2e2c43162611aca8ffc73fb41f027e131554a1c18f7ceda8",
+      "mode": "RGB",
+      "width": 1536,
+      "height": 1024
+    }
+  ],
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "seat": [
+      0.854,
+      0.573
+    ],
+    "ground": [
+      0.772,
+      0.757
+    ],
+    "bodyBounds": [
+      0.731,
+      0.274,
+      0.934,
+      0.764
+    ],
+    "maskWhiteBounds": [
+      1126,
+      283,
+      1430,
+      779
+    ],
+    "maskThreshold8Bounds": [
+      1124,
+      281,
+      1432,
+      782
+    ],
+    "hitPolygonPixels": [
+      [
+        1298,
+        284
+      ],
+      [
+        1280,
+        283
+      ],
+      [
+        1260,
+        289
+      ],
+      [
+        1246,
+        301
+      ],
+      [
+        1237,
+        318
+      ],
+      [
+        1229,
+        351
+      ],
+      [
+        1233,
+        343
+      ],
+      [
+        1233,
+        373
+      ],
+      [
+        1238,
+        389
+      ],
+      [
+        1226,
+        424
+      ],
+      [
+        1217,
+        416
+      ],
+      [
+        1223,
+        435
+      ],
+      [
+        1216,
+        439
+      ],
+      [
+        1223,
+        442
+      ],
+      [
+        1222,
+        454
+      ],
+      [
+        1211,
+        474
+      ],
+      [
+        1221,
+        460
+      ],
+      [
+        1228,
+        461
+      ],
+      [
+        1212,
+        514
+      ],
+      [
+        1213,
+        523
+      ],
+      [
+        1216,
+        525
+      ],
+      [
+        1212,
+        521
+      ],
+      [
+        1214,
+        511
+      ],
+      [
+        1223,
+        524
+      ],
+      [
+        1218,
+        526
+      ],
+      [
+        1224,
+        526
+      ],
+      [
+        1207,
+        538
+      ],
+      [
+        1197,
+        557
+      ],
+      [
+        1182,
+        562
+      ],
+      [
+        1205,
+        578
+      ],
+      [
+        1186,
+        614
+      ],
+      [
+        1157,
+        713
+      ],
+      [
+        1128,
+        751
+      ],
+      [
+        1129,
+        766
+      ],
+      [
+        1151,
+        768
+      ],
+      [
+        1161,
+        762
+      ],
+      [
+        1160,
+        774
+      ],
+      [
+        1190,
+        778
+      ],
+      [
+        1224,
+        762
+      ],
+      [
+        1224,
+        716
+      ],
+      [
+        1262,
+        647
+      ],
+      [
+        1273,
+        599
+      ],
+      [
+        1280,
+        590
+      ],
+      [
+        1319,
+        587
+      ],
+      [
+        1326,
+        592
+      ],
+      [
+        1363,
+        587
+      ],
+      [
+        1374,
+        576
+      ],
+      [
+        1389,
+        587
+      ],
+      [
+        1412,
+        588
+      ],
+      [
+        1409,
+        583
+      ],
+      [
+        1429,
+        586
+      ],
+      [
+        1419,
+        577
+      ],
+      [
+        1401,
+        575
+      ],
+      [
+        1394,
+        569
+      ],
+      [
+        1397,
+        556
+      ],
+      [
+        1390,
+        543
+      ],
+      [
+        1396,
+        520
+      ],
+      [
+        1407,
+        511
+      ],
+      [
+        1398,
+        517
+      ],
+      [
+        1403,
+        504
+      ],
+      [
+        1403,
+        482
+      ],
+      [
+        1409,
+        507
+      ],
+      [
+        1402,
+        479
+      ],
+      [
+        1406,
+        474
+      ],
+      [
+        1400,
+        473
+      ],
+      [
+        1373,
+        420
+      ],
+      [
+        1408,
+        445
+      ],
+      [
+        1416,
+        468
+      ],
+      [
+        1413,
+        452
+      ],
+      [
+        1377,
+        413
+      ],
+      [
+        1353,
+        379
+      ],
+      [
+        1344,
+        347
+      ],
+      [
+        1350,
+        354
+      ],
+      [
+        1342,
+        337
+      ],
+      [
+        1346,
+        328
+      ],
+      [
+        1340,
+        315
+      ],
+      [
+        1329,
+        312
+      ],
+      [
+        1314,
+        292
+      ]
+    ],
+    "hitPolygon": "84.5052% 27.7344%, 83.3333% 27.6367%, 82.0312% 28.2227%, 81.1198% 29.3945%, 80.5339% 31.0547%, 80.0130% 34.2773%, 80.2734% 33.4961%, 80.2734% 36.4258%, 80.5990% 37.9883%, 79.8177% 41.4062%, 79.2318% 40.6250%, 79.6224% 42.4805%, 79.1667% 42.8711%, 79.6224% 43.1641%, 79.5573% 44.3359%, 78.8411% 46.2891%, 79.4922% 44.9219%, 79.9479% 45.0195%, 78.9062% 50.1953%, 78.9714% 51.0742%, 79.1667% 51.2695%, 78.9062% 50.8789%, 79.0365% 49.9023%, 79.6224% 51.1719%, 79.2969% 51.3672%, 79.6875% 51.3672%, 78.5807% 52.5391%, 77.9297% 54.3945%, 76.9531% 54.8828%, 78.4505% 56.4453%, 77.2135% 59.9609%, 75.3255% 69.6289%, 73.4375% 73.3398%, 73.5026% 74.8047%, 74.9349% 75.0000%, 75.5859% 74.4141%, 75.5208% 75.5859%, 77.4740% 75.9766%, 79.6875% 74.4141%, 79.6875% 69.9219%, 82.1615% 63.1836%, 82.8776% 58.4961%, 83.3333% 57.6172%, 85.8724% 57.3242%, 86.3281% 57.8125%, 88.7370% 57.3242%, 89.4531% 56.2500%, 90.4297% 57.3242%, 91.9271% 57.4219%, 91.7318% 56.9336%, 93.0339% 57.2266%, 92.3828% 56.3477%, 91.2109% 56.1523%, 90.7552% 55.5664%, 90.9505% 54.2969%, 90.4948% 53.0273%, 90.8854% 50.7812%, 91.6016% 49.9023%, 91.0156% 50.4883%, 91.3411% 49.2188%, 91.3411% 47.0703%, 91.7318% 49.5117%, 91.2760% 46.7773%, 91.5365% 46.2891%, 91.1458% 46.1914%, 89.3880% 41.0156%, 91.6667% 43.4570%, 92.1875% 45.7031%, 91.9922% 44.1406%, 89.6484% 40.3320%, 88.0859% 37.0117%, 87.5000% 33.8867%, 87.8906% 34.5703%, 87.3698% 32.9102%, 87.6302% 32.0312%, 87.2396% 30.7617%, 86.5234% 30.4688%, 85.5469% 28.5156%",
+    "method": "Read-only geometry analysis of the admitted V5 luminance mask; largest external contour at luminance >=128, 3px approximation; no bitmap edits. Conservative provisional bounds contain the visible >=8 support region.",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "previousReferencesPreservedButInactive": {
+    "id": "sakiko-play-apricot-v4",
+    "registration": "前端视觉创新设计/运行素材/companion/scenes/sakiko-play-apricot-v4.scene.json",
+    "references": {
+      "mother": "sakiko-play-apricot-v4-mother.png",
+      "background": "sakiko-play-apricot-v4-background.png",
+      "figure": "sakiko-play-apricot-v4-figure.png",
+      "shadow": "sakiko-play-apricot-v4-shadow.png"
+    }
+  },
+  "sourceRecordsModified": false,
+  "pixelEdits": false,
+  "runtimeAccepted": false,
+  "runtimeReview": "pending-root-cold-start-QA"
+}

@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "assetType": "new-literary-room-complete-sakiko-left-desk-chair-support-pilot",
+  "id": "sakiko-study-apricot-literary-desk-pilot-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-study-apricot-literary-desk-pilot-v1.prompt.json",
+  "promptFileSha256": "5d998625466090eaeb82476a1c3a768831d47311e31541e55948d09f9af1dd7e",
+  "submittedPrompt": "Create one fresh complete literary anime mother scene: Sakiko Togawa thoughtfully working at the ACTUAL LEFT WRITING DESK in this new 在场 room, clear apricot afternoon,1536x1024.\nThe SINGLE image input is the approved EMPTY literary room. Keep its exact camera/framing, timber window/lake/town/hills, left wood writing desk and its actual wood chair, shelves/books/plants, small round side table/lamp/cup, empty right cream window bench/pillows/knitted throw, foreground plants and floor/rug. Keep all furniture at its real source depth and scale. The RIGHT WINDOW BENCH REMAINS EMPTY. Draw the entire new desk/chair/person relationship together; no transferred bench body, old room or separate person cutout.\n\nLiterary direction:\nThere is one page that has not yet yielded its relation. Sakiko is taking it seriously, with her own judgment and the small stubbornness that makes her stay with a difficult thought. She has not decided that the unfinished page says anything unkind about her. The problem may remain open for a while; that openness can still contain real work.\nHer attention rests on the page, then makes a little room for another possible way of seeing it. A slight, thoughtful gathering of the brows and quiet lips suggest an idea being tested rather than a ready answer being displayed. She would like to compare the next step with you. Let her composure be alive: a little pride, patient curiosity, the willingness to change her mind when a better relation appears. No victorious grin, despair, generic comforting smile or conspicuous performance of exhaustion.\n\nBasic true seated relation:\nOriginal youthful Sakiko Togawa: long silver-blue hair with dark navy ribbon accents, proportionate golden eyes, navy school cardigan over white blouse/pale collar ribbon, navy plaid skirt, dark knee socks and brown loafers. She sits ON THE EXISTING LEFT WOOD CHAIR and faces the actual writing desk in a plausible three-quarter orientation. Hips genuinely rest on its seat; forearm and the single work page are genuinely supported on the reachable desk surface. A simple writing/resting hand and one relaxed supporting hand are enough. The head can turn slightly toward the near-room viewer while attention remains with the paper, so the youthful face and golden eyes are readable.\nRespect the original chair orientation toward the left desk and the correct foreground/back relationship of its wooden back and slats. Chair slats, desk edge and legs may naturally occlude the body; retain truthful anatomical continuity behind them. The visible empty-seat candidate around source(237,526) and desktop around(208,386) are FURNITURE POSITION GUIDES ONLY, not permission to pin a hidden hip or draw a diagram. Derive the full seated body and support from the actual chair/desk geometry. The existing seat cloth remains plausibly room-owned under the seated support.\nThis desk is farther into the room than the near right window bench. Let her body size follow the REAL desk/chair depth and furniture proportions. Do not inflate her to a near-bench head-to-shoe height or move the desk/chair toward the camera. Keep the full head and any naturally visible shoes inside the complete frame. Shoes should meet the actual floor where visible; naturally hidden legs/shoes remain coherently occluded by desk/chair/plants, never cut off, duplicated, invented in front or forced visible through wood.\n\nDrawing and light:\nClear original youthful facial features even at this appropriate farther scale: separate silver-blue front strands, upper eyelids, golden iris rims and eyebrows. No fused fringe/eye, duplicate eye, metallic shard, mesh line or floating hair patch. Continuous sleeves/arms, simple coherent hands, plausible seated thighs/knees and natural furniture contact/occlusion. Keep the left foreground plant and chair wood as real room elements, not decorations painted over the person.\nWarm afternoon light gives skin/hair/navy cloth, desk/chair and room one coherent illumination. Refined2D anime linework with a painterly lived-in literary background. Paper may have subtle unlabelled marks, but no legible invented math solution, interface or caption. One whole opaque RGB1536x1024 mother scene. No UI/buttons/text/labels/arrows/grid/border/watermark/collage/split view.",
+  "submittedPromptSha256Utf8NoTrailingLF": "dd9f70dd9a5087923588e6a225b2c2773b492e6e88800684ca4b8811d9133c03",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "sole approved EMPTY new literary room spatial input; actual left wood desk/chair; no old room, bench sprite or character image input"
+    }
+  ],
+  "output": {
+    "file": "sakiko-study-apricot-literary-desk-pilot-v1.png",
+    "sha256": "00629c2e6e5b55901244a534145ab3c9d8c2f9c3cbf2ec2de8668f33037ccb04",
+    "bytes": 2453484,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-bdbacb61-3a98-4a58-a603-81c5ae52a5ae.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observation": "Viewed complete saved1536x1024 original after persistence. New full left-desk seated Sakiko appears at an appropriately farther/smaller furniture scale, crown visually abouty215 and visible shoe fragments aroundy710; right window bench is empty. Silver-blue hair/golden-eye youthful identity and thoughtful restrained expression are readable at this desk scale. One hand writes/rests at the opened desk page/book with forearm supported by desk; other hand supports chin with elbow at desk. Hips/skirt are supported at the chair seat cloth, wooden chair back/slats visibly occlude lower back/hair in a plausible layer relationship. The generated chair back is reoriented and its visible outline differs from the empty-plate grid, so exact original-chair geometry/pivot is not preserved or signed off by this observation. Lower legs and shoes are substantially occluded by the foreground plant/desk/chair; portions of a brown loafer and heel are visible, not a verified complete pair or full sole-ground proof. Overall room/window/right bench camera remains coherent. A small decorative stocking motif is newly drawn and original-costume detail accuracy remains primary review. These are visual observations, not hidden anatomy, final source calibration or runtime validation.",
+    "producerCaveats": [
+      "Generated visible chair-back orientation/outline changed from empty plate; final support geometry needs root source review instead of copying grid seat point as hip.",
+      "Full two-shoe contour and both floor contacts cannot be verified because of natural foreground/furniture occlusion.",
+      "Open page/book and small stocking decoration are generated scene details, not verified real user material or asserted original costume detail."
+    ],
+    "producerSupportCandidate": "A complete same-camera left desk/chair pose candidate exists; no bench-sprite translation was performed."
+  },
+  "status": "producer-viewed-new-left-desk-chair-pilot-with-geometry-and-occlusion-caveats-root-review-pending",
+  "character": "sakiko",
+  "activity": "study",
+  "palette": "apricot",
+  "sceneFamily": "literary-room-v1",
+  "intendedSupport": "desk-chair",
+  "primaryApproved": false,
+  "rootApproved": false,
+  "runtimeAccepted": false,
+  "uniqueInputCount": 1,
+  "generationCalls": 1,
+  "generationStoppedAfterOne": true,
+  "benchSpriteOrOldRoomUsedAsInput": false,
+  "characterImageUsedAsInput": false,
+  "fullImageResultRetainedInStore": false,
+  "geometryReference": {
+    "file": "../../geometry/literary-room-v1-grid.json",
+    "sha256": "ae4be4737d793d452fa4b4f1f69f2da9ef6f0a52e13316870859a62cd43d900c",
+    "candidateDeskChairSeat": [
+      237,
+      526
+    ],
+    "candidateDesktop": [
+      208,
+      386
+    ],
+    "meaning": "Visible empty-furniture references only, not a hidden hip pivot or final generated-body calibration."
+  }
+}

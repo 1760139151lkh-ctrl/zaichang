@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "recordType": "shared-pdf-reading-ui-design-candidate",
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-972c6d2d-5c97-463a-99ff-16178c4104c1.png",
+  "inputImages": [
+    {
+      "file": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "sole clean empty-room reference"
+    }
+  ],
+  "userScreenshotUsedAsInput": false,
+  "newUiMockUsedAsInput": false,
+  "characterInput": false,
+  "purpose": "The same document laid between a persistent draft and readable paper; the room is the entire background.",
+  "promptFile": "pdf-shared-reading-state-v1.prompt.txt",
+  "submittedPromptSha256": "6ae4dfcc4fe316359997f6ece6d52f938ec0c96bc482089074e6754aaf4ec8ef",
+  "output": {
+    "file": "pdf-shared-reading-state-v1.png",
+    "sha256": "e29c926c53a5a3883cd462e25ac8cf6c17bcdc15014fc7651963f68b742dab9d",
+    "bytes": 2173039,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observed": "Tall warm-white PDF sheet occupies most available height at left. The full room is behind the whole composition rather than a banner. Compact source cover is red and portrait-shaped in the draft reference, and divider has a visible small handle. No body or pointing hand is drawn.",
+    "remaining": "Draft textarea and source cover are larger than needed; source tile should be reduced in component implementation. Generated article author list, text and diagram are synthetic mock content and must never replace or assert the real PDF contents. A still image does not verify draggable panes, interruptions or persistence."
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "runtimeUse": "UI relationship reference only, never a full-screen bitmap, PDF page source or character mother."
+}

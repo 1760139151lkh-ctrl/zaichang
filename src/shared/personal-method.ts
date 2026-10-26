@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { workSourceBindingSchema, workSourceRefSchema } from './harness';
+import { workSourceBindingSchema, workSourceRefSchema, type WorkSourceRef } from './harness';
 import { methodWorkHelpProofSchema } from './method-work-help';
 
 const id = z.string().min(1).max(160);
@@ -9,6 +9,23 @@ export const personalMethodConditionsSchema = z.object({
   avoidWhen: z.string().max(1200).optional(),
 }).strict();
 export type PersonalMethodConditions = z.infer<typeof personalMethodConditionsSchema>;
+
+/** Addresses of the person's accepted choices, not a second copy of their
+ * words. The evidence owner still decides whether each original may be read. */
+export interface PersonalMethodChoiceReference {
+  revision: number;
+  operation: 'save' | 'revise';
+  source: WorkSourceRef;
+  changedFields: string[];
+  read: { tool: 'read_evidence'; arguments: { id: string; expectedVersion: number; offset: number; limit: number } };
+}
+export interface PersonalMethodGuidanceReference {
+  workId: string;
+  revision: number;
+  sourceIds: string[];
+  choices: PersonalMethodChoiceReference[];
+  forCurrentHelp?: { source: WorkSourceRef; matterId?: string };
+}
 
 export const methodAssistanceInputSchema = z.object({ messageId: id,
   start: z.number().int().nonnegative(), end: z.number().int().positive(),

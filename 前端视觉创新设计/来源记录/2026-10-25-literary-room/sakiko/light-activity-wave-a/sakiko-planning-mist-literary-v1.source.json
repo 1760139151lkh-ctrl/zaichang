@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "assetType": "literary-room-complete-activity-light-mother",
+  "id": "sakiko-planning-mist-literary-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-planning-mist-literary-v1.prompt.json",
+  "promptFileSha256": "235aaa17d8b8dbc60963dc309a9c53e6a8af2bccf8279f0ed7ea835ab1076dcd",
+  "submittedPrompt": "Create one complete 1536×1024 landscape literary mother illustration of Togawa Sakiko. FIRST reference is the approved target empty room, camera and all illumination; SECOND is the exact approved same-activity apricot mother for Sakiko's identity, supported pose, apparent head/body size, objects and furniture support only. Preserve image 1's room camera, big window divisions, town/lake/mountains, curtains, shelves/desk, round lamp table, near right linen bench, plaid pillows, knitted throw, rug and foreground plants. Keep image 2's original youthful silver-blue long hair, clear golden irises, navy uniform details and actual body/hand/object relationships; hair strands, eyelids, irises and brows remain distinct. Do not paste a daytime figure or apply a theme tint to old lighting. Apricot hard solar highlights, white noon patches, window-grid/leaf shadows and bright floor rectangles in image 2 are NOT identity or pose and must not transfer. Repaint ALL hair, skin, paper, clothes, receiving furniture and floor under the first reference's actual illumination. No half-day/half-night division, new spotlight, UI, readable text/caption, new person or costume change. Preserve her own thought and judgment; no universal soothing smile, no theme-imposed sadness. One coherent lived-in scene with credible contact shadows.\n\nTarget is OVERCAST DRY DAY. Match image 1's grey cloudy dry daytime view, soft diffuse window light with modest local existing lamp warmth, natural warm wood, quiet shaded white fabric/paper. Remove hard sunlight bands and solar rectangles from the entire visible floor, bench, person and clothes. Keep eyes and dark clothes readable. No haze hiding the face, global blue filter, rain, sunbeams, or night.\n\nKeep the approved planning mother's near-bench depth and head size, modest notebook/pen supported on her lap and exact simple hand relationships. Secure hip/cushion support, connected knees/lower legs and complete shoes, crown near y110/soles near y890, no head-forward enlargement.\n\nLiterary direction (original project performance, not canon or real user memory):\n她想让拥挤的一天有一点可以改动的余地。认真仍在，但纸上的空白不是疏忽，是留给另一个人的选择。\n小本与铅笔靠近腿面并有承托，不悬空端出计划板；目光在真实笔记与对方之间有自然停顿。\n散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。",
+  "submittedPromptSha256Utf8NoTrailingLF": "197fa3afe48f3005cc1edb1a86fd8ff3722f16f5bd30fc4170e2b0f7b6251b3a",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "role": "first-approved-target-room-and-all-lighting",
+      "approval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.primary-approval.json"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-planning-apricot-literary-pilot-v1.png",
+      "sha256": "d3439fe3a604aaa3291889291b3dc7ff93d22297b765af98c21f00bea78269e7",
+      "role": "second-approved-same-activity-identity-pose-scale-not-apricot-sun",
+      "approval": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+        "sha256": "0dc133f5dc0ac1702bce894b279304dde90ab45ddbe57c4107ee9caf360fe8d0",
+        "key": "sakiko/planning/apricot",
+        "decision": "approved",
+        "rootApproved": true
+      }
+    }
+  ],
+  "output": {
+    "file": "sakiko-planning-mist-literary-v1.png",
+    "sha256": "f45c76676a13e437aa84f1abecfcb2269e25722a15ad7e57cf1dc065ffaa0af4",
+    "bytes": 2428266,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-8447eb09-520f-415b-8a21-4216b95fb561.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "primaryApproved": false,
+    "layerApproved": false
+  },
+  "status": "producer-viewed-awaiting-root-mother-review",
+  "producerReview": {
+    "reviewedAt": "2026-10-25T13:47:39.382955+00:00",
+    "method": "Personally inspected actual full native ImageGen output at 1536x1024 before next call.",
+    "observations": [
+      "Full actual original viewed: diffuse cloudy day over room, face/uniform/paper/floor; no observed hard daytime solar rectangles.",
+      "Notebook and pen remain on supported lap, clear writing grip and page support; hip/cushion, knees/lower legs and both full shoes coherent.",
+      "Golden eyes visible under separated fringe, same original costume and furniture."
+    ],
+    "issues": [
+      "Head tilts/lower gaze a little more than apricot mother, crown approximately y150 versus source near y125; no head enlargement, but small pose variation is not pixel-identical."
+    ],
+    "rootApprovalRequired": true
+  }
+}

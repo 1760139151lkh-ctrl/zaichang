@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "recordType": "complete-companion-mother-theme-relighting",
+  "dateLocal": "2026-10-24",
+  "timeZone": "America/Los_Angeles",
+  "character": "anon",
+  "activity": "resume",
+  "theme": "mist",
+  "version": 2,
+  "tool": "image_gen.imagegen (built-in)",
+  "executionId": "exec-ee8c4c50-7fe3-411e-a0aa-acf56159eb0c",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "originalOutput": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-ee8c4c50-7fe3-411e-a0aa-acf56159eb0c.png",
+  "prompt": "anon-resume-mist-mother-v2.prompt.txt",
+  "promptFileSha256": "86681cdba53c53489268ba6096142fe19ea3e23f48c6e772ed0b3387734ee58a",
+  "submittedPromptTransform": "UTF-8 prompt file trimEnd, exactly as submitted",
+  "submittedPromptSha256": "3bfa6309e067628b19585ab7e80b853cc7ca222f36ff2181ba38d84d7f67d399",
+  "inputs": [
+    {
+      "file": "anon-resume-apricot-mother-v1.png",
+      "sha256": "4a5a2a9711ab78401cdc57d243b5cf4042f89eef136eb257fb2fc04ca8b84fd5",
+      "role": "sole editable target: exact primary-accepted complete warm resume mother; all geometry, identity, expression and supported activity"
+    },
+    {
+      "file": "../../../assets-design-generated/2026-10-23-companion-matrix/room-mist-candidate.png",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "role": "empty whole-room theme light/sky/weather reference only; never a replacement furniture layout or source of character pixels"
+    }
+  ],
+  "identityFromApprovedMotherSource": "anon-resume-apricot-mother-v1.source.json",
+  "output": {
+    "file": "anon-resume-mist-mother-v2.png",
+    "sha256": "7a5496ffe03b4afec4aa1084f490665988160b4f68a7ece894caa48c27369d4f",
+    "bytes": 2125624,
+    "width": 1536,
+    "height": 1024
+  },
+  "approvalScope": "Theme candidate only. Warm mother acceptance does not approve this output, its layers or runtime. Resume remains semantic renewed attention, not a new furniture anchor or wholly new spatial action.",
+  "review": {
+    "producerViewedFullOriginal": true,
+    "primaryViewed": false,
+    "primaryApproved": false,
+    "layersAccepted": false,
+    "runtimeAccepted": false
+  },
+  "status": "producer-inspected complete theme mother awaiting primary review",
+  "replacesRejectedAttempt": {
+    "file": "anon-resume-mist-mother-v1.source.json",
+    "reason": "Prior output shifted clocktower; it was never an image input for this correction."
+  },
+  "producerObservation": "Personally viewed complete correction: original character/bench/feet, small chest-height greeting and quiet recognition retained. The clocktower is no longer relocated to the wrong left-side gap; its original hair occlusion is visually respected while the continuous same town/lake becomes misty morning. Lamp off, softer cool daylight and native material colors; no pasted day character or global blue wash."
+}

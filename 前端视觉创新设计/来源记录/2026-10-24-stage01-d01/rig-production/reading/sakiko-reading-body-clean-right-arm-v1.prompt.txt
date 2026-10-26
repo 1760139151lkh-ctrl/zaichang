@@ -1,0 +1,10 @@
+Use case: precise-object-edit.
+Asset type: a local right-arm erasure/repair plate for the SAME 1536×1024 READING rig.
+
+Image 1 is the approved original reading scene. Remove ONLY the anatomical RIGHT arm/hand on the viewer-LEFT: the right sleeve from the shoulder near (1350,443) down toward the book, and the tiny old right hand at the book's LEFT edge near (1253,515). Reconstruct just the cardigan/torso or fabric that was behind that arm, and the book page/edge previously covered by that right hand. There is intentionally no visible right arm/hand in this technical clean plate; do not place a new one elsewhere.
+
+The anatomical LEFT hand/arm on the viewer-RIGHT, supporting the book near (1335,524), must remain EXACTLY unchanged. Keep the open blue book at its original angle, size and position, held by that left hand and supported on her lap. Do not remove the book, close it, change its pages, or let it float. The book will remain stationary when the separately controlled right hand releases and returns.
+
+Everything outside the original right-arm region stays as the source: youthful identity, head/eyes/hair, bow and uniform, back/hip support on the pillow and window seat, crossed legs, feet, original shadows, room, camera, warm light, 1536×1024 framing and scale. No zoom, crop, new pose, transparency, extra hands, labels or diagrams.
+
+Output one normal opaque PNG. It will be clipped only inside the old right-arm/hand repair region; it is not a new full-scene pose or replacement identity reference.

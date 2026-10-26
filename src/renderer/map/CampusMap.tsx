@@ -39,7 +39,7 @@ import engineModuleUrl from 'virtual:zaichang-map-engine-url';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import './map.css';
 import './map-surface.css';
-import { WindowControls } from '../ui';
+import { WindowControls, uiError } from '../ui';
 
 const api = window.zaichang;
 const dataCaches = new Map<boolean, MapData>();
@@ -294,7 +294,7 @@ export function MapSurface({
       onClose();
     } catch (error) {
       if (selectionId) void api.shareMapContext({ enabled: false, expectedSelectionId: selectionId }).catch(() => {});
-      if (alive.current) setShareError(String(error instanceof Error ? error.message : error));
+      if (alive.current) setShareError(uiError(error));
     } finally {
       sharePending.current = false;
       if (alive.current) setSharing(false);

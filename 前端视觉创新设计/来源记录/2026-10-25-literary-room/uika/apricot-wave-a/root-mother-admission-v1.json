@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "kind": "root-static-mother-approval",
+  "character": "uika",
+  "wave": "apricot-wave-a",
+  "reviewer": "root",
+  "primaryApproved": true,
+  "approvalScope": "Exact three mother PNGs only, personally viewed by root.",
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "approvalMessage": "root 已逐张完整亲看 Uika/Umiri wave-a6母图，批准mother静态：Uika低头读页清晰握本、plan笔近下颌但独立手指/纸承重自然、rest靠格垫后倚双手自然；Umiri读页parallel knees/独立靴底、plan笔靠唇边独立握笔与本、rest转向窗/软化目光。6张camera/大家具稳定，clear hair/eyes/完整鞋脚支撑，无错误交腿。rest头低是后倚/视角姿态合理不自动比例错。请在专属wave目录落exactSHA root母图准入，layer/runtimefalse，chat层主任务先交，别扩母图。",
+  "outputs": [
+    {
+      "activity": "reading",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-a/uika-reading-apricot-literary-wave-a-v1.png",
+      "motherSha256": "5be60c7165f7ea7ea26640ce18402806af876a3db3d1bcaacab692b2f6c1749e",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-a/uika-reading-apricot-literary-wave-a-v1.source.json",
+      "sourceSha256": "314a398706e11de5d5d187a46b0d016469aa5b03acd24cc7e7df7f5adb0ee5fd",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-a/uika-reading-apricot-literary-wave-a-v1.prompt.txt",
+      "promptSha256": "c5f6db658147faf3d3ebba67deb8477642be3a4e28fca385f9a8eca720a9cec7",
+      "primaryApproved": true,
+      "approvalScope": "mother_only_static",
+      "layersApproved": false,
+      "runtimeAccepted": false,
+      "observation": "低头读页清晰握本。"
+    },
+    {
+      "activity": "planning",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-a/uika-planning-apricot-literary-wave-a-v1.png",
+      "motherSha256": "e13fd9633947424fe3ffb11b431e5c3f45ab94b2f6d707b6db13b79b7c38c24a",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-a/uika-planning-apricot-literary-wave-a-v1.source.json",
+      "sourceSha256": "7a6c63d828007044b1786216140b759b40192f2a25ee698ee9b23fff926ea8e7",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-a/uika-planning-apricot-literary-wave-a-v1.prompt.txt",
+      "promptSha256": "20d49862e98f8683ef6ca28b5ad43617e1a09ce1d783c19f9eb6add2f13f001c",
+      "primaryApproved": true,
+      "approvalScope": "mother_only_static",
+      "layersApproved": false,
+      "runtimeAccepted": false,
+      "observation": "笔近下颌，但独立手指与纸的承重自然。"
+    },
+    {
+      "activity": "rest",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-a/uika-rest-apricot-literary-wave-a-v1.png",
+      "motherSha256": "0b102ab90b2b2e20f71927f74f6ca7b67d9e39d617d00800dc20047b66b30e24",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-a/uika-rest-apricot-literary-wave-a-v1.source.json",
+      "sourceSha256": "95b31614344533d3a7474850da310216b64d2346417ff2f12ac588a7d51d075e",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-a/uika-rest-apricot-literary-wave-a-v1.prompt.txt",
+      "promptSha256": "ef2c7096e1e950b61428d53b9e0d8e02cce5289447b3f62d4e670ad81a10af98",
+      "primaryApproved": true,
+      "approvalScope": "mother_only_static",
+      "layersApproved": false,
+      "runtimeAccepted": false,
+      "observation": "靠格垫后倚，双手自然。"
+    }
+  ]
+}

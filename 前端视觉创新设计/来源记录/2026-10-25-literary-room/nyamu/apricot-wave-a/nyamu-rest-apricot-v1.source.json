@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "character-activity-mother-candidate",
+  "character": "nyamu",
+  "activity": "rest",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "wave": "apricot-wave-a",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-20e12ba5-4654-42cf-9b98-6084cf5454c6.png",
+  "executionId": "exec-20e12ba5-4654-42cf-9b98-6084cf5454c6",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "primary approved clean empty environment edit target; room/camera/furniture/light invariant"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.png",
+      "sha256": "096bd7f5f0138e8b961c91d52dc8e68b29bcda1600bbb9ca444bd1c7eff75313",
+      "role": "root-approved same-character chat mother for correct identity/outfit/apparent scale only; not pose input"
+    }
+  ],
+  "brief": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-prompt-plan.json",
+    "sha256": "9f549b3785d8e59d903dec1f220f05880ce0b57213591c5111effa3a98da9dea",
+    "key": "nyamu/rest/apricot",
+    "release": "root released only reading/planning/rest apricot for Mutsumi/Nyamu after selected-room Sakiko cross-scene and each own chat mother acceptance; no other cells released",
+    "transformation": "Own literary narrative/core/lighting and identity retained; correct same-character chat mother added as identity-only input; activity support and fixed room constraints made explicit"
+  },
+  "fictionalCompanionScene": true,
+  "privateUserDataUsed": false,
+  "promptFile": "nyamu-rest-apricot-v1.prompt.txt",
+  "promptFileSha256": "1ddc1289b83cee19fb22a54ff10f16824b4d2d56de8eb0906b8df628207a54fb",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; submitted text exact",
+  "submittedPromptSha256": "222c5bd0fa35e7e8cf5e90a634bebba876019851274a7a63204e27cb570836c2",
+  "output": {
+    "file": "nyamu-rest-apricot-v1.png",
+    "sha256": "dacfe14559f694e2ee69e1ebbc395a279b8ef895441f9ddd2faeb641996cd734",
+    "bytes": 2425354,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved full original after generation. Same close clear-day literary room/window/furniture and correct lavender short bob/red-purple eyes/grey ruffled blouse/black choker-skirt-shoes identity remain visually coherent. She has no book, paper or performance gesture; shoulder/back weight rests into the existing plaid cushion, one hand settles on the lap and the other supports on the real seat/throw. Her three-quarter gaze toward the window and unperformed, relaxed expression clearly differ from chat, reading and planning. Visible eyelids/irises remain separate from fringe; head is naturally lower with the supported rear lean, not lensward enlarged. Complete head/shoes, seated hip support, uncrossed knees/ankles and shoe soles/heels on shared floor read coherently in full view. Shared warm sun acts on skin, hair, fabric and shadows. Producer observation predates root mother review; subsequent exact-SHA mother-only acceptance is recorded in primaryApprovalRecord. Layers/runtime remain unaccepted."
+  },
+  "primaryApproved": true,
+  "primaryApprovalRecord": "nyamu-rest-apricot-v1.primary-approval.json",
+  "primaryApprovalScope": "Root personally viewed and approved exact-SHA complete static mother only; layer and runtime acceptance remain false.",
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "Root-approved exact-SHA complete static mother only; layer, matrix assembly, motion and runtime acceptance remain false."
+}

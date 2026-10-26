@@ -1,0 +1,8 @@
+Use case: precise-object-edit.
+Asset type: one very small original-hand erasure plate for a reading rig.
+
+Use the approved original 1536×1024 reading image as the edit target. The ONLY change is to REMOVE the small PEACH/skin-colored fingers/hand visible at the VIEWER-LEFT lower corner of the open blue book, near (1253,515), within approximately x=1240–1271 and y=502–530. Erase that one original skin patch completely and continue the same blue book edge/page/fabric behind it. After the edit, there is NO peach-colored hand or finger left at that left corner of the book.
+
+Keep the other visible hand at the VIEWER-RIGHT side of the book near (1335,524) exactly as it is; that hand continues to hold the book. Do not move, add, replace, raise or redesign ANY hand or arm. This is a tiny removal, not a new pose. Everything outside the one small removed skin patch is exactly the same source composition, including the book's angle, page shapes, supporting hand, body, head, clothing, legs, pillow support, room, camera and lighting.
+
+The handless left book corner is intentional: a separate complete arm/hand will later be placed back over it by the renderer. Output one normal opaque PNG at original 1536×1024 scale and framing, no crop or zoom, no transparency, text or diagrams.

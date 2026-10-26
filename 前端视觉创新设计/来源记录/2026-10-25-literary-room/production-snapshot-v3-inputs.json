@@ -1,0 +1,1823 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "cutoffUtc": "2026-10-25T13:13:57+00:00",
+  "capturedAt": "2026-10-25T13:16:27.161927+00:00",
+  "policy": "One captured JSON path list. Generation eligibility additionally uses real output creation/mtime by cutoff; root admission bytes must precede cutoff. Source metadata captured now is exact-SHA bound and is never root approval by itself. No continuous polling.",
+  "sourceRecords": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/apricot-wave-a/anon-planning-apricot-literary-bench-v2.source.json",
+      "sha256": "1d1e7b159fa7282c35f2528828a70192bdc08a2cf52add2e71f12b19cbba3a70",
+      "bytes": 10893,
+      "mtimeUtc": "2026-10-25T12:01:15.303532+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/apricot-wave-a/anon-planning-apricot-literary-v1.source.json",
+      "sha256": "458b0b5cb95029e229014ba676646a199203e524ad07ffebcc1a5da36d4818b8",
+      "bytes": 10177,
+      "mtimeUtc": "2026-10-25T10:05:55.639091+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/apricot-wave-a/anon-reading-apricot-literary-v1.source.json",
+      "sha256": "45aa717279fefaa5e52c2cc26a8c290264d859ec7d5b5d9d4f2f5405da4ca7a2",
+      "bytes": 9770,
+      "mtimeUtc": "2026-10-25T10:03:37.947582+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/apricot-wave-a/anon-rest-apricot-literary-v1.source.json",
+      "sha256": "10d23626382b7529315664648b29fb5ba86dfc6a9d75083596b4cf317dacdd72",
+      "bytes": 9809,
+      "mtimeUtc": "2026-10-25T10:07:07.458479+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/apricot-wave-b/anon-attention-apricot-literary-v1.source.json",
+      "sha256": "0c521fd69bcb571b05ec492a453503d84e50627da55da767414c5a997e2ef3de",
+      "bytes": 10462,
+      "mtimeUtc": "2026-10-25T11:53:53.812642+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/apricot-wave-b/anon-listening-apricot-literary-v1.source.json",
+      "sha256": "05b8ea3c342744cf991aa1a9d74c8e878b6f4ff52184d5ae567b601f785b4c05",
+      "bytes": 10287,
+      "mtimeUtc": "2026-10-25T11:53:53.770250+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/apricot-wave-b/anon-play-apricot-literary-v1.source.json",
+      "sha256": "08c9f7824f0ba06ff0d7516e4e0370b3bcfc9461caf0cce63e9685e6914790e3",
+      "bytes": 10587,
+      "mtimeUtc": "2026-10-25T11:53:53.791507+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/apricot-wave-b/anon-resume-apricot-literary-v1.source.json",
+      "sha256": "ca1d4784117948452734a8476f2f5c26b482354280ff8d62032ad688731fa786",
+      "bytes": 10478,
+      "mtimeUtc": "2026-10-25T11:53:53.833978+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/apricot-wave-b/anon-study-apricot-literary-v1.source.json",
+      "sha256": "9905d647d1382624d6f200f1e3d528b1daf0585830fd6e994a23f22e3c6afdc3",
+      "bytes": 10717,
+      "mtimeUtc": "2026-10-25T11:53:53.747714+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/figure-step1-v1.source.json",
+      "sha256": "9be6c70715dc975c4d96c4c1bed1e6b608645b6f035515b5ac3e249d2780c4c0",
+      "bytes": 6350,
+      "mtimeUtc": "2026-10-25T11:34:17.115054+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/figure-step2-v1.source.json",
+      "sha256": "1d9221b610053d482fe5c02826b7b6b8bd6df3309323672c28bb17a54057f13e",
+      "bytes": 5894,
+      "mtimeUtc": "2026-10-25T11:34:17.147837+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/shadow-step1-v1.source.json",
+      "sha256": "7d28a693289d2156b29acb61176829e2c7d784a238881ca75e9e93a9242c61d6",
+      "bytes": 6519,
+      "mtimeUtc": "2026-10-25T11:34:17.179290+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/shadow-step2-v1.source.json",
+      "sha256": "a40474c34d35006574add16888c8b40be37706ea6fe8f6904ca558a4f5fb6b45",
+      "bytes": 5926,
+      "mtimeUtc": "2026-10-25T11:34:17.194486+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-light-wave/anon-chat-mist-literary-v1.source.json",
+      "sha256": "1724a78628fb72ed7b73b1637f75c31100978ef6d452bac03c458285cbff5b0b",
+      "bytes": 10187,
+      "mtimeUtc": "2026-10-25T12:20:55.691513+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-light-wave/anon-chat-rain-literary-v1.source.json",
+      "sha256": "424c2a12edecec5f5196a2053628aea60569ac3ff39cc266f3d7a67ce953a3b6",
+      "bytes": 10555,
+      "mtimeUtc": "2026-10-25T12:20:55.730430+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-light-wave/anon-chat-violet-literary-v1.source.json",
+      "sha256": "7fed6b3efac3d8bc7a5297a0b06ba14c9038982d3fe85978bc66a9ebfe0beda1",
+      "bytes": 10231,
+      "mtimeUtc": "2026-10-25T12:20:55.710586+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-pilot/anon-chat-apricot-literary-v1.source.json",
+      "sha256": "6b3fb4659d9b2934aa6875c36e008adaa31ce461674293a66ba540b026a92f5e",
+      "bytes": 9296,
+      "mtimeUtc": "2026-10-25T09:13:52.893716+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-a/mutsumi-planning-apricot-v1.source.json",
+      "sha256": "679ab1d4670a61d2bd5d025877a0e7b79e30056ea77555da90b39b6530ca4b0a",
+      "bytes": 3965,
+      "mtimeUtc": "2026-10-25T11:34:52.685313+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-a/mutsumi-reading-apricot-v1.source.json",
+      "sha256": "89057740f0535328f285a808fccb88abf47c3079ab61d6950c609732dec16d38",
+      "bytes": 4024,
+      "mtimeUtc": "2026-10-25T11:34:52.685818+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-a/mutsumi-rest-apricot-v1.source.json",
+      "sha256": "2916353c59074742e95abe8e310f1687d4109d202e8aea04a1ed2783fa62837b",
+      "bytes": 4094,
+      "mtimeUtc": "2026-10-25T11:34:52.686342+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-attention-apricot-v1.source.json",
+      "sha256": "0386956185f0f167dc30146bcd066b37bc6778a8eafa707e103d58483e0ea36c",
+      "bytes": 3761,
+      "mtimeUtc": "2026-10-25T12:23:41.793764+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-listening-apricot-v1.source.json",
+      "sha256": "c49c8037f80cb74f609ccf5291777cb39c23a1ccaea8c21161475efe3807a974",
+      "bytes": 3684,
+      "mtimeUtc": "2026-10-25T12:23:41.760550+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-play-apricot-v1.source.json",
+      "sha256": "9eb4ef2018c4f743bffce4f104e1fc80f6e859c94c397e90fd3fbc41cd91002f",
+      "bytes": 3773,
+      "mtimeUtc": "2026-10-25T12:23:41.777959+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-resume-apricot-v1.source.json",
+      "sha256": "6459df122b1e51be0f3ce62c92b48260bdfc4f4e8d818ee5714ee9d4519734b0",
+      "bytes": 3693,
+      "mtimeUtc": "2026-10-25T12:23:41.810569+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-study-apricot-v1.source.json",
+      "sha256": "118b146676622b8f8f1a42414bde9280d14b8bcf149c6c5f9e2962989c5e4ff7",
+      "bytes": 4439,
+      "mtimeUtc": "2026-10-25T12:23:41.744792+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-contact-mark-v1.source.json",
+      "sha256": "e7d5e6268424dbd9a11e525f84efd9f22815d49a60999761f834debe5835e52b",
+      "bytes": 2814,
+      "mtimeUtc": "2026-10-25T11:37:04.131888+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-contact-mask-v1.source.json",
+      "sha256": "1052bc033d74cfbe5ff557bdb669469b76bec6713a1bfc39af768674fd2b7dd1",
+      "bytes": 3150,
+      "mtimeUtc": "2026-10-25T11:48:03.305127+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-figure-mark-v1.source.json",
+      "sha256": "b5102759ab68b1929ad99dd8e65daf874cf9fe46b8c04bb189cf1da5f2f08cbd",
+      "bytes": 2782,
+      "mtimeUtc": "2026-10-25T11:37:04.104928+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-figure-mask-v1.source.json",
+      "sha256": "1ad5869b1e50d6f03c9681031c08dc3b13a71c1135428eeef1b11b56e805b66a",
+      "bytes": 3074,
+      "mtimeUtc": "2026-10-25T11:48:03.305127+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-light-wave/mutsumi-chat-mist-v1.source.json",
+      "sha256": "cc20270aaf6aa42a15cd5fef3103b8e5f10c0cb58e3d2cda12856b381fbe30ff",
+      "bytes": 3030,
+      "mtimeUtc": "2026-10-25T12:15:16.211906+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-light-wave/mutsumi-chat-rain-v1.source.json",
+      "sha256": "1d0efa53ca32450c24e90f43b30ffd650e37f9ce37f84d6c57992503799227b1",
+      "bytes": 3093,
+      "mtimeUtc": "2026-10-25T12:18:42.026786+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-light-wave/mutsumi-chat-violet-v1.source.json",
+      "sha256": "6acb1225a4af2f15f21e5f16049959d9945c3c33174239467a6bd44e14646ec1",
+      "bytes": 3092,
+      "mtimeUtc": "2026-10-25T12:17:25.713533+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.source.json",
+      "sha256": "315aeab44f31ab65fc263c68c3428fffe3bf53a323a1acbd8c9ac535508f2987",
+      "bytes": 3696,
+      "mtimeUtc": "2026-10-25T09:12:49.516931+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/light-activity-wave-a/mutsumi-planning-mist-v1.source.json",
+      "sha256": "b6a84364edc0d2545531b77db4b9ffe1a63dbc6bd550ec25063897abedcea506",
+      "bytes": 3834,
+      "mtimeUtc": "2026-10-25T13:11:22.388078+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/light-activity-wave-a/mutsumi-planning-rain-v1.source.json",
+      "sha256": "b27d8d7ab41162b6bada81d06d0f8ad519ba0597a61f99b84b13d52ec089fabb",
+      "bytes": 3820,
+      "mtimeUtc": "2026-10-25T13:13:52.360118+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/light-activity-wave-a/mutsumi-planning-violet-v1.source.json",
+      "sha256": "52399feb9e4d7164264cc36bfe1f01a8a0fd3c53d9ba9758abb33cff72459b2d",
+      "bytes": 3864,
+      "mtimeUtc": "2026-10-25T13:12:37.400994+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/light-activity-wave-a/mutsumi-reading-mist-v1.source.json",
+      "sha256": "dd6147398b07f92c58c6570dd25956213947ccd488a19285dbb651189bca2467",
+      "bytes": 3754,
+      "mtimeUtc": "2026-10-25T13:07:34.303880+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/light-activity-wave-a/mutsumi-reading-rain-v1.source.json",
+      "sha256": "71e33f4557730dc288a806317e5b13f223f339f1ba07ddac54a42befca84c351",
+      "bytes": 3858,
+      "mtimeUtc": "2026-10-25T13:10:13.922570+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/light-activity-wave-a/mutsumi-reading-violet-v1.source.json",
+      "sha256": "ec67432c79490627b0edc1cb3c6aa1e7a989c1bcf8d4a162420c0039294d11a8",
+      "bytes": 3793,
+      "mtimeUtc": "2026-10-25T13:08:57.504181+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/light-activity-wave-a/mutsumi-rest-mist-v1.source.json",
+      "sha256": "b1ec025b1ed3a850611f05805c531cc86b35757904029382e76258cf816cc505",
+      "bytes": 3953,
+      "mtimeUtc": "2026-10-25T13:15:53.953754+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-a/nyamu-planning-apricot-v1.source.json",
+      "sha256": "17834a59fdbaa0195725b2222e1c49b530eb37cb1632c93a5d29013ce0aacfc7",
+      "bytes": 4049,
+      "mtimeUtc": "2026-10-25T11:34:52.686869+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-a/nyamu-reading-apricot-v1.source.json",
+      "sha256": "8490974138b2e5dffecc1492954e2c9940968116ba01f01582cf329dbbcda14b",
+      "bytes": 4076,
+      "mtimeUtc": "2026-10-25T11:34:52.687406+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-a/nyamu-rest-apricot-v1.source.json",
+      "sha256": "f0e295cd4f8fefbf04aa00c57034617ea27810b30fa155d82f5a3cd907ac1cb2",
+      "bytes": 4089,
+      "mtimeUtc": "2026-10-25T11:34:52.687406+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-b/nyamu-attention-apricot-v1.source.json",
+      "sha256": "a083b7c197d406062ef78e207e8feb3a672b916c9a978227f76498ba067b49e2",
+      "bytes": 3961,
+      "mtimeUtc": "2026-10-25T12:51:15.112186+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-b/nyamu-listening-apricot-v1.source.json",
+      "sha256": "a91841459b61807aa78b6de292390269f6c376d635075585f1edfbfd90dd14b7",
+      "bytes": 3947,
+      "mtimeUtc": "2026-10-25T12:51:15.112186+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-b/nyamu-play-apricot-v1.source.json",
+      "sha256": "1930d229e2aca7d333a44c6b5b249a6a85be76d14d81faf71b7ce90d1ba75be4",
+      "bytes": 3927,
+      "mtimeUtc": "2026-10-25T12:51:15.112186+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-b/nyamu-resume-apricot-v1.source.json",
+      "sha256": "6fe38f463a5f7a6203a4246048b7b30a83f0164c3f22073f5a91b8328ae8ac3c",
+      "bytes": 4077,
+      "mtimeUtc": "2026-10-25T12:51:15.113794+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-b/nyamu-study-apricot-v1.source.json",
+      "sha256": "a9bff2fa815ae8aa247592c340b625763b00cd7179d4c93442b8850cacec0057",
+      "bytes": 4507,
+      "mtimeUtc": "2026-10-25T12:51:15.113794+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-contact-mark-v1.source.json",
+      "sha256": "0a23657d535c197776d4869f8ba37b51978ed77605cde3cd99760d7667770a8d",
+      "bytes": 2780,
+      "mtimeUtc": "2026-10-25T11:37:05.020551+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-contact-mask-v1.source.json",
+      "sha256": "ee4b19ce40f7d67925f38a0168355aae567cc82818bee21fca73df92ca1ad272",
+      "bytes": 3136,
+      "mtimeUtc": "2026-10-25T11:48:03.337254+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-figure-mark-v1.source.json",
+      "sha256": "2e12e4204ed5756bc5ef5833493835b2899fbda3c4f429b7f20f721932a16d21",
+      "bytes": 2764,
+      "mtimeUtc": "2026-10-25T11:37:04.994254+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-figure-mask-v1.source.json",
+      "sha256": "fa186517a742eaa8fd1ae1f000f67a73b37c412826f1911365647ea4d5e83eda",
+      "bytes": 3067,
+      "mtimeUtc": "2026-10-25T11:48:03.337254+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-light-wave/nyamu-chat-mist-v1.source.json",
+      "sha256": "8cf0f5986c71d2960c6013048c91d71c7290981701802ae17a766321efabcd2c",
+      "bytes": 3056,
+      "mtimeUtc": "2026-10-25T12:19:41.913437+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-light-wave/nyamu-chat-rain-v1.source.json",
+      "sha256": "bc945ff1420253a5193b07941c958b0d7cf4b7904d56f243da9e74ac2211b707",
+      "bytes": 3166,
+      "mtimeUtc": "2026-10-25T12:23:41.693035+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-light-wave/nyamu-chat-violet-v1.source.json",
+      "sha256": "37153e342439147aa0806d6501d9516656de9a03c4d87c6c8cd882684d27d3fe",
+      "bytes": 3095,
+      "mtimeUtc": "2026-10-25T12:20:55.175722+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.source.json",
+      "sha256": "367aa043310ea50ac6b2aa5ba8975b6e7e22941be7ce79269952eef6a8c97542",
+      "bytes": 3882,
+      "mtimeUtc": "2026-10-25T09:14:34.908134+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json",
+      "sha256": "5425e475efa8264874f2f3b083b8737b4b1f9d35399e9b2c3d86dc561a36cddb",
+      "bytes": 1250,
+      "mtimeUtc": "2026-10-25T08:36:14.194512+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-dry-night-v1.source.json",
+      "sha256": "888ceb6d45e28082883f5f825f5b9724c0b963f862b6fa9a6a1f30dbffe71d08",
+      "bytes": 2687,
+      "mtimeUtc": "2026-10-25T08:48:32.655522+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.source.json",
+      "sha256": "85e4b1e7f3de6186b46cd6e1add64d12a243c1f796033067eef48e5c5b9b716c",
+      "bytes": 2598,
+      "mtimeUtc": "2026-10-25T08:48:31.600279+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-day-v1.source.json",
+      "sha256": "49a66ea4373e8b464d690bcfad5b8f7b5e319af9f09f3f64ed31eef5a07f4a10",
+      "bytes": 2579,
+      "mtimeUtc": "2026-10-25T08:48:32.121972+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.source.json",
+      "sha256": "fae6d70ec523dfb8780207d57677bd6ae383d270255acac1856c7d0888cb92e7",
+      "bytes": 2497,
+      "mtimeUtc": "2026-10-25T09:03:17.166162+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.source.json",
+      "sha256": "573dae483823a4132499a02e5775059430acded7640a2ad6614a3c28925e8a59",
+      "bytes": 2715,
+      "mtimeUtc": "2026-10-25T09:03:17.693874+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.source.json",
+      "sha256": "32b064384fadb3f76227f36de48e8d24e7c342fea434939eb4d457d01226aed6",
+      "bytes": 2729,
+      "mtimeUtc": "2026-10-25T09:03:18.208364+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.source.json",
+      "sha256": "47104186489b5556e4d9e1b27eeda4641442b5bccca6478e35b39701c0d3e843",
+      "bytes": 2448,
+      "mtimeUtc": "2026-10-25T09:03:16.590656+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/apricot-wave-a/rana-attention-apricot-literary-v1.source.json",
+      "sha256": "650f1efd615373ed047d83e840a3f3d13fcd2931bf93779a4b9240fe4bc43873",
+      "bytes": 6327,
+      "mtimeUtc": "2026-10-25T12:33:03.008291+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/apricot-wave-a/rana-listening-apricot-literary-v1.source.json",
+      "sha256": "aabbff68a70c02e3c4d053cb763e4a1ff12c30f03236a19e8f783f1679d3a957",
+      "bytes": 6300,
+      "mtimeUtc": "2026-10-25T12:33:02.973625+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/apricot-wave-a/rana-planning-apricot-literary-v1.source.json",
+      "sha256": "dde21c5ec22523b96fcd13848729a224caa53777bb16fff75c56ccb49f78bcb5",
+      "bytes": 6471,
+      "mtimeUtc": "2026-10-25T12:33:02.937538+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/apricot-wave-a/rana-play-apricot-literary-v1.source.json",
+      "sha256": "6dcabfef01a42dac48e698f97e54348aaf3bca02efdaafbaec76801302ebf995",
+      "bytes": 6386,
+      "mtimeUtc": "2026-10-25T12:33:02.991448+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/apricot-wave-a/rana-reading-apricot-literary-v1.source.json",
+      "sha256": "fec1c6a73a03c5a70ec10a1797dd25e2bfcb0bb0c176ce9448c3d91b58bacd0c",
+      "bytes": 6287,
+      "mtimeUtc": "2026-10-25T12:33:02.919903+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/apricot-wave-a/rana-rest-apricot-literary-v1.source.json",
+      "sha256": "e45fc07e35fa3b51f9e97d5e99c73984ac86ba1716975571ec0ed1f6b6305031",
+      "bytes": 6376,
+      "mtimeUtc": "2026-10-25T12:33:02.955653+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/apricot-wave-a/rana-resume-apricot-literary-v1.source.json",
+      "sha256": "cfcdf12101c5000ae9d9ba37d460810497837e6ccdbd156a79ba04aa8a22f7f2",
+      "bytes": 6656,
+      "mtimeUtc": "2026-10-25T12:33:03.025230+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/apricot-wave-a/rana-study-apricot-literary-v1.source.json",
+      "sha256": "9e820d63249b3b90edced04d6c46851a6f74546aafabcf31969f2aeb45d63484",
+      "bytes": 6529,
+      "mtimeUtc": "2026-10-25T12:33:02.899814+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/contact-mask-v1.source.json",
+      "sha256": "5bf66294959948b6a60c10839a1b653ffdfbcdbaccf249169dfa8b476f9244ca",
+      "bytes": 1909,
+      "mtimeUtc": "2026-10-25T11:28:53.104359+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/contact-step1-marked-v1.source.json",
+      "sha256": "aea56f255a8a336c7a316654c9aaaad6653bbbb529ac7291ce5f658997bdbf76",
+      "bytes": 2011,
+      "mtimeUtc": "2026-10-25T11:26:54.459315+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/figure-mask-v1.source.json",
+      "sha256": "29cfd7dd15d5e1a873c989e92808c7826df373e1bc7fd92e7d4e0b4d97d6d0d8",
+      "bytes": 1944,
+      "mtimeUtc": "2026-10-25T11:25:49.616228+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/figure-step1-marked-v1.source.json",
+      "sha256": "b84cc2cb1c2903265ea7ec9bd6bae6753356b2724760d9deda055412e42d4251",
+      "bytes": 2010,
+      "mtimeUtc": "2026-10-25T11:19:48.662302+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-light-wave/rana-chat-mist-overcast-day-v1.source.json",
+      "sha256": "b1e73f5224b9db7295f134fff40e472d91d693745be76d673d9dc44078aaa8e9",
+      "bytes": 7151,
+      "mtimeUtc": "2026-10-25T12:58:33.789557+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-light-wave/rana-chat-rain-rain-night-v1.source.json",
+      "sha256": "33e64745a669f8539df8bed30df3f45824e08478916e62f093661f5631d79608",
+      "bytes": 7716,
+      "mtimeUtc": "2026-10-25T12:58:33.826133+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-light-wave/rana-chat-violet-twilight-v1.source.json",
+      "sha256": "7753786a3a7ecbd81b5341c02f4a27ca5264bb449d4af08fcb40a785a46d8058",
+      "bytes": 7701,
+      "mtimeUtc": "2026-10-25T12:58:33.808253+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.source.json",
+      "sha256": "722ffa0154fd1266a2829d10a0536e9700ef8295ea2eedf493505a85b6516359",
+      "bytes": 7962,
+      "mtimeUtc": "2026-10-25T09:08:32.083040+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/contact-marked-v1.source.json",
+      "sha256": "ebe315a039811923e8d9d5dae271ba5e42de8b6d4edcce28a98a24e1b558027a",
+      "bytes": 3990,
+      "mtimeUtc": "2026-10-25T12:12:40.207785+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/contact-mask-v1.source.json",
+      "sha256": "c207eb6117462b54ce722b1c93fb8424800b5b64ef6f2e7e9745551a984597c2",
+      "bytes": 3723,
+      "mtimeUtc": "2026-10-25T12:14:11.938346+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/figure-marked-v1.source.json",
+      "sha256": "94d24502a2f76da79866016cb0e52efd898ce7d276775d72c4b315e189e324ff",
+      "bytes": 3934,
+      "mtimeUtc": "2026-10-25T12:12:40.215328+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/figure-mask-v1.source.json",
+      "sha256": "36ad0115c59d8710dd79a58faae2e1b81741e166054bff3b716d39626b957ea5",
+      "bytes": 3832,
+      "mtimeUtc": "2026-10-25T12:14:11.937012+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/mist/figure-mask-v1.source.json",
+      "sha256": "4595e5c3c1b7fc9fa51bcb8e485cb218dfc43b3640b9f6c8873e99ae636e6663",
+      "bytes": 2711,
+      "mtimeUtc": "2026-10-25T13:09:55.463775+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/mist/figure-white-environment-v1.source.json",
+      "sha256": "cd6acd2f7024eeb47189505b3ccb3d97a3adbabd7a133eb7deb25df8dd01b1cc",
+      "bytes": 2707,
+      "mtimeUtc": "2026-10-25T13:09:55.456801+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/rain/figure-mask-v1.source.json",
+      "sha256": "421356a1716176d4bbdce9b679b129f0780dab0860d3e5be4b6487d9279d2669",
+      "bytes": 2709,
+      "mtimeUtc": "2026-10-25T13:09:55.538947+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/rain/figure-white-environment-v1.source.json",
+      "sha256": "17033735f1bec0ccae6854fa3a2a3c12bcff7d6ca81302b0038b1cd6f3ac70c5",
+      "bytes": 2757,
+      "mtimeUtc": "2026-10-25T13:09:55.533270+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/violet/figure-mask-v1.source.json",
+      "sha256": "7a99b993e1dbdfbc15088cadb2072551bd89bb3a5e6a3084669e58dc88962195",
+      "bytes": 2713,
+      "mtimeUtc": "2026-10-25T13:09:55.502587+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/violet/figure-white-environment-v1.source.json",
+      "sha256": "2b4aedbefa519b18264e26888a96846f178d9b7369d14c084bfac0c536f51d01",
+      "bytes": 2740,
+      "mtimeUtc": "2026-10-25T13:09:55.496858+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-mist-v1.source.json",
+      "sha256": "f8a8da2dbb106e58bfdeb3294c1ce336f8847b05c1f2bde49ee9d63a8cdcefbe",
+      "bytes": 3051,
+      "mtimeUtc": "2026-10-25T09:04:56.956073+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-rain-v1.source.json",
+      "sha256": "fcbeb69980072f782ac40f58f6e018ffd5ad7e63aa2a35818d398843b49c64ad",
+      "bytes": 2945,
+      "mtimeUtc": "2026-10-25T09:08:17.717375+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-violet-v1.source.json",
+      "sha256": "3997f0cc5a37ce718e73f2197aae9ba442a4d3d9df92f8a78b5ae4d172ab3990",
+      "bytes": 2903,
+      "mtimeUtc": "2026-10-25T09:06:32.447372+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-background-v1.source.json",
+      "sha256": "ddfe04a8e444d341de1cbcdc891f421c82a52fca642df57af6dbb5ffe1de1bdd",
+      "bytes": 3927,
+      "mtimeUtc": "2026-10-25T11:45:48.053160+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-background-v2.source.json",
+      "sha256": "db7a60e24c1682fbb8e64bf46402a29a6d05b5cdbd131c44fe1ad65c4dfa2a3c",
+      "bytes": 3745,
+      "mtimeUtc": "2026-10-25T11:45:48.054272+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-background-v3.source.json",
+      "sha256": "14f692c52b5eef7c29f799400e19d5e083d1ff6bdd1114e567ab1cf324622b5f",
+      "bytes": 4651,
+      "mtimeUtc": "2026-10-25T12:08:47.988313+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-contact-marked-v1.source.json",
+      "sha256": "07670f7c84b7d27183a939102b715df36b2e681b6eb8050dac73d94c438085b5",
+      "bytes": 4205,
+      "mtimeUtc": "2026-10-25T11:45:48.054272+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-contact-mask-v1.source.json",
+      "sha256": "65e22b54e0ca625cda012282cdf07a532c7236a05c39beaaf37b83ffef230367",
+      "bytes": 4259,
+      "mtimeUtc": "2026-10-25T12:08:47.988842+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-figure-marked-v1.source.json",
+      "sha256": "6c4f6d68d6a97bd17d71b0e09b9c55872cdd0afe6c294db3b6e3d1c9389e4199",
+      "bytes": 4074,
+      "mtimeUtc": "2026-10-25T11:45:48.055805+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-figure-mask-v1.source.json",
+      "sha256": "211947a43f1123249a63c4fe4a0073ce533db5e5d4e165d8cfc064c4c423816c",
+      "bytes": 3868,
+      "mtimeUtc": "2026-10-25T12:08:47.988313+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-pilot/sakiko-study-apricot-literary-desk-pilot-v1.source.json",
+      "sha256": "566a96089307c2df9d3d0f45c8740b50d7e0893c532152a009d22a95390ae785",
+      "bytes": 8792,
+      "mtimeUtc": "2026-10-25T10:06:06.126996+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/contact-mask-v1.source.json",
+      "sha256": "5f40d3926172451036c0e40e08a598e3a95e7cf335446ec6f7039214b073bf44",
+      "bytes": 1866,
+      "mtimeUtc": "2026-10-25T10:21:29.064518+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/contact-step1-marked-v1.source.json",
+      "sha256": "f66dcc08713c54d16c50d638868d587c3a16233c7182bed149a9529596283572",
+      "bytes": 2024,
+      "mtimeUtc": "2026-10-25T10:19:19.725758+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/figure-mask-v1.source.json",
+      "sha256": "77e915fe981ebad8e91fd5ae6e1b18b756666fb6b634a09d8afe3431515aa04e",
+      "bytes": 1935,
+      "mtimeUtc": "2026-10-25T10:18:17.554496+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/figure-step1-marked-v1.source.json",
+      "sha256": "7aa3bcd6dd48ff97c3463cd160a5f271db660fac834043e00bd6a0bfad8aad05",
+      "bytes": 2208,
+      "mtimeUtc": "2026-10-25T10:16:57.367021+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.source.json",
+      "sha256": "f18c9191161867a158126d7726e8d4826b8aef6280b98870f0839ac61e0a92e5",
+      "bytes": 1341,
+      "mtimeUtc": "2026-10-25T08:39:47.232764+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v1.source.json",
+      "sha256": "bfac3400157988ea455d275edaa8b431ab58910b153486d569dadf1834ae8d71",
+      "bytes": 1349,
+      "mtimeUtc": "2026-10-25T08:52:03.572861+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v2.source.json",
+      "sha256": "a06d91207acbe3d4f1f2b6dca46068716cf03b147912d7924dd1d74b81ed1ca9",
+      "bytes": 1693,
+      "mtimeUtc": "2026-10-25T08:54:01.307718+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-study-apricot-v1.source.json",
+      "sha256": "84fdd5ab12939eef19d5cccf4b89eaa1affe0ea3fae11415aed1c26ff9b0fb4a",
+      "bytes": 1329,
+      "mtimeUtc": "2026-10-25T08:42:34.047839+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-listening-apricot-literary-pilot-v1.source.json",
+      "sha256": "d8079c0142c3637c630c6625d0a0b1b9fe6512cdd7f4463aa72cddb595474e8c",
+      "bytes": 6305,
+      "mtimeUtc": "2026-10-25T08:59:58.320771+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-listening-apricot-literary-pilot-v2.source.json",
+      "sha256": "ff796a78eb2ea9bbafdf3c776435d5531b6a1e55af4655b4825b9c0c9a5a838b",
+      "bytes": 7555,
+      "mtimeUtc": "2026-10-25T09:50:26.964913+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-rest-apricot-literary-pilot-v1.source.json",
+      "sha256": "ba207dbc7f8d219502ccc33494bd075c1316dd1933e1ce42a43c6192fdccc1b3",
+      "bytes": 6173,
+      "mtimeUtc": "2026-10-25T08:59:58.313728+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-resume-apricot-literary-pilot-v1.source.json",
+      "sha256": "029e9621c9cdedbd0544cf352a23955289773be8a0bf824568c064a9d2008113",
+      "bytes": 6753,
+      "mtimeUtc": "2026-10-25T08:59:58.326827+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-attention-apricot-literary-pilot-v1.source.json",
+      "sha256": "e320cf18dc6ef220a606904b54982f31694af879ee792a93331fcbf606c6e5af",
+      "bytes": 7881,
+      "mtimeUtc": "2026-10-25T08:58:55.954699+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-planning-apricot-literary-pilot-v1.source.json",
+      "sha256": "08f4d91be377748cd99b39051a370304099373a753ee93e344b6418b717c4bcb",
+      "bytes": 7337,
+      "mtimeUtc": "2026-10-25T08:58:55.940470+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-rgba-candidate-v1.source.json",
+      "sha256": "a4bba6b04dccdda4c307a458b68230182d717c528e55c29fda3970a89ad3afe5",
+      "bytes": 1333,
+      "mtimeUtc": "2026-10-25T09:21:11.881960+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-step1-source-v1.json",
+      "sha256": "bbe7ba476feda6b4bf4f088cbd28f5e9e074c694c47b635d51be4e206faf2a08",
+      "bytes": 3673,
+      "mtimeUtc": "2026-10-25T09:02:05.741738+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-step1-source-v2.json",
+      "sha256": "3a959e88c88a42111622430423f89686d123822960fa1f26e2ecb64fd9d7fa98",
+      "bytes": 3801,
+      "mtimeUtc": "2026-10-25T09:15:54.578432+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-step2-source-v1.json",
+      "sha256": "622b9d477c3feed78391567d03866c095af31a15991b0fbdcce6ce0a8a2c27d2",
+      "bytes": 3194,
+      "mtimeUtc": "2026-10-25T09:02:05.752093+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-step2-source-v2.json",
+      "sha256": "1f2ffdc54748aff8ff4e4429f7f6ef43f46dc81f0b7b9c11dc42e5686eb0430e",
+      "bytes": 3823,
+      "mtimeUtc": "2026-10-25T09:15:54.588699+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/shadow-step1-source-v1.json",
+      "sha256": "3fba72a735b6591bce05e18649fe2cb78719b067ee4f4982ceb1180921793fcd",
+      "bytes": 3667,
+      "mtimeUtc": "2026-10-25T09:02:05.765011+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/shadow-step2-source-v1.json",
+      "sha256": "075e90b951df583704fac5ba3a21d89d563f538bf0d14063a62fce6d317013a5",
+      "bytes": 3520,
+      "mtimeUtc": "2026-10-25T09:02:05.776190+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/weather-chat-pilot/sakiko-chat-dry-night-v1.source.json",
+      "sha256": "b7c03d1a2c2a077c2f0c3384f092b5a931f503922a7e818314c4e811f6428e07",
+      "bytes": 3279,
+      "mtimeUtc": "2026-10-25T09:26:33.693434+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/weather-chat-pilot/sakiko-chat-rain-day-v1.source.json",
+      "sha256": "43435baa78d492cb51eaba5778042f49e5e98930ff2cef3989fd88dbdb960320",
+      "bytes": 3333,
+      "mtimeUtc": "2026-10-25T09:28:18.658760+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wave-a/soyo-planning-apricot-literary-v1.source.json",
+      "sha256": "4902dce8dac66586d2a655000b7f9360202dad6c3f5f0097215cd5803be0a24d",
+      "bytes": 11362,
+      "mtimeUtc": "2026-10-25T10:09:58.929757+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wave-a/soyo-reading-apricot-literary-v1.source.json",
+      "sha256": "2fa7a2947c4d73e78d2ed07608d8802ef55300a681319c55dffe65d9581b3444",
+      "bytes": 10116,
+      "mtimeUtc": "2026-10-25T10:08:27.183476+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wave-a/soyo-rest-apricot-literary-v1.source.json",
+      "sha256": "1e97b3ee0e8850dbe11dd1b73e2630ebdf07f63776cbbd1fffca316352ecaa23",
+      "bytes": 9938,
+      "mtimeUtc": "2026-10-25T10:11:26.326593+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wave-b/soyo-attention-apricot-literary-v1.source.json",
+      "sha256": "381028a22baa2c33bbff9c1e89ffdd413aed999aa936aeef78b1da1872c5191b",
+      "bytes": 10420,
+      "mtimeUtc": "2026-10-25T12:01:14.609963+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wave-b/soyo-listening-apricot-literary-v1.source.json",
+      "sha256": "2ff0fde0e1f4374da4b39b3b5b87479568a0c8087475859bfdab0bfed275f682",
+      "bytes": 10499,
+      "mtimeUtc": "2026-10-25T12:01:14.579284+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wave-b/soyo-play-apricot-literary-v1.source.json",
+      "sha256": "e6c79c3626acbe3fb9ed3eac437f5bebfed84ded153ec54067e7329de2840ce4",
+      "bytes": 10621,
+      "mtimeUtc": "2026-10-25T12:01:14.594526+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wave-b/soyo-resume-apricot-literary-v1.source.json",
+      "sha256": "3995028f9ab66fb4416ad3c1079efd1e44837a8eee8438c513a6978d46362f6a",
+      "bytes": 10600,
+      "mtimeUtc": "2026-10-25T12:01:14.631069+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wave-b/soyo-study-apricot-literary-desk-v2.source.json",
+      "sha256": "ddeafa44051693464b884b776b650c7058400f473c15e8a692f63811a9f2f52d",
+      "bytes": 9297,
+      "mtimeUtc": "2026-10-25T12:06:19.369092+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wave-b/soyo-study-apricot-literary-v1.source.json",
+      "sha256": "d9cf91c06cc0e6e30d1f0196dcacb66fd4f96e639cdba174d7080a44d5720589",
+      "bytes": 11046,
+      "mtimeUtc": "2026-10-25T12:01:15.280727+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/figure-step1-v1.source.json",
+      "sha256": "d27d793728e9b6a5123e1c6dfffc485d49697581240f623c089fd3eaf7e8bfd2",
+      "bytes": 6397,
+      "mtimeUtc": "2026-10-25T11:34:17.245107+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/figure-step2-v1.source.json",
+      "sha256": "9df98fa87899b991225e0bf2e7664dd80d1ede5a41132dfd1429cc2bf9303b84",
+      "bytes": 5897,
+      "mtimeUtc": "2026-10-25T11:34:17.261458+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/shadow-step1-v1.source.json",
+      "sha256": "26913221ef6cfd3109166442224b99943d6dc9fc8dda1205e9e6893bed891256",
+      "bytes": 6521,
+      "mtimeUtc": "2026-10-25T11:34:17.279686+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/shadow-step2-v1.source.json",
+      "sha256": "4687e1cc2949877e5fa419af3f0f3cddff8c8537f183ff5db60f10e2b2611016",
+      "bytes": 6335,
+      "mtimeUtc": "2026-10-25T11:34:17.305897+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-light-wave/soyo-chat-mist-literary-v1.source.json",
+      "sha256": "529841a7c26497efc99c3a0ac13039e2e0b1b91588089896aa1458852cab0568",
+      "bytes": 10222,
+      "mtimeUtc": "2026-10-25T12:20:55.758385+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-light-wave/soyo-chat-rain-literary-v1.source.json",
+      "sha256": "03ad1bbc38ad725e347f1ed13904f9127f3fa93be7b476aa6a4f30ef8231d90d",
+      "bytes": 10601,
+      "mtimeUtc": "2026-10-25T12:20:55.797476+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-light-wave/soyo-chat-violet-literary-v1.source.json",
+      "sha256": "265021c656b6453e8e063d5a098d7c7da4aaa7ef68b1704288b4609be7024f14",
+      "bytes": 10284,
+      "mtimeUtc": "2026-10-25T12:20:55.778805+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-pilot/soyo-chat-apricot-literary-v1.source.json",
+      "sha256": "b93bed9c534c50c490211625026842288536990504950d035a019981d197cabe",
+      "bytes": 9800,
+      "mtimeUtc": "2026-10-25T09:13:52.912243+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/apricot-wave-a/taki-planning-apricot-literary-v1.source.json",
+      "sha256": "8a24aae69d6f4fb30df018c12e2e3bd9689dca78b442c6d2ef57f390e9b25fa3",
+      "bytes": 3409,
+      "mtimeUtc": "2026-10-25T11:36:03.843931+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/apricot-wave-a/taki-reading-apricot-literary-v1.source.json",
+      "sha256": "6fcdd0d9fce5cfe79e7243f0c7c1312a61468c58f8f3fe96099d34cf8aba3071",
+      "bytes": 3158,
+      "mtimeUtc": "2026-10-25T11:36:03.830659+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/apricot-wave-a/taki-rest-apricot-literary-v1.source.json",
+      "sha256": "4cdf0388f909860bbc3979995c8595976201581d0f41a343ea3a9c4f174c8039",
+      "bytes": 3319,
+      "mtimeUtc": "2026-10-25T11:36:03.857984+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/apricot-wave-b/taki-attention-apricot-literary-v1.source.json",
+      "sha256": "641c319e21937e59fb86de2cbb33a25602988374904562b54277873a6f875569",
+      "bytes": 6143,
+      "mtimeUtc": "2026-10-25T12:20:02.060649+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/apricot-wave-b/taki-listening-apricot-literary-v1.source.json",
+      "sha256": "015ef91815d4e420a8f585b014e80714b69b6ae45fa75def9ffd5fdee2f83f15",
+      "bytes": 6042,
+      "mtimeUtc": "2026-10-25T12:20:02.025269+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/apricot-wave-b/taki-play-apricot-literary-v1.source.json",
+      "sha256": "7e1dd920ec1349c24be8de82c357fc40afce270dee3e240ee62b683ea70c81be",
+      "bytes": 6164,
+      "mtimeUtc": "2026-10-25T12:20:02.045412+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/apricot-wave-b/taki-resume-apricot-literary-v1.source.json",
+      "sha256": "3ace7a0e802c256b6663ce6721489434ca19304a078004bdeccca9e4b11df558",
+      "bytes": 6143,
+      "mtimeUtc": "2026-10-25T12:20:02.074767+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/apricot-wave-b/taki-study-apricot-literary-v1.source.json",
+      "sha256": "f1f170e844e83f09484c12e2a3e4550794bfd0ffa189a9449a3918874010eb88",
+      "bytes": 7399,
+      "mtimeUtc": "2026-10-25T12:20:02.011348+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-layers/figure-step1-source-v1.json",
+      "sha256": "d7ed4b0c1a088cb80a4df3299580d3cfcdb49846eace6ccbde8966610bed7b8e",
+      "bytes": 3674,
+      "mtimeUtc": "2026-10-25T11:23:10.269273+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-layers/figure-step2-source-v1.json",
+      "sha256": "8f707f18ff3b720a693e6492deff76e865fe572dee7bc8cf91c48fdbe7b4f953",
+      "bytes": 5299,
+      "mtimeUtc": "2026-10-25T11:36:03.201693+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-layers/shadow-step1-source-v1.json",
+      "sha256": "25fcc7f22087c7b85bc6aea192b77df8b8ad11c142ff08ca8635258d0089c90b",
+      "bytes": 3800,
+      "mtimeUtc": "2026-10-25T11:25:34.253960+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-layers/shadow-step2-source-v1.json",
+      "sha256": "35d45f64118f1587f884f24948ad42e3bc21f24e5f73e1dcfbab7f2fcbd27444",
+      "bytes": 3602,
+      "mtimeUtc": "2026-10-25T11:27:08.285634+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-light-wave/taki-chat-mist-literary-v1.source.json",
+      "sha256": "f68278ccad9eb995cdef09151802a04f54251a3f6b43fc5fffdf2dee22526e8b",
+      "bytes": 6391,
+      "mtimeUtc": "2026-10-25T12:16:50.162034+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-light-wave/taki-chat-rain-literary-v1.source.json",
+      "sha256": "c1a74e51810486fa70db20d7fd5d4b838f779b290b21b040e6b001369846bf97",
+      "bytes": 6728,
+      "mtimeUtc": "2026-10-25T12:20:01.970000+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-light-wave/taki-chat-violet-literary-v1.source.json",
+      "sha256": "1d34dd8b80f940f0beeb158a806d8a2ff1e68b0ba5352b19b7f8226ed4c07806",
+      "bytes": 6921,
+      "mtimeUtc": "2026-10-25T12:18:05.296529+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-pilot/taki-chat-apricot-literary-v1.source.json",
+      "sha256": "57e7781b3e1441093a73c2f55ff3e3bfa21696b6c123b364954bfb9d65d1bd85",
+      "bytes": 3070,
+      "mtimeUtc": "2026-10-25T11:36:04.458216+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/apricot-wave-a/tomori-planning-apricot-literary-v1.source.json",
+      "sha256": "1282a2e094dbf01f98fa654420939b4421e40246adeba5c541152c87be229dcf",
+      "bytes": 3153,
+      "mtimeUtc": "2026-10-25T11:36:03.235396+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/apricot-wave-a/tomori-reading-apricot-literary-v1.source.json",
+      "sha256": "3a2ad1498b730276424bad2b9733c10af6b94ca15e3f929175f5827e48dc85bd",
+      "bytes": 3106,
+      "mtimeUtc": "2026-10-25T11:36:03.220011+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/apricot-wave-a/tomori-rest-apricot-literary-v1.source.json",
+      "sha256": "60eb0afc48225768c5a884c3c99ec0d40d087bd2743203e001d2b4ebc978b654",
+      "bytes": 3234,
+      "mtimeUtc": "2026-10-25T11:36:03.248539+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/apricot-wave-b/tomori-attention-apricot-literary-v1.source.json",
+      "sha256": "756c678949a74de2035d794f2e2bc864fa4283830f195ab4eae71c84bfd9e5b7",
+      "bytes": 6266,
+      "mtimeUtc": "2026-10-25T12:01:26.455378+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/apricot-wave-b/tomori-listening-apricot-literary-v1.source.json",
+      "sha256": "488b8a3dc36f52a60dbf5f8c32667d0ace1f6b9905d4e8691cb34d6404d10b63",
+      "bytes": 6066,
+      "mtimeUtc": "2026-10-25T12:01:26.428268+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/apricot-wave-b/tomori-play-apricot-literary-v1.source.json",
+      "sha256": "f64da902ac18cb78ec8f220791c6b33a6eb78230e0142512e9153c9e4242ba8f",
+      "bytes": 6111,
+      "mtimeUtc": "2026-10-25T12:01:26.443578+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/apricot-wave-b/tomori-resume-apricot-literary-v1.source.json",
+      "sha256": "f140697d3ff07e1a77287bc8507a353a645bca3ca0557c816d8f06f66908a52e",
+      "bytes": 6174,
+      "mtimeUtc": "2026-10-25T12:01:26.471004+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/apricot-wave-b/tomori-study-apricot-literary-v1.source.json",
+      "sha256": "ee7c9560eec5d5e43a68c7b15b5c6b620b1057bf28e8b7d609b2b17f14daaf9e",
+      "bytes": 7383,
+      "mtimeUtc": "2026-10-25T12:01:26.413579+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/figure-step1-source-v1.json",
+      "sha256": "ea0bbb3ecc71149172b5536f4e77720faadb109984bbef03a05d7a49a4d205b9",
+      "bytes": 3691,
+      "mtimeUtc": "2026-10-25T11:19:31.722822+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/figure-step2-source-v1.json",
+      "sha256": "cc724147dd62ed2dca889098684f22e47a89a60964c0a9ab083828fab34ed66b",
+      "bytes": 3526,
+      "mtimeUtc": "2026-10-25T11:20:17.372604+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/shadow-step1-source-v1.json",
+      "sha256": "e820dcc12685b00f34bf6028c9d5129f6c35b7822d7b4ca271352f07896c3e1d",
+      "bytes": 3891,
+      "mtimeUtc": "2026-10-25T11:21:14.324098+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/shadow-step2-source-v1.json",
+      "sha256": "4714451c824a913e1276eb3d6e944b18609beb0255ba74f5c5935b478e95cd62",
+      "bytes": 3627,
+      "mtimeUtc": "2026-10-25T11:22:12.684324+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-light-wave/tomori-chat-mist-literary-v1.source.json",
+      "sha256": "dc05a592b76374e68f4a853b1bf2233f67794c9fe1650791936069fb164d202c",
+      "bytes": 5798,
+      "mtimeUtc": "2026-10-25T12:05:46.865590+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-light-wave/tomori-chat-rain-literary-v1.source.json",
+      "sha256": "2ff4f04a79a1f72ab855252397e6688eae7d4991cd8b8e0258bd26a4e57516f6",
+      "bytes": 6264,
+      "mtimeUtc": "2026-10-25T12:15:05.723850+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-light-wave/tomori-chat-violet-literary-v1.source.json",
+      "sha256": "bac1f5490dcb50a610b46768a34ecba1aa1c3fabdddeee9022a094498e057d2a",
+      "bytes": 6004,
+      "mtimeUtc": "2026-10-25T12:12:43.369050+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-pilot/tomori-chat-apricot-literary-v1.source.json",
+      "sha256": "1985a2c2aa558b2ad469a4f0fa91f397c39da6357db1962f55879ec4c65a6a43",
+      "bytes": 2857,
+      "mtimeUtc": "2026-10-25T11:36:03.817219+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/light-activity-wave-a/tomori-planning-mist-literary-v1.source.json",
+      "sha256": "dd73bff39874a3a6a995cc366e783ae84ac9c7bdd3c6afbf351120bf57523999",
+      "bytes": 6492,
+      "mtimeUtc": "2026-10-25T13:09:45.622823+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/light-activity-wave-a/tomori-planning-rain-literary-v1.source.json",
+      "sha256": "7f6b7f688a061fcb1c66588fa91f64cc36814478b72ae773f7c05aabc61d1b1c",
+      "bytes": 6623,
+      "mtimeUtc": "2026-10-25T13:11:55.479160+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/light-activity-wave-a/tomori-planning-violet-literary-v1.source.json",
+      "sha256": "a12a56ef658875215a9af3cbc786e20b40a40e0e0a32ad2f0122e3ce61d344ed",
+      "bytes": 6546,
+      "mtimeUtc": "2026-10-25T13:10:41.592040+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/light-activity-wave-a/tomori-reading-mist-literary-v1.source.json",
+      "sha256": "86b3db407e301dac396a6de6f0406d2ddaae1be0ed72b2c4ae8079227838f437",
+      "bytes": 6417,
+      "mtimeUtc": "2026-10-25T13:06:05.618302+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/light-activity-wave-a/tomori-reading-rain-literary-v1.source.json",
+      "sha256": "d98e268584a5fb9370480a9f400eaf0a9892d4b99dc94736812aee0d298adfde",
+      "bytes": 6681,
+      "mtimeUtc": "2026-10-25T13:08:33.121528+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/light-activity-wave-a/tomori-reading-violet-literary-v1.source.json",
+      "sha256": "a531723e629d3d64ab0c40c0f66d55bf9d4ec9eabedb10c44c216c27b56ecf7c",
+      "bytes": 6561,
+      "mtimeUtc": "2026-10-25T13:07:28.704061+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/light-activity-wave-a/tomori-rest-mist-literary-v1.source.json",
+      "sha256": "e438fd7c5e7d56a3e6c4250b8d85d3b0264a1c9e828f80891d3ce30e259d7665",
+      "bytes": 6423,
+      "mtimeUtc": "2026-10-25T13:13:53.980021+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/light-activity-wave-a/tomori-rest-rain-literary-v1.source.json",
+      "sha256": "8a09c299d067cc35bbc4f5759e17171ef63c2469003d74933553d1c1cc0deeda",
+      "bytes": 6584,
+      "mtimeUtc": "2026-10-25T13:15:56.156602+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/light-activity-wave-a/tomori-rest-violet-literary-v1.source.json",
+      "sha256": "d53b8dc581048a6761322d8a4371d3814763d7ec8e6923e97375795861ad28c8",
+      "bytes": 6572,
+      "mtimeUtc": "2026-10-25T13:14:52.548297+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/ui/home/home-literary-day-v1.source.json",
+      "sha256": "58e214ee1c10316e04a016a33603fd640b2e30f669793b7be98069678de17364",
+      "bytes": 3655,
+      "mtimeUtc": "2026-10-25T09:46:21.113392+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-a/uika-planning-apricot-literary-wave-a-v1.source.json",
+      "sha256": "7a6c63d828007044b1786216140b759b40192f2a25ee698ee9b23fff926ea8e7",
+      "bytes": 8554,
+      "mtimeUtc": "2026-10-25T11:44:01.724195+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-a/uika-reading-apricot-literary-wave-a-v1.source.json",
+      "sha256": "314a398706e11de5d5d187a46b0d016469aa5b03acd24cc7e7df7f5adb0ee5fd",
+      "bytes": 8593,
+      "mtimeUtc": "2026-10-25T11:44:01.702185+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-a/uika-rest-apricot-literary-wave-a-v1.source.json",
+      "sha256": "95b31614344533d3a7474850da310216b64d2346417ff2f12ac588a7d51d075e",
+      "bytes": 8865,
+      "mtimeUtc": "2026-10-25T11:44:01.733479+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-attention-apricot-literary-wave-b-v1.source.json",
+      "sha256": "6de2d1f326ea0ca8c6327ab3189274ee8a3588979eb05dbfc59851b51b6033be",
+      "bytes": 6529,
+      "mtimeUtc": "2026-10-25T11:54:22.548296+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-listening-apricot-literary-wave-b-v1.source.json",
+      "sha256": "5b4004e91bac9cb1bc019ac1b6d6a85797258359969ceb0f6673c5bceced4c97",
+      "bytes": 6630,
+      "mtimeUtc": "2026-10-25T11:52:10.709550+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-play-apricot-literary-wave-b-v1.source.json",
+      "sha256": "570fedfe9fa172a0597c1851bf489dd12f5e6789cb0d6531061f2023c9a2d3f7",
+      "bytes": 6684,
+      "mtimeUtc": "2026-10-25T11:53:16.207378+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-resume-apricot-literary-wave-b-v1.source.json",
+      "sha256": "903e148068c4f10060812c644427e5949457990ad5f265c8feecfe6df5bd1202",
+      "bytes": 6650,
+      "mtimeUtc": "2026-10-25T11:55:36.339391+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-study-apricot-literary-wave-b-v1.source.json",
+      "sha256": "723fd914adb4a734d2ce7f2ce0552d7179987e131a2b89132853094f8ea2cfc4",
+      "bytes": 6837,
+      "mtimeUtc": "2026-10-25T11:51:08.733744+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/f1-source-v1.json",
+      "sha256": "ac506b406c2a3b3d1dd7c7d6539674eea14c314a039d6e37b10d85ab5bf9d871",
+      "bytes": 4044,
+      "mtimeUtc": "2026-10-25T11:33:41.505133+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/f2-source-v1.json",
+      "sha256": "c2fb9ae9582a743a83c691f10e8eb77de08787eb9d93bf6a951cfc46c3689344",
+      "bytes": 3974,
+      "mtimeUtc": "2026-10-25T11:33:41.510360+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/s1-source-v1.json",
+      "sha256": "828aa96fc4df3017d79aa2350b8d59ec9be5dd1f8941c098e3509bd37ca5af12",
+      "bytes": 4226,
+      "mtimeUtc": "2026-10-25T11:33:41.514990+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/s2-source-v1.json",
+      "sha256": "7c6bb7a773212f6de4b2cd09f02ddb22c70729c533cfff04236df71bffd3f6d1",
+      "bytes": 3561,
+      "mtimeUtc": "2026-10-25T11:33:41.520754+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-light-wave/uika-chat-mist-literary-light-v1.source.json",
+      "sha256": "53d5a7f0c47ec7dd3e336b254aefcbd5bae4314ac8c66870a41d22ad88af7937",
+      "bytes": 9018,
+      "mtimeUtc": "2026-10-25T12:05:48.802383+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-light-wave/uika-chat-rain-literary-light-v1.source.json",
+      "sha256": "e065665fc547aa3a6cebbc3376683667057c210472fa6297d66c2d4679c5b4c1",
+      "bytes": 9268,
+      "mtimeUtc": "2026-10-25T12:08:53.398715+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-light-wave/uika-chat-violet-literary-light-v1.source.json",
+      "sha256": "484b4fb5dc04fd994bf80a6b028fe929eaaa6e52045e076614b0910e5542c961",
+      "bytes": 9210,
+      "mtimeUtc": "2026-10-25T12:07:29.962532+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.source.json",
+      "sha256": "1c090c50692ff6dbc87f15c4706bd221191adeec6601fe3bb798d3b903addd07",
+      "bytes": 8141,
+      "mtimeUtc": "2026-10-25T09:30:18.413378+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-a/uika-planning-mist-literary-light-wave-a-v1.source.json",
+      "sha256": "2cedcb6f0d98815e189e39d8378f066c67cdeecbcac7a063f0b948cb8fe29840",
+      "bytes": 8136,
+      "mtimeUtc": "2026-10-25T13:08:55.388695+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-a/uika-planning-rain-literary-light-wave-a-v1.source.json",
+      "sha256": "d7727c9f47d34ff81d1079ec8a456857054f8be6250f0163e167808c563cf7d6",
+      "bytes": 8335,
+      "mtimeUtc": "2026-10-25T13:11:12.878559+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-a/uika-planning-violet-literary-light-wave-a-v1.source.json",
+      "sha256": "3dc388f54efa58322563d5bd133a1ec09dc94d97c9cdec432b2b60437439016b",
+      "bytes": 8153,
+      "mtimeUtc": "2026-10-25T13:10:00.951735+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-a/uika-reading-mist-literary-light-wave-a-v1.source.json",
+      "sha256": "b587332c7c0c3c5138ef9dd51b869111315ce45da05cc840fa1bbfd5b5b1d3f8",
+      "bytes": 8146,
+      "mtimeUtc": "2026-10-25T13:05:31.362926+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-a/uika-reading-rain-literary-light-wave-a-v1.source.json",
+      "sha256": "51fadd2955419c8ec5c422dd75ced6a2291ada15f79a5f79a54c0206a476bd30",
+      "bytes": 8279,
+      "mtimeUtc": "2026-10-25T13:07:39.521379+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-a/uika-reading-violet-literary-light-wave-a-v1.source.json",
+      "sha256": "1a2daf8e477ad1d2734f59eba526fe7d6e0e810d31d746e1b5c606de057b1860",
+      "bytes": 8090,
+      "mtimeUtc": "2026-10-25T13:06:35.898666+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-a/uika-rest-mist-literary-light-wave-a-v1.source.json",
+      "sha256": "384413aade2f614723eebaab7357f5bab83e71d902cf757ea3b6036c3760c003",
+      "bytes": 8098,
+      "mtimeUtc": "2026-10-25T13:13:02.551726+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-a/uika-rest-rain-literary-light-wave-a-v1.source.json",
+      "sha256": "45f38862380fea2402c5f5e261a3a5cf1ecf844d55a2d283b8571148771dac9c",
+      "bytes": 8266,
+      "mtimeUtc": "2026-10-25T13:15:12.929106+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-a/uika-rest-violet-literary-light-wave-a-v1.source.json",
+      "sha256": "07cfdcc7c461557fc061ae2d460b5264701f1924d31f421e68cd3510f62a254a",
+      "bytes": 8160,
+      "mtimeUtc": "2026-10-25T13:14:12.213251+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-a/uika-study-mist-literary-light-wave-a-v1.source.json",
+      "sha256": "96585f453a867c3eccc982a820c479deb9c45dc596c1f6a668182668a2f02895",
+      "bytes": 8119,
+      "mtimeUtc": "2026-10-25T13:16:11.488050+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-a/umiri-planning-apricot-literary-wave-a-v1.source.json",
+      "sha256": "7fd34aea1e07d0d41f9c3bf95373ba31073d8e4f40b5f15b91ad8531750ed5e9",
+      "bytes": 8806,
+      "mtimeUtc": "2026-10-25T11:44:01.759079+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-a/umiri-reading-apricot-literary-wave-a-v1.source.json",
+      "sha256": "78ea917eb84d80e447e72ff4e789e6ac3291f1e57492485f08daa88dc76298a5",
+      "bytes": 8776,
+      "mtimeUtc": "2026-10-25T11:44:01.749960+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-a/umiri-rest-apricot-literary-wave-a-v1.source.json",
+      "sha256": "8025ac1195d41906a7120ec12c39bfea80b702f0c427612988b212e06f2bad59",
+      "bytes": 9234,
+      "mtimeUtc": "2026-10-25T11:44:01.768276+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-attention-apricot-literary-wave-b-v1.source.json",
+      "sha256": "921cd812f40dba33af009ab40383a3c2d21fe8ff1637d096024cc8b488df916e",
+      "bytes": 6733,
+      "mtimeUtc": "2026-10-25T11:59:48.870651+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-listening-apricot-literary-wave-b-v1.source.json",
+      "sha256": "01f08abc9db521c95ac1967a0afcc76667798366b35a279fe5a86d870387334d",
+      "bytes": 6815,
+      "mtimeUtc": "2026-10-25T11:58:02.623262+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-play-apricot-literary-wave-b-v1.source.json",
+      "sha256": "c8ef05bf4fadd00964686ef9b0771784d08e2287415bcf0353d0061ba74a8e49",
+      "bytes": 6778,
+      "mtimeUtc": "2026-10-25T11:59:01.263278+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-resume-apricot-literary-wave-b-v1.source.json",
+      "sha256": "07579b368f296161d42a3331e25ecb50fd857b177b6bdf725f972e2c515c4e3d",
+      "bytes": 6926,
+      "mtimeUtc": "2026-10-25T12:01:15.747014+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-study-apricot-literary-wave-b-v1.source.json",
+      "sha256": "ee4a6bdf51d4f548ed6264c078fb485f6e98ae2c2fa7d54b493a527a4b653a86",
+      "bytes": 6844,
+      "mtimeUtc": "2026-10-25T11:57:02.958840+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/f1-source-v1.json",
+      "sha256": "5d375dd122b4f545cdbd70b209880afb63d8e19caeb15dea1ef30d7c64f7f847",
+      "bytes": 4119,
+      "mtimeUtc": "2026-10-25T11:43:15.004337+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/f2-source-v1.json",
+      "sha256": "da37ffd7eb24e2eb1c42d8428133f61cba09d0be25e8bce211d317a42661a5b3",
+      "bytes": 4100,
+      "mtimeUtc": "2026-10-25T11:43:15.009079+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/s1-source-v1.json",
+      "sha256": "bbeba0e6bd47ede42748d63e37bf353cb28be641904dcf3a58b2d569c3e8488d",
+      "bytes": 4278,
+      "mtimeUtc": "2026-10-25T11:43:15.015384+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/s2-source-v1.json",
+      "sha256": "c0c87e607321c4801ed80408d72a38be252f8bef9009b446cf02b30fab7e770b",
+      "bytes": 3528,
+      "mtimeUtc": "2026-10-25T11:43:15.015384+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-light-wave/umiri-chat-mist-literary-light-v1.source.json",
+      "sha256": "fb2b2bbfe1f93c57e9ddda64541492162fedc8e23f486d1468e64722d797c590",
+      "bytes": 9106,
+      "mtimeUtc": "2026-10-25T12:10:20.498629+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-light-wave/umiri-chat-rain-literary-light-v1.source.json",
+      "sha256": "8121b8e735c899be5b503ac49bb2a7706e1ec28bb1b946bb6c2b606189bec4a5",
+      "bytes": 9337,
+      "mtimeUtc": "2026-10-25T12:13:01.112464+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-light-wave/umiri-chat-violet-literary-light-v1.source.json",
+      "sha256": "970153883a62a1c12b50869bc733d76970715663765b42118b0e692058526776",
+      "bytes": 9180,
+      "mtimeUtc": "2026-10-25T12:11:36.448828+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v1.source.json",
+      "sha256": "96706900793a0bade6de2cea4fa7f39b1fd50308ea5f45c57f0d83660c2a2808",
+      "bytes": 8620,
+      "mtimeUtc": "2026-10-25T09:30:18.413378+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v2.source.json",
+      "sha256": "79f2bb44da76f89950f0d4a9e96bec6c86137d4772323d7d6440dfa7df2b13b9",
+      "bytes": 8878,
+      "mtimeUtc": "2026-10-25T09:59:49.366819+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.source.json",
+      "sha256": "d9cd4427517d0e0fc050b9777c204e4f7363d8bd19bb585f000f5212f64fe6c3",
+      "bytes": 1247,
+      "mtimeUtc": "2026-10-25T08:30:16.315381+00:00"
+    }
+  ],
+  "rootRecords": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/apricot-wave-a/anon-apricot-wave-a-primary-mother-admission-v1.json",
+      "sha256": "e9e2122afb31b49d1d9b1da97aa6772a090a8b0addd6a57f4edda5969b7aa4b9",
+      "bytes": 4139,
+      "mtimeUtc": "2026-10-25T11:36:47.484242+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/apricot-wave-a/anon-planning-apricot-literary-bench-v2-primary-mother-admission-v1.json",
+      "sha256": "c5d3d6f4f14cde49763eacacef9473a31f62d67b66f4bdf7c4c4264234bc0936",
+      "bytes": 1360,
+      "mtimeUtc": "2026-10-25T12:01:15.302975+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/anon-chat-apricot-literary-included-primary-admission-v1.json",
+      "sha256": "8443db6e6b15d22bb3820a5a98fb22f257355f0045df2f5e755540dba3f586f5",
+      "bytes": 3290,
+      "mtimeUtc": "2026-10-25T11:41:41.967151+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/literary-room-empty-plates-primary-admission-v1.json",
+      "sha256": "8ed5c9723ccf61f178ffa5e7f90a66f05b18fc6e44c8ba1124782b679a045c0c",
+      "bytes": 4399,
+      "mtimeUtc": "2026-10-25T09:05:50.809585+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-a/mutsumi-planning-apricot-v1.primary-approval.json",
+      "sha256": "63fdbcafce133b025a11fe486a000bf9818f93e0f0f90974c25337201bd1edaf",
+      "bytes": 922,
+      "mtimeUtc": "2026-10-25T11:34:52.169721+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-a/mutsumi-reading-apricot-v1.primary-approval.json",
+      "sha256": "f5bb54806e39860ace8d0d476a109d5eb2b2ade111807c2da31bc4cdc3286aa7",
+      "bytes": 882,
+      "mtimeUtc": "2026-10-25T11:34:52.157038+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-a/mutsumi-rest-apricot-v1.primary-approval.json",
+      "sha256": "f3abdabff973d977f510ebaf465fd555fffe959349fe7e554a9c580510f773ad",
+      "bytes": 1029,
+      "mtimeUtc": "2026-10-25T11:34:52.183174+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-attention-apricot-v1.primary-approval.json",
+      "sha256": "bba8b3d5ba1518d1e3e94976ea0615217eb00f35d89bf70159195b44e8da68e2",
+      "bytes": 1092,
+      "mtimeUtc": "2026-10-25T12:23:41.792179+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-listening-apricot-v1.primary-approval.json",
+      "sha256": "e30fc447b73b6efb83206fcc37da3b06b7fe60cdac4e6c4df290373443aa0457",
+      "bytes": 977,
+      "mtimeUtc": "2026-10-25T12:23:41.760550+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-play-apricot-v1.primary-approval.json",
+      "sha256": "0175bef104cffc62e58c2f3934c8f96acd132f7cf29a56f5f6c9fef31ae90d05",
+      "bytes": 1036,
+      "mtimeUtc": "2026-10-25T12:23:41.776409+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-resume-apricot-v1.primary-approval.json",
+      "sha256": "d6f80d6dbb3526376eb2c1532d4a72ec68f38d1e6a51a062b247fd9a690fa74b",
+      "bytes": 991,
+      "mtimeUtc": "2026-10-25T12:23:41.810569+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-study-apricot-v1.primary-approval.json",
+      "sha256": "2a9e5e87824d6178d98a063986eda906d04272efabad3b6caea41b99d28dd8fe",
+      "bytes": 1044,
+      "mtimeUtc": "2026-10-25T12:23:41.744792+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-included-primary-admission-v1.json",
+      "sha256": "bedd2116b3c115761220f5986b083fd6f9ceeafc1c449ca390d8df2d00e488b1",
+      "bytes": 3095,
+      "mtimeUtc": "2026-10-25T11:48:03.318759+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-a/nyamu-planning-apricot-v1.primary-approval.json",
+      "sha256": "a7094434e915b91c6f70c9c3d93e0f44012411a48158c971d1ef2e5d7a4fd61c",
+      "bytes": 933,
+      "mtimeUtc": "2026-10-25T11:34:52.209187+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-a/nyamu-reading-apricot-v1.primary-approval.json",
+      "sha256": "05c17854b2bc8801ee3a9b87c36757447c2342d32db1e5a75558e025305d582c",
+      "bytes": 926,
+      "mtimeUtc": "2026-10-25T11:34:52.196086+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-a/nyamu-rest-apricot-v1.primary-approval.json",
+      "sha256": "90c9db39fb62d142d3423e7f1bd060a165ee2050c3542ae8ec0415b9bce03a86",
+      "bytes": 910,
+      "mtimeUtc": "2026-10-25T11:34:52.231459+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-b/nyamu-attention-apricot-v1.primary-approval.json",
+      "sha256": "85b8f8d52652fb2365de5dabf13e1a8de88ceee014eacafbac5af956f5c12d94",
+      "bytes": 1105,
+      "mtimeUtc": "2026-10-25T12:51:14.630526+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-b/nyamu-listening-apricot-v1.primary-approval.json",
+      "sha256": "ad0601cdbd646c66fd732eb3956a75ee3c5150d32eeb92aa26bdbb3b134dc9ef",
+      "bytes": 1070,
+      "mtimeUtc": "2026-10-25T12:51:14.607609+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-b/nyamu-play-apricot-v1.primary-approval.json",
+      "sha256": "9424cdd92a9cdaf9ac37d394a41b514cbc6295fe518dd285d0a29a67a9a01bb3",
+      "bytes": 1045,
+      "mtimeUtc": "2026-10-25T12:51:14.619688+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-b/nyamu-resume-apricot-v1.primary-approval.json",
+      "sha256": "087c151bc9f0e2f7ca456bf07a6c3d0e9d1a22464635afed2561fd9fe7d508bc",
+      "bytes": 1325,
+      "mtimeUtc": "2026-10-25T12:51:14.653450+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-b/nyamu-study-apricot-v1.primary-approval.json",
+      "sha256": "ab148a66ca00ff1ab928d478035a381905a8de0ee024c55e8c80966a32b10305",
+      "bytes": 1218,
+      "mtimeUtc": "2026-10-25T12:51:14.594913+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-included-primary-admission-v1.json",
+      "sha256": "59c657adf7d5142f64416fe3abfd865de5788cfe0ae9754a0e4495ffba1b7449",
+      "bytes": 3124,
+      "mtimeUtc": "2026-10-25T11:48:03.347620+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-dry-night-v1.primary-approval.json",
+      "sha256": "9165f0548a08ffe75560be33354ec8fa89f511cc96345ca945c4bd100e16d3b7",
+      "bytes": 849,
+      "mtimeUtc": "2026-10-25T08:48:32.643943+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.primary-approval.json",
+      "sha256": "00be824f06a3d5ea16f32264c19898e3da9e8c37c5e3ed4668475e165720efc1",
+      "bytes": 790,
+      "mtimeUtc": "2026-10-25T08:48:31.588821+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-day-v1.primary-approval.json",
+      "sha256": "8bccf12ee2f1abe0f0e7327f397f1aefef330f9a7107a42b0da96d09240cab54",
+      "bytes": 833,
+      "mtimeUtc": "2026-10-25T08:48:32.110590+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.primary-approval.json",
+      "sha256": "c69b0ffc2ffd0cf8296845ec5320411f966154f00763db65dfe4ff6b415860f4",
+      "bytes": 797,
+      "mtimeUtc": "2026-10-25T09:03:17.152237+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.primary-approval.json",
+      "sha256": "52fbcfab5828226ba97e486aaf20e2d5896d3744c349094129602faef22e7f72",
+      "bytes": 869,
+      "mtimeUtc": "2026-10-25T09:03:17.680389+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.primary-approval.json",
+      "sha256": "6911d8a438417db80fe67e828c3d44735769722529af1fe8f09b3b1cfbf1c0c9",
+      "bytes": 805,
+      "mtimeUtc": "2026-10-25T09:03:18.198086+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.primary-approval.json",
+      "sha256": "8606bc7ad5785ad740b4f89a9620eefb9287b62d186855e4bd5807dc461d2ed1",
+      "bytes": 797,
+      "mtimeUtc": "2026-10-25T09:03:16.580362+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-cast-chat-mother-reviews-v1.json",
+      "sha256": "b32551906bac652f6e981a9145d8a0abc3f5436e3332add92749c745b6c6eb4d",
+      "bytes": 10548,
+      "mtimeUtc": "2026-10-25T11:24:09.676894+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+      "sha256": "0dc133f5dc0ac1702bce894b279304dde90ab45ddbe57c4107ee9caf360fe8d0",
+      "bytes": 16161,
+      "mtimeUtc": "2026-10-25T11:24:09.723030+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/rana-chat-apricot-included-primary-admission-v1.json",
+      "sha256": "a23e48fcaa0f3afe95ead344e6832b7ceecffd22888d8ec9095f7d8efd22355a",
+      "bytes": 2864,
+      "mtimeUtc": "2026-10-25T11:41:52.012043+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/sakiko-chat-apricot-literary-included-primary-admission-v1.json",
+      "sha256": "a1fdfd547484e65d68b04220fcd8fcff56e093c218dd0f4c85e5323aa469efbc",
+      "bytes": 3679,
+      "mtimeUtc": "2026-10-25T12:14:11.937012+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/sakiko-desk-writing-literary-included-primary-admission-v1.json",
+      "sha256": "0819eb5326f5cbf678e96ebcc95855c52859bf90376377e2901ada3aa74bba62",
+      "bytes": 4033,
+      "mtimeUtc": "2026-10-25T12:08:47.987801+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/sakiko-chat-dry-night-literary-included-primary-admission-v1.json",
+      "sha256": "4e3f3cd07eb093675fc87b24d9c2d9df5217ffd155f8b295a884be64802d2c74",
+      "bytes": 2744,
+      "mtimeUtc": "2026-10-25T11:24:09.659236+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/sakiko-reading-apricot-literary-included-primary-admission-v1.json",
+      "sha256": "ed7b0871ae32ac952608adb980ace372aa3d48a9254d542742b0e31aa2a8f601",
+      "bytes": 9187,
+      "mtimeUtc": "2026-10-25T09:44:50.037196+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wave-a/soyo-apricot-wave-a-primary-mother-admission-v1.json",
+      "sha256": "67be92e197cf8168c27a8fe4b063cfb6f33bb87868259adaae9ab3f8c8928efe",
+      "bytes": 4251,
+      "mtimeUtc": "2026-10-25T11:36:47.494707+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/soyo-chat-apricot-literary-included-primary-admission-v1.json",
+      "sha256": "5a0104f77f0b32183ffa32b3c319591ad7f03e7429bf96a73c129a91b7566837",
+      "bytes": 3301,
+      "mtimeUtc": "2026-10-25T11:41:42.008215+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/apricot-wave-a/primary-mother-admission-v1.json",
+      "sha256": "c8deddae886bd8609e8257efbfcc9f584ba15ff607825888d620ce9010acb59d",
+      "bytes": 1960,
+      "mtimeUtc": "2026-10-25T11:32:00.526830+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/apricot-wave-b/primary-mother-admission-v1.json",
+      "sha256": "c209fcf27bfaf3ec61d7c70f2b874958b27539889d26a6de1a890e19d8344453",
+      "bytes": 3668,
+      "mtimeUtc": "2026-10-25T12:20:01.997032+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-layers/taki-chat-apricot-literary-included-primary-admission-v1.json",
+      "sha256": "74d90d0656658921b3fda22d59e95a4b7cccde5a5b1ab8fe1d2d0ffba998ea63",
+      "bytes": 2381,
+      "mtimeUtc": "2026-10-25T11:39:51.228715+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-pilot/taki-chat-apricot-literary-v1.primary-approval.json",
+      "sha256": "147a8e8a00fc32c848c2a9757e4f7787c414ef2a5b4d7c90f6c21b0b6ad44c5d",
+      "bytes": 809,
+      "mtimeUtc": "2026-10-25T10:01:37.371503+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/apricot-wave-a/primary-mother-admission-v1.json",
+      "sha256": "0ee4456c5a41b76d8f49125bb5fe38bafc8e8f4b40d80570285ef5a00c668505",
+      "bytes": 1902,
+      "mtimeUtc": "2026-10-25T11:32:00.477176+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/apricot-wave-b/primary-mother-admission-v1.json",
+      "sha256": "71527b1de2895b75918c9e07b1d33d46bc8cceca76d67b61dff72daca86924ba",
+      "bytes": 3784,
+      "mtimeUtc": "2026-10-25T12:01:26.401344+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/tomori-chat-apricot-literary-included-primary-admission-v1.json",
+      "sha256": "e6208d40f593db026649d4af40c479f8744dbf0ae3532156a310e09284d19cca",
+      "bytes": 2326,
+      "mtimeUtc": "2026-10-25T11:39:48.717623+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-pilot/tomori-chat-apricot-literary-v1.primary-approval.json",
+      "sha256": "eb9c75cb25176999e1c29f13ffbf896e7e0bb2bf78ddefd4f06b7c2fa86bb271",
+      "bytes": 745,
+      "mtimeUtc": "2026-10-25T10:01:36.774846+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-a/root-mother-admission-v1.json",
+      "sha256": "b7e9c283f9026833e5c4e492bb9e49c12e4b46ae42e9f93c4e52d719887d58f9",
+      "bytes": 4036,
+      "mtimeUtc": "2026-10-25T11:44:01.741679+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/root-mother-admission-v1.json",
+      "sha256": "441affb1f1f5cb486df9296e6d1bb61b28e3a9706ec9816ef56888d1340dc1a4",
+      "bytes": 7743,
+      "mtimeUtc": "2026-10-25T12:18:03.096616+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/uika-chat-apricot-joint-primary-admission-v1.json",
+      "sha256": "2b7630083fb80e4d42d2a0622f2c9aceda2e5efa5c768c19efade377c18c20b8",
+      "bytes": 3502,
+      "mtimeUtc": "2026-10-25T11:33:41.587219+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-a/root-mother-admission-v1.json",
+      "sha256": "9fb312f18597f4a1ced3ddf727878f222c36a31ad4bd2b730ee0cc0d06aa68dd",
+      "bytes": 4043,
+      "mtimeUtc": "2026-10-25T11:44:01.773517+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/root-mother-admission-v1.json",
+      "sha256": "7951458f9c2fcd9433a2752a1c620dc9020aa22c275b614470d83a7be5909c16",
+      "bytes": 7855,
+      "mtimeUtc": "2026-10-25T12:18:03.132934+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/umiri-chat-apricot-joint-primary-admission-v1.json",
+      "sha256": "1f98fd75047847d8efa3cca83fb329f8c7e201f07dd20f7d77dd24759a09b656",
+      "bytes": 3632,
+      "mtimeUtc": "2026-10-25T11:46:37.363501+00:00"
+    }
+  ],
+  "layerCandidateRecords": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/chat-included-bundle-v1.json",
+      "sha256": "cbb886aa4025ee747448feb0e960c0b792179c63ea4d8e90f2554b4e20cdaa6e",
+      "bytes": 10260,
+      "mtimeUtc": "2026-10-25T11:41:41.968984+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-included-bundle-v1.json",
+      "sha256": "9892b8ebabc3882fb136ef5e4e78ba864aaba50df144f197beec4e8a93993701",
+      "bytes": 7220,
+      "mtimeUtc": "2026-10-25T11:48:03.305127+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-included-bundle-v1.json",
+      "sha256": "52b2872998ae2cc0f855be68bfc45f1e1d83ede9eb8decbea9e9989985d8c132",
+      "bytes": 7572,
+      "mtimeUtc": "2026-10-25T11:48:03.335652+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/rana-chat-apricot-included-bundle-v1.json",
+      "sha256": "d03f2e5069c454910adfb97ddcbc40bf678f4b71a9ef6175bdce5ae1335a62b2",
+      "bytes": 8227,
+      "mtimeUtc": "2026-10-25T11:41:52.019445+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/apricot-chat-included-bundle-v1.json",
+      "sha256": "1d1c49f67e3f8318fe8f44518e1f3e95a77e0f0fe839e3b7c6f33a03de25023c",
+      "bytes": 5885,
+      "mtimeUtc": "2026-10-25T12:14:11.943728+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/mist/native-new-F-old-S-candidate-v1.json",
+      "sha256": "988ee0ae9dc1dbcc3d6c10ee0d9b22be4a6117200dc835bf9238c4e0b7375d8d",
+      "bytes": 4641,
+      "mtimeUtc": "2026-10-25T13:13:56.860163+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/rain/native-new-F-old-S-candidate-v1.json",
+      "sha256": "68192ff8e3c62d292e5ccc1b08295dda6343eb465d1b0da5ff188de92e4a062e",
+      "bytes": 4646,
+      "mtimeUtc": "2026-10-25T13:13:56.922348+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/violet/native-new-F-old-S-candidate-v1.json",
+      "sha256": "b04af9f6d1682a4cf5943e8fe74b52f1de73e68b1afa8cc1d384457376453346",
+      "bytes": 4647,
+      "mtimeUtc": "2026-10-25T13:13:56.895732+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-layers-included-bundle-v1.json",
+      "sha256": "e40e4d0d2efd87d9172d6b55edf9d8fa8d6b2d063203e1e993ab55f4037f8353",
+      "bytes": 10865,
+      "mtimeUtc": "2026-10-25T12:07:48.736383+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/dry-night-chat-included-bundle-v1.json",
+      "sha256": "3d17415e25c0753ae455c6611da390254d3ab3745603bfa8f174f2e716534c97",
+      "bytes": 7976,
+      "mtimeUtc": "2026-10-25T11:24:09.665345+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-rgba-candidate-v1.source.json",
+      "sha256": "a4bba6b04dccdda4c307a458b68230182d717c528e55c29fda3970a89ad3afe5",
+      "bytes": 1333,
+      "mtimeUtc": "2026-10-25T09:21:11.881960+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/reading-layers-bundle-v1.json",
+      "sha256": "51a9481a5eabf4170569b84f7392ddf9080ad220a04e0e5679fde9349970492c",
+      "bytes": 11444,
+      "mtimeUtc": "2026-10-25T09:02:05.731157+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/reading-layers-bundle-v2.json",
+      "sha256": "c2a4a67d7dae9f88f2780c4b08a6437c291a26071eb6fe79469b0ca91bba5ea7",
+      "bytes": 8090,
+      "mtimeUtc": "2026-10-25T09:15:54.567472+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/reading-layers-included-bundle-v3.json",
+      "sha256": "d45e231114be5bf09184cd8e6d4f541423ddfa142a292bbcb88c33a8239a7992",
+      "bytes": 7988,
+      "mtimeUtc": "2026-10-25T09:42:47.274733+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/chat-included-bundle-v1.json",
+      "sha256": "1bf7606d8f5a99742571a36e040aa63d2246945c52664221a0f134bf7acb4bed",
+      "bytes": 10282,
+      "mtimeUtc": "2026-10-25T11:41:42.008742+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/chat-layers/chat-layers-included-bundle-v1.json",
+      "sha256": "d37c25f52b8fc518cdfe4ef14037c595e8e2ea35ab0314583070fbe302781205",
+      "bytes": 6954,
+      "mtimeUtc": "2026-10-25T11:39:52.610846+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/chat-layers-included-bundle-v1.json",
+      "sha256": "6fb8bf37968973ad096fd496cd8ca62c5bd577ebfc9d76b429e52be8fb5c05f9",
+      "bytes": 6820,
+      "mtimeUtc": "2026-10-25T11:39:50.130879+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/chat-layers-included-bundle-v1.json",
+      "sha256": "0497e7993451d8708fad137631ab86f92d7ebc33de2644c8c2ce25344af99826",
+      "bytes": 7255,
+      "mtimeUtc": "2026-10-25T11:33:41.528007+00:00"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/chat-layers-included-bundle-v1.json",
+      "sha256": "f9b2b5cac65f172dd4e019fb611efcc876dda5c81cc421c0d39ae7f918142b7e",
+      "bytes": 8534,
+      "mtimeUtc": "2026-10-25T11:43:15.016941+00:00"
+    }
+  ],
+  "outputAfterCutoffExcluded": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/light-activity-wave-a/mutsumi-rest-mist-v1.png",
+      "reason": "output creation/mtime after fixed cutoff"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/light-activity-wave-a/tomori-rest-rain-literary-v1.png",
+      "reason": "output creation/mtime after fixed cutoff"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/light-activity-wave-a/tomori-rest-violet-literary-v1.png",
+      "reason": "output creation/mtime after fixed cutoff"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-a/uika-rest-rain-literary-light-wave-a-v1.png",
+      "reason": "output creation/mtime after fixed cutoff"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/light-activity-wave-a/uika-study-mist-literary-light-wave-a-v1.png",
+      "reason": "output creation/mtime after fixed cutoff"
+    }
+  ]
+}

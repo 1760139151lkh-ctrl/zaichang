@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-listening-mist-background-v1",
+  "tool": "image_gen.imagegen",
+  "actualToolArguments": {
+    "prompt": "Use case: precise-object-edit. Asset: exact same-camera EMPTY receiving background for the root-approved Soyo LISTENING mist scene. The ONLY input is that clean full 1536x1024 mother. Keep the complete canvas at exactly its existing framing, perspective, window mullion locations, bench top/front edges, table legs and every furniture coordinate. This is an object-removal edit, NOT a fresh room illustration, recoloring, exposure change, redesigned cushion or camera move. No crop/resize/zoom/shift.\nRemove ONLY the entire girl (including every fine hair strand, complete sailor uniform, empty hands, legs, socks, both loafers), the ONE closed book lying separately on the seat immediately image-right of her, and the local compression/contact/cast shade specifically caused by her seated body, closed book and shoes. Reconstruct the actual original room behind them: continuous pale linen seat with natural embroidery/folds flowing into untouched visible linen; continuous wooden window/bench front where covered by body/legs; the exact same wooden floor planks and soft overcast diffuse reflections where her shoes and local shade were. Preserve true underlying room ambient/window/table shadows and all unrelated illumination. No residual person/limb/hair/book/shoe/shadow silhouette, no ghost, no replacement object.\nEverything else stays visually and geometrically exact to the input: lamp and its vase, cup and small books on the round side table, flowers, chair and desk at left, hanging plants, shelves and framed art, both curtains, all cushions at image-right, crochet throw, floor/rug, lake/town/mountain/window view, original linework/material painting style and overcast mist-day diffuse lighting with no new sun-window lattice or hard sunlight. Keep the original scene color temperature, texture and detail; do not make a generic room. Output one opaque clean 1536x1024 PNG of the empty SAME scene. It will sit behind an exact original-mother-RGB joint figure/contact layer at fixed original coordinates; matching receiver geometry and local floor/seat light matters more than artistic reinterpretation.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-mist-literary-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-mist-literary-v1.png",
+      "sha256": "5fbcbd2acb5bfdf36ab1ac5273dee2ec7567a03bc3a12869751b90a43adea154",
+      "role": "sole exact root-approved listening mother, no masks/UI/composite"
+    }
+  ],
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/mist/listening-background-v1.png",
+    "sha256": "9495cc9167bd85287b1f0b59f401553fedba9187b51109fe92e56f8ff2537713",
+    "bytes": 2385241,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-b7a23a4e-fe1b-403d-bab5-a098894ddbea.png",
+  "submittedPromptSha256": "72eeff6a3783acfd7d4828754a1237357b68424bde3e4393f8f8cb10d4931cdd",
+  "producerObservations": [
+    "Actual tool output personally viewed full canvas: complete girl, separate closed book and sole contact removed; no residual figure or replacement object seen.",
+    "Same wide framing, main window/bench/table anchors and theme light remain visible. Generated room restoration is not claimed bitwise identical to mother outside removal region; final composite review required."
+  ],
+  "status": "background-candidate-awaiting-original-rgb-composite-review",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "pngPixelEditing": false
+}

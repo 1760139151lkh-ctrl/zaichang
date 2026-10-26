@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "characterId": "soyo",
+  "neutralTime": "day",
+  "purpose": "neutral-presence-fixed-included-layer",
+  "kind": "direct-clean-mother-foreground-luminance-mask-F",
+  "createdAt": "2026-10-26T01:26:30.095925+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "exactPromptFile": "figure-mask-v2.prompt.txt",
+  "promptSha256": "b9970fd1aedb1164e84d997cd15bab73be8b06eecdc3bf3b5759ef130f16404e",
+  "requestFile": "figure-mask-v2.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/soyo-neutral-time-day-literary-v1.png",
+      "sha256": "b7389951fe91b57019a55aace462bd4e4efc61c455c17499743548b02cc1f062",
+      "role": "sole exact root-approved mother; no held mask"
+    }
+  ],
+  "output": {
+    "file": "figure-mask-v2.png",
+    "sha256": "9e087f87a2006c9ba0ab6b663ca7728bfa68d9d3260cd54d2633463a93333869",
+    "bytes": 499148,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "originalBasename": "exec-d2e13207-e6f1-40c6-8583-cd9229b3acde.png",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteOutput": true,
+    "observations": [
+      "Complete flat foreground silhouette without invented internal book/hands outline; source exterior contour/hair and both shoes retained.",
+      "Candidate for same-coordinate MAX(F,S) original-RGB browser scrutiny."
+    ],
+    "eligibleAsNextStepInput": true,
+    "nativeBrowserCheckedBeforeReuse": true,
+    "nativeBrowserEvidence": [
+      "browser-observations/face-book-hem-v1.jpg",
+      "browser-observations/light-dark-checker-v1.jpg",
+      "browser-observations/shoes-receiver-v1.jpg",
+      "browser-observations/whole-browser-v1.jpg"
+    ]
+  },
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "countsToward360ExactActivities": false,
+  "pngPixelEditing": false,
+  "primaryStaticLayerApproved": true,
+  "primaryAdmissionRecord": "root-primary-layer-admission-v1.json",
+  "primaryApprovalScope": "Exact static fixed included layer in this same source canvas; no runtime, motion or activity360 acceptance"
+}

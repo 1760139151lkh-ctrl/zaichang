@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "assetType": "apricot-chat-source-local-contact-receiver-white-in-room-intermediate",
+  "id": "contact-marked-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "contact-marked-v1.prompt.json",
+  "promptFileSha256": "c59e64d38e493042b6439d6a9f5d0fbfbf2aa95f827cf9b4e45cf2fa3f1d8e44",
+  "submittedPrompt": "Use case: precise-object-edit. STEP1 local original CONTACT/CAST RECEIVING-MATERIAL selection, full1536x1024.\nImage1 is the ONLY input, the correct approved original apricot-chat Sakiko mother. Keep the entire room, girl, camera, scale and all coordinates unchanged. Paint PURE opaque WHITE over ONLY the actual visible local support-surface contact/compression/cast darkness caused by this seated girl, at its existing source locations. It will be a fixed included joint subject, not a claimed clean independently movable shadow.\nSelect the original soft linen cushion contact band directly below/behind the seated hips and plaid hem, including the true tapering shaded receiver extent rather than just a one-pixel edge. Around the actual skirt/seat source area x1010..1350,y560..668, use the real source contact material only. The plaid skirt trim, skin and hair themselves remain original color; do not mistake a dark garment tip for cushion shadow or invent a new dark region.\nSelect the actual grounded contact/shallow cast-darkness immediately adjacent to BOTH complete brown loafers, following each sole/heel and its own original dry wood-floor shade, source search region x864..1110,y865..963. Do not draw a common ellipse, include the window's sun lattice or whiten whole floorboards. Both hands are clasped on lap: their skin/clothing self-shadows are person interior, not a separate receiver to invent.\nEverything else stays ORIGINAL COLOR: complete girl/hair/face/hands/clothes/hem/socks/shoes, cushion away from the local shaded band, pillows/throw, tables/lamps/cup/books/flowers, original room desk/chair/plants, window/lake/town/hills, floor/rug textures and unrelated room/furniture shadows. Do not recolor the room as a whole.\nCoordinates above are search areas, never rectangles to fill. Trace existing irregular soft receiver footprints in place. No redraw, enlargement, translation, crop, zoom, re-center, new shadow/anatomy/object, black mask yet, labels/text/UI/grid/border/watermark/transparency. Output SAME1536x1024 opaque RGB mother with only those original local contact receiving surfaces filled white, original narrow feathered edge allowed.",
+  "submittedPromptSha256Utf8NoTrailingLF": "5ca33adf529a10878a3c512b3695587f8e5e83c91ebf42684df4ce11430afb35",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.png",
+      "sha256": "8d8ca2d001893c16106ab797ec4a8a8c1e6576115a5a4c76ff1dd519eff4e2cd",
+      "role": "sole correct approved complete chat mother; actual local cushion and floor receiving material, no independent caster invention"
+    }
+  ],
+  "output": {
+    "file": "contact-marked-v1.png",
+    "sha256": "979dccd7e62ab1a4857baade881fafd81715746f2e595f6f94b678b26d196393",
+    "bytes": 2387605,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-b1fcd2cd-8836-48ea-983a-9e1b2422415c.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  },
+  "status": "producer-viewed-original-output-included-chat-candidate-primary-pending",
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "activity": "chat",
+  "palette": "apricot",
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "fullImageResultRetainedInStore": false
+}

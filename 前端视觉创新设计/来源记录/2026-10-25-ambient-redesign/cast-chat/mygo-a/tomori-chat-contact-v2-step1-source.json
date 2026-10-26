@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "kind": "imagegen-contact-matte-step1",
+  "primary": false,
+  "runtime": false,
+  "tool": "built-in image_gen.imagegen",
+  "prompt": "Use case: precise-object-edit.\nAsset type: SAME-CANVAS CONTACT-SHADOW SELECTION MARKUP, first step of a technical matte extraction.\nImage 1 is the sole source and sole image input: the correct approved Tomori chat mother at 1536 x 1024. Keep the full exact original canvas, camera and every object at its original coordinates. Do not crop, scale, move, remove, regenerate or redraw the girl, furniture, background, clothing or body.\nChange ONLY the existing real contact shadow pixels into solid WHITE paint, directly on their original positions. Everything else remains visually unchanged. The selected pixels are the local dark creases and soft contact-darkness already visible in this exact mother:\n1. The thin compressed seat/cushion shadow immediately under the plaid skirt and rear hip. Key repair is x1287..1375,y582..604; trace the actual irregular dark hem/cushion contact within and adjoining that area, including its continuous narrow soft band. Do not fill this rectangle. Do not whiten the skirt itself, skin, or a whole bright cushion. Follow the existing shadow width, often only a few pixels.\n2. The small real dark palm-to-cushion contact under the image-right resting hand near x1388..1446,y575..596, preserving all fingers and sleeve unchanged.\n3. The real immediate sole-to-floor contact shadows beneath both complete black loafers, approximately x1153..1271,y746..791. Trace the real irregular soles and short dark fringe; not a generic ellipse or a broad rectangle of wooden floor.\nThe floor and cushion keep their own original material and colors outside these actual selected shadow pixels. Do not invent a new cast shadow or fill between unrelated shadows. Do not mark the window sun pattern, furniture shadows, room creases unrelated to Tomori, or the blanket. No handwritten outlines, labels, ROI boxes, arrows, grids or text.\nOutput ONE opaque PNG, exactly 1536 x 1024, the unchanged original room-and-girl image with ONLY those existing contact shadows painted white at exactly their original places. This is a selection markup, not final shadow RGB and not a new scene.",
+  "input": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-chat-apricot-mother.png",
+    "sha256": "7e2d61d5874ede02beba0808b329b18922dfe6b3f20f2d923a9c2ea4c22978d9",
+    "role": "sole original mother input"
+  },
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mygo-a/tomori-chat-contact-v2-step1-marked.png",
+    "originalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17125-a57d-70f3-9b8f-9ecfd8cef13e\\exec-1bf5b5cb-36c2-4080-b8f1-017061bb9fdc.png",
+    "executionId": "exec-1bf5b5cb-36c2-4080-b8f1-017061bb9fdc",
+    "sha256": "a0a092644ef49fe04907379e983395f0bb0491ba4796e7905f8a6cd7f660c6e7",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2065996,
+    "originalOutputLastWriteTimeUtc": "2026-10-25T08:06:34.9221473Z"
+  },
+  "scope": "Existing source contact-shadow marking only; output RGB is not used as room/figure/shadow color.",
+  "status": "not_admitted_incomplete_contact_selection"
+}

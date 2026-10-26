@@ -7,7 +7,7 @@ import { codePointSlice, canonical } from './semantics';
 import type { WorkflowRequirement, WorkflowSkill } from './skills';
 import { personalMethodUsageSchema, type PersonalMethodUsage } from '../../shared/companion-continuity';
 import { methodAssistanceInputSchema, methodWorkAnchorInputSchema, personalMethodConditionsSchema,
-  personalMethodSourcesSchema, type PersonalMethodSources } from '../../shared/personal-method';
+  personalMethodSourcesSchema, type PersonalMethodSources, type PersonalMethodGuidanceReference } from '../../shared/personal-method';
 import { methodWorkHelpInputSchema } from '../../shared/method-work-help';
 import type { MethodWorkHelpOwner, PreparedMethodWorkHelp } from './method-work-help';
 
@@ -53,6 +53,7 @@ type MethodInput = z.infer<typeof personalMethodInput>;
 interface MethodSession { events: EvidenceEvent[]; ephemeral: boolean; restrictToSessionId?: string;
   permits?: (ref: WorkSourceRef) => boolean }
 type MethodReadContext = Pick<MethodSession, 'restrictToSessionId' | 'permits'>;
+type PersonalMethodCatalogEntry = WorkflowSkill & { usage: PersonalMethodUsage; personalMethod: PersonalMethodGuidanceReference };
 const ownershipReceiptSchema = z.object({ version: z.literal(1), ownerId: z.string(), workspaceId: z.string(),
   methodId, methodRevision: z.number().int().positive(), operation: z.enum(['save', 'revise', 'disable']),
   source: workSourceRefSchema, sourceQuoteSha256: z.string().regex(/^[a-f0-9]{64}$/),
@@ -468,12 +469,48 @@ export class PersonalMethodService {
       sources: { ...sources, methodBinding: current.sourceBinding } };
   }
 
+  private currentHelpReference(handle: ScopeHandle, context: MethodReadContext,
+    suggested?: PersonalMethodGuidanceReference['forCurrentHelp']): PersonalMethodGuidanceReference['forCurrentHelp'] {
+    const scope = this.policy.validate(handle);
+    const latest = suggested ? undefined : [...scope.currentEventIds].reverse().map(id => this.repo.evidence(handle, id))
+      .find(event => event?.speaker === 'user' && event.authority === 'user_statement' && !event.parentEventId
+        && ['user_message', 'user_control'].includes(event.kind) && event.status === 'active' && Array.from(event.text).length > 0);
+    const checked = workSourceRefSchema.safeParse(suggested?.source || (latest ? { eventId: latest.id,
+      contentVersion: latest.contentVersion, start: 0, end: Array.from(latest.text).length } : undefined));
+    if (!checked.success) return undefined;
+    const source = checked.data, event = this.repo.evidence(handle, source.eventId);
+    if (!event || !scope.currentEventIds.includes(event.id) || event.speaker !== 'user' || event.authority !== 'user_statement'
+      || event.parentEventId || !['user_message', 'user_control'].includes(event.kind) || event.status !== 'active'
+      || event.contentVersion !== source.contentVersion || source.end > Array.from(event.text).length
+      || !this.refsPermitted(handle, [source], context)) return undefined;
+    return { source, ...(suggested?.matterId ? { matterId: suggested.matterId } : {}) };
+  }
+
+  private guidanceReference(handle: ScopeHandle, record: WorkRecord, context: MethodReadContext,
+    currentHelp?: PersonalMethodGuidanceReference['forCurrentHelp'] | false): PersonalMethodGuidanceReference {
+    const choices = this.ownership(handle, record.sourceBinding!.refs)
+      .filter(choice => choice.methodId === 'personal:' + record.id && choice.methodRevision <= record.revision
+        && choice.operation !== 'disable' && this.refsPermitted(handle, [choice.source], context))
+      .sort((a, b) => b.methodRevision - a.methodRevision);
+    // The newest choice explains this version; the original save remains a
+    // way back to why it was wanted. Intermediate edits stay at their owner.
+    const selected = [choices[0], choices.find(choice => choice.operation === 'save')]
+      .filter((choice, index, values): choice is PersonalMethodOwnership => !!choice && values.findIndex(value => value?.receiptId === choice.receiptId) === index);
+    const forCurrentHelp = currentHelp === false ? undefined : this.currentHelpReference(handle, context, currentHelp);
+    return { workId: record.id, revision: record.revision, sourceIds: record.sourceBinding!.sourceIds,
+      ...(forCurrentHelp ? { forCurrentHelp } : {}),
+      choices: selected.map(choice => ({ revision: choice.methodRevision, operation: choice.operation as 'save' | 'revise',
+        source: choice.source, changedFields: choice.changedFields,
+        read: { tool: 'read_evidence', arguments: { id: choice.source.eventId, expectedVersion: choice.source.contentVersion, offset: choice.source.start,
+          limit: choice.source.end - choice.source.start } } })) };
+  }
+
   catalog(handle: ScopeHandle, selected: { id?: string; revision?: number; usage?: PersonalMethodUsage; sessionId?: string;
-    permits?: MethodSession['permits'] } = {}): (WorkflowSkill & { usage: PersonalMethodUsage })[] {
+    permits?: MethodSession['permits'] } = {}): PersonalMethodCatalogEntry[] {
     const scope = this.policy.validate(handle);
     if (scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self'
       || !scope.sources.includes('work:self') || !scope.grants.includes('evidence:read') || this.repo.hasFence('work:self')) return [];
-    const result: (WorkflowSkill & { usage: PersonalMethodUsage })[] = [];
+    const result: PersonalMethodCatalogEntry[] = [];
     const { usage, permits, ...address } = selected;
     const context = { permits, restrictToSessionId: selected.sessionId };
     for (let offset = 0; ; offset += 100) {
@@ -495,7 +532,7 @@ export class PersonalMethodService {
                 read: anchor.kind === 'learning_process' ? { tool: 'read_learning', arguments: { matterId: anchor.matterId, id: anchor.id } }
                   : { tool: 'restore_collaboration', arguments: { id: anchor.id } } })) };
           })() : undefined,
-          personalMethod: { workId: record.id, revision: record.revision, sourceIds: record.sourceBinding.sourceIds } });
+          personalMethod: this.guidanceReference(handle, record, context) });
       }
       if (rows.length < 100) break;
     }
@@ -504,7 +541,7 @@ export class PersonalMethodService {
 
   /** Few conditional discovery heads. Instructions still come from read_skill;
    * the main assistant judges relevance without a scenario keyword router. */
-  cues(handle: ScopeHandle, options: { limit?: number; permits?: MethodSession['permits'] } = {}) {
+  cues(handle: ScopeHandle, options: { limit?: number; permits?: MethodSession['permits']; forCurrentHelp?: { source: WorkSourceRef; matterId?: string } } = {}) {
     const scope = this.policy.validate(handle), limit = Math.min(6, Math.max(1, options.limit ?? 4));
     if (scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self'
       || !scope.sources.includes('work:self') || !scope.grants.includes('evidence:read') || this.repo.hasFence('work:self')) return { items: [], records: [], moreMayExist: false };
@@ -529,6 +566,7 @@ export class PersonalMethodService {
       if (available.length > limit || rows.length < pageSize) break;
     }
     const picked = available.slice(0, limit);
+    const forCurrentHelp = this.currentHelpReference(handle, options, options.forCurrentHelp);
     return { items: picked.map(({ record, method }) => ({ id: 'personal:' + record.id, revision: record.revision, name: method.name,
       description: Array.from(method.description).slice(0, 300).join(''),
       ...(method.conditions ? { conditions: { when: Array.from(method.conditions.when).slice(0, 240).join(''),
@@ -537,7 +575,9 @@ export class PersonalMethodService {
       instructionsRead: false,
       conditionsComplete: !method.conditions || Array.from(method.conditions.when).length <= 240 && Array.from(method.conditions.adaptToCurrent).length <= 240
         && (!method.conditions.avoidWhen || Array.from(method.conditions.avoidWhen).length <= 200),
-      read: { tool: 'read_skill', arguments: { id: 'personal:' + record.id } } })),
+      personalMethod: this.guidanceReference(handle, record, options, forCurrentHelp || false),
+      read: { tool: 'read_skill', arguments: { id: 'personal:' + record.id } },
+      ...(forCurrentHelp ? { readForCurrentHelp: { tool: 'read_skill', arguments: { id: 'personal:' + record.id, forCurrentHelp } } } : {}) })),
       records: picked.map(value => value.record), moreMayExist };
   }
 }

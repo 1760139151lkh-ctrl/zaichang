@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-source-complete-foreground-selection-markup",
+  "id": "sakiko-resume-apricot-recognition-v2-F1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "dossier": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+    "version": "2026-10-25.1",
+    "readComplete": true,
+    "wardrobeId": "sakiko-literary-navy-adaptation"
+  },
+  "method": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+  "promptFile": "figure-step1-prompt-v1.txt",
+  "submittedPrompt": "Use case: precise-object-edit. Asset type: SAME-CANVAS COMPLETE FOREGROUND SELECTION MARKUP, STEP F1, for the newly root-reviewed Sakiko recognition v2 only. Image 1 is the ONLY edit target: the complete approved-direction 1536x1024 original mother. This is a source selection task, not character design or a redraw. Keep the original source canvas, camera, every object coordinate, body proportions, glance, face, below-knee socks and all furniture exactly unchanged.\n\nPaint SOLID NEUTRAL PURE WHITE directly over the ENTIRE visible original girl AND her ENTIRE held open dark-blue book, at exactly their original positions. Include every visible hair strand and dark hair ribbon, full face/neck, all cardigan/cuffs/collar/ribbon, both entire hands and fingers, the full book covers/spine/pages, every outward-folded plaid skirt hem tip and its dark lower trim, both exposed thighs and knees, both BELOW-KNEE calf socks and their full cuffs, and BOTH complete brown-black loafers. Every original shoe sole rim, toe, heel wall, heel block and complete bottom edge is foreground, including dark outlines and the source antialiased contour. Do not erode dark skirt trim or shoe edges into the furniture/shadow. Keep real background gaps between hair, arm, book, legs and shoes where the original image actually shows them. No hidden anatomy is invented.\n\nEverything outside these actual foreground pixels remains the original colored room: linen seat, compression/cast/contact shadows, pillows and knitted throw, wood floor and rug, original sunlight patterns, tables/lamp/cup/books, shelves/plants, curtains, lake/town/mountains. Do not whiten large furniture surfaces or generic shadow ovals. The girl is naturally seated at the original right bench and quietly recognizing someone off-image left while her hands retain her own book; select the actual complete original girl and book without changing that moment.\n\nOutput ONE opaque 1536x1024 PNG: unchanged full original color room with only the actual complete girl and held book filled white in place. White interiors are solid without eyes, folds, clothing linework or book decoration. Do not crop, resize, zoom, recenter, translate, redraw, add text/labels/boxes/arrows or alter the original pose or wardrobe.",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/sakiko-recognition-apricot-v2.png",
+      "sha256": "a8801f784b77d632509818d102a8b899d0bdda99afe904085196a9e8c5bee279",
+      "role": "only exact root-reviewed clean recognition v2 mother",
+      "actualSha256": "a8801f784b77d632509818d102a8b899d0bdda99afe904085196a9e8c5bee279"
+    }
+  ],
+  "output": {
+    "file": "figure-step1-marked-v1.png",
+    "sha256": "25a4f7358dca3917f006715b143c3afdc4363b401930c107562a6d27fd1bbca4",
+    "bytes": 2341176,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-454d-7bb3-8b77-bcaadd75b8a4\\exec-4a8231f4-cf9d-42cb-9a85-250a6ed060d2.png"
+  },
+  "review": {
+    "producerPersonallyViewed": true,
+    "observation": "Complete original-sized white foreground markup inspected: girl, book, calf socks and full shoes selected in source position; room remains colored. This is a selection intermediate, not new body RGB or runtime approval.",
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  },
+  "status": "producer-viewed-selection-markup-pending-F2",
+  "submittedPromptSha256Utf8NoTrailingLF": "2b46551663458cebc905c0933769f1b9ec612cce48b4d59c6e3bfb77acce9d69",
+  "promptFileSha256": "7f1fbbe78653b9bfe20dfbbcf10673514708d0fe45605dcd4ca01eb52f935733",
+  "promptEncodingBoundary": "submittedPrompt is the exact built-in inline text; prompt file retains its terminal LF independently."
+}

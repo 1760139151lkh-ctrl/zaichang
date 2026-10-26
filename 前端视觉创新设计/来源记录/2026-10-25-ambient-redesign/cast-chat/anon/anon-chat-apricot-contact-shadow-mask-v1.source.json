@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-canvas-independent-contact-shadow-luminance-mask",
+  "id": "anon-chat-apricot-contact-shadow-mask-v1",
+  "createdAtUtc": "2026-10-25T06:45:07.401276+00:00",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "submittedPrompt": "Use case: precise-object-edit. Asset: independent CONTACT-SHADOW OPACITY MASK, not a room, person silhouette or colored floor patch.\nImage 1 is the ONLY input and the approved original Anon chat/apricot mother, exactly 1536 x 1024. It is the source-coordinate authority; do not crop, shift, enlarge, rotate or redraw any person or support point.\nReturn one full 1536 x 1024 OPAQUE grayscale RGB image, pure BLACK everywhere except the actual independent shadows caused by this seated girl: (a) the narrow cushion-contact occlusion immediately under her hip/skirt edge, (b) tiny real cushion-contact darkness directly below her supporting right palm/fingers, and (c) the immediate contact cores and adjoining short soft floor cast shadows around BOTH complete worn loafers.\nAt those exact original locations only, WHITE is the darkest true contact core and GRAY is the natural fading edge, on otherwise pure BLACK. Trace the source shadows' actual shapes and direction, not generic ellipses. The two source soles are at roughly y780..800, x1145..1288; their adjacent independent floor shadow is in roughly x1130..1310,y765..815. These are location guides only, not permission to fabricate a large patch. The source hips/supporting palm are on the right bench around y585..600. Preserve true source registration.\nThe entire girl herself — hair, skin, hands, uniform, skirt, socks and black shoes — must be BLACK, NOT a white person or white footwear. All floor texture, sunlit window-grid beams, ordinary furniture shadows, wood grain, bench/pillows/blanket, window and sky are BLACK. Do not include naturally white pillow corners or hair highlights. Do not keep any RGB/color, bright ghost person, clothing texture, broad cushion rectangle, whole floor block, distant detached oval or made-up lighting.\nKeep only the original girl's independent real contact/cast-shadow footprints on room surfaces, with soft fading edges, at the unchanged source positions. No text, labels, crop, grid, border, transparency, checkerboard or watermark. Output exactly 1536 x 1024.",
+  "submittedPromptSha256Utf8NoTrailingLF": "b2399969e95beded31d4818e0bc845963ed96d7a6f4eb7632a7822b0a2625ceb",
+  "promptFile": "anon-chat-apricot-contact-shadow-mask-v1.prompt.json",
+  "promptFileSha256": "c1ccc7979e75db8e9dc927da99b861c4e773b6ac22ac47bb04fd64e4ecb9913e",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-chat-apricot-mother-candidate-v1.png",
+      "sha256": "99c8acd4c2b875659afc9471b3c020219d394aae025cba2f164daf47babb5986",
+      "role": "sole approved original mother; no old shadow or mask supplied"
+    }
+  ],
+  "output": {
+    "file": "anon-chat-apricot-contact-shadow-mask-v1.png",
+    "sha256": "fba556ca8607fa0a4e93b3cd20d241a21ccc48998f43033d31cab2fe61ff70ff",
+    "bytes": 331101,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-2dc0491b-91c7-4f45-81c3-5a8e5803a22b.png",
+    "originalEvent": "exec-2dc0491b-91c7-4f45-81c3-5a8e5803a22b"
+  },
+  "transparentBackground": false,
+  "maskMode": "luminance",
+  "diagnosis": "Old v6 shadow left independent shoe-floor shadows visibly too light compared with original mother in 200-percent source/composite view. Matching background and approved figure RGB are preserved.",
+  "review": {
+    "primaryLayerApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "producerAccepted": false
+  },
+  "status": "rejected-ground-contact-mask-misregistered-or-too-weak",
+  "rejection": {
+    "sourcePoint": [
+      1165,
+      788
+    ],
+    "maskLuminance": 4,
+    "motherRgb": [
+      168,
+      100,
+      57
+    ],
+    "backgroundRgb": [
+      254,
+      209,
+      145
+    ],
+    "reason": "Source floor-contact core remained almost black in the opacity mask; native composition still lets the bright inpainted sun strip reach the shoe front.",
+    "observationPage": "anon-chat-apricot-mask-repair-v4.html#shoes"
+  }
+}

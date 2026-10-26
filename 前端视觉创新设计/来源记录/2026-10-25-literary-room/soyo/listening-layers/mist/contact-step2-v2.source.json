@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-listening-mist-contact-step2-v2",
+  "tool": "image_gen.imagegen",
+  "actualToolArguments": {
+    "prompt": "Use case: background-extraction. Asset: original-position contact/receiver luminance mask S2-v2, for original-RGB included joint layer. FIRST input is the mist Soyo listening scene with deliberate contact/receiver marks from S1-v2. SECOND input is its exact clean original mother only for distinguishing deliberately added white marks from unchanged naturally bright materials. Output ONE opaque 1536x1024 black/white/edge-gray mask; no crop/resize/zoom/shift. Preserve actual source positions.\nTurn ONLY deliberately ADDED PURE-WHITE marks of image1 into WHITE. Everything else solid BLACK: entire colored girl, all hair/face/uniform/skin/hands/legs/socks/complete shoes, separate colored closed book, plus all unmarked room/linen highlights/window/curtains/lamp/plants/rug/floor sunlight/furniture. Do not select the naturally pale empty cushion visible unchanged in image2. Keep only the small white-added seat receiver directly under left/right skirt and the very thin white-added book-bottom contact stopping at its actual original book edge.\nCRITICAL shoe selection: preserve FULL marked local foot-shadow floor receiver patches around both source soles, not merely thin shoe-bottom contour lines. They are actual white-added floor areas in image1 with source dark shoe-contact shade underneath in image2, each roughly 8..35px deep around the sole. Keep the original complete footprint patches at existing coordinates. White center fully opaque to restore actual source shadow/wood RGB, with a short SOFT GRAY transition only along the original diffuse outer shadow boundary, not a sharp polygon cutout. The transition must stay within a few source pixels of those white-added local patch edges, never spread across the floor or invent a larger cast shade. Some shoe overlap is harmless to MAX(F,S), but do NOT recolor or redraw any shoe: the S mask shoe interiors themselves BLACK. Do not collapse full floor patches back to fine white strokes. Two actual shoe-shadow patches may meet only where image1 already marks them touching. Avoid generic oval/rectangle, long floor band or all lamp reflection. No new unrelated white marks.\nThe selected patches must be precisely the deliberate marks of image1 compared with image2. Keep unmarked naturally bright empty seat fully black, including far to image-left of skirt. Do not use luminance brightness as object selection, do not retain light rug, no checker/grid/labels/arrows. This mask selects unchanged original source RGB ONCE through MAX(F,S); never an AI colored figure, portable caster or moving/deforming layer.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/mist/contact-step1-marked-v2.png",
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-mist-literary-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/mist/contact-step1-marked-v2.png",
+      "sha256": "be949f101c353a440703b89e77335d430646deb84686751fb6efe7cc1a4cf35e",
+      "role": "same-mother deliberate S1-v2 selection intermediate"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-mist-literary-v1.png",
+      "sha256": "5fbcbd2acb5bfdf36ab1ac5273dee2ec7567a03bc3a12869751b90a43adea154",
+      "role": "exact approved clean mother for mark discrimination"
+    }
+  ],
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/mist/contact-mask-v2.png",
+    "sha256": "877b09c04dd259353a8fa3de230bb05b79ae7cf8c4e1b5071358d25bf0e8aad7",
+    "bytes": 317089,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-ae612179-ce6a-4cfc-a346-daddccb27041.png",
+  "submittedPromptSha256": "b677a1dc0cc7471d5c92ef7e81d147d1b5a5eeede9c7c0e673f1405cd10ffdaa",
+  "producerObservations": [
+    "Actual Image output personally viewed: local fuller foot-shadow receivers with white core and soft gray outer boundary retained, not reduced to shoe-bottom contour strokes.",
+    "Seat/book small marked groups retained, broad empty natural linen and far-away room remain black. Original RGB composite still required."
+  ],
+  "status": "mask-candidate-awaiting-original-rgb-composite-review",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "pngPixelEditing": false
+}

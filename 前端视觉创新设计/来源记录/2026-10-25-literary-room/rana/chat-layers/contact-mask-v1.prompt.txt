@@ -1,0 +1,8 @@
+Use case: precise-object-edit.
+Asset type: INCLUDED CONTACT-RECEIVER MASK S, step 2 of 2.
+The ONLY input is the full 1536 x 1024 literary Rana mother with intentional flat PURE WHITE selection areas already painted on the real cushion/seat receiver beside/under hip and supporting palm, and on the compact real floor receiver directly around BOTH boots.
+
+Keep precisely those deliberate white contact-receiver markings WHITE at their exact existing source positions, including the cushion band under the shorts/outer hem, the small supporting-palm receiver on viewer-right, and the floor region joining the two actual boot contacts.
+Turn EVERY other pixel SOLID PURE BLACK, including the COMPLETE person, original white shorts/undersleeves, bright cushions/curtains/lamp, sunlit floor patches, furniture, rug, window and scenery. Only deliberately painted contact receiver stays white. This is conversion of already marked receiving surfaces, not a new shadow shape.
+Do not replace the selection with a girl silhouette. Keep the original marked edges and small foreground overlaps; no new broad patch, box, shrink, expansion, offset, blur, crop, zoom, labels or text.
+Return ONE opaque grayscale black-and-white coverage mask, exactly 1536 x 1024 and x0,y0; selected interiors white, all nonselected pixels black, with only a fine natural original selection edge.

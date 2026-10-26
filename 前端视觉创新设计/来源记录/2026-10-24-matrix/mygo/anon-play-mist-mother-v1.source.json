@@ -1,0 +1,32 @@
+{
+  "key": "anon/play/mist",
+  "tool": "built-in image_gen.imagegen",
+  "createdAtUtc": "2026-10-25T02:18:48.327Z",
+  "stage": "complete whole-scene lighting edit",
+  "file": "anon-play-mist-mother-v1.png",
+  "sha256": "ca406d159c8fa60534597428e2a8b2ae4352184a4d481fe31701616406067395",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "originalOutputBasename": "exec-b224aea1-68d1-4b1f-9dd7-810336753474.png",
+  "prompt": "anon-play-mist-mother-v1.prompt.txt",
+  "inputs": [
+    {
+      "file": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\anon-play-apricot-mother-candidate-v1.png",
+      "role": "approved apricot complete mother; edit target",
+      "sha256": "520fc3043a78335d838c1cc9e831ea5b99b2d2865e86580e156de346efd5bd81"
+    },
+    {
+      "file": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-mist-candidate.png",
+      "role": "clean-room light reference only",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
+    }
+  ],
+  "designerPersonallyViewed": true,
+  "primaryMotherReview": "pending_current_root_review",
+  "layers": "not_produced",
+  "runtime": "not_registered",
+  "promptSha256": "c6ef93e3bc710830ef14abf7bc9446545ecd0454d53db9d35b35690ac6841fa5",
+  "designerObservation": "Personally viewed the complete generated original. Gaze stays with the actual craft/guitar in her hands, supported bench contact and independent leg chains retained. Complete requested environment light and natural skin bounce are present, with no split scene, text or UI. Primary approval and integrated layer/runtime remain separate."
+}

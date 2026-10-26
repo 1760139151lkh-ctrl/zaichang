@@ -1,0 +1,5 @@
+Use case: precise-object-edit
+Asset type: exact same-canvas empty room background extraction, 1536x1024.
+Input image 1 is the sole edit target. Remove only the silver-haired girl Rana together with her held wooden acoustic guitar, all her clothing, hands, bare legs, and both worn black boots. There is no independent loose boot in this source; both boots belong to the girl and must disappear. Remove only her local contact shadows. Restore the empty bench cushion and room behind her and the guitar naturally.
+Preserve the full original 1536x1024 canvas, original camera and every room object at the same pixel locations: window, complete landscape, curtains, walls, wooden floor, sunlight and furniture shadows, desks, chairs, lamp, cup, book, bench, cream seat cushion, plaid and floral pillows and knitted blanket. No crop, zoom, translation, resizing, reframe, relighting or redesign. Retain the right blanket and pillows as room objects; do not remove them with the girl.
+Output one full-canvas opaque RGB empty room at exactly 1536x1024. No person, silhouette, guitar fragment, boot, clothing remnant, collage, mask, text or added object.

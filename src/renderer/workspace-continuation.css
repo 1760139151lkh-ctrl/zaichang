@@ -50,7 +50,7 @@
   .titlebar .navigation-menu { top:43px; }
 }
 @media(prefers-reduced-motion:no-preference) {
-  .retained-heading nav button { transition:color 160ms ease,border-color 160ms ease; }
+  :root:not([data-motion='reduced']) .retained-heading nav button { transition:color 160ms ease,border-color 160ms ease; }
 }
 
 /* On a tall, narrow window, give the welcome words their own quiet surface.
@@ -94,4 +94,298 @@
   .app-shell.has-window:has(.workspace.welcome) .welcome h1 { font-size: 26px; }
   .app-shell.has-window:has(.workspace.welcome) .welcome-next { gap: 15px; }
   .app-shell.has-window:has(.workspace.welcome) .welcome-next > button + button { padding-left: 15px; }
+}
+
+/* A room is one continuous space. The invitation and the bookmark sit in
+   its light; only the place where we write needs a sheet of paper. */
+.app-main:has(> .companion-scene[data-scene-family]) {
+  --room-ink: #473a2f;
+  --room-ink-secondary: #796b5a;
+  --room-paper: #fff9ee;
+  --room-paper-raised: #fffdf5;
+  --room-paper-edge: #e5d6bf;
+  --room-paper-accent: #94704b;
+  --room-paper-accent-soft: #eee2cd;
+  --room-air-ink: #fff5e2;
+  --room-air-secondary: #eadcc5;
+  --room-air-shadow: 0 2px 12px #21120966;
+  --room-nav-ink: #4c3e31;
+  --room-nav-shadow: 0 1px 12px #fff9ee77;
+}
+:root[data-palette='mist'] .app-main:has(> .companion-scene[data-scene-family]) {
+  --room-paper: #f9f8f3;
+  --room-paper-raised: #fffefa;
+  --room-paper-edge: #d9d9d0;
+  --room-paper-accent: #64798d;
+  --room-paper-accent-soft: #e2e7e9;
+}
+:root[data-palette='violet'] .app-main:has(> .companion-scene[data-scene-family]) {
+  --room-paper: #fff7f0;
+  --room-paper-raised: #fffbf7;
+  --room-paper-edge: #e3d1ce;
+  --room-paper-accent: #8b6c87;
+  --room-paper-accent-soft: #eddfe8;
+}
+:root[data-palette='rain'] .app-main:has(> .companion-scene[data-scene-family]) {
+  --room-paper: #f1e5d0;
+  --room-paper-raised: #f7edda;
+  --room-paper-edge: #d4bd98;
+  --room-paper-accent: #8f6940;
+  --room-paper-accent-soft: #e3d3b5;
+  --room-nav-ink: #fff5e2;
+  --room-nav-shadow: var(--room-air-shadow);
+}
+.app-main[data-room-layout]:has(> .companion-scene[data-scene-family]) > .conversation-space > .workspace.welcome > .welcome-inner {
+  width: min(620px, calc(var(--room-paper-width) - 32px));
+  margin-left: calc(var(--room-paper-left) + 16px);
+  padding: clamp(30px, 7vh, 70px) 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  color: var(--room-air-ink);
+}
+.app-main[data-room-layout='side']:has(> .companion-scene .scene-stage-viewport[data-art-source='ambient-only']) > .conversation-space > .workspace.welcome > .welcome-inner {
+  width: min(620px, calc(100% - 88px));
+  margin-left: clamp(40px, 4vw, 64px);
+}
+.app-main:has(> .companion-scene[data-scene-family]) .welcome-greeting {
+  margin: 0 0 24px;
+  padding: 0 2px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  text-shadow: var(--room-air-shadow);
+}
+.app-main[data-room-layout]:has(> .companion-scene[data-scene-family]) .workspace.welcome .welcome-date {
+  display: none;
+  margin: 0 0 8px;
+  color: var(--room-air-secondary);
+  font-size: 11px;
+  line-height: 1.7;
+}
+.app-main:has(> .companion-scene[data-scene-family]) > .titlebar :is(.brand,.brand > span,.nav-button,.window-controls .icon-button) {
+  color: var(--room-air-ink);
+  text-shadow: var(--room-air-shadow);
+}
+.app-main:has(> .companion-scene[data-scene-family]) > .titlebar .primary-navigation {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+.app-main:has(> .companion-scene[data-scene-family]) > .titlebar .primary-navigation > button { color: var(--room-nav-ink); text-shadow: var(--room-nav-shadow); }
+.app-main:has(> .companion-scene[data-scene-family]) > .titlebar .primary-navigation > button[aria-current='page'] { color: var(--room-nav-ink); }
+.app-main:has(> .companion-scene[data-scene-family]) > .titlebar .primary-selection {
+  left: 22px;
+  width: 42px;
+  border-radius: 0;
+  border-bottom: 1px solid var(--room-nav-ink);
+  background: transparent;
+}
+.app-main:has(> .companion-scene[data-scene-family]) > .titlebar button:focus-visible,
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome :is(.welcome-next,.return-bookmark) button:focus-visible {
+  outline-color: var(--room-air-ink);
+}
+@media (max-width: 600px) {
+  .app-shell:not(.has-window) .app-main:has(> .companion-scene[data-scene-family]) > .titlebar {
+    --room-air-ink: var(--text);
+    --room-air-secondary: var(--text-secondary);
+    --room-air-shadow: none;
+    --room-nav-ink: var(--text-secondary);
+    --room-nav-shadow: none;
+  }
+}
+.app-main[data-room-layout]:has(> .companion-scene[data-scene-family]) .workspace.welcome h1 {
+  margin: 0;
+  color: var(--room-air-ink);
+  font-size: clamp(29px, 3.15vw, 42px);
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: .02em;
+}
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .welcome-copy {
+  margin: 0 0 20px;
+  padding: 0;
+  color: var(--room-air-secondary);
+  background: transparent;
+  text-shadow: var(--room-air-shadow);
+}
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .welcome-next {
+  gap: 22px;
+  margin-top: 14px;
+  color: var(--room-air-ink);
+  text-shadow: var(--room-air-shadow);
+}
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .welcome-next > button {
+  min-height: 40px;
+  padding: 4px 2px;
+  border-color: rgb(255 245 226 / .24);
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 12px;
+}
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .welcome-next > button + button { padding-left: 22px; }
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .welcome-next small { color: var(--room-air-secondary); }
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .return-bookmark {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) auto 28px;
+  align-items: center;
+  gap: 8px 11px;
+  width: 100%;
+  max-width: none;
+  margin-top: 16px;
+  padding: 15px 2px 0;
+  border: 0;
+  border-top: 1px solid rgb(255 245 226 / .24);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  color: var(--room-air-ink);
+  text-shadow: var(--room-air-shadow);
+}
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .return-bookmark-copy strong {
+  font-size: 13px;
+  font-weight: 450;
+  line-height: 1.75;
+}
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .return-bookmark-copy :is(span,p) { color: var(--room-air-secondary); }
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .return-bookmark :is(.return-bookmark-mark,button) { color: var(--room-air-ink); }
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .return-bookmark-resume { color: var(--room-air-ink) !important; font-size: 12px !important; }
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .return-bookmark button:hover { background: rgb(255 245 226 / .12); }
+.app-main:has(> .companion-scene[data-scene-family]) .composer-presence-tools { padding-inline: 2px; }
+.app-main:has(> .companion-scene[data-scene-family]) .composer-presence-tools:empty { display: none; }
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer-presence-tools > .focus-lamp,
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer-foot {
+  padding-inline: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  backdrop-filter: none;
+  color: var(--room-air-secondary);
+  text-shadow: var(--room-air-shadow);
+}
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer-foot :is(.draft-status,button) { color: inherit; }
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .focus-lamp :is(.focus-lamp-light,.focus-lamp-time) { color: var(--room-air-ink); }
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer-area > :is(.shared-map-context,.material-composer-quote,.conversation-focus-chip) {
+  background: transparent;
+  color: var(--room-air-secondary);
+  text-shadow: var(--room-air-shadow);
+}
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer-area > :is(.shared-map-context,.material-composer-quote,.conversation-focus-chip) button { color: inherit; }
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome :is(.startup-status,.harness-inline-error) { color: var(--room-air-ink); text-shadow: var(--room-air-shadow); }
+
+/* Only the words and their controls need paper. Leaving the workspace
+   transparent keeps a short reply from becoming a curtain over the room. */
+.app-main[data-room-layout]:has(> .companion-scene[data-scene-family]) > .conversation-space > .workspace.conversation {
+  --text: var(--room-ink);
+  --text-secondary: var(--room-ink-secondary);
+  --text-tertiary: #887b6b;
+  --surface: var(--room-paper);
+  --surface-raised: var(--room-paper-raised);
+  --border: var(--room-paper-edge);
+  --separator: color-mix(in srgb, var(--room-paper-edge) 70%, transparent);
+  --accent: var(--room-paper-accent);
+  --accent-soft: var(--room-paper-accent-soft);
+  --focus: var(--room-paper-accent);
+  --wash: var(--room-paper-accent-soft);
+  --conversation-text-paper: color-mix(in srgb, var(--room-paper) 97%, transparent);
+  --conversation-text-edge: color-mix(in srgb, var(--room-paper-edge) 58%, transparent);
+  --conversation-text-shadow: 0 4px 18px #28170e12;
+  color-scheme: light;
+  color: var(--text);
+  isolation: isolate;
+}
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.conversation .conversation-heading { min-height: 38px; margin-top: 10px; padding-inline: 2px; }
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.conversation .conversation-heading > span {
+  min-width: 0;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: var(--conversation-text-paper);
+}
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.conversation .assistant-name {
+  box-sizing: border-box;
+  width: fit-content;
+  max-width: 100%;
+  margin-bottom: 8px;
+  padding: 4px 11px 4px 5px;
+  border-radius: 12px;
+  background: var(--conversation-text-paper);
+}
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.conversation .messages { padding-block: 20px 28px; }
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.conversation .message-scroll { scroll-padding-block: 20px 28px; }
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.conversation .assistant-message > div > .markdown {
+  box-sizing: border-box;
+  width: fit-content;
+  max-width: min(800px, 100%);
+  min-width: 0;
+  padding: 14px 18px;
+  border: 1px solid var(--conversation-text-edge);
+  border-radius: 13px;
+  background: var(--conversation-text-paper);
+  box-shadow: var(--conversation-text-shadow);
+}
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.conversation .user-message {
+  box-sizing: border-box;
+  max-width: min(800px, 88%);
+  border: 1px solid var(--conversation-text-edge);
+  background: color-mix(in srgb, var(--room-paper-accent-soft) 34%, var(--room-paper));
+  box-shadow: var(--conversation-text-shadow);
+}
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.conversation :is(.message-actions,.message-host-status,.historical-change) {
+  box-sizing: border-box;
+  width: fit-content;
+  max-width: 100%;
+  padding: 5px 9px;
+  border-radius: 9px;
+  background: var(--conversation-text-paper);
+}
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.conversation .message-actions:empty { display: none; }
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.conversation .bottom-composer { padding-bottom: 24px; }
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.conversation .composer-foot { color: var(--text-secondary); }
+
+/* A compact window keeps the complete room above the working area. Its
+   captions return to paper ink once they no longer lie over the picture. */
+.app-main[data-room-layout='stacked']:has(> .companion-scene[data-scene-family]) {
+  --room-air-ink: var(--text);
+  --room-air-secondary: var(--text-secondary);
+  --room-air-shadow: none;
+}
+.app-main[data-room-layout='stacked']:has(> .companion-scene[data-scene-family]) > .conversation-space > .workspace.welcome > .welcome-inner {
+  width: var(--room-paper-width);
+  margin: 0 0 0 var(--room-paper-left);
+  padding-block: 14px 28px;
+}
+.app-main[data-room-layout='stacked']:has(> .companion-scene[data-scene-family]) .workspace.welcome .welcome-greeting { margin-bottom: 18px; }
+.app-main[data-room-layout='stacked']:has(> .companion-scene[data-scene-family]) .workspace.welcome .return-bookmark { border-top-color: var(--separator); }
+@media (max-width: 600px) {
+  .app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .return-bookmark { grid-template-columns: minmax(0, 1fr) 28px; gap: 2px 10px; }
+  .app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .return-bookmark-copy { grid-column: 1; grid-row: 1; }
+  .app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .return-bookmark-dismiss { grid-column: 2; grid-row: 1; }
+  .app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .return-bookmark-resume { grid-column: 1; grid-row: 2; justify-self: start; }
+  .app-main:has(> .companion-scene[data-scene-family]) .workspace.conversation .assistant-message > div > .markdown { padding: 12px 14px; }
+}
+
+/* At night the same local papers take their light from the lamp. Their
+   foreground stays opaque without shading the space between messages. */
+:root[data-palette='rain'] .app-main[data-room-layout]:has(> .companion-scene[data-scene-family]) > .conversation-space > .workspace.conversation {
+  --room-ink: #f4e6cf;
+  --room-ink-secondary: #d5c1a1;
+  --room-paper: #493224;
+  --room-paper-raised: #4c3527;
+  --room-paper-edge: #8f6a43;
+  --room-paper-accent: #e0bb7b;
+  --room-paper-accent-soft: #6c4c30;
+  --text-tertiary: #baa486;
+  --muted-strong: #e5d2b0;
+  --accent-dim: #c59a60;
+  --control-disabled-text: #b6a080;
+  --conversation-text-shadow: 0 4px 18px #17110c20;
+  color-scheme: dark;
 }

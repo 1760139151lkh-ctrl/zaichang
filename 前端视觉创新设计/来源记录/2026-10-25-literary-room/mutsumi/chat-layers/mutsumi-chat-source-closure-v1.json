@@ -1,0 +1,188 @@
+{
+  "schemaVersion": 1,
+  "kind": "selected-source-closure-copy-manifest",
+  "key": "mutsumi/chat/apricot",
+  "primaryStaticIncludedAccepted": true,
+  "runtimeAccepted": false,
+  "registrationPerformed": false,
+  "consumer": "sole asset registration owner /root/cast_mygo_recovered; copy into isolated worktree only",
+  "complete": true,
+  "files": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+      "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+      "bytes": 2606101
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.prompt.txt",
+      "sha256": "ebcef44bd92cfdf510692b140e968ba6bf9abd8564ae8a7f98d82828a2740d94",
+      "bytes": 4250
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.source.json",
+      "sha256": "d9cd4427517d0e0fc050b9777c204e4f7363d8bd19bb585f000f5212f64fe6c3",
+      "bytes": 1247
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/README.md",
+      "sha256": "439dcb7f3960f5341bd26b44fed6aab5865f5d17e4f456ecd126ea512f147608",
+      "bytes": 4152
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/mutsumi-creative-brief.md",
+      "sha256": "4c41e2b19caefeb2af030509e3c20554cbd6568f27f32f90a6dd41107c0253cf",
+      "bytes": 10625
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/mutsumi-prompt-plan.json",
+      "sha256": "66ade9700cb7bb993b43bd7e247b678878b79ad71237b0b5dcd915a43a3be2ca",
+      "bytes": 101958
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/README.md",
+      "sha256": "b6c62105a9bd9bd4bf370322d9ad2e96fbc94468187577a3cc7de1d6077640d2",
+      "bytes": 1285
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-apricot-included.scene.proposal.json",
+      "sha256": "1764561cbb1571b11d41a9047c2c2110825a40dbfe6dc6e88a09ab0ef2477f96",
+      "bytes": 2599
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-contact-mark-v1.png",
+      "sha256": "ba27ff9988d0157305fc074eca8e4a2e64b46a4c6c006dda08d278e16b89bda1",
+      "bytes": 2379876
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-contact-mark-v1.prompt.txt",
+      "sha256": "131bf0dc13aec2c6a76e68ac82fa3147930f8f76f0ba8cbecda87e33b54926e1",
+      "bytes": 2196
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-contact-mark-v1.source.json",
+      "sha256": "e7d5e6268424dbd9a11e525f84efd9f22815d49a60999761f834debe5835e52b",
+      "bytes": 2814
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-contact-mask-v1.png",
+      "sha256": "469d1c34a02afa1616626e18300994099bf5f28d4b761b655ed0dcff2b6788b1",
+      "bytes": 301455
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-contact-mask-v1.prompt.txt",
+      "sha256": "a6df14210aecab84c67c6b5f0b62c4f528c39cb1aea3433b052146bceb6d95a9",
+      "bytes": 1719
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-contact-mask-v1.source.json",
+      "sha256": "1052bc033d74cfbe5ff557bdb669469b76bec6713a1bfc39af768674fd2b7dd1",
+      "bytes": 3150
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-figure-mark-v1.png",
+      "sha256": "2e96e033f3f138c827b84f417a213ed84fc8419d754f3e5754294c393e465f7d",
+      "bytes": 2301981
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-figure-mark-v1.prompt.txt",
+      "sha256": "74f96e28bad1ec771fc7e6f2ed7afa4bd27fd57dd63788b5c0478fb80e1eb8be",
+      "bytes": 2159
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-figure-mark-v1.source.json",
+      "sha256": "b5102759ab68b1929ad99dd8e65daf874cf9fe46b8c04bb189cf1da5f2f08cbd",
+      "bytes": 2782
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-figure-mask-v1.png",
+      "sha256": "a6d6cef3414154b5201be221e9192b8ce7c42406d4757f893cf16fa0e5824977",
+      "bytes": 461479
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-figure-mask-v1.prompt.txt",
+      "sha256": "2c70b981accfa0c7c2a386463a8658150ab2b7744b1ffe772466b7b52d0e8a95",
+      "bytes": 1566
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-figure-mask-v1.source.json",
+      "sha256": "1ad5869b1e50d6f03c9681031c08dc3b13a71c1135428eeef1b11b56e805b66a",
+      "bytes": 3074
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-included-bundle-v1.json",
+      "sha256": "9892b8ebabc3882fb136ef5e4e78ba864aaba50df144f197beec4e8a93993701",
+      "bytes": 7220
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-included-observe-v1.html",
+      "sha256": "7a866e53f366755af720098d9f53c349feb353e626b529fd0f60eda8b1880b94",
+      "bytes": 24567
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-included-primary-admission-v1.json",
+      "sha256": "bedd2116b3c115761220f5986b083fd6f9ceeafc1c449ca390d8df2d00e488b1",
+      "bytes": 3095
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-included-union-v1.svg",
+      "sha256": "4b2992346a3b5570ffa0d499e5a3eaf5882f81ee05770ca46512bfd6bbeee924",
+      "bytes": 1362
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.png",
+      "sha256": "9d529789ece89f44b166f39dd259136257598cfd546009e49fae74140cbf8b6d",
+      "bytes": 2468785
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.prompt.txt",
+      "sha256": "619ce5853d743eac4c97f52dd30419347ed4861b40fc4f5a23edaf3d0d1392ad",
+      "bytes": 3995
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.source.json",
+      "sha256": "315aeab44f31ab65fc263c68c3428fffe3bf53a323a1acbd8c9ac535508f2987",
+      "bytes": 3696
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "bytes": 2524961
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.prompt.txt",
+      "sha256": "3e854eda45e9e76baed6ad514c67488656035d0990663f089cbf6f24575cae26",
+      "bytes": 1584
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json",
+      "sha256": "5425e475efa8264874f2f3b083b8737b4b1f9d35399e9b2c3d86dc561a36cddb",
+      "bytes": 1250
+    }
+  ],
+  "missing": [],
+  "manifestSelfHashExcluded": true,
+  "runtimeCopyPlan": [
+    {
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.png",
+      "target": "mutsumi-chat-apricot-v1.png",
+      "sha256": "9d529789ece89f44b166f39dd259136257598cfd546009e49fae74140cbf8b6d"
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "target": "literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c"
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-figure-mask-v1.png",
+      "target": "mutsumi-chat-figure-mask-v1.png",
+      "sha256": "a6d6cef3414154b5201be221e9192b8ce7c42406d4757f893cf16fa0e5824977"
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-contact-mask-v1.png",
+      "target": "mutsumi-chat-contact-mask-v1.png",
+      "sha256": "469d1c34a02afa1616626e18300994099bf5f28d4b761b655ed0dcff2b6788b1"
+    }
+  ],
+  "assembly": "MAX of exact luminance F/S; one source mother RGB draw; included; travel/slope/perspective=0",
+  "provenanceBoundary": "Raw ImageGen output PNG/prompt/source remain unchanged except review metadata; upstream source/art and literary text included, no private memories or runtime data."
+}

@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "same-activity-whole-light-mother-candidate",
+  "character": "mutsumi",
+  "activity": "play",
+  "palette": "mist",
+  "environmentVariant": "overcast-day",
+  "wave": "light-activity-wave-b",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-51d49efe-6fc0-4fd6-9126-1786fc297f4b.png",
+  "executionId": "exec-51d49efe-6fc0-4fd6-9126-1786fc297f4b",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "role": "first input; approved empty environment plate, primary camera and authoritative target whole-room light"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-play-apricot-v1.png",
+      "sha256": "eb6ef92ebbd2197f032c3acbb22c8cbb3a505492d25d063d8ed5a645aa894e05",
+      "role": "second input; root-approved exact same-activity apricot mother, actual accepted psychology/pose/proportion/props/support"
+    }
+  ],
+  "apricotActivityMotherApproval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-play-apricot-v1.primary-approval.json",
+  "sourceMotherContourComplete": true,
+  "intendedSupport": "window-seat",
+  "sourceSpecificPose": "Preserve the actual root-approved WOODEN ACOUSTIC GUITAR pose: guitar rests across the lap/arm, one hand truly touches strings at the body/sound hole, the other naturally holds neck/frets, full connected instrument. Keep exact source body/neck/hand positions, quiet interested look, original seat/legs/full shoes. Illustration only; no sound or actual audio-performance claim.",
+  "brief": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/mutsumi-prompt-plan.json",
+    "sha256": "66ade9700cb7bb993b43bd7e247b678878b79ad71237b0b5dcd915a43a3be2ca",
+    "key": "mutsumi/play/apricot",
+    "role": "own role/activity literary psychology; light redirection keeps actual accepted mother pose"
+  },
+  "wholeSceneRelighting": true,
+  "oldApricotHeatSpotsAreNotIdentity": true,
+  "unreviewedLightCandidateUsedAsInput": false,
+  "promptFile": "mutsumi-play-mist-v1.prompt.txt",
+  "promptFileSha256": "eb79088ebd8a56a747999d3d5027cc05acf25424a7c1a2f3b43def241ddb1604",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; exact submitted text",
+  "submittedPromptSha256": "4d44a0f5f0f35bf13e733153662134015ee6de92815ab07ff3b1c8404d20ad65",
+  "output": {
+    "file": "mutsumi-play-mist-v1.png",
+    "sha256": "7613900e264083745de9380ce1631692e6695394a6bcb47c146d08d0c6e1f42c",
+    "bytes": 2427135,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved complete mother. Correct mint/golden-brown identity and accepted wooden-guitar pose remain: connected body/neck, one actual string/body hand and the other on frets/neck, lap/arm support, true hip/seat and uncrossed legs with full head/loafers. Dry overcast diffuse light reaches skin, plain navy cloth, wood instrument and floor together; hard floor lattice and obvious irregular pale uniform islands are absent, true collar/cuff/hem kept. Guitar retains wood material with softer sheen, not an audio/performance claim. Visible eye/fringe and finger/instrument contacts readable. Root/layer/runtime pending."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "New static mother candidate only, root review pending; no layer, registration or runtime acceptance.",
+  "privateUserDataUsed": false
+}

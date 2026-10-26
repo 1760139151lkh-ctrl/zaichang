@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "sceneFamily": "literary-room-v1",
+  "characterId": "taki",
+  "paletteHint": "mist",
+  "lightHint": "morning",
+  "environmentVariant": "time-day",
+  "weatherClaim": false,
+  "exactActivityCoverage": false,
+  "createdAt": "2026-10-26T00:17:12.684974+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "generationIntent": "new whole-mother character drawn into the approved clean empty time-only room; no UI or prior full-body character input",
+  "exactPromptFile": "taki-neutral-time-day-literary-v1.prompt.txt",
+  "promptSha256": "dc575ae15bd97b7ffe7e32a8d84137c875c37f65856571550b2cef8b1374e048",
+  "requestFile": "taki-neutral-time-day-literary-v1.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.png",
+      "sha256": "aa4ce3dcab5cd2366c9f1c4eadcff0ab85537ab45e5a3b0643c4d01588e6e247",
+      "role": "sole room/camera/weather-unknown daytime plate",
+      "primaryApproval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.primary-approval.json"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/portrait/taki-avatar-youth-v3.png",
+      "sha256": "6597cfbe08e2e4ce4906c498bcfc5d2e41d3d3910e5a8a80762c2aa53d4ed873",
+      "role": "same-character 2D face identity reference only",
+      "primaryApproval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/portrait/taki-avatar-youth-v3.primary-identity-review.json"
+    }
+  ],
+  "readSources": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/taki.md",
+      "sha256": "48f954585e91b84599430c573ff38e498959d3168f18a9ca46c0c3c1e7f7bc7a",
+      "fullReadBeforeCall": true
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "fullReadBeforeCall": true
+    }
+  ],
+  "wardrobeId": "hanasakigawa-high-sailor-dress-under-knee-socks-brown-loafers",
+  "projectOriginalInteraction": "She has just read her own lap page and quietly lifts her attention toward a familiar speaker, leaving her fingertip at the page edge; not a claim of real source completion or original-series history",
+  "output": {
+    "file": "taki-neutral-time-day-literary-v1.png",
+    "originalBasename": "exec-d667e172-c3ae-4312-8677-edc9c9064f56.png",
+    "sha256": "66e104b6025d0b65c2ab522a6d76c8cab8cbc94e5ee4edbd3dd2c4d9b5bb6654",
+    "bytes": 2417091,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteMother": true,
+    "observations": [
+      "Opaque closed inner curtains hide all outdoor scenery; daytime interior light makes no weather claim.",
+      "Taki sits at right cushion edge with visible seat support, open book across lap and hands contacting page/book.",
+      "Deep long hair, violet eyes, brown sailor dress, white edged collar and red bow retained; gold paired buttons visible.",
+      "Both knees remain exposed above dark below-knee socks; complete brown loafers contact the wood floor.",
+      "A small closed smile and upward glance retain her concentrated warmth; root still decides face, gaze, wardrobe and whole-body acceptance."
+    ],
+    "primaryReviewPending": true
+  },
+  "primaryApproved": true,
+  "userApproved": false,
+  "generationInputAllowed": true,
+  "layersProduced": false,
+  "runtimeAccepted": false,
+  "countsToward360ExactActivities": false,
+  "primaryApprovalScope": "Exact same-character static time-only neutral daytime mother; generation reference for the authorized matching night relight only.",
+  "primaryReviewFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/taki-neutral-time-day-literary-v1.primary-mother-review.json",
+  "generationInputScope": "Same-character night relight under current root instruction only"
+}

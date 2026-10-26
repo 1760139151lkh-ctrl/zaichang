@@ -336,7 +336,10 @@ export class NotesService {
     if (page.note.sha256 !== reference.sha256 || page.offset !== reference.start || page.end !== reference.end || !page.body.trim())
       throw new HarnessError('note_quote_range', '这段文字已不在原来的位置，请重新选一下。');
     this.quoteIdentity(scope, reference);
-    return { ...noteQuoteAddress(reference), title: page.note.title, text: page.body };
+    // Quote titles are display labels; the stored title remains part of the
+    // original document hash, and any title edited by the person stays intact.
+    const title = page.note.source.referenceOnly && page.note.title === '纸边的一段原文' ? '摘录笔记' : page.note.title;
+    return { ...noteQuoteAddress(reference), title, text: page.body };
   }
   /** Compatibility with existing typed notebook addresses, through the same
    * owner and metadata-only identity gate used by the current notebook. */

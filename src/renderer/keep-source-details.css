@@ -1,0 +1,285 @@
+/* Source and activity stay beside the reply, without another large surface. */
+.keep-reply-evidence,
+.chat-process {
+  --ui-heading: var(--text);
+  --ui-body: var(--text-secondary);
+  --ui-muted: var(--text-tertiary);
+  --ui-surface: var(--surface);
+  --ui-line: var(--separator);
+  --source-surface: var(--conversation-text-paper, color-mix(in srgb, var(--surface) 78%, transparent));
+}
+
+.keep-reply-evidence.reply-evidence {
+  max-width: 100%;
+  margin-top: 14px;
+  color: var(--ui-muted, var(--text-secondary));
+}
+
+.keep-reply-evidence.reply-evidence .evidence-toggle,
+.chat-process .chat-process-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 30px;
+  max-width: 100%;
+  padding: 4px 8px;
+  border: 0;
+  border-radius: 5px;
+  background: var(--source-surface);
+  backdrop-filter: blur(10px);
+  color: var(--ui-muted, var(--text-secondary));
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.65;
+  text-align: left;
+}
+
+.keep-reply-evidence .evidence-toggle > span,
+.chat-process .chat-process-toggle > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.keep-reply-evidence .evidence-toggle > svg,
+.chat-process .chat-process-toggle > svg {
+  flex-shrink: 0;
+  transition: transform 140ms ease;
+}
+
+.keep-reply-evidence .rotated,
+.chat-process .rotated {
+  transform: rotate(90deg);
+}
+
+.keep-reply-evidence .keep-source-details {
+  width: fit-content;
+  max-width: min(100%, 440px);
+  margin-top: 4px;
+  padding: 6px 0 2px 2px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  font-size: 12px;
+  line-height: 1.7;
+  animation: none;
+}
+
+.keep-source-details > p,
+.keep-source-error > p {
+  margin: 5px 0 9px;
+}
+
+.keep-source-details > .harness-muted,
+.keep-source-error {
+  width: fit-content;
+  max-width: 100%;
+  padding: 5px 8px;
+  border-radius: 6px;
+  background: var(--source-surface);
+  backdrop-filter: blur(10px);
+}
+
+.keep-source-details .keep-source-list {
+  display: grid;
+  gap: 5px;
+  list-style: none;
+  margin: 0;
+  padding: 3px 10px;
+  border-radius: 8px;
+  background: var(--source-surface);
+  backdrop-filter: blur(10px);
+}
+
+.keep-source-list > li {
+  min-width: 0;
+  padding: 7px 0 9px;
+}
+
+.keep-source-list > li + li {
+  border-top: 1px solid color-mix(in srgb, var(--ui-line, var(--separator)) 38%, transparent);
+}
+
+.keep-source-details .keep-source-open,
+.keep-source-details .keep-source-name {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: fit-content;
+  max-width: 100%;
+  min-height: 28px;
+  margin: 0;
+  padding: 3px 4px 3px 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ui-body, var(--text-secondary));
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.65;
+  text-align: left;
+  white-space: normal;
+}
+
+.keep-source-open > span,
+.keep-source-name > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.keep-source-open > svg,
+.keep-source-name > svg {
+  flex-shrink: 0;
+  margin-top: 4px;
+  color: var(--ui-muted, var(--text-tertiary));
+}
+
+.keep-source-open > svg:last-child {
+  margin-left: 1px;
+}
+
+.keep-source-details .keep-source-position,
+.keep-source-details .keep-source-status {
+  margin: 2px 0 0 22px;
+  color: var(--ui-muted, var(--text-tertiary));
+  font-size: 12px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.keep-source-details .keep-source-position {
+  color: var(--ui-body, var(--text-secondary));
+}
+
+.keep-source-details .keep-source-more {
+  margin: 6px 0 0;
+  padding: 4px 8px;
+  border-radius: 5px;
+  background: var(--source-surface);
+}
+
+.keep-source-details .release-summary {
+  margin: 12px 0 3px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--source-surface);
+}
+
+.keep-source-details .need-list {
+  max-width: 100%;
+  margin: 10px 0;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: var(--source-surface);
+}
+
+.keep-source-details .need-list li {
+  align-items: baseline;
+  gap: 16px;
+  padding: 4px 0;
+  font-size: 12px;
+}
+
+.chat-process {
+  max-width: 100%;
+  margin: 5px 0 12px;
+  color: var(--ui-muted, var(--text-secondary));
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.chat-process:not(.is-running) {
+  margin-top: 12px;
+  margin-bottom: 0;
+}
+
+.chat-process .chat-process-activity {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  min-height: 26px;
+  width: fit-content;
+  max-width: 100%;
+  padding: 4px 8px;
+  border-radius: 5px;
+  background: var(--source-surface);
+  backdrop-filter: blur(10px);
+}
+
+.chat-process-details {
+  width: fit-content;
+  max-width: min(100%, 440px);
+  margin: 7px 0 3px 5px;
+  padding: 6px 12px;
+  border-left: 1px solid color-mix(in srgb, var(--ui-line, var(--separator)) 48%, transparent);
+  border-radius: 0 7px 7px 0;
+  background: var(--source-surface);
+  backdrop-filter: blur(10px);
+}
+
+.chat-process-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.chat-process-items > li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+  padding: 5px 0;
+}
+
+.chat-process-items > li > svg {
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.chat-process-items > li > span,
+.chat-process-items > li > div {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.chat-process-items p {
+  margin: 2px 0 0;
+  color: var(--ui-muted, var(--text-tertiary));
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.keep-reply-evidence button:focus-visible,
+.chat-process button:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) {
+  .keep-reply-evidence .evidence-toggle:hover,
+  .keep-source-details .keep-source-open:hover:not(:disabled),
+  .chat-process .chat-process-toggle:hover {
+    background: color-mix(in srgb, var(--ui-surface, var(--control-surface)) 90%, transparent);
+    color: var(--ui-heading, var(--text));
+  }
+}
+
+@media (max-width: 560px) {
+  .keep-source-details .need-list li {
+    flex-wrap: wrap;
+    gap: 2px 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .keep-reply-evidence svg,
+  .chat-process svg {
+    transition: none;
+  }
+  .keep-reply-evidence .spin,
+  .chat-process .spin {
+    animation: none;
+  }
+}

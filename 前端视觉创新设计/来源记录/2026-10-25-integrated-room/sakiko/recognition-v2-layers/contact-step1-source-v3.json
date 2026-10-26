@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-source-contact-receiver-selection-markup",
+  "id": "sakiko-resume-apricot-recognition-v2-S1v3",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "dossier": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+    "version": "2026-10-25.1",
+    "readComplete": true,
+    "wardrobeId": "sakiko-literary-navy-adaptation"
+  },
+  "method": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+  "promptFile": "contact-step1-prompt-v3.txt",
+  "submittedPrompt": "Precise source selection markup only. The ONLY input is the correct original Sakiko recognition v2 mother, 1536x1024. Keep every original RGB detail, person, book, pose, cloth, socks, shoes, furniture, camera and coordinate unchanged. Do not redraw.\n\nPaint ONLY THREE SMALL, SEPARATE LOCAL RECEIVER GROUPS solid pure white directly over their existing source pixels:\n1. The tiny actual pale-linen/grey compressed-seat receiver immediately BELOW the low hanging plaid skirt hem near the girl's hips. Restrict this seat selection to the tight original-coordinate neighborhood x1020..1150, y609..642. Follow the small irregular visible contact strip INSIDE that neighborhood, not a rectangle. Select the real linen right below the garment, not the garment itself. Everything at x<1000 MUST stay in original color, including the entire long empty left bench. The bright empty linen from the lamp table to the girl MUST NOT turn white. No whole-cushion selection.\n2. The actual short floor receiver and local darkness immediately under the left complete loafer, close to original x1055..1163,y874..906. The shoes themselves stay original-colored.\n3. The actual short floor receiver and local darkness immediately under the right complete loafer, close to original x1152..1244,y880..907. Follow each actual source sole-contact extent, not ovals. These neighborhoods are limits for inspection, NOT boxes to fill, and no hidden contact is invented.\n\nThe entire original girl, face/hair/ribbons, hands/open book, skirt dark hem, exposed knees, below-knee socks, all complete shoe RGB and every unrelated room pixel remain colored. This is a fixed INCLUDED original-RGB receiver layer, not a new independent cast shadow. Preserve only the actual tiny receiving materials/shade that exist at those source contacts. Keep large cushions, plaid pillows and knitted throw, sunlight patterns, floor/rug outside the two sole contacts, plants, windows, lamp and furniture completely unchanged.\n\nOutput one opaque 1536x1024 PNG of the full original color mother, with these three small source support receiver groups marked white. No pure-white whole seat, new shadow, body change, crop/resize/zoom/translation, recentering, text, labels, arrows, outlines, rectangles or grid.",
+  "inputs": [
+    {
+      "path": "../sakiko-recognition-apricot-v2.png",
+      "sha256": "a8801f784b77d632509818d102a8b899d0bdda99afe904085196a9e8c5bee279",
+      "role": "only exact root-reviewed clean recognition v2 mother; no previous failed mask or held person input",
+      "actualSha256": "a8801f784b77d632509818d102a8b899d0bdda99afe904085196a9e8c5bee279"
+    }
+  ],
+  "output": {
+    "file": "contact-step1-marked-v3.png",
+    "sha256": "860d8b9c38b077a85b40ca7287970c71c5fa8ff13b9bc0a6663192c4f3f14f3c",
+    "bytes": 2454250,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-454d-7bb3-8b77-bcaadd75b8a4\\exec-07843a5b-ed72-4d8c-b8d2-22ade7cdc89d.png"
+  },
+  "review": {
+    "producerPersonallyViewed": true,
+    "observation": "Full native markup viewed: source-sized person/book unchanged in color; a small white contact/material wedge appears left of the skirt tail plus two individual sole receiver groups. The hanging front skirt is not invented as a hidden supporting joint. Requires mask/composite inspection.",
+    "generationInputAllowed": true,
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  },
+  "status": "producer-viewed-small-source-receivers-awaiting-S2",
+  "submittedPromptSha256Utf8NoTrailingLF": "439c96253989ffbef813cbf65cb0df20a58702744cde7e417521ee2b20f98dc6",
+  "promptFileSha256": "63c593e89018f8bd3b0d99cd98fadb10d92a17f418ee6af1594768ad779d3011",
+  "promptEncodingBoundary": "submittedPrompt is the exact built-in inline text; prompt file retains its terminal LF independently."
+}

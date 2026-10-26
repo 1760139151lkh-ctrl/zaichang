@@ -1,0 +1,188 @@
+{
+  "schemaVersion": 1,
+  "character": "mutsumi",
+  "purpose": "neutral-presence",
+  "environmentVariant": "time-day",
+  "weather": "unknown",
+  "exactActivityMatrixCredit": 0,
+  "mother": {
+    "path": "../../mutsumi-neutral-time-day-v1.png",
+    "sha256": "8c1d8e006fa332a85a9d7fed40989170fce6f6956a0b18e351efa83f29404f6f",
+    "primaryApproval": "../../mutsumi-neutral-time-day-v1.primary-approval.json"
+  },
+  "assets": {
+    "figureMask": {
+      "path": "figure-mask-v1.png",
+      "sha256": "9961af4ec90629af0afe86f56ead3d6b2619f736b8ef8c18c428fffdc30ba69a",
+      "bytes": 461973
+    },
+    "contactMask": {
+      "path": "contact-mask-v3.png",
+      "sha256": "115452400c70025e781ad271eedba5b93460199cd345a76f3176e6ce1653d611",
+      "bytes": 369905
+    },
+    "cleanBackground": {
+      "path": "background-v1.png",
+      "sha256": "8521185ea7e37ce08f9dd015dbc36cd5b5bb4dc1620fc5471469392e36176c7a",
+      "bytes": 2339898
+    },
+    "union": {
+      "path": "union-source-v1.svg",
+      "sha256": "722523798f785c3151ffaf1be70be9f094b3fe2f04fa6ce0b6d8eabb33b74c2e",
+      "bytes": 1282
+    },
+    "composite": {
+      "path": "composite-source-v1.svg",
+      "sha256": "6ad07e7a9c2a21021c3ece421652dc9eadc229706efecd2e470c596cd6b092b5",
+      "bytes": 1373
+    },
+    "observationPage": {
+      "path": "included-observe-v1.html",
+      "sha256": "a137d1d5f67aab0bb0560d4b2870c75c5f0a589da7a28b83f55a11697edb876d",
+      "bytes": 21317
+    }
+  },
+  "stages": [
+    {
+      "source": "background-v1.source.json",
+      "stage": "background-v1",
+      "sha256": "8521185ea7e37ce08f9dd015dbc36cd5b5bb4dc1620fc5471469392e36176c7a",
+      "decision": "candidate-awaiting-static-union-review"
+    },
+    {
+      "source": "contact-mask-v1.source.json",
+      "stage": "contact-mask-v1",
+      "sha256": "de08f94a921eb2d8cbb8ee5f9c403d064e95071b08c9643f74e043472727cb46",
+      "decision": "HOLD-seat-receiver-marks-omitted"
+    },
+    {
+      "source": "contact-mask-v2.source.json",
+      "stage": "contact-mask-v2",
+      "sha256": "31a7cad758a73b0d197e452dcdd9f3358af202ee04d5d7ad9f1a2996b6afbf87",
+      "decision": "HOLD-suspected-seat-registration-drift"
+    },
+    {
+      "source": "contact-mask-v3.source.json",
+      "stage": "contact-mask-v3",
+      "sha256": "115452400c70025e781ad271eedba5b93460199cd345a76f3176e6ce1653d611",
+      "decision": "candidate-awaiting-static-union-review"
+    },
+    {
+      "source": "contact-step1-marked-v1.source.json",
+      "stage": "contact-step1-marked-v1",
+      "sha256": "34fb6f263152fb0b431cc45eef02c5c545eef1e5033c6bc6799db4b71f7fd0b3",
+      "decision": "candidate-awaiting-static-union-review"
+    },
+    {
+      "source": "contact-step1-marked-v2.source.json",
+      "stage": "contact-step1-marked-v2",
+      "sha256": "35ebbf1beed07b20b3d6cce1fd7dffee0882f1c3eb6dd09fe55d86acd87c4d3e",
+      "decision": "candidate-awaiting-static-union-review"
+    },
+    {
+      "source": "figure-mask-v1.source.json",
+      "stage": "figure-mask-v1",
+      "sha256": "9961af4ec90629af0afe86f56ead3d6b2619f736b8ef8c18c428fffdc30ba69a",
+      "decision": "candidate-awaiting-static-union-review"
+    },
+    {
+      "source": "figure-step1-marked-v1.source.json",
+      "stage": "figure-step1-marked-v1",
+      "sha256": "8d8e786c7e1cb27c032459bcab98b53faade244ed497c11500038ea29535011c",
+      "decision": "candidate-awaiting-static-union-review"
+    }
+  ],
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "travel": 0,
+    "perspective": 0,
+    "slope": 0
+  },
+  "nativeMethod": {
+    "sourceRgb": "exact original mother",
+    "originalRgbDraws": 1,
+    "union": "MAX(L(F),L(S))",
+    "luminance": "native feColorMatrix sRGB then feBlend lighten",
+    "mask": "native SVG luminance mask",
+    "contact": "included fixed original receiving seat/wood material; not a mobile caster",
+    "pixelEditing": false,
+    "threshold": false,
+    "warp": false
+  },
+  "browser": {
+    "tabId": "500947839",
+    "viewport": [
+      1590,
+      1130
+    ],
+    "cssSourcePixelCloseups": true,
+    "observations": [
+      "实际 Chrome 实看1536原尺寸同母BG+单次原RGB组合，脸发、双手、裙边、完整双鞋未见可见断切或源位不匹配。",
+      "浅/暗/棋盘实看保留细发与真实身体空隙；双鞋木面软影位于脚底，受座小材质仅裙边。",
+      "S-v1漏座面、S-v2误到膝部已HOLD；从clean母重建magenta S1-v2并生成S-v3，不喂错误mask。",
+      "S-only有少量裙边/鞋底与F重叠；MAX不叠加着色，固定位置组合可见接触连续。BG隐藏区是Image重建，不宣称每个场景像素不变。"
+    ],
+    "evidence": [
+      {
+        "path": "browser-face-v1.png",
+        "sha256": "cf555570944a44a3f4ba60f86bdd2e2f606223fbde8d383b6cadf6575bd1b610",
+        "bytes": 206961,
+        "personallyViewed": true,
+        "method": "actual Chrome formal Browser screenshot; local native inline SVG"
+      },
+      {
+        "path": "browser-hands-shoes-v1.png",
+        "sha256": "6dbeff2f708e4bca819a0a5961664f4ee411c0f24fc25172f9e7fd1dfb8df900",
+        "bytes": 193240,
+        "personallyViewed": true,
+        "method": "actual Chrome formal Browser screenshot; local native inline SVG"
+      },
+      {
+        "path": "browser-light-dark-checker-v1.png",
+        "sha256": "c1e5d927057e4356d3364f378352cb215cfcec23d5a61e9f6e32374239852215",
+        "bytes": 217160,
+        "personallyViewed": true,
+        "method": "actual Chrome formal Browser screenshot; local native inline SVG"
+      },
+      {
+        "path": "browser-native-1536-v1.png",
+        "sha256": "af9f2a7d7e45f9e06a494d40a94026358a63f0474f5d4fbc866129cdbd3334fe",
+        "bytes": 244967,
+        "personallyViewed": true,
+        "method": "actual Chrome formal Browser screenshot; local native inline SVG"
+      },
+      {
+        "path": "browser-scene-v1.png",
+        "sha256": "6958649e9e537cb7088cc6b495bfb57dcd6124b945202d511a1226018897352d",
+        "bytes": 272276,
+        "personallyViewed": true,
+        "method": "actual Chrome formal Browser screenshot; local native inline SVG"
+      }
+    ]
+  },
+  "primaryLayerApproved": true,
+  "runtimeAccepted": false,
+  "runtimeRegistered": true,
+  "userApproved": false,
+  "status": "root-approved-exact-static-layer-runtime-registered-awaiting-integrated-runtime",
+  "primaryAdmission": "root-primary-layer-admission-v1.json",
+  "historicalDiagnosticsExcluded": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/day/layers/browser-diagnostic-contact-v1.png",
+      "sha256": "29c88f4c10e32cc0cd52bbcd7318a338558d0d24b5653d2821a4a1a6a8b2d0e6",
+      "assembly": "figure-mask-v1 + HOLD contact-mask-v2 + background-v1",
+      "includedInPrimaryFinalAdmission": false,
+      "reason": "Earlier diagnostic page used contact-mask-v2; skin selected at knee is the observed failed seat-registration conversion. NOT selected S-v3 and NOT root-approved final evidence."
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/day/layers/browser-diagnostic-hands-v1.png",
+      "sha256": "9548c55a340c5a90551901690c42edd46497c5f04bd40c6b195dfbe499446e12",
+      "assembly": "figure-mask-v1 + HOLD contact-mask-v2 + background-v1",
+      "includedInPrimaryFinalAdmission": false,
+      "reason": "Earlier diagnostic page used contact-mask-v2; skin selected at knee is the observed failed seat-registration conversion. NOT selected S-v3 and NOT root-approved final evidence."
+    }
+  ]
+}

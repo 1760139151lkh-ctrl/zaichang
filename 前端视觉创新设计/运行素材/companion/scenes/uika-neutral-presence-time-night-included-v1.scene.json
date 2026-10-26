@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "id": "uika-neutral-presence-time-night-included-v1",
+  "sceneFamily": "literary-room-v1",
+  "pose": "supported-neutral-presence-with-side-palm-on-seat",
+  "character": "uika",
+  "activity": "chat",
+  "purpose": "neutral-presence",
+  "neutralTime": "night",
+  "light": "night",
+  "palette": "rain",
+  "width": 1536,
+  "height": 1024,
+  "mother": "uika-neutral-presence-time-night-included-v1-mother.png",
+  "background": "uika-neutral-presence-time-night-included-v1-background.png",
+  "mask": "uika-neutral-presence-time-night-included-v1-mask.png",
+  "maskMode": "luminance",
+  "contactMask": "uika-neutral-presence-time-night-included-v1-contact-mask.png",
+  "seat": [
+    0.7734375,
+    0.5654296875
+  ],
+  "ground": [
+    0.6197916666666666,
+    0.8720703125
+  ],
+  "bodyBounds": [
+    0.5240885416666666,
+    0.09375,
+    0.873046875,
+    0.873046875
+  ],
+  "safeTextBoundary": 0.501953125,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "52.408854166666664% 9.375%, 87.3046875% 9.375%, 87.3046875% 87.3046875%, 52.408854166666664% 87.3046875%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "dynamicAdmission": false,
+    "original360ExactActivityAdmission": false,
+    "layerReview": "root-approved-time-only-neutral-fixed-original-source-max-union-v2",
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/night/layers/root-primary-layer-admission-v2.json",
+    "runtimeSourceSha256": {
+      "mother": "7c53b03795295ddf3b7b490fe1332db82326a49dcace9fe9f6502b2cee5636d9",
+      "background": "0ee667d9b808402c52c22deca94209a429f33836d6f95a1285e3bad21683a7f8",
+      "F": "f1833c0423a5d8241c4e69f1a95101bc5643d89b18019f008b53a41ec146b539",
+      "S": "95be09b006d6811de4688ca14de32c4b1426d3aff54814d1d4518a253830c387"
+    },
+    "geometryEvidence": {
+      "figureEnvelope": {
+        "sourcePixels": [
+          805,
+          96,
+          1341,
+          894
+        ],
+        "normalized": [
+          0.5240885416666666,
+          0.09375,
+          0.873046875,
+          0.873046875
+        ],
+        "basis": "Read-only original PNG Rec.709 F luminance >32; right/bottom exclusive; diagnostic only, original continuous mask unchanged."
+      },
+      "jointReceiverEnvelope": {
+        "sourcePixels": [
+          787,
+          96,
+          1343,
+          907
+        ],
+        "normalized": [
+          0.5123697916666666,
+          0.09375,
+          0.8743489583333334,
+          0.8857421875
+        ],
+        "basis": "Read-only original MAX(L(F),L(S)) >32 complete real source receiver envelope, never tightened."
+      },
+      "supportAnchors": {
+        "seatPixels": [
+          1188,
+          579
+        ],
+        "groundPixels": [
+          952,
+          893
+        ],
+        "basis": "Registrar personally viewed exact full mother and native sourceRGB closeups: visible lower hip/long-skirt to linen seat, supported side palm on same cushion, full nearer canvas sole grounding into source wood. Fixed visible reference points, not hidden-joint reconstruction or travel calibration."
+      },
+      "familyFramingCodeUnchanged": true,
+      "newJointReceiverFitsExistingFamilyOuterBounds": true
+    },
+    "approvalScope": "Exact static neutral-presence time-night, weather unknown. Full rear long-skirt fabric, sourceRGB once MAX(F,S), fixed included source cloth/palm/shoe/wood overlap. Not caster/free travel/dynamic/exact activity360 or integrated runtime acceptance."
+  }
+}

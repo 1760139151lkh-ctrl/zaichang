@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "character-activity-mother-candidate",
+  "character": "nyamu",
+  "activity": "chat",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-4b586f23-099a-4252-8b7f-3bdbc2950144.png",
+  "executionId": "exec-4b586f23-099a-4252-8b7f-3bdbc2950144",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "sole approved clean empty room environment image input; fresh character from text",
+      "admissionRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json"
+    }
+  ],
+  "brief": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-prompt-plan.json",
+    "sha256": "9f549b3785d8e59d903dec1f220f05880ce0b57213591c5111effa3a98da9dea",
+    "key": "nyamu/chat/apricot",
+    "release": "root explicitly released this single chat/apricot cell only after Sakiko cross-scene samples; remaining brief cells remain held",
+    "transformation": "Original literary/chat/apricot narrative and identity text retained; future room contract replaced with exact approved plate constraints; identity and minimal framing details refined"
+  },
+  "selectedMotherLineage": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+    "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+    "imageInputForThisCall": false,
+    "purpose": "personally viewed space-emotion and human-scale basis; never used as a body/face input"
+  },
+  "promptFile": "nyamu-chat-apricot-v1.prompt.txt",
+  "promptFileSha256": "b5cb5846140a99bd40c361114bf74a7920d23212971d38212d68d7a6aa3aefd5",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; submitted text exact",
+  "submittedPromptSha256": "5367559bf10b3eccc5ab121ca310e15451d9a0493c9fbba31480295fa685a32c",
+  "output": {
+    "file": "nyamu-chat-apricot-v1.png",
+    "sha256": "096bd7f5f0138e8b961c91d52dc8e68b29bcda1600bbb9ca444bd1c7eff75313",
+    "bytes": 2469206,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved full original. Same clear-day close literary room, window/town/lake, desk/chair, ceramic lamp table, cream bench and fabric anchors remain visually in place. Lavender short bob, red-purple eyes, grey ruffled off-shoulder blouse with straps, black choker/skirt and complete low-heel ankle-strap black shoes are readable. Crown near y105 and complete soles near y900 retain a comparable head scale without obvious lensward enlargement. One hand visibly supports on the actual cushion and the other makes a compact conversational gesture; hip/seat, knee/ankle continuity and shoe-floor support read coherently in full view. Irises and eyelids remain distinct from fringe. Warm light acts on hair, skin, hands, grey fabric and floor. Her open-mouth smile is more outwardly expressive than the brief's very small self-amusement, distinctly different from Mutsumi; no wink, camera/phone or generic comforting gesture. Root should judge that expression nuance. Producer static observation only; root, layers and runtime acceptance pending."
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "Producer-viewed single-character static mother candidate only; root review pending, no layer, matrix, motion or runtime acceptance."
+}

@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-25T06:20:56Z",
+  "reviewer": "root / primary agent",
+  "scope": "Exact-SHA fixed original-position same-canvas static layer admission only; not runtime, motion, arbitrary travel or weather-owner verification.",
+  "decision": "accepted",
+  "approvedFiles": [
+    {
+      "file": "sakiko-chat-dry-night-mother-v1.png",
+      "sha256": "894ea7803e258c79792110d32d9e1ece3f1551d75b0d6f4746ca09065ef296f9"
+    },
+    {
+      "file": "sakiko-chat-dry-night-background-v1.png",
+      "sha256": "f2a854d9fdea993e10cb6bc8b8758bd89d275db2b119f1367cb2bd829f32b4a8"
+    },
+    {
+      "file": "sakiko-chat-dry-night-figure-mask-v1.png",
+      "sha256": "7559ad8baf82697bdec83689750dd0c3b54f9a5649cc53b89b8c4a4986e7f8e8"
+    },
+    {
+      "file": "sakiko-chat-dry-night-contact-shadow-mask-v1.png",
+      "sha256": "8d18bd24c16bbd1d5646140c0709c6b880e52877dda77de18719c99eab20b940"
+    }
+  ],
+  "primaryEvidence": {
+    "observationPage": "sakiko-chat-dry-night-layers-v1.html",
+    "method": "Primary personally viewed the actual native original-RGB/luminance HTML on its existing normal local static server.",
+    "viewed": [
+      "complete original RGB person on light, dark and checker grounds",
+      "source mother versus layer recomposition at hips, lap book and right palm/cushion support",
+      "both worn shoes and same dry floor region",
+      "complete original-position recomposed room scene"
+    ],
+    "messageVerbatim": "root已实际逐一亲看 dry-night/rain-day 两套本机HTML：alpha浅/深/棋盘完整人物（雨day裙摆已完整）、#seat/#hand源图与合成髋/书/手掌支撑、#shoes两鞋地面同区、#scene整景。接受这2套当前4PNG固定原位layer bundle，精确源RGB+matchingBG+figure mask+各自contact参数（dry#291c16/.38，rain#302c2c/.35），travel0，非runtime。"
+  },
+  "rendering": {
+    "figure": "Exact original mother RGB through same-canvas native luminance figure mask",
+    "shadowColor": "#291c16",
+    "shadowOpacity": 0.38,
+    "order": "matching background, dark contact mask, original RGB through figure mask"
+  },
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "sourceApprovalBoundary": "Earlier empty weather backgrounds and complete mothers retain their individual approvals. White-in-room files are production intermediates and are not independently admitted runtime layers.",
+  "primaryObservation": "Primary observed that exposed shoe-floor shadow fringe is very light, but complete scene showed no floating or dark stain. Maintain the accepted current shadow parameters; do not enlarge the shadow."
+}

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "s01-d01-sakiko-reading-right-arm-release-source-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "recordedAt": "2026-10-25T08:01:26Z",
+  "generationId": "exec-53ed0049-704f-474c-b13a-a37c972763d2",
+  "prompt": "sakiko-reading-right-arm-release-source-v1.prompt.txt",
+  "inputs": [
+    {
+      "path": "../../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-mother.png",
+      "sha256": "8f2358c0af7a78451259d049517cf3dedfe011023fdbabc44ec4bd850d3e671b",
+      "role": "approved original READING mother; only image reference used for every generation in this folder"
+    }
+  ],
+  "output": "quarantine/sakiko-reading-right-arm-release-source-v1.png",
+  "sha256": "0fe6312d7b54c01ba07db86dfdb8c4d5c99f79a9d691d631757c750064d47814",
+  "bytes": 2121822,
+  "canvas": {
+    "width": 1536,
+    "height": 1024
+  },
+  "outputMode": "RGB",
+  "character": "sakiko",
+  "sceneFamily": "sakiko-reading-apricot-room4",
+  "classification": "C",
+  "status": "rejected-quarantine",
+  "runtimeAllowed": false,
+  "staticReview": {
+    "producerInspected": true,
+    "observed": "A new raised right hand was added while the original right hand remained at the book's left edge, producing three hands. The lift also exceeded the intended small gesture.",
+    "limitation": "A full-scene pose request did not guarantee removal of the original occluded hand. Do not use this structurally wrong candidate as any future image reference."
+  },
+  "originalNotOverwritten": true,
+  "noCrossFamilyPixels": true,
+  "motionVerified": false,
+  "inAppVerified": false,
+  "runtimeRig": null,
+  "doNotUseAsGenerationReference": true
+}

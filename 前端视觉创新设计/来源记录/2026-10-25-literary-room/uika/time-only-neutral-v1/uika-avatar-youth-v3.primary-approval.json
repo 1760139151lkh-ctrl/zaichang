@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "recordType": "primary-scoped-avatar-admission",
+  "reviewer": "root / primary agent",
+  "asset": {
+    "path": "uika-avatar-youth-v3.png",
+    "sha256": "842725f73a3d8bd1af9941e58783a523e3adb3b7f43e21c2a9b2579f0f680257"
+  },
+  "faceArtworkApproved": true,
+  "sameCharacterIdentityGenerationAllowed": true,
+  "alphaEdgeApproved": false,
+  "circle34And48Approved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "userApproved": false,
+  "scope": "Complete original facial aesthetic and same-character identity generation reference only. Not an alpha-edge, small-circle, full-purpose or runtime acceptance.",
+  "primaryMessageVerbatim": "Root现已逐原PNG亲看Uika v3 842725f7…80257：浅金短发紫眼、轻开口笑有专注亲近，颊下巴青年细2D，不是长母亲脸。准原画面部审美与同角色identity generation参考，可用它+准day净plate做Uika日母；透明细发边/34与48圆框/实际runtime仍未验，不签全用途、不改userApproved true。请存分项根准入，Mutsumi day我下一步亲看，尚不准它night连生。",
+  "recordedAt": "2026-10-26T00:22:40.300Z"
+}

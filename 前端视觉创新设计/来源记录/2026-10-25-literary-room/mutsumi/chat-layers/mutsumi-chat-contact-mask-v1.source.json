@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "included-local-contact-receiver-luminance-mask",
+  "character": "mutsumi",
+  "activity": "chat",
+  "palette": "apricot",
+  "step": "S2",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-fbd49c89-8219-4477-bded-158df45f6a8b.png",
+  "executionId": "exec-fbd49c89-8219-4477-bded-158df45f6a8b",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-layers/mutsumi-chat-contact-mark-v1.png",
+      "sha256": "ba27ff9988d0157305fc074eca8e4a2e64b46a4c6c006dda08d278e16b89bda1",
+      "role": "sole immediately preceding S1 local source-contact receiver markup; preserve painted marks in place"
+    }
+  ],
+  "approvedOriginalMother": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.png",
+    "sha256": "9d529789ece89f44b166f39dd259136257598cfd546009e49fae74140cbf8b6d",
+    "approvalEvidence": "root personally reviewed and approved this exact chat mother; central primary-cast-chat-mother-reviews-v1.json"
+  },
+  "intendedAssembly": {
+    "contactShadowMode": "included",
+    "formula": "U=MAX(L(F),L(S)); draw original mother RGB through U exactly once over matching empty BG",
+    "allMotionZero": true,
+    "separateCleanCasterClaim": false,
+    "pngPixelEditing": false
+  },
+  "promptFile": "mutsumi-chat-contact-mask-v1.prompt.txt",
+  "promptFileSha256": "a6df14210aecab84c67c6b5f0b62c4f528c39cb1aea3433b052146bceb6d95a9",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; submitted text exact",
+  "submittedPromptSha256": "5820347be93921012e249aac5128d639b32269db6c67cef261f85d483359313f",
+  "output": {
+    "file": "mutsumi-chat-contact-mask-v1.png",
+    "sha256": "469d1c34a02afa1616626e18300994099bf5f28d4b761b655ed0dcff2b6788b1",
+    "bytes": 301455,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "extrema": [
+      [
+        0,
+        255
+      ],
+      [
+        0,
+        255
+      ],
+      [
+        0,
+        255
+      ]
+    ]
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed full saved S2: black canvas with a local curved seat/hem band and a joined irregular two-sole floor-contact region; no full figure or whole-room white block. The seat band's precise relation to the lower hem requires original-RGB MAX composite inspection rather than assuming a clean independently aligned shadow. Both groups remain fixed source-contact selection only."
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "Raw mask component accepted only within exact root-approved MAX(F,S)/original-RGB fixed included joint assembly; no standalone caster, motion or runtime approval.",
+  "includedAssemblyPrimaryAccepted": true,
+  "includedAssemblyAdmissionRecord": "mutsumi-chat-included-primary-admission-v1.json"
+}

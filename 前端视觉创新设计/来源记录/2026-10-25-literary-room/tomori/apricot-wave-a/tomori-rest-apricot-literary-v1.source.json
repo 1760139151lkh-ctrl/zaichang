@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "assetId": "tomori-rest-apricot-literary-v1",
+  "roomFamily": "literary-room-v1",
+  "characterId": "tomori",
+  "activity": "rest",
+  "palette": "apricot",
+  "createdOn": "2026-10-25",
+  "generationMode": "clean-room-and-approved-character-identity-reference-new-activity",
+  "tool": "image_gen.imagegen (built-in)",
+  "executionId": "exec-7c465d62-f4b0-4979-9587-563314b334d8",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-7c465d62-f4b0-4979-9587-563314b334d8.png",
+  "inputs": [
+    {
+      "file": "../../plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "image 1: approved clean room; sole geometry/light input"
+    },
+    {
+      "file": "../chat-pilot/tomori-chat-apricot-literary-v1.png",
+      "sha256": "f075324f63e151e4045b4ac5ee87f30dc8295295b81f12c97ddb30ab56ac34d9",
+      "role": "image 2: primary-approved correct character identity/uniform/scale only, not a fixed body pose"
+    }
+  ],
+  "brief": "../../briefs/mygo-a/tomori-36-briefs.md",
+  "briefCell": "tomori/rest/apricot",
+  "briefTitle": "窗边的一小片空闲",
+  "characterDefinition": "src/shared/persona-portrayals.ts:tomori@2026-10-24.3",
+  "creativeStatus": "Project-original literary activity; canonical identity separately preserved.",
+  "promptFile": "tomori-rest-apricot-literary-v1.prompt.txt",
+  "promptFileSha256": "c65814ad4c5c8df5ff7b0007006695e82d702b97c87b7c439ec44dfdcdff001f",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd, exactly as submitted",
+  "submittedPromptSha256": "0d883c5c9515a9411a843425fd27ae2037d1db4311168ca60ed03556ca342175",
+  "output": {
+    "file": "tomori-rest-apricot-literary-v1.png",
+    "sha256": "589d0b1ec8d39aa694513615bb7bdfecaaa79acfa96220492be112295bb66e8e",
+    "bytes": 2441874,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "reviewedOn": "2026-10-25",
+    "decision": "static mother candidate for primary inspection",
+    "observation": "Complete original viewed: Tomori sits farther toward the existing right pillows, turns her clear three-quarter gaze to the window light and leaves the closed book flat on the linen beside her. One loose hand rests on her thigh; the other palm is supported by the real seat. Side/back support is close to the existing cushion, a modest settled posture rather than a deep recline. Short hair, eyelids and both irises remain separate. Pelvis/seat contact, uncrossed connected legs and complete shoes/floor contact are visible; original room preserved.",
+    "limits": "Static rest impression only; motion and actual rest duration are not represented. Producer inspection predates the separate exact-SHA primary static-mother admission below. No layer/runtime admission."
+  },
+  "primaryApproved": true,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "acceptanceScope": "Primary-approved exact-SHA static mother only; layer/runtime remain unapproved.",
+  "primaryApprovalRecord": "primary-mother-admission-v1.json",
+  "primaryApprovalAssetId": "tomori-rest-apricot-literary-v1"
+}

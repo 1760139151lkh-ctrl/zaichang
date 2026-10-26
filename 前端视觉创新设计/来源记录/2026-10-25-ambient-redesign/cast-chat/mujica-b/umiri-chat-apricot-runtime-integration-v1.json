@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "recordType": "fixed-position-runtime-layer-integration",
+  "recordedAt": "2026-10-25T07:10:53.646710+00:00",
+  "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-b/umiri-chat-apricot-primary-layer-approval-v1.json",
+  "approvalSha256": "6eeae9f4d21f52873967610328c9a38ae722ab317ed072cd9d4b0e241e7cfed9",
+  "sourceBundle": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-b/umiri-chat-apricot-bundle-v1.json",
+  "sourceBundleSha256": "be7ccebd72107462816a5ad14edf02cb9c0e07590c1db014f50039e7023415a9",
+  "shadowRenderingSource": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-b/umiri-chat-apricot-shadow-alpha-candidate-v1.json",
+  "shadowRenderingSourceSha256": "8641fda038c0acc5261d3a3cdc19824cc6e8bd5f71af4649f6a8a642b709da7f",
+  "runtimeRegistration": "前端视觉创新设计/运行素材/companion/scenes/umiri-chat-apricot-v1.scene.json",
+  "runtimeRegistrationSha256": "decf58afbf5ffed25cac9df96a8ddfa18fa4ceca4651860d86ea8fae84c780b4",
+  "files": [
+    {
+      "role": "mother",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot-mother-candidate-v2.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/umiri-chat-apricot-mother-candidate-v2.png",
+      "sha256": "beb0028df130f510fce228bd127495d0375ecf8998c81a50137617e4482af8ee",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    },
+    {
+      "role": "background",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot-background-calibrated-v2.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/umiri-chat-apricot-background-calibrated-v2.png",
+      "sha256": "d9355b9f7cf379f81a50e679691db77b01e9ff9b948cdfa06dbf2ef876a36c8e",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    },
+    {
+      "role": "figure",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot-figure-calibrated-v2.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/umiri-chat-apricot-figure-calibrated-v2.png",
+      "sha256": "25669bb74c1f4d1231e1960388e4c5869bf67f51979c612959c4c8832ae5820f",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGBA"
+    },
+    {
+      "role": "mask",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot-mask-calibrated-v2.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/umiri-chat-apricot-mask-calibrated-v2.png",
+      "sha256": "dab06363ee55d3bddea94202f0b27c9d1cc2bd9bd7577aad7e81980c9ef9df5c",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGBA"
+    },
+    {
+      "role": "shadow",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot-shadow-calibrated-v2.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/umiri-chat-apricot-shadow-calibrated-v2.png",
+      "sha256": "b6c6c4dd77cc921c46685f3e2794f548d3b0becc0ec55a6ef958b98a39a4ba17",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGBA"
+    }
+  ],
+  "geometrySource": {
+    "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot.scene.json",
+    "sha256": "85264cfbf0f5d4f2ae47bd8d1dce81d1eded0150a6254e46482ecd01e616aec7"
+  },
+  "geometry": {
+    "seat": [
+      0.6015625,
+      0.5615234375
+    ],
+    "ground": [
+      0.546875,
+      0.7158203125
+    ],
+    "bodyBounds": [
+      0.482421875,
+      0.2939453125,
+      0.6595052083333334,
+      0.716796875
+    ],
+    "safeTextBoundary": 0.462891,
+    "support": "desk-chair",
+    "hitPolygon": "60.612% 29.883%, 60.026% 29.590%, 58.398% 29.883%, 57.357% 31.055%, 56.706% 32.715%, 56.315% 36.621%, 55.924% 36.914%, 56.315% 36.719%, 56.380% 36.914%, 56.315% 36.719%, 56.510% 36.523%, 56.510% 37.012%, 56.250% 37.598%, 56.576% 37.500%, 56.576% 38.379%, 57.031% 39.551%, 56.901% 38.574%, 57.096% 37.598%, 57.357% 39.551%, 57.487% 39.551%, 57.552% 39.160%, 57.617% 39.844%, 57.878% 39.941%, 57.292% 41.406%, 56.576% 45.703%, 56.185% 46.387%, 56.185% 46.973%, 55.924% 47.363%, 55.599% 48.730%, 55.208% 49.316%, 54.948% 50.195%, 55.013% 50.977%, 54.753% 51.660%, 54.232% 52.441%, 53.125% 53.027%, 52.539% 53.711%, 51.823% 58.008%, 51.432% 61.621%, 51.172% 62.402%, 50.586% 63.086%, 50.586% 63.379%, 50.846% 63.574%, 50.586% 64.746%, 50.846% 63.770%, 50.977% 63.770%, 50.846% 64.844%, 50.651% 65.137%, 50.586% 65.723%, 49.414% 67.773%, 48.503% 68.262%, 48.242% 70.117%, 48.828% 70.410%, 50.000% 70.410%, 50.651% 70.117%, 50.911% 69.434%, 51.367% 69.824%, 52.344% 69.531%, 52.344% 67.188%, 52.148% 66.309%, 52.148% 65.234%, 52.930% 62.305%, 52.865% 61.719%, 53.711% 59.082%, 53.906% 56.152%, 54.818% 62.012%, 54.622% 62.402%, 54.753% 62.891%, 54.362% 63.477%, 54.362% 64.258%, 54.622% 64.453%, 54.427% 66.406%, 54.557% 66.895%, 53.646% 68.652%, 52.930% 68.945%, 52.669% 69.336%, 52.539% 71.094%, 52.995% 71.387%, 54.818% 71.289%, 55.208% 71.094%, 55.534% 70.312%, 56.380% 70.605%, 56.966% 70.215%, 56.836% 67.480%, 56.315% 64.941%, 56.445% 62.207%, 56.250% 61.816%, 56.315% 58.496%, 55.924% 56.152%, 56.706% 56.055%, 58.594% 56.543%, 62.174% 56.543%, 62.695% 56.348%, 62.630% 56.152%, 62.760% 56.055%, 62.500% 55.371%, 62.240% 55.273%, 62.435% 54.395%, 62.891% 54.785%, 62.956% 55.664%, 63.411% 56.348%, 64.714% 56.543%, 64.518% 56.250%, 64.844% 56.152%, 65.430% 56.738%, 65.885% 56.543%, 65.234% 55.664%, 64.128% 55.273%, 63.672% 54.883%, 63.672% 54.590%, 64.062% 54.199%, 63.997% 52.734%, 63.802% 52.441%, 63.802% 50.293%, 63.607% 48.926%, 63.737% 48.047%, 63.607% 47.754%, 63.542% 46.191%, 63.802% 42.676%, 63.542% 40.625%, 62.565% 39.844%, 62.826% 39.355%, 63.086% 39.453%, 62.891% 39.258%, 63.021% 38.672%, 63.346% 38.965%, 63.672% 38.184%, 63.997% 38.281%, 63.607% 37.988%, 63.542% 37.012%, 63.021% 35.352%, 63.281% 34.766%, 63.021% 33.496%, 61.784% 31.152%"
+  },
+  "measuredFigureAlphaBounds": [
+    741,
+    301,
+    1013,
+    734
+  ],
+  "measuredShadowAlphaBounds": [
+    740,
+    573,
+    1012,
+    738
+  ],
+  "measuredShadowAlphaExtrema": [
+    0,
+    202
+  ],
+  "figureRgbEqualsMother": true,
+  "figureAlphaEqualsMaskAlpha": true,
+  "environmentVariant": "clear-day",
+  "environmentVariantEvidence": "Root personally observed blue sky and strong daylight in this exact mother, separate from the palette name.",
+  "contact": {
+    "mode": "alpha",
+    "color": "#291c16",
+    "opacity": 0.35,
+    "geometry": "existing exact shadow PNG alpha only"
+  },
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "sourceRecordsModified": false,
+  "pixelEdits": false,
+  "acceptedBoundaries": [
+    "Fixed original position only; no runtime or motion acceptance.",
+    "Broad mother floor cast/reflection shadow is weaker in alpha 0.35 candidate; narrow contact and visible support are accepted, not pixel-identical restoration.",
+    "Generated empty background reveals a pale desk paper/pad where original mother is occluded. Recorded as generation deviation; root accepts this overall empty-room composition for this review, without asserting original hidden content existed or was absent."
+  ],
+  "runtimeAccepted": false,
+  "runtimeReview": "pending-root-integrated-QA"
+}

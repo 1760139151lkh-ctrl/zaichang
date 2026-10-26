@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "recordedAt": "2026-10-25T07:24:00Z",
+  "canvas": {
+    "width": 1536,
+    "height": 1024
+  },
+  "character": "sakiko",
+  "sceneFamily": "sakiko-chat-apricot-room4",
+  "originalNotOverwritten": true,
+  "motionVerified": false,
+  "inAppVerified": false,
+  "id": "s01-d01-eye-white-clean-v1",
+  "generationId": "exec-daae321c-0d89-43be-9013-03aed6b05f81",
+  "prompt": "sakiko-eye-white-clean-v1.prompt.txt",
+  "inputs": [
+    {
+      "path": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+      "sha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1",
+      "role": "approved edit target; original support, anatomy, camera and texture source"
+    }
+  ],
+  "output": "sakiko-eye-white-clean-v1.png",
+  "sha256": "ca893c9e29dedc26c0a87db56997f85a9632a3f8cc0204a48239bf4bae48ebe9",
+  "bytes": 2087529,
+  "modeOfOutput": "RGB opaque",
+  "classification": "B",
+  "status": "approved-local-underlayer",
+  "runtimeAllowed": "only the two original eye openings inside eyes.apertures",
+  "staticReview": {
+    "producerInspected": true,
+    "alsoInspectedBy": "s01_04_participation",
+    "observed": "Colored iris/pupil/highlight removed from both tiny original eye openings; eyelids, bangs and original pose visually retained.",
+    "limitation": "Not a standalone face or identity reference. Clip only the exposed eye whites; original iris pixels and eyelid aperture must recompose a complete face before any runtime display."
+  },
+  "runtimeRig": "sakiko-d01-rig-v1.json"
+}

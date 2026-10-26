@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T01:23:22.862Z",
+  "producer": "/root/study_reading",
+  "character": "uika",
+  "purpose": "neutral-presence",
+  "environmentVariant": "time-day",
+  "weather": "unknown",
+  "exactActivityMatrixCredit": 0,
+  "stage": "contact-step1-marked-v1",
+  "tool": "image_gen.imagegen",
+  "originalToolPath": "C:/Users/17601/.codex/generated_images/01a17365-8901-7202-bd9e-0859826906dc/exec-41d4cc6f-2a39-46ff-8a11-186a1ad9f3e0.png",
+  "transparentBackground": false,
+  "submittedPrompt": "Use case: precise-object-edit. S1 deliberate MAGENTA actual contact receiver markup, exact Uika neutral TIME-DAY clean1536x1024 source, ONLY input this approved mother. Keep full girl in originalcolor and sourcecoordinates, including blonde finehair, whiteT, both arms/every finger, full taupelongskirt, shins/ankles/socks and complete sneakers. Paint ONLY actual SOURCE-LOCAL receiver material in strong unnatural PUREMAGENTA RGB255,0,255: small actual compressed cream cushion directly under seated hip/long skirt beside her right hip, plus SMALL fabric contact just UNDER the splayed side palm and fingertips pressing the cushion. Hands/skin/skirt MUST stay originalcolor; receiver is actual woven cushion outside their edges, not huge empty cushion. Also mark ENTIRE actual local shoe-to-WOODFLOOR contact shade under EACH full sneaker: dense supporting wood shade under complete bottom sole/toes/heel, together with short actual diffuse surrounding floor fade8..25pixels where present, extending BELOW toe bases, not2px outline. Retain actual small floor support shade where lowest skirt hem approaches wood only if truly present in source. Do NOT paint shoes/white soles/laces or skin; magenta is supporting wood OUTSIDE BELOW shoes. Do NOT add generic ellipse/rectangle, fullseat/fullfloor, furniture/lamp shadow or broad light pool. All other source-colored room/curtain/throw/cushion remain unchanged. No white selection confusion: only saturated magenta intentional marks. No shift/resize/crop/recenter/posechange/newprops/checkerboard/alpha/text/UI. Exact original1536x1024 scene, small irregular seat/palm receiver plus complete local shoe ground shade magenta, ready for exact trace only.",
+  "submittedPromptSha256": "fffb872cc2196fcc26913766b7f4d00708681240831a8489dee56533e3998bc5",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-day-v1.png"
+  ],
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-day-v1.png",
+      "role": "sole approved Uika clean day mother",
+      "sha256": "e05d24ff0a1943e66e635880d5265fb79a66dac13e8656ca6d820b1b171ebbea",
+      "bytes": 2427278
+    }
+  ],
+  "originalMother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-day-v1.png",
+    "sha256": "e05d24ff0a1943e66e635880d5265fb79a66dac13e8656ca6d820b1b171ebbea",
+    "approvalRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-day-v1.primary-approval.json"
+  },
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/day/layers/contact-step1-marked-v1.png",
+    "sha256": "22cea089529305cdc3ebeddf3ffbd9dcf14406f2d7e66d0d3df59aa014899e07",
+    "bytes": 2328587,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "rawToolBytesPreserved": true,
+  "producerPersonallyViewed": true,
+  "observations": [
+    "Personally viewed: small side hip/palm receiving cushion magenta, original fingers/wholegirl colored; both actual local floor patches magenta outside sneakers."
+  ],
+  "producerUseDecision": "candidate-awaiting-static-union-review",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "userApproved": false,
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "fixedOriginalCoordinates": true,
+    "travel": 0,
+    "perspective": 0,
+    "slope": 0,
+    "contactShadow": "included"
+  },
+  "method": {
+    "sourceRgb": "exact unchanged mother only",
+    "union": "MAX(L(F),L(S))",
+    "originalRgbDrawsPerUnion": 1,
+    "pngPixelEditing": false,
+    "manualThreshold": false,
+    "morphology": false,
+    "warp": false
+  },
+  "scope": "Production candidate only; native browser union, seam and full source RGB must be personally viewed before primary static-layer admission."
+}

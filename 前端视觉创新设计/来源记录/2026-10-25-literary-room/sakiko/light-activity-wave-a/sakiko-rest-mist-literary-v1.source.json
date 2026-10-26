@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "assetType": "literary-room-complete-activity-light-mother",
+  "id": "sakiko-rest-mist-literary-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-rest-mist-literary-v1.prompt.json",
+  "promptFileSha256": "d8703fcee40901f4d13339e7b4deff6bb1d6933ec2ae20581f52318ab24f7503",
+  "submittedPrompt": "Create one complete 1536×1024 landscape literary mother illustration of Togawa Sakiko. FIRST reference is the approved target empty room, camera and all illumination; SECOND is the exact approved same-activity apricot mother for Sakiko's identity, supported pose, apparent head/body size, objects and furniture support only. Preserve image 1's room camera, big window divisions, town/lake/mountains, curtains, shelves/desk, round lamp table, near right linen bench, plaid pillows, knitted throw, rug and foreground plants. Keep image 2's original youthful silver-blue long hair, clear golden irises, navy uniform details and actual body/hand/object relationships; hair strands, eyelids, irises and brows remain distinct. Do not paste a daytime figure or apply a theme tint to old lighting. Apricot hard solar highlights, white noon patches, window-grid/leaf shadows and bright floor rectangles in image 2 are NOT identity or pose and must not transfer. Repaint ALL hair, skin, paper, clothes, receiving furniture and floor under the first reference's actual illumination. No half-day/half-night division, new spotlight, UI, readable text/caption, new person or costume change. Preserve her own thought and judgment; no universal soothing smile, no theme-imposed sadness. One coherent lived-in scene with credible contact shadows.\n\nTarget is OVERCAST DRY DAY. Match image 1's grey cloudy dry daytime view, soft diffuse window light with modest local existing lamp warmth, natural warm wood, quiet shaded white fabric/paper. Remove hard sunlight bands and solar rectangles from the entire visible floor, bench, person and clothes. Keep eyes and dark clothes readable. No haze hiding the face, global blue filter, rain, sunbeams, or night.\n\nKeep the approved rest mother's actual relaxed seated support and autonomous attention toward window, reachable supported palms/thighs, complete head/hair and shoes, same near-bench depth/apparent proportions. No enlarged forward-lean head or invented stretching anatomy.\nExplicitly repaint the bright apricot solar patch across the top of her near knee/thigh as smoothly shaded diffuse-day skin; that sharp patch is old lighting, not body anatomy.\n\nLiterary direction (original project performance, not canon or real user memory):\n刚才那股要把事情做好 的劲还在，只是暂时不必举着。她望了一会儿窗外，允许这个普通时刻不需要证明什么。\n身体留在原座位深度，手掌与软垫自然支撑，目光自主朝窗外；不向前倾成近脸肖像。\n散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。",
+  "submittedPromptSha256Utf8NoTrailingLF": "3749d60fae71d96880dcdb15acbbe075b58fcc91c8d7e010f05a4cb1764fe247",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "role": "first-approved-target-room-and-all-lighting",
+      "approval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.primary-approval.json"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-rest-apricot-literary-pilot-v1.png",
+      "sha256": "144a167d9c7d1bc594051ef1ca3fcf0b92e97f1a8ddbf8cd63eb6b54c8a460f8",
+      "role": "second-approved-same-activity-identity-pose-scale-not-apricot-sun",
+      "approval": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+        "sha256": "0dc133f5dc0ac1702bce894b279304dde90ab45ddbe57c4107ee9caf360fe8d0",
+        "key": "sakiko/rest/apricot",
+        "decision": "approved",
+        "rootApproved": true
+      }
+    }
+  ],
+  "output": {
+    "file": "sakiko-rest-mist-literary-v1.png",
+    "sha256": "e0e93b26095e3f650edc9e294fc17b53eb42c9572b02fb9bfbd465b6b9e58213",
+    "bytes": 2469614,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-b32c73d8-2c34-4f18-8ef1-9cf36c5e2c24.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "primaryApproved": false,
+    "layerApproved": false
+  },
+  "status": "producer-viewed-awaiting-root-mother-review",
+  "producerReview": {
+    "reviewedAt": "2026-10-25T13:52:41.387740+00:00",
+    "method": "Personally inspected actual full native ImageGen output at 1536x1024 before next call.",
+    "observations": [
+      "Viewed full original: same relaxed window-directed pose and near-bench size, knee hand and palm/cushion support, complete shoes.",
+      "Cloudy soft room/body/clothes/floor lighting; strong source solar knee patch reduced to soft low-contrast form light rather than sharp white cutout.",
+      "Golden eyes/fringe and long hair remain readable; no observed obvious support/anatomy defect."
+    ],
+    "issues": [],
+    "rootApprovalRequired": true
+  }
+}

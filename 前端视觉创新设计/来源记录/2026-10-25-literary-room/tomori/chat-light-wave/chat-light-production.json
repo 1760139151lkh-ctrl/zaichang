@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "characterId": "tomori",
+  "completedCalls": 3,
+  "batchCallOrdinals": [
+    1,
+    2,
+    3
+  ],
+  "batchCap": 6,
+  "entries": [
+    {
+      "palette": "mist",
+      "file": "tomori-chat-mist-literary-v1.png",
+      "sha256": "f7dd8d3e42f225e2ecc7f46e0dc19edae506024fe657d04eec09a3bdf6ae1fc9",
+      "bytes": 2340785,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "tomori-chat-mist-literary-v1.source.json",
+      "producerReview": {
+        "personallyViewed": true,
+        "decision": "static theme mother candidate for primary inspection",
+        "observation": "Complete original viewed: overcast sky and softened lake distance, diffuse room/person light and no hard daylight lattice on cushion/floor/legs. Original chat head/body scale, low open book/page hand, supporting palm, hip/cushion and both complete shoes remain at the observed source positions. Hair/eyelids/rose-brown eyes remain distinct; youthful curious sharing expression retained. Wood and uniform keep local color rather than a blue overlay.",
+        "limits": "Visual static comparison only, not pixel-identical coordinates or runtime lighting proof. No primary/layer/runtime admission."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "palette": "violet",
+      "file": "tomori-chat-violet-literary-v1.png",
+      "sha256": "489b44ab9165cef294dde495649de5e9f5468fc778304b34fe213a17315d4c8c",
+      "bytes": 2324413,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "tomori-chat-violet-literary-v1.source.json",
+      "producerReview": {
+        "personallyViewed": true,
+        "decision": "lighting revision recommended; primary inspection pending",
+        "observation": "Complete original viewed and approved empty twilight plate re-viewed for comparison. Body/chat pose, low book/page hand, supporting palm, hip/seat, complete shoes and distinct eyes/fringe are retained. Exterior is continuous orange/lavender twilight with town lights, and person/materials have warm dusk coloring. However the lower-right floor still has conspicuous bright window-lattice rectangles and a strong original-style leg highlight, stronger and more noon-like than the approved empty twilight plate's diffuse floor/seat treatment.",
+        "limits": "No claim of fully matched target twilight lighting. Six-call cap retained, no extra repair generation or layer progression; issue reported to primary for exact original review."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "palette": "rain",
+      "file": "tomori-chat-rain-literary-v1.png",
+      "sha256": "652938f9311a18bb1b50ff104131e38e7e5411b14d9c3939c8be01f920e51165",
+      "bytes": 2340528,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "tomori-chat-rain-literary-v1.source.json",
+      "producerReview": {
+        "personallyViewed": true,
+        "decision": "static theme mother candidate; localized skin-highlight detail for primary review",
+        "observation": "Complete original and approved empty rain-night plate viewed: dark wet outside with clear glass-rain marks and town/lake reflections, warm dry lamp-lit room, no stars/daylight sky or hard noon window lattice on the lower-right floor. Fixed chat body/book/supporting palm and complete shoes are visually retained; face/eyes/fringe remain clear, original lightly sharing affect unchanged without automatic rain sadness. Floor's warm reflection is consistent with the empty plate. A bright patch on one shin remains similar in placement to apricot and is disclosed as a localized light-direction detail for primary judgment.",
+        "limits": "No claim of pixel-identical geometry or physically measured illumination. Shin-highlight relationship is not signed off by producer; no primary/layer/runtime admission."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "scope": "Three same-pose static chat light candidates; violet lighting revision recommended; no layer progression."
+}

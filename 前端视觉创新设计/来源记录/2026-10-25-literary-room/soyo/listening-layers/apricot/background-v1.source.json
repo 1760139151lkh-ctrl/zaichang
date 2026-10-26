@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-listening-apricot-background-v1",
+  "tool": "image_gen.imagegen",
+  "actualToolArguments": {
+    "prompt": "Use case: precise-object-edit. Asset: exact same-camera EMPTY receiving background for the root-approved Soyo LISTENING apricot scene. The ONLY input is that clean full 1536x1024 mother. Keep the complete canvas at exactly its existing framing, perspective, window mullion locations, bench top/front edges, table legs and every furniture coordinate. This is an object-removal edit, NOT a fresh room illustration, recoloring, exposure change, redesigned cushion or camera move. No crop/resize/zoom/shift.\nRemove ONLY the entire girl (including every fine hair strand, complete sailor uniform, empty hands, legs, socks, both loafers), the ONE closed book lying separately on the seat immediately image-right of her, and the local compression/contact/cast shade specifically caused by her seated body, closed book and shoes. Reconstruct the actual original room behind them: continuous pale linen seat with natural embroidery/folds flowing into untouched visible linen; continuous wooden window/bench front where covered by body/legs; the exact same wooden floor planks and warm daytime sun/reflections where her shoes and local shade were. Preserve true underlying room ambient/window/table shadows and all unrelated illumination. No residual person/limb/hair/book/shoe/shadow silhouette, no ghost, no replacement object.\nEverything else stays visually and geometrically exact to the input: lamp and its vase, cup and small books on the round side table, flowers, chair and desk at left, hanging plants, shelves and framed art, both curtains, all cushions at image-right, crochet throw, floor/rug, lake/town/mountain/window view, original linework/material painting style and warm sunlit apricot clear-day light including real existing window sunlight, without moving any sun patch. Keep the original scene color temperature, texture and detail; do not make a generic room. Output one opaque clean 1536x1024 PNG of the empty SAME scene. It will sit behind an exact original-mother-RGB joint figure/contact layer at fixed original coordinates; matching receiver geometry and local floor/seat light matters more than artistic reinterpretation.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-listening-apricot-literary-v2.png"
+    ],
+    "transparent_background": false
+  },
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-listening-apricot-literary-v2.png",
+      "sha256": "f242a5b6865d6ac27688ba75bdb8b0e733e6cbb8ea9724b4ea338973288c3862",
+      "role": "sole exact root-approved listening mother, no masks/UI/composite"
+    }
+  ],
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/listening-background-v1.png",
+    "sha256": "fd79e7f727e79c1442be28b3724a1d06ea290b761f17aa3bccc964a9dcaade1a",
+    "bytes": 2407302,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-281f60ba-d72e-4c6c-9a0e-cb8ce780f6b9.png",
+  "submittedPromptSha256": "f2ce759411cbfd7ee263e612378d99748ef8a9d5ed270952235994a600487c21",
+  "producerObservations": [
+    "Actual tool output personally viewed full canvas: complete girl, separate closed book and sole contact removed; no residual figure or replacement object seen.",
+    "Same wide framing, main window/bench/table anchors and theme light remain visible. Generated room restoration is not claimed bitwise identical to mother outside removal region; final composite review required."
+  ],
+  "status": "background-candidate-awaiting-original-rgb-composite-review",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "pngPixelEditing": false
+}

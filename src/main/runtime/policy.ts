@@ -15,6 +15,10 @@ import { hasCredentials } from './redaction';
 import { localCloudRestriction, localRetentionRestriction, type TurnControlProposal } from './turn-controls';
 
 export interface InputControls {
+  submissionId?: string;
+  submittedMaterialDocument?: Pick<import('../../shared/materials').MaterialItem, 'resourceId' | 'sha256'>;
+  /** Navigation and owner references only; each owner rechecks the current scope. */
+  workspaceContext?: import('../../shared/workspace-context').WorkspaceContext;
   companionReference?: import('../../shared/companion-source').CompanionFollowupReference;
   curiosityReference?: import('../../shared/curiosity-source').CuriosityFollowupReference;
   programReference?: import('../../shared/interactive-program').ProgramFollowupReference;
@@ -50,6 +54,9 @@ export interface InputControls {
   worldId?: string;
   timeZone?: string;
   attachment?: { id: string; name: string; text: string; artifactId?: string };
+  attachments?: NonNullable<InputControls['attachment']>[];
+  uploads?: import('../../shared/types').DraftAttachment[];
+  materials?: { reference: import('../../shared/materials').MaterialReference; attachmentId?: string }[];
   /** A private host ticket; it never specifies an evidence ID or authority. */
   material?: import('../../shared/materials').MaterialReference;
   purpose?: string;
@@ -57,7 +64,7 @@ export interface InputControls {
 }
 /** Trusted foreground caller only. This is not part of controls, Bridge or a
  * model/tool schema, and supplies no general-purpose expiry override. */
-export interface HostIngressExecution { foregroundLunaTest?: true; }
+export interface HostIngressExecution { foregroundLunaTest?: true; imageEventIds?: string[]; }
 export interface IngressDecision {
   sourceContext?: EvidenceEvent['sourceContext'];
   /** Host configuration snapshot; invalidated even by a barrier without an epoch change. */
@@ -75,6 +82,7 @@ export interface IngressDecision {
   text: string;
   authoredText: string;
   attachment?: { id: string; name: string; text: string; artifactId?: string };
+  attachments?: NonNullable<InputControls['attachment']>[];
   contract: ContextContract;
   restriction: boolean;
   scenario: boolean;
@@ -318,12 +326,13 @@ export class PolicyKernel {
   ): IngressDecision {
     // Authored words and host-supplied attachments arrive with separate identities.
     const { attachment, authoredText } = splitUserInput(text, eventId, controls.attachment);
+    const attachments = controls.attachments ?? (attachment ? [attachment] : []);
     const control = controls.semantic;
     if (controls.enhancements && process.env.ZAICHANG_TEST !== '1') throw new HarnessError('test_only', '消融开关只用于隔离评估。');
     const timeZone = controls.timeZone || settings.timeZone || 'Asia/Shanghai';
     try { new Intl.DateTimeFormat('en', { timeZone }); } catch { throw new HarnessError('time_zone', '时区设置不正确，请选择有效时区。'); }
     const localOnly = controls.transmission === 'local_only' || localCloudRestriction(authoredText)
-      || (!!attachment && Object.values(attachment).some(value => typeof value === 'string' && hasCredentials(value)));
+      || attachments.some(item => Object.values(item).some(value => typeof value === 'string' && hasCredentials(value)));
     const temporary = localOnly || control?.uncertainControls.some(c => c.dimension === 'retention') || controls.retention === 'session_only' || controls.memoryMode === 'session_only' || control?.retention === 'session_only' || (!control && isEphemeral(authoredText));
     const retention = temporary ? 'session_only'
       : controls.retention === 'history_no_inference' || control?.retention === 'history_no_inference' ? 'history_no_inference'
@@ -370,7 +379,7 @@ export class PolicyKernel {
       (subjectId === this.repo.identity.principalId && worldId === 'real' && audience === 'self' && !sourceOnly)
       || grant === 'evidence:read' || grant === 'map:read' && publicContextAllowed && sources.includes('map:local'));
     const scope = this.hostScope({
-      sources: [...new Set(sources)], currentEventIds: [eventId, ...(attachment ? [attachment.id] : [])],
+      sources: [...new Set(sources)], currentEventIds: [eventId, ...attachments.map(item => item.id), ...(hostExecution?.imageEventIds || [])],
       subjectId, worldId, audience, retention, purposes: [purpose], grants: restrictedGrants,
       infer: !controls.rehearsalInteraction && memoryMode === 'relevant' && retention === 'purpose_scoped' && settings.memoryEnabled && !sourceOnly && control?.subject !== 'mixed' && control?.subject !== 'none' && control?.world !== 'mixed',
       // One initial, bounded lease for the temporary Max-effort test transport.
@@ -393,7 +402,7 @@ export class PolicyKernel {
     const projectionSources = subjectId === this.repo.identity.principalId && worldId === 'real' && control?.release?.useAvailability && control.sources !== 'current_only' &&
       controls.memoryMode !== 'current_sources_only' && !control.uncertainControls.some(c => c.dimension === 'sources')
       ? ['campus:local', 'campus:zju-account', 'local-agenda'].filter(source => (!controls.sources || controls.sources.includes(source)) && !control.sourceExclusions.includes(source) && (!control.sourceAllowlist || control.sourceAllowlist.includes(source))) : [];
-    return { text, authoredText, attachment, contract, restriction: false, scenario, localOnly, threadContextAllowed, ownerHistoryAllowed, replyToOwner: controls.replyToOwner, controlFallback: controls.controlFallback, controlProposal: control, priorReleaseArtifacts: controls.priorReleaseArtifacts, releaseBrief: control?.release, priorReleasedDraft: controls.priorReleasedDraft, projectionSources, requiresReadPurpose: control?.subject === 'none' || control?.subject === 'mixed' || control?.world === 'mixed' || !!control?.scopedSourceLimits?.length,
+    return { text, authoredText, attachment, attachments, contract, restriction: false, scenario, localOnly, threadContextAllowed, ownerHistoryAllowed, replyToOwner: controls.replyToOwner, controlFallback: controls.controlFallback, controlProposal: control, priorReleaseArtifacts: controls.priorReleaseArtifacts, releaseBrief: control?.release, priorReleasedDraft: controls.priorReleasedDraft, projectionSources, requiresReadPurpose: control?.subject === 'none' || control?.subject === 'mixed' || control?.world === 'mixed' || !!control?.scopedSourceLimits?.length,
       ...(controls.rehearsalInteraction ? { sourceContext: { kind: 'relationship_rehearsal' as const, origin: 'user_interface_reference' as const,
         artifactId: controls.rehearsalInteraction.ref.id, artifactRevision: controls.rehearsalInteraction.ref.revision,
         matterId: controls.rehearsalInteraction.ref.matterId, activeTurnId: controls.rehearsalInteraction.ref.activeTurnId,

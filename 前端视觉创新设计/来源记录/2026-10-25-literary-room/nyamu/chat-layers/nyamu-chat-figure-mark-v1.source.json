@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "foreground-selection-markup",
+  "character": "nyamu",
+  "activity": "chat",
+  "palette": "apricot",
+  "step": "F1",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-65b4d9f9-c334-494d-b0d7-63dd96a19ac5.png",
+  "executionId": "exec-65b4d9f9-c334-494d-b0d7-63dd96a19ac5",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.png",
+      "sha256": "096bd7f5f0138e8b961c91d52dc8e68b29bcda1600bbb9ca444bd1c7eff75313",
+      "role": "sole root-approved correct mother; original source selection target"
+    }
+  ],
+  "approvedOriginalMother": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.png",
+    "sha256": "096bd7f5f0138e8b961c91d52dc8e68b29bcda1600bbb9ca444bd1c7eff75313",
+    "approvalEvidence": "root personally reviewed and approved this exact chat mother; central primary-cast-chat-mother-reviews-v1.json"
+  },
+  "intendedAssembly": {
+    "contactShadowMode": "included",
+    "formula": "U=MAX(L(F),L(S)); draw original mother RGB through U exactly once over matching empty BG",
+    "allMotionZero": true,
+    "separateCleanCasterClaim": false,
+    "pngPixelEditing": false
+  },
+  "promptFile": "nyamu-chat-figure-mark-v1.prompt.txt",
+  "promptFileSha256": "0666792d1c001caa4b51bb23ec3ebde53c954e89fc8b41596c70b3ad587bfd16",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; submitted text exact",
+  "submittedPromptSha256": "ff061e9bc27211403659d3e17696838e2c7c755b4d457cb8e1d7bbe3bffddc13",
+  "output": {
+    "file": "nyamu-chat-figure-mark-v1.png",
+    "sha256": "dbc808452d2dac5b488c665924a841a1a7577585764578f1bfff897ab6077647",
+    "bytes": 2326150,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "extrema": [
+      [
+        0,
+        255
+      ],
+      [
+        0,
+        255
+      ],
+      [
+        0,
+        255
+      ]
+    ]
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed full saved F1: solid white original-position Nyamu silhouette includes bob, speaking hand, full seat-support palm, ruffled blouse, black-skirt edge, complete legs, shoe soles and heel blocks. Colored room and actual arm/arch/background gaps remain. Fine contour retention is for original-RGB union inspection; generated markup is never a color source."
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "Raw selection-stage candidate only; no layer or runtime approval."
+}

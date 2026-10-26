@@ -5,6 +5,7 @@ import type { WorkoutPendingStop, WorkoutRetention, WorkoutSessionRecord, Workou
 import type { CampusMapEngine } from './map-engine';
 import { DesktopWorkoutLayer, workoutMapCurrent } from './desktop-workout-layer';
 import { inBounds } from '../../shared/map-routing';
+import { uiError } from '../ui';
 import './workout.css';
 
 const api = window.zaichang;
@@ -61,9 +62,7 @@ function pendingStopAction(pending: WorkoutPendingStop) {
   return stopped ? '完成收尾' : '重试停止定位';
 }
 function readableError(error: unknown) {
-  const message = error instanceof Error ? error.message : String(error);
-  const reason = message.replace(/^Error invoking remote method '[^']+':\s*(?:Error:\s*)?/, '');
-  return /[\u3400-\u9fff]/.test(reason) ? reason : '刚才的操作没有完成。查看当前记录后，可以再继续。';
+  return uiError(error, { fallback: '刚才的操作没有完成。查看当前记录后，可以再继续。' });
 }
 
 /** Private controls for the native owner. Timers and metrics are always read back from it. */

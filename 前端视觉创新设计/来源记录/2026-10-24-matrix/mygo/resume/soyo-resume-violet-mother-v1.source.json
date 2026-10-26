@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "character": "soyo",
+  "sceneCategory": "S9_RESUME",
+  "semanticAction": "welcome-resume",
+  "palette": "violet",
+  "intendedCanvas": [
+    1536,
+    1024
+  ],
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "executionId": "exec-b6ecdda3-99e3-4d4c-96d5-c3fcb823cf9e",
+  "observedAtUtc": "2026-10-25 02:16:54 UTC",
+  "promptFile": "soyo-resume-violet-mother-v1.prompt.txt",
+  "promptFileSha256": "eca65f4fae054711f8a019e5ab54478a84aad94212399cc042d6dc1e8487f348",
+  "submittedPrompt": "Exact UTF-8 promptFile contents with leading/trailing whitespace trimmed; identical string submitted to the tool.",
+  "inputs": [
+    {
+      "role": "primary-approved apricot mother; exact character identity, accepted anatomy/pose, contacts and figure registration",
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/resume/soyo-resume-apricot-mother-v1.png",
+      "sha256": "4507c3185b2728f196a4d0e3bab947fa14fe6c96cb8451eaec8b0618ef4aaa3e"
+    },
+    {
+      "role": "personally viewed clean empty matching theme room; full-room light/weather reference only",
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-violet-candidate.png",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "transparentBackground": false,
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/resume/soyo-resume-violet-mother-v1.png",
+    "defaultToolPath": "C:/Users/17601/.codex/generated_images/01a16fb5-6e96-71d2-a0fa-07807b277582/exec-b6ecdda3-99e3-4d4c-96d5-c3fcb823cf9e.png",
+    "sha256": "da13d33d7949af76d4c055e5bb882797d991983e29722c70f4b82fa987304e17",
+    "bytes": 2185595,
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "copyMethod": "Copy-Item without image processing; default tool output retained"
+  },
+  "status": "candidate-awaiting-primary-review",
+  "review": {
+    "personallyViewedOutput": true,
+    "approvedByPrimary": false,
+    "layersAccepted": false,
+    "runtimeAccepted": false,
+    "note": "Personally viewed the returned full violet mother. Youthful soyo identity, accepted pose, lap-supported open book and page hands, uncrossed leg chains and both complete shoes remain coherent. The full room and figure share the corresponding violet illumination, without global material-color replacement or a pasted daytime figure. No layer/runtime or real recovery acceptance is inferred."
+  }
+}

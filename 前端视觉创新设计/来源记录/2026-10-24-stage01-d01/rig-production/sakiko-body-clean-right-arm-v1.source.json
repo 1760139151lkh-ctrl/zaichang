@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "recordedAt": "2026-10-25T07:24:00Z",
+  "canvas": {
+    "width": 1536,
+    "height": 1024
+  },
+  "character": "sakiko",
+  "sceneFamily": "sakiko-chat-apricot-room4",
+  "originalNotOverwritten": true,
+  "motionVerified": false,
+  "inAppVerified": false,
+  "id": "s01-d01-body-clean-right-arm-v1",
+  "generationId": "exec-f2d013c7-dd12-4b54-b37f-d323733256fd",
+  "prompt": "sakiko-body-clean-right-arm-v1.prompt.txt",
+  "inputs": [
+    {
+      "path": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+      "sha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1",
+      "role": "approved edit target; original support, anatomy, camera and texture source"
+    }
+  ],
+  "output": "sakiko-body-clean-right-arm-v1.png",
+  "sha256": "a40ae07ae8d37b2e0e6e87bb2cbadc325e3bc6df91826eb0b2dd8d40963bb99c",
+  "bytes": 2093783,
+  "modeOfOutput": "RGB opaque",
+  "classification": "B",
+  "status": "approved-local-underlayer",
+  "runtimeAllowed": "only inside arm.erasePath from the reviewed rig",
+  "staticReview": {
+    "producerInspected": true,
+    "alsoInspectedBy": "s01_04_participation",
+    "retain": "Fixed window-seat support, head/body placement, other supporting arm, lap and closed blue book.",
+    "observed": "Original right arm/hand removed; cardigan edge and formerly covered book surface repaired.",
+    "limitation": "Generation changes some nonlocal pixels slightly. Do not replace the complete original room or actor with this image; admit only the local repair region."
+  },
+  "runtimeRig": "sakiko-d01-rig-v1.json"
+}

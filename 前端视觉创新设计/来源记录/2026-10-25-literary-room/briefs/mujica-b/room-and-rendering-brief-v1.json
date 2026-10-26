@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "kind": "literary-room-creative-brief",
+  "scope": "Uika and Umiri; 9 activities × 4 palettes = 72 brief cells",
+  "status": "brief_only",
+  "generationStarted": false,
+  "registered": false,
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "master": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "authority": "用户选定的新空间与情绪基线；不等于角色、分层或运行准入。",
+    "personallyViewed": true,
+    "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+    "sourceRecord": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.source.json",
+      "sha256": "d9cd4427517d0e0fc050b9777c204e4f7363d8bd19bb585f000f5212f64fe6c3"
+    }
+  },
+  "activities": [
+    "chat",
+    "study",
+    "reading",
+    "planning",
+    "listening",
+    "rest",
+    "play",
+    "attention",
+    "resume"
+  ],
+  "palettes": [
+    "apricot",
+    "mist",
+    "violet",
+    "rain"
+  ],
+  "room": {
+    "preserve": [
+      "同一近景机位、完整窗框与湖岸远景，右侧软垫窗榻及木质榻体。",
+      "左侧真实书桌与木椅，靠窗圆边几上的陶瓷灯、书、杯与小花瓶。",
+      "右侧格纹靠垫与针织毯，前景书本/植栽的浅景深，保持有生活内容的左侧。",
+      "角色坐在右榻的同一空间尺度，头、手、衣摆和完整鞋有画面余量；不拿旧 room4 比例或坐标硬套。"
+    ],
+    "poseScope": "本 brief 以右榻为共同可信支撑。活动靠目光、躯干重心、手与少量物件区分；具体像素锚点和必要桌侧变体须等 root 空 plate 与单角跨场景样板确认。",
+    "noInventedGeometry": "不新增椅、桌、浮台或不可承重的悬空道具。边几不在自然臂长内时，不安排从榻上伸手够杯。",
+    "frameUse": "房间与人物是一幅完整画；文字、操作和真实业务内容由产品组件承担，不靠白色渐层挖出假工作区。"
+  },
+  "lighting": {
+    "apricot": {
+      "name": "暖杏",
+      "depictedWeather": "晴日的清透窗光；仅为画面设定",
+      "environment": "湖与远山保持蓝色层次，金色枝叶透光，薄帘在地板和榻面投下细而有方向的暖影。",
+      "practicalLight": "日光主导；边几灯保持画中自然存在感，不把额外金色光晕当主角。",
+      "material": "暖的是受光面；白纸、白衣、肤色、木头和浅金发分别保色，暗面仍有冷暖层次。"
+    },
+    "mist": {
+      "name": "晨雾蓝",
+      "depictedWeather": "有云的明亮日间；仅为画面设定",
+      "environment": "湖面与远山隔着轻薄湿雾，窗光柔散；留可辨空间，不把景物糊成白墙。",
+      "practicalLight": "日间自然漫射，陶瓷灯不过亮；纸页有柔和反射，人物面部仍清楚。",
+      "material": "蓝灰进入环境空气与阴影，皮肤不发灰，白衣不染蓝，深衣不吞掉身体。"
+    },
+    "violet": {
+      "name": "暮色紫",
+      "depictedWeather": "安静的日暮过渡；仅为画面设定",
+      "environment": "天际与湖面淡紫、灰玫瑰相接，远处逐渐沉静，整面窗自然过渡，不做昼夜切半。",
+      "practicalLight": "边几灯开始承担纸页与手的温暖局部光，窗侧仍留傍晚冷光；两者柔和相接。",
+      "material": "紫留在天色和阴影，角色发色、虹膜与服饰固有色不被一层紫滤镜抹平。"
+    },
+    "rain": {
+      "name": "夜雨暖金",
+      "depictedWeather": "有雨的深夜；仅为画面设定，不冒称现场天气",
+      "environment": "窗外深蓝、低对比湖岸和少量远灯，细雨在玻璃上可辨；不凭空换城市或加舞台灯。",
+      "practicalLight": "陶瓷灯在书页、指节和脸上形成克制暖光，面部有柔软反填，房间保住暗部细节。",
+      "material": "金光不铺满全屋；深发、黑夹克、红上衣、木榻与深窗有独立明度，避免黑色人形块。"
+    }
+  },
+  "faceAndHair": [
+    "发束有方向与疏密，细发作为少量真实轮廓；刘海不与睫毛黏成黑片，也不透明穿过眼睛。",
+    "上眼睑、睫毛、虹膜和瞳孔各自可辨；低头仍保合理的虹膜露出，不画重复瞳孔或玻璃珠高光。",
+    "半阖眼是清楚的眼睑结构，不是把眼睛糊掉；笑意可在口角、眼皮和呼吸停顿中变化，不强制每格微笑。",
+    "维持原作青春辨识度，避免成年时装肖像与幼态大头；人物线条与详细室内材质自然合在同景光里。"
+  ],
+  "physicalRules": [
+    "髋/大腿与榻面、靠背与靠垫、手与书/纸/衣料的接触要真实；裙摆遮挡不等于可以省略完整肢体连接。",
+    "腿脚按具体姿态检查髋、膝、踝、重心和遮挡；不按脚数或固定比例判错。本组先用朴素并腿或自然错前后脚位，避免无必要复杂交腿。",
+    "书与纸落在双腿或手的真实支撑上；抬书时肘腕有可信承托。不要把前臂悬成不明受力的桌面。",
+    "不把乐器、麦克风、后台证件、巨大日程板变成角色身份捷径。日常可以认真、顽皮、犹豫或沉默。",
+    "道具不出现假保存成功、假课程结果或可读的业务 UI；真正共读文本、推导与日程沿原 owner 呈现。"
+  ],
+  "sourcePolicy": {
+    "personalityText": "仅参考仓库公开角色资料中已区分的原作依据与在场原创演绎；文学心理是本次创作方向，不是人物事实。",
+    "roleVisuals": "旧生产提示词只作已核视觉方向的文字线索；角色身份、发眼与服饰在单角样板内核对，不另增一轮批准门。不得继承旧图的人体/房间像素。",
+    "imageInputs": "此时不提交任何生成。选定母图只确立空间与质感；先由 root 通过同景空 plate，再通过一个角色跨活动样板，才可扩展本 72 格。",
+    "excludedInputs": "旧 room4 母图、既有分层、错姿态图与审核拼图不得作为新文学房间的人物垫图。不得照搬祥子的发型、制服、眼色或既定表情给两角色。"
+  },
+  "gates": {
+    "emptyPlate": {
+      "approved": false,
+      "path": null
+    },
+    "singleCharacterCrossActivityPilot": {
+      "approved": false,
+      "path": null
+    },
+    "matrixGenerationAllowed": false
+  },
+  "interpretationBoundary": "随聊天改变的是当下活动演出；不改用户保存的人格或称呼，不把画面心理写成用户情绪事实。",
+  "references": {
+    "publicCharacterText": {
+      "path": "src/shared/persona-portrayals.ts",
+      "sha256": "3bdf835f844731fa46100f0755bfa30d7e57926b1ca801862144df1f4b43f025",
+      "sections": [
+        "uika",
+        "umiri"
+      ],
+      "version": "2026-10-24.3",
+      "nature": "本地公开原作归因与项目原创演绎，非私人角色或记忆资料。"
+    },
+    "activityContract": {
+      "path": "src/shared/companion-activity.ts",
+      "sha256": "c84cd1a1318fae75f82753724482e8d4282be4bcfa24de6d2ba93e2a99733751"
+    },
+    "previousVisualText": {
+      "uika": {
+        "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/uika-chat-apricot-prompt.txt",
+        "sha256": "4b590473deb496db612d0c900449e3fe4c6bbf69cf33029c36daf2866d30d5bf",
+        "nature": "旧生产文字线索；非独立原作证明，不复用图像像素。"
+      },
+      "umiri": {
+        "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/uika-umiri/umiri-chat-apricot-v2-prompt.txt",
+        "sha256": "711d4dc5b0dadea931e62e004995ce1a3130f85bf319b828e47d67d18fef40f6",
+        "nature": "旧生产文字线索；非独立原作证明，不复用图像像素。"
+      }
+    }
+  }
+}

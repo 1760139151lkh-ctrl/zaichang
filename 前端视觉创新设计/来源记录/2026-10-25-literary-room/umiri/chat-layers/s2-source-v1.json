@@ -1,0 +1,41 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "two-step-source-selection",
+  "character": "umiri",
+  "activity": "chat",
+  "palette": "apricot",
+  "sceneFamily": "literary-room-v1",
+  "step": "S2",
+  "roleCallSequence": 4,
+  "roleCallBudget": 4,
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v2.png",
+    "sha256": "b54800a320a163629dba745183efa63d18a83aa1ae19ba0f9382fdb546b12844"
+  },
+  "numberOfImageInputs": 1,
+  "actualInput": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/contact-step1-marked-v1.png",
+    "sha256": "23725746bd3de0bccd0689a3fbba561d14a6e5b24159eb83835a8649482aea85",
+    "role": "sole exact S1 marked local receiver; no new geometry"
+  },
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-a52534b9-4598-4f24-ae57-cdc97f1c6574.png",
+  "output": "contact-mask-v1.png",
+  "outputSha256": "5123edf75d3c989f9a463d558ccd2989e574c6c1d165a4a65853749e33e55a02",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "actualMode": "RGB",
+  "promptFile": "s2-actual-prompt-v1.txt",
+  "actualPrompt": "Use case: background-extraction. LOCAL CONTACT / RECEIVER LUMINANCE MASK, STEP S2.\nImage 1 is the ONLY input: full 1536x1024 UMIRI source scene with local contact/receiver regions deliberately painted WHITE in S1. Preserve EXACT EXISTING WHITE MARK LOCATIONS, contours and softness. Do not draw/reinterpret a new shadow or shift it.\nKeep ONLY those deliberate local contact marks WHITE: real compressed cushion immediately under hips/skirt and supporting palm, mainly x890..1280,y550..635; real local boot-sole/floor darkness separately beneath the two boots, mainly x828..1110,y855..945. These guides are limits, NOT boxes or geometry to draw. Keep actual irregular cushion/palm contact bands and separate original shoe-floor marks where already painted. Do not enlarge, connect distant regions, move cushion marks onto lap, or move floor marks up onto shoe uppers. Thin source-edge gray antialias may remain.\nEVERYTHING ELSE becomes pure BLACK, including the ENTIRE girl/hair/face/eyes/hands, ALL clothing and both complete shoes. Her naturally light shirt/skin/socks/shoe caps are NOT deliberate S marks and must be BLACK. Natural white curtain, clouds, lamp shade, ceramic cup, flower petals, linen cushion, plaid-pillow light stripes, knitted throw and sunlit floor/rug must also become BLACK. Black room everywhere except the deliberately marked local receiver groups; no window sun lattice or broad room patch.\nOutput ONE opaque complete 1536x1024 black PNG with only the unchanged original-position contact/receiver selections white. No colored scene, new body, new shadow, transparency, boxes, grid, labels, arrows or text.",
+  "actualPromptSha256NoTrailingNewline": "66ffb7dd3d957141e21818952fe00cef91ea569f305a13af9050e611f0d80dd6",
+  "promptFileSha256": "66ffb7dd3d957141e21818952fe00cef91ea569f305a13af9050e611f0d80dd6",
+  "producerViewed": true,
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "representation": "F/S union is fixed original-source joint subject with included local receiver material; not portable caster or new RGB figure.",
+  "pngEdited": false,
+  "producerObservations": [
+    "Personally viewed black-background white receiver mask; it retains seat/palm band and separate rounded shoe-floor receiver regions. No claim that this is a clean portable cast shadow."
+  ]
+}

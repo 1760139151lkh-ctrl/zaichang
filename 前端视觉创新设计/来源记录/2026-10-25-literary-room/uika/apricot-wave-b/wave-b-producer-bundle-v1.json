@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "kind": "bounded-literary-mother-wave-producer-record",
+  "character": "uika",
+  "palette": "apricot",
+  "wave": "apricot-wave-b",
+  "sceneFamily": "literary-room-v1",
+  "scope": "Five new mother images only, individually generated, immediately persisted then personally viewed before next image.",
+  "characterCalls": 5,
+  "sharedWaveCalls": 10,
+  "sharedWaveCallLimit": 10,
+  "generationStopped": true,
+  "tool": "built-in image_gen",
+  "largeImageResultStored": false,
+  "pngEdited": false,
+  "primaryApproved": false,
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "image 1 approved empty room/camera"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.png",
+      "sha256": "df94d1a87f41775108d5b319a6bcc8ec4372283b770ef05ae764adedf2500c5d",
+      "role": "image 2 approved own chat identity/clothes/scale only"
+    }
+  ],
+  "outputs": [
+    {
+      "activity": "study",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-study-apricot-literary-wave-b-v1.png",
+      "motherSha256": "e2d564a0893b1a35b182ac78d8b7464883a462c4b7398e54e0798c0c5afdaba9",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-study-apricot-literary-wave-b-v1.source.json",
+      "sourceSha256": "723fd914adb4a734d2ce7f2ce0552d7179987e131a2b89132853094f8ea2cfc4",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-study-apricot-literary-wave-b-v1.prompt.txt",
+      "promptSha256": "00889c6d6b4d3354448e67e1db6f7b6a8a3836d7ce48c702fc056c6d8a441a63",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Finger lands toward upper/inner page area rather than strictly the outer margin requested. Book/hand contact remains legible; primary should judge the study expression and page-pointing detail.",
+        "This brief intentionally uses lap-supported study on the bench, not the left desk; no runtime or layer acceptance."
+      ],
+      "primaryApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "listening",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-listening-apricot-literary-wave-b-v1.png",
+      "motherSha256": "4bffbaf285d3a79fff261e1c256f04d12310812c915979fcf14c08aabc50472f",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-listening-apricot-literary-wave-b-v1.source.json",
+      "sourceSha256": "5b4004e91bac9cb1bc019ac1b6d6a85797258359969ceb0f6673c5bceced4c97",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-listening-apricot-literary-wave-b-v1.prompt.txt",
+      "promptSha256": "919ba52301522016b4a7d40ba3fa43970859d84e84c22e216b11622b76dd62e5",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Hands overlap naturally, so not every inner finger surface is exposed; no claim of hidden-finger inspection. Root should judge the restrained listening expression and shared scale."
+      ],
+      "primaryApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "play",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-play-apricot-literary-wave-b-v1.png",
+      "motherSha256": "24b81fe7fee7d805b24ab07843e6dbc7c86799036a6f2ffe69eebaaec315e1c3",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-play-apricot-literary-wave-b-v1.source.json",
+      "sourceSha256": "570fedfe9fa172a0597c1851bf489dd12f5e6789cb0d6531061f2023c9a2d3f7",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-play-apricot-literary-wave-b-v1.prompt.txt",
+      "promptSha256": "dce5e5bf2468cfc53bd09bc4a0622f3407d93cef5b3a373358e6455eb83f340a",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Open-mouth smile is brighter and broader than the requested tiny restrained mouth curve; primary should judge whether this still fits her small-story play beat.",
+        "Pointing hand lifts page slightly rather than only tapping a flat page corner. Book remains supported; no hidden-finger completeness claim."
+      ],
+      "primaryApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "attention",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-attention-apricot-literary-wave-b-v1.png",
+      "motherSha256": "778950ac219b655855e505bfadf13e9bacda47aab34acd1d3ba3586ceb7f3a76",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-attention-apricot-literary-wave-b-v1.source.json",
+      "sourceSha256": "6de2d1f326ea0ca8c6327ab3189274ee8a3588979eb05dbfc59851b51b6033be",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-attention-apricot-literary-wave-b-v1.prompt.txt",
+      "promptSha256": "4f56e77c2d79ca1b33554aa9e7e6c9469caf62e07bee4c9b666aac5023ada357",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Upper hand is visibly holding a page mid-turn rather than resting completely still; this supports an interrupted-reading interpretation but primary must judge activity subtlety."
+      ],
+      "primaryApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "resume",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-resume-apricot-literary-wave-b-v1.png",
+      "motherSha256": "778a668daa34faa58e4da49311564664a0bbd89acbf030d6b25a5dd571f23cc7",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-resume-apricot-literary-wave-b-v1.source.json",
+      "sourceSha256": "903e148068c4f10060812c644427e5949457990ad5f265c8feecfe6df5bd1202",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/apricot-wave-b/uika-resume-apricot-literary-wave-b-v1.prompt.txt",
+      "promptSha256": "f83899113a312f4eb1f2e68390439e386fa74fbe177509bb0eaf242f80834034",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "The book is still noticeably V-open rather than nearly shut. Supporting fingers are visible, but a specific finger inserted between retained pages is not separately provable from this view; record the intended stopping-point meaning without claiming visible proof."
+      ],
+      "primaryApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "reviewBoundary": "Producer observations and limitations are recorded per mother. Root has not approved these wave-b mothers; no layers, runtime, shared source or registration change."
+}

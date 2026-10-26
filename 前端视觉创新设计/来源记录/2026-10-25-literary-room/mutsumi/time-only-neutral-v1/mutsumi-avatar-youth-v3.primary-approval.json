@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "recordType": "primary-scoped-avatar-admission",
+  "reviewer": "root / primary agent",
+  "asset": {
+    "path": "mutsumi-avatar-youth-v3.png",
+    "sha256": "accf39ccc205ee077827b9ed3b24a4c67921cb693b0f20cb2037c96cad01e24c"
+  },
+  "faceArtworkApproved": true,
+  "sameCharacterIdentityGenerationAllowed": true,
+  "alphaEdgeApproved": false,
+  "circle34And48Approved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "userApproved": false,
+  "scope": "Complete original facial aesthetic and same-character identity generation reference only. Not an alpha-edge, small-circle, full-purpose or runtime acceptance.",
+  "primaryMessageVerbatim": "root已亲看Mutsumi avatar-v3 accf39cc…1e24c 原PNG：薄荷灰绿发、本人左额双银夹、金褐眼清楚，颊下巴是青春短柔2D，安静轻弧笑成立；自然anime下颌/微鼻光不构成我看到的长成人脸问题，不为这点重做。准原画面部审美与同角色identity generation参考，可用它+已准day净plate生成睦日母。细发alpha大图与34/48圆框/真实UI仍未验，不签runtime或全用途完成、不写userApproved true；请存root本消息的分项准入，旧flags保留。Uika v3我下一步看，不拿它未审给day用。",
+  "recordedAt": "2026-10-26T00:16:42.983Z"
+}

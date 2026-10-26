@@ -1,0 +1,60 @@
+{
+  "recordType": "built-in-imagegen-original-mother-layer-production",
+  "createdOn": "2026-10-24",
+  "activity": "planning",
+  "status": "paused-by-user-direction-through-root-no-calls-in-flight",
+  "mother": "../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-planning-apricot-mother-candidate-v1.png",
+  "motherSha256": "bd7dc06d03e6f576af6f0b261caff31c4abb790d340b161020ce0ad610bc4ce9",
+  "soleGenerationInput": true,
+  "inputWidth": 1536,
+  "inputHeight": 1024,
+  "inputMode": "RGB",
+  "ownerDecision": "Visible hair, body, black shirt/white sleeves, white shorts, legs, both actually worn black boots and raised handheld loose page belong to the figure. Foreground occluding chair back, chair seat/frame, flat desktop planner, cup, lamp and room belong to the background. No independent empty boots were observed. Never reconstruct hidden body over the chair back.",
+  "promptRecord": "rana-planning-apricot-bundle-v1-prompts.json",
+  "promptRecordSha256": "2c8f0dbdf0d6b48245d5e9880116749f542f7fb8c76128184770f4eeca71032c",
+  "background": {
+    "tool": "functions.image_gen__imagegen",
+    "promptKey": "background",
+    "promptSha256Utf8NoTrailingLF": "81f11686f88c1826002086e1345277f9b6fbb33be72e3b0799ba6b5d78acd4e1",
+    "transparentBackground": false,
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17126-cdea-77e3-9abe-3d71acd87e8b/exec-b1887d5b-b5cd-4277-af2c-956b5baff15f.png",
+    "file": "rana-planning-apricot-bundle-v1-background-generated-v1.png",
+    "sha256": "d50a3ae067d71fdd3d6e84bb64f73cb843ff28de0d196df96d163d8d1ba1c95c",
+    "bytes": 2115778,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "mask": {
+    "status": "rejected-visible-scale-and-occlusion-mismatch",
+    "tool": "functions.image_gen__imagegen",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17126-cdea-77e3-9abe-3d71acd87e8b/exec-f512bf83-5db9-4c74-a7a7-e13a9b556859.png",
+    "file": "rana-planning-apricot-bundle-v1-mask-generated-v1.png",
+    "sha256": "afd25e5674ec4042d26b83813520dcbbf3348c985c688497dbd576249fe68312",
+    "bytes": 368233,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "transparentBackground": false,
+    "observation": "Directly viewed the result: the whole person is visibly enlarged/upshifted relative to the mother and the foreground chair-back occlusion is reconstructed as body. Rejected; cannot be repaired by a source polygon or by moving/scaling the layer.",
+    "promptKey": "mask",
+    "promptSha256Utf8NoTrailingLF": "ad68cf4ccf7dde52343621beabd7dd2ffe3eb97136c8aeea133d8de01b9f2fc3"
+  },
+  "unstartedCorrection": {
+    "promptKey": "maskV2",
+    "promptSha256Utf8NoTrailingLF": "0dda3042809f421ae2b0701d6ee62031b68c23a08d2991250a730efa4cd377c6",
+    "status": "prompt-drafted-but-never-called-user-paused-further-layer-generation",
+    "toolCallCount": 0
+  },
+  "currentGap": "A correctly registered full-canvas white person/held-page luminance mask is still missing. The existing mask v1 is rejected and cannot be accepted by moving/scaling it or expanding a source patch. No planning runtime bundle or preview page was produced; no listening layers were generated. No ImageGen calls remain in flight.",
+  "implementationBoundary": {
+    "figureRgbGenerated": false,
+    "sourceContactPatchProduced": false,
+    "runtimeBundleProduced": false,
+    "runtimeModified": false,
+    "registryModified": false,
+    "pngPostprocessing": false,
+    "testsHarnessesOrRunnersCreated": false
+  },
+  "review": { "approvedByPrimary": false, "runtimeRegistered": false, "runtimeAccepted": false }
+}

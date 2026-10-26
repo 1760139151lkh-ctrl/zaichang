@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "cell": "rana/play/apricot",
+  "primaryReviewed": false,
+  "runtimeReady": false,
+  "status": "stopped_per_latest_user_direction",
+  "mother": {
+    "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-play-apricot-mother-candidate-v1.png",
+    "sha256": "50744be0906941af37756061c3cc3b1f425f39e0a69036912533751037afb311",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "producerViewed": true
+  },
+  "coordinateSpace": {
+    "width": 1536,
+    "height": 1024,
+    "transform": "identity",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "ownership": {
+    "figure": [
+      "Rana",
+      "all clothing",
+      "both worn boots",
+      "both hands",
+      "held acoustic guitar including neck/headstock/pegs"
+    ],
+    "background": [
+      "room",
+      "bench",
+      "cushions",
+      "pillows",
+      "blanket"
+    ],
+    "heldObject": "wooden acoustic guitar",
+    "independentBoot": null,
+    "sourceContact": null
+  },
+  "generations": {
+    "background": {
+      "tool": "built-in image_gen",
+      "inputSha256": "50744be0906941af37756061c3cc3b1f425f39e0a69036912533751037afb311",
+      "prompt": "Use case: precise-object-edit\nAsset type: exact same-canvas empty room background extraction, 1536x1024.\nInput image 1 is the sole edit target. Remove only the silver-haired girl Rana together with her held wooden acoustic guitar, all her clothing, hands, bare legs, and both worn black boots. There is no independent loose boot in this source; both boots belong to the girl and must disappear. Remove only her local contact shadows. Restore the empty bench cushion and room behind her and the guitar naturally.\nPreserve the full original 1536x1024 canvas, original camera and every room object at the same pixel locations: window, complete landscape, curtains, walls, wooden floor, sunlight and furniture shadows, desks, chairs, lamp, cup, book, bench, cream seat cushion, plaid and floral pillows and knitted blanket. No crop, zoom, translation, resizing, reframe, relighting or redesign. Retain the right blanket and pillows as room objects; do not remove them with the girl.\nOutput one full-canvas opaque RGB empty room at exactly 1536x1024. No person, silhouette, guitar fragment, boot, clothing remnant, collage, mask, text or added object.",
+      "promptSha256NoTrailingNewline": "22dbecfe4c266e6e6193bbb500d75c4ea27274230e7a045d8f3b019894f3ce58",
+      "promptFile": "rana-play-apricot-bundle-v1-background-v1.prompt.txt",
+      "requestedSize": [
+        1536,
+        1024
+      ],
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-b78e4fcf-6de3-4d1a-b0af-fcc9e6a9c010.png",
+      "outputPath": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-play-apricot-bundle-v1-background-v1.png",
+      "outputSha256": "13bc742a76346aa77b4ee9b3e0c8c0e1621c61c51ec6f19d489984dbd59d23d8",
+      "actualSize": [
+        1536,
+        1024
+      ],
+      "actualMode": "RGB",
+      "producerViewed": true,
+      "observation": "Empty room personally viewed; girl, held guitar and both worn boots removed; bench cushion reconstructed."
+    },
+    "mask": {
+      "tool": "built-in image_gen",
+      "inputSha256": "50744be0906941af37756061c3cc3b1f425f39e0a69036912533751037afb311",
+      "prompt": "Convert the supplied original image into an exactly registered full-canvas subject segmentation mask, 1536x1024. This is a pixel-location tracing task, not a new drawing. Paint all visible girl-and-held-guitar pixels pure white; paint every other pixel pure black. Do not enlarge, move, straighten, rescale or change the silhouette. Preserve original small antialiased contour pixels only.\nWhite ownership: Rana's silver bob hair and head, skin, black shirt and white sleeves, white shorts, both hands, both bare legs, both worn black boots, and the entire wooden acoustic guitar she holds, including its neck, headstock, pegs and fine visible strings within the silhouette. Both boots are worn; no independent loose boot exists. Keep the exact guitar/hand/torso/leg occlusion from the source.\nRegistration anchors: top of hair near (1261,311), leftmost guitar body near x1143 y482, guitar headstock rightmost near (1457,474), left boot about x1129..1205 y683..776, right boot about x1236..1314 y704..805. Trace actual source pixels within these original locations, never invent or expand a pose.\nBlack ownership: all room, landscape, sunlight, shadows, bench, cushions, plaid and floral pillows, knitted blanket, desks, lamp, cup, book and chairs. Keep the exact black room gaps between limbs and around guitar and hands. Do not include bright room slivers, seat cushion, shadow halo or rectangular patches in white. Especially follow the true silhouette where the bright guitar body meets cream cushion, where sleeves meet the window, and where boots meet the floor.\nReturn only one opaque black-and-white RGB luminance mask at exactly 1536x1024. Black background and white exact subject; no transparency, colors, labels, collage, crop or centering.",
+      "promptSha256NoTrailingNewline": "2e5f375cc383f98673e80c85c1c98fef2fc5947c896ade68617721289ea6eab3",
+      "promptFile": "rana-play-apricot-bundle-v1-mask-v1.prompt.txt",
+      "requestedSize": [
+        1536,
+        1024
+      ],
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-b98477c0-9ad6-470d-a649-a11b40b94bbb.png",
+      "outputPath": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-play-apricot-bundle-v1-mask-v1.png",
+      "outputSha256": "f297c55ca504af36866d830f9f7768b1a849dc95104b0df29c2ff09f9092b42d",
+      "actualSize": [
+        1536,
+        1024
+      ],
+      "actualMode": "RGB",
+      "producerViewed": true,
+      "accepted": false,
+      "observation": "Raw mask has black lineart holes inside hands over held guitar; rejected because hands and guitar are one visible white ownership union."
+    },
+    "maskV2": {
+      "tool": "built-in image_gen",
+      "inputSha256": "50744be0906941af37756061c3cc3b1f425f39e0a69036912533751037afb311",
+      "prompt": "Convert the supplied original image into an exactly registered full-canvas subject segmentation mask, 1536x1024. This is a pixel-location tracing task, not a new drawing. Paint all visible girl-and-held-guitar pixels pure white; paint every other pixel pure black. Do not enlarge, move, straighten, rescale or change the silhouette. Preserve original small antialiased contour pixels only.\nWhite ownership: Rana's silver bob hair and head, skin, black shirt and white sleeves, white shorts, both hands, both bare legs, both worn black boots, and the entire wooden acoustic guitar she holds, including its neck, headstock, pegs and fine visible strings within the silhouette. Both boots are worn; no independent loose boot exists. Keep the exact guitar/hand/torso/leg occlusion from the source.\nRegistration anchors: top of hair near (1261,311), leftmost guitar body near x1143 y482, guitar headstock rightmost near (1457,474), left boot about x1129..1205 y683..776, right boot about x1236..1314 y704..805. Trace actual source pixels within these original locations, never invent or expand a pose.\nBlack ownership: all room, landscape, sunlight, shadows, bench, cushions, plaid and floral pillows, knitted blanket, desks, lamp, cup, book and chairs. Keep the exact black room gaps between limbs and around guitar and hands. Do not include bright room slivers, seat cushion, shadow halo or rectangular patches in white. Especially follow the true silhouette where the bright guitar body meets cream cushion, where sleeves meet the window, and where boots meet the floor.\nReturn only one opaque black-and-white RGB luminance mask at exactly 1536x1024. Black background and white exact subject; no transparency, colors, labels, collage, crop or centering.\nCritical correction: the character and held guitar form one solid white foreground union. Every interior pixel is pure white regardless of original dark lineart, skin outline, strings, sound hole, dark shirt, boot laces or musical instrument markings. Do not draw black fingers, wrist lines, strings or interior shading inside this union. Black belongs only outside the actual foreground silhouette or in a true source gap revealing the room. The sound hole, black pickguard and hands over the guitar remain solid WHITE. Trace the original boot outer contours completely, including the toes and heels.",
+      "promptSha256NoTrailingNewline": "9de3ae8fb0cd54257e209476a91e712e8a859344c1a375393005da14f2d91b76",
+      "promptFile": "rana-play-apricot-bundle-v1-mask-v2.prompt.txt",
+      "requestedSize": [
+        1536,
+        1024
+      ],
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-37dd673a-aef3-4da5-bac2-a20115c25f5b.png",
+      "outputPath": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-play-apricot-bundle-v1-mask-v2.png",
+      "outputSha256": "50942a86d5d2f002defff575476bf1f37a1a9b2b41579382f3ed5da466643ac5",
+      "actualSize": [
+        1536,
+        1024
+      ],
+      "actualMode": "RGB",
+      "producerViewed": true,
+      "observation": "Raw mask personally viewed; previous internal hand lineart holes removed. No browser composition inspection performed before user-directed stop."
+    }
+  },
+  "observations": [
+    "Mother personally viewed. Held guitar and both worn boots belong to figure; furniture and textiles belong to room."
+  ],
+  "verification": {
+    "browserSourceOver": false
+  },
+  "selected": {
+    "background": "background",
+    "mask": "maskV2",
+    "figureRgb": "mother"
+  },
+  "remaining": [
+    "Browser source-over composition and contour inspection not performed",
+    "No play HTML page created",
+    "Contact/occlusion gaps not assessed"
+  ],
+  "inFlightImageGeneration": false
+}

@@ -1,0 +1,7 @@
+Use case: background-extraction.
+Asset: COMPLETE foreground luminance mask, F step 2 of 2.
+The attached image is the ONLY input: the exact 1536×1024 original Mutsumi chat scene with the ENTIRE original girl already filled SOLID WHITE. Keep the full canvas, scale and exact source coordinates.
+Keep EVERY deliberately painted existing WHITE PERSON PIXEL white in place, including all hair strands/clip, head/neck, sleeves/cuffs/lap hands and fingers, full navy-skirt/hem perimeter, knees, socks and BOTH COMPLETE loafers with dark sole rims and full heel blocks. No eyes, face holes, garment-linework holes or internal texture: solid white interiors.
+Change ONLY all remaining colored scene to pure BLACK. This is an in-place background conversion, not a newly drawn or centered silhouette. Do not move, resize, erode, contract or simplify the white figure. Keep thin original edge antialias only; do not shave the dark skirt/sole contours that were deliberately whitened in F1.
+The naturally bright curtains, clouds, lamp shade, flowers, sunlight floor patches, pale seat linen, plaid pillows, knitted throw, furniture, plants and independent source contact/cast material outside the person all become BLACK. Natural highlights are not selection marks. Keep only the existing white person, with the original dark gap between legs/shoes where real background exists.
+Output ONE opaque 1536×1024 black PNG canvas with the complete existing original-position white foreground mask. No colored room, checkerboard, labels, arrows, rectangles, text, grid or split view.

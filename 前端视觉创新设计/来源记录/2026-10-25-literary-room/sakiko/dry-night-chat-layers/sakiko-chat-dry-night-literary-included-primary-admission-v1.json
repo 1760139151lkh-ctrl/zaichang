@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "key": "sakiko/chat/weather/dry-night",
+  "recordedAt": "2026-10-25T11:24:09.657584+00:00",
+  "kind": "primary-fixed-source-included-layer-admission",
+  "reviewer": "root / primary",
+  "approvedByPrimary": true,
+  "runtimeAccepted": false,
+  "source": "Explicit root message after personally inspecting the original-position HTML scene, face, seat and feet views.",
+  "mother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/weather-chat-pilot/sakiko-chat-dry-night-v1.png",
+    "sha256": "c56541389158a7f28539062ae2174da997b4cd4301e022eab9202e34d31ab5c1",
+    "bytes": 2277809,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    }
+  },
+  "background": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-dry-night-v1.png",
+    "sha256": "edad31b1ce0c7f21be59d939cc54a0d6230b31d6fe380d0d553af515032fd0f4",
+    "bytes": 2249307,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    }
+  },
+  "F": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/figure-mask-v1.png",
+    "sha256": "e0d20ccc2327b95867319151a5c9fdd52b69008c718fdd5ddaff01a3f6259cea",
+    "bytes": 468116,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "maskMode": "luminance",
+    "pngBitDepth": 8,
+    "pngColorType": 2
+  },
+  "S": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/contact-mask-v1.png",
+    "sha256": "830db3da88d90f283f6e867cfe56b1389cd6a2a4152b50de1532266f0f4224f6",
+    "bytes": 288855,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "maskMode": "luminance",
+    "pngBitDepth": 8,
+    "pngColorType": 2
+  },
+  "bundleAtVisualReview": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/dry-night-chat-included-bundle-v1.json",
+    "sha256": "8d1116c26fc12f5d6cb85301d8f3e9c92447103d0f61f32ba5645920c098ab0c",
+    "bytes": 7762
+  },
+  "observation": "Root viewed full scene/original/BG/FSMAX; native face with distinct fringe/eyes; complete skirt/palms/knees and narrow cushion receiver; complete heel/sole/floor receiver triple comparison, without visible white gaps.",
+  "composition": {
+    "coverage": "MAX(luminance(F),luminance(S))",
+    "originalRgbDraws": 1,
+    "contactShadow": "included",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "pureCaster": false,
+    "independentBodyDeformation": false
+  },
+  "scope": "Exact-SHA fixed original-position included layer only; whole visibility or whole-pose swap; no runtime or drag/pose-transition acceptance."
+}

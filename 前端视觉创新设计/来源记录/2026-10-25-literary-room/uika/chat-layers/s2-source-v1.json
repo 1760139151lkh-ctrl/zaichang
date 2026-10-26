@@ -1,0 +1,39 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "two-step-source-selection",
+  "character": "uika",
+  "activity": "chat",
+  "palette": "apricot",
+  "sceneFamily": "literary-room-v1",
+  "step": "S2",
+  "roleCallSequence": 4,
+  "roleCallBudget": 4,
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.png",
+    "sha256": "df94d1a87f41775108d5b319a6bcc8ec4372283b770ef05ae764adedf2500c5d"
+  },
+  "numberOfImageInputs": 1,
+  "actualInput": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/contact-step1-marked-v1.png",
+    "sha256": "c8d6b6306f640cde30041842099233e6902bf2ec9a4f813a87bbd011611082aa",
+    "role": "sole exact S1 local receiver markup; preserve marked coordinates"
+  },
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-4f949af0-6a7d-4f0e-a79e-205b19842029.png",
+  "output": "contact-mask-v1.png",
+  "outputSha256": "eae4756cefb4ab68ff3f596128972eac539ca40f664487532e92afd4743f22fd",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "actualMode": "RGB",
+  "promptFile": "s2-actual-prompt-v1.txt",
+  "actualPrompt": "Use case: background-extraction. LOCAL CONTACT / RECEIVER LUMINANCE MASK, STEP S2.\nImage 1 is the ONLY input: full 1536x1024 UIKA source scene with local contact/receiver regions deliberately painted WHITE in S1. Preserve EXACT EXISTING WHITE MARK LOCATIONS, contours and softness. Do not draw/reinterpret a new shadow or shift it.\nKeep ONLY those deliberate local contact marks WHITE: real compressed cushion at hips/skirt rear and supporting palm, mainly x1080..1320,y540..625; the existing small receiver material immediately bordering long skirt hem where it meets the bench; real individual sneaker-floor darkness mainly x830..1045,y835..905. These guides are limits, NOT boxes or geometry to draw. Keep actual irregular cushion/palm contact bands and separate original shoe-floor marks where already painted. Do not enlarge, connect distant regions, move cushion marks onto lap, or move floor marks up onto shoe uppers. Thin source-edge gray antialias may remain.\nEVERYTHING ELSE becomes pure BLACK, including the ENTIRE girl/hair/face/eyes/hands, ALL clothing and both complete shoes. Her naturally light shirt/skin/socks/shoe caps are NOT deliberate S marks and must be BLACK. Natural white curtain, clouds, lamp shade, ceramic cup, flower petals, linen cushion, plaid-pillow light stripes, knitted throw and sunlit floor/rug must also become BLACK. Black room everywhere except the deliberately marked local receiver groups; no window sun lattice or broad room patch.\nOutput ONE opaque complete 1536x1024 black PNG with only the unchanged original-position contact/receiver selections white. No colored scene, new body, new shadow, transparency, boxes, grid, labels, arrows or text.",
+  "actualPromptSha256NoTrailingNewline": "65ad7daba40315bdbdcc9e6dde59c5efa58847fb6a2933eda827338d62db27bd",
+  "promptFileSha256": "65ad7daba40315bdbdcc9e6dde59c5efa58847fb6a2933eda827338d62db27bd",
+  "producerViewed": true,
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "representation": "F/S union is fixed original-source joint subject with included local receiver material; not portable caster or new RGB figure.",
+  "pngEdited": false,
+  "rawOutputObservation": "Raw contact receiver mask personally viewed: local seat/palm/floor coverage plus a small upper overlap with foreground; not claimed as pure independent shadow."
+}

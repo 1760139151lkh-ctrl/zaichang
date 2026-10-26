@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "empty-room-plate",
+  "environmentVariant": "overcast-day",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "executionId": "exec-595c9ee6-82d5-4978-8739-0c66aa557454",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-595c9ee6-82d5-4978-8739-0c66aa557454.png",
+  "inputs": [
+    {
+      "file": "literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "sole approved clean empty room edit target; no character image input",
+      "admissionRecord": "literary-room-clear-day-v1.source.json"
+    }
+  ],
+  "selectedMotherLineage": {
+    "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+    "imageInputForThisCall": false
+  },
+  "promptFile": "literary-room-overcast-day-v1.prompt.txt",
+  "promptFileSha256": "04a3f62c1e8656b73b3ffc86e42685d3761a4d0ccdad21c06c1776896a56fd96",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd, exactly as submitted",
+  "submittedPromptSha256": "c715f97aa29df86e1d6460f1631e79935d26de79ae2201ea88b37039cb501bf9",
+  "output": {
+    "file": "literary-room-overcast-day-v1.png",
+    "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+    "bytes": 2526101,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed complete saved original: same close camera, window mullions/crop, writing desk/chair, round table and ceramic lamp, bench/cushions/throw, rug and blurred foreground plant remain in place. Silver-grey cloudy sky and gently veiled original town/mountains stay daytime and dry. Hard sunny leaf/bar shadows and golden floor rectangles are removed; soft diffuse light leaves wood/linen readable with a small real lamp warmth. No human residue or obvious geometry change observed. This is producer review only, not root/runtime acceptance."
+  },
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "approvalScope": "Empty environment plate candidate only; does not approve character poses, layers, matrix coverage or runtime.",
+  "primaryApprovalRecord": "literary-room-overcast-day-v1.primary-approval.json",
+  "primaryApprovalScope": "Complete static empty environment plate only; same selected close room and corresponding weather/time illumination. No character/activity/layers/motion/runtime approval."
+}

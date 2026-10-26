@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "id": "sakiko-chat-mist-room4",
+  "character": "sakiko",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "mist",
+  "width": 1536,
+  "height": 1024,
+  "mother": "sakiko-chat-mist-mother-candidate-v1.png",
+  "background": "sakiko-chat-mist-background-calibrated-v3.png",
+  "figure": "sakiko-chat-mist-figure-calibrated-v3.png",
+  "mask": "sakiko-chat-mist-mask-calibrated-v3.png",
+  "shadow": "sakiko-chat-mist-shadow-calibrated-v3.png",
+  "seat": [
+    0.849609375,
+    0.5751953125
+  ],
+  "ground": [
+    0.7571614583333334,
+    0.7841796875
+  ],
+  "bodyBounds": [
+    0.7161458333333334,
+    0.236328125,
+    0.935546875,
+    0.787109375
+  ],
+  "safeTextBoundary": 0.64,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "83% 24%, 87% 27%, 89% 34%, 93% 46%, 91% 52%, 94% 58%, 90% 60%, 88% 61%, 82% 60%, 80% 68%, 80% 79%, 75% 79%, 72% 78%, 74% 71%, 77% 63%, 78% 58%, 75% 57%, 76% 54%, 79% 51%, 77% 47%, 78% 39%, 79% 31%, 80% 26%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "motherApprovedByPrimary": true,
+    "reviewer": "root / primary agent",
+    "stage": "layer-admission-original-position",
+    "approvalRecord": "前端视觉创新设计/来源记录/2026-10-24-matrix/sakiko/primary-chat-layer-admission-2026-10-25.json",
+    "sourceBundleRecord": "前端视觉创新设计/来源记录/2026-10-24-matrix/sakiko/existing-chat-layer-bundles.json",
+    "runtimeAccepted": false,
+    "producerObservation": "Unchanged reviewed mother/background/figure/mask/shadow bytes copied from the exact existing bundle. Root accepted original-position static layer admission only. Travel, slope and perspective are zero; no runtime or free-movement acceptance."
+  },
+  "production": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-mist-layer-processing-v3.json",
+  "environmentVariant": "clear-day",
+  "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-mist.scene.json"
+}

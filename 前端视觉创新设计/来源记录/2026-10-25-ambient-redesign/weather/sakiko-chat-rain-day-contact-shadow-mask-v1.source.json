@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-canvas-independent-contact-shadow-luminance-mask",
+  "id": "sakiko-chat-rain-day-contact-shadow-mask-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-chat-rain-day-contact-shadow-mask-v1.prompt.json",
+  "promptFileSha256": "e7d67c8c112fd82d20bde72416dfd2e50c5049c5bc8337b3eaa82acd89696a41",
+  "submittedPrompt": "Use case: precise-object-edit. Extract an independent CONTACT-SHADOW OPACITY MASK at the exact original full 1536x1024 coordinates.\nImage 1 is the approved complete rainy DAY mother and source-coordinate authority. Image 2 is its matching empty background; use it only to separate the girl's real contact shadows from normal room/furniture shading. No spatial transform, enlarged shadow, recenter, crop, zoom or invented footprint.\nReturn a black-background grayscale opacity map. Pure BLACK everywhere, except ONLY actual darkened support-surface pixels OUTSIDE the original person: narrow bench-cushion occlusion immediately below the skirt/hip contact; tiny cushion darkness immediately under/outside her right supporting palm/fingers; and narrow dry-floor contact lines/soft cast shadows immediately outside the two brown worn shoe soles. Darkest real contact core is WHITE and fading edge soft GRAY. Mask brightness encodes opacity. These few shadows follow Image 1's diffuse rainy-day light, not generic ellipses.\nThe actual shoes themselves, including toes/uppers/highlights/heels/soles, are part of the person and must be PURE BLACK. Do not paint white shoe silhouettes or gray toe shapes. Likewise all person hair/body/skin/clothes/held lap book/hands/socks are BLACK. Only the exposed cushion/floor shadows BESIDE and immediately UNDER the actual contacts may be white/gray. The rest of the bench, cushion/blanket/floor/wood grain and all pre-existing furniture shadows remain BLACK. No broad cushion patch, colored floor texture, detached distant oval, ghost person or room RGB.\nKeep hips/palm around their original seat y590 and floor contacts around their original shoe y780. These are positioning guides only; preserve observed original shape and direction. The indoor floor is dry; no raindrop/puddle shadows, sunbeams or night lighting.\nFull 1536x1024 opaque grayscale RGB, only real contact shadows on pure black, smooth natural fading edges. No borders, transparency, grid, text, labels, watermark, outline, UI or new objects.",
+  "submittedPromptSha256Utf8NoTrailingLF": "45567eb7bd0c8865808026be5be5e00049fa85d3010c89bc9ba3c94eafc1c109",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-rain-day-mother-v1.png",
+      "sha256": "e287875d209fc367d4316b4dcdb53201fb514f8404de8ebc63cd6fe46a99e7d8",
+      "role": "exact complete rainy-day mother source-coordinate authority"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-rain-day-background-v1.png",
+      "sha256": "13ebf75894baa3d008742573b4d402824cfe2f02a39a31e5579f74fd08193eeb",
+      "role": "matching empty room; distinguishes person contact from furniture shadows"
+    }
+  ],
+  "output": {
+    "file": "sakiko-chat-rain-day-contact-shadow-mask-v1.png",
+    "sha256": "1a9461ee7023985b75766ba1fb99627ec7c6595c9086ff05061e1f34afd1166c",
+    "bytes": 346201,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-30430ddf-1665-4559-8490-0024e1261d7e.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": true,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observationBoundary": "Producer directly viewed full original PNG output only. Root native original-RGB recomposition review pending; no runtime or movement acceptance.",
+    "primaryNativeCompositeViewed": true,
+    "primaryLayerApprovalRecord": "sakiko-chat-rain-day-primary-layer-approval-v1.json",
+    "primaryLayerApprovalScope": "Exact-SHA original-position static same-canvas layers only; runtime independent"
+  },
+  "status": "primary-admitted-original-position-static-layer-runtime-separate",
+  "maskMode": "luminance"
+}

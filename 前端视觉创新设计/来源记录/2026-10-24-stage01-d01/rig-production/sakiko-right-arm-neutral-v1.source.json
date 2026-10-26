@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "recordedAt": "2026-10-25T07:24:00Z",
+  "canvas": {
+    "width": 1536,
+    "height": 1024
+  },
+  "character": "sakiko",
+  "sceneFamily": "sakiko-chat-apricot-room4",
+  "originalNotOverwritten": true,
+  "motionVerified": false,
+  "inAppVerified": false,
+  "id": "s01-d01-right-arm-neutral-v1",
+  "generationId": "exec-8d276e9f-9311-47bf-9f0f-4f806c2cd4a5",
+  "prompt": "sakiko-right-arm-neutral-v1.prompt.txt",
+  "inputs": [
+    {
+      "path": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+      "sha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1",
+      "role": "approved edit target; original support, anatomy, camera and texture source"
+    }
+  ],
+  "output": "quarantine/sakiko-right-arm-neutral-v1.png",
+  "sha256": "099765c489c15a7e58a81bbc406766a6135eee108393f9c5a0f9361ff7bafa7f",
+  "bytes": 570588,
+  "classification": "C",
+  "status": "rejected-quarantine",
+  "runtimeAllowed": false,
+  "staticReview": {
+    "producerInspected": true,
+    "observed": "Continuous sleeve/hand was recognizable, but the generated component was enlarged and moved below source contact; alpha had a broad soft light field.",
+    "alphaRange": [
+      0,
+      254
+    ],
+    "alphaNonzeroBounds": [
+      345,
+      213,
+      1255,
+      744
+    ],
+    "decision": "Not a compatible local layer, not a reference for another generation. Preserve diagnosis; original approved mother remains the only anatomy/identity source."
+  },
+  "functionExtracted": "Full original canvas alone does not guarantee source-coordinate component extraction. Use the existing mother's exact pixels through runtime clip paths rather than accepting halo or scale drift."
+}

@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "same-activity-whole-light-mother-candidate",
+  "character": "mutsumi",
+  "activity": "listening",
+  "palette": "rain",
+  "environmentVariant": "rain-night",
+  "wave": "light-activity-wave-b",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-ecc1be01-ce5c-4496-bfc1-339404d0ac80.png",
+  "executionId": "exec-ecc1be01-ce5c-4496-bfc1-339404d0ac80",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "role": "first input; approved empty environment plate, primary camera and authoritative target whole-room light"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-listening-apricot-v1.png",
+      "sha256": "99ec0d08d7d1dd6e7ef13f70be6c137ba6330bc6a556e7a188757aa47ec86515",
+      "role": "second input; root-approved exact same-activity apricot mother, actual accepted psychology/pose/proportion/props/support"
+    }
+  ],
+  "apricotActivityMotherApproval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-listening-apricot-v1.primary-approval.json",
+  "sourceMotherContourComplete": true,
+  "intendedSupport": "window-seat",
+  "sourceSpecificPose": "Preserve the actual root-approved EMPTY-HAND listening pose: both relaxed hands together on the lap, gentle attentive lifted gaze and slight source forward inclination, real hip/cushion, uncrossed knees/ankles and full loafers. Do not add a handheld object or force a larger body gesture.",
+  "brief": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/mutsumi-prompt-plan.json",
+    "sha256": "66ade9700cb7bb993b43bd7e247b678878b79ad71237b0b5dcd915a43a3be2ca",
+    "key": "mutsumi/listening/apricot",
+    "role": "own role/activity literary psychology; light redirection keeps actual accepted mother pose"
+  },
+  "wholeSceneRelighting": true,
+  "oldApricotHeatSpotsAreNotIdentity": true,
+  "unreviewedLightCandidateUsedAsInput": false,
+  "promptFile": "mutsumi-listening-rain-v1.prompt.txt",
+  "promptFileSha256": "66a46ea1ea7016d730b0b576d8c3bbc31f85421073341864c779151471342092",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; exact submitted text",
+  "submittedPromptSha256": "98dd3759156819b9aad796a54e6b88c61e0fde68b3f8bdcaed3351e2f9755f5e",
+  "output": {
+    "file": "mutsumi-listening-rain-v1.png",
+    "sha256": "69e17eb228d7df5ff91eb1c6bd6f86c67038f23b7b88552a61d1edc76642c113",
+    "bytes": 2216126,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved complete mother. Same accepted empty-hand lap listening pose, attentive source expression, mint/golden-brown identity, full head/shoes and true hip/cushion/uncrossed-leg support remain stable. Rainy dark exterior and warm lamps relight skin/hair/room/floor coherently without hard floor daylight lattice. Localized pale warm islands persist on the right skirt in apricot-like positions despite requested plain-navy re-shading; producer explicitly records this possible retained daylight/material ambiguity and does not call it intrinsic print or root-approved illumination. No prop or automatically sad acting. Root/layer/runtime pending."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "New static mother candidate only, root review pending; no layer, registration or runtime acceptance.",
+  "privateUserDataUsed": false
+}

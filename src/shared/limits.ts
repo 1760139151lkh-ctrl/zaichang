@@ -3,6 +3,8 @@ export const LIMITS = {
   draftText: 6000,
   attachmentText: 20000,
   imageDataUrl: 3_000_000,
+  attachments: 3,
+  imageDataUrls: 6_000_000,
   fileName: 260,
   message: 27000,
 } as const;

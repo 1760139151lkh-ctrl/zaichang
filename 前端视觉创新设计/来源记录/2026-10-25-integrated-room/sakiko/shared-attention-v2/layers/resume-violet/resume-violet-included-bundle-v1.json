@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 1,
+  "cell": "sakiko/resume/violet",
+  "producer": "/root/mujica_matrix",
+  "producedAt": "2026-10-26T00:27:48.611Z",
+  "source": {
+    "mother": {
+      "path": "../../../../../2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-violet-literary-extension-v1.png",
+      "sha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973",
+      "bytes": 2367723
+    },
+    "background": {
+      "path": "background-v1.png",
+      "sha256": "a05b00ade84a17de62e1f61813db70647dddd70f51f364a5bca3a486944c1327",
+      "bytes": 2328735
+    },
+    "figureMask": {
+      "path": "figure-mask-v1.png",
+      "sha256": "a4001631c77753fe3cc6643a8ffc5823c1b8b440756875aa56ca67065f6e2717",
+      "bytes": 456111
+    },
+    "contactMask": {
+      "path": "contact-mask-v1.png",
+      "sha256": "763f3247f1bb48d3b0645d94b161c8c65f4668f0877675d981c02f1f57d2c09d",
+      "bytes": 297094
+    },
+    "unionSvg": {
+      "path": "union-source-v1.svg",
+      "sha256": "a72d61b551ebf3b719337494f2d113112ec5c804407c40da20540f09e47f112c",
+      "bytes": 1539
+    },
+    "compositeSvg": {
+      "path": "composite-source-v1.svg",
+      "sha256": "7a81795d5e4fd243e4395f97564400ee5f01b2414320523f03a61785fd746bd1",
+      "bytes": 1643
+    },
+    "observationPage": {
+      "path": "resume-violet-included-observe-v1.html",
+      "sha256": "901ea6e4f796b842d1c4000acb94368f0f7b3cb837608fd92bc8acec6bd0a5b7",
+      "bytes": 30636
+    }
+  },
+  "sourceRecords": [
+    {
+      "path": "background-v1.source.json",
+      "sha256": "b2529630043a85bd99c7fb8a8a036d8594190ef2d4d9ca5f191b44ba54d37ba2"
+    },
+    {
+      "path": "contact-mask-v1.source.json",
+      "sha256": "f57bf8040f58bdfe55de99179c685c3f03115d6ba76c4393452fd6e13ef5eaab"
+    },
+    {
+      "path": "contact-step1-marked-v1.source.json",
+      "sha256": "ae5505b5550ef47fbefdca5a70f319214eb8fa65f04e26a84698f5621a58cc01"
+    },
+    {
+      "path": "figure-mask-v1.source.json",
+      "sha256": "21afd80e79a8ca2ba63c5f9fddff526b2c7525595b8bb686cb8ebca1208228fc"
+    },
+    {
+      "path": "figure-step1-marked-v1.source.json",
+      "sha256": "9da72af3c02d67eccf517735613bebc69a85e6c13a3caf4d8be4b9a522e1d7cc"
+    }
+  ],
+  "sourceClosure": [
+    {
+      "record": "background-v1.source.json",
+      "output": {
+        "recordedSha256": "a05b00ade84a17de62e1f61813db70647dddd70f51f364a5bca3a486944c1327",
+        "actualSha256": "a05b00ade84a17de62e1f61813db70647dddd70f51f364a5bca3a486944c1327"
+      },
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-violet-literary-extension-v1.png",
+          "recordedSha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973",
+          "actualSha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973"
+        }
+      ]
+    },
+    {
+      "record": "contact-mask-v1.source.json",
+      "output": {
+        "recordedSha256": "763f3247f1bb48d3b0645d94b161c8c65f4668f0877675d981c02f1f57d2c09d",
+        "actualSha256": "763f3247f1bb48d3b0645d94b161c8c65f4668f0877675d981c02f1f57d2c09d"
+      },
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-violet/contact-step1-marked-v1.png",
+          "recordedSha256": "025ec089a2768b4036b2030c8b510e705d18679d022a44eca8abb36f35b5f14b",
+          "actualSha256": "025ec089a2768b4036b2030c8b510e705d18679d022a44eca8abb36f35b5f14b"
+        },
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-violet-literary-extension-v1.png",
+          "recordedSha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973",
+          "actualSha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973"
+        }
+      ]
+    },
+    {
+      "record": "contact-step1-marked-v1.source.json",
+      "output": {
+        "recordedSha256": "025ec089a2768b4036b2030c8b510e705d18679d022a44eca8abb36f35b5f14b",
+        "actualSha256": "025ec089a2768b4036b2030c8b510e705d18679d022a44eca8abb36f35b5f14b"
+      },
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-violet-literary-extension-v1.png",
+          "recordedSha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973",
+          "actualSha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973"
+        }
+      ]
+    },
+    {
+      "record": "figure-mask-v1.source.json",
+      "output": {
+        "recordedSha256": "a4001631c77753fe3cc6643a8ffc5823c1b8b440756875aa56ca67065f6e2717",
+        "actualSha256": "a4001631c77753fe3cc6643a8ffc5823c1b8b440756875aa56ca67065f6e2717"
+      },
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-violet/figure-step1-marked-v1.png",
+          "recordedSha256": "4d4a0046fc0ca45fc49fe6816fd9321585ef37c61faf3b7fe5df8cb18c4cd6ab",
+          "actualSha256": "4d4a0046fc0ca45fc49fe6816fd9321585ef37c61faf3b7fe5df8cb18c4cd6ab"
+        }
+      ]
+    },
+    {
+      "record": "figure-step1-marked-v1.source.json",
+      "output": {
+        "recordedSha256": "4d4a0046fc0ca45fc49fe6816fd9321585ef37c61faf3b7fe5df8cb18c4cd6ab",
+        "actualSha256": "4d4a0046fc0ca45fc49fe6816fd9321585ef37c61faf3b7fe5df8cb18c4cd6ab"
+      },
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-violet-literary-extension-v1.png",
+          "recordedSha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973",
+          "actualSha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973"
+        }
+      ]
+    }
+  ],
+  "assembly": {
+    "formula": "U=MAX(L(F),L(S)); original mother RGB drawn once over same-mother generated empty BG",
+    "luminance": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "rgbDrawCount": 1,
+    "nativeImplementation": "SVG feColorMatrix(sRGB luminance) + feBlend(lighten) under luminance mask",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "sourceOrigin": [
+      0,
+      0
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": "included",
+    "independentCaster": false,
+    "maskPngBytesUnchanged": true,
+    "originalRgbUnchanged": true,
+    "hiddenBackground": "Generated continuation of formerly occluded pixels, no promise of exact hidden original recovery"
+  },
+  "held": [],
+  "browser": {
+    "actualChromeTab": "500947826",
+    "observations": [
+      {
+        "file": "browser-observations/mother-composite-v1.png",
+        "sha256": "f1095c711a00926a9ef9e53df30b65d3f4e3d497d99a196f3005a603a98991c7",
+        "bytes": 117151,
+        "width": 65536,
+        "height": 4292542531,
+        "personallyViewed": true,
+        "captureMethod": "Official Chrome extension cua_repl Tab.screenshot clip of actual DOM document region, unchanged bytes",
+        "reviewOnly": true,
+        "generationInputAllowed": false,
+        "observed": "Whole original versus same-mother empty BG + original RGB MAX once: source upright held-book recognition pose and original twilight/lamps/furniture anchors retained."
+      },
+      {
+        "file": "browser-observations/light-dark-checker-full-v1.png",
+        "sha256": "8362654b78b6f186ab0d0e04b3d2b8126cc2b8c04e0191b09795c19e1fea593f",
+        "bytes": 88404,
+        "width": 65536,
+        "height": 4292542531,
+        "personallyViewed": true,
+        "captureMethod": "Official Chrome extension cua_repl Tab.screenshot clip of actual DOM document region, unchanged bytes",
+        "reviewOnly": true,
+        "generationInputAllowed": false,
+        "observed": "Complete identical-crop light/dark/checker person: all hair/ribbons/actual higher book/skirt/knees/calf socks/full shoes kept; local original receiver material remains fixed."
+      },
+      {
+        "file": "browser-observations/face-hair-original-union-composite-v1.png",
+        "sha256": "cd40ba24120cf1499b6e8669e872cad64889f401dfc13bf2ab636ec67e3f6a44",
+        "bytes": 101741,
+        "width": 65536,
+        "height": 4292542531,
+        "personallyViewed": true,
+        "captureMethod": "Official Chrome extension cua_repl Tab.screenshot clip of actual DOM document region, unchanged bytes",
+        "reviewOnly": true,
+        "generationInputAllowed": false,
+        "observed": "Original youthful upward recognition face and blue-purple fine hair/gold eyes preserved, not redrawn; no broad pasted room patch."
+      },
+      {
+        "file": "browser-observations/book-seat-original-union-composite-v1.png",
+        "sha256": "8e66ad6b516c929b875cd6ac5e3e6a2109e6184dfa81bc921891ac6ed588a439",
+        "bytes": 110321,
+        "width": 65536,
+        "height": 4292542531,
+        "personallyViewed": true,
+        "captureMethod": "Official Chrome extension cua_repl Tab.screenshot clip of actual DOM document region, unchanged bytes",
+        "reviewOnly": true,
+        "generationInputAllowed": false,
+        "observed": "Real full book cover/pages, both holding hands/fingers/wrists and fine adjacent hair loops retained; hip/skirt interface natural in composite."
+      },
+      {
+        "file": "browser-observations/shoes-contact-original-union-composite-v1.png",
+        "sha256": "9e0a70cd0eafcb320b1d1270674dbcaadd3080bcf063fed1659b1ab73e15acd0",
+        "bytes": 81796,
+        "width": 65536,
+        "height": 4292542531,
+        "personallyViewed": true,
+        "captureMethod": "Official Chrome extension cua_repl Tab.screenshot clip of actual DOM document region, unchanged bytes",
+        "reviewOnly": true,
+        "generationInputAllowed": false,
+        "observed": "Both complete loafers/toe/heel/outsole sit against original local soft floor contact; fixed receiver may contain source floor/rim overlap under MAX once, not movable shadow."
+      }
+    ]
+  },
+  "review": {
+    "producer": "Actual Browser complete still and cropped original-RGB comparisons personally inspected",
+    "primaryLayerApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "sourceMotherStaticOnly": true,
+    "limits": "Five actual Image outputs, producer static Browser candidate only; no root layer/runtime/camera admission. User-preserved source pose/scale/weather variation unchanged."
+  }
+}

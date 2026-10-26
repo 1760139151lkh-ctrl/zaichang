@@ -1,0 +1,11 @@
+Technical SAME-CANVAS semantic segmentation mask. NOT a new illustration or a redrawn cat.
+The ONLY input is the actual Uika Misumi simple meme-cat source, 1536×1024 RGBA. Keep its exact whole frame, original scale, shape and pixel positions; do not crop, recenter, enlarge, redesign or alter any face or body geometry.
+
+Output one OPAQUE THREE-COLOR LABEL MASK at EXACTLY 1536×1024:
+PURE WHITE #FFFFFF = the entire existing CAT BODY AND HEAD, including all hair, face, eyes, ribbons/clips if present, paws, hindquarters and EVERY thick navy outline/internal ink belonging to these areas. Fill internal opaque features white, no eye or hair-line holes.
+PURE RED #FF0000 = only the actual existing raised TAIL at the far right, including all of its WHITE FUR AND THICK NAVY OUTER OUTLINE. Do not select only the white inside of the tail: its dark ink stroke must also be red up to the true outside contour.
+PURE BLACK #000000 = real transparent background, every genuine gap between separate strands/limbs, and the diffuse blue halo around the cat. No blue glow or shading survives in the mask.
+
+The ACTUAL tail is approximately in source x=1334..1513,y=339..693; visible attachment around (1341,642) to (1366,689), with a source-local pivot near (1353,664). Use the real source edges, not a new curved tail based on these approximate numbers. It rises from behind the RIGHT rear haunch and curls upward. The rounded rump and hind paw are BODY, therefore WHITE. The continuous original NAVY RUMP ARC must remain WHITE as a foreground body boundary. Red tail starts beyond that body outline; do not add a torso wedge, hidden root, another tail or new anatomy. The later source-RGB tail will be drawn behind the original body.
+
+These colors are flat pixel labels, not cat recolouring. Every body/face/hair opaque interior is solid white; every tail opaque interior and tail outline is solid red. Narrow antialiasing only at exact source outside contours. Do not omit dark outer ink, turn shadows into transparency, paint a white rectangle, add broad grey feathering or output a translucent image. No text, labels, coordinate guides, arrows, furniture, checkerboard or decorative strokes. Preserve the full 1536×1024 canvas and generous empty margins exactly.

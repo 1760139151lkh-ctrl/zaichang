@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "assetType": "literary-room-complete-chat-light-mother",
+  "id": "rana-chat-rain-rain-night-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "rana-chat-rain-rain-night-v1.prompt.json",
+  "promptFileSha256": "4db3a0f397d879667f1a05d4346964f6b7379e3fcbb55352212e882ae0f8ffa7",
+  "submittedPrompt": "Create one complete 1536×1024 landscape mother illustration: Rana chatting in the approved RAIN-NIGHT literary room.\n\nINPUT PRIORITY IS IMPORTANT. Image 1 is the target room and ALL actual illumination: preserve the exact same camera, window divisions, dark cloudy rainy lake/town exterior with glass droplets/trails and broken warm reflections, original curtains and dry indoor furniture, left wooden desk/chair, round table with the glowing ceramic lamp/cup, right cream bench with plaid cushions and knit throw, wood floor, rug and foreground plants. No stars or moon or daytime sky. Image 2 provides ONLY correct Rana Kaname identity/clothing, her supported close-bench pose and apparent head/body proportions. The apricot hard sun, bright solar shapes on legs/clothes, window-grid/leaf daylight shadows and floor sunlight rectangles are NOT identity/pose and must not transfer to the new night scene.\n\nRe-create Rana at the same near-right bench location and supported pose: hips/thighs resting on the cushion, one hand naturally at her knee and the other palm on cushion beside her, coherent hands/wrists/sleeves, connected knees/lower legs/ankles and both complete black boots with a believable floor relation. Crown roughly y105, full soles around y890, same apparent head size/depth as image 2, no leaning or enlarging her head toward camera, no cropped head or shoes. Original furniture and camera remain stable. Simple truthful seated anatomy, not a pasted daylight sprite.\n\n“The words stay a moment in the lamp light.” Rain is on the other side of the glass. Rana was interested in the view, then a particular turn in your sentence brings her eyes back. Her attention does not become ceremonial; it simply becomes more focused, and the sentence has actually reached someone. Give her direct but gentle unequal eyes, a small thoughtful pause in the relaxed mouth, candid familiar closeness without blush or smile piled on. She keeps her own judgment. Rain does not automatically mean sorrow, loneliness, waiting-for-you narrative, trauma, or a therapeutic expression. This is a shared everyday night, not a sad performance.\n\nRana is youthful, short silver-white bob with faint lavender tips and light separated bangs, own-right iris gold and own-left iris blue (viewer-left gold/viewer-right blue when frontal). Eyelids, irises, brows and individual hair strands must stay separate and readable under night light. Loose black short sleeve outer top over pale white long sleeves, white shorts and black lace-up ankle boots.\n\nRepaint ALL character and room illumination to image 1: existing warm lamp from image-left and subtle cool dark window ambient shape her hair, face, sleeves, shorts, bare legs, boots, linen and dry floor together. White fabric is shaded warm off-white with night folds, never glowing daytime white. Skin and silver hair are naturally darker and gently warm-lit, not unchanged apricot-sun highlights or neon outlines. Preserve clear eyes without making a spotlight. Remove hard daylight window-grid and leaf patches from ENTIRE floor, bench, clothes and body. A broad soft existing lamp pool on wood can remain, but no noon rectangles or sunbeams. No split day/night or half-lit theme divider, no wet indoor floor/clothes, no added light source. No UI, captions, readable writing, new prop, cat, guitar, extra person or costume change. One coherent lived-in rain-night mother scene.",
+  "submittedPromptSha256Utf8NoTrailingLF": "05357c006154e9054320c1f7dbc8e73c312f36565f9ebb2277d1e79e1e04840a",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "role": "first-approved-target-room-camera-and-lighting"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.png",
+      "sha256": "060e897c7b9ebdefc5ab84d6fbada2983625b19e6a4ebc57501ede19c5259919",
+      "role": "second-root-approved-Rana-identity-and-supported-pose-only-not-sunny-lighting"
+    }
+  ],
+  "output": {
+    "file": "rana-chat-rain-rain-night-v1.png",
+    "sha256": "36b4ce5e0c04f83d6f2651b4e618454e731a0553831140228d229a80b2a377b7",
+    "bytes": 2210154,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-92bd7b73-fb59-4aad-b7ae-2af57db88fcc.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "primaryApproved": false,
+    "layerApproved": false
+  },
+  "status": "producer-viewed-awaiting-root-mother-review",
+  "producerReview": {
+    "reviewedAt": "2026-10-25T12:57:38.206558+00:00",
+    "method": "Personally inspected actual full native ImageGen output at 1536x1024 before next call.",
+    "observations": [
+      "Rain drops/trails and dark cloudy night exterior remain outside the glass with warm broken town/lake reflections; interior stays dry, same camera/furniture.",
+      "No hard daylight window-grid/leaf solar patches observed on visible floor, linen, bare legs or sleeves; broad existing lamp pool remains and character is warm/night modeled instead of sunny cutout.",
+      "Silver hair, both unequal irises and original black/white clothes remain legible; full head/boots and knee hand/cushion palm retain original supported near-bench pose.",
+      "Thoughtful direct attention, no forced rain sadness or fabricated waiting/completed-work story."
+    ],
+    "issues": [],
+    "rootApprovalRequired": true
+  },
+  "character": "rana",
+  "activity": "chat",
+  "palette": "rain",
+  "environmentVariant": "rain-night",
+  "creativeBrief": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/rana-chat-rain.md",
+    "sha256": "2476880ae422705935946fb5670f4fdae9040f4a9bbce2d881882b135be414fe",
+    "title": "把声音留在灯里",
+    "role": "literary-direction-text-only"
+  },
+  "targetPlatePrimaryApproval": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.primary-approval.json",
+    "sha256": "c69b0ffc2ffd0cf8296845ec5320411f966154f00763db65dfe4ff6b415860f4",
+    "scope": "empty-target-environment-only"
+  },
+  "referencePriority": {
+    "firstInput": "approved-target-plate-camera-room-and-all-lighting",
+    "secondInput": "correct-Rana-identity-outfit-supported-pose-and-apparent-scale-only",
+    "excludedFromSecondInput": "apricot hard sunlight, solar skin/clothes patches, window-grid/leaf daylight shadows and floor solar rectangles"
+  },
+  "generationBudget": {
+    "wave": "rana-chat-light-wave",
+    "maxCalls": 3,
+    "callOrdinal": 3,
+    "callsForThisCell": 1,
+    "retries": 0
+  },
+  "approvalBoundary": {
+    "primaryAccepted": false,
+    "layerAccepted": false,
+    "runtimeAccepted": false,
+    "runtimeRegistered": false,
+    "rootReviewPending": true,
+    "motherOnly": true
+  }
+}

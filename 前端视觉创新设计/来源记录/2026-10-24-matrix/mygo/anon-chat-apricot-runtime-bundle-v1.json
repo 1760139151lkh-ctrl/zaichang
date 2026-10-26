@@ -1,0 +1,177 @@
+{
+  "schemaVersion": 1,
+  "kind": "producer-runtime-preparation-bundle",
+  "key": "anon/chat/apricot",
+  "version": "bundle-v1-source-layers-v6",
+  "createdAtUtc": "2026-10-25T03:09:59.904Z",
+  "scope": "Existing exact-mother room4 layers offered for primary layer admission. This record does not change legacy artwork, register runtime files or claim actual product acceptance.",
+  "assets": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-chat-apricot-mother-candidate-v1.png",
+      "sha256": "99c8acd4c2b875659afc9471b3c020219d394aae025cba2f164daf47babb5986",
+      "bytes": 2173090,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-chat-apricot-background-calibrated-v6.png",
+      "sha256": "9495c0f16e5a452c6d7b91ea70d78915b8c8074f7e0ad4ccb440bdb609774462",
+      "bytes": 2089610,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "figure": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-chat-apricot-figure-calibrated-v6.png",
+      "sha256": "d730e8d6fe9211cdae65d1f92ee7182cfaaad26479eedb6b9842facbe516e2f7",
+      "bytes": 2437225,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    "shadow": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-chat-apricot-shadow-calibrated-v6.png",
+      "sha256": "407caede02b3d19f2fc719d4e761432726269c86fd22d91eef53d0473805c735",
+      "bytes": 68443,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    "mask": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-chat-apricot-mask-calibrated-v6.png",
+      "sha256": "1e209a67401390164db8cc2a1821b5ca025c7de50f4161cba9763c27848e869e",
+      "bytes": 34582,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    "scene": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-chat-apricot-candidate-v6.scene.json",
+      "sha256": "0a21c58fddd34850b80e5c0b799934325e52bb696ffffd3e8dac637a5efe2a33",
+      "bytes": 4979
+    }
+  },
+  "originalLayerSource": {
+    "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-chat-apricot-layer-source-v6.json",
+    "sha256": "8c3e6358e448136e900b6f7bf572c92731a1689c550723b5329add0c4ecbaab1"
+  },
+  "motherPrimaryReview": {
+    "record": "前端视觉创新设计/来源记录/2026-10-24-matrix/primary-direct-review.json",
+    "matchedBySha256": "99c8acd4c2b875659afc9471b3c020219d394aae025cba2f164daf47babb5986",
+    "decision": "accepted-mother-only",
+    "scope": "mother only"
+  },
+  "directFileInspection": {
+    "figureRgbByteIdenticalToMother": true,
+    "figureAlphaEqualsMaskAlpha": true,
+    "allRecordedLayerOutputHashesMatch": true,
+    "figureAlphaExtrema": [
+      0,
+      255
+    ],
+    "figureAlphaBounds": [
+      1146,
+      235,
+      1454,
+      800
+    ]
+  },
+  "sameCanvas": {
+    "width": 1536,
+    "height": 1024,
+    "transform": "identity; no per-layer resize, translation or warp",
+    "compositeOrder": [
+      "background",
+      "shadow",
+      "figure"
+    ],
+    "figureBlend": "normal source-over RGBA",
+    "shadowBlend": "normal source-over RGBA, no multiply",
+    "maskUse": "optional; existing RGBA figure is sufficient"
+  },
+  "sceneCandidate": {
+    "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-chat-apricot-candidate-v6.scene.json",
+    "sha256": "0a21c58fddd34850b80e5c0b799934325e52bb696ffffd3e8dac637a5efe2a33",
+    "id": "anon-chat-apricot-candidate-v6",
+    "calibration": {
+      "seat": [
+        0.8723958333333334,
+        0.5703125
+      ],
+      "ground": [
+        0.7994791666666666,
+        0.7783203125
+      ],
+      "bodyBounds": [
+        0.74609375,
+        0.2294921875,
+        0.9466145833333334,
+        0.78125
+      ],
+      "safeTextBoundary": 0.56,
+      "support": "window-seat",
+      "contactShadow": {
+        "mode": "separate"
+      },
+      "contourComplete": true,
+      "travel": 0.0026041666666666665,
+      "slope": 0,
+      "perspective": 0
+    },
+    "initialRuntimeRecommendation": {
+      "travel": 0,
+      "slope": 0,
+      "perspective": 0,
+      "reason": "Current direct review covers source-aligned composition and contact at zero offset. The source scene's +/-4px allowance has not been operated in the current product and is not accepted by this preparation record."
+    }
+  },
+  "visualInspection": {
+    "personallyViewedByProducer": true,
+    "browser": "Chrome extension via cua_repl",
+    "pages": [
+      "http://127.0.0.1:5188/来源记录/2026-10-24-matrix/mygo/anon-chat-apricot-runtime-bundle-v1.html",
+      "http://127.0.0.1:5188/来源记录/2026-10-24-matrix/mygo/anon-chat-apricot-runtime-bundle-v2.html#source-detail"
+    ],
+    "statesViewed": [
+      "accepted original mother",
+      "matching empty background",
+      "background + original contact/cast shadow + original-RGB figure at zero offset",
+      "figure on light and dark solid backgrounds at original pixel size",
+      "mask transparency",
+      "mother and composition side by side at seat/palm and complete shoe contacts"
+    ],
+    "observations": [
+      "Original pose, youthful face, animated open smile, chest hand gesture and rear palm on seat remain unchanged.",
+      "Pelvis/skirt sits against the cushion; both complete loafers meet the same original floor. Original leg cast/contact shadows remain without a pale seat gap in the inspected zero-offset composition.",
+      "Sunlit fine pink/white hair highlights remain visible on dark backing and were compared against the source. They belong to the original apricot lighting, not to other theme coverage.",
+      "Empty background retains the original furniture and has no visible second person or detached figure blocks in the inspected view."
+    ],
+    "limitations": [
+      "Static transparent-layer observation is not motion, drag, scene selection or product runtime acceptance.",
+      "Primary must inspect the fixed source and layer URLs before admission."
+    ]
+  },
+  "generation": {
+    "additionalImageGenCalls": 0,
+    "reusedExistingVersion": "v6",
+    "preservedSourceFiles": true
+  },
+  "review": {
+    "producerRecommendation": "offer-existing-v6-for-primary-layer-review-at-zero-offset",
+    "primaryLayerApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  },
+  "rejected": []
+}

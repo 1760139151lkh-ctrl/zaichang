@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "anon-chat-apricot-contact-shadow-mask-v2",
+  "assetType": "same-canvas-independent-contact-shadow-luminance-mask",
+  "createdAtUtc": "2026-10-25T06:51:26.518568+00:00",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "submittedPrompt": "Use case: precise-object-edit. STEP 2 of source-registered contact-shadow extraction.\nImage 1 is the ONLY input: the full 1536 x 1024 original colored Anon chat room in which the independent support-surface shadows have ALREADY been painted white at their original positions. The girl is still in her original colors. Do not draw a shadow again and do not move either shoe or a support mark.\nKeep ONLY those EXISTING PAINTED WHITE SHADOW MARKS in their exact existing positions: the very narrow seat/hip contact, the tiny supporting-palm contact, and the immediate floor-contact/cast-shadow area OUTSIDE AND BELOW BOTH original loafers. Convert the complete girl and all other room pixels to PURE BLACK. Do not preserve white skin highlights, hair, collar, pillow corners, natural cream cushion fabric, knitted blanket, bright sun-grid floor beams or white clouds; these are all BLACK.\nWhite means the darkest true contact opacity core. Keep the marked contact cores WHITE and the marked natural fading boundaries softly GRAY, but do not enlarge, shrink, translate, recenter, crop, zoom or substitute generic ellipses. No white shoe, sock, limb, hand, skirt, hair or body silhouette: every original body pixel stays black.\nThe actual already-painted floor marks start immediately below source sole locations near (1165,788) for the left shoe and (1220,800) for the right shoe. Preserve that source y placement — a shadow ring up around y760 instead of under the existing sole would be wrong. White/gray is on the FLOOR below the shoes, not inside or above them. These are location checks, not permission to fabricate a new shape. The seat contact remains only a narrow original strip around y590, not a whole cushion rectangle.\nReturn exactly one opaque grayscale RGB PNG on the unchanged full 1536x1024 canvas: selected support-surface shadow opacity in white/gray, all else pure black. No RGB room colors, ghost person, broad floor patch, detached distant oval, hard rectangular edge, labels, border, text, grid, crop, transparency or checkerboard.",
+  "submittedPromptSha256Utf8NoTrailingLF": "7ca8103273691ec0f3b716ef4dccedbf7f3fad2c2f1cbc7c3f455e58c98a0d7b",
+  "promptFile": "anon-chat-apricot-contact-shadow-mask-v2.prompt.json",
+  "promptFileSha256": "8c0a10730026c35b120d69440c887340a326733447a6cfb2da6510d8fa4b80dd",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/anon/anon-chat-apricot-white-shadow-in-room-v1.png",
+      "sha256": "42b6d4da78b7f55843146aa9f01bce66aa944e6c474cece7042af0460d1710ed",
+      "role": "sole white-shadow-in-original-room intermediate derived from approved mother; not the rejected direct shadow mask"
+    }
+  ],
+  "mother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-chat-apricot-mother-candidate-v1.png",
+    "sha256": "99c8acd4c2b875659afc9471b3c020219d394aae025cba2f164daf47babb5986"
+  },
+  "output": {
+    "file": "anon-chat-apricot-contact-shadow-mask-v2.png",
+    "sha256": "c31340da20860c8d98888cf8d0ea40a099a3c49382f36a828b7f4fb3e7d03adb",
+    "bytes": 294795,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-21ae9c6a-3e40-4ed2-a35c-1ce0c09a3539.png",
+    "originalEvent": "exec-21ae9c6a-3e40-4ed2-a35c-1ce0c09a3539"
+  },
+  "transparentBackground": false,
+  "review": {
+    "primaryLayerApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "personallyViewed": true
+  },
+  "status": "producer-offered-as-original-rgb-source-contact-mask-with-native-body-exclusion",
+  "producerRuntime": {
+    "model": "gpt-6.1-sol",
+    "effort": "ultra",
+    "turnId": "01a171c1-2501-76c3-8a23-286d375357f7"
+  }
+}

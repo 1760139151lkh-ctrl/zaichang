@@ -1,0 +1,23 @@
+{
+  "tool": "built-in image_gen",
+  "generationMode": "clean-empty-room-reference-only; character rebuilt from literary text",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计\\运行素材\\companion\\scenes\\room-apricot-candidate-v4.png",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "damagedCharacterInput": false,
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a16fb3-8f8d-7c72-a744-a441e8907c91\\exec-a3d7f920-3bdb-4fda-b3b2-b5a25f11d5cf.png",
+  "output": "sakiko-reading-apricot-literary-room4-v2.png",
+  "outputSha256": "a33a2ee825a137e62f0a9b7419ca151b5604c2d9f693a0170f55163a06058213",
+  "promptFile": "sakiko-reading-apricot-literary-room4-v2.prompt.txt",
+  "submittedPromptSha256": "b4d01c272f36de480d3c0a755ac1ca12db6172177ec3a5b61ba5d2060bd9a3e0",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "reviewBoundary": "Old room4 continuity variant. Human selected text-only v1 as NEW entire product matrix baseline; do not substitute this version for their selection."
+}

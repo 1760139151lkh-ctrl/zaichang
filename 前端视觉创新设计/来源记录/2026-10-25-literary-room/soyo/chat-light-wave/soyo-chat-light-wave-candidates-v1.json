@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "kind": "light-chat-wave-mother-candidates",
+  "character": "soyo",
+  "waveTotalCallsAllowed": 6,
+  "waveTotalCallsCompleted": 6,
+  "characterCallsCompleted": 3,
+  "generationStopped": true,
+  "inputs": "each matching primary-approved empty atmosphere plate plus own primary-approved apricot chat mother only",
+  "cells": [
+    {
+      "key": "soyo/chat/mist",
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "png": {
+        "path": "soyo-chat-mist-literary-v1.png",
+        "sha256": "22b5685c35294e54242ecf50098c173f35c6e29d64a706857fec47496ae6bca4",
+        "bytes": 2393408,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "soyo-chat-mist-literary-v1.prompt.json",
+        "sha256": "afadf65caedc412d60910add1b1f03c425c5e04c4624380252b3c8c08bf184f8"
+      },
+      "source": {
+        "path": "soyo-chat-mist-literary-v1.source.json",
+        "sha256": "529841a7c26497efc99c3a0ac13039e2e0b1b91588089896aa1458852cab0568"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "concerns": [],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "plateApprovalRecordSHA": true
+      }
+    },
+    {
+      "key": "soyo/chat/violet",
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "png": {
+        "path": "soyo-chat-violet-literary-v1.png",
+        "sha256": "de19dca6397d70dc48fea455005e7481e472d5e1ef188e462497be35dcba9e5d",
+        "bytes": 2314204,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "soyo-chat-violet-literary-v1.prompt.json",
+        "sha256": "76d2b18edddecee4f42964e23f6a95d36bb49a600bed61db9c26fe0dc8ef0090"
+      },
+      "source": {
+        "path": "soyo-chat-violet-literary-v1.source.json",
+        "sha256": "265021c656b6453e8e063d5a098d7c7da4aaa7ef68b1704288b4609be7024f14"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "concerns": [],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "plateApprovalRecordSHA": true
+      }
+    },
+    {
+      "key": "soyo/chat/rain",
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "png": {
+        "path": "soyo-chat-rain-literary-v1.png",
+        "sha256": "f9a7ecb4a62933da1d511d9758c31072163089051cac23bef5ce53cbd834626a",
+        "bytes": 2209008,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "soyo-chat-rain-literary-v1.prompt.json",
+        "sha256": "98e2fe708b472601ef4d2cabddde2644fbacdad6b08c5f808b22c448233f1ce5"
+      },
+      "source": {
+        "path": "soyo-chat-rain-literary-v1.source.json",
+        "sha256": "03ad1bbc38ad725e347f1ed13904f9127f3fa93be7b476aa6a4f30ef8231d90d"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "concerns": [
+        "头发右侧轮廓仍有暖亮边，夜间局部光源/室内反光的分寸待root完整母图主审。"
+      ],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "plateApprovalRecordSHA": true
+      }
+    }
+  ],
+  "approvedByPrimary": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "layerWorkStarted": false,
+  "runtimeRegistered": false
+}

@@ -1,0 +1,266 @@
+{
+  "schemaVersion": 1,
+  "kind": "exact-root-approved-source-isolated-registration",
+  "character": "soyo",
+  "recordedAt": "2026-10-25T11:48:14.076253+00:00",
+  "primaryAdmission": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/soyo-chat-apricot-literary-included-primary-admission-v1.json",
+    "sha256": "5a0104f77f0b32183ffa32b3c319591ad7f03e7429bf96a73c129a91b7566837",
+    "bytes": 3301
+  },
+  "sourceClosure": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/chat-included-selected-source-closure-v1.json",
+    "sha256": "96d22dc77559e31d510e4dfb273bfadec7a3c4bd5e4bd6aeaa021589a6284946",
+    "bytes": 6254
+  },
+  "files": [
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-pilot/soyo-chat-apricot-literary-v1.png",
+        "sha256": "20942d064ae0af479ede2868d689e105433022e8c0448d45301bd7fc9301bfd8",
+        "bytes": 2458295
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-pilot/soyo-chat-apricot-literary-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+        "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+        "bytes": 2524961
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/figure-mask-v1.png",
+        "sha256": "5ba1a554039012e7bf744e028f18a4c16b335a6e12a8bbf426b2e371e6578200",
+        "bytes": 449197
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/figure-mask-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/shadow-mask-v1.png",
+        "sha256": "f170ba21bfff70b2db41ef2fa559318f70f1994556dd85253825cc3ec7ee0c90",
+        "bytes": 339502
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/shadow-mask-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/figure-step1-marked-v1.png",
+        "sha256": "bc384520b992e7acaab9488dee69ebf6e9068035b6ef683ea1fc7c2adb05ea50",
+        "bytes": 2315701
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/figure-step1-marked-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/shadow-step1-marked-v1.png",
+        "sha256": "1c3510d16b89ad30852de7b1384d09f33687ffdc54d6786f742493d3803ae2e3",
+        "bytes": 2446376
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/shadow-step1-marked-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/union-source-v1.svg",
+        "sha256": "3d62bc8e6174af4d819ce46a41be31e25e58a5d5282dbc31d77cdc033a81e711",
+        "bytes": 1319
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/union-source-v1.svg",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/chat-included-observe-v1.html",
+        "sha256": "72c3daa1ce66cc7eb12364adecace7d28f218ef172aff767bd0a71685de14de6",
+        "bytes": 24424
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/chat-included-observe-v1.html",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/chat-included-bundle-v1.json",
+        "sha256": "1bf7606d8f5a99742571a36e040aa63d2246945c52664221a0f134bf7acb4bed",
+        "bytes": 10282
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/chat-included-bundle-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/soyo-chat-apricot-literary-v1.scene-proposal.json",
+        "sha256": "66d7b96f7b82af33763e851191fd23c1b520fd17e34a53ca0a0dce0474b5dffd",
+        "bytes": 2907
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/soyo-chat-apricot-literary-v1.scene-proposal.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/soyo-chat-apricot-literary-included-primary-admission-v1.json",
+        "sha256": "5a0104f77f0b32183ffa32b3c319591ad7f03e7429bf96a73c129a91b7566837",
+        "bytes": 3301
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/soyo-chat-apricot-literary-included-primary-admission-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/figure-step1-v1.prompt.json",
+        "sha256": "8aea452d1d40a680cda45bcb95ab538e8a42e05c8436a82d0a19e1184f33caf2",
+        "bytes": 2541
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/figure-step1-v1.prompt.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/figure-step1-v1.source.json",
+        "sha256": "d27d793728e9b6a5123e1c6dfffc485d49697581240f623c089fd3eaf7e8bfd2",
+        "bytes": 6397
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/figure-step1-v1.source.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/figure-step2-v1.prompt.json",
+        "sha256": "197357436d0496066d81d8cf09fdd9802a976dd94621ed35ce415fe3f446b372",
+        "bytes": 2056
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/figure-step2-v1.prompt.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/figure-step2-v1.source.json",
+        "sha256": "9df98fa87899b991225e0bf2e7664dd80d1ede5a41132dfd1429cc2bf9303b84",
+        "bytes": 5897
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/figure-step2-v1.source.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/shadow-step1-v1.prompt.json",
+        "sha256": "ed201771ba7113588a999520c5fb59eb46cd560a9f0b5655376ad02c7d8df0a0",
+        "bytes": 2665
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/shadow-step1-v1.prompt.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/shadow-step1-v1.source.json",
+        "sha256": "26913221ef6cfd3109166442224b99943d6dc9fc8dda1205e9e6893bed891256",
+        "bytes": 6521
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/shadow-step1-v1.source.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/shadow-step2-v1.prompt.json",
+        "sha256": "8faa48a2768d85f452c76de2106c4c3c5b4f7a5b69ca10d9c67b76ecab3c6b2e",
+        "bytes": 2494
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/shadow-step2-v1.prompt.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/shadow-step2-v1.source.json",
+        "sha256": "4687e1cc2949877e5fa419af3f0f3cddff8c8537f183ff5db60f10e2b2611016",
+        "bytes": 6335
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/shadow-step2-v1.source.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.prompt.txt",
+        "sha256": "3e854eda45e9e76baed6ad514c67488656035d0990663f089cbf6f24575cae26",
+        "bytes": 1584
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.prompt.txt",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/chat-included-selected-source-closure-v1.json",
+        "sha256": "96d22dc77559e31d510e4dfb273bfadec7a3c4bd5e4bd6aeaa021589a6284946",
+        "bytes": 6254
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/chat-included-selected-source-closure-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-pilot/soyo-chat-apricot-literary-v1.png",
+        "sha256": "20942d064ae0af479ede2868d689e105433022e8c0448d45301bd7fc9301bfd8",
+        "bytes": 2458295
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/soyo-chat-apricot-literary-mother-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+        "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+        "bytes": 2524961
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/literary-room-clear-day-v1.png",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/figure-mask-v1.png",
+        "sha256": "5ba1a554039012e7bf744e028f18a4c16b335a6e12a8bbf426b2e371e6578200",
+        "bytes": 449197
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/soyo-chat-apricot-literary-figure-mask-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/chat-layers/shadow-mask-v1.png",
+        "sha256": "f170ba21bfff70b2db41ef2fa559318f70f1994556dd85253825cc3ec7ee0c90",
+        "bytes": 339502
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/soyo-chat-apricot-literary-contact-mask-v1.png",
+      "status": "copied"
+    }
+  ],
+  "scene": "前端视觉创新设计/运行素材/companion/scenes/soyo-chat-apricot-literary-v1.scene.json",
+  "sceneSha256": "448a1864f4fde82c23c4e4fea7375a5c54ed0f1775305bfac4e28002f417c567",
+  "runtimeAccepted": false,
+  "TSModified": false,
+  "ledgerRefreshed": false,
+  "bodyEnvelope": [
+    0.4869791666666667,
+    0.1025390625,
+    0.7473958333333334,
+    0.8642578125
+  ],
+  "FcoveragePixels": [
+    751,
+    105,
+    1138,
+    876
+  ],
+  "receiverPixels": [
+    743,
+    535,
+    1124,
+    880
+  ]
+}

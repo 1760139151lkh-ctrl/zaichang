@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "recordType": "primary-static-mother-admission",
+  "reviewer": "root / primary agent",
+  "asset": {
+    "path": "uika-neutral-time-day-v1.png",
+    "sha256": "e05d24ff0a1943e66e635880d5265fb79a66dac13e8656ca6d820b1b171ebbea"
+  },
+  "staticMotherApproved": true,
+  "sameCharacterNightPoseBaseAllowed": true,
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "userApproved": false,
+  "exactActivityMatrixCredit": 0,
+  "scope": "Complete static neutral time-day mother and same-character complete-pose base for a time-night lighting extension only. No layers, runtime or 360 activity-motion admission.",
+  "primaryMessageVerbatim": "Root刚逐完整PNG亲看Uika daye05d24ff…ebbea：浅金短发紫眼/轻开口笑、白T长裙白短袜黑白帆布鞋、手在自己膝/身侧压垫、完整受座与双鞋地面支撑成立，闭帘无天气，准STATIC mother＋同角色night基底。保存exactSHA与本消息分项根准入，不签层/runtime/360/userApproved。可做Uika night1张，准同角色day全姿势＋准v3 identity＋准time-night净plate，脸型体量/同一动作/视线对象维持，人物白T/裙垫/木面一起转夜灯，合帘无天气/残白日亮斑，不换相机。先候选交根；睦night我接下来亲看，尚不下游制层。",
+  "recordedAt": "2026-10-26T00:32:46.623Z"
+}

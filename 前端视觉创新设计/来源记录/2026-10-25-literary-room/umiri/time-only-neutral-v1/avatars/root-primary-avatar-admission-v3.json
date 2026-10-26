@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "recordType": "root-primary-graded-youth-avatar-static-aesthetic-admission",
+  "character": "umiri",
+  "version": "youth-v3",
+  "approvalEvidence": {
+    "source": "Direct parent /root message in this same healthy task session, after root personally viewed both complete original PNGs.",
+    "messageVerbatim": "root已逐原PNG亲看Nyamu day5df25d…55d：闭帘、完整受座/全踝带鞋、两手低持纸扇、眼神小得意成立，准STATIC mother可作后续同角色time-night姿势基底，不准层/runtime/360。Nyamu avatar-v3 ebffcd…cc72与Umiri v3 560073dc…65ef均亲看：短柔青春2D与红紫/灰青眼、短发身份清楚；Nyamu更明亮张口笑、Umiri可靠会意微笑成立，未见‘长母亲脸’需为此重做。准原画面部审美与同角色identity generation参考，可用Umiri新头像+准day净plate做day。发丝alpha细边、34/48圆框与实际UI仍未验，不签runtime/全用途完成，不改userApproved真；请据本消息存分级准入，旧v2旗保持。Nyamu night只准日母/已准v3/time-night净plate；其他新母先根审再night。"
+  },
+  "selected": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/avatars/umiri-avatar-youth-v3.png",
+    "sha256": "560073dc61f3dee7e48052d3f0cfe16bba041071b8b8ec2889bb7de9bdb565ef",
+    "bytes": 2085682
+  },
+  "rootPersonallyViewedCompleteOriginal": true,
+  "staticFacialAestheticAccepted": true,
+  "latestShortSoftYouthFaceDirectionAccepted": true,
+  "sameCharacterIdentityGenerationReferenceAllowed": true,
+  "notFromSceneCrop": true,
+  "rootSmallCircleAccepted": false,
+  "actualChatTitlebarAccepted": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "userApproved": false,
+  "allUsesAccepted": false,
+  "parentObservation": "短柔青春2D与灰青眼/短发身份清楚，可靠会意微笑成立；未见长母亲脸需为此重做。",
+  "producerBrowserObservation": {
+    "personallyViewedActualBrowser": true,
+    "method": "Formal Chrome CUA browser 1, original PNG referenced by static HTML. 34/48/96 actual CSS-pixel circles and 192px full-alpha head on light/dark/checker. Own artwork server5188 only, no App/9335.",
+    "page": "avatar-youth-v3-observe.html",
+    "screenshot": "browser-observations/01-youth-v3-circles-light-dark-checker-fit.png",
+    "observation": "34/48px圆形中灰青眼和闭口会意弧线可读；深浅底无大块底色和宽重轮廓，192px可见轻细发丝，实际UI仍未检查。",
+    "imageGenerationInputAllowed": false,
+    "screenshotSHA256": "3f5bc04c8f9c347393560d63cb45e65c1b99c134dc01a5b4069b0aeaecffc0d6",
+    "pageSHA256": "4c535796d81cc28c60a8cd4cfc9a4643028e642f80cd3caf9bd1c6e66698a6f4"
+  },
+  "preservation": "Original v2 portrait flags and all original source-production facts remain unchanged. This later exact-SHA record accepts only the v3 original face aesthetic and identity generation reference.",
+  "boundary": "No runtime, all-purpose avatar adoption, source message memory or 360 activity credit.",
+  "recordedAtUTC": "2026-10-26T00:17:02.296221+00:00",
+  "originalGenerationRecord": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/avatars/umiri-avatar-youth-v3.source.json",
+    "sha256": "0f522d0b79bee06dfcb5d691b3f293d34ca3526553b8bb06a8779d986f9f4d2f"
+  }
+}

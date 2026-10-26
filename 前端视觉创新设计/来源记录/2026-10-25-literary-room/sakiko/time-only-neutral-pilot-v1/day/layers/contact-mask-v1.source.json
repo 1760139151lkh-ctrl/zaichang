@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "stage": "S2",
+  "tool": "image_gen.imagegen",
+  "recordedAt": "2026-10-25T22:38:20.241588+00:00",
+  "sceneFamily": "literary-room-v1",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "motherSha256": "35a318faaab82305b4a5f28e4f109701986e7ce75b312536835216306c2945af",
+  "inputImages": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/day/layers/contact-step1-marked-v1.png",
+      "sha256": "fa178be50e74d5af0d40e06b43358d9ef2622360321c4aeab6323c7b22d7ab96"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-day-v1.png",
+      "sha256": "35a318faaab82305b4a5f28e4f109701986e7ce75b312536835216306c2945af"
+    }
+  ],
+  "promptFile": "contact-mask-v1.prompt.txt",
+  "promptFileSha256": "6a1103d11fa5acb82179c4759737b90e1390bec4491c67bb35df245295f8e2d6",
+  "requestFile": "contact-mask-v1.request.json",
+  "exactSubmittedPrompt": "Use case: background-extraction. Source-local receiver/contact luminance S2 for a fixed originalRGB includedlayer. FIRSTinput deliberateS1 marks, SECONDinput exact cleanoriginalmother onlyto discriminate addedpurewhite from unchangednaturalwhite. Output OPAQUE BLACK/WHITE/edgeGRAY1536x1024, samefullcanvas/allsourcepositions, no crop/resize/zoom/shift.\nOnly deliberately ADDED PURE-WHITE smallreceiverpatches ofinput1 become WHITE. EverythingelseBLACK: entireoriginalcoloredperson/hair/face/clothes/skin/hands/book/legs/socks/shoes, allnaturalwhitecurtain/linen/pillows/lamps/flowers/cup, desks/room/rug/furniture/farwood/reflections. NOT brightness-threshold selection. There is no new personRGB.\nSeat: retain only tinyactualwhiteaddedlinenreceiversimmediatelytouching theunderhem/hip/thigh footprint, no naturallypaleEMPTY cushionleft offigure/longseatstrip. BookisonlapandpartofF; no standalonebook-on-cushionpatch.\nShoes: KEEP FULL actual white-added floorreceiver footprints immediatelyunder/around BOTH source soles, not collapsing back to1–2px outlines. Their centers are fullOPAQUE WHITE so originalsource darkenedwood restores realgrounding. Keep graysofttransition only at the originaldiffuse outerpatchboundary within a fewsourcepixels, no genericoval/rectangle/longfloorband, no newshadeinvented. Preserve deliberateinput1 footprintpositions and any actualtouching between the two localshades. Shoes themselvesBLACK; harmlessF/S overlapatsoleedge okay, never redrawshoes. Exclude unrelatedroomshadows/rugfringe/floorlight. No checker, labels, arrows, grid, color or naturallybright emptyseat. S selects unchanged originalRGB once, travel/slope/perspective0.",
+  "submittedPromptSha256": "93f6ff48fd3ec1e740a415a02c7c6a3e8e1d5fc462f8102dd221877468c56ea5",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-43f35684-8590-45e1-9ee4-ce0e75b21fa0.png",
+  "toolOriginalSha256": "31be1a964933513b6e5199f0656d145bcdc0866fc248179ea0ce3a34b08ba204",
+  "output": {
+    "file": "contact-mask-v1.png",
+    "sha256": "31be1a964933513b6e5199f0656d145bcdc0866fc248179ea0ce3a34b08ba204",
+    "bytes": 298653,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "unchangedToolPngBytes": true
+  },
+  "producerReview": "Wholemask viewed. Small seatreceiver islands and complete shoefloorfootprints with soft edge; no large unrelated white room. ActualRGB/light-dark/native optical review pending.",
+  "dossierVersion": "2026-10-25.1",
+  "role": "RawImageGen luminance coverage only; originalmotherRGB once throughMAX(F,S), no threshold/crop/morphology/paint.",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "selectionStatus": "producer-selected-after-native-browser-review",
+  "nativeBrowserReview": "neutral-reading-time-day-included-bundle-v1.json"
+}

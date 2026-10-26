@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "assetType": "desk-original-local-contact-receiver-luminance-selection-S",
+  "id": "desk-contact-mask-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "desk-contact-mask-v1.prompt.json",
+  "promptFileSha256": "458cd6347ef84ad549f03ec5480a580bf9b64e10a3f6e3530f1b0102cb27f2eb",
+  "submittedPrompt": "Use case: precise-object-edit. STEP2: registered original-contact RECEIVER luminance selection S for a fixed included joint subject.\nImage1 is the ONLY1536x1024 input. It is the correct original left-desk scene with existing local contact receiving surfaces already painted WHITE in place. Preserve the EXACT existing deliberate white contact marks/receiver shapes at their source positions, no reinterpretation or new shapes.\nKeep only those intentionally white local receiver groups WHITE: the existing narrow desktop/page strip beneath forearm/writing-hand contact; the white seat-cloth/support contact under skirt/hip; and the existing tiny visible sole-to-floor fringe at the partially occluded brown shoe. These are already marked SOURCE regions, not boxes to fill. Preserve the full actual marked white extent and thin antialias; do not move it onto the body, connect separated groups, enlarge it or shift its location.\nChange EVERY OTHER original colored or naturally pale part PURE BLACK: the whole actual girl/hair/face/hands/held pen/clothing/legs/socks/shoe surfaces; chair wood slats/legs/crossbars and seat cloth outside the deliberate white marks; bright desk paper outside the deliberate strip; curtains/clouds/lamps/plants/wood highlights/window/empty bench/floor/rug and all normal furniture shadows. Naturally light wood or white highlights on chair legs must be black, not new receiver selection.\nNo image crop, zoom, shift, resize, re-center, re-pose, hidden-body reconstruction, ellipse or invented shadow. Full original canvas unchanged, black room everywhere except EXACT existing locally marked support receiver footprints. White solid interior, gray only original thin edge antialias. Return opaque grayscale RGB1536x1024. No colored scene, text, caption, labels, guide, grid, border, watermark, checkerboard or transparency.",
+  "submittedPromptSha256Utf8NoTrailingLF": "2686369837e48e77a6ec7ad595461d6876efb7e299bd8e0413c0ee5f94cefb6d",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-contact-marked-v1.png",
+      "sha256": "7d075a1badcd439c0bf3e55fcc4b54462eee7b51efd4632eb1e6b3954f0765c2",
+      "role": "sole marked correct original desk scene with actual local receiver surfaces white; no F mask or rejected person reference"
+    }
+  ],
+  "output": {
+    "file": "desk-contact-mask-v1.png",
+    "sha256": "09128cff44817ee361ee08b3d897ea70d6c923e2d6492b1d63680cb903055663",
+    "bytes": 402546,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-93ed3b39-9eee-4f3b-b5a9-dc8564a1102e.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": true,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observation": "Exact S output selects local desk/page strip, seat cloth and visible sole/floor fringe, with additional fine figure/chair outlines including traces around naturally occluded lower-leg area. Native light/dark/checker subject views make these actual source-material fringes visible. No independent clean shadow claim.",
+    "primaryLayerApprovalRecord": "sakiko-desk-writing-literary-included-primary-admission-v1.json",
+    "primaryLayerApprovalScope": "Exact fixed desk-writing source RGB MAX included; source differences accepted; no invisible-foot/motion/runtime signoff."
+  },
+  "status": "joint-included-selection-S-candidate-not-clean-independent-shadow",
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "activity": "study",
+  "palette": "apricot",
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "fullImageResultRetainedInStore": false
+}

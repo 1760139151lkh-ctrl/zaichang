@@ -1,0 +1,304 @@
+{
+  "schemaVersion": 2,
+  "recordType": "root-primary-exact-activity-static-layer-admission",
+  "recordedAt": "2026-10-26T01:27:21.145Z",
+  "recordingAgent": "/root/mujica_matrix",
+  "sceneId": "sakiko-attention-violet-shared-page-included-v2",
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "activity": "attention",
+  "palette": "violet",
+  "light": "dusk",
+  "environmentVariant": "twilight",
+  "decision": "approved-by-primary-for-exact-sha-static-fixed-included-layers",
+  "primaryLayerApproved": true,
+  "primaryPersonallyViewedReportedBy": "/root",
+  "approvalEvidence": {
+    "source": "Direct /root task message in same healthy multi-agent session",
+    "exactMessage": "继续健康会话。Root现已亲看7组final Browser静态组合38张：AA五v2(母合成/浅深棋盘/脸发/书座/鞋影)，AM五v1(full-native-composite, light-dark-checker, face-hair, book-original, shoes-contact)，AV八(01-scene、02b-checker、03-face、04c-book-left-detail、04d-book-composite、05-hem、06-shoes、07-contact)，AR五v4，RM五v1，RV五v1，RR五v3。主审允许这7个选定SHA的固定included层准入：原景RGB只绘一次，书页/手/书下发圈真实空隙、裙坐垫、双鞋/柔和地面接收都保持，AR内部线无漏洞，RRv3鞋接收连续。0 travel/slope/perspective；S含原位布木不称caster，不能独立平移。不是用户签字/动态或360 runtime。请完成逐SHA root-primary-layer-admission json/md（记录这38实际已看文件，不虚称另外未看02-subject/04b等）、从当前7bundle准确复制28个PNG+7scene注册到运行素材，参考现同族Saki/Taki已合格manifest，activity attention4/resume3、原主题weather/light精准、各自真实几何U>32+12/96不删边。Spatial已修统一protected-fit，7prospective Y74..967高893真实保留，勿改camera函数/别角色/9335。只写你的来源准入和这7运行asset/json，不改TS/CSS/其他总账。核所有字节/SHA、现manifestvalidator下实际能解析，npm run check，可报告注册静态不报runtime实机。保HOLD只作历史，不喂Image。禁新测试/harness/fixture。",
+    "scope": "Only the seven final selected SHA groups and exactly these 38 actual Browser files; no additional producer screenshot is represented as root-viewed."
+  },
+  "selected": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-violet-shared-page-v2.png",
+      "sha256": "69c14d7b7df22f634e3bc884c01396bdcd0d3f0fe70678803a05a10b52366208",
+      "bytes": 2416217,
+      "width": 1536,
+      "height": 1024,
+      "actualMime": "image/png",
+      "format": "PNG",
+      "mode": "RGB",
+      "runtimePath": "前端视觉创新设计/运行素材/companion/scenes/sakiko-attention-violet-shared-page-included-v2-mother.png",
+      "originalBytesPreserved": true
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/background-v1.png",
+      "sha256": "1aa2ca1254bcbb917cae56db6c09d1725f6b17d2f10d8b43b81189ea95068d6b",
+      "bytes": 2314719,
+      "width": 1536,
+      "height": 1024,
+      "actualMime": "image/png",
+      "format": "PNG",
+      "mode": "RGB",
+      "runtimePath": "前端视觉创新设计/运行素材/companion/scenes/sakiko-attention-violet-shared-page-included-v2-background.png",
+      "originalBytesPreserved": true
+    },
+    "figureMask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-mask-v2.png",
+      "sha256": "5285f653e453905d38e5992bbd20cc46f54d0d390cd59308a1dc13dde11b5061",
+      "bytes": 456239,
+      "width": 1536,
+      "height": 1024,
+      "actualMime": "image/png",
+      "format": "PNG",
+      "mode": "RGB",
+      "runtimePath": "前端视觉创新设计/运行素材/companion/scenes/sakiko-attention-violet-shared-page-included-v2-mask.png",
+      "originalBytesPreserved": true
+    },
+    "contactMask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/contact-mask-v1.png",
+      "sha256": "89cf69bd67f18c81c4170e4897850cc0d7e88c896c815b2fa4c6bdc40ae4c967",
+      "bytes": 329971,
+      "width": 1536,
+      "height": 1024,
+      "actualMime": "image/png",
+      "format": "PNG",
+      "mode": "RGB",
+      "runtimePath": "前端视觉创新设计/运行素材/companion/scenes/sakiko-attention-violet-shared-page-included-v2-contact-mask.png",
+      "originalBytesPreserved": true
+    }
+  },
+  "sourceAssembly": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/included-layer-bundle-v1.json",
+    "sha256": "efeeb5ead8dac56522bac68ca972122163e98a5bed28da94096b3d6d367d32bc",
+    "bytes": 33484
+  },
+  "primaryViewedBrowserEvidence": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/browser-observations/01-scene.png",
+      "sha256": "24d383c5e4d3d10717f41457a023f0c14f020d1262931fd4bd16904223d4762e",
+      "bytes": 104747,
+      "width": 1265,
+      "height": 720,
+      "actualMime": "image/jpeg",
+      "format": "JPEG",
+      "mode": "RGB",
+      "fileExtension": ".png",
+      "rawOfficialBrowserBytesUnchanged": true,
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/browser-observations/02b-checker.png",
+      "sha256": "cdd57a08318b2c0ce96eb51b347732892c557d48c9a57af85ae4106b0876e926",
+      "bytes": 46653,
+      "width": 839,
+      "height": 582,
+      "actualMime": "image/jpeg",
+      "format": "JPEG",
+      "mode": "RGB",
+      "fileExtension": ".png",
+      "rawOfficialBrowserBytesUnchanged": true,
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/browser-observations/03-face.png",
+      "sha256": "a89f62111478f43a3e5253cd47d6183ab95e3cf62aaff801608fe15c95d39d47",
+      "bytes": 101373,
+      "width": 1265,
+      "height": 720,
+      "actualMime": "image/jpeg",
+      "format": "JPEG",
+      "mode": "RGB",
+      "fileExtension": ".png",
+      "rawOfficialBrowserBytesUnchanged": true,
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/browser-observations/04c-book-left-detail.png",
+      "sha256": "8c8d95d276c77f721d4edcde74f913a7433c36829b722df89628beb771199035",
+      "bytes": 52044,
+      "width": 1265,
+      "height": 720,
+      "actualMime": "image/jpeg",
+      "format": "JPEG",
+      "mode": "RGB",
+      "fileExtension": ".png",
+      "rawOfficialBrowserBytesUnchanged": true,
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/browser-observations/04d-book-composite.png",
+      "sha256": "877e743d62ef1e828efa1ebf179ad82249a6eb5f09c606a1fa2e44acff5d90a7",
+      "bytes": 59014,
+      "width": 837,
+      "height": 592,
+      "actualMime": "image/jpeg",
+      "format": "JPEG",
+      "mode": "RGB",
+      "fileExtension": ".png",
+      "rawOfficialBrowserBytesUnchanged": true,
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/browser-observations/05-hem.png",
+      "sha256": "eaae27b34f37ba2b22208a0eec179b72dbfc1a166682b97b14f604478e81ec8e",
+      "bytes": 64359,
+      "width": 1265,
+      "height": 720,
+      "actualMime": "image/jpeg",
+      "format": "JPEG",
+      "mode": "RGB",
+      "fileExtension": ".png",
+      "rawOfficialBrowserBytesUnchanged": true,
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/browser-observations/06-shoes.png",
+      "sha256": "de96055ed0c9a184ffb54a4f5dcf717ea437076eb423253e6199329529757048",
+      "bytes": 54906,
+      "width": 1265,
+      "height": 720,
+      "actualMime": "image/jpeg",
+      "format": "JPEG",
+      "mode": "RGB",
+      "fileExtension": ".png",
+      "rawOfficialBrowserBytesUnchanged": true,
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/browser-observations/07-contact.png",
+      "sha256": "ef7802397d8f67113d595cc78a3d3ccd5cac4c46ab5fdb3d37431c7b7ed781e5",
+      "bytes": 55581,
+      "width": 1265,
+      "height": 720,
+      "actualMime": "image/jpeg",
+      "format": "JPEG",
+      "mode": "RGB",
+      "fileExtension": ".png",
+      "rawOfficialBrowserBytesUnchanged": true,
+      "generationInputAllowed": false
+    }
+  ],
+  "primaryViewedEvidenceCount": 8,
+  "browserEvidenceFormatCorrection": "The original official CUA screenshot bytes have .png filenames but JPEG encoding (actualMime image/jpeg). They are retained byte-for-byte. Actual decoded dimensions here supersede historical producer screenshot-dimension fields that assumed a PNG header. These review files are never generation inputs; the 28 selected ImageGen scene assets are genuine 1536x1024 PNGs.",
+  "excludedFromPrimaryViewedClaim": [
+    "browser-observations/02-subject.png",
+    "browser-observations/04b-book-union.png"
+  ],
+  "geometryEvidence": {
+    "figureEnvelope": {
+      "sourcePixels": [
+        904,
+        115,
+        1375,
+        928
+      ],
+      "normalized": [
+        0.5885416666666666,
+        0.1123046875,
+        0.8951822916666666,
+        0.90625
+      ],
+      "basis": "sRGB Rec.709 luminance; F >32, S >32 and MAX(L(F),L(S)) >32 are read-only envelope metadata only. Original continuous ImageGen mask PNG bytes and runtime luminance are unchanged; no thresholded or hand-edited image is created."
+    },
+    "contactReceiverEnvelope": {
+      "sourcePixels": [
+        880,
+        541,
+        1366,
+        937
+      ],
+      "normalized": [
+        0.5729166666666666,
+        0.5283203125,
+        0.8893229166666666,
+        0.9150390625
+      ],
+      "basis": "sRGB Rec.709 luminance; F >32, S >32 and MAX(L(F),L(S)) >32 are read-only envelope metadata only. Original continuous ImageGen mask PNG bytes and runtime luminance are unchanged; no thresholded or hand-edited image is created."
+    },
+    "jointReceiverEnvelope": {
+      "sourcePixels": [
+        880,
+        115,
+        1375,
+        937
+      ],
+      "normalized": [
+        0.5729166666666666,
+        0.1123046875,
+        0.8951822916666666,
+        0.9150390625
+      ],
+      "basis": "sRGB Rec.709 luminance; F >32, S >32 and MAX(L(F),L(S)) >32 are read-only envelope metadata only. Original continuous ImageGen mask PNG bytes and runtime luminance are unchanged; no thresholded or hand-edited image is created."
+    },
+    "supportAnchors": {
+      "seatPixels": [
+        1180,
+        584
+      ],
+      "groundPixels": [
+        1008,
+        916
+      ],
+      "basis": "Registrar personally viewed this exact full mother. Fixed visible skirt/hip-to-linen resting region and midpoint of the complete sole-floor contacts, not hidden joints or travel calibration."
+    },
+    "candidateSevenUnionPixels": [
+      762,
+      86,
+      1378,
+      955
+    ],
+    "candidateSevenProtectedPixels": [
+      666,
+      74,
+      1474,
+      967
+    ],
+    "candidateSevenProtectedHeight": 893,
+    "protectedMarginSourcePixels": {
+      "x": 96,
+      "y": 12
+    },
+    "framing": "Current shared literary-room protected-fit/safe-cover function is untouched. Actual family envelope is recomputed by that function across registered same-family sources; no mask edge is removed to fit.",
+    "cameraFunctionModified": false
+  },
+  "fixedAssembly": {
+    "union": "MAX(L(F),L(S))",
+    "rgbDrawCount": 1,
+    "motherRgbUnchanged": true,
+    "background": "Actual same-mother ImageGen empty BG",
+    "receiver": "Included original cloth/wood and soft floor contact; intentional overlap is drawn once",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "independentCaster": false,
+    "independentMotion": false
+  },
+  "historicalProducerFlags": "Earlier producer bundles remain historical snapshots. This direct root admission supersedes their pending/false primary-layer flag only for these four exact selected PNG SHAs. HOLD images/diagnostic outputs and their original receipts remain preserved, never selected or reused as ImageGen input.",
+  "boundary": "This exact activity/palette/light/weather static same-mother fixed included composition only. U=MAX(L(F),L(S)); original mother RGB drawn once. S includes original cloth/wood receiver and intentional F overlap, never a portable caster or independently translated shadow. travel/slope/perspective=0. No user-signature, runtime-experience, dynamic, or 360-matrix completion claim.",
+  "userApproval": false,
+  "runtimeAccepted": false,
+  "dynamicAdmission": false,
+  "original360CreditAssigned": false,
+  "runtimeRegistration": {
+    "registered": true,
+    "kind": "static-source-registration-only",
+    "manifestPath": "前端视觉创新设计/运行素材/companion/scenes/sakiko-attention-violet-shared-page-included-v2.scene.json",
+    "manifestSha256": "021d6921891f4471639d2f55a1c5aae876c1def0a7e177ab7d0104d88b1cbc61",
+    "manifestBytes": 5696
+  },
+  "verification": {
+    "sourceShaAndDecodedPngMetadataChecked": true,
+    "existingManifestParser": "pending primary normal build/actual selection; no extra Vite build started under earlier primary instruction",
+    "npmCheck": "passed (npm run check -> tsc --noEmit, exit 0)",
+    "actualUiRuntime": "not-performed-by-this-agent",
+    "npmCheckEvidence": {
+      "command": "npm run check",
+      "normalEntry": "package.json check -> tsc --noEmit",
+      "exitCode": 0,
+      "observedAt": "2026-10-26T01:29:54.780Z",
+      "scope": "Existing mandatory TypeScript check; no new tests/harness/fixture"
+    },
+    "manifestSourceAudit": "Current production registrations filter personally read: exact family, SHA gate, palette/light, activity/weather, genuine PNG paths, included contactAssemblyRecord and geometry all match. Source audit is not represented as executing the parser."
+  }
+}

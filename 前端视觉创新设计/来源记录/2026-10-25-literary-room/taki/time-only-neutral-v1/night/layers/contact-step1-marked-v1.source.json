@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "characterId": "taki",
+  "neutralTime": "night",
+  "purpose": "neutral-presence-fixed-included-layer",
+  "kind": "included-contact-source-white-markup-S1",
+  "createdAt": "2026-10-26T01:07:42.036166+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "exactPromptFile": "contact-step1-marked-v1.prompt.txt",
+  "promptSha256": "741dc03203db23dd4e1e22c953ffe8b288f00386528b93e437667c886c355f8e",
+  "requestFile": "contact-step1-marked-v1.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/taki-neutral-time-night-literary-v1.png",
+      "sha256": "79aae6d833d537e9667f9ec77850fe00121aa886031ca3e2cba15ccc49401800",
+      "role": "sole exact root-approved night mother"
+    }
+  ],
+  "output": {
+    "file": "contact-step1-marked-v1.png",
+    "sha256": "8a2863c8812e3c78d0b957740973f4485a1e7c90eca0eb23bc27090ca37d5c1b",
+    "bytes": 2208950,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "originalBasename": "exec-61f81cb0-d14c-4eea-ab49-fd4fb2a9f132.png",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteOutput": true,
+    "observations": [
+      "Small original seat-contact transitions and outsole floor-contact strips selected in place.",
+      "Other person/book/room colors retained; no large artificial caster or connecting bridge."
+    ],
+    "eligibleAsNextStepInput": true
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "countsToward360ExactActivities": false,
+  "pngPixelEditing": false
+}

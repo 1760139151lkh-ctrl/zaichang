@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "character": "soyo",
+  "activity": "listening",
+  "palette": "violet",
+  "stage": "S1",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: precise-object-edit. Asset type: tiny original-source local contact/RECEIVING-SURFACE selection markup, S STEP 1. The ONLY input is the exact correct original 1536x1024 Soyo LISTENING violet mother. Preserve the original full scene, girl, EMPTY hands on her knees, separate closed book on image-right cushion, clothes, shoes and ALL source coordinates. Do not redraw or add any shade.\n\nPaint solid PURE WHITE ONLY onto FOUR SMALL SEPARATE GROUPS of ACTUAL VISIBLE original receiver/material contact:\n1. The extremely narrow irregular linen compression/contact immediately BELOW the navy skirt/hips, near original x805..1150,y574..615. Follow only the few visible tapering receiver pieces directly next to/below the trailing garment hem. The actual navy skirt/hem, thighs, fingers and hair stay ORIGINAL COLOR. Never whiten the long empty bench to image-left of x800 or to image-right of x1150. Do not invent hidden contact underneath opaque body; no whole white seat band, large bright cushion, rectangle or oval.\n2. The tiny actual cushion receiver immediately UNDER the SEPARATE CLOSED BOOK resting to her right, around original x1107..1263,y561..581. Only the thin local support/shadow/material directly beneath its bottom cover/page block is selected; the ENTIRE BOOK remains in its ORIGINAL COVER/PAGE COLORS. Do not paint the book itself or extend to unrelated pale linen.\n3. The short real floor receiver immediately below the image-left COMPLETE BROWN LOAFER, around x771..860,y873..896. Follow the genuine sole contact irregularly, keep the actual shoe/toe/outsole/heel ORIGINAL COLOR; shoe walls and soles are foreground, not floor shade.\n4. The short real floor receiver immediately below the image-right COMPLETE LOAFER, around x900..1011,y883..906, again no shoe pixels and no invented ellipse or large floor wash.\n\nThe coordinate neighborhoods are enclosing inspection limits, NOT rectangles to fill. Select actual tiny original support material/edge-darkness only; do not connect the four groups or select sunlight/window grids/long bright floor bands. All unrelated colored mother RGB remains unchanged, including whole girl/face/hair/EMPTY hands/clothes/bare knees/below-knee socks/shoes, whole separate book, white linen outside those tiny receiver contacts, plaid/knit, room objects and lighting. This is a fixed INCLUDED original-RGB receiver layer, NOT a portable independent caster or newly painted shadow.\n\nOutput ONE opaque 1536x1024 complete ORIGINAL COLORED mother with ONLY these tiny existing receiver groups marked white. No black mask yet, new body/shadow/geometry, crop, resize, zoom, recentering, translation, arrows, labels, text, boxes or grid.",
+  "promptSha256Utf8NoTrailingLF": "06c919d90841f9e6027c82241ed3ca92bb774563604e8ed2fc5435f38eb7baab",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-violet-literary-v1.png",
+      "sha256": "99ebaaa7158f9cf12c3308fa4fa0231e136b51ad6a81add4693159fb2a103ccb",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "sourceMotherSha256": "99ebaaa7158f9cf12c3308fa4fa0231e136b51ad6a81add4693159fb2a103ccb",
+  "approvalEvidence": "Root static approval of Soyo listening four mothers relayed by openui_creation delegation. Exact violet/rain source images independently viewed and hashes verified. This does not approve any new mask.",
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/soyo.md",
+      "sha256": "1ec8b260d40f8363c096ed8392547dd276d2318df5aadbe34b1f51e51e2ed04e",
+      "readScope": "Complete current text read before this layer task"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "91fb8b8de3e8d954a9367a585f09b71b8f5a9962d8ed0107249c348390fb7f05",
+      "readScope": "Complete current text read before this layer task"
+    }
+  ],
+  "method": "Read mature Soyo/chat-layers F1/F2/S1/S2 actual prompts and root Sakiko recognition-v2-layers contact S1-v3/S2-v2 repair prompts. Original mother -> same-canvas marked selection -> black/white extraction only. No held images, threshold/manual PNG paint or review collage input.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\listening-layers\\violet\\contact-step1-marked-v1.png",
+    "sha256": "898cdbc465e520b97a7991eea1efbcbe46f2096bf8894320067588808b151569",
+    "bytes": 2319164,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-0c350330-adf9-4c80-be3d-fe62f897c95a.png",
+    "pngBytesUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "fullNativeImage": true,
+    "observations": "亲看完整1536×1024：人物/空手/书/鞋仍有原彩色。裙下左右各有很小不规则白接收楔，书底另有细白接收条，两鞋外底下各有短细白接触；未把长空窗榻、太阳窗格/大片地板或整个书面涂白。鞋边白带紧贴原底轮廓，究竟少量覆盖鞋缘与否需caller原RGB MAX联合局部对照；不签独立影或层准入。"
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "status": "held-insufficient-floor-receiver-awaiting-v2",
+  "useBoundary": "Only fixed original-source included union MAX(F,S); local receiver pixels are not a portable independent cast-shadow layer. No new pose/dynamic credit.",
+  "observedIssue": {
+    "source": "openui_creation personally viewed original-RGB + dedicated BG joint result",
+    "issue": "S v1 captures only narrow sole lines; broad soft original local floor receiver/shadow was not restored after BG removal, causing floating appearance. Rain book support extends about20px too far right and shows a pink linen tail on light background.",
+    "scope": "Old PNG preserved for history; no use as input for v2. Rebuild S1 from exact clean mother, then new S2."
+  },
+  "producerHeld": true,
+  "generationInputAllowed": false
+}

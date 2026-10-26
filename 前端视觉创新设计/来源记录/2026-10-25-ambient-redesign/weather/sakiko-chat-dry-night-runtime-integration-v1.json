@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "recordType": "fixed-position-runtime-layer-integration",
+  "recordedAt": "2026-10-25T06:27:33.587197+00:00",
+  "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-dry-night-primary-layer-approval-v1.json",
+  "approvalSha256": "6adaea179757aa0021c94213f9d858d5f04469fb85ec333b7334b57a4bf07286",
+  "sourceBundle": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-dry-night-bundle-v1.json",
+  "sourceBundleSha256": "bcc754ad2555338387b6e2efd20885ae9d1902b3d77a5b9ac51a89bd641cd672",
+  "runtimeRegistration": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-dry-night-v1.scene.json",
+  "runtimeRegistrationSha256": "b24389f51288e331e7e0f543451fd60e5a31e51411bd10299755c3cd6543b680",
+  "files": [
+    {
+      "source": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-dry-night-mother-v1.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-dry-night-mother-v1.png",
+      "sha256": "894ea7803e258c79792110d32d9e1ece3f1551d75b0d6f4746ca09065ef296f9",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-dry-night-background-v1.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-dry-night-background-v1.png",
+      "sha256": "f2a854d9fdea993e10cb6bc8b8758bd89d275db2b119f1367cb2bd829f32b4a8",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-dry-night-figure-mask-v1.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-dry-night-figure-mask-v1.png",
+      "sha256": "7559ad8baf82697bdec83689750dd0c3b54f9a5649cc53b89b8c4a4986e7f8e8",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-dry-night-contact-shadow-mask-v1.png",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-dry-night-contact-shadow-mask-v1.png",
+      "sha256": "8d18bd24c16bbd1d5646140c0709c6b880e52877dda77de18719c99eab20b940",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    }
+  ],
+  "environmentVariant": "dry-night",
+  "palette": "rain",
+  "light": "night",
+  "geometry": {
+    "coordinateSpace": "mother-normalized",
+    "seatPixels": [
+      1293,
+      592
+    ],
+    "seat": [
+      0.841796875,
+      0.578125
+    ],
+    "groundPixels": [
+      1179,
+      778
+    ],
+    "ground": [
+      0.767578125,
+      0.759765625
+    ],
+    "bodyBounds": [
+      0.73046875,
+      0.263671875,
+      0.9283854166666666,
+      0.7607421875
+    ],
+    "maskBoundsPixels": [
+      1122,
+      270,
+      1426,
+      779
+    ],
+    "maskBoundsMethod": "Read-only luminance >32/255 measurement of this exact generated figure mask; right/bottom exclusive. No bitmap edits. Very faint antialias values may extend beyond practical visible bounds.",
+    "safeTextBoundary": 0.64,
+    "support": "window-seat",
+    "hitPolygon": "81.0% 26.4%, 85.0% 26.8%, 87.5% 36.0%, 91.5% 43.7%, 91.0% 50.5%, 90.0% 54.5%, 92.9% 57.0%, 89.5% 58.0%, 85.0% 58.2%, 81.8% 61.0%, 80.5% 74.9%, 78.2% 76.1%, 76.0% 75.7%, 76.1% 73.0%, 73.0% 75.1%, 73.1% 73.3%, 75.0% 69.0%, 77.1% 59.0%, 75.9% 55.8%, 79.0% 51.0%, 78.0% 46.5%, 78.4% 40.5%, 79.9% 33.0%",
+    "anchorMethod": "Approximate hip-seat, lowest shoe-floor and interaction contour visually traced from this exact weather source/mask, not inherited from an old large character. Scene owner validates integrated Stage metadata.",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "scope": "Original source position only; no translation/motion/anchor transition claim."
+  },
+  "measuredMaskBounds": [
+    1122,
+    270,
+    1426,
+    779
+  ],
+  "contact": {
+    "mode": "luminance",
+    "color": "#291c16",
+    "opacity": 0.38
+  },
+  "sourceRecordsModified": false,
+  "pixelEdits": false,
+  "runtimeAccepted": false,
+  "runtimeReview": "pending-root-cold-start-QA"
+}

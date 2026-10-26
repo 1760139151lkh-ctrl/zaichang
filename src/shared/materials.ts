@@ -25,12 +25,13 @@ export const materialTargetSchema = z.discriminatedUnion('kind', [
 ]);
 export type MaterialTarget = z.infer<typeof materialTargetSchema>;
 export const materialReadSchema = z.object({
+  readerId: z.string().min(1).max(100).optional(),
   target: materialTargetSchema,
   page: z.number().int().min(1).max(MATERIAL_LIMITS.pages).default(1),
   offset: z.number().int().min(0).max(MATERIAL_LIMITS.textCodePoints).default(0),
   view: z.enum(['text', 'page']).default('text'),
 }).strict();
-export type MaterialReadInput = { target: MaterialTarget; page?: number; offset?: number; view?: 'text' | 'page' };
+export type MaterialReadInput = { target: MaterialTarget; readerId?: string; page?: number; offset?: number; view?: 'text' | 'page' };
 export interface MaterialItem {
   resourceId: string;
   name: string;
@@ -39,6 +40,8 @@ export interface MaterialItem {
   sha256: string;
   sessionId?: string;
   receivedAt?: string;
+  /** An explicitly kept notebook original, independent of a later chat. */
+  originalRetained?: boolean;
 }
 export interface MaterialPage {
   item: MaterialItem;
@@ -74,7 +77,8 @@ export function materialQuoteAddress(quote: MaterialQuoteReference): MaterialQuo
   return { resourceId: quote.resourceId, sha256: quote.sha256, ...(quote.page === undefined ? {} : { page: quote.page }), start: quote.start, end: quote.end };
 }
 export const materialQuoteInputSchema = z.object({ target: materialTargetSchema, quote: materialQuoteReferenceSchema }).strict();
-export const materialKeepQuoteInputSchema = materialQuoteInputSchema.extend({ annotation: z.string().max(4000).optional() });
+export const materialKeepQuoteInputSchema = materialQuoteInputSchema.extend({ annotation: z.string().max(4000).optional(),
+  retainOriginal: z.boolean().optional() });
 /** Reposition a kept annotation on the same immutable source. The notebook
  * identity and current revision are required; no client body is accepted. */
 export const materialMoveNoteInputSchema = z.object({
@@ -100,7 +104,7 @@ export const MATERIAL_QUOTE_MEANING = '这是用户指向的外部资料原文�
 export interface MaterialsBridge {
   materialsList(input?: { sessionId?: string }): Promise<MaterialItem[]>;
   materialsRead(input: MaterialReadInput): Promise<MaterialPage>;
-  materialsCancel(): Promise<void>;
+  materialsCancel(input?: { readerId?: string }): Promise<void>;
   materialsExport(input: { target: MaterialTarget }): Promise<boolean>;
   materialsDiscard(input: { reference: MaterialReference }): Promise<void>;
   materialsQuote(input: z.infer<typeof materialQuoteInputSchema>): Promise<MaterialQuote>;

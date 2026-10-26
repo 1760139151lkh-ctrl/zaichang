@@ -40,7 +40,7 @@ export const campusGpaPolicies = {
   all_attempts: { label: '全部修读', meaning: '保留所有修读记录，再按原计入规则和学分加权；实际计入仍需要可用绩点和正学分。' },
   first_attempt: { label: '首次修读', meaning: '每个同课分组按学期取最早的一次，再按原计入规则和学分加权；同一学期内的修读先后仍不能确定。' },
   highest_attempt: { label: '最高成绩', meaning: '每个同课分组按百分成绩或等级等值取最高一次，各种绩点制式沿用同一次修读；同分或全无可比数值时保留来源顺序中的第一条。' },
-  repository_first_response: { label: '来源首条记录', meaning: '每个同课分组取这份资料源记录顺序中的第一条，再按原计入规则和学分加权；这不是第一次修读的时间证明。' },
+  repository_first_response: { label: '来源首条记录', meaning: '每个同课分组取这份资料源记录顺序中的第一条，再按原计入规则和学分加权；这里沿用的是来源顺序，实际修读先后另看学期与原记录。' },
 } as const;
 export const majorGpaPointer = '/normalized/transcript/major';
 export const majorGpaFields = {
@@ -114,17 +114,17 @@ export function validateCampusQuery(raw: unknown) {
   const examCourseRead = input.pointer === examCourseRecordsPointer;
   const majorGpaRead = input.pointer === majorGpaPointer;
   if (majorGpaRead && (input.operation !== 'read' || input.resource !== 'gpa_overall'))
-    throw new HarnessError('major_gpa_read_only', '主修汇总沿同一份绩点资料的固定地址读取；它不是新的汇总算法或组合查询。');
+    throw new HarnessError('major_gpa_read_only', '这份地址连着已经保存的主修汇总，用gpa_overall的read沿原记录和版本打开，就能读到当时的汇总结果。');
   if (majorGpaRead && (input.offset !== 0 || input.spec !== undefined || input.model !== undefined
     || input.academicYear !== undefined || input.term !== undefined || input.fromBundle !== undefined || input.toBundle !== undefined || input.refresh))
-    throw new HarnessError('major_gpa_read_parameters', '这份主修汇总按原快照与版本读取；字段只选择已有汇总内容，不另作筛选、学期选择或分页。');
+    throw new HarnessError('major_gpa_read_parameters', '这份主修汇总按原记录与版本整份读取。带原bundleId、expectedSnapshotVersion和想看的汇总fields，offset保持0，就能继续；其他筛选或学期查询各沿原入口办理。');
   if (majorGpaRead) {
     input.fields = input.fields?.length ? input.fields : [...majorGpaReadFields];
     if (input.fields.some(name => !Object.hasOwn(majorGpaFields, name)))
-      throw new HarnessError('major_gpa_read_fields', '主修汇总只可选择字段说明里的汇总值；这里没有逐科成绩或其它对象。');
+      throw new HarnessError('major_gpa_read_fields', '这份地址提供主修汇总值，fields可从这项字段说明里选择。逐科成绩保留在原来的成绩资料中。');
   }
   if (examCourseRead && (input.operation !== 'read' || input.resource !== 'exams'))
-    throw new HarnessError('exam_course_read_only', '考试课程原行只沿exams资源的固定read地址读取；它不是考试事件查询或组合查询。');
+    throw new HarnessError('exam_course_read_only', '这里连着考试资料中的课程原记录，用exams的read沿同一份记录打开；具体考试场次仍列在各门课程下面。');
   if (examCourseRead && (input.fields !== undefined || input.spec !== undefined || input.model !== undefined
     || input.academicYear !== undefined || input.term !== undefined || input.fromBundle !== undefined || input.toBundle !== undefined || input.refresh))
     throw new HarnessError('exam_course_read_parameters', '这里按原记录顺序展开考试课程；带上原快照、版本、offset和limit就能继续。需要另选字段或条件时可用quick/select。');
@@ -133,7 +133,7 @@ export function validateCampusQuery(raw: unknown) {
   if (!['resources', 'schema'].includes(input.operation) && !input.resource && !input.spec) throw new HarnessError('resource_required', '先选一项要看的资料，例如课程、考试或成绩。');
   if (input.operation === 'schema' && !input.model) throw new HarnessError('model_required', '请选择要了解的字段模型。');
   if (input.operation === 'select' && !input.spec) throw new HarnessError('query_required', '组合查询需要具体spec。');
-  if (input.spec && input.resource && input.spec.resource !== input.resource) throw new HarnessError('resource_mismatch', '声明资源与查询资源不一致。');
+  if (input.spec && input.resource && input.spec.resource !== input.resource) throw new HarnessError('resource_mismatch', 'resource和spec.resource选到了两类资料；把两处对到这次真正要查的同一类，就能继续。');
   if (input.spec?.resources?.length === 1 && input.spec.resources[0] !== input.spec.resource)
     throw new HarnessError('resource_mismatch', 'resources只列一类时须与resource一致；不同资源的组合需要明确列出各资源或关联。');
   if (input.spec) input.spec = { ...input.spec, offset: input.spec.offset ?? input.offset, limit: input.spec.limit ?? input.limit };
@@ -145,7 +145,7 @@ export function validateCampusQuery(raw: unknown) {
       if (logic.length !== 1 || Object.keys(expression).length !== 1) throw new HarnessError('query_filter', '每层条件只使用一个逻辑组合；多个条件放入and/or数组。');
       const key = logic[0], value = expression[key];
       if (key === 'and' || key === 'or') {
-        if (!Array.isArray(value)) throw new HarnessError('query_filter', 'and/or的值必须是条件数组。');
+        if (!Array.isArray(value)) throw new HarnessError('query_filter', 'and/or接一组条件，把各个条件放进同一个数组就能继续。');
         for (const item of value) validateWhere(item, depth + 1);
       } else if (key === 'not') validateWhere(value, depth + 1);
       else {
@@ -154,13 +154,13 @@ export function validateCampusQuery(raw: unknown) {
       }
       return;
     }
-    if (typeof expression.field !== 'string' || Object.keys(expression).some(key => !['field', 'op', 'value'].includes(key))) throw new HarnessError('query_filter', '单项筛选用{field,op,value}；不要把字段名直接当键。');
-    if (!['missing', 'exists', 'eq', 'ne', 'in', 'not_in', 'contains', 'starts_with', 'ends_with', 'length_gt', 'length_eq', 'gt', 'gte', 'lt', 'lte'].includes(expression.op || 'eq')) throw new HarnessError('query_filter', '筛选运算不支持；请使用schema列出的op。');
-    if (['in', 'not_in'].includes(expression.op) && !Array.isArray(expression.value)) throw new HarnessError('query_filter', 'in/not_in的value必须是数组。');
+    if (typeof expression.field !== 'string' || Object.keys(expression).some(key => !['field', 'op', 'value'].includes(key))) throw new HarnessError('query_filter', '单项条件写成{field,op,value}，要比较的字段名放进field，比较方式放进op，目标值放进value。');
+    if (!['missing', 'exists', 'eq', 'ne', 'in', 'not_in', 'contains', 'starts_with', 'ends_with', 'length_gt', 'length_eq', 'gt', 'gte', 'lt', 'lte'].includes(expression.op || 'eq')) throw new HarnessError('query_filter', '这次的比较方式还没有对应上，schema列着现有op；从中选好后，可以沿原条件继续。');
+    if (['in', 'not_in'].includes(expression.op) && !Array.isArray(expression.value)) throw new HarnessError('query_filter', 'in/not_in比较一组候选值，把这些值放进value数组就能继续。');
   };
   for (const expression of [input.spec?.where, input.spec?.after_join_where, input.spec?.having, ...(input.spec?.metrics || []).map(metric => metric.where)]) validateWhere(expression);
   if (input.spec?.metrics?.some(metric => metric.where !== undefined && !['count_where', 'fraction'].includes(metric.op)))
-    throw new HarnessError('query_metric_filter', '这个汇总运算不支持指标内where；请用外层spec.where筛选后汇总，避免分母或计入范围错误。');
+    throw new HarnessError('query_metric_filter', '这项汇总先用外层spec.where选出参与记录，再计算结果；指标内的where用于count_where和fraction。原条件移到相应位置就能接着算。');
   const validateFields = (value: any, depth = 0): void => {
     if (depth > 12) throw new HarnessError('query_depth', '查询条件嵌套过深。');
     if (Array.isArray(value)) { for (const item of value) validateFields(item, depth + 1); return; }

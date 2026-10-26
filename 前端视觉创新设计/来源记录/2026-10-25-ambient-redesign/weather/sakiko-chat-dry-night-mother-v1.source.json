@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "assetType": "complete-room4-weather-character-mother-prototype",
+  "id": "sakiko-chat-dry-night-mother-v1",
+  "character": "sakiko",
+  "activity": "chat",
+  "environmentVariant": "dry-night",
+  "intendedCondition": "clear",
+  "isDay": false,
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-chat-dry-night-mother-v1.prompt.json",
+  "promptFileSha256": "4d51e46a44a437001051a3243fd7a064d1a75db2e7478668f333ce99c99025f1",
+  "submittedPrompt": "Use case: identity-preserve and compositing. Asset: complete SAME-ROOM Sakiko chat mother prototype, not a cutout or a UI.\nImage 1 is the PRIMARY EDIT TARGET: the approved clean DRY NIGHT room4, 1536 x 1024. Preserve its exact full camera/framing, furniture positions, window edges and mullions, dry clear night sky/lake/town, warm existing lamp, floor/rug and quiet left two-thirds. Image 2 is ONLY the approved original apricot-chat identity, clothing, seated-pose and SMALL IN-ROOM SCALE reference. It is not a background or a lighting source. Do not import its sunny window, bright floor, sun-shadow pattern or sunny figure RGB. Do not use a generic enlarged portrait.\nDraw the complete youthful Sakiko from Image 2 naturally seated on the SAME right window bench at the SAME source-pixel scale: original full visible bounds approximately x=1115..1432, y=257..786, total crown-to-sole height about 529 pixels on this 1536x1024 canvas. Crown near y=260, face around (1290,345), hips actually supported by the cushion around (1293,589), cushion/seat around y=594, both shoe soles near y=775..785 around x=1115..1237. Her head and whole body must NOT become larger than Image 2, closer to the camera, taller in the room or more mature. Keep the room's wide architectural perspective; no crop/zoom/recenter and no head near the top window frame.\nUse Image 2's recognizable youthful anime face, long soft blue-lavender hair and small dark side ribbons, navy cardigan with gold buttons, white blouse with pale bow, dark pleated plaid skirt, navy knee socks and brown loafers. Natural gentle attentive chat expression toward the viewer, no automatic sadness. Sit with knees near each other and uncrossed lower legs slanting naturally toward the grounded shoes. One hand rests on a closed small blue book in her lap around (1246,525); the other palm genuinely rests on the cushion around (1405,582). Preserve believable shoulders/elbows/fingers, hip-seat support, compact foreshortened thighs, natural knees/ankles and two complete loafers resting on the dry wooden floor. No floating body, duplicated limb, crossed impossible legs, overlong shins, missing shoes or detached props.\nRender her COMPLETELY with the DRY NIGHT environment's physical lighting: soft warm light coming from the existing desk lamp to her left, subtle cool nocturnal window fill, muted navy clothing and gently modeled skin/hair/shoes. Her white blouse is softly warm-gray at night, not blazing sunny white. Include modest real cushion compression/contact darkness and grounded shoe contact shadows appropriate to this light. Do not paste/recolor the sunny source figure, add a glow halo, globally tint the image, alter the furniture or change the accepted empty background into another weather. No rain or droplets anywhere, no new moon phase, no extra lamp or people.\nKeep refined painterly anime details coherent across the whole original room. No UI, controls, cards, tutorial, text, border, watermark, grid or side-by-side comparison. Output one complete opaque RGB 1536 x 1024 mother image.",
+  "submittedPromptSha256Utf8NoTrailingLF": "08ca381ea971fb62d889e81ef88de90e40aa8278f7dc709fb5d2efb5b5bbb4e1",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/room4-dry-clear-night-v1.png",
+      "sha256": "4e86e26b6b0b59f4bcef537cf593776a10f9134045219117fd1ecf853b7361ea",
+      "role": "primary edit target; exact-SHA root-approved clean same-room dry night background"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+      "sha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1",
+      "role": "personally viewed approved youthful identity, seated-pose and scale reference only; its sunny RGB/lighting/background must not be pasted"
+    }
+  ],
+  "scaleRecord": "sakiko-chat-weather-scale-v1.json",
+  "output": {
+    "file": "sakiko-chat-dry-night-mother-v1.png",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17126-cdea-77e3-9abe-3d71acd87e8b\\exec-ed778d45-c2a9-420b-8b88-7bb25122eed7.png",
+    "sha256": "894ea7803e258c79792110d32d9e1ece3f1551d75b0d6f4746ca09065ef296f9",
+    "bytes": 2021070,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "transparentBackground": false,
+  "prototypeBoundary": {
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "layersGenerated": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  },
+  "review": {
+    "personallyViewed": true,
+    "observation": "Personally viewed the complete generated mother at original full-room framing. Youthful identity, head/body scale and bench position remain visually close to the approved registered apricot mother; crown is roughly a dozen pixels lower, shoes still around y780, with no enlarged portrait or body-scale jump. Hips sit on the cushion, right palm visibly rests on it, left hand rests on the blue lap book, both uncrossed legs end in complete grounded loafers. Skin/blouse/hair are rendered in subdued warm lamp light with cool night fill, without sunny white patches or rain. Furniture and the dry clear night window remain coherent. These are approximate visual observations, not a new mask-derived calibration or runtime/motion acceptance.",
+    "approvedByRoot": true,
+    "rootApproval": {
+      "sha256": "894ea7803e258c79792110d32d9e1ece3f1551d75b0d6f4746ca09065ef296f9",
+      "scope": "Complete Sakiko chat dry-night mother image only; no separated layers or runtime acceptance.",
+      "evidence": "Root personally viewed the complete original PNG and accepted stable seated scale, hip/right-palm/two-shoe support and coherent weather lighting."
+    },
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "primaryNativeCompositeViewed": true,
+    "primaryLayerApprovalRecord": "sakiko-chat-dry-night-primary-layer-approval-v1.json",
+    "primaryLayerApprovalScope": "Exact-SHA original-position static same-canvas layers only; runtime independent"
+  },
+  "status": "primary-admitted-original-position-static-layer-runtime-separate"
+}

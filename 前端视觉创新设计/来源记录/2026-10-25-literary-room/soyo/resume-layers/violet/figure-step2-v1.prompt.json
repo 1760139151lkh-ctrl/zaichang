@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-resume-violet-figure-step2-v1",
+  "cell": "soyo/resume/violet",
+  "stage": "figure-step2-v1",
+  "submittedPrompt": "Use case: precise-object-edit. Exact original-position foreground selection conversion. The ONLY input is the correctly marked 1536x1024 Soyo resume violet F1. Keep EVERY existing deliberately white girl/book/page/ribbon pixel exactly where it is; turn ALL remaining colored room pixels BLACK. No redrawing, resizing, crop, leg lengthening, shift or recenter. The source shoes lie around x711..862,y770..850. Whole shoe group and full hair/body/hem contour must stay at actual input positions, not an approximate character template.\nKeep complete fine hair, hands/fingers, all book page/cover/spine corners, real lifted page contour held by fingers, narrow hanging bookmark/ribbon, skirt trim and complete dark shoe/sole/heel edges WHITE. Keep the complete open book, raised paper edge supported by fingers, both hands and source narrow bookmark/ribbon at book spine. Preserve the whole page/cover contour around x812..1000,y421..497. All faint gray INTERNAL book/hand/ribbon/garment linework on already-whitened objects must also become fully opaque WHITE. Such internal page lines are not real colored gaps; do not create black holes or missing book edges. Only genuine colored background gaps between hairs/limbs become black. No gray page/face/clothing details remain in the white interior.\nAll unmarked natural pale cushion/curtains/lamp/flowers, independent contact shadows, window/town, floor/rug highlights BLACK. No extra white islands, long seat band, floor patch or new object. Output ONE opaque original-position 1536x1024 black PNG with only the entire unchanged complete white foreground. Raw luminance will select clean mother RGB once by MAX(F,S); no newly colored figure adopted.",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/violet/figure-step1-marked-v1.png"
+  ],
+  "transparentBackground": false,
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/violet/figure-step1-marked-v1.png",
+      "sha256": "d28a9b21f2ddddc9c079763f5a8f16a4fd84f85b3c636a55ca04e4f6b71d5dbc",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "outputFile": "figure-mask-v1.png",
+  "generationStatus": "returned-and-preserved",
+  "scope": "selection/restoration only; mother RGB once through MAX; runtime=false"
+}

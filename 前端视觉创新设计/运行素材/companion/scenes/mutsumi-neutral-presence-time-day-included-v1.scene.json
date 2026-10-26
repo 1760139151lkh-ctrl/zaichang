@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "id": "mutsumi-neutral-presence-time-day-included-v1",
+  "sceneFamily": "literary-room-v1",
+  "pose": "supported-neutral-presence-with-hands-on-knees",
+  "character": "mutsumi",
+  "activity": "chat",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "light": "morning",
+  "palette": "mist",
+  "width": 1536,
+  "height": 1024,
+  "mother": "mutsumi-neutral-presence-time-day-included-v1-mother.png",
+  "background": "mutsumi-neutral-presence-time-day-included-v1-background.png",
+  "mask": "mutsumi-neutral-presence-time-day-included-v1-mask.png",
+  "maskMode": "luminance",
+  "contactMask": "mutsumi-neutral-presence-time-day-included-v1-contact-mask.png",
+  "seat": [
+    0.7903645833333334,
+    0.6103515625
+  ],
+  "ground": [
+    0.703125,
+    0.9091796875
+  ],
+  "bodyBounds": [
+    0.5729166666666666,
+    0.125,
+    0.8639322916666666,
+    0.91015625
+  ],
+  "safeTextBoundary": 0.5442708333333334,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "57.291666666666664% 12.5%, 86.39322916666666% 12.5%, 86.39322916666666% 91.015625%, 57.291666666666664% 91.015625%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "dynamicAdmission": false,
+    "original360ExactActivityAdmission": false,
+    "layerReview": "root-approved-time-only-neutral-fixed-original-source-max-union",
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/day/layers/root-primary-layer-admission-v1.json",
+    "runtimeSourceSha256": {
+      "mother": "8c1d8e006fa332a85a9d7fed40989170fce6f6956a0b18e351efa83f29404f6f",
+      "background": "8521185ea7e37ce08f9dd015dbc36cd5b5bb4dc1620fc5471469392e36176c7a",
+      "F": "9961af4ec90629af0afe86f56ead3d6b2619f736b8ef8c18c428fffdc30ba69a",
+      "S": "115452400c70025e781ad271eedba5b93460199cd345a76f3176e6ce1653d611"
+    },
+    "geometryEvidence": {
+      "figureEnvelope": {
+        "sourcePixels": [
+          880,
+          128,
+          1327,
+          932
+        ],
+        "normalized": [
+          0.5729166666666666,
+          0.125,
+          0.8639322916666666,
+          0.91015625
+        ],
+        "basis": "Read-only original PNG Rec.709 luminance F >32; right/bottom exclusive, diagnostic only; original continuous mask bytes unchanged."
+      },
+      "jointReceiverEnvelope": {
+        "sourcePixels": [
+          852,
+          128,
+          1339,
+          955
+        ],
+        "normalized": [
+          0.5546875,
+          0.125,
+          0.8717447916666666,
+          0.9326171875
+        ],
+        "basis": "Read-only MAX(L(F),L(S)) >32 envelope, complete actual fixed seat/wood receiver included, not tightened."
+      },
+      "supportAnchors": {
+        "seatPixels": [
+          1214,
+          625
+        ],
+        "groundPixels": [
+          1080,
+          931
+        ],
+        "basis": "Personally viewed exact mother and native source RGB: visible lower hip/skirt to compressed linen seat, complete nearer loafer sole contact with wood; fixed visible reference points, not hidden-joint reconstruction or travel calibration."
+      },
+      "familyFramingCodeUnchanged": true,
+      "naturalFamilyBoundaryEffect": "New true U reaches y955; existing shared family camera includes this exact receiver automatically. No fabricated smaller bound or TS camera override."
+    },
+    "approvalScope": "Exact static neutral-presence time-day weather unknown; same-canvas MAX(F,S), original mother RGB once, fixed included source cloth/wood/shoe receiver; not caster, travel, dynamic, exact activity360 or integrated runtime acceptance."
+  }
+}

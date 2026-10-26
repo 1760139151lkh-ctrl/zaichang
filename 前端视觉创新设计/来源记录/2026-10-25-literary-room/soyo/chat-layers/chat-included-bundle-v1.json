@@ -1,0 +1,272 @@
+{
+  "schemaVersion": 1,
+  "key": "soyo/chat/apricot",
+  "kind": "original-source-union-subject-included-contact-candidate",
+  "primary": true,
+  "runtime": false,
+  "status": "primary-approved-exact-source-fixed-included-union-runtime-pending",
+  "contactShadow": {
+    "mode": "included",
+    "meaning": "whole fixed original-source subject plus local contact/receiving material; no clean independent caster claim"
+  },
+  "sourceMother": {
+    "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\chat-pilot\\soyo-chat-apricot-literary-v1.png",
+    "sha256": "20942d064ae0af479ede2868d689e105433022e8c0448d45301bd7fc9301bfd8",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "approvedByPrimaryMotherOnly": true
+  },
+  "background": {
+    "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "inputs": {
+    "F": {
+      "path": "figure-mask-v1.png",
+      "sha256": "5ba1a554039012e7bf744e028f18a4c16b335a6e12a8bbf426b2e371e6578200",
+      "generationSource": "figure-step2-v1.source.json"
+    },
+    "S": {
+      "path": "shadow-mask-v1.png",
+      "sha256": "f170ba21bfff70b2db41ef2fa559318f70f1994556dd85253825cc3ec7ee0c90",
+      "generationSource": "shadow-step2-v1.source.json"
+    }
+  },
+  "union": {
+    "formula": "U(x,y) = MAX(L(F(x,y)), L(S(x,y)))",
+    "luminanceWeights": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorSpace": "sRGB",
+    "nativeSvgMethod": "feImage + replicated luminance feColorMatrix + feBlend lighten; luminance mask",
+    "nativeSvgSource": "union-source-v1.svg",
+    "nativeSvgSourceSha256": "3d62bc8e6174af4d819ce46a41be31e25e58a5d5282dbc31d77cdc033a81e711",
+    "originalMotherRgbDrawsPerSubject": 1,
+    "extraColorPaint": false,
+    "newRaster": false,
+    "pngPixelEditing": false,
+    "thresholding": false,
+    "subtraction": false,
+    "adaptiveColorDifference": false
+  },
+  "composition": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "layerOrder": [
+      "matching clear empty BG",
+      "one unchanged original mother RGB through U"
+    ],
+    "sharedStage": true,
+    "transform": {
+      "x": 0,
+      "y": 0,
+      "scale": 1,
+      "rotation": 0
+    },
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "allowedPresentation": [
+    "entire fixed-pose union shown or hidden together",
+    "whole pose replacement with own exact source and matching BG",
+    "shared viewport scaling of BG and union"
+  ],
+  "unsupportedPresentation": [
+    "independent body or limb deformation",
+    "figure-relative travel/slope/perspective",
+    "separate shadow animation",
+    "reuse contact selection on a different mother/pose/room",
+    "portable clean caster claim"
+  ],
+  "generation": {
+    "calls": 4,
+    "largeImageResultStored": false,
+    "stages": [
+      "figure-step1-v1.source.json",
+      "figure-step2-v1.source.json",
+      "shadow-step1-v1.source.json",
+      "shadow-step2-v1.source.json"
+    ],
+    "sourceClosure": [
+      {
+        "stage": "figure-step1-v1",
+        "png": "figure-step1-marked-v1.png",
+        "pngSHA256": "bc384520b992e7acaab9488dee69ebf6e9068035b6ef683ea1fc7c2adb05ea50",
+        "canvas": [
+          1536,
+          1024
+        ],
+        "prompt": "figure-step1-v1.prompt.json",
+        "promptSHA256": "8aea452d1d40a680cda45bcb95ab538e8a42e05c8436a82d0a19e1184f33caf2",
+        "source": "figure-step1-v1.source.json",
+        "sourceSHA256": "d27d793728e9b6a5123e1c6dfffc485d49697581240f623c089fd3eaf7e8bfd2",
+        "contentConsistency": {
+          "output": true,
+          "input": true,
+          "promptFile": true,
+          "submittedPrompt": true,
+          "toolOriginal": true
+        }
+      },
+      {
+        "stage": "figure-step2-v1",
+        "png": "figure-mask-v1.png",
+        "pngSHA256": "5ba1a554039012e7bf744e028f18a4c16b335a6e12a8bbf426b2e371e6578200",
+        "canvas": [
+          1536,
+          1024
+        ],
+        "prompt": "figure-step2-v1.prompt.json",
+        "promptSHA256": "197357436d0496066d81d8cf09fdd9802a976dd94621ed35ce415fe3f446b372",
+        "source": "figure-step2-v1.source.json",
+        "sourceSHA256": "9df98fa87899b991225e0bf2e7664dd80d1ede5a41132dfd1429cc2bf9303b84",
+        "contentConsistency": {
+          "output": true,
+          "input": true,
+          "promptFile": true,
+          "submittedPrompt": true,
+          "toolOriginal": true
+        }
+      },
+      {
+        "stage": "shadow-step1-v1",
+        "png": "shadow-step1-marked-v1.png",
+        "pngSHA256": "1c3510d16b89ad30852de7b1384d09f33687ffdc54d6786f742493d3803ae2e3",
+        "canvas": [
+          1536,
+          1024
+        ],
+        "prompt": "shadow-step1-v1.prompt.json",
+        "promptSHA256": "ed201771ba7113588a999520c5fb59eb46cd560a9f0b5655376ad02c7d8df0a0",
+        "source": "shadow-step1-v1.source.json",
+        "sourceSHA256": "26913221ef6cfd3109166442224b99943d6dc9fc8dda1205e9e6893bed891256",
+        "contentConsistency": {
+          "output": true,
+          "input": true,
+          "promptFile": true,
+          "submittedPrompt": true,
+          "toolOriginal": true
+        }
+      },
+      {
+        "stage": "shadow-step2-v1",
+        "png": "shadow-mask-v1.png",
+        "pngSHA256": "f170ba21bfff70b2db41ef2fa559318f70f1994556dd85253825cc3ec7ee0c90",
+        "canvas": [
+          1536,
+          1024
+        ],
+        "prompt": "shadow-step2-v1.prompt.json",
+        "promptSHA256": "8faa48a2768d85f452c76de2106c4c3c5b4f7a5b69ca10d9c67b76ecab3c6b2e",
+        "source": "shadow-step2-v1.source.json",
+        "sourceSHA256": "4687e1cc2949877e5fa419af3f0f3cddff8c8537f183ff5db60f10e2b2611016",
+        "contentConsistency": {
+          "output": true,
+          "input": true,
+          "promptFile": true,
+          "submittedPrompt": true,
+          "toolOriginal": true
+        }
+      }
+    ]
+  },
+  "visualInspection": {
+    "status": "current-static-browser-view-complete",
+    "page": "chat-included-observe-v1.html",
+    "pageUrl": "http://127.0.0.1:5188/来源记录/2026-10-25-literary-room/soyo/chat-layers/chat-included-observe-v1.html",
+    "pageSha256": "72c3daa1ce66cc7eb12364adecace7d28f218ef172aff767bd0a71685de14de6",
+    "observations": [
+      "Browser静态实看原母vs正确BG+一次原RGB联合主体，整景比例、脸、双手翻开的薄册与原制服维持来源。",
+      "实看浅底、深底与棋盘的上/下主体，以及脸发、双掌/书、全部裙边座面、两鞋鞋底鞋跟和邻近地面。",
+      "深色裙摆下缘、两条白饰边、完整棕鞋与其鞋跟保持原母RGB；未拿新图补画RGB。",
+      "接触选择的座垫部分有被原裙摆/身体遮挡的原位关系；S不被包装成纯独立caster。棋盘底可见鞋外缘的窄幅原地板材质。",
+      "在正确匹配BG上的实际合成保持座/鞋接触，未看到整块房间RGB通过覆盖。"
+    ],
+    "specificIssues": [],
+    "atUtc": "2026-10-25T11:34:17.311620+00:00",
+    "browser": "Chrome extension via cua_repl; agent-owned 5188 observation tab only",
+    "statesViewed": [
+      "#scene original mother versus actual matching BG + union",
+      "#subject upper and lower portions on light/dark/checker",
+      "#face original RGB/union/actual composition",
+      "#book hands and full held booklet",
+      "#hem complete garment edge and seat reception",
+      "#heel both complete soles/heels and local floor"
+    ],
+    "producerRaisedObservations": [
+      "深底在头顶右侧可见细浅蓝/亮色原背景混色边，留主审放大判断；未声明完全无色边。",
+      "座面S有一部分位于人物/裙摆覆盖内，联合显示不等于独立接触影分离成功。"
+    ],
+    "primaryResolution": "Root personally checked three-way face/hem/heel and fixed composite: bright hair edges are natural original window light; no white seam or obvious patch."
+  },
+  "review": {
+    "approvedByPrimary": true,
+    "primaryApproved": true,
+    "runtimeAccepted": false,
+    "producerRecommendation": "exact static included union primary-approved; runtime pending",
+    "separateCastShadowClaim": false,
+    "contactAssemblyRecord": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\chat-layers\\soyo-chat-apricot-literary-included-primary-admission-v1.json",
+    "layoutPlacement": {
+      "sourceCanvas": [
+        1536,
+        1024
+      ],
+      "bodyBoundsNormalized": [
+        0.4869791666666667,
+        0.1025390625,
+        0.7473958333333334,
+        0.8642578125
+      ],
+      "boundsStatus": "conservative visual references from this exact visible source, not hidden anatomy certification",
+      "sourceSeat": [
+        0.6770833333333334,
+        0.576171875
+      ],
+      "sourceGround": [
+        0.5403645833333334,
+        0.8447265625
+      ],
+      "actualBodyLocation": "middle-right window bench, use this own source bounds, not Sakiko template",
+      "layoutRecommendation": "choose paper/stacked from this own visible source bounds; no template substitution",
+      "safeTextBoundaryStatus": "provisional single-side reference only, not permission to force left paper layout"
+    }
+  },
+  "runtimeIntegration": false,
+  "scopeBoundary": {
+    "srcEdits": false,
+    "worktreeEdits": false,
+    "registrationEdits": false,
+    "pngEdits": false,
+    "newTests": false,
+    "portChanges": false,
+    "children": false
+  },
+  "sourceUnchangedVerification": {
+    "mother": true,
+    "background": true,
+    "F": true,
+    "S": true,
+    "verifiedByActualSha256": true
+  },
+  "requiredRuntimeSemantics": [
+    "show only whole fixed union when showFigure and motherReady and not failed",
+    "gate exact original mother SHA and own pose/room",
+    "hide/remove whole union when character/theme/pose changes or figure hides",
+    "BG then single source-RGB union; no separate shadow draw",
+    "travel/slope/perspective remain zero",
+    "no runtime verification performed in this task"
+  ],
+  "primaryAdmissionRecord": "soyo-chat-apricot-literary-included-primary-admission-v1.json",
+  "selectedSourceClosure": "chat-included-selected-source-closure-v1.json"
+}

@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "imagegen-contact-matte-step2",
+  "primary": false,
+  "runtime": false,
+  "tool": "built-in image_gen.imagegen",
+  "prompt": "Use case: background-extraction.\nAsset type: SAME-CANVAS LUMINANCE CONTACT-SHADOW MASK ONLY, second step of the extraction.\nImage 1 is the sole input: the 1536x1024 original Tomori room marked in step 1, derived from the sole approved mother. Keep its exact full canvas and pixel positions. Do not recenter, crop, zoom, enlarge, shift or invent any shape.\nPreserve ONLY the deliberately painted pure-white contact-shadow marks at their EXACT existing coordinates. Keep those marks WHITE, and turn absolutely EVERYTHING ELSE pure BLACK. The selected marks are the tiny irregular white band immediately under the plaid skirt/rear hip on the right bench (around x1278..1388,y582..601), the small white palm-to-cushion contact under the right resting hand (around x1388..1446,y580..597), and the white fringes immediately under both loafers (around x1153..1271,y746..791).\nThe original white/ivory curtain, sky clouds, bright sunlit cushion, notebook, shirt, shoes highlights and every other natural light surface are NOT selection marks and MUST become black. The girl herself, her skirt, face, hands, socks, shoes, all furniture and the whole room become black. Preserve only the three groups of white selection marks made in step 1. They must stay narrow and follow the source contact contours. Do not fill a rectangular ROI, connect distant groups, make oval blobs or invent a new cast shadow.\nOutput one opaque black-and-white 1536x1024 PNG. Pure black background; original-position white contact marks with at most the same thin soft grey boundary. No RGB scene, no color, no checkerboard, no labels, arrows, text, borders, or split panels. This will select the ORIGINAL mother RGB, so preserve the selection's source coordinates exactly.",
+  "input": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mygo-a/tomori-chat-contact-v2-step1-marked.png",
+    "sha256": "a0a092644ef49fe04907379e983395f0bb0491ba4796e7905f8a6cd7f660c6e7",
+    "role": "sole step1 white-marked same-canvas derivative of approved mother",
+    "originalMotherSha256": "7e2d61d5874ede02beba0808b329b18922dfe6b3f20f2d923a9c2ea4c22978d9"
+  },
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mygo-a/tomori-chat-contact-v2-step2-mask.png",
+    "originalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17125-a57d-70f3-9b8f-9ecfd8cef13e\\exec-ec8830bf-e6c4-4dc7-851c-0410485cb93f.png",
+    "executionId": "exec-ec8830bf-e6c4-4dc7-851c-0410485cb93f",
+    "sha256": "81f31068cd2be24b2a9e9a2cc4308ed13a47dd047caec2aee0bc3f696753e17b",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 281203,
+    "originalOutputLastWriteTimeUtc": "2026-10-25T08:07:33.9985571Z"
+  },
+  "scope": "Contact-shadow luminance mask only. Every color in technical replay will come from the unchanged original mother.",
+  "status": "rejected_observed_vertical_drift",
+  "inspection": {
+    "seatWhiteBounds": [
+      1266,
+      557,
+      1334,
+      564
+    ],
+    "palmWhiteBounds": [
+      1401,
+      561,
+      1440,
+      572
+    ],
+    "reason": "Source seat ROI is y582..604; generated mask moved contact marks upward."
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "recordType": "time-only-neutral-complete-mother-imagegen-candidate",
+  "character": "umiri",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "palette": "mist",
+  "light": "morning",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "weatherClaim": false,
+  "tool": "built-in image_gen.imagegen",
+  "toolArguments": {
+    "prompt": "Use case: illustration-story.\nAsset type: complete opaque original companion mother illustration for Zaichang, purpose neutral-presence, time-only day (palette mist, light morning). It is a project-original imagined quiet companionship moment, not a canonical anime event, an actual user memory, a claim of reading user material, or a completed task.\nOutput ONE complete 1536 x 1024 landscape image, no transparency, text, border, UI, label, watermark, collage or comparison panel.\n\nREFERENCE ROLES AND SPACE:\nInput 1 is the root-approved EMPTY literary-room-time-day-v1 plate, the authoritative exact camera, full canvas, room geometry, support surfaces and target light. Preserve that close family camera, the left timber shelves/desk/chair, the foreground plant, central round table and its unchanged ceramic lamp/books/cup/flowers, the long RIGHT window bench, its actual ivory cushion and pillows, the knitted throw at far right, existing floorboards and rug. Do not zoom, crop, move or redesign furniture. Do not invent a new chair or foreground desk.\nThe milk-white opaque INNER CURTAINS stay fully CLOSED across ALL window panes, including their central seam. There is absolutely no readable exterior, sky, rain, wet glass, sun, cloud, skyline, lake or outdoor-weather clue. The faint central cloth/wood seam is not an open gap. This is DAY only, WEATHER UNKNOWN. Preserve the plate's broad softly transmitted neutral daylight and gentle existing lamp warmth; NO hard window-grid/leaf sun streaks, no overcast-weather assertion, no mist inside, no global blue or green tint. Relight the WHOLE person, hands, clothing, paper, cushion and floor coherently within that existing light. This is not an unchanged portrait pasted on a photographic room.\nInput 2 is the ROOT-APPROVED new independent Umiri YOUTH-V3 avatar, the authoritative same-character youthful identity reference: keep its short soft facial relationships, intelligent gray-teal eyes, charcoal flipped-tip hair and modest warm closed smile. Repaint her complete head, body, clothing and expression together within this room's light; do not paste avatar pixels or turn her into a doll. Do not revert to the old v2 face, use a 3D official model or replace the small personal smile with an exaggerated grin. Keep a naturally short soft chin, youthful fuller cheeks and intelligent original anime identity, without infant eyes, baby proportions or adult cosmetics.\n\nCOMPOSITION AND SUPPORT:\nOnly ONE person on the RIGHT bench, at this family's natural full-body bench scale: complete head and both complete shoes visible with source margins, head roughly in the right third and feet on the lower-right wood. Preserve left/central clear working space. Do not enlarge her to a portrait, put her in front of the table, make her sit on air or shift the room to fit her.\nHer pelvis truly rests on the actual cushion; the clothing drapes around the seat contact and the cushion responds subtly. Spine, hips, thighs, separate knees, calves, ankles and complete footwear form natural continuous chains with honest overlap. Both feet can rest comfortably on the same existing wood floor in this chosen uncrossed seated pose, full toe/sole/heel contour visible. No crossed or twisted legs, no fused calves, extra limbs, floating objects, hand pointing into space, or hidden bad joints covered by props. There is a real local seat contact and short soft shoe grounding, not a black generic ellipse.\nRender as one refined youthful 2D anime-and-painterly literary illustration: delicate variable linework, natural face planes, readable expressions, soft cloth and material-specific room bounce. Preserve the room's luminous air and restrained texture; no 3D doll, glossy figurine, mature fashion photograph, heavy makeup, long maternal face, thick black eye contour, blank robotic stare or forced hostess grin.\n\nUMIRI, THIS PARTICULAR MOMENT:\nYahata Umiri had been reading a small book of her own, with no connection to a user's private document or schedule. She has just let its cover settle nearly closed on her thigh, one finger still honestly keeping her place between the actual pages. A small dry joke has been understood by the familiar person sitting offscreen at her left. She looks over before offering any solution. Her pale gray-teal eyes soften and stay clear, the brow tension releases a little, and a definite but modest closed-mouth smile curves more at one corner. There is young amused trust in it, not a poker face, tired half-lidded stare, business hostess smile or exaggerated laughing face.\nHer torso is comfortably angled a little toward that person. She has allowed herself to lean back slightly because she does not have to manage anything at this instant; her far palm rests and bears a little weight on the actual cushion beside her hip, fingers naturally spread along the cloth. The other hand keeps the nearly closed book low and stable on her own thigh, with a real thumb-and-finger cover/page contact. No raised empty hand, no floating pencil, no pointing to an imaginary row. Her hips remain on the right bench, both separate knees fall in an easy uncrossed relation, calves lead naturally to both boots on the existing wood. If conversation stops, she can simply return to her own page; she is present rather than waiting for an assignment.\nShe is recognizably the SAME Umiri: charcoal-gray near-black shoulder-length medium-short hair, directional layered bangs with softly flipped outward ends; light gray-teal/blue-gray eyes; intelligent youthful cheek and brow relationships. Keep a short soft lower face and naturally rounded youthful cheek volume without baby eyes, long pointed jaw, mature makeup or model-like lips.\nUse the COMPLETE official-shown PUNK CASUAL outfit, coherently translated into 2D: short BLACK leather jacket with lapels, modest real zips/snaps and naturally creased elbows; dark red short top; gray high-waist short skirt, black belt; thin black choker and small silver ear jewelry. Bare lower legs with NO added stockings or knee socks. BOTH complete BLACK lace-up chunky PLATFORM mid-calf boots, modest shaft/strap details, substantial soles and visible toes/heels on the floor. Do not mix the camel sailor school uniform, red school bow, blue knee socks, brown loafers, stage shorts or stage high boots. Black leather and boots stay readable as real materials under soft daytime bounce; no featureless plastic shell or black silhouette.\nThe only new small object is her own small nearly closed book, with indistinct non-readable page marks; not a list, completed calendar, tool result or proof that she read user material. Reliable gentleness comes from the relaxed attentive eye contact and this retained little place in her own book. No new equipment or elaborate accessories.\nThe quiet neutral daytime, fully closed curtain and exact room camera are non-negotiable. A whole integrated original Umiri-and-room image, not a cutout or UI mockup.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.png",
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/avatars/umiri-avatar-youth-v3.png"
+    ],
+    "transparent_background": false
+  },
+  "submittedPrompt": "Use case: illustration-story.\nAsset type: complete opaque original companion mother illustration for Zaichang, purpose neutral-presence, time-only day (palette mist, light morning). It is a project-original imagined quiet companionship moment, not a canonical anime event, an actual user memory, a claim of reading user material, or a completed task.\nOutput ONE complete 1536 x 1024 landscape image, no transparency, text, border, UI, label, watermark, collage or comparison panel.\n\nREFERENCE ROLES AND SPACE:\nInput 1 is the root-approved EMPTY literary-room-time-day-v1 plate, the authoritative exact camera, full canvas, room geometry, support surfaces and target light. Preserve that close family camera, the left timber shelves/desk/chair, the foreground plant, central round table and its unchanged ceramic lamp/books/cup/flowers, the long RIGHT window bench, its actual ivory cushion and pillows, the knitted throw at far right, existing floorboards and rug. Do not zoom, crop, move or redesign furniture. Do not invent a new chair or foreground desk.\nThe milk-white opaque INNER CURTAINS stay fully CLOSED across ALL window panes, including their central seam. There is absolutely no readable exterior, sky, rain, wet glass, sun, cloud, skyline, lake or outdoor-weather clue. The faint central cloth/wood seam is not an open gap. This is DAY only, WEATHER UNKNOWN. Preserve the plate's broad softly transmitted neutral daylight and gentle existing lamp warmth; NO hard window-grid/leaf sun streaks, no overcast-weather assertion, no mist inside, no global blue or green tint. Relight the WHOLE person, hands, clothing, paper, cushion and floor coherently within that existing light. This is not an unchanged portrait pasted on a photographic room.\nInput 2 is the ROOT-APPROVED new independent Umiri YOUTH-V3 avatar, the authoritative same-character youthful identity reference: keep its short soft facial relationships, intelligent gray-teal eyes, charcoal flipped-tip hair and modest warm closed smile. Repaint her complete head, body, clothing and expression together within this room's light; do not paste avatar pixels or turn her into a doll. Do not revert to the old v2 face, use a 3D official model or replace the small personal smile with an exaggerated grin. Keep a naturally short soft chin, youthful fuller cheeks and intelligent original anime identity, without infant eyes, baby proportions or adult cosmetics.\n\nCOMPOSITION AND SUPPORT:\nOnly ONE person on the RIGHT bench, at this family's natural full-body bench scale: complete head and both complete shoes visible with source margins, head roughly in the right third and feet on the lower-right wood. Preserve left/central clear working space. Do not enlarge her to a portrait, put her in front of the table, make her sit on air or shift the room to fit her.\nHer pelvis truly rests on the actual cushion; the clothing drapes around the seat contact and the cushion responds subtly. Spine, hips, thighs, separate knees, calves, ankles and complete footwear form natural continuous chains with honest overlap. Both feet can rest comfortably on the same existing wood floor in this chosen uncrossed seated pose, full toe/sole/heel contour visible. No crossed or twisted legs, no fused calves, extra limbs, floating objects, hand pointing into space, or hidden bad joints covered by props. There is a real local seat contact and short soft shoe grounding, not a black generic ellipse.\nRender as one refined youthful 2D anime-and-painterly literary illustration: delicate variable linework, natural face planes, readable expressions, soft cloth and material-specific room bounce. Preserve the room's luminous air and restrained texture; no 3D doll, glossy figurine, mature fashion photograph, heavy makeup, long maternal face, thick black eye contour, blank robotic stare or forced hostess grin.\n\nUMIRI, THIS PARTICULAR MOMENT:\nYahata Umiri had been reading a small book of her own, with no connection to a user's private document or schedule. She has just let its cover settle nearly closed on her thigh, one finger still honestly keeping her place between the actual pages. A small dry joke has been understood by the familiar person sitting offscreen at her left. She looks over before offering any solution. Her pale gray-teal eyes soften and stay clear, the brow tension releases a little, and a definite but modest closed-mouth smile curves more at one corner. There is young amused trust in it, not a poker face, tired half-lidded stare, business hostess smile or exaggerated laughing face.\nHer torso is comfortably angled a little toward that person. She has allowed herself to lean back slightly because she does not have to manage anything at this instant; her far palm rests and bears a little weight on the actual cushion beside her hip, fingers naturally spread along the cloth. The other hand keeps the nearly closed book low and stable on her own thigh, with a real thumb-and-finger cover/page contact. No raised empty hand, no floating pencil, no pointing to an imaginary row. Her hips remain on the right bench, both separate knees fall in an easy uncrossed relation, calves lead naturally to both boots on the existing wood. If conversation stops, she can simply return to her own page; she is present rather than waiting for an assignment.\nShe is recognizably the SAME Umiri: charcoal-gray near-black shoulder-length medium-short hair, directional layered bangs with softly flipped outward ends; light gray-teal/blue-gray eyes; intelligent youthful cheek and brow relationships. Keep a short soft lower face and naturally rounded youthful cheek volume without baby eyes, long pointed jaw, mature makeup or model-like lips.\nUse the COMPLETE official-shown PUNK CASUAL outfit, coherently translated into 2D: short BLACK leather jacket with lapels, modest real zips/snaps and naturally creased elbows; dark red short top; gray high-waist short skirt, black belt; thin black choker and small silver ear jewelry. Bare lower legs with NO added stockings or knee socks. BOTH complete BLACK lace-up chunky PLATFORM mid-calf boots, modest shaft/strap details, substantial soles and visible toes/heels on the floor. Do not mix the camel sailor school uniform, red school bow, blue knee socks, brown loafers, stage shorts or stage high boots. Black leather and boots stay readable as real materials under soft daytime bounce; no featureless plastic shell or black silhouette.\nThe only new small object is her own small nearly closed book, with indistinct non-readable page marks; not a list, completed calendar, tool result or proof that she read user material. Reliable gentleness comes from the relaxed attentive eye contact and this retained little place in her own book. No new equipment or elaborate accessories.\nThe quiet neutral daytime, fully closed curtain and exact room camera are non-negotiable. A whole integrated original Umiri-and-room image, not a cutout or UI mockup.",
+  "originalToolOutput": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-d0caff51-e77e-4949-9512-d74bfa671f34.png",
+  "outputFile": "umiri-neutral-presence-time-day-v1.png",
+  "creationIntent": "她自己的小书刚阖到留页位置，熟悉的人接住一句干幽默，她先抬眼，不立刻变成安排事情的人。肩颈松下、短促会意闭口笑，掌心仍真实支撑身侧软垫；若对方沉默，她可以继续自己的书。",
+  "canonBoundary": "Project-original imagined companion moment only. Canon identity and complete punk casual outfit follow the dossier; no real user document, task completion, saved memory or canonical relationship is asserted.",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.png",
+      "role": "root-approved exact empty time-day plate for camera/space/light",
+      "sha256": "aa4ce3dcab5cd2366c9f1c4eadcff0ab85537ab45e5a3b0643c4d01588e6e247"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/avatars/umiri-avatar-youth-v3.png",
+      "role": "root-approved new Umiri independent youth-v3 same-character facial identity; not the old v2 or a scene crop",
+      "sha256": "560073dc61f3dee7e48052d3f0cfe16bba041071b8b8ec2889bb7de9bdb565ef"
+    }
+  ],
+  "documents": [
+    ".agents/skills/zaichang-frontend-director/SKILL.md",
+    "C:/Users/17601/.codex/skills/.system/imagegen/SKILL.md",
+    ".agents/skills/zaichang-frontend-director/references/characters/umiri.md",
+    ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.primary-approval.json",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/avatars/root-primary-avatar-admission-v3.json"
+  ],
+  "producerObservation": {
+    "personallyViewedCompleteToolOutput": true,
+    "identityEmotion": "深灰外翘中短发/灰青眼、短柔青春脸与小幅会意微笑可见，黑颈带与小银耳饰保留；不是成熟长脸或无表情。",
+    "wardrobe": "黑短皮夹克/暗红上衣/灰高腰裙与黑带成套，裸小腿，黑系带厚底中筒靴完整，未混舞台/校服袜鞋。",
+    "handsObject": "一手落在自己小书真实上缘与页块，另一手掌真实压在右侧软垫，未悬指；书实际半阖开度比‘nearly closed’略大，如实保留。",
+    "support": "骨盆与裙摆落实际榻面，两独立膝/小腿至双靴连续、脚尖/厚底/后跟完整接木地，背靠小幅放松而非悬空。",
+    "spaceLight": "合闭内帘无可读室外天气，左桌椅/中央灯桌/榻与地板关系沿净plate；柔日光和原灯暖光联合，未见保留硬晴天窗格阳斑。",
+    "limitations": "母图只为待root逐原图审的STATIC候选，尚未延夜/制layers或接runtime/360。"
+  },
+  "primaryApproved": false,
+  "layersApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "dynamicAdmission": false,
+  "original360CreditAssigned": false,
+  "nightProductionStarted": false,
+  "rawPixelEditing": false,
+  "sourcePNGCopyOnly": true,
+  "recordedAtUTC": "2026-10-26T00:18:36.462012+00:00",
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-day-v1.png",
+    "sha256": "5daa0e42c8ef945858ebdc5f065270c14989d4d1d107756ab8667600af797108",
+    "bytes": 2383284,
+    "originalToolOutputSHA256": "5daa0e42c8ef945858ebdc5f065270c14989d4d1d107756ab8667600af797108",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "documentVersions": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/SKILL.md",
+      "sha256": "d3dafe3e370dfe2aa6bbd522dd64242efb6e9dbed265daa0b68a9532734e1a58",
+      "readScope": "complete relevant document"
+    },
+    {
+      "path": "C:/Users/17601/.codex/skills/.system/imagegen/SKILL.md",
+      "sha256": "706d4d96e1d5c9e6023fe3ccabba1bb34b364024d344fd25b8515ec7d28fe3c4",
+      "readScope": "complete relevant document"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/umiri.md",
+      "sha256": "760b038d3ff84a770c80bf6144e52265d8109e41ecd5cb3440408561ac2bc0da",
+      "readScope": "complete relevant document"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "readScope": "complete relevant document"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.primary-approval.json",
+      "sha256": "52fbcfab5828226ba97e486aaf20e2d5896d3744c349094129602faef22e7f72",
+      "readScope": "complete relevant document"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/avatars/root-primary-avatar-admission-v3.json",
+      "sha256": "be81de9c688f5ccdc09e8794f1adfba5f435999a68ad7b7b1771dc68d1eeac1e",
+      "readScope": "complete relevant document"
+    }
+  ],
+  "promptFileSHA256": "607ab554185be050a5d6577f8937412a07d035a382fc13a5389737d02002d060",
+  "submittedPromptSHA256": "7e11585b2f199ee4822d81cfaa355ece986250cdcba2cb26e5bf9a4592eba9ce"
+}

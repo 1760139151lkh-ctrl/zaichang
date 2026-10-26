@@ -1,0 +1,126 @@
+{
+  "id": "sakiko-reading-apricot-d01-rig-v1",
+  "width": 1536,
+  "height": 1024,
+  "source": "../../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-mother.png",
+  "cleanPlate": "sakiko-reading-book-repair-v1.png",
+  "arm": {
+    "sourcePose": {
+      "image": "sakiko-reading-right-arm-unoccluded-v1.png",
+      "shoulder": [
+        1350,
+        443
+      ],
+      "elbow": [
+        1325,
+        508
+      ],
+      "wrist": [
+        1282,
+        515
+      ]
+    },
+    "erasePath": "M 1335 433 C 1352 430 1367 445 1363 466 L 1351 496 C 1344 515 1328 527 1309 528 L 1273 532 L 1243 530 L 1239 508 L 1251 499 L 1287 495 L 1311 492 L 1321 467 Z",
+    "upperPath": "M 1344 435 C 1354 432 1365 444 1363 459 L 1353 487 C 1348 502 1343 511 1334 518 L 1315 512 C 1313 504 1322 485 1327 472 L 1336 449 Z",
+    "forearmPath": "M 1320 497 C 1331 495 1340 502 1341 512 L 1328 526 L 1284 529 C 1277 531 1263 530 1254 527 L 1244 522 L 1238 515 L 1244 503 C 1252 496 1266 498 1278 505 L 1291 504 Z",
+    "shoulder": [
+      1350,
+      443
+    ],
+    "elbow": [
+      1325,
+      508
+    ],
+    "wrist": [
+      1282,
+      515
+    ],
+    "foregroundSource": "sakiko-reading-book-repair-v1.png",
+    "foregroundPath": "M 1226 479 L 1248 484 L 1267 497 L 1300 490 L 1315 502 L 1346 531 L 1338 545 L 1290 548 L 1262 534 L 1245 511 Z",
+    "foregroundRestorePath": "M 1310 515 C 1318 511 1337 511 1354 518 L 1394 515 L 1420 501 L 1445 503 L 1446 532 C 1437 550 1420 558 1395 554 L 1353 544 C 1344 542 1338 543 1326 539 L 1313 533 Z"
+  },
+  "eyes": {
+    "cleanPlate": "sakiko-reading-eye-white-clean-v1.png",
+    "apertures": [
+      {
+        "path": "M 1351 386 C 1355 382 1362 382 1366 384 C 1367 388 1363 393 1358 393 C 1355 393 1352 390 1351 386 Z",
+        "irisPath": "M 1356 384 C 1359 382 1363 384 1364 387 C 1364 391 1361 394 1358 392 C 1355 390 1355 387 1356 384 Z",
+        "center": [
+          1359.5,
+          388
+        ]
+      },
+      {
+        "path": "M 1376 381 C 1380 377 1389 376 1394 380 C 1394 385 1389 388 1384 389 C 1380 389 1377 386 1376 381 Z",
+        "irisPath": "M 1381 379 C 1385 376 1390 379 1391 382 C 1390 387 1385 389 1382 386 C 1380 384 1380 381 1381 379 Z",
+        "center": [
+          1385,
+          383
+        ]
+      }
+    ],
+    "travel": [
+      2,
+      1.2
+    ]
+  },
+  "head": {
+    "background": "../../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-background-calibrated-v3.png",
+    "erasePath": "M 1346 324 C 1358 309 1377 305 1396 312 C 1420 312 1439 329 1441 351 C 1441 373 1431 393 1414 407 L 1403 431 L 1376 443 L 1369 422 C 1351 418 1342 401 1337 380 C 1330 361 1334 338 1346 324 Z",
+    "path": "M 1346 324 C 1358 309 1377 305 1396 312 C 1420 312 1439 329 1441 351 C 1441 373 1431 393 1414 407 L 1403 431 L 1376 443 L 1369 422 C 1351 418 1342 401 1337 380 C 1330 361 1334 338 1346 324 Z",
+    "pivot": [
+      1388,
+      433
+    ],
+    "foregroundPath": "M 1363 433 L 1387 438 L 1403 427 L 1413 444 L 1398 469 L 1388 487 L 1370 476 L 1363 456 Z",
+    "maxTilt": 1
+  },
+  "production": {
+    "sceneCalibration": "../../../../运行素材/companion/scenes/sakiko-reading-apricot.scene.json",
+    "coordinateSpace": "mother-pixels",
+    "registeredSceneId": "sakiko-reading-apricot-room4",
+    "currentActivity": "reading",
+    "rootTransform": "existing fixed reading actor; travel/slope/perspective remain zero",
+    "noCrossFamilyPixels": true,
+    "rightHandBookContact": [
+      1253,
+      515
+    ],
+    "rightWrist": [
+      1282,
+      515
+    ],
+    "leftHandBookSupport": [
+      1335,
+      524
+    ],
+    "bookOwner": "original left hand and lap; never follows the released right hand",
+    "handSequence": "right hand loosens/releases first; left supporting hand and book remain fixed; right arm makes a small indication and returns to the same book edge",
+    "suggestedWristLiftPixels": [
+      12,
+      20
+    ],
+    "sourcePoseUse": "Only the complete right-arm/hand pixels are clipped from the bookless source plate. Never display the whole bookless image.",
+    "repairPlateUse": "Only the old right-arm/hand repair and book foreground are admitted. Restore the original left supporting hand/forearm over the repaired book.",
+    "layerOrder": [
+      "fixed original reading actor/root",
+      "local old-right-arm repair",
+      "sourcePose upper arm",
+      "sourcePose complete forearm/hand",
+      "clean repaired book foreground",
+      "original fixed left supporting hand/forearm",
+      "front head with eye-white/original iris",
+      "original collar"
+    ],
+    "runtimeReview": "pending integrated optical, joint and contact review; no approval inferred from these seed paths",
+    "staticReview": "producer and component owner inspected original reading mother/background and all three local source/repair plates",
+    "motionVerified": false,
+    "inAppVerified": false,
+    "remaining": [
+      "Exact upper sleeve/hair edge and elbow overlap under movement.",
+      "Original left-hand/book restoration and right-hand return contact.",
+      "Eye aperture and head/collar edge at all motion states.",
+      "Interrupted gesture, retarget, yield and settle on the actual saved reading pose."
+    ]
+  }
+}

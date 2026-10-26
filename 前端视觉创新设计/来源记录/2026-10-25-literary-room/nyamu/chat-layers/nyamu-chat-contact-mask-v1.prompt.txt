@@ -1,0 +1,11 @@
+Use case: background-extraction.
+Asset: LOCAL INCLUDED CONTACT-RECEIVER luminance mask, S step 2 of 2.
+The attached image is the ONLY input: original 1536×1024 Nyamu chat scene with actual local contact-receiving regions already deliberately painted pure WHITE. Preserve full canvas and EXACT EXISTING WHITE MARK positions, contours and thin antialias. Do not reinterpret or redraw a shadow.
+Keep only the deliberately WHITE irregular groups:
+1. The narrow original seat/linen strip directly below the black skirt/rear hip (finding limits x985..1345,y530..625).
+2. The tiny original receiver immediately under the seat-support palm/fingertips (x1290..1385,y550..615), not the hand.
+3. Existing thin irregular white marks at and immediately under BOTH complete black shoe toe/sole contours and low heel blocks (x800..1145,y810..935), preserving source arch/background gaps.
+Coordinates are finding bounds, NEVER white rectangles or boxes. Keep the exact marks already present, not a generic ellipse, no thick new connected oval or invented shadow.
+Turn EVERYTHING else pure BLACK, including all person/hair/face/grey blouse/skin/hands/black skirt/legs/straps/shoes, naturally bright cream seat/throw/plaid lines, lamp shades/flowers/curtains/clouds, room sun highlights/floor lattice, rug, furniture and unrelated shadows. Natural white room highlights are NOT deliberate selection marks.
+This is a FIXED INCLUDED source-contact receiver component that will be united with foreground, not a clean independent portable caster. Do not move the seat band onto the lap, enlarge shoe marks, connect distant groups, center or resize anything.
+Output exactly ONE opaque 1536×1024 BLACK PNG canvas with only these existing local receiver marks WHITE, thin grey outer antialias allowed. No colored room, new body, text/labels, arrows, boxes, grid, checkerboard or split view.

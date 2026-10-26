@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "recordType": "time-only-neutral-presence-night-mother-candidate",
+  "characterId": "tomori",
+  "sceneFamily": "literary-room-v1",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "environmentVariant": "time-night",
+  "neutralTime": "night",
+  "weather": "unknown",
+  "weatherClaim": "none; complete opaque inner curtain",
+  "originalInteraction": "Same approved day moment: her pencil pauses over her own short phrase while eyes lift toward familiar left-front companion; not a user-document or canonical event claim",
+  "wardrobeId": "tomori-movie-haneoka-school-structure",
+  "tool": "image_gen.imagegen",
+  "recordedAt": "2026-10-26T00:35:06.883172+00:00",
+  "sourceConversationId": "01a17365-def4-7ef0-9767-09f785cec060",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.png",
+      "sha256": "d9c41c4278dd8a4efae1a91102e16349ad4dcf9829963c31ddc421dfc3652253",
+      "purpose": "Only approved time-night room/camera/opaque-curtain/full light target",
+      "personallyViewedBeforeGeneration": true,
+      "rootApprovedForThisRole": true
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/tomori-neutral-time-day-v1.png",
+      "sha256": "ee943e04da7a50748d3e331ed4339548b842388027d0a5fe360e95a4c2d270b7",
+      "purpose": "Exact root-approved same-character day full mother: entire pose/scale/gaze/book-pencil/wardrobe/support only; not daylight",
+      "personallyViewedBeforeGeneration": true,
+      "rootApprovedForThisRole": true
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/portrait/tomori-avatar-youth-v3.png",
+      "sha256": "986470992b8c303016d9b7b383138d5f2c66f962fb4453939cf0feeb43c6a9b9",
+      "purpose": "Exact root-approved youth-v3 identity portrait only; no portrait-scale head or copied avatar expression",
+      "personallyViewedBeforeGeneration": true,
+      "rootApprovedForThisRole": true
+    }
+  ],
+  "inputApprovalRecords": [
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.primary-approval.json",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/root-primary-day-and-avatar-admission-v1.json"
+  ],
+  "exactSubmittedPrompt": "Use case: lighting-weather with NO weather claim. Produce ONE complete 1536 x 1024 literary 2D NIGHT mother of the SAME Tomori from the approved day scene for 在场. The actual weather is UNKNOWN. This is time-only neutral companionship, not a canon anime scene or proof of reading a user document.\n\nSTRICT REFERENCE ROLES:\nInput 1, the root-approved literary-room-TIME-NIGHT empty plate, is the ONLY target for the room camera, opaque closed curtain and WHOLE night illumination. Preserve the same left desk/chair/shelves/foreground plants/rug, round table/blue-floral ceramic lamp, RIGHT cushioned bench/checked pillows/knit throw. The existing ceramic lamp makes the local warm pool; far surfaces fall into gentle readable shadow. No new light fixture.\nInput 2, the ROOT-APPROVED Tomori TIME-DAY full mother, is the exact full-body/pose/wardrobe/scale/notebook/pencil/gaze base. Keep that same person in that same place. Its daylight exposure is NOT the lighting target.\nInput 3 is the ROOT-APPROVED independent Tomori youth-v3 portrait, ONLY youthful face identity: layered short gray-lilac hair, rose-brown irises, soft short cheek/chin. Do NOT paste a portrait head, change the room figure's scale, copy the portrait lighting or replace the day mother's specific expression with an unrelated avatar smile.\n\nKeep the day mother's camera/framing, head-to-body scale, crown/shoulder/hip/knee/ankle/shoe positions and actual bench support. No new leg pose, no random head enlargement, long jaw, stretched shins, torso twist or camera zoom. Complete head/hair, hands, notebook, skirt, knees, socks and BOTH full BLACK loafers remain within frame in essentially the original bounds. The feet stay naturally on the wooden floor; hips and thighs remain on the same cushion with their local compression. Do not turn the night into an excuse to conceal structural parts in black.\n\nTomori remains quietly sincere and absorbed in her OWN short phrase. Keep the pencil stopped at the actual open notebook on her thighs, her other hand steadying the page, and the same slightly lifted gaze toward the familiar companion at LEFT-FRONT. Her brows retain thought, her lips are only softly parted with a small tentative warmth; do not swap this for tired half-lids, crying, closed eyes or a generic broad smile. Her own little sentence is not the user's PDF or a saved product result. The actual hands/pencil/page contact and paper thickness should remain coherent, no empty pointing or floating book. Page marks are faint and illegible.\n\nKeep precisely the selected day uniform structure: gray-violet blazer with pale piping and gold buttons, white shirt/collar without invented central decorative ornament, dark green plaid pleated skirt, dark green BELOW-KNEE calf socks with both knees exposed, complete BLACK loafers. Maintain identity and fabric detail under night exposure; don't change to black tights, thigh-high socks, brown shoes, stage clothing or a different hairstyle. The fixed green garment stays its own color under warm reflections, no green atmosphere.\n\nREBUILD ALL LIGHT COHERENTLY AS A REAL FRESH IMAGE. The left ceramic-lamp glow should reach the near cheek, hair, shirt, notebook pages and cushion through plausible falloff and warm wood bounce. The far side of her face, hair locks, blazer folds, knees, socks and shoes must turn with that same warm dim room light. Paper, eye whites and collar must not remain luminous daylight stickers. Cloth cushion, hip contact and shoe-floor receiving shadows belong to the same night light. Retain readable rose-brown irises and gray-lilac hair base, not glowing eyes or bleached white hair. Subtle fine 2D lineweight remains integrated into the painted room, not a cutout with a separate studio spotlight or a global RGB filter.\n\nThe substantial ivory inner curtain is FULLY CLOSED and OPAQUE edge to edge, exactly the time-night target: no readable exterior gap, lake, sky, trees, town lights, stars, rain, snow or weather silhouette. No direct sun, no white daylight patch on person/seat/floor, no solar window-grid or leaf shadows. Its central seam is only cloth/hardware. No UI, panel, words, speech bubble, title, logo, avatar circle, border, new prop, cat or extra person. This output is solely a static time-night mother candidate, not a new independent action or runtime completion.",
+  "submittedPromptSha256": "4b87c645bf2307b7e6ba7fb89e16018fa572d17bb9d20d5f445411e2d3e57fea",
+  "promptFile": "tomori-neutral-time-night-v1.prompt.txt",
+  "promptFileSha256": "e3c6672d8b00736cf9a2f893d89c4234b11fc0a46f21c5bd63617c2562c5e835",
+  "requestFile": "tomori-neutral-time-night-v1.request.json",
+  "requestSha256": "a354361225c122a91b33fbc798ad640eaa31a790f74f796eeeeae808057f6524",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-1acb08f3-9eb9-4173-bcf1-a039cab1b77c.png",
+  "toolOriginalSha256": "36e1e2e4029d81914b4192cee8351d84b44fa0ef188c88910dd58d400a3e4300",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/tomori-neutral-time-night-v1.png",
+    "sha256": "36e1e2e4029d81914b4192cee8351d84b44fa0ef188c88910dd58d400a3e4300",
+    "bytes": 2137062,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true,
+    "resizedOrRetouched": false
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "observations": "Whole actual night output viewed: same seated Tomori scale/short hair/rose-brown eyes, pencil and supporting hand remain on actual lap notebook, head/gaze toward left-front and complete exposed knees/below-knee socks/black loafers retain the day relation. Full person, white collar, paper, cushion and wood now receive warm dim lamp exposure, far folds/shoes are readable in shadow rather than a separate day sticker. Original room/camera retained, opaque closed curtain conceals weather; no daytime window grid/white solar patch observed. Optical continuity only, not a claim of pixel-exact geometry or runtime registration.",
+    "staticOnly": true
+  },
+  "primaryApproved": true,
+  "generationInputAllowed": true,
+  "userApproved": false,
+  "layersProduced": false,
+  "runtimeAccepted": false,
+  "motionVerified": false,
+  "original360ExactActivityCell": false,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "uiOrScreenshotOrHoldOrOtherCharacterUsedAsInput": false,
+  "sourceCodeOrSceneRegistryChanged": false,
+  "status": "root_approved_static_time_only_night_mother",
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/SKILL.md",
+      "sha256AtRecord": "d3dafe3e370dfe2aa6bbd522dd64242efb6e9dbed265daa0b68a9532734e1a58",
+      "fullyRead": true
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256AtRecord": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "fullyRead": true
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/tomori.md",
+      "sha256AtRecord": "3a73a8f8299e7645ea96f6d07051a38bb2ccdb4b4e7e25e19eb08d51e2d08d3c",
+      "fullyRead": true
+    }
+  ],
+  "primaryReview": {
+    "reviewer": "root",
+    "record": "root-primary-night-admission-v1.json",
+    "scope": "neutral-presence/time-only static mother aesthetics/structure and same-mother layer-generation input only",
+    "exactMessage": "根代理已逐张亲看tomori/anon/rana三个night-v1母图（SHA36e1e2…4300、b8c250…b2d8、9188cb…6b9），全部通过本次 neutral-presence/time-only 的静态母图审美/结构准入：暖灯有全身明暗，书/纸与手和膝/坐垫支承连续，低头/迎视有对象，闭合不透明帘不冒报窗外天气；不是exact activity/360，也非runtime签验。"
+  }
+}

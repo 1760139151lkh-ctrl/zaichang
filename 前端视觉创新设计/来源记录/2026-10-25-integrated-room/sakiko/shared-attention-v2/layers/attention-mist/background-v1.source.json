@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "stage": "BG",
+  "recordType": "same-mother-layer-production",
+  "tool": "image_gen.imagegen",
+  "recordedAt": "2026-10-25T23:29:40.572129+00:00",
+  "sceneFamily": "literary-room-v1",
+  "characterId": "sakiko",
+  "activity": "attention",
+  "palette": "mist",
+  "motherSha256": "0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88",
+  "motherStaticApprovalEvidence": "../../sakiko-attention-mist-shared-page-v2.source.json",
+  "inputImages": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-mist-shared-page-v2.png",
+      "sha256": "0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88"
+    }
+  ],
+  "promptFile": "background-v1.prompt.txt",
+  "promptFileSha256": "bb0ba75157e7f2150927e37c8550bfcfb58daf1ec03957cab45124e3db75be8f",
+  "requestFile": "background-v1.request.json",
+  "exactSubmittedPrompt": "Use case: precise-object-edit. SAME-MOTHER EMPTY BACKGROUND for exactroot-approved Sakiko attention-MIST shared-page-v2,1536x1024. ONLY input is that cleancomplete originalmother, not a mask/plate/UI/composite.\nRemove ONLY entireSakiko/all finehair/ribbons, uniform/skin/hands/legs/calfsocks/complete shoes, her ONE openbook and her body/book/shoe-specific nearby compression/contact/castshade. Reconstruct the same actualroom directly behind: window/lake/town/mistedhills where hair/bodyhidthem, continuous original linen cushion without seatedcompression, woodbenchfront and floorplanks/softdiffuse reflections where legs/shoes/shadow were. No residualperson/book/shoe/hair silhouette/ghost, no replacementobject.\nKeep full1536x1024 originalcamera/framing and all actualfurniture/windowmullion/seatfront/tableleg/floor coordinates. This is objectremoval, NOT newroompainting/recolor/exposure/resize/crop/recenter/zoom. CURRENTliterary-room-v1: leftdesk/woodchair/shelves/plants, centralleftROUND sidetable withbluefloralceramiclamp/cup/smallbooks/vaseflowers, rightlongbench/pillows/checkpillow/knitthrow, actualcurtains/window/lake/town/cloudy misty mountains, floor/rug/foregroundplant. Preserve sameovercastday softlight onentire room/material, no hardsolarwindowgrid/leafsunpatch, no newnightlamp/nighttown/rain/snow, no CLOSED unknownweathercurtain. Do not change weather/material/perspective or shift/replacefixtures.\nGeneratedemptyBG laterreceives exactsourceRGB union oforiginalfigure/book/localreceiver atFIXEDsourcecoordinates. Match originalreceivinggeometry/light, keep all unrelatedroom/window/table castshadows/linenfolds and sourceartlineweight. Hiddenpixels are reconstructed, not excuse to redesignbench or blur/erase textures. One opaque cleanempty1536x1024SAME scene, noUI/text/panel/guides/extrafigures.",
+  "submittedPromptSha256": "02bf2c12c0dfdff2748f7ae99bc58ce4a5136f90e15de994fb64df4a891798b6",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-28bad77c-6872-4ef6-bb7c-53cda9310287.png",
+  "toolOriginalSha256": "db4e12b935f35db0a1351fda73714b6d7de7668d842ee07ebadf6c9c41650c1f",
+  "output": {
+    "file": "background-v1.png",
+    "sha256": "db4e12b935f35db0a1351fda73714b6d7de7668d842ee07ebadf6c9c41650c1f",
+    "bytes": 2370083,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "unchangedToolPngBytes": true
+  },
+  "producerReview": "Wholeoriginal viewed: girl/book/shoes/localcompression removed, continuous same-roomlinen/wood/floor/lake-window reconstructed, nofigureghost. HiddenBG pixels generated, not bitwiseclaim.",
+  "dossierVersion": "2026-10-25.1",
+  "wardrobeId": "sakiko-literary-navy-adaptation",
+  "selectionStatus": "producer-selected-after-native-browser-review",
+  "rgbOwner": "Original approvedmother ONLY, not markedimage RGB",
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "sourceConversationId": "01a17364-9725-7bd3-aa74-f7fa6487bfed",
+  "executionId": "exec-28bad77c-6872-4ef6-bb7c-53cda9310287",
+  "requestSha256": "3639ed6db46738d30fcd0ae0a70da6cfa5df3c761104995d528feb00b7d63ec3",
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256AtArchive": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "fullyReadForThisProduction": true
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256AtArchive": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "fullyReadForThisProduction": true
+    }
+  ],
+  "nativeBrowserReview": "attention-mist-included-bundle-v1.json"
+}

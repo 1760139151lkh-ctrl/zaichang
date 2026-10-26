@@ -1,0 +1,253 @@
+{
+  "schemaVersion": 1,
+  "characterId": "tomori",
+  "batch": 2,
+  "totalWaveCap": 24,
+  "completedCalls": 6,
+  "callOrdinals": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "entries": [
+    {
+      "assetId": "tomori-rest-mist-literary-v1",
+      "activity": "rest",
+      "palette": "mist",
+      "callOrdinal": 7,
+      "file": "tomori-rest-mist-literary-v1.png",
+      "sha256": "640f82d9e683d5c7700587c8af63a610a1becb4e8defa94dcf2b45f46c3c8c4d",
+      "bytes": 2359671,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "tomori-rest-mist-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-a/tomori-rest-apricot-literary-v1.png",
+          "sha256": "589d0b1ec8d39aa694513615bb7bdfecaaa79acfa96220492be112295bb66e8e",
+          "role": "image2: root-approved exact activity identity/pose/scale/support reference; original daylight not retained",
+          "primaryApprovalRecord": "../apricot-wave-a/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: same right-side settled sitting, sideward window gaze, relaxed thigh hand and seat palm with closed book beside her. Overcast diffuse light softens skin/uniform/book/linen/floor, no hard apricot grid. Short hair/eyelids/eyes distinct; hip/cushion and complete uncrossed legs/shoes preserve observed source support and scale; no new task gesture.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "Static quiet rest impression only; primary/layer/runtime remain false."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "tomori-rest-violet-literary-v1",
+      "activity": "rest",
+      "palette": "violet",
+      "callOrdinal": 8,
+      "file": "tomori-rest-violet-literary-v1.png",
+      "sha256": "ad4b45ea85c9fc92a5542e58d58dc9897ca2f79463f4cfbaf8c75e319363c670",
+      "bytes": 2239090,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "tomori-rest-violet-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-a/tomori-rest-apricot-literary-v1.png",
+          "sha256": "589d0b1ec8d39aa694513615bb7bdfecaaa79acfa96220492be112295bb66e8e",
+          "role": "image2: root-approved exact activity identity/pose/scale/support reference; original daylight not retained",
+          "primaryApprovalRecord": "../apricot-wave-a/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: same settled right-cushion/seat support, thigh hand, seat palm, closed book beside her and awake windowward gaze. Dusk sky and existing warm lamp illuminate clothing, skin, book/linen and floor together without lower-right noon grid. Eyes/fringe/lids remain distinct; complete shoes and coherent uncrossed legs retain source positions/scale.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "A warm knee-plane highlight is visible but no hard white daylight patch is claimed absent by measurement; primary/layer/runtime remain false."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "tomori-rest-rain-literary-v1",
+      "activity": "rest",
+      "palette": "rain",
+      "callOrdinal": 9,
+      "file": "tomori-rest-rain-literary-v1.png",
+      "sha256": "98c6991c281dd49dfb46b6efda979f3f8689b59a8fde8b1deed3d767e02d2418",
+      "bytes": 2211215,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "tomori-rest-rain-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-a/tomori-rest-apricot-literary-v1.png",
+          "sha256": "589d0b1ec8d39aa694513615bb7bdfecaaa79acfa96220492be112295bb66e8e",
+          "role": "image2: root-approved exact activity identity/pose/scale/support reference; original daylight not retained",
+          "primaryApprovalRecord": "../apricot-wave-a/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: same right-side relaxed support, palm on real seat, thigh hand, closed book beside and awake sideward gaze. Rainy dark outside/soft warm lamp light reach body/clothes/linen/floor together with no noon grid, no added grief. Full head and shoes/coherent uncrossed legs retained; eye/fringe/lid detail readable and room stable.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "Static rest/light impression, no measured radiometry or primary/layer/runtime claim."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "tomori-study-mist-literary-v1",
+      "activity": "study",
+      "palette": "mist",
+      "callOrdinal": 10,
+      "file": "tomori-study-mist-literary-v1.png",
+      "sha256": "b4ec3c42fdd15377e56f285ed5e1fcba2c0a5ec304bea067262d9446fc33c03e",
+      "bytes": 2377380,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "tomori-study-mist-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-b/tomori-study-apricot-literary-v1.png",
+          "sha256": "5d83c9d46e4919810cb0547c01da7f761823e7d16c438ff80f810b82edc3e9f6",
+          "role": "image2: root-approved exact activity identity/pose/scale/support reference; original daylight not retained",
+          "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: approved left-desk smaller-scale sitting, chair-seat/back geometry, forearms/paper/pencil and portable task lamp's actual mother position are retained. Overcast diffuse light softens paper/skin/uniform/desk/floor without apricot sun grid; bench remains empty. Readable three-quarter eyes/fringe; foreground plant naturally occludes lower legs/shoes as in the approved source.",
+        "bodyContour": {
+          "contourComplete": false,
+          "reason": "Natural source plant/furniture occlusion; hidden feet not invented."
+        },
+        "limits": "No full two-shoe/sole claim, new geometry calibration or primary/layer/runtime admission."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "tomori-study-violet-literary-v1",
+      "activity": "study",
+      "palette": "violet",
+      "callOrdinal": 11,
+      "file": "tomori-study-violet-literary-v1.png",
+      "sha256": "fa341244a7ba61b27566d4b2d5175e022d7e26e30ed96b0215505ac2065c787e",
+      "bytes": 2279434,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "tomori-study-violet-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-b/tomori-study-apricot-literary-v1.png",
+          "sha256": "5d83c9d46e4919810cb0547c01da7f761823e7d16c438ff80f810b82edc3e9f6",
+          "role": "image2: root-approved exact activity identity/pose/scale/support reference; original daylight not retained",
+          "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: approved desk/chair/forearm/paper/pencil geometry and source portable lamp position preserved; bench empty. Warm task/ceramic-lamp and twilight ambient light affect face, uniform, page, wood/chair and floor together without hard noon lattice. Three-quarter eyes/hair remain readable, with natural plant occlusion of lower legs/shoes.",
+        "bodyContour": {
+          "contourComplete": false,
+          "reason": "Root-source plant/furniture occlusion retained; no hidden-foot reconstruction."
+        },
+        "limits": "No full sole/foot proof or primary/layer/runtime admission."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "tomori-study-rain-literary-v1",
+      "activity": "study",
+      "palette": "rain",
+      "callOrdinal": 12,
+      "file": "tomori-study-rain-literary-v1.png",
+      "sha256": "95ecb1f6051cada7ffd9a8496164fd2d90da1376da3aff250a308c9b10cf33b7",
+      "bytes": 2204895,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "tomori-study-rain-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-b/tomori-study-apricot-literary-v1.png",
+          "sha256": "5d83c9d46e4919810cb0547c01da7f761823e7d16c438ff80f810b82edc3e9f6",
+          "role": "image2: root-approved exact activity identity/pose/scale/support reference; original daylight not retained",
+          "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: same approved left-desk chair/seat/back, supported forearms and pencil/page, portable task lamp position and farther body scale; right bench stays empty. Rainy night outside and real task/ceramic-lamp warm light illuminate paper, face/hair, uniform, desk/chair and floor together. No hard noon window grid or rain-induced grief. Visible eyes/fringe and actually exposed shoe portions coherent; original plant occlusion retained.",
+        "bodyContour": {
+          "contourComplete": false,
+          "reason": "Natural root-source plant/furniture occlusion remains; complete hidden feet not asserted."
+        },
+        "limits": "No new support calibration, full sole-contact proof or primary/layer/runtime admission."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "scope": "Six actual saved and personally viewed same-activity light mother candidates; root/layer/runtime approval remains separate. No layer progression or registration."
+}

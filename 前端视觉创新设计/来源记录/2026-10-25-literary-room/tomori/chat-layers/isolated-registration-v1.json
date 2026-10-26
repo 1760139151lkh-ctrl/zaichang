@@ -1,0 +1,347 @@
+{
+  "schemaVersion": 1,
+  "kind": "exact-root-approved-source-isolated-registration",
+  "character": "tomori",
+  "recordedAt": "2026-10-25T11:48:13.509072+00:00",
+  "primaryAdmission": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/tomori-chat-apricot-literary-included-primary-admission-v1.json",
+    "sha256": "e6208d40f593db026649d4af40c479f8744dbf0ae3532156a310e09284d19cca",
+    "bytes": 2326
+  },
+  "sourceClosure": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/chat-layer-publication-closure-v1.json",
+    "sha256": "f3d68d0f7bb7561e32d8802d1be1596c84b1df19813abbb3043a0835ac8ef1fb",
+    "bytes": 8478
+  },
+  "files": [
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-pilot/tomori-chat-apricot-literary-v1.png",
+        "sha256": "f075324f63e151e4045b4ac5ee87f30dc8295295b81f12c97ddb30ab56ac34d9",
+        "bytes": 2446159
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-pilot/tomori-chat-apricot-literary-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-pilot/tomori-chat-apricot-literary-v1.prompt.txt",
+        "sha256": "17577a0450a5c80d971a3f09f0f8ee78fa64e9b7ed351bff5beeb745961b7e24",
+        "bytes": 3845
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-pilot/tomori-chat-apricot-literary-v1.prompt.txt",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-pilot/tomori-chat-apricot-literary-v1.source.json",
+        "sha256": "1985a2c2aa558b2ad469a4f0fa91f397c39da6357db1962f55879ec4c65a6a43",
+        "bytes": 2857
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-pilot/tomori-chat-apricot-literary-v1.source.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-pilot/tomori-chat-apricot-literary-v1.primary-approval.json",
+        "sha256": "eb9c75cb25176999e1c29f13ffbf896e7e0bb2bf78ddefd4f06b7c2fa86bb271",
+        "bytes": 745
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-pilot/tomori-chat-apricot-literary-v1.primary-approval.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+        "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+        "bytes": 2524961
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.prompt.txt",
+        "sha256": "3e854eda45e9e76baed6ad514c67488656035d0990663f089cbf6f24575cae26",
+        "bytes": 1584
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.prompt.txt",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json",
+        "sha256": "5425e475efa8264874f2f3b083b8737b4b1f9d35399e9b2c3d86dc561a36cddb",
+        "bytes": 1250
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/literary-room-empty-plates-primary-admission-v1.json",
+        "sha256": "8ed5c9723ccf61f178ffa5e7f90a66f05b18fc6e44c8ba1124782b679a045c0c",
+        "bytes": 4399
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/literary-room-empty-plates-primary-admission-v1.json",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+        "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+        "bytes": 2606101
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.prompt.txt",
+        "sha256": "ebcef44bd92cfdf510692b140e968ba6bf9abd8564ae8a7f98d82828a2740d94",
+        "bytes": 4250
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.prompt.txt",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.source.json",
+        "sha256": "d9cd4427517d0e0fc050b9777c204e4f7363d8bd19bb585f000f5212f64fe6c3",
+        "bytes": 1247
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.source.json",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/chat-layers-included-bundle-v1.json",
+        "sha256": "6fb8bf37968973ad096fd496cd8ca62c5bd577ebfc9d76b429e52be8fb5c05f9",
+        "bytes": 6820
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/chat-layers-included-bundle-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/chat-layers-included-observe-v1.html",
+        "sha256": "fe24c0f9fef37df9c04f36c88634f5f9a4c8bb35a970c80d712f435f7b4be922",
+        "bytes": 21792
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/chat-layers-included-observe-v1.html",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/chat-scene-proposal-v1.json",
+        "sha256": "83c41ff6dfb17d05371d35aef8cd50f971f1ed084b1c6d7f71709e053b6920cf",
+        "bytes": 2433
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/chat-scene-proposal-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/figure-mask-v1.png",
+        "sha256": "ba7035c65d8e8f69a84322d44c1fe42ef815b9aae23c199594ee42b02521ea8f",
+        "bytes": 456565
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/figure-mask-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/figure-step1-marked-v1.png",
+        "sha256": "7a7b8941c65e68837fc5629beb3ced3f071028a5818913e0b4f995fe39e98fd0",
+        "bytes": 2339981
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/figure-step1-marked-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/figure-step1-prompt-v1.txt",
+        "sha256": "8303616f8571feaf99fee271bbc35cb9b43f1bec0c6a5849c002d3d0944d5261",
+        "bytes": 1983
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/figure-step1-prompt-v1.txt",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/figure-step1-source-v1.json",
+        "sha256": "ea0bbb3ecc71149172b5536f4e77720faadb109984bbef03a05d7a49a4d205b9",
+        "bytes": 3691
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/figure-step1-source-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/figure-step2-prompt-v1.txt",
+        "sha256": "ed984fed49aafac9aae7084bf5eab6579708ccdc98a6cccec21a635bea992ad8",
+        "bytes": 1831
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/figure-step2-prompt-v1.txt",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/figure-step2-source-v1.json",
+        "sha256": "cc724147dd62ed2dca889098684f22e47a89a60964c0a9ab083828fab34ed66b",
+        "bytes": 3526
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/figure-step2-source-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/README.md",
+        "sha256": "654f03ad444bdf5173d89f67c8b973d45acd1e98e2118cd9e1d36084a4cb004d",
+        "bytes": 1538
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/README.md",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/shadow-mask-v1.png",
+        "sha256": "b38a654f02628ce4d0d438fa7ffb2df337c112e5dc20af3a5a3a7faf901259c6",
+        "bytes": 306511
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/shadow-mask-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/shadow-step1-marked-v1.png",
+        "sha256": "322b67232dcace9a6754edb6642ef29f4764c4162bd7687927b2dbfdbb925025",
+        "bytes": 2409557
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/shadow-step1-marked-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/shadow-step1-prompt-v1.txt",
+        "sha256": "af25e8696a71cbd9f68f1b2fc1f966acfabf85613cb44873e05855062f10c9a9",
+        "bytes": 2097
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/shadow-step1-prompt-v1.txt",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/shadow-step1-source-v1.json",
+        "sha256": "e820dcc12685b00f34bf6028c9d5129f6c35b7822d7b4ca271352f07896c3e1d",
+        "bytes": 3891
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/shadow-step1-source-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/shadow-step2-prompt-v1.txt",
+        "sha256": "643d4e4f1c683dfc48bbbacdd3a0608e055fadee6572e527d53c7d8217a8247e",
+        "bytes": 1853
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/shadow-step2-prompt-v1.txt",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/shadow-step2-source-v1.json",
+        "sha256": "4714451c824a913e1276eb3d6e944b18609beb0255ba74f5c5935b478e95cd62",
+        "bytes": 3627
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/shadow-step2-source-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/tomori-chat-apricot-literary-included-primary-admission-v1.json",
+        "sha256": "e6208d40f593db026649d4af40c479f8744dbf0ae3532156a310e09284d19cca",
+        "bytes": 2326
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/tomori-chat-apricot-literary-included-primary-admission-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/union-source-v1.svg",
+        "sha256": "0e9801968089647d4739a7c9c0d02a72c8108ab9c844391eb82ff0db6eb98df4",
+        "bytes": 1325
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/union-source-v1.svg",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/chat-layer-publication-closure-v1.json",
+        "sha256": "f3d68d0f7bb7561e32d8802d1be1596c84b1df19813abbb3043a0835ac8ef1fb",
+        "bytes": 8478
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/chat-layer-publication-closure-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-pilot/tomori-chat-apricot-literary-v1.png",
+        "sha256": "f075324f63e151e4045b4ac5ee87f30dc8295295b81f12c97ddb30ab56ac34d9",
+        "bytes": 2446159
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/tomori-chat-apricot-literary-mother-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+        "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+        "bytes": 2524961
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/literary-room-clear-day-v1.png",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/figure-mask-v1.png",
+        "sha256": "ba7035c65d8e8f69a84322d44c1fe42ef815b9aae23c199594ee42b02521ea8f",
+        "bytes": 456565
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/tomori-chat-apricot-literary-figure-mask-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/shadow-mask-v1.png",
+        "sha256": "b38a654f02628ce4d0d438fa7ffb2df337c112e5dc20af3a5a3a7faf901259c6",
+        "bytes": 306511
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/tomori-chat-apricot-literary-contact-mask-v1.png",
+      "status": "copied"
+    }
+  ],
+  "scene": "前端视觉创新设计/运行素材/companion/scenes/tomori-chat-apricot-literary-v1.scene.json",
+  "sceneSha256": "2cf135f1b90ad078b1d70db3c9733752bdf4c7e0c321add95910df523d388453",
+  "runtimeAccepted": false,
+  "TSModified": false,
+  "ledgerRefreshed": false,
+  "bodyEnvelope": [
+    0.5494791666666666,
+    0.123046875,
+    0.85546875,
+    0.85546875
+  ],
+  "FcoveragePixels": [
+    844,
+    126,
+    1314,
+    876
+  ],
+  "receiverPixels": [
+    839,
+    523,
+    1331,
+    881
+  ]
+}

@@ -1,0 +1,301 @@
+{
+  "schemaVersion": 1,
+  "recordType": "producer-partial-handoff",
+  "key": "rana/reading/apricot",
+  "status": "stopped-per-user-direction; no-inflight",
+  "createdOn": "2026-10-24",
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-reading-apricot-mother-candidate-v1.png",
+    "sha256": "23b3b23ce749b7cdc1d5a31616ac1f45b53a7d0bd1694787bc1895736933df8e",
+    "bytes": 2186173,
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "sourceRecord": {
+    "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/remaining-apricot-mother-source.json",
+    "sha256": "5b38256e4b05a63cb7c7b9275c3fc841c6a83f4021fb8b28038d986ac6591cc6",
+    "bytes": 13173
+  },
+  "sourceMotherPrompt": {
+    "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-reading-apricot-prompt.txt",
+    "sha256": "29482cf142dfd88c376ab37b16fc60564f68f011c3a86dbacbbe5f43a183baa9",
+    "bytes": 3193
+  },
+  "ownership": {
+    "character": [
+      "visible body and clothing",
+      "held open book",
+      "folded socked foot on cushion",
+      "descending leg and actually worn LEFT floor boot"
+    ],
+    "room": [
+      "independent upright RIGHT empty boot",
+      "furniture/cushions/blanket",
+      "desk/tabletop objects"
+    ]
+  },
+  "generationEvents": [
+    {
+      "tool": "built-in image_gen.imagegen",
+      "exactSubmittedPrompt": "Use case: precise-object-edit. Asset type: complete EMPTY ROOM background extracted from this exact approved Rana READING mother. Exact full unchanged 1536 x 1024 canvas.\nThe ONLY input is the EDIT TARGET and source of truth. Remove only Rana's visible body, hair, clothes, held open book, folded socked foot resting on the bench, descending socked leg, and the black boot actually WORN on that descending leg (the LEFT of the two floor boots, approximately x1158..1234,y688..774). Reveal the original bench, cushion, window and floor hidden behind those removed character pixels.\nIMPORTANT PROP OWNERSHIP: The separate upright EMPTY matching black boot on the floor to the RIGHT, approximately x1250..1307,y692..782, is an independent room object. Keep this empty boot and its original cast/contact shadow unchanged. Do not remove it, attach a leg to it, duplicate it or change its shape. Keep all desks, chairs, lamp, mug, tabletop books, cushions, blanket and other room objects exactly in place.\nKeep the original complete room camera, framing, furniture geometry/scale, window landscape, original apron/cushion textures, warm lighting and floor. Preserve source cushion compression/contact darkness and existing soft boot/room cast shadows as room-surface shading; do not replace the original occupied cushion contact with bright featureless white fabric. Remove all actual person/held-book pixels with no residual limb, clothing, hair or worn boot. Do not regenerate/reframe the room, move furniture, repaint lighting, insert objects or replace the room with the generic empty reference. No person, text, labels, border, UI or watermark. Full 1536x1024 RGB background, no transparency.",
+      "exactSubmittedPromptSha256": "cc7f446b71d7ca7b147c6d985044721db614ba823b468de75226e835e8ad2ec6",
+      "savedPrompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-reading-apricot-bundle-v1-background-candidate-v1.prompt.txt",
+        "sha256": "c6b0e66ca67badd5a280565a52fe34dce25b66e00ee56318578b88cbb5dc3e70",
+        "bytes": 1692,
+        "note": "UTF-8 LF; final archival LF not submitted"
+      },
+      "inputs": [
+        {
+          "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-reading-apricot-mother-candidate-v1.png",
+          "sha256": "23b3b23ce749b7cdc1d5a31616ac1f45b53a7d0bd1694787bc1895736933df8e",
+          "bytes": 2186173,
+          "size": [
+            1536,
+            1024
+          ],
+          "mode": "RGB",
+          "role": "sole edit target/source"
+        }
+      ],
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a170ff-6e14-7810-bd29-ad4fa2b57d00/exec-e303a3d1-ba37-4826-9913-055be4890e73.png",
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-reading-apricot-bundle-v1-background-candidate-v1.png",
+        "sha256": "7803fe7aa7e70b0b6d026ff041b0ab1fe1a3cea9c106d004ae4916dcc7001d62",
+        "bytes": 2125375,
+        "size": [
+          1536,
+          1024
+        ],
+        "mode": "RGB"
+      },
+      "status": "saved-unapproved",
+      "observation": "Empty room correctly retains independent right empty boot; contact shade under thigh and worn boot is weaker than source.",
+      "primaryReviewed": false,
+      "runtimeAccepted": false
+    },
+    {
+      "tool": "built-in image_gen.imagegen",
+      "exactSubmittedPrompt": "Use case: background-extraction. Asset type: same-canvas black/white LUMINANCE CHARACTER MASK of this exact approved Rana READING mother; NOT a new portrait. Exact original full 1536 x 1024 canvas, original location/scale/camera.\nThe ONLY input is the EDIT TARGET/source. Output solid PURE BLACK background. Output solid PURE WHITE only for the complete actual visible Rana silhouette and her held open book: hair tips/strands, face, black outer top, white sleeves and shorts, both hands/fingers, BOTH actual leg chains, the folded SOCKED foot resting on the bench, the descending socked leg and its WORN black boot (LEFT floor boot, approximately x1158..1234,y688..774). Include the held book and the boot she actually wears as connected carried/character content. Maintain natural holes between limbs, book, fingers and body as BLACK where the original room is visible. Use a narrow antialiased gray edge only at the exact original contour; the mask interior must be white, never preserve illustration shading.\nIMPORTANT EXCLUSION: The separate upright EMPTY black boot standing to the RIGHT at approximately x1250..1307,y692..782 belongs to the room. It MUST stay BLACK in the mask, with no white boot silhouette or connecting limb. All furniture, chair, cushion, blanket, lamp, desk books, floor, window, cast shadows and room details stay black. Do not include contact-shadow patches or cushion fabric. No skin/clothing RGB, room outlines, gray haze/noise, text, labels or baked checkerboard.\nPreserve the exact original figure outline at the original coordinates; no crop, center, resize, shift, rotation, anatomy redraw, added limb or changed pose. This mask will reveal the untouched original mother RGB through native SVG luminance masking. Full 1536x1024 black/white RGB image.",
+      "exactSubmittedPromptSha256": "96909d45e20d801080a68dc079abbd79d6e70ad936e74511cd4da1169f3cf82d",
+      "savedPrompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-reading-apricot-bundle-v1-figure-mask-candidate-v1.prompt.txt",
+        "sha256": "766611c8b18c28200e0a409206738e578e8f61ce3bc5dda069bc89be4fe00d97",
+        "bytes": 1788,
+        "note": "UTF-8 LF; final archival LF not submitted"
+      },
+      "inputs": [
+        {
+          "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-reading-apricot-mother-candidate-v1.png",
+          "sha256": "23b3b23ce749b7cdc1d5a31616ac1f45b53a7d0bd1694787bc1895736933df8e",
+          "bytes": 2186173,
+          "size": [
+            1536,
+            1024
+          ],
+          "mode": "RGB",
+          "role": "sole edit target/source"
+        }
+      ],
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a170ff-6e14-7810-bd29-ad4fa2b57d00/exec-fcd965f4-e4b0-4624-9ab4-ed7603a0b8a2.png",
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-reading-apricot-bundle-v1-figure-mask-candidate-v1.png",
+        "sha256": "f4006dfbe1983fa9a328ea6a6f09517cae9f0f15c37947c6c9e5c8c585357e04",
+        "bytes": 361884,
+        "size": [
+          1536,
+          1024
+        ],
+        "mode": "RGB"
+      },
+      "status": "rejected",
+      "observation": "Black shirt below held book was treated as a hole, exposing bright/gold background in actual browser composite.",
+      "primaryReviewed": false,
+      "runtimeAccepted": false
+    },
+    {
+      "tool": "built-in image_gen.imagegen",
+      "exactSubmittedPrompt": "Use case: background-extraction. Precise flat binary silhouette mask of this exact Rana READING source mother, same full 1536x1024 canvas and exact original coordinates.\nONLY input is the approved source mother/edit target. Output PURE BLACK canvas, with ONE FLAT SOLID WHITE opaque mask covering ALL visible Rana body/hair/clothing, BOTH hands and entire held book, folded socked foot on bench, descending leg with its WORN LEFT floor boot. Do not preserve source illustration lines, shading, book outlines, fingers' internal creases or hair-part lines as black marks. Mask interior must be completely solid white, including black clothing and dark book cover. Use only a tiny gray antialias at outer silhouette edges.\nCRITICAL CORRECTION: The dark triangular area directly BELOW the book and between her wrists/forearms (approximately source x1300..1380,y495..550) is her BLACK SHIRT and attached sleeve/torso, NOT a hole or visible room. That entire actual black-shirt region must stay WHITE in the mask. Include the white sleeve at the wrist too. Do not punch out this area. The book and both hands must be completely opaque white together, with no black illustration linework cutting through their interior.\nThe actual external silhouette is the only guide. Black negative space is allowed only where the ORIGINAL ROOM is genuinely visible OUTSIDE the body/held book; no invented gaps within clothing. The separate upright EMPTY black boot to the RIGHT at x1250..1307,y692..782 is a room prop and must stay pure BLACK, fully excluded. Keep all cushions, blanket, furniture, floor, cast shadows, window and room details black.\nPreserve all true original figure boundaries, exact face/hair/book/hand/limb/foot/boot positions. No crop, resize, zoom, center, translate, anatomy change, white filler outside the actual silhouette, room outlines, gray haze, text, logo or checkerboard. Full 1536x1024 RGB pure black/white mask, not character RGB.",
+      "exactSubmittedPromptSha256": "38c34f2718d5cec2f950293b35687de80b55c433864807f77883eccccb96ab24",
+      "savedPrompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-reading-apricot-bundle-v1-figure-mask-candidate-v2.prompt.txt",
+        "sha256": "c0866b51c9727689fbb56e81b188825f95f4e7300a4b9f8addc0d3decf593554",
+        "bytes": 1946,
+        "note": "UTF-8 LF; final archival LF not submitted"
+      },
+      "inputs": [
+        {
+          "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-reading-apricot-mother-candidate-v1.png",
+          "sha256": "23b3b23ce749b7cdc1d5a31616ac1f45b53a7d0bd1694787bc1895736933df8e",
+          "bytes": 2186173,
+          "size": [
+            1536,
+            1024
+          ],
+          "mode": "RGB",
+          "role": "sole edit target/source"
+        }
+      ],
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a170ff-6e14-7810-bd29-ad4fa2b57d00/exec-5bef5a52-22e4-4622-95be-f3b8dfb3c459.png",
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-reading-apricot-bundle-v1-figure-mask-candidate-v2.png",
+        "sha256": "b4164ec7dee1ea7d55ef8aa78d53c9813a4957c7ddad2bd3f0ab14ab349651b9",
+        "bytes": 356500,
+        "size": [
+          1536,
+          1024
+        ],
+        "mode": "RGB"
+      },
+      "status": "saved-unapproved-incomplete",
+      "observation": "Full silhouette re-extraction closes most false shirt hole; small low-opacity island remains at source (1330,511), mask=57. No source patch was implemented before stop.",
+      "primaryReviewed": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "composition": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "nativeMethod": "Original mother RGB rendered via native SVG luminance mask, above extracted background",
+    "transform": "identity",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "allPngUnedited": true
+  },
+  "observed": {
+    "personallyViewed": [
+      "exact original mother",
+      "generated complete background and masks",
+      "browser figure light/dark/checker",
+      "book/hand triptych",
+      "seat/socked foot triptych",
+      "worn boot/empty boot triptych"
+    ],
+    "fixedPages": [
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-reading-apricot-bundle-v1-preview-v2.html",
+        "sha256": "b667ee5b34746860889cce771c41ce76a3dc00d5ab92ec34b0efd5b73333356c",
+        "bytes": 6041
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-reading-apricot-runtime-bundle-v1.html",
+        "sha256": "eba823bc419e6dcf1e28c8012797a3e84b0d54a458d16d8d0516092166c91b2d",
+        "bytes": 6041
+      }
+    ],
+    "pageV2CaptionNote": "v2 page generic title replacement labels background candidate v2, but fixed image URL/SHA is background-candidate-v1; actual source path is authoritative. Page frozen per stop direction."
+  },
+  "unresolved": [
+    {
+      "id": "shirt-low-opacity-island",
+      "xy": [
+        1330,
+        511
+      ],
+      "motherRgb": [
+        60,
+        47,
+        41
+      ],
+      "maskLuminance": 57
+    },
+    {
+      "id": "seat-contact-gap",
+      "xy": [
+        1300,
+        584
+      ],
+      "motherRgb": [
+        178,
+        128,
+        109
+      ],
+      "backgroundRgb": [
+        254,
+        254,
+        253
+      ],
+      "maskLuminance": 3
+    },
+    {
+      "id": "worn-boot-contact-shade",
+      "observation": "Original/source-over same-scale triptych shows worn left boot floor contact weaker than mother."
+    }
+  ],
+  "sourceClipImplemented": false,
+  "plannedButNotImplemented": "Tiny source foreground restoration for shirt hole plus independent seat/boot contact source polygons was considered, but user stop arrived before authoring; no new patch/page was created.",
+  "gatingIfResumed": "Same exact pose+mother SHA+showFigure+motherReady, remove on hidden/pose/SHA change, room fixed outside actorStyle; not implemented or runtime checked.",
+  "allSavedFiles": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-reading-apricot-bundle-v1-background-candidate-v1.png",
+      "sha256": "7803fe7aa7e70b0b6d026ff041b0ab1fe1a3cea9c106d004ae4916dcc7001d62",
+      "bytes": 2125375,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-reading-apricot-bundle-v1-background-candidate-v1.prompt.txt",
+      "sha256": "c6b0e66ca67badd5a280565a52fe34dce25b66e00ee56318578b88cbb5dc3e70",
+      "bytes": 1692
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-reading-apricot-bundle-v1-figure-mask-candidate-v1.png",
+      "sha256": "f4006dfbe1983fa9a328ea6a6f09517cae9f0f15c37947c6c9e5c8c585357e04",
+      "bytes": 361884,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-reading-apricot-bundle-v1-figure-mask-candidate-v1.prompt.txt",
+      "sha256": "766611c8b18c28200e0a409206738e578e8f61ce3bc5dda069bc89be4fe00d97",
+      "bytes": 1788
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-reading-apricot-bundle-v1-figure-mask-candidate-v2.png",
+      "sha256": "b4164ec7dee1ea7d55ef8aa78d53c9813a4957c7ddad2bd3f0ab14ab349651b9",
+      "bytes": 356500,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-reading-apricot-bundle-v1-figure-mask-candidate-v2.prompt.txt",
+      "sha256": "c0866b51c9727689fbb56e81b188825f95f4e7300a4b9f8addc0d3decf593554",
+      "bytes": 1946
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-reading-apricot-bundle-v1-preview-v2.html",
+      "sha256": "b667ee5b34746860889cce771c41ce76a3dc00d5ab92ec34b0efd5b73333356c",
+      "bytes": 6041
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-reading-apricot-runtime-bundle-v1.html",
+      "sha256": "eba823bc419e6dcf1e28c8012797a3e84b0d54a458d16d8d0516092166c91b2d",
+      "bytes": 6041
+    }
+  ],
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  },
+  "inflight": [],
+  "cleanup": {
+    "removedFiles": [],
+    "note": "None; all generated outputs/prompt evidence retained."
+  }
+}

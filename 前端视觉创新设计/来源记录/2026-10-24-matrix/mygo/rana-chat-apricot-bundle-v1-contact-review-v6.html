@@ -1,0 +1,34 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rana 坐垫接触 · 原母局部 source clip v2 候选</title>
+<style>*{box-sizing:border-box}body{margin:24px;font:15px/1.5 system-ui,"Microsoft YaHei",sans-serif;color:#302827;background:#eee9e3}h1{font-size:24px}h2{font-size:19px}section{margin:30px 0 42px;scroll-margin-top:16px}a{color:#68412c}nav,.row{display:flex;gap:20px;flex-wrap:wrap}figure{margin:0;max-width:100%}figcaption{padding:8px 0}.detail{display:block;width:390px;max-width:100%;height:auto}.whole{display:block;width:100%;max-width:min(1536px,calc((100vh - 100px)*1.5));height:auto}.layer{display:block;width:390px;max-width:100%;height:auto}.light{background:#faf7f1}.dark{background:#211b27}pre{white-space:pre-wrap;font-size:13px;max-width:1100px}</style>
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" style="position:absolute"><defs>
+<image id="mother" width="1536" height="1024" href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png?sha256=26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812"/>
+<image id="bg" width="1536" height="1024" href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-background-candidate-v9.png?sha256=d478299aae1bd2953338cf13cee783bce48472e420ced60e2f9c48c05fa0b027"/>
+<image id="figure" width="1536" height="1024" href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-figure-candidate-v9.png?sha256=714ea5f9107e1e799c790d921140ecfa87502f10cb33d808d89a3ab18bc0cc5a"/>
+<image id="shadow" width="1536" height="1024" href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-shadow-candidate-v9.png?sha256=752322c4b74f53e51c7e24cafa5be0ca03d23fc59cc6e39dff68e97ef524df54"/>
+<image id="background-attempt" width="1536" height="1024" href="rana-chat-apricot-bundle-v1-background-candidate-v1.png?sha256=51aafbece105ab9cb3374af62bb3b4b5ba7b51a17ac120dca489680f442908ca"/>
+<clipPath id="contact-clip" clipPathUnits="userSpaceOnUse"><polygon points="1255,571 1327,571 1338,574 1343,578 1341,583 1323,585 1311,590 1305,596 1299,603 1284,606 1264,606 1261,596 1258,586 1254,579"/></clipPath>
+<g id="source-contact"><use href="#mother" clip-path="url(#contact-clip)"/></g>
+<g id="old"><use href="#bg"/><use href="#shadow"/><use href="#figure"/></g>
+<g id="new"><use href="#bg"/><use href="#shadow"/><use href="#source-contact"/><use href="#figure"/></g>
+<g id="new-background-attempt"><use href="#background-attempt"/><use href="#shadow"/><use href="#figure"/></g>
+</defs></svg>
+<h1>Rana 坐垫接触 · 原母局部 source clip v2</h1>
+<p>独立静态素材观察。仅把母图中固定坐垫接触区的原 RGB 按原坐标显示在原人物层下方，不改 PNG、不绘制阴影、不位移。不是运行或主审验收；候选固定 travel 0。</p>
+<nav><a href="#contact">同尺度接触对照</a><a href="#layer">补源区浅深底</a><a href="#scene">原位整景</a><a href="#geometry">精确区域</a><a href="#background-attempt-view">第5次空背景结果</a><a href="rana-chat-apricot-runtime-bundle-v1.html#seat">v1 原分层观察</a></nav>
+<section id="contact"><h2>同一区域、同一尺度 · x1190 y520 w270 h100</h2><div class="row">
+<figure><svg class="detail" viewBox="1190 520 270 100" role="img" aria-label="原母坐垫接触"><use href="#mother"/></svg><figcaption>原母图</figcaption></figure>
+<figure><svg class="detail" viewBox="1190 520 270 100" role="img" aria-label="原v9坐垫接触"><use href="#old"/></svg><figcaption>原 v9 合成</figcaption></figure>
+<figure><svg class="detail" viewBox="1190 520 270 100" role="img" aria-label="补原母接触区合成"><use href="#new"/></svg><figcaption>v9 + 原母固定接触区</figcaption></figure>
+</div></section>
+<section id="layer"><h2>补源区单独观察 · 原像素 3:1</h2><div class="row">
+<figure><svg class="layer light" viewBox="1235 555 130 65" role="img" aria-label="补源区浅底"><use href="#source-contact"/></svg><figcaption>浅底；仅截取原母像素</figcaption></figure>
+<figure><svg class="layer dark" viewBox="1235 555 130 65" role="img" aria-label="补源区深底"><use href="#source-contact"/></svg><figcaption>深底；原位置、不随人物移动</figcaption></figure>
+</div></section>
+<section id="scene"><h2>原位整景</h2><svg class="whole" viewBox="0 0 1536 1024" role="img" aria-label="补原母接触区原位整景"><use href="#new"/></svg></section>
+<section id="geometry"><h2>固定原像素 polygon</h2><pre>Canvas: 1536 × 1024; clipPathUnits: userSpaceOnUse; transform: identity.
+1255,571 1327,571 1338,574 1343,578 1341,583 1323,585 1311,590 1305,596 1299,603 1284,606 1264,606 1261,596 1258,586 1254,579
+Order: background v9 → shadow v9 → clipped source mother → original RGB figure v9.
+Room-fixed contact region; travel 0; no new raster file.</pre></section>
+<section id="background-attempt-view"><h2>第5次完整空背景提取 · 同尺度未采用结果</h2><div class="row"><figure><svg class="detail" viewBox="1190 520 270 100" role="img" aria-label="第五次背景原位合成"><use href="#new-background-attempt"/></svg><figcaption>新背景 + 原 shadow + 原 figure；仅供观察</figcaption></figure></div><svg class="whole" viewBox="0 0 1536 1024" role="img" aria-label="第五次空背景完整原图"><use href="#background-attempt"/></svg></section>
+</html>

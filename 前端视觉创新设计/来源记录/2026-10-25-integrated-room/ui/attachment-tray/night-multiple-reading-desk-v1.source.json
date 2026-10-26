@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "recordType": "multi-document-night-reading-desk-ui-candidate",
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-8f3dc2e1-0187-4dfa-a2fc-ed3e67f62351.png",
+  "inputImages": [
+    {
+      "file": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-dry-night-v1.png",
+      "sha256": "edad31b1ce0c7f21be59d939cc54a0d6230b31d6fe380d0d553af515032fd0f4",
+      "role": "sole clean empty-room environmental reference"
+    }
+  ],
+  "userScreenshotUsedAsInput": false,
+  "priorUiMockUsedAsInput": false,
+  "characterImageUsedAsInput": false,
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/SKILL.md",
+      "sha256": "56cd9fbd91df0dd6f58a717eed2ee2e11a02c3ed87e78caf50c63905ea0ca291",
+      "scope": "Relevant full skill/dossier/method personally read in this design turn"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "scope": "Relevant full skill/dossier/method personally read in this design turn"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840",
+      "scope": "Relevant full skill/dossier/method personally read in this design turn"
+    },
+    {
+      "path": "C:/Users/17601/.codex/skills/product-design-director/SKILL.md",
+      "sha256": "63e55c05d3a33c1cdd048adf22d82b4cd47370c7580982ab02006909bf09de49",
+      "scope": "Relevant full skill/dossier/method personally read in this design turn"
+    }
+  ],
+  "promptFile": "night-multiple-reading-desk-v1.prompt.txt",
+  "submittedPromptSha256": "89d50ca0a44fadcb1fe8630986de0b8214bbdde7bd519460cd129a36bba9e499",
+  "output": {
+    "file": "night-multiple-reading-desk-v1.png",
+    "sha256": "277e9a8057b325d2d3aeeca195db016ccc16574d8fba5a88fdc5f242485a8f97",
+    "bytes": 2539885,
+    "width": 1586,
+    "height": 992
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Two distinct tall PDF windows offset/overlapped, one photo window, separate smoky narrow chrome and corner resize cues; all in one full night room rather than a rigid two-slot split or banner. Lower-right light composer carries three small independent red booklet/photo objects and short labels, not long file bars. Red covers have spine/abstract line marks rather than PDF logo. One upright small cat clings to vertical secondary-frame edge.",
+    "refinementsForImplementation": "Generated cover objects are larger than target small/regular component scale; reduce toward 24x30/32x42 or local 36x46, retain spacing. Generated three header dots are a drag cue, not a new traffic-light control family. Do not adopt extra minimize marks as an unapproved new action; use actual existing frame close/bring-to-front behavior.",
+    "limits": "Paper text/bridge photo, names and page indices are fictional layout examples, not actual user file/model output. Real PDFs keep original page pixels and text; actual image attachment uses true thumbnail. The cat glyph is a spatial gesture only and must never be cropped into runtime or treated as approved vertical character art. Room is redrawn by generation, not calibrated replacement background. Still art proves no drag/resize/reorder/snap/keyboard behavior."
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "implementationBoundary": "UI relations only; real components/owners implement each depicted object and operation.",
+  "promptFileSha256": "6fcfe509c5684a7bda67b4583d274a21e6d44a33aa7880f35cb335e30c3a5378",
+  "exactSubmittedPrompt": "Use case: ui-mockup.\nCreate ONE beautiful FLAT FULL-SCREEN nighttime product state for the Chinese app 在场, a MULTI-DOCUMENT READING DESK. Landscape, ideally 2048×1280 or a generous 16:10 desktop composition. It is the app itself, edge to edge: NO laptop, monitor, keyboard, device bezel, photo of hardware, infographic, storyboard labels or promotional poster.\n\nONLY IMAGE INPUT: the clean EMPTY literary room at dry night. Use it as a full-bleed coherent environment, not a banner, thumbnail or inserted image. Keep its warm ceramic lamp, timber window and blue night town/lake, curtains, books, wood and linen believable. The whole interface shares this one amber lamplight and calm smoked-tea material. Do not draw a giant milk-white chat board or a wall of grey/white cards. The actual PDF PAGES can remain white as real documents; their surrounding chrome and chat are warm smoky wood-coloured, with soft restrained edges.\n\nTHE HUMAN PURPOSE:\nA person has brought a few materials into the room and arranged them in a way that feels like their own desk. Two papers and one photo can stay visible while the person compares one detail and finds the next sentence. Moving a page makes room for another page; nothing forces every document into a rigid two-column layout. The warmth is in being able to keep one's place and rearrange the table, not in helper slogans or ten decorative panels.\n\nTHE REAL OVERALL LAYOUT:\nSmall brand 在场 and quiet top navigation 聊天 今天 留下. No large welcome heading, instructional subtitle, avatar made from the room, extra dashboard or engineering statuses.\nShow EXACTLY THREE independent document/media windows on this same spatial work area:\n1) A primary PDF reading window at left, tall and large enough to read a magnified paragraph and diagram. Warm smoky narrow title chrome with short title 讲义, a small true window drag-grip and close icon; page content itself stable white with dark neutral scholarly texture, not invented readable author names or scientific claims. It is not a short PDF squeezed under a picture. Give a subtle bottom-right resize grip.\n2) A second PDF named 定位, slightly smaller and offset toward the middle/right, partly overlapping one edge of the first but leaving useful content of BOTH visible. Its top and bottom do not align into a rigid grid. It shows a different magnified paragraph/diagram area. Same quiet smoky frame, own header drag-grip, own close and resize affordance. These are independently movable/resizable windows, not halves of a fixed split pane.\n3) A small IMAGE window called 桥边 toward the upper-right or middle-right, displaying a landscape PHOTO-LIKE THUMBNAIL of a quiet lakeside bridge. It has a real image aspect ratio, a very thin smoky rim, own small drag header and corner resize affordance. Do not depict an image attachment using a document glyph or a horizontal file bar.\nLeave enough of the room window, bench and fabrics breathing between/around these three windows. This is an intentionally arranged desk, not ten floating panels or a heap of unrelated dialogs. No fake numbered instructions or giant arrows.\n\nTHE COMPOSER AND ATTACHMENTS:\nPlace one COMPACT, light visual-weight composer in the lower-right or lower clear area, matching the same continuous smoked-tea room-lit surface. One short writable draft exactly 我想对照这两段。 with a small plus and warm send arrow. Do not give it a large empty textarea or double gold outline.\nAt ONE corner just above the writing line, put a tight little group of THREE SEPARATE ATTACHMENT OBJECTS, occupying only about 220–260px of width relative to a 1536px-wide canvas, not stretching across the composer:\n- A tiny refined muted brick-red booklet cover for 讲义, about 36×48px at that scale. It has a subtle paper/spine seam and a delicate cream single-curve/small-line composition on its front, like its own little publication cover.\n- Another tiny deep-oxide-red booklet cover for 定位, a distinct restrained cream circular/line mark and tiny spine seam. Same family size.\n- A real small rectangular IMAGE THUMBNAIL for 桥边, about 50×40px, showing the same bridge picture as the open image window.\nUse short labels 讲义 / 定位 / 桥边 under the objects in small readable warm ivory, no extensions or full filenames. These are small covers and thumbnails, not generic big red PDF file glyphs, not folded-corner document icons, not Adobe-like logos, not a red square shouting PDF, not long beige file cards. Do NOT show the strings 随本条发送 or 打开原文 anywhere. Do not duplicate action labels; clicking a cover is how its same document opens. Delete x is hidden by default; a single focused/hovered attachment can show one tiny contextual x, not a row of permanent remove buttons. Keep a quiet visible focus outline on that one object to imply keyboard access without adding help text.\n\nA SMALL EDGE COMPANION, AS DESIGN GESTURE ONLY:\nShow only ONE tiny simplified 2D Sakiko-inspired meme-cat glyph on a VERTICAL edge of the secondary PDF window, never a large person/avatar. Pale blue-lavender simple hair shapes, golden round two-tone eyes, tiny dark navy ribbons, clean white little cat face/body, very few navy outline strokes, no flesh skin or human clothes. She had been quietly watching a tiny detail along the page edge and turns just enough attention toward the person's draft, a small composed almost-curious look, not a service grin.\nIMPORTANT: draw a genuinely VERTICAL CLINGING CAT pose: head remains upright, forepaws grip the real vertical window edge, small torso hangs naturally along the side and hind paws have a plausible grip. The tail has a real root and small curl. Do NOT rotate a horizontal cat PNG 90 degrees, paste a realistic cat, crop a human head, or make the cat float away from the border. Keep it very small, not blocking title, paragraph, buttons or resize corner. This glyph is only the intended spatial relationship; separate approved runtime assets will provide the actual character.\n\nApple-like precision with a human lived-in room: coherent warm ink and ivory text, understated smoked-tea chrome, subtle overlap shadows, tiny tactile red covers, clean image thumbnails and gentle window depth. No green UI, giant white parent board, uniform dark-grey slab, repeated nested cards, generic file-upload bars, full filenames, instructions, status receipts, arrows, physical hardware or extra cats. Make the three documents and the compact file objects feel like things the person can actually arrange and return to in the SAME conversation."
+}

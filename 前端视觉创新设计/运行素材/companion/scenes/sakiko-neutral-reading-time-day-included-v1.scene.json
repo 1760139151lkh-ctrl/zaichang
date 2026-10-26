@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "id": "sakiko-neutral-reading-time-day-included-v1",
+  "sceneFamily": "literary-room-v1",
+  "pose": "supported-neutral-presence-with-open-book",
+  "character": "sakiko",
+  "activity": "reading",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "light": "morning",
+  "palette": "mist",
+  "width": 1536,
+  "height": 1024,
+  "mother": "sakiko-neutral-reading-time-day-included-v1-mother.png",
+  "background": "sakiko-neutral-reading-time-day-included-v1-background.png",
+  "mask": "sakiko-neutral-reading-time-day-included-v1-mask.png",
+  "maskMode": "luminance",
+  "contactMask": "sakiko-neutral-reading-time-day-included-v1-contact-mask.png",
+  "seat": [
+    0.7708333333333334,
+    0.580078125
+  ],
+  "ground": [
+    0.58984375,
+    0.8935546875
+  ],
+  "bodyBounds": [
+    0.5364583333333334,
+    0.1533203125,
+    0.8626302083333334,
+    0.8984375
+  ],
+  "safeTextBoundary": 0.5208333333333334,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "53.645833333333336% 15.33203125%, 86.26302083333334% 15.33203125%, 86.26302083333334% 89.84375%, 53.645833333333336% 89.84375%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "layerReview": "root-approved-time-only-neutral-fixed-source-included-union",
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/day/layers/root-primary-layer-admission-v1.json",
+    "runtimeSourceSha256": {
+      "mother": "35a318faaab82305b4a5f28e4f109701986e7ce75b312536835216306c2945af",
+      "background": "ff438a04b35a7a3a86b21b1cb21f11534b1a991dcb32bf2033ff6ad3de0ecb67",
+      "F": "99a56c9ea69b540f06427070203306b9c93417b1e5c92e3bb43a55f69fc20b39",
+      "S": "31be1a964933513b6e5199f0656d145bcdc0866fc248179ea0ce3a34b08ba204"
+    },
+    "geometryEvidence": {
+      "figureEnvelope": {
+        "sourcePixels": [
+          824,
+          157,
+          1325,
+          920
+        ],
+        "normalized": [
+          0.5364583333333334,
+          0.1533203125,
+          0.8626302083333334,
+          0.8984375
+        ],
+        "basis": "Read-only Rec.709 luminance F >32 envelope; diagnostic geometry only, original mask bytes unchanged."
+      },
+      "jointReceiverEnvelope": {
+        "sourcePixels": [
+          801,
+          157,
+          1346,
+          928
+        ],
+        "normalized": [
+          0.521484375,
+          0.1533203125,
+          0.8763020833333334,
+          0.90625
+        ],
+        "basis": "Read-only MAX(L(F),L(S)) >32 envelope, including fixed original local receiver material."
+      },
+      "supportAnchors": {
+        "seatPixels": [
+          1184,
+          594
+        ],
+        "groundPixels": [
+          906,
+          915
+        ],
+        "basis": "Registrar personally viewed this exact full mother: weight rests on linen window seat at the lower hip/skirt; both full loafer soles meet the wood locally. Anchors are fixed source points, not a travel calibration."
+      },
+      "familyFramingUnchanged": true
+    },
+    "original360ExactActivityAdmission": false,
+    "dynamicAdmission": false,
+    "approvalScope": "Only Sakiko mist/morning/neutralTime:day, weather unknown, purpose neutral-presence. Static fixed original source coordinates, native MAX(F,S), original mother RGB drawn once. Not a 360 activity cell or runtime acceptance.",
+    "primaryObserved": "root已亲看day母、完整合成、浅暗棋盘、书手、face-hair、hem-shoes、contact-receiver全部6Browser原图，静态准入同母固定坐标 F=figure-mask-v2 SHA99a56c9ea69b540f06427070203306b9c93417b1e5c92e3bb43a55f69fc20b39，S=contact-mask-v1 SHA31be1a964933513b6e5199f0656d145bcdc0866fc248179ea0ce3a34b08ba204，BG=background-v1 SHAff438a04b35a7a3a86b21b1cb21f11534b1a991dcb32bf2033ff6ad3de0ecb67。"
+  }
+}

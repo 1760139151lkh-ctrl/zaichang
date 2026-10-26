@@ -57,12 +57,14 @@
     "prompt": "sakiko-resume-apricot-v1-prompt.txt",
     "promptMeaning": "same complete saved prompt, trimmed at leading/trailing whitespace, and same sole empty-room input as the failed attempt"
   },
-  "status": "mother-generated-layers-under-review",
+  "status": "mother-and-original-position-layers-admitted-runtime-pending",
   "review": {
     "personallyViewedOutput": true,
     "motherApprovedByPrimary": true,
-    "approvedByPrimary": false,
+    "approvedByPrimary": true,
     "runtimeAccepted": false,
-    "note": "The first attempt returned no image; its exact 404 is preserved above. Root subsequently generated and personally accepted the complete mother, which this producer also viewed and copied into the project. Layers remain under separate review, and runtime is not accepted. No CLI/API fallback was invoked."
+    "note": "The first attempt returned no image; its exact 404 is preserved above. Root subsequently accepted the complete mother and the exact original-position bundle listed in primary-resume-approval.json: background v1, original RGB through figure mask v1, and dark #291c16/0.48 shadow through mask v2. Travel is zero. Runtime remains unaccepted. No CLI/API fallback was invoked.",
+    "layerApprovedByPrimary": true,
+    "approvalRecord": "primary-resume-approval.json"
   }
 }

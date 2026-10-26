@@ -56,7 +56,7 @@ const queryFields = {
   courseId: reference.optional().describe('本人所选学期课程列表中的courseId，只用于逐次attendance。'),
   recordId: reference.optional().describe('刚才本人列表给出的原记录ID，用于运动详情或体测预约、反馈详情；会先核实它属于本人。'),
   begin: z.number().int().nonnegative().safe().optional().describe('statistics起点，Unix毫秒；学校时区Asia/Shanghai。'),
-  end: z.number().int().nonnegative().safe().optional().describe('statistics终点，Unix毫秒，与begin间隔不超过两年。'),
+  end: z.number().int().nonnegative().safe().optional().describe('statistics终点，Unix毫秒，与begin间隔最多730天。'),
   period: z.enum(['WEEK', 'MONTH', 'TERM']).optional().describe('学校statistics按周、月或学期统计，具体起止时间另填begin和end。'),
   validStatus: z.union([z.literal(-1), z.literal(0), z.literal(1)]).optional().describe('运动统计按学校状态筛选：1为有效，-1为无效；0的统计筛选中文标签尚未核明。省略时查询全部状态。'),
   subpage: z.enum(['results', 'schedule', 'feedback', 'records', 'mine', 'attendance', 'orders', 'buddies', 'training', 'reservation', 'art_reservation', 'certificates']).optional(),
@@ -167,7 +167,7 @@ function project(value: unknown, budget: { remaining: number; bytes: number; omi
 function validateRead(args: TiyiReadArgs): TiyiReadArgs {
   if (args.pointer !== undefined && (!args.snapshotId || !safePointer(args.pointer)
     || args.resource === 'profile' && !profilePointer(args.pointer)))
-    throw new HarnessError('tiyi_pointer_forbidden', '请沿这份体艺记录提供的正文地址继续，身份、登录信息和精细位置只留在本机。');
+    throw new HarnessError('tiyi_pointer_forbidden', '这份体艺记录可沿它返回的正文地址接着看；身份、登录信息和精细位置保留在本机。');
   if (args.offset && !args.snapshotId) throw new HarnessError('tiyi_snapshot_required', '继续下一页时需要刚才那份体艺记录；这样不会把两次查询拼在一起。');
   const filters = ['schoolYear', 'termId', 'courseId', 'recordId', 'begin', 'end', 'period', 'validStatus', 'subpage', 'upstreamPage', 'venueSiteId', 'searchDate'] as const;
   if (args.snapshotId) {
@@ -189,19 +189,19 @@ function validateRead(args: TiyiReadArgs): TiyiReadArgs {
   }
   if (venueSelection) { allowed.add('venueSiteId'); allowed.add('searchDate'); }
   if (filters.some(key => args[key] !== undefined && !allowed.has(key)))
-    throw new HarnessError('tiyi_unused_parameters', '这项查询不使用刚才的筛选条件，请按该项的说明查询；学校时间统计、运动详情和体育课程各有自己的入口。');
+    throw new HarnessError('tiyi_unused_parameters', '刚才这组筛选与所选项目没有对应上。用describeOnly展开这一项的读法，就能保留它需要的条件继续；学校时间统计、运动详情和体育课程分别查询。');
   if (venueSelection && (args.venueSiteId !== undefined) !== (args.searchDate !== undefined))
     throw new HarnessError('tiyi_venue_selection', '先看学校场馆目录，再把原场地ID和想看的学校当地日期一起带上。');
   if (['courses', 'classes', 'attendance'].includes(args.resource) && (!args.schoolYear || !args.termId))
     throw new HarnessError('tiyi_term_required', '先查看体艺课程学期，再按学校提供的学年和学期读取课程。');
   if (args.resource === 'attendance' && !args.courseId)
-    throw new HarnessError('tiyi_course_required', '请先从本人的体育课程中选出这门课，再查看逐次考勤。');
+    throw new HarnessError('tiyi_course_required', '从本人的体育课程列表选到这门课后，沿它的courseId就能看逐次考勤。');
   if (args.resource === 'record_detail' && !args.recordId)
-    throw new HarnessError('tiyi_record_required', '请先查看本人的锻炼流水，再沿其中的运动记录打开详情。');
+    throw new HarnessError('tiyi_record_required', '单次运动详情连着本人的锻炼流水，沿列表返回的recordId就能接着打开。');
   if (args.resource === 'statistics' && (args.begin === undefined || args.end === undefined || !args.period || args.end < args.begin || args.end - args.begin > 730 * 86400000))
-    throw new HarnessError('tiyi_statistics_range', '学校统计需要明确的起止时间和周、月或学期口径，时间范围不能超过两年。');
+    throw new HarnessError('tiyi_statistics_range', '这项学校统计按明确的起止时间和周、月或学期口径查询，一次最长730天。带好这次想看的时间段，就能继续。');
   if (args.subpage && !subpages[args.resource as TiyiModuleResource]?.includes(args.subpage))
-    throw new HarnessError('tiyi_subpage_unknown', '这项体艺功能没有这个子页面，请按它提供的入口继续。');
+    throw new HarnessError('tiyi_subpage_unknown', '这个子页面与所选体艺项目没有对应上；describeOnly能展开该项目现有的读法，再从其中选一项继续。');
   return args;
 }
 
@@ -232,7 +232,7 @@ function sourceChildren(observation: TiyiObservation) {
 function resultOf(observation: TiyiObservation, capability: string, args: TiyiReadArgs): CapabilityResult {
   const personalProfile = profileObservation(observation) || args.resource === 'venues' && args.subpage === 'mine';
   if (personalProfile && !profilePointer(observation.coverage.pointer ?? args.pointer ?? ''))
-    throw new HarnessError('tiyi_pointer_forbidden', '请沿个人资料中可读的正文继续查看。');
+    throw new HarnessError('tiyi_pointer_forbidden', '这份个人资料可沿它返回的可读正文地址继续查看。');
   const budget = { remaining: 3000, bytes: 70000, omitted: false, profile: personalProfile };
   const projected = observation.data === undefined ? undefined : project(observation.data, budget);
   const payload = budget.omitted ? undefined : projected;
@@ -255,7 +255,7 @@ function resultOf(observation: TiyiObservation, capability: string, args: TiyiRe
     ? (payload as { readState?: unknown; venueLiveRead?: unknown }).readState : undefined;
   const stateMeaning = state === 'access_denied' ? '学校当前没有向这个账号开放本人代表队名单；可申请的队伍与本人队伍分别保留。'
     : state === 'external_entry_only' ? '学校提供了咕咚的外部入口，这次还没有取得绑定状态。'
-      : state === 'activity_unavailable' ? '学校这次没有返回可读取的西迁活动，个人汇总也没有补成零值。'
+      : state === 'activity_unavailable' ? '学校这次没有返回可读取的西迁活动，个人运动汇总仍未知。'
         : ['report_not_available', 'image_content_unread', 'report_loading_changed', 'no_personal_report'].includes(String(state)) ? '这次尚未读到报告中的个人指标。'
           : state === 'no_published_courses' ? '学校这次没有返回所选范围内已公布的体测与锻炼课程。'
             : state === 'no_records' ? args.resource === 'counts' ? '学校的次数查询在所选学期返回空表。'

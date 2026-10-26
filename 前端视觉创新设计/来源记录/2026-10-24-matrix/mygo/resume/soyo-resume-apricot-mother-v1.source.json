@@ -40,11 +40,13 @@
     "originalCompanionSituation": "她先把自己的书页按住，再自然看向归来的人；桌边仍留着位置，不递作业、不催学习。",
     "peerReviewBeforeGeneration": "recover_visuals suggested fingertips paused at her own page edge, observing the person rather than a mature hostess/service smile; adopted in the exact prompt. cast_mygo was messaged and its healthy in-flight session was retained; its output review is pending."
   },
-  "status": "candidate-awaiting-primary-review",
+  "status": "approved-mother-only",
   "review": {
     "personallyViewedOutput": true,
-    "approvedByPrimary": false,
+    "approvedByPrimary": true,
     "runtimeAccepted": false,
+    "primaryReviewScope": "Primary agent personally viewed the original PNG through its image page and approved this mother only. Layers and runtime are not approved. Do not claim an independently visible bookmark.",
+    "peerOutputReview": "recover_visuals and cast_mygo personally viewed the original PNG, found youthful identity and natural lap/book/hand/leg/shoe support with no immediate structural rejection. Both noted the front-facing turn should be described as actually drawn, not as a complete over-shoulder pose.",
     "observations": "Subagent saw a youthful light-brown-haired, blue-eyed Soyo; open book and hands are supported by her lap, seated hips meet the cushion, two complete uncrossed leg/shoe chains reach the floor, room and left content space remain coherent. The generated turn is more front-facing than the proposed shoulder-return. A distinct bookmark is not claimed as verified. This is artwork only, not evidence of restoring a real user stopping point."
   }
 }

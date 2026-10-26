@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-chat-apricot-literary-figure-step1-v1",
+  "assetType": "native-luminance-source-selection-intermediate-or-mask",
+  "createdAtUtc": "2026-10-25T11:23:00.201381+00:00",
+  "stage": "figure-step1-v1",
+  "tool": {
+    "name": "image_gen.imagegen",
+    "mode": "same-canvas-in-place-selection",
+    "originalEventId": "exec-fb130b2a-4140-4494-94fe-346cb338416e",
+    "outputHint": "Generated images are saved to C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270 as C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-fb130b2a-4140-4494-94fe-346cb338416e.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  "prompt": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\chat-layers\\figure-step1-v1.prompt.json",
+    "fileSHA256": "8aea452d1d40a680cda45bcb95ab538e8a42e05c8436a82d0a19e1184f33caf2",
+    "submittedPrompt": "Use case: precise-object-edit.\nAsset type: complete foreground selection markup, F STEP 1.\nImage 1 is the ONLY input: the primary-approved original Soyo Nagasaki / 長崎そよ literary-room CHAT mother, exactly 1536×1024. Preserve its entire original canvas, room, camera, scale and every object/source pixel position.\nPaint the ENTIRE visible original girl AND the entire held OPEN booklet across her lap, including all covers, pages and fine page edges beneath BOTH resting hands SOLID PURE WHITE directly over their existing source pixels. Include every hair tip and fine strand, face/neck, long light-brown curled hair, every navy sailor sleeve, white collar and trim, gray-blue bow and crest, the whole navy pleated skirt with BOTH white hem lines and dark undersides, both bare thighs/knees, dark knee socks, BROWN loafers, both whole hands/fingers and wrists. White interiors must be completely solid, without eye holes, colored linework or cloth folds. Preserve the actual antialiased outer perimeter without contraction or dilation.\nCritical edge ownership: all dark garment folds, the full thin dark skirt trim and every outward folded hem tip are FOREGROUND, not cushion shadow. Both complete shoes include dark toe tips, upper sidewalls, every dark sole rim, heel back/side walls and heel blocks, including their full bottom contours. Do not shave off dark shoes or classify their soles as floor shade. The foreground is approximately x750..1150,y105..885; the full skirt/cushion edge is approximately x795..1140,y495..640; complete shoes are approximately x745..925,y775..890. These are observation limits, not boxes to fill.\nKeep the entire colored room otherwise unchanged, including the linen cushion, plaid pillows, knitted throw, round table/lamp/cup/flowers, writing desk/chair, shelves/plants/window/lake/floor/rug and independent room/contact/cast shadows. Real gaps between hair strands, arms, booklet and legs remain original colored background. Do not select window light, curtain highlights, flowers or cushion as hair or body.\nOutput ONE opaque original-position 1536×1024 PNG: original colored source scene with ONLY the complete figure plus held booklet painted pure white in place. Do not redraw a face/body, change pose/proportions, crop, zoom, move, recenter, add labels, text, boxes or outlines.\n",
+    "submittedPromptSHA256": "73e948cbaaebeaed58bf4bb7bb9ff51b3a1b606993e306daaa1ec2a8b31f907b"
+  },
+  "inputs": [
+    {
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\chat-pilot\\soyo-chat-apricot-literary-v1.png",
+      "sha256": "20942d064ae0af479ede2868d689e105433022e8c0448d45301bd7fc9301bfd8",
+      "role": "sole ImageGen input; original approved mother for STEP1, previous marked output for STEP2"
+    }
+  ],
+  "sourceMother": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\chat-pilot\\soyo-chat-apricot-literary-v1.png",
+    "sha256": "20942d064ae0af479ede2868d689e105433022e8c0448d45301bd7fc9301bfd8",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "approval": "Root personally approved chat mother only on 2026-10-25; no layer/runtime approval implied"
+  },
+  "matchingBackground": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "role": "existing approved empty clear-day composition background; not supplied to this selection call"
+  },
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\chat-layers\\figure-step1-marked-v1.png",
+    "sha256": "bc384520b992e7acaab9488dee69ebf6e9068035b6ef683ea1fc7c2adb05ea50",
+    "bytes": 2315701,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-fb130b2a-4140-4494-94fe-346cb338416e.png"
+  },
+  "compositionIntent": {
+    "formula": "U = MAX(L(F), L(S)); original mother RGB drawn exactly once through U",
+    "contactShadow": "included",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "independentCasterClaim": false
+  },
+  "review": {
+    "directInspection": "original generated output viewed in session; final F/S also viewed in native SVG original-RGB composition",
+    "approvedByPrimary": false,
+    "runtimeAccepted": false,
+    "observation": "Fixed source selection only; final MAX union contact/edge observations are recorded in chat-included-bundle-v1.json"
+  },
+  "boundaries": [
+    "exact approved mother coordinates",
+    "no new RGB figure",
+    "no PNG pixel editing",
+    "maximum four calls per character",
+    "no layer/runtime admission"
+  ],
+  "largeImageResultStored": false,
+  "status": "saved-source-selection-composed-in-native-union-awaiting-primary-review"
+}

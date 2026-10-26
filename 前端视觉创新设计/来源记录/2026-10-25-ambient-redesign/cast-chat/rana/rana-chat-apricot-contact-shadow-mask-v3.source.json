@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-canvas-broad-thigh-cast-and-contact-source-rgb-luminance-matte",
+  "id": "rana-chat-apricot-contact-shadow-mask-v3",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "rana-chat-apricot-contact-shadow-mask-v3.prompt.json",
+  "promptFileSha256": "d7238603ca79a60b7cb7291d56b6d13e432a60c362e3ec6b75794d6b583f6cd1",
+  "submittedPrompt": "Use case: precise-object-edit. STEP 2: preserve the exact EXISTING white broad thigh-cast shadow region and make everything else black.\nImage 1 is the ONLY exact full 1536x1024 input. Its original room and seated girl remain colored, while the actual support-surface cast/contact shadow footprints have ALREADY been locally filled white at their original positions. This is a color replacement, NOT a new shadow drawing.\nKeep the ENTIRE existing flat WHITE TRIANGULAR CUSHION SHADOW immediately BELOW the horizontal upper thigh/shorts exactly at the existing source pixels. This is the BROAD cast shadow in the negative space between horizontal thigh and downward front shin, not just a narrow seam. Its existing white interior includes source (1280,582): preserve that source pixel WHITE and retain the continuous white triangular footprint around it, without moving, thinning or losing its lower/left portion. The region begins around y574 and follows the existing white support-surface footprint below the original person. Do not shift it up to the lap or reduce it to a line.\nAlso retain the existing locally WHITE tiny palm-contact surface and the two existing white floor-contact fringes immediately OUTSIDE/BELOW original boot soles. Their source locations/shapes remain exactly unchanged. Actual boot surfaces are person and become black.\nMake EVERYTHING ELSE PURE BLACK: original person including silver hair, face/skin, white shorts/sleeves, hands, bare legs, complete boots/laces; all room/window/sky/white curtains/cushion/blanket/pillows/furniture/floor/sunlight and normal furniture shadows. Naturally pale skin/clothes/cushion/sunlight are not the newly painted cast-shadow footprint and must be black. Do not swallow person surfaces into the white mask or leave colored marks.\nNo translation, resize, recenter, crop, zoom, inferred geometry, new oval/bar/rectangle, expansion of footprints, texture, ghost, glow, label, text, grid, border or watermark. Keep full original 1536x1024 canvas. Return only the already registered white support-surface shadow footprints on an otherwise pure black opaque RGB grayscale canvas, opaque white interior and narrow existing outer antialiasing. No transparency.",
+  "submittedPromptSha256Utf8NoTrailingLF": "96686892f1d73667af0adcd113f544f476b234250561c22e09c1ccca06f26a76",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/rana/rana-chat-apricot-cast-white-in-room-v1.png",
+      "sha256": "9821c81f1cb49d993934307dececdd52b28cc9ba05c7d5f89960f0e3b8506114",
+      "role": "sole original-room broad cast shadow white intermediate; known source(1280,582) verified white before blackening; no failed matte input"
+    }
+  ],
+  "output": {
+    "file": "rana-chat-apricot-contact-shadow-mask-v3.png",
+    "sha256": "5c0963db7cd7c2c393c07fd69d0de7b06cc361df1afa7e6dd154d3f600e166ae",
+    "bytes": 333295,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-321bdc84-3cf2-4a68-8a31-b6987ae8ca47.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": true,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observationBoundary": "Producer exact PNG viewed; whole-cast source-RGB native recomposition and runtime remain independent primary review.",
+    "primaryNativeCompositeViewed": true,
+    "primaryLayerApprovalRecord": "rana-chat-apricot-primary-layer-approval-v1.json",
+    "primaryLayerApprovalScope": "Exact admitted static v4 bundle with contained1.2 native geometric calibration; source RGB unchanged; runtime separate."
+  },
+  "status": "primary-admitted-static-v4-bundle-member-runtime-separate",
+  "maskMode": "luminance",
+  "intendedRendering": "Exact original mother RGB through this full-canvas cast/contact matte; no uniform fill, no manual ROI patch, fixed travel 0.",
+  "knownSourcePoint": {
+    "xy": [
+      1280,
+      582
+    ],
+    "luminance": 254,
+    "interpretation": "Near-opaque at known broad cushion cast-shadow point; not whole-shadow visual approval."
+  }
+}

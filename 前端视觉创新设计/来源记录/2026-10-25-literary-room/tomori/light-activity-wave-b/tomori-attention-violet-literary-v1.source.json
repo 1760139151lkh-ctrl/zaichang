@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "assetId": "tomori-attention-violet-literary-v1",
+  "roomFamily": "literary-room-v1",
+  "characterId": "tomori",
+  "activity": "attention",
+  "palette": "violet",
+  "ambientPlateKey": "twilight",
+  "createdOn": "2026-10-25",
+  "generationMode": "target-empty-plate-and-approved-exact-activity-mother-relighting",
+  "tool": "image_gen.imagegen (built-in)",
+  "callOrdinalInBoundedBatch": 8,
+  "executionId": "exec-0fd06d0a-44a0-4fa0-9545-e898bb45dd3d",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-0fd06d0a-44a0-4fa0-9545-e898bb45dd3d.png",
+  "inputs": [
+    {
+      "file": "../../plates/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+      "role": "image1: approved exact target empty plate and illumination"
+    },
+    {
+      "file": "../apricot-wave-b/tomori-attention-apricot-literary-v1.png",
+      "sha256": "22b2ae5582d852a3b0fd565d3e52f95acd6cbdc5ed5b8c58a5076d1540e30013",
+      "role": "image2: root-approved actual activity identity/pose/scale/support, not inherited daylight",
+      "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+    }
+  ],
+  "promptFile": "tomori-attention-violet-literary-v1.prompt.txt",
+  "promptFileSha256": "5c53988270373794e8ab0072c8b1aede39f241ffacccfd4bc1a33c2500e43248",
+  "submittedPrompt": "Create ONE 1536×1024 complete landscape literary companion illustration through genuine WHOLE-SCENE RELIGHTING. Image 1 is the ROOT-APPROVED EMPTY environmental plate at the TARGET time/weather and gives camera, room geometry and illumination. Image 2 is this SAME girl's ROOT-APPROVED APRICOT MOTHER OF THIS EXACT ACTIVITY. Retain its actual youthful identity, uniform, exact silhouette/head/body scale/source positions, microexpression, visible hands/objects, true support and occlusion; its DAYLIGHT HIGHLIGHTS are NOT identity or pose constraints.\nRepaint all light on skin/hair/uniform, held or resting paper/book, contact linen, wood/lamps and floor according to image 1, rather than tinting the scene or pasting a day-lit girl into new weather. Old apricot white knee/shin/face hotspots, sunlit hair rims and window-lattice pools do not survive by default.\nLock the close camera/framing and existing window panes/current crop, lake/town/mountain geometry, desk/chair, shelves/books/plants, round table/ceramic lamp/cup/flowers, linen bench/right plaid cushions/cream knit throw, floor/rug and blurred foreground plant. Keep her actual approved seated pelvis/cushion support and exact shoulders/arms/hands/props/knees/ankles/complete shoes at source coordinates. No body translation, enlarged head, reposed/crossed legs or invented hidden hand. Full head/hair and both complete shoes stay within the original image; real limb/strand gaps and overlaps remain.\nPrecise expressive anime character drawing belongs in the tactile softly painterly room. Separate every fringe lock, brow, lash, upper/lower eyelid, sclera and iris boundary, including side/down gaze. Preserve her youthful canonical hair/eye/garment colors under the new light, not a generic adult face, green UI tint, fixed service smile, compulsory blush or stereotyped scowl.\nOnly these two approved images are references. No unreviewed light mother, prior lighting-problem candidate, mask, other character, old room or malformed pose is used. Do not add readable text/schedules/answers/receipts, UI, logos, watermarks, diagrams, another person, split scene, zoom, new furniture or duplicate limbs. This is a project-original fictional performance, not a statement about an actual user's past action or completion.\n\nCHARACTER: Takamatsu Tomori (高松燈), MyGO!!!!!: neck-length layered steel-gray/gray-lavender short hair, muted rose-brown/dusty pink-gray eyes; gray-purple blazer with white piping, white shirt/dark striped tie, checked skirt, dark socks and brown loafers.\nACTUAL APPROVED PERFORMANCE: Preserve the APPROVED ACTUAL open small notebook on thighs, pencil safely at the fold, hands retaining that pause, and separate small page lying on the linen at image-left. Same modest head/gaze down-left toward the nearby page region; do not exaggerate a turn or reach, and do not claim an exact eye ray/actual pointing event. Quiet concrete reconsideration, unchanged body support.\nTARGET LIGHT: NATURAL TWILIGHT, exactly image 1's continuous rose/lavender sky and existing warm ceramic-lamp interior with gentle cool window fill and town lights. Repaint the whole girl, folded paper/book/page, seat contacts and floor together. The lower-right floor and knees/shins stay softly lit like image 1, NOT bright orange rectangular noon sun pools or retained white apricot hot patches. No purple/amber overlay, half-day/half-night split or pasted daytime skin.",
+  "output": {
+    "file": "tomori-attention-violet-literary-v1.png",
+    "sha256": "be2b69bb058d8cf93523a386d6c6aab0b84782cc4865863383e0fc5cec018beb",
+    "bytes": 2266912,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "reviewedOn": "2026-10-25",
+    "decision": "static mother candidate for primary inspection",
+    "observation": "Complete original viewed: supported notebook, pencil-at-fold, hand pause and separate image-left page retain actual activity; modest down-left gaze/head inclination rather than a reach. Dusk/lamp light reaches paper, skin/uniform, seat and floor consistently without conspicuous noon grid. Eyes/fringe/lids clear; coherent hip support/full uncrossed legs/shoes at source scale and room stable.",
+    "bodyContour": {
+      "contourComplete": true
+    },
+    "limits": "Not an exact measured eye ray or pixel-identical head angle; primary/layer/runtime remain false."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "acceptanceScope": "Static actual-activity theme mother candidate only; no layer progression or registration."
+}

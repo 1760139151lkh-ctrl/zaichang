@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "assetId": "taki-chat-rain-literary-v1",
+  "roomFamily": "literary-room-v1",
+  "characterId": "taki",
+  "activity": "chat",
+  "palette": "rain",
+  "ambientPlateKey": "rain-night",
+  "createdOn": "2026-10-25",
+  "generationMode": "target-empty-room-first-same-pose-chat-relighting",
+  "tool": "image_gen.imagegen (built-in)",
+  "callOrdinalInBoundedBatch": 6,
+  "executionId": "exec-fc6df989-dce3-4617-b787-f1af1ab90597",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-fc6df989-dce3-4617-b787-f1af1ab90597.png",
+  "inputs": [
+    {
+      "file": "../../plates/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "role": "image1: primary-approved empty plate target geometry/light/atmosphere"
+    },
+    {
+      "file": "../chat-pilot/taki-chat-apricot-literary-v1.png",
+      "sha256": "0eb782e67b9954b406130a4994e9e75dd8774c8c3eb2a690d75d3e55338aad16",
+      "role": "image2: primary-approved exact chat identity/pose/scale/support; inherited daylight not a constraint"
+    }
+  ],
+  "promptFile": "taki-chat-rain-literary-v1.prompt.txt",
+  "promptFileSha256": "4be744388aae67def20dd21531f446d7b999b280c0cb3804039c8943008dbef3",
+  "submittedPrompt": "Create ONE 1536×1024 complete landscape literary companion scene by genuinely RELIGHTING an approved chat mother. Image 1 is the PRIMARY-APPROVED EMPTY ROOM under the TARGET lighting: it is the exact camera, geometry and environment to retain. Image 2 is the PRIMARY-APPROVED same-role apricot CHAT MOTHER: use only her correct identity, fixed anatomical silhouette, exact pose/scale/support/occlusion and source coordinates, NOT its inherited daylight highlights. Place that identical body performance into image 1's light by genuinely drawing its lighting anew. These two images are the only inputs. No layer/mask, unreviewed activity mother, old room, different girl or face replacement.\nPreserve the same close camera and original framing. Preserve ALL original person coordinates/scale, her seated hips in the real linen bench, exact shoulders/arms/hands/book/hem/knees/ankles and both complete shoes at their real original floor contacts. Head and shoes stay fully in frame. No translation, enlargement, leaning toward camera, new gesture or reposed limbs; natural originals gaps and occlusion remain. Keep the same large wooden multi-pane window and its current crop, lake/town/mountain geometry, shelves/books/plants, left desk and chair, round table/ceramic lamp/cup/flowers, right plaid cushions/knit throw, rug/floor and foreground plant at the same positions. Keep the room continuous, no day/night split, hard color boundary or replacement furniture.\nRepaint the WHOLE scene's light, including character face/hair/clothes/book, cushion compression/contact shadows and floor, consistently with image 1. The target is natural integrated illumination, NOT a tinted transparent overlay, filter, pasted daytime figure or simple hue swap. Use precise expressive anime character drawing inside the tactile softly painterly room. Keep each fringe lock, eyebrow, eyelash, eyelid, sclera and iris separate and readable; no hair-eye fusion or changed eye color. Do not trade youthful identity for an adult generic face.\nNo readable text, captions, fake user state, diagrams, UI, logos, watermarks, duplicate body parts, new person, crop, zoom, picture-in-picture or poster layout. The emotional scenario is project-original and does not assert an actual user's past action, promise or completed task.\nCRITICAL: original apricot skin highlights, hot knee/shin patches and sunlit hair rims are NOT pose or identity constraints. Replace them with the target room's actual soft diffuse/lamp-facing light. Do not preserve a bright white apricot shin patch in dusk/night, and do not paint a hard noon grid onto a diffuse/night floor.\n\nCHARACTER: Shiina Taki (椎名立希) from BanG Dream! It's MyGO!!!!! — youthful long straight purple-black hair with side-parted fringe, violet eyes; camel-brown Hanasakigawa sailor uniform, white sailor collar with dark trim, red ribbon, gold buttons, camel pleated skirt, dark socks and complete brown loafers.\nORIGINAL PERFORMANCE: Her direct yet slightly awkward concrete care remains: attentive softened brows, a small questioning part of the mouth, closed book already secure across one side of her lap, one forearm/hand loose toward the opposite thigh and the other hand naturally obscured at the book. Preserve the exact calm chat performance and actual occlusions; do not invent a new hidden hand, scowl or sales smile.\nTARGET LIGHT: RAINY NIGHT exactly like the approved image 1: real raindrops/streaks on the window, dark cloudy outside with wet distant town/lake reflections, NO stars and no daylight. The dry warm interior is softly lit mainly by the existing blue-white ceramic lamp, with subordinate cool night-window ambience. Repaint the girl, uniform, skin, hair, book, linen and local floor contacts together under that warm-gold nocturnal light. Remove all old daylight patches and noon cast-light lattice. Keep detailed skin and readable eyes, not a silhouette, glow sticker or all-over gold filter. Rain does not impose sadness: preserve her original specific earnest/light conversational affect without tears, mournful gaze or automatic melancholy.",
+  "output": {
+    "file": "taki-chat-rain-literary-v1.png",
+    "sha256": "48134f536e5a65f59ed4d3b91ca5f8acc898a3697894eb8780bb53ef7a7bbddd",
+    "bytes": 2186968,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "decision": "static theme mother candidate for primary inspection",
+    "observation": "Complete original viewed: rain marks/streaks on glass, dark cloudy lake/town with wet light reflections, warm dry existing-lamp interior and no stars/daylight sky or hard noon window lattice. Taki's skin, uniform, linen and floor read together under warm localized night illumination; hard apricot knee patch is softened. Original chat body scale, closed book/visible hand/occluded hand, hip/cushion and complete shoes remain visually aligned. Violet eyes/hair/lids distinct; direct earnest questioning affect remains rather than automatic sadness.",
+    "limits": "Static visual light/support inspection only; no radiometric calibration, pixel-identical registration or runtime behavior proof. No primary/layer/runtime admission."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "acceptanceScope": "Static theme mother candidate only; no new layers or registration."
+}

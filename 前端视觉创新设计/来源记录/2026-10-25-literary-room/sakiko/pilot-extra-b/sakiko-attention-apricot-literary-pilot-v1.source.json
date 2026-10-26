@@ -1,0 +1,59 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "single-character-cross-activity-pilot",
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "activity": "attention",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "generationMode": "sole-approved-empty-plate-input",
+  "input": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "role": "sole actual image input, approved clean plate"
+  },
+  "referenceBoundary": "Human-selected reading mother was personally viewed for camera/scale only and was not passed as an image input. No old room4 or person image input.",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-2e6f4339-6140-4194-91b2-c76fc6f3acca.png",
+  "output": "sakiko-attention-apricot-literary-pilot-v1.png",
+  "outputSha256": "ee521a0bf2b68e4d36c62a5c7755549006400e96d4ce252e0b154fe6587156b9",
+  "promptFile": "sakiko-attention-apricot-literary-pilot-v1.prompt.txt",
+  "prompt": "Use case: stylized-concept, same-room character mother.\nCreate ONE complete 1536 x 1024 warm-apricot literary room illustration. The ONLY image input is the approved CLEAN EMPTY literary room plate. It supplies the exact camera, room geometry, furniture, materials and daylight. No person-reference image is supplied. Keep this exact full canvas; no zoom, crop, camera move, room redesign or old room composition.\n\nLOCK THE SPACE: preserve the large connected wooden window with its lake, mountains and town, the sheer curtains, left desk/wooden chair/bookshelves/plants/pictures, round side table with its porcelain lamp/books/cup/flower vase, continuous cushioned right window bench, plaid pillows and knitted throw, foreground plant/books blur, rug and wooden floor. Keep every object in place and at its original scale. The empty room is already the correct literary composition. No UI, giant character circle, alert, sign, floating card, arrow, ring, sparkle effect, spotlight, written text or decorative indicator.\n\nSUBJECT: Toyokawa Sakiko (丰川祥子), original youthful BanG Dream! anime high-school identity. Long pale silver-blue hair, dark navy ribbon ties and fine naturally separated hair groups; clear golden-amber irises, pupils, upper eyelids and light lashes. Keep fringe, eyelid and iris separately readable rather than a heavy merged black eye patch. Youthful ordinary face/build, not a mature fashion-model portrait, not a chibi. Navy long-sleeved school uniform, white collar, restrained gray ribbon, navy checked pleated skirt, dark knee socks and complete brown loafers. Natural colors remain distinct in the warm window light.\n\nACTIVITY attention, a small shared discovery: she has just noticed a tiny ordinary glint in the EXISTING lake view near the central window mullion, and wants to quietly point it out to the person beside the camera. The eyes brighten first, with only a very small lift of one brow; lips slightly part as if a short, natural observation is about to be said. No generic smile, alarm, dramatic surprise or presenter gesture. This is the intimate still instant after noticing something small, not a new interface or a jump in her size. Her face is turned only slightly toward the left foreground listener; the eye direction still relates naturally to the little existing view detail.\nOne hand makes a restrained, close-to-body pointing gesture with a single relaxed index finger toward that part of the view, at about lower-chest height. The elbow stays close to her side or upper thigh, wrist comfortable, other fingers naturally relaxed and correctly joined. Do not stretch an arm across the room or toward the viewer. The other hand rests calmly on the skirt near her knee. No handheld book, card, microphone, board or extra prop.\n\nPHYSICS AND STABLE SCALE: sit naturally on the front half of the RIGHT bench, with visible cushion support beneath pelvis and rear thighs. Use the close human scale of this selected literary room: head top approximately y=110..135, supported hips around the real seat y=550..585, both shoe soles around y=870..900, complete silhouette approximately x=875..1390. Do not lean the head toward the camera, enlarge her face or move the bench. The tiny discovery changes only eye/face emphasis and a small hand gesture, not body size or camera. Modest skirt drapes over two continuous thighs and naturally close uncrossed knees; lower legs lead to distinct ankles and both whole loafers resting on the existing floor. Keep head, hair tips, both hands, knees and shoes complete, with natural local contact shadows and correct room occlusion. No floating seat, shoe, wrist, extra fingers or furniture growing through clothes.\n\nSTYLE: high-detail youthful Japanese anime figure integrated with the exact richly painted literary room; nuanced apricot rim and bounce light, calm skin shading, clean eye structure, delicate distinct hair strands, cloth and leather detail. The personal feeling is a controlled spark of curiosity offered to someone nearby, not stage performance or service greeting. Preserve the lived-in left room and the full connected space. No lettering, logos, watermark, borders, split view or collage. Output only one complete same-size mother image.",
+  "submittedPromptSha256NoTrailingNewline": "1380065adfa55f6732ae8441a34f893d8b223ddf0b0b82aa142a7297cb1bd752",
+  "promptFileSha256": "1380065adfa55f6732ae8441a34f893d8b223ddf0b0b82aa142a7297cb1bd752",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "actualMode": "RGB",
+  "producerViewed": true,
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "reviewBoundary": "One generated mother; no layer extraction or runtime claim.",
+  "numberOfImageInputs": 1,
+  "inputApprovalSource": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json",
+    "sha256": "5425e475efa8264874f2f3b083b8737b4b1f9d35399e9b2c3d86dc561a36cddb"
+  },
+  "selectedReadingReference": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+    "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+    "role": "Personally viewed only for close camera/scale; NOT an actual tool image input."
+  },
+  "promptFileMatchesToolInput": true,
+  "producerObservations": [
+    "Personally viewed complete fresh output. Same literary room camera and furniture retained; close-to-body single-index pointing gesture, other hand on lap, hips on cushion and two complete shoes on floor visible.",
+    "Silver-blue long hair, gold irises, eyelids, fingers and dark school uniform remain separately legible; no large circle, warning, sign, floating UI or new furniture observed.",
+    "Attention looks brighter and slightly surprised than planning, with lightly parted lips; root must judge whether this is restrained enough for a small shared discovery.",
+    "Head top is visually around y100 and shoe soles around y900; head top is a little higher than the approximate y110 target. No forward head zoom or edge crop observed, but exact cross-activity scale agreement is not signed.",
+    "Single still image suggests discovery/pointing; it does not establish the temporal order of eye movement before hand movement."
+  ],
+  "remaining": [
+    "Root inspect controlled discovery expression and cross-activity scale",
+    "No layer extraction, motion or runtime acceptance"
+  ],
+  "producerConcerns": [
+    "Head top approximately y100 versus target around y110; primary comparative review needed.",
+    "Slightly open-mouth/bright-eyed discovery expression may read more surprised; primary must judge emotional restraint."
+  ]
+}

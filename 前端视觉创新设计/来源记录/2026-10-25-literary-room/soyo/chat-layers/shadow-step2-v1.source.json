@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-chat-apricot-literary-shadow-step2-v1",
+  "assetType": "native-luminance-source-selection-intermediate-or-mask",
+  "createdAtUtc": "2026-10-25T11:25:40.176058+00:00",
+  "stage": "shadow-step2-v1",
+  "tool": {
+    "name": "image_gen.imagegen",
+    "mode": "same-canvas-in-place-selection",
+    "originalEventId": "exec-5bba89f0-494e-467a-9313-f35a7aef9a1a",
+    "outputHint": "Generated images are saved to C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270 as C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-5bba89f0-494e-467a-9313-f35a7aef9a1a.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  "prompt": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\chat-layers\\shadow-step2-v1.prompt.json",
+    "fileSHA256": "8faa48a2768d85f452c76de2106c4c3c5b4f7a5b69ca10d9c67b76ecab3c6b2e",
+    "submittedPrompt": "Use case: background-extraction.\nAsset type: original-position local contact/receiving-surface LUMINANCE MASK, S STEP 2.\nImage 1 is the ONLY input: the exact 1536×1024 Soyo Nagasaki / 長崎そよ chat scene with real source contact patches already painted PURE WHITE. Preserve the existing full canvas and every deliberately painted white contact position and shape. Keep ONLY those painted contact patches WHITE; turn ALL other colored or naturally bright scene pixels PURE BLACK.\nThe selected cushion contact is approximately x790..1160,y550..655, the already-white narrow irregular receiving strip directly under the rear hip/skirt and local hair/seat shade. The selected floor contacts are approximately x735..950,y830..915, the already-white patches immediately touching both original shoe soles. Preserve their exact marked contours and tapered extents, including any genuine tiny already-marked independent hand/book receiving patch. The coordinates identify existing selections, not white rectangles to draw.\nCritical distinction after viewing STEP1: the very bright long bench stripe to the LEFT of x790 and RIGHT of x1160 is distant naturally sunlit linen, not a local body contact selection; it must be black. Keep the actual local contact strip immediately below the skirt/hip within the stated receiving region, not a long white bench-top band. Do not turn natural page whites or the white collar into contact. Do not move contact onto the lap/book or below the real soles, connect distant groups, expand into the whole cushion/floor, invent another shade, draw an ellipse or repaint another figure edge. Girl, hair, face, both hands, entire booklet, all clothes, socks and shoes become BLACK. Natural white linen, collar, plaid-pillow stripes, clouds, curtains, flowers, lamp shade, floor/rug highlights and every unrelated object also become BLACK.\nOutput exactly ONE opaque 1536×1024 black PNG with ONLY the unchanged original-position white contact selections. Thin original-edge grey antialias is permitted. No colors, checkerboard, new shadow/person, labels, text, grid, arrows, boxes, crop or movement. This will be unioned with F using MAX and stays fixed to this exact original mother and matching empty room; do not claim a portable independent caster layer.\n",
+    "submittedPromptSHA256": "27132788ca53b836c3b2cdd89e615c24500ad57befe3fc071aebc0351db4d89c"
+  },
+  "inputs": [
+    {
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\chat-layers\\shadow-step1-marked-v1.png",
+      "sha256": "1c3510d16b89ad30852de7b1384d09f33687ffdc54d6786f742493d3803ae2e3",
+      "role": "sole ImageGen input; original approved mother for STEP1, previous marked output for STEP2"
+    }
+  ],
+  "sourceMother": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\chat-pilot\\soyo-chat-apricot-literary-v1.png",
+    "sha256": "20942d064ae0af479ede2868d689e105433022e8c0448d45301bd7fc9301bfd8",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "approval": "Root personally approved chat mother only on 2026-10-25; no layer/runtime approval implied"
+  },
+  "matchingBackground": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "role": "existing approved empty clear-day composition background; not supplied to this selection call"
+  },
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\chat-layers\\shadow-mask-v1.png",
+    "sha256": "f170ba21bfff70b2db41ef2fa559318f70f1994556dd85253825cc3ec7ee0c90",
+    "bytes": 339502,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-5bba89f0-494e-467a-9313-f35a7aef9a1a.png"
+  },
+  "compositionIntent": {
+    "formula": "U = MAX(L(F), L(S)); original mother RGB drawn exactly once through U",
+    "contactShadow": "included",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "independentCasterClaim": false
+  },
+  "review": {
+    "directInspection": "original generated output viewed in session; final F/S also viewed in native SVG original-RGB composition",
+    "approvedByPrimary": false,
+    "runtimeAccepted": false,
+    "observation": "Fixed source selection only; final MAX union contact/edge observations are recorded in chat-included-bundle-v1.json"
+  },
+  "boundaries": [
+    "exact approved mother coordinates",
+    "no new RGB figure",
+    "no PNG pixel editing",
+    "maximum four calls per character",
+    "no layer/runtime admission"
+  ],
+  "largeImageResultStored": false,
+  "status": "saved-source-selection-composed-in-native-union-awaiting-primary-review"
+}

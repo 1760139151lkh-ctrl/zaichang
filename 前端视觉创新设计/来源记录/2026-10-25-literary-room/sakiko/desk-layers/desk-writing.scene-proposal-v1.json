@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "id": "sakiko-study-apricot-literary-desk-v1",
+  "sceneFamily": "literary-room-v1",
+  "pose": "desk-writing",
+  "character": "sakiko",
+  "activity": "study",
+  "light": "morning",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "width": 1536,
+  "height": 1024,
+  "mother": "sakiko-study-apricot-literary-desk-v1-mother.png",
+  "background": "sakiko-study-apricot-literary-desk-v1-background.png",
+  "mask": "sakiko-study-apricot-literary-desk-v1-mask.png",
+  "maskMode": "luminance",
+  "contactMask": "sakiko-study-apricot-literary-desk-v1-contact-mask.png",
+  "seat": [
+    0.18033854166666666,
+    0.5263671875
+  ],
+  "ground": [
+    0.13736979166666666,
+    0.69921875
+  ],
+  "bodyBounds": [
+    0.055338541666666664,
+    0.208984375,
+    0.294921875,
+    0.7109375
+  ],
+  "safeTextBoundary": 0.3157552083333333,
+  "support": "desk-chair",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": false,
+  "hitPolygon": "5.533854166666666% 20.8984375%, 29.4921875% 20.8984375%, 29.4921875% 71.09375%, 5.533854166666666% 71.09375%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "workingPaperSide": "right",
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/sakiko-desk-writing-literary-included-primary-admission-v1.json",
+    "geometryRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-visible-geometry-v1.json",
+    "geometryStatus": "Actual visible seat277539/forearm194391, not an old empty chair center or hidden joints. Ground is partial visible heel only.",
+    "layerReview": "root-approved exact-SHA fixed included desk-writing union; receiver material included; no invisible-foot/motion/runtime approval.",
+    "runtimeSourceSha256": {
+      "mother": "00629c2e6e5b55901244a534145ab3c9d8c2f9c3cbf2ec2de8668f33037ccb04",
+      "background": "75705046089367bc68cb84f5a679dff43f41eb746f28fbb7f26c2924ffa9532b",
+      "F": "bcb7752d297460db826c4add32d93e7ae5d87ce02134a16ab2e0e77987d2ddb8",
+      "S": "09128cff44817ee361ee08b3d897ea70d6c923e2d6492b1d63680cb903055663"
+    }
+  }
+}

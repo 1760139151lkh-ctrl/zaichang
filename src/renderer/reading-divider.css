@@ -8,5 +8,11 @@
 .reading-divider:focus-visible > span { outline:2px solid var(--focus); outline-offset:3px; }
 .conversation-space:has(.reading-divider.is-moving),.conversation-space:has(.reading-divider.is-moving) * { cursor:col-resize!important; user-select:none!important; }
 .with-materials .bottom-composer { margin-left:14px; }
+.conversation-space.with-materials[data-reading-side='end'] > .materials-panel { order:3; }
+.conversation-space.with-materials[data-reading-side='end'] > .reading-divider { order:2; }
+.conversation-space.with-materials[data-reading-side='end'] > .workspace { order:1; }
+.with-materials[data-reading-side='end'] .bottom-composer { margin-left:0; margin-right:14px; }
+.conversation-space[data-reading-swap-preview] > .workspace { outline:1px dashed var(--accent-dim); outline-offset:-4px; }
 @media(max-width:900px) { .reading-divider { display:none; } .conversation-space.with-materials > .materials-panel { flex:1; } .with-materials .bottom-composer { margin-left:0; } }
+@media(max-width:900px) { .with-materials[data-reading-side='end'] .bottom-composer { margin-right:0; } }
 @media(prefers-reduced-motion:no-preference) { :root:not([data-motion='reduced']) .reading-divider > span { transition:background 130ms ease,border-color 130ms ease; } }

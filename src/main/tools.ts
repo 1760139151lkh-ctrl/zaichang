@@ -154,6 +154,48 @@ function formatToolStepTitle(name: string, raw: string, capabilityTitle?: (name:
   return '梳理手头的事项';
 }
 
+/** Model continuation/retry instructions remain in the tool result. The
+ * activity line describes only what this host operation actually delivered. */
+function toolStepDisplay(title: string, status: Step['status'], result?: any, materialRead = false): NonNullable<Step['userFacing']> {
+  const coverage = result?.coverage?.complete === false ? 'partial' as const
+    : result?.coverage?.complete === true ? 'complete' as const : undefined;
+  if (materialRead) {
+    const data = result?.data, range = data?.coverage, page = Number.isSafeInteger(data?.page) && data.page > 0 ? data.page : undefined;
+    if (status === 'done') {
+      const detail = range?.end > range?.start ? page ? `读到了第 ${page} 页的这一段文字。` : '读到了这一段原文。'
+        : page ? '已到这一页文字的末尾。' : '这份文件里没有文字。';
+      return { title, status, detail, ...(coverage ? { coverage } : {}) };
+    }
+    if (result?.status === 'partial' && data?.needsVisual && range?.total === 0)
+      return { title, status, coverage: 'partial', detail: '这一页没有取出可读文字，可以打开原页看看。' };
+  }
+  const explanations: Record<string, string> = {
+    partial: '这一步只取得了部分内容，还需要继续核对。', stale: '这份内容已有变化，需要按当前版本核对。',
+    forbidden: '这次没有取得相应资料的使用许可。', unsupported: '当前来源不能完成这一步，可以换一种做法。',
+    not_connected: '这个来源还没有连上。', not_queried: '这份资料这次还没有查到。',
+    unknown: '目前还不能确认这一步的结果。', conflict: '原来的内容刚有变化，需要先核对当前版本。',
+    needs_confirmation: '这一步还需要你决定。', outcome_unknown: '还没有确切结果，先核对原来的操作。',
+    reconciling: '正在核对原来的操作结果。', cancellation_unknown: '还没有收到撤回的确切结果。',
+    cannot_cancel: '这一步目前不能直接撤回，可以先查看实际结果。', failed: '这一步没有完成，已有内容仍在。',
+    failed_confirmed: '这一步没有完成，已有内容仍在。', unresolved: '这一步还没有得到可确认的结果。',
+    dispatching: '这一步还在办理。', cancel_requested: '已经提出撤回，正在等实际结果。',
+  };
+  const detail = status === 'blocked' ? explanations[String(result?.status)] || '这一步还没有完成。' : undefined;
+  return { title, status, ...(detail ? { detail } : {}), ...(coverage ? { coverage } : {}) };
+}
+
+function failedStepDisplay(title: string, error: unknown): NonNullable<Step['userFacing']> {
+  const code = error instanceof HarnessError ? error.code : '';
+  const detail = /material_integrity|material_reference_changed/.test(code) ? '原文件与当时不同，可以重新选择要看的那一份。'
+    : /material.*range|quote.*range/.test(code) ? '所指的位置超出了原文，可以回到原页重新选择。'
+      : code === 'material_not_sent' ? '这份文件还没有随消息送出，可以先把它带到对话里。'
+      : /forbidden|scope|privacy/.test(code) ? '这次没有取得所需资料的使用许可，可以回原处确认使用范围。'
+      : /material|source/.test(code) ? '目前不能打开这处原文，可以回原来的位置重新选择。'
+      : /revision|conflict|changed/.test(code) ? '原来的内容刚有变化，请先核对当前版本。'
+        : '这一步还没完成，已经可用的内容仍在。';
+  return { title, status: 'blocked', detail };
+}
+
 export class ToolRegistry {
   private run: RunSession;
   constructor(private context: ToolContext) {
@@ -194,7 +236,7 @@ export class ToolRegistry {
     const id = randomUUID(),
       title = formatToolStepTitle(name, raw, capability => this.context.store.runtime.broker.describe(capability)?.displayName);
     signal.throwIfAborted();
-    this.context.step({ id, title, status: 'running' });
+    this.context.step({ id, title, status: 'running', userFacing: { title, status: 'running' } });
     let requestedArguments: unknown;
     try {
       if (raw.length > toolArgumentCharacterLimit(name))
@@ -233,30 +275,18 @@ export class ToolRegistry {
       const calculatedMapRoute = status === 'partial' && (result as any)?.sourceId === 'map:local'
         && (name === 'map_route' || name === 'look_up' && args.capability === 'map.route')
         && route?.schemaVersion === 'map-route/v2' && route.status === 'ready';
+      const stepStatus: Step['status'] = [
+        'failed', 'forbidden', 'unsupported', 'not_connected', 'unknown', 'conflict', 'needs_confirmation',
+        'not_queried', 'failed_confirmed', 'outcome_unknown', 'unresolved', 'dispatching', 'reconciling',
+        'cancel_requested', 'cancellation_unknown', 'cannot_cancel',
+      ].includes(status) || ['partial', 'stale'].includes(status) && !deliveredReaderPage && !calculatedMapRoute ? 'blocked' : 'done';
+      const userFacing = toolStepDisplay(title, stepStatus, result, name === 'look_up' && args.capability === 'materials.read');
       this.context.step({
         id,
         title,
-        status: [
-          'failed',
-          'forbidden',
-          'unsupported',
-          'not_connected',
-          'unknown',
-          'conflict',
-          'needs_confirmation',
-          'not_queried',
-          'failed_confirmed',
-          'outcome_unknown',
-          'unresolved',
-          'dispatching',
-          'reconciling',
-          'cancel_requested',
-          'cancellation_unknown',
-          'cannot_cancel',
-        ].includes(status) || ['partial', 'stale'].includes(status) && !deliveredReaderPage && !calculatedMapRoute
-          ? 'blocked'
-          : 'done',
-        detail: (result as any)?.reason,
+        status: stepStatus,
+        detail: userFacing.detail,
+        userFacing,
       });
       const identified = toolCallId ? result && typeof result === 'object' && !Array.isArray(result)
         ? { ...result, observationId: toolCallId } : { data: result, observationId: toolCallId } : result;
@@ -291,7 +321,8 @@ export class ToolRegistry {
                   ? '这次的参数没能读开，整理成完整 JSON 后可以继续。'
                   : '这次有一段返回内容没能读开，还没有拿到可用结果。'
                 : '这一步没有完成。';
-      this.context.step({ id, title, status: 'blocked', detail });
+      const userFacing = failedStepDisplay(title, error);
+      this.context.step({ id, title, status: 'blocked', detail: userFacing.detail, userFacing });
       const diagnosticExplanation = error instanceof HarnessError && error.diagnostic
         ? redactCredentials(error.diagnostic.explanation) : undefined;
       const programAttempt = name === 'present_view' && requestedArguments !== null && typeof requestedArguments === 'object'
@@ -315,8 +346,8 @@ export class ToolRegistry {
             ...(error.diagnostic.input ? { input: error.diagnostic.input } : {}),
             ...(error.diagnostic.previous ? { previous: error.diagnostic.previous } : {}) },
           retry: error.code.startsWith('interactive_') || error.diagnostic.input || error.diagnostic.previous
-            ? (programAttempt ? '这份改稿还没发表，细节留在批注里。和对方接着聊时，说他正在理解的东西、能亲手试的变化就好。' : '')
-              + '下面指出哪里还接不上，沿原稿、来源和版本继续改即可。已有说明够用时直接动笔，缺哪一部分再展开相应做法。'
+            ? (programAttempt ? '这份稿还没发表，下面的批注留着具体缺口。' : '')
+              + '先把当前这一处接好；沿原作续改时，仍用那份原稿的来源和版本。已有说明够用就能继续改，缺哪部分再展开相应做法。新的可用部分做好以后，也能接回眼前的交流。'
             : '这份理解还没保存，批注留下了缺口。可以对照原话、当时的条件和期限继续整理，说不准的先留着；眼前的问题仍可以先好好回答。',
         } : {}),
         ...(error instanceof z.ZodError ? {

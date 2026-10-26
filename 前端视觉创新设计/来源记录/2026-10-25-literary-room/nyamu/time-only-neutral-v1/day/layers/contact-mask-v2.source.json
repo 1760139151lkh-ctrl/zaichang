@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-mother-fixed-included-layer-imagegen-stage",
+  "character": "nyamu",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "palette": "mist",
+  "light": "morning",
+  "weather": "unknown",
+  "weatherClaim": false,
+  "stage": "S2",
+  "tool": "built-in image_gen.imagegen",
+  "toolArguments": {
+    "prompt": "Use case: background-extraction. S2 fixed local RECEIVER LUMINANCE MASK for exact Nyamu neutral day mother. Input1 is the personally inspected same-mother S1 white-added receiver marks; input2 is exact approved original mother only to distinguish added selection from naturally pale linen. Full1536x1024 unchanged coordinates, no shift/crop/resize/redraw.\nConvert ONLY deliberately ADDED pure WHITE receiver marks in input1 to WHITE: tight real cushion/linen contact/compression islands immediately under black skirt/hip and ENTIRE actual short original floor-contact footprints beneath/around BOTH ankle-strap shoe toes, forefoot soles and heels. Keep the complete inner footprint white over true original dark center, not thin2px contours. Preserve source-connected toe-front and forefoot receiving shade for BOTH shoes. A SHORT SOFT GRAY fade at each true original diffuse outer receiver boundary restores gentle grounding; no hard white generic ellipse/polygon, enlarged pool or far-floor band.\nAll COLORED girl/props become solid BLACK: hair/face/choker/ribbon/ruffles/straps/arms/hands/fan/skirt/bare legs/full shoes/straps. Every unmarked linen/curtain/lamp/flowers/room/furniture/pillows/knit/wood/rug/reflection becomes solid BLACK, even naturally pale or dark. Do not select empty bench or add a contact tail for the held fan. Tiny shoe/hem overlap can be merged by MAX later but no new object.\nONE opaque BLACK/WHITE/edgeGRAY 1536x1024 mask only, no colors/checkerboard/text/grid. It restores fixed source linen/wood/shadow RGB once through MAX(F,S), NOT an independently movable caster. travel/slope/perspective0.\nCRITICAL: the girl's RGB contour and ordinary highlight edges in input1 are NOT deliberately added white receiver marks. Do NOT trace ANY hair/head/neck/clothing/arm/leg/shoe outline. The entire figure must be wholly solid BLACK, including every fine white-looking original highlight and perimeter line, with NO white outline or contour at all. Only THREE source receiver island areas exist: under the seated skirt and near the two shoe footprints. Outside those local source areas the entire canvas is black. This is selection disambiguation from the clean original, not an outline detector.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/contact-step1-marked-v1.png",
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/nyamu-neutral-presence-time-day-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "submittedPrompt": "Use case: background-extraction. S2 fixed local RECEIVER LUMINANCE MASK for exact Nyamu neutral day mother. Input1 is the personally inspected same-mother S1 white-added receiver marks; input2 is exact approved original mother only to distinguish added selection from naturally pale linen. Full1536x1024 unchanged coordinates, no shift/crop/resize/redraw.\nConvert ONLY deliberately ADDED pure WHITE receiver marks in input1 to WHITE: tight real cushion/linen contact/compression islands immediately under black skirt/hip and ENTIRE actual short original floor-contact footprints beneath/around BOTH ankle-strap shoe toes, forefoot soles and heels. Keep the complete inner footprint white over true original dark center, not thin2px contours. Preserve source-connected toe-front and forefoot receiving shade for BOTH shoes. A SHORT SOFT GRAY fade at each true original diffuse outer receiver boundary restores gentle grounding; no hard white generic ellipse/polygon, enlarged pool or far-floor band.\nAll COLORED girl/props become solid BLACK: hair/face/choker/ribbon/ruffles/straps/arms/hands/fan/skirt/bare legs/full shoes/straps. Every unmarked linen/curtain/lamp/flowers/room/furniture/pillows/knit/wood/rug/reflection becomes solid BLACK, even naturally pale or dark. Do not select empty bench or add a contact tail for the held fan. Tiny shoe/hem overlap can be merged by MAX later but no new object.\nONE opaque BLACK/WHITE/edgeGRAY 1536x1024 mask only, no colors/checkerboard/text/grid. It restores fixed source linen/wood/shadow RGB once through MAX(F,S), NOT an independently movable caster. travel/slope/perspective0.\nCRITICAL: the girl's RGB contour and ordinary highlight edges in input1 are NOT deliberately added white receiver marks. Do NOT trace ANY hair/head/neck/clothing/arm/leg/shoe outline. The entire figure must be wholly solid BLACK, including every fine white-looking original highlight and perimeter line, with NO white outline or contour at all. Only THREE source receiver island areas exist: under the seated skirt and near the two shoe footprints. Outside those local source areas the entire canvas is black. This is selection disambiguation from the clean original, not an outline detector.",
+  "originalToolOutput": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-dfc6c674-5506-4efe-9388-ae09bcba05d6.png",
+  "outputFile": "contact-mask-v2.png",
+  "mother": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/nyamu-neutral-presence-time-day-v1.png",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/contact-step1-marked-v1.png",
+      "role": "personally inspected same-mother S1 marks, or exact original mother for selection disambiguation",
+      "sha256": "b01acd901ca41345857fe55498dfacb577f303c82824735d39d1a6c48edc2b40"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/nyamu-neutral-presence-time-day-v1.png",
+      "role": "exact root-approved original whole mother",
+      "sha256": "5df25df2667581917ee3e312218810da2424bcd573be4418b245ac7d05dc755d"
+    }
+  ],
+  "producerObservation": "PRODUCER HOLD: residual unintended head/hair/body contour still appears; forbidden downstream. Will generate local receiver mask directly from clean mother with explicit local source neighborhoods.",
+  "sourceRgbDrawsInFinalAssembly": 1,
+  "assembly": "U=MAX(L(F),L(S)); exact original mother RGB drawn only once; local receiver material fixed at source position",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "pngPixelEditing": false,
+  "croppingOrResizingSourcePNG": false,
+  "thresholdOrMorphologyEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "dynamicAdmission": false,
+  "original360CreditAssigned": false,
+  "userApproved": false,
+  "reviewScreenshotsUsedAsImageInput": false,
+  "recordedAtUTC": "2026-10-26T01:10:21.863507+00:00",
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/contact-mask-v2.png",
+    "sha256": "943ee3a84ceb47bb3f37785895807e6f21bb4262bf555b3f42cce3fc2fcc3915",
+    "bytes": 412044,
+    "originalToolOutputSHA256": "943ee3a84ceb47bb3f37785895807e6f21bb4262bf555b3f42cce3fc2fcc3915",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "motherSHA256": "5df25df2667581917ee3e312218810da2424bcd573be4418b245ac7d05dc755d",
+  "dossierVersion": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/nyamu.md",
+    "sha256": "c5acd92fe6cd9ccf35785bd09e7f71337bca5bf7eb0fdd37629e78780eb9ebe1"
+  },
+  "methodVersion": {
+    "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+    "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d"
+  },
+  "submittedPromptSHA256": "a39a2474f94065e65bd5299aeb437f20a899b5b59eab30c420824d1772ab3515",
+  "promptFileSHA256": "e2feb72c5e6ebcee7d2e0ad3ddc2c111dddcff6659ec6fa911c6a6a41d327891",
+  "producerHeld": true,
+  "imageGenerationInputAllowed": false
+}

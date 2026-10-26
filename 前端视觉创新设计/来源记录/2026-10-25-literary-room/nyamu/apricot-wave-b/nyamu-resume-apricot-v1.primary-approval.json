@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "kind": "primary-static-mother-admission",
+  "key": "nyamu/resume/apricot",
+  "reviewer": "root",
+  "decision": "approved",
+  "primaryPersonallyViewed": true,
+  "mother": {
+    "file": "nyamu-resume-apricot-v1.png",
+    "sha256": "f4e361663308d546d801bb6c845742225aba7b953ee60bedbb31a7467d38c874",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "sourceRecord": "nyamu-resume-apricot-v1.source.json",
+  "observation": "Root personally viewed full mother: small paper crane held in hand, with several paper pieces and already folded cranes resting on the bench. Root accepts this as human illustration storytelling, as if she did a small thing of her own while waiting; actual multiple objects must be recorded, not falsely described as one unfinished sheet. Hands/props are supported, hair/eyes and complete bench-pose shoes natural. This is illustration narrative, not evidence of real background actions or completed user work.",
+  "contourComplete": true,
+  "scope": "Exact-SHA complete static mother only; actual generated pose/prop semantics recorded honestly. No layer, motion, real background action or runtime admission.",
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "evidenceSource": "Explicit root message after personally viewing all five Nyamu wave-b original mothers"
+}

@@ -1,0 +1,407 @@
+{
+  "schemaVersion": 1,
+  "id": "nyamu-chat-apricot-existing-static-bundle-v1",
+  "character": "nyamu",
+  "activity": "chat",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "createdOn": "2026-10-25T06:35:51.976315+00:00",
+  "kind": "existing-original-RGB-same-canvas-layer-review",
+  "canvas": {
+    "width": 1536,
+    "height": 1024
+  },
+  "files": {
+    "mother": {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-mother-candidate-v1.png",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-mother-candidate-v1.png",
+      "sha256": "4916b887de5b6ce7ba75068b001ede1ca8d51a331b32141b6fb5969ec26bf305",
+      "bytes": 2162091,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB",
+      "rgbSha256": "e580cd1871fe02702f9f084be5b1b3ee02eee5fa1fc07162d9f6d75da3835ce5"
+    },
+    "background": {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-background-candidate-v1.png",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-background-candidate-v1.png",
+      "sha256": "3a53915946eaf803ccdf7e65d6f5dd32143826208cea516b7058dd28dccc3cd7",
+      "bytes": 2116791,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB",
+      "rgbSha256": "b103c3f3148ad57b64e4e2c6f8b71fd9a8721ad49841db47db911e41782b5267"
+    },
+    "figure": {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-figure-calibrated-v4.png",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-figure-calibrated-v4.png",
+      "sha256": "792767b54cf1d88f5bc24049588087ec5fc2fabbbdb1a632e22223fb9fc59f88",
+      "bytes": 2424495,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGBA",
+      "rgbSha256": "e580cd1871fe02702f9f084be5b1b3ee02eee5fa1fc07162d9f6d75da3835ce5",
+      "alphaBounds": [
+        1116,
+        235,
+        1442,
+        824
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaSha256": "7257bb9911a9ef29b867b3e0393641d3d97bce723c4a337117dd33fb95767abf",
+      "alphaNonzeroPixels": 69649,
+      "alphaPartialPixels": 5831
+    },
+    "mask": {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-mask-calibrated-v4.png",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-mask-calibrated-v4.png",
+      "sha256": "97b292d289e69f840bc6f7e9562aa2e7a57d92a29c695e3a600b8116c4711d53",
+      "bytes": 20790,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGBA",
+      "rgbSha256": "c9bd2aa628c888e2eb30ca79390f4eb910f3cf93453d20d5df2e09455575f801",
+      "alphaBounds": [
+        1116,
+        235,
+        1442,
+        824
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaSha256": "7257bb9911a9ef29b867b3e0393641d3d97bce723c4a337117dd33fb95767abf",
+      "alphaNonzeroPixels": 69649,
+      "alphaPartialPixels": 5831
+    },
+    "shadow": {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-shadow-calibrated-v4.png",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-shadow-calibrated-v4.png",
+      "sha256": "a4ea1097af89f0c6cf04e1dd6d94669fa9739db5edd2913a19fce76710e498e3",
+      "bytes": 59804,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGBA",
+      "rgbSha256": "f8e885b93d28f83c8af8f3965b903ebaed7cae21db2373fb70f9c0da9985119e",
+      "alphaBounds": [
+        1113,
+        564,
+        1445,
+        827
+      ],
+      "alphaExtrema": [
+        0,
+        209
+      ],
+      "alphaSha256": "07f9c1178e9897ead20796d13b7a2c080dc2490f14da7f04f86c911abde3b0b9",
+      "alphaNonzeroPixels": 2260,
+      "alphaPartialPixels": 2260
+    }
+  },
+  "originalRgbCorrespondence": {
+    "motherRgbSha256": "e580cd1871fe02702f9f084be5b1b3ee02eee5fa1fc07162d9f6d75da3835ce5",
+    "figureRgbSha256": "e580cd1871fe02702f9f084be5b1b3ee02eee5fa1fc07162d9f6d75da3835ce5",
+    "entireRgbPayloadEqual": true,
+    "maskAndFigureAlphaEqual": true,
+    "maskSemantics": "RGBA white RGB payload; visibility comes from alpha, not luminance of a flattened white image."
+  },
+  "sourceScene": {
+    "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot.scene.json",
+    "href": "../../../assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot.scene.json",
+    "sha256": "12aa9c36217332e0ceee748de79293314ec7ae5a1608f825cfbdc280371d52dd",
+    "bytes": 4285
+  },
+  "geometry": {
+    "support": "window-seat",
+    "seat": [
+      0.8723958333333334,
+      0.568359375
+    ],
+    "seatPixels": [
+      1340.0,
+      582.0
+    ],
+    "ground": [
+      0.8053385416666666,
+      0.802734375
+    ],
+    "groundPixels": [
+      1237.0,
+      822.0
+    ],
+    "bodyBounds": [
+      0.7265625,
+      0.2294921875,
+      0.9388020833333334,
+      0.8046875
+    ],
+    "bodyBoundsPixels": [
+      1116,
+      235,
+      1442,
+      824
+    ],
+    "hitPolygon": "83.8542% 23.0469%, 82.2266% 23.5352%, 81.3802% 24.3164%, 80.5990% 25.7812%, 80.4036% 26.8555%, 79.9479% 27.0508%, 79.1016% 30.6641%, 79.4271% 29.9805%, 79.1667% 32.7148%, 79.4271% 33.4961%, 79.2318% 32.9102%, 79.3620% 32.2266%, 79.4922% 32.5195%, 79.4271% 31.4453%, 79.8828% 34.7656%, 79.8828% 33.1055%, 80.0781% 34.5703%, 80.4688% 35.4492%, 80.6641% 34.6680%, 81.0547% 35.4492%, 80.9896% 34.9609%, 81.3802% 35.2539%, 80.9896% 37.2070%, 80.5339% 37.5977%, 80.5990% 37.9883%, 80.9245% 38.0859%, 80.8594% 38.5742%, 80.4036% 39.0625%, 80.7292% 39.7461%, 80.0781% 41.2109%, 80.6641% 42.7734%, 80.2083% 42.9688%, 80.5339% 43.2617%, 80.0781% 45.3125%, 80.5339% 43.6523%, 80.5990% 45.8008%, 80.6641% 44.1406%, 81.1849% 43.9453%, 81.3151% 48.0469%, 79.5573% 50.0000%, 77.6042% 53.1250%, 76.3021% 53.9062%, 76.5625% 54.5898%, 76.8880% 54.5898%, 77.2786% 55.1758%, 77.8646% 55.1758%, 77.9297% 55.4688%, 75.6510% 61.8164%, 74.2188% 70.2148%, 73.8281% 71.3867%, 73.2422% 75.9766%, 72.7214% 77.6367%, 72.8516% 78.8086%, 73.5677% 79.3945%, 74.3490% 79.3945%, 75.0000% 78.7109%, 74.8047% 78.4180%, 75.0651% 76.8555%, 75.2604% 77.4414%, 75.1953% 75.4883%, 75.4557% 74.7070%, 75.3255% 71.3867%, 76.5625% 67.2852%, 78.4505% 63.0859%, 79.6224% 58.8867%, 80.5339% 57.3242%, 80.9245% 59.4727%, 81.5755% 66.6992%, 81.6406% 72.4609%, 80.7292% 76.5625%, 79.4271% 79.0039%, 79.3620% 79.8828%, 79.6224% 80.2734%, 81.5755% 80.0781%, 82.3568% 79.4922%, 82.2266% 78.9062%, 82.4870% 78.5156%, 83.5938% 78.5156%, 83.7891% 75.3906%, 83.1380% 72.5586%, 83.9193% 64.6484%, 83.9193% 62.1094%, 83.2682% 57.9102%, 83.7891% 57.4219%, 86.1328% 56.8359%, 88.0208% 57.1289%, 89.6484% 56.2500%, 91.7969% 57.3242%, 91.6667% 56.6406%, 92.3828% 56.7383%, 92.7734% 57.4219%, 93.7500% 56.8359%, 92.7083% 55.8594%, 91.0807% 55.2734%, 90.6250% 54.4922%, 89.5182% 45.0195%, 89.9740% 44.2383%, 90.0391% 45.0195%, 90.2344% 44.5312%, 90.3646% 44.7266%, 90.0391% 43.3594%, 90.8203% 41.5039%, 90.1042% 39.6484%, 90.4297% 38.9648%, 89.9740% 38.4766%, 90.1042% 37.5000%, 89.7135% 37.3047%, 89.5182% 35.5469%, 88.9323% 34.4727%, 87.2396% 34.3750%, 86.2630% 33.6914%, 86.7839% 33.6914%, 87.3698% 32.5195%, 87.6302% 32.6172%, 87.3698% 33.1055%, 87.9557% 32.2266%, 87.9557% 31.4453%, 88.2812% 31.1523%, 88.3464% 32.1289%, 88.5417% 30.3711%, 88.2812% 29.3945%, 88.7370% 29.2969%, 88.1510% 29.1016%, 87.7604% 28.5156%, 87.5651% 26.9531%, 87.6302% 28.0273%, 87.3047% 26.9531%, 87.3047% 27.4414%, 86.3932% 25.3906%, 85.3516% 23.8281%",
+    "safeTextBoundary": 0.705,
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "scale": 1,
+    "translationPixels": [
+      0,
+      0
+    ],
+    "originalMetadataTravel": 0.005859375,
+    "originalMetadataSlope": 0.13253012048192772,
+    "boundary": "Original pose only. Approximate seat/ground markers are source observations, not hidden-bone measurements. No endpoint travel, different furniture or motion is claimed.",
+    "supportObservation": "Pelvis sits on the right bench front; one palm presses the cushion beside the hip and the other rests on her own thigh. Two separate lower-leg/ankle-strap-shoe chains and short-heel contacts remain at the original positions."
+  },
+  "compositing": {
+    "order": [
+      "background",
+      "shadow",
+      "figure"
+    ],
+    "operator": "normal source-over",
+    "opacity": [
+      1,
+      1,
+      1
+    ],
+    "transform": "identity; every layer retains the full 1536x1024 source canvas",
+    "shadowRole": "Existing separate, edge-limited contact residual; not multiply and not a carried floor patch.",
+    "caveat": "The contact residual production record solved against calibrated background v4, while the existing scene chose complete candidate v1. This exact combined candidate is exposed in the page for contact/edge review; matching RGB hashes alone do not prove the composite equals the mother.",
+    "selectedCandidateOrder": [
+      "background",
+      "existing contact shadow",
+      "fixed original-RGB receiver SVG",
+      "figure"
+    ],
+    "boundary": "This is a static original-pose candidate, not a new free-moving shadow system. The receiver contains floor RGB and must remain world-locked with travel zero."
+  },
+  "prompts": [
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-prompt.txt",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-prompt.txt",
+      "sha256": "28f15f072f839d0304ead22441a2722923b36e86551ab5828eb75e3d5d05a307",
+      "bytes": 3904
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-background-extraction-v1-prompt.txt",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-background-extraction-v1-prompt.txt",
+      "sha256": "9c1c8b5eab447d580a24ab89d2339f447aebefbaccbe62d03f4636e0c73c75c6",
+      "bytes": 1684
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-mask-extraction-v2-prompt.txt",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-mask-extraction-v2-prompt.txt",
+      "sha256": "3597bb9f0e893524ac5d06cd84c631d129ef5b9478e7fcfb32467cb5d9c309b4",
+      "bytes": 1709
+    }
+  ],
+  "provenance": [
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-source.json",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-source.json",
+      "sha256": "7fb64bd84c91da42b7ec04633c87647356398c4daca1b671f3745757278a830a",
+      "bytes": 1570
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-layer-processing-v4.json",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-layer-processing-v4.json",
+      "sha256": "5bb286ea2361041415fdb4b9da1478591fe0418895631e79a7c7017130ea8aec",
+      "bytes": 4929
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-layer-parameters-v4.json",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-layer-parameters-v4.json",
+      "sha256": "d33e4cf6fdfc287801194b0acf4a6856eb5726119a4aaf68ea38a7d817bf405d",
+      "bytes": 2900
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-extraction-source.json",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-extraction-source.json",
+      "sha256": "f732c60545a1c28592d4facd26bec3da6e8ec361197bf6632ba6b5413ba3686d",
+      "bytes": 2005
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-matte-processing-v4.json",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-matte-processing-v4.json",
+      "sha256": "4c198cfce89d47ea1b5c65c3c0fe5ce13f5a6998fdd601ae98dcf7544e52df6b",
+      "bytes": 1415
+    }
+  ],
+  "observationPage": "nyamu-chat-apricot-existing-preview-v1.html",
+  "pixelRegions": [
+    {
+      "name": "短发与肩线",
+      "box": [
+        1180,
+        225,
+        225,
+        235
+      ]
+    },
+    {
+      "name": "座面与支撑掌部",
+      "box": [
+        1190,
+        495,
+        280,
+        135
+      ]
+    },
+    {
+      "name": "鞋带、鞋底与地板",
+      "box": [
+        1090,
+        710,
+        235,
+        140
+      ]
+    }
+  ],
+  "selectionRationale": "Existing scene deliberately points to the full background candidate v1; the later local calibrated v4 is shown as a comparison because the production note records a floor sunbeam patch seam. Figure/mask/shadow v4 preserve source RGB and original pose. Inspect actual full reconstruction and contact crops before primary acceptance.",
+  "review": {
+    "producerPersonallyViewedMothers": true,
+    "producerAlphaAndCompositeReview": "Personally viewed via separate 5188 static pages: light/dark/checker original-RGB alpha; full mother/reconstruction; seat, hands and shoes at source pixels; full perimeter of final receiver projection; Nyamu full-bg v1 versus calibrated-bg v4.",
+    "approvedByPrimary": false,
+    "runtimeAccepted": false,
+    "registered": false,
+    "candidateForPrimaryLayerReview": true
+  },
+  "approvedByPrimary": false,
+  "runtimeAccepted": false,
+  "backgroundAlternative": {
+    "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-background-calibrated-v4.png",
+    "href": "../../../assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-background-calibrated-v4.png",
+    "sha256": "f456b7cfbf8063887957f0205289d65cf7a3fda49667c2f41f1b794f80dce0e9",
+    "bytes": 2084706
+  },
+  "updatedOn": "2026-10-25T07:05:52.593931+00:00",
+  "floorProjection": {
+    "kind": "fixed-original-rgb-receiver-restoration",
+    "source": {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-mother-candidate-v1.png",
+      "href": "../../../assets-design-generated/2026-10-23-companion-matrix/nyamu-chat-apricot-mother-candidate-v1.png",
+      "sha256": "4916b887de5b6ce7ba75068b001ede1ca8d51a331b32141b6fb5969ec26bf305",
+      "bytes": 2162091,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB",
+      "rgbSha256": "e580cd1871fe02702f9f084be5b1b3ee02eee5fa1fc07162d9f6d75da3835ce5"
+    },
+    "generatedMatte": {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-a/nyamu-floor-cast-mask-v2.png",
+      "href": "nyamu-floor-cast-mask-v2.png",
+      "sha256": "c079ed8924f3360eed8c7e250471fbc7c9587369eee4ea61e5cd6d3b6abc92d5",
+      "bytes": 313096,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    },
+    "svg": {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-a/nyamu-floor-cast-rgb-receiver-v2.svg",
+      "href": "nyamu-floor-cast-rgb-receiver-v2.svg",
+      "sha256": "81fe36e92e408f8c37cd27aa68c5e9197c9b617ec041a2ecff874660f3dac657",
+      "bytes": 1470
+    },
+    "clipRegionPixels": [
+      1060,
+      760,
+      320,
+      130
+    ],
+    "receiverContainsFloorRgb": true,
+    "pureCastShadowLayer": false,
+    "matteCalibration": "SVG only: discrete channels [0,0,0,0,0,1,1,1], dilate18px comparison superseded by dilate28px, Gaussian soft edge4px; original figure alpha subtracted. No PNG edits.",
+    "coordinateSpace": "Original floor/world coordinates. Identity transform. Render only with this exact original pose/figure visibility; never move it with a dragged actor.",
+    "travel": 0,
+    "operator": "normal source-over",
+    "producerObservation": "Personally viewed source-pixel shoe and full perimeter comparisons after final change. Original broad floor projections return compared with the old edge-only residual. No hard rectangular patch boundary was evident in the displayed perimeter; original floor texture is intentionally present, so primary inspection remains required.",
+    "comparisonSvg": {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-a/nyamu-floor-cast-dark-v2.svg",
+      "href": "nyamu-floor-cast-dark-v2.svg",
+      "sha256": "d2d3e599f3e2cb59e88116d4c968623156f013382a9f734d1f6928e81a0a6228",
+      "bytes": 921
+    },
+    "comparisonNote": "18% warm-dark shape is displayed as an unselected alternative; it did not reproduce the original RGB floor projection as faithfully.",
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  },
+  "generationRecords": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-a/nyamu-floor-cast-mask-v1.source.json",
+      "href": "nyamu-floor-cast-mask-v1.source.json",
+      "sha256": "19c537db508b5086b2b4fbdc64ca032eb97b9efabcf0e308e070a461b220f4bf",
+      "bytes": 4362
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-a/nyamu-floor-cast-mask-v2.source.json",
+      "href": "nyamu-floor-cast-mask-v2.source.json",
+      "sha256": "e65301407f00b14c38c9c090a49b8856971a85d0a519a1eab5fe0d5c3e85f2b2",
+      "bytes": 5334
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-a/nyamu-floor-cast-mask-v3.source.json",
+      "href": "nyamu-floor-cast-mask-v3.source.json",
+      "sha256": "94bffca03ea6bdc7649b272825362ea48725065dc89c426d1fd83a8f9191755b",
+      "bytes": 3109
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-a/nyamu-floor-shadow-rgba-v1.source.json",
+      "href": "nyamu-floor-shadow-rgba-v1.source.json",
+      "sha256": "98d5ace98e97eb0f78403d8d7072ed87f1521c460250e0c8c75e56a8a5d085f1",
+      "bytes": 3316
+    }
+  ],
+  "observationPageSha256": "c8993d9b27e8c7ccb5c503ed7de2ad7162ad97cdca446531a640f8aa0f4eea01",
+  "rejectedAdditionalCandidates": [
+    {
+      "artifact": {
+        "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-a/nyamu-floor-cast-mask-v3.png",
+        "href": "nyamu-floor-cast-mask-v3.png",
+        "sha256": "7a1771ef91fed24b2b466b43cedd7d8d2786644f3a7cc53835160ac90c147fd8",
+        "bytes": 280084,
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB"
+      },
+      "reason": "White selection followed shoe bodies rather than floor cast darkness."
+    },
+    {
+      "artifact": {
+        "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-a/nyamu-floor-shadow-rgba-v1.png",
+        "href": "nyamu-floor-shadow-rgba-v1.png",
+        "sha256": "9fc287720245dd1981e1380ed670b952035508a6a22c4c9946cb478f7e46f58e",
+        "bytes": 553859,
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGBA"
+      },
+      "reason": "Stray alpha above the floor: bounds [561,53,1384,886], diffuse brown patch; not used."
+    },
+    {
+      "artifact": {
+        "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-a/nyamu-floor-cast-rgb-fixed-coverage-v1.svg",
+        "href": "nyamu-floor-cast-rgb-fixed-coverage-v1.svg",
+        "sha256": "86982f426304b07769fa04f580250c453137e79c946d9e422dbe1a1e14623a24",
+        "bytes": 1674
+      },
+      "reason": "Gamma .12 only created narrow clipped shadow strips and visible transitions."
+    },
+    {
+      "artifact": {
+        "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-a/nyamu-floor-cast-rgb-receiver-v1.svg",
+        "href": "nyamu-floor-cast-rgb-receiver-v1.svg",
+        "sha256": "5dd61ef95ddcfd419412673f892ba1e411bc350a7a08f5893621fa34a156e77d",
+        "bytes": 1470
+      },
+      "reason": "18px/5px receiver did not cover the broader source projection as fully as 28px/4px candidate."
+    }
+  ]
+}

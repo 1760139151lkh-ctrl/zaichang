@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "anon-study-violet-literary-v1",
+  "character": "anon",
+  "activity": "study",
+  "palette": "violet",
+  "environmentVariant": "twilight",
+  "briefCell": "anon/study/violet",
+  "submittedPrompt": "Use case: lighting-weather. Output ONE complete 1536×1024 mother artwork for anon/study/violet. IMAGE 1 is the ROOT-APPROVED EMPTY twilight literary room: authority for whole-room weather/time/light and the established camera/furniture geometry. IMAGE 2 is this character's ROOT-APPROVED APRICOT SAME-ACTIVITY mother: authority for her correct original identity/uniform, actual seated position, body/head proportions, exact activity, face orientation, hands/held objects or EMPTY hands, hip/knee/lower-leg/shoe support and all true occlusion. Repaint coherent illumination through the entire occupied room and person. Do NOT invent a new pose from a chat picture. Do not use a rejected or drifting planning/study source.\n\nKeep IMAGE 2's exact activity and body/prop/seat relationships, its full canvas camera and person scale. The entire correct source pose remains fixed; only tiny natural facial nuance can follow the literary mood below. Preserve exactly what is actually held, closed/on the seat, or absent; no new book for empty hands. A desk source keeps its original occupied wooden chair and accepted local chair rotation, forearm/desk contact and existing plant occlusion; the empty plate does not reset the chair behind the person. Do not force hidden feet or a far eye into view, invent concealed anatomy, enlarge the head, relocate a body, change leg crossing, or shrink furniture to make visibility. A bench source keeps both complete visible shoes, hands and actual knee/shin relationship. No crossed-one-knee/two-parallel-flat-feet ambiguity, fused limbs/fingers, extra hand, furniture penetration or floating object.\n\nRoom invariant: preserve the complete wooden window and same lake-town/mountain/trees, original curtains, LEFT desk/chair/shelves/books/frames/plants, ROUND table with porcelain lamp/cup/flowers/books, linen bench, blue-gray plaid pillows/knitted throw, wood floor/rug/foreground plant. Round table stays at the ORIGINAL x≈435–690/top near y500; no enlarged desktop, translated table, new stool, zoom, crop, split day/night or new scenery. Match IMAGE 1's weather/lighting throughout; match IMAGE 2's accepted occupied-room layout and source supports.\n\n文学瞬间：先承认那一步读快了。\n心理：她已经兴冲冲写出一个解法，重新对照条件时发现自己跳过了一句。此刻的吸引力在于她肯把那一步拿回来重想。 想做得漂亮与愿意认错同时存在，认真没有抹掉她的鲜活。 不想用一个漂亮结论仓促收工，她舍得再核一遍。\n神情：嘴唇轻抿，眉梢有一点被自己逗到的窘意。 疲意很轻，判断仍清醒。\n相处：自己先承担一处具体改动，再把可比较的两版留给对方。 把笔放低等对方插话，保留正在改的同一页。\nThis literary moment is subtle expression and attention, not a command to change the approved body's pose or add an event. Keep Anon's lively personal openness and willingness to be corrected, or Soyo's delicate restrained warmth with her own judgment. Do not give all activities a universal grin. No readable page quotes, names, dates, schedules, completion claims or invented personal records.\n\nWhole-scene light: Continuous pink-violet evening sky and early town lights with warm original interior lamps and softer cool window fill. All face/hair/clothes/paper/seat/floor values belong to the SAME evening. No bright white daytime figure, hard sun grid, purple filter or half-room division.\nEvery material shares this environment: character skin/hair/uniform/eyes, held paper/book/pen, linen/wood, the chair/bench supports, shoes and adjacent floor. Keep original uniform local colors and youthful anime identity; white collars/pages receive the real ambient exposure rather than glowing daylight-white. No simple color filter, sunny cutout pasted on a dark background, half-day/half-night seam, gray/gold wash, arbitrary neon or new spotlight.\n\nPreserve refined youthful 2D anime linework and soft modeled shading naturally integrated with the detailed literary-room illustration. Entire frame, true source scale and support, no second person/extra limb, no UI, labels, icons, logo, watermark, collage, border, fog or new props.\n",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+      "role": "approved matching empty weather/light plate",
+      "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-twilight-v1.primary-approval.json"
+    },
+    {
+      "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-b\\anon-study-apricot-literary-v1.png",
+      "sha256": "a0e5ce5637ca48e6f16f36722c5a835d3421ab601a3780439ca0e7483d5c8fda",
+      "role": "approved same-activity apricot pose/identity/support authority",
+      "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-b\\anon-apricot-wave-b-primary-mother-admission-v1.json"
+    }
+  ]
+}

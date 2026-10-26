@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "character": "soyo",
+  "activity": "listening",
+  "palette": "rain",
+  "stage": "S1-v2",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: precise-object-edit. Asset type: revised S1 COMPLETE ORIGINAL LOCAL SUPPORT RECEIVER selection for Soyo LISTENING RAIN. The ONLY image input is the exact approved original colored 1536x1024 RAIN mother. No prior mask, marked intermediate, empty BG, union or audit image is input. Preserve every original object/person/book RGB, camera, canvas and coordinate.\n\nPrimary correction: select the FULL existing soft floor receiver/shadow that grounds the TWO CLOSE ORIGINAL SHOES. Paint actual local shadowed wood/material solid white across its real core and include its genuine softer outer falloff with gentle edge-grey antialias. Do NOT draw only a thin white outline at the soles. Do NOT invent a new shadow, white oval, rectangle or broad room-floor wash.\n\nInspect original shoes around x754..919,y788..882. Their actual local receiving ground softness is approximately within x743..970,y850..927. This is an INSPECTION NEIGHBORHOOD, NOT A BOX TO FILL. Follow the source's existing irregular dark-to-floor transition under and around toes/soles/heels, including complete local support softness onto the nearby floor. If their original near shadows join between close shoes, keep that actual joining receiver; do not artificially separate the real shared patch or connect any distant unrelated shade. The actual shoes, outsole walls and heels stay ORIGINAL COLORED, not selected floor. Unrelated lamp/furniture shadows, large warm floor reflections, rug and generic dark wood grain remain colored.\n\nRetain only these small authentic non-floor receivers:\n- Actual narrow visible linen compression/contact directly adjacent to and under the hip/skirt, near x805..1140,y548..604, respecting the exact garment boundary. No body/hair/hand/knee or dark skirt pixels, no whole long bench.\n- Tiny actual linen support directly UNDER the separate closed book on image-right, near x1120..1266,y552..577. The original book's actual right edge is about x1262. Tighten the receiver to this true bottom footprint, never a long pale cloth tail reaching x1280 or farther right. Keep the entire cover/page block/spine/bottom-cover RGB colored. Select only the underlying support/material, not bright pages.\n\nEverything unselected retains original source color, including whole girl/empty knee hands, all clothes/hosiery/shoes, independent closed book, unselected cream cushion, plaid/knit, lamps, rain window, room and light. No new geometry, added shadow or moved object. The white/grey is a selection of existing original receiver material for a fixed MAX union, not a portable caster.\n\nOutput ONE opaque original-position 1536x1024 complete COLOR mother with ONLY those local receivers deliberately marked white/true soft-edge grey. No black mask yet, body change, crop, resize, zoom, recentering, translation, text, labels, arrows, boxes or grid.",
+  "promptSha256Utf8NoTrailingLF": "be573b47e2ff5c4f69c7ab0f69fae58121c5c53d9e5542c19d7ae4c529d514ae",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-rain-literary-v1.png",
+      "sha256": "dca2dd09063832af700bcb833ddaae40cde16b01aed2d27429204762cd3c7210",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "sourceMotherSha256": "dca2dd09063832af700bcb833ddaae40cde16b01aed2d27429204762cd3c7210",
+  "approvalEvidence": "Root static approval of Soyo listening four mothers relayed by openui_creation delegation. Exact violet/rain source images independently viewed and hashes verified. This does not approve any new mask.",
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/soyo.md",
+      "sha256": "1ec8b260d40f8363c096ed8392547dd276d2318df5aadbe34b1f51e51e2ed04e",
+      "readScope": "Complete current text read before this layer task"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "readScope": "Complete current text read before this layer task"
+    }
+  ],
+  "method": "Read mature Soyo/chat-layers F1/F2/S1/S2 actual prompts and root Sakiko recognition-v2-layers contact S1-v3/S2-v2 repair prompts. Original mother -> same-canvas marked selection -> black/white extraction only. No held images, threshold/manual PNG paint or review collage input.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\listening-layers\\rain\\contact-step1-marked-v2.png",
+    "sha256": "9041c08423bd1912fd05fdae884d28736b186e016ba02f1673de14dc0beec1dc",
+    "bytes": 2258613,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-1b53fb67-492b-4347-8677-04088a85bfe5.png",
+    "pngBytesUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "fullNativeImage": true,
+    "observations": "退回：鞋旁receiver终于有面积与软边，但白接收池实际偏向画面左侧扩出原局部阴影检查范围，像过宽柔池；右书底也有偏宽柔尾。原人物/鞋/书仍彩色，但不用于S2或其他后续输入，必须从原母重建更紧真实形状。"
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "status": "held-oversized-floor-receiver-and-book-tail",
+  "useBoundary": "Only fixed original-source included union MAX(F,S); local receiver pixels are not a portable independent cast-shadow layer. No new pose/dynamic credit.",
+  "observedIssue": "Actual white receiving pool expands too far left around the shoes; book support shows an overly broad soft tail. This cannot be fed into S2. Retain raw diagnostic, rebuild from exact clean original only.",
+  "producerHeld": true,
+  "generationInputAllowed": false
+}

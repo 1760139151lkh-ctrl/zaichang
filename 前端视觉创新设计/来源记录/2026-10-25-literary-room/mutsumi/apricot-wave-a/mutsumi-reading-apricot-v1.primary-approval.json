@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "kind": "primary-static-mother-admission",
+  "key": "mutsumi/reading/apricot",
+  "reviewer": "root",
+  "evidenceSource": "Explicit root message to cast_settings_recovered after root personally viewed all six wave-a full mothers",
+  "decision": "approved",
+  "primaryPersonallyViewed": true,
+  "mother": {
+    "file": "mutsumi-reading-apricot-v1.png",
+    "sha256": "06a522f2cc641ea454cc14187bb2a4a7c0063403b28cb5bbb2fa7a6adb9d4a6c",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "sourceRecord": "mutsumi-reading-apricot-v1.source.json",
+  "observation": "Root personally viewed complete mother: quiet reading, natural hand/book layers, distinct eyes/fringe, supported seat and full feet/shoes.",
+  "scope": "Exact-SHA complete static mother only; no layer/extraction/motion/runtime admission.",
+  "layerApproved": false,
+  "runtimeAccepted": false
+}

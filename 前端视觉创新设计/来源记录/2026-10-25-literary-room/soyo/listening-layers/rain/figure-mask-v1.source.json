@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "character": "soyo",
+  "activity": "listening",
+  "palette": "rain",
+  "stage": "F2",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: background-extraction. Asset type: fixed original-position complete foreground luminance mask, F STEP 2. The ONLY input is the 1536x1024 Soyo LISTENING rain mother with the ENTIRE girl plus the separate closed book to her image-right ALREADY painted solid pure white. Preserve the complete original canvas and every existing white selection coordinate.\n\nKeep ALL intentionally painted white girl AND complete separate book solid WHITE exactly as they are. The figure includes every fine hair tip/strand, face/neck, both empty hands on knees, all sailor clothing and full skirt hem folds, exposed knees, below-knee socks, both complete loafers down to each dark sole/heel contour. The separate closed book includes both covers, spine, entire page block and fine lower page/cover edge. Do not drop the book because it is apart from the girl. Interiors stay fully white without holes or old face/clothing details. No erosion, contraction, dilation, shift, recenter or new silhouette.\n\nTurn ALL remaining colored and naturally light environment pure BLACK, including curtain, sky/clouds, lamp shade, flowers, every unselected pale cushion/plaid/throw, desk/chair/round table/cup, lake/town, floor/rug highlights and independent original contact shadows. Real original gaps between hair strands and between legs become black. Only the deliberate white foreground survives; natural bright linen or book-like room highlights must not be kept.\n\nObservation limits only, NOT boxes to fill: full figure x756..1138,y140..886; complete independent book x1120..1266,y533..567. Preserve each actual existing irregular source contour and its thin antialias. Keep all dark garment/skirt and shoe outlines that were already intentionally whitened; do not shave off shoe soles or heel blocks.\n\nOutput exactly ONE opaque 1536x1024 BLACK PNG with only the unchanged WHITE figure-and-book silhouette. No colored room, checkerboard, transparency, text, grid, boxes, outlines, arrows, crop, resize, zoom, translation or added connection between separate source objects.",
+  "promptSha256Utf8NoTrailingLF": "78869ff8e96c81089b275ae13c36e3b9d990e761262d8c8055605b04d7d6bf61",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/rain/figure-step1-marked-v1.png",
+      "sha256": "98010624f1472ed8ec803f8231997a2ccd4b1e8084ab3605e953324ce559eb73",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "sourceMotherSha256": "dca2dd09063832af700bcb833ddaae40cde16b01aed2d27429204762cd3c7210",
+  "approvalEvidence": "Root static approval of Soyo listening four mothers relayed by openui_creation delegation. Exact violet/rain source images independently viewed and hashes verified. This does not approve any new mask.",
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/soyo.md",
+      "sha256": "1ec8b260d40f8363c096ed8392547dd276d2318df5aadbe34b1f51e51e2ed04e",
+      "readScope": "Complete current text read before this layer task"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "91fb8b8de3e8d954a9367a585f09b71b8f5a9962d8ed0107249c348390fb7f05",
+      "readScope": "Complete current text read before this layer task"
+    }
+  ],
+  "method": "Read mature Soyo/chat-layers F1/F2/S1/S2 actual prompts and root Sakiko recognition-v2-layers contact S1-v3/S2-v2 repair prompts. Original mother -> same-canvas marked selection -> black/white extraction only. No held images, threshold/manual PNG paint or review collage input.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\listening-layers\\rain\\figure-mask-v1.png",
+    "sha256": "3be733fa9a261ca69af69642f39b9bb042b84cb30462a56dd3c44c2ece59c38f",
+    "bytes": 402226,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-cd44d203-c40c-435a-b05d-abe981f3b913.png",
+    "pngBytesUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "fullNativeImage": true,
+    "observations": "亲看完整1536×1024：黑底只保雨夜人物整白形与独立右合书白块，细长发、衣裙下缘、露膝到袜、双完整鞋保住，腿间和发隙黑。未见白灯罩/窗帘/浅垫/大片地板漏留；两鞋靠近处跟原轮廓相接而非新加桥。细边是否与原RGB逐像素贴合留caller联合局部验。"
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "status": "producer-candidate-awaiting-fixed-source-RGB-union-and-primary-review",
+  "useBoundary": "Only fixed original-source included union MAX(F,S); local receiver pixels are not a portable independent cast-shadow layer. No new pose/dynamic credit."
+}

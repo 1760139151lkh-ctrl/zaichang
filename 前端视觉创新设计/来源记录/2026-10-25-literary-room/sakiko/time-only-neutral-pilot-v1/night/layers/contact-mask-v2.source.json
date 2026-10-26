@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-mother-original-rgb-included-layer-production",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "palette": "rain",
+  "timeOfDay": "night",
+  "neutralTime": "night",
+  "weather": "unknown",
+  "original360ExactActivityCell": false,
+  "cell": "sakiko/neutral-presence/rain/night/time-night",
+  "stage": "S2",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: precise-object-edit.\nAsset: corrected exact-coordinate opaque LOCAL receiver selection mask,1536x1024. Image1 is the ONLY edit target: already deliberately WHITE-marked local receiver areas. Image2 is exact original approved mother only to identify what white was ADDED. Do NOT redraw any contact/shoe shape, do NOT reposition marks or reinterpret them as a generic pair of shoes. Copy the actual image1 added-white geometry at exactly the same source coordinates.\n\nMake ONLY the actual added-white marks in image1 WHITE. ALL original colored person/room, naturally pale curtain/linen/book pages and unmarked material BLACK. Keep white cores and the ALREADY PRESENT slight gray/soft transition at source mark boundaries. Do not add a new broad blur or expand the mark. Any marked original outer antialias that overlaps the shoe edge may stay selected; F already contains whole shoe, so do not carve an invented shoe-shaped hole into the white on a different coordinate.\n\nCRITICAL FOOT COORDINATES: image1's white ground marks lie immediately BELOW the ACTUAL soles, extending around BOTH complete source shoe toe/heel contacts. The lower/front shoe reaches abouty919; the added white beneath its toe MUST remain at approximatelyx850..956,y913..942. The other shoe toe contact is aroundx822..900,y881..904. Preserve original white near heel aroundx973..1008,y877..910 where present. Whole floor selection neighborhoodx808..1015,y861..944 is only to inspect, NOT a rectangle to fill. Do NOT move the footprints upward toward ankleheight. Do NOT stop the selected receiving floor at y900 and omit the front toe's real dark contact BELOW it. These are two close source-local footprints already marked correctly in image1, not new shadows to design.\n\nCRITICAL SEAT COORDINATES: follow ONLY the small existing added-white source seat marks directly outside the actual skirt/hip contact, roughlyleftx938..979,y555..586 and rightx1240..1356,y559..609 where marked. Do NOT grow a left island to x890 or select a long empty cushion strip. Natural bright cushion remains BLACK. Open lap book and all person colors BLACK.\n\nOutput full1536x1024 opaque BLACK/WHITE/short-edge-GRAY selection with no color, text, checkerboard, crop, resize, shift or redesign. Final raw luminance selects unchanged mother wood/cloth/shadow RGB ONCE through MAX(F,S). This is fixed original-place receiving material, travel/slope/perspective0. Do not use any previous wrong mask; only the two provided clean images.",
+  "promptFile": "contact-mask-v2.prompt.txt",
+  "promptFileSHA256": "d3833de8eb9ce28297980d0ae32422ac46cca5d2f10b6e1ecce050f9d14e4217",
+  "actualToolArguments": {
+    "prompt": "Use case: precise-object-edit.\nAsset: corrected exact-coordinate opaque LOCAL receiver selection mask,1536x1024. Image1 is the ONLY edit target: already deliberately WHITE-marked local receiver areas. Image2 is exact original approved mother only to identify what white was ADDED. Do NOT redraw any contact/shoe shape, do NOT reposition marks or reinterpret them as a generic pair of shoes. Copy the actual image1 added-white geometry at exactly the same source coordinates.\n\nMake ONLY the actual added-white marks in image1 WHITE. ALL original colored person/room, naturally pale curtain/linen/book pages and unmarked material BLACK. Keep white cores and the ALREADY PRESENT slight gray/soft transition at source mark boundaries. Do not add a new broad blur or expand the mark. Any marked original outer antialias that overlaps the shoe edge may stay selected; F already contains whole shoe, so do not carve an invented shoe-shaped hole into the white on a different coordinate.\n\nCRITICAL FOOT COORDINATES: image1's white ground marks lie immediately BELOW the ACTUAL soles, extending around BOTH complete source shoe toe/heel contacts. The lower/front shoe reaches abouty919; the added white beneath its toe MUST remain at approximatelyx850..956,y913..942. The other shoe toe contact is aroundx822..900,y881..904. Preserve original white near heel aroundx973..1008,y877..910 where present. Whole floor selection neighborhoodx808..1015,y861..944 is only to inspect, NOT a rectangle to fill. Do NOT move the footprints upward toward ankleheight. Do NOT stop the selected receiving floor at y900 and omit the front toe's real dark contact BELOW it. These are two close source-local footprints already marked correctly in image1, not new shadows to design.\n\nCRITICAL SEAT COORDINATES: follow ONLY the small existing added-white source seat marks directly outside the actual skirt/hip contact, roughlyleftx938..979,y555..586 and rightx1240..1356,y559..609 where marked. Do NOT grow a left island to x890 or select a long empty cushion strip. Natural bright cushion remains BLACK. Open lap book and all person colors BLACK.\n\nOutput full1536x1024 opaque BLACK/WHITE/short-edge-GRAY selection with no color, text, checkerboard, crop, resize, shift or redesign. Final raw luminance selects unchanged mother wood/cloth/shadow RGB ONCE through MAX(F,S). This is fixed original-place receiving material, travel/slope/perspective0. Do not use any previous wrong mask; only the two provided clean images.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/night/layers/contact-step1-marked-v1.png",
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/night/layers/contact-step1-marked-v1.png",
+      "sha256": "3e8a4cfe02a82a05754ddd35df7d1751690f206866432d9fa8a11f26a7360303",
+      "role": "good original S1 deliberately added white local receivers"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.png",
+      "sha256": "2d571adc2146dd779954f0d014ef015b658a83250d6626d707dcece3c6335d8e",
+      "role": "exact root-approved mother; held S2 v1 not used"
+    }
+  ],
+  "mother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.png",
+    "sha256": "2d571adc2146dd779954f0d014ef015b658a83250d6626d707dcece3c6335d8e",
+    "sourceRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.source.json",
+    "sourceRecordSHA256": "c4a7dfd47161498c7801b25e520fd00b0b36fd66f5de1b90da86462d2ec5efe2",
+    "primaryAdmission": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/root-primary-mother-admission-v1.json",
+    "primaryAdmissionSHA256": "1ddf9b15e52dcbc9bc360ec7edd172b9d26c25057efe808e98cbe52f30417666"
+  },
+  "readDependencies": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "bytes": 12246
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "bytes": 12645
+    }
+  ],
+  "dossierVersion": "2026-10-25.1",
+  "wardrobeId": "sakiko-literary-navy-adaptation",
+  "output": {
+    "file": "contact-mask-v2.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-9ebd8f7e-94f7-486a-9294-3ac705c169bc.png",
+    "sha256": "9cb84b19770fc02de33356df325e550ff74b435282a8fddb58119f87a7949e68",
+    "bytes": 313682,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "status": "producer_held_front_toe_receiver_core_too_thin",
+    "observations": [
+      "完整输出亲看：双鞋接收标记整体下移回实际前鞋下缘，三处紧邻座面岛保留，灰缘短而软；进一步原RGB浏览核前鞋暗接收与同母BG接触色。",
+      "Chrome原RGB亲看：虽已回原坐标，前鞋鞋尖下原暗木接收仍过薄，原S1重绘后由contact-mask-v3替代；不作新输入。"
+    ],
+    "browserEvidence": [
+      "browser-observations/held-s-v2-06-shoes.png",
+      "browser-observations/held-s-v2-07-contact.png"
+    ]
+  },
+  "supersedesHeldFile": "contact-mask-v1.png",
+  "heldInputUsed": false,
+  "originalMotherRGBChanged": false,
+  "pngPixelEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "selectedForAssembly": false,
+  "submittedPromptSHA256": "a25d32e84d8a61a1b42115219c9760199eef0c92891284090db34f62faf8319a"
+}

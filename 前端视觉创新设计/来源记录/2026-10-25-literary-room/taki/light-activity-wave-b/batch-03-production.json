@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 1,
+  "characterId": "taki",
+  "batch": 3,
+  "totalWaveCap": 24,
+  "completedCalls": 6,
+  "callOrdinals": [
+    13,
+    14,
+    15,
+    16,
+    17,
+    18
+  ],
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "entries": [
+    {
+      "assetId": "taki-listening-mist-literary-v1",
+      "activity": "listening",
+      "palette": "mist",
+      "callOrdinal": 13,
+      "file": "taki-listening-mist-literary-v1.png",
+      "sha256": "75ac2c364585fb85f1dee3d1b9d33aeb0fc2e3ccc87038c3bfaa29ffb0497a83",
+      "bytes": 2334382,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "taki-listening-mist-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-b/taki-listening-apricot-literary-v1.png",
+          "sha256": "cf48e29b3c636be8cc34b2fca85ad7ceefed5c7956d5417b3e4a5d3958ce3c89",
+          "role": "image2: root-approved actual activity identity/pose/scale/support, not inherited daylight",
+          "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: actual closed book/small paper on thighs, one hand relaxed on knee and other over paper, sideward image-right listening gaze/paused mouth preserved. Overcast diffuse light coherently reaches paper/skin/uniform/seat/floor without hard apricot grid. Clear violet eyes/fringe/lids; hip/cushion and full coherent uncrossed legs/shoes at observed source scale, room stable.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "Static implied nearby-speaker direction, not actual dialogue/person identification; primary/layer/runtime remain false."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "taki-listening-violet-literary-v1",
+      "activity": "listening",
+      "palette": "violet",
+      "callOrdinal": 14,
+      "file": "taki-listening-violet-literary-v1.png",
+      "sha256": "f743970e8f9104dbf53c9a46d3e8599e81289dc801642db45271b7506affce8a",
+      "bytes": 2237078,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "taki-listening-violet-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-b/taki-listening-apricot-literary-v1.png",
+          "sha256": "cf48e29b3c636be8cc34b2fca85ad7ceefed5c7956d5417b3e4a5d3958ce3c89",
+          "role": "image2: root-approved actual activity identity/pose/scale/support, not inherited daylight",
+          "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate; localized knee-light detail for primary inspection",
+        "observation": "Complete original viewed: actual book/small paper, knee hand and paper hand, sideward listening gaze/paused mouth retained. Dusk/lamp treatment reaches paper/skin/uniform/seat/floor coherently with no conspicuous right-floor noon grid. One warmer bright knee patch remains at a source-similar location and is disclosed for primary light-direction judgment. Eyes/fringe/lids clear, hip support and complete coherent uncrossed legs/shoes at source scale; room stable.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "Local knee highlight not signed off as physically measured illumination; primary/layer/runtime remain false."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "taki-listening-rain-literary-v1",
+      "activity": "listening",
+      "palette": "rain",
+      "callOrdinal": 15,
+      "file": "taki-listening-rain-literary-v1.png",
+      "sha256": "cf26ef9815128481388986233944ae80d768273efa6b6d2cbc2483dd66c392ad",
+      "bytes": 2161318,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "taki-listening-rain-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-b/taki-listening-apricot-literary-v1.png",
+          "sha256": "cf48e29b3c636be8cc34b2fca85ad7ceefed5c7956d5417b3e4a5d3958ce3c89",
+          "role": "image2: root-approved actual activity identity/pose/scale/support, not inherited daylight",
+          "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate; localized knee-light detail for primary inspection",
+        "observation": "Complete original viewed: actual closed book/small paper, knee hand/paper hand and sideward paused listening expression preserved. Rain/dark town and existing warm lamp treat paper/skin/uniform/linen/floor together, no noon grid or automatic grief. A warm bright knee patch remains source-similar in position, explicitly left for primary light-direction judgment rather than claimed fully relit. Eyes/fringe/lids clear; full coherent uncrossed legs/shoes and hip support at source scale, room stable.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "Local knee illumination not signed off as physically matched; primary/layer/runtime remain false."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "taki-play-mist-literary-v1",
+      "activity": "play",
+      "palette": "mist",
+      "callOrdinal": 16,
+      "file": "taki-play-mist-literary-v1.png",
+      "sha256": "b08f93d058cf9bbd420930e3b8ad3f6252156dec027c887d2b799427c68fe37f",
+      "bytes": 2389024,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "taki-play-mist-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-b/taki-play-apricot-literary-v1.png",
+          "sha256": "1e01dddcae67de37887d7338b3056aa4a3bf04609db7de15c75b83ba2b8f735f",
+          "role": "image2: root-approved actual activity identity/pose/scale/support, not inherited daylight",
+          "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: actual small cream square/envelope-like fold held by one hand near upper chest, opposite hand over supported closed lap book and crooked amused smile retained. Overcast diffuse light reaches paper/fingers/skin/uniform/linen/floor without hard sun grid. Clear violet eyes/fringe/lids, visibly gripped paper and coherent hip support/full uncrossed legs/shoes at source scale; room stable.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "No claim of a specific paper animal/real game or primary/layer/runtime admission."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "taki-play-violet-literary-v1",
+      "activity": "play",
+      "palette": "violet",
+      "callOrdinal": 17,
+      "file": "taki-play-violet-literary-v1.png",
+      "sha256": "4565b3397192552033a9727d6e52e06da90521240a7d54519afecb8a49407256",
+      "bytes": 2276239,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "taki-play-violet-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-b/taki-play-apricot-literary-v1.png",
+          "sha256": "1e01dddcae67de37887d7338b3056aa4a3bf04609db7de15c75b83ba2b8f735f",
+          "role": "image2: root-approved actual activity identity/pose/scale/support, not inherited daylight",
+          "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate; localized knee-light detail for primary inspection",
+        "observation": "Complete original viewed: actual one-hand upper-chest small fold, other hand/closed lap book and crooked amused smile retained with clear violet eyes/fringe/lids. Dusk and warm lamp treatment reach paper/fingers/uniform/linen/floor with no conspicuous right-floor noon grid. A strong warm knee patch remains source-similar in position, disclosed for primary illumination judgment. Paper visibly gripped, hip support and full coherent uncrossed legs/shoes at source scale; room stable.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "Local knee illumination not signed off as target-matched; primary/layer/runtime remain false."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "taki-play-rain-literary-v1",
+      "activity": "play",
+      "palette": "rain",
+      "callOrdinal": 18,
+      "file": "taki-play-rain-literary-v1.png",
+      "sha256": "02cebac8c3c4a2eabb1741c5965786f0604424e5d99dc6245028aa858b96a0cf",
+      "bytes": 2206838,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "taki-play-rain-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-b/taki-play-apricot-literary-v1.png",
+          "sha256": "1e01dddcae67de37887d7338b3056aa4a3bf04609db7de15c75b83ba2b8f735f",
+          "role": "image2: root-approved actual activity identity/pose/scale/support, not inherited daylight",
+          "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: actual one-hand upper-chest small fold, opposite hand on closed lap book and crooked amused smile retained; paper visibly gripped. After the explicit local relighting instruction the image-right knee/thigh is a smoother warm flesh plane without the strong isolated apricot-style oval island. Rain/dark town and existing warm lamp light integrate paper/fingers/skin/uniform/seat/floor, no noon grid or automatic sadness. Eyes/fringe/lids clear, hip support/full coherent uncrossed legs/shoes at source scale; room stable.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "Visual improvement is not measured radiometry or primary/layer/runtime admission."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "scope": "Six actually saved and personally viewed same-activity light mother candidates. Root/layer/runtime approval remains separate; no new layers or registration."
+}

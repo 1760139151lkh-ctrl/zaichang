@@ -1,0 +1,306 @@
+{
+  "schemaVersion": 1,
+  "recordType": "vertical-native-alpha-preserved-static-production-handoff",
+  "actualProductionCount": 2,
+  "runtimeAccepted": false,
+  "items": [
+    {
+      "characterId": "mutsumi",
+      "variant": "mutsumi-vertical-edge-cat-v1",
+      "source": {
+        "file": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mutsumi\\mutsumi-vertical-edge-cat-v1.png",
+        "sha256": "0581d83f351cb6bdc0b742d8f02ff4147f4e1c297d7f3f9a42fa4cf40c0cd651",
+        "sourceRecord": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mutsumi\\mutsumi-vertical-edge-cat-v1.source.json",
+        "sourceRecordSha256": "642788b4eed3bcbcb24235d6e33322ef5507c417844b1fc1db5088e3b0b84331",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "alphaRange": [
+          0,
+          255
+        ],
+        "alphaBounds": [
+          39,
+          30,
+          1206,
+          1224
+        ],
+        "alphaThresholdBounds": {
+          "1": [
+            39,
+            30,
+            1206,
+            1224
+          ],
+          "2": [
+            278,
+            30,
+            1028,
+            1220
+          ],
+          "8": [
+            280,
+            32,
+            1026,
+            1220
+          ],
+          "32": [
+            281,
+            32,
+            1025,
+            1218
+          ],
+          "128": [
+            281,
+            33,
+            1025,
+            1217
+          ],
+          "230": [
+            282,
+            34,
+            1025,
+            1217
+          ],
+          "250": [
+            282,
+            34,
+            1024,
+            1216
+          ]
+        },
+        "originalPreserved": true,
+        "staticDirectionApprovedByRoot": true,
+        "approvalSource": "Direct root message: personally viewed allAve4+Mutsumi-left and MyGO5(Tomori/Anonv2,Rana/Soyo/Takiv1), static identity/simple whole vertical grip approved; clean/contacts pending personal128 review."
+      },
+      "output": {
+        "file": "mutsumi-vertical-edge-cat-v1-static-clean.png",
+        "sha256": "d154433aa93909f6d05ba16367021f3927060fd9c536c54ddb84741b868825ce",
+        "bytes": 858388,
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "alphaRange": [
+          0,
+          255
+        ],
+        "alphaBounds": [
+          39,
+          30,
+          1206,
+          1224
+        ],
+        "visibleBoundsAtAlpha8": [
+          280,
+          32,
+          1026,
+          1220
+        ],
+        "visibleRgbDifferenceRange": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "alphaDifferenceRange": [
+          0,
+          0
+        ]
+      },
+      "verticalContact": {
+        "contactSide": "right",
+        "gripXSource": 905,
+        "sourceYAnchor": 818,
+        "anchorNormalized": [
+          0.7216905901116427,
+          0.6523125996810207
+        ],
+        "actualCanvas": [
+          1254,
+          1254
+        ],
+        "sourceTorsoApproximateYRange": [
+          590,
+          1045
+        ],
+        "anchorMeaning": "Y is a personally observed main-torso placement reference; not an invented animated joint or same-height paw rule. X independently checked through all three actual source paw crops.",
+        "pawContactReferenceCentersY": [
+          545,
+          720,
+          1030
+        ],
+        "previousProducerApproximateX": 905,
+        "adjustmentReason": "Existing approximate line retained after native paw inspection.",
+        "mirrorSafe": false,
+        "mirrorAnchorContinuousSource": null,
+        "identityConstraint": "No image flip; own-left twin silver temple clips remain viewer-right. Use independently generated left/right source."
+      },
+      "review": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mutsumi\\static-clean\\right-contact\\static-128-light-dark-grip-review.png",
+      "contactReview": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mutsumi\\static-clean\\right-contact\\source-contact-coordinate-review.png",
+      "candidate": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mutsumi\\static-clean\\right-contact\\static-clean-candidate.json",
+      "primaryStaticCleanApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "characterId": "mutsumi",
+      "variant": "mutsumi-vertical-edge-left-contact-v1",
+      "source": {
+        "file": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mutsumi\\mutsumi-vertical-edge-left-contact-v1.png",
+        "sha256": "98eb98555e027734224ce646bdab69428133bd60a3ac980bfcf87b1486b3d8d2",
+        "sourceRecord": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mutsumi\\mutsumi-vertical-edge-left-contact-v1.source.json",
+        "sourceRecordSha256": "b6a6023163a012342fbf44302f82b985a97f94fefc3d9e11b0f7a5993eb98ccf",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "alphaRange": [
+          0,
+          255
+        ],
+        "alphaBounds": [
+          81,
+          17,
+          1152,
+          1239
+        ],
+        "alphaThresholdBounds": {
+          "1": [
+            81,
+            17,
+            1152,
+            1239
+          ],
+          "2": [
+            245,
+            18,
+            973,
+            1239
+          ],
+          "8": [
+            247,
+            19,
+            971,
+            1237
+          ],
+          "32": [
+            247,
+            20,
+            970,
+            1237
+          ],
+          "128": [
+            248,
+            20,
+            970,
+            1236
+          ],
+          "230": [
+            249,
+            21,
+            969,
+            1235
+          ],
+          "250": [
+            249,
+            22,
+            969,
+            1235
+          ]
+        },
+        "originalPreserved": true,
+        "staticDirectionApprovedByRoot": true,
+        "approvalSource": "Direct root message: personally viewed allAve4+Mutsumi-left and MyGO5(Tomori/Anonv2,Rana/Soyo/Takiv1), static identity/simple whole vertical grip approved; clean/contacts pending personal128 review."
+      },
+      "output": {
+        "file": "mutsumi-vertical-edge-left-contact-v1-static-clean.png",
+        "sha256": "63db0a4eb60d4a264be0551c56bbc4025ed29be586fb2033b7e84b3f4120563d",
+        "bytes": 850376,
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "alphaRange": [
+          0,
+          255
+        ],
+        "alphaBounds": [
+          81,
+          17,
+          1152,
+          1239
+        ],
+        "visibleBoundsAtAlpha8": [
+          247,
+          19,
+          971,
+          1237
+        ],
+        "visibleRgbDifferenceRange": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "alphaDifferenceRange": [
+          0,
+          0
+        ]
+      },
+      "verticalContact": {
+        "contactSide": "left",
+        "gripXSource": 350,
+        "sourceYAnchor": 855,
+        "anchorNormalized": [
+          0.27910685805422647,
+          0.6818181818181818
+        ],
+        "actualCanvas": [
+          1254,
+          1254
+        ],
+        "sourceTorsoApproximateYRange": [
+          615,
+          1095
+        ],
+        "anchorMeaning": "Y is a personally observed main-torso placement reference; not an invented animated joint or same-height paw rule. X independently checked through all three actual source paw crops.",
+        "pawContactReferenceCentersY": [
+          545,
+          728,
+          1074
+        ],
+        "previousProducerApproximateX": 350,
+        "adjustmentReason": "Existing approximate line retained after native paw inspection.",
+        "mirrorSafe": false,
+        "mirrorAnchorContinuousSource": null,
+        "identityConstraint": "No image flip; own-left twin silver temple clips remain viewer-right. Use independently generated left/right source."
+      },
+      "review": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mutsumi\\static-clean\\left-contact\\static-128-light-dark-grip-review.png",
+      "contactReview": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mutsumi\\static-clean\\left-contact\\source-contact-coordinate-review.png",
+      "candidate": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mutsumi\\static-clean\\left-contact\\static-clean-candidate.json",
+      "primaryStaticCleanApproved": false,
+      "runtimeAccepted": false
+    }
+  ]
+}

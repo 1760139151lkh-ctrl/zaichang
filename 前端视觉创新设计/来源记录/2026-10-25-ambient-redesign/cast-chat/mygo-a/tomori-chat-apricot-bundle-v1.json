@@ -1,0 +1,389 @@
+{
+  "schemaVersion": 1,
+  "kind": "existing-chat-layers-admission-candidate",
+  "key": "tomori/chat/apricot",
+  "primary": false,
+  "runtime": false,
+  "sourceScene": {
+    "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-chat-apricot.scene.json",
+    "sha256": "bb2371543eb8b0b13f41c50739559d8d9c876fc334c3d435dbdea6082e6dca2d",
+    "id": "tomori-chat-apricot-room4",
+    "selection": "exact existing scene pointers; no largest-version guessing"
+  },
+  "assets": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-chat-apricot-mother.png",
+      "bytes": 2151175,
+      "sha256": "7e2d61d5874ede02beba0808b329b18922dfe6b3f20f2d923a9c2ea4c22978d9",
+      "mode": "RGB",
+      "size": [
+        1536,
+        1024
+      ],
+      "rgbSha256": "8c50363240f07a3056f8ed6cc979aa9eb7d0db5d3a3458eb57e16c6301c753d4",
+      "alphaBounds": null
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-chat-background-calibrated-v7.png",
+      "bytes": 2074404,
+      "sha256": "9b0503336ff1cef36bfa73c2591cd0462113d9260bb84fb8c446644afd52db16",
+      "mode": "RGB",
+      "size": [
+        1536,
+        1024
+      ],
+      "rgbSha256": "214880aa3d37e5a58c788abc2050b99e1cf4d9dd579b8fd4d745e5b472b42d5d",
+      "alphaBounds": null
+    },
+    "figure": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-chat-figure-calibrated-v7.png",
+      "bytes": 2407809,
+      "sha256": "592b1dbb81fc3dcb90507d09407d427c9909c40ea0d132a1b739e310018da2f1",
+      "mode": "RGBA",
+      "size": [
+        1536,
+        1024
+      ],
+      "rgbSha256": "8c50363240f07a3056f8ed6cc979aa9eb7d0db5d3a3458eb57e16c6301c753d4",
+      "alphaBounds": [
+        1156,
+        271,
+        1443,
+        784
+      ]
+    },
+    "mask": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-chat-mask-calibrated-v7.png",
+      "bytes": 17383,
+      "sha256": "82f3766fa1ddcb72f701347af93599d05a1fee3cff387050240af0362a2af9c6",
+      "mode": "RGBA",
+      "size": [
+        1536,
+        1024
+      ],
+      "rgbSha256": "c9bd2aa628c888e2eb30ca79390f4eb910f3cf93453d20d5df2e09455575f801",
+      "alphaBounds": [
+        1156,
+        271,
+        1443,
+        784
+      ]
+    },
+    "shadow": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-chat-shadow-calibrated-v7.png",
+      "bytes": 37460,
+      "sha256": "e3c78c56bb5dbd537ea44df50ce680f9988904bc34c53fd359808ef1c60cbdfc",
+      "mode": "RGBA",
+      "size": [
+        1536,
+        1024
+      ],
+      "rgbSha256": "65ee510fdca86744d9d23b9d47d1c32dbf0e893d432ab95ef29d5a57e3d5ebd9",
+      "alphaBounds": [
+        1155,
+        746,
+        1265,
+        787
+      ]
+    }
+  },
+  "sourceProvenance": {
+    "record": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-chat-apricot-source.json",
+    "recordSha256": "0c2b2a9acf784d6f526bce72fe5d038c9a6bb9f22ff8170a608622efd36c4467",
+    "originalExecutionId": "exec-ba08a069-a30a-448c-b54b-5dc27b93324b",
+    "prompt": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-chat-apricot-prompt.txt",
+    "promptSha256": "24e2ef6f3197d6dee24ac5adef4244c1f20eb6ce79f89448183913d5fdf8cc90",
+    "promptShaMatchesRecorded": true,
+    "promptRead": true,
+    "motherShaMatchesRecorded": true,
+    "layerProcessing": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-chat-layer-processing-v7.json",
+    "processingToolRecorded": "extract-scene-layers.py",
+    "existingOutputsMatchRecorded": [
+      {
+        "file": "tomori-chat-figure-calibrated-v7.png",
+        "sha256": "592b1dbb81fc3dcb90507d09407d427c9909c40ea0d132a1b739e310018da2f1",
+        "matchesActual": true
+      },
+      {
+        "file": "tomori-chat-mask-calibrated-v7.png",
+        "sha256": "82f3766fa1ddcb72f701347af93599d05a1fee3cff387050240af0362a2af9c6",
+        "matchesActual": true
+      },
+      {
+        "file": "tomori-chat-background-calibrated-v7.png",
+        "sha256": "9b0503336ff1cef36bfa73c2591cd0462113d9260bb84fb8c446644afd52db16",
+        "matchesActual": true
+      },
+      {
+        "file": "tomori-chat-shadow-calibrated-v7.png",
+        "sha256": "e3c78c56bb5dbd537ea44df50ce680f9988904bc34c53fd359808ef1c60cbdfc",
+        "matchesActual": true
+      }
+    ],
+    "layerProcessingSha256": "d2cc2bb1311b4d4bee35ee585ce9a3ee6df4ec726c7544a1bcd26fed71f1430b"
+  },
+  "readOnlyPixelInspection": {
+    "method": "Decoded PNG channel-byte hashes read through Pillow; no raster writes, rematting or new test files",
+    "motherRgbSha256": "8c50363240f07a3056f8ed6cc979aa9eb7d0db5d3a3458eb57e16c6301c753d4",
+    "figureRgbSha256": "8c50363240f07a3056f8ed6cc979aa9eb7d0db5d3a3458eb57e16c6301c753d4",
+    "entireFigureRgbIsOriginal": true,
+    "figureAlphaSha256": "b53e8bc6d2832064d85ecfbdefc3b62e25f7459c8fba03f8c4ccb66ec07a7d5e",
+    "maskAlphaSha256": "b53e8bc6d2832064d85ecfbdefc3b62e25f7459c8fba03f8c4ccb66ec07a7d5e",
+    "maskAlphaExactlyMatchesFigure": true,
+    "allCanvases": [
+      1536,
+      1024
+    ],
+    "maskMode": "alpha (RGB is white across the full mask; luminance would reveal the entire room)",
+    "nonzeroFigureAlphaBoundsExclusive": [
+      1156,
+      271,
+      1443,
+      784
+    ],
+    "figureReplay": "Original mother RGB through exact unchanged existing mask alpha in inline native SVG",
+    "maskRgbExtrema": [
+      [
+        255,
+        255
+      ],
+      [
+        255,
+        255
+      ],
+      [
+        255,
+        255
+      ]
+    ]
+  },
+  "sameCanvas": {
+    "width": 1536,
+    "height": 1024,
+    "transform": {
+      "x": 0,
+      "y": 0,
+      "scale": 1
+    },
+    "layerOrder": [
+      "scene-specific background",
+      "scene-specific normal source-over RGBA shadow",
+      "original mother RGB through scene-specific original alpha"
+    ],
+    "blendMode": "normal",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "geometry": {
+    "status": "candidate_source_specific_visual_calibration_for_parent_review",
+    "basis": "Each own full mother and its actual alpha bounds; support proxy anchors are visible cushion/sole contacts, not inferred hidden anatomy.",
+    "seatPixels": [
+      1330,
+      588
+    ],
+    "groundPixels": [
+      1218,
+      781
+    ],
+    "seat": [
+      0.8658854166666666,
+      0.57421875
+    ],
+    "ground": [
+      0.79296875,
+      0.7626953125
+    ],
+    "bodyBounds": [
+      0.7526041666666666,
+      0.2646484375,
+      0.939453125,
+      0.765625
+    ],
+    "safeTextBoundary": 0.64,
+    "safeTextBoundaryPixels": 983.04,
+    "safeTextBoundaryBasis": "Existing room text boundary retained; source-specific alpha bounds stay to its right. It is not a new page-layout approval.",
+    "support": "window-seat",
+    "palmContacts": [
+      {
+        "kind": "notebook-on-lap",
+        "point": [
+          1258,
+          525
+        ]
+      },
+      {
+        "kind": "palm-on-cushion",
+        "point": [
+          1415,
+          583
+        ]
+      }
+    ],
+    "footContacts": [
+      {
+        "kind": "image-left loafer",
+        "point": [
+          1180,
+          772
+        ]
+      },
+      {
+        "kind": "image-right loafer",
+        "point": [
+          1225,
+          780
+        ]
+      }
+    ],
+    "detailRois": [
+      {
+        "name": "髋部与座面",
+        "rect": [
+          1262,
+          548,
+          190,
+          82
+        ]
+      },
+      {
+        "name": "双掌、合本与座沿",
+        "rect": [
+          1220,
+          497,
+          234,
+          106
+        ]
+      },
+      {
+        "name": "完整双鞋与地面",
+        "rect": [
+          1138,
+          706,
+          151,
+          99
+        ]
+      }
+    ],
+    "inheritedSceneHitPolygon": {
+      "value": "86.393% 26.953%, 85.156% 26.562%, 83.333% 27.637%, 82.422% 28.906%, 81.706% 31.348%, 81.706% 34.57%, 82.227% 36.035%, 82.747% 36.328%, 83.008% 35.742%, 83.659% 36.328%, 83.073% 37.207%, 83.138% 36.816%, 81.38% 37.598%, 81.12% 38.184%, 80.599% 51.27%, 79.492% 52.539%, 78.711% 54.492%, 78.06% 54.785%, 78.255% 55.371%, 77.474% 55.273%, 77.93% 56.348%, 78.776% 56.738%, 77.669% 62.012%, 76.888% 70.508%, 75.326% 74.707%, 75.716% 75.488%, 77.344% 75.391%, 78.385% 76.367%, 79.492% 76.367%, 82.031% 74.902%, 81.901% 70.312%, 83.398% 62.012%, 83.203% 57.227%, 87.435% 57.812%, 88.997% 57.129%, 89.453% 56.055%, 90.169% 56.152%, 90.885% 57.129%, 93.815% 57.031%, 92.839% 55.957%, 91.276% 55.762%, 90.885% 52.734%, 90.104% 51.758%, 90.56% 52.148%, 89.974% 47.363%, 89.258% 45.898%, 89.714% 46.387%, 88.932% 37.891%, 86.914% 36.523%, 88.151% 34.668%, 88.151% 30.371%, 87.435% 28.125%",
+      "status": "legacy coarse interaction geometry not independently admitted; visible alpha is the inspection authority"
+    },
+    "discardedLegacyMotion": {
+      "travel": 0.0078125,
+      "slope": 0.08,
+      "perspective": 0,
+      "reason": "No transport/bench tangent/perspective claim admitted by this static package"
+    },
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "sourceSupportObservation": [
+    "Short-bob figure rests on the right cushion with a closed notebook on her lap; the image-right palm meets the cushion edge.",
+    "Both uncrossed lower legs and complete black loafers are visible; image-right shoe sits slightly lower in the source perspective."
+  ],
+  "shadow": {
+    "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-chat-shadow-calibrated-v7.png",
+    "methodRecorded": {
+      "mode": "normal source-over RGBA residual",
+      "polygons": [
+        [
+          [
+            1155,
+            753
+          ],
+          [
+            1188,
+            746
+          ],
+          [
+            1262,
+            754
+          ],
+          [
+            1270,
+            786
+          ],
+          [
+            1162,
+            789
+          ]
+        ]
+      ],
+      "featherPixels": 1.2,
+      "maximumDistanceFromFigurePixels": 3,
+      "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+    },
+    "actualNonzeroAlphaBoundsExclusive": [
+      1155,
+      746,
+      1265,
+      787
+    ],
+    "acceptance": "shoe contact observed; seat contact incomplete"
+  },
+  "visualInspection": {
+    "status": "current_static_browser_inspection_complete_parent_review_pending",
+    "motherViewed": true,
+    "originalPromptRead": true,
+    "observationPage": "tomori-chat-apricot-observe-v1.html",
+    "pageUrl": "http://127.0.0.1:5188/来源记录/2026-10-25-ambient-redesign/cast-chat/mygo-a/tomori-chat-apricot-observe-v1.html",
+    "rolesViewed": [
+      "complete original mother PNG",
+      "exact original prompt text and source record",
+      "full mother versus recomposition",
+      "complete empty room versus independent shadow on checker",
+      "original-source alpha on light, dark and checker surfaces at 1 source pixel per CSS pixel",
+      "source-pixel mother / background+figure / background+shadow+figure for hip/seat, palms and complete shoes"
+    ],
+    "observations": [
+      "The full short-bob head, closed lap notebook, hand on notebook, hand on cushion, two legs and two complete loafers remain visible in original RGB.",
+      "The empty room has no visible residual full character; source desks, lamp, cup, bench and blanket remain in place.",
+      "The shoe shadow adds local floor contact, but no independent alpha shadow exists at the skirt/seat boundary.",
+      "The recomposed lower skirt edge is separated from the reconstructed cushion by a brighter narrow strip than in the mother. The source support contact reads weaker in the recomposition."
+    ],
+    "specificIssues": [
+      {
+        "id": "tomori-seat-contact-loss",
+        "severity": "repair-before-primary-layer-admission",
+        "sourcePixelRegion": [
+          1287,
+          582,
+          88,
+          22
+        ],
+        "objects": "lower plaid skirt hem and window cushion directly below rear hip",
+        "observed": "Mother has a compressed/darker seated boundary; background+figure and background+shadow+figure show a brighter fine strip beneath the same skirt edge.",
+        "layerEvidence": "Current independent shadow alpha bounds [1155,746,1265,787] are floor-only, so the current shadow cannot restore the seat boundary.",
+        "nextAction": "Root to inspect the fixed #contacts triple; repair the necessary background/contact relation through the authorized ImageGen/source-specific route. No repair, new shadow, alpha painting or PNG edit performed in this task."
+      }
+    ],
+    "limitations": [
+      "Static candidate asset inspection only. No renderer integration, live interaction or layer admission changed.",
+      "Current figures use their original RGBA alpha; warm source edge color is preserved by immutable original RGB.",
+      "No PNG was edited; old extraction provenance is recorded, not re-executed.",
+      "Fine source-colored matte edges remain on artificial dark backgrounds; this task preserves original RGB and does not perform edge recoloring."
+    ],
+    "at": "2026-10-25 06:35:58 UTC",
+    "browser": "connected Chrome extension through cua_repl; no 9222/Electron control"
+  },
+  "displayRequirements": {
+    "showFigure": true,
+    "motherReady": true,
+    "failed": false,
+    "sameCharacter": "tomori",
+    "sameActivity": "chat",
+    "samePalette": "apricot",
+    "sameMotherSha256": "7e2d61d5874ede02beba0808b329b18922dfe6b3f20f2d923a9c2ea4c22978d9",
+    "sourceLayerFailure": "remove shadow and figure together",
+    "hideOrPoseOrThemeChange": "remove scene-specific shadow and figure; no reuse under a different mother"
+  },
+  "runtimeIntegration": false,
+  "review": {
+    "producerRecommendation": "hold-layer-admission-for-seat-contact-repair",
+    "primaryLayerApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  }
+}

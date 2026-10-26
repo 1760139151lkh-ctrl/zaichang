@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-study-mist-literary-v1",
+  "assetType": "complete-mother-light-activity-wave-a",
+  "character": "soyo",
+  "activity": "study",
+  "palette": "mist",
+  "environmentVariant": "overcast-day",
+  "createdAtUtc": "2026-10-25T13:50:31.939343+00:00",
+  "tool": {
+    "name": "image_gen.imagegen",
+    "mode": "whole-room-same-activity-lighting-weather-edit",
+    "originalEventId": "exec-71855f36-044d-4549-9122-2a55ee786726",
+    "outputHint": "Generated images are saved to C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270 as C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-71855f36-044d-4549-9122-2a55ee786726.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  "prompt": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\light-activity-wave-a\\soyo-study-mist-literary-v1.prompt.json",
+    "fileSHA256": "0b565cee1904d69799d7531689217465640e8c4ab5931c8159a73083497d1cb0",
+    "submittedPrompt": "Use case: lighting-weather. Output ONE complete 1536×1024 mother artwork for soyo/study/mist. IMAGE 1 is the ROOT-APPROVED EMPTY overcast-day literary room: authority for whole-room weather/time/light and the established camera/furniture geometry. IMAGE 2 is this character's ROOT-APPROVED APRICOT SAME-ACTIVITY mother: authority for her correct original identity/uniform, actual seated position, body/head proportions, exact activity, face orientation, hands/held objects or EMPTY hands, hip/knee/lower-leg/shoe support and all true occlusion. Repaint coherent illumination through the entire occupied room and person. Do NOT invent a new pose from a chat picture. Do not use a rejected or drifting planning/study source.\n\nKeep IMAGE 2's exact activity and body/prop/seat relationships, its full canvas camera and person scale. The entire correct source pose remains fixed; only tiny natural facial nuance can follow the literary mood below. Preserve exactly what is actually held, closed/on the seat, or absent; no new book for empty hands. A desk source keeps its original occupied wooden chair and accepted local chair rotation, forearm/desk contact and existing plant occlusion; the empty plate does not reset the chair behind the person. Do not force hidden feet or a far eye into view, invent concealed anatomy, enlarge the head, relocate a body, change leg crossing, or shrink furniture to make visibility. A bench source keeps both complete visible shoes, hands and actual knee/shin relationship. No crossed-one-knee/two-parallel-flat-feet ambiguity, fused limbs/fingers, extra hand, furniture penetration or floating object.\n\nRoom invariant: preserve the complete wooden window and same lake-town/mountain/trees, original curtains, LEFT desk/chair/shelves/books/frames/plants, ROUND table with porcelain lamp/cup/flowers/books, linen bench, blue-gray plaid pillows/knitted throw, wood floor/rug/foreground plant. Round table stays at the ORIGINAL x≈435–690/top near y500; no enlarged desktop, translated table, new stool, zoom, crop, split day/night or new scenery. Match IMAGE 1's weather/lighting throughout; match IMAGE 2's accepted occupied-room layout and source supports.\n\n文学瞬间：把难开口的基础问题放稳。\n心理：她留意到对方在一个看似基础的地方绕开了。她不急着展示熟练，而愿意把那一步放在桌上认真讲清。 周到不是代人做完；她保住对方已有的想法，也有自己的清楚判断。 清晰比迅速更重要，她愿意把一个关系拆开看。\n神情：神情安定而专注，眉间有一点认真推敲。 眉间微收，判断很清楚。\n相处：从对方已说出的一步接起，用可被纠正的解释补上关系。 让对方的反问真正改变下一步解释。\nThis literary moment is subtle expression and attention, not a command to change the approved body's pose or add an event. Keep Anon's lively personal openness and willingness to be corrected, or Soyo's delicate restrained warmth with her own judgment. Do not give all activities a universal grin. No readable page quotes, names, dates, schedules, completion claims or invented personal records.\n\nWhole-scene light: Clouded daytime gray sky, cool diffuse window daylight and very restrained local warm lamps. Remove the former direct-sun floor grid, hot hair rim and sharp skin/paper highlights. Keep visibly daytime, soft neutral white materials and natural own clothing colors, not a blue wash.\nEvery material shares this environment: character skin/hair/uniform/eyes, held paper/book/pen, linen/wood, the chair/bench supports, shoes and adjacent floor. Keep original uniform local colors and youthful anime identity; white collars/pages receive the real ambient exposure rather than glowing daylight-white. No simple color filter, sunny cutout pasted on a dark background, half-day/half-night seam, gray/gold wash, arbitrary neon or new spotlight.\n\nPreserve refined youthful 2D anime linework and soft modeled shading naturally integrated with the detailed literary-room illustration. Entire frame, true source scale and support, no second person/extra limb, no UI, labels, icons, logo, watermark, collage, border, fog or new props.\n",
+    "submittedPromptSHA256": "64e2c506bb014ba200173dcf249c045fd89b64539e807b9632078acc5ff5f86f"
+  },
+  "inputs": [
+    {
+      "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "role": "approved matching empty weather/light plate",
+      "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-overcast-day-v1.primary-approval.json",
+      "approvalRecordSHA256": "00be824f06a3d5ea16f32264c19898e3da9e8c37c5e3ed4668475e165720efc1"
+    },
+    {
+      "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-b\\soyo-study-apricot-literary-desk-v2.png",
+      "sha256": "2aafefdcb31e10b8f91de63a0e5ff6a2ee21d65026763ed072ea3aedb0688dd0",
+      "role": "approved same-activity apricot pose/identity/support authority",
+      "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-b\\soyo-apricot-wave-b-primary-mother-admission-v1.json",
+      "approvalRecordSHA256": "699c3c762a54bb073f4072e9d2885b54813f05276fbc55ab075eabcf4628c095"
+    }
+  ],
+  "brief": {
+    "cellId": "soyo/study/mist",
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\briefs\\mygo-b\\soyo-literary-room-briefs-v1.json",
+    "sha256": "14e055e68af80cfdb1302cd1eb3b115323c414dee43f67ab22b0df3f376b8789",
+    "releaseScope": "Root limited Anon/Soyo × reading/planning/rest/study × mist/violet/rain to 24 total calls; exact approved same-activity mother plus correct empty plate only"
+  },
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\light-activity-wave-a\\soyo-study-mist-literary-v1.png",
+    "sha256": "68a5ef8cc5f4b1de709ed9699749b2c168fe943c63aab953abca4277dcb2b264",
+    "bytes": 2469023,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-71855f36-044d-4549-9122-2a55ee786726.png"
+  },
+  "review": {
+    "producer": {
+      "inspected": true,
+      "method": "original full-resolution tool PNG viewed before next generation; archived PNG byte-identical",
+      "observations": [
+        "原尺寸输出亲看；正确desk-v2的低头看页、前臂桌面/扶页写字、椅座支持和圆几原位置保持，未用旧漂移study。",
+        "阴天漫射光统一人物/制服白领/纸页/房间地板，源自然plant和低头侧向遮挡保留。"
+      ],
+      "concerns": [
+        "contourComplete=false：原plant遮腿鞋，远眼因低头发/视角局部遮挡；不签完整脚或双眼全见。"
+      ],
+      "recommendation": "mother candidate for primary complete-image review"
+    },
+    "primary": {
+      "approved": false
+    },
+    "approvedByPrimary": false,
+    "primaryLayerApproved": false,
+    "runtimeAccepted": false,
+    "runtimeRegistered": false
+  },
+  "authorization": {
+    "waveCallsAllowed": 24,
+    "thisCallCount": 1
+  },
+  "largeImageResultStored": false,
+  "boundaries": [
+    "mother only, primary/layer/runtime false",
+    "no rejected planning/study or wrong-activity inputs",
+    "no layer/TS/ledger/registration/test/runner work",
+    "whole room/person/paper/clothes/floor coherently relit, source pose/support stable"
+  ],
+  "status": "directly-inspected-light-activity-mother-awaiting-primary-review",
+  "sourceConsistency": {
+    "outputSHA": true,
+    "toolOriginalSHA": true,
+    "promptFileSHA": true,
+    "submittedPromptSHA": true,
+    "inputSHAs": [
+      true,
+      true
+    ],
+    "approvalRecordSHAs": [
+      true,
+      true
+    ]
+  },
+  "futureLayerBoundary": "This new relit mother needs own primary approval and exact-source layer calibration; approved apricot mother/layers do not approve this output.",
+  "contourComplete": false,
+  "contourNote": "source naturally occludes part of lower legs/shoes; preserve honest visibility rather than invent hidden contour"
+}

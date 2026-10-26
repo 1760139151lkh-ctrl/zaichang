@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "characterId": "taki",
+  "neutralTime": "day",
+  "purpose": "neutral-presence-fixed-included-layer",
+  "kind": "foreground-luminance-mask-F",
+  "createdAt": "2026-10-26T01:03:23.652868+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "exactPromptFile": "figure-mask-v1.prompt.txt",
+  "promptSha256": "08ee1b89bc1115ab8bab991ba31b6b858bd32cb5dfce4371b8e8ba1cd0649512",
+  "requestFile": "figure-mask-v1.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/day/layers/figure-step1-marked-v1.png",
+      "sha256": "281d578849e8aebd40fc10c43755f9fc5f5b3c9beaf00eeeaf1177563129a023",
+      "role": "sole personally checked healthy F1 same-source white markup"
+    }
+  ],
+  "output": {
+    "file": "figure-mask-v1.png",
+    "sha256": "5e8328478d40d3a710856b0dc1d758d6d94c512d992e0c47e9ce1580a14b15b7",
+    "bytes": 444876,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "originalBasename": "exec-ec212e11-0347-4f02-9526-ff67ea70510e.png",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteOutput": true,
+    "observations": [
+      "Full source-position head/hair/book/hem/legs/shoe silhouette retained on black.",
+      "Thin low book-to-lap seam remains to inspect at source scale in original RGB reconstruction; no cutout RGB generated."
+    ],
+    "eligibleAsNextStepInput": false,
+    "nativeBrowserDefect": "book-native-v1.png shows the bottom dark book cover interrupted by a transparent seam, admitting warm BG wood in fixed composite; never use this mask or markup as new image input"
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "countsToward360ExactActivities": false,
+  "pngPixelEditing": false,
+  "status": "HOLD_book_lower_cover_coverage_gap"
+}

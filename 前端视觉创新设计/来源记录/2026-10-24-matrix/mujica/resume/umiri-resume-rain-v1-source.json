@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "recordedAt": "2026-10-25T02:28:22.301918+00:00",
+  "character": "umiri",
+  "activity": "resume",
+  "sceneCategory": "S9_RESUME",
+  "palette": "rain",
+  "matrixCell": {
+    "character": "umiri",
+    "activity": "resume",
+    "theme": "rain"
+  },
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "useCase": "lighting-weather",
+  "promptFile": "umiri-resume-rain-v1-prompt.txt",
+  "promptFileSha256": "97efcc3870ca3901b5ec1fc0e47315d13c5cc9b4e4705c698f28e9b6d100e86c",
+  "submittedPrompt": "Use case: lighting-weather.\nAsset type: complete same-room companion mother, matrix cell umiri / resume / rain, S9_RESUME.\nPrimary request: relight the ENTIRE approved Umiri resume mother into rain while preserving all composition, identity, pose and support relationships.\nInput 1 is the EDIT TARGET: umiri-resume-apricot-mother-candidate-v1.png. This is the approved complete person-and-room scene. Preserve its geometry exactly.\nInput 2 is a CLEAN EMPTY ROOM LIGHTING AND WEATHER REFERENCE ONLY. Borrow its coherent exterior weather, illumination and material response. Do not replace the composition with input 2, do not erase the person, and do not paste an unchanged apricot-lit person onto the themed empty room.\n\nComposition lock: one complete opaque 1536 x 1024 landscape scene. Keep the exact original camera, perspective, framing, room corners, window frame, curtain folds, lake/campus landmarks, left shelves and table/chair, central desk/chair/lamp/cup/book, right bench, cushions, throw, floorboards and rug. No crop, zoom, furniture drift, enlarged portrait, added objects, duplicate view, text, UI or watermark.\nPerson lock: the SAME youthful Yahata Umiri, charcoal-gray shoulder-length flipped-tip hair, gray-teal eyes, black short jacket, dark red top, gray skirt, choker/earrings, both full black platform boots. Preserve her exact small restrained smile, eyes-first return gaze, head angle, shoulder line, side-seated pelvis, two distinct uncrossed knee/calf/ankle/boot chains, rear supporting palm on the cushion, fingers, and small half-open notebook resting on her thigh. Preserve original scale and location, original bare-leg lengths, shoe soles and floor contact. Do not turn her into a sad or solemn hostess, alter anatomy, straighten the torso, cross her legs, change the hand gesture or move the notebook.\nRender the person and EVERY surface under the SAME new illumination: hair edge and shadows, readable natural face and skin, jacket reflections, red top, gray skirt, notebook paper, boots, ivory plaster, honey wood, fabric and contact shadows. Retain each material's own color. Create actual coherent relighting, not a flat color filter, translucent tint, black overlay, gradient, or a pasted cutout.\n\nTHEME RAIN — blue rainy night and warm-gold lamplight, using room-rain-candidate-v2.png as reference. The same dark-blue lake/campus outside, rainy clouds, rain visible at the window, distant warm city lights and their lake reflections; no daylight, sun or stars. The existing desk lamp is ON and the principal warm interior light, with a subtle cool-blue rainy-window fill. Relight the whole person, hair edges, skin, black jacket, red top, gray skirt, notebook, full boots, curtains, bench and floor coherently. Remove the target's daytime leaf silhouettes and hard sun/window-grid streaks from walls and floor; use soft physically plausible lamplight pools and contact shadows. Keep the entire room readable with quiet dark areas, not crushed black or daytime brightness. Preserve her restrained little smile and clear return gaze; do not impose a melancholy expression. No blue or amber tint film. Return the complete 1536 x 1024 image.\n",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mujica/resume/umiri-resume-apricot-mother-candidate-v1.png",
+      "role": "input 1: root-approved complete apricot mother; geometry, person, pose and support edit target; mother approval only",
+      "sha256": "da8cda7c86c6dcc5dabd9b0f246b05033944c652ec10ca9cbe9054789ebcc987"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-rain-candidate-v2.png",
+      "role": "input 2: clean empty room4 lighting and exterior weather reference only",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "output": {
+    "file": "umiri-resume-rain-mother-candidate-v1.png",
+    "toolOriginalPath": "$CODEX_HOME/generated_images/01a17031-f496-78d2-a7d3-b75dbf74f700/exec-7cd55279-ecb4-4d9f-bca2-23b81182136b.png",
+    "sha256": "ec74bd7fa2a915f415b31bfd3771a2316dc72b317660ab7623b6c9140e2fce7a",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "bytes": 2072357,
+    "promptSha256": "97efcc3870ca3901b5ec1fc0e47315d13c5cc9b4e4705c698f28e9b6d100e86c"
+  },
+  "review": {
+    "producerPersonallyViewed": true,
+    "producerObservation": "The original calm small smile, eyes-first return gaze, side-seated pelvis, thigh-supported half-open notebook, rear supporting palm and both complete boots remain visible. Blue rainy exterior, city/lake lights, cool hair/window edge and the lit warm desk lamp are coherent across skin, jacket, fabric and wood floor. The apricot hard day sun/window-grid streaks are absent from the main wall and floor; broad lamplight and cool window reflection replace them. Room and dark clothing remain readable. Full-scene inspection shows no obvious body, furniture or support drift. Primary personal review is still pending.",
+    "approvedByPrimary": false,
+    "layers": "not extracted",
+    "runtimeAccepted": false,
+    "primaryApprovalScope": "This new themed mother is pending root personal review; approval of the apricot input does not approve this output."
+  },
+  "observedAnchors": {
+    "coordinateSpace": "normalized original canvas; approximate producer observation, not runtime calibration",
+    "support": "right-window-bench",
+    "seat": [
+      0.85,
+      0.562
+    ],
+    "proposedTravel": 0,
+    "objects": {
+      "notebook": "figure-owned, half-open and thigh-supported",
+      "room": "cushions, throw, desks and chairs remain background"
+    }
+  },
+  "identityBasis": {
+    "officialProfile": "https://anime.bang-dream.com/avemujica/character/umiri/",
+    "boundary": "Identity/pose inherited from the root-approved original project mother. This resume interaction is project-original; no official or third-party character pixels are inputs."
+  }
+}

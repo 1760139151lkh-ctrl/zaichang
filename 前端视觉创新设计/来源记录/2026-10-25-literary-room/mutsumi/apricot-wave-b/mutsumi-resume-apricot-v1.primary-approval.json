@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "kind": "primary-static-mother-admission",
+  "key": "mutsumi/resume/apricot",
+  "reviewer": "root",
+  "decision": "approved",
+  "primaryPersonallyViewed": true,
+  "mother": {
+    "file": "mutsumi-resume-apricot-v1.png",
+    "sha256": "8e8ac48ad4b37993d28ccd8bd8c83f64c98f5f1abf8e43f7791b0c8380b11701",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "sourceRecord": "mutsumi-resume-apricot-v1.source.json",
+  "observation": "Root personally viewed lifted returning gaze while finger keeps page and book has hand/lap support. Eyes/fringe, visible hand support, natural bench seat and complete shoes coherent.",
+  "contourComplete": true,
+  "scope": "Exact-SHA complete static mother only. Actual rendered scene semantics recorded honestly; no layer, audio/performance, motion or runtime admission.",
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "evidenceSource": "Explicit root message after personally viewing all five Mutsumi wave-b full mothers"
+}

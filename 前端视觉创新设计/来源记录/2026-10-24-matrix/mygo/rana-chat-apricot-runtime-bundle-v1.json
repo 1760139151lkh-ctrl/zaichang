@@ -1,0 +1,1158 @@
+{
+  "schemaVersion": 1,
+  "recordType": "runtime-candidate-bundle-preparation",
+  "id": "rana-chat-apricot-runtime-bundle-v1",
+  "key": "rana/chat/apricot",
+  "createdOn": "2026-10-24",
+  "selectedRuntime": {
+    "model": "gpt-6.1-sol",
+    "effort": "ultra",
+    "evidence": "actual session turn_context inspected; no model switch"
+  },
+  "scope": "Rana chat apricot room4 only; static same-canvas layers and source inspection. No runtime/source/registry modification.",
+  "candidateStatus": "static-source-contact-v2-ready-for-primary-review",
+  "provenance": {
+    "motherSelection": {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/暖杏40母图路径.json",
+      "sha256": "94570e1323cb6b11497310d8417f3e4d052cf5cdc2a0fadc392d87e531137e49",
+      "bytes": 23216,
+      "cellKey": "rana/chat/apricot"
+    },
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png",
+      "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+      "bytes": 2175279,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "originalEmptyRoom": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-apricot-candidate-v4.png",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+      "bytes": 2243850,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "motherGenerationSource": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/mother-generation-source.json",
+      "sha256": "427044e8b870197c80365b23a3d122393af9947b0e4ca2b6872a7aa9bb58b0a5",
+      "bytes": 5218
+    },
+    "scene": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-candidate-v9.scene.json",
+      "sha256": "0553417e74cc27746be9554017ecc9de05a525826cd9f9472f9081c0d77ed70d",
+      "bytes": 3065
+    },
+    "layerSource": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-layer-source-v9.json",
+      "sha256": "d3453e4cff2ec7fcf50085fa039d86390bbbe1bc8ef528036dcf29bde27cf62d",
+      "bytes": 2879
+    },
+    "layerProduction": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-layer-production-v9.json",
+      "sha256": "02b27a4205171fcb52322f3945fae9cd5abf60ef43d0f6386c1df4493d226071",
+      "bytes": 22356
+    },
+    "layerParameters": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-layer-parameters-v9.json",
+      "sha256": "a416327ed6933495d6f10c4a9a2f0b3341e5fbbaf51362e9f8bf7a9c9934b7b9",
+      "bytes": 3354
+    },
+    "backgroundSource": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-background-source.json",
+      "sha256": "3a512eb11e2c4cc2524d87df196ec4412622c20262aa8e66c2199b1175e377c7",
+      "bytes": 1322
+    },
+    "rawGeneratedBackground": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-background-generated-v1.png",
+      "sha256": "798448d3b0881a895d6785e61f3b967e68dd86a40fbf9b4826d99d7f6ff4ff60",
+      "bytes": 2129028,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "motherPrompt": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-prompt.txt",
+      "sha256": "fe9287841dd3f2c83059a3914394c5489301f6d51842ae8370f5278c928ad59a",
+      "bytes": 3433
+    },
+    "backgroundPrompt": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-background-prompt.txt",
+      "sha256": "4dfcf2596c018c84e4192baa8be9aa042a609e5d12df4d2f1a11a4cf3716a4d0",
+      "bytes": 994
+    },
+    "producer": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-layer-production.py",
+      "sha256": "14d12aba090a145870b484ebf0905c3ded0da7d71b5a2bff6ada4efd230e48fd",
+      "bytes": 9240
+    },
+    "sharedProducer": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/extract-scene-layers.py",
+      "sha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
+      "bytes": 12755,
+      "sha256RecordedAtV9Production": "acd958962a3fbec03faf3be03b5bbe2286df8198fde14ad5a59573780f21b19c",
+      "currentFileDiffersFromHistoricalProduction": true,
+      "reexecuted": false
+    }
+  },
+  "retainedVersionSearch": {
+    "highestRetainedScene": "rana-chat-apricot-candidate-v9.scene.json",
+    "checked": "Current 前端视觉创新设计 tree including ignored files, plus git log --all for exact rana-chat-apricot prefix",
+    "lowerRetainedPngVersionsFound": [],
+    "historicalReceiptOnly": "Production v9 embeds a v3 receipt, but no corresponding lower-version PNG/scene retained in current tree or tracked path history; not visually reviewed."
+  },
+  "assets": {
+    "background": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-background-candidate-v9.png",
+      "sha256": "d478299aae1bd2953338cf13cee783bce48472e420ced60e2f9c48c05fa0b027",
+      "bytes": 2108457,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "figure": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-figure-candidate-v9.png",
+      "sha256": "714ea5f9107e1e799c790d921140ecfa87502f10cb33d808d89a3ab18bc0cc5a",
+      "bytes": 2436678,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    "mask": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mask-candidate-v9.png",
+      "sha256": "feb39b3967c8fd8787db6c600bdd444fac2bda8bc63d4cba7b3facc0973a3be7",
+      "bytes": 15212,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    "shadow": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-shadow-candidate-v9.png",
+      "sha256": "752322c4b74f53e51c7e24cafa5be0ca03d23fc59cc6e39dff68e97ef524df54",
+      "bytes": 36810,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    "matte": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-alpha-calibrated-v9.png",
+      "sha256": "02b94e6974e270f80a74deaafe8dad2946e3da64457ea4fb7d51fd870885b0c5",
+      "bytes": 8137,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "L"
+    }
+  },
+  "composition": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "coordinateTransform": "identity; common canvas; no resize/translation/warp",
+    "normalSourceOverOrder": [
+      "background-v9",
+      "shadow-v9",
+      "figure-v9"
+    ],
+    "figureRgbSource": "complete original mother RGB payload",
+    "figureRgbEqualsMotherRgb": true,
+    "figureRgbSha256": "954062e79e236898d9824f26c39b3336d38902933d7f4fcff00eb652ecda1218",
+    "figureAlphaBounds": [
+      1112,
+      285,
+      1451,
+      774
+    ],
+    "figureAlphaNonzeroPixels": 54168,
+    "figureAlphaSemiTransparentPixels": 3562,
+    "maskSemantics": "white RGB with alpha; alpha exactly equals figure alpha; do not use RGB luminance as the mask",
+    "maskAlphaEqualsFigureAlpha": true,
+    "shadowSemantics": "original residual RGBA; normal source-over, not multiply",
+    "shadowAlphaBounds": [
+      1110,
+      564,
+      1411,
+      777
+    ],
+    "shadowAlphaNonzeroPixels": 1919,
+    "shadowMaximumAlpha": 209,
+    "originalScene": {
+      "seat": [
+        0.859375,
+        0.55859375
+      ],
+      "ground": [
+        0.8203125,
+        0.751953125
+      ],
+      "support": "window-seat",
+      "travel": 0.0026041666666666665
+    },
+    "recommendedFutureTravel": 0,
+    "recommendedFutureTravelReason": "Static source-region restoration includes a connected source leg highlight and original fixed background cast shadows. It is valid only for this exact fixed pose and mother, with figure/pose gating; movement remains unaccepted.",
+    "proposedSourceContactOrder": [
+      "background-v9",
+      "normal-rgba-shadow-v9",
+      "source-mother-clipped-contact-region",
+      "original-rgb-figure-v9"
+    ]
+  },
+  "observedRelations": [
+    {
+      "method": "local original image viewing",
+      "objects": [
+        "mother v1",
+        "original clean room v4",
+        "calibrated background v9",
+        "raw generated background v1"
+      ],
+      "observation": "Same 1536x1024 room family and full framing. Mother has complete visible hands, leg chains and both boots. Empty backgrounds contain no discernible body remnants."
+    },
+    {
+      "method": "Chrome extension, static SVG using unchanged PNG URLs",
+      "page": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-runtime-bundle-v1.html",
+      "anchors": [
+        "figure",
+        "mask",
+        "shadow",
+        "contact",
+        "seat"
+      ],
+      "observation": "Personally viewed actual browser source-over against light #faf7f1, dark #211b27 and checkerboard; figure has no large opaque background, obvious holes or severe hair/hand/leg/boot edge damage. Mask and shadow were separately visible."
+    },
+    {
+      "method": "same-source 1:1 contact crop and 2:1 seat crop",
+      "observation": "V9 visibly replaces the original gray compressed cushion under the thigh with a narrow bright band; the loss is visible at normal crop and enlarged crop. Palm and boot contact have no equally obvious regression."
+    },
+    {
+      "method": "direct pixel reads, no image writes",
+      "samples": [
+        {
+          "xy": [
+            1280,
+            582
+          ],
+          "motherRgb": [
+            173,
+            128,
+            109
+          ],
+          "backgroundV9Rgb": [
+            251,
+            246,
+            234
+          ],
+          "rawGeneratedBackgroundRgb": [
+            251,
+            246,
+            234
+          ],
+          "figureAlpha": 0,
+          "shadowAlpha": 0
+        },
+        {
+          "xy": [
+            1300,
+            582
+          ],
+          "motherRgb": [
+            208,
+            172,
+            156
+          ],
+          "backgroundV9Rgb": [
+            254,
+            255,
+            255
+          ],
+          "rawGeneratedBackgroundRgb": [
+            254,
+            255,
+            255
+          ],
+          "figureAlpha": 0,
+          "shadowAlpha": 0
+        },
+        {
+          "xy": [
+            1270,
+            580
+          ],
+          "motherRgb": [
+            155,
+            109,
+            88
+          ],
+          "backgroundV9Rgb": [
+            253,
+            251,
+            242
+          ],
+          "rawGeneratedBackgroundRgb": [
+            253,
+            251,
+            242
+          ],
+          "figureAlpha": 0,
+          "shadowAlpha": 0
+        }
+      ]
+    },
+    {
+      "method": "Chrome extension static source-over, v6 fixed page",
+      "objects": [
+        "same-scale original mother",
+        "old v9 composite",
+        "v9 plus native source clip",
+        "isolated source clip on light/dark",
+        "whole-room source-clip composite"
+      ],
+      "observation": "Personally viewed mother / old v9 / source-clipped composite at equal scale, isolated source patch on light/dark, and the whole room. The bright contact gap is restored to original source shade. No abrupt seam found in current static view."
+    }
+  ],
+  "defects": [
+    {
+      "id": "seat-contact-bright-gap",
+      "severity": "P2",
+      "region": [
+        1258,
+        573,
+        1325,
+        585
+      ],
+      "observation": "Cushion pressure/contact darkness below near thigh is absent after v9 source-over, creating a bright cut edge and weakening the seated support relation.",
+      "status": "restored-in-static-source-contact-v2; primary-and-runtime-pending",
+      "blocksRuntimeRecommendation": false,
+      "resolution": "Only native SVG source mother clip; original PNGs and figure RGB unchanged. No generated repair raster selected."
+    },
+    {
+      "id": "fixed-background-cast-shadows",
+      "severity": "movement-not-accepted",
+      "regions": [
+        [
+          1150,
+          625,
+          1210,
+          770
+        ],
+        [
+          1280,
+          640,
+          1340,
+          800
+        ]
+      ],
+      "observation": "Empty v9 background retains original leg/boot-like dark cast shadows on bench front and floor; distinct from clean room v4. Static original alignment may contain them; moving figure may expose old-position shadows.",
+      "status": "movement-unverified",
+      "blocksMovementApproval": true
+    },
+    {
+      "id": "source-contact-gating-not-integrated",
+      "severity": "integration-pending",
+      "observation": "The source region includes a narrow source leg highlight, so same-pose and visibility gating is required. This producer task did not change runtime or verify hide/pose-switch behavior.",
+      "status": "unimplemented-in-runtime",
+      "blocksRuntimeAcceptance": true
+    }
+  ],
+  "imageGenerationAttempts": [
+    {
+      "id": "transparent-contact-v1",
+      "tool": "built-in image_gen.imagegen",
+      "useCase": "background-extraction",
+      "transparentBackground": true,
+      "inputs": [
+        {
+          "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png",
+          "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+          "bytes": 2175279,
+          "size": [
+            1536,
+            1024
+          ],
+          "mode": "RGB",
+          "role": "edit target; approved source mother"
+        },
+        {
+          "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-background-candidate-v9.png",
+          "sha256": "d478299aae1bd2953338cf13cee783bce48472e420ced60e2f9c48c05fa0b027",
+          "bytes": 2108457,
+          "size": [
+            1536,
+            1024
+          ],
+          "mode": "RGB",
+          "role": "matching empty-background difference/furniture reference"
+        }
+      ],
+      "exactSubmittedPrompt": "Use case: background-extraction.\nAsset type: one supplementary same-canvas transparent RGBA contact-occlusion layer for an existing approved illustration. Exact canvas 1536 x 1024.\nInput 1 is the EDIT TARGET and source of truth: the complete approved Rana chat apricot mother artwork. Input 2 is the corresponding empty-background v9 and is ONLY a spatial/furniture/difference reference. Do not make a new mother, character or room.\nExtract ONLY the original subtle warm gray-brown cushion compression/contact darkness immediately underneath the seated near thigh and white shorts at source coordinates approximately x=1245..1375, y=568..602. In the approved mother this contact area is shaded and compressed; the empty background is too bright there. The missing contact is most visible around x=1258..1325, y=573..585. Preserve the exact source position, scale, alignment, lighting, curved crease and soft contact transition. The output is intended to be composited with normal source-over above empty background and existing contact shadow, below the unaltered original-RGB character layer. Reconstruct only the missing soft contact darkness so that this composite matches Input 1 at the same coordinates.\nOutput MUST be a real transparent PNG layer over the FULL unchanged 1536x1024 canvas. Everything outside this narrow local cushion-contact region must have alpha zero. Include no visible person pixels, skin, shorts, hands, boots, furniture silhouette, window, floor, room background, opaque fabric patch or rectangle. Do not crop, center, enlarge, translate, repaint the body, change furniture or add a new generic shadow. No checkerboard baked into pixels. No text, labels or border. Use an irregular organically feathered alpha boundary that disappears into the original fabric; preserve the original local warm contact shadow color rather than a gray sticker. Do not duplicate boot or whole-body cast shadows. This is only the missing cushion/thigh occlusion, never a replacement portrait.",
+      "exactSubmittedPromptSha256": "7d4694b741c6166181eeb51c692d2dc45d441b041076570a58d3f59f72622398",
+      "savedPrompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-seat-contact-candidate-v1.prompt.txt",
+        "sha256": "97b5e5a84a2dc5a61fc6704ec434458ae4958a508ed6a3d490787b0882be31fb",
+        "bytes": 2002,
+        "note": "UTF-8 LF file; one final LF is archival framing and was not submitted."
+      },
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a170ff-6e14-7810-bd29-ad4fa2b57d00/exec-a98ecf15-cc79-4d55-ba88-22101b3f879c.png",
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-seat-contact-candidate-v1.png",
+        "sha256": "e69d7551af04ecab1c0201c0e3b71a7d92b4c3988e70e2b92f1cfc1aef4615f9",
+        "bytes": 504820,
+        "size": [
+          1536,
+          1024
+        ],
+        "mode": "RGBA"
+      },
+      "numericObservation": {
+        "alphaBounds": [
+          55,
+          37,
+          1460,
+          856
+        ],
+        "alphaNonzero": 14703,
+        "alphaOpaque": 0
+      },
+      "designerPersonallyViewed": true,
+      "observation": "Misregistered broad contact texture is too high and mostly hidden by original figure; actual source-over did not remove the thigh/cushion bright gap.",
+      "staticReviewPage": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-contact-review-v2.html#contact",
+      "status": "rejected",
+      "adoptForRuntime": false
+    },
+    {
+      "id": "transparent-contact-v2",
+      "tool": "built-in image_gen.imagegen",
+      "useCase": "background-extraction",
+      "transparentBackground": true,
+      "inputs": [
+        {
+          "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png",
+          "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+          "bytes": 2175279,
+          "size": [
+            1536,
+            1024
+          ],
+          "mode": "RGB",
+          "role": "edit target; approved source mother"
+        },
+        {
+          "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-background-candidate-v9.png",
+          "sha256": "d478299aae1bd2953338cf13cee783bce48472e420ced60e2f9c48c05fa0b027",
+          "bytes": 2108457,
+          "size": [
+            1536,
+            1024
+          ],
+          "mode": "RGB",
+          "role": "matching empty-background difference/furniture reference"
+        }
+      ],
+      "exactSubmittedPrompt": "Use case: background-extraction. Precise extraction of a TINY source contact-shadow strip, not a newly drawn shadow.\nOutput: full 1536 x 1024 PNG, real transparent RGBA background, exact unchanged input canvas. Input 1 is the EDIT TARGET / only source of artwork: approved Rana seated mother. Input 2 is the matching empty background, for furniture registration and difference reference only.\nExtract the ORIGINAL contact-darkened cushion fabric directly UNDER the near horizontal thigh and white shorts. This tiny visible crease is at absolute ORIGINAL IMAGE coordinates x=1256..1341, y=575..587. It is below the skin, above the front edge of the cushion, NOT the folds at the top of the lap. Keep the original source position. The required dark strip should be only about 85 pixels wide and 12 pixels high on this 1536x1024 canvas. Preserve the source warm gray/brown compressed contact appearance and feathered material edge, including the shadow that makes the thigh actually rest on the cushion.\nThis is an additional normal source-over occlusion layer above Input 2 and below the existing untouched original-RGB character. The empty background has a bright gap under the thigh around x=1270,y=580 and x=1280,y=582. The new tiny layer MUST visibly darken precisely THAT gap to match Input 1. A broad fuzzy oval around y=530 would be WRONG and would hide behind the character. No generic ellipse, no artistic new crease, no shifted or centered shadow.\nEvery pixel above y=568, below y=600, left of x=1240, or right of x=1380 MUST be fully alpha-zero. Only a narrow irregular source-contact strip inside that absolute ROI may be visible. Its boundary should disappear softly, never a rectangular fabric patch. No person pixels, skin, shorts, hands, boots, room, furniture silhouette, window, floor, large cushion, text, labels, border or baked checkerboard. Do not repaint, resize, translate, crop or recenter any source structure. Keep the full 1536x1024 empty transparent canvas around the small correctly registered source strip.",
+      "exactSubmittedPromptSha256": "ded5e5a7d55f4e1ef35da8bcd52946dbc92317085df0af3abea2f4c3a7f2237f",
+      "savedPrompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-seat-contact-candidate-v2.prompt.txt",
+        "sha256": "53c0803b1a42534e20aa9a0842348ac9ead778aa3cfa3d11cf7344c513d886d1",
+        "bytes": 2036,
+        "note": "UTF-8 LF file; one final LF is archival framing and was not submitted."
+      },
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a170ff-6e14-7810-bd29-ad4fa2b57d00/exec-8f94ba77-5072-4189-867f-d70be3132b51.png",
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-seat-contact-candidate-v2.png",
+        "sha256": "9c5d0f1b866e94093c9689f82e41aedd5d709d5b18a05ce6e0eac20e6358581b",
+        "bytes": 464478,
+        "size": [
+          1536,
+          1024
+        ],
+        "mode": "RGBA"
+      },
+      "numericObservation": {
+        "alphaBounds": [
+          81,
+          103,
+          1474,
+          846
+        ],
+        "alphaNonzero": 4352,
+        "alphaOpaque": 0
+      },
+      "designerPersonallyViewed": true,
+      "observation": "Slightly dims the gap but still fails to restore source cushion compression/contact darkness. Not an accepted repair.",
+      "staticReviewPage": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-contact-review-v3.html#contact",
+      "status": "rejected",
+      "adoptForRuntime": false
+    },
+    {
+      "id": "luminance-contact-mask-v1",
+      "tool": "built-in image_gen.imagegen",
+      "useCase": "precise-object-edit",
+      "transparentBackground": false,
+      "inputs": [
+        {
+          "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png",
+          "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+          "bytes": 2175279,
+          "size": [
+            1536,
+            1024
+          ],
+          "mode": "RGB",
+          "role": "edit target; approved source mother"
+        },
+        {
+          "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-background-candidate-v9.png",
+          "sha256": "d478299aae1bd2953338cf13cee783bce48472e420ced60e2f9c48c05fa0b027",
+          "bytes": 2108457,
+          "size": [
+            1536,
+            1024
+          ],
+          "mode": "RGB",
+          "role": "matching empty-background coordinate reference"
+        }
+      ],
+      "exactSubmittedPrompt": "Use case: precise-object-edit.\nAsset type: single-channel CONTACT OCCLUSION OPACITY MASK, black background / grayscale-white mask, exact full original 1536 x 1024 canvas. Not an artwork, room, portrait or transparent brown shadow.\nImage 1 is the edit target/source of truth, approved Rana mother. Image 2 is the exact empty-background coordinate reference. Preserve their full-canvas registration.\nReturn a completely PURE BLACK 1536x1024 image with ONLY the missing cushion-contact opacity painted in grayscale. The desired mask lies in absolute source coordinates x=1258..1341 and y=575..589, just UNDER the near horizontal thigh and the left edge of the white shorts. It is the shadow/pressure line that makes the thigh rest on the linen cushion. Trace the actual visible contact-darkened pixels from Image 1, do not invent an oval shadow. The empty Image 2 is too bright in this narrow area. At absolute (1280,582) the original is warm gray-brown and the empty room is near white; the mask must be WHITE/bright here to restore this contact occlusion with a dark warm tint. At (1300,582) use medium gray. Trace the original irregular narrowing contact shape, strongest immediately under the thigh, tapering softly to black over a few pixels into the cushion.\nIMPORTANT REGISTRATION: the bright contact strip belongs around y=580, not y=530. Use the actual source thigh underside as the anchor and do not shift, crop, center or enlarge the mask. NO glow, NO large feathered ellipse. White/gray pixels must be restricted to the source contact region; all pixels outside x=1240..1380,y=568..602 are pure black. No person/skin/shorts/boot/furniture pixels, no room outlines or detail, no fabric texture, no labels, no border, no checkerboard. No other gray noise anywhere. Full unchanged canvas with almost all of it solid black.",
+      "exactSubmittedPromptSha256": "15305de811107a1c1e588e03b1661277ee197a1d031ef89e9acdf00fb1af3adf",
+      "savedPrompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-seat-mask-candidate-v1.prompt.txt",
+        "sha256": "8fbbf5112f2790ab6a78215031d569cbff95ef68a894ffadb1b950963eb5208f",
+        "bytes": 1829,
+        "note": "UTF-8 LF file; one final LF is archival framing and was not submitted."
+      },
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a170ff-6e14-7810-bd29-ad4fa2b57d00/exec-5dfd34ae-2fdd-452d-a480-f0e10bbf0131.png",
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-seat-mask-candidate-v1.png",
+        "sha256": "0ae01792478ee0e4817a1bc1248a1793b7fa2e25e0672fc135e4763ff470a8a3",
+        "bytes": 316563,
+        "size": [
+          1536,
+          1024
+        ],
+        "mode": "RGB"
+      },
+      "numericObservation": {
+        "luminanceAbove32Bounds": [
+          1183,
+          523,
+          1331,
+          552
+        ],
+        "luminanceWeightedCentroid": [
+          1241.7862017109003,
+          539.1192302460553
+        ],
+        "targetLuminance": [
+          0,
+          0
+        ]
+      },
+      "designerPersonallyViewed": true,
+      "observation": "Narrow mask shape is vertically misplaced; target pixels (1280,582) and (1300,582) have zero luminance.",
+      "staticReviewPage": null,
+      "status": "rejected",
+      "adoptForRuntime": false
+    },
+    {
+      "id": "luminance-contact-mask-v2",
+      "tool": "built-in image_gen.imagegen",
+      "useCase": "precise-object-edit",
+      "transparentBackground": false,
+      "inputs": [
+        {
+          "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-seat-mask-candidate-v1.png",
+          "sha256": "0ae01792478ee0e4817a1bc1248a1793b7fa2e25e0672fc135e4763ff470a8a3",
+          "bytes": 316563,
+          "size": [
+            1536,
+            1024
+          ],
+          "mode": "RGB",
+          "role": "edit target; unaccepted narrow grayscale mask for positional correction only"
+        },
+        {
+          "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png",
+          "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+          "bytes": 2175279,
+          "size": [
+            1536,
+            1024
+          ],
+          "mode": "RGB",
+          "role": "source mother alignment reference"
+        }
+      ],
+      "exactSubmittedPrompt": "Use case: precise-object-edit. Exact positional edit of a grayscale mask, NOT a new generated artwork.\nImage 1 is the EDIT TARGET: a full 1536x1024 PURE BLACK image with one small white/gray contact-mask stripe currently around x=1183..1331,y=523..552. Image 2 is only the approved original mother for final alignment reference.\nKeep the full 1536x1024 black canvas unchanged. Translate the existing small grayscale stripe EXACTLY 48 pixels to the RIGHT and EXACTLY 43 pixels DOWN. Do not redraw, broaden, blur, rescale or rotate the stripe. Its new nonblack stripe should therefore be approximately x=1231..1379,y=566..595, aligned with the underside of the seated thigh in Image 2. Ensure visible mask brightness exists at absolute output pixel x1280,y582 and tapers toward x1300,y582. Erase the old stripe location back to pure black. Everything else stays pure black, no faint noise or gray background.\nThis edit is only moving the existing single tiny mask shape into correct original-room source coordinates. No woman, skin, shorts, cushion artwork, furniture, room details, text, labels, borders or transparency. Do not crop, center the stripe in the image or change the output canvas size. Return the full 1536x1024 RGB black/gray/white mask.",
+      "exactSubmittedPromptSha256": "942eb57cd924b4311121063e8d2c9a094f707c2d917d7b576dbd068cdeb0cf15",
+      "savedPrompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-seat-mask-candidate-v2.prompt.txt",
+        "sha256": "50253f9e1c053d2ea3506b3c7ac5051a4246c8dead74a27168e331dd4b55fd8e",
+        "bytes": 1251,
+        "note": "UTF-8 LF file; one final LF is archival framing and was not submitted."
+      },
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a170ff-6e14-7810-bd29-ad4fa2b57d00/exec-56587b2d-650f-422c-adc5-0eae5321272c.png",
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-seat-mask-candidate-v2.png",
+        "sha256": "cf0a93f8005d2452957ea52e06320930932f4177f9024c9e80149053e62df5bd",
+        "bytes": 344876,
+        "size": [
+          1536,
+          1024
+        ],
+        "mode": "RGB"
+      },
+      "numericObservation": {
+        "luminanceAbove32Bounds": [
+          1238,
+          536,
+          1394,
+          566
+        ],
+        "luminanceWeightedCentroid": [
+          1297.2344079896036,
+          552.3932458654514
+        ],
+        "targetLuminance": [
+          0,
+          0
+        ]
+      },
+      "designerPersonallyViewed": true,
+      "observation": "Requested +48px right/+43px down was not met: mask remains too high. Browser normal source-over luminance tint #6c4631 opacity 0.62 leaves the original bright gap visible; rejected.",
+      "staticReviewPage": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-contact-review-v4.html#contact",
+      "status": "rejected",
+      "adoptForRuntime": false
+    },
+    {
+      "id": "complete-background-extraction-v1",
+      "tool": "built-in image_gen.imagegen",
+      "useCase": "precise-object-edit",
+      "transparentBackground": false,
+      "inputs": [
+        {
+          "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png",
+          "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+          "bytes": 2175279,
+          "size": [
+            1536,
+            1024
+          ],
+          "mode": "RGB",
+          "role": "only edit target; approved original mother; no bright raw background reference supplied"
+        }
+      ],
+      "exactSubmittedPrompt": "Use case: precise-object-edit.\nAsset type: complete clean EMPTY ROOM background layer, EXACTLY 1536 x 1024, for the existing approved Rana chat apricot scene.\nThe ONLY input image is the EDIT TARGET and source of truth. This is extraction from this exact mother, not a new mother image or redesigned room.\nRemove only the visible Rana character: silver-white hair, face, skin, black/white clothing, all limbs/hands, and both worn black boots. Naturally reveal the furniture/window/floor hidden by those body pixels. Return a full room with NO person and NO remaining character anatomy or clothes.\nKeep the original full-canvas camera, all furniture geometry/positions/scale, window frame and outside landscape, original light and materials, bench/cushions/blanket, desks/chairs, rug and floor unchanged everywhere that was already visible. Do NOT erase or brighten the original furniture's occupied-seat pressure marks, fabric compression, contact darkness or cast shadows. These are room-surface shading, NOT leftover character pixels. Preserve the ORIGINAL warm gray/brown compressed cushion darkness underneath the near horizontal thigh/shorts, especially absolute source x1258..1325,y573..585; extend it naturally across the original occupied seat rather than replacing it with bright white new cushion fabric. Pixel around (1280,582) should retain original dark warm-gray contact shade, not near-white. Pixel around (1300,582) should retain the original muted tan contact shade. Also preserve original soft boot/floor and leg/bench cast shadows; the existing same-coordinate figure will be composited back above this background.\nImportant: the source dark narrow seat crease under the thigh belongs to the cushion and MUST stay. Preserve that local compressed support/occlusion relation even after the body is removed. Do not add a new broad shadow or leave skin/cloth-colored patches; keep the source cushion fabric pattern/creases with its existing contact shade. Do not fill the former body area with featureless white. No subject or room redesign, no new furniture, no reframe, no zoom, no global relighting/color filter, no text/logo/watermark, no transparent background. Full exact 1536x1024 room.",
+      "exactSubmittedPromptSha256": "662aabd54ec98650be733e4d4a16d6a2bdb2abb713832d430bd009310c3d128f",
+      "savedPrompt": {
+        "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-background-candidate-v1.prompt.txt",
+        "sha256": "b4a0bf641449931f13ccfd966306c0bc7c5e2a6dbf54e70b57c432b2d333744f",
+        "bytes": 2209,
+        "note": "UTF-8 LF file; one final LF is archival framing and was not submitted."
+      },
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a170ff-6e14-7810-bd29-ad4fa2b57d00/exec-cc73d591-5014-44a2-9d21-35f751ee936c.png",
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-background-candidate-v1.png",
+        "sha256": "51aafbece105ab9cb3374af62bb3b4b5ba7b51a17ac120dca489680f442908ca",
+        "bytes": 2138987,
+        "size": [
+          1536,
+          1024
+        ],
+        "mode": "RGB"
+      },
+      "designerPersonallyViewed": true,
+      "numericObservation": {
+        "pixel1280x582": [
+          244,
+          218,
+          199
+        ],
+        "pixel1300x582": [
+          254,
+          253,
+          252
+        ],
+        "pixel1270x580": [
+          227,
+          205,
+          195
+        ]
+      },
+      "observation": "Complete same-room empty-background output preserves some compression shade but does not match the original thigh contact at key pixels. The unchanged original figure/shadow source-over still falls short of source contact; not selected.",
+      "staticReviewPage": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-contact-review-v6.html#background-attempt-view",
+      "status": "rejected",
+      "adoptForRuntime": false
+    }
+  ],
+  "fixedReviewPages": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-runtime-bundle-v1.html",
+      "sha256": "2918fc83402443b8fce82dcbfd92b608e047e81b17f6b905d4263ee296ecda89",
+      "bytes": 9992
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-contact-review-v2.html",
+      "sha256": "05ce316841f656802aa42c9d0695a630be750c063e20a8776b8e9b88b3faa73d",
+      "bytes": 4002
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-contact-review-v3.html",
+      "sha256": "cfbefba967905b9a5fdfb1fa2045e698b95bf42b9669fd5837d319492234b2a4",
+      "bytes": 4002
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-contact-review-v4.html",
+      "sha256": "d9c87380d2f3b5730746a60ea7666417c9e2446489bcf24e9668e79767215773",
+      "bytes": 4394
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-contact-review-v5.html",
+      "sha256": "1a34ddf7b5db4f1caa17e6800ec5041a04264532e1b55bee2ca31d7891404743",
+      "bytes": 5561
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-contact-review-v6.html",
+      "sha256": "b92048837b06d4f93576354052b8565966606add38c713bb28f22ec00681a552",
+      "bytes": 5567
+    }
+  ],
+  "allReferencedFileHashes": [
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-apricot-candidate-v4.png",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+      "bytes": 2243850,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/mother-generation-source.json",
+      "sha256": "427044e8b870197c80365b23a3d122393af9947b0e4ca2b6872a7aa9bb58b0a5",
+      "bytes": 5218
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png",
+      "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+      "bytes": 2175279,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-background-candidate-v9.png",
+      "sha256": "d478299aae1bd2953338cf13cee783bce48472e420ced60e2f9c48c05fa0b027",
+      "bytes": 2108457,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-figure-candidate-v9.png",
+      "sha256": "714ea5f9107e1e799c790d921140ecfa87502f10cb33d808d89a3ab18bc0cc5a",
+      "bytes": 2436678,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mask-candidate-v9.png",
+      "sha256": "feb39b3967c8fd8787db6c600bdd444fac2bda8bc63d4cba7b3facc0973a3be7",
+      "bytes": 15212,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-shadow-candidate-v9.png",
+      "sha256": "752322c4b74f53e51c7e24cafa5be0ca03d23fc59cc6e39dff68e97ef524df54",
+      "bytes": 36810,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-alpha-calibrated-v9.png",
+      "sha256": "02b94e6974e270f80a74deaafe8dad2946e3da64457ea4fb7d51fd870885b0c5",
+      "bytes": 8137,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "L"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-background-generated-v1.png",
+      "sha256": "798448d3b0881a895d6785e61f3b967e68dd86a40fbf9b4826d99d7f6ff4ff60",
+      "bytes": 2129028,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-candidate-v9.scene.json",
+      "sha256": "0553417e74cc27746be9554017ecc9de05a525826cd9f9472f9081c0d77ed70d",
+      "bytes": 3065
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-layer-source-v9.json",
+      "sha256": "d3453e4cff2ec7fcf50085fa039d86390bbbe1bc8ef528036dcf29bde27cf62d",
+      "bytes": 2879
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-layer-production-v9.json",
+      "sha256": "02b27a4205171fcb52322f3945fae9cd5abf60ef43d0f6386c1df4493d226071",
+      "bytes": 22356
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-layer-parameters-v9.json",
+      "sha256": "a416327ed6933495d6f10c4a9a2f0b3341e5fbbaf51362e9f8bf7a9c9934b7b9",
+      "bytes": 3354
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-layer-production.py",
+      "sha256": "14d12aba090a145870b484ebf0905c3ded0da7d71b5a2bff6ada4efd230e48fd",
+      "bytes": 9240
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/extract-scene-layers.py",
+      "sha256": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
+      "bytes": 12755
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-background-source.json",
+      "sha256": "3a512eb11e2c4cc2524d87df196ec4412622c20262aa8e66c2199b1175e377c7",
+      "bytes": 1322
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-prompt.txt",
+      "sha256": "fe9287841dd3f2c83059a3914394c5489301f6d51842ae8370f5278c928ad59a",
+      "bytes": 3433
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-background-prompt.txt",
+      "sha256": "4dfcf2596c018c84e4192baa8be9aa042a609e5d12df4d2f1a11a4cf3716a4d0",
+      "bytes": 994
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/暖杏40母图路径.json",
+      "sha256": "94570e1323cb6b11497310d8417f3e4d052cf5cdc2a0fadc392d87e531137e49",
+      "bytes": 23216
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-runtime-bundle-v1.html",
+      "sha256": "2918fc83402443b8fce82dcbfd92b608e047e81b17f6b905d4263ee296ecda89",
+      "bytes": 9992
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-contact-review-v2.html",
+      "sha256": "05ce316841f656802aa42c9d0695a630be750c063e20a8776b8e9b88b3faa73d",
+      "bytes": 4002
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-contact-review-v3.html",
+      "sha256": "cfbefba967905b9a5fdfb1fa2045e698b95bf42b9669fd5837d319492234b2a4",
+      "bytes": 4002
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-contact-review-v4.html",
+      "sha256": "d9c87380d2f3b5730746a60ea7666417c9e2446489bcf24e9668e79767215773",
+      "bytes": 4394
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-seat-contact-candidate-v1.png",
+      "sha256": "e69d7551af04ecab1c0201c0e3b71a7d92b4c3988e70e2b92f1cfc1aef4615f9",
+      "bytes": 504820,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-seat-contact-candidate-v1.prompt.txt",
+      "sha256": "97b5e5a84a2dc5a61fc6704ec434458ae4958a508ed6a3d490787b0882be31fb",
+      "bytes": 2002
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-seat-contact-candidate-v2.png",
+      "sha256": "9c5d0f1b866e94093c9689f82e41aedd5d709d5b18a05ce6e0eac20e6358581b",
+      "bytes": 464478,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-seat-contact-candidate-v2.prompt.txt",
+      "sha256": "53c0803b1a42534e20aa9a0842348ac9ead778aa3cfa3d11cf7344c513d886d1",
+      "bytes": 2036
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-seat-mask-candidate-v1.png",
+      "sha256": "0ae01792478ee0e4817a1bc1248a1793b7fa2e25e0672fc135e4763ff470a8a3",
+      "bytes": 316563,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-seat-mask-candidate-v1.prompt.txt",
+      "sha256": "8fbbf5112f2790ab6a78215031d569cbff95ef68a894ffadb1b950963eb5208f",
+      "bytes": 1829
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-seat-mask-candidate-v2.png",
+      "sha256": "cf0a93f8005d2452957ea52e06320930932f4177f9024c9e80149053e62df5bd",
+      "bytes": 344876,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-seat-mask-candidate-v2.prompt.txt",
+      "sha256": "50253f9e1c053d2ea3506b3c7ac5051a4246c8dead74a27168e331dd4b55fd8e",
+      "bytes": 1251
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-background-candidate-v1.png",
+      "sha256": "51aafbece105ab9cb3374af62bb3b4b5ba7b51a17ac120dca489680f442908ca",
+      "bytes": 2138987,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-background-candidate-v1.prompt.txt",
+      "sha256": "b4a0bf641449931f13ccfd966306c0bc7c5e2a6dbf54e70b57c432b2d333744f",
+      "bytes": 2209
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-contact-review-v5.html",
+      "sha256": "1a34ddf7b5db4f1caa17e6800ec5041a04264532e1b55bee2ca31d7891404743",
+      "bytes": 5561
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-contact-review-v6.html",
+      "sha256": "b92048837b06d4f93576354052b8565966606add38c713bb28f22ec00681a552",
+      "bytes": 5567
+    }
+  ],
+  "review": {
+    "designerPersonallyViewed": true,
+    "independentReadOnlyReview": {
+      "scope": "Original v9 figure/mask/shadow light/dark/checker and source-v9 contacts",
+      "finding": "Also observed P2 seat bright gap and retained background cast shadows; did not approve runtime"
+    },
+    "primaryFinalObservation": "pending",
+    "approvedByPrimary": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "restorationOwnerWorkflowChecked": false,
+    "producerParentVisualReview": "v6 contact triptych and whole room observed by parent, primary final observation remains pending.",
+    "independentSourceClipReview": {
+      "scope": "v6 contact triptych, isolated light/dark 3:1 source region, whole room",
+      "finding": "Source contact gap restored; no new visible hard crop edge, detached fragment or body discontinuity. Region includes thin thigh/shorts edge and connected shin highlight; exact fixed pose/travel 0 only. No runtime gating approval.",
+      "readOnly": true
+    }
+  },
+  "currentNextStep": "Primary inspects fixed v6 source-contact page. If accepted, runtime owner may implement the exact room-fixed source-region semantics with same pose/mother/visibility gating and travel/slope/perspective 0, then exercise real hide/change-pose flow. All five ImageGen repair outputs remain rejected.",
+  "cleanup": {
+    "removedFiles": [],
+    "note": "No cleanup; rejected attempts retained as diagnostic source/output evidence."
+  },
+  "sourceContactCandidate": {
+    "recordType": "native-stage-static-source-region-candidate",
+    "version": 2,
+    "rasterEditing": false,
+    "newRasterFile": false,
+    "source": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png",
+      "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+      "bytes": 2175279,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "viewBox": [
+      0,
+      0,
+      1536,
+      1024
+    ],
+    "clipPathUnits": "userSpaceOnUse",
+    "image": {
+      "x": 0,
+      "y": 0,
+      "width": 1536,
+      "height": 1024
+    },
+    "transform": "identity; no crop/refit/offset; shared outer Stage transform only",
+    "polygonPixels": [
+      [
+        1255,
+        571
+      ],
+      [
+        1327,
+        571
+      ],
+      [
+        1338,
+        574
+      ],
+      [
+        1343,
+        578
+      ],
+      [
+        1341,
+        583
+      ],
+      [
+        1323,
+        585
+      ],
+      [
+        1311,
+        590
+      ],
+      [
+        1305,
+        596
+      ],
+      [
+        1299,
+        603
+      ],
+      [
+        1284,
+        606
+      ],
+      [
+        1264,
+        606
+      ],
+      [
+        1261,
+        596
+      ],
+      [
+        1258,
+        586
+      ],
+      [
+        1254,
+        579
+      ]
+    ],
+    "polygonBoundsPixels": [
+      1254,
+      571,
+      1343,
+      606
+    ],
+    "polygonAreaPx2": 2107,
+    "order": [
+      "background-v9",
+      "normal-rgba-shadow-v9",
+      "source-mother-clipped-contact-region",
+      "original-rgb-figure-v9"
+    ],
+    "sourceRegionOwner": "fixed room Stage; outside actorStyle; never follows an actor translation",
+    "containment": "Tiny cushion contact/pressure area. Includes a narrow connected original shin highlight and a top strip of original thigh/white shorts already covered by the original-RGB figure. It is not pure furniture. No full character/body or whole mother backdrop.",
+    "shinHighlightEvidence": [
+      {
+        "xy": [
+          1270,
+          600
+        ],
+        "motherRgb": [
+          254,
+          253,
+          245
+        ],
+        "figureAlpha": 0
+      },
+      {
+        "xy": [
+          1270,
+          606
+        ],
+        "motherRgb": [
+          254,
+          253,
+          246
+        ],
+        "figureAlpha": 0
+      }
+    ],
+    "gatingRequirements": {
+      "exactPose": "rana/chat/apricot",
+      "exactMotherSha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+      "showFigure": true,
+      "motherReady": true,
+      "removeImmediatelyOn": [
+        "figure hidden",
+        "pose changed",
+        "mother SHA changed",
+        "character changed"
+      ],
+      "travel": 0,
+      "slope": 0,
+      "perspective": 0
+    },
+    "functionalGatingImplemented": false,
+    "functionalGatingChecked": false,
+    "staticObservation": "Personally viewed mother / old v9 / source-clipped composite at equal scale, isolated source patch on light/dark, and the whole room. The bright contact gap is restored to original source shade. No abrupt seam found in current static view.",
+    "producerParentObservation": "Parent reports Chrome inspection of v6 contact triptych and whole room: bright gap removed, support shade matches mother, no abrupt seam; sent to primary for own observation.",
+    "primaryObservation": "pending",
+    "approvedByPrimary": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "staticReviewPage": {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/rana-chat-apricot-bundle-v1-contact-review-v6.html",
+      "sha256": "b92048837b06d4f93576354052b8565966606add38c713bb28f22ec00681a552",
+      "bytes": 5567
+    }
+  }
+}

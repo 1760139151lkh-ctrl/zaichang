@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "edge-meme-cat-v3-family",
+  "character": "mutsumi",
+  "kind": "independently-redrawn-reverse-cat-preserving-anatomical-hair-clip-side",
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-0bacc67b-162d-4ecd-8547-0edaaad75e99.png",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/edge-cats/mutsumi-meme-cat-v1.png",
+      "sha256": "d6438e8e96199328fd5302af27516881dd52f0120a40a0b22c54f05aaf2dff12",
+      "role": "Clean accepted complete Mutsumi simple cat; style/identity only, explicitly not mechanically mirrored"
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/mutsumi.md",
+      "sha256": "189d1a17f6e4c2656692437167c50d2a89379cf50b16bc354df3ac8406e4610c",
+      "scope": "Fully read before this reverse-cat ImageGen call"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840",
+      "scope": "Fully read before this reverse-cat ImageGen call"
+    }
+  ],
+  "exactSubmittedPrompt": "Create ONE new REVERSE-DIRECTION complete Mutsumi Wakaba / 若叶睦 meme-cat companion, transparent 1536x1024 RGBA. The sole image input is her accepted clean simple cat, used for character-specific mint hair/gold eyes/twin hair clips and the accepted family line language/white cat anatomy. Re-DRAW this orientation deliberately, do NOT mechanically mirror the image.\nCOMPOSITION MUST REVERSE THE CAT BODY: the large simple character HEAD and two short front paws are on the RIGHT side of the canvas; the complete elongated rounded WHITE cat torso stretches LEFT behind the head to a real rear haunch/hind paw, and one connected WHITE tail curves upward on the FAR LEFT. Entire ears, hair, paws, body, hind paw and tail must fit with safe alpha margins. Chin/front paws/belly/hind paw share the same low invisible horizontal support baseline as the accepted family, no floating head or torso. Similar head size/body scale to the source, not a new huge portrait. No shelf, floor or support line drawn.\nCRITICAL NON-MIRROR IDENTITY: her white little FACE stays almost FRONT-FACING to the viewer with both round gold-brown eyes visible. Mutsumi has exactly ONE PAIR OF TWO THIN SILVER HAIR CLIPS at HER OWN LEFT TEMPLE, which for this almost frontal face is on the VIEWER'S RIGHT-HAND SIDE of the face. In this new head-on-RIGHT composition, the clips must be on the far RIGHT outer temple/hair side, away from the leftward cat body. Do not move them to viewer-left, do not put clips on both sides, do not reverse their anatomical identity. Keep mint-gray-green long straight hair suggested by only a few broad shapes and simple thin bangs, no Sakiko ribbons or arbitrary stars.\nA QUIET SPECIFIC MOMENT: she had been following a small tune in her own thoughts; the familiar person has shifted their paper to the other side, and she quietly turns her attention without giving up her relaxed resting place. Her head is almost frontal with only a tiny natural inclination, simple gold-brown two-tone round eyes clear and attentive, tiny closed cat mouth holding the shortest reply with a slight almost-smile. No vacant sleepy face, broad service grin, sad tears or exaggerated surprise.\nDraw the WHOLE head/ears/front paws/long body/hind leg/tail as one unified extremely simple 2D Doro-like meme-cartoon: WHITE round little face, big simple TWO-TONE eye disks (muted ochre top/pale gold bottom), bold clean dark-navy outlines, broad white cat-body areas, just a few flat mint hair blocks and minimal lines/shading. No detailed human portrait, flesh skin, realistic nose/lips, makeup, refined avatar eye highlights, 3D, plush, real fur, human limbs/shoulders, uniform, blouse, socks, shoes, jewelry, props, text, UI, bubble, background, checkerboard, painted black or white backdrop, halo or glow. Preserve genuine alpha. This is a project-original cat form, not a canon costume, not a human avatar, not a contact sheet or parts sheet.",
+  "submittedPromptSha256": "3dbee9f7599cba840fca3cf9c98b6fcd700fd64b1664503198bd097f9e447b01",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\reverse-mutsumi\\mutsumi-meme-cat-head-right-v1.png",
+    "sha256": "3edcb5c85458c4150e196056347c3a8214d229392fc784aad4e49f4682432b74",
+    "bytes": 1439717,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 6
+  },
+  "orientation": {
+    "headSide": "right",
+    "bodyExtends": "left",
+    "tailSide": "left",
+    "face": "near-frontal",
+    "hairClips": {
+      "count": 2,
+      "anatomicalTemple": "left",
+      "viewerTemple": "right",
+      "duplicateOtherSide": false
+    }
+  },
+  "mechanicalMirror": false,
+  "producerViewed": true,
+  "producerObservation": "Personally viewed full independently redrawn reverse cat: head and front paws on right, full white torso/hind haunch to left and attached raised tail far left. Face near-frontal, two gold-brown simple eyes, exactly one pair of two silver clips at viewer-right temple (character's own left), away from leftward body. Mint long hair/white round face and unified minimal line cat style retained; no detailed human-avatar skin/clothes. Complete silhouette and low support baseline; no mechanical mirror, no independent tail layer yet. Root/room review pending.",
+  "primaryApproved": false,
+  "rigApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "independentTailLayer": false,
+  "privateWechatSourceUsed": false,
+  "officialArtworkInput": false,
+  "fullHumanMatrixCredit": false,
+  "pngEdited": false,
+  "directAlphaObservation": {
+    "mode": "RGBA",
+    "extrema": [
+      0,
+      254
+    ],
+    "canvas": [
+      1536,
+      1024
+    ],
+    "originalPixelsUnmodified": true
+  },
+  "producerSmallSizeReview": {
+    "personallyViewed": true,
+    "widthPx": 220,
+    "backgrounds": [
+      "#fff9f2",
+      "#20212c"
+    ],
+    "evidence": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\reverse-mutsumi\\mutsumi-reverse-light-dark-220px-review.png",
+    "sha256": "6a460e4372b0c1852186afb982f555d9fe54e50514f80ebf6c54f58ccbb4c96f",
+    "observation": "Complete right-head/left-body-tail white cat readable on both backdrops; one twin-clip pair remains at viewer-right temple, unlike mechanical mirroring. Review sheet forbidden as generation input."
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "stage": "F2-v2",
+  "characterId": "sakiko",
+  "activity": "attention",
+  "palette": "violet",
+  "sceneFamily": "literary-room-v1",
+  "dossierVersion": "2026-10-25.1",
+  "wardrobeId": "sakiko-literary-navy-adaptation",
+  "actualTool": "built-in image_gen.imagegen",
+  "actualPrompt": "Use case: precise-object-edit. Convert ONLY the deliberately white foreground selection in this F1 markup to a clean luminance coverage mask on the SAME full 1536x1024 canvas. This is extraction of the added white selection, not a new silhouette or a redraw. Put every deliberately painted foreground pixel WHITE and all unpainted original room/background pixels BLACK. Preserve exact original coordinates, complete extent and anti-aliased edge coverage of every fine long hair strand/ribbon, hands/fingertips, entire open book including thin covers/page block/lower binding, whole skirt/hem, exposed knees, socks and both complete shoes including heels/full soles.\nAll foreground interior areas MUST be opaque white. The faint grey lines inside the added white book/hand/lap/shoe regions are foreground details, not background gaps: fill them WHITE, never make a black seam, slot or pinhole through the book, fingers, face, eyes, mouth, skirt, knees or shoes. Only real unpainted background gaps between hair strands and between the two legs stay black. Naturally pale original curtains, cushion, knitted throw, lamp/flowers/sky and sunlight remain BLACK; they were not deliberately painted white. No couch/floor/shadow receiver in this F mask. No new shadow, dilation, erosion, expanded halo, cut hair, clipped book corner, crop, resize, translation, outlines, gray photo texture, labels or checkerboard. One opaque neutral black-and-white 1536x1024 PNG, with only smooth edge greys for true coverage. It will mask original mother RGB, never provide colored replacement pixels.\nFor this new F1-v2, preserve the complete thin white hair curl/loop immediately UNDER the image-left book cover at original x1015..1070,y490..535, including its whole lower arc; keep the unpainted actual wood hole inside the loop BLACK. No detached wood-colored bump, no missing lower curl. Do not expand the book edge into wood. A faint intrinsic short line at original x1112..1125,y280..297 lies INSIDE the opaque face/hair foreground; make it fully WHITE, like any mouth, eye, face/hair seam or other intrinsic dark detail, never a black hole. Preserve true separate hair/background gaps only. Input is the new healthy F1-v2 from clean mother, not any held F mask or screenshot.",
+  "actualArguments": {
+    "prompt": "Use case: precise-object-edit. Convert ONLY the deliberately white foreground selection in this F1 markup to a clean luminance coverage mask on the SAME full 1536x1024 canvas. This is extraction of the added white selection, not a new silhouette or a redraw. Put every deliberately painted foreground pixel WHITE and all unpainted original room/background pixels BLACK. Preserve exact original coordinates, complete extent and anti-aliased edge coverage of every fine long hair strand/ribbon, hands/fingertips, entire open book including thin covers/page block/lower binding, whole skirt/hem, exposed knees, socks and both complete shoes including heels/full soles.\nAll foreground interior areas MUST be opaque white. The faint grey lines inside the added white book/hand/lap/shoe regions are foreground details, not background gaps: fill them WHITE, never make a black seam, slot or pinhole through the book, fingers, face, eyes, mouth, skirt, knees or shoes. Only real unpainted background gaps between hair strands and between the two legs stay black. Naturally pale original curtains, cushion, knitted throw, lamp/flowers/sky and sunlight remain BLACK; they were not deliberately painted white. No couch/floor/shadow receiver in this F mask. No new shadow, dilation, erosion, expanded halo, cut hair, clipped book corner, crop, resize, translation, outlines, gray photo texture, labels or checkerboard. One opaque neutral black-and-white 1536x1024 PNG, with only smooth edge greys for true coverage. It will mask original mother RGB, never provide colored replacement pixels.\nFor this new F1-v2, preserve the complete thin white hair curl/loop immediately UNDER the image-left book cover at original x1015..1070,y490..535, including its whole lower arc; keep the unpainted actual wood hole inside the loop BLACK. No detached wood-colored bump, no missing lower curl. Do not expand the book edge into wood. A faint intrinsic short line at original x1112..1125,y280..297 lies INSIDE the opaque face/hair foreground; make it fully WHITE, like any mouth, eye, face/hair seam or other intrinsic dark detail, never a black hole. Preserve true separate hair/background gaps only. Input is the new healthy F1-v2 from clean mother, not any held F mask or screenshot.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-step1-marked-v2.png"
+    ],
+    "transparent_background": false
+  },
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-step1-marked-v2.png",
+      "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17365-454d-7bb3-8b77-bcaadd75b8a4/exec-6a58aea6-47aa-46fb-84eb-6400cf9ec6d3.png",
+      "sha256": "abddc802ed4c100d9c2ad87d10b5749636984a654a5b9c254fcd641e60701abf",
+      "bytes": 2241369,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "toolPngBytesUnchanged": true,
+      "role": "new F1-v2 rebuilt solely from clean mother; no held F mask/markup/screenshot"
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "bytes": 12246
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "bytes": 12645
+    }
+  ],
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-violet/figure-mask-v2.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17365-454d-7bb3-8b77-bcaadd75b8a4/exec-80b2766d-ebf9-40fe-922a-d9d59e080e15.png",
+    "sha256": "5285f653e453905d38e5992bbd20cc46f54d0d390cd59308a1dc13dde11b5061",
+    "bytes": 456239,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true
+  },
+  "producerObservation": "Personally viewed actual full F2-v2. The thin lower hair loop below image-left book is now white along its real curve with black interior background. Face/eye/mouth/hair-junction interior is opaque white, no previous short slit. Book/hand/skirt/knees/socks/complete shoes retain whole extent. Native original-RGB union close-ups follow before producer selection.",
+  "status": "producer-native-browser-reviewed-candidate-await-root",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "laterNativeReview": {
+    "personallyViewed": true,
+    "method": "Formal CUA Chrome extension own 5188 static source page; native SVG MAX, no app/9335.",
+    "observation": "Complete source RGB body/book/hair loop and original physical receiver relationship personally viewed; only candidate static included material, no primary/runtime admission."
+  }
+}

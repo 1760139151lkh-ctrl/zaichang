@@ -1,0 +1,765 @@
+{
+  "schemaVersion": 1,
+  "recordType": "vertical-native-alpha-preserved-static-production-handoff",
+  "actualProductionCount": 5,
+  "runtimeAccepted": false,
+  "items": [
+    {
+      "characterId": "tomori",
+      "variant": "tomori-vertical-edge-cat-v2",
+      "source": {
+        "file": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\tomori-vertical-edge-cat-v2.png",
+        "sha256": "bd1d77270b476f8f835ff7124dfc2ed1eb34e7bfe10b63547a692f3bd8b6ab7a",
+        "sourceRecord": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\tomori-vertical-edge-cat-v2.source.json",
+        "sourceRecordSha256": "cca7c41e6b44b6441575e0a2a99fbb9e8eaba8ad36c57dec4905d3256dafb5b4",
+        "canvas": [
+          1024,
+          1536
+        ],
+        "mode": "RGBA",
+        "alphaRange": [
+          0,
+          254
+        ],
+        "alphaBounds": [
+          0,
+          59,
+          1008,
+          1520
+        ],
+        "alphaThresholdBounds": {
+          "1": [
+            0,
+            59,
+            1008,
+            1520
+          ],
+          "2": [
+            129,
+            103,
+            902,
+            1460
+          ],
+          "8": [
+            130,
+            105,
+            901,
+            1458
+          ],
+          "32": [
+            131,
+            105,
+            900,
+            1458
+          ],
+          "128": [
+            131,
+            106,
+            900,
+            1457
+          ],
+          "230": [
+            132,
+            106,
+            899,
+            1457
+          ],
+          "250": [
+            132,
+            107,
+            899,
+            1456
+          ]
+        },
+        "originalPreserved": true,
+        "staticDirectionApprovedByRoot": true,
+        "approvalSource": "Direct root message: personally viewed allAve4+Mutsumi-left and MyGO5(Tomori/Anonv2,Rana/Soyo/Takiv1), static identity/simple whole vertical grip approved; clean/contacts pending personal128 review."
+      },
+      "output": {
+        "file": "tomori-vertical-edge-cat-v2-static-clean.png",
+        "sha256": "5cf86326ee65900d3c6ef7193f6af951d478764a96a3184f3c98605820c9d409",
+        "bytes": 815134,
+        "canvas": [
+          1024,
+          1536
+        ],
+        "mode": "RGBA",
+        "alphaRange": [
+          0,
+          254
+        ],
+        "alphaBounds": [
+          0,
+          59,
+          1008,
+          1520
+        ],
+        "visibleBoundsAtAlpha8": [
+          130,
+          105,
+          901,
+          1458
+        ],
+        "visibleRgbDifferenceRange": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "alphaDifferenceRange": [
+          0,
+          0
+        ]
+      },
+      "verticalContact": {
+        "contactSide": "right",
+        "gripXSource": 806,
+        "sourceYAnchor": 980,
+        "anchorNormalized": [
+          0.787109375,
+          0.6380208333333334
+        ],
+        "actualCanvas": [
+          1024,
+          1536
+        ],
+        "sourceTorsoApproximateYRange": [
+          700,
+          1260
+        ],
+        "anchorMeaning": "Y is a personally observed main-torso placement reference; not an invented animated joint or same-height paw rule. X independently checked through all three actual source paw crops.",
+        "pawContactReferenceCentersY": [
+          690,
+          858,
+          1233
+        ],
+        "previousProducerApproximateX": 834,
+        "adjustmentReason": "Previous rough line touched outer dark rim or missed white contact at middle/hind paw. Chosen source X moved inward to cross real gripping white areas of all three paws.",
+        "mirrorSafe": true,
+        "mirrorAnchorContinuousSource": [
+          218,
+          980
+        ],
+        "identityConstraint": "Only horizontal mirror candidate reviewed; upright face and native aspect retained, no quarter-turn."
+      },
+      "review": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\static-clean\\tomori\\static-128-light-dark-grip-review.png",
+      "contactReview": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\static-clean\\tomori\\source-contact-coordinate-review.png",
+      "candidate": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\static-clean\\tomori\\static-clean-candidate.json",
+      "primaryStaticCleanApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "characterId": "anon",
+      "variant": "anon-vertical-edge-cat-v2",
+      "source": {
+        "file": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\anon-vertical-edge-cat-v2.png",
+        "sha256": "8cf248c5c509319b2f21af5c5279f38f1a8e4e4872c4b14e0a2a3835764e452b",
+        "sourceRecord": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\anon-vertical-edge-cat-v2.source.json",
+        "sourceRecordSha256": "5f70ccf845352da20d697c27ebe849efec5cbee1eba5a0839e61e8a56d584f82",
+        "canvas": [
+          1024,
+          1536
+        ],
+        "mode": "RGBA",
+        "alphaRange": [
+          0,
+          254
+        ],
+        "alphaBounds": [
+          41,
+          76,
+          944,
+          1536
+        ],
+        "alphaThresholdBounds": {
+          "1": [
+            41,
+            76,
+            944,
+            1536
+          ],
+          "2": [
+            152,
+            76,
+            881,
+            1470
+          ],
+          "8": [
+            154,
+            78,
+            879,
+            1469
+          ],
+          "32": [
+            154,
+            78,
+            878,
+            1468
+          ],
+          "128": [
+            154,
+            79,
+            878,
+            1468
+          ],
+          "230": [
+            155,
+            79,
+            877,
+            1467
+          ],
+          "250": [
+            155,
+            80,
+            877,
+            1467
+          ]
+        },
+        "originalPreserved": true,
+        "staticDirectionApprovedByRoot": true,
+        "approvalSource": "Direct root message: personally viewed allAve4+Mutsumi-left and MyGO5(Tomori/Anonv2,Rana/Soyo/Takiv1), static identity/simple whole vertical grip approved; clean/contacts pending personal128 review."
+      },
+      "output": {
+        "file": "anon-vertical-edge-cat-v2-static-clean.png",
+        "sha256": "15c59ed37a51721e645a9555694a20e8439ff4a16512bea1423d067a4b35e124",
+        "bytes": 929388,
+        "canvas": [
+          1024,
+          1536
+        ],
+        "mode": "RGBA",
+        "alphaRange": [
+          0,
+          254
+        ],
+        "alphaBounds": [
+          41,
+          76,
+          944,
+          1536
+        ],
+        "visibleBoundsAtAlpha8": [
+          154,
+          78,
+          879,
+          1469
+        ],
+        "visibleRgbDifferenceRange": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "alphaDifferenceRange": [
+          0,
+          0
+        ]
+      },
+      "verticalContact": {
+        "contactSide": "right",
+        "gripXSource": 797,
+        "sourceYAnchor": 965,
+        "anchorNormalized": [
+          0.7783203125,
+          0.6282552083333334
+        ],
+        "actualCanvas": [
+          1024,
+          1536
+        ],
+        "sourceTorsoApproximateYRange": [
+          670,
+          1260
+        ],
+        "anchorMeaning": "Y is a personally observed main-torso placement reference; not an invented animated joint or same-height paw rule. X independently checked through all three actual source paw crops.",
+        "pawContactReferenceCentersY": [
+          657,
+          855,
+          1248
+        ],
+        "previousProducerApproximateX": 824,
+        "adjustmentReason": "Previous rough line touched outer dark rim or missed white contact at middle/hind paw. Chosen source X moved inward to cross real gripping white areas of all three paws.",
+        "mirrorSafe": true,
+        "mirrorAnchorContinuousSource": [
+          227,
+          965
+        ],
+        "identityConstraint": "Only horizontal mirror candidate reviewed; upright face and native aspect retained, no quarter-turn."
+      },
+      "review": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\static-clean\\anon\\static-128-light-dark-grip-review.png",
+      "contactReview": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\static-clean\\anon\\source-contact-coordinate-review.png",
+      "candidate": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\static-clean\\anon\\static-clean-candidate.json",
+      "primaryStaticCleanApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "characterId": "rana",
+      "variant": "rana-vertical-edge-cat-v1",
+      "source": {
+        "file": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\rana-vertical-edge-cat-v1.png",
+        "sha256": "cb651d1493f1344a0f599d00ad1fb79edec2c7ffa2ed7a0c78cf8720ed8f9dee",
+        "sourceRecord": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\rana-vertical-edge-cat-v1.source.json",
+        "sourceRecordSha256": "97222069d374078bb48d9cea025ca847930fe5bdae716a3b5dbb430f8ae972a2",
+        "canvas": [
+          1070,
+          1470
+        ],
+        "mode": "RGBA",
+        "alphaRange": [
+          0,
+          255
+        ],
+        "alphaBounds": [
+          90,
+          62,
+          1050,
+          1446
+        ],
+        "alphaThresholdBounds": {
+          "1": [
+            90,
+            62,
+            1050,
+            1446
+          ],
+          "2": [
+            149,
+            62,
+            922,
+            1414
+          ],
+          "8": [
+            151,
+            64,
+            920,
+            1412
+          ],
+          "32": [
+            151,
+            65,
+            920,
+            1412
+          ],
+          "128": [
+            151,
+            65,
+            919,
+            1411
+          ],
+          "230": [
+            152,
+            66,
+            919,
+            1410
+          ],
+          "250": [
+            152,
+            66,
+            919,
+            1410
+          ]
+        },
+        "originalPreserved": true,
+        "staticDirectionApprovedByRoot": true,
+        "approvalSource": "Direct root message: personally viewed allAve4+Mutsumi-left and MyGO5(Tomori/Anonv2,Rana/Soyo/Takiv1), static identity/simple whole vertical grip approved; clean/contacts pending personal128 review."
+      },
+      "output": {
+        "file": "rana-vertical-edge-cat-v1-static-clean.png",
+        "sha256": "4784be274974e9cce9be05125bfea09b1628588415ad325c0ce75fb2a044c617",
+        "bytes": 862061,
+        "canvas": [
+          1070,
+          1470
+        ],
+        "mode": "RGBA",
+        "alphaRange": [
+          0,
+          255
+        ],
+        "alphaBounds": [
+          90,
+          62,
+          1050,
+          1446
+        ],
+        "visibleBoundsAtAlpha8": [
+          151,
+          64,
+          920,
+          1412
+        ],
+        "visibleRgbDifferenceRange": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "alphaDifferenceRange": [
+          0,
+          0
+        ]
+      },
+      "verticalContact": {
+        "contactSide": "right",
+        "gripXSource": 790,
+        "sourceYAnchor": 935,
+        "anchorNormalized": [
+          0.7383177570093458,
+          0.6360544217687075
+        ],
+        "actualCanvas": [
+          1070,
+          1470
+        ],
+        "sourceTorsoApproximateYRange": [
+          660,
+          1210
+        ],
+        "anchorMeaning": "Y is a personally observed main-torso placement reference; not an invented animated joint or same-height paw rule. X independently checked through all three actual source paw crops.",
+        "pawContactReferenceCentersY": [
+          642,
+          827,
+          1196
+        ],
+        "previousProducerApproximateX": 808,
+        "adjustmentReason": "Previous rough line touched outer dark rim or missed white contact at middle/hind paw. Chosen source X moved inward to cross real gripping white areas of all three paws.",
+        "mirrorSafe": false,
+        "mirrorAnchorContinuousSource": null,
+        "identityConstraint": "No image flip; own-right gold/own-left blue eyes retained. Opposite direction needs independent art."
+      },
+      "review": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\static-clean\\rana\\static-128-light-dark-grip-review.png",
+      "contactReview": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\static-clean\\rana\\source-contact-coordinate-review.png",
+      "candidate": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\static-clean\\rana\\static-clean-candidate.json",
+      "primaryStaticCleanApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "characterId": "soyo",
+      "variant": "soyo-vertical-edge-cat-v1",
+      "source": {
+        "file": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\soyo-vertical-edge-cat-v1.png",
+        "sha256": "3c3044d0d656a76fc33124333599567e4477036c06296b834f4c0d856dc30b57",
+        "sourceRecord": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\soyo-vertical-edge-cat-v1.source.json",
+        "sourceRecordSha256": "2c72f919fe55cfbc64dc7d1e9c94ff9f74e6a268fa7819a4776958c630b943e9",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "alphaRange": [
+          0,
+          255
+        ],
+        "alphaBounds": [
+          49,
+          42,
+          1192,
+          1254
+        ],
+        "alphaThresholdBounds": {
+          "1": [
+            49,
+            42,
+            1192,
+            1254
+          ],
+          "2": [
+            311,
+            42,
+            968,
+            1217
+          ],
+          "8": [
+            313,
+            44,
+            965,
+            1214
+          ],
+          "32": [
+            313,
+            44,
+            965,
+            1214
+          ],
+          "128": [
+            314,
+            45,
+            965,
+            1213
+          ],
+          "230": [
+            314,
+            45,
+            964,
+            1212
+          ],
+          "250": [
+            315,
+            46,
+            964,
+            1212
+          ]
+        },
+        "originalPreserved": true,
+        "staticDirectionApprovedByRoot": true,
+        "approvalSource": "Direct root message: personally viewed allAve4+Mutsumi-left and MyGO5(Tomori/Anonv2,Rana/Soyo/Takiv1), static identity/simple whole vertical grip approved; clean/contacts pending personal128 review."
+      },
+      "output": {
+        "file": "soyo-vertical-edge-cat-v1-static-clean.png",
+        "sha256": "a80ff7d4516a17bce0038bda7c6f429c8772a1dc2c0ff551f891f5b2e32f9046",
+        "bytes": 847368,
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "alphaRange": [
+          0,
+          255
+        ],
+        "alphaBounds": [
+          49,
+          42,
+          1192,
+          1254
+        ],
+        "visibleBoundsAtAlpha8": [
+          313,
+          44,
+          965,
+          1214
+        ],
+        "visibleRgbDifferenceRange": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "alphaDifferenceRange": [
+          0,
+          0
+        ]
+      },
+      "verticalContact": {
+        "contactSide": "right",
+        "gripXSource": 905,
+        "sourceYAnchor": 818,
+        "anchorNormalized": [
+          0.7216905901116427,
+          0.6523125996810207
+        ],
+        "actualCanvas": [
+          1254,
+          1254
+        ],
+        "sourceTorsoApproximateYRange": [
+          590,
+          1045
+        ],
+        "anchorMeaning": "Y is a personally observed main-torso placement reference; not an invented animated joint or same-height paw rule. X independently checked through all three actual source paw crops.",
+        "pawContactReferenceCentersY": [
+          553,
+          733,
+          1033
+        ],
+        "previousProducerApproximateX": 925,
+        "adjustmentReason": "Previous rough line touched outer dark rim or missed white contact at middle/hind paw. Chosen source X moved inward to cross real gripping white areas of all three paws.",
+        "mirrorSafe": true,
+        "mirrorAnchorContinuousSource": [
+          349,
+          818
+        ],
+        "identityConstraint": "Only horizontal mirror candidate reviewed; upright face and native aspect retained, no quarter-turn."
+      },
+      "review": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\static-clean\\soyo\\static-128-light-dark-grip-review.png",
+      "contactReview": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\static-clean\\soyo\\source-contact-coordinate-review.png",
+      "candidate": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\static-clean\\soyo\\static-clean-candidate.json",
+      "primaryStaticCleanApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "characterId": "taki",
+      "variant": "taki-vertical-edge-cat-v1",
+      "source": {
+        "file": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\taki-vertical-edge-cat-v1.png",
+        "sha256": "f868a6993d7157f7d016a7533585fe27867fbe5784c09ca16284c1ee3fd92dc6",
+        "sourceRecord": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\taki-vertical-edge-cat-v1.source.json",
+        "sourceRecordSha256": "8ae37ca78fc04e64159169a11767a3ec0a84c422760292ed863d25dd9f8da5af",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "alphaRange": [
+          0,
+          255
+        ],
+        "alphaBounds": [
+          0,
+          29,
+          1222,
+          1220
+        ],
+        "alphaThresholdBounds": {
+          "1": [
+            0,
+            29,
+            1222,
+            1220
+          ],
+          "2": [
+            315,
+            29,
+            983,
+            1213
+          ],
+          "8": [
+            317,
+            31,
+            981,
+            1212
+          ],
+          "32": [
+            317,
+            31,
+            980,
+            1211
+          ],
+          "128": [
+            318,
+            32,
+            980,
+            1210
+          ],
+          "230": [
+            318,
+            32,
+            979,
+            1209
+          ],
+          "250": [
+            318,
+            33,
+            979,
+            1209
+          ]
+        },
+        "originalPreserved": true,
+        "staticDirectionApprovedByRoot": true,
+        "approvalSource": "Direct root message: personally viewed allAve4+Mutsumi-left and MyGO5(Tomori/Anonv2,Rana/Soyo/Takiv1), static identity/simple whole vertical grip approved; clean/contacts pending personal128 review."
+      },
+      "output": {
+        "file": "taki-vertical-edge-cat-v1-static-clean.png",
+        "sha256": "90941c04ccf777d26e2bba0b28a9152bb297ca079ec01f86504e5d8646972e71",
+        "bytes": 799468,
+        "canvas": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "alphaRange": [
+          0,
+          255
+        ],
+        "alphaBounds": [
+          0,
+          29,
+          1222,
+          1220
+        ],
+        "visibleBoundsAtAlpha8": [
+          317,
+          31,
+          981,
+          1212
+        ],
+        "visibleRgbDifferenceRange": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "alphaDifferenceRange": [
+          0,
+          0
+        ]
+      },
+      "verticalContact": {
+        "contactSide": "right",
+        "gripXSource": 910,
+        "sourceYAnchor": 803,
+        "anchorNormalized": [
+          0.7256778309409888,
+          0.6403508771929824
+        ],
+        "actualCanvas": [
+          1254,
+          1254
+        ],
+        "sourceTorsoApproximateYRange": [
+          570,
+          1035
+        ],
+        "anchorMeaning": "Y is a personally observed main-torso placement reference; not an invented animated joint or same-height paw rule. X independently checked through all three actual source paw crops.",
+        "pawContactReferenceCentersY": [
+          537,
+          717,
+          1023
+        ],
+        "previousProducerApproximateX": 930,
+        "adjustmentReason": "Previous rough line touched outer dark rim or missed white contact at middle/hind paw. Chosen source X moved inward to cross real gripping white areas of all three paws.",
+        "mirrorSafe": true,
+        "mirrorAnchorContinuousSource": [
+          344,
+          803
+        ],
+        "identityConstraint": "Only horizontal mirror candidate reviewed; upright face and native aspect retained, no quarter-turn."
+      },
+      "review": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\static-clean\\taki\\static-128-light-dark-grip-review.png",
+      "contactReview": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\static-clean\\taki\\source-contact-coordinate-review.png",
+      "candidate": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mygo\\static-clean\\taki\\static-clean-candidate.json",
+      "primaryStaticCleanApproved": false,
+      "runtimeAccepted": false
+    }
+  ]
+}

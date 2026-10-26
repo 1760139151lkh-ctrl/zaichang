@@ -1,0 +1,23 @@
+/* Local action structure. Room layout and artwork remain with their owners. */
+.message-bookmark-actions { display:flex; align-items:center; gap:5px; flex-wrap:wrap; }
+.message-bookmark-source>.message-bookmark-actions { position:absolute; right:0; bottom:-28px; opacity:0; pointer-events:none; }
+.message-bookmark-source:is(:hover,:focus-within,.has-selection)>.message-bookmark-actions { opacity:1; pointer-events:auto; }
+.message-bookmark-actions .message-bookmark-button { cursor:pointer; }
+.message-bookmark-excerpt-actions { display:flex; flex-wrap:wrap; gap:16px; }
+.source-bookmark-annotation { display:grid; gap:8px; margin-top:15px; color:var(--text-secondary); font-size:12px; }
+.source-bookmark-annotation textarea { width:100%; min-height:82px; resize:vertical; padding:9px 10px; border:1px solid var(--separator); border-radius:9px; background:transparent; color:var(--text); font:inherit; line-height:1.8; }
+.source-bookmark-annotation textarea:focus-visible { outline:2px solid var(--accent-dim); outline-offset:2px; }
+.source-bookmark-source-header { display:flex; align-items:center; gap:10px; color:var(--text-tertiary); font-size:11px; }
+.source-bookmark-source-header>span { flex:1; min-width:0; overflow-wrap:anywhere; }
+.source-bookmark-source-header>.icon-button { width:26px; height:26px; flex:none; }
+.source-bookmark-tray.is-direct-note .source-bookmark-annotation { margin-top:12px; }
+.source-bookmark-tray.is-direct-note>footer { margin-top:12px; }
+.source-bookmark-study-targets { margin-top:13px; color:var(--text-secondary); font-size:12px; }
+.source-bookmark-study-targets summary { cursor:pointer; }
+.source-bookmark-study-targets .source-bookmark-destinations { margin-top:8px; }
+.source-bookmark-receipt { display:flex; align-items:center; flex-wrap:wrap; gap:10px; width:auto; max-width:calc(100vw - 40px); }
+.source-bookmark-receipt>.icon-button { margin-left:auto; }
+.note-own-thoughts-label { display:block; margin-bottom:10px; color:var(--text-secondary); font-size:12px; }
+.notes-source-preview { border-left:1px solid var(--accent-dim); padding-left:9px; }
+.note-live-excerpt>div { flex-wrap:wrap; }
+@media(hover:none) { .message-bookmark-source>.message-bookmark-actions { position:static; margin-top:8px; opacity:1; pointer-events:auto; } }

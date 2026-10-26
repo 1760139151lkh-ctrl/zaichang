@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-25T06:05:37Z",
+  "reviewer": "root / primary agent",
+  "scope": "Exact-SHA original-position same-canvas static layer admission only; not runtime, motion, arbitrary travel or weather-owner verification.",
+  "decision": "accepted",
+  "approvedFiles": [
+    { "file": "sakiko-chat-overcast-day-mother-v1.png", "sha256": "a7e10ccb551badc3bb015bdd2c8870969bcf20c8ea23f2a282d2bcf636baa382" },
+    { "file": "sakiko-chat-overcast-day-background-v1.png", "sha256": "2142878f64a444c66e78a7f31a45e6b94c49464ea984058da50427a80de80747" },
+    { "file": "sakiko-chat-overcast-day-figure-mask-v1.png", "sha256": "aa973c02842fe5d820f1561c70657f7b07fb4f6fbdab95deb9db958bb8632f33" },
+    { "file": "sakiko-chat-overcast-day-contact-shadow-mask-v1.png", "sha256": "259c53a5855c7a68908568ab67d52274cdc2c06f71ced008e8b9800c6251b78f" }
+  ],
+  "primaryEvidence": {
+    "observationPage": "sakiko-chat-overcast-day-layers-v1.html",
+    "method": "Primary personally viewed the actual HTML on its existing normal local static server at port 5188.",
+    "viewed": ["original RGB figure on light, dark and checker grounds including complete hair", "complete original-position layer recomposition", "#seat source-pixel hips and lap book comparison", "#hand 3:1 right palm and cushion comparison", "#shoes 2:1 both shoes and dry floor comparison"],
+    "messageVerbatim": "root已在正常本机静态服务器5188实际亲看overcast HTML：alpha浅/深/棋盘完整头发人物、整景合成、#seat原像素髋与书、#hand 3:1右掌软垫对照、#shoes 2:1两鞋地板对照。接受overcast当前母/BG/figure-mask-v1/contact-mask-v1的原位同画布层准入（非runtime）。"
+  },
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "sourceApprovalBoundary": "Earlier empty weather background and complete weather mother approvals remain their original individual decisions. White-in-room is a production intermediate, not an independently accepted runtime layer."
+}

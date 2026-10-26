@@ -55,7 +55,10 @@
           "height": 1024,
           "mode": "RGBA"
         }
-      ]
+      ],
+      "maskAlphaSha256": "9d3f32c1b1177d979c2477ac8e73dbeae503262885610a06333796b430e2b42f",
+      "figureAlphaSha256": "9d3f32c1b1177d979c2477ac8e73dbeae503262885610a06333796b430e2b42f",
+      "maskObservation": "Existing RGBA mask alpha is byte-identical to the figure alpha actually rendered on light/dark/room; no pixel edit made."
     },
     {
       "character": "sakiko",
@@ -109,7 +112,10 @@
           "height": 1024,
           "mode": "RGBA"
         }
-      ]
+      ],
+      "maskAlphaSha256": "721b5650bdcd44cf0a5a86adb38ac13b571962d5a4476cbf1499673bce41b199",
+      "figureAlphaSha256": "721b5650bdcd44cf0a5a86adb38ac13b571962d5a4476cbf1499673bce41b199",
+      "maskObservation": "Existing RGBA mask alpha is byte-identical to the figure alpha actually rendered on light/dark/room; no pixel edit made."
     },
     {
       "character": "sakiko",
@@ -163,7 +169,10 @@
           "height": 1024,
           "mode": "RGBA"
         }
-      ]
+      ],
+      "maskAlphaSha256": "4b1353d7309e4ce98f04441d3052e6b9e09c7e9c76027638de016d170642117c",
+      "figureAlphaSha256": "4b1353d7309e4ce98f04441d3052e6b9e09c7e9c76027638de016d170642117c",
+      "maskObservation": "Existing RGBA mask alpha is byte-identical to the figure alpha actually rendered on light/dark/room; no pixel edit made."
     }
   ]
 }

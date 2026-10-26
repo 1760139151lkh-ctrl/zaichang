@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "assetId": "tomori-study-violet-literary-v1",
+  "roomFamily": "literary-room-v1",
+  "characterId": "tomori",
+  "activity": "study",
+  "palette": "violet",
+  "ambientPlateKey": "twilight",
+  "createdOn": "2026-10-25",
+  "generationMode": "target-empty-plate-and-approved-exact-activity-mother-relighting",
+  "tool": "image_gen.imagegen (built-in)",
+  "callOrdinalInBoundedBatch": 11,
+  "executionId": "exec-7ac0599a-8d2b-4f60-bfbf-07134aead842",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-7ac0599a-8d2b-4f60-bfbf-07134aead842.png",
+  "inputs": [
+    {
+      "file": "../../plates/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+      "role": "image1: approved exact target empty plate and illumination"
+    },
+    {
+      "file": "../apricot-wave-b/tomori-study-apricot-literary-v1.png",
+      "sha256": "5d83c9d46e4919810cb0547c01da7f761823e7d16c438ff80f810b82edc3e9f6",
+      "role": "image2: root-approved exact activity identity/pose/scale/support reference; original daylight not retained",
+      "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+    }
+  ],
+  "inheritedRootMotherContour": {
+    "contourComplete": false,
+    "note": "Root-approved natural plant/furniture occlusion; no hidden-foot claims."
+  },
+  "promptFile": "tomori-study-violet-literary-v1.prompt.txt",
+  "promptFileSha256": "b2e74f44b3ca7c4f0b55df41221110123af1d29a49a792a75d294cf4480b1274",
+  "submittedPrompt": "Create ONE complete 1536×1024 landscape literary companion scene by genuine WHOLE-SCENE RELIGHTING. Image 1 is the PRIMARY-APPROVED EMPTY environmental plate at the TARGET time/weather: it supplies the exact camera, global room and target illumination. Image 2 is this SAME character's ROOT-APPROVED APRICOT MOTHER OF THIS EXACT ACTIVITY: use its exact youthful identity/uniform, body pose, scale/source coordinates, facial activity, hands/objects and true support/occlusion, NOT its daylight highlights.\nRepaint the girl's skin, hair, clothing, paper/book, cushion/chair/desk contacts and the floor under image 1's target light. Original apricot skin/garment hot patches, sunlit hair rims and window-lattice pools are NOT identity/pose constraints and must not survive by default. This is not a tinted film, simple hue swap, pasted day-lit figure or separate day/night halves.\nLock the close camera, full framing, wooden window panes/current crop, lake/town/mountains, shelves/books/plants, desk/chair, round table/ceramic lamp/cup/flowers, linen bench/right plaid cushions/cream throw, floor/rug and foreground plant. Where the approved occupied study mother contains an adjusted chair or portable task lamp relative to the unoccupied plate, preserve THAT mother's actual occupied-chair support geometry and small-object position; use the empty plate for illumination, not to replace the occupied chair beneath her.\nKeep the exact activity mother silhouette/head/body proportions and source locations; no head enlargement, leaning toward camera, translation, crossed-knee rearrangement, new hand gesture or changed physical support. Preserve all actual limb/strand gaps and natural occlusion. On bench poses, whole head/hair and both complete shoes stay in frame. On desk study poses, natural source plant/furniture occlusion is intentional, contourComplete=false; do not add false visible feet through objects.\nDetailed expressive anime character drawing belongs inside tactile softly painterly room materials. Keep youthful original character identity, correct canonical hair/eye/uniform colors under the light. Separate each fringe lock, eyebrow, lash, upper/lower eyelid, sclera and iris boundary, even with downward gaze. No hair-eye fusion, generic adult face, service smile, compulsory blush or stereotyped scowl.\nOnly these two approved images are inputs. No unreviewed mother, earlier lighting problem candidate, mask, different character, old room or rejected pose is a reference. No readable user text/equations/business receipts, labels, UI, watermarks, new character, diagrams, split screen or duplicate limbs. This original fictional activity illustration does not assert an actual user's action or completed work.\n\nACTIVITY PERSON: Takamatsu Tomori (高松燈), MyGO!!!!!, short gray-lavender/steel-gray layered neck-length hair, muted rose-brown eyes, gray-purple white-piped blazer/striped tie/checked skirt/dark socks/brown loafers.\nAPPROVED EXACT-ACTIVITY PERFORMANCE: Preserve the approved complete left-desk pose at its farther scale: forearms and pencil/page on the real desk, clear three-quarter thoughtful face, pelvis/skirt on the same chair cushion, same chair frame/angle and natural foreground-plant occlusion of lower legs/shoes. Keep the approved portable metal task lamp in its actual mother location even if the empty plate differs. Right bench remains empty. Do not invent hidden anatomy or force full shoes visible.\nTARGET LIGHT: NATURAL TWILIGHT: exactly image 1's continuous rose/lavender dusk outside and existing softly warm ceramic-lamp interior, with subdued cool window fill and town lights. Keep the floor and seat SOFTLY lit like image 1. No bright orange rectangular noon window-lattice pools on the lower-right floor, no inherited apricot knee/shin/face hot patches. Daylight highlights are not identity or anatomy. Repaint skin, uniform, paper and local contacts with proper mixed lamp/window light instead of a purple or amber overlay.",
+  "output": {
+    "file": "tomori-study-violet-literary-v1.png",
+    "sha256": "fa341244a7ba61b27566d4b2d5175e022d7e26e30ed96b0215505ac2065c787e",
+    "bytes": 2279434,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "reviewedOn": "2026-10-25",
+    "decision": "static mother candidate for primary inspection",
+    "observation": "Complete original viewed: approved desk/chair/forearm/paper/pencil geometry and source portable lamp position preserved; bench empty. Warm task/ceramic-lamp and twilight ambient light affect face, uniform, page, wood/chair and floor together without hard noon lattice. Three-quarter eyes/hair remain readable, with natural plant occlusion of lower legs/shoes.",
+    "bodyContour": {
+      "contourComplete": false,
+      "reason": "Root-source plant/furniture occlusion retained; no hidden-foot reconstruction."
+    },
+    "limits": "No full sole/foot proof or primary/layer/runtime admission."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "acceptanceScope": "Static same-activity light mother candidate only; no layer progression or registration."
+}

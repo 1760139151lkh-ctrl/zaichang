@@ -1,0 +1,40 @@
+{
+  "key": "anon/attention/rain",
+  "tool": "built-in image_gen.imagegen",
+  "createdAtUtc": "2026-10-25T02:46:30.801Z",
+  "stage": "complete whole-scene lighting edit",
+  "file": "anon-attention-rain-mother-v1.png",
+  "sha256": "d1de4060f5503cd5ffad2325685c60a2409d4aa4fb87bd91732a98c91600f2a9",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "promptSha256": "fdfb6be17b346cb34b60bf9bf0cdbf57e2bafafecb9b4a05a52ec327ce6bf901",
+  "originalOutputBasename": "exec-8adc63fb-6591-4d08-bc32-bd695d460e76.png",
+  "originalOutputEvent": {
+    "sessionId": "01a170ed-b14d-7321-9cf7-3bd222b6ff42",
+    "executionId": "8adc63fb-6591-4d08-bc32-bd695d460e76",
+    "tool": "image_gen.imagegen"
+  },
+  "prompt": "anon-attention-rain-mother-v1.prompt.txt",
+  "inputs": [
+    {
+      "file": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-attention-apricot-mother-candidate-v1.png",
+      "role": "approved apricot complete mother; edit target",
+      "sha256": "f695acaaabfb0395d5b0f33a649fa9bb2d3fefeac454d15d1146d31066550b3d"
+    },
+    {
+      "file": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-rain-candidate-v2.png",
+      "role": "clean-room light reference only",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "officialIdentitySource": "https://anime.bang-dream.com/mygo/character/anon/",
+  "projectOriginalSituation": "Zaichang room companion introducing a newly appeared object; not a claim about original canon",
+  "designerPersonallyViewed": true,
+  "designerObservation": "Personally viewed complete generated original. Rain streaks and dark-blue lake/town lights are visible through the original window; localized amber lamplight reaches Anon's face, pink hair, blazer and complete hands/shoes. The original lively introducing expression and leftward gaze remain; no rain-induced sad face. Window-sill hand contact and standing hip/knee/ankle/shoe chains remain coherent, with two floor contacts and legible contact shadows. No daylight leaf patterns, UI or text. Primary approval and layers/runtime are separate.",
+  "primaryMotherReview": "pending_current_root_review",
+  "approvedByPrimary": false,
+  "layers": "not_produced",
+  "runtime": "not_registered"
+}

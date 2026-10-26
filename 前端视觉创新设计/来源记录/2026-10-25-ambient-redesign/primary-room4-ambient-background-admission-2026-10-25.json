@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "recordType": "primary-empty-background-admission",
+  "recordedAtUtc": "2026-10-25T06:16:20.855949+00:00",
+  "reviewer": "root / primary agent",
+  "approvalBasis": "Root explicitly reported personally viewing and accepting all eight source PNGs before delegating exact-byte integration.",
+  "scope": "Six exact-weather empty room4 backgrounds plus two closed-inner-curtain time-only backgrounds. This does not admit missing character/activity cells or integrated runtime.",
+  "files": [
+    {
+      "slot": "clear-day",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-apricot-candidate-v4.png",
+      "sourceRecord": null,
+      "sourceRecordSha256": null,
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/room-apricot-candidate-v4.png",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+      "bytes": 2243850,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    },
+    {
+      "slot": "twilight",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-violet-background-calibrated-v9.png",
+      "sourceRecord": null,
+      "sourceRecordSha256": null,
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-violet-background-calibrated-v9.png",
+      "sha256": "b00b4ce21ffef719216b957415d2efc4434dc6d0b9ef788524b185cf0be940c8",
+      "bytes": 2132331,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    },
+    {
+      "slot": "rain-night",
+      "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-rain-background-calibrated-v3.png",
+      "sourceRecord": null,
+      "sourceRecordSha256": null,
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-rain-background-calibrated-v3.png",
+      "sha256": "cf93f67e148b635043fe83280256c2c080ab2515435e6433e52791766626fd9e",
+      "bytes": 1987819,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    },
+    {
+      "slot": "overcast-day",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/room4-cloudy-day-v1.png",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/room4-cloudy-day-v1.source.json",
+      "sourceRecordSha256": "51752f1ce45214e46b413255ac261332a0161d6104f36275b6201a22164f32d6",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/room4-cloudy-day-v1.png",
+      "sha256": "d218968a3f057a961dd0e9bfbc88ae9c95fc78c0d6e49dfdaf4c71e78c4e8526",
+      "bytes": 2235147,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    },
+    {
+      "slot": "rain-day",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/room4-rainy-day-v1.png",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/room4-rainy-day-v1.source.json",
+      "sourceRecordSha256": "88b60569b46cfcd44d8ae58c8130b1b6b06f639c550388dc66c0df25a3c158c1",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/room4-rainy-day-v1.png",
+      "sha256": "d561c4db01557f642d7ccbabd444ab916d1fd200e8dc8392295dbbb9ff5c0cdd",
+      "bytes": 2448896,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    },
+    {
+      "slot": "dry-night",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/room4-dry-clear-night-v1.png",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/room4-dry-clear-night-v1.source.json",
+      "sourceRecordSha256": "2f991e580430b04c266d3c527cc90df9245502801cd3577ba48e62b64e82805c",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/room4-dry-clear-night-v1.png",
+      "sha256": "4e86e26b6b0b59f4bcef537cf593776a10f9134045219117fd1ecf853b7361ea",
+      "bytes": 2149800,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    },
+    {
+      "slot": "time-day",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/time-only/room4-time-day-v1.png",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/time-only/room4-time-day-v1.source.json",
+      "sourceRecordSha256": "c849a02b0d3f5534e72bbda3d9b9b82b4676fba71910185e18ecf7536bdf9798",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/room4-time-day-v1.png",
+      "sha256": "01782f953ab7f77d693deab531f9164a9b949698c33be5ff09bde88a014f5ed8",
+      "bytes": 2057389,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    },
+    {
+      "slot": "time-night",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/time-only/room4-time-night-v1.png",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/time-only/room4-time-night-v1.source.json",
+      "sourceRecordSha256": "b3857d570960e53ecf53fcbecfaaaa6ce4f1bf96105d8b289bd71fded191ab82",
+      "runtime": "前端视觉创新设计/运行素材/companion/scenes/room4-time-night-v1.png",
+      "sha256": "c98d0a07c1a64f72034b03487bff1ce8f3cbb90267eb4c6c284759880946ed47",
+      "bytes": 1941877,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    }
+  ],
+  "runtimeManifest": "前端视觉创新设计/运行素材/companion/scenes/room4-ambient-backgrounds.json",
+  "runtimeManifestSha256": "3a98555804eec25a633dec174b6cfa8382fa61367d64c04f092dfee4f21e2a8a",
+  "selectionPolicy": {
+    "auto": "Exact requested weather variant only; unknown, disabled, unavailable or missing weather uses day/night closed-curtain time-only according to the effective isDay.",
+    "manual": "Only the user-selected palette chooses its admitted empty-room appearance; this is not a real-weather assertion.",
+    "camera": "Original 1536x1024 canvas, common full-height uniform scale and right anchor; preview uses the same 3:2 canvas.",
+    "characterBoundary": "ambient-only does not count as a completed character/activity layer."
+  },
+  "pixelEdits": false,
+  "sourceRecordsModified": false,
+  "runtimeAccepted": false,
+  "runtimeReview": "pending-root-integrated-QA"
+}

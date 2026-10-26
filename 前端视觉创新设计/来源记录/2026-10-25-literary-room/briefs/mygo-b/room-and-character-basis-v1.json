@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "kind": "literary-room-creative-brief",
+  "stage": "brief-only",
+  "generationStarted": false,
+  "generationReady": false,
+  "runtimeRegistered": false,
+  "scope": {
+    "characters": [
+      "anon",
+      "soyo"
+    ],
+    "activities": [
+      "chat",
+      "study",
+      "reading",
+      "planning",
+      "listening",
+      "rest",
+      "play",
+      "attention",
+      "resume"
+    ],
+    "palettes": [
+      "apricot",
+      "mist",
+      "violet",
+      "rain"
+    ],
+    "cells": 72
+  },
+  "selectedMaster": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+    "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "personallyViewed": true,
+    "role": "Room, camera, materials and literary atmosphere reference. The pictured Sakiko is not a person-input for Anon or Soyo."
+  },
+  "generationGate": {
+    "emptyPlate": "awaiting root approved new literary empty plate",
+    "singleSakikoPilot": "awaiting root approved same-room single Sakiko pilot",
+    "instruction": "No generation or registration in this task. Future work must not reuse old room4 or old character pixels."
+  },
+  "roomObserved": [
+    "木框整面窗与原湖岸小城、尖塔、远山层次保留；窗景不另命名为现实校园。",
+    "右侧为木柜式长窗凳、米白织物座垫、蓝灰格纹靠垫及右端针织毯。",
+    "左后方为真实木书桌、抽屉、木椅与黄铜阅读灯，后墙书架、书、画框和植物保留。",
+    "圆形边几位于长凳靠左的一端，承载青花瓷台灯、杯碟、花瓶及少量书；它不是整张写字桌。",
+    "左前方植物虚焦、旧木地板和下方织毯维持前中后景，房间不漂成空白渐变。"
+  ],
+  "supports": {
+    "window-bench-right": "长窗凳靠右、靠格纹垫的阅读位；书可落在膝上，手臂与身体有真实承托。",
+    "window-bench-near-table": "同一长凳靠圆几的一端；只有在此处才安排取放圆几物件，动作在自然可及距离内。",
+    "writing-desk-chair": "左后方原木椅与书桌；伏案、写划或摊两页均在真实桌面，不挪动圆几冒充书桌。"
+  },
+  "lightVariants": {
+    "apricot": {
+      "label": "暖杏",
+      "intent": "保留选中图的杏金窗光、木色与瓷器细反光，纸与肤色保持各自颜色。",
+      "window": "原湖岸轮廓、秋叶和清亮天光；受光覆盖整间屋，阴影方向连贯。",
+      "lamp": "瓷灯可轻亮，日光仍为主光。"
+    },
+    "mist": {
+      "label": "晨雾蓝",
+      "intent": "同一房间的凉润漫射日光，纸张与织物显得清透；人物不整体染蓝。",
+      "window": "原窗景结构完整，远景降低对比；不凭主题名断言现场有雾。",
+      "lamp": "瓷灯低亮或熄灭，铜桌灯按活动提供小范围补光。"
+    },
+    "violet": {
+      "label": "暮色紫",
+      "intent": "湖面与远山进入紫灰余晖，室内瓷灯成为柔暖近光，白布仍有材料层次。",
+      "window": "同一景物在日落余光中变暗，窗内外是完整一景。",
+      "lamp": "瓷灯为主近光，桌灯只在桌边任务处辅助。"
+    },
+    "rain": {
+      "label": "夜雨暖金",
+      "intent": "原房间进入雨夜，暖灯落在脸、书和真实支撑处；窗外暗蓝雨痕与湿反光有节制。",
+      "window": "原湖岸轮廓退入夜色，雨只在窗外与玻璃上成立；不留白日蓝天亮块。",
+      "lamp": "瓷灯为主光，铜桌灯按实际座位辅助；亮暗过渡属于整间房。"
+    }
+  },
+  "boundaries": [
+    "每格只出现该格角色一人；同伴与对方是镜头外的使用者，不增加第二人物、背影或额外的手。",
+    "以下心理、表情与相处瞬间是项目原创创作设定，不是原作剧情或台词。",
+    "本地公开角色档案提供身份与气质锚点；不新增原作经历，不虚构与用户发生过的往事。",
+    "姿态只规定基本坐靠与真实支撑，待新空plate和单角色打样后再核实际构图；不沿脚数或固定腿长比判错。",
+    "保留青春原作辨识度；不把选中图中祥子的发饰、制服或身体轮廓直接套给另外两人。",
+    "手中的页、日期与业务内容不烙入图像；真实题目、安排、用户原话及完成状态各归原owner。",
+    "四种光线是创作版本，不作为用户现场天气证据。",
+    "桌边姿态后续须和页面内容同看；房间与人物不为旧界面骨架移位。"
+  ],
+  "characterEvidence": [
+    {
+      "character": "anon",
+      "local": "src/shared/persona-portrayals.ts#anon",
+      "sourceCheckedOn": "2026-10-24",
+      "publicSource": "https://anime.bang-dream.com/mygo/character/anon/",
+      "establishedAnchor": "羽丘高一学生与 MyGO!!!!! 吉他手；社交与行动力、对流行和表现的兴趣、愿意为朋友行动。",
+      "projectAdaptation": "先拿出一版、想听夸奖，也能承认看错；热闹可以为对方收小。"
+    },
+    {
+      "character": "soyo",
+      "local": "src/shared/persona-portrayals.ts#soyo",
+      "sourceCheckedOn": "2026-10-24",
+      "publicSource": "https://anime.bang-dream.com/mygo/character/soyo/",
+      "establishedAnchor": "月之森高一学生，演奏低音提琴并在 MyGO!!!!! 担任贝斯手；温和且常被依赖，思考时会摆弄指尖。",
+      "projectAdaptation": "周到中保留自己的在意与不同意见；熟悉后愿意放下过分圆满的客气。"
+    }
+  ]
+}

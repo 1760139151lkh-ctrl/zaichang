@@ -1,0 +1,28 @@
+{
+  "tool": "built-in image_gen",
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "activity": "chat",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "kind": "clean-empty-room-only"
+    }
+  ],
+  "damagedCharacterInput": false,
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a16fb3-8f8d-7c72-a744-a441e8907c91\\exec-dd4eae5b-c9c5-4d61-8044-e8f70140b713.png",
+  "output": "sakiko-chat-apricot-v1.png",
+  "outputSha256": "8d8ca2d001893c16106ab797ec4a8a8c1e6576115a5a4c76ff1dd519eff4e2cd",
+  "promptFile": "sakiko-chat-apricot-v1.prompt.txt",
+  "submittedPromptSha256": "1d698ea2705a0bd4d5f6b8a77ef41c0feda2118f8694aa79c0449d8169dbc20b",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "reviewBoundary": "Primary personally viewed full output: clear separate hair/eyes, complete supported head-to-shoes posture, hands together on lap, direct unforced attentive expression, selected close room composition retained. Full mother only; no figure/contact layer or runtime acceptance."
+}

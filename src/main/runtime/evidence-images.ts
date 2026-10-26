@@ -26,16 +26,26 @@ export function readEvidenceImage(repo: KernelRepository, handle: ScopeHandle, i
   if (!event || scope.audience !== 'self' || event.label.audience !== 'self'
     || !scope.grants.includes('evidence:read') || revoked.includes('evidence:read')
     || event.speaker !== 'user' || event.kind !== 'user_message' || event.status !== 'active'
-    || !event.sessionId || event.parentEventId || event.contentVersion !== version
+    || !event.sessionId || event.contentVersion !== version
     || !event.imageSource || event.imageSource.contentVersion !== version
     || event.sourceId === 'profile:self' && !scope.currentEventIds.includes(id)
       && (!scope.grants.includes('memory:read') || revoked.includes('memory:read'))
     || repo.sourceRestrictions(handle, id).length || repo.sourceLineageRestricted(event))
     throw new HarnessError('image_source', '这张图片的原始来源或完整读取范围目前没有对应上。');
-  const row = repo.db.prepare("SELECT payload FROM messages WHERE id=? AND session_id=? AND role='user'").get(id, event.sessionId);
+  const messageId = event.parentEventId || id;
+  if (event.parentEventId) {
+    const parent = repo.db.prepare(`SELECT status,json_extract(payload,'$.kind') AS kind,json_extract(payload,'$.speaker') AS speaker,
+      json_extract(payload,'$.sessionId') AS session FROM h_evidence WHERE id=? AND owner=? AND workspace=?`).get(messageId, event.ownerId, event.workspaceId);
+    if (!parent || !['active', 'redacted'].includes(String(parent.status)) || parent.kind !== 'user_message' || parent.speaker !== 'user' || parent.session !== event.sessionId
+      || repo.hasFence(messageId) || repo.sourceRestrictions(handle, messageId).some(restriction => restriction.predicate === '*' || restriction.rangeUnknown))
+      throw new HarnessError('image_source', '这张图片原来所属的消息已不可读。');
+  }
+  const row = repo.db.prepare("SELECT payload FROM messages WHERE id=? AND session_id=? AND role='user'").get(messageId, event.sessionId);
   const message = row && JSON.parse(String(row.payload)) as Message | undefined;
-  const image = message?.image;
-  if (!message || message.id !== id || message.sessionId !== event.sessionId || message.role !== 'user' || !image)
+  const attachment = event.parentEventId ? message?.attachments?.find(item => item.kind === 'image' && item.sourceEventId === id
+    && !!item.attachmentId && id === messageId + ':image:' + item.attachmentId) : undefined;
+  const image = event.parentEventId ? attachment?.kind === 'image' ? attachment : undefined : message?.image;
+  if (!message || message.id !== messageId || message.sessionId !== event.sessionId || message.role !== 'user' || !image)
     throw new HarnessError('image_source', '原消息里目前没有这张图片的像素。');
   const current = evidenceImageSource(image, version);
   if (current.sha256 !== event.imageSource.sha256 || current.mimeType !== event.imageSource.mimeType

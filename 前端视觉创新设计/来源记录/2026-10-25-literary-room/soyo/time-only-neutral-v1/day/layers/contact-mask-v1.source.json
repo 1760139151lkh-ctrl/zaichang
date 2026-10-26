@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "characterId": "soyo",
+  "neutralTime": "day",
+  "purpose": "neutral-presence-fixed-included-layer",
+  "kind": "included-contact-luminance-mask-S",
+  "createdAt": "2026-10-26T01:28:03.359200+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "exactPromptFile": "contact-mask-v1.prompt.txt",
+  "promptSha256": "b626ae18142e88d1e16b231b2cc36c7afca07ba0df54841cc3ca76e3566f774e",
+  "requestFile": "contact-mask-v1.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/day/layers/contact-step1-marked-v1.png",
+      "sha256": "395bf1e4fe3d2b8ba11a376d6a7934bd39b9c3fdc6f68d0674f48bc63f44b509",
+      "role": "sole personally checked healthy same-mother S1 contact markup"
+    }
+  ],
+  "output": {
+    "file": "contact-mask-v1.png",
+    "sha256": "2b48805e45b2988ca7982427fe5742ae728cc4350311e59a37bca9ef755108f6",
+    "bytes": 305372,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "originalBasename": "exec-71b8f560-111b-4fc9-bcaf-1e88b63de358.png",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteOutput": true,
+    "observations": [
+      "Only actual small seat and sole receiving groups retained; soft outside shoe-contact falloff remains.",
+      "Original colored room/person not included as mask RGB; MAX union samples original mother once."
+    ],
+    "eligibleAsNextStepInput": true
+  },
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "countsToward360ExactActivities": false,
+  "pngPixelEditing": false,
+  "primaryStaticLayerApproved": true,
+  "primaryAdmissionRecord": "root-primary-layer-admission-v1.json",
+  "primaryApprovalScope": "Exact static fixed included layer in this same source canvas; no runtime, motion or activity360 acceptance"
+}

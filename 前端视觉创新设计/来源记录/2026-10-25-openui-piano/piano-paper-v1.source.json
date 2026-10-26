@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "image-source/v1",
+  "createdDate": "2026-10-25",
+  "tool": "image_gen.imagegen",
+  "mode": "text-only-generation",
+  "inputImages": [],
+  "promptFile": "piano-paper-v1.prompt.txt",
+  "promptSha256": "beeb6c54836e55492d2877d80f5734c60015991282113905b6af1e77c3480f41",
+  "output": "../../补充图稿/2026-10-25-openui-piano/piano-paper-v1.png",
+  "outputSha256": "e33f10ce13cb376bca75370dec6ffc2042d70a6b5b57f97513548b84b0e578ec",
+  "dimensions": [1536, 1024],
+  "visualAssessment": {
+    "grade": "C",
+    "reason": "Material and layout relationships are useful; generated action geometry and black-key ordering are not suitable as an accuracy reference. Preserve the interaction gene and original prompt; do not composite this bitmap into the product."
+  },
+  "adoption": {
+    "scope": ["warm single-paper material", "mechanism and playable keyboard on the same sheet", "nearby real-output trace and pedal", "88-key overview with playable larger keys"],
+    "primaryReview": "Root personally viewed and accepted the material/layout relationship in the current collaboration; physical geometry and black-key arrangement were explicitly excluded.",
+    "excluded": ["generated mechanism geometry", "generated key ordering", "green mechanism felt", "baked text or bitmap UI"],
+    "runtimeAsset": false,
+    "mustNotBeReferenceInput": true
+  },
+  "implementation": ["src/renderer/presentation/interactive-piano.tsx", "src/renderer/presentation/interactive-audio.tsx", "src/shared/interactive-library.ts"],
+  "technicalSources": [
+    "https://usa.yamaha.com/products/contents/musical_instrument_guide/piano/mechanism/mechanism003.html",
+    "https://www.aalto.fi/en/department-of-signal-processing-and-acoustics/analysis-and-synthesis-of-the-piano-sound"
+  ],
+  "verificationBoundary": "Design relationship accepted only within the stated scope. Runtime observations below do not certify a measured grand-piano mechanism, sampled piano quality, physical speakers or unobserved themes.",
+  "runtimeObservations": {
+    "date": "2026-10-25",
+    "profile": ".test-data/integrated-room-20261025",
+    "modelResponseObserved": "gpt-6-luna",
+    "creationRunId": "ff01e98d-c96c-4210-82cf-7fbdccd4942d",
+    "programId": "eab137d2-ab9f-401e-8629-beed5d6ab85b",
+    "programRevision": 1,
+    "messageId": "f8e7c2e0-f733-422d-a02b-d467f3742094",
+    "observed": [
+      "Natural Chinese request produced the native Piano and local parameter controls through the original Luna/Hermes path.",
+      "C4 held for 90 ms produced actual digital audio and AudioTrace output; keyboard A/D/G held C4/E4/G4 together, then released while pedal remained active.",
+      "Length ratio 1.25 changed the native C4 readout from 261.6 to 209.3 Hz.",
+      "Mid-process phase 0.013 with the jack driving the hammer was taken over using the existing process slider Home key; phase returned to 0 and held count to 0.",
+      "Reduced-motion browser preference completed the same finite process at phase 1 with one held key.",
+      "Desktop and 560x850 CSS viewport were inspected. Oversized mechanism was constrained; narrow mechanism now scrolls horizontally to preserve labels.",
+      "Today-page round trip restored selected C4, length ratio 1.25 and slowMotion 40, while held/pedal/phase returned to empty/false/0.",
+      "SQLite localState revision 3 retained only selected/velocity/slowMotion/lengthRatio/tensionRatio/densityRatio/brightness; transient fields were absent.",
+      "A later full Electron restart and reopening the original historical conversation restored C4 at 209.3 Hz, length ratio 1.25 and slowMotion 40.",
+      "The integrated rain/dark dry-night material was personally viewed: the interactive document had transparent background on the smoked-tea work surface, warm legible mechanism labels and genuine black/ivory keys.",
+      "At slowMotion 40, phase 0.363 was personally viewed with the jack turned out and the hammer in free flight; after releasing the key the same finite process completed at phase 1, then Escape returned it to 0."
+    ],
+    "audio": {
+      "recording": ".test-data/integrated-room-20261025/piano-digital-output.webm",
+      "bytes": 178162,
+      "format": "39.90 seconds, stereo 48000 Hz Opus, captured from the original output graph",
+      "decode": "FFmpeg fully decoded; non-silent C4 and chord intervals observed.",
+      "hearing": "Audio input is not supported by this model runtime. No personal listening or physical speaker-quality claim is made."
+    },
+    "continuationRepair": {
+      "historicalFailureRun": "7907ba1d-5f4f-4762-9dfa-15a6854b2b52",
+      "historicalFailure": "The original Continue read initial_not_current_ui_state and answered 261.63 Hz while live C4 was 209.3 Hz. The historical response was preserved.",
+      "cause": "Scoped workspace references had not yet been opened into workspaceTargets; direct native reads skipped the submitted workspace address and its frozen Enter-time inputs.",
+      "repair": "Match the original submitted workspace program address, keep separate A/B conditions, retain purpose review, and after approval re-resolve owner/node/source/inputs into a short-lived focused run. Limited reads do not add the entire object to the parent model context.",
+      "verifiedRun": "31147ac5-de17-42f9-85f5-b0aaf7e1aae1",
+      "verifiedResponseModel": "gpt-6-luna",
+      "stateReads": ["this_turn_admitted_ui_reference", "this_turn_admitted_ui_reference"],
+      "delivery": "delivered_to_model",
+      "actualReply": "The model read selected=60, lengthRatio=1.25, tensionRatio=densityRatio=1, calculated 209.30 Hz, explained the initial 261.63 Hz and stated that slowMotion=40 does not lower pitch.",
+      "newProgramCreated": false
+    },
+    "checks": ["npm run check passed after final component edits", "Existing npm test passed 282/282 after the main current-input route repair; final address metadata and geometry were type-checked and inspected in the restarted product"],
+    "unresolved": [
+      "All-theme visual review, physical device hearing and touch hardware have not been certified here."
+    ]
+  }
+}

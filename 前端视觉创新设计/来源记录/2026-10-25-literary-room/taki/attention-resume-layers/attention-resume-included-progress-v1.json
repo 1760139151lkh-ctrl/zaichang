@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "task": "Taki attention/resume × mist/violet/rain original RGB included layers",
+  "status": "partially_produced_then_priority_hold",
+  "requestedCells": [
+    "taki/attention/mist",
+    "taki/attention/violet",
+    "taki/attention/rain",
+    "taki/resume/mist",
+    "taki/resume/violet",
+    "taki/resume/rain"
+  ],
+  "completedCandidateCells": [
+    {
+      "cell": "taki/attention/mist",
+      "folder": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-mist",
+      "bundle": "included-source-bundle-v1.json",
+      "F": "figure-mask-v1.png",
+      "S": "contact-mask-v1.png",
+      "BG": "background-v1.png",
+      "observations": [
+        "原母/合成全景：相机、窗格、圆几、灯、软垫位置一致；人物完整原位，未见灰UI块或无支撑漂浮。",
+        "浅/深/棋盘及脸发：长发散细丝、青春脸、衣领和蝴蝶结来自原母RGB，真正发/臂空隙露底。",
+        "书纸笔：细笔到实际页尖、薄册的封面/页块/纸条完整；手指与书页接触关系保留。",
+        "裙座膝：裙褶最外缘与裸膝保留，坐垫仅随源局部接触小片，未把整条空软垫并入。",
+        "鞋与地面：双鞋鞋跟、鞋底完整，近端落地软接收连续；S在透明底可见原木材质，固定原位。"
+      ],
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "taki/attention/violet",
+      "folder": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-violet",
+      "bundle": "included-source-bundle-v1.json",
+      "F": "figure-mask-v1.png",
+      "S": "contact-mask-v1.png",
+      "BG": "background-v1.png",
+      "observations": [
+        "原母/合成全景：保留紫暮、暖灯和家具相机；没有新增窗体/整条座垫的灰块。",
+        "脸发/完整主体：刘海、发梢分离丝、紫瞳与所有肢体边缘来自原母，不重画人物；源侧暖色发缘保留。",
+        "书纸笔：真实页上的细笔和开放薄册全部封页边、乳色纸条、两手完整。",
+        "裙座膝：外侧折褶及双膝完整；S实际仅两处紧邻座边小片，未复制Soyo的独立书底接收岛。",
+        "双鞋：两鞋完整轮廓和原暮色地板的近端暗/暖接收恢复；浅/深/棋盘上的地板材质块可见，只适合固定同景 included。"
+      ],
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "taki/attention/rain",
+      "folder": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-rain",
+      "bundle": "included-source-bundle-v1.json",
+      "F": "figure-mask-v1.png",
+      "S": "contact-mask-v1.png",
+      "BG": "background-v1.png",
+      "observations": [
+        "原母/合成全景：深蓝雨窗和局部金灯保留；未因分层新增白昼窗格、改变圆几或重排座位。",
+        "脸发：原母青春脸、紫眼与长深发完整，细笔旁的弧形发丝和真正空隙保住。",
+        "书纸笔：开放书的两封面、页块及细笔/双手完整，未出现透明穿洞或只剩书心。",
+        "裙座膝：保持原裙摆起伏与坐垫压接，不改人物头身/视线，未把明亮空垫按亮度选入。",
+        "双鞋：全鞋含最下鞋底、跟块及近鞋原木接收保留；透明底可见偏深棕色的地板小瓣，局部外缘比晨雾略硬。它们是固定接收材质，不能冒称可搬运caster；主审尚未采用。"
+      ],
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "notStarted": [
+    {
+      "cell": "taki/resume/mist",
+      "mother": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-resume-mist-literary-extension-v1.png",
+      "motherSHA256": "0f50c0b0a2d27e5765347e92cdda98da320d5b04b8a70b5ce7f66654be64b243",
+      "layerImageGenerationCalls": 0,
+      "status": "not_started_priority_hold"
+    },
+    {
+      "cell": "taki/resume/violet",
+      "mother": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-resume-violet-literary-extension-v1.png",
+      "motherSHA256": "ba92ed144d2c30d09c04a65ff6e2cccca13773505cb90e3c786d912a6e77ec39",
+      "layerImageGenerationCalls": 0,
+      "status": "not_started_priority_hold"
+    },
+    {
+      "cell": "taki/resume/rain",
+      "mother": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-resume-rain-literary-extension-v2.png",
+      "motherSHA256": "f5fc5fe22fda83ba69d3b31c8defbcdf50ba1508d0ab65d8a05d79f166cc8eb2",
+      "layerImageGenerationCalls": 0,
+      "status": "not_started_priority_hold"
+    }
+  ],
+  "actualImageGenerationCalls": 15,
+  "rawOutputPNGCount": 15,
+  "browserScreenshotCount": 21,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "rootGlobalLedgersChanged": false,
+  "appChanged": false,
+  "newTestsOrRunnersCreated": false,
+  "cleanup": "none; required source assets, prompts and diagnostic screenshots preserved",
+  "holdInstruction": "Root latest user priority: leave/book/source relationships, conversation process and window obstruction across whole App. Do not start new Taki layer batches; preserve results and healthy session. Existing human mother visuals not reconstructed."
+}

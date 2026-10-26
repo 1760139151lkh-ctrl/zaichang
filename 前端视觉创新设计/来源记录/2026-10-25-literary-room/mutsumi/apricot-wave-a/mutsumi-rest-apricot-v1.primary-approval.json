@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "kind": "primary-static-mother-admission",
+  "key": "mutsumi/rest/apricot",
+  "reviewer": "root",
+  "evidenceSource": "Explicit root message to cast_settings_recovered after root personally viewed all six wave-a full mothers",
+  "decision": "approved",
+  "primaryPersonallyViewed": true,
+  "mother": {
+    "file": "mutsumi-rest-apricot-v1.png",
+    "sha256": "e414a4eae007a1ffdac4d3b4efcfecaed0414ee2a8cc68b20be289f9a314e671",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "sourceRecord": "mutsumi-rest-apricot-v1.source.json",
+  "observation": "Root personally viewed complete mother: cheek support and elbow on moved plaid pillow have real support. A portable pillow may move; root explicitly accepts this as a reasonable local pose change, not furniture drift. Eyes/fringe, full feet/shoes and stable camera/major furniture are coherent.",
+  "scope": "Exact-SHA complete static mother only; no layer/extraction/motion/runtime admission.",
+  "layerApproved": false,
+  "runtimeAccepted": false
+}

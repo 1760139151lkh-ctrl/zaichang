@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "assetId": "tomori-reading-apricot-literary-v1",
+  "roomFamily": "literary-room-v1",
+  "characterId": "tomori",
+  "activity": "reading",
+  "palette": "apricot",
+  "createdOn": "2026-10-25",
+  "generationMode": "clean-room-and-approved-character-identity-reference-new-activity",
+  "tool": "image_gen.imagegen (built-in)",
+  "executionId": "exec-4822d229-19e8-4605-bdcf-492123ad2e9c",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-4822d229-19e8-4605-bdcf-492123ad2e9c.png",
+  "inputs": [
+    {
+      "file": "../../plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "image 1: approved clean room; sole geometry/light input"
+    },
+    {
+      "file": "../chat-pilot/tomori-chat-apricot-literary-v1.png",
+      "sha256": "f075324f63e151e4045b4ac5ee87f30dc8295295b81f12c97ddb30ab56ac34d9",
+      "role": "image 2: primary-approved correct character identity/uniform/scale only, not a fixed body pose"
+    }
+  ],
+  "brief": "../../briefs/mygo-a/tomori-36-briefs.md",
+  "briefCell": "tomori/reading/apricot",
+  "briefTitle": "读到一句很轻的话",
+  "characterDefinition": "src/shared/persona-portrayals.ts:tomori@2026-10-24.3",
+  "creativeStatus": "Project-original literary activity; canonical identity separately preserved.",
+  "promptFile": "tomori-reading-apricot-literary-v1.prompt.txt",
+  "promptFileSha256": "8059412803a5aae41ea6cef9617c6aa659c564395b565dcae6b19badf39a2027",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd, exactly as submitted",
+  "submittedPromptSha256": "847eb13309056aadce772780c2547f77b7ea3a1322433a5491b4a6df561051fd",
+  "output": {
+    "file": "tomori-reading-apricot-literary-v1.png",
+    "sha256": "f81a5056794cf1618eb03ce7922b49b43478179aafd3fd9cffe2c60f763880f5",
+    "bytes": 2421136,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "reviewedOn": "2026-10-25",
+    "decision": "static mother candidate for primary inspection",
+    "observation": "Complete original viewed: Tomori reads the low open book with a quiet absorbed expression, instead of addressing the viewer. Both hands cradle the page/cover edges and the book rests against her thighs; no exaggerated pointing. The lowered gaze retains visible irises/eye white with separate fringe and eyelids. Hip/cushion contact, connected uncrossed knees/ankles and complete floor-supported shoes are visible. The exact near literary room remains legible.",
+    "limits": "The fingertip is at the book edge rather than a separately demonstrated line marker. Static candidate only; no primary/layer/runtime admission."
+  },
+  "primaryApproved": true,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "acceptanceScope": "Primary-approved exact-SHA static mother only; layer/runtime remain unapproved.",
+  "primaryApprovalRecord": "primary-mother-admission-v1.json",
+  "primaryApprovalAssetId": "tomori-reading-apricot-literary-v1"
+}

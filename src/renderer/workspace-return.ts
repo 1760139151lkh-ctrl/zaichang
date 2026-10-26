@@ -5,6 +5,7 @@ import { noteQuoteReferenceSchema } from '../shared/notes';
 import { agendaReferenceSchema } from '../shared/agenda';
 import { studyFocusRefSchema } from '../shared/study-presentation';
 import { sourceBookmarkAddress, sourceBookmarkReferenceSchema } from '../shared/source-bookmark';
+import { materialDocumentAddressSchema } from './materials/material-document-transfer';
 
 const id = z.string().min(1).max(160), pixel = z.number().finite().min(0).max(100_000_000);
 const sha256 = z.string().regex(/^[a-f0-9]{64}$/), revision = z.number().int().positive();
@@ -30,13 +31,15 @@ const noteReturnSchema = z.object({
  * schemas reject copied drafts, source bodies, action receipts and grants. */
 export const workspaceReturnAddressSchema = z.object({
   sessionId: id.optional(),
-  view: z.enum(['chat', 'materials', 'notes', 'agenda']),
+  view: z.enum(['chat', 'materials', 'notes', 'agenda', 'keep']),
+  keep: z.object({ selectedKey: z.string().min(1).max(1000), writing: z.boolean() }).strict().optional(),
   readingPane: z.enum(['reader', 'chat']).optional(),
   message: z.object({ id, offset: z.number().finite().min(-100_000).max(100_000) }).strict().optional(),
   composer: z.object({ start: z.number().int().nonnegative(), end: z.number().int().nonnegative(),
     direction: z.enum(['forward', 'backward', 'none']).optional(), focused: z.boolean().optional() }).strict().refine(value => value.end >= value.start).optional(),
   quote: sourceBookmarkReferenceSchema.transform(sourceBookmarkAddress).optional(),
   material: materialReturnSchema.optional(),
+  materialDocument: materialDocumentAddressSchema.optional(),
   study: z.object({ messageId: id, focus: studyFocusRefSchema,
     question: pixel.optional(), manuscript: pixel.optional(), atEnd: z.boolean().optional() }).strict().optional(),
   note: noteReturnSchema.optional(),

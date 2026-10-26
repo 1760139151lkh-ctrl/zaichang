@@ -1,0 +1,26 @@
+Use case: lighting-weather.
+ONE complete new nyamu/study/rain mother illustration, opaque 1536×1024.
+INPUT 1 is the ROOT-APPROVED EMPTY rain-night literary room, the PRIMARY camera/space and AUTHORITATIVE target lighting environment.
+INPUT 2 is the ROOT-APPROVED APRICOT SAME-ACTIVITY nyamu mother, the correct identity, exact source pose/proportion/coordinates, clothing design, hands, physical props and support reference. These are the ONLY images. No problem image, unreviewed new light/chat-light/wave-b alternative, old room4, another character or generated cutout is supplied.
+
+Keep the exact full canvas/close room camera, window divisions/lake/town/hills, shelves/desk/round side table/ceramic lamp/bench/wood floor/rug/foreground plant from this approved family. Image 2's accepted source-specific portable support objects and their positions (such as rest pillow or study chair/lamp) must stay with that pose, while receiving Image 1's light. Do not blindly reset a pillow/chair underneath a supported body. Major room furniture/camera stay stable.
+Exact approved source: actually seated at the LEFT DESK, one hand writes at the desk page, other palm supports cheek with elbow on desk, hips supported by chair seat. Preserve the source's PORTABLE chair orientation and metal-lamp position, which root accepted; do not revert those source-specific support objects to an incompatible empty-chair outline. Retain real foreground plant/chair/desk occlusion of lower legs/shoes; contour is intentionally not a complete visible shoe pair. RIGHT BENCH EMPTY, no bench-sprite shift or near-bench scale inflation.
+
+Literary direction for this particular activity:
+漂亮的一下已经有了，她却把眼神收回到真正撑住它的那一步。她不甘心只会让人惊讶，还想在有人追问时把理由讲得很有分量。她俯近纸页的认真，带着一点肯练笨功夫的倔劲。
+
+日光照到纸上的改动，她想把这一遍练得经得起问。
+
+她想被记住，也肯把让人记住的那几秒练扎实。自信、竞争心、得意和锋芒都可以存在；亲近时会交出不那么漂亮的一遍，听见难处又能把表现欲收住。不要把她固定成直播镜头前的笑脸，也不要在严肃时抹掉她自己的活力。
+祐天寺若麦的原作青春二次元辨识：短至下颌与颈侧的薰衣草紫 bob，柔软不齐刘海与侧边发丝，红紫眼；细致而鲜活的年轻脸。维持已核身份文字中的灰色荷叶边短袖上衣与细肩带、黑色细颈圈、黑短裙及低稳跟踝带鞋，衣着自然完整。不是成熟写实时装照，不用过重妆容或魅惑摆拍代替性格；不自动塞入正在拍摄的手机或相机。
+Retain the specific source activity's expression and cadence, allowing small natural nuance, not a universal greeting smile. Rain outside does not decide her feelings; she may remain interested, serious, thoughtful or comfortably at rest as this scene requires.
+This is project-original companion illustration, not an actual user's private history, completed work or original canon event.
+
+WHOLE-ROOM LIGHT, not preserved old RGB shading:
+Authoritative light is Image 1's RAINY NIGHT: dark-blue rain on exterior glass, town/lake reflections and the approved existing warm interior lamp sources. Re-light the WHOLE person, clothes, hair, skin, book/papers, seat/desk/chair and all floor as one lower-light room. All old clear-apricot hard leaf/window-grid sun patches and white skin/thigh heat spots must disappear, not merely become orange; they are illumination, NOT identity. Floor receives the plate's soft lamp pool and real furniture shadows, not daylight rectangles from a black window. Paper is naturally lamplit, not an emissive white beacon; skin/hair are warmly readable without a daylit body pasted in. Interior remains dry. No stars/day sky, added lamps, blanket gold filter, indoor rain, split view or automatically sad/sleepy acting.
+STRUCTURE is preserved, but ALL old illumination may be repainted. Face/skin and paper hot spots, bright outline rims, garment leaf blotches and floor sunlight lattice from clear-day Image 2 are not wardrobe/identity marks. Do not copy those into cloudy/rain-night environments. Use coherent target light on every material and on actual local cast/contact shadows. Intrinsic mint/purple hair and eye colors remain recognizable without tinting the whole room green/purple.
+Specific skin-light repaint: the naturally visible LEFT-DESK arm/skin around source x110..360,y280..440 and visible thigh/knee near x110..270,y460..570; retain real plant/wood occlusion is a LIGHTING repaint area, not a new shape or a box to draw. Night skin uses soft low lamp falloff and subdued continuous form shading; do not retain the isolated bright apricot knee island and merely tint it orange. Keep anatomical depth with soft gradients; the old localized high-contrast skin blob is NOT knee structure/identity and must not be copied. Do not flatten all skin, draw guide marks, expose hidden limbs or add a spotlight.
+
+Do not change pose, enlarge the head, lean it toward the lens, resize/center the person, move hands/props into another activity, add limbs or cover a bad joint with a new object. Respect actual farther desk/chair depth and source occlusion; do not force head-to-sole near-bench coordinates or show hidden shoes through plants/wood. Source contourComplete=false is intentional natural occlusion.
+Draw the face coherently as one structure: separate fringe strands, eyebrows, eyelids and visible irises; no fused hair/iris, duplicate eyes, pasted face fragment, mesh/shard or disconnected hair patch. Preserve true hand/finger/prop/seat or desk contacts with natural continuity; no extra/fused fingers or floating paper. Physical pages may have subtle unreadable marks, no invented legible solution/UI.
+One refined youthful anime-and-painterly literary room, fully integrated. No UI/theme controls, labels/captions/text, arrows, tutorial, grid, border, watermark, collage or split image.

@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "whole-scene-chat-light-mother-candidate",
+  "character": "nyamu",
+  "activity": "chat",
+  "palette": "rain",
+  "environmentVariant": "rain-night",
+  "wave": "chat-light-wave",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-c32a6036-fd75-4324-be96-fb6658b6e3f9.png",
+  "executionId": "exec-c32a6036-fd75-4324-be96-fb6658b6e3f9",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.png",
+      "sha256": "096bd7f5f0138e8b961c91d52dc8e68b29bcda1600bbb9ca444bd1c7eff75313",
+      "role": "primary exact approved same-character apricot-chat mother, identity/pose/geometry edit target"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "role": "approved corresponding empty literary room environment/whole-light reference"
+    }
+  ],
+  "inputAcceptanceBasis": "Root explicitly approved each same-character apricot chat mother and the matching empty plate; no unreviewed wave-b or old-room figure used.",
+  "wholeSceneRelighting": true,
+  "newUIPaletteOption": false,
+  "promptFile": "nyamu-chat-rain-v1.prompt.txt",
+  "promptFileSha256": "6035a2772dcf701664a37f593b5b18d8df259f5c3c0eefb8e23d3383e3ee7cd4",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; exact submitted text",
+  "submittedPromptSha256": "3a334e1105781b6712a58a7dce65728ec0fedb613a78e09e41f159f2d9eb9122",
+  "output": {
+    "file": "nyamu-chat-rain-v1.png",
+    "sha256": "738140bb348e29cae7d7007ab4ceaaa438703dc9e41391146401e8d094060e2f",
+    "bytes": 2355951,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved complete mother at the six-call limit. Rainy dark-blue exterior and warm existing room lamps relight lavender hair, skin, grey ruffles/black skirt, speaking hand, supporting palm and room together, rather than a white-daylit person against black windows. Source chat pose/hip-seat relation, complete head/shoes, uncrossed knees/ankles and comparable apparent scale/coordinates remain stable; red-purple irises/eyelids stay distinct from fringe. Strong patterned warm floor-light patches remain near the rug and appear more pronounced than the smoother approved night plate; this specific lighting correspondence is left for root judgment, not hidden or prequalified. No new prop, forced sadness/sleepiness, indoor rain or split view. Root/layers/runtime pending; no further generation or layer work."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "Whole-scene static mother candidate only; root review pending. Apricot layer masks do not grant light-variant layer acceptance.",
+  "privateUserDataUsed": false
+}

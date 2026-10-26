@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-attention-mist-figure-step2-v1",
+  "cell": "soyo/attention/mist",
+  "stage": "figure-step2-v1",
+  "tool": "image_gen.imagegen",
+  "actualToolArguments": {
+    "prompt": "Use case: background-extraction. Asset: same-canvas complete foreground luminance mask F2.\nThe ONLY input is the exact 1536x1024 F1 selection-marked Soyo attention mist scene. Keep all actual deliberate foreground at its exact existing source coordinates, no crop/resize/zoom/shift/new silhouette. Convert the ENTIRE already-whitened person PLUS the WHOLE book held on her lap to FULL SOLID WHITE, ALL other naturally colored/bright environment BLACK. Preserve all fine hair tips/loops, full face/body/hands/fingers, uniform and skirt trim/hem, both exposed knees, socks, both COMPLETE loafers including dark sole/heel edge, and EVERY open book cover/page block/page corner/spine. Real original colored gaps between hair and legs stay black.\nCRITICAL: F1 contains faint gray interior outline marks on the otherwise white book/hands/clothes. These are INTERNAL marks, NOT real gaps or background. Flatten ALL those internal gray lines to WHITE, including the line between the white book underside and lap/knees. White interiors must be opaque contiguous without a thin black line cutting away the page or finger. Only actual colored room gaps become black; do not interpret pale book paper or its gray edge line as a hole. No face/clothing details left inside the silhouette. Do not erode the book's thin outer edge, finger outline, skirt border or full shoe sole to remove lines. Keep actual genuine gaps, do not join unrelated items.\nEverything not deliberately selected in F1 becomes BLACK: natural pale cushion/curtains/flowers/lamp/cup, window/town/room, independent cushion/floor shadows, rug and floor highlights. No white long bench or bright-room patch. Output exactly one opaque 1536x1024 black PNG with only complete white person+lap book, thin antialias at actual outer edges only. It selects the unchanged clean source mother RGB once through MAX(F,S); no colored AI figure or new pose is adopted.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/attention-layers/mist/figure-step1-marked-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "submittedPromptSha256": "d2b8583d9f886c8c3f538ecef4279386124c222b968067cfa21a37fba028c29e",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/attention-layers/mist/figure-step1-marked-v1.png",
+      "sha256": "004c4f7233538481641f1d2df494200372792efb7457790f77dd43da480656cd",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-attention-mist-literary-v1.png",
+    "sha256": "34f51931954d0d3db7c9a89a1195113f794768bfed32b7a21855a50c98773b48",
+    "bytes": 2481568,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    }
+  },
+  "rootPrimaryRecordSha256AtRead": "f6b3a0b7ac9974993b61553e907f0ebfa7c39763ebef7d33ca7efb215a99fbb2",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/attention-layers/mist/figure-mask-v1.png",
+    "sha256": "f2704923b4457c37ae595dc4a5cafa7dc50b475efc7300f6ca90759575e2dd30",
+    "bytes": 430113,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-74cd715c-f020-450d-bdb4-922fba4773ca.png",
+  "producerObservations": [
+    "Personally viewed actual F2 full canvas: complete white foreground, both shoes, open book and fine hair with black environment; no grouped geometry shift seen. Faint gray interior book lines remain for exact original RGB review, not approved layer."
+  ],
+  "status": "mask-candidate-awaiting-original-rgb-review",
+  "pngBytesUnchanged": true,
+  "pngPixelEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0
+}

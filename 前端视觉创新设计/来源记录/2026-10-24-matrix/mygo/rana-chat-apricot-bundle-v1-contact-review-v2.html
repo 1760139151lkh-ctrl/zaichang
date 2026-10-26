@@ -1,0 +1,28 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rana 坐垫接触 · 补层候选 v1 观察</title>
+<style>
+*{box-sizing:border-box}body{margin:24px;max-width:1536px;font:15px/1.5 system-ui,"Microsoft YaHei",sans-serif;color:#302827;background:#eee9e3}h1{font-size:24px}h2{font-size:19px}section{margin:30px 0 42px;scroll-margin-top:16px}a{color:#68412c}nav{display:flex;gap:20px;flex-wrap:wrap}.row{display:flex;gap:20px;flex-wrap:wrap}figure{margin:0;max-width:100%}figcaption{padding:8px 0}.detail{display:block;width:390px;max-width:100%;height:auto}.whole{display:block;width:100%;max-width:min(1536px,calc((100vh - 100px)*1.5));height:auto}.layer{display:block;width:380px;max-width:100%;height:auto}.light{background:#faf7f1}.dark{background:#211b27}
+</style>
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" style="position:absolute"><defs>
+<image id="mother" width="1536" height="1024" href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png?sha256=26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812"/>
+<image id="bg" width="1536" height="1024" href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-background-candidate-v9.png?sha256=d478299aae1bd2953338cf13cee783bce48472e420ced60e2f9c48c05fa0b027"/>
+<image id="figure" width="1536" height="1024" href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-figure-candidate-v9.png?sha256=714ea5f9107e1e799c790d921140ecfa87502f10cb33d808d89a3ab18bc0cc5a"/>
+<image id="shadow" width="1536" height="1024" href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-shadow-candidate-v9.png?sha256=752322c4b74f53e51c7e24cafa5be0ca03d23fc59cc6e39dff68e97ef524df54"/>
+<image id="new-contact" width="1536" height="1024" href="rana-chat-apricot-bundle-v1-seat-contact-candidate-v1.png?sha256=e69d7551af04ecab1c0201c0e3b71a7d92b4c3988e70e2b92f1cfc1aef4615f9"/>
+<g id="old"><use href="#bg"/><use href="#shadow"/><use href="#figure"/></g>
+<g id="new"><use href="#bg"/><use href="#shadow"/><use href="#new-contact"/><use href="#figure"/></g>
+</defs></svg>
+<h1>Rana 坐垫接触 · 补层候选 v1</h1>
+<p>独立静态素材观察。原母图和 v9 层不改写；新透明层原位 source-over，未作位移、缩放或像素修补。不是产品或运行验收。</p>
+<nav><a href="#contact">同尺度接触对照</a><a href="#layer">新层浅深底</a><a href="#scene">新层原位整景</a><a href="rana-chat-apricot-runtime-bundle-v1.html#seat">保留 v1 观察页</a></nav>
+<section id="contact"><h2>同一区域、同一尺度 · x1190 y520 w270 h100</h2><div class="row">
+<figure><svg class="detail" viewBox="1190 520 270 100" role="img" aria-label="原母坐垫接触"><use href="#mother"/></svg><figcaption>原母图</figcaption></figure>
+<figure><svg class="detail" viewBox="1190 520 270 100" role="img" aria-label="原v9坐垫接触"><use href="#old"/></svg><figcaption>原 v9 合成</figcaption></figure>
+<figure><svg class="detail" viewBox="1190 520 270 100" role="img" aria-label="v9加新候选层坐垫接触"><use href="#new"/></svg><figcaption>v9 + 新补层候选 v1</figcaption></figure>
+</div></section>
+<section id="layer"><h2>新 RGBA 层 · 原像素 1:1</h2><div class="row">
+<figure><svg class="layer light" viewBox="1090 270 380 520" role="img" aria-label="新补层浅底"><use href="#new-contact"/></svg><figcaption>浅底</figcaption></figure>
+<figure><svg class="layer dark" viewBox="1090 270 380 520" role="img" aria-label="新补层深底"><use href="#new-contact"/></svg><figcaption>深底</figcaption></figure>
+</div></section>
+<section id="scene"><h2>原位整景 · 不改变原人物 RGB</h2><svg class="whole" viewBox="0 0 1536 1024" role="img" aria-label="v9加新候选层整景"><use href="#new"/></svg></section>
+</html>

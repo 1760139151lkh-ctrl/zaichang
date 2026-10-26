@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "assetType": "project-original-2d-edge-meme-cat-candidate",
+  "characterId": "anon",
+  "shapeFamily": "user-selected-sakiko-meme-cat-v3",
+  "wardrobeId": "project-original-meme-cat/no-human-costume",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in transparent original character generation from family style reference",
+  "promptFile": "anon-edge-meme-cat-v1.prompt.txt",
+  "submittedPrompt": "Create ONE original Chihaya Anon / 千早爱音 (MyGO!!!!!) edge-companion meme cat as a genuinely transparent RGBA PNG.\nThe ONLY supplied picture is the user's accepted Sakiko v3 meme cat. Borrow ONLY its simple family drawing language and apparent scale: integrated flat 2D character head and complete white horizontal loafing cat body, flat white face, a FEW large colored hair shapes, bold smooth dark-navy contour, two uncomplicated circular irises made from two flat color zones, tiny expressive mouth, round front paws, complete rump/hind-paw shape and full curved tail. Head at the left, the long low cat body extending to the right, one shared quiet horizontal baseline through paws and belly, with transparent padding around all parts. No visible room, ledge, page background, floor or shadow. This must look like it was all drawn by the same simple line, never a detailed anime portrait pasted onto a cat.\nCompletely redesign identity and expression as Anon, not Sakiko with recolored hair. Anon has long pink hair with light separated bangs and flowing side hair; simplify the recognizable long pink silhouette into a few broad flat strands that curve gently beside the head and taper behind the front shoulder. Keep clear WHITE face, not beige human flesh. Her eyes are pale gray-blue, two open simple ROUND eyes with two flat horizontal gray-blue zones, matching v3's graphic grammar. No gold eyes, borrowed Sakiko ribbons, hair ornaments, model-style highlights, detailed lashes, glossy realistic irises, blush gradient, big baby proportions or mature fashion face. The triangular cat ears are part of the same original head drawing, not a separate realistic furry insert.\nA very particular little shared joke is happening. She was trying her own small paper fold, rather pleased with the clever shortcut she found. A nearby person has just turned one little wing the 'wrong' way; it unexpectedly looks better. She is still thinking about that crooked wing and has just tilted her head with a small lively, slightly caught-out amusement, as though deciding whether to admit it. Give her a tiny asymmetric open-mouth mark and a lightly lifted eyebrow stroke, not a universal soft smile, exaggerated wink or permanent shouting grin. A SINGLE tiny cream paper bird/half-fold with one visibly crooked wing lies safely between the front paws; one rounded paw lightly touches the fold, the other is withdrawing a little to leave room for the other person. The fold has no lettering and should remain a small subordinate object, not a large card or UI panel. No human fingers, no reaching toward empty air, no trophy held up to the camera.\nThe complete white cat torso remains calmly supported, despite the bright expression: two connected front paws, a readable tucked hind-paw/rump contour, tail emerging from the proper root and curving up at the far right. Do not crop body or tail, invent detached paws, draw a cat-head-only bust, a standing kitten or human limbs. No clothing, school uniform, skirt, socks, shoes, necktie, jewelry, collar or name badge. This is an explicitly project-original 2D cat form, not an official costume or an animal-photo conversion.\nKeep the same v3 family graphic weight and full-body composition, with uncluttered mostly white body and pink hair. True transparent outside the one character and her tiny folded paper. No background color rectangle, fake checkerboard, ambient aura, rim glow, drop-shadow fog, photographic fur, 3D plush, skin folds, plastic rendering, watercolor room, text, speech bubble, logos, watermark or collage. Output one clean complete standalone transparent asset only.",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/运行素材/companion/edge/sakiko-meme-cat-v3.png",
+      "role": "only image input: clean v3 simple 2D family grammar/scale, not another character identity",
+      "sha256": "15b21bfb6c94aef1dfd8ae7b168f970fbe9998cddb705b64ac7dabdceab0c161"
+    }
+  ],
+  "readSources": {
+    "passport": {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/anon.md",
+      "fullReadBeforeCall": true,
+      "version": "2026-10-25",
+      "sha256AtArchive": "de7782a11d0e620b3d25de33ac7a964142a39322e6fa8f0ceceea2bc6d501b19"
+    },
+    "method": {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "fullReadBeforeCall": true,
+      "sha256AtArchive": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840"
+    }
+  },
+  "output": {
+    "file": "anon-edge-meme-cat-v1.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-44c18c6b-d502-40bd-b0eb-17cdbf9523f5.png",
+    "sha256": "f56249db73c9c499914b6232bd2e6c9444cce33631f730835bfaf55606adcf7e",
+    "bytes": 1493250,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      254
+    ],
+    "cornerAlpha": 0
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Whole original viewed: long pink flat hair groups, gray-blue two-zone circular eyes, one lifted/one caught eyebrow and tiny open mouth; one paw touches a small folded paper bird. White face/full horizontal cat body, rump and tail remain coherent. Reference-like faint contour halo remains visible against dark viewer; candidate only.",
+    "decision": "candidate for root personal review",
+    "transparentBackgroundReview": {
+      "personallyViewed": true,
+      "method": "actual browser rendering of original PNG on warm-light, dark and 160px-width surfaces",
+      "page": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mygo/edge-cats/producer-observe-v1.html",
+      "pageSha256": "7f90deccf18a5180984b74140418619ec4a703ba47745f002b8acca85297be2f",
+      "observations": "Full silhouettes and role hair/eye colors remained readable, including full rump and tail; no opaque background rectangle. Root acceptance, actual UI edges and interactions remain separate."
+    }
+  },
+  "primaryApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "humanMatrixCoverage": false,
+  "promptFileSha256": "de131786f5639b74193df197cefe987758d0a9a011bedf0860ed5ff19b2b05ef",
+  "submittedPromptSha256": "4474ee078c2715d5fcbee38d892eb60ee1e664010794febcd39a879e1a709896",
+  "archivedAtUtc": "2026-10-25T15:59:29.158999+00:00"
+}

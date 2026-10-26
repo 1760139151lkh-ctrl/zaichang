@@ -1,0 +1,45 @@
+{
+  "authority": "Parent root personally read existing bridge/API and supplied verified values in current collaborative conversation. Art producer did not read private DB or operateApp/9335.",
+  "material": {
+    "originalName": "rolm-icra2023.pdf",
+    "pageCount": 7,
+    "originalRetained": true,
+    "bytes": 5366959,
+    "providedOriginalShaAbbreviated": "fba7…9359",
+    "sourcePosition": {
+      "page": 1,
+      "unicodeRange": [
+        0,
+        37
+      ],
+      "text": "RoLM: Radar on LiDAR Map Localization"
+    }
+  },
+  "note": {
+    "id": "note-9e06b14a-0d50-4300-a039-cc40450c9ce6",
+    "revision": 1,
+    "title": "rolm-icra2023.pdf · 第1页",
+    "body": "RoLM: Radar on LiDAR Map Localization\n\n这句先放在页边，换窗口也别弄丢。",
+    "savedByActualAction": "留笔记与原文",
+    "sourceRelationship": "Actual original-owner note↔retained PDF source link; not filename/AI inferred grouping"
+  },
+  "separateWork": {
+    "title": "三角钢琴：一次击弦的旅程",
+    "sessionId": "3325dfd3-d055-4740-b4c3-16db98a00e2a",
+    "assistantMessageId": "f8e7c2e0-f733-422d-a02b-d467f3742094",
+    "viewId": "eab137d2-ab9f-401e-8629-beed5d6ab85b",
+    "viewRevision": 1,
+    "localStateRevision": 3,
+    "selectedKey": 60,
+    "selectedNote": "C4",
+    "slowMotion": 40,
+    "slowMotionMeaning": "机构慢放40倍，不是40%",
+    "lengthRatio": 1.25,
+    "tensionRatio": 1,
+    "densityRatio": 1,
+    "velocity": 0.65,
+    "actuallySaved": true,
+    "relationshipToRolm": null
+  },
+  "uiExposure": "No owner IDs, cloud-sync, automatic long-term memory or fake completion receipt in product image. Slow-motion parameters omitted from discovery preview; original state remains with program owner."
+}

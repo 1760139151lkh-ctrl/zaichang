@@ -1,0 +1,48 @@
+{
+  "cell": "mutsumi/attention/rain",
+  "role": "mutsumi",
+  "activity": "attention",
+  "palette": "rain",
+  "stem": "mutsumi-attention-rain-literary-extension-v1",
+  "directory": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\mutsumi\\missing-theme-extension-v1",
+  "prompt": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\mutsumi\\missing-theme-extension-v1\\mutsumi-attention-rain-literary-extension-v1.prompt.txt",
+  "inputFiles": [
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-attention-apricot-v1.png"
+  ],
+  "approvedSeedInspected": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/apricot-wave-b/mutsumi-attention-apricot-v1.png",
+    "sha256": "6a6dd6f09e91cdcf97461452757cbe8ca1ae4ec5bbe382d404d5d0ef8fad3cd8",
+    "bytes": 2459480,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "format": "PNG",
+    "writtenByUtc": "2026-10-25T11:58:52.691803+00:00"
+  },
+  "seedActuallyInput": true,
+  "seedDecision": "Approved source personally viewed: healthy supported identity/wardrobe/action used for continuity only.",
+  "brief": {
+    "index": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/mutsumi-prompt-plan.json",
+      "sha256": "66ade9700cb7bb993b43bd7e247b678878b79ad71237b0b5dcd915a43a3be2ca",
+      "bytes": 101958,
+      "capturedAt": "2026-10-25T09:14:03.037840+00:00"
+    },
+    "jsonPointer": "/cells/31",
+    "briefKey": "mutsumi/attention/rain",
+    "producerBriefRef": null
+  },
+  "targetPlate": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+    "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+    "bytes": 2270751,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "format": "PNG"
+  },
+  "plan": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\missing-human-mother-production-plan-v1.json"
+}

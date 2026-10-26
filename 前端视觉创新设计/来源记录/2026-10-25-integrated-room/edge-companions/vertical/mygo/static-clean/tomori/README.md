@@ -1,0 +1,11 @@
+# tomori：原native alpha保留的竖挂静态素材
+
+原图已由root亲看并准静态方向；本次不重画、不新生图、不抠掉原有主体。完整原图和真实浅暗合成显示native alpha已正常，原黑底工具预览中的蓝云位于alpha0隐藏RGB。只把完全透明像素的RGB置0，所有alpha值及任意alpha>0的RGB逐像素保持原值；无裁切、缩放或换脸。新clean等root亲看128板，不代签runtime。
+
+- clean：`tomori-vertical-edge-cat-v2-static-clean.png`，SHA `5cf86326ee65900d3c6ef7193f6af951d478764a96a3184f3c98605820c9d409`。
+- 实际画布：[1024, 1536]；实际nonzero alphaBounds：[0, 59, 1008, 1520]。原A1微散点会扩大这个实际bounds，不篡改。
+- 实际可见轮廓参考alpha≥8 bounds：[130, 105, 901, 1458]；这是布局参考，不能冒充PNG实际alphaBounds。
+- 独立竖接触轴/sourceY锚点：`(806,980)`；归一化[0.787109375, 0.6380208333333334]。Y仅取真实主躯干近似中部作为摆放参考，不造关节；三爪各有原生y位置。
+- MirrorSafe：True。Only horizontal mirror candidate reviewed; upright face and native aspect retained, no quarter-turn.
+
+亲看`static-128-light-dark-grip-review.png`与`source-contact-coordinate-review.png`，真实接触轴已画在同源128px高浅暗底与三只爪的原生局部。原角色/source记录未修改，完整Prompt/依赖/原ImageGen输出沿candidate内原sourceRecord读取。没有独立尾层，只能静态sprite；不许晃整张PNG声称摆尾，也不旋转90度冒充另一种抱边。

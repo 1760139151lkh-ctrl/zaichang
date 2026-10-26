@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "assetType": "room4-weather-empty-background",
+  "id": "room4-cloudy-day-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "room4-cloudy-day-v1.prompt.json",
+  "promptFileSha256": "df2adbded665b7277f743a45f249c2473b093cb57adba5bf7bada8d5f60024c0",
+  "submittedPrompt": "Use case: lighting-weather. Asset: clean empty room4 CLOUDY DAY environment candidate, not a UI or screenshot.\nImage 1 is the ONLY edit target and sole geometry reference: the approved clean empty room4 at exactly 1536 x 1024. Preserve the full original canvas, camera, perspective, complete outer window frame and mullions at the same coordinates, shelves and writing table/chair at left, central-right desk/chair and its existing blue book/cup/lamp, right bench/cushions/blanket, walls, dry wood floor and rug edges. Keep the broad quiet left-wall reading-safe space. Do not crop, zoom, recenter, resize furniture, add props or add people.\nDepict genuinely CLOUDY DAYTIME with NO RAIN. Replace the original bright blue sunny sky with a naturally luminous pale silver-gray/soft gray-blue cloudy sky, layered broad clouds covering the sun. It remains normal daylight: the same lake, town, distant mountains and autumn foliage stay clearly recognizable, in gentle daylight values and softened atmospheric contrast. The window glass is DRY and clear. Absolutely NO rain, raindrops, wet streaks, puddles, storm, snow, lightning, stars, night sky, sunset or nighttime city lighting.\nRe-light the whole room for broad diffuse cloud-filtered daylight. Remove ALL original strong golden sun rectangles, sharp diagonal sunlight shafts, sharp leaf-shadow patterns and dazzling warm patches on walls/floor/bench. Shadows are gentle and broad, window light neutral cool-gray, warm wood subdued natural honey, curtains and walls softly warm-gray. The room is comfortably readable with refined muted gray-gold balance, not gloomy, not blue-washed, not an unchanged sunny interior behind a gray window. Preserve nuanced material textures and the painterly anime architectural style. The existing desk lamp can be unlit or have only a very restrained warm glow subordinate to the diffuse daylight; no new light sources. Floor remains dry polished wood with soft natural reflections, never rain-wet.\nWeather changes the complete spatial light, not a global tinted filter, translucent veil, hard split or collage. Natural plant colors may remain natural; no green UI or green tint. Empty room only, no person, ghost, worn clothes or human shadow. No buttons, words, tutorial, cards, watermark, grid, border or comparison layout. One complete coherent opaque RGB image, 1536 x 1024.",
+  "submittedPromptSha256Utf8NoTrailingLF": "41e680757f4ad69647f74c848b0440557dbbd9bc308f8ee0f9b521f1e6b2515b",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-apricot-candidate-v4.png",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+      "role": "sole personally viewed approved clean room4 edit target",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB"
+    }
+  ],
+  "transparentBackground": false,
+  "output": {
+    "file": "room4-cloudy-day-v1.png",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17126-cdea-77e3-9abe-3d71acd87e8b\\exec-5a97fb5a-6af3-4c1a-ae17-d736aca1fe2c.png",
+    "sha256": "d218968a3f057a961dd0e9bfbc88ae9c95fc78c0d6e49dfdaf4c71e78c4e8526",
+    "bytes": 2235147,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "intendedCondition": "cloudy",
+  "isDay": true,
+  "rain": false,
+  "designIntent": "真实天气改变整个空间气氛，角色不随雨强迫悲伤、UI纸面协调。图库是表现材料而非天气证据；未知或失效数据不能配假天气。",
+  "review": {
+    "personallyViewed": true,
+    "observation": "Personally viewed the generated full image. Broad luminous silver-gray layered clouds cover the sun; the window is dry, with clear daytime town/lake geometry and no rain, droplets or night lighting. The whole room receives soft diffuse neutral daylight; the original sharp sunny floor beams and leaf shadows are absent, while warm wood and quiet gray walls stay readable. Existing lamp is subdued and no green UI or tint was added. Furniture, full window edges and left reading space remain visually aligned to room4. This is a visual candidate assessment, not pixel-perfect registration, weather evidence or runtime acceptance.",
+    "approvedByRoot": true,
+    "rootApproval": { "sha256": "d218968a3f057a961dd0e9bfbc88ae9c95fc78c0d6e49dfdaf4c71e78c4e8526", "scope": "Same-room pure empty weather background only; no runtime, figure layer or character-mother acceptance.", "evidence": "Root directly reported personally viewing this complete original PNG and accepting preserved furniture/window anchors and dry-cloudy-day distinction." },
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  },
+  "status": "root-approved-empty-weather-background-only"
+}

@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "assetType": "project-original-vertical-edge-meme-cat",
+  "characterId": "tomori",
+  "tool": "image_gen.imagegen",
+  "mode": "reference-family-style-plus-original-character-design",
+  "wardrobeId": "project-original-white-cat/no-human-costume",
+  "promptFile": "tomori-vertical-edge-cat-v2.prompt.txt",
+  "submittedPrompt": "Create ONE original transparent-background vertical edge companion sprite of Takamatsu Tomori from MyGO!!!!!, reinterpreted as a simple 2D human-cartoon head integrated with a complete white meme-cat body.\n\nThe attached approved Sakiko sprite is ONLY a family drawing-language and vertical paw-support reference: sparse clean dark navy contours, a flat white face, simple circular eyes with two flat color zones, a few broad hair shapes, one complete downward cat body, a readable tail. Do NOT copy Sakiko's blue hair, ribbons, gold eyes, face performance, or identity. Rebuild Tomori independently. Do not rotate a horizontal cat ninety degrees. HIGHEST PRIORITY GEOMETRY CHANGE FROM THE REFERENCE: the reference face is noticeably diagonal. DO NOT copy that tilt. Recompose the head straight upright, facial centerline exactly vertical. The centers of BOTH EYES must have exactly the SAME Y POSITION, horizontally aligned, and the little mouth centered on the vertical nose axis. Both cheeks should sit at the same height. The top head may have asymmetrical hair, but the facial plane itself is upright, not leaning. Her body may curve slightly to clasp the side. This is essential for readable upright UI faces.\n\nIdentity from the officially observed character, translated into this spare original cartoon: Takamatsu Tomori has a short layered steel-gray / muted gray-purple bob, jaw-to-nape silhouette, uneven soft fringe and a few cheek tufts, muted rose-brown / dusty pink-gray irises. No large hair bow or special ornament. Keep these few recognisable shapes. No human costume, no uniform, no socks, no microphone. Do not make a realistic anime head pasted onto a cat. Everything uses the same simple outlined 2D graphic language. White face and body, no skin tint, no fleshy folds, no fur rendering, no 3D, no glassy infant eyes, no mature makeup.\n\nThe moment has a reason: she had been following a tiny irregularity along the page edge with quiet concentration. Someone familiar notices the same thing. She turns her attention outward to check whether they mean the very same small detail; this is attentive recognition, not frightened dependence or a customer-service smile. Give her round rose-gray eyes looking level toward the viewer, eyebrows gently collected with an almost imperceptible lift at the inner ends, a very small CLOSED thoughtful mouth, not the reference's w-shaped smile. No tears, sweat, hearts, symbols, text, or speech bubble. Her limbs remain engaged in her own little investigation while she listens.\n\nComposition and support: one complete character, upright portrait composition with generous transparent clearance all around. The head sits above a compact white torso. Her body is on the LEFT of an imagined vertical edge located around 74 percent of the canvas width; the edge itself must NOT be drawn. Both front paws curl to the RIGHT to clasp that same imaginary vertical edge, one higher beside the lower cheek, one lower beside the upper torso. Their forward contact tips should form the same nearly vertical x coordinate. A visible bent hind leg and hind paw lower down gently brace that same edge, with believable attachment to the rump. All limbs connect clearly to this one body; no spare paws, no amputated limbs. The abdomen hangs naturally down rather than becoming a sideways loaf. A complete white tail grows from the lower rump, descends and makes one soft natural curve down-left; its root must be connected. Cat ears may be minimally integrated behind her short hair with white inner space, never becoming a new hair ornament. Keep her face level and unrotated. The edge/contact geometry should be immediately readable without adding any panel, ruler, line, ledge, shadow plane, or rectangle.\n\nMatch the reference's concise, slightly mischievous meme-cat family and overall head-to-body visual weight, but use less internal detail rather than ornamental polishing. Flat warm-white fills, restrained two-zone gray-purple hair and pink-gray irises, clean dark navy outline of consistent readable thickness; tiny hand-drawn contour softness is welcome. No gradients in the eyes, no light reflections as white star shapes. Absolutely NO outer glow, NO halo, NO cast shadow, NO colored haze or translucent cloud around the outline; transparent pixels immediately outside the normal narrow antialiased contour. Keep the white body fills fully opaque. No background, no floor, no objects outside the body. Truly transparent RGBA PNG. Show the whole head, ears, paws, body and tail uncut. This is a new vertical asset for optional later rigging, not a screenshot, not a UI mockup and not a collage.",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/edge-companions/vertical/sakiko/sakiko-vertical-edge-cat-pilot-v1.png",
+      "role": "accepted vertical family drawing language and paw-body support only",
+      "sha256": "5bfc229f5c0506f6fcb93646d4058543d42dbba910eafb5f99a5ebdefcb55d05"
+    }
+  ],
+  "readSources": {
+    "passport": {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/tomori.md",
+      "fullReadBeforeCall": true,
+      "version": "2026-10-25",
+      "sha256AtArchive": "3a73a8f8299e7645ea96f6d07051a38bb2ccdb4b4e7e25e19eb08d51e2d08d3c"
+    },
+    "method": {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "fullReadBeforeCall": true,
+      "version": "2026-10-25",
+      "sha256AtArchive": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840"
+    }
+  },
+  "facts": {
+    "officialSources": [
+      "https://mygo-movie.bang-dream.com/character/tomori/",
+      "https://bang-dream.com/artist/mygo/takamatsu-tomori/"
+    ],
+    "identityObserved": "灰紫/钢灰层次短发、粉褐/灰玫瑰眼；未确认独占大发饰。",
+    "projectOriginal": "二维人物简笔头+完整白猫竖身与跟随纸边细微凹痕、回应共同发现的情境是项目原创，并非原作事实。官图只作护照身份观察，本次没有官网图像输入。"
+  },
+  "output": {
+    "file": "tomori-vertical-edge-cat-v2.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-c26bd4f4-f5fb-40d7-aa44-8487531bcfc2.png",
+    "sha256": "bd1d77270b476f8f835ff7124dfc2ed1eb34e7bfe10b63547a692f3bd8b6ab7a",
+    "bytes": 1360620,
+    "width": 1024,
+    "height": 1536,
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      254
+    ],
+    "cornerAlpha": 0
+  },
+  "producerReview": {
+    "status": "producer_candidate_pending_primary",
+    "fullImagePersonallyViewed": true,
+    "observations": "原图亲看：灰紫短发、粉褐两色圆眼、闭口认真；脸已正向，两眼水平，身体竖向、两前爪及弯后腿朝同侧、尾根连续下弯。候选接触x仍需主代理真实面板核。工具黑底显示的紫晕抽查为alpha0的隐藏RGB，并非据此认定可见不透明背景。",
+    "contactProposal": {
+      "canvasSize": [
+        1024,
+        1536
+      ],
+      "bodySide": "left-of-imagined-edge",
+      "pawSide": "right",
+      "upperPawApprox": [
+        852,
+        690
+      ],
+      "middlePawApprox": [
+        823,
+        858
+      ],
+      "hindPawApprox": [
+        826,
+        1233
+      ],
+      "proposedEdgeX": 834,
+      "note": "手工亲看近似点，不是分层/像素遮挡或runtime准入；上下接触点略有x差异，后续rig应亲核。"
+    },
+    "smallSizeReview": {
+      "method": "Chrome真实静态HTML逐行亲看，原PNG CSS 300/128/64px高，浅纸/深蓝灰背景",
+      "observationPage": "producer-observe-v1.html",
+      "allFiveRowsPersonallyViewed": true,
+      "visibleResult": "未见明显不透明背景板、紫晕或裁断。128px发眼及抱边轮廓可读；64px只宜承担轮廓和色块，细小嘴角不承载复杂语义。",
+      "notClaimed": "未签rig、两侧身份、拖动、气泡或runtime准入；主代理仍须亲看。"
+    }
+  },
+  "primaryApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "humanMatrixCoverage": false
+}

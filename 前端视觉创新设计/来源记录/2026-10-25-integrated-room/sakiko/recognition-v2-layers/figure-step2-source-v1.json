@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-source-complete-foreground-luminance-mask",
+  "id": "sakiko-resume-apricot-recognition-v2-F2",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "dossier": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+    "version": "2026-10-25.1",
+    "readComplete": true,
+    "wardrobeId": "sakiko-literary-navy-adaptation"
+  },
+  "method": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+  "promptFile": "figure-step2-prompt-v1.txt",
+  "submittedPrompt": "Use case: background-extraction. Asset type: SAME-CANVAS COMPLETE FOREGROUND LUMINANCE MASK, STEP F2, for Sakiko recognition v2. Image 1 is the ONLY input: the 1536x1024 original-colored room in which the actual original girl and her held open book were already painted solid white.\n\nKeep the ENTIRE EXISTING WHITE GIRL-PLUS-BOOK foreground in exactly the same source coordinates and shape. Change ONLY the remaining colored environment to solid pure BLACK. This is an in-place background conversion, not a new silhouette drawing. Do not crop, resize, recenter, zoom, translate, rotate, change the pose, contract or erode the selected foreground.\n\nThe preserved white foreground includes all long hair/ribbon contours, face/neck, all cardigan and sleeves, full hands/fingers, all book covers/spine/pages, every outward-folded plaid skirt tip and dark lower clothing trim, both thighs and exposed knees, both actual BELOW-KNEE calf socks and their cuffs, BOTH complete loafers including toe tips, thin outsole rims, heel walls/blocks and the entire original bottom contour. Original antialiased outer edges may be thin grey; object interiors remain pure white with no eye, clothing or book linework. Keep only actual source-background gaps between strands, limbs, book or shoes; never reinterpret the girl as a new pose.\n\nAll colored furniture, linen, pillows/throw, table, lamp/shade, cup, books, plants/shelves, curtains/window/clouds/lake/town, wood floor/rug and all independent cast/contact shadows become BLACK. Natural bright-white cloud, curtain, linen and sun patches also become BLACK; they are background, not the intentionally painted solid-white girl.\n\nOutput ONE opaque 1536x1024 PNG: black canvas with this full unchanged original-position white foreground only. No color room, checkerboard, labels, grid, arrows, boxes, new shadow, text or watermark.",
+  "inputs": [
+    {
+      "path": "figure-step1-marked-v1.png",
+      "sha256": "25a4f7358dca3917f006715b143c3afdc4363b401930c107562a6d27fd1bbca4",
+      "role": "only exact same-canvas source for this selection step",
+      "actualSha256": "25a4f7358dca3917f006715b143c3afdc4363b401930c107562a6d27fd1bbca4"
+    }
+  ],
+  "output": {
+    "file": "figure-mask-v1.png",
+    "sha256": "12fab43e02b4afb8c00cca76a208b4905d58919643667f1412bddd6c5e7626d3",
+    "bytes": 448042,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-454d-7bb3-8b77-bcaadd75b8a4\\exec-3427c81b-9f68-4185-80b0-00f9153766c8.png"
+  },
+  "review": {
+    "producerPersonallyViewed": true,
+    "observation": "Native 1536x1024 foreground mask personally viewed; full girl/book contours, calf socks and complete loafers retained in source position. Tiny internal gaps still require original-RGB composite inspection.",
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  },
+  "status": "producer-viewed-native-selection-awaiting-composite-review",
+  "submittedPromptSha256Utf8NoTrailingLF": "c34a12402087085151566e9f783727b1064ed2666ea818c127015d7e9b6befff",
+  "promptFileSha256": "3ae15cbb02fc4953974f88d47ac29770f03b229e1a67adfa896aa3369e751327",
+  "promptEncodingBoundary": "submittedPrompt is the exact built-in inline text; prompt file retains its terminal LF independently."
+}

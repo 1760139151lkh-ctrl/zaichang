@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "assetType": "literary-room-complete-mother",
+  "id": "rana-play-apricot-literary-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "rana-play-apricot-literary-v1.prompt.json",
+  "promptFileSha256": "6c0ef938d90fa6de29135aaa6812bb3ee66c8c1fe061548553e5f6e196bdc600",
+  "submittedPrompt": "Create one complete 1536×1024 landscape literary mother illustration. Image 1 is the approved clean spatial plate: retain this exact camera/depth, large lake-town windows, warm apricot light, left wooden desk/chair and shelves, round lamp/cup table, right cream window bench with plaid cushions and knit throw, foreground plants, rug and wooden floor. Image 2 is the correct Rana Kaname identity/clothing and close bench apparent-scale reference ONLY. Draw a fresh whole scene from the empty room, with a new small play moment, not a pasted prop over her chat pose.\n\n“A paper bird that has not been named.” A paper corner went a little crooked. Rana finds the result more interesting for that: it is not quite a standard bird and seems to have its own temper. She pauses with this small discovery between you, a brief real spark of pride in her gold and blue eyes, curious whether you will give it another name. The fun does not need to become an achievement. The smile is short, private and specific, perhaps barely one mouth corner, not exaggerated cuteness, a broad mascot grin, or generic reassurance. Her own delight and judgment should feel alive, without using a cat or guitar as shorthand for her character.\n\nShe is securely seated on the near RIGHT cream window bench, upright and easy, matching reference 2's actual apparent head size/depth: crown about y110, complete boot soles around y890, without a head lunge toward camera. One small irregular folded off-white paper shape is held in a simple visible finger grip just above her lap, well below her face and close to her body depth. Her elbow can rest lightly by her thigh; the other hand is supported naturally on her own knee/cushion. The tiny paper must not look like a living creature or a floating object. Keep hand/wrist/sleeve relationships simple and plausible. Hips/thighs sink into the linen cushion, knees/lower legs connect naturally, both full black boots have a believable relation to the floor. Full head, hair and shoes in frame. Leave distant left desk/chair empty; no sprawling craft supplies or added furniture.\n\nDistinct Rana identity: short silver-white bob, soft separate bangs and faint lavender tips; own-right iris golden yellow, own-left iris blue (viewer-left gold/viewer-right blue in frontal view). Eyelids, irises, eyebrows and fine hair strands remain independent and readable. Original loose black short sleeve outer shirt over pale white long sleeves, white shorts, black lace-up ankle boots. Youthful anime face within rich warm fabric/wood/plant rendering, sunlight shared by paper, hands, face and room, natural bench and floor contact shadows. No character spotlight, costume change, new person, UI, text/caption, readable message, cat or guitar. A single cohesive lived-in mother scene with her odd small discovery as its emotional center.",
+  "submittedPromptSha256Utf8NoTrailingLF": "7a496bf9697a00c1195d81c4755d27cd52890499890daf4d794d8219895e008f",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "sole-room-and-camera-input"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.png",
+      "sha256": "060e897c7b9ebdefc5ab84d6fbada2983625b19e6a4ebc57501ede19c5259919",
+      "role": "root-approved-Rana-identity-and-near-bench-scale-only"
+    }
+  ],
+  "output": {
+    "file": "rana-play-apricot-literary-v1.png",
+    "sha256": "013996c5bc9396bb23c6f36e4be2d6f3e8b3cb81f4e3bd07121692216488aa21",
+    "bytes": 2437608,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-a7376f14-2a55-4506-b726-7e119864610d.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "primaryApproved": false,
+    "layerApproved": false
+  },
+  "status": "producer-viewed-awaiting-root-mother-review",
+  "producerReview": {
+    "reviewedAt": "2026-10-25T12:27:59.390033+00:00",
+    "method": "Personally inspected actual full native ImageGen output at 1536x1024 before next call.",
+    "observations": [
+      "Actual small folded off-white bird-like shape held by a visible simple grip, with other hand resting on knee.",
+      "Brief restrained smile and curious gold/blue gaze differentiate the play moment; fine bob, eyelids and irises readable.",
+      "Hips/thighs supported, knees/lower legs continuous, full boots visible near reference depth with soles around y890."
+    ],
+    "issues": [
+      "The model raised the paper to chest/shoulder height rather than just above lap; visible arm/hand still coherent and paper remains below face.",
+      "This is a single original paper-play moment, not a generic activity symbol or temporal proof."
+    ],
+    "rootApprovalRequired": true
+  },
+  "character": "rana",
+  "activity": "play",
+  "palette": "apricot",
+  "creativeBrief": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/rana-play-apricot.md",
+    "sha256": "209a968fbf9c939f94b79e128c5984ebe56078b98e510027f484dc1a71771e3e",
+    "title": "一只还没命名的纸鸟",
+    "role": "literary-direction-text-only"
+  },
+  "generationBudget": {
+    "wave": "rana-apricot-wave-a",
+    "maxCalls": 8,
+    "callOrdinal": 6,
+    "callsForThisCell": 1,
+    "retries": 0
+  },
+  "approvalBoundary": {
+    "primaryAccepted": false,
+    "layerAccepted": false,
+    "runtimeAccepted": false,
+    "runtimeRegistered": false,
+    "rootReviewPending": true,
+    "motherOnly": true
+  }
+}

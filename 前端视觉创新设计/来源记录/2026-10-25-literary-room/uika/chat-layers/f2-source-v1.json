@@ -1,0 +1,39 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "two-step-source-selection",
+  "character": "uika",
+  "activity": "chat",
+  "palette": "apricot",
+  "sceneFamily": "literary-room-v1",
+  "step": "F2",
+  "roleCallSequence": 2,
+  "roleCallBudget": 4,
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.png",
+    "sha256": "df94d1a87f41775108d5b319a6bcc8ec4372283b770ef05ae764adedf2500c5d"
+  },
+  "numberOfImageInputs": 1,
+  "actualInput": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/figure-step1-marked-v1.png",
+    "sha256": "ae39dc2768c45021aa271ce06a17f709812c010e1a7c1090fd382b044742f483",
+    "role": "sole exact F1 marked source; no redraw"
+  },
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-5f5d910e-f06b-4167-8bc0-027a0aea174c.png",
+  "output": "figure-mask-v1.png",
+  "outputSha256": "937cb2e07ce767950ef7f113a8a3131f5b2f21569bd09fcb391050ae88004bea",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "actualMode": "RGB",
+  "promptFile": "f2-actual-prompt-v1.txt",
+  "actualPrompt": "Use case: background-extraction. COMPLETE foreground luminance mask, STEP F2.\nImage 1 is the ONLY input: the exact 1536x1024 UIKA original scene with the full character already painted solid white in F1. Keep EVERY EXISTING WHITE FOREGROUND PIXEL at the exact original coordinate and its entire contour. Change ONLY the remaining colored environment to pure BLACK. This is in-place background conversion, not a new silhouette drawing. No crop, recentering, scaling, translation, pose change, contraction or erosion.\nKeep ALL selected short blonde hair and every fine tip, violet-eyed face/neck, entire white T-shirt including all sleeve edges, both complete arms/hands/fingers, entire long taupe skirt including all folded hem tips and its dark lower outline, both calves/ankles, white socks, BOTH complete black-and-white sneakers with laces, toe caps, dark sole rims, heels and full bottom contours WHITE, including the full fine dark garment hem and ALL sole rims, heel blocks and shoe bottom contours already whitened. Do not mistake dark clothing edge or outsole for floor/cushion shadow. All subject interiors stay solid white with no eye, finger-line, lace or cloth-fold holes.\nSource position guides only: head/hair near x970..1175,y120..320; white tee/arms near x990..1305,y285..580; long taupe skirt near x865..1235,y470..798; two complete sneakers near x842..1015,y775..879; supporting palm near x1225..1310,y548..585. Preserve actual negative space where original room was visible between hair strands, limbs/fingers and the two shoes. Natural bright shirt/skin or white shoe caps that are character remain white as part of already painted subject; natural bright room is NOT selected.\nTurn curtain, clouds, ceramic lamp/cup, flowers, white linen cushion, plaid-pillow stripes, throw, sunlit floor/rug, wood, window, desk/chair and ALL independent shadow/receiver material BLACK. Thin gray original edge antialias only, no broad halo, room patch or new shadow.\nReturn ONE complete opaque black 1536x1024 PNG with exactly the unchanged original-position selected character white. No transparency, colored room, labels, grid, boxes, text or collage.",
+  "actualPromptSha256NoTrailingNewline": "e2550c145511f95d6b6b67d9dd897ffada13f4cf02d3dd9ecd704c5fe8391ab7",
+  "promptFileSha256": "e2550c145511f95d6b6b67d9dd897ffada13f4cf02d3dd9ecd704c5fe8391ab7",
+  "producerViewed": true,
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "representation": "F/S union is fixed original-source joint subject with included local receiver material; not portable caster or new RGB figure.",
+  "pngEdited": false,
+  "rawOutputObservation": "Raw foreground mask personally viewed: source-position white figure, full hair/hand/long-skirt/ankle/shoe silhouette on black room."
+}

@@ -1,0 +1,10 @@
+Use case: precise-object-edit.
+Asset type: a technical BOOK-AND-FABRIC repair underlayer, original 1536×1024 reading scene.
+
+Remove BOTH of the character's visible skin-colored HANDS completely from the book. Remove the hand/finger patch at the viewer-LEFT book corner near (1253,515) AND the hand/finger patch on the viewer-RIGHT book cover near (1335,524). There should be ZERO visible hands or fingers anywhere near the book in this technical plate. Do not replace either hand with another pose, sleeve cuff or extra skin. Only those hand regions and, if needed to make the repair clean, their short adjacent lower-forearm regions change.
+
+Repair the exact blue book cover, page edges, clothing or background surface that these hands previously hid. Keep the open book at the exact original position, angle and size over the lap. It may look unsupported by hands in this underlayer; that is intentional. Do not move, close, shrink or replace the book. Do not add a table or new support.
+
+All other pixels follow the approved source: character identity, face and hair, shoulders/torso, bow, reclined support, crossed legs and feet, pillow, bench, room, camera and warm light. No new pose, zoom, crop, transparency, text or diagrams.
+
+The renderer will restore the ORIGINAL left supporting hand and the complete right-arm component over this plate. Only the repaired pixels behind the original right hand are needed. Output one normal opaque same-scene PNG with no visible hands at all.

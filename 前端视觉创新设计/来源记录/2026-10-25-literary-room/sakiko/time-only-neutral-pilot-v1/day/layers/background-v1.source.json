@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "stage": "BG",
+  "tool": "image_gen.imagegen",
+  "recordedAt": "2026-10-25T22:35:51.012036+00:00",
+  "sceneFamily": "literary-room-v1",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "motherSha256": "35a318faaab82305b4a5f28e4f109701986e7ce75b312536835216306c2945af",
+  "inputImages": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-day-v1.png",
+      "sha256": "35a318faaab82305b4a5f28e4f109701986e7ce75b312536835216306c2945af"
+    }
+  ],
+  "promptFile": "background-v1.prompt.txt",
+  "promptFileSha256": "b25c7a1a1ba0dc74d5a116d6e0a3e0007d2d9c6b645d9fafe7a9cd1a80514454",
+  "requestFile": "background-v1.request.json",
+  "exactSubmittedPrompt": "Use case: precise-object-edit. SAME-MOTHER EMPTY RECEIVING BACKGROUND. The ONLY input is exact root-approved1536x1024 Sakiko neutralreading time-onlyDAY complete mother.\nObject-removal edit only, NOT a newroom illustration/recolor/exposure/camera or curtain move. Keep entire1536x1024 framing and every original furniture/curtain/floor coordinate.\n\nRemove ONLY the completegirl including every fine hairstrand/darkribbon, all cardigan/skirt/hands/barethighs/knees/socks/both fullshoes, her ONE openbook and person/book/shoe-specific contact/compression/localcastshade. Leave no human/book/shoe silhouette/ghost, no replacementperson/object. Reconstruct the actual original room directly behind: continuous opaqueivorycurtain where body/hair hid it; original linen seat with naturalfolds and no seatedcompression; same wooden benchfront and actualfloorplanks/softdaydiffusereflections where legs/shoes/contactshade were. Keep all unrelated realroom shadow/light, NOT removing table or curtain reflections.\n\nThe original room is CURRENT literary-room-v1 (NOT room4): leftdesk/woodchair/shelves/foregroundplant, middle-left ROUND sidetable/bluefloralceramiclamp, vaseflowers/smallstackbooks/cup, RIGHT longbench/cushions/checkpillow/knitthrow, woodfloor/rug. Preserve their original coordinates/material/linework. Keep FULL OPAQUE innercurtain closed exactly asinput: no exteriorweather visible, no newslit, window/lake/city/rain/stars/sky/snow/tree silhouette. No harddaylight solarwindowgrid/leafpatch; same soft time-only diffuseDAY light and original practicallamp presence.\nThe emptybackground will receive sourceRGB union of originalhuman+book+localcontact at exact originalpositions. Receiver geometry/scene matching is critical; do not redesign benchdepth/seamedge/floorplanks, smooth away originaltexture, shift lamp/furniture or lighten/darken the wholeimage. Output one opaque1536x1024 cleanemptySAME scene. No UI/text/grayblock/whitepanel/guide/extraobject.",
+  "submittedPromptSha256": "ee120d844228355a7170a0cdc5b6bcbde74e1af07b3b4c5e97f3012e180e53f0",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-e1c630e1-65ca-4168-8cd1-a1c1ec94c52f.png",
+  "toolOriginalSha256": "ff438a04b35a7a3a86b21b1cb21f11534b1a991dcb32bf2033ff6ad3de0ecb67",
+  "output": {
+    "file": "background-v1.png",
+    "sha256": "ff438a04b35a7a3a86b21b1cb21f11534b1a991dcb32bf2033ff6ad3de0ecb67",
+    "bytes": 2239428,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "unchangedToolPngBytes": true
+  },
+  "producerReview": "Wholeimage viewed: figure/openbook/shoes/contact removed; continuous closedcurtain, linen bench and woodfloor restored in same literary time-day light. No exteriorweather/person ghost. Hiddenpixels are generated reconstruction, not claimed exact.",
+  "dossierVersion": "2026-10-25.1",
+  "role": "Same-mother person/book/contact removalBG",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "selectionStatus": "producer-selected-after-native-browser-review",
+  "nativeBrowserReview": "neutral-reading-time-day-included-bundle-v1.json"
+}

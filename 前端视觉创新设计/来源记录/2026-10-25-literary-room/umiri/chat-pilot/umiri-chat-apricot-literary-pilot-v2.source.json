@@ -1,0 +1,72 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "new-text-variant-simple-seated-pose",
+  "sceneFamily": "literary-room-v1",
+  "character": "umiri",
+  "activity": "chat",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "numberOfImageInputs": 1,
+  "generationMode": "sole-approved-empty-plate-input",
+  "input": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "role": "sole actual image input, approved clean plate"
+  },
+  "heldPriorMother": {
+    "path": "umiri-chat-apricot-literary-pilot-v1.png",
+    "sha256": "3c6dc9fdff30dc91141da199aea07e3c279c14ac6b561a8e07099a2e69905649",
+    "role": "historical held record ONLY, never supplied as image input"
+  },
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-a0138977-79cc-4edf-a6f6-9a99f156d1bb.png",
+  "output": "umiri-chat-apricot-literary-pilot-v2.png",
+  "outputSha256": "b54800a320a163629dba745183efa63d18a83aa1ae19ba0f9382fdb546b12844",
+  "promptFile": "umiri-chat-apricot-literary-pilot-v2.prompt.txt",
+  "prompt": "Use case: stylized-concept, NEW complete same-room character mother with a very simple unambiguous seated pose.\nOutput ONE whole 1536 x 1024 warm-apricot literary room image. The ONLY image input is the approved CLEAN EMPTY literary room plate. It supplies exact room geometry, camera, furniture, materials and daylight. No previous person, ambiguous pose, Umiri v1 or Sakiko picture is an image input. Draw the complete character freshly from these words inside the empty plate.\n\nLOCK THE ROOM: preserve the connected large wooden window, lake/mountain town, sheer curtains, left wooden desk and chair, shelves/books/plants/pictures, round side table with porcelain lamp/books/cup/flowers, long cushioned right window bench, plaid pillows, knitted throw, foreground books/plant blur, rug and wooden floor. Same close camera, original furniture positions and scale. No camera move, crop, zoom, figure enlargement, new furniture, empty gradient or UI.\n\nUMIRI IDENTITY: Yahata Umiri (八幡海铃), original youthful BanG Dream! Ave Mujica anime high-school identity, with a soft young jaw and an ordinary slim teenage build. Charcoal-gray SHOULDER-LENGTH hair, subtly cool, divided side-swept fringe with a small visible forehead, fine cheek strands and small outward-flipped shoulder tips. Clear GRAY-TEAL irises, pupils and delicately drawn eyelids; keep fringe, upper lid, lashes and iris separately readable. No adult glamour makeup, fashion-model face/body, chibi head, purple/gold eyes or long silver hair.\nModest casual outfit: short BLACK BIKER JACKET over a DEEP RED top, plain GRAY SHORT SKIRT, simple black choker, small silver earrings, complete BLACK LACE-UP MID-CALF PLATFORM BOOTS. Distinguish gray hair, black leather, red fabric and skin under the warm light. No instrument, bass, clipboard, calendar, badge, greeting prop, stage symbol or borrowed Sakiko uniform.\n\nLITERARY CHAT FEELING: she has caught one little odd detail in the other person's story and is about to make a dry, gently funny observation with an almost serious face. Calm eyes toward the nearby left-foreground listener, one brow only slightly lifted, lips at rest with a tiny softness at one corner. Warmth underneath composure, not a wide generic grin, cold villain smirk, wink, alarm or stern manager pose. She can enjoy idle talk with nothing to organize.\n\nCRITICAL SIMPLE POSE — NO LEG OVERLAP:\nSeat her squarely on the front half of the RIGHT bench with hips and both rear thighs visibly supported. Her torso may turn a little toward the listener, but her two thighs and legs keep a SIMPLE SYMMETRIC NEAR-FRONT RELATION.\nThe LEFT KNEE and RIGHT KNEE are SIDE BY SIDE at approximately the same height, each independently visible, with a small natural AIR GAP between their inside contours. Neither knee is on top of, in front of, behind, across or covering the other. No knee-over-knee crossing, ankle crossing, raised leg, hooked foot or tucked leg.\nTwo separate lower legs descend naturally and NEARLY PARALLEL from their own visible knees. Each shin connects continuously to its OWN ankle and boot, without diagonally passing across the other leg. Keep visible separation between calves and between both boots. Both COMPLETE boots have their OWN heel and toe resting on the SAME existing wooden floor plane at nearly the same depth. The sole of each boot bears weight; no raised heel, floating foot or hidden duplicate limb. Knees do not need to press together; choose a relaxed small gap rather than an ambiguous touching overlap.\nModest skirt naturally covers upper thighs; the knees remain readable below it. One relaxed hand rests on ONE thigh above its knee, without hiding the gap or bridging both knees. The other palm supports lightly on the cushion beside the hip. Show both hands and coherent fingers.\nUse ordinary seated foreshortening: supported hips around the actual cushion y=550..585, knees slightly forward of the bench front around y=600..635, ankles naturally beneath them, boot soles around y=870..900. Do not stretch the lower legs to reach a floor target.\n\nSTABLE CLOSE SCALE: full head top about y=110..135, not higher toward the top border. Keep the complete person at the human scale of this literary bench, roughly within x=875..1390. Do not lean the head toward the camera, enlarge the face, change camera or slide a pasted figure to fake support. Entire head/hair tips, both hands, both knees, ankles and both boots are in frame with natural contact shadows. Sitting weight and room occlusion must be believable.\n\nSTYLE: fine youthful Japanese anime character linework naturally integrated into the exact detailed sunlit literary interior. Soft warm-cool skin shading, fine separated hair groups, clear gray-teal eyes, restrained leather highlights and real fabric folds. The quiet dry joke and two clearly separate relaxed knees are the readable center, not a glamour portrait or theatrical gesture. No lettering, UI, floating cards, speech bubbles, arrows, rings, watermark, borders, split views or collage. Return only the complete original-size mother.",
+  "submittedPromptSha256NoTrailingNewline": "d0d271572fd2883625ee3a05a90e189d9fc54e350f548ce7ec4c78b126cd113d",
+  "promptFileSha256": "d0d271572fd2883625ee3a05a90e189d9fc54e350f548ce7ec4c78b126cd113d",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "actualMode": "RGB",
+  "producerViewed": true,
+  "primaryApproved": true,
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "reviewBoundary": "One permitted v2 call after held v1. No matrix expansion, layer or runtime claim.",
+  "promptFileMatchesToolInput": true,
+  "producerObservations": [
+    "Personally viewed complete fresh v2 output. Only approved empty plate was supplied; held v1 was not an image input.",
+    "Knees now read side by side instead of one knee covering the other. Two lower legs remain individually connected to two separate boots; calves and complete boots have visible separation, with both boot soles supported on the room floor.",
+    "One hand rests on thigh near knee, other palm supports on cushion; hips/thighs remain supported by bench. No furniture/body penetration or missing head/hand/shoe observed in complete image.",
+    "Head top visually around y130 and shoe soles around y900..910, closer to requested head height than v1. Face stays youthful with charcoal shoulder hair, distinct gray-teal irises/eyelids and restrained dry-amused expression.",
+    "Room camera/furniture remain intact, with no added stage/profession prop, UI, pasted translation or new room object."
+  ],
+  "producerConcerns": [
+    "Resting fingers remain near the inner-knee area; primary should inspect the exact natural knee gap rather than infer correctness only from separated boots.",
+    "Exact identity, proportional scale and support acceptance remain for root; this is not a signed layer source or runtime result."
+  ],
+  "remaining": [
+    "Root compare v2 knee/shin/boot topology and restrained chat feeling",
+    "No layer extraction, matrix expansion or runtime acceptance"
+  ],
+  "primaryApprovalScope": "mother_only",
+  "referenceAllowed": true,
+  "primaryReview": {
+    "reviewer": "root",
+    "motherAccepted": true,
+    "scope": "exact v2 mother only",
+    "outputSha256": "b54800a320a163629dba745183efa63d18a83aa1ae19ba0f9382fdb546b12844",
+    "personallyObservedByPrimary": [
+      "parallel separate knees",
+      "continuous lower legs and independently grounded boots",
+      "hip and supporting palm on cushion",
+      "face and character feeling"
+    ],
+    "allowedAsIdentityScaleReference": true,
+    "layerAccepted": false,
+    "runtimeAccepted": false
+  }
+}

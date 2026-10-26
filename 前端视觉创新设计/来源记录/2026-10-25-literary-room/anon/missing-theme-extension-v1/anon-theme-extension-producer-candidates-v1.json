@@ -1,0 +1,330 @@
+{
+  "schemaVersion": 1,
+  "recordType": "anon-human-mother-producer-candidate-handoff",
+  "targetCells": 12,
+  "actualImageCalls": 16,
+  "savedOriginals": 16,
+  "selectedCandidates": [
+    {
+      "cell": "anon/attention/mist",
+      "image": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-attention-mist-literary-extension-v1.png",
+      "sha256": "f5208370a8bbb13e16a6d82b4157a7e1fdcaa8716210cbfc12b9fe448cd94eaf",
+      "sourceRecord": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-attention-mist-literary-extension-v1.source.json",
+      "producerStatus": "candidate_pending_primary",
+      "held": false,
+      "outputSHAAgrees": true,
+      "exactPromptAgrees": true,
+      "inputSHAsAgree": [
+        true,
+        true
+      ],
+      "canvas": [
+        1536,
+        1024
+      ],
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "anon/attention/rain",
+      "image": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-attention-rain-literary-extension-v2.png",
+      "sha256": "14ead946914e1cfb32cb8f75669cfc355014c7ff96df8ace021643f2881641a1",
+      "sourceRecord": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-attention-rain-literary-extension-v2.source.json",
+      "producerStatus": "candidate_pending_primary",
+      "held": false,
+      "outputSHAAgrees": true,
+      "exactPromptAgrees": true,
+      "inputSHAsAgree": [
+        true
+      ],
+      "canvas": [
+        1536,
+        1024
+      ],
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "anon/attention/violet",
+      "image": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-attention-violet-literary-extension-v1.png",
+      "sha256": "aa8c8a6e0498a94c8a0b4a981b41c1aea8b499fd19b7acff2a2530947641eefe",
+      "sourceRecord": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-attention-violet-literary-extension-v1.source.json",
+      "producerStatus": "candidate_pending_primary",
+      "held": false,
+      "outputSHAAgrees": true,
+      "exactPromptAgrees": true,
+      "inputSHAsAgree": [
+        true,
+        true
+      ],
+      "canvas": [
+        1536,
+        1024
+      ],
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "anon/listening/mist",
+      "image": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-listening-mist-literary-extension-v1.png",
+      "sha256": "508f4ac502df569b657b730c926ac8dda038cbb271d620e5299ed25515ed702d",
+      "sourceRecord": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-listening-mist-literary-extension-v1.source.json",
+      "producerStatus": "candidate_pending_primary",
+      "held": false,
+      "outputSHAAgrees": true,
+      "exactPromptAgrees": true,
+      "inputSHAsAgree": [
+        true,
+        true
+      ],
+      "canvas": [
+        1536,
+        1024
+      ],
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "anon/listening/rain",
+      "image": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-listening-rain-literary-extension-v1.png",
+      "sha256": "7b3b06cfc328a908c173e53dfff4e8b7a0a2ae33c126c7ef5c7d765d824c1aa1",
+      "sourceRecord": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-listening-rain-literary-extension-v1.source.json",
+      "producerStatus": "candidate_pending_primary",
+      "held": false,
+      "outputSHAAgrees": true,
+      "exactPromptAgrees": true,
+      "inputSHAsAgree": [
+        true,
+        true
+      ],
+      "canvas": [
+        1536,
+        1024
+      ],
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "anon/listening/violet",
+      "image": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-listening-violet-literary-extension-v1.png",
+      "sha256": "55aebafe99489a32dda4b1fdb90f9ff59c6e867180137502e12a704a4dd344c6",
+      "sourceRecord": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-listening-violet-literary-extension-v1.source.json",
+      "producerStatus": "candidate_pending_primary",
+      "held": false,
+      "outputSHAAgrees": true,
+      "exactPromptAgrees": true,
+      "inputSHAsAgree": [
+        true,
+        true
+      ],
+      "canvas": [
+        1536,
+        1024
+      ],
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "anon/play/mist",
+      "image": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-play-mist-literary-extension-v1.png",
+      "sha256": "49acabd6bfae41a5edaf5cfdc3417b56d0a4fa54aca11fa4635241fc3336ea57",
+      "sourceRecord": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-play-mist-literary-extension-v1.source.json",
+      "producerStatus": "candidate_pending_primary",
+      "held": false,
+      "outputSHAAgrees": true,
+      "exactPromptAgrees": true,
+      "inputSHAsAgree": [
+        true,
+        true
+      ],
+      "canvas": [
+        1536,
+        1024
+      ],
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "anon/play/rain",
+      "image": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-play-rain-literary-extension-v2.png",
+      "sha256": "104ce2d904384a0c6dfecf581c7fdd50496af97db74d5ce7f657ec94220af641",
+      "sourceRecord": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-play-rain-literary-extension-v2.source.json",
+      "producerStatus": "candidate_pending_primary",
+      "held": false,
+      "outputSHAAgrees": true,
+      "exactPromptAgrees": true,
+      "inputSHAsAgree": [
+        true
+      ],
+      "canvas": [
+        1536,
+        1024
+      ],
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "anon/play/violet",
+      "image": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-play-violet-literary-extension-v1.png",
+      "sha256": "c18dc0f201b41a72fe9f93b03e3c73c238e76691c09123fbb12bca767b53b42c",
+      "sourceRecord": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-play-violet-literary-extension-v1.source.json",
+      "producerStatus": "candidate_pending_primary",
+      "held": false,
+      "outputSHAAgrees": true,
+      "exactPromptAgrees": true,
+      "inputSHAsAgree": [
+        true,
+        true
+      ],
+      "canvas": [
+        1536,
+        1024
+      ],
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "anon/resume/mist",
+      "image": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-resume-mist-literary-extension-v2.png",
+      "sha256": "bd8d1d40f8f3c6b47b683b8489e91267acf08586ab170913de6e7d92e8767467",
+      "sourceRecord": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-resume-mist-literary-extension-v2.source.json",
+      "producerStatus": "candidate_pending_primary",
+      "held": false,
+      "outputSHAAgrees": true,
+      "exactPromptAgrees": true,
+      "inputSHAsAgree": [
+        true
+      ],
+      "canvas": [
+        1536,
+        1024
+      ],
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "anon/resume/rain",
+      "image": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-resume-rain-literary-extension-v2.png",
+      "sha256": "e956f552f78eba5df3d5f2b8da40dbae1e819d8d6026d338382441805313aeee",
+      "sourceRecord": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-resume-rain-literary-extension-v2.source.json",
+      "producerStatus": "candidate_pending_primary",
+      "held": false,
+      "outputSHAAgrees": true,
+      "exactPromptAgrees": true,
+      "inputSHAsAgree": [
+        true
+      ],
+      "canvas": [
+        1536,
+        1024
+      ],
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "anon/resume/violet",
+      "image": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-resume-violet-literary-extension-v3.png",
+      "sha256": "332c5dc7b774b1818001e69dfd9cd6b4021057cd4746cc5a5da73e8b48d2da5c",
+      "sourceRecord": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-resume-violet-literary-extension-v3.source.json",
+      "producerStatus": "candidate_pending_primary",
+      "held": false,
+      "outputSHAAgrees": true,
+      "exactPromptAgrees": true,
+      "inputSHAsAgree": [
+        true
+      ],
+      "canvas": [
+        1536,
+        1024
+      ],
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "heldDiagnosticOriginals": [
+    {
+      "cell": "anon/attention/rain",
+      "image": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-attention-rain-literary-extension-v1.png",
+      "sha256": "fc7b516089bdd71cde721930575f8cb67c433af6a5686e5ecc4549ed72d5a44f",
+      "sourceRecord": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-attention-rain-literary-extension-v1.source.json",
+      "producerStatus": "held_lighting_contamination_no_forward_input",
+      "held": true,
+      "outputSHAAgrees": true,
+      "exactPromptAgrees": true,
+      "inputSHAsAgree": [
+        true,
+        true
+      ],
+      "canvas": [
+        1536,
+        1024
+      ],
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "anon/play/rain",
+      "image": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-play-rain-literary-extension-v1.png",
+      "sha256": "b64171284b4181d757c2a588c9e8367bf7bc268d6f98cb7c7c7910993c86ae91",
+      "sourceRecord": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-play-rain-literary-extension-v1.source.json",
+      "producerStatus": "held_lighting_contamination_no_forward_input",
+      "held": true,
+      "outputSHAAgrees": true,
+      "exactPromptAgrees": true,
+      "inputSHAsAgree": [
+        true,
+        true
+      ],
+      "canvas": [
+        1536,
+        1024
+      ],
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "anon/resume/mist",
+      "image": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-resume-mist-literary-extension-v1.png",
+      "sha256": "465b701aa395234edcb273e62c86b08eeff828a859e4679ab73851532b498a8d",
+      "sourceRecord": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-resume-mist-literary-extension-v1.source.json",
+      "producerStatus": "held_lighting_contamination_no_forward_input",
+      "held": true,
+      "outputSHAAgrees": true,
+      "exactPromptAgrees": true,
+      "inputSHAsAgree": [
+        true,
+        true
+      ],
+      "canvas": [
+        1536,
+        1024
+      ],
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "anon/resume/violet",
+      "image": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-resume-violet-literary-extension-v2.png",
+      "sha256": "d46fd2ae803af087c74eff76d8e1c756aef6070742989aa350e0910399f6f7fb",
+      "sourceRecord": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\missing-theme-extension-v1\\anon-resume-violet-literary-extension-v2.source.json",
+      "producerStatus": "held_space_and_wardrobe_drift_no_forward_input",
+      "held": true,
+      "outputSHAAgrees": true,
+      "exactPromptAgrees": true,
+      "inputSHAsAgree": [
+        true
+      ],
+      "canvas": [
+        1536,
+        1024
+      ],
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "changesRootLedger": false,
+  "changesApp": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "countIsGeneratedMothersNotPoseTopology": true
+}

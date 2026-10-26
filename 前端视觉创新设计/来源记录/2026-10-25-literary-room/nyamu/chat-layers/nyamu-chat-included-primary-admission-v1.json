@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "kind": "primary-fixed-source-included-joint-static-admission",
+  "key": "nyamu/chat/apricot",
+  "reviewer": "root",
+  "decision": "approved",
+  "primaryPersonallyViewed": true,
+  "observation": "Root personally viewed #scene full mother/composite, #face fringe/eyes, #hem knees/full black skirt/supporting palm/separate small linen receiver island, and #shoes complete toe/sole/heel plus floor triptych. Root approved natural fixed-source fusion, no obvious seam or missing true-body area, and exact F/S+mother MAX included all-motion-zero static layer; runtime false.",
+  "exactSelectedInputs": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.png",
+      "sha256": "096bd7f5f0138e8b961c91d52dc8e68b29bcda1600bbb9ca444bd1c7eff75313",
+      "recordedSha256": "096bd7f5f0138e8b961c91d52dc8e68b29bcda1600bbb9ca444bd1c7eff75313",
+      "matchesRecorded": true
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "recordedSha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "matchesRecorded": true
+    },
+    "F": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-figure-mask-v1.png",
+      "sha256": "e134398076c27e95c17d8ffdf20bdeac59a0107924bd5edc2cdde1ad885ca6ff",
+      "recordedSha256": "e134398076c27e95c17d8ffdf20bdeac59a0107924bd5edc2cdde1ad885ca6ff",
+      "matchesRecorded": true
+    },
+    "S": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-contact-mask-v1.png",
+      "sha256": "0702dd3af004fefa908aad843e906e17e30738fad28acb0df1143723059f71db",
+      "recordedSha256": "0702dd3af004fefa908aad843e906e17e30738fad28acb0df1143723059f71db",
+      "matchesRecorded": true
+    }
+  },
+  "bundle": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-included-bundle-v1.json",
+    "sha256": "52b2872998ae2cc0f855be68bfc45f1e1d83ede9eb8decbea9e9989985d8c132"
+  },
+  "formula": "U=MAX(L(F),L(S)); one unchanged source-mother RGB draw through U over exact matching BG",
+  "contactShadow": {
+    "mode": "included",
+    "pureCaster": false
+  },
+  "motion": {
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "approvedPresentation": [
+    "Whole fixed-pose assembly show/hide",
+    "Whole-pose replacement with its own approved closure",
+    "Shared BG+joint viewport transform"
+  ],
+  "forbiddenPresentation": [
+    "Independent movement/deformation",
+    "Separate caster translation",
+    "Reusing receiver material on another support"
+  ],
+  "runtimeAccepted": false,
+  "runtimeRegisteredByThisLane": false,
+  "evidenceSource": "Explicit root approval messages to this healthy subagent after root personally viewed the static native SVG pages"
+}

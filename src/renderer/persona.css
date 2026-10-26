@@ -1,28 +1,104 @@
-.persona-heading,
-.persona-preview-heading,
-.persona-version-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.persona-editor {
+  max-width: 920px;
 }
 .persona-heading {
-  justify-content: space-between;
+  margin-bottom: 28px;
 }
-.persona-heading > span {
+.persona-heading .section-title {
+  margin: 0;
+}
+.persona-writing,
+.persona-identity-row > *,
+.persona-details-body > * {
+  min-width: 0;
+}
+.persona-identity-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.persona-editor .field-label {
+  margin: 0;
+}
+.persona-editor input,
+.persona-editor textarea,
+.persona-editor select {
+  width: 100%;
+  min-width: 0;
+}
+.persona-writing > .persona-description {
+  margin: 24px 0;
+}
+.persona-description textarea {
+  min-height: 158px;
+  line-height: 1.9;
+  resize: vertical;
+}
+.persona-details {
+  border-top: 1px solid var(--separator);
+}
+.persona-details > summary,
+.persona-source-review > summary,
+.persona-starting-points > summary,
+.persona-history > summary,
+.persona-legacy > summary {
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.8;
+  padding: 13px 0;
+}
+.persona-details[open] > summary {
+  color: var(--text);
+}
+.persona-details-body {
+  display: grid;
+  gap: 18px;
+  padding: 5px 0 22px;
+}
+.persona-details-body textarea {
+  line-height: 1.85;
+  resize: vertical;
+}
+.persona-details-body .preference-fields {
+  margin: 0;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.persona-details-body .preference-fields > label {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  font-size: 13px;
+}
+.persona-preview-heading {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.persona-preview-heading > select {
+  width: auto;
+  flex: 0 0 auto;
+  max-width: 100%;
+  font-size: 13px;
+}
+.persona-scene {
   color: var(--text-secondary);
   font-size: 12px;
+  line-height: 1.8;
 }
 .persona-presets {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
-  margin: 14px 0 18px;
+  margin: 3px 0 0;
 }
 .persona-preset {
   text-align: left;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 11px 13px;
+  padding: 12px 14px;
   background: transparent;
 }
 .persona-preset strong {
@@ -35,205 +111,157 @@
   display: block;
   color: var(--text-secondary);
   font-size: 11px;
-  margin-top: 4px;
-  line-height: 1.6;
+  margin-top: 5px;
+  line-height: 1.7;
 }
-.persona-preset:hover {
+.persona-preset:hover:not(:disabled) {
   background: var(--wash);
 }
 .persona-preset[aria-pressed='true'] {
   background: var(--accent-soft);
   border-color: var(--accent-dim);
 }
-.persona-editor > .field-label {
-  margin-top: 14px;
-}
-.persona-starting-points { margin: 0 0 22px; }
-.persona-starting-points > summary { cursor: pointer; color: var(--accent); font-size: 13px; padding: 8px 0; }
-.persona-starting-points .persona-presets { max-height: 390px; overflow-y: auto; padding: 3px; margin: 10px -3px 0; }
-.persona-editor input,
-.persona-editor textarea,
-.persona-editor select {
-  width: 100%;
-  min-width: 0;
-}
-.persona-details {
-  margin-top: 16px;
-}
-.persona-details > summary {
-  color: var(--text-secondary);
-  cursor: pointer;
-  font-size: 12px;
-  line-height: 1.8;
-}
-.persona-details-body {
-  display: grid;
-  gap: 14px;
-  padding-top: 15px;
-}
-.persona-details-body .preference-fields {
-  margin: 0;
-}
-.persona-details-body .field-label {
-  margin: 0;
-}
-.persona-example-field > small {
-  color: var(--text-secondary);
-  font-size: 11px;
-  font-weight: normal;
-  line-height: 1.7;
-}
-.persona-preview {
-  border-left: 2px solid var(--accent-dim);
-  padding: 2px 0 2px 16px;
-  margin: 22px 0 18px;
-}
-.persona-preview-heading {
-  justify-content: space-between;
-}
-.persona-preview-heading > strong {
-  font-size: 12px;
-  font-weight: 550;
-}
-.persona-preview-heading > select {
-  width: auto;
-  padding: 5px 26px 5px 8px;
-  font-size: 12px;
-}
-.persona-scene {
-  color: var(--text-secondary);
-  font-size: 12px;
-  line-height: 1.8;
-  margin: 12px 0 8px;
-}
-.persona-preview blockquote {
-  margin: 0;
-  padding: 0;
-  color: var(--text);
-  font-size: 14px;
-  line-height: 1.9;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-}
-.persona-preview > small {
-  display: block;
-  color: var(--text-tertiary);
-  font-size: 11px;
-  margin-top: 9px;
-}
-.persona-version-row {
-  align-items: flex-end;
+.persona-transfer-actions {
+  display: flex;
   flex-wrap: wrap;
+  gap: 12px 24px;
 }
-.persona-version-row > label {
-  flex: 1;
-  min-width: 180px;
+.persona-transfer-actions .text-button,
+.persona-history-restore,
+.persona-draft-restore {
+  gap: 7px;
+  font-size: 12px;
 }
-.persona-version-row > button {
-  flex-shrink: 0;
+.persona-history-restore {
+  justify-self: start;
 }
 .persona-legacy > textarea {
   display: block;
-  margin-top: 10px;
-  padding: 10px 12px;
+  margin: 0 0 10px;
   line-height: 1.8;
 }
-@media (max-width: 420px) {
-  .persona-presets {
+.persona-source-review {
+  margin: -8px 0 22px;
+  border-left: 2px solid var(--accent-dim);
+  padding-left: 16px;
+}
+.persona-source-review > summary {
+  padding: 6px 0;
+  overflow-wrap: anywhere;
+}
+.persona-keep-address {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  line-height: 1.8;
+  margin: 12px 0;
+  cursor: pointer;
+}
+.persona-editor .persona-keep-address > input {
+  width: 16px;
+  height: 16px;
+  min-height: 0;
+  margin: 0 2px 0 0;
+  padding: 0;
+  flex: 0 0 auto;
+  accent-color: var(--accent);
+}
+.persona-keep-address > span {
+  overflow-wrap: anywhere;
+}
+.persona-current-label,
+.persona-import-note {
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.8;
+  margin: 14px 0 8px;
+}
+.persona-current-words {
+  max-height: min(520px, 55vh);
+  overflow-y: auto;
+  padding-right: 8px;
+  font-size: 13px;
+}
+.persona-current-words dl {
+  display: grid;
+  gap: 15px;
+  margin: 0;
+}
+.persona-current-words dt,
+.persona-current-examples h5 {
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 500;
+  margin: 0 0 4px;
+}
+.persona-current-words dd,
+.persona-current-examples p {
+  color: var(--text);
+  margin: 0;
+  line-height: 1.85;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.persona-current-examples {
+  display: grid;
+  gap: 14px;
+  margin-top: 17px;
+}
+.persona-current-binding {
+  margin: 16px 0 0;
+  color: var(--text-secondary);
+  font-size: 11px;
+}
+.persona-conflict {
+  margin-top: 22px;
+  border-left: 2px solid var(--accent-dim);
+  padding: 2px 0 4px 16px;
+}
+.persona-conflict-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 20px;
+}
+.persona-conflict-heading > p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text);
+}
+.persona-conflict-heading > .text-button {
+  color: var(--accent);
+  font-size: 12px;
+}
+.persona-writing > .persona-save-row {
+  margin: 26px 0 0;
+  gap: 12px 20px;
+}
+.persona-save-row .primary-button {
+  min-height: 42px;
+  padding-inline: 24px;
+}
+.persona-writing > .inline-status {
+  margin: 12px 0 0;
+}
+@media (max-width: 640px) {
+  .persona-identity-row,
+  .persona-details-body .preference-fields {
     grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .persona-presets {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .persona-preview-heading {
     align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
   }
 }
-
-/* The writing and the listening example stay together without a long form wall. */
-.persona-editor .persona-lede { color: var(--text-secondary); margin: 10px 0 26px; font-size: 14px; line-height: 1.8; }
-.persona-composition { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(280px, .9fr); gap: clamp(28px, 4vw, 60px); align-items: start; }
-.persona-writing, .persona-listening { min-width: 0; }
-.persona-writing > .field-label { margin: 20px 0; }
-.persona-writing > .persona-presets { margin-top: 0; gap: 10px; }
-.persona-preset { padding: 16px; border-radius: 13px; }
-.persona-preset strong { font-size: 14px; }
-.persona-preset > span { font-size: 12px; line-height: 1.7; }
-.persona-listening { position: sticky; top: 20px; }
-.persona-listening .persona-preview { margin: 0; border: 1px solid var(--separator); border-radius: 19px; padding: 28px; background: color-mix(in srgb, var(--surface) 78%, transparent); }
-.persona-listening .persona-preview-heading > strong { font-size: 19px; font-weight: 500; }
-.persona-listening .persona-preview-heading { flex-wrap: wrap; }
-.persona-listening .persona-preview-heading > select { border: 1px solid var(--separator); background: var(--wash); border-radius: 9px; font-size: 12px; padding: 8px; }
-.persona-listening .persona-scene { margin: 26px 0 15px; font-size: 13px; line-height: 1.9; }
-.persona-listening blockquote { padding: 20px; background: var(--accent-soft); border-radius: 15px; font-size: 15px; line-height: 1.95; }
-.persona-listening .persona-preview > small { color: var(--text-secondary); line-height: 1.8; margin-top: 16px; }
-.persona-listening .persona-manage { margin-top: 25px; padding: 0 4px; }
-.persona-writing .field-buttons { margin-top: 24px; flex-wrap: wrap; }
-.persona-editor .persona-details > summary { font-size: 13px; padding: 8px 0; }
-.persona-draft-restore { font-size: 12px; gap: 7px; margin-top: 8px; }
-.persona-import-entry { margin: 23px 3px 0; }
-.persona-import-entry .text-button { font-size: 13px; gap: 8px; }
-.persona-import-entry small { display: block; margin: 6px 0 0; color: var(--text-secondary); font-size: 11px; line-height: 1.7; }
-dialog.panel.persona-import-dialog { width: min(570px, calc(100vw - 36px)); max-height: calc(100dvh - 36px); overflow: hidden; }
-dialog.panel.persona-import-dialog[open] { display: flex; flex-direction: column; }
-.persona-import-body { padding: 26px 28px; flex: 1 1 auto; min-height: 0; overflow-y: auto; }
-.persona-conflict { margin-top: 18px; padding: 16px 18px; border-left: 2px solid var(--accent-dim); border-radius: 0 12px 12px 0; background: color-mix(in srgb, var(--accent-soft) 55%, var(--surface)); color: var(--text-secondary); font-size: 12px; line-height: 1.8; }
-.persona-conflict p { margin: 0 0 6px; }
-.persona-conflict .text-button { font-size: 12px; color: var(--accent); }
-.persona-conflict-heading { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px 16px; }
-.persona-conflict-heading > p { margin: 0; color: var(--text); font-size: 13px; }
-.persona-conflict-heading > .text-button { flex-shrink: 0; }
-.persona-current-words { max-height: min(520px, 55vh); overflow-y: auto; margin-top: 16px; padding: 0 6px 0 0; font-size: 13px; }
-.persona-conflict .persona-current-label { margin: 0 0 14px; color: var(--text-secondary); font-size: 12px; }
-.persona-current-words dl { display: grid; gap: 15px; margin: 0; }
-.persona-current-words dt { color: var(--text-secondary); font-size: 11px; margin-bottom: 4px; }
-.persona-current-words dd { margin: 0; color: var(--text); line-height: 1.85; white-space: pre-wrap; overflow-wrap: anywhere; }
-.persona-current-details { margin-top: 17px; }
-.persona-current-details > summary { cursor: pointer; color: var(--accent); }
-.persona-current-details > dl { margin-top: 15px; }
-.persona-current-examples { display: grid; gap: 14px; margin-top: 17px; }
-.persona-current-examples h5 { color: var(--text-secondary); font-size: 11px; font-weight: 500; margin: 0 0 4px; }
-.persona-current-examples p { margin: 0; color: var(--text); white-space: pre-wrap; overflow-wrap: anywhere; }
-.persona-current-words .persona-current-binding { margin-top: 16px; font-size: 11px; }
-.persona-conflict-actions { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; margin-top: 16px; }
-.persona-conflict-actions .primary-button { min-height: 40px; }
-.persona-import-intro { display: flex; gap: 18px; align-items: center; margin: 3px 0 22px; }
-.persona-import-intro > div { min-width: 0; flex: 1; }
-.persona-import-mark { width: 62px; height: 72px; display: grid; place-items: center; border-radius: 15px; color: var(--accent); background: var(--accent-soft); flex-shrink: 0; }
-.persona-import-intro h3 { font-size: 24px; font-weight: 500; margin: 0 0 8px; overflow-wrap: anywhere; }
-.persona-import-intro .field-label { margin: 0 0 8px; }
-.persona-import-intro p { margin: 0; color: var(--text-secondary); font-size: 12px; overflow-wrap: anywhere; }
-.persona-import-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; margin-bottom: 22px; }
-.persona-import-tools > .text-button { font-size: 12px; gap: 6px; }
-.persona-import-lede { font-size: 13px; line-height: 1.8; color: var(--text-secondary); margin: 0; }
-.persona-import-content { display: grid; gap: 20px; padding: 3px 0 4px; }
-.persona-import-content section + section { padding-top: 18px; border-top: 1px solid var(--separator); }
-.persona-import-content h4 { margin: 0 0 9px; font-size: 14px; font-weight: 550; }
-.persona-import-content p { margin: 0; font-size: 13px; color: var(--text-secondary); line-height: 1.9; white-space: pre-wrap; overflow-wrap: anywhere; }
-.persona-import-note { font-size: 12px; line-height: 1.8; color: var(--text-secondary); margin: 18px 0 0; }
-.persona-import-content .field-label { margin: 0; }
-.persona-import-content textarea { font-size: 13px; line-height: 1.8; resize: vertical; }
-.persona-import-content input { width: 100%; min-width: 0; }
-.persona-import-name-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; }
-.persona-import-name-grid > div { min-width: 0; }
-.persona-import-name-grid > div > span { display: block; color: var(--text-secondary); font-size: 11px; margin-bottom: 5px; }
-.persona-import-name-grid p { color: var(--text); }
-.persona-keep-address { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; color: var(--text-secondary); font-size: 12px; line-height: 1.7; margin-top: 15px; cursor: pointer; }
-.persona-import-content .persona-keep-address > input { width: 16px; height: 16px; margin: 0 2px 0 0; padding: 0; flex: 0 0 auto; accent-color: var(--accent); }
-.persona-keep-address > span { color: var(--text); overflow-wrap: anywhere; }
-.persona-import-examples .persona-preview-heading { align-items: center; gap: 12px; }
-.persona-import-examples .persona-preview-heading > h4 { margin: 0; }
-.persona-import-examples .persona-scene { margin: 14px 0 10px; font-size: 12px; }
-.persona-import-examples > blockquote { margin: 0; padding: 16px 18px; border-left: 2px solid var(--accent-dim); background: var(--accent-soft); border-radius: 0 12px 12px 0; color: var(--text); font-size: 14px; line-height: 1.9; white-space: pre-wrap; overflow-wrap: anywhere; }
-.persona-import-actions { display: flex; flex-shrink: 0; align-items: center; gap: 22px; padding: 20px 28px 28px; border-top: 1px solid var(--separator); }
-.persona-import-actions .primary-button { flex: 1; justify-content: center; min-height: 43px; }
-@media (max-width: 900px) {
- .persona-composition { grid-template-columns: 1fr; }
- .persona-listening { position: static; }
-}
-@media (max-width: 460px) {
- .persona-writing .persona-presets { grid-template-columns: 1fr; }
- .persona-listening .persona-preview { padding: 22px; }
- .persona-import-body { padding: 22px; }
- .persona-import-actions { padding: 16px 22px 22px; gap: 16px; }
- .persona-import-intro h3 { font-size: 21px; }
- .persona-import-name-grid { gap: 12px; }
- .persona-import-examples .persona-preview-heading { flex-wrap: wrap; }
+@media (max-width: 400px) {
+  .persona-presets {
+    grid-template-columns: 1fr;
+  }
 }

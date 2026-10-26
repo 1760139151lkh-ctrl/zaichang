@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "characterId": "tomori",
+  "reviewedOn": "2026-10-25",
+  "reviewer": "root primary agent",
+  "evidence": "Direct primary-agent message confirming personal inspection of all six complete original mother images.",
+  "decision": "approved",
+  "scope": "Exact-SHA static mothers only",
+  "commonObservation": "Original close camera and large room furnishings stable, original human scale retained, complete knees/legs/shoes and seated support accepted.",
+  "entries": [
+    {
+      "assetId": "tomori-reading-apricot-literary-v1",
+      "file": "tomori-reading-apricot-literary-v1.png",
+      "sha256": "f81a5056794cf1618eb03ce7922b49b43478179aafd3fd9cffe2c60f763880f5",
+      "bytes": 2421136,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "decision": "approved-static-mother-only",
+      "observation": "Reads inwardly with a low supported book; clear face/eyes/hair and hand/page contact."
+    },
+    {
+      "assetId": "tomori-planning-apricot-literary-v1",
+      "file": "tomori-planning-apricot-literary-v1.png",
+      "sha256": "5687e5717027d445907aa89a1493d8bede4644fe4eb40f37087da77e4e88c276",
+      "bytes": 2418308,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "decision": "approved-static-mother-only",
+      "observation": "Light questioning eye contact with fingertip on the notebook page; subtle blank-gap discussion."
+    },
+    {
+      "assetId": "tomori-rest-apricot-literary-v1",
+      "file": "tomori-rest-apricot-literary-v1.png",
+      "sha256": "589d0b1ec8d39aa694513615bb7bdfecaaa79acfa96220492be112295bb66e8e",
+      "bytes": 2441874,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "decision": "approved-static-mother-only",
+      "observation": "Looks toward window light with closed book beside her; hand on seat and supported relaxed sitting."
+    }
+  ],
+  "layerApproved": false,
+  "runtimeAccepted": false
+}

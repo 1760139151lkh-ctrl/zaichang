@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "assetType": "literary-room-complete-mother",
+  "id": "rana-study-apricot-literary-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "rana-study-apricot-literary-v1.prompt.json",
+  "promptFileSha256": "435c90a9381374a12aa9d63dfdfd705b6e96ccba4a8a3b2672d85c107c03fb4a",
+  "submittedPrompt": "Create one complete illustrated mother scene, 1536×1024 landscape. Use image 1 as the exact room and camera reference: this warm apricot literary room with the left real wooden writing desk/chair, full shelves, round lamp table, near right window bench, lake and town view. Use image 2 ONLY to identify Rana Kaname and her youthful apparent proportions and original casual clothes. Recompose a fresh complete moment in image 1; image 2 is not a pose/template to paste or translate.\n\nThe scene is called “First look at that strange part.” Rana has encountered an unexpected relation on one ordinary page. Before pretending to know the answer, she is drawn to the awkward little detail, as if she has found an oddly shaped stone she wants to turn over with you. Her seriousness has a small spark of private, almost childlike discovery. She has an independent judgment and a concrete reason to keep looking; she is not a generic comforting assistant, a smiling tutor, or a prodigy displaying a solved answer. Let this specific interest carry the face and posture.\n\nPlace Rana naturally seated in the LEFT desk chair at its real depth, facing the desk in a relaxed three-quarter direction. Her hips rest on the chair seat, a forearm/hand has a simple reachable support on the desktop beside a plain open notebook, and the other hand can rest simply on the page or her lap. She has paused at a surprising detail, then lets her eyes turn slightly toward the viewer as if inviting another try. Furniture determines her size: she is substantially farther and smaller than the close bench Rana reference, not enlarged to fill the right bench height. Desk/chair/plant may naturally occlude parts of the lower body; do not invent disconnected limbs to force visibility. Keep a coherent seated body and real contact, believable depth and occlusion. Leave the right bench empty. Retain the room's camera, window divisions, desk scale, round table and overall composition; re-render the occupied chair and local contact naturally rather than translating a bench sprite.\n\nRana's clear identity: short silver-white bob with soft bangs and faint lavender tips; her own right iris golden yellow, her own left iris blue (viewer-left gold and viewer-right blue when front-facing). Distinct eyelids, irises, brows and individual hair strands; no bangs fused into eyes. Loose black short-sleeve outer top over pale white long sleeves, white shorts, black lace-up ankle boots. Youthful anime illustration integrated into the richly textured warm room, gentle realistic sun and contact shadows, no plastic doll face. Her expression is curious and slightly intent, mouth relaxed rather than a repeated service smile. Let the page remain mostly nonlegible texture; no readable formulas, baked UI, caption, calendar panel, cats, guitar, or extraneous symbols. Complete single mother scene with original room lighting and naturally supported anatomy.",
+  "submittedPromptSha256Utf8NoTrailingLF": "25e71b0b453e8679a18942430676a5f2a48d899914af408c5ec90ae9f0e22828",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "sole-room-and-camera-input"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.png",
+      "sha256": "060e897c7b9ebdefc5ab84d6fbada2983625b19e6a4ebc57501ede19c5259919",
+      "role": "root-approved-Rana-identity-only"
+    }
+  ],
+  "output": {
+    "file": "rana-study-apricot-literary-v1.png",
+    "sha256": "42d51d60de9bfc18eddc76d5eba0936fb10b4756276a44b6b8ba16659270548b",
+    "bytes": 2450933,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-25993dda-3303-49f6-b533-b74570ef6814.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "primaryApproved": false,
+    "layerApproved": false
+  },
+  "status": "producer-viewed-awaiting-root-mother-review",
+  "producerReview": {
+    "reviewedAt": "2026-10-25T12:20:25.184767+00:00",
+    "method": "Personally inspected actual full native ImageGen output at 1536x1024 before next call.",
+    "observations": [
+      "Actual short silver bob, distinct viewer-left gold/viewer-right blue eyes, original black/white casual outfit.",
+      "Seated at left desk, one forearm/page hand on desktop and other hand holding a pen near cheek; thighs meet visible padded chair seat.",
+      "Both lower legs remain coherent; black boots show natural partial foliage/chair-bar occlusion and visible floor relation; right bench remains empty."
+    ],
+    "issues": [
+      "Occupied chair is pulled farther forward and appears larger than the empty plate chair; changed chair placement/desk-depth composition requires root judgment.",
+      "Some boot outline is hidden by foreground plant/chair; no complete hidden contour or motion certification."
+    ],
+    "rootApprovalRequired": true
+  },
+  "character": "rana",
+  "activity": "study",
+  "palette": "apricot",
+  "creativeBrief": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/rana-study-apricot.md",
+    "sha256": "a8b16981405d6ee02927045626b05d84e6b97ec83631cdb346183bd7af7c0bc4",
+    "title": "先看那个奇怪的地方",
+    "role": "literary-direction-text-only"
+  },
+  "generationBudget": {
+    "wave": "rana-apricot-wave-a",
+    "maxCalls": 8,
+    "callOrdinal": 1,
+    "callsForThisCell": 1,
+    "retries": 0
+  },
+  "approvalBoundary": {
+    "primaryAccepted": false,
+    "layerAccepted": false,
+    "runtimeAccepted": false,
+    "runtimeRegistered": false,
+    "rootReviewPending": true,
+    "motherOnly": true
+  }
+}

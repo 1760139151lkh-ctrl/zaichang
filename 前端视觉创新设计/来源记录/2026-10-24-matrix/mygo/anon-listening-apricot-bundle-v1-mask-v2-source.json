@@ -1,0 +1,37 @@
+{
+  "recordType": "original-mother-layer-extraction",
+  "layer": "luminance-mask",
+  "key": "anon/listening/apricot",
+  "tool": "built-in image_gen.imagegen",
+  "createdAtUtc": "2026-10-25T03:43:11.952Z",
+  "file": "anon-listening-apricot-bundle-v1-mask-v2.png",
+  "sha256": "0db1f03d2c2b2a40f1a2bff056ee21da80af197cf74894eb682e0e160ffc43d2",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "promptSha256": "b6e3a02dfbdd1d2b09e0e13507f9b2fd800a49041eb1d0ef805ed5afef25989c",
+  "prompt": "anon-listening-apricot-bundle-v1-mask-v2-prompt.txt",
+  "originalOutputBasename": "exec-95506626-194f-47af-a816-3c8fc2be15b4.png",
+  "originalExecutionId": "95506626-194f-47af-a816-3c8fc2be15b4",
+  "originalSessionId": "01a170ed-b14d-7321-9cf7-3bd222b6ff42",
+  "designerPersonallyViewed": true,
+  "designerObservation": "Requested false interior shaded-fabric hole repair was not visibly achieved: dark interior region remains near source x1305 y482. This output is not adopted.",
+  "approvedByPrimary": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/anon-listening-apricot-bundle-v1-mask.png",
+      "role": "matte edit target",
+      "sha256": "f77cd32ed702e63031556318cc095eac49fa09b1784b8e92219c9497131b6310"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-listening-apricot-mother-candidate-v2.png",
+      "sha256": "352fc80272d9ae4e224225980bd270b2481516dbd32c0b7a0dc5814e8c3457bb",
+      "role": "approved complete mother; sole edit target"
+    }
+  ],
+  "rejected": true,
+  "rejectionReason": "Opaque shaded fabric still mapped to gray/dark transparency; targeted correction not delivered."
+}

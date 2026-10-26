@@ -1,0 +1,266 @@
+{
+  "schemaVersion": 1,
+  "kind": "exact-root-approved-source-isolated-registration",
+  "character": "anon",
+  "recordedAt": "2026-10-25T11:48:13.911601+00:00",
+  "primaryAdmission": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/anon-chat-apricot-literary-included-primary-admission-v1.json",
+    "sha256": "8443db6e6b15d22bb3820a5a98fb22f257355f0045df2f5e755540dba3f586f5",
+    "bytes": 3290
+  },
+  "sourceClosure": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/chat-included-selected-source-closure-v1.json",
+    "sha256": "89cac38420fea30e1b0e72f5f96a7307fc601a7d17e1c0d113be0333b4ec9610",
+    "bytes": 6243
+  },
+  "files": [
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-pilot/anon-chat-apricot-literary-v1.png",
+        "sha256": "53ee79ee3e5e210fc875d6ed062543c21cc2001831ede42dad814367a6103b7c",
+        "bytes": 2441723
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-pilot/anon-chat-apricot-literary-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+        "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+        "bytes": 2524961
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/figure-mask-v1.png",
+        "sha256": "c4aba1f3593f5255b56c2bdcf14873fc5400f8c9fc6e71f346df1c3f00cca0fd",
+        "bytes": 441359
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/figure-mask-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/shadow-mask-v1.png",
+        "sha256": "39b57bb13040463ed0d70a1403e8475100fc5974b5bae8d2e1ccca73c18dbc9c",
+        "bytes": 293141
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/shadow-mask-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/figure-step1-marked-v1.png",
+        "sha256": "9f144540a80d122bcde5c68d03c01cb1e9838161b822ef901aed6bac6ac43b20",
+        "bytes": 2282517
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/figure-step1-marked-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/shadow-step1-marked-v1.png",
+        "sha256": "89f1aed9e5eef7609cdf51c94b765502d7b25d284c534bc36b72338d0a2793ae",
+        "bytes": 2411699
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/shadow-step1-marked-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/union-source-v1.svg",
+        "sha256": "0c05c5fb396accf8b1fd8badf1b309539b1ccd925ccf041d36f24c01a10cb04d",
+        "bytes": 1319
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/union-source-v1.svg",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/chat-included-observe-v1.html",
+        "sha256": "8c76068db00d3a7cb7a78a05f103360a464a2842cf8ea46afbf221863b7e44a6",
+        "bytes": 24424
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/chat-included-observe-v1.html",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/chat-included-bundle-v1.json",
+        "sha256": "cbb886aa4025ee747448feb0e960c0b792179c63ea4d8e90f2554b4e20cdaa6e",
+        "bytes": 10260
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/chat-included-bundle-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/anon-chat-apricot-literary-v1.scene-proposal.json",
+        "sha256": "422adace2b3d2da5a9da0056657394b0065b8d69c8f91677552555933cef5153",
+        "bytes": 2876
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/anon-chat-apricot-literary-v1.scene-proposal.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/anon-chat-apricot-literary-included-primary-admission-v1.json",
+        "sha256": "8443db6e6b15d22bb3820a5a98fb22f257355f0045df2f5e755540dba3f586f5",
+        "bytes": 3290
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/anon-chat-apricot-literary-included-primary-admission-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/figure-step1-v1.prompt.json",
+        "sha256": "12e16cee78b0f06167bfd3dc5708886bc31a4d5a0e7353e81bc812566549bac8",
+        "bytes": 2494
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/figure-step1-v1.prompt.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/figure-step1-v1.source.json",
+        "sha256": "9be6c70715dc975c4d96c4c1bed1e6b608645b6f035515b5ac3e249d2780c4c0",
+        "bytes": 6350
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/figure-step1-v1.source.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/figure-step2-v1.prompt.json",
+        "sha256": "7ebf67821548dbc6e4e0d1c4d6acb17d60377410078650bb718441e43a6673cf",
+        "bytes": 2053
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/figure-step2-v1.prompt.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/figure-step2-v1.source.json",
+        "sha256": "1d9221b610053d482fe5c02826b7b6b8bd6df3309323672c28bb17a54057f13e",
+        "bytes": 5894
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/figure-step2-v1.source.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/shadow-step1-v1.prompt.json",
+        "sha256": "eff30b2acfc4bcb862660d5e61dd73aebc1b745010a65818310f085568bff274",
+        "bytes": 2663
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/shadow-step1-v1.prompt.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/shadow-step1-v1.source.json",
+        "sha256": "7d28a693289d2156b29acb61176829e2c7d784a238881ca75e9e93a9242c61d6",
+        "bytes": 6519
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/shadow-step1-v1.source.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/shadow-step2-v1.prompt.json",
+        "sha256": "bace8cb0e9dc9062656fa3fa3c6a6d4afcfd16936357287f84150d4c6baf039f",
+        "bytes": 2085
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/shadow-step2-v1.prompt.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/shadow-step2-v1.source.json",
+        "sha256": "a40474c34d35006574add16888c8b40be37706ea6fe8f6904ca558a4f5fb6b45",
+        "bytes": 5926
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/shadow-step2-v1.source.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.prompt.txt",
+        "sha256": "3e854eda45e9e76baed6ad514c67488656035d0990663f089cbf6f24575cae26",
+        "bytes": 1584
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.prompt.txt",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/chat-included-selected-source-closure-v1.json",
+        "sha256": "89cac38420fea30e1b0e72f5f96a7307fc601a7d17e1c0d113be0333b4ec9610",
+        "bytes": 6243
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/chat-included-selected-source-closure-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-pilot/anon-chat-apricot-literary-v1.png",
+        "sha256": "53ee79ee3e5e210fc875d6ed062543c21cc2001831ede42dad814367a6103b7c",
+        "bytes": 2441723
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/anon-chat-apricot-literary-mother-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+        "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+        "bytes": 2524961
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/literary-room-clear-day-v1.png",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/figure-mask-v1.png",
+        "sha256": "c4aba1f3593f5255b56c2bdcf14873fc5400f8c9fc6e71f346df1c3f00cca0fd",
+        "bytes": 441359
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/anon-chat-apricot-literary-figure-mask-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/chat-layers/shadow-mask-v1.png",
+        "sha256": "39b57bb13040463ed0d70a1403e8475100fc5974b5bae8d2e1ccca73c18dbc9c",
+        "bytes": 293141
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/anon-chat-apricot-literary-contact-mask-v1.png",
+      "status": "copied"
+    }
+  ],
+  "scene": "前端视觉创新设计/运行素材/companion/scenes/anon-chat-apricot-literary-v1.scene.json",
+  "sceneSha256": "b0aac58fcd4f820b425a5a6765a782557064eb894691e44be53a3f11a1311958",
+  "runtimeAccepted": false,
+  "TSModified": false,
+  "ledgerRefreshed": false,
+  "bodyEnvelope": [
+    0.3971354166666667,
+    0.10546875,
+    0.6119791666666666,
+    0.8125
+  ],
+  "FcoveragePixels": [
+    612,
+    109,
+    937,
+    829
+  ],
+  "receiverPixels": [
+    608,
+    528,
+    1025,
+    837
+  ]
+}

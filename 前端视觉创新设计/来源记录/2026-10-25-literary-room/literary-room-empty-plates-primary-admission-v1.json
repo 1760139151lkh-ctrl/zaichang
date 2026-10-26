@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "dateLocal": "2026-10-25",
+  "recordType": "primary-static-empty-environment-admission",
+  "reviewer": "root / primary agent",
+  "approvedByPrimary": true,
+  "scope": "Eight exact-SHA empty environment plates only. No character, activity, layer, motion or runtime acceptance.",
+  "selectedTextOnlyBaseline": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+    "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+    "selectionSource": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.source.json",
+    "humanSelected": true,
+    "scope": "User-selected spatial and emotional baseline; not a drop-in character/runtime approval."
+  },
+  "assets": [
+    {
+      "environmentVariant": "clear-day",
+      "file": "plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "bytes": 2524961,
+      "width": 1536,
+      "height": 1024,
+      "source": "plates/literary-room-clear-day-v1.source.json",
+      "primaryApprovalRecord": "plates/literary-room-clear-day-v1.source.json"
+    },
+    {
+      "environmentVariant": "twilight",
+      "file": "plates/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+      "bytes": 2350339,
+      "width": 1536,
+      "height": 1024,
+      "source": "plates/literary-room-twilight-v1.source.json",
+      "primaryApprovalRecord": "plates/literary-room-twilight-v1.primary-approval.json"
+    },
+    {
+      "environmentVariant": "rain-night",
+      "file": "plates/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "bytes": 2270751,
+      "width": 1536,
+      "height": 1024,
+      "source": "plates/literary-room-rain-night-v1.source.json",
+      "primaryApprovalRecord": "plates/literary-room-rain-night-v1.primary-approval.json"
+    },
+    {
+      "environmentVariant": "overcast-day",
+      "file": "plates/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "bytes": 2526101,
+      "width": 1536,
+      "height": 1024,
+      "source": "plates/literary-room-overcast-day-v1.source.json",
+      "primaryApprovalRecord": "plates/literary-room-overcast-day-v1.primary-approval.json"
+    },
+    {
+      "environmentVariant": "rain-day",
+      "file": "plates/literary-room-rain-day-v1.png",
+      "sha256": "80c6eba701bc229e79939639426de4b1c7ef68790b840ea9ded07c2bc6fc77eb",
+      "bytes": 2504784,
+      "width": 1536,
+      "height": 1024,
+      "source": "plates/literary-room-rain-day-v1.source.json",
+      "primaryApprovalRecord": "plates/literary-room-rain-day-v1.primary-approval.json"
+    },
+    {
+      "environmentVariant": "dry-night",
+      "file": "plates/literary-room-dry-night-v1.png",
+      "sha256": "edad31b1ce0c7f21be59d939cc54a0d6230b31d6fe380d0d553af515032fd0f4",
+      "bytes": 2249307,
+      "width": 1536,
+      "height": 1024,
+      "source": "plates/literary-room-dry-night-v1.source.json",
+      "primaryApprovalRecord": "plates/literary-room-dry-night-v1.primary-approval.json"
+    },
+    {
+      "environmentVariant": "time-day",
+      "file": "plates/literary-room-time-day-v1.png",
+      "sha256": "aa4ce3dcab5cd2366c9f1c4eadcff0ab85537ab45e5a3b0643c4d01588e6e247",
+      "bytes": 2512492,
+      "width": 1536,
+      "height": 1024,
+      "source": "plates/literary-room-time-day-v1.source.json",
+      "primaryApprovalRecord": "plates/literary-room-time-day-v1.primary-approval.json"
+    },
+    {
+      "environmentVariant": "time-night",
+      "file": "plates/literary-room-time-night-v1.png",
+      "sha256": "d9c41c4278dd8a4efae1a91102e16349ad4dcf9829963c31ddc421dfc3652253",
+      "bytes": 2184911,
+      "width": 1536,
+      "height": 1024,
+      "source": "plates/literary-room-time-night-v1.source.json",
+      "primaryApprovalRecord": "plates/literary-room-time-night-v1.primary-approval.json"
+    }
+  ],
+  "timeOnlyBoundary": "Full opaque milk-white inner curtains conceal readable outdoor scenery; day/night lighting conveys no inferred weather.",
+  "runtimeAccepted": false
+}

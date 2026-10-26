@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "assetId": "taki-chat-mist-literary-v1",
+  "roomFamily": "literary-room-v1",
+  "characterId": "taki",
+  "activity": "chat",
+  "palette": "mist",
+  "ambientPlateKey": "overcast-day",
+  "createdOn": "2026-10-25",
+  "generationMode": "target-empty-room-first-same-pose-chat-relighting",
+  "tool": "image_gen.imagegen (built-in)",
+  "callOrdinalInBoundedBatch": 4,
+  "executionId": "exec-37889f70-cfb5-4d46-9a2a-7625013185e0",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-37889f70-cfb5-4d46-9a2a-7625013185e0.png",
+  "inputs": [
+    {
+      "file": "../../plates/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "role": "image1: primary-approved empty plate target geometry/light/atmosphere"
+    },
+    {
+      "file": "../chat-pilot/taki-chat-apricot-literary-v1.png",
+      "sha256": "0eb782e67b9954b406130a4994e9e75dd8774c8c3eb2a690d75d3e55338aad16",
+      "role": "image2: primary-approved exact chat identity/pose/scale/support; inherited daylight not a constraint"
+    }
+  ],
+  "promptFile": "taki-chat-mist-literary-v1.prompt.txt",
+  "promptFileSha256": "2eafb2a8e92b58eb369e24d2f68851d5db41e64a238b11e382c43289e8b0c3af",
+  "submittedPrompt": "Create ONE 1536×1024 complete landscape literary companion scene by genuinely RELIGHTING an approved chat mother. Image 1 is the PRIMARY-APPROVED EMPTY ROOM under the TARGET lighting: it is the exact camera, geometry and environment to retain. Image 2 is the PRIMARY-APPROVED same-role apricot CHAT MOTHER: use only her correct identity, fixed anatomical silhouette, exact pose/scale/support/occlusion and source coordinates, NOT its inherited daylight highlights. Place that identical body performance into image 1's light by genuinely drawing its lighting anew. These two images are the only inputs. No layer/mask, unreviewed activity mother, old room, different girl or face replacement.\nPreserve the same close camera and original framing. Preserve ALL original person coordinates/scale, her seated hips in the real linen bench, exact shoulders/arms/hands/book/hem/knees/ankles and both complete shoes at their real original floor contacts. Head and shoes stay fully in frame. No translation, enlargement, leaning toward camera, new gesture or reposed limbs; natural originals gaps and occlusion remain. Keep the same large wooden multi-pane window and its current crop, lake/town/mountain geometry, shelves/books/plants, left desk and chair, round table/ceramic lamp/cup/flowers, right plaid cushions/knit throw, rug/floor and foreground plant at the same positions. Keep the room continuous, no day/night split, hard color boundary or replacement furniture.\nRepaint the WHOLE scene's light, including character face/hair/clothes/book, cushion compression/contact shadows and floor, consistently with image 1. The target is natural integrated illumination, NOT a tinted transparent overlay, filter, pasted daytime figure or simple hue swap. Use precise expressive anime character drawing inside the tactile softly painterly room. Keep each fringe lock, eyebrow, eyelash, eyelid, sclera and iris separate and readable; no hair-eye fusion or changed eye color. Do not trade youthful identity for an adult generic face.\nNo readable text, captions, fake user state, diagrams, UI, logos, watermarks, duplicate body parts, new person, crop, zoom, picture-in-picture or poster layout. The emotional scenario is project-original and does not assert an actual user's past action, promise or completed task.\nCRITICAL: original apricot skin highlights, hot knee/shin patches and sunlit hair rims are NOT pose or identity constraints. Replace them with the target room's actual soft diffuse/lamp-facing light. Do not preserve a bright white apricot shin patch in dusk/night, and do not paint a hard noon grid onto a diffuse/night floor.\n\nCHARACTER: Shiina Taki (椎名立希) from BanG Dream! It's MyGO!!!!! — youthful long straight purple-black hair with side-parted fringe, violet eyes; camel-brown Hanasakigawa sailor uniform, white sailor collar with dark trim, red ribbon, gold buttons, camel pleated skirt, dark socks and complete brown loafers.\nORIGINAL PERFORMANCE: Her direct yet slightly awkward concrete care remains: attentive softened brows, a small questioning part of the mouth, closed book already secure across one side of her lap, one forearm/hand loose toward the opposite thigh and the other hand naturally obscured at the book. Preserve the exact calm chat performance and actual occlusions; do not invent a new hidden hand, scowl or sales smile.\nTARGET LIGHT: An overcast DAY with soft cool-blue diffuse window light, muted lake/town/autumn distance and no hard sunshine spots or window-lattice sunlight on the floor, cushion, skin or clothes. The room remains inhabited, tactile and naturally warm in its wood, with any existing lamp fill exactly as in image 1. Relight skin, hair, uniform, book and contact regions under this soft daytime light; keep canonical garment colors, clear eyes and neutral detailed skin. This is not a blue wash over apricot sunlight.",
+  "output": {
+    "file": "taki-chat-mist-literary-v1.png",
+    "sha256": "ad4125505fbcc0a7c3ef57035f20b604d5024afa06dd9e2fb464a1aaf089b27f",
+    "bytes": 2365541,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "decision": "static theme mother candidate for primary inspection",
+    "observation": "Complete original viewed: overcast outdoor cloud/lake distance and soft diffuse room/skin/uniform light remove strong apron-day knee/floor hotspots. Original chat pose, closed book to one lap side, relaxed visible hand and natural book-occluded hand, hip/cushion and complete shoes remain visually aligned with the approved mother. Violet eyes and dark fringe/lids are separate; earnest question remains without a forced smile. No hard sunshine lattice or global blue dye.",
+    "limits": "Observed visual coordinate continuity, not pixel-identical calibration or runtime proof. No primary/layer/runtime admission."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "acceptanceScope": "Static theme mother candidate only; no new layers or registration."
+}

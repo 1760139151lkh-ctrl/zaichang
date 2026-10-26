@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "s01-d01-sakiko-reading-hand-clean-v2",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "recordedAt": "2026-10-25T08:01:26Z",
+  "generationId": "exec-8fc2f9a1-8099-488a-8191-b7b3047d237c",
+  "prompt": "sakiko-reading-hand-clean-v2.prompt.txt",
+  "inputs": [
+    {
+      "path": "../../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-mother.png",
+      "sha256": "8f2358c0af7a78451259d049517cf3dedfe011023fdbabc44ec4bd850d3e671b",
+      "role": "approved original READING mother; only image reference used for every generation in this folder"
+    }
+  ],
+  "output": "quarantine/sakiko-reading-hand-clean-v2.png",
+  "sha256": "0f89472629fd2abc4249a0f9696cc69efbf6246531ea02bc96b2ccc20cb79fc1",
+  "bytes": 2123108,
+  "canvas": {
+    "width": 1536,
+    "height": 1024
+  },
+  "outputMode": "RGB",
+  "character": "sakiko",
+  "sceneFamily": "sakiko-reading-apricot-room4",
+  "classification": "C",
+  "status": "rejected-quarantine",
+  "runtimeAllowed": false,
+  "staticReview": {
+    "producerInspected": true,
+    "observed": "A more explicit small-hand erasure request still retained the original skin-colored fingers at the left book corner.",
+    "limitation": "Stopped the single-hand-erasure route after the second same-type failure. Changed decomposition to a book-repair underlayer with both hands absent, while runtime keeps the original left hand."
+  },
+  "originalNotOverwritten": true,
+  "noCrossFamilyPixels": true,
+  "motionVerified": false,
+  "inAppVerified": false,
+  "runtimeRig": null,
+  "doNotUseAsGenerationReference": true
+}

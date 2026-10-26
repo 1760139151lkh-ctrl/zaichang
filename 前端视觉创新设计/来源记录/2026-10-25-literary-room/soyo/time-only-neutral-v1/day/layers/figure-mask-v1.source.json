@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "characterId": "soyo",
+  "neutralTime": "day",
+  "purpose": "neutral-presence-fixed-included-layer",
+  "kind": "foreground-luminance-mask-F-HOLD",
+  "createdAt": "2026-10-26T01:25:45.431299+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "exactPromptFile": "figure-mask-v1.prompt.txt",
+  "promptSha256": "85191c327c074da7f209b3391777636573f9386aa65718417adac50d0186e2eb",
+  "requestFile": "figure-mask-v1.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/day/layers/figure-step1-marked-v1.png",
+      "sha256": "83bc0db11d64eb8d85e229bf0d06f3b29e7f83e4842bbcb05dd5a5b8f096cf11",
+      "role": "sole personally checked healthy F1 markup"
+    }
+  ],
+  "output": {
+    "file": "figure-mask-v1.png",
+    "sha256": "a4fca5217a46232eb1dba7bae0c09ee2529ea33fc281dc3a3779b4c19a041460",
+    "bytes": 505008,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "originalBasename": "exec-b638de58-e766-444c-9774-2ef1d4672e5e.png",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteOutput": true,
+    "observations": [
+      "Output invented internal outlined book/hands higher than real mother open-book position despite original exterior contour.",
+      "HOLD, no downstream image input; direct clean-mother F follows the native-reviewed Taki direct-mask method."
+    ],
+    "eligibleAsNextStepInput": false
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "countsToward360ExactActivities": false,
+  "pngPixelEditing": false
+}

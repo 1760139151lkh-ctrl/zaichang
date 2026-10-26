@@ -1,0 +1,376 @@
+{
+  "schemaVersion": 1,
+  "recordType": "time-only-neutral-fixed-original-rgb-included-layer-candidate",
+  "recordedAtUTC": "2026-10-26T01:14:34.925328+00:00",
+  "character": "nyamu",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "palette": "mist",
+  "light": "morning",
+  "weather": "unknown",
+  "weatherClaim": false,
+  "sourceCanvas": [
+    1536,
+    1024
+  ],
+  "selected": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/nyamu-neutral-presence-time-day-v1.png",
+      "sha256": "5df25df2667581917ee3e312218810da2424bcd573be4418b245ac7d05dc755d",
+      "bytes": 2443868,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "F": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/figure-mask-v1.png",
+      "sha256": "b876a24a6c809f781abcbeeb58005a5dad9dba73d72d15e7267442bad4e3d5c5",
+      "bytes": 422002,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "S": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/contact-mask-v3.png",
+      "sha256": "1676a9c48a2c910346cb0d5f6fa64ae88e0d92e3ce377e6e24fd55fdc279fda9",
+      "bytes": 338563,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "BG": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/background-v1.png",
+      "sha256": "1ffa461cec7b1677fecb84b1b9b6979f4cb867bf6065ad79866d1d7688ded578",
+      "bytes": 2368401,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    }
+  },
+  "motherPrimaryAdmission": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/root-primary-mother-admission-v1.json",
+    "sha256": "5b9efdae10f905367c88c2e3c26f8ae91cf35ed95ff25a5733cc4d9f65eab7e1",
+    "scope": "complete static mother and fixed same-source layer production; not new layer approval"
+  },
+  "composition": {
+    "formula": "U=MAX(L(F),L(S))",
+    "luminanceCoefficients": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorInterpolationFilters": "sRGB",
+    "nativeImplementation": "feColorMatrix then feBlend lighten then luminance mask; original mother image once",
+    "sourceRGBDrawCountPerUnion": 1,
+    "sourceRGBDrawCountPerComposite": 1,
+    "generatedMarkupRGBAdopted": false,
+    "sameMotherImageRemovalBG": true,
+    "commonPlateUsedInsteadOfSameMotherBG": false,
+    "fixedOriginalPositionMaterialReceiver": true,
+    "independentActorPropReceiverMovementAllowed": false,
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "pngPixelEditing": false,
+    "manualMaskPainting": false,
+    "croppingResizingSourcePNG": false,
+    "thresholdMorphologyEditing": false
+  },
+  "generationRecords": [
+    {
+      "sourceRecord": "background-v1.source.json",
+      "sourceSHA256": "249f282d187adf3de7404dc25b3de470dee281569a1ec6c91e110eeb1c55edce",
+      "stage": "BG",
+      "outputFile": "background-v1.png",
+      "outputSHA256": "1ffa461cec7b1677fecb84b1b9b6979f4cb867bf6065ad79866d1d7688ded578",
+      "toolOriginalSHA256": "1ffa461cec7b1677fecb84b1b9b6979f4cb867bf6065ad79866d1d7688ded578",
+      "submittedPromptSHA256": "40124148b2549568596c2cb25d892e9a54a09700ed0c837af1cb89cf3151a58c",
+      "promptFileSHA256": "770f2cac78f52045a1c65f0082d2ec3835257152c32c457da03c1d9dc4e55b6b",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/nyamu-neutral-presence-time-day-v1.png",
+          "role": "exact root-approved original whole mother",
+          "sha256": "5df25df2667581917ee3e312218810da2424bcd573be4418b245ac7d05dc755d"
+        }
+      ],
+      "producerHeld": false,
+      "imageGenerationInputAllowed": null,
+      "producerObservation": "Complete tool output personally viewed: empty same-mother day room, no girl/fan/shoes ghost; matching original closed curtain/bench/left furniture/camera and soft daylight retained."
+    },
+    {
+      "sourceRecord": "contact-mask-v1.source.json",
+      "sourceSHA256": "dcbb74a2e04d8ec12a8b12d0830e54097f313ee4c1419c9cf6d4c79ac03fdb6e",
+      "stage": "S2",
+      "outputFile": "contact-mask-v1.png",
+      "outputSHA256": "0f4ae333af87c0b6736dd76d6cccf52b9c20405569050dc1d2d30bfeb054e6a6",
+      "toolOriginalSHA256": "0f4ae333af87c0b6736dd76d6cccf52b9c20405569050dc1d2d30bfeb054e6a6",
+      "submittedPromptSHA256": "befa90846ed9c718f5dd58ebff61d039f77d7c69e3cb2a7c856c049b9237d999",
+      "promptFileSHA256": "26da776bd4e04f90d9d3525384498727657b94361aa56163bcc968e6c217d84f",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/contact-step1-marked-v1.png",
+          "role": "personally inspected same-mother S1 marks, or exact original mother for selection disambiguation",
+          "sha256": "b01acd901ca41345857fe55498dfacb577f303c82824735d39d1a6c48edc2b40"
+        },
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/nyamu-neutral-presence-time-day-v1.png",
+          "role": "exact root-approved original whole mother",
+          "sha256": "5df25df2667581917ee3e312218810da2424bcd573be4418b245ac7d05dc755d"
+        }
+      ],
+      "producerHeld": true,
+      "imageGenerationInputAllowed": false,
+      "producerObservation": "PRODUCER HOLD: unintended white outline around entire figure/hair/legs in addition to receiver marks; forbidden as any downstream Image input. Rebuild only from healthy S1 + clean mother."
+    },
+    {
+      "sourceRecord": "contact-mask-v2.source.json",
+      "sourceSHA256": "84c4115b50e40cef2dbeb64f611217ec86a81f2e507d29898d68617b95752891",
+      "stage": "S2",
+      "outputFile": "contact-mask-v2.png",
+      "outputSHA256": "943ee3a84ceb47bb3f37785895807e6f21bb4262bf555b3f42cce3fc2fcc3915",
+      "toolOriginalSHA256": "943ee3a84ceb47bb3f37785895807e6f21bb4262bf555b3f42cce3fc2fcc3915",
+      "submittedPromptSHA256": "a39a2474f94065e65bd5299aeb437f20a899b5b59eab30c420824d1772ab3515",
+      "promptFileSHA256": "e2feb72c5e6ebcee7d2e0ad3ddc2c111dddcff6659ec6fa911c6a6a41d327891",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/contact-step1-marked-v1.png",
+          "role": "personally inspected same-mother S1 marks, or exact original mother for selection disambiguation",
+          "sha256": "b01acd901ca41345857fe55498dfacb577f303c82824735d39d1a6c48edc2b40"
+        },
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/nyamu-neutral-presence-time-day-v1.png",
+          "role": "exact root-approved original whole mother",
+          "sha256": "5df25df2667581917ee3e312218810da2424bcd573be4418b245ac7d05dc755d"
+        }
+      ],
+      "producerHeld": true,
+      "imageGenerationInputAllowed": false,
+      "producerObservation": "PRODUCER HOLD: residual unintended head/hair/body contour still appears; forbidden downstream. Will generate local receiver mask directly from clean mother with explicit local source neighborhoods."
+    },
+    {
+      "sourceRecord": "contact-mask-v3.source.json",
+      "sourceSHA256": "6f6604c7960e15ad6fc4ab03bdc0ba93e7649f734ecb457445fe8469d1c8afb3",
+      "stage": "S2",
+      "outputFile": "contact-mask-v3.png",
+      "outputSHA256": "1676a9c48a2c910346cb0d5f6fa64ae88e0d92e3ce377e6e24fd55fdc279fda9",
+      "toolOriginalSHA256": "1676a9c48a2c910346cb0d5f6fa64ae88e0d92e3ce377e6e24fd55fdc279fda9",
+      "submittedPromptSHA256": "0a4516ab63a408b535bedaa9e1751156f491527f652cbaffdf2ba59fbb4eb0db",
+      "promptFileSHA256": "1cebddf1360dbf503cf9643dc46619cbdbc445a9dac1cf3fc8d574072d6df952",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/nyamu-neutral-presence-time-day-v1.png",
+          "role": "exact root-approved original whole mother",
+          "sha256": "5df25df2667581917ee3e312218810da2424bcd573be4418b245ac7d05dc755d"
+        }
+      ],
+      "producerHeld": false,
+      "imageGenerationInputAllowed": null,
+      "producerObservation": "Complete tool output personally viewed: directly generated from clean mother only; now restricted to actual seat and shoe-ground receiver areas, no head/upper-body outline. Soft original local cloth/wood selection, candidate needs native browser closure."
+    },
+    {
+      "sourceRecord": "contact-step1-marked-v1.source.json",
+      "sourceSHA256": "74e7d7d3d7dccb930fd81d0d4e622f5784884ac91e118b6e984f2a4f947f95f0",
+      "stage": "S1",
+      "outputFile": "contact-step1-marked-v1.png",
+      "outputSHA256": "b01acd901ca41345857fe55498dfacb577f303c82824735d39d1a6c48edc2b40",
+      "toolOriginalSHA256": "b01acd901ca41345857fe55498dfacb577f303c82824735d39d1a6c48edc2b40",
+      "submittedPromptSHA256": "c413aa74af40d0b59a17ae9edddfd5faed56a9a49977453532035451904680bc",
+      "promptFileSHA256": "d44c79b65b89d7f484100e3c2ab7a5838dddfc76754c6c1c9f82634737fb7c1a",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/nyamu-neutral-presence-time-day-v1.png",
+          "role": "exact root-approved original whole mother",
+          "sha256": "5df25df2667581917ee3e312218810da2424bcd573be4418b245ac7d05dc755d"
+        }
+      ],
+      "producerHeld": false,
+      "imageGenerationInputAllowed": null,
+      "producerObservation": "Complete tool output personally viewed: tight actual skirt-seat linen marks and whole short local toe/sole/heel receiver footprints around both shoes, original person/held fan colored. Fixed source material only."
+    },
+    {
+      "sourceRecord": "figure-mask-v1.source.json",
+      "sourceSHA256": "70452b3f0e7f4fd3402bc8108dfb41b5354081dd208bef728c304a871d20d7e9",
+      "stage": "F2",
+      "outputFile": "figure-mask-v1.png",
+      "outputSHA256": "b876a24a6c809f781abcbeeb58005a5dad9dba73d72d15e7267442bad4e3d5c5",
+      "toolOriginalSHA256": "b876a24a6c809f781abcbeeb58005a5dad9dba73d72d15e7267442bad4e3d5c5",
+      "submittedPromptSHA256": "85b23e601ba1c15df0276c9b9a2fb33c11224dccde202a386fe0b493dca90b96",
+      "promptFileSHA256": "8853b7c5782d5ccb123ff257312f32d6c50c4b29a019f4816d5738f7b6cd885e",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/figure-step1-marked-v1.png",
+          "role": "personally inspected same-mother F1 deliberate white selection",
+          "sha256": "aa9152154b0f61c2b4a819527e1a80a3992d1ead4b374bf13d73b600e58ae04e"
+        }
+      ],
+      "producerHeld": false,
+      "imageGenerationInputAllowed": null,
+      "producerObservation": "Complete tool output personally viewed: full white person/fan/whole shoes on black, original true empty gaps retained; candidate awaits browser edge/props closure."
+    },
+    {
+      "sourceRecord": "figure-step1-marked-v1.source.json",
+      "sourceSHA256": "12a672e9d72752560293cf1ceb0378b1670d0538ed1817041b3f54f1e721fe7b",
+      "stage": "F1",
+      "outputFile": "figure-step1-marked-v1.png",
+      "outputSHA256": "aa9152154b0f61c2b4a819527e1a80a3992d1ead4b374bf13d73b600e58ae04e",
+      "toolOriginalSHA256": "aa9152154b0f61c2b4a819527e1a80a3992d1ead4b374bf13d73b600e58ae04e",
+      "submittedPromptSHA256": "0080e7092b30aac76e39752cd9e69c4ee92b5151bd583e504e7eb96817ce871f",
+      "promptFileSHA256": "c50952cdae8284e2b9c5dcc597194988214709e3875178227477466e6ebae87e",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/nyamu-neutral-presence-time-day-v1.png",
+          "role": "exact root-approved original whole mother",
+          "sha256": "5df25df2667581917ee3e312218810da2424bcd573be4418b245ac7d05dc755d"
+        }
+      ],
+      "producerHeld": false,
+      "imageGenerationInputAllowed": null,
+      "producerObservation": "Complete tool output personally viewed: whole hair/person/gray ruffles/choker/black skirt/bare legs/whole ankle-strap shoes and entire held paper fan deliberately white; actual empty gaps stay original room. Fine selection seams require final F2 browser closure."
+    }
+  ],
+  "imageGenerationCallCount": 7,
+  "nativeSVGReadback": [
+    {
+      "file": "union-source-v1.svg",
+      "sha256": "1d1370142656b5efd6bd40bf81740e927148f6154a9c0ebd31145ff0dfa855aa",
+      "originalMotherRGBDrawCount": 1,
+      "nativeMaxModeLighten": true,
+      "nativeLuminance": true,
+      "allOriginalCanvas": true
+    },
+    {
+      "file": "composite-source-v1.svg",
+      "sha256": "90697e3632e97617de116a9edc65e24a32168cae9cb59978224c7e90f481cb5a",
+      "originalMotherRGBDrawCount": 1,
+      "nativeMaxModeLighten": true,
+      "nativeLuminance": true,
+      "allOriginalCanvas": true
+    }
+  ],
+  "observationPage": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/included-observe-v1.html",
+    "sha256": "042ed663111e4b5d885fd1ba85fcd06aa5f9f297ac621766f2d7aa0aa898e683",
+    "browserEvidencePending": false,
+    "imageGenerationInputAllowed": false
+  },
+  "primaryLayerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "dynamicAdmission": false,
+  "original360CreditAssigned": false,
+  "userApproved": false,
+  "boundaries": [
+    "Neutral presence time-only, not a new exact activity360 cell.",
+    "S includes original local receiving linen/wood and soft grounding at fixed source coordinates, not a separately transportable caster.",
+    "Same-mother Image BG reconstructs hidden texture; no claimed exact hidden-pixel recovery.",
+    "HOLD outputs are preserved provenance only and forbidden downstream; no reviewed screenshot or UI is an Image input."
+  ],
+  "browserReview": {
+    "personallyPerformed": true,
+    "method": "Formal Chrome CUA browser1, own static original-RGB inline SVG artwork page at5188; no App/9335. Screenshots are exact official API returned bytes.",
+    "views": [
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/browser-observations/01-scene.png",
+        "sha256": "fb873f56a45ab4476767e3b228d0136feae04a9a4913285551b4f961d1e10c04",
+        "bytes": 85473,
+        "canvas": [
+          839,
+          582
+        ],
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/browser-observations/02-subject.png",
+        "sha256": "b7131f03c8442ae8ab39654101ef2c72e82987a49b240859caf9f0584348cf71",
+        "bytes": 65398,
+        "canvas": [
+          839,
+          582
+        ],
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/browser-observations/03-face.png",
+        "sha256": "c6a857e533d38e53a8d3ac35c8667edf892eefdaa910ea473e94cddcefb7e75d",
+        "bytes": 81723,
+        "canvas": [
+          839,
+          582
+        ],
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/browser-observations/04-props.png",
+        "sha256": "8b3f651b5a2b92204476ebb57eb0c254961eb961afe5ebed744e5f4dad7f922b",
+        "bytes": 82421,
+        "canvas": [
+          839,
+          582
+        ],
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/browser-observations/05-seat.png",
+        "sha256": "90bd81fe19dd151227b90976bb6d202e8db3840d629d0379bea2dbfa57910f88",
+        "bytes": 71513,
+        "canvas": [
+          839,
+          582
+        ],
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/browser-observations/06-shoes.png",
+        "sha256": "4562061366ae37a493a176680767104d28941f53b47943a850c934a7f9f70f4c",
+        "bytes": 63527,
+        "canvas": [
+          839,
+          582
+        ],
+        "imageGenerationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/browser-observations/07-contact.png",
+        "sha256": "e9d51cce3ea405795bc291d3b7436e62d81e4918cfcba881a3ae277d018ea486",
+        "bytes": 56008,
+        "canvas": [
+          839,
+          582
+        ],
+        "imageGenerationInputAllowed": false
+      }
+    ],
+    "completeMotherAndComposite": true,
+    "lightDarkCheckerUnion": true,
+    "faceHair": true,
+    "handsWholePaperFan": true,
+    "skirtSeatKnees": true,
+    "bothCompleteShoesAndLocalGrounding": true,
+    "receiverOnly": true,
+    "observations": [
+      "完整原母/同母BG+U保持同相机与家具光场，合闭内帘未露天气；正常尺度未见明显盒缝。",
+      "红紫眼/短紫bob/颈带与两条末梢、细肩带、纸扇全部折面与薄边、两手保原RGB；纸扇手间实际空隙保留，未见将扇页抠空。",
+      "裙/受座/双膝与双完整踝带鞋保连续，toe/sole/heel本位短软接收进入U。",
+      "S含原木/布材质和少量鞋/裙重叠，不是独立caster；MAX与F合并且原母RGB仅一次，固定原位才成立。"
+    ],
+    "rootPrimaryLayerReviewPending": true,
+    "screenshotsAllowedAsGenerationInputs": false
+  },
+  "verification": {
+    "sourcePNGBytesMatchToolOriginals": true,
+    "inputsAndSubmittedPromptsReadBack": true,
+    "selectedSourceSHAsReadBack": true,
+    "nativeRGBDrawCountPerUnionAndComposite": 1,
+    "browserScreenshotCount": 7,
+    "noRuntimeRegistration": true,
+    "newTestsOrRunnersCreated": false
+  }
+}

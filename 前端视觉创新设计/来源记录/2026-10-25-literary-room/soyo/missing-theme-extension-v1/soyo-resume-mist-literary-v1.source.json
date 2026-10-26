@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-resume-mist-literary-v1",
+  "cell": "soyo/resume/mist",
+  "useCase": "illustration-story",
+  "submittedPrompt": "Use case: illustration-story. Produce one complete, exquisite 1536 x 1024 landscape literary-room companion mother illustration. The single input is the clean EMPTY room: it alone fixes the camera, furniture coordinates, depth, and this exact environmental light. Rebuild the complete human figure freshly in the same unified drawing and light. No character seed is supplied, and there is no compositing or global color filter.\nKeep the complete large wooden window and the same autumn lakeside town and mountain view, ivory curtains, LEFT writing desk with its original wooden chair, shelves/books/frames/plants, original round side table and its blue-white porcelain lamp, cup, books and flowers, long real wooden window bench with linen cushion, blue-gray plaid pillows and knit throw at right, wooden floor, woven rug, softly blurred foreground plant. Preserve camera and furniture scale. The illustration is a fictional literary room, not a claim about an actual location. The round table remains at about x435-690 with top near y500; the left desk ends near x400. No extra furniture, moved table, zoom, crop, montage, or second person.\nCharacter: Soyo Nagasaki / 長崎そよ / 长崎素世 from It's MyGO!!!!!, a youthful high-school student. Long LIGHT BROWN hair, separated fine bangs, softly curved cheek-side locks and gently curled ends, clearly BLUE eyes, natural youthful delicate face with short soft chin. Observant, considerate but with her own wishes and judgments, never an adult mother, model, flawless hostess, generic comfort assistant, chibi, or baby. No large invented hair ornament, makeup, long mature lower face, permanent seductive half-closed eyes or glossy realistic skin. Refined 2D anime linework, subtly painted facial planes, detailed cloth and room texture in one harmonious literary illustration.\nUse her faithful Tsukinomori school uniform as one consistent outfit: dark NAVY sailor blouse, broad WHITE collar with fine navy edging, GRAY-BLUE FABRIC BOW with a plain fabric knot. IMPORTANT correction: the small GOLD SCHOOL CREST belongs on HER LEFT CHEST; there is NO round gold jewel, gold badge or brooch in the middle of her bow or at the throat. Dark buttons, pale cuff lines, navy pleated skirt with TWO white lines near the hem. Dark navy KNEE SOCKS with the sock tops BELOW the knees and both kneecaps visibly exposed; BROWN loafers. School-student ordinary proportions, modest fully clothed companionship. Preserve local hair, eye and clothing colors within environmental light, not a flat palette tint.\nSeat her near the round-table end of the actual window bench, in the same near-camera scale as the room's occupants: head approximately y110-150, hips genuinely supported near the cushion front around y535, whole body and both shoes within the canvas. Do not mechanically force coordinates or stretch shins; use the actual room perspective. Cushion support and local contact shadow must be believable. Continuous hips/thighs/knees/shins/ankles, relaxed uncrossed legs with both complete loafers naturally supported on the wooden floor. Both arms must reach their real objects; wrists/hands/fingers coherent. Natural hair and cloth shadows cast into this room. Keep the original rug/floor/bench relationship clear. No floating seat, extra limb, fusion, furniture penetration, unsupported book, arbitrary pointing, cropped shoe or sticker outline.\n\nShe was reading her own open book when a familiar companion came back. Her recognition reaches her eyes before a small unforced warmth reaches the mouth. She remains in the real reading seat, not performing a welcome. The book is supported on her knees and left palm; her other hand lightly retains a real page beside one SIMPLE thin ribbon bookmark visibly lying between the pages. She can gently flatten that very page, never point into empty space. No readable title, fabricated message, gift, schedule, badge of completion or claim that she waited or finished work while the person was away. The companion can continue, change subject or remain quiet; her own honest affection has room.\n\nExact original project situation, not canon biography:\ntitle: 把礼貌松开一点，接回真实那页\npsychology: 看见人回来，她不必重新招待一遍。那本还留着书签的册页在原处，她可以先让高兴从眼里露出来。 周全的迎候会松开一点，真实的接续与她自己的愿望都在。 先听清今天想怎样继续，原来的那一页可以等一等。\ngaze: 先认出来人，再看原来的页或物件，给对方选择从哪里继续。 认出同伴后，目光从容停留。\nrelating: 把当前材料留在原处接回，愿意继续，也容许今天改方向。 留着原材料，也给新的心思留位置。\nexpression: 眼神先软下来，唇角有一点不掩饰的高兴。 带询问的柔和。\nposture: 仍坐在长凳阅读位，册页由膝托住，一手留在书签附近。\nprops: 一本留有朴素书签的册页；不添加虚构纪念物或离线完成痕迹。\ncomposition: 同一窗、凳、材料维持相认，画面不变成迎宾舞台。\nlighting: 清润天光照出书签与指尖，灯光克制。\n\nLight the room and Soyo together according to the supplied target plate, including face, navy cloth, hair, hands, paper, cushion, shoes and shadows. Overcast cool-luminous daylight with quiet warm porcelain-lamp light; clear soft facial planes, no washed-out face and no blue global haze.\nOnly the one complete room and one girl, no UI, panels, captions, logos, watermark, border, text labels, calendar, real document text, fog overlay or added light source. The exact moment is gentle and alive, not a pose-sheet or advertisement.\n",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png"
+  ],
+  "transparentBackground": false,
+  "inputRoles": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "role": "sole clean empty-room camera/furniture/theme reference"
+    }
+  ],
+  "brief": {
+    "index": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/mygo-b-matrix-v1.json",
+      "sha256": "e744ab94da12aa771b9293b1a52a5f0e9af0f2eaee856c1a3201f95a58032556",
+      "bytes": 23633,
+      "capturedAt": "2026-10-25T09:14:03.040380+00:00"
+    },
+    "jsonPointer": "/cells/69",
+    "briefKey": "soyo/resume/mist",
+    "producerBriefRef": "soyo-literary-room-briefs-v1.json#/cells/33"
+  },
+  "dossier": ".agents/skills/zaichang-frontend-director/references/characters/soyo.md",
+  "dossierSha256": "1ec8b260d40f8363c096ed8392547dd276d2318df5aadbe34b1f51e51e2ed04e",
+  "wardrobe": "Tsukinomori sailor uniform; plain gray-blue cloth bow; gold school crest on her left chest; navy below-knee socks and brown loafers",
+  "warmSeedInspectedButExcluded": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wave-b/soyo-resume-apricot-literary-v1.png",
+    "sha256": "d79e9a2d7b873932dd1b2c04692eba3bd386007da501996eecc7d3ed62a6cf7a",
+    "bytes": 2442708,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "format": "PNG",
+    "writtenByUtc": "2026-10-25T12:00:31.176774+00:00"
+  },
+  "exclusionReason": "observed gold ornament at bow/throat conflicts with current complete dossier; clean-plate rebuild required",
+  "generationStatus": "image-returned-and-saved",
+  "runtimeRegistered": false,
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-resume-mist-literary-v1.png",
+    "sha256": "a7fc19f9af9788ce88964d4b532dd770407700500bb96ecf87a26a6e99b9dc55",
+    "bytes": 2503359,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "format": "PNG"
+  },
+  "recordType": "human-mother-image-generation-source",
+  "tool": "image_gen.imagegen",
+  "generationMode": "built-in",
+  "actualToolArguments": {
+    "prompt": "Use case: illustration-story. Produce one complete, exquisite 1536 x 1024 landscape literary-room companion mother illustration. The single input is the clean EMPTY room: it alone fixes the camera, furniture coordinates, depth, and this exact environmental light. Rebuild the complete human figure freshly in the same unified drawing and light. No character seed is supplied, and there is no compositing or global color filter.\nKeep the complete large wooden window and the same autumn lakeside town and mountain view, ivory curtains, LEFT writing desk with its original wooden chair, shelves/books/frames/plants, original round side table and its blue-white porcelain lamp, cup, books and flowers, long real wooden window bench with linen cushion, blue-gray plaid pillows and knit throw at right, wooden floor, woven rug, softly blurred foreground plant. Preserve camera and furniture scale. The illustration is a fictional literary room, not a claim about an actual location. The round table remains at about x435-690 with top near y500; the left desk ends near x400. No extra furniture, moved table, zoom, crop, montage, or second person.\nCharacter: Soyo Nagasaki / 長崎そよ / 长崎素世 from It's MyGO!!!!!, a youthful high-school student. Long LIGHT BROWN hair, separated fine bangs, softly curved cheek-side locks and gently curled ends, clearly BLUE eyes, natural youthful delicate face with short soft chin. Observant, considerate but with her own wishes and judgments, never an adult mother, model, flawless hostess, generic comfort assistant, chibi, or baby. No large invented hair ornament, makeup, long mature lower face, permanent seductive half-closed eyes or glossy realistic skin. Refined 2D anime linework, subtly painted facial planes, detailed cloth and room texture in one harmonious literary illustration.\nUse her faithful Tsukinomori school uniform as one consistent outfit: dark NAVY sailor blouse, broad WHITE collar with fine navy edging, GRAY-BLUE FABRIC BOW with a plain fabric knot. IMPORTANT correction: the small GOLD SCHOOL CREST belongs on HER LEFT CHEST; there is NO round gold jewel, gold badge or brooch in the middle of her bow or at the throat. Dark buttons, pale cuff lines, navy pleated skirt with TWO white lines near the hem. Dark navy KNEE SOCKS with the sock tops BELOW the knees and both kneecaps visibly exposed; BROWN loafers. School-student ordinary proportions, modest fully clothed companionship. Preserve local hair, eye and clothing colors within environmental light, not a flat palette tint.\nSeat her near the round-table end of the actual window bench, in the same near-camera scale as the room's occupants: head approximately y110-150, hips genuinely supported near the cushion front around y535, whole body and both shoes within the canvas. Do not mechanically force coordinates or stretch shins; use the actual room perspective. Cushion support and local contact shadow must be believable. Continuous hips/thighs/knees/shins/ankles, relaxed uncrossed legs with both complete loafers naturally supported on the wooden floor. Both arms must reach their real objects; wrists/hands/fingers coherent. Natural hair and cloth shadows cast into this room. Keep the original rug/floor/bench relationship clear. No floating seat, extra limb, fusion, furniture penetration, unsupported book, arbitrary pointing, cropped shoe or sticker outline.\n\nShe was reading her own open book when a familiar companion came back. Her recognition reaches her eyes before a small unforced warmth reaches the mouth. She remains in the real reading seat, not performing a welcome. The book is supported on her knees and left palm; her other hand lightly retains a real page beside one SIMPLE thin ribbon bookmark visibly lying between the pages. She can gently flatten that very page, never point into empty space. No readable title, fabricated message, gift, schedule, badge of completion or claim that she waited or finished work while the person was away. The companion can continue, change subject or remain quiet; her own honest affection has room.\n\nExact original project situation, not canon biography:\ntitle: 把礼貌松开一点，接回真实那页\npsychology: 看见人回来，她不必重新招待一遍。那本还留着书签的册页在原处，她可以先让高兴从眼里露出来。 周全的迎候会松开一点，真实的接续与她自己的愿望都在。 先听清今天想怎样继续，原来的那一页可以等一等。\ngaze: 先认出来人，再看原来的页或物件，给对方选择从哪里继续。 认出同伴后，目光从容停留。\nrelating: 把当前材料留在原处接回，愿意继续，也容许今天改方向。 留着原材料，也给新的心思留位置。\nexpression: 眼神先软下来，唇角有一点不掩饰的高兴。 带询问的柔和。\nposture: 仍坐在长凳阅读位，册页由膝托住，一手留在书签附近。\nprops: 一本留有朴素书签的册页；不添加虚构纪念物或离线完成痕迹。\ncomposition: 同一窗、凳、材料维持相认，画面不变成迎宾舞台。\nlighting: 清润天光照出书签与指尖，灯光克制。\n\nLight the room and Soyo together according to the supplied target plate, including face, navy cloth, hair, hands, paper, cushion, shoes and shadows. Overcast cool-luminous daylight with quiet warm porcelain-lamp light; clear soft facial planes, no washed-out face and no blue global haze.\nOnly the one complete room and one girl, no UI, panels, captions, logos, watermark, border, text labels, calendar, real document text, fog overlay or added light source. The exact moment is gentle and alive, not a pose-sheet or advertisement.\n",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "originalToolOutputPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-794dabec-4662-4b6f-9736-c2f8b99480ae.png",
+  "recordedAtUtc": "2026-10-25T18:40:05.151024+00:00",
+  "producerInspection": {
+    "status": "candidate-awaiting-primary-review",
+    "scope": "whole static generated mother only",
+    "method": "personally viewed complete native tool output; no montage or pixel-score acceptance",
+    "observations": [
+      "An actual thin red ribbon bookmark is visible between the pages; one hand lifts the page and the other supports the book.",
+      "Blue eyes lift toward the returning companion with a small natural smile; no waiting/completed-work claim or readable source text.",
+      "Both shoulders/wrists, lap support, visible knees, below-knee socks and floor shoes are coherent.",
+      "Plain fabric bow and gold left-chest crest are preserved; the entire room and person share the mist-day light."
+    ],
+    "allowedAsFutureImageInput": null
+  },
+  "primaryMotherApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "ledgerModified": false,
+  "submittedPromptSha256": "b98f1ee7408aefa349cfad83300e5f361f17a3a4a7333833b2d78fc2ca753c25"
+}

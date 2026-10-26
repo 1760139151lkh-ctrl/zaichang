@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "recordType": "source-rgb-included-layer-image-stage",
+  "characterId": "tomori",
+  "neutralTime": "day",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "stage": "F2-v2",
+  "tool": "image_gen.imagegen",
+  "toolElapsedMs": 21992,
+  "recordedAt": "2026-10-26T01:11:36.966282+00:00",
+  "sourceConversationId": "01a17365-def4-7ef0-9767-09f785cec060",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/figure-step1-marked-v2.png",
+      "sha256": "35e988e592f3b8c99f71c77c9af34f8cfc4f686e406506b11dda81258646b279",
+      "role": "Personally inspected same-mother F1-v2 semantic white markup; single-input conversion to avoid colored-original internal book line reintroduction",
+      "personallyViewedBeforeGeneration": true
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: background-extraction. Convert ONLY this single same-mother WHITE SELECTION MARKUP into an opaque black/white luminance mask. SAME 1536x1024 full canvas and source positions. Do not resize, crop, move, recenter, erode or redraw the shape.\n\nThe deliberate connected bright-white girl + whole pencil + open notebook + lap + legs + both shoes becomes SOLID PURE WHITE. THE LOWER NOTEBOOK CURVE at x890..1070,y510..530 IS INSIDE THIS CONNECTED WHITE REGION: FILL the faint gray contour completely WHITE, do not draw or retain that line in black or gray. Every selected interior is featureless solid white, including any remaining faint face/clothing/book/hand/shoe tracing. It is not a coloring-book outline or silhouette with internal features. There is NO book/lap hole. Notebook cover/spine/binding and skin/skirt beneath it are all foreground. Pencil remains complete from upper tip to page tip. Every full shoe bottom, toe rim and heel remains selected.\n\nKeep ONLY the true OUTSIDE gaps between hair strands, bent arm/torso, and separated legs BLACK, following this markup's existing outer shape. The actual arm/torso gap is outside the selected region; never extend it into a new interior notebook/lap slit. Fine gray only the original antialiased external perimeter.\n\nEvery COLORED room pixel, naturally bright ivory curtain, linen seat/throw, lamp/shade/flowers/cup/table/books, floor/rug and separate cast shadows becomes BLACK. Natural room whiteness is not the deliberate flat white markup. No original person RGB, gray background, checkerboard, outlines, words or shadow creation. This is coverage only; the final person RGB will come from the unchanged clean mother once via MAX(F,S), never from this output.",
+  "submittedPromptSha256": "ea74eb845cbb50d6a8a627c662b0021b668032d32645ac4b41df6e71ce5171aa",
+  "promptFile": "figure-mask-v2.prompt.txt",
+  "promptFileSha256": "8edea4952662505b470199b31c8213d7a1c5f479d47370d84da442c65974797f",
+  "requestFile": "figure-mask-v2.request.json",
+  "requestSha256": "4c13affee4dc05cdc0df7ca1a2b41b9f7e06e72ff9541780826ec482e9ead3f8",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-1996c220-fe48-4258-a3fc-6de3a9675adb.png",
+  "toolOriginalSha256": "3761fc6739a33244790513d7550bd6ea044b14e7ce9b852f6b23dcc4d84f39f9",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/figure-mask-v2.png",
+    "sha256": "3761fc6739a33244790513d7550bd6ea044b14e7ce9b852f6b23dcc4d84f39f9",
+    "bytes": 427932,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true,
+    "resizedOrRetouched": false
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "status": "HOLD_expanded_arm_gap",
+    "observations": "Whole opaque F2-v2 viewed: complete hair/person/pencil/open notebook/lap/legs/full shoe outlines white; former notebook interior black line absent. True arm/torso and leg gaps black. Coverage is not accepted until same-coordinate native original-RGB review.",
+    "observedIssue": "Native original-RGB book/hands closeup proves the actual narrow arm/torso ivory slit was expanded upward/sideways, removing a small original blazer strip. Rebuild from clean mother; no faulty F1/F2/composite/review screenshot may be an input."
+  },
+  "primaryApproved": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "generationInputAllowed": false,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "original360ExactActivityCell": false,
+  "sourceCodeOrRegistryChanged": false,
+  "status": "HOLD_expanded_arm_gap"
+}

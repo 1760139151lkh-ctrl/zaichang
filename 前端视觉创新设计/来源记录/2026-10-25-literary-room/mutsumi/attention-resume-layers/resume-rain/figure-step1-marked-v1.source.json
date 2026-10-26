@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "recordType": "native-same-canvas-layer-production-receipt",
+  "assetType": "same-canvas-complete-foreground-white-markup-intermediate",
+  "sceneFamily": "literary-room-v1",
+  "character": "mutsumi",
+  "activity": "resume",
+  "palette": "rain",
+  "phase": "F1",
+  "recordedAt": "2026-10-25T20:18:47.716625+00:00",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-454d-7bb3-8b77-bcaadd75b8a4\\exec-56ea1b24-8d39-4955-b6ae-ee8950df2404.png",
+  "promptFile": "figure-step1-marked-v1.prompt.txt",
+  "promptFileSha256": "86079698bf75aabf9f37a041f3a82ebb63b5b8bb601ab08659cc3099ce16fcc3",
+  "exactSubmittedPrompt": "Use case: precise-object-edit. This is a native source-position selection/removal job, not a new character design. The sole input is the exact ROOT-APPROVED Mutsumi resume mother on the complete1536x1024 canvas. Preserve the original camera, every coordinate and full source dimensions; no zoom/crop/mirror/pose/scale change, UI/text/grid/labels/border/watermark/transparency. Keep all PNG output opaque RGB1536x1024. Mutsumi's accepted youthful face, long pale mint-grey hair/temple clips/gold-brown eyes, navy sailor uniform with full collar/bow/cuffs/double hem stripes, actual source calf socks/loafers, hands and lap book must not be redesigned. Tiny accepted theme/pose differences stay. Only the specified selection/removal may change; marked RGB will never supply the final person color.\n\nSTEP F1 — COMPLETE VISIBLE FOREGROUND WHITE MARKUP IN ORIGINAL ROOM. Paint ONLY the ENTIRE VISIBLE original girl AND her ONE complete held/open lap book pure solid opaque WHITE at precisely their existing locations. Include full hair mass and fine outer strands and silver clips, all face/neck, collar/bow/sleeves, BOTH entire hands/fingers, every navy skirt pleat and BOTH fine white/dark lower hem trims, both uncovered knees, both entire dark calf socks including any original tiny ornament, BOTH complete brown loafers: uppers, toe tips, heel walls, dark outsole/sole rims and full bottom contour. Book includes every page block/curled page/cover/spine/lower edge and corners and the actual finger-page contacts. Select dark garment/shoe/book edge pixels as FOREGROUND, never mistake them for cushion/floor shadows or shave them away.\nAll owned foreground interiors become WHITE without face/eye/text/clothing/finger detail or accidental holes. Keep genuine background gaps between loose hair/fingers/limbs their original color; do not fill background or infer hidden anatomy. Everything NON-foreground remains original ROOM COLOR: all cushion/linen away from true girl ownership, knit throw/plaid pillows, actual independent seat/floor contact shadows, tables/lamp/cup/books/flowers/window/lake/mountains/desk/chair/plants/rug/floor and unrelated highlights. No black background/matte yet. No enlarged silhouette, moved book, redraw or new hands.",
+  "submittedPromptSha256": "5d30fcee1125d0b2463a647fa17236f0286ce06165dededef17c11ecb93b2071",
+  "submittedPromptTransform": "UTF-8 prompt file without final LF added by patch; exact submitted string",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-rain-literary-extension-v2.png",
+      "sha256": "948402e09dedcb2a0f8b1777b29d2bc543485419984d4e057a925b1499c62df9",
+      "role": "Sole exact root-approved whole source mother; no other character/held/UI source"
+    }
+  ],
+  "output": {
+    "file": "figure-step1-marked-v1.png",
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/attention-resume-layers/resume-rain/figure-step1-marked-v1.png",
+    "sha256": "d587256487985b9fffddad0ecdee86a88082a406b2cbb4b121836bb5e889694f",
+    "bytes": 2160657,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "dossier": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/mutsumi.md",
+    "sha256": "189d1a17f6e4c2656692437167c50d2a89379cf50b16bc354df3ac8406e4610c",
+    "version": "2026-10-25",
+    "readComplete": true
+  },
+  "method": {
+    "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+    "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+    "readComplete": true
+  },
+  "wardrobeId": "mutsumi-tsukinomori-school-source-preserving",
+  "mother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-rain-literary-extension-v2.png",
+    "sha256": "948402e09dedcb2a0f8b1777b29d2bc543485419984d4e057a925b1499c62df9",
+    "bytes": 2320363,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    }
+  },
+  "motherApproval": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/root-human-mother-primary-review-20261025.json",
+    "sha256": "f6b3a0b7ac9974993b61553e907f0ebfa7c39763ebef7d33ca7efb215a99fbb2",
+    "record": {
+      "cell": "mutsumi/resume/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-rain-literary-extension-v2.png",
+        "sha256": "948402e09dedcb2a0f8b1777b29d2bc543485419984d4e057a925b1499c62df9",
+        "bytes": 2320363,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.846Z",
+      "observation": "Mutsumi green-tinted hair/gold eyes and anatomical-left paired clips remain; quiet curiosity or recognition is distinct from a stock smiling pose. Hands physically support the book, legs/shoes and bench support are coherent. Small sock decoration in rain remains project illustration, not new official wardrobe fact. Whole rain light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    }
+  },
+  "pngPixelEditing": false,
+  "manualThresholdOrMorphology": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "producerReview": {
+    "personallyViewed": true,
+    "observations": [
+      "Personally viewed complete native F1 output: source-position full hair/head/body/clothing/socks/shoes and the held open book appear white in the colored room; unowned room remains colored, no obvious whole-canvas crop or pose move.",
+      "F1 remains a production intermediary. Fine book/lap gaps and lower hem/shoe edges need close native comparison before F2 conversion; no selected-layer or primary approval is inferred.",
+      "Actual5188 native book close-up compared with original shows a narrow dark lower cover/hand-lap foreground sliver left unselected. Held; source-only F1-v2 remake, never feed this failed markup into F2."
+    ]
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "scope": "Original source-position fixed included layer production only; marked/mask RGB never replaces original mother color. No independent movement, no new mother/dynamic/runtime completion.",
+  "productionStatus": "held-missed-dark-lower-book-cover-foreground",
+  "generationInputAllowed": false,
+  "selectionAllowed": false
+}

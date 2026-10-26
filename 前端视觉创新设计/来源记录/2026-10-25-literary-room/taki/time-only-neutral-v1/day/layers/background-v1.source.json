@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "characterId": "taki",
+  "neutralTime": "day",
+  "purpose": "neutral-presence-fixed-included-layer",
+  "kind": "same-mother-clean-empty-background",
+  "createdAt": "2026-10-26T01:05:29.978599+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "exactPromptFile": "background-v1.prompt.txt",
+  "promptSha256": "de62bfef7a0846d03758c40cbb9a79bc74721286b1d0af644c8b23341ca5c14b",
+  "requestFile": "background-v1.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/taki-neutral-time-day-literary-v1.png",
+      "sha256": "66e104b6025d0b65c2ab522a6d76c8cab8cbc94e5ee4edbd3dd2c4d9b5bb6654",
+      "role": "sole exact root-approved full mother"
+    }
+  ],
+  "output": {
+    "file": "background-v1.png",
+    "sha256": "8e2dcd2cb218db1e4e11893e6b796af125b2598af6b3b46c8527e94294c7d86d",
+    "bytes": 2318677,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "originalBasename": "exec-2f6e1281-90bb-4287-ab3e-8801e81dbb49.png",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteOutput": true,
+    "observations": [
+      "Complete girl/open book/shoes removed; same opaque closed curtain, linen seat, wood benchfront and floor reconstructed.",
+      "Full room layout/canvas retained; actual original-coordinate union composite still requires browser inspection."
+    ],
+    "eligibleAsNextStepInput": true
+  },
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "countsToward360ExactActivities": false,
+  "pngPixelEditing": false,
+  "primaryStaticLayerApproved": true,
+  "primaryAdmissionRecord": "root-primary-layer-admission-v1.json",
+  "primaryApprovalScope": "Exact static fixed included layer in this same source canvas; no runtime, motion or activity360 acceptance"
+}

@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "recordType": "complete-companion-mother-theme-relighting",
+  "dateLocal": "2026-10-24",
+  "timeZone": "America/Los_Angeles",
+  "character": "rana",
+  "activity": "resume",
+  "theme": "rain",
+  "version": 1,
+  "tool": "image_gen.imagegen (built-in)",
+  "executionId": "exec-fef1a4f5-500d-430a-9436-cef3ef766084",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "originalOutput": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-fef1a4f5-500d-430a-9436-cef3ef766084.png",
+  "prompt": "rana-resume-rain-mother-v1.prompt.txt",
+  "promptFileSha256": "9acdbf637205f01bb47cc153485da22dcd4284377fd9e0d0598fa3573bf6e389",
+  "submittedPromptTransform": "UTF-8 prompt file trimEnd, exactly as submitted",
+  "submittedPromptSha256": "d46c16c846a3276917bcd4db1006953950f3ad932b437b2d8a331a0f95fd196e",
+  "inputs": [
+    {
+      "file": "rana-resume-apricot-mother-v1.png",
+      "sha256": "54dd1803e9ff81797c1b3ad69ee36a92b3cde58072705e21f7869a38d17717cb",
+      "role": "sole editable target: exact primary-accepted complete warm resume mother; all geometry, identity, expression and supported activity"
+    },
+    {
+      "file": "../../../assets-design-generated/2026-10-23-companion-matrix/room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "role": "empty whole-room theme light/sky/weather reference only; never a replacement furniture layout or source of character pixels"
+    }
+  ],
+  "identityFromApprovedMotherSource": "rana-resume-apricot-mother-v1.source.json",
+  "output": {
+    "file": "rana-resume-rain-mother-v1.png",
+    "sha256": "51105f34bf32fc042f9c974504a07f8b5e99e59fdb19269a8ce44583b198f050",
+    "bytes": 2092637,
+    "width": 1536,
+    "height": 1024
+  },
+  "approvalScope": "Theme candidate only. Warm mother acceptance does not approve this output, its layers or runtime. Resume remains semantic renewed attention, not a new furniture anchor or wholly new spatial action.",
+  "review": {
+    "producerViewedFullOriginal": true,
+    "primaryViewed": false,
+    "primaryApproved": false,
+    "layersAccepted": false,
+    "runtimeAccepted": false
+  },
+  "status": "producer-inspected complete theme mother awaiting primary review",
+  "producerObservation": "Personally viewed complete original: complete navy rainy window and same distant tower/lake, one nearby existing desk lamp with readable indirect left-corner light; hard daytime leaf silhouettes have left the walls/floor. Rana's quiet interest, different eye colors, supported guitar and exact two-hand positions remain, both complete boots retain floor contact. No forced sadness, showy performance, new light or bright daytime cutout observed."
+}

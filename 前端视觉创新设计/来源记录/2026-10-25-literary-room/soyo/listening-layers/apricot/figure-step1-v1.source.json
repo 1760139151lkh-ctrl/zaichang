@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-listening-apricot-figure-step1-v1",
+  "cell": "soyo/listening/apricot",
+  "stage": "F1",
+  "submittedPrompt": "Use case: precise-object-edit. Asset: complete source foreground selection markup, STEP F1.\nThe ONLY input is the exact root-approved complete Soyo LISTENING apricot mother, 1536x1024. Preserve original full canvas, camera, all furniture and every source coordinate. This is selection markup for unchanged SOURCE RGB, not a new person, another pose, new shadow, color correction, mask from a template or portable body/caster. Output the original 1536x1024 canvas with no crop, resize, zoom, centering, movement, text, arrows, grid or outline.\nPaint SOLID PURE WHITE directly on the ENTIRE visible Soyo and the ENTIRE CLOSED BOOK resting on the cushion to HER left / IMAGE RIGHT. Include all light-brown hair tips and separated strands, full youthful head/eyes/face/ears/neck, every navy sailor sleeve and cuff, white collar/trim, gray-blue fabric bow and left-chest gold crest, whole navy pleated skirt including both fine white hem lines and ALL dark lower/outward hem folds, both complete empty hands with each original finger/wrist, bare thighs and visible knees, below-knee dark socks, both complete brown loafers including dark toe edges, side walls, sole rims, heel blocks and the bottom-most source contours. The closed book is an intentional independent foreground prop: include ALL of both covers, page block and every thin bottom edge, not the cushion beneath it. Do not drop it because it is beside rather than in her hands.\nWhite interiors are completely solid: no eye/face/clothing holes, skin colors, folds, linework or natural-light texture inside the white selection. Preserve the original fine antialiased outer perimeter without contraction/dilation. Actual gaps between hair/body/arms/legs and between the separate book and person remain ORIGINAL COLORED background.\nInspection limits, not boxes to fill: body approximately x735..1140,y130..900; separate closed book approximately x1108..1268,y538..580.\nAll unselected room RGB remains colored and unchanged, including natural white linen, lamp shade, curtains, window/lake/clouds, pillows, knit throw, porcelain cup/flowers, left desk/chair, floor/rug, sun or lamp light and all independent receiving/contact shade. Do not whiten a room highlight as hair or shoe. Do not redraw the human or book: the result is only original colored room with the complete original-position figure AND separate closed book painted pure white.\n",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-listening-apricot-literary-v2.png"
+  ],
+  "transparentBackground": false,
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-listening-apricot-literary-v2.png",
+      "sha256": "f242a5b6865d6ac27688ba75bdb8b0e733e6cbb8ea9724b4ea338973288c3862",
+      "role": "sole exact root-approved mother, source RGB untouched"
+    }
+  ],
+  "outputFile": "figure-step1-marked-v1.png",
+  "scope": "selection only; original mother RGB later selected once through MAX(F,S); no layer/runtime approval",
+  "generationStatus": "prepared-not-yet-called",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "actualToolArguments": {
+    "prompt": "Use case: precise-object-edit. Asset: complete source foreground selection markup, STEP F1.\nThe ONLY input is the exact root-approved complete Soyo LISTENING apricot mother, 1536x1024. Preserve original full canvas, camera, all furniture and every source coordinate. This is selection markup for unchanged SOURCE RGB, not a new person, another pose, new shadow, color correction, mask from a template or portable body/caster. Output the original 1536x1024 canvas with no crop, resize, zoom, centering, movement, text, arrows, grid or outline.\nPaint SOLID PURE WHITE directly on the ENTIRE visible Soyo and the ENTIRE CLOSED BOOK resting on the cushion to HER left / IMAGE RIGHT. Include all light-brown hair tips and separated strands, full youthful head/eyes/face/ears/neck, every navy sailor sleeve and cuff, white collar/trim, gray-blue fabric bow and left-chest gold crest, whole navy pleated skirt including both fine white hem lines and ALL dark lower/outward hem folds, both complete empty hands with each original finger/wrist, bare thighs and visible knees, below-knee dark socks, both complete brown loafers including dark toe edges, side walls, sole rims, heel blocks and the bottom-most source contours. The closed book is an intentional independent foreground prop: include ALL of both covers, page block and every thin bottom edge, not the cushion beneath it. Do not drop it because it is beside rather than in her hands.\nWhite interiors are completely solid: no eye/face/clothing holes, skin colors, folds, linework or natural-light texture inside the white selection. Preserve the original fine antialiased outer perimeter without contraction/dilation. Actual gaps between hair/body/arms/legs and between the separate book and person remain ORIGINAL COLORED background.\nInspection limits, not boxes to fill: body approximately x735..1140,y130..900; separate closed book approximately x1108..1268,y538..580.\nAll unselected room RGB remains colored and unchanged, including natural white linen, lamp shade, curtains, window/lake/clouds, pillows, knit throw, porcelain cup/flowers, left desk/chair, floor/rug, sun or lamp light and all independent receiving/contact shade. Do not whiten a room highlight as hair or shoe. Do not redraw the human or book: the result is only original colored room with the complete original-position figure AND separate closed book painted pure white.\n",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-listening-apricot-literary-v2.png"
+    ],
+    "transparent_background": false
+  },
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/apricot/figure-step1-marked-v1.png",
+    "sha256": "7d58298826d3388b36a7e59d225c53a0ae83b1d0f3ab73d90b1725abea25154b",
+    "bytes": 2312052,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "originalToolOutputPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-4e24ece2-d0e4-467d-8152-7b13c17b4733.png",
+  "recordedAtUtc": "2026-10-25T19:22:20.955416+00:00",
+  "submittedPromptSha256": "8e8947880ebb813da55877d5e6affa525daa112b98d3ed9460076dfa3a78dd29",
+  "producerInspection": {
+    "status": "selection-intermediate-awaiting-mask-conversion",
+    "scope": "selection markup only, not generated person RGB",
+    "observations": [
+      "Complete original-position white figure, visible empty hands, dark hem/shoe extents and the separate closed book are marked; true hair/limb gaps remain colored. Exact source edge completeness still requires native original-RGB union inspection."
+    ]
+  },
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "pngPixelEditing": false
+}

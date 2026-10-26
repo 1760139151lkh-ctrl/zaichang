@@ -1,0 +1,196 @@
+{
+  "schemaVersion": 1,
+  "key": "tomori/chat/apricot",
+  "kind": "original-source-union-subject-included-contact-candidate",
+  "primary": true,
+  "layer": true,
+  "runtime": false,
+  "status": "primary_approved_static_fixed_included_joint_runtime_pending",
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-pilot/tomori-chat-apricot-literary-v1.png",
+    "sha256": "f075324f63e151e4045b4ac5ee87f30dc8295295b81f12c97ddb30ab56ac34d9",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "background": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "inputs": {
+    "F": {
+      "path": "figure-mask-v1.png",
+      "sha256": "ba7035c65d8e8f69a84322d44c1fe42ef815b9aae23c199594ee42b02521ea8f",
+      "bytes": 456565,
+      "generationSource": "figure-step2-source-v1.json"
+    },
+    "S": {
+      "path": "shadow-mask-v1.png",
+      "sha256": "b38a654f02628ce4d0d438fa7ffb2df337c112e5dc20af3a5a3a7faf901259c6",
+      "bytes": 306511,
+      "generationSource": "shadow-step2-source-v1.json"
+    }
+  },
+  "union": {
+    "formula": "U(x,y)=MAX(L(F(x,y)),L(S(x,y)))",
+    "luminanceWeights": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorSpace": "sRGB",
+    "nativeSvgMethod": "Each source-canvas feImage converted to luminance; feBlend lighten; mask-type luminance; original RGB drawn once.",
+    "nativeSvgSource": "union-source-v1.svg",
+    "originalMotherRgbDrawsPerSubject": 1,
+    "pngPixelEditing": false,
+    "thresholding": false,
+    "subtraction": false,
+    "extraColorPaint": false,
+    "nativeSvgSourceSha256": "0e9801968089647d4739a7c9c0d02a72c8108ab9c844391eb82ff0db6eb98df4"
+  },
+  "contactShadow": {
+    "mode": "included",
+    "meaning": "Fixed mother figure, garment/shoe perimeter and local source receiving material are one joint subject; no independent physically portable caster."
+  },
+  "composition": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "layerOrder": [
+      "matching empty BG",
+      "one unchanged mother RGB image masked by U"
+    ],
+    "sharedStage": true,
+    "transform": {
+      "x": 0,
+      "y": 0,
+      "scale": 1,
+      "rotation": 0
+    },
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "breathing": 0,
+    "relativeTranslation": 0
+  },
+  "sourceCoordinateBounds": {
+    "subject": [
+      810,
+      110,
+      550,
+      800
+    ],
+    "face": [
+      955,
+      110,
+      235,
+      220
+    ],
+    "book": [
+      930,
+      415,
+      410,
+      180
+    ],
+    "hem": [
+      900,
+      480,
+      445,
+      145
+    ],
+    "heel": [
+      815,
+      760,
+      250,
+      155
+    ],
+    "note": "Inspection viewBoxes only; not pixel crops or registration placement."
+  },
+  "allowedPresentation": [
+    "Whole fixed-pose union shown/hidden",
+    "Whole matching-pose asset replacement",
+    "Shared BG-and-union viewport scaling"
+  ],
+  "unsupportedPresentation": [
+    "Independent figure/limb deformation",
+    "Relative sliding/travel",
+    "Separate shadow movement",
+    "Different support surface/room/mother",
+    "Portable pure-caster claim"
+  ],
+  "knownCoverage": [
+    {
+      "region": [
+        1220,
+        530,
+        110,
+        65
+      ],
+      "observation": "Very small source pillow/linen fragment behind supporting palm is visible on checker; fixed scene position blends into matching background. Kept explicit as included receiver material."
+    }
+  ],
+  "generation": {
+    "newCalls": 4,
+    "totalBatchCalls": 8,
+    "largeImageResultStored": false
+  },
+  "visualInspection": {
+    "status": "current_native_browser_view_complete",
+    "personallyViewed": true,
+    "reviewedOn": "2026-10-25",
+    "browser": "Chrome extension through cua_repl; existing 5188 static server",
+    "page": "chat-layers-included-observe-v1.html",
+    "pageSha256": "fe24c0f9fef37df9c04f36c88634f5f9a4c8bb35a970c80d712f435f7b4be922",
+    "statesViewed": [
+      "Original mother versus matching BG plus union in complete scene",
+      "Source-pixel full subject upper and lower sections on light and dark backgrounds",
+      "Checker view of hair/upper subject and included receiving material around hem/palm",
+      "Source-pixel face/eyes/fringe comparison",
+      "Source-pixel complete visible hand/book comparison",
+      "Source-pixel hem and sole/heel comparison",
+      "Source-pixel original versus fixed composite of actual seat/wood/palm and floor receiving regions (#fixed)"
+    ],
+    "observations": [
+      "Mother RGB preserves face/eyes, hair, all visible hands/book, checked hem and complete shoe contours in the union.",
+      "Narrow source cushion/sole material remains included. A tiny original pillow/linen fragment is visible behind the supporting hand on checker; it blends into the matching original position in the fixed composite.",
+      "No obvious broad room block, disconnected large furniture, missing real body or visible patch edge was observed in the complete scene and source-pixel #fixed pairs."
+    ],
+    "limits": [
+      "Static native construction only; no live renderer show/hide/pose-switch/failure-gate exercised",
+      "Included original receiver pixels cannot be moved relative to the matching room or mapped to another support surface",
+      "No independent caster purity, portable body cutout or relative sliding claimed"
+    ],
+    "primaryInspectedPageSha256": "4d75368a8c14045ea4fa02b827441b857d279ab074a3433443f000ac416ff88c",
+    "postPrimaryPageEdit": "Footer status text only; native geometry and image references unchanged."
+  },
+  "review": {
+    "producerRecommendation": "Primary approved exact-SHA fixed included union; runtime owner integration still required",
+    "primaryApproved": true,
+    "layerApproved": true,
+    "runtimeAccepted": false,
+    "separateCastShadowClaim": false,
+    "primaryAdmissionRecord": "tomori-chat-apricot-literary-included-primary-admission-v1.json"
+  },
+  "scopeBoundary": {
+    "srcEdits": false,
+    "worktreeRegistration": false,
+    "newTests": false,
+    "portChanges": false,
+    "children": false
+  },
+  "sourceUnchangedVerification": {
+    "method": "Actual SHA256 re-read after construction",
+    "mother": "f075324f63e151e4045b4ac5ee87f30dc8295295b81f12c97ddb30ab56ac34d9",
+    "background": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "F": "ba7035c65d8e8f69a84322d44c1fe42ef815b9aae23c199594ee42b02521ea8f",
+    "S": "b38a654f02628ce4d0d438fa7ffb2df337c112e5dc20af3a5a3a7faf901259c6",
+    "originalGeneratedPngCopyEquality": true
+  },
+  "primaryAdmissionRecord": "tomori-chat-apricot-literary-included-primary-admission-v1.json"
+}

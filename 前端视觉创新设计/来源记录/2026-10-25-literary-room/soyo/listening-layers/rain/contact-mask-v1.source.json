@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "character": "soyo",
+  "activity": "listening",
+  "palette": "rain",
+  "stage": "S2",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: background-extraction. Asset type: fixed INCLUDED local receiver luminance mask, S STEP 2. The ONLY input is the exact 1536x1024 Soyo LISTENING RAIN color mother with small original support receiver patches ALREADY deliberately painted pure WHITE. Preserve complete canvas and every existing white mark's position/shape.\n\nKeep ONLY these already-white groups WHITE and turn all other RGB and naturally bright surfaces pure BLACK:\n- The tiny existing seat receiver wedge below the left trailing skirt tip near x819..857,y554..575.\n- The existing narrow white seat receiver immediately below the skirt/hip on the right side of the knees, around x961..1045,y569..591. It is a short irregular white support strip, not the whole bench. DO NOT drop it because adjacent linen is naturally pale.\n- The already-white very thin support strip UNDER the independent closed book on image-right, near x1112..1275,y553..579. The entire actual book (cover, page block and spine) remains colored in this input and must become BLACK. Preserve only its intentionally white underneath receiver.\n- Both already-white short floor/sole contacts under the complete loafers near x752..847,y852..884 and x803..925,y848..897. Preserve the actual marked thin sole/toe/heel receiver contours, not new ovals or a joined floor wash.\n\nThose neighborhoods identify existing marks, NOT rectangles to paint. Keep existing soft thin antialias but do not grow, shift, connect, simplify away or invent patches. All other scene pixels become BLACK: the whole original girl, hair/face/empty hands, navy skirt hems, bare knees, socks, entire brown shoes, independent book, naturally pale linen/curtains/collar/pages, plaid/knit, lamp/flowers, rain window, town, entire floor/rug warm light and furniture. The long empty bench on both sides MUST be black, not a white stripe; natural lamp/sunlight patches are not selected contact.\n\nOutput exactly ONE opaque 1536x1024 BLACK PNG with ONLY unchanged actual small white receiving groups. No color scene, figure silhouette, new shadow, checkerboard, transparent background, labels, arrows, boxes, grid, text, crop, resize, zoom, recenter or translation. This will only union with F in MAX for one fixed original-source RGB layer; never an independent movable caster.",
+  "promptSha256Utf8NoTrailingLF": "c8d2c810cba2ea5d24852d12477687ac0784ab1561498e6738a31916ec02fb3f",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/rain/contact-step1-marked-v1.png",
+      "sha256": "d8b7359b4dd8f2e418e07316ab4eb4ef427697c5644193ed4e1d384e651155ed",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "sourceMotherSha256": "dca2dd09063832af700bcb833ddaae40cde16b01aed2d27429204762cd3c7210",
+  "approvalEvidence": "Root static approval of Soyo listening four mothers relayed by openui_creation delegation. Exact violet/rain source images independently viewed and hashes verified. This does not approve any new mask.",
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/soyo.md",
+      "sha256": "1ec8b260d40f8363c096ed8392547dd276d2318df5aadbe34b1f51e51e2ed04e",
+      "readScope": "Complete current text read before this layer task"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "readScope": "Complete current text read before this layer task"
+    }
+  ],
+  "method": "Read mature Soyo/chat-layers F1/F2/S1/S2 actual prompts and root Sakiko recognition-v2-layers contact S1-v3/S2-v2 repair prompts. Original mother -> same-canvas marked selection -> black/white extraction only. No held images, threshold/manual PNG paint or review collage input.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\listening-layers\\rain\\contact-mask-v1.png",
+    "sha256": "678e1159eaa176bbf21d96cc79601499988e9f9dcc463b3fe1d4edc8ca3127e5",
+    "bytes": 317382,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-6c3a7b9e-bbfe-4f0a-a8b3-c2ea91ab5ad6.png",
+    "pngBytesUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "fullNativeImage": true,
+    "observations": "亲看完整1536×1024：黑底只余裙下左小楔/右窄条、独立合书下细接收条、两鞋底下短细接触（后跟有小断开的实际接触片）；全人/书本/长空座与大亮地板均黑，未丢S1指定白小组。书底条与鞋底线的细微边界/宽度是否精确贴原RGB须caller做固定MAX联合后近看；不在本线预签primary/layer/runtime。"
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "status": "held-insufficient-floor-receiver-awaiting-v2",
+  "useBoundary": "Only fixed original-source included union MAX(F,S); local receiver pixels are not a portable independent cast-shadow layer. No new pose/dynamic credit.",
+  "observedIssue": {
+    "source": "openui_creation personally viewed original-RGB + dedicated BG joint result",
+    "issue": "S v1 captures only narrow sole lines; broad soft original local floor receiver/shadow was not restored after BG removal, causing floating appearance. Rain book support extends about20px too far right and shows a pink linen tail on light background.",
+    "scope": "Old PNG preserved for history; no use as input for v2. Rebuild S1 from exact clean mother, then new S2."
+  },
+  "producerHeld": true,
+  "generationInputAllowed": false
+}

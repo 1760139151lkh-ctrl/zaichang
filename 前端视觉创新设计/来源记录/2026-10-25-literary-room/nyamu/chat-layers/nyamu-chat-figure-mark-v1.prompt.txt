@@ -1,0 +1,13 @@
+Use case: precise-object-edit.
+Asset: COMPLETE original-coordinate foreground selection MARKUP, F step 1 of 2, not a new character illustration.
+The attached image is the ONLY input: ROOT-APPROVED Nyamu chat literary mother, exactly 1536×1024. Keep the original room, camera, scale, pose and EVERY object coordinate unchanged.
+
+Paint ALL visible original Nyamu pixels SOLID PURE WHITE exactly in their source position: every lavender bob strand, head/face/neck and black choker, grey ruffled blouse and fine shoulder straps, both complete arms/sleeves/hands, the small conversational gesturing hand and every visible finger, the whole other hand/palm/fingertips actually resting on the seat, entire black skirt/belt/frills, both thighs/knees/lower legs/ankles, black ankle straps and BOTH COMPLETE low-heel black shoes.
+The solid white interior has NO eyes, face/cloth linework, holes in skin, or texture.
+Dark ownership is critical: ALL BLACK skirt frill tips, folds and the fine lower black garment perimeter are clothing foreground, not cushion shade (finding region x985..1325,y475..595). Include every actual visible dark cloth edge without erosion.
+BOTH black shoes include toe tips, whole upper, ankle straps, dark outsole rims, complete heel blocks and side/back heel walls (finding region x805..1130,y755..915). Do not shave a dark sole/heel off as floor shadow. Preserve real background arch gaps only where the original floor is actually visible.
+Include the entire real small speaking hand near x1010..1125,y370..480 and the whole seat-support palm/fingers near x1290..1380,y535..605, not just the sleeve or arm. These are finding bounds, not rectangles to fill.
+Keep the existing original silhouette, thin original antialias and actual gaps. Do not enlarge, center, contract or redraw the person.
+
+Everything outside the actual person stays ORIGINAL COLOR: linen seat, plaid cushions, throw, independent room contact-receiving material, wood floor/rug, lamp/table/flowers, furniture, plants, window/lake/town and independent cast shade. No background whitened.
+Output ONE opaque 1536×1024 PNG of the unchanged original colored room with ONLY the COMPLETE original foreground filled pure white in place. No black background yet, new body, crop, zoom, translation, labels, boxes, arrows, outlines or text.

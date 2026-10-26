@@ -1,0 +1,19 @@
+{
+  "tool": "built-in image_gen",
+  "promptFile": "room4-time-night-v1.prompt.txt",
+  "input": "room4-time-day-v1.png",
+  "inputSha256": "01782f953ab7f77d693deab531f9164a9b949698c33be5ff09bde88a014f5ed8",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a16fb3-8f8d-7c72-a744-a441e8907c91\\exec-c0e3043c-08e9-4ede-8f1a-5822a6e06c3b.png",
+  "output": "room4-time-night-v1.png",
+  "outputSha256": "c98d0a07c1a64f72034b03487bff1ce8f3cbb90267eb4c6c284759880946ed47",
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "scope": "Time-only empty room at night; no weather claim; waiting original inspection",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "actualMode": "RGB",
+  "submittedPromptSha256": "9ed68c908ab6d16d6026181460b711369172372f95628c7f6ded167a4e3797d7",
+  "primaryReviewScope": "Primary personally viewed complete generated empty room: same room4 anchors; closed inner curtains conceal outdoor weather; daytime diffuse light or practical warm night lamp. Empty background admission only, no character/layers/runtime acceptance."
+}

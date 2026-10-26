@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Unique registration owner isolated copy closure, no copying/registry by producer.",
+  "sceneId": "sakiko-study-apricot-literary-desk-v1",
+  "pose": "desk-writing",
+  "primaryStaticApproved": true,
+  "runtimeAccepted": false,
+  "sceneProposal": {
+    "file": "desk-writing.scene-proposal-v1.json",
+    "sha256": "0091b99789860423a5487e4cf7f6c40b5c3e582017502136bdf9d53a49438bf1"
+  },
+  "runtimeAssets": [
+    {
+      "file": "../desk-pilot/sakiko-study-apricot-literary-desk-pilot-v1.png",
+      "sha256": "00629c2e6e5b55901244a534145ab3c9d8c2f9c3cbf2ec2de8668f33037ccb04",
+      "role": "mother",
+      "runtimeFile": "sakiko-study-apricot-literary-desk-v1-mother.png"
+    },
+    {
+      "file": "desk-background-v3.png",
+      "sha256": "75705046089367bc68cb84f5a679dff43f41eb746f28fbb7f26c2924ffa9532b",
+      "role": "background",
+      "runtimeFile": "sakiko-study-apricot-literary-desk-v1-background.png"
+    },
+    {
+      "file": "desk-figure-mask-v1.png",
+      "sha256": "bcb7752d297460db826c4add32d93e7ae5d87ce02134a16ab2e0e77987d2ddb8",
+      "role": "F",
+      "runtimeFile": "sakiko-study-apricot-literary-desk-v1-mask.png"
+    },
+    {
+      "file": "desk-contact-mask-v1.png",
+      "sha256": "09128cff44817ee361ee08b3d897ea70d6c923e2d6492b1d63680cb903055663",
+      "role": "S",
+      "runtimeFile": "sakiko-study-apricot-literary-desk-v1-contact-mask.png"
+    }
+  ],
+  "admittedEvidence": [
+    {
+      "file": "sakiko-desk-writing-literary-included-primary-admission-v1.json",
+      "sha256": "0819eb5326f5cbf678e96ebcc95855c52859bf90376377e2901ada3aa74bba62"
+    },
+    {
+      "file": "desk-visible-geometry-v1.json",
+      "sha256": "f58a96686de08ed03a2e1e1e5ebda652c4d8122d48b938c3073ee3e94b5f2dac"
+    },
+    {
+      "file": "desk-layers-included-bundle-v1.json",
+      "sha256": "e40e4d0d2efd87d9172d6b55edf9d8fa8d6b2d063203e1e993ab55f4037f8353"
+    },
+    {
+      "file": "desk-union-source-v1.svg",
+      "sha256": "24e0b9241a82f0ddf0af47618b4f4f7889adebba901ed26d7fa90b4db4458023"
+    },
+    {
+      "file": "desk-layers-included-observe-v3.html",
+      "sha256": "2102c79e77274ad3d94804cecd10f6c94d27084f4134bbca70192158f24e3be8"
+    }
+  ],
+  "generationRecords": [
+    {
+      "file": "desk-background-v1.source.json",
+      "sha256": "ddfe04a8e444d341de1cbcdc891f421c82a52fca642df57af6dbb5ffe1de1bdd",
+      "promptFile": "desk-background-v1.prompt.json"
+    },
+    {
+      "file": "desk-background-v2.source.json",
+      "sha256": "db7a60e24c1682fbb8e64bf46402a29a6d05b5cdbd131c44fe1ad65c4dfa2a3c",
+      "promptFile": "desk-background-v2.prompt.json"
+    },
+    {
+      "file": "desk-background-v3.source.json",
+      "sha256": "14f692c52b5eef7c29f799400e19d5e083d1ff6bdd1114e567ab1cf324622b5f",
+      "promptFile": "desk-background-v3.prompt.json"
+    },
+    {
+      "file": "desk-contact-marked-v1.source.json",
+      "sha256": "07670f7c84b7d27183a939102b715df36b2e681b6eb8050dac73d94c438085b5",
+      "promptFile": "desk-contact-marked-v1.prompt.json"
+    },
+    {
+      "file": "desk-contact-mask-v1.source.json",
+      "sha256": "65e22b54e0ca625cda012282cdf07a532c7236a05c39beaaf37b83ffef230367",
+      "promptFile": "desk-contact-mask-v1.prompt.json"
+    },
+    {
+      "file": "desk-figure-marked-v1.source.json",
+      "sha256": "6c4f6d68d6a97bd17d71b0e09b9c55872cdd0afe6c294db3b6e3d1c9389e4199",
+      "promptFile": "desk-figure-marked-v1.prompt.json"
+    },
+    {
+      "file": "desk-figure-mask-v1.source.json",
+      "sha256": "211947a43f1123249a63c4fe4a0073ce533db5e5d4e165d8cfc064c4c423816c",
+      "promptFile": "desk-figure-mask-v1.prompt.json"
+    }
+  ],
+  "acceptedUpstreamMarkers": [
+    "desk-figure-marked-v1.png",
+    "desk-contact-marked-v1.png"
+  ],
+  "diagnosticNotRuntime": [
+    "desk-background-v1.png",
+    "desk-background-v2.png",
+    "desk-layers-included-observe-v1.html",
+    "desk-layers-included-observe-v2.html"
+  ],
+  "lifecycle": {
+    "contactShadow": "included",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contourComplete": false,
+    "noInvisibleFootSignoff": true,
+    "wholePoseVisibilityReplacementOnly": true
+  },
+  "ownerBoundary": "Copy four runtime PNGs and exact source admission/geometry evidence; instantiate isolated registration after own checks; no shared TS changes by producer.",
+  "readme": {
+    "file": "README.md",
+    "sha256": "a96aff3c1ebc124150f35d03ec8364456e00d3cc33c4884ed6b453c2ae9eea38"
+  }
+}

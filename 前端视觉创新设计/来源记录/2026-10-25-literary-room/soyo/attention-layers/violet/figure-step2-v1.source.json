@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-attention-violet-figure-step2-v1",
+  "cell": "soyo/attention/violet",
+  "stage": "figure-step2-v1",
+  "tool": "image_gen.imagegen",
+  "actualToolArguments": {
+    "prompt": "Use case: background-extraction. Asset: same-canvas complete foreground luminance mask F2.\nThe ONLY input is the exact 1536x1024 F1 selection-marked Soyo attention violet scene. Keep all actual deliberate foreground at its exact existing source coordinates, no crop/resize/zoom/shift/new silhouette. Convert the ENTIRE already-whitened person PLUS the WHOLE book held on her lap to FULL SOLID WHITE, ALL other naturally colored/bright environment BLACK. Preserve all fine hair tips/loops, full face/body/hands/fingers, uniform and skirt trim/hem, both exposed knees, socks, both COMPLETE loafers including dark sole/heel edge, and EVERY open book cover/page block/page corner/spine. Real original colored gaps between hair and legs stay black.\nCRITICAL: F1 contains faint gray interior outline marks on the otherwise white book/hands/clothes. These are INTERNAL marks, NOT real gaps or background. Flatten ALL those internal gray lines to WHITE, including the line between the white book underside and lap/knees. White interiors must be opaque contiguous without a thin black line cutting away the page or finger. Only actual colored room gaps become black; do not interpret pale book paper or its gray edge line as a hole. No face/clothing details left inside the silhouette. Do not erode the book's thin outer edge, finger outline, skirt border or full shoe sole to remove lines. Keep actual genuine gaps, do not join unrelated items.\nEverything not deliberately selected in F1 becomes BLACK: natural pale cushion/curtains/flowers/lamp/cup, window/town/room, independent cushion/floor shadows, rug and floor highlights. No white long bench or bright-room patch. Output exactly one opaque 1536x1024 black PNG with only complete white person+lap book, thin antialias at actual outer edges only. It selects the unchanged clean source mother RGB once through MAX(F,S); no colored AI figure or new pose is adopted.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/attention-layers/violet/figure-step1-marked-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "submittedPromptSha256": "4fc87e1d3084198db80c8cff3faa821f83dbfcb1cea2437fcffa7da3570b3fe6",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/attention-layers/violet/figure-step1-marked-v1.png",
+      "sha256": "b23999e964441950a813234ef7e264fe3536194eff3e17dc23f32b39f26716be",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-attention-violet-literary-v1.png",
+    "sha256": "deee535f86c75f30fbcf67ec786fa060400787af8384f893efa113caa99c01cb",
+    "bytes": 2365264,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    }
+  },
+  "rootPrimaryRecordSha256AtRead": "f6b3a0b7ac9974993b61553e907f0ebfa7c39763ebef7d33ca7efb215a99fbb2",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/attention-layers/violet/figure-mask-v1.png",
+    "sha256": "b510f70f6e6f7b6e14f00f1ab3082c53ec5895b8456f76909380570a4713f8e9",
+    "bytes": 453871,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-a9535a56-607c-4369-abcc-e8e514405b88.png",
+  "producerObservations": [
+    "Personally viewed actual F2 full canvas: complete white foreground, both shoes, open book and fine hair with black environment; no grouped geometry shift seen. Faint gray interior book lines remain for exact original RGB review, not approved layer."
+  ],
+  "status": "mask-candidate-awaiting-original-rgb-review",
+  "pngBytesUnchanged": true,
+  "pngPixelEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0
+}

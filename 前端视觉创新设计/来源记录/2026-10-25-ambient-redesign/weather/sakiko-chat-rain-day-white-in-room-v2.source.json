@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-canvas-original-person-white-in-room-intermediate",
+  "id": "sakiko-chat-rain-day-white-in-room-v2",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-chat-rain-day-white-in-room-v2.prompt.json",
+  "promptFileSha256": "3e70622a3bd33df875a13be676913ca30c945c294b60b8b54be1af2766892195",
+  "submittedPrompt": "Use case: precise-object-edit. Registered local color fill ONLY. Image 1 is the ONLY input, the exact approved 1536x1024 rainy-day room mother.\nKeep ALL room/camera/lighting/source coordinates untouched. Turn the EXISTING seated girl and held blue LAP book into one completely flat opaque PURE WHITE region at EXACT original contour and scale. Paint ALL of her existing visible hair strands/ribbons, skin, hands/fingers, cardigan/blouse/bow, ENTIRE PLEATED SKIRT including ALL dark outer hem/fabric flares, bare knees, socks, BOTH WORN shoes and held lap book WHITE. Preserve genuine visible background gaps.\nCrucial boundary: her skirt belongs to the girl, including the little dark folded fabric extending left beside the lap/knee around x1164..1210,y550..582 and the dark outer pleated hem underneath/right of her seated hip around x1320..1375,y565..599. Fill that original visible fabric WHITE too, right up to the actual cloth edge. Do not leave navy/gray skirt rims or line fragments outside the white body. Likewise white all dark hair ribbons, finger edges, soles, shoe heels and laces that belong to the original person. No black/gray/colored interior, eye/face/fold/lace/finger/book detail.\nKeep every non-person pixel its ORIGINAL COLOR: bench cushion, the actual shadow under fabric/palm, pillows/blanket, floor/contact shadows, desk blue book, mug/lamp, rainy window, furniture and room. Do NOT whiten shadows or furniture. Do not reconstruct anatomy or invent an enlarged hem; use the exact mother's existing visible cloth contour only.\nThis is NOT a cutout or new pose. No room removal or blackening. No enlarge/shrink/translation/crop/zoom/recenter/straightening. Original crown remains around y270; soles around y780. Preserve the original small far-right in-room figure and complete full frame.\nReturn the SAME colored room with ONLY the complete original girl and lap book flat WHITE. Opaque RGB 1536x1024; narrow original outer antialiasing only; no transparency/UI/text/grid/watermark/border/new objects.",
+  "submittedPromptSha256Utf8NoTrailingLF": "c7a301a4a5c15cd4a554b7c9adcb6bb4c60670ccadc2ca5c062e735a09ad7da5",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-rain-day-mother-v1.png",
+      "sha256": "e287875d209fc367d4316b4dcdb53201fb514f8404de8ebc63cd6fe46a99e7d8",
+      "role": "sole exact approved mother; source cloth contour authority; rejected intermediate never reused"
+    }
+  ],
+  "output": {
+    "file": "sakiko-chat-rain-day-white-in-room-v2.png",
+    "sha256": "b767a16e5b4d37e85cd78b9b069da4f1c6b0811f9b5a452b0f46719e2d789336",
+    "bytes": 2071521,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-bddf5776-4829-4780-af3e-ef602eb7bb09.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observationBoundary": "Producer directly viewed full output as saved; local white-person intermediate only, no independent layer/runtime admission."
+  },
+  "status": "producer-viewed-local-white-intermediate-used-for-registered-mask"
+}

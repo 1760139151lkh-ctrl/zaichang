@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-mother-fixed-included-layer-imagegen-stage",
+  "character": "nyamu",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "palette": "mist",
+  "light": "morning",
+  "weather": "unknown",
+  "weatherClaim": false,
+  "stage": "F2",
+  "tool": "built-in image_gen.imagegen",
+  "toolArguments": {
+    "prompt": "Use case: background-extraction. F2 FOREGROUND LUMINANCE MASK for exact Nyamu neutral day mother. ONLY input is the personally inspected full1536x1024 deliberate F1 white selection. Preserve complete source canvas, every marked coordinate and fine original silhouette, no crop/zoom/resize/redraw/shift/shrink/grow.\nKeep the COMPLETE deliberately marked girl and entire held folded PAPER FAN solid PURE WHITE. Every hair/face/eye/skin/gray blouse/ruffle/strap/choker/ribbon/arm/hand/finger/fan/black waist/skirt/bare leg/ankle and BOTH complete ankle-strap shoes including heel bottoms/soles/buckles stay white. ALL INNER selected seams, finger/fan-rib folds, thin dark paper rim, clothing lines and hair/neck detail become WHITE, never transparent cuts or gray holes. The hand-fan-forearm/lap foreground is whole and solid. True actual empty gaps between separated hair, arm/body, two legs and heel arch become BLACK. Only the true narrow antialiased OUTER boundary can be gray.\nEverything unmarked becomes solid PURE BLACK: naturally pale curtains/linen/knit/lamp/flowers/cup, all pillows/table/books/left room/plants/wood/rug, and all separate seat/floor receiver material/shadow. Do NOT turn naturally bright room surfaces white. Output one full opaque1536x1024 black image with just the full selected figure/props white and narrow gray perimeter. No color, checkerboard, new figure detail, labels, boxes or text. This mask selects exact mother RGB later, it never supplies person RGB.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/figure-step1-marked-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "submittedPrompt": "Use case: background-extraction. F2 FOREGROUND LUMINANCE MASK for exact Nyamu neutral day mother. ONLY input is the personally inspected full1536x1024 deliberate F1 white selection. Preserve complete source canvas, every marked coordinate and fine original silhouette, no crop/zoom/resize/redraw/shift/shrink/grow.\nKeep the COMPLETE deliberately marked girl and entire held folded PAPER FAN solid PURE WHITE. Every hair/face/eye/skin/gray blouse/ruffle/strap/choker/ribbon/arm/hand/finger/fan/black waist/skirt/bare leg/ankle and BOTH complete ankle-strap shoes including heel bottoms/soles/buckles stay white. ALL INNER selected seams, finger/fan-rib folds, thin dark paper rim, clothing lines and hair/neck detail become WHITE, never transparent cuts or gray holes. The hand-fan-forearm/lap foreground is whole and solid. True actual empty gaps between separated hair, arm/body, two legs and heel arch become BLACK. Only the true narrow antialiased OUTER boundary can be gray.\nEverything unmarked becomes solid PURE BLACK: naturally pale curtains/linen/knit/lamp/flowers/cup, all pillows/table/books/left room/plants/wood/rug, and all separate seat/floor receiver material/shadow. Do NOT turn naturally bright room surfaces white. Output one full opaque1536x1024 black image with just the full selected figure/props white and narrow gray perimeter. No color, checkerboard, new figure detail, labels, boxes or text. This mask selects exact mother RGB later, it never supplies person RGB.",
+  "originalToolOutput": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-061cdcbb-0a3f-4fce-bb8f-2a946f7dc07d.png",
+  "outputFile": "figure-mask-v1.png",
+  "mother": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/nyamu-neutral-presence-time-day-v1.png",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/figure-step1-marked-v1.png",
+      "role": "personally inspected same-mother F1 deliberate white selection",
+      "sha256": "aa9152154b0f61c2b4a819527e1a80a3992d1ead4b374bf13d73b600e58ae04e"
+    }
+  ],
+  "producerObservation": "Complete tool output personally viewed: full white person/fan/whole shoes on black, original true empty gaps retained; candidate awaits browser edge/props closure.",
+  "sourceRgbDrawsInFinalAssembly": 1,
+  "assembly": "U=MAX(L(F),L(S)); exact original mother RGB drawn only once; local receiver material fixed at source position",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "pngPixelEditing": false,
+  "croppingOrResizingSourcePNG": false,
+  "thresholdOrMorphologyEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "dynamicAdmission": false,
+  "original360CreditAssigned": false,
+  "userApproved": false,
+  "reviewScreenshotsUsedAsImageInput": false,
+  "recordedAtUTC": "2026-10-26T01:08:13.453316+00:00",
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/day/layers/figure-mask-v1.png",
+    "sha256": "b876a24a6c809f781abcbeeb58005a5dad9dba73d72d15e7267442bad4e3d5c5",
+    "bytes": 422002,
+    "originalToolOutputSHA256": "b876a24a6c809f781abcbeeb58005a5dad9dba73d72d15e7267442bad4e3d5c5",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "motherSHA256": "5df25df2667581917ee3e312218810da2424bcd573be4418b245ac7d05dc755d",
+  "dossierVersion": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/nyamu.md",
+    "sha256": "c5acd92fe6cd9ccf35785bd09e7f71337bca5bf7eb0fdd37629e78780eb9ebe1"
+  },
+  "methodVersion": {
+    "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+    "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d"
+  },
+  "submittedPromptSHA256": "85b23e601ba1c15df0276c9b9a2fb33c11224dccde202a386fe0b493dca90b96",
+  "promptFileSHA256": "8853b7c5782d5ccb123ff257312f32d6c50c4b29a019f4816d5738f7b6cd885e"
+}

@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "recordType": "complete-companion-mother-theme-relighting",
+  "dateLocal": "2026-10-24",
+  "timeZone": "America/Los_Angeles",
+  "character": "tomori",
+  "activity": "resume",
+  "theme": "rain",
+  "tool": "image_gen.imagegen (built-in)",
+  "executionId": "exec-777fedd9-dd17-4960-baa7-21571b464c2b",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "originalOutput": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-777fedd9-dd17-4960-baa7-21571b464c2b.png",
+  "prompt": "tomori-resume-rain-mother-v1.prompt.txt",
+  "promptFileSha256": "4b17ecab1c6d90e71fa2fbd0b07216d6fecbe0ae17a973e4794e9897512b7df9",
+  "submittedPromptTransform": "UTF-8 prompt file trimEnd, exactly as submitted",
+  "submittedPromptSha256": "8043096d2eceb416e96502775bd533b09edec14ddc1a4b02bb000f6793cce2db",
+  "inputs": [
+    {
+      "file": "tomori-resume-apricot-mother-v1.png",
+      "sha256": "517e715d664e10d33dbf8a08cc359aa3f1a59af3e6f6fb127526d56c3f90ee81",
+      "role": "sole editable target: exact primary-accepted complete warm resume mother; all geometry, identity, expression and supported activity"
+    },
+    {
+      "file": "../../../assets-design-generated/2026-10-23-companion-matrix/room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "role": "empty whole-room theme light/sky/weather reference only; never a replacement furniture layout or source of character pixels"
+    }
+  ],
+  "identityFromApprovedMotherSource": "tomori-resume-apricot-mother-v1.source.json",
+  "output": {
+    "file": "tomori-resume-rain-mother-v1.png",
+    "sha256": "996941bcad468adfd4bf84075901dfc53141f21fa68d5baa90112be7a7a72251",
+    "bytes": 2039288,
+    "width": 1536,
+    "height": 1024
+  },
+  "approvalScope": "Theme candidate only. Warm mother acceptance does not approve this output, its layers or runtime. Resume remains semantic renewed attention, not a new furniture anchor or wholly new spatial action.",
+  "review": {
+    "producerViewedFullOriginal": true,
+    "primaryViewed": false,
+    "primaryApproved": false,
+    "layersAccepted": false,
+    "runtimeAccepted": false
+  },
+  "status": "producer-inspected complete theme mother awaiting primary review",
+  "producerObservation": "Personally viewed complete output: same rainy navy lake/town/window, one existing lamp's warm nearby light, left rear corner remains readable without old hard daytime leaf patterns. Tomori retains the same lifted attention and slightly parted mouth, book/lap/support palm and complete floor-contact shoes; no forced sorrow, daylight cutout or new body pose observed."
+}

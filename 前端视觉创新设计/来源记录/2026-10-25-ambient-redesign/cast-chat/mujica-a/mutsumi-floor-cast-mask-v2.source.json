@@ -1,0 +1,26 @@
+{
+  "createdOn": "2026-10-25T06:47:02.029443+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "kind": "binary-floor-cast-shadow-selection-mask",
+  "character": "mutsumi",
+  "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mujica-a/mutsumi-floor-cast-mask-v2.png",
+  "sha256": "81c48e1bbbe26429974832651745ca1a6b32054e4e4856cc11ccccd7d9f6d086",
+  "bytes": 313627,
+  "width": 1536,
+  "height": 1024,
+  "exactPrompt": "Use case: background-extraction. Asset type: ONE source-registered floor CAST-SHADOW SELECTION MASK, exactly 1536×1024, for a fixed original-pose same-room layer.\nThe SOLE input is the correct approved COMPLETE ORIGINAL MOTHER artwork. Do not redraw, re-pose, crop, zoom, move, relight or repair the original girl/room. This is not a new shadow painting. Select the existing actual shadow pixels already VISIBLE ON THE WOODEN FLOOR caused by this girl's lower legs and shoes. The earlier human-alpha extraction excluded these wider shadows; this mask is only the missing floor cast-shadow selection.\nOUTPUT: the complete original room-sized canvas, SOLID BLACK everywhere, except the actual existing visible human-caused floor shadow shapes which become WHITE. Only their tiny soft boundaries may be grey. All visible human pixels, including shoes, heels, soles, ankles and legs, must be BLACK, not included as white silhouettes. Every face, hair, hand, garment, bench, bench-front wood, desk, chair, wall, window, rug, outdoor view and unrelated plant/furniture/environmental shadow remains BLACK. White may appear ONLY on the floor in the precise local shoe-shadow region described below.\nFollow the original asymmetric organic shadow shapes and their gaps, not a guessed blob or a generic ellipse. Do NOT add a big black/white oval, rectangle, new painted shadow, full floor plate, shoe silhouette, leg silhouette, artificial proof markings or a contact outline alone. Keep every selected shadow at its exact original source location and original size. Region coordinates are location guides, NOT shapes to fill. Outside that region all pixels must stay pure black.\nThis mask will reveal ORIGINAL MOTHER RGB through SVG, without modifying PNG pixels, so selecting unrelated bright floor or fabric would create a visible seam. Select actual cast darkness only; avoid broad unshadowed floor patches. No checkerboard, transparency, RGB girl, lettering, labels, lines, logo or watermark. Return one full exact-size registered grayscale/black-white matte, not a cropped thumbnail.\nSOURCE-SPECIFIC Mutsumi: her complete brown loafers remain around x1120..1185,y730..775 and x1185..1265,y743..789 in this 1536×1024 source. Select the real broader soft dark floor projections beneath/between and extending slightly to the left of those soles, retaining their true source shape and softly fading edges. The permitted search region is approximately x1070..1325,y730..835. DO NOT whiten either brown shoe, navy sock or bench face. Do not paint every pixel in the permitted region white. The girl's quiet seated support is already correct and must not be redesigned.\n\nCRITICAL BINARY SEGMENTATION RULE: DO NOT RETURN A GRAYSCALE PHOTOGRAPH OF THE FLOOR. Do NOT keep floorboard grain, sunlit rectangles, bright highlights or texture as white. Invert the source's visual darkness into a semantic selection: the actual DARK human-caused floor projection must be SOLID WHITE even where the original shadow is dark; the original BRIGHT SUNLIT FLOOR must be SOLID BLACK even where its original RGB is bright. White area has NO internal wood texture, shading, boards, seams or details; it is a flat white selection shape only. Only a 1–3 source-pixel soft boundary may be grey. Every visible shoe and leg remains a BLACK hole excluded from this mask. Draw neither the girl silhouette nor shoe silhouette. This is a high-contrast semantic mask of actual existing cast shadow on the FLOOR, not a blurred rectangular floor photograph. Source dark cast geometry is asymmetric and local. Never add an ellipse or imagined new shadow. Exact whole 1536×1024 canvas, all unrelated areas pure black.",
+  "promptSha256": "3878b067b00f4f98c4b24b86e199648c030a85ac6d80437d801bc00efbaf4bab",
+  "inputs": [
+    {
+      "role": "sole correct original mother; no previous mask or extracted figure supplied",
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/mutsumi-chat-apricot-mother-candidate-v1.png",
+      "sha256": "4cf106bfaa30dfbf6527c070cbde92481638fb27397b9a7afc109d6ab179fa2a"
+    }
+  ],
+  "originalGeneratedFile": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-19808caf-fe4c-40f3-9912-beaff7ba6c8d.png",
+  "methodBoundary": "New mask only. No mother/figure/background PNG pixels edited; fixed-source SVG comparison must expose any floor seam.",
+  "designerReview": "Personally viewed in fixed-source SVG. This matte also selects receiver-floor pixels. It is used only to reveal original mother RGB in a world-locked receiver layer, never as proof of a pure cast-shadow alpha.",
+  "approvedByPrimary": false,
+  "runtimeAccepted": false,
+  "pureShadowMatteAccepted": false
+}

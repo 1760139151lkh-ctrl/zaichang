@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "key": "tomori/chat/apricot",
+  "primary": false,
+  "runtime": false,
+  "status": "not_admitted",
+  "attempt": {
+    "page": "tomori-chat-apricot-observe-v3.html",
+    "method": "Native near-white marks without original-white subtraction; old figure alpha subtracted",
+    "status": "not successful; incomplete source contact selection"
+  },
+  "authoritativeRepairStatus": "tomori-chat-contact-review-v5.json",
+  "generationRecords": [
+    "tomori-chat-contact-v2-step1-source.json",
+    "tomori-chat-contact-v2-step2-source.json",
+    "tomori-chat-contact-v2-step2-attempt2-source.json",
+    "tomori-chat-contact-v2-step1-complete-source.json"
+  ],
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0
+}

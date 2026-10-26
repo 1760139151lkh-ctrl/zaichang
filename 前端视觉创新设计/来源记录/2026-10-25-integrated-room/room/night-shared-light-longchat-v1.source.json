@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "recordType": "night-longchat-shared-lamplight-ui-candidate",
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-81d55a4e-7638-4822-b4fa-8c4dd3646bab.png",
+  "inputImages": [
+    {
+      "file": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-dry-night-v1.png",
+      "sha256": "edad31b1ce0c7f21be59d939cc54a0d6230b31d6fe380d0d553af515032fd0f4",
+      "role": "sole qualified empty dry-night literary room"
+    }
+  ],
+  "userScreenshotUsedAsInput": false,
+  "previousUiMockUsedAsInput": false,
+  "characterInput": false,
+  "intentFile": "NIGHT_SHARED_LIGHT_INTENT.md",
+  "promptFile": "night-shared-light-longchat-v1.prompt.txt",
+  "submittedPromptSha256": "5b729ad750cd8921b61629425bfce98dbbb060bccdce7fe2ce7af6d66d0278a6",
+  "output": {
+    "file": "night-shared-light-longchat-v1.png",
+    "sha256": "9b1b0433af9062c26df6d4301af9efeab3cd2ecaad393ccf0547f2ea912f0528",
+    "bytes": 2124643,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "decision": "substantively distinct integrated-night composition candidate for primary review",
+    "observed": "Long conversation sits on a continuous smoked-tea lamplit field with no huge milk-white or hard charcoal parent card. Warm ivory glyphs are opaque and readable; user passage has one quiet left accent, not a nested bubble. Piano and controls occupy the same work field; black/ivory keys remain natural. Navigation and composer share room light; right bench/window/fabric and blue night remain visible. No person, avatar or pointing gesture.",
+    "limits": "Room and lamp positions are redrawn for this UI proposal, not an exact-replacement empty background. Piano/key/action drawing is a pictorial task object, not a verified mechanism or 88-key count; retain the actual live renderer for notes, mechanics and sound. All conversation is fictional design sample and not actual model output. Brand is omitted by the generator; do not remove real app brand/header behavior. Still art does not verify long-content scroll, contrast under all assets or user interactions."
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "runtimeUse": "night material/layout relationship reference only, never a whole UI bitmap, physics source, user fact, character mother or replacement background"
+}

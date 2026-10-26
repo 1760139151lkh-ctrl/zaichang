@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "recordType": "producer-optical-css-frame-notes",
+  "inputsRecord": "frames-optical-inputs-v1.json",
+  "inputsRecordSha256": "aecb0c46cc154b41713bea5e0e541c792eec4b420d11062a1f6681f14492c6bc",
+  "page": "frames-optical-compare-v1.html",
+  "pageSha256": "fd48c430c77923dacf9630b485b4265b878a9c908cd4d0e6db84d80884a7b106",
+  "roleNotes": {
+    "tomori": "100%留整头短发的余量较多；108%把眼睛与闭口笑抬到更清楚的位置，48px头顶仍较松；114%更亲近，但冠部/侧发更贴圈。主观上108较平衡，114可供root比较眼神优先。",
+    "anon": "108/114比100明显减少外侧粉发与领口占比，小开口笑和蓝眼更突出；114在34px更亮、更像脸的入口，代价是头顶/侧发少一些。108更松，未据此代选。",
+    "rana": "108/114使金蓝眼更占小圆；114的34px异色眼较100更清楚，短白发冠部也更紧。108兼顾短发轮廓，114偏眼神优先。三框同PNG，观者左金右蓝未镜像。",
+    "soyo": "100%里卷发与领口较占空间；108/114的蓝眼/脸颊更明显，114减少领口后微笑更集中。114侧发贴圈，需root比较保发量与看眼神的取舍。",
+    "taki": "100%深发/紫眼对比已清楚；108让目光更突出，同时比114多一点顶发余量；114更利落而冠部更紧。倾向先比较108的平衡，仍由root选择。HTML实际为Taki(taki)，原紫眼PNG不改。",
+    "mutsumi": "108比100的眼睛/面颊更占圆框；114让浅绿侧发和发夹更贴圆边。不能仅追求眼大而忽略自身左侧双夹；这组三框中108是值得root先看的折中，不断言114已丢夹。",
+    "uika": "100%浅金发外围与浅底相融，脸显轻；108/114使紫眼和小开口笑更集中，114领口更少、34px眼神收益较明显。头顶贴圈需root连48px一同判断。",
+    "umiri": "108相比100能更清楚看到眼与脸颊；114进一步放大，但顶发与下方颈带更贴边。主观108更均衡，114提供眼神优先的实际比较。",
+    "nyamu": "108/114均让会意眼笑更活；114在34px的眼/嘴更醒目，颈带与顶发余量减少；108保更多下缘和发型。两者不因统一参数就视为同等选定。",
+    "sakiko": "仅当前108%(-4,-6)的原选定v3作为参照，没有新增候选或新脸，不修改现有画框。"
+  },
+  "selectedFrame": null,
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "userApprovalChanged": false,
+  "newImageCalls": 0,
+  "pngPixelEdits": false,
+  "oldArtifactsUnchanged": true,
+  "sourcePngsUnchanged": true,
+  "noAestheticScoreOrFunctionalTest": true,
+  "boardsGenerationInputAllowed": false
+}

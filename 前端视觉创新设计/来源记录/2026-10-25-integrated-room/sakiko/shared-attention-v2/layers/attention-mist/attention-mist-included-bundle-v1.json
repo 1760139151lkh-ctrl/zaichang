@@ -1,0 +1,357 @@
+{
+  "schemaVersion": 1,
+  "id": "sakiko-attention-mist-included-v1",
+  "recordedAt": "2026-10-25T23:40:49.597900+00:00",
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "activity": "attention",
+  "palette": "mist",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "motherStaticDirectionApproved": true,
+  "motherApprovalEvidence": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-mist-shared-page-v2.source.json",
+    "sha256": "17ed25c09b3e321918b6706d6959ed3e3e1722a5a9687f24d9ddba228509b81c",
+    "bytes": 4951,
+    "role": "Root approved_static_mother/generationInputAllowed; no newlayerapproval inherited"
+  },
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "status": "producer-originalRGB-browser-reviewed-candidate-await-root",
+  "selected": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-mist-shared-page-v2.png",
+      "sha256": "0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88",
+      "bytes": 2442325,
+      "role": "SOLE root-approved original RGB of completeperson/openbook/localreceiver, drawnONCE",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/background-v1.png",
+      "sha256": "db4e12b935f35db0a1351fda73714b6d7de7668d842ee07ebadf6c9c41650c1f",
+      "bytes": 2370083,
+      "role": "Actual ImageGen removal fromTHIS exactmother, no otherplate/room/weather",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "figureMask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/figure-mask-v1.png",
+      "sha256": "674382410a477e70b8a22085e024f2e292d83c3c7d070daf05e30b0c0c1e47ab",
+      "bytes": 491188,
+      "role": "Raw actualImageGen F2 completeforeground coverage; allface/book/hand/lap/hem/wholefeet",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "contactMask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/contact-mask-v2.png",
+      "sha256": "01b4fe55552c04a7d4340bcc5b210a157d6eb6b3c274cbbaa41b308122f29b7f",
+      "bytes": 328516,
+      "role": "Raw actualImageGen S2-v2, bothlocalunderhemreceivers plus complete source-connected shortshoefloorfootprint; may overlapF, fixedsource material notcaster",
+      "canvas": [
+        1536,
+        1024
+      ]
+    }
+  },
+  "method": {
+    "kind": "source-rgb-max-luminance-v1",
+    "sourceRgb": "approvedmother only",
+    "originalRgbDrawsPerUnion": 1,
+    "union": "U=MAX(L(F),L(S))",
+    "luminanceCoefficients": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorInterpolationFilters": "sRGB",
+    "maxOperation": "nativeSVG feBlend lighten overFL,SL",
+    "pngPixelEditing": false,
+    "manualMaskPainting": false,
+    "thresholdOrColorDiffOrMorphology": false,
+    "cropResizeOrSourceRgbRetouch": false,
+    "background": "same-mother actualImageGen removal",
+    "fullCanvasBitwiseReconstructionClaimed": false
+  },
+  "geometry": {
+    "travelPx": 0,
+    "slope": 0,
+    "perspective": 0,
+    "fixedOriginalSourceCoordinates": true,
+    "actualReceiverSourceMaterialIncluded": true,
+    "contactMayOverlapFigure": true,
+    "independentlyMovablePersonOrCaster": false
+  },
+  "observed": {
+    "figure": "SourceRGB face/goldeneyes/mouth/finehair/ribbons, entirebook/spine/darklowercover/fingertip/supportinghand, outwardhem/knees/below-kneesocks/wholefeet intact in original/U/composite. No visiblebook-lap hole or longwindowwood atbooklefttip.",
+    "contact": "S2-v1 lostleftunderhem markedreceiver,HOLD. S2-v2 uses ONLY healthyS1+cleanmother and restores bothunderhemislands plus bothshortsourcefootprints. Native S-only shows limited originalmaterial, F/Soverlap MAXonce.",
+    "grounding": "Wholetoes/soles/heels and full local darksourcewood/softshoe-contact remain; includedfloorpatch is fixedmaterial with visibleboundary onchecker, not a portable shadow. Same-mother composite preserves grounding and originalroomrelationship.",
+    "background": "Onlyperson/book/nearspecificcontact removed byactualImage; matching currentmistday room/window/lake/furniture retained. Hiddenpixels generated, not exact wholecanvasRGBreconstruction.",
+    "reviewOnlyCorrection": "Scoped uniqueSVG filter/maskIDs in reviewHTML so S-only displaysS rather than earlierfirstMAX definition. RawsourcePNGs and standaloneassemblyunchanged; finalS-only screenshot is corrected."
+  },
+  "browserObservation": {
+    "route": "formalcua_repl Chromeextension; no externalPlaywright/CDP/9335",
+    "tabId": "500947828",
+    "url": "http://127.0.0.1:5188/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/native-observe-v1.html",
+    "personallyViewed": [
+      "wholeoriginal/U/composite",
+      "purelight/dark/checker",
+      "face/finehair",
+      "book/fingertip/supportinghand/lowercover/noextrawindowsill",
+      "hem/knees/socks/wholefeet",
+      "native-size shoes/toe/heel/localfloorfootprint",
+      "S-only actualreceiverRGB",
+      "standalonefull-nativecomposite"
+    ],
+    "interactionOrMotionClaimed": false
+  },
+  "nativeArtifacts": {
+    "union": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/union-source-v1.svg",
+      "sha256": "58ce2660e22baf14fd8264c63210239d75605a8132c019c2605ee3795caa0ba6",
+      "bytes": 1244,
+      "role": "One sourceRGB draw underMAX mask"
+    },
+    "composite": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/composite-source-v1.svg",
+      "sha256": "53b1aa7b84f10934adbd8dff3b210ea34b896b8adaf55fe893718cfb111bafae",
+      "bytes": 1343,
+      "role": "Same-mother generatedBG plus sourceRGB once underMAX"
+    },
+    "reviewPage": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/native-observe-v1.html",
+      "sha256": "9414e8b39bfa6c37cdfb105642850eb4e0fc9159453cc0f30b515d0d89da8264",
+      "bytes": 30634,
+      "role": "NativeSVG review, scopedIDs; no assertions/test harness"
+    },
+    "browserEvidence": [
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/browser-observations/book-original-union-composite-v1.png",
+        "sha256": "be54b6be54e91aa1d05544f050fa16e26ab3bb948f4f89ffa28eff6c080fb516",
+        "bytes": 70754,
+        "role": "Actual formalCUA Chrome screenshotbytes, review-only",
+        "canvas": [
+          839,
+          582
+        ],
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/browser-observations/face-hair-original-union-composite-v1.png",
+        "sha256": "5eb9ade002aa9fafce59c372bbfb50d28876c83cf242bc37d69e4a83c043019b",
+        "bytes": 89247,
+        "role": "Actual formalCUA Chrome screenshotbytes, review-only",
+        "canvas": [
+          839,
+          582
+        ],
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/browser-observations/full-native-composite-v1.png",
+        "sha256": "84bfe1dc6650bec217b1f31fce40e2e8d84883934320b97f36a90e62c4e8fc6a",
+        "bytes": 99787,
+        "role": "Actual formalCUA Chrome screenshotbytes, review-only",
+        "canvas": [
+          854,
+          592
+        ],
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/browser-observations/hem-knees-socks-shoes-v1.png",
+        "sha256": "2bfffda755c9c356fec9f0c7a5d1ce267996c06937f1b715970cb5892a7f758d",
+        "bytes": 82469,
+        "role": "Actual formalCUA Chrome screenshotbytes, review-only",
+        "canvas": [
+          839,
+          582
+        ],
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/browser-observations/light-dark-checker-v1.png",
+        "sha256": "3de77ec6cdf6da703fd22744a85ef896ebdeeacc07b5d6ff5e11cfb0665e85f0",
+        "bytes": 81468,
+        "role": "Actual formalCUA Chrome screenshotbytes, review-only",
+        "canvas": [
+          839,
+          582
+        ],
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/browser-observations/mother-union-composite-v1.png",
+        "sha256": "119ac71b02c21a8a47377c15685d04fe3fe45248d18f384f75dcce333b91d8bb",
+        "bytes": 82654,
+        "role": "Actual formalCUA Chrome screenshotbytes, review-only",
+        "canvas": [
+          839,
+          582
+        ],
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/browser-observations/shoes-contact-original-union-composite-v1.png",
+        "sha256": "8cea51fc8580c0ac5b77f1fb6328ee0d3c5a1c1c6a6491aee0c9145cbad274c0",
+        "bytes": 61125,
+        "role": "Actual formalCUA Chrome screenshotbytes, review-only",
+        "canvas": [
+          839,
+          582
+        ],
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/browser-observations/source-receiver-light-dark-checker-v1.png",
+        "sha256": "f7ad3ed5e63a6ca7f35173508cddefbfdb70eb3ef93df0b8063e3d0ae4b7eb49",
+        "bytes": 34518,
+        "role": "Actual formalCUA Chrome screenshotbytes, review-only",
+        "canvas": [
+          839,
+          582
+        ],
+        "generationInputAllowed": false
+      }
+    ]
+  },
+  "generationReceipts": [
+    {
+      "stage": "F1",
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/figure-step1-marked-v1.source.json",
+        "sha256": "5806ef7caf6d0606b773dd4b1b72b65cf36209ef1d5aff03579b84b4ea7c8a4d",
+        "bytes": 5017,
+        "role": "Exactactual tool prompt/input/output provenance"
+      },
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/figure-step1-marked-v1.png",
+        "sha256": "1f89a73600683d1b5786c66f248a15647bedb2e379e663ec151020eb00dd5187",
+        "bytes": 2274838,
+        "role": "Raw ImageGen originalbytes, no pixel edits",
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "status": "producer-selected-stage"
+    },
+    {
+      "stage": "F2",
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/figure-mask-v1.source.json",
+        "sha256": "4bfdb5ec45fe2a7b8bbdf756e25b8cdce066d4b759802fd184605c6f749f51c1",
+        "bytes": 4830,
+        "role": "Exactactual tool prompt/input/output provenance"
+      },
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/figure-mask-v1.png",
+        "sha256": "674382410a477e70b8a22085e024f2e292d83c3c7d070daf05e30b0c0c1e47ab",
+        "bytes": 491188,
+        "role": "Raw ImageGen originalbytes, no pixel edits",
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "status": "producer-selected-stage"
+    },
+    {
+      "stage": "S1",
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/contact-step1-marked-v1.source.json",
+        "sha256": "63e7c1e357ec258ee00fed3a04d766221346bbb9faa97e5f5020e281917d86f4",
+        "bytes": 5182,
+        "role": "Exactactual tool prompt/input/output provenance"
+      },
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/contact-step1-marked-v1.png",
+        "sha256": "02806e36dae91488fecb4ca44eada303f94d6e3c8fe02070fc8bf1890782d2f8",
+        "bytes": 2389071,
+        "role": "Raw ImageGen originalbytes, no pixel edits",
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "status": "producer-selected-stage"
+    },
+    {
+      "stage": "S2",
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/contact-mask-v1.source.json",
+        "sha256": "862eaf65a4075c647d65d9333584084b2234faaffc9c0b0fb4c3f2f4cb3f89d9",
+        "bytes": 4914,
+        "role": "Exactactual tool prompt/input/output provenance"
+      },
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/contact-mask-v1.png",
+        "sha256": "829518f21544f8493f42a8c75d3a2722909330fe17545fbae575a4eb7a221cbe",
+        "bytes": 283704,
+        "role": "Raw ImageGen originalbytes, no pixel edits",
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "status": "HOLD_not_selected"
+    },
+    {
+      "stage": "BG",
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/background-v1.source.json",
+        "sha256": "7151200d97e70bae22a6d959759dbfac0a7b13c62758deb91dcb90dffa8993c5",
+        "bytes": 4840,
+        "role": "Exactactual tool prompt/input/output provenance"
+      },
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/background-v1.png",
+        "sha256": "db4e12b935f35db0a1351fda73714b6d7de7668d842ee07ebadf6c9c41650c1f",
+        "bytes": 2370083,
+        "role": "Raw ImageGen originalbytes, no pixel edits",
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "status": "producer-selected-stage"
+    },
+    {
+      "stage": "S2-v2",
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/contact-mask-v2.source.json",
+        "sha256": "e4f1e0c6dd6e6aed995e8645238623e8c8f9898173a93f354f0a644b01fe31e0",
+        "bytes": 5623,
+        "role": "Exactactual tool prompt/input/output provenance"
+      },
+      "output": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-mist/contact-mask-v2.png",
+        "sha256": "01b4fe55552c04a7d4340bcc5b210a157d6eb6b3c274cbbaa41b308122f29b7f",
+        "bytes": 328516,
+        "role": "Raw ImageGen originalbytes, no pixel edits",
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "status": "producer-selected-stage"
+    }
+  ],
+  "sourceIntegrity": {
+    "rawImageOutputs": 6,
+    "browserPngs": 8,
+    "selectedSourceBytesKept": true,
+    "motherSha256Unchanged": "0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88",
+    "problems": []
+  },
+  "scope": "Onlythisattention-mist static same-mother jointlayercandidate. No newmother, no other6directories/neutral/runtime/SceneTS/App/CSS/globalledger/9335 changes. Root primaryinspection required before registration."
+}

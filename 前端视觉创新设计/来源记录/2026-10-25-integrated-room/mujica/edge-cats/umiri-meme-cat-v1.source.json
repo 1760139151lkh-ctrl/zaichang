@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "edge-meme-cat-v3-family",
+  "character": "umiri",
+  "kind": "project-original-2d-human-character-head-and-complete-simple-cat-body",
+  "costumeId": "project-original-edge-cat-no-human-clothes",
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-d8519409-fc11-45d5-96b1-7b065698c7e6.png",
+  "transparentBackgroundRequested": true,
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/运行素材/companion/edge/sakiko-meme-cat-v3.png",
+      "sha256": "15b21bfb6c94aef1dfd8ae7b168f970fbe9998cddb705b64ac7dabdceab0c161",
+      "role": "Accepted v3 family line language/full cat body scale reference only; not character identity"
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/umiri.md",
+      "sha256": "760b038d3ff84a770c80bf6144e52265d8109e41ecd5cb3440408561ac2bc0da",
+      "scope": "Fully read immediately before this character creative call"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840",
+      "scope": "Fully read immediately before this character creative call"
+    }
+  ],
+  "exactSubmittedPrompt": "Create ONE original Umiri Yahata / 八幡海铃 small edge companion as a complete transparent, extremely simple 2D meme cat. She was calmly resting her two front paws neatly beside each other; the familiar person nudges an imaginary paper corner crooked again, and she notices with a tiny deadpan, faintly amused look. One little brow lifts just a touch before the very small cat mouth almost smiles. She is quietly in on the joke, not annoyed, superior, sexy, sleepy or sadly waiting for a task. No paper, person, tool, text or bubble is actually drawn; the expression carries this small causal moment.\nThe ONE input is the accepted Sakiko meme-cat v3, used solely for shared graphic drawing language, approximate head size, support baseline and full horizontal white cat-body family. Independently draw UMIRI'S head and expression; absolutely do not recolor Sakiko's face/hair or copy her ribbons. Same 1536x1024 genuinely transparent canvas, generous uncut margins and low horizontal contact baseline. Her white chin and two short rounded front paws rest at left on the same invisible horizontal edge; complete rounded long white body extends right to a real hind haunch and hind paw, with ONE attached tail rooted at the rear and simply curling up at the right. Keep complete head/ears/hair/paws/body/tail in frame. The body is one integrated simplified cat, no floating portrait, no parts sheet, no line/shelf/floor underneath. Leave alpha space above for separately rendered future dialogue, no burned-in bubble.\nUMIRI stable identity in very few large flat shapes: dark charcoal/near-black SHOULDER-LENGTH hair with a clear side-swept part, asymmetrical bangs and a few small outward flicks near the cheeks/neck, NOT Sakiko long hair or Nyamu purple bob. Big simple ROUND cool TEAL-GRAY / blue-green eyes, two-tone flat disks: darker desaturated teal upper half and pale blue-green lower half, minimal dark eyelid/eyebrow lines only. The eyes remain round and youthful rather than narrow mature eyes. One tiny eyebrow slightly raised, very small closed cat mouth with restrained deadpan amusement. Clean WHITE little face with no flesh coloring, no realistic human nose/lips/cheek anatomy. No bows, no cloned Sakiko accessories, no school or stage costume; this CAT form is an explicitly project-original adaptation.\nEvery part uses the SAME meme-cartoon 2D treatment: bold smooth dark-navy outlines, broad white areas, about four main flat dark hair blocks, few clean curves and minimal flat secondary hair tone. No painted detailed human head attached to a different cat style. No fur texture, real animal, realistic skin, flesh gradients, makeup, eyelashes with glamour, mature face, human torso, leather jacket, uniform, socks, shoes, fabric wrinkles, collar, props, halos, glow, scenery, background, drop shadow, watermark, logo, text or borders. Preserve real alpha transparency rather than painting any black, white or checkerboard background.",
+  "submittedPromptSha256": "192901cae5965ae872befdc99f3d31b6a52365e2a5d4237b5a98b22cbf906048",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\umiri-meme-cat-v1.png",
+    "sha256": "3c12ad39fad5233c254175b61d9a91b04f28a816cf4a386a8f07c7593a2ed293",
+    "bytes": 1274508,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 6
+  },
+  "producerViewed": true,
+  "producerObservation": "Personally viewed complete original: independent dark side-part shoulder-length hair with outward flicks, cool teal-gray two-tone round eyes, small unequal brow emphasis and restrained closed cat-mouth amusement. White face and complete same-family horizontal cat torso/paws/hind haunch/tail, no human clothes or realistic skin. No Sakiko ribbons, no speech bubble/text; root decides actual character/expressive fit. Tail and eyes remain baked into this whole static PNG.",
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "independentTailLayer": false,
+  "independentEyeLayer": false,
+  "privateWechatSourceUsed": false,
+  "officialArtworkInput": false,
+  "pngEdited": false,
+  "fullHumanMatrixCredit": false,
+  "directAlphaObservation": {
+    "mode": "RGBA",
+    "extrema": [
+      0,
+      254
+    ],
+    "transparentPixelsPresent": true,
+    "sourceAlphaPreserved": true
+  },
+  "producerSmallSizeReview": {
+    "personallyViewed": true,
+    "widthPx": 220,
+    "backgrounds": [
+      "#fff9f2",
+      "#20212c"
+    ],
+    "evidence": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\review\\four-cats-light-dark-220px.png",
+    "sha256": "4fa123fc86f0bb00d0842636db5e828a73785a884ab931154429a71aaaab28cf",
+    "observation": "Original full-cat silhouette stays readable on both backgrounds at 220px width; hair/eye identity remains distinct, outline and white face/body clean. This review sheet is engineering evidence only, forbidden as future generation input."
+  }
+}

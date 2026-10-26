@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "sceneId": "sakiko-chat-apricot-literary-v1",
+  "purpose": "Unique registration owner isolated copy only; producer did not register or edit shared code.",
+  "primaryStaticApproved": true,
+  "runtimeAccepted": false,
+  "sceneProposal": {
+    "file": "apricot-chat.scene-proposal-v1.json",
+    "sha256": "8164189a00b090591623197669046fb22f60d5b4eb5a5c41b4f285c786c89379"
+  },
+  "runtimeAssets": [
+    {
+      "file": "../pilot/sakiko-chat-apricot-v1.png",
+      "sha256": "8d8ca2d001893c16106ab797ec4a8a8c1e6576115a5a4c76ff1dd519eff4e2cd",
+      "role": "mother",
+      "runtimeFile": "sakiko-chat-apricot-literary-v1-mother.png"
+    },
+    {
+      "file": "../../plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "background",
+      "runtimeFile": "sakiko-chat-apricot-literary-v1-background.png"
+    },
+    {
+      "file": "figure-mask-v1.png",
+      "sha256": "976e6a52af3fd9fd8b8ef9a7a017cddb37fec6ebae961256c5b1134ad0cba59d",
+      "role": "F",
+      "runtimeFile": "sakiko-chat-apricot-literary-v1-mask.png"
+    },
+    {
+      "file": "contact-mask-v1.png",
+      "sha256": "9ee1264c492186058e9069b3ab5b86679690a0349363bcf970fc241251a2e159",
+      "role": "S",
+      "runtimeFile": "sakiko-chat-apricot-literary-v1-contact-mask.png"
+    }
+  ],
+  "admittedEvidence": [
+    {
+      "file": "sakiko-chat-apricot-literary-included-primary-admission-v1.json",
+      "sha256": "a1fdfd547484e65d68b04220fcd8fcff56e093c218dd0f4c85e5323aa469efbc"
+    },
+    {
+      "file": "apricot-chat-included-bundle-v1.json",
+      "sha256": "1d1c49f67e3f8318fe8f44518e1f3e95a77e0f0fe839e3b7c6f33a03de25023c"
+    },
+    {
+      "file": "apricot-chat-geometry-proposal-v1.json",
+      "sha256": "09486a35fbe847d2304c976fb9234be7494dff5450ac9c13f94ad024750605b4"
+    },
+    {
+      "file": "union-source-v1.svg",
+      "sha256": "b5e2e0211f341f578ce93b9854f755509591330eb3936648f19d386c8004c62e"
+    },
+    {
+      "file": "apricot-chat-included-observe-v1.html",
+      "sha256": "a0d7ebfa23330978d401e2b6b21181f89ddacfb5fb7d422c17debfd509bd6f33"
+    },
+    {
+      "file": "README.md",
+      "sha256": "a4404b363fcda6a202c4ad13c8835eed752346caefce3583f10a67002980fbc1"
+    }
+  ],
+  "generationRecords": [
+    {
+      "file": "contact-marked-v1.source.json",
+      "sha256": "ebe315a039811923e8d9d5dae271ba5e42de8b6d4edcce28a98a24e1b558027a",
+      "promptFile": "contact-marked-v1.prompt.json"
+    },
+    {
+      "file": "contact-mask-v1.source.json",
+      "sha256": "c207eb6117462b54ce722b1c93fb8424800b5b64ef6f2e7e9745551a984597c2",
+      "promptFile": "contact-mask-v1.prompt.json"
+    },
+    {
+      "file": "figure-marked-v1.source.json",
+      "sha256": "94d24502a2f76da79866016cb0e52efd898ce7d276775d72c4b315e189e324ff",
+      "promptFile": "figure-marked-v1.prompt.json"
+    },
+    {
+      "file": "figure-mask-v1.source.json",
+      "sha256": "36ad0115c59d8710dd79a58faae2e1b81741e166054bff3b716d39626b957ea5",
+      "promptFile": "figure-mask-v1.prompt.json"
+    }
+  ],
+  "upstreamMarkers": [
+    "figure-marked-v1.png",
+    "contact-marked-v1.png"
+  ],
+  "lifecycle": {
+    "contactShadow": "included",
+    "contourComplete": true,
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "wholePoseVisibilityReplacementOnly": true,
+    "independentCaster": false
+  },
+  "scope": "No runtime acceptance, pose/body movement or actual drag behavior certified."
+}

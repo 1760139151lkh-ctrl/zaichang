@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-canvas-local-contact-magenta-in-room-intermediate",
+  "id": "rana-chat-apricot-contact-magenta-in-room-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "rana-chat-apricot-contact-magenta-in-room-v1.prompt.json",
+  "promptFileSha256": "aa579be88c200fe98a498daf8f430af6ed8d01fad8ce53e274ad3d372a018362",
+  "submittedPrompt": "Use case: precise-object-edit. Local color-marker replacement for extracting exact ORIGINAL contact seams; not a new shadow.\nImage 1 is the ONLY full 1536x1024 target. Keep the complete original room, original girl, camera, body scale/pose/contours, sunlight and ALL coordinates unchanged. Recolor ONLY the existing exposed contact shadows made by her sitting/hand/shoes in BRIGHT SATURATED MAGENTA (#ff00ff), at their EXACT original source pixels. Leave every other pixel original color.\nMark the actual narrow warm-brown cushion seam immediately BELOW the seated bare thigh and white shorts/hip. This includes the existing brown source pixel at (1280,582) and its continuous small contact-darkness region under the thigh around x1260..1310,y578..588, extending along the actual original shorts underside to the right. It is BELOW the person's pale thigh/shorts, not ON the lap at y535..565. Please preserve the original seam location: do not shift upward or leave its left brown section unmarked. This point is a REQUIRED exact source contact, not a label or a dot to add.\nAlso mark only existing tiny cushion shadow beneath/outside supporting right palm near y580..587, and actual thin floor-contact shadows immediately outside/below both original boot soles near left y737/right y771. Darkest shadow cores bright magenta, original natural fading edges proportionally faint magenta. No broad generic shapes or invented shadow.\nDo NOT recolor person skin/shorts/hands/boots, the cushion fabric away from the actual contact dark seam, floor texture, sun patches, furniture or normal furniture shadows. All of those remain ORIGINAL COLOR. The actual boots/laces/toes/heels stay their original black, no magenta shoe silhouettes. No other object in this scene is magenta; use magenta only for these exact exposed contact-shadow pixels.\nOutput SAME complete original colored scene with only original contact-shadow surfaces marked magenta, full opaque RGB 1536x1024. No crop/zoom/recenter/resize/translation, new object, text, annotation, border, grid, watermark, UI or transparency.",
+  "submittedPromptSha256Utf8NoTrailingLF": "23de11a249fb757b4ceb21025a7c630b938c51614d52a9e50463d57e13752f5b",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png",
+      "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+      "role": "sole exact original mother; exact exposed brown contact seam marker, no rejected mask input"
+    }
+  ],
+  "output": {
+    "file": "rana-chat-apricot-contact-magenta-in-room-v1.png",
+    "sha256": "3ecdeb106604728ef106e6e04ee25fa3899f9236f5264e849441b80a6eead61f",
+    "bytes": 2113009,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-1457b9f1-2ae9-43d9-b760-31cb6a18fd75.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observationBoundary": "Producer exact PNG viewed; whole-cast source-RGB native recomposition and runtime remain independent primary review."
+  },
+  "status": "unused-exploratory-local-contact-marker"
+}

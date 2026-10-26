@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "assetType": "desk-original-local-contact-receiver-white-in-room-intermediate",
+  "id": "desk-contact-marked-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "desk-contact-marked-v1.prompt.json",
+  "promptFileSha256": "dab4d07969fa0b15cb28d76d964b7351b600a3fd3a6fd005a4b4663aea2ba3cd",
+  "submittedPrompt": "Use case: precise-object-edit. STEP1 local source CONTACT-RECEIVER selection in the unchanged original left-desk room,1536x1024.\nImage1 is the ONLY approved original mother. Keep entire room/person/held pen, exact camera, scale and coordinates unchanged. Paint solid neutral PURE WHITE ONLY over real visible LOCAL receiving-surface contact/compression/cast-darkness made by this seated person/held pen, in their original existing positions. This is selection of original visible material for a fixed included union, not a new shadow design or another person.\nSelect the actual narrow irregular desk/page-surface darkness immediately below the resting forearm/elbow and writing hand/pen; the actual compressed seat-cloth/seat contact band directly beneath the visible skirt/hip, plus tiny nearby existing hair/chair contact shade if visible; and only actual visible floor-darkness adjoining the actually visible loafer/heel fragments. Include natural local fading extent rather than only a one-pixel seam, following actual original shapes. Do not draw ellipses, fill rectangular regions or invent hidden floor contacts.\nSource guide only: writing/forearm region is around x150..330,y375..440; visible skirt/seat-cloth contact around x205..340,y514..566; actual visible shoe/floor fragments around x120..225,y687..731, partly occluded by the foreground plant. These are search windows, NOT shapes to fill. Preserve only actual visible contact/material in source. No fabricated second shoe or contact behind leaves/wood.\nThe PERSON, hair, face, hands, held pen, clothes/hem, legs/socks and actual shoe surfaces stay original COLOR. Wooden chair slats/legs/crossbars, chair seat cloth outside body contact, inherent wood grain, entire desk/page, floorboards, plant/leaves, sunlight patterns and pre-existing furniture shadows also stay original COLOR. Do not select whole chair legs/crossbars as if white highlights were contact, and do not whiten the whole seat or desk. Only original local person-caused contact receiving surfaces become white.\nNo reposing, body/room redraw, crop, zoom, move, resize, recolor elsewhere or new geometry. Return SAME opaque RGB1536x1024 source scene with only these few true local receiver regions filled white, thin original edge antialias. No black mask yet, no labels/grid/arrows/outline/text/UI/border/watermark/transparency.",
+  "submittedPromptSha256Utf8NoTrailingLF": "aaf85b6d58f26907f324f52e67b824d954f3cb6e31f3815f73fd217c471959ec",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-pilot/sakiko-study-apricot-literary-desk-pilot-v1.png",
+      "sha256": "00629c2e6e5b55901244a534145ab3c9d8c2f9c3cbf2ec2de8668f33037ccb04",
+      "role": "sole original root-approved visible desk mother; select actual visible receiving-surface material, no hidden-contact reconstruction"
+    }
+  ],
+  "output": {
+    "file": "desk-contact-marked-v1.png",
+    "sha256": "7d075a1badcd439c0bf3e55fcc4b54462eee7b51efd4632eb1e6b3954f0765c2",
+    "bytes": 2454334,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-f646fb2c-4006-40d7-b476-38cc5c9398c1.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  },
+  "status": "original-room-local-markup-intermediate-viewed-persisted",
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "activity": "study",
+  "palette": "apricot",
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "fullImageResultRetainedInStore": false
+}

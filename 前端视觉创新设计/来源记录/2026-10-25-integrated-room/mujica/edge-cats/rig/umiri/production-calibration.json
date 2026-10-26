@@ -1,0 +1,93 @@
+{
+  "id": "umiri",
+  "source": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\umiri-meme-cat-v1.png",
+  "sourceSha256": "3c12ad39fad5233c254175b61d9a91b04f28a816cf4a386a8f07c7593a2ed293",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "tailPivotPx": [
+    1347,
+    662
+  ],
+  "tailPivotNormalized": [
+    0.876953125,
+    0.646484375
+  ],
+  "paperEdgeSourceY": 850,
+  "paperEdgeNormalized": 0.830078125,
+  "frontPawLowerExtentsPx": [
+    [
+      296,
+      864
+    ],
+    [
+      583,
+      878
+    ]
+  ],
+  "bodyArcSamplesY_X": [
+    [
+      600,
+      1315
+    ],
+    [
+      610,
+      1323
+    ],
+    [
+      620,
+      1330
+    ],
+    [
+      630,
+      1337
+    ],
+    [
+      650,
+      1348
+    ],
+    [
+      660,
+      1353
+    ],
+    [
+      670,
+      1358
+    ],
+    [
+      700,
+      1370
+    ]
+  ],
+  "visibleTailEndY": 691,
+  "wholeMaskExpansionRadius": 26,
+  "tailSemanticExpansionRadius": 12,
+  "rootUnderlapPx": 18,
+  "sourceSolidOutsideWholeGuardBounds": null,
+  "bodyAlphaBounds": [
+    63,
+    168,
+    1391,
+    887
+  ],
+  "tailAlphaBounds": [
+    1312,
+    339,
+    1508,
+    692
+  ],
+  "rawTailRedBounds": [
+    1325,
+    344,
+    1497,
+    691
+  ],
+  "outputs": {
+    "body": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\rig\\umiri\\umiri-meme-cat-v1-body.png",
+    "tail": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\rig\\umiri\\umiri-meme-cat-v1-tail.png",
+    "clean": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\rig\\umiri\\umiri-meme-cat-v1-clean.png"
+  },
+  "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-9725-7bd3-aa74-f7fa6487bfed/exec-4f4d7a70-3ca7-483b-a0c9-c5919464673d.png",
+  "bodyForegroundInkOverlapPx": 4
+}

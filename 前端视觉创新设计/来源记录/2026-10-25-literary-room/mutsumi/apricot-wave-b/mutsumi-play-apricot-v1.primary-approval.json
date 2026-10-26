@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "kind": "primary-static-mother-admission",
+  "key": "mutsumi/play/apricot",
+  "reviewer": "root",
+  "decision": "approved",
+  "primaryPersonallyViewed": true,
+  "mother": {
+    "file": "mutsumi-play-apricot-v1.png",
+    "sha256": "eb6ef92ebbd2197f032c3acbb22c8cbb3a505492d25d063d8ed5a645aa894e05",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "sourceRecord": "mutsumi-play-apricot-v1.source.json",
+  "observation": "Root personally viewed both hands genuinely supporting wooden guitar with natural plucking hand/fret fingers. Illustration only, no audio or real performance claim. Eyes/fringe, visible support and complete bench-pose shoes coherent.",
+  "contourComplete": true,
+  "scope": "Exact-SHA complete static mother only. Actual rendered scene semantics recorded honestly; no layer, audio/performance, motion or runtime admission.",
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "evidenceSource": "Explicit root message after personally viewing all five Mutsumi wave-b full mothers"
+}

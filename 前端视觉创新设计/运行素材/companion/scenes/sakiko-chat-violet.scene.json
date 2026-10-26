@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "id": "sakiko-chat-violet-room4",
+  "character": "sakiko",
+  "activity": "chat",
+  "light": "dusk",
+  "palette": "violet",
+  "width": 1536,
+  "height": 1024,
+  "mother": "sakiko-chat-violet-mother-candidate-v1.png",
+  "background": "sakiko-chat-violet-background-calibrated-v9.png",
+  "figure": "sakiko-chat-violet-figure-calibrated-v9.png",
+  "mask": "sakiko-chat-violet-mask-calibrated-v9.png",
+  "shadow": "sakiko-chat-violet-shadow-calibrated-v9.png",
+  "seat": [
+    0.8567708333333334,
+    0.57421875
+  ],
+  "ground": [
+    0.7591145833333334,
+    0.7890625
+  ],
+  "bodyBounds": [
+    0.71875,
+    0.236328125,
+    0.9459635416666666,
+    0.79296875
+  ],
+  "safeTextBoundary": 0.64,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "hitPolygon": "83% 24%, 87% 27%, 89% 34%, 94% 47%, 91% 53%, 94% 58%, 90% 60%, 88% 61%, 82% 59%, 80% 69%, 80% 80%, 75% 80%, 72% 79%, 74% 71%, 77% 63%, 78% 58%, 75% 57%, 76% 53%, 79% 50%, 76% 47%, 78% 39%, 79% 31%, 80% 26%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "motherApprovedByPrimary": true,
+    "reviewer": "root / primary agent",
+    "stage": "layer-admission-original-position",
+    "approvalRecord": "前端视觉创新设计/来源记录/2026-10-24-matrix/sakiko/primary-chat-layer-admission-2026-10-25.json",
+    "sourceBundleRecord": "前端视觉创新设计/来源记录/2026-10-24-matrix/sakiko/existing-chat-layer-bundles.json",
+    "runtimeAccepted": false,
+    "producerObservation": "Unchanged reviewed mother/background/figure/mask/shadow bytes copied from the exact existing bundle. Root accepted original-position static layer admission only. Travel, slope and perspective are zero; no runtime or free-movement acceptance."
+  },
+  "production": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-violet-layer-processing-v9.json",
+  "environmentVariant": "twilight",
+  "source": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/sakiko-chat-violet.scene.json"
+}

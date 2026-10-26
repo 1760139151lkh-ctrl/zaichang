@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "id": "sakiko-chat-dry-night-literary-v1",
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "activity": "chat",
+  "light": "night",
+  "palette": "rain",
+  "environmentVariant": "dry-night",
+  "width": 1536,
+  "height": 1024,
+  "mother": "sakiko-chat-dry-night-literary-mother-v1.png",
+  "background": "literary-room-dry-night-v1.png",
+  "mask": "sakiko-chat-dry-night-literary-figure-mask-v1.png",
+  "maskMode": "luminance",
+  "contactMask": "sakiko-chat-dry-night-literary-contact-mask-v1.png",
+  "seat": [
+    0.7916666666666666,
+    0.5703125
+  ],
+  "ground": [
+    0.6380208333333334,
+    0.8935546875
+  ],
+  "bodyBounds": [
+    0.5826822916666666,
+    0.107421875,
+    0.8834635416666666,
+    0.8935546875
+  ],
+  "safeTextBoundary": 0.54,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "58.268229166666664% 10.7421875%, 88.34635416666666% 10.7421875%, 88.34635416666666% 89.35546875%, 58.268229166666664% 89.35546875%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/dry-night-chat-layers/sakiko-chat-dry-night-literary-included-primary-admission-v1.json",
+    "geometryStatus": "Conservative source-specific visible contact references only; fixed pose, no hidden-hip, drag-support or body deformation certification.",
+    "geometryEvidence": {
+      "dominantCoverageBBoxSourcePixels": [
+        881,
+        110,
+        1357,
+        925
+      ],
+      "measurement": "Read-only fixed >=0.5 luminance mask envelope; raw masks and continuous runtime luminance unchanged; no PNG pixel edit.",
+      "seatGround": "visible cushion/floor references for stationary source pose only",
+      "actualPersonDominantCoverageBBox": [
+        895,
+        110,
+        1357,
+        915
+      ],
+      "includedReceiverDominantCoverageBBox": [
+        881,
+        539,
+        1343,
+        925
+      ],
+      "bodyBoundsUses": "F actual-person dominant envelope only; receiver coverage remains separately recorded, PNG/assembly unchanged"
+    },
+    "layerReview": "root-approved exact-SHA MAX(F,S) included joint; runtime pending",
+    "producerNote": "Dry-night weather supplement; rain palette only reuses existing night UI tokens. Does not stand in for rain-night core cell or user weather facts.",
+    "runtimeSourceSha256": {
+      "mother": "c56541389158a7f28539062ae2174da997b4cd4301e022eab9202e34d31ab5c1",
+      "background": "edad31b1ce0c7f21be59d939cc54a0d6230b31d6fe380d0d553af515032fd0f4",
+      "F": "e0d20ccc2327b95867319151a5c9fdd52b69008c718fdd5ddaff01a3f6259cea",
+      "S": "830db3da88d90f283f6e867cfe56b1389cd6a2a4152b50de1532266f0f4224f6"
+    },
+    "geometryMetadataRevision": 2
+  }
+}

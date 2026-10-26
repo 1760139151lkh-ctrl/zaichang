@@ -1,0 +1,204 @@
+{
+  "schemaVersion": 1,
+  "key": "rana/chat/apricot",
+  "sceneFamily": "literary-room-v1",
+  "environmentVariant": "clear-day",
+  "kind": "included-union-subject-candidate",
+  "createdAt": "2026-10-25T11:28:53.114186+00:00",
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "registered": false,
+  "mother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.png",
+    "sha256": "060e897c7b9ebdefc5ab84d6fbada2983625b19e6a4ebc57501ede19c5259919",
+    "bytes": 2417341,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "pngBitDepth": 8,
+    "pngColorType": 2
+  },
+  "background": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "bytes": 2524961,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "pngBitDepth": 8,
+    "pngColorType": 2
+  },
+  "motherSource": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.source.json",
+    "sha256": "722ffa0154fd1266a2829d10a0536e9700ef8295ea2eedf493505a85b6516359",
+    "bytes": 7962
+  },
+  "backgroundSource": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json",
+    "sha256": "5425e475efa8264874f2f3b083b8737b4b1f9d35399e9b2c3d86dc561a36cddb",
+    "bytes": 1250
+  },
+  "motherAdmission": {
+    "record": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-cast-chat-mother-reviews-v1.json",
+      "sha256": "b32551906bac652f6e981a9145d8a0abc3f5436e3332add92749c745b6c6eb4d",
+      "bytes": 10548
+    },
+    "exactDecision": {
+      "character": "rana",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.png",
+      "decision": "approved",
+      "observation": "Primary viewed full mother. Distinct curious heterochromatic gaze, short silver hair and original casual identity; palm/seat and both complete boots physically supported. Same close room, no enlarged foreground face.",
+      "key": "rana/chat/apricot",
+      "primaryPersonallyViewed": true,
+      "layerApproved": false,
+      "runtimeAccepted": false,
+      "sha256": "060e897c7b9ebdefc5ab84d6fbada2983625b19e6a4ebc57501ede19c5259919",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.source.json",
+      "sourceRecordSha256": "722ffa0154fd1266a2829d10a0536e9700ef8295ea2eedf493505a85b6516359"
+    }
+  },
+  "F": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/figure-mask-v1.png",
+    "sha256": "db455865e6f624158babe8d34ac42af15b4702ce1ad4697e6cc03e4fe1e40bd7",
+    "bytes": 466820,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "pngBitDepth": 8,
+    "pngColorType": 2,
+    "maskMode": "luminance"
+  },
+  "S": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/contact-mask-v1.png",
+    "sha256": "a1ccab76d88deaebc84a61a6287f5f898959a13bac41c9adf666a97a9c76a6e6",
+    "bytes": 305379,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "pngBitDepth": 8,
+    "pngColorType": 2,
+    "maskMode": "luminance"
+  },
+  "includedSource": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/union-source-v1.svg",
+    "sha256": "771d3fddedc8df645c80e6a99bf7ed7bd191240d4ca551e4e564c703af1dadde",
+    "bytes": 1332
+  },
+  "observationPage": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/rana-chat-apricot-included-observe-v1.html",
+    "sha256": "cf273f86dd7efbd09a603f2af97ddcc8cc29d8f2aabfad97f04528f008e10534",
+    "bytes": 24186
+  },
+  "sourceRecords": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/figure-step1-marked-v1.source.json",
+      "sha256": "b84cc2cb1c2903265ea7ec9bd6bae6753356b2724760d9deda055412e42d4251",
+      "bytes": 2010
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/figure-mask-v1.source.json",
+      "sha256": "29cfd7dd15d5e1a873c989e92808c7826df373e1bc7fd92e7d4e0b4d97d6d0d8",
+      "bytes": 1944
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/contact-step1-marked-v1.source.json",
+      "sha256": "aea56f255a8a336c7a316654c9aaaad6653bbbb529ac7291ce5f658997bdbf76",
+      "bytes": 2011
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/contact-mask-v1.source.json",
+      "sha256": "5bf66294959948b6a60c10839a1b653ffdfbcdbaccf249169dfa8b476f9244ca",
+      "bytes": 1909
+    }
+  ],
+  "generationCalls": {
+    "maximum": 4,
+    "successful": 4,
+    "inFlight": false,
+    "furtherCallsAllowed": false
+  },
+  "composition": {
+    "coverage": "MAX(luminance(F),luminance(S))",
+    "luminanceWeights": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "originalRgbDraws": 1,
+    "contactShadow": "included",
+    "receiverSurfaceIncluded": true,
+    "pureCaster": false,
+    "independentBodyDeformation": false
+  },
+  "contactShadow": "included",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "sameCanvas": {
+    "width": 1536,
+    "height": 1024,
+    "x": 0,
+    "y": 0,
+    "scale": 1,
+    "layerOrder": [
+      "approved matching clean BG",
+      "original Rana mother RGB once through MAX(F,S)"
+    ]
+  },
+  "allowedOperations": [
+    "whole source subject visible/hidden",
+    "whole approved pose replacement",
+    "shared full-room viewport transform"
+  ],
+  "forbiddenOperations": [
+    "relative body translation",
+    "independent shadow move",
+    "independent body deformation",
+    "PNG pixel editing",
+    "adaptive color-difference generation"
+  ],
+  "inspection": {
+    "individualGenerationOutputsPersonallyViewed": true,
+    "htmlPersonallyViewed": true,
+    "browser": "Chrome through cua_repl",
+    "tabId": "500947761",
+    "viewedAt": "2026-10-25T11:31:57.507864+00:00",
+    "page": "http://127.0.0.1:5188/来源记录/2026-10-25-literary-room/rana/chat-layers/rana-chat-apricot-included-observe-v1.html",
+    "statesViewed": [
+      "whole mother vs clean BG+union",
+      "light/dark full subject upper/lower",
+      "checker full subject upper/lower",
+      "native heterochromatic eyes/short hair mother-subject-composite",
+      "native lap hand/right supporting palm",
+      "native shirt/shorts/seat receiver comparison",
+      "native complete shafts/laces/toes/thick outsoles/floor receiver comparison"
+    ],
+    "observations": [
+      "Original curious expression, two eye colors and short hair remain native mother RGB.",
+      "Complete layered clothing, shorts, lap hand, far supporting palm, both legs and thick-soled boots remain visible.",
+      "Raw contact coverage includes original cushion bands and a compact floor patch around/between boots; this is honest included receiver material, not a movable pure caster.",
+      "Inspected original-position composite has no visible white contact gap at palms, seat or boot soles. No separate color/shadow is drawn.",
+      "Whole-room original scale and framing remain; no character translation or RGB redraw."
+    ],
+    "issues": [],
+    "limits": [
+      "S contains actual receiving cloth/wood, visibly identifiable on checker; static original position only."
+    ]
+  },
+  "scope": "Fixed-source included candidate only; primary must inspect exact masks and composites. No runtime scene registration or other palettes.",
+  "status": "root_static_layer_approved_runtime_pending",
+  "primaryAdmission": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/rana-chat-apricot-included-primary-admission-v1.json",
+    "sha256": "a23e48fcaa0f3afe95ead344e6832b7ceecffd22888d8ec9095f7d8efd22355a",
+    "bytes": 2864
+  }
+}

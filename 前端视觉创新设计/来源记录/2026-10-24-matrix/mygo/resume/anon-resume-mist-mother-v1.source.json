@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "recordType": "complete-companion-mother-theme-relighting",
+  "dateLocal": "2026-10-24",
+  "timeZone": "America/Los_Angeles",
+  "character": "anon",
+  "activity": "resume",
+  "theme": "mist",
+  "tool": "image_gen.imagegen (built-in)",
+  "executionId": "exec-05a5b0a4-fcb9-44a8-9013-2c4d3ecd4a7d",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "originalOutput": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-05a5b0a4-fcb9-44a8-9013-2c4d3ecd4a7d.png",
+  "prompt": "anon-resume-mist-mother-v1.prompt.txt",
+  "promptFileSha256": "806f344e88ba0c8140ba05227ed579228fe368f2ae6e82716b901ad9e5a0eeb4",
+  "submittedPromptTransform": "UTF-8 prompt file trimEnd, exactly as submitted",
+  "submittedPromptSha256": "02b72d8d0ccc10a5b7a00b39e8acbafeaba7cd784c4ba89502db27268c29f593",
+  "inputs": [
+    {
+      "file": "anon-resume-apricot-mother-v1.png",
+      "sha256": "4a5a2a9711ab78401cdc57d243b5cf4042f89eef136eb257fb2fc04ca8b84fd5",
+      "role": "sole editable target: exact primary-accepted complete warm resume mother; all geometry, identity, expression and supported activity"
+    },
+    {
+      "file": "../../../assets-design-generated/2026-10-23-companion-matrix/room-mist-candidate.png",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "role": "empty whole-room theme light/sky/weather reference only; never a replacement furniture layout or source of character pixels"
+    }
+  ],
+  "identityFromApprovedMotherSource": "anon-resume-apricot-mother-v1.source.json",
+  "output": {
+    "file": "anon-resume-mist-mother-v1.png",
+    "sha256": "59c913f85afec29b7d6ac4edf7d3d20f8cf4b3ba6c3bcc22f28e91ea9767514f",
+    "bytes": 2127212,
+    "width": 1536,
+    "height": 1024
+  },
+  "approvalScope": "Theme candidate only. Warm mother acceptance does not approve this output, its layers or runtime. Resume remains semantic renewed attention, not a new furniture anchor or wholly new spatial action.",
+  "review": {
+    "producerViewedFullOriginal": true,
+    "primaryViewed": false,
+    "primaryApproved": false,
+    "layersAccepted": false,
+    "runtimeAccepted": false
+  },
+  "status": "rejected for landmark drift; redraw from accepted warm mother plus clean mist plate only",
+  "producerObservation": "Personally viewed complete output: face, chest-height restrained greeting, cushion support and complete feet remain youthful and coherent, but the clocktower has moved left to around x1168 instead of the source's original x1218/actual hair occlusion. Rejected as a geometry-preserving theme mother. Not used as an image input for the correction.",
+  "rejectedReason": "Clocktower moved left to become visible instead of preserving source geometry and actual hair occlusion.",
+  "neverUseAsGenerationInput": true
+}

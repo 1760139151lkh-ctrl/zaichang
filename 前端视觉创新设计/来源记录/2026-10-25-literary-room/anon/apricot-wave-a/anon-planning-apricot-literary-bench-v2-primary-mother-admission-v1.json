@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "kind": "exact-sha-primary-static-mother-admission",
+  "key": "anon/planning/apricot",
+  "pose": "window-bench-near-original-round-table",
+  "mother": {
+    "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-a\\anon-planning-apricot-literary-bench-v2.png",
+    "sha256": "bc17327c66441e6ff1dd4e5cac5d3771bcc9f5e014c5010bed1420d2c9a9a4a7",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "recordedAtUtc": "2026-10-25T12:01:15.292311+00:00",
+  "primaryApprovalEvidence": {
+    "source": "Root direct message in this healthy session, 2026-10-25; exact timestamp not provided",
+    "finding": "Root personally viewed complete original: round table/large desk/window stable, round-table-end bench support, both eyes/bangs, independent pencil grip, held notebook and complete shoes reasonable. Pencil at chest is a valid light discussion gesture."
+  },
+  "approval": {
+    "approvedByPrimary": true,
+    "scope": "static mother only",
+    "primaryLayerApproved": false,
+    "runtimeAccepted": false
+  },
+  "previousRejectedMother": {
+    "path": "anon-planning-apricot-literary-v1.png",
+    "sha256": "ad3f6a9067d88913849c6d0f5db532fdab2aa76347a40e4ffdfe76f2459dfca3",
+    "forbiddenAsAnyFutureImageInput": true
+  },
+  "producerSource": "anon-planning-apricot-literary-bench-v2.source.json"
+}

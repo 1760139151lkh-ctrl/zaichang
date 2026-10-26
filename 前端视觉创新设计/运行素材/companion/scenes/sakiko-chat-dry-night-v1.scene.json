@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "id": "sakiko-chat-dry-night-room4-v1",
+  "character": "sakiko",
+  "activity": "chat",
+  "sceneFamily": "room4",
+  "environmentVariant": "dry-night",
+  "width": 1536,
+  "height": 1024,
+  "palette": "rain",
+  "light": "night",
+  "mother": "sakiko-chat-dry-night-mother-v1.png",
+  "background": "sakiko-chat-dry-night-background-v1.png",
+  "mask": "sakiko-chat-dry-night-figure-mask-v1.png",
+  "maskMode": "luminance",
+  "shadow": "sakiko-chat-dry-night-contact-shadow-mask-v1.png",
+  "shadowMode": "luminance",
+  "shadowColor": "#291c16",
+  "shadowOpacity": 0.38,
+  "contactShadow": {
+    "mode": "separate"
+  },
+  "contourComplete": true,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "source": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-dry-night-mother-v1.source.json",
+  "production": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-dry-night-bundle-v1.json",
+  "seat": [
+    0.841796875,
+    0.578125
+  ],
+  "ground": [
+    0.767578125,
+    0.759765625
+  ],
+  "bodyBounds": [
+    0.73046875,
+    0.263671875,
+    0.9283854166666666,
+    0.7607421875
+  ],
+  "safeTextBoundary": 0.64,
+  "support": "window-seat",
+  "hitPolygon": "81.0% 26.4%, 85.0% 26.8%, 87.5% 36.0%, 91.5% 43.7%, 91.0% 50.5%, 90.0% 54.5%, 92.9% 57.0%, 89.5% 58.0%, 85.0% 58.2%, 81.8% 61.0%, 80.5% 74.9%, 78.2% 76.1%, 76.0% 75.7%, 76.1% 73.0%, 73.0% 75.1%, 73.1% 73.3%, 75.0% 69.0%, 77.1% 59.0%, 75.9% 55.8%, 79.0% 51.0%, 78.0% 46.5%, 78.4% 40.5%, 79.9% 33.0%",
+  "review": {
+    "approvedByPrimary": true,
+    "motherApprovedByPrimary": true,
+    "layersApprovedByPrimary": true,
+    "reviewer": "root / primary agent",
+    "stage": "layer-admission-original-position",
+    "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-dry-night-primary-layer-approval-v1.json",
+    "sourceBundleRecord": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-dry-night-bundle-v1.json",
+    "runtimeAccepted": false,
+    "geometryStatus": "Exact source-specific provisional calibration checked against the admitted mask visible >32 bounds; fixed travel/slope/perspective zero; integrated runtime observation remains pending."
+  }
+}

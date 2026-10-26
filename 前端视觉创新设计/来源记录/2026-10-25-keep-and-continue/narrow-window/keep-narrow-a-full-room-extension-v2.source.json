@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "recordType": "narrow-keep-concept-image",
+  "createdAt": "2026-10-25T23:48:07.318Z",
+  "tool": "image_gen.imagegen",
+  "direction": "A2",
+  "sourceBoundary": "static concept only; not runtime/source/interaction evidence",
+  "viewportIntent": {
+    "width": 760,
+    "height": 768
+  },
+  "inputImages": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.png",
+      "sha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9",
+      "bytes": 2242270,
+      "width": 1536,
+      "height": 1024,
+      "role": "qualified_complete_mother_edit_target",
+      "sha256AfterGeneration": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "bytes": 2270751,
+      "width": 1536,
+      "height": 1024,
+      "role": "matching_clean_empty_plate_extension_reference",
+      "sha256AfterGeneration": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-selected-soft-youth-edit-v3.png",
+      "sha256": "50ed57c7cb690ac52eb49190762f878a2b8e8db5eb75d5d3d3f220e771d86974",
+      "bytes": 2309543,
+      "width": 1254,
+      "height": 1254,
+      "role": "independent_avatar_reference",
+      "sha256AfterGeneration": "50ed57c7cb690ac52eb49190762f878a2b8e8db5eb75d5d3d3f220e771d86974"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/edge-companions/rig-v3/sakiko-meme-cat-v3-clean-composite.png",
+      "sha256": "ee1d4331e0f940267ea1850cb05f70bdf9dd320e6dd1906dd767847925d8c157",
+      "bytes": 772042,
+      "width": 1536,
+      "height": 1024,
+      "role": "independent_clean_cat_reference",
+      "sha256AfterGeneration": "ee1d4331e0f940267ea1850cb05f70bdf9dd320e6dd1906dd767847925d8c157"
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: ui-mockup. Create ONE complete1254x1254 near-square screen representing a760x768 CSS desktop Keep page, not a phone, landscape or comparison board. All coordinates below are CSS at760x768, scale uniformly into the output. Image pixels are concept only, never runtime assets, PDF contents or receipts. No green UI, no category columns/lists/counts, no large title/caption, no generic star/avatar, no top navigation background slab, no canned assistant speech.\n\nSmall transparent top navigation: “在场  聊天  今天  留下”, selected留下 with a fine underline, small search and34px actual supplied independent Sakiko avatar. One source window above one own thought, one original input below only because this is the explicitly opened quote state, a small object-icon flow at the bottom. No extra transcript, duplicate input, fabricated research answer or automatic-save claim.\n\nThe original reader has a dark smoke-tea thin frame, only a tiny grip, filename “rolm-icra2023.pdf”, “1 / 7” and a close x. NO left thumbnail sidebar, macOS traffic-light dots, minimize or invented document tools. Actual pale PDF paper is limited to its small viewport. Show only sparse illegible ink line texture inside, NO readable copied title/abstract/equations or claimed document analysis. Never use the PDF's white as an outside UI panel.\nThe ONE note is smooth translucent smoke-tea, a fine warm edge, no torn paper/leather/grain emboss. Its own short thought is exactly “这句先放在页边，换窗口也别弄丢。” at18CSSpx, source label “rolm-icra2023.pdf · 第1页” at11px. A tiny bespoke wine-book source tab, a separate edit pencil and “接着这页聊” are quiet usable controls. The note does not claim the source is newly read or the draft sent.\nThe ONE same writer below has a tiny fit-content source chip and a small “留作草稿” in one30px line. A72px smoke-tea form holds plus left, empty “接着说…” middle, send right. No big white/cream input. Bottom entrances are unboxed or barely outlined small30px note/book/keyboard/conversation icons, not giant square tiles and not the temporary attachment. No generic copied piano screenshot.\n\nSakiko identity is pale BLUE-lavender long hair, dark side ribbons, GOLD eyes; youthful cheeks and light jaw, clear thoughtful gaze and a naturally alive mouth, neither cold adult nor silly doll. If a body is present it keeps the exact navy literary cardigan/collar bow/plaid skirt, both knees uncovered, BELOW-KNEE CALF SOCKS and complete daily loafers of the approved mother. She was reading her own navy book and first lifts her eyes toward familiar company, not empty pointing. A dedicated tiny portrait is used only in the nav, never cropped from the room. At most ONE simple 2D meme-cat from its supplied independent original: small70–90CSSpx, paws honestly on the selected note edge, no bubble or duplicate. Preserve the actual avatar/cat identity; no realistic fur.\n\nMaterial and spirit: the room/table, warm lamplight and blue rainy-night air are one continuous world. Light diffusion belongs only under the actual text. No all-column brown tint, gray/taupe filler bars, wide frosted header or gratuitous decorative objects. A useful line stays at hand and she gives it a quiet place; affection is in these specific relationships, not words of reassurance. Real source, note, program, draft and current files remain separate owners. Generated PNG is only a proposed interface relationship, never a clean runtime plate or human mother.\n\nDIRECTION A — preserve FULL EXISTING HUMAN AND ALL ORIGINAL ROOM GEOMETRY; only outpaint the upper/lower environment.\nInput1 is the root-approved COMPLETE original1536x1024 Sakiko mother, not a UI screenshot. Input2 is its exact matching clean empty rain-night room. Input3 is the independent portrait; input4 is the independent cat. No prior UI output, composite screenshot, rejected/HOLD human or diagnostic board is supplied.\n\nTreat input1 as an edit target that must not be recomposed. Preserve its complete source rectangle at the SAME single contain transform: in this1254square output original source rectx0..1536,y0..1024 maps tox0..1254,y209..1045. Actor, her open book, supporting hands, cushion receiver, furniture, knees, socks, complete shoes and their support shadows share that ONE transform. This gives a character roughlyx815..1100, headtopabout317, complete soles endingabout950. Keep these proportions and positions: NOT a person enlarged from head at350 down to the frame bottom. Do not alter her pose, leg length, camera, seat height or book grip. No head or shoe cropped. Do not independently shift the actor or put her on another piece of furniture. The source panorama has NO visible panel border or seam.\n\nOutpaint ONLY the top209px with genuinely continuous existing curtain/shelf/window upper architecture and the bottom209px with genuine perspective-correct wooden floor/rug. These extensions must be from the same clean room and lighting, not plain color, mirrored room, stretched strip or blurred bands. Keep nighttime warm lamp light, no hard daylight stripes. The complete full-room/source-body composition stays legible beneath the SMALL front-parallel UI.\n\nUse CSS layout sourcewindowx24..428,y84..314; own note x24..428,y340..486; original quote writerx24..428,y504..612; small icon flowx24..428,y642..714. Original head/feet remain on the RIGHT outside those left UI bounds. Do not enlarge windows/cards to fill the room. Cat near the note's upper edge is80CSSpx at most; keep the furniture-scale body and complete original support visible. Natural empty extended room continues below her shoes, not a crop at the soles. A is a future-background-extension concept, not an authorization to replace current source pixels.",
+  "submittedPromptSha256": "073c1c33d3661b56a024c4b3a57122ad1f0cb484becbad25ea000540c61e627e",
+  "promptFile": "keep-narrow-a-full-room-extension-v2.prompt.txt",
+  "promptFileSha256": "a94cb038302fbb6a578fa28b2043aec04c701c215921e42f4a09aed2cbe5619c",
+  "requestFile": "keep-narrow-a-full-room-extension-v2.request.json",
+  "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17366-5b01-78f3-8d02-c6a9cdf4f220/exec-ce248a14-7755-4e88-833f-bf965db49b48.png",
+  "output": {
+    "file": "keep-narrow-a-full-room-extension-v2.png",
+    "sha256": "ca345f9d236322c56585194954a9c1a04c0a206968c05b27ebee408cf661f949",
+    "bytes": 2306585,
+    "width": 1254,
+    "height": 1254,
+    "pngBytesUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewedWholeOriginal": true,
+    "decision": "concept_candidate_full_room_mood_only_exact_geometry_not_admitted",
+    "observation": "Personally viewed the complete returned original. Natural upper curtain/window and lower wood/rug fill the square with no flat letterbox bands. Full youthful gold-eyed blue-lavender Sakiko, book/hands, exposed knees/calf socks and complete loafers are visible; source/note/writer no longer occupy one overlapping box, and the broad header slab is gone. The renderer still repaints/reframes the original room and character: exact central-source geometry preservation is NOT established and must not be treated as an actor/receiver/camera approval. The source paper is invented blurred texture, the small composer chip order differs from the specified real form, and cat remains above the intended70–90 CSSpx size. Direction illustration only; not a replacement human mother/clean background/runtime or next image input."
+  },
+  "generationInputAllowed": false,
+  "runtimeAccepted": false,
+  "primaryApproved": false,
+  "dirtyScreenshotOrUiMockUsedAsInput": false,
+  "noSourceCodeRegistryOrLedgerChange": true,
+  "requestFileSha256": "7bdf5a7bf3a852e37a1ae2bc49cfc842dc339c4922d9b49447fa3e4cfad325f5",
+  "readDependenciesAtArchive": [
+    {
+      "path": "docs/design/KEEP_AND_CONTINUE_2026-10-25.md",
+      "sha256AtArchive": "eab5f672ad481557ad3718efa67fa5ac068393f364d445b25222656c21560b56"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/SKILL.md",
+      "sha256AtArchive": "d3dafe3e370dfe2aa6bbd522dd64242efb6e9dbed265daa0b68a9532734e1a58"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256AtArchive": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256AtArchive": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.primary-approval.json",
+      "sha256AtArchive": "c69b0ffc2ffd0cf8296845ec5320411f966154f00763db65dfe4ff6b415860f4"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/root-human-mother-primary-review-20261025.json",
+      "sha256AtArchive": "f6b3a0b7ac9974993b61553e907f0ebfa7c39763ebef7d33ca7efb215a99fbb2"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-keep-and-continue/verified-content-brief.json",
+      "sha256AtArchive": "293dab9c46aabf6fa145c0dd395af265a128bdffb9e00678a0a4a51be9079ce2"
+    }
+  ],
+  "characterPassport": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+    "version": "2026-10-25.1",
+    "outfitId": "sakiko-literary-navy-adaptation"
+  },
+  "inputsUnchangedBetweenRequestAndArchive": true,
+  "primaryDirectionReview": {
+    "record": "root-direction-admission.json",
+    "sha256": "c591e5fc74b5e0177c67242895b61e54e597bd7e10d94fb49e44bccfdd471c8e",
+    "relationshipApproved": false,
+    "literalImageApproved": false,
+    "scope": "Direction only; no new camera/person adoption",
+    "runtimeAccepted": false
+  }
+}

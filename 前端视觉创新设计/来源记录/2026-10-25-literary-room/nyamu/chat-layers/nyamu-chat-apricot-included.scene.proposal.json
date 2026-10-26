@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "id": "literary-nyamu-chat-apricot",
+  "sceneFamily": "literary-room-v1",
+  "character": "nyamu",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "width": 1536,
+  "height": 1024,
+  "mother": "nyamu-chat-apricot-v1.png",
+  "background": "literary-room-clear-day-v1.png",
+  "mask": "nyamu-chat-figure-mask-v1.png",
+  "maskMode": "luminance",
+  "contactMask": "nyamu-chat-contact-mask-v1.png",
+  "seat": [
+    0.797526,
+    0.546875
+  ],
+  "ground": [
+    0.634766,
+    0.881836
+  ],
+  "bodyBounds": [
+    0.520833,
+    0.097656,
+    0.904948,
+    0.898438
+  ],
+  "safeTextBoundary": 0.5,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "69% 10%, 82% 10%, 86% 30%, 90% 58%, 80% 62%, 72% 90%, 52% 90%, 62% 64%, 63% 47%, 65% 35%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-included-primary-admission-v1.json"
+  },
+  "proposalOnly": true,
+  "copyPlan": [
+    {
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.png",
+      "target": "nyamu-chat-apricot-v1.png",
+      "sha256": "096bd7f5f0138e8b961c91d52dc8e68b29bcda1600bbb9ca444bd1c7eff75313"
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "target": "literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c"
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-figure-mask-v1.png",
+      "target": "nyamu-chat-figure-mask-v1.png",
+      "sha256": "e134398076c27e95c17d8ffdf20bdeac59a0107924bd5edc2cdde1ad885ca6ff"
+    },
+    {
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-contact-mask-v1.png",
+      "target": "nyamu-chat-contact-mask-v1.png",
+      "sha256": "0702dd3af004fefa908aad843e906e17e30738fad28acb0df1143723059f71db"
+    }
+  ],
+  "contract": "Matches isolated implementation's contactMask + maskMode:luminance + contactShadow:included. No figure/shadow/floorCast. Do not register before root layer admission; no runtime assets copied."
+}

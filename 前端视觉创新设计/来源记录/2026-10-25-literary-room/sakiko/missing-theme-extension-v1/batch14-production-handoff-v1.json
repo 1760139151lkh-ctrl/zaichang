@@ -1,0 +1,356 @@
+{
+  "schemaVersion": 1,
+  "recordType": "room-art-direction14-human-mother-production-handoff",
+  "requestedCurrentCells": 14,
+  "actualSavedImageOutputs": 18,
+  "currentCandidateCount": 14,
+  "heldCount": 4,
+  "currentCandidates": [
+    {
+      "cell": "sakiko/resume/rain",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.png",
+      "sha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9",
+      "bytes": 2242270,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.source.json",
+      "sourceRecordSha256": "1cf9daa11db3353467feae4a9ca4f68c711dce9b43be483e895e00b1f81440df",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.prompt.txt",
+      "submittedPromptSha256": "442354f0945d727f200ad6065cfb8d1d7194d635477cb01603e9cb213cb8b4a3",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "sakiko/resume/violet",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-violet-literary-extension-v1.png",
+      "sha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973",
+      "bytes": 2367723,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-violet-literary-extension-v1.source.json",
+      "sourceRecordSha256": "097fe6bded9b9c54b0190de457584fcb7ed76958ab72068bea16e8652e985be6",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-violet-literary-extension-v1.prompt.txt",
+      "submittedPromptSha256": "dd04203a85de2382f3c2c929facdb1c0d8f8dd9dac82e0345561e7759bc444ca",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "mutsumi/attention/mist",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-mist-literary-extension-v1.png",
+      "sha256": "d568e4d718b78938e4167d8dbaa43340ed82f19d71f2e49d072b9e3283c7f088",
+      "bytes": 2466302,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-mist-literary-extension-v1.source.json",
+      "sourceRecordSha256": "b0849ded247c9c4bac8d0917b3ce7a4dae023ca71df773e506cd7eae6731eb08",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-mist-literary-extension-v1.prompt.txt",
+      "submittedPromptSha256": "439ed20a4d3cf08c509d30a62ece8c91e084d95c81bf4398cc7a236a72d19bfc",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "mutsumi/attention/rain",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-rain-literary-extension-v2.png",
+      "sha256": "4f3f18da25893fe28573384e2c7c4b60c4a025d56beabf160389a5ade6caea00",
+      "bytes": 2248892,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-rain-literary-extension-v2.source.json",
+      "sourceRecordSha256": "ddf733c3028aee757e2e627c8cd0eb66eb53b1317ea5a9d005b1d28720ed07c4",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-rain-literary-extension-v2.prompt.txt",
+      "submittedPromptSha256": "62eff5432545081954f01bc107f0ddb2f0f65f93d4046ddaf04371abcc2fc065",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "mutsumi/attention/violet",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-violet-literary-extension-v1.png",
+      "sha256": "56797968161abce8b9441ebf073cc623b8dd9aa0b999145163dfae8811bfe014",
+      "bytes": 2369619,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-violet-literary-extension-v1.source.json",
+      "sourceRecordSha256": "6c3f40f80dbf9b7edfb5c7104f17cfae7886b262dc4b8cc9801472c0453669ab",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-violet-literary-extension-v1.prompt.txt",
+      "submittedPromptSha256": "70dd9b151718759721199b2b358d7442c4d60bfae6615b7038f8d98caaeabb39",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "mutsumi/resume/mist",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-mist-literary-extension-v1.png",
+      "sha256": "dbd6bab85718cb6bf4fe53c3502bf7fbc0a3d78b69c8f1e29cba04ceaefea8ef",
+      "bytes": 2434826,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-mist-literary-extension-v1.source.json",
+      "sourceRecordSha256": "65b15565df5d421d9cc1207788f14b83a3140b39cd839aa206e2f3912ee9c86f",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-mist-literary-extension-v1.prompt.txt",
+      "submittedPromptSha256": "dc4f17db6ac649425fbfa8829c679c7328482a34c233ff5feb2b5744356cc604",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "mutsumi/resume/rain",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-rain-literary-extension-v2.png",
+      "sha256": "948402e09dedcb2a0f8b1777b29d2bc543485419984d4e057a925b1499c62df9",
+      "bytes": 2320363,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-rain-literary-extension-v2.source.json",
+      "sourceRecordSha256": "68ac6a78edbab9d3ef09b1db5734031e6052c2aca6f02c26eb468727bf39ba68",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-rain-literary-extension-v2.prompt.txt",
+      "submittedPromptSha256": "c93072f76502b2146f3a70fe65cb86891ce2d4a4a0ec057e4e45f2f722b6ccb5",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "mutsumi/resume/violet",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-violet-literary-extension-v1.png",
+      "sha256": "ba9249784ddce618ac8b670163dd4de9d6f794d5a18549f19f489c58a6c6be43",
+      "bytes": 2356570,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-violet-literary-extension-v1.source.json",
+      "sourceRecordSha256": "4b44c355b78d64fb6388297e658c1ebd53cf2b887bd2791138f04a14b3fa3c63",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-violet-literary-extension-v1.prompt.txt",
+      "submittedPromptSha256": "36c9b3704213e986150830ea3ac06f744a86a6714d884ab49422c5a78edd460b",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "taki/attention/mist",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-mist-literary-extension-v1.png",
+      "sha256": "e7eef81215132f5963188f53280341c03bc5374fae84aa9040828a2709f2aa77",
+      "bytes": 2448185,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-mist-literary-extension-v1.source.json",
+      "sourceRecordSha256": "15d45ac4592dc1b524ce6e58757595c824898c85287a8438bb6af88392277452",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-mist-literary-extension-v1.prompt.txt",
+      "submittedPromptSha256": "1ec814965af7e0dfc52837aad4dd5b5826997a3c92a0c4a16e774ae6259650d4",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "taki/attention/rain",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-rain-literary-extension-v2.png",
+      "sha256": "90a756337fbfb434a9de07ee77f0148b8e5619b58b88c8772ee2ed4f5355f912",
+      "bytes": 2237125,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-rain-literary-extension-v2.source.json",
+      "sourceRecordSha256": "5781603918fbde36f983115af95c4f2dde37679cecea50d0a3ae540ce3a417c0",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-rain-literary-extension-v2.prompt.txt",
+      "submittedPromptSha256": "b948a385cb6f5296bae74e8ecf0325f0afe6b439096a0c5df8077f1326cb8d11",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "taki/attention/violet",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-violet-literary-extension-v1.png",
+      "sha256": "322e2e43b3a93587098bf35f0a36d314d0cd4f23a541782353c2e9bc20cb2a26",
+      "bytes": 2330841,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-violet-literary-extension-v1.source.json",
+      "sourceRecordSha256": "a82ef2f551a0012a0e3cf98a451bd4370b18471aff4778d8f0db77ee83a053f6",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-violet-literary-extension-v1.prompt.txt",
+      "submittedPromptSha256": "32e5eff5b79d3671b23337394f7eff961f5c3b64b280501103ee4ff6d833fd27",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "taki/resume/mist",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-resume-mist-literary-extension-v1.png",
+      "sha256": "0f50c0b0a2d27e5765347e92cdda98da320d5b04b8a70b5ce7f66654be64b243",
+      "bytes": 2391079,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-resume-mist-literary-extension-v1.source.json",
+      "sourceRecordSha256": "47132bbf988ef0bc94a5eb74ed0ec36f8f0d4c26c869a91afe363ec62491309c",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-resume-mist-literary-extension-v1.prompt.txt",
+      "submittedPromptSha256": "07bcf6dc422287ba36d502cf65039fc9b76872abae96c9eaa3d175d127ce52a6",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "taki/resume/rain",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-resume-rain-literary-extension-v2.png",
+      "sha256": "f5fc5fe22fda83ba69d3b31c8defbcdf50ba1508d0ab65d8a05d79f166cc8eb2",
+      "bytes": 2245596,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-resume-rain-literary-extension-v2.source.json",
+      "sourceRecordSha256": "9b2599cad5cad528a8f8521a83e18ef12086ed9f53eda4ebdfa2a44d8efb3010",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-resume-rain-literary-extension-v2.prompt.txt",
+      "submittedPromptSha256": "57ac4ba37f7c014bdf79e1c6ba78a87cd9ae5c1e0c53134df9adc682d15661ed",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "taki/resume/violet",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-resume-violet-literary-extension-v1.png",
+      "sha256": "ba92ed144d2c30d09c04a65ff6e2cccca13773505cb90e3c786d912a6e77ec39",
+      "bytes": 2307342,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-resume-violet-literary-extension-v1.source.json",
+      "sourceRecordSha256": "4af85c9e272ff98ae320646b036e10ae5d77633ac5f687d73cfdcffea833e36f",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-resume-violet-literary-extension-v1.prompt.txt",
+      "submittedPromptSha256": "d1a7a4506c9cdab9b2e37e98f951a026f802c7331592b11ae6a088e5788212f8",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "heldNeverInput": [
+    {
+      "cell": "sakiko/resume/rain",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v1.png",
+      "sha256": "599216e934eb0604ce1d432b15d09a3e9bf41cadc6a146848411817fabd86dbf",
+      "bytes": 2310620,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v1.source.json",
+      "sourceRecordSha256": "c09823f1730cd6f6bf8f008ff09a2c7747744a38204f7b50eef890a942331881",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v1.prompt.txt",
+      "submittedPromptSha256": "f730db6feb4e562a9cc6bcdcc95c4d0a7280089267b343e3a5990562c439c61e",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "mutsumi/attention/rain",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-rain-literary-extension-v1.png",
+      "sha256": "9908c1f92f37f1c5bcf14e84c87566a88864515cf9c6dd9de2b78c409b43b6bc",
+      "bytes": 2316817,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-rain-literary-extension-v1.source.json",
+      "sourceRecordSha256": "c32663d38e422b70ed9e027ca4e0497a5832991701fc929ab835828fc7138558",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-rain-literary-extension-v1.prompt.txt",
+      "submittedPromptSha256": "82b779a3e2ed193c9ba3c8b5d1fb28ea925697613d9bc2d35f290715e65f0775",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "mutsumi/resume/rain",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-rain-literary-extension-v1.png",
+      "sha256": "7be0900c44d9f2ca53df4a6f7abe5355e66e0a590ac4986361e4b44dc1e8c88f",
+      "bytes": 2297654,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-rain-literary-extension-v1.source.json",
+      "sourceRecordSha256": "462a8e24e9b37b588031df1fc36351781923c348c5b9941606c8e66ea118a426",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-rain-literary-extension-v1.prompt.txt",
+      "submittedPromptSha256": "9e5f96f1cdbea58434ab16ede8691f6f6dbf0cb0890642632d26abbbc7ec6e00",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "taki/attention/rain",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-rain-literary-extension-v1.png",
+      "sha256": "26f6e5bce9164a9d81c344e522b2eea637c0d6dc566f91791c35a3c787616cc7",
+      "bytes": 2362913,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-rain-literary-extension-v1.source.json",
+      "sourceRecordSha256": "0de5092bbe32a07608bed6eeee14145a7a08aa2b500fce7a245743062106c434",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-rain-literary-extension-v1.prompt.txt",
+      "submittedPromptSha256": "832982fe15e5bd52a95680613ac0c12485378cce9a4fe04a8c86be9f4f7cf48f",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "rootAcceptancePending": true,
+  "noTotalLedgerOrAppMutation": true
+}

@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-mother-original-rgb-included-layer-production",
+  "cell": "taki/attention/violet",
+  "stage": "S1",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: precise-object-edit. Asset: S1 deliberate LOCAL RECEIVING MATERIAL/contact selection markup for taki/attention/violet. ONLY input is exact clean root-approved complete 1536x1024 Taki mother. Preserve full source canvas, camera, every original coordinate, person and props in their original colors. This is receiver SELECTION markup for a fixed INCLUDED original-RGB union, not a portable shadow/caster, new scene or human redraw.\n\nMark PURE WHITE only on source-local receiving material actually touched/darkened by this seated body/hem and both shoes. Seat: small tight linen/bench receiver islands directly below the actual hip/skirt outer hem where compression/contact darkening touches the body. Follow original pleats/contact, not a long empty bench strip or bright cushion rectangle. Taki's OPEN BOOK, pencil and cream slip are supported by her body/hands; these props remain COLORED and belong to F. Do NOT invent a separate book on the cushion or a book receiver tail in empty linen.\n\nFoot contact is NOT a two-pixel white sole contour. Select the COMPLETE actual short dark floor-contact footprints immediately beneath/around BOTH actual source shoes: dark centers below toe/heel and source-connected soft peripheral receiver shade, roughly 8..35 source pixels beyond each sole only where visible. Follow the real irregular wood-grain edge and shade, not a generic oval, rectangle, triangle, long room-wide band or new exaggerated cast shadow. Shoe interiors, sidewalls, soles and heels themselves remain COLORED because F contains whole shoes. Loose inspection region around x868..1128,y838..925; shoes themselves roughly x885..973,y791..877 and x973..1114,y805..898. These are inspection neighborhoods, never boxes to fill. Two actual local footprints may meet only where source shade really meets.\n\nEvery unmarked source pixel remains in original color, including entire person/props, naturally pale cushion, sailor whites, lamp/curtains/clouds, plants/rug, floor/lamp/window reflections and unrelated furniture shade. Never select an empty cushion island or far floor because naturally bright/dark. No new shadow, no repaint, no pixel movement, recentering, crop or resize. Output one opaque full 1536x1024 original colored scene with ONLY the few true local receiver/contact-shade areas deliberately pure white. Later S luminance will select exact original source RGB once via MAX(F,S), travel/slope/perspective=0.",
+  "promptFile": "contact-step1-marked-v1.prompt.txt",
+  "actualToolArguments": {
+    "prompt": "Use case: precise-object-edit. Asset: S1 deliberate LOCAL RECEIVING MATERIAL/contact selection markup for taki/attention/violet. ONLY input is exact clean root-approved complete 1536x1024 Taki mother. Preserve full source canvas, camera, every original coordinate, person and props in their original colors. This is receiver SELECTION markup for a fixed INCLUDED original-RGB union, not a portable shadow/caster, new scene or human redraw.\n\nMark PURE WHITE only on source-local receiving material actually touched/darkened by this seated body/hem and both shoes. Seat: small tight linen/bench receiver islands directly below the actual hip/skirt outer hem where compression/contact darkening touches the body. Follow original pleats/contact, not a long empty bench strip or bright cushion rectangle. Taki's OPEN BOOK, pencil and cream slip are supported by her body/hands; these props remain COLORED and belong to F. Do NOT invent a separate book on the cushion or a book receiver tail in empty linen.\n\nFoot contact is NOT a two-pixel white sole contour. Select the COMPLETE actual short dark floor-contact footprints immediately beneath/around BOTH actual source shoes: dark centers below toe/heel and source-connected soft peripheral receiver shade, roughly 8..35 source pixels beyond each sole only where visible. Follow the real irregular wood-grain edge and shade, not a generic oval, rectangle, triangle, long room-wide band or new exaggerated cast shadow. Shoe interiors, sidewalls, soles and heels themselves remain COLORED because F contains whole shoes. Loose inspection region around x868..1128,y838..925; shoes themselves roughly x885..973,y791..877 and x973..1114,y805..898. These are inspection neighborhoods, never boxes to fill. Two actual local footprints may meet only where source shade really meets.\n\nEvery unmarked source pixel remains in original color, including entire person/props, naturally pale cushion, sailor whites, lamp/curtains/clouds, plants/rug, floor/lamp/window reflections and unrelated furniture shade. Never select an empty cushion island or far floor because naturally bright/dark. No new shadow, no repaint, no pixel movement, recentering, crop or resize. Output one opaque full 1536x1024 original colored scene with ONLY the few true local receiver/contact-shade areas deliberately pure white. Later S luminance will select exact original source RGB once via MAX(F,S), travel/slope/perspective=0.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-violet-literary-extension-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-violet-literary-extension-v1.png",
+      "role": "exact root-approved complete same mother",
+      "sha256": "322e2e43b3a93587098bf35f0a36d314d0cd4f23a541782353c2e9bc20cb2a26"
+    }
+  ],
+  "mother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-violet-literary-extension-v1.png",
+    "sha256": "322e2e43b3a93587098bf35f0a36d314d0cd4f23a541782353c2e9bc20cb2a26",
+    "sourceRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-violet-literary-extension-v1.source.json",
+    "sourceRecordSHA": "a82ef2f551a0012a0e3cf98a451bd4370b18471aff4778d8f0db77ee83a053f6",
+    "primaryAdmission": {
+      "cell": "taki/attention/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-violet-literary-extension-v1.png",
+        "sha256": "322e2e43b3a93587098bf35f0a36d314d0cd4f23a541782353c2e9bc20cb2a26",
+        "bytes": 2330841,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.850Z",
+      "observation": "Taki dark hair/purple eyes and brown-red school wardrobe remain. Pencil tip lands on the real lap page; eyes are directed down toward the task. Whole violet light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    "primaryAdmissionFile": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/root-human-mother-primary-review-20261025.json"
+  },
+  "output": {
+    "file": "contact-step1-marked-v1.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-2be01a53-d8c2-49bd-a75c-947c546208db.png",
+    "sha256": "74f893f9fe77de4fddc7c03c78eb235363a50a80a04783dbfdc16d6bee741c51",
+    "bytes": 2312339,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewedWholeOutput": true,
+    "status": "producer_candidate_browser_reviewed_pending_primary_priority_hold",
+    "observations": [
+      "亲看完整返回图：仅裙/髋下小片座垫与双鞋近端完整接触足迹被标白；人物、书笔和彩色空垫保留，鞋底周围不是仅二像素线。"
+    ]
+  },
+  "originalMotherRGBChanged": false,
+  "pngPixelEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "promptSha256Utf8": "b94c2c33a71d5b34683bcf11e87f72cfb16a26abcd6ed153cd99b5a874429639",
+  "promptFileSha256": "bdc89a3886f9e69c437bad211c7758869fbf573ef48c604f6014bbfbe82cc9c0"
+}

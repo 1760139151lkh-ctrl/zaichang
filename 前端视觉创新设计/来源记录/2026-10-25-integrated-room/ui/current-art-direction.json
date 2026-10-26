@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-25",
+  "userAccepted": {
+    "file": "home-integrated-warm-paper-v1.png",
+    "scope": "clean opening-screen layout only"
+  },
+  "rejectedGenerationInputs": [
+    {
+      "path": "../2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-resume-apricot-literary-pilot-v1.png",
+      "reason": "用户指出年龄偏大、与同一人物不符，缺少青春和情感"
+    },
+    {
+      "path": "../2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-attention-apricot-literary-pilot-v1.png",
+      "reason": "用户指出无对象硬指、尴尬，动作未服务具体情境"
+    },
+    {
+      "path": "home-integrated-warm-paper-v1.png",
+      "reason": "仅布局采用；人物左腿抬起的叠放和鞋底支撑不清，不能作为母图或生成输入"
+    }
+  ],
+  "productionState": "bulk-expansion-held-for-emotional-pilot",
+  "acceptance": "原作同一身份、青春感、具体情境中的眼神神情和角色性格必须先成立；结构合理与文件存在均不单独获得审美准入。"
+}

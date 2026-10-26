@@ -1,0 +1,186 @@
+{
+  "schemaVersion": 1,
+  "key": "uika/chat/apricot",
+  "kind": "original-source-union-subject-included-contact-candidate",
+  "primary": false,
+  "runtime": false,
+  "status": "producer_observed_primary_admission_separate_record",
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-pilot/uika-chat-apricot-literary-pilot-v1.png",
+    "sha256": "df94d1a87f41775108d5b319a6bcc8ec4372283b770ef05ae764adedf2500c5d",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "background": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "inputs": {
+    "F": {
+      "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\uika\\chat-layers\\figure-mask-v1.png",
+      "sha256": "937cb2e07ce767950ef7f113a8a3131f5b2f21569bd09fcb391050ae88004bea",
+      "generationSource": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/f2-source-v1.json"
+    },
+    "S": {
+      "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\uika\\chat-layers\\contact-mask-v1.png",
+      "sha256": "eae4756cefb4ab68ff3f596128972eac539ca40f664487532e92afd4743f22fd",
+      "generationSource": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/s2-source-v1.json"
+    }
+  },
+  "union": {
+    "formula": "U(x,y)=MAX(L(F(x,y)),L(S(x,y)))",
+    "luminanceWeights": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorSpace": "sRGB",
+    "nativeSvgSource": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/joint-source-v1.svg",
+    "nativeSvgSourceSha256": "61825b5c7879510b9b50f6f1d4f32430d2d4908046f8b0c64d5104514bf1687d",
+    "nativeSvgMethod": "feImage + replicated luminance feColorMatrix + feBlend lighten; mask-type luminance",
+    "originalMotherRgbDrawsPerSubject": 1,
+    "extraColorPaint": false,
+    "newRaster": false,
+    "pngPixelEditing": false,
+    "thresholding": false,
+    "subtraction": false,
+    "adaptiveColorDifference": false
+  },
+  "contactShadow": {
+    "mode": "included",
+    "meaning": "Foreground plus actual local contact/receiver material is one fixed source subject; not pure/portable caster."
+  },
+  "composition": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "layerOrder": [
+      "matching clear plate",
+      "original mother RGB once masked by MAX(F,S)"
+    ],
+    "sharedStage": true,
+    "transform": {
+      "x": 0,
+      "y": 0,
+      "scale": 1,
+      "rotation": 0
+    },
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "geometryProposal": {
+    "seat": [
+      0.7682291666666666,
+      0.5517578125
+    ],
+    "ground": [
+      0.6067708333333334,
+      0.8564453125
+    ],
+    "bodyBounds": [
+      0.5481770833333334,
+      0.1171875,
+      0.8528645833333334,
+      0.8583984375
+    ],
+    "source": "visible source contact candidate points, not hidden anatomical measurements",
+    "support": "window-seat"
+  },
+  "allowedPresentation": [
+    "entire fixed union shown/hidden together",
+    "whole pose replacement with its own approved source",
+    "shared background-and-joint viewport scale"
+  ],
+  "unsupportedPresentation": [
+    "independent body or shadow movement",
+    "retargeting limbs or support surface",
+    "figure-relative travel/slope/perspective",
+    "claim of independently clean cast shadow"
+  ],
+  "generation": {
+    "calls": 4,
+    "callLimit": 4,
+    "steps": {
+      "F1": {
+        "image": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/figure-step1-marked-v1.png",
+        "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/f1-source-v1.json",
+        "sha256": "ae39dc2768c45021aa271ce06a17f709812c010e1a7c1090fd382b044742f483",
+        "promptSha256": "0f3f507a8968524fcd6a513670cd2732694c6218aac61f28307480b4290d16fd",
+        "actualSize": [
+          1536,
+          1024
+        ],
+        "actualMode": "RGB"
+      },
+      "F2": {
+        "image": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/figure-mask-v1.png",
+        "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/f2-source-v1.json",
+        "sha256": "937cb2e07ce767950ef7f113a8a3131f5b2f21569bd09fcb391050ae88004bea",
+        "promptSha256": "e2550c145511f95d6b6b67d9dd897ffada13f4cf02d3dd9ecd704c5fe8391ab7",
+        "actualSize": [
+          1536,
+          1024
+        ],
+        "actualMode": "RGB"
+      },
+      "S1": {
+        "image": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/contact-step1-marked-v1.png",
+        "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/s1-source-v1.json",
+        "sha256": "c8d6b6306f640cde30041842099233e6902bf2ec9a4f813a87bbd011611082aa",
+        "promptSha256": "2531e2c587af663d43587fced1f452e4c3743e7fcd6b9328034af2da8a2c3fad",
+        "actualSize": [
+          1536,
+          1024
+        ],
+        "actualMode": "RGB"
+      },
+      "S2": {
+        "image": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/contact-mask-v1.png",
+        "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/s2-source-v1.json",
+        "sha256": "eae4756cefb4ab68ff3f596128972eac539ca40f664487532e92afd4743f22fd",
+        "promptSha256": "65ad7daba40315bdbdcc9e6dde59c5efa58847fb6a2933eda827338d62db27bd",
+        "actualSize": [
+          1536,
+          1024
+        ],
+        "actualMode": "RGB"
+      }
+    },
+    "largeImageResultStored": false
+  },
+  "visualInspection": {
+    "page": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/chat-layers-included-observe-v1.html",
+    "pageSha256": "953f5439a471f79ad81210b1673c3ef6d5b19b28f99597db269757774e11ae75",
+    "producerViewed": true,
+    "statesViewed": [
+      "whole original mother and BG+joint recomposition",
+      "full joint on light/dark/checker",
+      "face and complete hair 2x original/recomposition",
+      "both hands/palm/lap and linen receiver 2x",
+      "complete shoes/soles with local floor receiver 2x",
+      "whole garment hem in full subject and original 2x; partial recomposition 2x"
+    ],
+    "specificIssues": [],
+    "browser": "Chrome extension formal native SVG view",
+    "observations": [
+      "Original mother RGB appears once under native MAX coverage; no generated figure color or pixel edit.",
+      "Hair/eyes, both hands, long skirt perimeter, ankles and complete shoes remain visible at original scale and position.",
+      "Checker reveals a narrow original linen receiver fringe under hip/palm and local floor darkness around shoes. These belong to the fixed joint, not a portable caster.",
+      "At observed normal scale source/scene contacts are continuous; no broad whole-room leakage observed."
+    ]
+  },
+  "review": {
+    "primaryApproved": false,
+    "runtimeAccepted": false,
+    "approvedByPrimary": false,
+    "separateCastShadowClaim": false
+  }
+}

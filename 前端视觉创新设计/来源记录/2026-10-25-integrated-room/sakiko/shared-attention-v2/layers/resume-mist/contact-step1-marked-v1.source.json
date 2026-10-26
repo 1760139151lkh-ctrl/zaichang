@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "cell": "sakiko/resume/mist",
+  "character": "sakiko",
+  "activity": "resume",
+  "palette": "mist",
+  "stage": "S1",
+  "assetType": "raw-Image-source-selection-mask-or-markup",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: precise-object-edit. Asset type: S1 original-position fixed INCLUDED receiving-material selection markup for this exact approved Sakiko RESUME MIST v4 mother. The ONLY input is the clean 1536x1024 original with dark below-knee socks and full shoes. Preserve all original person/book/room coordinates, lighting, emotion, proportions and furniture unchanged. This is not a new scene or character drawing.\n\nPaint white ONLY the narrow actual compression/contact receivers immediately beneath the existing hip/trailing skirt at the cushion, plus the COMPLETE source-local soft floor receiver immediately under and beside BOTH grounded shoes. Seat neighborhood roughly x940..1345,y540..635: follow only the real hip/skirt touching linen and tiny underhem folds; do not select the long empty bench to the left or the whole lit cushion, blue plaid pillow or knitted throw. The real book is HELD, not placed on the bench, so no fabricated book-on-seat receiver. Floor neighborhood roughly x790..1040,y875..965: include the original whole soft near-shoe contact/cast area around toe/sole/heel, not just a thin outsole line. Follow the actual irregular source shadow and soft grey falloff, never draw a white rectangle/oval or expand into the rug/large room reflection. Coordinates identify neighborhoods ONLY, not fill boxes.\n\nThe whole original person remains COLORED: blue-purple long hair/ribbons, youthful gold eyes/small recognition smile, page-retaining hand and book-support hand, entire real open navy book, navy cardigan/plaid skirt, exposed knees, dark calf socks and complete loafers/outsoles. All unselected room stays original colored, including natural cream/white linen/lamp/curtain/page-like highlights, floorboards/reflections, rug, table/desk/chair/shelves/plants/windows/lake/town. Do not confuse natural bright fabric with deliberate receiver marks; do not whiten clothes/shoes as if shadow.\n\nPreserve current diffuse overcast MIST daylight and modest lamp warmth with no new hard sunlight/window-grid patches. Output ONE opaque exact 1536x1024 PNG of the same original scene, only its true tiny seat and full soft near-shoe floor receivers deliberately WHITE with grey at real soft boundary. No crop/resize/zoom/recenter/translation, new person/props/shadow/pose, checkerboard/text/UI/arrows/grid/labels/outlines. Fixed original RGB MAX(F,S), travel/slope/perspective0; not an independent portable caster.",
+  "submittedPromptSha256": "d30ac1c519bdf6d99f96dc9b3f5e77578c20131df943b102a96da70b8423046b",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-resume-mist-soft-recognition-v4.png",
+      "sha256": "9c9e2aa283a1d809a3e6edf9f574e026de3046093e6c8dcd8b7c0316961dc624",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    }
+  ],
+  "originalRgbOwner": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-resume-mist-soft-recognition-v4.png",
+    "sha256": "9c9e2aa283a1d809a3e6edf9f574e026de3046093e6c8dcd8b7c0316961dc624",
+    "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-resume-mist-soft-recognition-v4.source.json",
+    "sourceRecordSha256": "15c8a582a317dd760947eb56b6bfc31d6ed78fd63d06ac4d4bd02c6ae73a0371",
+    "rootMotherStaticReview": {
+      "status": "approved_static_mother",
+      "reviewer": "root",
+      "observed": "Actual whole image inspected. Familiar-person recognition in soft gold eyes/small smile, page-holding hand and supported book; two knees exposed above dark navy below-knee socks, complete grounded shoes; hip/cushion and legs continuous; overcast diffuse room light. New image built only from clean plate and independent identity portrait, not white-sock v3 or old mature resume."
+    }
+  },
+  "method": "Actual Image same-mother F1/F2 or S1/S2 chain. F is whole human/ribbons/hands/held book/clothing/knees/calf socks/complete shoes. S includes real source-local seat and full soft grounded floor receiver, not just sole line; original RGB MAX(F,S) drawn once only.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\sakiko\\shared-attention-v2\\layers\\resume-mist\\contact-step1-marked-v1.png",
+    "sha256": "4f2935c16284a5bcca37cbc9ed13c28e9485a1a5f47a55acac63237d9b8542e4",
+    "bytes": 2477153,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-67a3d538-df4a-4669-af09-eba605f23b3f.png",
+    "pngBytesUnchanged": true
+  },
+  "producerObservation": {
+    "personallyViewedFullNative": true,
+    "observation": "Full native S1 inspected: original recognition figure/book stays colored, deliberate near-hip receiving linen and near-shoe floor soft region marked white. No full empty bench/furniture mark; precise source-local extent to inspect in S2/RGB composite."
+  },
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "sourceOrigin": [
+      0,
+      0
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": "included",
+    "independentCaster": false
+  },
+  "motherReconstructed": false,
+  "primaryLayerApproved": false,
+  "layerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "status": "producer-HOLD-ambiguous-receiver-marks",
+  "inputBoundary": "Only current exact root-approved mother and its correct same-canvas working intermediates. No HOLD rain-attention-v2, white-sock resume-mist-v3, screenshot, audit collage or other mother mask.",
+  "promptFile": "contact-step1-marked-v1.prompt.json",
+  "promptFileSha256": "3bbee99f77ff5a09ada8f89321cdb277a29ec3e46fc04226ad8792183ca05515",
+  "generatedAt": "2026-10-25T23:53:27.599Z",
+  "generationInputAllowed": false,
+  "observedIssue": {
+    "issue": "S2 reconstruction misclassified natural pale linen and floor topology; rebuild a clearer source-local S1 from clean mother, not this intermediate.",
+    "nextInputBoundary": "Clean original resume-mist-v4 mother only"
+  }
+}

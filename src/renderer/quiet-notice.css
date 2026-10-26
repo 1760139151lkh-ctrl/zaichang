@@ -1,0 +1,67 @@
+/* Primary-reviewed quiet-recovery-v2: feedback belongs beside the original
+   control or paper. A failed step has a still mark, never a loading spinner. */
+.quiet-notice {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 3px 10px;
+  width: fit-content;
+  max-width: min(46ch, 100%);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: inherit;
+  font-size: 12px;
+  line-height: 1.65;
+}
+.quiet-notice[data-tone='problem']::before {
+  content: '';
+  flex: 0 0 auto;
+  align-self: flex-start;
+  width: 11px;
+  height: 11px;
+  margin-top: 4px;
+  border: 1.5px solid var(--accent);
+  border-right-color: transparent;
+  border-radius: 50%;
+  transform: rotate(-20deg);
+}
+.quiet-notice-message {
+  flex: 0 1 auto;
+  min-width: 0;
+  margin: 0;
+  color: inherit;
+  overflow-wrap: anywhere;
+}
+.quiet-notice-action,
+.quiet-notice-dismiss {
+  flex: 0 0 auto;
+  min-height: 24px;
+  padding: 1px 2px;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  box-shadow: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.quiet-notice-action {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, currentColor 55%, transparent);
+}
+.quiet-notice-action:hover,
+.quiet-notice-dismiss:hover { color: var(--accent); }
+.quiet-notice-action:focus-visible,
+.quiet-notice-dismiss:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.quiet-notice-action:disabled { opacity: .45; cursor: default; }
+.quiet-notice-dismiss { display: grid; place-items: center; width: 24px; }
+.workspace.welcome .quiet-notice {
+  color: var(--room-air-ink, inherit);
+  text-shadow: var(--room-air-shadow, none);
+}

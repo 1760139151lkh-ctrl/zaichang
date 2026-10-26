@@ -1,0 +1,31 @@
+Use case: ui-mockup.
+Deliverable: ONE new flat full-screen night-time long-conversation product composition for the Chinese companion app 在场, landscape 1536×1024. This is the actual illustrated app view, not a photo of hardware, not a poster, not a device mockup, not a storyboard.
+
+ONLY INPUT: the clean EMPTY literary room at dry night. It is the full-bleed background for the complete interface. Keep the room's coherent timber window, cool blue night lake/town, shelves/books, cream curtains, ceramic lamp, bench cushions, knitted throw and floor at natural scale. The only warm light is the existing practical ceramic lamp. No new lamp, furniture or physical grand piano. No people, face, avatar portrait, hands, body or pointing finger. No previous UI is supplied.
+
+THE ARTISTIC INTENTION:
+Two people have become happily absorbed in understanding the sound of a piano. The conversation has length and substance; it deserves a comfortable place to settle without losing the quiet room around it. The page must feel lit by THE SAME amber lamp that touches the wood, curtains and linen. It must not behave like a new luminous white screen standing in front of the room. Let warmth and a small spark of discovery live in the relation between the words and the instrument. Do not render a generic reassurance slogan.
+
+CREATE A DISTINCT NEW SURFACE, NOT A RECOLOURED CARD:
+The left roughly 56% is one calm continuous READING AND MAKING FIELD, integrated into the room's amber wood and night air. It has a refined translucent smoked-tea/amber-brown material, with a steady soft dark density immediately behind the text and just enough local optical diffusion to quiet wood grain, book spines and window lines. Along its OUTER edges, the material becomes gently diffused and merges into the room's real light, without a hard giant rectangular boundary or heavy rounded-card frame. The field is NOT a uniform flat charcoal rectangle, NOT an opaque brown slab and NOT barely transparent text over busy scenery. Give the reading area intentional calm, local contrast and depth. Room wood and warm lamp colour should still be perceptible through and especially around it. Do not whitewash the whole left half or globally darken the entire picture.
+
+Text is fully opaque warm ivory, crisp and clearly readable at sensible 19–21px body scale with generous line spacing. It must stay stable on the background. Soft blur or translucency belongs behind the text, never on the glyphs. A small user paragraph may have a gentle inset and a very faint warm vertical accent, but DO NOT surround each message in another card. Assistant paragraphs sit directly in this ONE continuous working field with generous breathing gaps. No nested panels, receipt labels, avatar badges or gold rings.
+
+ACTUAL WORKING CONTENT AND LAYOUT:
+Small brand 在场 at upper left; a restrained top navigation with exactly 聊天 今天 留下, warm off-white against the same room. No tall header, opaque navigation bar or dashboard.
+Begin a meaningful existing conversation below it. The user passage is compact, about four readable lines, with exact sample text:
+我想和你一起听懂三角钢琴。先听声音，再看琴键、琴槌和琴弦怎样连起来。也想亲手试试力度和弦长，接着聊刚才听见的变化。
+
+Then three clear paragraphs in warm ivory, using exact sample copy:
+那就从你按下的这一键开始。声音响起时，我们把动作慢下来，看看它一路经过了哪里。
+你可以先弹几个音。听见喜欢或奇怪的那一下，就留在这里，和刚才的变化放在一起看。
+等你想追问时，我们再展开那一处。你按琴键，我把相关的动作留在旁边。
+These are fictional design-sample messages, not evidence of an actual model reply or sound playback. Do not add a generic “我在 / 慢慢来” title or internal engineering status.
+
+Beneath the paragraphs, within THE SAME smoked-tea working field, show a refined compact interactive PIANO work object: a slim ivory-and-black keyboard with a clearly touched warm-amber key, and a small tasteful linked key–hammer–string gesture/diagram immediately above it. The keyboard itself can be authentic black and ivory; the surrounding panel must share the room-lit smoke material. Do NOT put this work object inside a second white card, add a technical dashboard, invent a physical grand piano in the room, or cover it with text. A small unobtrusive play/pause icon and one slender force slider are enough to suggest interaction; no field of numeric readouts, oscilloscope panels or performance metrics. The real live component will provide the actual mechanism and sound; this image establishes only its visual place among the words.
+
+The COMPOSER rests at the bottom left, matching the SAME room-lit smoked-tea material rather than floating as a white bar. One soft warm edge is enough; no double outline or shiny gold border. Width about 740–790px at this canvas, height roughly 58–66px. Small plus at left, unobtrusive warm send arrow at right. Placeholder exactly 接着刚才的声音说… in readable muted warm ivory. Keep its actual text brighter than the background, not ghost-grey.
+
+The right 40–44% stays breathing full-scale room: visible empty bench, fabric, coherent warm practical lamp and cool night window depth. Preserve room details and light instead of darkening everything to justify text. There is no vertical day/night split, arrow slider, scene border, miniature room image or backdrop card. The work field, top nav and composer belong to a SINGLE space.
+
+Avoid: ANY giant milk-white/cream board, beige message wall, recoloured flat grey slab, pure transparent letters across clutter, multiple nested cards, thick borders, uniformly frosted window-like rectangle, green UI tint, avatar/character, fake sound-success receipt, new engineering panels, device frame or photography. One polished, legible, deeply integrated night conversation where words and piano feel held by the room's one warm lamp.

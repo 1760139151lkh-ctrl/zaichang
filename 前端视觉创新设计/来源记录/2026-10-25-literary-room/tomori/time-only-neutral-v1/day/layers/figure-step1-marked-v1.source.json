@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "recordType": "source-rgb-included-layer-image-stage",
+  "characterId": "tomori",
+  "neutralTime": "day",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "stage": "F1",
+  "tool": "image_gen.imagegen",
+  "toolElapsedMs": 41051,
+  "recordedAt": "2026-10-26T01:02:57.451296+00:00",
+  "sourceConversationId": "01a17365-def4-7ef0-9767-09f785cec060",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/tomori-neutral-time-day-v1.png",
+      "sha256": "ee943e04da7a50748d3e331ed4339548b842388027d0a5fe360e95a4c2d270b7",
+      "role": "Only exact root-approved clean full mother; semantic foreground selection target",
+      "personallyViewedBeforeGeneration": true
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: precise-object-edit. F1 semantic foreground markup for a FIXED source-RGB included layer. ONLY input is the exact root-approved 1536x1024 Tomori time-only DAY full mother. Preserve the original full canvas, camera and ALL original coordinates; no crop/resize/zoom/recenter/shift, no redrawn silhouette or changed pose.\n\nPaint SOLID FEATURELESS PURE WHITE directly over the COMPLETE original person AND her entire small OPEN NOTEBOOK AND WHOLE PENCIL. Include every short gray-lilac hair strand/tip, head/face/eyes/ears/neck, all blazer/shirt/collar/sleeves/cuffs/buttons/piping, all plaid skirt/outward dark lower hem folds, BOTH complete hands/fingers/wrists, bare thighs/exposed knees, both below-knee socks, and BOTH complete black loafers including toes, leather sides, bottommost sole rims and heel blocks. Include the thin pencil from upper eraser to actual tip touching the page, and the whole notebook including page blocks, curved thin dark lower cover/spine/binding over her lap. The black curve between book and lap is REAL FOREGROUND, NOT a background hole.\n\nAll selected interior must be completely SOLID WHITE: no retained facial lines/eyes/mouth, hair strands inside, clothes folds/seams, hand outlines, notebook page lines, pencil centerline or shoe seams. Fill faint internal tracing white. Preserve only actual original background gaps BETWEEN separate outer hair strands/arms/legs as unchanged COLORED room. Fine gray belongs only to original antialiased outside perimeter, no erosion/contraction, dilation or invented holes.\n\nApproximate inspection regions, NOT boxes to fill: complete figure/pencil/notebook x785..1225,y115..920; hands/notebook/pencil x880..1110,y425..555; complete shoes x780..1010,y785..920. Keep all source pixels at their original positions.\n\nEVERYTHING else remains original COLORED ROOM RGB: opaque ivory curtain, naturally pale cushion/knit throw, blue pillows, ceramic lamp/shade/flowers/cup/table/books, left desk/chair/plants, rug/wood floor and separate receiving shadows. Do not select natural white curtain/linen/book-stack as figure. S selects local contact separately. No shadow marking here, checkerboard, labels, arrows, guides or new texture. Source foreground RGB will later come ONLY from the untouched approved mother once under MAX(F,S), never from this marked picture.",
+  "submittedPromptSha256": "86a5c168fa2be1b3ae11e019b939763da474fb38b413100eef2959a05c6cec05",
+  "promptFile": "figure-step1-marked-v1.prompt.txt",
+  "promptFileSha256": "5950a6ff38dadf03a35b523c9e96407c9de5a80f2474f2a4f89d5baac43a4b5a",
+  "requestFile": "figure-step1-marked-v1.request.json",
+  "requestSha256": "72a01eea92b972b19f15c49f0462a93bcba259902ef4bc9f4f22890a4580a016",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-493cc46a-3980-4271-961b-1a43f232a5c1.png",
+  "toolOriginalSha256": "b73e72257cd0dd203d81fee946772b3bf0e7195601bff50e8783af719af60d30",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/figure-step1-marked-v1.png",
+    "sha256": "b73e72257cd0dd203d81fee946772b3bf0e7195601bff50e8783af719af60d30",
+    "bytes": 2187712,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true,
+    "resizedOrRetouched": false
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "status": "HOLD_lower_book_cover_exclusion",
+    "observations": "Complete white person/pencil/notebook/whole shoes at original positions. Actual browser same-coordinate closeup confirmed narrow ivory arm/torso gap is genuine exposed original room; preserve true gap rather than fill it as a false interior hole. Whole source RGB still comes only from mother, not this markup.",
+    "browserEvidence": "browser-observations/f1-arm-gap-v1.png",
+    "observedIssue": "Later source-coordinate review found a missed thin lower-cover portion near x905,y516, while F2 also introduced a black book/lap seam. Rebuild F1 from clean mother; keep the genuine arm/background slit but include every actual notebook cover pixel."
+  },
+  "primaryApproved": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "generationInputAllowed": false,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "original360ExactActivityCell": false,
+  "sourceCodeOrRegistryChanged": false,
+  "status": "HOLD_lower_book_cover_exclusion",
+  "reviewClarification": "The early x905,y516 sample was a suspected thin-perimeter location, not by itself proof of a notebook hole. Exact submitted prompts and earlier observations are preserved. Rejection evidence is the F2-v1 internal book/lap seam and later F-v2 expanded arm gap; final selection is F-v3 after native original-RGB review."
+}

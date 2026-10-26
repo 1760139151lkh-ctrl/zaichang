@@ -1,7 +1,13 @@
 import type { SceneSnapshot } from '../shared/scenes';
 import type { CompanionActivity } from '../shared/companion-activity';
+import type { EffectiveEnvironment } from './appearance';
 
 export type CompanionMoment = CompanionActivity | 'night';
+
+/** Visual choices may finish only in the environment where they began. */
+export function companionEnvironmentStamp(environment: EffectiveEnvironment, sceneFamily?: string) {
+  return `${sceneFamily ?? 'unavailable'}:${environment.mode}:${environment.palette}:${environment.light}:${environment.requestedVariant}`;
+}
 
 /** Only the visible activity and light choose artwork; personality is separate. */
 export function companionMoment({ reading = false, night = false }: { reading?: boolean; night?: boolean }): CompanionMoment {

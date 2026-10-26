@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-source-local-included-contact-receiver-luminance-mask",
+  "id": "sakiko-resume-apricot-recognition-v2-S2-v2",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "dossier": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+    "version": "2026-10-25.1",
+    "readComplete": true,
+    "wardrobeId": "sakiko-literary-navy-adaptation"
+  },
+  "method": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+  "promptFile": "contact-step2-prompt-v2.txt",
+  "submittedPrompt": "Use case: background-extraction. Asset type: fixed INCLUDED contact-receiver luminance mask, S2 revision 2. The ONLY input is the complete 1536x1024 recognition v2 scene with THREE small original-source support receiver groups deliberately marked white. Preserve that full canvas and all mark coordinates exactly.\n\nKeep all THREE ALREADY MARKED groups WHITE and make every other pixel pure BLACK:\n- DO NOT DROP THE SMALL SEAT GROUP: there is a deliberately painted little PURE-WHITE LINEN/CONTACT WEDGE immediately LEFT OF and BELOW the girl's dark trailing skirt/cardigan edge, near original x960..1045,y540..581 (around x995,y564). It is a small receiver/material mark, not the whole bright bench. Preserve that existing white wedge exactly. It must remain visible in the final black mask, even though nearby unpainted linen is naturally light.\n- Preserve the already painted first local sole/floor contact along the bottom of the left complete loafer, near x1055..1165,y855..910.\n- Preserve the already painted second local sole/floor contact along the bottom of the right complete loafer, near x1150..1245,y860..910.\nThese coordinate neighborhoods only identify the already painted irregular marks. Do NOT fill their rectangles, add geometry, expand or connect the groups, invent a shadow, or move white onto the body. Keep the existing thin antialiased source edges.\n\nThe original colored girl, dark hair/ribbon, face, hands/book, all navy and plaid clothing, exposed knees, below-knee socks and whole shoes become BLACK. All other natural light linen, plaid pillows, knitted throw, curtains/clouds, flowers, lamp shade, floor sun patches/rug and room objects become BLACK. Only the three intentionally painted receiver marks stay white. In particular, do not keep the whole naturally pale empty seat and do not erase the small intentionally painted seat wedge.\n\nOutput ONE opaque 1536x1024 black PNG with those exact three existing local white receiver groups. No color scene, new body, new cast shadow, labels, arrows, boxes, text, checkerboard, resize, crop, zoom, recentering or translation.",
+  "inputs": [
+    {
+      "path": "contact-step1-marked-v3.png",
+      "sha256": "860d8b9c38b077a85b40ca7287970c71c5fa8ff13b9bc0a6663192c4f3f14f3c",
+      "role": "only exact small-receiver markup from new recognition v2",
+      "actualSha256": "860d8b9c38b077a85b40ca7287970c71c5fa8ff13b9bc0a6663192c4f3f14f3c"
+    }
+  ],
+  "output": {
+    "file": "contact-mask-v2.png",
+    "sha256": "b3c3cb7ef1b9b93836bdfb388d2e3d0db4bc466885c7f5f8277d1af297d367f1",
+    "bytes": 313832,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-454d-7bb3-8b77-bcaadd75b8a4\\exec-ce1a4204-c0af-43d3-98d8-d3f381ab9049.png"
+  },
+  "review": {
+    "producerPersonallyViewed": true,
+    "observation": "Native mask personally viewed: a small source trailing-skirt/linen receiver group and two separate sole/floor receiver groups survive. Included local source material only, not independent cast-shadow geometry; composite and primary review still required.",
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  },
+  "status": "producer-viewed-three-source-receivers-awaiting-composite-and-primary",
+  "submittedPromptSha256Utf8NoTrailingLF": "139af559cacb6bc129ae49cce8ec5c4f5f40a99b6e542d5cc07016c505587bff",
+  "promptFileSha256": "e4cddba5234f4af7af64e18062e115c3342fc23e644d49f581c973bc0bb779dc",
+  "promptEncodingBoundary": "submittedPrompt is the exact built-in inline text; prompt file retains its terminal LF independently."
+}

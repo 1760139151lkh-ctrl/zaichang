@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "recordType": "producer-freeze-handoff",
+  "createdAtUtc": "2026-10-25T04:00:51.255Z",
+  "reason": "Latest user direction prioritizes natural conversation-driven presence, coherent environment and existing weather. No new layer/image generation or new subagents after this freeze. Healthy sessions preserved; all in-flight outputs saved.",
+  "scope": "mygo producer candidates only; no public registry/runtime admission",
+  "anon": [
+    {
+      "activity": "chat",
+      "bundle": "anon-chat-apricot-runtime-bundle-v1.json",
+      "page": "anon-chat-apricot-runtime-bundle-v2.html",
+      "status": "producer-inspected existing v6 original-RGB layers; offered at travel0; primary layer/runtime pending"
+    },
+    {
+      "activity": "study",
+      "bundle": "anon-study-apricot-runtime-bundle-v1.json",
+      "page": "anon-study-apricot-runtime-bundle-v2.html#seat-repair",
+      "status": "producer-inspected existing v3 plus tiny native source-contact clip; raster untouched; primary/runtime pending"
+    },
+    {
+      "activity": "reading",
+      "bundle": "anon-reading-apricot-runtime-bundle-v1.json",
+      "page": "anon-reading-apricot-runtime-bundle-v3.html",
+      "source": "anon-reading-apricot-bundle-v1-source.json",
+      "status": "child produced and visually inspected BG + luminance mask + narrow original-source shoe-contact; root/parent layer acceptance pending; broader source projection not rebuilt"
+    },
+    {
+      "activity": "planning",
+      "bundle": "anon-planning-apricot-runtime-bundle-v1.json",
+      "page": "anon-planning-apricot-runtime-bundle-v3.html",
+      "source": "anon-planning-apricot-bundle-v1.json",
+      "status": "child produced BG + selected luminance mask + native exclusion of chair and tiny source contacts. Candidate needs inlined SVG. Independent planning calibration metadata was not completed before freeze; no runtime admission."
+    },
+    {
+      "activity": "listening",
+      "page": "anon-listening-apricot-runtime-bundle-v2.html",
+      "sources": [
+        "anon-listening-apricot-bundle-v1-background-source.json",
+        "anon-listening-apricot-bundle-v1-mask-source.json",
+        "anon-listening-apricot-bundle-v1-mask-v2-source.json"
+      ],
+      "status": "BG + mask raw outputs saved; v2 targeted mask failed interior-hole correction and is rejected. Static v2 page proposes native white mask inclusion for true opaque sleeve and tiny original contact clips, producer inspected; requires further figure/furniture contour review, no layer admission.",
+      "nativeMaskIncludePixels": "1297,465 1308,465 1316,482 1314,501 1301,500 1297,485",
+      "sourceSeatPolygon": "1287,587 1310,592 1341,588 1360,589 1380,586 1401,581 1407,587 1386,597 1355,603 1313,602 1290,598",
+      "sourceFootPolygon": "1162,774 1174,778 1190,780 1208,776 1224,765 1226,769 1211,780 1190,783 1172,781 1160,778"
+    },
+    {
+      "activity": "rest",
+      "sources": [
+        "anon-rest-apricot-bundle-v1-background-source.json",
+        "anon-rest-apricot-bundle-v1-mask-source.json"
+      ],
+      "status": "in-flight BG and mask completed, copied immediately and exact provenance saved. Raw outputs viewed; no assembled HTML/browser composition inspection before freeze. Not accepted."
+    },
+    {
+      "activity": "play",
+      "status": "not started; original approved mother preserved"
+    },
+    {
+      "activity": "attention",
+      "status": "new apricot layers not started; approved original mother and three new theme mothers preserved"
+    }
+  ],
+  "ranaHandoff": "See rana-chat-apricot-runtime-bundle-v1.json, rana-study-apricot-runtime-bundle-v1.json and role-specific current producer records. Parent received exact frozen statuses from healthy rana_chat_layers; incomplete rest/play/planning/reading layers must not be counted admitted.",
+  "completedThemeMothers": {
+    "index": "new-mothers.json",
+    "cells": 21,
+    "scope": "Anon study/reading/planning/listening/rest/play/attention x mist/violet/rain; generation complete, primary layer/runtime separate"
+  },
+  "constraints": [
+    "No legacy behavior changed by this producer work.",
+    "No PNG source or existing source record modified during native clip preparation.",
+    "No tests, fixtures, harnesses or runners authored.",
+    "Source-contact regions are exact-mother/pose specific, gated on visible/ready source, removed on hide/pose/theme/source change; trial travel/slope/perspective all zero.",
+    "Do not infer runtime acceptance from static review pages."
+  ],
+  "cleanup": "No files deleted. Failed generated attempts retained as explicit source evidence."
+}

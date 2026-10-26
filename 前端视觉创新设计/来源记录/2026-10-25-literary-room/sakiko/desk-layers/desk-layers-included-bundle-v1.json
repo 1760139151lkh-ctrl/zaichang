@@ -1,0 +1,263 @@
+{
+  "schemaVersion": 1,
+  "key": "sakiko/study/apricot/desk-chair",
+  "sceneFamily": "literary-room-v1",
+  "kind": "same-mother-fixed-desk-joint-included-source-subject-candidate",
+  "primary": true,
+  "runtime": false,
+  "status": "root-static-approved-fixed-desk-included-runtime-pending",
+  "contactShadow": {
+    "mode": "included",
+    "meaning": "One original-source subject selection includes visible person/held pen, source garment edges, local desk/chair/seat/floor receiving material and actual retained chair fragments. Not a pure foreground mask or physically portable independent shadow."
+  },
+  "sourceMother": {
+    "path": "../desk-pilot/sakiko-study-apricot-literary-desk-pilot-v1.png",
+    "sha256": "00629c2e6e5b55901244a534145ab3c9d8c2f9c3cbf2ec2de8668f33037ccb04",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "approvedVisibleMotherByRoot": true,
+    "approvalEvidence": "Root direct task: root已亲看并批准你的 Sakiko desk v1 可见母图 SHA00629c2e…ccb04；自然 plant/table 遮挡合理，contourComplete=false，不签不可见脚。",
+    "approvalScope": "Visible complete desk mother only, not this layer assembly or hidden feet."
+  },
+  "background": {
+    "path": "desk-background-v3.png",
+    "sha256": "75705046089367bc68cb84f5a679dff43f41eb746f28fbb7f26c2924ffa9532b",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "generationSource": "desk-background-v3.source.json",
+    "producerVerifiedFloatingHeldPenRemoved": true,
+    "broaderChange": "Stationery holder and its tools also absent in BG3; primary material-composition decision pending."
+  },
+  "inputs": {
+    "F": {
+      "path": "desk-figure-mask-v1.png",
+      "sha256": "bcb7752d297460db826c4add32d93e7ae5d87ce02134a16ab2e0e77987d2ddb8",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "generationSource": "desk-figure-mask-v1.source.json",
+      "role": "Unmodified ImageGen actual foreground/receiver selection including chair legs/crossbar fragments"
+    },
+    "S": {
+      "path": "desk-contact-mask-v1.png",
+      "sha256": "09128cff44817ee361ee08b3d897ea70d6c923e2d6492b1d63680cb903055663",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "generationSource": "desk-contact-mask-v1.source.json",
+      "role": "Unmodified ImageGen local contact receiver selection with visible fine-outline residuals"
+    }
+  },
+  "union": {
+    "formula": "U(x,y)=MAX(L(F(x,y)),L(S(x,y)))",
+    "luminanceWeights": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorSpace": "sRGB",
+    "nativeSvgMethod": "feImage full-source inputs; feColorMatrix replicated luminance; feBlend mode=lighten; luminance mask",
+    "nativeSvgSource": "desk-union-source-v1.svg",
+    "nativeSvgSourceSha256": "24e0b9241a82f0ddf0af47618b4f4f7889adebba901ed26d7fa90b4db4458023",
+    "originalMotherRgbDrawsPerSubject": 1,
+    "newRaster": false,
+    "pngPixelEditing": false,
+    "thresholding": false,
+    "subtraction": false,
+    "sourceShadowPolygon": false,
+    "extraColorPaint": false
+  },
+  "composition": {
+    "layerOrder": [
+      "matching BG3",
+      "one unchanged original mother RGB masked by U"
+    ],
+    "sharedStage": true,
+    "sourceTransform": {
+      "x": 0,
+      "y": 0,
+      "scale": 1,
+      "rotation": 0
+    },
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "geometry": {
+    "support": "desk-chair",
+    "contourComplete": false,
+    "visibleSupportObservations": [
+      "Writing forearm/hand over the real desk page and desktop are source-supported.",
+      "Other hand supports chin with elbow at desk.",
+      "Visible skirt/hip rests on seat cloth; pulled-chair back/slats naturally occlude body/hair.",
+      "Foreground plant, table and chair naturally occlude lower legs/feet; only visible loafer/heel portions and adjacent floor are observed."
+    ],
+    "observationalRegionsPixels": {
+      "forearmDesk": [
+        150,
+        375,
+        180,
+        65
+      ],
+      "skirtSeat": [
+        205,
+        514,
+        145,
+        55
+      ],
+      "chairReceiver": [
+        210,
+        550,
+        220,
+        185
+      ],
+      "visibleShoeAndPlant": [
+        70,
+        630,
+        185,
+        115
+      ]
+    },
+    "regionMeaning": "Technical viewer search regions only, not hidden joints, exact mask bounds or runtime pivots.",
+    "invisibleFeetSignedOff": false,
+    "fullFootContourVerified": false,
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "runtimeGeometryAccepted": false,
+    "visibleSupportSourcePixels": [
+      277,
+      539
+    ],
+    "visibleForearmSourcePixels": [
+      194,
+      391
+    ],
+    "sourceRecord": "desk-visible-geometry-v1.json",
+    "sourceRecordSha256": "f58a96686de08ed03a2e1e1e5ebda652c4d8122d48b938c3073ee3e94b5f2dac"
+  },
+  "actualIncludedReceiverExtent": [
+    "Tabletop/page strip beneath source hand/forearm",
+    "Seat cloth beneath source skirt/hip",
+    "Some original chair leg/crossbar/edge fragments selected by F/S",
+    "Visible sole/floor and foreground-leaf/source-background fringes; not newly drawn anatomy"
+  ],
+  "producerVisibleDeviations": [
+    {
+      "kind": "background-tools",
+      "observation": "BG3 removes the floating original held-pen shaft, but also the stationery holder/contents. Root review required."
+    },
+    {
+      "kind": "coverage-outline",
+      "observation": "Fine source-color outline fragments around the naturally occluded lower-leg/sole region are visible on light/dark/checker; no pure-person or clean-independent-shadow claim."
+    },
+    {
+      "kind": "broad-cast-shading",
+      "observation": "Source arm/person body retained; source broad desk-front darkness is not fully restored and the composite drawer/front area is brighter in the technical closeup."
+    },
+    {
+      "kind": "background-reveal",
+      "observation": "New empty BG has additional hanging leaves in some revealed hair/ribbon-adjacent room gaps compared with source; no character RGB recolor was performed."
+    }
+  ],
+  "opticalInspection": {
+    "producerPersonallyViewedNativeSvg": true,
+    "browser": "normal connected Chrome extension, own technical static tab; no shared Electron/debug tab",
+    "page": "desk-layers-included-observe-v3.html",
+    "pageSha256": "2102c79e77274ad3d94804cecd10f6c94d27084f4134bbca70192158f24e3be8",
+    "url": "http://127.0.0.1:5188/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-layers-included-observe-v3.html",
+    "viewed": [
+      "Original mother versus BG1/BG2/BG3 plus exact native MAX whole-room scenes",
+      "Light/dark upper and lower complete visible joint subject",
+      "Checker upper and lower complete visible joint subject",
+      "Original face/eyes/hair versus same-RGB composite",
+      "Hand/held-pen/forearm desk support at source-pixel enlargement",
+      "Skirt/hip/seat cloth contact",
+      "Chair-back/slat and hair occlusion",
+      "Visible loafer/heel portions versus source plant/floor occlusion",
+      "BG1/BG2/BG3 actual floating-pen region and left-desk tool changes"
+    ],
+    "overallObservation": "At normal whole-room size the same-mother joint composite remains close in scale/visible support and pulled-chair geometry. Exact source material fringes and brighter desk-front/background-tool differences remain explicitly visible and unadmitted.",
+    "recordedAt": "2026-10-25T11:45:47Z"
+  },
+  "methodReference": {
+    "readingBundle": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/reading-layers-included-bundle-v3.json",
+    "readingBundleSha256": "d45e231114be5bf09184cd8e6d4f541423ddfa142a292bbcb88c33a8239a7992",
+    "readingPrimaryAdmission": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/sakiko-reading-apricot-literary-included-primary-admission-v1.json",
+    "readingPrimaryAdmissionSha256": "ed7b0871ae32ac952608adb980ace372aa3d48a9254d542742b0e31aa2a8f601",
+    "adoptedOnly": "MAX(F,S) original mother RGB once and fixed included semantics; reading asset/root admission does not admit this desk assembly."
+  },
+  "generation": {
+    "initialBudget": 5,
+    "initialCalls": 5,
+    "rootAdditionalCalls": [
+      {
+        "file": "desk-background-v2.png",
+        "budget": 1,
+        "method": "local precise floating pen removal; failed to remove target"
+      },
+      {
+        "file": "desk-background-v3.png",
+        "budget": 1,
+        "method": "broader semantic removal of all desk writing tools; floating shaft removed, holder also removed"
+      }
+    ],
+    "totalCalls": 7,
+    "furtherCallsStopped": true,
+    "allOutputsPromptsSourcesPersistedSameExec": true,
+    "largeImageResultStored": false
+  },
+  "allowedCandidatePresentation": [
+    "Whole fixed source subject visible/hidden with its matching BG",
+    "Whole-pose replacement only after each pose own root admission",
+    "Shared viewport transformation of matching BG and subject"
+  ],
+  "unsupportedPresentation": [
+    "Independent body/limb deformation",
+    "Relative chair/body travel or separate shadow movement",
+    "Transporting desk/chair/plant/receiver texture to another support",
+    "Claims of complete hidden feet or pure independent shadow",
+    "Claims actual drag-to-desk functionality/runtime already implemented"
+  ],
+  "review": {
+    "primaryApproved": true,
+    "runtimeAccepted": false,
+    "producerRecommendation": "Root admitted exact fixed source and documented differences; unique registration owner copies isolated. Producer does not register.",
+    "primaryAdmissionRecord": "sakiko-desk-writing-literary-included-primary-admission-v1.json"
+  },
+  "historicalCandidates": {
+    "BG1": "Visible floating held pen remains; diagnostic kept",
+    "BG2": "One precise target repair failed; diagnostic kept",
+    "viewerV1": "Original five-call candidate retained",
+    "viewerV2": "BG2 candidate retained"
+  },
+  "scopeBoundary": {
+    "srcEdits": false,
+    "registrationEdits": false,
+    "sharedLedgerEdits": false,
+    "newTestsOrRunner": false,
+    "pngTransforms": false,
+    "portChanges": false,
+    "newChild": false,
+    "cleanup": "No diagnostic evidence deleted."
+  },
+  "verification": {
+    "allActualOutputShaExact": 7,
+    "allActualPromptFileShaExact": 7,
+    "allSubmittedPromptShaExact": 7,
+    "allInputShaExact": 7,
+    "viewerPngReferencesExist": true,
+    "nativeSvgXmlParsed": true,
+    "originalRgbSubjectDrawCount": 1,
+    "pngPixelEditing": false,
+    "testsAdded": false,
+    "originalMotherPngMutated": false
+  },
+  "primaryAdmissionRecord": "sakiko-desk-writing-literary-included-primary-admission-v1.json"
+}

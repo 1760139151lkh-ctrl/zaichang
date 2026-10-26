@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "role": "figure-step2-luminance-mask",
+  "callNumber": 2,
+  "taskCallLimit": 4,
+  "tool": "built-in image_gen.imagegen",
+  "prompt": "Use case: background-extraction.\nAsset type: SAME-CANVAS figure-plus-held-book LUMINANCE MASK, STEP 2.\nImage 1 is the sole input: the 1536x1024 mother with the complete original girl AND held open book already filled white at their original positions.\nChange ONLY the remaining colored room/background pixels to pure BLACK. Keep the entire EXISTING WHITE GIRL-AND-BOOK SILHOUETTE exactly where it is, at exactly its present scale and contour. Do not regenerate, redraw, recenter, enlarge, shrink, move, pose or crop the white selection. Preserve every original long hair strand/ribbon, all visible hand/finger edges, the entire held open book, skirt, both legs/socks and BOTH complete loafers including soles. Leave all real background holes black.\nFill the whole selected foreground interior solid pure white: no facial eyes/nose/mouth holes, no hair linework, no clothing checks/folds or grey texture within the white object. Narrow antialias greys only at the unchanged boundary.\nAll environment is black, including the blue plaid pillow, cream seat cushion, knitted throw, ceramic lamp, cup, table, shelves, plants, window, lake, floor, rug and every independent shadow. Natural white curtain/cloud/cushion highlights are background and must be black. The white object occupies the SAME original source footprint, roughly x868..1340,y107..899; do not invent a new shape inside that box.\nOutput ONE opaque black-and-white PNG, exactly 1536x1024. Black room and white original-position figure/book silhouette only. No color, checkerboard, labels, outline boxes, text or split views.",
+  "input": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-step1-marked-v1.png",
+    "sha256": "04e9b6c3e3a6b4dfd0242e31c5ce7d564e7700b548a8116f44d8a71782698433",
+    "role": "sole white-filled derivative of approved mother",
+    "originalMotherSha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd"
+  },
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-mask-v1.png",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17125-a57d-70f3-9b8f-9ecfd8cef13e\\exec-046b8e82-26b3-4236-b25f-979ed9628935.png",
+    "executionId": "exec-046b8e82-26b3-4236-b25f-979ed9628935",
+    "sha256": "d72a00b683ceb61cad80f49278618972fea309df051672c843d8e04399b44dfc",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 478641,
+    "toolOriginalLastWriteTimeUtc": "2026-10-25T08:50:34.0517608Z"
+  },
+  "primary": false,
+  "runtime": false,
+  "status": "saved_and_visually_inspected_candidate_not_admitted",
+  "rgbUse": "Only original mother RGB may show through this generated luminance mask.",
+  "inspection": "Luminance mask viewed through original RGB on light/dark. Main figure/book visible; hem/sole ownership issue remains relative to shadow.",
+  "authoritativeBundle": "reading-layers-bundle-v1.json"
+}

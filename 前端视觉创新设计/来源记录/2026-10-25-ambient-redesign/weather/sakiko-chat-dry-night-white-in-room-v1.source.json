@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-canvas-original-person-white-in-room-intermediate",
+  "id": "sakiko-chat-dry-night-white-in-room-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-chat-dry-night-white-in-room-v1.prompt.json",
+  "promptFileSha256": "217317d4a10f833a659a8f71911c3fe39af4b89a37ec85150b31f735afb8fb6f",
+  "submittedPrompt": "Use case: precise-object-edit. STEP 1 of registered local silhouette extraction, not a cutout, not a new pose or black-background portrait.\nImage 1 is the ONLY exact full 1536 x 1024 edit target. Keep its entire original DRY NIGHT room, fixed camera, architecture, window, furniture, objects, materials, lighting, floor and ALL source coordinates unchanged. In that SAME unmodified room, turn ONLY every originally visible pixel belonging to the original seated girl and closed blue LAP book into a flat SOLID PURE WHITE region. Fill her exact hair strands/ribbons, face/neck, cardigan/blouse/bow, skirt, hands/fingers, bare knees, socks, both WORN loafers and the held lap book white. All eyes/folds/laces/finger lines/book markings inside her figure become opaque white, with no internal gray shading or holes. Allow narrow original outer antialiasing only.\nDo NOT remove or blacken the room at this step. Keep non-person room pixels in their original color, including the separate blue DESK book, lit lamp and mug, bench cushion around the hips/right palm, pillows, blanket and floor shadows. Furniture and contact/cast shadows never become white. Preserve genuine visible room gaps between the existing hair, limbs and fingers. Do not infer hidden anatomy behind clothes/book/cushion.\nTrace the exact existing visible contour without enlarging, shrinking, shifting, straightening, recentering or changing her pose. Crown remains around original y270, both sole contacts around original y780 on the full 1536x1024 image; do not make her closer to camera or larger.\nReturn the SAME original night room with only the original girl/held lap book filled white at the same source pixels. No black backdrop, transparency, crop, camera shift, added object, text, label, border, grid or watermark. Opaque RGB 1536 x 1024.",
+  "submittedPromptSha256Utf8NoTrailingLF": "6917c37f67b8ec48f1712b0d53b435947918e69d19d2384e81101fe114e01a00",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-dry-night-mother-v1.png",
+      "sha256": "894ea7803e258c79792110d32d9e1ece3f1551d75b0d6f4746ca09065ef296f9",
+      "role": "sole exact complete approved dry-night mother; same source silhouette and room"
+    }
+  ],
+  "output": {
+    "file": "sakiko-chat-dry-night-white-in-room-v1.png",
+    "sha256": "1eb8b41c0f7caa9122d523e780af375a299b224ba60bea2219cdd7d563f3ed24",
+    "bytes": 1901566,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-2e3d585c-69d9-423c-b1e5-f628e2c854c2.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observationBoundary": "Producer directly viewed full output as saved; local white-person intermediate only, no independent layer/runtime admission."
+  },
+  "status": "producer-viewed-local-white-intermediate-used-for-registered-mask"
+}

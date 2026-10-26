@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "recordType": "time-only-neutral-complete-mother-imagegen-candidate",
+  "character": "umiri",
+  "purpose": "neutral-presence",
+  "neutralTime": "night",
+  "palette": "rain",
+  "light": "night",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "weatherClaim": false,
+  "tool": "built-in image_gen.imagegen",
+  "toolArguments": {
+    "prompt": "Use case: lighting-weather.\nONE complete opaque 1536 x 1024 literary-room mother illustration: Yahata Umiri, purpose NEUTRAL-PRESENCE, time-only NIGHT. Palette rain / light night is only the project's theme mapping, NOT a claim of rain: WEATHER UNKNOWN. This project-original companion moment is not canon plot, saved user history, a real reading receipt or completed schedule. No UI, text, label, border, watermark, split view or collage.\n\nEXACT REFERENCES AND PRIORITY:\nINPUT1 is the ROOT-APPROVED COMPLETE UMIRI DAY MOTHER, exact SHA 5daa0e42c8ef945858ebdc5f065270c14989d4d1d107756ab8667600af797108. It is the EDIT TARGET and authoritative exact camera, person scale, short youthful face, gray-teal eye gaze, head tilt, modest warm closed smile, body and entire clothing. Preserve this very pose: pelvis seated on the existing right cushion, naturally separate uncrossed knees/calf/ankle chains, BOTH complete chunky lace-up boots on the wood, side palm genuinely pressing the cushion, other hand touching/supporting the same small book on her thigh. Do NOT change the head/body ratio, crop/zoom, move the person, make the legs cross, close/reopen the book to a new angle, change the hand/cover contacts or shift the supporting furniture.\nINPUT2 is the ROOT-APPROVED EMPTY literary-room-time-night-v1 plate. It is the authoritative whole NIGHT LAMP LIGHT field and closed-curtain state for every surface, within the same room camera. It is NOT permission to remove the person or substitute another room.\nINPUT3 is the ROOT-APPROVED independent UMIRI YOUTH-V3 portrait. It supplies same-character identity only: charcoal-gray outward-flipped shoulder-length hair, clear gray-teal eyes, short soft youthful facial relationships and a restrained genuinely warm smile. Do not paste the avatar's pixels or enlarge a close-up head into Input1. Preserve the already accepted day mother's face scale and gaze, not a new head or a long adult jaw.\n\nKEEP THIS PARTICULAR HUMAN MOMENT:\nShe had been quietly reading her own little book. A brief deadpan joke of hers was understood by the familiar person to her left; she looks over and allows her composure to soften. The eyebrows are relaxed, blue-gray/gray-teal eyes stay alert and gentle, and one corner of her closed-mouth smile carries a small youthful amusement. She does not need to manage anything in this instant. Keep the slightly relaxed torso and the real weight in her supporting side palm, with her other hand retaining her own reading place in the actual book. If conversation ends she can return to that page. This is her private small book, with no readable text and no claim she has read user material. Nighttime does not make her sleepy, sad, expressionless, older, a solemn hostess or a romantic model.\nPreserve the complete official-shown PUNK CASUAL outfit already correct in Input1: short black leather lapel jacket with actual zips/snaps, dark red top, gray high-waist short skirt and black belt, thin black choker and modest silver ear jewelry. Bare lower legs, NO added socks or stockings. Both full black lace-up chunky PLATFORM MID-CALF boots, their shafts/straps/eyelets, real substantial soles and toes/heels. No camel sailor school dress/red school bow/navy knee socks/brown loafers, stage shorts or stage high boots. Black leather and boots must remain material-readable under the actual night illumination, not a shiny plastic shell or featureless silhouette.\n\nTRUE WHOLE-SCENE RELIGHTING, NOT A DARK BACKGROUND WITH A DAY PERSON:\nFollow Input2's existing ceramic table lamp as the main warm source. The whole face, hair, bare legs, hands, black jacket/red top/gray skirt, book pages/cover, cushion, original local seat/shoe shadows, floorboards, rug, curtains, table and left desk all coherently receive that dim NIGHT light and subtle existing room bounce. Remove Input1's bright transmitted daylight and bright pale curtain backlighting as LIGHT, not as permanent material color. No hard daylight window/leaf rectangles, hot sun patches on skin or floor, luminous daytime white backdrop, old daytime outline rim, flat amber filter, black overlay or independently pasted portrait. Preserve intrinsic charcoal hair/gray-teal eyes/gray skirt/red top/skin/wood colors without a global green, purple or blue wash. Keep enough gentle local detail to read the youthful expression and book/boot forms in quiet shadows.\nAll milk-white opaque INNER CURTAINS remain fully CLOSED across ALL windows, INCLUDING the central seam. Lamp spill softly warms their folds but NO exterior is readable: no sky, stars, rain, wet glass, clouds, lake, town, weather gap or blue night window. Weather remains unknown, no sunny or rainy assertion.\n\nLOCK THE WHOLE ORIGINAL CAMERA AND SUPPORT:\nOne complete 1536 x 1024 same-family view, unchanged left shelves/desk/chair/foreground plant, center round table with same lamp/books/cup/flowers, right bench/pillows/throw, floor and rug. Do not change room perspective, zoom, crop, enlarge the person or move a support object. Preserve left/center working space. The full head and BOTH full boots stay visible at the exact accepted source scale/coordinates. Seat cushion truly bears her pelvis/skirt; supporting palm stays on the same linen; both continuous knee-calf-ankle chains remain natural, and the soles sit on the same wood without floating, ankle twist or a generic elliptical shadow. The same hand keeps the actual same book; no extra fingers, fused hands, objectless pointing, added prop or furniture drift.\nOne coherent fine youthful TWO-DIMENSIONAL anime-and-painterly literary night room: soft short youthful cheeks/chin, delicate linework and material-specific lamp bounce, no 3D doll, heavy cosmetics, mature maternal face or infant glass eyes. Change the full light field, keep the accepted person and physical relationships.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-day-v1.png",
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.png",
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/avatars/umiri-avatar-youth-v3.png"
+    ],
+    "transparent_background": false
+  },
+  "submittedPrompt": "Use case: lighting-weather.\nONE complete opaque 1536 x 1024 literary-room mother illustration: Yahata Umiri, purpose NEUTRAL-PRESENCE, time-only NIGHT. Palette rain / light night is only the project's theme mapping, NOT a claim of rain: WEATHER UNKNOWN. This project-original companion moment is not canon plot, saved user history, a real reading receipt or completed schedule. No UI, text, label, border, watermark, split view or collage.\n\nEXACT REFERENCES AND PRIORITY:\nINPUT1 is the ROOT-APPROVED COMPLETE UMIRI DAY MOTHER, exact SHA 5daa0e42c8ef945858ebdc5f065270c14989d4d1d107756ab8667600af797108. It is the EDIT TARGET and authoritative exact camera, person scale, short youthful face, gray-teal eye gaze, head tilt, modest warm closed smile, body and entire clothing. Preserve this very pose: pelvis seated on the existing right cushion, naturally separate uncrossed knees/calf/ankle chains, BOTH complete chunky lace-up boots on the wood, side palm genuinely pressing the cushion, other hand touching/supporting the same small book on her thigh. Do NOT change the head/body ratio, crop/zoom, move the person, make the legs cross, close/reopen the book to a new angle, change the hand/cover contacts or shift the supporting furniture.\nINPUT2 is the ROOT-APPROVED EMPTY literary-room-time-night-v1 plate. It is the authoritative whole NIGHT LAMP LIGHT field and closed-curtain state for every surface, within the same room camera. It is NOT permission to remove the person or substitute another room.\nINPUT3 is the ROOT-APPROVED independent UMIRI YOUTH-V3 portrait. It supplies same-character identity only: charcoal-gray outward-flipped shoulder-length hair, clear gray-teal eyes, short soft youthful facial relationships and a restrained genuinely warm smile. Do not paste the avatar's pixels or enlarge a close-up head into Input1. Preserve the already accepted day mother's face scale and gaze, not a new head or a long adult jaw.\n\nKEEP THIS PARTICULAR HUMAN MOMENT:\nShe had been quietly reading her own little book. A brief deadpan joke of hers was understood by the familiar person to her left; she looks over and allows her composure to soften. The eyebrows are relaxed, blue-gray/gray-teal eyes stay alert and gentle, and one corner of her closed-mouth smile carries a small youthful amusement. She does not need to manage anything in this instant. Keep the slightly relaxed torso and the real weight in her supporting side palm, with her other hand retaining her own reading place in the actual book. If conversation ends she can return to that page. This is her private small book, with no readable text and no claim she has read user material. Nighttime does not make her sleepy, sad, expressionless, older, a solemn hostess or a romantic model.\nPreserve the complete official-shown PUNK CASUAL outfit already correct in Input1: short black leather lapel jacket with actual zips/snaps, dark red top, gray high-waist short skirt and black belt, thin black choker and modest silver ear jewelry. Bare lower legs, NO added socks or stockings. Both full black lace-up chunky PLATFORM MID-CALF boots, their shafts/straps/eyelets, real substantial soles and toes/heels. No camel sailor school dress/red school bow/navy knee socks/brown loafers, stage shorts or stage high boots. Black leather and boots must remain material-readable under the actual night illumination, not a shiny plastic shell or featureless silhouette.\n\nTRUE WHOLE-SCENE RELIGHTING, NOT A DARK BACKGROUND WITH A DAY PERSON:\nFollow Input2's existing ceramic table lamp as the main warm source. The whole face, hair, bare legs, hands, black jacket/red top/gray skirt, book pages/cover, cushion, original local seat/shoe shadows, floorboards, rug, curtains, table and left desk all coherently receive that dim NIGHT light and subtle existing room bounce. Remove Input1's bright transmitted daylight and bright pale curtain backlighting as LIGHT, not as permanent material color. No hard daylight window/leaf rectangles, hot sun patches on skin or floor, luminous daytime white backdrop, old daytime outline rim, flat amber filter, black overlay or independently pasted portrait. Preserve intrinsic charcoal hair/gray-teal eyes/gray skirt/red top/skin/wood colors without a global green, purple or blue wash. Keep enough gentle local detail to read the youthful expression and book/boot forms in quiet shadows.\nAll milk-white opaque INNER CURTAINS remain fully CLOSED across ALL windows, INCLUDING the central seam. Lamp spill softly warms their folds but NO exterior is readable: no sky, stars, rain, wet glass, clouds, lake, town, weather gap or blue night window. Weather remains unknown, no sunny or rainy assertion.\n\nLOCK THE WHOLE ORIGINAL CAMERA AND SUPPORT:\nOne complete 1536 x 1024 same-family view, unchanged left shelves/desk/chair/foreground plant, center round table with same lamp/books/cup/flowers, right bench/pillows/throw, floor and rug. Do not change room perspective, zoom, crop, enlarge the person or move a support object. Preserve left/center working space. The full head and BOTH full boots stay visible at the exact accepted source scale/coordinates. Seat cushion truly bears her pelvis/skirt; supporting palm stays on the same linen; both continuous knee-calf-ankle chains remain natural, and the soles sit on the same wood without floating, ankle twist or a generic elliptical shadow. The same hand keeps the actual same book; no extra fingers, fused hands, objectless pointing, added prop or furniture drift.\nOne coherent fine youthful TWO-DIMENSIONAL anime-and-painterly literary night room: soft short youthful cheeks/chin, delicate linework and material-specific lamp bounce, no 3D doll, heavy cosmetics, mature maternal face or infant glass eyes. Change the full light field, keep the accepted person and physical relationships.",
+  "originalToolOutput": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-f51c03fa-7435-40d4-9889-5d195ba5816a.png",
+  "outputFile": "umiri-neutral-presence-time-night-v1.png",
+  "creationIntent": "沿root逐原图已准日母，保海铃自己读书被熟悉的人接住一句干幽默后的会意笑与放松支撑，只把全幅日光改为原陶灯主光的夜色。夜间仍可以清楚温柔、有自己的小事，不把她变成困倦/面瘫/日程客服。",
+  "canonBoundary": "Project-original neutral companionship and own little book only. No canonical scene, actual user memory, private material-read proof, completed task or weather fact.",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-day-v1.png",
+      "role": "root-approved exact complete Umiri day mother: full pose, face scale, eyes/gaze, hands/book/side-palm, clothing and seat/boot support geometry",
+      "sha256": "5daa0e42c8ef945858ebdc5f065270c14989d4d1d107756ab8667600af797108"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.png",
+      "role": "root-approved exact clean time-night plate: coherent whole-room lamp illumination and fully closed inner curtains, weather unknown",
+      "sha256": "d9c41c4278dd8a4efae1a91102e16349ad4dcf9829963c31ddc421dfc3652253"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/avatars/umiri-avatar-youth-v3.png",
+      "role": "root-approved new Umiri independent youth-v3 same-character identity, not pasted head or room crop",
+      "sha256": "560073dc61f3dee7e48052d3f0cfe16bba041071b8b8ec2889bb7de9bdb565ef"
+    }
+  ],
+  "documents": [
+    ".agents/skills/zaichang-frontend-director/SKILL.md",
+    "C:/Users/17601/.codex/skills/.system/imagegen/SKILL.md",
+    ".agents/skills/zaichang-frontend-director/references/characters/umiri.md",
+    ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.primary-approval.json",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/root-primary-mother-admission-v1.json",
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/avatars/root-primary-avatar-admission-v3.json"
+  ],
+  "producerObservation": {
+    "personallyViewedCompleteToolOutput": true,
+    "identityEmotion": "深灰外翘中短发/灰青眼与短柔年轻面保留，闭口会意笑仍可读，未换长成熟脸或夜间冷脸。",
+    "handsObjects": "保持同一书的低位半开/页块及真实手指相触，另一掌仍按实际身侧软垫，无新增悬指或漂浮物。",
+    "support": "裙与骨盆落原榻面，两膝/小腿到完整黑系带厚底中靴连续，双靴鞋尖/厚底/后跟及原木接触保持。",
+    "spaceLight": "内帘全合且不见可读室外天气；头发、脸手裸腿、黑皮衣红衫灰裙、书/软垫/木地板一起进入原灯暖光，未见白昼窗格硬阳斑或白日透帘残光。",
+    "camera": "完整1536×1024原家族相机与桌椅/圆几/右榻、书/鞋位置关系连续，无为遮挡硬移角色。",
+    "limitations": "仅producer亲看完整原图的night候选，root仍须审；不声称逐像素几何恒等、分层/运行/动态或360通过。"
+  },
+  "primaryApproved": false,
+  "layersApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "dynamicAdmission": false,
+  "original360CreditAssigned": false,
+  "userApproved": false,
+  "rawPixelEditing": false,
+  "sourcePNGCopyOnly": true,
+  "recordedAtUTC": "2026-10-26T00:34:42.380955+00:00",
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-night-v1.png",
+    "sha256": "c6f19f399ab4a05727cb52d36a780fd3fde3f4222e4c31dc39dee6b2f1b19731",
+    "bytes": 2218442,
+    "originalToolOutputSHA256": "c6f19f399ab4a05727cb52d36a780fd3fde3f4222e4c31dc39dee6b2f1b19731",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "documentVersions": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/SKILL.md",
+      "sha256": "d3dafe3e370dfe2aa6bbd522dd64242efb6e9dbed265daa0b68a9532734e1a58",
+      "readScope": "complete relevant document"
+    },
+    {
+      "path": "C:/Users/17601/.codex/skills/.system/imagegen/SKILL.md",
+      "sha256": "706d4d96e1d5c9e6023fe3ccabba1bb34b364024d344fd25b8515ec7d28fe3c4",
+      "readScope": "complete relevant document"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/umiri.md",
+      "sha256": "760b038d3ff84a770c80bf6144e52265d8109e41ecd5cb3440408561ac2bc0da",
+      "readScope": "complete relevant document"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "readScope": "complete relevant document"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.primary-approval.json",
+      "sha256": "6911d8a438417db80fe67e828c3d44735769722529af1fe8f09b3b1cfbf1c0c9",
+      "readScope": "complete relevant document"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/root-primary-mother-admission-v1.json",
+      "sha256": "112ddc861b774a7404f1df07a34d7e8510bbf39596f794a91900d83aa7f7ea7f",
+      "readScope": "complete relevant document"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/avatars/root-primary-avatar-admission-v3.json",
+      "sha256": "be81de9c688f5ccdc09e8794f1adfba5f435999a68ad7b7b1771dc68d1eeac1e",
+      "readScope": "complete relevant document"
+    }
+  ],
+  "promptFileSHA256": "0ac372d0fbf7191e21b33c831a4cac91329172db964ecfa5a49bedcc25a66a8d",
+  "submittedPromptSHA256": "e08da064eb0704f7cdde85204940f7751f9a178995a8c853f8f312e585d44c18"
+}

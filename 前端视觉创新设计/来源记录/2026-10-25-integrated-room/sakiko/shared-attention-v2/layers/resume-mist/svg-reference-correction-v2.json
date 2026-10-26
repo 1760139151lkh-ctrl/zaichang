@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "recordType": "historical-svg-pointer-correction",
+  "recordedAt": "2026-10-26T01:47:14.622Z",
+  "cell": "sakiko/resume/mist",
+  "reason": "Historical standalone union/composite SVGs inherited wrong attention-apricot mother and contact-mask-v1. Approved actual Browser HTML and runtime PNG/manifest used correct resume-mist mother 9c9e2a…c624 and S-v2 4dcb07…afb0.",
+  "authorization": "Direct /root message: preserve old SVG bytes, create correct-source-v2.svg and update RM bundle/admission/seven-group source pointer/hash chain only, no PNG/geometry/scene behavior/TS changes.",
+  "historicalFiles": [
+    {
+      "path": "union-source-v1.svg",
+      "sha256": "dde93ba43f8d7d12d8b120350758d1779b0915de80be39ddcbd5f77abe61e861",
+      "bytes": 1509,
+      "status": "historical-wrong-mother-and-S-pointer-preserved-unmodified",
+      "generationInputAllowed": false,
+      "reviewEvidenceAllowed": false,
+      "observedRefs": [
+        "href=\"figure-mask-v1.png\"",
+        "href=\"contact-mask-v1.png\"",
+        "href=\"contact-mask-v1.png\"",
+        "href=\"../../sakiko-attention-apricot-shared-page-v2.png\""
+      ]
+    },
+    {
+      "path": "composite-source-v1.svg",
+      "sha256": "b8ab44bcbddcefd9c92e6247a684228ef56a4166f08e7ffc96a32b4aa34622a3",
+      "bytes": 1613,
+      "status": "historical-wrong-mother-and-S-pointer-preserved-unmodified",
+      "generationInputAllowed": false,
+      "reviewEvidenceAllowed": false,
+      "observedRefs": [
+        "href=\"figure-mask-v1.png\"",
+        "href=\"contact-mask-v1.png\"",
+        "href=\"contact-mask-v1.png\"",
+        "href=\"background-v1.png\"",
+        "href=\"../../sakiko-attention-apricot-shared-page-v2.png\""
+      ]
+    }
+  ],
+  "historicalBundle": {
+    "path": "resume-mist-included-bundle-before-svg-correction-v1.json",
+    "sha256": "b6e7eff2e5295b218efc0968ccacc34228443d8b3b86d98810f0ac5ddfddb192",
+    "bytes": 14131
+  },
+  "currentSvg": {
+    "unionSvg": {
+      "path": "correct-source-v2.svg",
+      "sha256": "4940fc927033833134dd1d252527c150f0e904c1efc3ea9082d1c48cf2754c72",
+      "bytes": 1631
+    },
+    "compositeSvg": {
+      "path": "correct-composite-source-v2.svg",
+      "sha256": "2e6ad980ae44a519d0e780b8354b0cd96e28d2c4863714e7a5604b7efe01ecc3",
+      "bytes": 1750
+    }
+  },
+  "originalRgbDrawCount": 1,
+  "union": "MAX(L(F),L(S))",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "rootApprovalBoundary": "Root approval remains the actual 38 specified correct HTML/scene Browser observations, not the historically wrong SVGs. New source-only SVG references do not invent a past primary viewing.",
+  "newSvgPrimaryPersonallyViewed": false,
+  "pngBytesChanged": false,
+  "geometryChanged": false,
+  "sceneBusinessSemanticsChanged": false
+}

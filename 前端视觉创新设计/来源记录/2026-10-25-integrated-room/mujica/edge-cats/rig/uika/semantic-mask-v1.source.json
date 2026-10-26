@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-9725-7bd3-aa74-f7fa6487bfed/exec-4ed795b0-15ea-4f82-ad35-e25b7dfc3614.png",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\edge-cats\\uika-meme-cat-v1.png",
+      "sha256": "4e47efb50195f79286f944127aa39399749fe04f7b57f59a3b651e024463de74",
+      "role": "sole actual character source; no other character or rejected asset input"
+    }
+  ],
+  "promptFile": "semantic-mask-v1.prompt.txt",
+  "submittedPromptSha256": "14a654195e420fe5906c7cfa2eabfea8da3ba453b25fcf1a96a47de3d259bac1",
+  "output": {
+    "file": "semantic-mask-v1.png",
+    "sha256": "9eaf958ac94d91594ed274115191604c64a76dcb144ad691bc989a956bb83efc",
+    "bytes": 689682,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "alphaBounds": null
+  },
+  "labels": {
+    "white": "head/body/paws including original navy ink",
+    "red": "tail including original navy ink",
+    "black": "background/glow"
+  },
+  "review": "Semantic identity guide, not exact raw matte. Native original alpha and asset-specific original rump contour calibrate same-pixel extraction.",
+  "primaryApproved": false,
+  "runtimeAccepted": false
+}

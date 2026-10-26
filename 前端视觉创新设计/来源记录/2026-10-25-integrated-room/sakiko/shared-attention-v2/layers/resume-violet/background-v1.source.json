@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "cell": "sakiko/resume/violet",
+  "character": "sakiko",
+  "activity": "resume",
+  "palette": "violet",
+  "stage": "BG",
+  "assetType": "same-mother-generated-empty-background",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: precise-object-removal/background inpainting. The ONLY input is this exact approved complete 1536x1024 original mother. Generate its same-canvas EMPTY BACKGROUND at the exact original coordinates, not a new room, other theme plate, mask/composite/screenshot or relighting.\n\nRemove ONLY the complete seated girl and the actual OPEN BOOK held by her: every fine hair strand/loop/ribbon, head/body/hands, clothing/skirt/legs/calf socks, both full shoes and every cover/page/spine. Remove their close actual receiver/cast effects: hip/skirt cushion pressure/dent and local contact shade, complete near-shoe floor shadow/reflection contribution. No person/book/hair/shoe ghost, outline or body-shaped pressure stain remains. Other room books on shelves/desk/table, lamp/cup/flowers/pillows/knitted throw are REAL ROOM OBJECTS and must stay.\n\nReconstruct only newly exposed material naturally at the SAME source position: unloaded original linen cushion folds/seams/thickness, wood floorboards/grain/reflection, and formerly occluded window/lake/town details continued from visible neighbors. Do not add a new pillow/blanket/furniture to fill the person's place. Do not move or resize existing desk/chair, round table/ceramic lamp/cup/flowers/books, long bench/storage, windows/mullions/curtains, shelves/plants, rug or floor framing. Keep whole original camera, depth, object anchors, exposure, scale and material response. Keep unrelated legitimate furniture/lamp shadows and room lighting, removing only person/book contribution. No flat paint fill, blurry clone or global color filter. Formerly hidden pixels are generated continuation, not promised original-pixel recovery.\n\nOutput ONE opaque exact 1536x1024 EMPTY ROOM PNG, no human/held book/hair/shoes/new props/people, text/UI/labels/arrows/grid/border, crop/zoom/resize/recenter/translation. Keep this mother's exact VIOLET TWILIGHT: rosy-purple sunset clouds, lake/town transition and soft local warm lamps integrated with dusk room reflections. No new sunny window lattice or rain overlay, no changing the sky or making the room daylit. Reconstructed cloth/floor must take the same twilight/local-lamp light as visible neighbors.",
+  "submittedPromptSha256": "32d07e7bc34419eab58e8e25ace2e61ea62f5d753ecbc77baac08c20d28184de",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-violet-literary-extension-v1.png",
+      "sha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    }
+  ],
+  "originalRgbOwner": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-violet-literary-extension-v1.png",
+    "sha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973",
+    "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-violet-literary-extension-v1.source.json",
+    "sourceRecordSha256": "097fe6bded9b9c54b0190de457584fcb7ed76958ab72068bea16e8652e985be6",
+    "rootMotherStaticReview": {
+      "status": "approved_static_mother",
+      "reviewer": "root",
+      "observed": "Youthful blue-purple hair/gold eyes, recognition looking toward a returning familiar person; actual hands support the book, two exposed knees/dark calf socks/complete shoes. Whole violet light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "reviewRecord": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/root-human-mother-primary-review-20261025.json"
+    }
+  },
+  "method": "Actual Image same-mother F1/F2 or S1/S2 chain. F is whole human/ribbons/hands/held book/clothing/knees/calf socks/complete shoes. S includes real source-local seat and full soft grounded floor receiver, not just sole line; original RGB MAX(F,S) drawn once only.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\sakiko\\shared-attention-v2\\layers\\resume-violet\\background-v1.png",
+    "sha256": "a05b00ade84a17de62e1f61813db70647dddd70f51f364a5bca3a486944c1327",
+    "bytes": 2328735,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-644748b0-29f5-42be-93cb-dd1152a6e668.png",
+    "pngBytesUnchanged": true
+  },
+  "producerObservation": {
+    "personallyViewedFullNative": true,
+    "observation": "Full native generated empty BG viewed: original violet mother person/held book/hair/shoes and near contact removed, unloaded linen/floor and formerly hidden window detail continued. Original furniture/camera main anchors and true twilight/lamp reflections retained, no new body/prop/bright daylight lattice. Hidden pixels are newly generated, not exact recovery."
+  },
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "sourceOrigin": [
+      0,
+      0
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": "included",
+    "independentCaster": false
+  },
+  "motherReconstructed": false,
+  "primaryLayerApproved": false,
+  "layerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "status": "producer-browser-inspected-awaiting-root-layer-review",
+  "inputBoundary": "Only current exact root-approved mother and its correct same-canvas working intermediates. No HOLD rain-attention-v2, white-sock resume-mist-v3, screenshot, audit collage or other mother mask.",
+  "promptFile": "background-v1.prompt.json",
+  "promptFileSha256": "5c930e984f5f239ea9593926a057aa9be42cbc5b12d100013cba1b3d0c1a528c",
+  "generatedAt": "2026-10-26T00:08:37.459Z",
+  "nativeBrowserObservation": {
+    "at": "2026-10-26T00:27:48.611Z",
+    "reviewer": "/root/mujica_matrix",
+    "method": "Actual native SVG same original RGB once under MAX(L(F),L(S)), source/BG/union closeups",
+    "observations": [
+      {
+        "file": "browser-observations/mother-composite-v1.png",
+        "sha256": "f1095c711a00926a9ef9e53df30b65d3f4e3d497d99a196f3005a603a98991c7"
+      },
+      {
+        "file": "browser-observations/light-dark-checker-full-v1.png",
+        "sha256": "8362654b78b6f186ab0d0e04b3d2b8126cc2b8c04e0191b09795c19e1fea593f"
+      },
+      {
+        "file": "browser-observations/face-hair-original-union-composite-v1.png",
+        "sha256": "cd40ba24120cf1499b6e8669e872cad64889f401dfc13bf2ab636ec67e3f6a44"
+      },
+      {
+        "file": "browser-observations/book-seat-original-union-composite-v1.png",
+        "sha256": "8e66ad6b516c929b875cd6ac5e3e6a2109e6184dfa81bc921891ac6ed588a439"
+      },
+      {
+        "file": "browser-observations/shoes-contact-original-union-composite-v1.png",
+        "sha256": "9e0a70cd0eafcb320b1d1270674dbcaadd3080bcf063fed1659b1ab73e15acd0"
+      }
+    ]
+  }
+}

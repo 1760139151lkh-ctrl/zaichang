@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-play-apricot-literary-v2",
+  "cell": "soyo/play/apricot",
+  "useCase": "illustration-story",
+  "submittedPrompt": "Use case: illustration-story. Produce one complete, exquisite 1536 x 1024 landscape literary-room companion mother illustration. The single input is the clean EMPTY room: it alone fixes the camera, furniture coordinates, depth, and this exact environmental light. Rebuild the complete human figure freshly in the same unified drawing and light. No character seed is supplied, and there is no compositing or global color filter.\nKeep the complete large wooden window and the same autumn lakeside town and mountain view, ivory curtains, LEFT writing desk with its original wooden chair, shelves/books/frames/plants, original round side table and its blue-white porcelain lamp, cup, books and flowers, long real wooden window bench with linen cushion, blue-gray plaid pillows and knit throw at right, wooden floor, woven rug, softly blurred foreground plant. Preserve camera and furniture scale. The illustration is a fictional literary room, not a claim about an actual location. The round table remains at about x435-690 with top near y500; the left desk ends near x400. No extra furniture, moved table, zoom, crop, montage, or second person.\nCharacter: Soyo Nagasaki / 長崎そよ / 长崎素世 from It's MyGO!!!!!, a youthful high-school student. Long LIGHT BROWN hair, separated fine bangs, softly curved cheek-side locks and gently curled ends, clearly BLUE eyes, natural youthful delicate face with short soft chin. Observant, considerate but with her own wishes and judgments, never an adult mother, model, flawless hostess, generic comfort assistant, chibi, or baby. No large invented hair ornament, makeup, long mature lower face, permanent seductive half-closed eyes or glossy realistic skin. Refined 2D anime linework, subtly painted facial planes, detailed cloth and room texture in one harmonious literary illustration.\nUse her faithful Tsukinomori school uniform as one consistent outfit: dark NAVY sailor blouse, broad WHITE collar with fine navy edging, GRAY-BLUE FABRIC BOW with a plain fabric knot. IMPORTANT correction: the small GOLD SCHOOL CREST belongs on HER LEFT CHEST; there is NO round gold jewel, gold badge or brooch in the middle of her bow or at the throat. Dark buttons, pale cuff lines, navy pleated skirt with TWO white lines near the hem. Dark navy KNEE SOCKS with the sock tops BELOW the knees and both kneecaps visibly exposed; BROWN loafers. School-student ordinary proportions, modest fully clothed companionship. Preserve local hair, eye and clothing colors within environmental light, not a flat palette tint.\nSeat her near the round-table end of the actual window bench, in the same near-camera scale as the room's occupants: head approximately y110-150, hips genuinely supported near the cushion front around y535, whole body and both shoes within the canvas. Do not mechanically force coordinates or stretch shins; use the actual room perspective. Cushion support and local contact shadow must be believable. Continuous hips/thighs/knees/shins/ankles, relaxed uncrossed legs with both complete loafers naturally supported on the wooden floor. Both arms must reach their real objects; wrists/hands/fingers coherent. Natural hair and cloth shadows cast into this room. Keep the original rug/floor/bench relationship clear. No floating seat, extra limb, fusion, furniture penetration, unsupported book, arbitrary pointing, cropped shoe or sticker outline.\n\nThey are inventing a tiny story together and playfully guessing what a fictional character really wants behind an overly perfect excuse. A thin plain open notebook lies physically across her thighs, supported by the lap and left hand at its lower corner. Her right hand holds one ordinary pencil with a coherent writing grip close to this REAL notebook page; a few faint abstract pencil doodles/short curves give the ongoing idea a visible object. No readable story words. The pencil can pause a few millimeters above the page as she reacts to a clever revision; never point into empty air. Give this one light, shared guessing/drawing moment the slightly knowing, surprised or suppressed amusement described below. She has her own preference but welcomes being teased back. No generic broad grin, paper-house set, invented game board, magical props or extra hands.\n\nExact original project situation, not canon biography:\ntitle: 给漂亮借口留一处破绽\npsychology: 两人随手编一个小故事，她偏偏留下一句过分周全的借口，等对方看出人物其实另有所愿。 轻轻的揶揄里有自己的偏爱，也欢迎对方把她的含蓄拆得更直白。 她很想知道对方会不会一下拆穿这个借口。\ngaze: 先看纸上的小设想，再看同伴是否识破。 先看纸，再抬眼找回应。\nrelating: 交出一小段可改的东西，快乐来自两个人轮流把它改活。 把可改的位置留得明显一点。\nexpression: 眼里一点狡黠，笑意从具体的误会里生出来。 浅笑带一点狡黠。\nposture: 坐在长凳靠圆几处，薄纸册由膝承托，一只手留在纸角。\nprops: 一小张素纸或薄册与铅笔；画面不烙入具体故事文字。\ncomposition: 趣味落在近处纸角与目光，原房间不增加舞台道具。\nlighting: 杏金光点亮眼与纸角，室内材质保持细腻。\n\nWarm apricot clear-day correction: use only this approved clean empty-room plate. Preserve its warm almond-gold sunlight and the real window/floor light pattern, adapting its occlusion and local bounce naturally to this newly drawn complete person. Rebuild the whole body, face, cloth, props and contact with a plain gray-blue fabric bow knot and the gold school crest only on her LEFT CHEST. No gold round throat jewel or bow-center badge. The old warm character artwork is HELD and MUST NOT be used as an image input. This is a complete original mother, not a crop, recolor or pasted replacement.\nEXACTLY ONE pencil exists, held in her right hand with a proper writing grip directly above the actual notebook page; her left hand is empty and steadies the lower book corner. No pencil at the mouth, no second pencil on paper. Visible playful interest lives in the eyes/brow/small knowing mouth and the shared doodle, not a pointing gesture into empty air.\nNo UI, panels, captions, readable text, watermark, logo, montage, border, extra person or new furniture. Young recognizable Soyo, convincing supported hands/book/body, and one continuous room light.\n",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png"
+  ],
+  "transparentBackground": false,
+  "inputRoles": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "sole approved clean empty clear-day room reference"
+    }
+  ],
+  "brief": {
+    "producerBrief": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mygo-b/soyo-literary-room-briefs-v1.json",
+    "cell": "soyo/play/apricot"
+  },
+  "dossier": ".agents/skills/zaichang-frontend-director/references/characters/soyo.md",
+  "dossierSha256": "1ec8b260d40f8363c096ed8392547dd276d2318df5aadbe34b1f51e51e2ed04e",
+  "wardrobe": "Tsukinomori sailor uniform; plain gray-blue cloth bow; gold school crest on her left chest; navy below-knee socks and brown loafers",
+  "warmSeedInspectedButExcluded": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wave-b/soyo-play-apricot-literary-v1.png",
+    "sha256": "dcfe060914aa55fe373104a0f46bab903fda44a7b1ed2120230af81d7d5d60ba"
+  },
+  "exclusionReason": "gold ornament at bow/throat conflicts with current dossier; rebuild only from clean plate + complete text",
+  "generationStatus": "image-returned-and-saved",
+  "runtimeRegistered": false,
+  "productionCategory": "correction-of-existing-warm-mother-not-missing-76-increment",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-play-apricot-literary-v2.png",
+    "sha256": "82bca80705934963059213bfb9ab31eb9edb9765ead04194cd1125cf98191d3c",
+    "bytes": 2474782,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "format": "PNG"
+  }
+}

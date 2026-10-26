@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "recordType": "public-design-content-brief-and-selected-provenance",
+  "recordedAt": "2026-10-26T01:59:32.798567+00:00",
+  "authority": "Direct root confirmation in this healthy collaborative session: the note was originally authored byroot for this round in an isolated validation App; selected generated concepts and truthful prompt records are authorized for source sync.",
+  "exampleOrigin": {
+    "kind": "original-product-validation-example-created-this-round",
+    "authoredBy": "Primary agent / root",
+    "environment": "Isolated local App validation profile",
+    "notUserResearchOrPrivateChatMaterial": true,
+    "noteText": "这句先放在页边，换窗口也别弄丢。",
+    "noteTitle": "rolm-icra2023.pdf · 第1页",
+    "noteRelationship": "The validation flow actually retained the note with its original PDF. Actual native owner locators are withheld, not replaced with invented identifiers."
+  },
+  "publicMaterialExample": {
+    "originalName": "rolm-icra2023.pdf",
+    "pageCount": 7,
+    "page": 1,
+    "publicTitle": "RoLM: Radar on LiDAR Map Localization",
+    "pdfBytesWereImageInputs": false,
+    "generatedPdfRepresentation": "Conceptual generated page texture/title treatment only; never actual PDF data, a verified paper page, or a runtime screenshot."
+  },
+  "separateWorkExample": {
+    "title": "三角钢琴：一次击弦的旅程",
+    "entryCopy": "继续试琴",
+    "relationshipToMaterial": "A separate saved product-validation work; not grouped with RoLM by invented ownership or inferred subject."
+  },
+  "comparisonHistory": {
+    "actualGeneratedCount": 10,
+    "wideDirectionsCount": 6,
+    "narrowDirectionsCount": 4,
+    "rootPersonallyViewedAllTen": true,
+    "selectedForThisPublicSetCount": 3,
+    "unselectedComparisonImagesAndCompleteHistory": "Retained intact locally; not deleted, not represented as never produced, and not linked as nonexistent public deliverables.",
+    "preparedButNotGenerated": "C2 had a prepared prompt/request only and is not counted among the ten actual outputs."
+  },
+  "selectedArtifacts": [
+    {
+      "file": "direction-d-within-reach-v2.png",
+      "sha256": "7f75e6d438d0f61661e86cc2cbd6ade72d2a83ad94437506a91744dd37c2e1cc",
+      "bytes": 2140066,
+      "designIntent": "静页：右侧角色安静在场，窗心开放；低左自己的短句为主、原题为小标签，局部平滑烟茶承托，另一作品为独立轻入口。",
+      "actualCleanInputs": [
+        {
+          "repositoryPath": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.png",
+          "sha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9",
+          "role": "Exact personally viewed root-static-approved Sakiko resume rain v2 full mother; original right-side book pose and support reference, no new human mother requested."
+        },
+        {
+          "repositoryPath": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-selected-soft-youth-edit-v3.png",
+          "sha256": "50ed57c7cb690ac52eb49190762f878a2b8e8db5eb75d5d3d3f220e771d86974",
+          "role": "Current personally viewed independent soft-youth-edit-v3 Sakiko avatar; implementation of user requested edit, not claimed user verbal final acceptance."
+        },
+        {
+          "repositoryPath": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/edge-companions/rig-v3/sakiko-meme-cat-v3-clean-composite.png",
+          "sha256": "ee1d4331e0f940267ea1850cb05f70bdf9dd320e6dd1906dd767847925d8c157",
+          "role": "Personally viewed approved simple horizontal v3 originalRGB clean composite, independent identity and edge-size reference; no diagnostic board."
+        }
+      ],
+      "originalRecord": {
+        "sourceFile": "direction-d-within-reach-v2.source.json",
+        "sourceFileSha256": "9223de1b7abebd19a3d574c01e64280951f04a7daf20c8e6bea241cb9e433c3c",
+        "promptFile": "direction-d-within-reach-v2.prompt.txt",
+        "promptFileSha256": "32852144db4129dc6561cb6c4000d4bfd77a31b28d2123e77f11bfc15a103573",
+        "requestFile": "direction-d-within-reach-v2.request.json",
+        "requestFileSha256": "36187b7adbb485111637da85f4cb0f457b52d3e183cd349e2eea8dee73749a83",
+        "exactSubmittedPromptSha256": "20cd38578a20a66cbbfe86fa1c2459861604731c1b8d610fb844f32bae866904",
+        "exactSubmittedPromptUnchanged": true,
+        "originalRecordPublication": "Original records are retained intact locally; root may explicitly select these truthful records for the authorized sync. This public brief does not replace or rewrite them."
+      },
+      "primaryAdmissionScope": "Spatial, content hierarchy and interaction intent only; generated deviations remain rejected.",
+      "runtimeAccepted": false,
+      "generationInputAllowed": false
+    },
+    {
+      "file": "direction-d-source-quote-state-v1.png",
+      "sha256": "026350d9b908bb8eb7b35c9f8bf22426d29709c29964a5ef972b5f42ec10f454",
+      "bytes": 2023840,
+      "designIntent": "引用状态：从同一笔记上方就地展开来源，选段回到原位唯一输入；此图只表达关系，不证明真实打开、发送或动效。",
+      "actualCleanInputs": [
+        {
+          "repositoryPath": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.png",
+          "sha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9",
+          "role": "Exact personally viewed root-static-approved Sakiko resume rain v2 full mother; original right-side book pose and support reference, no new human mother requested."
+        },
+        {
+          "repositoryPath": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-selected-soft-youth-edit-v3.png",
+          "sha256": "50ed57c7cb690ac52eb49190762f878a2b8e8db5eb75d5d3d3f220e771d86974",
+          "role": "Current personally viewed independent soft-youth-edit-v3 Sakiko avatar; implementation of user requested edit, not claimed user verbal final acceptance."
+        },
+        {
+          "repositoryPath": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/edge-companions/rig-v3/sakiko-meme-cat-v3-clean-composite.png",
+          "sha256": "ee1d4331e0f940267ea1850cb05f70bdf9dd320e6dd1906dd767847925d8c157",
+          "role": "Personally viewed approved simple horizontal v3 originalRGB clean composite, independent identity and edge-size reference; no diagnostic board."
+        }
+      ],
+      "originalRecord": {
+        "sourceFile": "direction-d-source-quote-state-v1.source.json",
+        "sourceFileSha256": "4ed7c9b1055d1e3781e466172ccdfdd885456fbeeac74e04158a2b4ef8e3cdff",
+        "promptFile": "direction-d-source-quote-state-v1.prompt.txt",
+        "promptFileSha256": "30ba34391622d9692124fa82ef85929d63d2d6fe55e1066e0a599fade734821f",
+        "requestFile": "direction-d-source-quote-state-v1.request.json",
+        "requestFileSha256": "2343eea0c1cc934566c2ffd0ad526c9926185030d9e919ae99ff18c7518ca876",
+        "exactSubmittedPromptSha256": "cb4d3362a8ec98f7413f521712e4f3ccb66461f4c33fcc88011a1a9fae4d1da1",
+        "exactSubmittedPromptUnchanged": true,
+        "originalRecordPublication": "Original records are retained intact locally; root may explicitly select these truthful records for the authorized sync. This public brief does not replace or rewrite them."
+      },
+      "primaryAdmissionScope": "Spatial, content hierarchy and interaction intent only; generated deviations remain rejected.",
+      "runtimeAccepted": false,
+      "generationInputAllowed": false
+    },
+    {
+      "file": "narrow-window/keep-narrow-b-quiet-desk-attachment-v2.png",
+      "sha256": "78c01827b801cc0b932da84ea3f7c200d344e95adcf211320a1cdafe66dd8663",
+      "bytes": 1867944,
+      "designIntent": "窄窗：当前角色通过独立头像与小猫退让；同一对象、原文与原输入顺序连续，未发送附件小封面留在该输入内并向下自然增长。",
+      "actualCleanInputs": [
+        {
+          "repositoryPath": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "role": "clean_empty_plate_material_light_reference"
+        },
+        {
+          "repositoryPath": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-selected-soft-youth-edit-v3.png",
+          "sha256": "50ed57c7cb690ac52eb49190762f878a2b8e8db5eb75d5d3d3f220e771d86974",
+          "role": "independent_avatar_reference"
+        },
+        {
+          "repositoryPath": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/edge-companions/rig-v3/sakiko-meme-cat-v3-clean-composite.png",
+          "sha256": "ee1d4331e0f940267ea1850cb05f70bdf9dd320e6dd1906dd767847925d8c157",
+          "role": "independent_clean_cat_reference"
+        }
+      ],
+      "originalRecord": {
+        "sourceFile": "narrow-window/keep-narrow-b-quiet-desk-attachment-v2.source.json",
+        "sourceFileSha256": "4c654e7305bd3784cc281ee50288b3e183693edda2e7dc84dddf3af4306592c4",
+        "promptFile": "narrow-window/keep-narrow-b-quiet-desk-attachment-v2.prompt.txt",
+        "promptFileSha256": "22e2cd2957250ac85ef6930b55bd743711dd7a8bb3c3bfad5bea6c54c58a80c1",
+        "requestFile": "narrow-window/keep-narrow-b-quiet-desk-attachment-v2.request.json",
+        "requestFileSha256": "29fe8e17d822a7044f9f15db12c1efd69260691406bbe7dc1e2eacdd859d687c",
+        "exactSubmittedPromptSha256": "1cb08d4162a7b461ec7539b16e16f9b0695b76433d3b5b4a2f429696f5ad0480",
+        "exactSubmittedPromptUnchanged": true,
+        "originalRecordPublication": "Original records are retained intact locally; root may explicitly select these truthful records for the authorized sync. This public brief does not replace or rewrite them."
+      },
+      "primaryAdmissionScope": "Spatial, content hierarchy and interaction intent only; generated deviations remain rejected.",
+      "runtimeAccepted": false,
+      "generationInputAllowed": false
+    }
+  ],
+  "withheldVerification": {
+    "localFile": "verified-content-brief.json",
+    "publication": "withheld-local-only; explicitly exclude this exact path from public staging",
+    "reason": "Contains real native note, session, assistant-message and presentation-view locators plus local validation receipts. The example prose itself was authored for this round and is not classified as pre-existing private user content.",
+    "publicRef": "public-content-brief.json",
+    "substituteOwnerIdentifiersCreated": false,
+    "fullLocalRecordPreserved": true
+  },
+  "generationRecordIntegrity": {
+    "originalPngSourceRequestPromptBytesUnchanged": true,
+    "originalPrimaryAdmissionFieldsUnchanged": true,
+    "thisFileIsNotAnExactSubmittedPrompt": true,
+    "noSanitizedPromptPassedOffAsOriginal": true,
+    "inputRoleBoundary": "D2 and quote-state used the approved complete human mother plus independent portrait and cat. Narrow B2 used the clean empty rain-night plate plus independent portrait and cat. Do not relabel all three as empty-plate-only generations."
+  },
+  "rejectedGeneratedDeviations": [
+    "Duplicate or oversized cats",
+    "Large poetic caption on the quiet page",
+    "Fake PDF lines/data/thumbnails or a generated PDF glyph as real source pixels",
+    "Generated piano photo/model as a real program thumbnail",
+    "Any UI-mock person, cat, portrait or background reused as a new runtime asset or imagegen input"
+  ],
+  "runtimeAcceptedCount": 0,
+  "motionOrInteractionAcceptanceClaimed": false,
+  "gitStagingOrPublishingPerformedByThisDocumentationTask": false
+}

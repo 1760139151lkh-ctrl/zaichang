@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "characterId": "taki",
+  "neutralTime": "day",
+  "purpose": "neutral-presence-fixed-included-layer",
+  "kind": "included-contact-luminance-mask-S",
+  "createdAt": "2026-10-26T01:04:46.786949+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "exactPromptFile": "contact-mask-v1.prompt.txt",
+  "promptSha256": "2b8751b706f9de71158ef2c656d05068ecde79b298382fa6f3d92c46004443a8",
+  "requestFile": "contact-mask-v1.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/day/layers/contact-step1-marked-v1.png",
+      "sha256": "29baf711b50d8aeac8d78bc42565c0183395a65588771d0d58b5e40d97f44908",
+      "role": "sole personally checked healthy same-source S1 contact markup"
+    }
+  ],
+  "output": {
+    "file": "contact-mask-v1.png",
+    "sha256": "f46a4af8afd7506045da052a993aab3114b04f40b78d24df18c4d8b9f225a6e0",
+    "bytes": 297617,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "originalBasename": "exec-9c10ee03-f888-4bde-a03b-f1b8503d3808.png",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteOutput": true,
+    "observations": [
+      "Only separate local seat-contact and sole/floor strips remain white; unrelated person and room converted black.",
+      "Fixed source receiver pixels will be included in one MAX(F,S) RGB draw, not called a portable pure cast shadow."
+    ],
+    "eligibleAsNextStepInput": true
+  },
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "countsToward360ExactActivities": false,
+  "pngPixelEditing": false,
+  "primaryStaticLayerApproved": true,
+  "primaryAdmissionRecord": "root-primary-layer-admission-v1.json",
+  "primaryApprovalScope": "Exact static fixed included layer in this same source canvas; no runtime, motion or activity360 acceptance"
+}

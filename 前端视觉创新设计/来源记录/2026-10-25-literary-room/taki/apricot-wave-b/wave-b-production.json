@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "characterId": "taki",
+  "wave": "apricot-wave-b",
+  "createdOn": "2026-10-25",
+  "completedCalls": 5,
+  "batchCallOrdinals": [
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "batchCap": 10,
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "imageInputsOnly": [
+    "../../plates/literary-room-clear-day-v1.png",
+    "../chat-pilot/taki-chat-apricot-literary-v1.png"
+  ],
+  "allOriginalsPersonallyViewed": true,
+  "entries": [
+    {
+      "activity": "study",
+      "sourceFile": "taki-study-apricot-literary-v1.source.json",
+      "file": "taki-study-apricot-literary-v1.png",
+      "sha256": "cbfbe17eb125d85813864ac15a700c3b1580cf840ea769ff1c1bc6187cb5b4ab",
+      "bytes": 2415115,
+      "width": 1536,
+      "height": 1024,
+      "producerReview": {
+        "personallyViewed": true,
+        "decision": "static mother candidate; desk-chair orientation requires primary review",
+        "observation": "Complete original viewed: Taki is newly seated at the real left desk at its own smaller/farther scale, forearms/paper/pencil on the desktop, head looking back in a clear three-quarter face toward the nearby partner. Violet eyes, fringe and lids separate. Pelvis/skirt are supported by the chair seat, long hair passes behind the chair back/slats naturally. Bench is empty. The chair's visible orientation/outline is adjusted from the empty plate; small metal lamp remains near the original left desk-wall position rather than moving far across the desk. Foreground plant hides much of the lower legs/shoes; visible loafer/heel portions are coherent, not a verified full pair of soles.",
+        "limits": "At producer review the chair geometry/naturally occluded feet were submitted for primary review; root's later static disposition is recorded below; no full hidden anatomy, layer or runtime acceptance claimed.",
+        "primaryDisposition": "Root personally accepted the desk-chair/forearm/paper/pencil/wrist relationships and natural plant occlusion."
+      },
+      "primaryApproved": true,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "listening",
+      "sourceFile": "taki-listening-apricot-literary-v1.source.json",
+      "file": "taki-listening-apricot-literary-v1.png",
+      "sha256": "cf48e29b3c636be8cc34b2fca85ad7ceefed5c7956d5417b3e4a5d3958ce3c89",
+      "bytes": 2405098,
+      "width": 1536,
+      "height": 1024,
+      "producerReview": {
+        "personallyViewed": true,
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: closed book and a small page lie supported on Taki's thighs, one hand rests loosely on her knee and the other softens over the page. Gaze turns toward the nearby image-right speaker region with a slightly interrupted mouth; expression is attentive rather than a scowl. Both violet eyes/fringe/lids clear. Hip/linen contact, coherent uncrossed legs and complete floor-supported loafers visible; room camera and major furnishings stable.",
+        "limits": "Static listening direction only; nearby speaker is implied, not drawn or identified. Producer observation predates separate exact-SHA primary mother approval; layer/runtime remain false."
+      },
+      "primaryApproved": true,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "play",
+      "sourceFile": "taki-play-apricot-literary-v1.source.json",
+      "file": "taki-play-apricot-literary-v1.png",
+      "sha256": "1e01dddcae67de37887d7338b3056aa4a3bf04609db7de15c75b83ba2b8f735f",
+      "bytes": 2440128,
+      "width": 1536,
+      "height": 1024,
+      "producerReview": {
+        "personallyViewed": true,
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: Taki holds one small simply folded cream square/envelope-like paper by its edge near upper chest, the opposite hand rests over a closed book supported on her lap. The prop is higher than the low-book proposal but small and visibly gripped, with no floating paper. A small crooked amused smile and clear violet gaze carry plain playfulness. Hair/eyelids/irises separate. Pelvis/cushion support, uncrossed coherent knees/ankles and complete floor-supported loafers visible; room camera/furniture stable.",
+        "limits": "No claim that the fold is a specific origami animal or that an actual user game happened. Producer observation predates separate exact-SHA primary mother approval; layer/runtime remain false."
+      },
+      "primaryApproved": true,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "attention",
+      "sourceFile": "taki-attention-apricot-literary-v1.source.json",
+      "file": "taki-attention-apricot-literary-v1.png",
+      "sha256": "58de13810d18c43ead5764cbaccdf2cfa8e994313b3d938c75c716c0826fe7e9",
+      "bytes": 2448399,
+      "width": 1536,
+      "height": 1024,
+      "producerReview": {
+        "personallyViewed": true,
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: Taki keeps a small open notebook supported on her thighs with one hand retaining its page. The other hand pauses a pencil at chest-bottom height, higher than directly above the notebook, while her gaze/head turn down-left toward the separate page lying on the linen. Violet irises/eye whites, fringe and lids clear; quiet reconsideration rather than an exaggerated call. Hip/cushion, coherent uncrossed legs and complete floor-supported shoes visible; original room stable.",
+        "limits": "Static gaze suggests nearby page-region attention, not a proven exact eye ray or a prior actual pointing event. Producer observation predates separate exact-SHA primary mother approval; layer/runtime remain false."
+      },
+      "primaryApproved": true,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "resume",
+      "sourceFile": "taki-resume-apricot-literary-v1.source.json",
+      "file": "taki-resume-apricot-literary-v1.png",
+      "sha256": "42fc10d73ff8187f26186be1b669c343bf9e78004db1d712ebc7974a12a50a0e",
+      "bytes": 2414760,
+      "width": 1536,
+      "height": 1024,
+      "producerReview": {
+        "personallyViewed": true,
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: Taki keeps an open thin book low on her thighs, one hand loosely retains a page edge and the other supports the outer cover. A pale pink paper strip is visible at the page margin. She looks toward the nearby person with familiar earnestness and a softened mostly closed mouth, without a greeting wave or body rearrangement. Both violet irises, eyelids and fringe edges clear. Pelvis/cushion contact, coherent uncrossed legs and complete floor-supported shoes visible; room stable.",
+        "limits": "Fictional continuation impression only; not proof of saved state, actual return, kept promise or completed work. Producer observation predates separate exact-SHA primary mother approval; layer/runtime remain false."
+      },
+      "primaryApproved": true,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "scope": "Five exact-SHA static mothers personally approved by root; no layer progression, runtime registration or product code edits.",
+  "primaryAdmissionRecord": "primary-mother-admission-v1.json"
+}

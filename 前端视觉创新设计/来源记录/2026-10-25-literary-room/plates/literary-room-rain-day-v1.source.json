@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "empty-room-plate",
+  "environmentVariant": "rain-day",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "executionId": "exec-a939dac8-8dd4-4eb1-ae9b-c3f8f2a8f174",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-a939dac8-8dd4-4eb1-ae9b-c3f8f2a8f174.png",
+  "inputs": [
+    {
+      "file": "literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "sole approved clean empty room edit target; no character image input",
+      "admissionRecord": "literary-room-clear-day-v1.source.json"
+    }
+  ],
+  "selectedMotherLineage": {
+    "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+    "imageInputForThisCall": false
+  },
+  "promptFile": "literary-room-rain-day-v1.prompt.txt",
+  "promptFileSha256": "58d7ec59fbb62ae770b0dfe866b0ccf10bf449be917060c4829fa35156f94690",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd, exactly as submitted",
+  "submittedPromptSha256": "b564f5610450d3ae9e342b2e8c602cb659c4e7a3d7af1c964d3f564f76672ec6",
+  "output": {
+    "file": "literary-room-rain-day-v1.png",
+    "sha256": "80c6eba701bc229e79939639426de4b1c7ef68790b840ea9ded07c2bc6fc77eb",
+    "bytes": 2504784,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed complete saved original: fine drops/trails on window glass and softly rainy original town/mountain/lake remain clearly daytime. Original close camera/window divisions, lamp/table/desk/chair/cushions/throw/floor/foreground plant stay visually in place. Old sunny leaf/bar patterns are absent; interior cushion, rug and floor remain dry with soft window reflection, not puddles. Warm small room lights and cool diffuse day coexist without a night tint. No person or obvious furniture shift observed; primary/runtime review separate."
+  },
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "approvalScope": "Empty environment plate candidate only; does not approve character poses, layers, matrix coverage or runtime.",
+  "primaryApprovalRecord": "literary-room-rain-day-v1.primary-approval.json",
+  "primaryApprovalScope": "Complete static empty environment plate only; same selected close room and corresponding weather/time illumination. No character/activity/layers/motion/runtime approval."
+}

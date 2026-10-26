@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-attention-mist-contact-step1-v1",
+  "cell": "soyo/attention/mist",
+  "stage": "contact-step1-v1",
+  "submittedPrompt": "Use case: precise-object-edit. Asset: local original receiver/contact/grounding-shadow selection markup, S1.\nThe ONLY input is this exact clean root-approved Soyo attention mist mother, 1536x1024. Preserve the entire original canvas, all source coordinates and camera framing. No crop/resize/zoom/centering/shift, no changes to pose, expression, proportions, wardrobe, linework or source geometry. This is technical selection/restoration for a FIXED original-RGB included layer, not a new character illustration. Root approved minor theme/pose differences; preserve this exact original.\nKeep the entire girl, all hair/face/uniform/hands, knees/socks/whole shoes, entire lap book and pencil/bookmark IN THEIR ORIGINAL COLORS. Paint PURE WHITE only on the ACTUAL SMALL LOCAL RECEIVING MATERIALS physically touching this exact seated subject: a few visible linen/compression/contact islands directly under the trailing skirt and rear hip where source shade really exists, plus the COMPLETE ACTUAL short soft ground-contact shadow/receiver patches of both source shoes. The source shoes lie around x753..935,y800..887. Preserve the local dark floor footprint beneath/around each actual source toe/heel/sole (roughly 8..35 source pixels outside each sole WHERE shade is actually visible), including its dark core and gentle outer edge. The shoes stay colored; do NOT merely outline them with a 2-pixel white sole stroke. Follow the real source shadow's irregular boundary and wood-grain falloff, not an invented oval/rectangle or a whole floor strip. Two patches may meet only where source shadows really connect. No room-wide lamp/furniture/window shadow, sunlight/reflection, rug fringe or far-away floor selection.\nThe held book is on her lap: its pages, pen, bookmark, supporting knees/hands, and self-shadow belong to F, not a fabricated book receiver on empty right cushion. Select NO separate book stripe on the empty seat. Keep all natural pale empty cushion, curtains, lamp, cup, flowers, rug/light patch and garment white trim unchanged colored, not deliberately white. Do not select the long empty bench to either side or a detached distant bright linen island. Select only real close physical receiver patches around actual skirt/hip/soles; no new shadow or added material. Output one opaque full-color 1536x1024 original-position PNG, with only those few actual local receiver/foot-shadow regions deliberately white. This is fixed included source material, travel/slope/perspective=0, never an independently moving caster.",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-attention-mist-literary-v1.png"
+  ],
+  "transparentBackground": false,
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-attention-mist-literary-v1.png",
+      "sha256": "34f51931954d0d3db7c9a89a1195113f794768bfed32b7a21855a50c98773b48",
+      "role": "sole exact root-approved clean mother; personally viewed before call"
+    }
+  ],
+  "outputFile": "contact-step1-marked-v1.png",
+  "generationStatus": "prepared-not-yet-called",
+  "scope": "selection/restoration only; mother RGB once by MAX; runtime=false"
+}

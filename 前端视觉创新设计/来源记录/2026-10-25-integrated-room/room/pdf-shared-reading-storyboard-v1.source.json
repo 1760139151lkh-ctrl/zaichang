@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "recordType": "shared-pdf-interaction-storyboard-candidate",
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-3da82bf1-b10a-4dd4-88be-e6beda9de7b3.png",
+  "inputImages": [
+    {
+      "file": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "sole clean empty-room reference"
+    }
+  ],
+  "userScreenshotUsedAsInput": false,
+  "previousUiMockUsedAsInput": false,
+  "characterInput": false,
+  "promptFile": "pdf-shared-reading-storyboard-v1.prompt.txt",
+  "submittedPromptSha256": "7dd83d22f2e341cb006ca11f0b461b4a32cc76fd02f5ea043234b914624d9bec",
+  "output": {
+    "file": "pdf-shared-reading-storyboard-v1.png",
+    "sha256": "1d277f4dc60cf1ef81e21b90f88c91ea8ca6579091a15848858ce38795967cd1",
+    "bytes": 1736711,
+    "width": 1672,
+    "height": 941
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "decision": "rejected whole-product composition; object-flow detail only",
+    "observation": "v1 tool introduced physical laptop hardware despite no-device constraint; cannot use as full product state.",
+    "limits": "No human/character image input; none of the mock text is true PDF content. v2 generated return guide points into background rather than original header; do not adopt that line as a route or new functional relationship. Real cancel must restore original source header by stable identity. Motion/interruption/persistence not established by static art."
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "runtimeUse": "layout/storyboard reference only; never a UI bitmap, real document or character source"
+}

@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "recordType": "narrow-keep-concept-image",
+  "createdAt": "2026-10-25T23:48:07.324Z",
+  "tool": "image_gen.imagegen",
+  "direction": "B2",
+  "sourceBoundary": "static concept only; not runtime/source/interaction evidence",
+  "viewportIntent": {
+    "width": 760,
+    "height": 768
+  },
+  "inputImages": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "bytes": 2270751,
+      "width": 1536,
+      "height": 1024,
+      "role": "clean_empty_plate_material_light_reference",
+      "sha256AfterGeneration": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-selected-soft-youth-edit-v3.png",
+      "sha256": "50ed57c7cb690ac52eb49190762f878a2b8e8db5eb75d5d3d3f220e771d86974",
+      "bytes": 2309543,
+      "width": 1254,
+      "height": 1254,
+      "role": "independent_avatar_reference",
+      "sha256AfterGeneration": "50ed57c7cb690ac52eb49190762f878a2b8e8db5eb75d5d3d3f220e771d86974"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/edge-companions/rig-v3/sakiko-meme-cat-v3-clean-composite.png",
+      "sha256": "ee1d4331e0f940267ea1850cb05f70bdf9dd320e6dd1906dd767847925d8c157",
+      "bytes": 772042,
+      "width": 1536,
+      "height": 1024,
+      "role": "independent_clean_cat_reference",
+      "sha256AfterGeneration": "ee1d4331e0f940267ea1850cb05f70bdf9dd320e6dd1906dd767847925d8c157"
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: ui-mockup. Create ONE complete1254x1254 near-square screen representing a760x768 CSS desktop Keep page, not a phone, landscape or comparison board. All coordinates below are CSS at760x768, scale uniformly into the output. Image pixels are concept only, never runtime assets, PDF contents or receipts. No green UI, no category columns/lists/counts, no large title/caption, no generic star/avatar, no top navigation background slab, no canned assistant speech.\n\nSmall transparent top navigation: “在场  聊天  今天  留下”, selected留下 with a fine underline, small search and34px actual supplied independent Sakiko avatar. One source window above one own thought, one original input below only because this is the explicitly opened quote state, a small object-icon flow at the bottom. No extra transcript, duplicate input, fabricated research answer or automatic-save claim.\n\nThe original reader has a dark smoke-tea thin frame, only a tiny grip, filename “rolm-icra2023.pdf”, “1 / 7” and a close x. NO left thumbnail sidebar, macOS traffic-light dots, minimize or invented document tools. Actual pale PDF paper is limited to its small viewport. Show only sparse illegible ink line texture inside, NO readable copied title/abstract/equations or claimed document analysis. Never use the PDF's white as an outside UI panel.\nThe ONE note is smooth translucent smoke-tea, a fine warm edge, no torn paper/leather/grain emboss. Its own short thought is exactly “这句先放在页边，换窗口也别弄丢。” at18CSSpx, source label “rolm-icra2023.pdf · 第1页” at11px. A tiny bespoke wine-book source tab, a separate edit pencil and “接着这页聊” are quiet usable controls. The note does not claim the source is newly read or the draft sent.\nThe ONE same writer below has a tiny fit-content source chip and a small “留作草稿” in one30px line. A72px smoke-tea form holds plus left, empty “接着说…” middle, send right. No big white/cream input. Bottom entrances are unboxed or barely outlined small30px note/book/keyboard/conversation icons, not giant square tiles and not the temporary attachment. No generic copied piano screenshot.\n\nSakiko identity is pale BLUE-lavender long hair, dark side ribbons, GOLD eyes; youthful cheeks and light jaw, clear thoughtful gaze and a naturally alive mouth, neither cold adult nor silly doll. If a body is present it keeps the exact navy literary cardigan/collar bow/plaid skirt, both knees uncovered, BELOW-KNEE CALF SOCKS and complete daily loafers of the approved mother. She was reading her own navy book and first lifts her eyes toward familiar company, not empty pointing. A dedicated tiny portrait is used only in the nav, never cropped from the room. At most ONE simple 2D meme-cat from its supplied independent original: small70–90CSSpx, paws honestly on the selected note edge, no bubble or duplicate. Preserve the actual avatar/cat identity; no realistic fur.\n\nMaterial and spirit: the room/table, warm lamplight and blue rainy-night air are one continuous world. Light diffusion belongs only under the actual text. No all-column brown tint, gray/taupe filler bars, wide frosted header or gratuitous decorative objects. A useful line stays at hand and she gives it a quiet place; affection is in these specific relationships, not words of reassurance. Real source, note, program, draft and current files remain separate owners. Generated PNG is only a proposed interface relationship, never a clean runtime plate or human mother.\n\nDIRECTION B — narrow dedicated quiet desk; HUMAN deliberately yields to the actual independent avatar and one tiny cat.\nInput1 is the literary-room-v1 CLEAN EMPTY rain-night plate, only for lamp/wood/linen and blue rainy-night light. Input2 is actual selected-soft-youth-edit-v3 independent Sakiko portrait; input3 the independent simple cat. There is no full-body mother input. Do NOT draw a full person/bust or huge head in the room; identity is in those real small forms.\n\nDraw a complete NEW, quiet, naturally full-bleed narrow desk environment from this family: matte warm walnut in the lower half, some soft linen, a small original lamp at the far left margin and a rain-blue window/wood structure above, one closed navy book soft at the far margin. No flat gray-brown empty bands, duplicate blurred strip, old panoramic room in a box or full-height scrim. This is HER working corner, not an anonymous file manager, but content has the space.\n\nCRITICAL EXTRA REAL STATE: one freshly picked PDF is still UNSENT in the original draft. It is NOT another saved Keep object. Include ONE36x46CSSpx bespoke wine-red cover in a64px-high attachment row INSIDE the same writer, just above the form. Tiny x is an actual remove affordance; no long file strip, no “随本条发送/打开原文”. Its filename was not supplied for this concept: do not invent a title/filename, no label “新附件/本次/已保存”; implementation supplies the true native shortname/tooltip. This tiny cover is a pending original file entrance, never a fictional PDF text thumbnail. Two or three actual covers/thumbnails in implementation occupy the same row while room permits, then wrap naturally DOWN. Do not hide a file, source button, draft status or any input control just to fit this frame.\n\nSTABLE FLOW — NOT AUTO-BOTTOM: native source window x24..736,y84..334 (712x250). The own note begins atx24,y358 with about142height and NEVER gets pushed upward under the reader when a file is added. It remains one local object below a24px gap. Writer begins atx24,y518: sourcechip/draft status30px, gap6, pending cover row64px, gap6, same form72px. This writing group is about178px, allowed to grow DOWN. Small saved-object flow begins below that. It is legitimate that the lowest part continues below768px: show a fine ordinary vertical scroll affordance at the right edge, not a second screen or a fake “more” button. Do NOT compress the document or slide the note up to make the entire stack visible. Preserve real readable18px thought and source controls. The original source stays open above; the draft stays the same below.\n\nTiny cat about80CSSpx on the note's top edge nearx640, no giant head, no speech bubble. Quiet actual avatar34px in the nav. The file row does not become another category, and the piano remains an independent small keyboard entrance lower in the one-page flow. No giant cat, physical paper collage, wide cream reader chrome, generated macOS green dot or stock PDF glyph.",
+  "submittedPromptSha256": "1cb08d4162a7b461ec7539b16e16f9b0695b76433d3b5b4a2f429696f5ad0480",
+  "promptFile": "keep-narrow-b-quiet-desk-attachment-v2.prompt.txt",
+  "promptFileSha256": "22e2cd2957250ac85ef6930b55bd743711dd7a8bb3c3bfad5bea6c54c58a80c1",
+  "requestFile": "keep-narrow-b-quiet-desk-attachment-v2.request.json",
+  "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17366-5b01-78f3-8d02-c6a9cdf4f220/exec-83c34c0f-cdbb-495c-901e-57378c59aa1d.png",
+  "output": {
+    "file": "keep-narrow-b-quiet-desk-attachment-v2.png",
+    "sha256": "78c01827b801cc0b932da84ea3f7c200d344e95adcf211320a1cdafe66dd8663",
+    "bytes": 1867944,
+    "width": 1254,
+    "height": 1254,
+    "pngBytesUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewedWholeOriginal": true,
+    "decision": "concept_candidate_quiet_desk_with_pending_file_for_root_review",
+    "observation": "Personally viewed the complete returned original. A distinct continuous rainy-blue/warm-walnut work corner has no full human and no flat contain gaps. Correct independent portrait identity stays in the nav; one cat sits on the selected note edge. Source window, one own-thought note and same source/draft/writer form separate naturally; one small removable wine cover is visibly INSIDE that writer, separate from the saved object icons below. This captures the stable-start/downward-growth relation, with a natural right scrollbar. Generated proportions remain illustrative: cat is about150 CSSpx rather than70–90, PDF body is invented blurred texture and the source/notes/read surfaces are not exact runtime dimensions. The new pending filename was not supplied, so no fictional name or image thumbnail was invented. This PNG is not a runtime plate or a valid generation input; runtime uses actual PDF bytes, attachment owner and approved independent avatar/cat."
+  },
+  "generationInputAllowed": false,
+  "runtimeAccepted": false,
+  "primaryApproved": false,
+  "dirtyScreenshotOrUiMockUsedAsInput": false,
+  "noSourceCodeRegistryOrLedgerChange": true,
+  "requestFileSha256": "29fe8e17d822a7044f9f15db12c1efd69260691406bbe7dc1e2eacdd859d687c",
+  "readDependenciesAtArchive": [
+    {
+      "path": "docs/design/KEEP_AND_CONTINUE_2026-10-25.md",
+      "sha256AtArchive": "eab5f672ad481557ad3718efa67fa5ac068393f364d445b25222656c21560b56"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/SKILL.md",
+      "sha256AtArchive": "d3dafe3e370dfe2aa6bbd522dd64242efb6e9dbed265daa0b68a9532734e1a58"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256AtArchive": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256AtArchive": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.primary-approval.json",
+      "sha256AtArchive": "c69b0ffc2ffd0cf8296845ec5320411f966154f00763db65dfe4ff6b415860f4"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/root-human-mother-primary-review-20261025.json",
+      "sha256AtArchive": "f6b3a0b7ac9974993b61553e907f0ebfa7c39763ebef7d33ca7efb215a99fbb2"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-keep-and-continue/verified-content-brief.json",
+      "sha256AtArchive": "293dab9c46aabf6fa145c0dd395af265a128bdffb9e00678a0a4a51be9079ce2"
+    }
+  ],
+  "characterPassport": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+    "version": "2026-10-25.1",
+    "outfitId": "sakiko-literary-navy-adaptation"
+  },
+  "inputsUnchangedBetweenRequestAndArchive": true,
+  "primaryDirectionReview": {
+    "record": "root-direction-admission.json",
+    "sha256": "c591e5fc74b5e0177c67242895b61e54e597bd7e10d94fb49e44bccfdd471c8e",
+    "relationshipApproved": true,
+    "literalImageApproved": false,
+    "scope": "Narrow yielding and object/source/same-writer/pending-cover relationship only",
+    "runtimeAccepted": false
+  }
+}

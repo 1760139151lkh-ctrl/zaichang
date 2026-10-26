@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "activity": "chat",
+  "environmentVariant": "dry-night",
+  "kind": "figure-step1-marked-v1",
+  "callNumber": 1,
+  "maximumCalls": 4,
+  "tool": "built-in image_gen",
+  "savedAt": "2026-10-25T10:16:56.738663+00:00",
+  "promptFile": "figure-step1-marked-v1.prompt.txt",
+  "submittedPromptSha256": "c34e8fcb075486d97c48b23ba62decc849e24b9865926671e5f0c4ac53402f13",
+  "promptFileSha256": "c34e8fcb075486d97c48b23ba62decc849e24b9865926671e5f0c4ac53402f13",
+  "submittedPromptTransform": "exact UTF-8 file bytes; no added trailing newline",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/weather-chat-pilot/sakiko-chat-dry-night-v1.png",
+      "sha256": "c56541389158a7f28539062ae2174da997b4cd4301e022eab9202e34d31ab5c1"
+    }
+  ],
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170ed-b14d-7321-9cf7-3bd222b6ff42\\exec-4d48f520-aa62-4748-a743-7620f73f495a.png",
+  "output": {
+    "file": "figure-step1-marked-v1.png",
+    "sha256": "a89c525504395a61fc1f658f3d53b96376ef07f1f42dce5732f8ca5af13b550f",
+    "bytes": 2160796,
+    "width": 1536,
+    "height": 1024
+  },
+  "pngPixelEditing": false,
+  "status": "saved_and_personally_viewed_candidate",
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "intendedComposition": "included union MAX(luminance(F),luminance(S)); original mother RGB once, original coordinates, contact receiver included; travel/slope/perspective zero",
+  "saveRecovery": {
+    "reason": "Same generation exec attempted immediate copy, but path extraction included tool prose before second drive prefix. Correct observed original path copied immediately in next exec; no regeneration.",
+    "generationSucceeded": true
+  },
+  "inspection": {
+    "personallyViewed": true,
+    "scope": "full generated markup",
+    "observations": [
+      "Entire girl appears white in original close pose with complete head/hair and shoes.",
+      "Dark skirt and sole outer perimeter appear included; gaps between legs and hair remain original room.",
+      "F selection only; composite seam and alpha not yet reviewed."
+    ]
+  }
+}

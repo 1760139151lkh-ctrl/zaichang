@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "assetId": "taki-chat-violet-literary-v1",
+  "roomFamily": "literary-room-v1",
+  "characterId": "taki",
+  "activity": "chat",
+  "palette": "violet",
+  "ambientPlateKey": "twilight",
+  "createdOn": "2026-10-25",
+  "generationMode": "target-empty-room-first-same-pose-chat-relighting",
+  "tool": "image_gen.imagegen (built-in)",
+  "callOrdinalInBoundedBatch": 5,
+  "executionId": "exec-3f10495c-eeb7-493f-b98b-9be4e99b9fc8",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-3f10495c-eeb7-493f-b98b-9be4e99b9fc8.png",
+  "inputs": [
+    {
+      "file": "../../plates/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+      "role": "image1: primary-approved empty plate target geometry/light/atmosphere"
+    },
+    {
+      "file": "../chat-pilot/taki-chat-apricot-literary-v1.png",
+      "sha256": "0eb782e67b9954b406130a4994e9e75dd8774c8c3eb2a690d75d3e55338aad16",
+      "role": "image2: primary-approved exact chat identity/pose/scale/support; inherited daylight not a constraint"
+    }
+  ],
+  "promptFile": "taki-chat-violet-literary-v1.prompt.txt",
+  "promptFileSha256": "9c45499ca2e51fcd96df0abe4fca90b97710b4efec64c4d68c7bef7099f13154",
+  "submittedPrompt": "Create ONE 1536×1024 complete landscape literary companion scene by genuinely RELIGHTING an approved chat mother. Image 1 is the PRIMARY-APPROVED EMPTY ROOM under the TARGET lighting: it is the exact camera, geometry and environment to retain. Image 2 is the PRIMARY-APPROVED same-role apricot CHAT MOTHER: use only her correct identity, fixed anatomical silhouette, exact pose/scale/support/occlusion and source coordinates, NOT its inherited daylight highlights. Place that identical body performance into image 1's light by genuinely drawing its lighting anew. These two images are the only inputs. No layer/mask, unreviewed activity mother, old room, different girl or face replacement.\nPreserve the same close camera and original framing. Preserve ALL original person coordinates/scale, her seated hips in the real linen bench, exact shoulders/arms/hands/book/hem/knees/ankles and both complete shoes at their real original floor contacts. Head and shoes stay fully in frame. No translation, enlargement, leaning toward camera, new gesture or reposed limbs; natural originals gaps and occlusion remain. Keep the same large wooden multi-pane window and its current crop, lake/town/mountain geometry, shelves/books/plants, left desk and chair, round table/ceramic lamp/cup/flowers, right plaid cushions/knit throw, rug/floor and foreground plant at the same positions. Keep the room continuous, no day/night split, hard color boundary or replacement furniture.\nRepaint the WHOLE scene's light, including character face/hair/clothes/book, cushion compression/contact shadows and floor, consistently with image 1. The target is natural integrated illumination, NOT a tinted transparent overlay, filter, pasted daytime figure or simple hue swap. Use precise expressive anime character drawing inside the tactile softly painterly room. Keep each fringe lock, eyebrow, eyelash, eyelid, sclera and iris separate and readable; no hair-eye fusion or changed eye color. Do not trade youthful identity for an adult generic face.\nNo readable text, captions, fake user state, diagrams, UI, logos, watermarks, duplicate body parts, new person, crop, zoom, picture-in-picture or poster layout. The emotional scenario is project-original and does not assert an actual user's past action, promise or completed task.\nCRITICAL: original apricot skin highlights, hot knee/shin patches and sunlit hair rims are NOT pose or identity constraints. Replace them with the target room's actual soft diffuse/lamp-facing light. Do not preserve a bright white apricot shin patch in dusk/night, and do not paint a hard noon grid onto a diffuse/night floor.\n\nCHARACTER: Shiina Taki (椎名立希) from BanG Dream! It's MyGO!!!!! — youthful long straight purple-black hair with side-parted fringe, violet eyes; camel-brown Hanasakigawa sailor uniform, white sailor collar with dark trim, red ribbon, gold buttons, camel pleated skirt, dark socks and complete brown loafers.\nORIGINAL PERFORMANCE: Her direct yet slightly awkward concrete care remains: attentive softened brows, a small questioning part of the mouth, closed book already secure across one side of her lap, one forearm/hand loose toward the opposite thigh and the other hand naturally obscured at the book. Preserve the exact calm chat performance and actual occlusions; do not invent a new hidden hand, scowl or sales smile.\nTARGET LIGHT: Natural continuous TWILIGHT as shown in image 1: the full window and landscape share a plausible late sky, lavender/rose distance and warm interior lamp atmosphere. Use the supplied empty plate's actual time-of-day illumination, not two times split left/right. Relight the girl's skin/hair/uniform/book and surrounding seat/floor with real mixed twilight-window fill and the existing ceramic lamp's warm key. Preserve her actual garment colors and eye identity; do not dye everything purple, paste daytime skin into a dark room or preserve old noon sun lattice. CRITICAL target match: the approved image 1 has a softly lit floor, NOT bright orange rectangular window-lattice pools. Explicitly erase ALL inherited daytime hard window-grid light from the entire floor, bench, knees/shins and shoes. No bright quadrilateral sunlight patches at the lower-right floor. The dusk lamp produces soft localized warm illumination, not a copied noon sun lattice. Retain neutral detail with warmer lamp-facing and cooler window-facing planes.",
+  "output": {
+    "file": "taki-chat-violet-literary-v1.png",
+    "sha256": "c45dd022d4a8a2ddc948e6182fefe89f0ad50621e150fb8461e4878a06a6ce47",
+    "bytes": 2249409,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "decision": "static theme mother candidate for primary inspection",
+    "observation": "Complete original viewed: continuous rose/lavender dusk with town lamps, localized warm ceramic-lamp light and soft cool ambient fill. Strong apricot sun rectangles on lower-right floor and sharp knee hotspot are removed; the floor/linen/skin/uniform read together in softer twilight light. Original head/body scale, closed book/visible hand/natural occluded hand, hip/cushion and complete shoes remain visually aligned; violet eyes and hair/eyelids separate, earnest question retained without scowl.",
+    "limits": "No measured radiometric or pixel-identical calibration claimed. No primary/layer/runtime admission."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "acceptanceScope": "Static theme mother candidate only; no new layers or registration."
+}

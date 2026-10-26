@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "characterId": "taki",
+  "neutralTime": "day",
+  "purpose": "neutral-presence-fixed-included-layer",
+  "kind": "direct-clean-mother-foreground-luminance-mask-F",
+  "createdAt": "2026-10-26T01:18:29.454248+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "exactPromptFile": "figure-mask-v4.prompt.txt",
+  "promptSha256": "b72b43f0f0a47004acb4f83ceb55e8554d6dc8c1e1beb947663e3af52671a8ec",
+  "requestFile": "figure-mask-v4.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/taki-neutral-time-day-literary-v1.png",
+      "sha256": "66e104b6025d0b65c2ab522a6d76c8cab8cbc94e5ee4edbd3dd2c4d9b5bb6654",
+      "role": "sole clean root-approved mother; no held markup/mask input"
+    }
+  ],
+  "output": {
+    "file": "figure-mask-v4.png",
+    "sha256": "b9ff82fc2013b9b1ce023c095dfcfc9963c4b8d76fa3e81d3064d89d23429788",
+    "bytes": 470273,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "originalBasename": "exec-e8a33222-7145-4665-932a-935c84710bd7.png",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteOutput": true,
+    "observations": [
+      "Direct same-source selection retains complete foreground including the lower book cover; faint interior grey hand/page lines remain for native composition scrutiny.",
+      "No pixel editing, thresholding or contour inflation; candidate for fixed included original-RGB reconstruction."
+    ],
+    "eligibleAsNextStepInput": false
+  },
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "countsToward360ExactActivities": false,
+  "pngPixelEditing": false,
+  "primaryStaticLayerApproved": true,
+  "primaryAdmissionRecord": "root-primary-layer-admission-v1.json",
+  "primaryApprovalScope": "Exact static fixed included layer in this same source canvas; no runtime, motion or activity360 acceptance"
+}

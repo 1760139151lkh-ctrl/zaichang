@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "character": "soyo",
+  "activity": "listening",
+  "palette": "rain",
+  "stage": "S1",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: precise-object-edit. Asset type: tiny actual original-source contact/RECEIVING-SURFACE markup, S STEP 1. The ONLY image input is the exact correct original 1536x1024 Soyo LISTENING RAIN mother. Keep the entire original colored room, girl, empty hands resting on knees, clothing/hosiery/shoes, separate closed book and all original source coordinates unchanged. Do not redraw the scene.\n\nPaint SOLID PURE WHITE directly over ONLY FOUR SMALL ACTUAL SOURCE RECEIVER GROUPS:\n1. The very narrow irregular visible linen compression/contact immediately under the girl's navy skirt/hips, within approximately x806..1147,y548..607. Follow only the tiny actual receiver wedges adjacent to/below the hem, not a rectangle or broad seat. Entire skirt, dark hem tips, hair, fingers, knees stay colored. Do not select hidden cushion underneath an opaque body. Everything on the long empty bench to x<800 and beyond the local person/book stays original-colored.\n2. The very thin cushion support/contact immediately BELOW the separate CLOSED BOOK on the image-right seat, about x1120..1270,y552..579. Only its existing underlying receiver/material is white. The WHOLE BOOK including cover/pages/bottom edge stays original colored; do not confuse pale page-block with receiver.\n3. Short true floor receiving contact right under the original image-left brown loafer, near x751..848,y853..884. Shoe, toe, outsole, heel block all stay ORIGINAL COLOR. Select only the actual floor just beyond/below its genuine sole line; no oval, no new shade.\n4. Short true floor receiving contact right under the original image-right brown loafer, near x805..925,y869..896, again only actual floor/receiver, no shoe pixels or large connected wash.\n\nThese numbers bound visible local inspections, NOT boxes to fill or a drawing guide for new shapes. Respect the source's actual irregular tapered support material. Do not connect groups, include the large warm floor light, lamp/window reflections or cast furniture shadows. Do not whiten a long bench stripe, knee, hand, dark cloth, shoe wall or page.\n\nAll unselected source RGB remains colored: complete girl, empty hands on lap, whole closed book, every room object, naturally pale linen/plaid/knit/curtain/lamp and rain window, rug and wood highlights. This is fixed INCLUDED original RGB receiving material for MAX union, NOT a new independent caster shadow or an enlargement of the silhouette.\n\nOutput ONE opaque original-position 1536x1024 color PNG with ONLY those tiny existing contacts painted pure white. No black mask yet, labels, arrows, boxes, text, grid, crop, resize, zoom, recenter, translation, added shadow or geometry.",
+  "promptSha256Utf8NoTrailingLF": "ad8bada3614e594e243189a45e0fcb22f1c88e07a003226d7de3bf3f20b79639",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-rain-literary-v1.png",
+      "sha256": "dca2dd09063832af700bcb833ddaae40cde16b01aed2d27429204762cd3c7210",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "sourceMotherSha256": "dca2dd09063832af700bcb833ddaae40cde16b01aed2d27429204762cd3c7210",
+  "approvalEvidence": "Root static approval of Soyo listening four mothers relayed by openui_creation delegation. Exact violet/rain source images independently viewed and hashes verified. This does not approve any new mask.",
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/soyo.md",
+      "sha256": "1ec8b260d40f8363c096ed8392547dd276d2318df5aadbe34b1f51e51e2ed04e",
+      "readScope": "Complete current text read before this layer task"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "91fb8b8de3e8d954a9367a585f09b71b8f5a9962d8ed0107249c348390fb7f05",
+      "readScope": "Complete current text read before this layer task"
+    }
+  ],
+  "method": "Read mature Soyo/chat-layers F1/F2/S1/S2 actual prompts and root Sakiko recognition-v2-layers contact S1-v3/S2-v2 repair prompts. Original mother -> same-canvas marked selection -> black/white extraction only. No held images, threshold/manual PNG paint or review collage input.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\listening-layers\\rain\\contact-step1-marked-v1.png",
+    "sha256": "d8b7359b4dd8f2e418e07316ab4eb4ef427697c5644193ed4e1d384e651155ed",
+    "bytes": 2275680,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-973fa9ef-aad4-43f6-a5a7-322703cf9c5a.png",
+    "pngBytesUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "fullNativeImage": true,
+    "observations": "亲看完整1536×1024：原彩人物/空手/鞋/右合书保留，只在裙下左小楔及右侧窄细接收条、合书正下方细条、两鞋底下短白线作标记；无长空窗榻/大暖光地板变白。右裙下条较violet稍长但仍贴实际裙/髋下，鞋边极细白线是否轻盖外底留caller联合对照；不称portable影或主审通过。"
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "status": "held-insufficient-floor-receiver-awaiting-v2",
+  "useBoundary": "Only fixed original-source included union MAX(F,S); local receiver pixels are not a portable independent cast-shadow layer. No new pose/dynamic credit.",
+  "observedIssue": {
+    "source": "openui_creation personally viewed original-RGB + dedicated BG joint result",
+    "issue": "S v1 captures only narrow sole lines; broad soft original local floor receiver/shadow was not restored after BG removal, causing floating appearance. Rain book support extends about20px too far right and shows a pink linen tail on light background.",
+    "scope": "Old PNG preserved for history; no use as input for v2. Rebuild S1 from exact clean mother, then new S2."
+  },
+  "producerHeld": true,
+  "generationInputAllowed": false
+}

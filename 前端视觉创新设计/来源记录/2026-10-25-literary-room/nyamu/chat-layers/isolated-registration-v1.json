@@ -1,0 +1,358 @@
+{
+  "schemaVersion": 1,
+  "kind": "root-exact-source-isolated-registration",
+  "character": "nyamu",
+  "recordedAt": "2026-10-25T11:51:11.402241+00:00",
+  "primaryAdmission": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-included-primary-admission-v1.json",
+    "sha256": "59c657adf7d5142f64416fe3abfd865de5788cfe0ae9754a0e4495ffba1b7449",
+    "bytes": 3124
+  },
+  "sourceClosure": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-source-closure-v1.json",
+    "sha256": "ffd8723e96ef10434cf3df8f0947084211dc5c30d03e4bbf8c16e153af17ac5d",
+    "bytes": 9489
+  },
+  "files": [
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+        "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+        "bytes": 2606101
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.prompt.txt",
+        "sha256": "ebcef44bd92cfdf510692b140e968ba6bf9abd8564ae8a7f98d82828a2740d94",
+        "bytes": 4250
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.prompt.txt",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.source.json",
+        "sha256": "d9cd4427517d0e0fc050b9777c204e4f7363d8bd19bb585f000f5212f64fe6c3",
+        "bytes": 1247
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.source.json",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/README.md",
+        "sha256": "439dcb7f3960f5341bd26b44fed6aab5865f5d17e4f456ecd126ea512f147608",
+        "bytes": 4152
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/README.md",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-creative-brief.md",
+        "sha256": "8579b3b1dc5fec0e45b0fca25be627efc2bf2aa460f26a39f181cc29c487d00e",
+        "bytes": 10854
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-creative-brief.md",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-prompt-plan.json",
+        "sha256": "9f549b3785d8e59d903dec1f220f05880ce0b57213591c5111effa3a98da9dea",
+        "bytes": 103955
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-prompt-plan.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/README.md",
+        "sha256": "15adf4f47a168b9c2f4c038e6ca2dd78658581c63391c7186a437199f60e2f62",
+        "bytes": 1358
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/README.md",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-apricot-included.scene.proposal.json",
+        "sha256": "74d4de4e8e9ddd8ef5832e5f38a1b1d3637fda22b9a8f4447443b47ef8e18f3c",
+        "bytes": 2578
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-apricot-included.scene.proposal.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-contact-mark-v1.png",
+        "sha256": "3b2f8f5d88783ba680a8e73e17616cd8b417059f9ad38070cf30456da321f5eb",
+        "bytes": 2448903
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-contact-mark-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-contact-mark-v1.prompt.txt",
+        "sha256": "fdc669265923780b8ddeeb68e63614d31a6cb74ed2ec0690be2dd730b0bbf870",
+        "bytes": 2452
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-contact-mark-v1.prompt.txt",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-contact-mark-v1.source.json",
+        "sha256": "0a23657d535c197776d4869f8ba37b51978ed77605cde3cd99760d7667770a8d",
+        "bytes": 2780
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-contact-mark-v1.source.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-contact-mask-v1.png",
+        "sha256": "0702dd3af004fefa908aad843e906e17e30738fad28acb0df1143723059f71db",
+        "bytes": 316897
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-contact-mask-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-contact-mask-v1.prompt.txt",
+        "sha256": "8037c9e52b866ca7d43584e7cb4bfdd7301b4920d4dc179745904d042f0cb2bc",
+        "bytes": 1868
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-contact-mask-v1.prompt.txt",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-contact-mask-v1.source.json",
+        "sha256": "ee4b19ce40f7d67925f38a0168355aae567cc82818bee21fca73df92ca1ad272",
+        "bytes": 3136
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-contact-mask-v1.source.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-figure-mark-v1.png",
+        "sha256": "dbc808452d2dac5b488c665924a841a1a7577585764578f1bfff897ab6077647",
+        "bytes": 2326150
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-figure-mark-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-figure-mark-v1.prompt.txt",
+        "sha256": "0666792d1c001caa4b51bb23ec3ebde53c954e89fc8b41596c70b3ad587bfd16",
+        "bytes": 2319
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-figure-mark-v1.prompt.txt",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-figure-mark-v1.source.json",
+        "sha256": "2e12e4204ed5756bc5ef5833493835b2899fbda3c4f429b7f20f721932a16d21",
+        "bytes": 2764
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-figure-mark-v1.source.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-figure-mask-v1.png",
+        "sha256": "e134398076c27e95c17d8ffdf20bdeac59a0107924bd5edc2cdde1ad885ca6ff",
+        "bytes": 473612
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-figure-mask-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-figure-mask-v1.prompt.txt",
+        "sha256": "0a134a08af5eef978587928751b839a61ea96f6785e21d4dc8ce5a6fb8e03808",
+        "bytes": 1551
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-figure-mask-v1.prompt.txt",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-figure-mask-v1.source.json",
+        "sha256": "fa186517a742eaa8fd1ae1f000f67a73b37c412826f1911365647ea4d5e83eda",
+        "bytes": 3067
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-figure-mask-v1.source.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-included-bundle-v1.json",
+        "sha256": "52b2872998ae2cc0f855be68bfc45f1e1d83ede9eb8decbea9e9989985d8c132",
+        "bytes": 7572
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-included-bundle-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-included-observe-v1.html",
+        "sha256": "74957ab5e24977e9c3f71545c01936cc185111032860522442982052d28d43e3",
+        "bytes": 24389
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-included-observe-v1.html",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-included-primary-admission-v1.json",
+        "sha256": "59c657adf7d5142f64416fe3abfd865de5788cfe0ae9754a0e4495ffba1b7449",
+        "bytes": 3124
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-included-primary-admission-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-included-union-v1.svg",
+        "sha256": "8e9b9fe47b3416995ecc9ea4588d76aa93c305f37664101ee8b1d91898d75c58",
+        "bytes": 1352
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-included-union-v1.svg",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.png",
+        "sha256": "096bd7f5f0138e8b961c91d52dc8e68b29bcda1600bbb9ca444bd1c7eff75313",
+        "bytes": 2469206
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.prompt.txt",
+        "sha256": "b5cb5846140a99bd40c361114bf74a7920d23212971d38212d68d7a6aa3aefd5",
+        "bytes": 4360
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.prompt.txt",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.source.json",
+        "sha256": "367aa043310ea50ac6b2aa5ba8975b6e7e22941be7ce79269952eef6a8c97542",
+        "bytes": 3882
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.source.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+        "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+        "bytes": 2524961
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.prompt.txt",
+        "sha256": "3e854eda45e9e76baed6ad514c67488656035d0990663f089cbf6f24575cae26",
+        "bytes": 1584
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.prompt.txt",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json",
+        "sha256": "5425e475efa8264874f2f3b083b8737b4b1f9d35399e9b2c3d86dc561a36cddb",
+        "bytes": 1250
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-source-closure-v1.json",
+        "sha256": "ffd8723e96ef10434cf3df8f0947084211dc5c30d03e4bbf8c16e153af17ac5d",
+        "bytes": 9489
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-source-closure-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.png",
+        "sha256": "096bd7f5f0138e8b961c91d52dc8e68b29bcda1600bbb9ca444bd1c7eff75313",
+        "bytes": 2469206
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/nyamu-chat-apricot-literary-mother-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+        "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+        "bytes": 2524961
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/literary-room-clear-day-v1.png",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-figure-mask-v1.png",
+        "sha256": "e134398076c27e95c17d8ffdf20bdeac59a0107924bd5edc2cdde1ad885ca6ff",
+        "bytes": 473612
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/nyamu-chat-apricot-literary-figure-mask-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-contact-mask-v1.png",
+        "sha256": "0702dd3af004fefa908aad843e906e17e30738fad28acb0df1143723059f71db",
+        "bytes": 316897
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/nyamu-chat-apricot-literary-contact-mask-v1.png",
+      "status": "copied"
+    }
+  ],
+  "scene": "前端视觉创新设计/运行素材/companion/scenes/nyamu-chat-apricot-literary-v1.scene.json",
+  "sceneSha256": "20b0e62a649aff8de592f0eef494ec3428baef1bc7710b6fc37873077e90d6e3",
+  "bodyEnvelope": [
+    0.520833,
+    0.097656,
+    0.904948,
+    0.898438
+  ],
+  "coverage": {
+    "F": [
+      825,
+      106,
+      1369,
+      906
+    ],
+    "S": [
+      820,
+      549,
+      1461,
+      914
+    ]
+  },
+  "runtimeAccepted": false,
+  "TSModified": false,
+  "ledgerRefreshed": false
+}

@@ -1,0 +1,8 @@
+<!doctype html><meta charset="utf-8"><title>祥子V5 · 原像素接触对照</title>
+<style>body{margin:24px;background:#e9e3db;color:#382f2a;font:14px/1.5 system-ui,sans-serif}main{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}figure{margin:0}figcaption{margin:0 0 8px}.stage{position:relative;overflow:hidden;width:480px;height:600px}.stage img{position:absolute;width:1536px;height:1024px;left:-1080px;top:-240px}.actor{mask-image:url('./sakiko-play-apricot-scale-v5-figure-mask-v3.png');mask-mode:luminance;mask-size:1536px 1024px;mask-repeat:no-repeat}</style>
+<img hidden src="./sakiko-play-apricot-scale-v5-figure-mask-v3.png">
+<p>固定对照：左为V5完整原母图的原像素局部，右为matching BG v1 + 同一原RGB / figure mask v3。无接触影补层。</p>
+<main>
+<figure><figcaption>V5原母图 · 原像素局部</figcaption><div class="stage"><img src="./sakiko-play-apricot-scale-v5-mother.png"></div></figure>
+<figure><figcaption>同源重合成 · 原像素局部</figcaption><div class="stage"><img src="./sakiko-play-apricot-scale-v5-background-v1.png"><img class="actor" src="./sakiko-play-apricot-scale-v5-mother.png"></div></figure>
+</main>

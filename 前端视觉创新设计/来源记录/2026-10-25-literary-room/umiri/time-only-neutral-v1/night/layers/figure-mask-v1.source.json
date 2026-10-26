@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-mother-fixed-included-layer-imagegen-stage",
+  "character": "umiri",
+  "purpose": "neutral-presence",
+  "neutralTime": "night",
+  "palette": "rain",
+  "light": "night",
+  "weather": "unknown",
+  "weatherClaim": false,
+  "stage": "F2",
+  "tool": "built-in image_gen.imagegen",
+  "toolArguments": {
+    "prompt": "Use case: background-extraction. Exact FOREGROUND F2 luminance mask for Umiri neutral night. ONLY input is this full1536x1024 same-mother deliberate F1 white selection. Keep every source coordinate, fine outer silhouette, full canvas; no shift/redraw/shrink/grow/crop/resize.\nKeep the ENTIRE deliberately marked girl and COMPLETE book PURE WHITE: all fine charcoal hair tips, face/neck/choker/buckle/silver jewelry, black jacket lapels/zips/sleeves, red top, both complete hands/all fingers/side palm on cushion, belt/skirt/all hems, bare legs/knees/ankles, BOTH complete mid-calf lace-up chunky platform boots including loose lace ends/shafts/toe/sidewall/bottommost sole/tread/heel contours. Include ALL book covers/spine/page block/dark bottom binding/thin cover and page edges at the hand and lap.\nEverything INSIDE the selected whole person/book becomes solid white: faint hand/finger/book/jacket/fold seams and dark little interior lines are NOT transparent holes. The whole hand-book-lap foreground remains complete, no hollow page or dark cover cut. Only true EMPTY background gaps between hair/arm/body/legs/boot lace gaps are solid BLACK; original narrow outer antialias may be gray. No original face/clothing/hand/book detail inside white.\nEVERYTHING else PURE BLACK: naturally pale empty curtain/cushion/knit/lamp, all room/furniture/plants/floor/rug and independent seat/side-palm/boot receiving material/shadow. No original colored or gray room ghost, no brightness selection, no outline-only mask, no new object. One opaque black image with full white foreground and fine gray actual outer edge, no colors/text/checkerboard/grid. This mask only selects exact original mother RGB once later, not new person RGB.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/night/layers/figure-step1-marked-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "submittedPrompt": "Use case: background-extraction. Exact FOREGROUND F2 luminance mask for Umiri neutral night. ONLY input is this full1536x1024 same-mother deliberate F1 white selection. Keep every source coordinate, fine outer silhouette, full canvas; no shift/redraw/shrink/grow/crop/resize.\nKeep the ENTIRE deliberately marked girl and COMPLETE book PURE WHITE: all fine charcoal hair tips, face/neck/choker/buckle/silver jewelry, black jacket lapels/zips/sleeves, red top, both complete hands/all fingers/side palm on cushion, belt/skirt/all hems, bare legs/knees/ankles, BOTH complete mid-calf lace-up chunky platform boots including loose lace ends/shafts/toe/sidewall/bottommost sole/tread/heel contours. Include ALL book covers/spine/page block/dark bottom binding/thin cover and page edges at the hand and lap.\nEverything INSIDE the selected whole person/book becomes solid white: faint hand/finger/book/jacket/fold seams and dark little interior lines are NOT transparent holes. The whole hand-book-lap foreground remains complete, no hollow page or dark cover cut. Only true EMPTY background gaps between hair/arm/body/legs/boot lace gaps are solid BLACK; original narrow outer antialias may be gray. No original face/clothing/hand/book detail inside white.\nEVERYTHING else PURE BLACK: naturally pale empty curtain/cushion/knit/lamp, all room/furniture/plants/floor/rug and independent seat/side-palm/boot receiving material/shadow. No original colored or gray room ghost, no brightness selection, no outline-only mask, no new object. One opaque black image with full white foreground and fine gray actual outer edge, no colors/text/checkerboard/grid. This mask only selects exact original mother RGB once later, not new person RGB.",
+  "originalToolOutput": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-73d39bad-ad32-41bc-a8ed-9396494938d6.png",
+  "outputFile": "figure-mask-v1.png",
+  "mother": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-night-v1.png",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/night/layers/figure-step1-marked-v1.png",
+      "role": "personally inspected same-mother F1 deliberate white selection",
+      "sha256": "7b4f4c8fb7627426bc845de36c9e1ff745227e168b77d6db1589a5653a006172"
+    }
+  ],
+  "producerObservation": "Complete tool output personally viewed: entire original person/book/side palm and full boot/lace/sole silhouettes white with actual empty arm/leg gaps black; final browser validation pending.",
+  "sourceRgbDrawsInFinalAssembly": 1,
+  "assembly": "U=MAX(L(F),L(S)); exact original mother RGB drawn only once; local receiver material fixed at source position",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "pngPixelEditing": false,
+  "croppingOrResizingSourcePNG": false,
+  "thresholdOrMorphologyEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "dynamicAdmission": false,
+  "original360CreditAssigned": false,
+  "userApproved": false,
+  "reviewScreenshotsUsedAsImageInput": false,
+  "recordedAtUTC": "2026-10-26T01:30:55.205306+00:00",
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/night/layers/figure-mask-v1.png",
+    "sha256": "1e9f44e5081788c3abaf003692cb61d4350d338295c32684e95ceabca038448e",
+    "bytes": 470868,
+    "originalToolOutputSHA256": "1e9f44e5081788c3abaf003692cb61d4350d338295c32684e95ceabca038448e",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "motherSHA256": "c6f19f399ab4a05727cb52d36a780fd3fde3f4222e4c31dc39dee6b2f1b19731",
+  "dossierVersion": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/umiri.md",
+    "sha256": "760b038d3ff84a770c80bf6144e52265d8109e41ecd5cb3440408561ac2bc0da"
+  },
+  "methodVersion": {
+    "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+    "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d"
+  },
+  "submittedPromptSHA256": "25c1c285c4e6989ca190e09455d3344aaeacf06ce2b0030c2f53c904bf62076c",
+  "promptFileSHA256": "ea64a2c8fc6a1975ac643f8f053a01121b95188f8de4f3ed920583d0f335ee67"
+}

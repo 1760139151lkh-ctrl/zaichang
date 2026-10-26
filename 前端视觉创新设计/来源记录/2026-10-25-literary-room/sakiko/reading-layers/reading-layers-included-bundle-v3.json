@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "key": "sakiko/reading/apricot",
+  "kind": "original-source-union-subject-included-contact-candidate",
+  "primary": true,
+  "runtime": false,
+  "status": "primary_approved_fixed_source_included_union_runtime_pending",
+  "contactShadow": {
+    "mode": "included",
+    "meaning": "Foreground, full garment/shoe perimeter and adjacent contact/cast material remain one original-source subject coverage; no clean independent cast-shadow claim."
+  },
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+    "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "background": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "inputs": {
+    "F": {
+      "path": "figure-mask-v2.png",
+      "sha256": "0561235343377c9d760d4aab0a95e197c01904ff1dd9fefab53dd66f0ea7a11d",
+      "generationSource": "figure-step2-source-v2.json",
+      "role": "Unmodified existing ImageGen foreground luminance output"
+    },
+    "S": {
+      "path": "shadow-mask-v1.png",
+      "sha256": "971c1c6fce428abfb6457e3a20b58655ea32b8bda10b7af2761500afdd989992",
+      "generationSource": "shadow-step2-source-v1.json",
+      "role": "Unmodified existing ImageGen contact selection, including the known previous foreground-edge residuals"
+    }
+  },
+  "union": {
+    "formula": "U(x,y) = MAX(L(F_v2(x,y)), L(S(x,y)))",
+    "luminanceWeights": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorSpace": "sRGB",
+    "nativeSvgMethod": "feImage inputs at source canvas; each RGB converted to replicated luminance with feColorMatrix; feBlend mode=lighten computes per-pixel MAX; mask-type=luminance",
+    "nativeSvgSource": "union-source-v3.svg",
+    "originalMotherRgbDrawsPerSubject": 1,
+    "extraColorPaint": false,
+    "newRaster": false,
+    "pngPixelEditing": false,
+    "thresholding": false,
+    "subtraction": false,
+    "adaptiveColorDifference": false,
+    "nativeSvgSourceSha256": "fa0dfb60ec1107dd42f56f87a3b6d0243e2d242b87bd68290cac1cc7eab97e4a"
+  },
+  "composition": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "layerOrder": [
+      "matching clear BG",
+      "one unchanged original-mother RGB image masked by U"
+    ],
+    "sharedStage": true,
+    "transform": {
+      "x": 0,
+      "y": 0,
+      "scale": 1,
+      "rotation": 0
+    },
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "allowedPresentation": [
+    "Entire fixed-pose union shown or hidden together",
+    "Whole pose asset replacement with its own matching original source and BG",
+    "Shared BG-and-union viewport scaling as one stage"
+  ],
+  "unsupportedPresentation": [
+    "Independent body deformation or limb retargeting",
+    "Separate shadow translation/animation",
+    "Figure-relative travel/slope/perspective movement",
+    "Reusing the included source-contact material against a different room/pose/mother",
+    "Claiming a physically portable clean independent cast shadow"
+  ],
+  "representationBoundary": "The room stays in its own empty BG. This is a limited original-source subject sprite with included adjacent contact material, not a flattened full-room/page image. It intentionally changes representation instead of falsely declaring the separate-shadow extraction repaired.",
+  "previousEvidence": [
+    "reading-layers-bundle-v1.json",
+    "reading-layers-bundle-v2.json"
+  ],
+  "rejectedRgbaCandidate": {
+    "rootReportedPattern": "figure-rgba-candidate-v1.*",
+    "disposition": "Root rejected changed proportions/glow; not supplied as input, not sampled, not used in composition."
+  },
+  "sourceUnchangedVerification": {
+    "mother": true,
+    "background": true,
+    "F": true,
+    "S": true,
+    "verifiedByActualSha256BeforeConstruction": true
+  },
+  "generation": {
+    "newCalls": 0,
+    "largeImageResultStored": false
+  },
+  "visualInspection": {
+    "status": "current_static_browser_view_complete",
+    "page": "reading-layers-included-observe-v3.html",
+    "pageUrl": "http://127.0.0.1:5188/来源记录/2026-10-25-literary-room/sakiko/reading-layers/reading-layers-included-observe-v3.html",
+    "statesViewed": [
+      "approved original mother versus clear BG plus union subject in complete scene",
+      "separate clear background and raw MAX(F_v2,S) coverage preview",
+      "source-pixel full union on light background, upper and lower portions",
+      "source-pixel full union on dark background, upper and lower portions",
+      "source-pixel full union on checker, upper and lower portions",
+      "original versus union face/eyes/hair",
+      "original versus union both hands and full held open book",
+      "original versus union complete plaid hem with adjacent contact linen",
+      "original versus union full soles/heels with adjacent floor darkness"
+    ],
+    "observations": [
+      "The raw MAX coverage preview retains one subject silhouette with local hip/foot contact extent and black room elsewhere; it does not cover the full room.",
+      "One original mother RGB image shows the face, hair, hands, open book, skirt hem, socks and full shoes in the union; no new color/proportion/glow source was introduced.",
+      "The included union visibly contains a narrow original linen/cushion strip beneath the skirt and local original floor-darkness near the soles. These are part of the joint source subject, not a separate clean cast-shadow layer.",
+      "The complete scene using the matching clear BG and this single union subject reads close to the mother at the observed normal size. Face/book/hem/heel source-pixel comparisons preserve their original appearance.",
+      "Light/dark/checker views make the included support-material fringe visible. The representation therefore stays fixed to its matching room, mother and complete pose.",
+      "No new broad rectangular room block or entire-room RGB leakage was observed in the union preview."
+    ],
+    "specificIssues": [],
+    "at": "2026-10-25 09:28:23 UTC",
+    "pageSha256": "3cd3e4ab9cd898eff368d28df0b0bfcc8abfc7a0e68d7898074b9f8adff54783",
+    "browser": "connected Chrome extension through cua_repl; existing 5188 static viewer only",
+    "admissionBoundaries": [
+      "Primary approved the exact fixed-source included union after personally viewing #scene/#checker/#hem/#heel; runtime admission remains false.",
+      "Independent-shadow extraction remains unapproved and is not reclassified as repaired.",
+      "The narrow source support-material fringe cannot be moved to another surface or independently animated.",
+      "No live renderer show/hide, pose switching or failure gate was exercised; these are required future integration semantics, not checked runtime capabilities."
+    ]
+  },
+  "runtimeIntegration": false,
+  "review": {
+    "primaryApproved": true,
+    "runtimeAccepted": false,
+    "producerRecommendation": "fixed_source_included_union_admitted_by_primary_runtime_inspection_pending",
+    "separateCastShadowClaim": false,
+    "existingContractReference": {
+      "path": "src/renderer/companion-scenes.tsx",
+      "evidence": "SceneCalibration contactShadow includes 'included'; SceneRegistration uses contactShadow.mode. Read only; no TS changes."
+    },
+    "approvedByPrimary": true,
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/sakiko-reading-apricot-literary-included-primary-admission-v1.json"
+  },
+  "scopeBoundary": {
+    "srcEdits": false,
+    "oldJsonEdits": false,
+    "pngEdits": false,
+    "newTests": false,
+    "portChanges": false,
+    "children": false
+  },
+  "primaryAdmissionRecord": "sakiko-reading-apricot-literary-included-primary-admission-v1.json"
+}

@@ -1,0 +1,199 @@
+{
+  "schemaVersion": 1,
+  "dateLocal": "2026-10-24",
+  "timeZone": "America/Los_Angeles",
+  "purpose": "Current nine theme mothers for the three primary-accepted warm resume mothers; actual same-mother whole-scene lighting edits, never a color overlay.",
+  "entries": [
+    {
+      "character": "tomori",
+      "activity": "resume",
+      "theme": "mist",
+      "version": 1,
+      "mother": "tomori-resume-mist-mother-v1.png",
+      "source": "tomori-resume-mist-mother-v1.source.json",
+      "prompt": "tomori-resume-mist-mother-v1.prompt.txt",
+      "sha256": "264e0e01bdd902f66abceca4982719435c190cea76fdb6fb344c58d6a6c49d43",
+      "bytes": 2102695,
+      "width": 1536,
+      "height": 1024,
+      "producerViewed": true,
+      "primaryApproved": false,
+      "layersAccepted": false,
+      "runtimeAccepted": false
+    },
+    {
+      "character": "tomori",
+      "activity": "resume",
+      "theme": "violet",
+      "version": 1,
+      "mother": "tomori-resume-violet-mother-v1.png",
+      "source": "tomori-resume-violet-mother-v1.source.json",
+      "prompt": "tomori-resume-violet-mother-v1.prompt.txt",
+      "sha256": "21564d61017c282a2fd0e202e3f2574c2490548f4a7a3aad97b15376130b629e",
+      "bytes": 2191294,
+      "width": 1536,
+      "height": 1024,
+      "producerViewed": true,
+      "primaryApproved": false,
+      "layersAccepted": false,
+      "runtimeAccepted": false
+    },
+    {
+      "character": "tomori",
+      "activity": "resume",
+      "theme": "rain",
+      "version": 1,
+      "mother": "tomori-resume-rain-mother-v1.png",
+      "source": "tomori-resume-rain-mother-v1.source.json",
+      "prompt": "tomori-resume-rain-mother-v1.prompt.txt",
+      "sha256": "996941bcad468adfd4bf84075901dfc53141f21fa68d5baa90112be7a7a72251",
+      "bytes": 2039288,
+      "width": 1536,
+      "height": 1024,
+      "producerViewed": true,
+      "primaryApproved": false,
+      "layersAccepted": false,
+      "runtimeAccepted": false
+    },
+    {
+      "character": "anon",
+      "activity": "resume",
+      "theme": "mist",
+      "version": 2,
+      "mother": "anon-resume-mist-mother-v2.png",
+      "source": "anon-resume-mist-mother-v2.source.json",
+      "prompt": "anon-resume-mist-mother-v2.prompt.txt",
+      "sha256": "7a5496ffe03b4afec4aa1084f490665988160b4f68a7ece894caa48c27369d4f",
+      "bytes": 2125624,
+      "width": 1536,
+      "height": 1024,
+      "producerViewed": true,
+      "primaryApproved": false,
+      "layersAccepted": false,
+      "runtimeAccepted": false
+    },
+    {
+      "character": "anon",
+      "activity": "resume",
+      "theme": "violet",
+      "version": 1,
+      "mother": "anon-resume-violet-mother-v1.png",
+      "source": "anon-resume-violet-mother-v1.source.json",
+      "prompt": "anon-resume-violet-mother-v1.prompt.txt",
+      "sha256": "bda774793b9f83446c833d46ff32652417d93ac073e87d081bcf22d7d9d35990",
+      "bytes": 2203478,
+      "width": 1536,
+      "height": 1024,
+      "producerViewed": true,
+      "primaryApproved": false,
+      "layersAccepted": false,
+      "runtimeAccepted": false
+    },
+    {
+      "character": "anon",
+      "activity": "resume",
+      "theme": "rain",
+      "version": 2,
+      "mother": "anon-resume-rain-mother-v2.png",
+      "source": "anon-resume-rain-mother-v2.source.json",
+      "prompt": "anon-resume-rain-mother-v2.prompt.txt",
+      "sha256": "8124e7c90c9b896847152b8bac53b5263609a92456ee7cf32301f3066cf3a369",
+      "bytes": 2058871,
+      "width": 1536,
+      "height": 1024,
+      "producerViewed": true,
+      "primaryApproved": false,
+      "layersAccepted": false,
+      "runtimeAccepted": false
+    },
+    {
+      "character": "rana",
+      "activity": "resume",
+      "theme": "mist",
+      "version": 1,
+      "mother": "rana-resume-mist-mother-v1.png",
+      "source": "rana-resume-mist-mother-v1.source.json",
+      "prompt": "rana-resume-mist-mother-v1.prompt.txt",
+      "sha256": "72d4abe857f7f2fe93fdc8aa59f3c8d05894872e10900494f01d32e670ba6834",
+      "bytes": 2130020,
+      "width": 1536,
+      "height": 1024,
+      "producerViewed": true,
+      "primaryApproved": false,
+      "layersAccepted": false,
+      "runtimeAccepted": false
+    },
+    {
+      "character": "rana",
+      "activity": "resume",
+      "theme": "violet",
+      "version": 1,
+      "mother": "rana-resume-violet-mother-v1.png",
+      "source": "rana-resume-violet-mother-v1.source.json",
+      "prompt": "rana-resume-violet-mother-v1.prompt.txt",
+      "sha256": "ee3ce795ab84c5d40adee6beb51ff1c9a0812ac2d59ea521d25813e8f5b10985",
+      "bytes": 2168922,
+      "width": 1536,
+      "height": 1024,
+      "producerViewed": true,
+      "primaryApproved": false,
+      "layersAccepted": false,
+      "runtimeAccepted": false
+    },
+    {
+      "character": "rana",
+      "activity": "resume",
+      "theme": "rain",
+      "version": 1,
+      "mother": "rana-resume-rain-mother-v1.png",
+      "source": "rana-resume-rain-mother-v1.source.json",
+      "prompt": "rana-resume-rain-mother-v1.prompt.txt",
+      "sha256": "51105f34bf32fc042f9c974504a07f8b5e99e59fdb19269a8ce44583b198f050",
+      "bytes": 2092637,
+      "width": 1536,
+      "height": 1024,
+      "producerViewed": true,
+      "primaryApproved": false,
+      "layersAccepted": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "rejectedAttempts": [
+    {
+      "file": "anon-resume-mist-mother-v1.source.json",
+      "reason": "Clocktower drifted left; current v2 uses only accepted warm mother and clean mist room."
+    },
+    {
+      "file": "anon-resume-rain-mother-v1.source.json",
+      "reason": "Clocktower drifted left; current v2 uses only accepted warm mother and clean rain room."
+    }
+  ],
+  "reviewGroups": [
+    {
+      "name": "first four",
+      "files": [
+        "tomori-resume-mist-mother-v1.png",
+        "tomori-resume-violet-mother-v1.png",
+        "tomori-resume-rain-mother-v1.png",
+        "anon-resume-mist-mother-v2.png"
+      ]
+    },
+    {
+      "name": "second four",
+      "files": [
+        "anon-resume-violet-mother-v1.png",
+        "anon-resume-rain-mother-v2.png",
+        "rana-resume-mist-mother-v1.png",
+        "rana-resume-violet-mother-v1.png"
+      ]
+    },
+    {
+      "name": "last one",
+      "files": [
+        "rana-resume-rain-mother-v1.png"
+      ]
+    }
+  ],
+  "approvalBoundary": "Nine current outputs are producer-inspected complete theme candidates awaiting root's independent PNG review. Warm acceptance does not grant theme, layer or runtime approval. Resume expresses small renewed attention, not a new furniture anchor or wholly new spatial action.",
+  "privacy": "Only the exact accepted generated warm mothers plus empty generated theme rooms were image inputs; no private data, official character art, failed theme output or detached character image input."
+}

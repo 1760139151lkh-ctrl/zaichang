@@ -1,0 +1,62 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "bounded-apricot-literary-wave-b",
+  "character": "umiri",
+  "activity": "listening",
+  "palette": "apricot",
+  "sceneFamily": "literary-room-v1",
+  "environmentVariant": "clear-day",
+  "waveCallIndex": 7,
+  "waveCallLimit": 10,
+  "numberOfImageInputs": 2,
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "image 1 approved empty room/camera"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v2.png",
+      "sha256": "b54800a320a163629dba745183efa63d18a83aa1ae19ba0f9382fdb546b12844",
+      "role": "image 2 approved own chat identity/clothes/scale only"
+    }
+  ],
+  "creativeBrief": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-b/umiri-literary-room-36-cells-v1.json",
+    "sha256": "b8f97f1a2ce86161c1068f9b0d12c26370cece95b85680f9f1fc5ef70f701c4b",
+    "cell": "umiri/listening/apricot"
+  },
+  "referenceBoundary": "Approved empty plate plus this exact character approved chat mother for identity/clothes/scale only; no old Umiri v1, old room4, wrong character or copied pose.",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-b9a82095-7104-4001-bf9c-1e8ab5b5e130.png",
+  "output": "umiri-listening-apricot-literary-wave-b-v1.png",
+  "outputSha256": "76f1e619c7570c38c36f028d70ecd4b513b0a3fc982194ebde25b7a738aa6020",
+  "promptFile": "umiri-listening-apricot-literary-wave-b-v1.prompt.txt",
+  "prompt": "Use case: stylized-concept. Asset: ONE new 1536x1024 warm-apricot daylight activity mother in the approved literary room.\nIMAGE 1 is the approved CLEAN EMPTY ROOM: exact camera, connected window/lake/town/mountain, desk and chair at left, books/plants/shelves/pictures, round side table with porcelain lamp/books/cup/flowers, right bench/plaid pillows/knitted throw, foreground blur, rug/floor. Keep their locations, perspective and sizes unchanged. IMAGE 2 is THIS CHARACTER'S approved chat mother for IDENTITY, CLOTHES and CLOSE HUMAN SCALE ONLY. Draw a NEW action and expression from words. Do not copy the chat hand/bracing pose or pasted body; no different character, old room or erroneous crossed legs.\nKeep head top roughly y110..150 according to natural tilt, hip truly supported on the right bench cushion around y550..585, complete soles around y875..915. Same normal youthful human size; no enlarged face, leaning toward lens, zoom/crop, chibi or mature glamour. Keep COMPLETE head/hair, palms/fingers, hem, ankles and both shoes in frame. Natural hip-cushion and feet-floor contact, real weight and material shadow.\nFine Japanese anime figure integrated into the richly painted room. Separate hair groups, cheek strands, upper eyelid/lashes, iris and pupil: readable eyes even when looking down, never fringe/lash/iris fused as black shapes. Distinct skin, hair, paper, fabric and wood in existing window light. The warm side light is calm and dimensional, not an all-over orange filter.\nNo UI, text labels, floating panels, speech bubbles, icons, arrows, motion trails, halo, badges, watermark or readable book print. No new furniture or profession/stage symbols. This is one coherent complete room mother, not a cutout/layer/contact-mask/split-view.\n\nCHARACTER: Yahata Umiri (八幡海铃), approved CORRECT image 2 v2 identity. Dark charcoal shoulder-length hair, layered cheek strands and side fringe, clear gray-teal/blue-gray irises, small earrings and black choker; youthful original anime face. Same black leather jacket, dark burgundy top, gray belted pleated short skirt, bare lower legs and complete black lace-up platform ankle/calf boots. Dark hair and leather remain different materials. No blonde bob, violet eyes, Sakiko uniform or profession props.\nBASIC LEG TOPOLOGY: both thighs rest on cushion, two knees side by side with a small natural gap, two uninterrupted calves naturally parallel, two distinct ankles and TWO complete boots each visibly bearing weight on the SAME original floor. No crossed thighs/knees/ankles, no one calf ending in the other boot, no attached/floating footwear. Keep the natural full body size of approved v2, not any held v1 pose.\n\nNEW ACTIVITY — LISTENING / \"把经过听完\". She has heard that \"it was nothing\" still leaves several small things untold. She intends to hear the whole account before taking it over. Steady neutral lips, brow inner edge subtly softening, sober but not assigning sadness; direct gray-teal eyes, one slight brow movement recognizes a detail. Body turns a little left-front to the nearby speaker, relaxed shoulders/back with actual cushion support; do not lean toward camera or crowd them. BOTH EMPTY HANDS lightly overlap ON THE SKIRT LAP with real separate relaxed fingers; no book, mug, phone or notebook. Parallel separated knees/calves and two independent grounded boots, calm centered weight. No automatic comforting smile or service posture.",
+  "submittedPromptSha256NoTrailingNewline": "7cf1be0910e54c98ee55970ae9b94c7183437652cd5cc226a1fe4ea57d3d4687",
+  "promptFileSha256": "7cf1be0910e54c98ee55970ae9b94c7183437652cd5cc226a1fe4ea57d3d4687",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "actualMode": "RGB",
+  "pngEdited": false,
+  "producerViewed": true,
+  "primaryApproved": false,
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "reviewBoundary": "This one activity mother only. No layer or runtime approval, no unlimited retry or other-palette expansion.",
+  "remaining": [
+    "Root personally inspect this exact mother for identity, emotion, framing and physical support",
+    "No layer, registration or runtime acceptance"
+  ],
+  "producerObservations": [
+    "Personally viewed complete saved listening mother before play. Clear gray-teal irises look left-front, calm neutral lips and quiet brows; dark hair strands remain separate from eyes.",
+    "Both empty hands lightly overlap on lap, no inserted object. Hip on cushion and relaxed torso support remain legible.",
+    "Two side-by-side knees and continuous lower legs lead to two complete independently grounded boots. Whole hair/hem/soles remain in frame; large furniture/camera stable."
+  ],
+  "producerConcerns": [
+    "Knees sit close together rather than leaving a broad gap; their separate forward surfaces and two continuous calves are visible, with no crossed-leg relation observed.",
+    "Overlapped hands conceal inner fingers naturally; no claim of inspection of hidden surfaces. Root still must judge the listening expression and exact scale."
+  ]
+}

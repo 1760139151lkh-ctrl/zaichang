@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "characterId": "taki",
+  "neutralTime": "day",
+  "purpose": "neutral-presence-fixed-included-layer",
+  "kind": "included-contact-source-white-markup-S1",
+  "createdAt": "2026-10-26T01:04:10.879201+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "exactPromptFile": "contact-step1-marked-v1.prompt.txt",
+  "promptSha256": "8f161183f62b6b4cec989d01d3ab22d412e567b86f37481aef6d20e9a99355a4",
+  "requestFile": "contact-step1-marked-v1.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/taki-neutral-time-day-literary-v1.png",
+      "sha256": "66e104b6025d0b65c2ab522a6d76c8cab8cbc94e5ee4edbd3dd2c4d9b5bb6654",
+      "role": "sole exact root-approved full mother; no prior mask"
+    }
+  ],
+  "output": {
+    "file": "contact-step1-marked-v1.png",
+    "sha256": "29baf711b50d8aeac8d78bc42565c0183395a65588771d0d58b5e40d97f44908",
+    "bytes": 2338123,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "originalBasename": "exec-ac38c3d5-e2f4-46d9-9783-4cb66146b90d.png",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteOutput": true,
+    "observations": [
+      "White marks follow the local seated hem/cushion transition and short original shoe-sole floor contacts.",
+      "Rest of person/book remains original colored scene; no large filled bounding box or bridge between seat and floor."
+    ],
+    "eligibleAsNextStepInput": true
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "countsToward360ExactActivities": false,
+  "pngPixelEditing": false
+}

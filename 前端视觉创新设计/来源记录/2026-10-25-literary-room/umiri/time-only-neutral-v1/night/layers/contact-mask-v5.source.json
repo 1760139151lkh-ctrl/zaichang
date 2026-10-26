@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-mother-fixed-included-layer-imagegen-stage",
+  "character": "umiri",
+  "purpose": "neutral-presence",
+  "neutralTime": "night",
+  "palette": "rain",
+  "light": "night",
+  "weather": "unknown",
+  "weatherClaim": false,
+  "stage": "S2",
+  "tool": "built-in image_gen.imagegen",
+  "toolArguments": {
+    "prompt": "Use case: background-extraction. Convert ONLY the added flat-white contact paint in this ONE source image to a grayscale receiver mask. Output full1536x1024 opaque pure-black canvas, exact original coordinates.\nThere are FOUR intentional white-painted support shapes: under the skirt, under the side palm, under each of the two boot soles. Copy their exact locations and full shapes as WHITE cores. Keep actual toe-to-heel ground receiver directly BELOW the original boots, no shrink or move. Make only their outer edges gently taper through GRAY to BLACK over a SHORT6px source distance into immediately adjacent receiver, retaining the source-aligned white cores. The result is white contact cores and a modest soft gray skirt/hand/footprint edge, not an abrupt pure-white thin line and not a new oval shadow.\nALL other source RGB becomes solid BLACK, including all person/book/boots/metal highlights, naturally pale curtains/cushion/knit/lamp/furniture/floor. Do not trace any person contour, select natural white cloth, add far bench/floor or generate a room. Do not reinterpret where the boots stand; COPY THE WHITE PAINT COORDINATES from this input.\nNo crop, resize, shift, new pose, text, colors, labels, checkerboard or UI. It is a fixed-source luminance selection for original RGB once via MAX(F,S); no independent moving caster.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/night/layers/contact-step1-marked-v2.png"
+    ],
+    "transparent_background": false
+  },
+  "submittedPrompt": "Use case: background-extraction. Convert ONLY the added flat-white contact paint in this ONE source image to a grayscale receiver mask. Output full1536x1024 opaque pure-black canvas, exact original coordinates.\nThere are FOUR intentional white-painted support shapes: under the skirt, under the side palm, under each of the two boot soles. Copy their exact locations and full shapes as WHITE cores. Keep actual toe-to-heel ground receiver directly BELOW the original boots, no shrink or move. Make only their outer edges gently taper through GRAY to BLACK over a SHORT6px source distance into immediately adjacent receiver, retaining the source-aligned white cores. The result is white contact cores and a modest soft gray skirt/hand/footprint edge, not an abrupt pure-white thin line and not a new oval shadow.\nALL other source RGB becomes solid BLACK, including all person/book/boots/metal highlights, naturally pale curtains/cushion/knit/lamp/furniture/floor. Do not trace any person contour, select natural white cloth, add far bench/floor or generate a room. Do not reinterpret where the boots stand; COPY THE WHITE PAINT COORDINATES from this input.\nNo crop, resize, shift, new pose, text, colors, labels, checkerboard or UI. It is a fixed-source luminance selection for original RGB once via MAX(F,S); no independent moving caster.",
+  "originalToolOutput": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-87897925-1da0-4351-9d66-3ff6070db386.png",
+  "outputFile": "contact-mask-v5.png",
+  "mother": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-night-v1.png",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/night/layers/contact-step1-marked-v2.png",
+      "role": "personally inspected same-mother S1 marks, or exact original mother for selection disambiguation",
+      "sha256": "bdcf190ec54d563b44eef9ca42dca30ea8a1e41dfd458a331d0e538d23772fac"
+    }
+  ],
+  "producerObservation": "Complete tool output personally viewed: refreshed healthy source-contact markup converted with short soft gray outer receiver edges; native support/coordinate verification pending, no old held mask input.",
+  "sourceRgbDrawsInFinalAssembly": 1,
+  "assembly": "U=MAX(L(F),L(S)); exact original mother RGB drawn only once; local receiver material fixed at source position",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "pngPixelEditing": false,
+  "croppingOrResizingSourcePNG": false,
+  "thresholdOrMorphologyEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "dynamicAdmission": false,
+  "original360CreditAssigned": false,
+  "userApproved": false,
+  "reviewScreenshotsUsedAsImageInput": false,
+  "recordedAtUTC": "2026-10-26T01:51:59.408835+00:00",
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/night/layers/contact-mask-v5.png",
+    "sha256": "02e9d436377e8f914332e19e09ba64bdf3bde8c99ede8b6a9a435dfb616d2a1a",
+    "bytes": 303088,
+    "originalToolOutputSHA256": "02e9d436377e8f914332e19e09ba64bdf3bde8c99ede8b6a9a435dfb616d2a1a",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "motherSHA256": "c6f19f399ab4a05727cb52d36a780fd3fde3f4222e4c31dc39dee6b2f1b19731",
+  "dossierVersion": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/umiri.md",
+    "sha256": "760b038d3ff84a770c80bf6144e52265d8109e41ecd5cb3440408561ac2bc0da"
+  },
+  "methodVersion": {
+    "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+    "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d"
+  },
+  "submittedPromptSHA256": "3e1c93be0e0c54caaf8209b958e6bacbd5a5e2b4d27c441fb05e239ccae5b6a8",
+  "promptFileSHA256": "b82aacbb2e603e13046f0c3be7a35e9c3e65dfa062339be0b98b338496f4109a",
+  "producerHeld": true,
+  "imageGenerationInputAllowed": false,
+  "laterObservedDefect": "Final native props/receiver shows soft version shifted palm receiver upward into plaid cushion behind hand. Not adopted or used as next input. Foot-only edge edit uses earlier geometrically correct non-held core mask."
+}

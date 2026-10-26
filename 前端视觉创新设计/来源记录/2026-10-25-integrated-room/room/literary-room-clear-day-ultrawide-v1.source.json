@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "recordType": "ultrawide-empty-room-outpainting-candidate",
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-9725-7bd3-aa74-f7fa6487bfed/exec-f11b5695-e504-44e6-82c0-8b83f2071ad9.png",
+  "inputImages": [
+    {
+      "file": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "sole empty-room reference and edit target"
+    }
+  ],
+  "noDirtyScreenshotInput": true,
+  "noCharacterInput": true,
+  "promptFile": "literary-room-clear-day-ultrawide-v1.prompt.txt",
+  "submittedPromptSha256": "1633765fb67d82609a0804de4fede419b517a3661c822e832c95ff060fc8445a",
+  "output": {
+    "file": "literary-room-clear-day-ultrawide-v1.png",
+    "sha256": "361f6adfcb6c92acdcdc22e4b23f6b758639805d5262d90d0e6295e35ebc7eeb",
+    "bytes": 2568488,
+    "width": 1774,
+    "height": 887,
+    "mode": "RGB",
+    "aspect": 2.0
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "cleanEnvironment": true,
+    "spatialContinuity": "Coherent same-style timber window, room, desk/chair, shelving, side lamp/table and bench; added left bookcase and soft wall. No UI, people, grey boxes or split scene.",
+    "actualLimit": "Original right room was redrawn, not retained as exact source pixels or a provably uniform original-canvas mapping. Furniture/window/light-table relationships shift and original right foreground dark furniture is absent. Do not place existing literary character layers onto this as a calibrated replacement.",
+    "decision": "ultrawide art candidate for primary inspection; not accepted as exact-registration runtime background"
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "matrixCoverageAdded": 0,
+  "originalCorePixelIdentical": false,
+  "requestedSize": [
+    2048,
+    1024
+  ],
+  "actualSize": [
+    1774,
+    887
+  ]
+}

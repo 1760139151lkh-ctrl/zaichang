@@ -1,0 +1,14 @@
+{
+  "submittedPrompt": "Precise mask conversion, NOT a scene interpretation. The ONE input is an opaque 1536x1024 full-color Soyo scene with intentionally painted PURE WHITE receiver marks. Recolor the EXISTING deliberate white marks at their exact present pixel positions to WHITE in an otherwise BLACK 1536x1024 image. Do not redraw, move, reshape or infer the location of any contact from the person. The visible white marks themselves are the complete selection; unchanged cream cushion, white pages, cuffs and collar are NOT selected.\nThere are ONLY four local deliberate white areas: two tiny linen islands directly under the real skirt, plus the two adjacent shoe-local floor footprints. Seat islands must remain precisely where they are in the input: image-left island about x819..840,y586..603; other island immediately under inner skirt/knee about x975..1020,y592..607. These are inspection locations ONLY, not rectangles to draw. Do not move either mark up to y560; do not slide the second to x1080; do not invent a different underside of the skirt. Copy the actual two white painted outlines without relocation. Floor marks remain directly under/around the actual two original shoes near x710..945,y850..931, excluding shoe interiors; copy their source footprints, not generic rings. Keep their white cores and a short soft gray fade only at the actual diffuse outer white-mark edge, not a wide halo.\nEverything colored in the input becomes solid black: the whole girl, pencil, complete lap book, both entire shoes, every hair and garment, unmarked seat, rug/fringe and complete room. No new light patch. No second reference, semantic regeneration, perspective adjustment, crop/shift, recenter, resize, zoom, transparency, checkerboard, letters or arrows. SAME exact canvas, SAME exact marked islands. Output one opaque pure black/white contact-selection mask. The mask is only used at the original fixed coordinates to select unchanged source RGB.",
+  "referencedImagePaths": [
+    "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\play-layers\\apricot\\contact-step1-marked-v1.png"
+  ],
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/play-layers/apricot/contact-step1-marked-v1.png",
+      "sha256": "b4c53f6d2814e3cb5997e3706dc1564d6ad549342711a59c63017e3c173465ca",
+      "bytes": 2455231
+    }
+  ],
+  "transparentBackground": false
+}

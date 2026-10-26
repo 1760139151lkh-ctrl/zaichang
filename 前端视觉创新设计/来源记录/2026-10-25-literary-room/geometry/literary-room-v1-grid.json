@@ -1,0 +1,443 @@
+{
+  "schemaVersion": 1,
+  "recordType": "source-space-room-grid",
+  "recordedAt": "2026-10-25T08:41:37.002474+00:00",
+  "sceneFamily": "literary-room-v1",
+  "scope": "Visible source-space geometry and integration plan only; no scene registration, layer extraction or runtime calibration.",
+  "sources": {
+    "humanSelectedMother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+      "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.source.json",
+      "sourceRecordSha256": "d9cd4427517d0e0fc050b9777c204e4f7363d8bd19bb585f000f5212f64fe6c3",
+      "generationMode": "text-only",
+      "humanSelected": true,
+      "producerPersonallyViewed": true,
+      "primaryLayerAdmissionByThisRecord": false
+    },
+    "clearDayPlate": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json",
+      "sourceRecordSha256": "5425e475efa8264874f2f3b083b8737b4b1f9d35399e9b2c3d86dc561a36cddb",
+      "primaryApproved": true,
+      "approvalScope": "empty clear-day room only",
+      "producerPersonallyViewed": true
+    }
+  },
+  "canvas": {
+    "width": 1536,
+    "height": 1024,
+    "aspect": [
+      3,
+      2
+    ],
+    "origin": "top-left",
+    "units": "source pixels",
+    "majorGrid": 128,
+    "minorGrid": 32,
+    "allLayers": "x=0,y=0,width=1536,height=1024; no trim, independent refit, geometry rescale or camera substitution"
+  },
+  "camera": {
+    "identity": "selected literary-v1 close eye-level diagonal camera",
+    "preserveNearerCharacterScale": true,
+    "visibleReadingEnvelopeEstimate": [
+      860,
+      100,
+      510,
+      810
+    ],
+    "envelopeIsExactMask": false,
+    "approximatePersonHeightFraction": 0.79,
+    "note": "The user selected this close composition. This is a conservative visual envelope including hair, held book and both shoes; exact alpha bounds must be measured after approved extraction. No old room4 body-height target applies."
+  },
+  "surfaces": {
+    "bench": {
+      "visibleTopPlaneCandidate": [
+        [
+          647,
+          528
+        ],
+        [
+          1330,
+          551
+        ],
+        [
+          1305,
+          611
+        ],
+        [
+          646,
+          573
+        ]
+      ],
+      "usableCenterBand": [
+        720,
+        540,
+        570,
+        55
+      ],
+      "readingContactRegion": [
+        1094,
+        550,
+        160,
+        62
+      ],
+      "notes": [
+        "Perspective slope/depth are visible in the plate; these are observation polygons, not an actor translation rail.",
+        "Right pillows and knitted throw are room-owned. Foreground cushion/throw overlap must be split only from each actual new pose.",
+        "Newly revealed cushion under the removed person is generated plausible room content, not recovered original hidden pixels."
+      ]
+    },
+    "deskChair": {
+      "visibleSeatCandidate": [
+        [
+          112,
+          512
+        ],
+        [
+          278,
+          513
+        ],
+        [
+          303,
+          525
+        ],
+        [
+          284,
+          541
+        ],
+        [
+          117,
+          533
+        ]
+      ],
+      "backBounds": [
+        205,
+        345,
+        145,
+        185
+      ],
+      "seatClothBounds": [
+        109,
+        477,
+        136,
+        45
+      ],
+      "deskTopBand": [
+        0,
+        374,
+        399,
+        34
+      ],
+      "notes": [
+        "The visible wood chair is oriented toward the left desk; back slats can occlude a seated body depending on the actual pose.",
+        "Do not invent a body anchor behind slats from this empty plate. New complete desk pose must establish its own support and any furniture rotation."
+      ]
+    },
+    "floor": {
+      "prospectivePoseRegion": [
+        [
+          706,
+          804
+        ],
+        [
+          917,
+          832
+        ],
+        [
+          1128,
+          883
+        ],
+        [
+          1250,
+          922
+        ],
+        [
+          1227,
+          975
+        ],
+        [
+          1060,
+          1004
+        ],
+        [
+          803,
+          955
+        ],
+        [
+          678,
+          867
+        ]
+      ],
+      "rugApproximateRegion": [
+        [
+          190,
+          793
+        ],
+        [
+          570,
+          780
+        ],
+        [
+          913,
+          909
+        ],
+        [
+          1070,
+          1024
+        ],
+        [
+          213,
+          1024
+        ],
+        [
+          166,
+          906
+        ]
+      ],
+      "notes": [
+        "Floorboards, rug edges, side-table legs and the right throw are fixed room geometry.",
+        "Remove the old seated-person floor shadow only in the approved matching plate; new shadows/source restoration are mother-specific.",
+        "A source RGB floor receiver is fixed texture, never a movable generic shadow.",
+        "After personally viewing the browser source grid, the prospective floor polygon was narrowed below the wooden bench front; it does not treat the vertical cabinet face as a floor receiver."
+      ]
+    }
+  },
+  "anchors": [
+    {
+      "id": "bench-reading-support",
+      "point": [
+        1148,
+        571
+      ],
+      "normalized": [
+        0.747396,
+        0.557617
+      ],
+      "kind": "visible-support-candidate",
+      "confidence": "provisional",
+      "note": "Reading hips/cushion contact region [1094,550,160,62]; point is a source-visible support reference, not an inferred hidden hip joint or runtime-approved pivot."
+    },
+    {
+      "id": "desk-chair-seat",
+      "point": [
+        237,
+        526
+      ],
+      "normalized": [
+        0.154297,
+        0.513672
+      ],
+      "kind": "visible-furniture-support",
+      "confidence": "provisional",
+      "note": "Original chair faces the desk; seat holds folded fabric. New seated mother must preserve or explicitly depict the chair orientation/occlusion and the legitimate disposition of the fabric."
+    },
+    {
+      "id": "desk-work-surface",
+      "point": [
+        208,
+        386
+      ],
+      "normalized": [
+        0.135417,
+        0.376953
+      ],
+      "kind": "visible-furniture-surface",
+      "confidence": "provisional",
+      "note": "Hands and work objects need their own same-camera mother; do not transfer room4 hands or desktop coordinates."
+    },
+    {
+      "id": "floor-pose-support-region",
+      "point": [
+        1090,
+        922
+      ],
+      "normalized": [
+        0.709635,
+        0.900391
+      ],
+      "kind": "prospective-support-region",
+      "confidence": "not-a-person-pivot",
+      "note": "An open source-floor region on the clean plate, suitable to investigate seated/kneeling poses. Exact hips, knees, palms and shoe contacts must come from each new complete mother."
+    },
+    {
+      "id": "reading-left-shoe-contact",
+      "point": [
+        916,
+        881
+      ],
+      "normalized": [
+        0.596354,
+        0.860352
+      ],
+      "kind": "visible-shoe-contact-estimate",
+      "confidence": "provisional"
+    },
+    {
+      "id": "reading-right-shoe-contact",
+      "point": [
+        972,
+        893
+      ],
+      "normalized": [
+        0.632812,
+        0.87207
+      ],
+      "kind": "visible-shoe-contact-estimate",
+      "confidence": "provisional"
+    }
+  ],
+  "actorPlanningEnvelopes": [
+    {
+      "support": "bench",
+      "bounds": [
+        816,
+        80,
+        598,
+        868
+      ],
+      "meaning": "Planning envelope only; source mother decides exact body bounds."
+    },
+    {
+      "support": "desk-chair",
+      "bounds": [
+        96,
+        128,
+        484,
+        680
+      ],
+      "meaning": "A separate left-side supported-pose pilot is required; UI working paper must accommodate it."
+    },
+    {
+      "support": "floor",
+      "bounds": [
+        700,
+        320,
+        676,
+        664
+      ],
+      "meaning": "Prospective seated/kneeling pose envelope, not a guaranteed full standing-body space."
+    }
+  ],
+  "roomOwnedExclusions": [
+    {
+      "id": "side-table-lamp-cup-books",
+      "bounds": [
+        431,
+        279,
+        266,
+        503
+      ]
+    },
+    {
+      "id": "left-foreground-plant",
+      "bounds": [
+        0,
+        436,
+        249,
+        588
+      ]
+    },
+    {
+      "id": "right-pillows-throw",
+      "bounds": [
+        1260,
+        343,
+        276,
+        648
+      ]
+    },
+    {
+      "id": "right-foreground-furniture",
+      "bounds": [
+        1430,
+        681,
+        106,
+        343
+      ]
+    }
+  ],
+  "poseRequirements": [
+    {
+      "activity": "chat",
+      "support": "bench",
+      "requirements": "Same-cushion seated pose; own hip, clothing hem, palm and shoe contacts. Preserve selected close camera and life-size relationship."
+    },
+    {
+      "activity": "study",
+      "support": "desk-chair",
+      "requirements": "Seated toward the existing left desk or explicit same-camera chair rotation. Show desk/forearm support and chair-back occlusion; no pasted front-facing body on the original rear-facing chair."
+    },
+    {
+      "activity": "reading",
+      "support": "bench",
+      "requirements": "Selected v1 reading mother is the visual baseline; book is held figure-owned, lamp/cup/stack on side table remain room-owned. Full head and both shoes remain visible."
+    },
+    {
+      "activity": "planning",
+      "support": "desk-chair",
+      "requirements": "A distinct same-camera complete planning pose with desktop/book ownership and plausible support. Desk-chair actor occupies the left, so working-paper layout must yield rather than erase the person."
+    },
+    {
+      "activity": "listening",
+      "support": "bench",
+      "requirements": "Own attentive seated body and hand placement; no automatic reuse of reading-held book or hidden original joints."
+    },
+    {
+      "activity": "rest",
+      "support": "bench",
+      "requirements": "Lean on the existing right pillows, with bent legs or another complete supported pose that fits the actual cushion. No requirement to force a full stretched body into insufficient bench length."
+    },
+    {
+      "activity": "play",
+      "support": "bench-or-floor-after-pilot",
+      "requirements": "Generate a full new supported pose and held small-object interaction at this close camera. Floor variant needs original-plane hips/knees/palm/shoe contacts and its own floor restoration, not old room4 paper-bird pixels."
+    },
+    {
+      "activity": "attention",
+      "support": "bench-first",
+      "requirements": "Seated turn/lean can preserve this source camera. A standing/floor pose needs a complete pilot proving head/shoes fit without shrinking the isolated person or changing the camera."
+    },
+    {
+      "activity": "resume",
+      "support": "bench",
+      "requirements": "Only visually continue a real retained stopping point; exact source pose/materials are new-family assets, not a fallback to an old room."
+    }
+  ],
+  "framePlan": {
+    "canonicalViewBox": [
+      0,
+      0,
+      1536,
+      1024
+    ],
+    "preferredFit": "contain complete shared source frame",
+    "scale": "min(viewportWidth/1536, viewportHeight/1024)",
+    "x": "viewportWidth - 1536*scale",
+    "y": "(viewportHeight - 1024*scale)/2",
+    "preview": "Keep a dedicated 3:2 preview region; source frame is complete with head/shoes.",
+    "responsiveRule": "For a narrow viewport, reserve a 3:2 room region or accept neutral letterbox space; do not use height-only cover that crops the desk, head or shoes.",
+    "allLayersShareOneTransform": true,
+    "physicalCameraChange": false
+  },
+  "review": {
+    "geometryStatus": "provisional visible-source references; each final mother/layer still needs source-specific calibration",
+    "primaryGeometryApproved": false,
+    "runtimeAccepted": false,
+    "tsModified": false,
+    "rasterModified": false
+  },
+  "verification": {
+    "browser": "normal Chrome static source-grid tab on existing 127.0.0.1:5188 server",
+    "personallyViewed": [
+      "complete mother and approved empty plate original RGB",
+      "empty plate source grid bench/chair/floor",
+      "mother grid complete head/book/seat",
+      "mother grid both shoes and floor"
+    ],
+    "pngsModified": false,
+    "productRuntimeViewed": false,
+    "debugPortsUsed": []
+  }
+}

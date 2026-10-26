@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "recordType": "independent-youth-charm-portrait-candidate",
+  "character": "nyamu",
+  "assetKind": "avatar",
+  "version": "youth-v3",
+  "tool": "built-in image_gen.imagegen",
+  "toolArguments": {
+    "prompt": "Use case: illustration-story.\nCreate ONE genuinely transparent independent square 2D head portrait avatar of Yutenji Nyamu for a small companion chat icon. 1024 x 1024, no circular disc, background, scene, text, letter, watermark, UI or frame. This is a new close-up illustration, never a crop of a whole-body room image.\n\nReference image 1 is an earlier independently drawn 2D Nyamu avatar, used ONLY as an identification reference for her lavender short bob, red-violet eyes and thin black choker/gray ruffle neckline. Do NOT copy its lower-face length, jaw shape, mature surface treatment or particular large open grin. Repaint this portrait from the beginning with the specific new moment below; no pasted reference pixels. No other source image is supplied.\n\nThis is an imagined project-original quiet moment, not a claim about canon plot or the user's past. Nyamu has just found the little detail that finally makes a paper idea work. She has already looked at it herself and is now glancing toward the familiar person close by, a split second before she asks if they noticed it. She wants to share her pleased discovery, while still keeping enough composure not to make a performance of it. Let that private small pride brighten her rose-violet eyes. Her pupils attend to the person just beside the lens, brows lightly lift with a knowing unequal rhythm, and the corners of her mouth rise into a clear young lively small smile, a hint of parted lips rather than a wide stage grin. Eye, brow and mouth must make the intent readable at 34–48 px: clever, pleased, approachable, with a little \"I think this version is good\" confidence, not a blank face, smug sneer, heavy flirtation, pout, wink or exaggerated baby laugh. The head angle may be gently questioning, with the neck relaxed; shoulders are barely included. Do not put paper, hands or objects into this tight portrait.\n\nKeep Nyamu's own recognizable SHORT LAVENDER-PURPLE BOB, jaw/neck length, soft irregular thin bangs and slightly longer fine face-side strands. Red-violet/rose-purple eyes with natural anime iris structure, no color change or second character's hair. She is a youthful intelligent anime girl: naturally short soft chin and lower face, soft full young cheeks, balanced face planes and modest natural nose/mouth. Give the lower face a shorter softer feeling than the reference, not a long narrow taper. Preserve individual identity rather than turning her into a generic round mascot. NO baby proportions, giant glass eyes, infant facial spacing, 3D doll, adult fashion model, mature lip shape, heavy eyeliner or cosmetics. Delicate readable linework, subtle hand-drawn color planes and fresh natural skin, not airbrushed plastic.\n\nHair and face should fill about 85–90 percent of the whole square so the eye/brow/mouth charm remains clear at real small size; retain the full recognizable bob silhouette with a modest transparent margin for a circular crop. The lower edge shows only a little neck with the THIN BLACK CHOKER and a minimal gray ruffled casual blouse neckline/shoulder straps, matching one complete official-shown casual outfit; no uniform, stage corset or invented jewelry. Not a bust portrait or large shoulders below a small head. Both eyes stay clearly visible, no hair crossing over an iris or fused eyebrow/eyelid.\n\nArt direction: refined independent youthful TWO-DIMENSIONAL anime literary portrait with soft natural daylight and gentle face volume, clean varied outlines, quiet fine hair shapes and a warm small emotional spark. The face remains lighter and simpler than a full scene, with enough contrast to read without a background. Preserve truly transparent alpha around every hair edge; no colored halo, dark/white matte residue, outline sticker stroke, checkerboard pixels or fake background. One coherent freshly painted head and tiny neckline, clear and charming at chat-icon scale.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/nyamu-youth-charm-avatar-v2.png"
+    ],
+    "transparent_background": true
+  },
+  "submittedPrompt": "Use case: illustration-story.\nCreate ONE genuinely transparent independent square 2D head portrait avatar of Yutenji Nyamu for a small companion chat icon. 1024 x 1024, no circular disc, background, scene, text, letter, watermark, UI or frame. This is a new close-up illustration, never a crop of a whole-body room image.\n\nReference image 1 is an earlier independently drawn 2D Nyamu avatar, used ONLY as an identification reference for her lavender short bob, red-violet eyes and thin black choker/gray ruffle neckline. Do NOT copy its lower-face length, jaw shape, mature surface treatment or particular large open grin. Repaint this portrait from the beginning with the specific new moment below; no pasted reference pixels. No other source image is supplied.\n\nThis is an imagined project-original quiet moment, not a claim about canon plot or the user's past. Nyamu has just found the little detail that finally makes a paper idea work. She has already looked at it herself and is now glancing toward the familiar person close by, a split second before she asks if they noticed it. She wants to share her pleased discovery, while still keeping enough composure not to make a performance of it. Let that private small pride brighten her rose-violet eyes. Her pupils attend to the person just beside the lens, brows lightly lift with a knowing unequal rhythm, and the corners of her mouth rise into a clear young lively small smile, a hint of parted lips rather than a wide stage grin. Eye, brow and mouth must make the intent readable at 34–48 px: clever, pleased, approachable, with a little \"I think this version is good\" confidence, not a blank face, smug sneer, heavy flirtation, pout, wink or exaggerated baby laugh. The head angle may be gently questioning, with the neck relaxed; shoulders are barely included. Do not put paper, hands or objects into this tight portrait.\n\nKeep Nyamu's own recognizable SHORT LAVENDER-PURPLE BOB, jaw/neck length, soft irregular thin bangs and slightly longer fine face-side strands. Red-violet/rose-purple eyes with natural anime iris structure, no color change or second character's hair. She is a youthful intelligent anime girl: naturally short soft chin and lower face, soft full young cheeks, balanced face planes and modest natural nose/mouth. Give the lower face a shorter softer feeling than the reference, not a long narrow taper. Preserve individual identity rather than turning her into a generic round mascot. NO baby proportions, giant glass eyes, infant facial spacing, 3D doll, adult fashion model, mature lip shape, heavy eyeliner or cosmetics. Delicate readable linework, subtle hand-drawn color planes and fresh natural skin, not airbrushed plastic.\n\nHair and face should fill about 85–90 percent of the whole square so the eye/brow/mouth charm remains clear at real small size; retain the full recognizable bob silhouette with a modest transparent margin for a circular crop. The lower edge shows only a little neck with the THIN BLACK CHOKER and a minimal gray ruffled casual blouse neckline/shoulder straps, matching one complete official-shown casual outfit; no uniform, stage corset or invented jewelry. Not a bust portrait or large shoulders below a small head. Both eyes stay clearly visible, no hair crossing over an iris or fused eyebrow/eyelid.\n\nArt direction: refined independent youthful TWO-DIMENSIONAL anime literary portrait with soft natural daylight and gentle face volume, clean varied outlines, quiet fine hair shapes and a warm small emotional spark. The face remains lighter and simpler than a full scene, with enough contrast to read without a background. Preserve truly transparent alpha around every hair edge; no colored halo, dark/white matte residue, outline sticker stroke, checkerboard pixels or fake background. One coherent freshly painted head and tiny neckline, clear and charming at chat-icon scale.",
+  "originalToolOutput": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-cfd4eb46-8ae4-49d9-90a1-7196c81d0848.png",
+  "outputFile": "nyamu-avatar-youth-v3.png",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/nyamu-youth-charm-avatar-v2.png",
+      "role": "Prior 2D identity-only lavender bob, red-violet eyes, choker/neckline. Parent explicitly permits identification use while latest face proportions are pending; no room crop/3D/held person.",
+      "sha256": "8ce8e16572956939f16e4baaf9fe3d504f051e24bbde64c9c535fd8a5127f241"
+    }
+  ],
+  "dossier": ".agents/skills/zaichang-frontend-director/references/characters/nyamu.md",
+  "method": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+  "purpose": "她刚找到让自己的纸点子成立的小细节，分享前先看向熟悉的人；亮眼、会意眉与一角先起的笑，有小得意而非对镜营业。项目原创表演，不制造原作剧情或用户历史。",
+  "identityFacts": "短薰衣草紫bob/柔软不齐刘海/红紫眼/日常细黑颈带与少许灰荷叶领口；整套衣装来源详护照，未引用官网原图像素。",
+  "producerObservation": {
+    "wholeOriginalPersonallyViewed": true,
+    "portraitNotRoomCrop": true,
+    "visibleEmotion": "红紫眼明亮，嘴角与微偏头有想分享的年轻兴致；比旧冷稿更清楚有笑意。",
+    "youngFace": "脸颊柔软、下颌未写实化，但结果仍与v2关系相近，不能仅凭Prompt宣布最新短柔比例要求已闭合。",
+    "promptVariance": "实际微张嘴仍比预想的小笑更明亮，交root亲看其分寸。",
+    "edgeBoundary": "工具大图可见极细彩色发缘；真正34/48圆形深浅底和实际UI尚未验，不以有alpha代签干净发缘。"
+  },
+  "canonBoundary": "Official identity/outfit research separated from project-original expression; no official image copied into runtime.",
+  "primaryApproved": false,
+  "latestRequirementAccepted": false,
+  "smallSizeAccepted": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "sourcePNGCopyOnly": true,
+  "rawPixelEditing": false,
+  "recordedAtUTC": "2026-10-26T00:12:20.039359+00:00",
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/avatars/nyamu-avatar-youth-v3.png",
+    "sha256": "ebffcd406edb975c91c7b62f0c246850340248a62828b7338a7897d48095cc72",
+    "bytes": 2137264,
+    "originalToolOutputSHA256": "ebffcd406edb975c91c7b62f0c246850340248a62828b7338a7897d48095cc72",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ]
+  },
+  "dossierSHA256": "c5acd92fe6cd9ccf35785bd09e7f71337bca5bf7eb0fdd37629e78780eb9ebe1",
+  "methodSHA256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+  "submittedPromptSHA256": "9c52f77bd059f363ee6c04d4f82004749e23e3ffea2900415b08371a4099896e",
+  "promptFileSHA256": "37334214299ccaf69cf46e4baf0497f9d8783a8d478e8ee7b584b554592350f5"
+}

@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "recordType": "primary-fixed-source-apricot-chat-included-contact-admission",
+  "sceneId": "sakiko-chat-apricot-literary-v1",
+  "sceneFamily": "literary-room-v1",
+  "recordedAt": "2026-10-25T12:14:11.937125+00:00",
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "reviewer": "root / primary agent",
+    "approvalSource": "Direct root message in same healthy collaboration session",
+    "approvalQuote": "root刚已亲看Sakikoapricotchat #scene全母/复合/BG/MAX，#face发眼/领口原RGB三联，#hem完整格裙暗边/掌膝/软垫receiver原像素，#shoes双鞋底跟/局部地板三联，原位无白口/断体/明显贴片，比例支持原母一致。批准当前exact F/S+母8d8ca2d…4e2cd+clearBG的MAX included固定静态层allmotion0/runtimefalse，非purecaster。",
+    "scope": "Exact four-SHA original-source fixed included joint only; not pure caster, body motion or runtime."
+  },
+  "assets": {
+    "mother": {
+      "file": "../pilot/sakiko-chat-apricot-v1.png",
+      "sha256": "8d8ca2d001893c16106ab797ec4a8a8c1e6576115a5a4c76ff1dd519eff4e2cd"
+    },
+    "background": {
+      "file": "../../plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c"
+    },
+    "F": {
+      "file": "figure-mask-v1.png",
+      "sha256": "976e6a52af3fd9fd8b8ef9a7a017cddb37fec6ebae961256c5b1134ad0cba59d"
+    },
+    "S": {
+      "file": "contact-mask-v1.png",
+      "sha256": "9ee1264c492186058e9069b3ab5b86679690a0349363bcf970fc241251a2e159"
+    }
+  },
+  "assembly": {
+    "formula": "U=MAX(L(F),L(S)); matching clear BG then unchanged original mother RGB once through U",
+    "luminanceWeights": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorSpace": "sRGB",
+    "nativeSvg": "union-source-v1.svg",
+    "nativeSvgSha256": "b5e2e0211f341f578ce93b9854f755509591330eb3936648f19d386c8004c62e",
+    "motherRgbDrawCount": 1,
+    "contactShadow": {
+      "mode": "included"
+    },
+    "newRaster": false,
+    "pngEdits": false,
+    "thresholding": false,
+    "subtraction": false,
+    "geometricPatch": false,
+    "pureCaster": false
+  },
+  "geometryProposal": {
+    "file": "apricot-chat-geometry-proposal-v1.json",
+    "sha256": "09486a35fbe847d2304c976fb9234be7494dff5450ac9c13f94ad024750605b4",
+    "scope": "New-source visible receiver envelope/provisional support refs, no hidden hip or continuous-motion pivot approval."
+  },
+  "contourComplete": true,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "acceptedBoundaries": [
+    "Original face/eyes/hair, hands/knees, full plaid dark hem and full shoes/sole/heel RGB remain retained.",
+    "Actual S linen/knit/floor receiver material stays included in the one fixed source subject; not a pure/portable independent shadow.",
+    "Only whole subject visibility, whole reviewed pose replacement and shared BG/subject viewport transform are admitted.",
+    "No body/limb deformation, relative body/shadow travel, weather/pose runtime or actual drag interaction is signed."
+  ],
+  "opticalEvidence": {
+    "page": "apricot-chat-included-observe-v1.html",
+    "pageSha256": "a0d7ebfa23330978d401e2b6b21181f89ddacfb5fb7d422c17debfd509bd6f33",
+    "primaryViewed": [
+      "#scene",
+      "#face",
+      "#hem",
+      "#shoes"
+    ],
+    "producerViewed": [
+      "whole scene",
+      "light/dark upper/lower",
+      "checker upper/lower",
+      "face/collar real gap",
+      "hands/knees",
+      "hem",
+      "receiver range",
+      "full shoes/soles/heels"
+    ]
+  },
+  "runtimeAccepted": false
+}

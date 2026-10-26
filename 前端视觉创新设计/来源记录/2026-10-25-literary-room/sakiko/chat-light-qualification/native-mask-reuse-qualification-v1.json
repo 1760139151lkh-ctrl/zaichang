@@ -1,0 +1,288 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "finite-native-mask-reuse-qualification",
+  "createdAt": "2026-10-25T12:55:16.214638+00:00",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "scope": "Three exact-SHA source-only candidates. No generation, PNG edits, runtime registration or core-matrix completion.",
+  "composition": {
+    "selection": "MAX(luminance(F),luminance(S))",
+    "rgbDrawsPerComposition": 1,
+    "newRgbOnly": true,
+    "origin": [
+      0,
+      0
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": "included candidate; receiver retained, not pure caster",
+    "F": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/figure-mask-v1.png",
+      "sha256": "976e6a52af3fd9fd8b8ef9a7a017cddb37fec6ebae961256c5b1134ad0cba59d"
+    },
+    "S": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/contact-mask-v1.png",
+      "sha256": "9ee1264c492186058e9069b3ab5b86679690a0349363bcf970fc241251a2e159"
+    },
+    "maskApproval": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/sakiko-chat-apricot-literary-included-primary-admission-v1.json",
+      "sha256": "a1fdfd547484e65d68b04220fcd8fcff56e093c218dd0f4c85e5323aa469efbc"
+    },
+    "changedPngs": false,
+    "thresholdApplied": false,
+    "colorDifferenceAdaptation": false
+  },
+  "viewer": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-qualification/sakiko-chat-light-mask-reuse-observe-v1.html",
+    "sha256": "b0c444cfe4054417ce0ead188516b7977fd0b57fa6cb60ba8f39492dabdc6eb0"
+  },
+  "cases": [
+    {
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "mother": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-mist-v1.png",
+        "sha256": "6cbd83def33cf8284056992f10315a98101002d8f36f4d3d497548b7b4b73b9f"
+      },
+      "background": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+        "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a"
+      },
+      "motherApproval": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+        "sha256": "0dc133f5dc0ac1702bce894b279304dde90ab45ddbe57c4107ee9caf360fe8d0",
+        "key": "sakiko/chat/mist"
+      },
+      "backgroundApproval": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/literary-room-empty-plates-primary-admission-v1.json",
+        "sha256": "8ed5c9723ccf61f178ffa5e7f90a66f05b18fc6e44c8ba1124782b679a045c0c",
+        "variant": "overcast-day"
+      },
+      "candidateBuilt": true,
+      "producerPersonallyViewed": true,
+      "producerQualification": "fail",
+      "rootQualification": "pending",
+      "runtimeAccepted": false,
+      "technicalSvg": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-qualification/sakiko-chat-mist-apricot-mask-reuse-candidate-v1.svg",
+        "sha256": "c8054b41669384ee515982538b29e097216e13fc1bda672c9da6fd66ba6aba17"
+      },
+      "producerReviewedAt": "2026-10-25T13:01:27.282715+00:00",
+      "rootPersonallyViewedThisReuseCandidate": false,
+      "matrixCompletionCredit": false,
+      "failures": [
+        {
+          "anchor": "mist-face",
+          "sourceViewBox": [
+            1000,
+            65,
+            430,
+            430
+          ],
+          "observation": "Large left crown arc and left hanging hair vanish; original outdoor town/window shows through where the new mother has hair."
+        },
+        {
+          "anchor": "mist-hands",
+          "sourceViewBox": [
+            940,
+            405,
+            480,
+            305
+          ],
+          "observation": "Lap palms and part of the front knee disappear behind the empty-room wood/cushion; new body is outside the old union."
+        },
+        {
+          "anchor": "mist-feet",
+          "sourceViewBox": [
+            820,
+            715,
+            600,
+            280
+          ],
+          "observation": "Sock/ankle shape narrows unnaturally and shoe rear/heel is cut; complete new shoe silhouette is not retained."
+        },
+        {
+          "anchor": "mist-receiver",
+          "sourceViewBox": [
+            850,
+            470,
+            600,
+            250
+          ],
+          "observation": "The old receiver footprint cannot rescue missing palm/knee pixels. Seat fragments may look close, but receiver reuse is not separately qualified."
+        }
+      ],
+      "summary": "FAIL: crown/left hair, both lap palms, knee/sock and heel coverage differ from the admitted apricot contour.",
+      "requiredNextStep": "Matching native F/S must be made from this exact admitted new mother if root authorizes further layer production. No automatic imagegen call or runtime fallback registration."
+    },
+    {
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "mother": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-violet-v1.png",
+        "sha256": "3115fb3058cff052bddc376d4612aa842c96925e6708a809b434097980274b84"
+      },
+      "background": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+        "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c"
+      },
+      "motherApproval": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+        "sha256": "0dc133f5dc0ac1702bce894b279304dde90ab45ddbe57c4107ee9caf360fe8d0",
+        "key": "sakiko/chat/violet"
+      },
+      "backgroundApproval": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/literary-room-empty-plates-primary-admission-v1.json",
+        "sha256": "8ed5c9723ccf61f178ffa5e7f90a66f05b18fc6e44c8ba1124782b679a045c0c",
+        "variant": "twilight"
+      },
+      "candidateBuilt": true,
+      "producerPersonallyViewed": true,
+      "producerQualification": "fail",
+      "rootQualification": "pending",
+      "runtimeAccepted": false,
+      "technicalSvg": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-qualification/sakiko-chat-violet-apricot-mask-reuse-candidate-v1.svg",
+        "sha256": "a66023904b043f29ebb48dd269c6591a5c22c7576da42639b56b801930b0251b"
+      },
+      "producerReviewedAt": "2026-10-25T13:01:27.282715+00:00",
+      "rootPersonallyViewedThisReuseCandidate": false,
+      "matrixCompletionCredit": false,
+      "failures": [
+        {
+          "anchor": "violet-face",
+          "sourceViewBox": [
+            1000,
+            65,
+            430,
+            430
+          ],
+          "observation": "Eyes/central face remain, but outer right hair strands/ribbon edge and parts of crown/long side strands are clipped to the old apricot silhouette."
+        },
+        {
+          "anchor": "violet-hands",
+          "sourceViewBox": [
+            940,
+            405,
+            480,
+            305
+          ],
+          "observation": "Hands remain largely present; the inner knee is cut with an abrupt empty-cushion notch and the sock/leg gap follows the old body rather than this mother."
+        },
+        {
+          "anchor": "violet-feet",
+          "sourceViewBox": [
+            820,
+            715,
+            600,
+            280
+          ],
+          "observation": "New sock and shoe rear/heel contours are removed, leaving narrow legs and incomplete shoe rears despite similar forefoot placement."
+        },
+        {
+          "anchor": "violet-receiver",
+          "sourceViewBox": [
+            850,
+            470,
+            600,
+            250
+          ],
+          "observation": "Visible cushion replaces a portion of the new inner knee. Receiver cloth around the seat was viewed, but no independent material/contact pass is inferred after this contour failure."
+        }
+      ],
+      "summary": "FAIL: face remains legible but outer hair/ribbon, inner knee, sock and shoe heels are cropped.",
+      "requiredNextStep": "Matching native F/S must be made from this exact admitted new mother if root authorizes further layer production. No automatic imagegen call or runtime fallback registration."
+    },
+    {
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "mother": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-rain-v1.png",
+        "sha256": "229156a8a56698f5e0fb73424c3b65dc5fe3adde0fbee3101033ca5df1ce3f2f"
+      },
+      "background": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+        "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1"
+      },
+      "motherApproval": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+        "sha256": "0dc133f5dc0ac1702bce894b279304dde90ab45ddbe57c4107ee9caf360fe8d0",
+        "key": "sakiko/chat/rain"
+      },
+      "backgroundApproval": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/literary-room-empty-plates-primary-admission-v1.json",
+        "sha256": "8ed5c9723ccf61f178ffa5e7f90a66f05b18fc6e44c8ba1124782b679a045c0c",
+        "variant": "rain-night"
+      },
+      "candidateBuilt": true,
+      "producerPersonallyViewed": true,
+      "producerQualification": "fail",
+      "rootQualification": "pending",
+      "runtimeAccepted": false,
+      "technicalSvg": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-qualification/sakiko-chat-rain-apricot-mask-reuse-candidate-v1.svg",
+        "sha256": "e946b0432dec9b1d9ed304a00fee23810c096b7082d812684ca2295fd3c883b8"
+      },
+      "producerReviewedAt": "2026-10-25T13:01:27.282715+00:00",
+      "rootPersonallyViewedThisReuseCandidate": false,
+      "matrixCompletionCredit": false,
+      "failures": [
+        {
+          "anchor": "rain-face",
+          "sourceViewBox": [
+            1000,
+            65,
+            430,
+            430
+          ],
+          "observation": "Large left/top crown and hanging left hair are removed, exposing the actual rainy window behind them."
+        },
+        {
+          "anchor": "rain-hands",
+          "sourceViewBox": [
+            940,
+            405,
+            480,
+            305
+          ],
+          "observation": "Most lap palms and upper knee area are removed; a broad wood-window-sill shape crosses the new mother body and cushion shows through the knee."
+        },
+        {
+          "anchor": "rain-feet",
+          "sourceViewBox": [
+            820,
+            715,
+            600,
+            280
+          ],
+          "observation": "Forefeet remain visually closer than the upper body, but shoe rear/heel coverage is reduced. This is not accepted as complete shoe/contact coverage."
+        },
+        {
+          "anchor": "rain-receiver",
+          "sourceViewBox": [
+            850,
+            470,
+            600,
+            250
+          ],
+          "observation": "Old selection exposes empty-room wood and cushion within the new palm/knee contour. Seat material was viewed at original scale; its proximity cannot qualify the joint union."
+        }
+      ],
+      "summary": "FAIL: left crown/hair, lap palms and upper knees are visibly removed; heel/receiver footprint also does not establish matching contact.",
+      "requiredNextStep": "Matching native F/S must be made from this exact admitted new mother if root authorizes further layer production. No automatic imagegen call or runtime fallback registration."
+    }
+  ],
+  "runtimeAccepted": false,
+  "reviewedAt": "2026-10-25T13:01:27.282715+00:00",
+  "producerSummary": {
+    "examinedCases": 3,
+    "reuseQualified": 0,
+    "failed": 3,
+    "method": "Complete mother vs real native SVG composition, then 1:1 face/hair, both lap palms/full skirt, complete shoes/floor receiver, broad seat receiver. No automatic pixel-score qualification.",
+    "importantBoundary": "Failure concerns old-mask reuse only. It does not revoke admitted new mothers, their matching empty plates, or the old apricot masks with their own admitted apricot mother."
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "recordType": "root-primary-time-only-neutral-static-mother-admission",
+  "character": "nyamu",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "palette": "mist",
+  "light": "morning",
+  "weather": "unknown",
+  "weatherClaim": false,
+  "selected": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/nyamu-neutral-presence-time-day-v1.png",
+    "sha256": "5df25df2667581917ee3e312218810da2424bcd573be4418b245ac7d05dc755d",
+    "bytes": 2443868
+  },
+  "approvalEvidence": {
+    "source": "Direct parent /root in this same healthy task session after complete original PNG inspection.",
+    "messageVerbatim": "root已逐原PNG亲看Nyamu day5df25d…55d：闭帘、完整受座/全踝带鞋、两手低持纸扇、眼神小得意成立，准STATIC mother可作后续同角色time-night姿势基底，不准层/runtime/360。Nyamu avatar-v3 ebffcd…cc72与Umiri v3 560073dc…65ef均亲看：短柔青春2D与红紫/灰青眼、短发身份清楚；Nyamu更明亮张口笑、Umiri可靠会意微笑成立，未见‘长母亲脸’需为此重做。准原画面部审美与同角色identity generation参考，可用Umiri新头像+准day净plate做day。发丝alpha细边、34/48圆框与实际UI仍未验，不签runtime/全用途完成，不改userApproved真；请据本消息存分级准入，旧v2旗保持。Nyamu night只准日母/已准v3/time-night净plate；其他新母先根审再night。"
+  },
+  "primaryApproved": true,
+  "approvedStaticMother": true,
+  "generationInputAllowed": true,
+  "allowedNextGeneration": "Same-character time-night using this exact day mother, root-approved Nyamu v3 identity reference and approved clean time-night plate only.",
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "dynamicAdmission": false,
+  "original360CreditAssigned": false,
+  "userApproved": false,
+  "observation": "闭帘、完整受座/全踝带鞋、两手低持纸扇、眼神小得意成立。",
+  "boundary": "STATIC complete mother only; neutral presence is not one of the exact original360 activity cells.",
+  "recordedAtUTC": "2026-10-26T00:17:02.306059+00:00"
+}

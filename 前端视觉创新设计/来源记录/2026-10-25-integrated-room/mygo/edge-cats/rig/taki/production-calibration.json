@@ -1,0 +1,163 @@
+{
+  "id": "taki",
+  "characterId": "taki",
+  "stem": "taki-edge-meme-cat-v1",
+  "source": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mygo\\edge-cats\\taki-edge-meme-cat-v1.png",
+  "sourceSha256": "94f804ad07e07377305e54e6ad0a55db2f9b107945b2af6c4b16d2786afb5647",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "sourceMode": "RGBA",
+  "sourceAlphaRange": [
+    0,
+    254
+  ],
+  "tailSide": "right",
+  "tailPivotPx": [
+    1351,
+    676
+  ],
+  "tailPivotNormalized": [
+    0.8795572916666666,
+    0.66015625
+  ],
+  "paperEdgeSourceY": 851,
+  "paperEdgeNormalized": 0.8310546875,
+  "frontPawVisualRefsPx": [
+    [
+      245,
+      780
+    ],
+    [
+      593,
+      835
+    ]
+  ],
+  "pawScope": "Visible paw support/holding references; props belong to fixed body, no hypothetical joints or forced equal paw-bottom rule.",
+  "propOwnership": "folded paper bridge retained with supporting forepaw",
+  "bodyArcSamplesY_X": [
+    [
+      600,
+      1313
+    ],
+    [
+      610,
+      1324
+    ],
+    [
+      620,
+      1330
+    ],
+    [
+      630,
+      1339
+    ],
+    [
+      640,
+      1345
+    ],
+    [
+      660,
+      1357
+    ],
+    [
+      670,
+      1361
+    ],
+    [
+      680,
+      1366
+    ],
+    [
+      710,
+      1379
+    ]
+  ],
+  "visibleTailEndY": 708,
+  "wholeGuardExpansionRadius": 38,
+  "sourceSolidOutsideWholeGuardBounds": null,
+  "tailSemanticExpansionRadius": 12,
+  "rootUnderlapPx": 18,
+  "bodyForegroundInkOverlapPx": 4,
+  "mirrorSafe": true,
+  "eyeIdentity": null,
+  "selectedMask": "semantic-mask-v1.png",
+  "selectedMaskToolPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-56438831-1a0b-428c-a254-d4d1d54330c9.png",
+  "outputs": {
+    "body": {
+      "sha256": "20ff50d8effd624fe694b8002a9ce1555fc2d0f0567834c57283ccd86cbe4be5",
+      "bytes": 742238,
+      "alphaBounds": [
+        37,
+        167,
+        1423,
+        876
+      ],
+      "visibleRgbDifferenceRange": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    "tail": {
+      "sha256": "98c9e77cc1981d59b5e6c08b417f2d05b81ffc7ff97b89cc41f598616eea236c",
+      "bytes": 58570,
+      "alphaBounds": [
+        1312,
+        347,
+        1518,
+        709
+      ],
+      "visibleRgbDifferenceRange": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    "clean": {
+      "sha256": "71e3047cdc61b1e92f22dc40716fb00b8fabebbb6843d68e75b8b0103de136dc",
+      "bytes": 781534,
+      "alphaBounds": [
+        37,
+        167,
+        1518,
+        876
+      ],
+      "visibleRgbDifferenceRange": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    }
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false
+}

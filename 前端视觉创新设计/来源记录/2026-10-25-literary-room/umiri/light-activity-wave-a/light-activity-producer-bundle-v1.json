@@ -1,0 +1,338 @@
+{
+  "schemaVersion": 1,
+  "kind": "bounded-core-same-activity-light-mother-producer-record",
+  "character": "umiri",
+  "wave": "light-activity-wave-a",
+  "sceneFamily": "literary-room-v1",
+  "tool": "built-in image_gen",
+  "activities": [
+    "reading",
+    "planning",
+    "rest",
+    "study"
+  ],
+  "palettes": {
+    "mist": "overcast-day",
+    "violet": "twilight",
+    "rain": "rain-night"
+  },
+  "characterCalls": 12,
+  "completedSharedCalls": 24,
+  "sharedCallLimit": 24,
+  "generationStopped": true,
+  "batchRecords": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/producer-batch-calls-13-18-v1.json",
+      "sha256": "dd7c3bff118276bf584329cb52dffbba345bd14a9eebc4304845c01ed7596a0c",
+      "firstCall": 13,
+      "lastCall": 18
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/producer-batch-calls-19-24-v1.json",
+      "sha256": "fa51df43fe82859b91faf45c5b420a028ec35548421ff65bcc6a88d73ec16021",
+      "firstCall": 19,
+      "lastCall": 24
+    }
+  ],
+  "inputBoundary": "Only corresponding approved full weather plate as image 1 and root-approved same-activity apricot mother as image 2. No unreviewed light candidates or held Umiri v1 used.",
+  "producerViewedAll": true,
+  "primaryMotherApproved": false,
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "pngEdited": false,
+  "cssFilter": false,
+  "largeImageResultStored": false,
+  "outputs": [
+    {
+      "call": 13,
+      "activity": "reading",
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-reading-mist-literary-light-wave-a-v1.png",
+      "motherSha256": "05c3c3ceb3f776d810aff44e7b85e973641c12bdb35b53aef271cb599d5beea9",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-reading-mist-literary-light-wave-a-v1.source.json",
+      "sourceSha256": "23ede45e354eb82833409216fda0510cf81ca498f15f8daed33d3a13bd6ce193",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-reading-mist-literary-light-wave-a-v1.prompt.txt",
+      "promptSha256": "c69ebed1eb967b3220d1e207c38c9f69333f2eb4ade014d4e5e74c68ff38a848",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Small book-edge/hand contours remain generated variations; root must judge exact source grip, not hidden hand surfaces or pixel-identical registration."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "call": 14,
+      "activity": "reading",
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-reading-violet-literary-light-wave-a-v1.png",
+      "motherSha256": "06b09abb4aa8cb4c9e1b04db173749ae29f53e3194eb6c44849857d45948b806",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-reading-violet-literary-light-wave-a-v1.source.json",
+      "sourceSha256": "b9b4eb37158f8e7d1ca50f368350255d92aa42402a29cc37623ade3255a65c3c",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-reading-violet-literary-light-wave-a-v1.prompt.txt",
+      "promptSha256": "beba80b10e89a9fea23f3dd500d48a4a3b872d8dbc26e360f8b509617cba5c09",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Head top appears slightly lower (about y150 versus source y135), with deeper downward head tilt. Warm concentrated knee highlights remain visible but dimmed; root should judge pose/light fidelity rather than this being called exact transfer."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "call": 15,
+      "activity": "reading",
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-reading-rain-literary-light-wave-a-v1.png",
+      "motherSha256": "e0fad6d2c32cfddee602c222c823d01ac7797a3eb7eaeabae9a9987b2a7b7e63",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-reading-rain-literary-light-wave-a-v1.source.json",
+      "sourceSha256": "7f24a3e2421f309e748426e785ae56d659c79cf70f77c2ea79ff7d8de5f88ff9",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-reading-rain-literary-light-wave-a-v1.prompt.txt",
+      "promptSha256": "46f09f53e1d78c10cb31b90bfb3a892876243f086dc3fe13f7c57789efbbfa96",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Concentrated warm highlights on knee tops remain visible as generated lamp-light interpretation; root should judge whether their shape/light plausibility is acceptable. Small finger/book contours are not pixel-exact."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "call": 16,
+      "activity": "planning",
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-planning-mist-literary-light-wave-a-v1.png",
+      "motherSha256": "8616cfbbf330434a06378ce762b8faa46940d5f7dc777fd6f102d0b8c635ed11",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-planning-mist-literary-light-wave-a-v1.source.json",
+      "sourceSha256": "b1af061861fb54f9fb5b7182214db1652735a54a558f609f37170078b743c372",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-planning-mist-literary-light-wave-a-v1.prompt.txt",
+      "promptSha256": "add19e8aa0ee43acdb36a45e464266310852de722eac8a1a2217c928dcb1b268",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "The small pencil-to-face gap and finger silhouette require primary source-pixel review; no claim about hidden hand surfaces or exact pixel transfer."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "call": 17,
+      "activity": "planning",
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-planning-violet-literary-light-wave-a-v1.png",
+      "motherSha256": "88cd74f0797730ef644a12359f3673493853fcbd4add145e81025c8104e40445",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-planning-violet-literary-light-wave-a-v1.source.json",
+      "sourceSha256": "ca6d13ab66148e17261f0ad592418827891292d84e95db1c0a7aa9c77b93686a",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-planning-violet-literary-light-wave-a-v1.prompt.txt",
+      "promptSha256": "067338eb93085f788552eeb3b548043a5cfa5859a5c17abf383ea7e00dc68169",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Concentrated warm knee highlight remains visible; primary should judge light-source plausibility along with the small pencil-to-face gap and generated finger contours."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "call": 18,
+      "activity": "planning",
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-planning-rain-literary-light-wave-a-v1.png",
+      "motherSha256": "9ee89a4fdaf04bc9a82c68435c5feb6a7add7cac5d28ff9a90ee84028edd4506",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-planning-rain-literary-light-wave-a-v1.source.json",
+      "sourceSha256": "16d086a2b92e3368eed82120b5b8ea333bc793d77841fd95756e940a046614ed",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-planning-rain-literary-light-wave-a-v1.prompt.txt",
+      "promptSha256": "c1834c6e14613e33549a36940d382ca991c0dc11f26de73dfd3a51c54b5aaa28",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Warm knee-top and hair/skin highlights remain visible, though dimmer; root should judge their practical-light credibility. Fine pencil/face/finger contours not pixel-exact."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "call": 19,
+      "activity": "rest",
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-rest-mist-literary-light-wave-a-v1.png",
+      "motherSha256": "aa6c5750741086ff52fd7af880703a0334800e221a96549aa25a6d0a4c728383",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-rest-mist-literary-light-wave-a-v1.source.json",
+      "sourceSha256": "d380876001757e24f826a86fc6d3c5c337d56ce494e5b338f85b7f08b802648a",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-rest-mist-literary-light-wave-a-v1.prompt.txt",
+      "promptSha256": "63be6fcd7538a2be1c40d9ba152b07071a6808ebdb6cda2d920cca03938d7641",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Far eye and inner surfaces of overlapped hands are naturally occluded; no claim to unseen anatomy. Root should judge exact rest expression and visible support."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "call": 20,
+      "activity": "rest",
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-rest-violet-literary-light-wave-a-v1.png",
+      "motherSha256": "e297f15ee55f46d8662443becf3265a795151542a4b21bc85006e947ae4a8ef4",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-rest-violet-literary-light-wave-a-v1.source.json",
+      "sourceSha256": "16e66ff4a27680d84e2e157c8cd4c83419e9d9808953f5770158b5eda9e23a84",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-rest-violet-literary-light-wave-a-v1.prompt.txt",
+      "promptSha256": "62112990fe2623fd9459cd3448919994967d6d67afdabb4c0b0c5a0c555ead0b",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Some concentrated warm knee/forearm highlight remains; root must judge practical-light plausibility. Far eye/inner overlapping fingers remain naturally occluded."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "call": 21,
+      "activity": "rest",
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-rest-rain-literary-light-wave-a-v1.png",
+      "motherSha256": "a5435ea417299c78b078ad223aea28d303ae051dec37ca54153bb01020a2495e",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-rest-rain-literary-light-wave-a-v1.source.json",
+      "sourceSha256": "cd8704ec9ad0fff9d62fe818242de9a48fb96a07b728336157de60cb304298d6",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-rest-rain-literary-light-wave-a-v1.prompt.txt",
+      "promptSha256": "bfa178b29f175301fee06d0a43f839b79b40ab11b23ce664f0c53d54e5cc96f8",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Head sits slightly lower/slouched than apricot source (visual estimate about 10-15px), though it remains the accepted reclined rest relation; root should judge fidelity. Some local warm skin highlight persists for light-source judgment."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "call": 22,
+      "activity": "study",
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-study-mist-literary-light-wave-a-v1.png",
+      "motherSha256": "2d3895b2b765c08119fffe629e64e5299b4fe8fb4431ba1eb6b59c0aa09904a5",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-study-mist-literary-light-wave-a-v1.source.json",
+      "sourceSha256": "7988a17530ceecd678e14fa24c186141c16330a340a181676f9ad66460fbd04b",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-study-mist-literary-light-wave-a-v1.prompt.txt",
+      "promptSha256": "c2f8ae0872f62a0780f6be953cd08ea0738fa95c49f0cca9c0052c13e21757f9",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Paper fold/overlap and precise fingertip remain subtle source-sized details; primary must judge visible contacts, not inferred hidden surfaces."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "call": 23,
+      "activity": "study",
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-study-violet-literary-light-wave-a-v1.png",
+      "motherSha256": "e1b0ac3aa195f31d8e1306d504376c6cf7d0ade5eb439bc1f76f5b430ffeb3b4",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-study-violet-literary-light-wave-a-v1.source.json",
+      "sourceSha256": "991ec44e68e477e8efa1261b9c46a076044ec16691699212ffcf2dc180dc93df",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-study-violet-literary-light-wave-a-v1.prompt.txt",
+      "promptSha256": "0563930aacfb9f388e287a123b863adc91bc291812c49f7a3cf3a0f9e71dc101",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Small paper/finger contour variation and concentrated warm knee highlight remain for root's light/contact judgment; no exact pixel or independent layer claim."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "call": 24,
+      "activity": "study",
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-study-rain-literary-light-wave-a-v1.png",
+      "motherSha256": "305b11cd965924c3a556aa864f7633fa52fcf2e6ebb4ca2e2480e8d11d170339",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-study-rain-literary-light-wave-a-v1.source.json",
+      "sourceSha256": "e1a31cdfdbc6ffe0b4c69c3efb93e5a7ad7a22d999bb597a4afabe9f6192eef7",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-a/umiri-study-rain-literary-light-wave-a-v1.prompt.txt",
+      "promptSha256": "f1eccad2468177e799fdac43735f0c7b051880b81b38275434e431da49d7901d",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Warm knee-top highlight and fine paper/fingertip contours remain for root's exact light/contact judgment; not claimed pixel-identical or approved for layers/runtime."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "directFileVerification": "Per-call source records and immutable six-call batches retain exact input/output/tool-original/prompt SHA checks; final bundle rechecked all linked mother/source/prompt and input approval-record hashes with no mismatch.",
+  "reviewBoundary": "This producer record does not approve new mothers or layers. Root must judge exact full-source pose/light fidelity, including disclosed small head/object contour changes and concentrated warm highlights. Previous light-chat-wave six remain separate."
+}

@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "character-activity-mother-candidate",
+  "character": "mutsumi",
+  "activity": "study",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "wave": "apricot-wave-b",
+  "intendedSupport": "desk-chair",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-e63e91f8-6545-46e7-8f32-2b60f111b197.png",
+  "executionId": "exec-e63e91f8-6545-46e7-8f32-2b60f111b197",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "primary approved clean literary room spatial input"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.png",
+      "sha256": "9d529789ece89f44b166f39dd259136257598cfd546009e49fae74140cbf8b6d",
+      "role": "same character root-approved chat mother for correct identity/outfit only, not new activity pose"
+    }
+  ],
+  "brief": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/mutsumi-prompt-plan.json",
+    "sha256": "66ade9700cb7bb993b43bd7e247b678878b79ad71237b0b5dcd915a43a3be2ca",
+    "key": "mutsumi/study/apricot",
+    "release": "Root released limited wave-b study/listening/play/attention/resume apricot only, five cells per character; no layers before root mother review",
+    "transformation": "Own literary narrative/core/identity/light retained; support refined from actual empty room. Study uses actual left desk/chair depth instead of unapproved generic bench-study or copied desk-pilot body."
+  },
+  "studySpatialTextReference": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-pilot/sakiko-study-apricot-literary-desk-pilot-v1.prompt.json",
+    "imageInput": false,
+    "purpose": "read-only left-desk intent; does not inherit changed chair geometry or pending candidate approval",
+    "sha256": "5d998625466090eaeb82476a1c3a768831d47311e31541e55948d09f9af1dd7e"
+  },
+  "fictionalCompanionScene": true,
+  "privateUserDataUsed": false,
+  "promptFile": "mutsumi-study-apricot-v1.prompt.txt",
+  "promptFileSha256": "a2d6b64e6eee1b2a3b3eda46b06b85cde49402cd09f0625301d652622d91efd4",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; exact submitted text",
+  "submittedPromptSha256": "3c6df33a27e47fc0672702c5088cdc0c786a79d4cde8f723ac44d3957496e907",
+  "output": {
+    "file": "mutsumi-study-apricot-v1.png",
+    "sha256": "0fed56bbb3ae86b4ee81f1957e243b1d01b9e7f40c56e79e285ac686a1b6c5ac",
+    "bytes": 2469559,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved complete mother before next generation. Correct mint hair/golden-brown eyes/navy sailor identity is now at the actual left writing desk, with the right bench empty; no bench-sprite translation. She attends the paper with one real hand at the desk/page and another holding a small pen near the lips rather than the requested pointing finger. Hip/skirt rests on chair seat cloth, visible forearm/paper is supported by reachable desk. Chair-back/slat outline is visibly turned/wider than the empty plate and requires root source-specific support review rather than a pixel-lock claim. Foreground plant/chair substantially occlude the lower legs/shoes; a brown loafer side is visible, not a verified complete two-shoe/floor-contact pair. Visible face/eyelid/iris versus fringe remains distinct. Same room camera/window/major bench/lamp arrangement and coherent warm light remain. Producer view only; root/layers/runtime pending."
+  },
+  "primaryApproved": true,
+  "primaryApprovalRecord": "mutsumi-study-apricot-v1.primary-approval.json",
+  "primaryApprovalScope": "Root approved exact-SHA static mother only, with actual rendered semantics; layer/runtime remain false.",
+  "contourComplete": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "Static mother candidate only, root review pending; no layer, motion or runtime admission."
+}

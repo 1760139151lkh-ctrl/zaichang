@@ -1,0 +1,43 @@
+{
+  "cell": "rana/play/rain",
+  "submittedPrompt": "请画一张1536×1024完整横向二维文学母图。图1是唯一房间/相机/雨夜照明依据；图2只给已经亲看准入的同一个乐奈、私服、窗榻深度与人物尺度，不取它的晴日光。完整保留图1湖城雨窗、木书桌椅、陶瓷灯与小圆桌、右侧原有长窗榻/软垫/格纹靠枕/针织毯、木地板和地毯。不要裁切、改机位或添家具。\n\n她刚发现木柜前板能敲出一点轻轻的节拍，停下来等你接一下，或什么都不接。屋里还是安静的，不成舞台。乐奈自己觉得这个小发现有趣，眼里有一点直接的小得意，嘴角只有自然短短的会意；不是营业笑、傻笑或托腮摆拍。她仍有自己的兴趣和判断。\n\n她坐在原图近处右窗榻，头顶约y110，双靴完整至y890，躯干不往镜头冲。右手低低持稳一只小折纸鸟，手与纸就在大腿上方、低于胸口。左前臂在身体左侧自然放低，左手放到白软垫下方现有的垂直木柜前板上：两根自然微弯的指腹轻轻贴着木材，刚敲过后的停顿。接触点确实在软垫下方的木板表面，不在软垫上；不是朝下空指。手腕/前臂自然依着原有榻前缘或大腿外侧，肩肘腕连续。两手都不扶脸、不托腮。不要为手新增水平木台、侧桌、木托盘或改变柜体；木柜前板仍与图1一模一样。请让近膝折纸、木面上的指腹接触和看向对方的兴味都实际可见。\n\n她必须仍是要乐奈：银白层次短bob、软分束刘海、淡灰紫发梢，自身右眼金黄、自身左眼蓝（正面观者左金右蓝），不翻转镜像，眉/眼睑/虹膜/发丝独立清楚。青春柔软面颊与自然短下巴，聪明不幼儿化，不画成熟长脸或狭窄半闭眼。衣服与图2相同：无图案的宽松黑短袖叠白长袖，白短裤，黑系带踝靴；无项链、吊坠、胸前印花或新增饰品。髋和大腿落在实际软垫，膝踝相连，完整双靴与地板关系可信。\n\n整幅只受图1柔和室内暖灯与冷夜窗光照明，皮肤、白袖、短发、软垫和地板共享夜间暗部与软影。没有直射太阳，没有白昼窗格白亮矩形或硬阳斑，不用雨玻璃掩盖日照遗留。人物是画在同一房间里的，不抠贴。无文字、UI、标题、字幕、额外人物、猫、吉他、水印或新道具。此静态画只表现一小个可回应的节奏瞬间，不声称它已发声或保存过用户事件。",
+  "promptSha256": "a153ecdbd19fc1eb9b1b0ec60bb7a51665b83a5d17af6a9bc2669f582deb6bef",
+  "shaConvention": "Exact submittedPrompt UTF-8 bytes without added trailing LF.",
+  "referenced_image_paths": [
+    "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-rain-night-v1.png",
+    "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\apricot-wave-a\\rana-play-apricot-literary-v1.png"
+  ],
+  "inputSha256": [
+    "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+    "013996c5bc9396bb23c6f36e4be2d6f3e8b3cb81f4e3bd07121692216488aa21"
+  ],
+  "inputRoles": [
+    "target clean room camera and complete light",
+    "root-reviewed apricot complete Rana mother: identity, outfit, bench scale and activity support"
+  ],
+  "briefKey": "rana-play-rain",
+  "briefPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\briefs\\rana\\rana-play-rain.md",
+  "briefSha256": "6d2c429eef801d927076e42db9aa0ec6478587466a46d98588b6686b63c32494",
+  "briefSnapshot": "# 乐奈 · 同乐 · 夜雨暖金\n\n创作 brief · 尚未出图 · 等待 root 新空 plate 与对应单祥子样板\n\n## 桌面有两种声音\n\n乐奈先轻轻敲了一下，随后停住，像听出了木头和杯旁空处的差别。她看向你，留出接一拍或完全不接的余地。屋里没有变成舞台，只多了一点两个人可以轮流参与的节奏，雨也没有抢走主角。\n\n## 表演与画面\n\n目光里有邀约的兴味，动作停在可回应的位置，神情自然亲近。\n\n## 简明身体与空间\n\n只做一次简明指尖动作，手腕有支撑；杯子不被拿来危险叠放。\n\n## 这一格的光线\n\n暖灯下木面和皮肤共享光色，窗外雨为环境而非表演特效。\n\n## 相处的分寸\n\n这是静态创作brief，不声称画面已发声；不强迫用户跟拍或继续玩。\n\n本格是项目原创演出。身份、清晰五官、新空间与生成门槛遵循 [共用导演说明](README.md)。不烘焙界面文字；没有图像、分层或运行时准入。\n",
+  "matrixJsonPointerObserved": "/entries/27",
+  "planJsonPointerHistorical": "/entries/27",
+  "dossier": ".agents/skills/zaichang-frontend-director/references/characters/rana.md",
+  "dossierSha256": "d39286e83289d7c67222428a139b8650ff9f60a0e78e49c0a8393b3079f2e892",
+  "wardrobe": "project-original black short sleeve over white long sleeve, white shorts, black lace-up ankle boots",
+  "authorization": "Only healthy root-approved apricot play mother and approved rainy clean plate are inputs; all failed night attempts excluded.",
+  "intendedOutput": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\rana\\missing-theme-extension-v1\\rana-play-rain-literary-v4.png",
+  "rejectedPredecessors": [
+    {
+      "path": "rana-play-rain-literary-v1.png",
+      "reason": "Paper/tap absent; never input"
+    },
+    {
+      "path": "rana-play-rain-literary-v2.png",
+      "reason": "Identity/wardrobe/space drift; never input"
+    },
+    {
+      "path": "rana-play-rain-literary-v3.png",
+      "reason": "Fingertip still on cushion, intended wood contact missing; never input"
+    }
+  ]
+}

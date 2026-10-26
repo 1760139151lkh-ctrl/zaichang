@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 1,
+  "recordType": "fixed-original-source-study-layer-bundle",
+  "id": "rana-study-apricot-runtime-bundle-v1",
+  "createdOn": "2026-10-24",
+  "character": "rana",
+  "activity": "study",
+  "theme": "apricot",
+  "status": "isolated-static-candidate-awaiting-primary-review",
+  "canvas": { "width": 1536, "height": 1024 },
+  "assetBase": "../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/",
+  "mother": {
+    "file": "rana-study-apricot-mother-candidate-v2.png",
+    "sha256": "fb66bbcfffc5f3d42b421c8769cc53ae7f1b605246a68187f5043435eabbe205",
+    "bytes": 2175208
+  },
+  "existingInputs": [
+    {
+      "role": "generated-clean-background",
+      "file": "rana-study-apricot-background-generated-v1.png",
+      "sha256": "13b07e061979f17281aeda3e1153a45e65ebe2ced92ae69aa5ad2fc8f6241931",
+      "bytes": 2072348
+    },
+    {
+      "role": "generated-matte",
+      "file": "rana-study-apricot-mask-generated-v1.png",
+      "sha256": "b99d472ced537122a4fdf2e5514ecf1cc0044f5e42cfa05bd4fb662dc0038fae",
+      "bytes": 362768
+    }
+  ],
+  "existingOutputsReusedUnchanged": [
+    {
+      "role": "background",
+      "file": "rana-study-apricot-background-calibrated-v2.png",
+      "sha256": "59542ebc693a1d5d2f8f3c83efdc5925a06aca9f4475bcead82566cc633dbf4b",
+      "bytes": 2110035
+    },
+    {
+      "role": "figure",
+      "file": "rana-study-apricot-figure-calibrated-v1.png",
+      "sha256": "b2cc7ceaec540facaee33f7bad57dc92d4c2be2ac9edcc23e321791414d7e7b1",
+      "bytes": 2435826
+    },
+    {
+      "role": "mask",
+      "file": "rana-study-apricot-mask-calibrated-v1.png",
+      "sha256": "f8acb7c03e909e6e98317a3a206729fece251753c2c901f52715ef91dcea8fdf",
+      "bytes": 21118
+    },
+    {
+      "role": "old-shadow",
+      "file": "rana-study-apricot-shadow-calibrated-v2.png",
+      "sha256": "06ee5687a44b21e32e47fe3933b8fcc4eb2b104f22bc109c6ad6e2a93fa1df6c",
+      "bytes": 58528
+    }
+  ],
+  "existingProductionEvidence": {
+    "scene": {
+      "file": "rana-study-apricot-candidate-v2.scene.json",
+      "sha256": "22cd78ae503b1ac6f7c450579979bb6acaec80fd1dad553c05f1d252385f6562"
+    },
+    "parameters": {
+      "file": "rana-study-apricot-layer-parameters-v2.json",
+      "sha256": "5e86064c210b223de8f5f8f66d323b03f5b3480894fdaf037c362306c5b19fe1"
+    },
+    "processingRecord": {
+      "file": "rana-study-apricot-layer-processing-v2.json",
+      "sha256": "161cd382447bca663ddea850a09b34d4dbd7001b8911f2dc3ef97f18ae768073"
+    },
+    "sourceRecord": {
+      "file": "rana-study-apricot-layer-source-v2.json",
+      "sha256": "40ae79e32898d0ebc6471cf415e81e873efbfd99e1736fb136d6f98486eaf971"
+    },
+    "sharedProcessor": {
+      "file": "../extract-scene-layers.py",
+      "historicalSha256RecordedByV2Processing": "028d162abc533d6d696d382bad095d65b63d176ba04ffbc18c4729a0c43b280f",
+      "currentFileSha256Observed": "f46fd1aa96f5a92994380a93a9871d1977c4098234285754abe36ddfb2b2749f",
+      "currentDiffersFromHistorical": true,
+      "rerunThisTask": false,
+      "meaning": "The existing v2 outputs are retained as historical production outputs. The current shared processor has changed; its current hash is not a claim that these outputs were reproduced by current code."
+    },
+    "castShadowProducer": {
+      "file": "study-cast-shadow-production.py",
+      "historicalSha256RecordedByV2Processing": "524cf8a15984f9dc0fc5a265c329cb9ab0068ad34a530d539bb3355bec6ebb06",
+      "currentFileSha256Observed": "524cf8a15984f9dc0fc5a265c329cb9ab0068ad34a530d539bb3355bec6ebb06",
+      "currentDiffersFromHistorical": false,
+      "rerunThisTask": false
+    }
+  },
+  "directPixelObservation": {
+    "method": "Read existing PNGs with Pillow and NumPy; compare complete decoded RGB byte payloads and complete decoded Alpha arrays. No images were written or producers run.",
+    "allFivePngDimensions": [1536, 1024],
+    "motherRgbSha256": "66c0b71e49ea82ca09079b855dfad43ee0c7e16d34112a4299458702744a3d9d",
+    "figureRgbSha256": "66c0b71e49ea82ca09079b855dfad43ee0c7e16d34112a4299458702744a3d9d",
+    "motherFigureRgbDifferentBytes": 0,
+    "maskFigureAlphaDifferentPixels": 0,
+    "figureAndMaskAlphaSha256": "0d1826ea12e62ee740718fdc675487c194f14d4938f7f4409780d2c30060d1f9",
+    "reportedGapSamples": [
+      { "xy": [810, 530], "motherRgb": [148, 113, 96], "backgroundRgb": [246, 235, 212], "figureAlpha": 0, "oldShadowAlpha": 0 },
+      { "xy": [812, 540], "motherRgb": [127, 97, 80], "backgroundRgb": [246, 232, 208], "figureAlpha": 0, "oldShadowAlpha": 0 },
+      { "xy": [810, 550], "motherRgb": [126, 95, 80], "backgroundRgb": [231, 193, 163], "figureAlpha": 0, "oldShadowAlpha": 0 }
+    ]
+  },
+  "sourceClip": {
+    "file": "rana-study-apricot-bundle-v1-sourceclip.svg",
+    "sha256": "615a621706ac9843a384de35bc03bebacd103a229536ee4bcdef1d87e0c70ef7",
+    "bytes": 1147,
+    "method": "Native inline SVG clipPath displaying exact original-mother RGB. No raster modification, painted shadow, filter, mask processing, resizing, translation or warp.",
+    "consumption": "Inline this SVG markup into the room stage, resolving its mother href from the consumer. Do not load this external-reference SVG through an HTML img or an SVG image element: nested image-resource loading did not display its source in the observed Chrome preview. The final preview uses native inline SVG and visibly displays the source.",
+    "viewBox": [0, 0, 1536, 1024],
+    "image": { "x": 0, "y": 0, "width": 1536, "height": 1024, "preserveAspectRatio": "none" },
+    "clipPathUnits": "userSpaceOnUse",
+    "polygon": [[843,467],[831,508],[823,519],[821,548],[825,562],[838,573],[840,580],[823,580],[810,572],[800,562],[800,550],[804,540],[801,530],[803,520],[807,506],[812,491],[818,480],[829,472]],
+    "bounds": [800, 467, 843, 580],
+    "geometricAreaSquarePixels": 2401,
+    "contents": "Narrow chair-back and seat region, a tiny warm windowsill/background junction at the upper tip, and connected original black coat/hem and white shorts edge. The inner clothing pixels are covered by the unchanged same-RGB figure. This is not pure furniture and is not an independent shadow.",
+    "order": ["background", "old-shadow", "source-clip", "old-figure"],
+    "coordinateSpace": "room-stage-fixed",
+    "transform": "identity",
+    "usesActorStyle": false,
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "requiredConsumerGate": {
+      "all": {
+        "poseId": "rana-study-apricot-candidate-v2",
+        "motherSha256": "fb66bbcfffc5f3d42b421c8769cc53ae7f1b605246a68187f5043435eabbe205",
+        "showFigure": true,
+        "motherReady": true
+      },
+      "onAnyMismatch": "Remove the source-clip immediately, including when the figure is hidden, the pose changes, the verified mother is not ready or its SHA differs. Do not retain it for an actor fade-out or attach it to actorStyle.",
+      "runtimeImplementedThisTask": false
+    }
+  },
+  "staticPreview": {
+    "file": "rana-study-apricot-bundle-v1-preview-v2.html",
+    "sha256": "04cdb725b7e868725adbd581929ef0b937f9bf644010309685b8fe80c6b8d205",
+    "bytes": 6801,
+    "sectionsPersonallyViewed": ["edge", "source", "seat", "desk", "boots", "scene"],
+    "edgeComparison": "Mother / unchanged v2 / source-repaired v2, identical crop and 4:1 scale.",
+    "isolatedSourceComparison": "Same source-clip at 4:1 over light and dark backgrounds.",
+    "wholeScenes": "Mother, original v2 and repaired v2 were each personally viewed at the same normal rendered size.",
+    "observation": "The original pale gap outside the left black coat/hem is visible in the unchanged v2 and removed by the final inline source-clip at the three reported coordinates. The tapered upper join avoids the first draft's horizontal cut. The lower seat join, coat fringe and shorts edge are continuous at the inspected scale. The desk/forearms/paper, chair seat support and two boot/floor contacts remain aligned to the original mother. No chat-like broad bright band was observed. This is a static candidate judgment, not runtime or motion acceptance."
+  },
+  "preservedOriginalObservationPage": {
+    "file": "rana-study-apricot-runtime-bundle-v1.html",
+    "sha256Observed": "cee50c6b333245f86c37e99659e1cc14610c32f33b6838d7788360d8fc560d31",
+    "modifiedThisTask": false,
+    "sectionsPersonallyViewed": ["seat", "alpha", "shadow-layer"],
+    "observation": "The unchanged figure was viewed on light, dark and checker backgrounds alongside its white-RGB Alpha mask. The unchanged normal RGBA shadow was viewed on light, dark and checker backgrounds. The old seat crop starts at x=810 and partially hides the gap's outer edge; the new edge crop starts at x=780."
+  },
+  "runtimeVerificationBoundary": {
+    "productRuntimeModified": false,
+    "productRuntimeGateExercised": false,
+    "productRuntimeInteractionExercised": false,
+    "newImageGenerationCalls": 0,
+    "pngFilesModified": 0,
+    "producerReruns": 0,
+    "newTestsHarnessesOrRunners": 0,
+    "approvedByPrimary": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  },
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "nextOwner": "Parent agent to inspect final preview and integrate the fixed room-stage source clip with the required pose/mother/showFigure/motherReady gate if approved."
+  }
+}

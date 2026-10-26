@@ -1,0 +1,27 @@
+{
+  "recordType": "original-mother-layer-extraction",
+  "key": "anon/rest/apricot",
+  "layer": "luminance-mask",
+  "tool": "built-in image_gen.imagegen",
+  "createdAtUtc": "2026-10-25T03:54:56.433Z",
+  "file": "anon-rest-apricot-bundle-v1-mask.png",
+  "sha256": "e2fb8f5c3819366981374384bfcf0a10bba02e9b77f37ba9b81b9a0d449580a1",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "promptSha256": "012c390af9e4904fe4b1644569df1a1874041352858d0188e9d385a2a938a7e4",
+  "prompt": "anon-rest-apricot-bundle-v1-mask-prompt.txt",
+  "input": {
+    "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-rest-apricot-mother-candidate-v1.png",
+    "sha256": "55d2d4d6873bb1089bef893e5fe4e9d953a3e8d1eca651d50a575532e8c0ffbd",
+    "role": "approved complete mother; sole edit target"
+  },
+  "originalOutputBasename": "exec-758223d5-45a8-4cff-b960-11e0db9ef273.png",
+  "originalExecutionId": "758223d5-45a8-4cff-b960-11e0db9ef273",
+  "originalSessionId": "01a170ed-b14d-7321-9cf7-3bd222b6ff42",
+  "inspection": "awaiting manual original-RGB composition inspection",
+  "approvedByPrimary": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false
+}

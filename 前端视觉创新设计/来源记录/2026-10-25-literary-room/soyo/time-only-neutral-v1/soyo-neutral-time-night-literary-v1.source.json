@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "purpose": "neutral-presence",
+  "neutralTime": "night",
+  "sceneFamily": "literary-room-v1",
+  "characterId": "soyo",
+  "paletteHint": "rain",
+  "lightHint": "night",
+  "environmentVariant": "time-night",
+  "weatherClaim": false,
+  "exactActivityCoverage": false,
+  "createdAt": "2026-10-26T00:30:47.735753+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "generationIntent": "same-character approved day whole-mother relight using approved identity and empty time-night plate; no new pose/camera/furniture",
+  "exactPromptFile": "soyo-neutral-time-night-literary-v1.prompt.txt",
+  "promptSha256": "9820d9770cb45411b19c52fff1b58aea57f2d1a3eaa660929e189f1459304231",
+  "requestFile": "soyo-neutral-time-night-literary-v1.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/soyo-neutral-time-day-literary-v1.png",
+      "sha256": "b7389951fe91b57019a55aace462bd4e4efc61c455c17499743548b02cc1f062",
+      "role": "approved same-character day full pose and scene",
+      "primaryApproval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/soyo-neutral-time-day-literary-v1.primary-mother-review.json"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/portrait/soyo-avatar-youth-v3.png",
+      "sha256": "735d92cac98476e597a9ca6bb86df60c4de1ccf5481a88597f5d4a17e359c418",
+      "role": "approved same-character face aesthetic and identity reference only",
+      "primaryApproval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/portrait/soyo-avatar-youth-v3.primary-identity-review.json"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.png",
+      "sha256": "d9c41c4278dd8a4efae1a91102e16349ad4dcf9829963c31ddc421dfc3652253",
+      "role": "approved clean empty time-night interior lighting and opaque curtains",
+      "primaryApproval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-night-v1.primary-approval.json"
+    }
+  ],
+  "readSources": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/soyo.md",
+      "sha256": "1ec8b260d40f8363c096ed8392547dd276d2318df5aadbe34b1f51e51e2ed04e",
+      "fullReadBeforeCall": true
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "fullReadBeforeCall": true
+    }
+  ],
+  "wardrobeId": "haneoka-high-navy-sailor-uniform-under-knee-socks-brown-loafers",
+  "projectOriginalInteraction": "Same paused page-turn and leftward attentive gaze as the approved day mother, with night interior light only; not a claim of actual weather, completed work or original-series history",
+  "output": {
+    "file": "soyo-neutral-time-night-literary-v1.png",
+    "originalBasename": "exec-c7ea2691-7d8e-4634-9203-589a1c50cc8e.png",
+    "sha256": "82a918b778cbe9549572410ceba0c27af7c0e11d33f9f2ae14614a280e36d9b6",
+    "bytes": 2255447,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteMother": true,
+    "observations": [
+      "Opaque curtains remain closed with no visible exterior or invented weather.",
+      "Warm lamp-night lighting acts on Soyo, the curtain, cushion, wood and floor together without a bright white daytime curtain.",
+      "The same right-seat body scale, lap-supported open book and paused page-turn hands remain connected.",
+      "Blue eyes, long light-brown hair, original sailor details, exposed knees above below-knee socks and complete grounded brown loafers remain visible.",
+      "No independent layers or runtime motion have been made; primary night-mother inspection remains pending."
+    ]
+  },
+  "primaryApproved": true,
+  "userApproved": false,
+  "generationInputAllowed": true,
+  "layersProduced": false,
+  "runtimeAccepted": false,
+  "countsToward360ExactActivities": false,
+  "primaryAdmissionRecord": "soyo-neutral-time-night-literary-v1.primary-mother-review.json",
+  "generationInputScope": "Authorized same-character fixed included-mask layer production only; exact mother pixels remain source of RGB; no runtime or activity360 acceptance."
+}

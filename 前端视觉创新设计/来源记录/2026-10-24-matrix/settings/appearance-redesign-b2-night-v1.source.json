@@ -1,0 +1,48 @@
+{
+  "createdOn": "2026-10-25T04:17:20.007223+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "kind": "ui-mockup",
+  "scope": "two-row companion appearance settings B2",
+  "state": "night",
+  "file": "前端视觉创新设计/来源记录/2026-10-24-matrix/settings/appearance-redesign-b2-night-v1.png",
+  "sha256": "1bae4c58e9dae55b5b1e589755e108c8004f3cdff3395b1f51a21d884ace5982",
+  "bytes": 1880534,
+  "width": 1536,
+  "height": 1024,
+  "exactPrompt": "Use case: precise-object-edit, ui-mockup. Edit the PRIMARY-APPROVED B design of the Chinese companion app 在场 into its final much simpler B2 design, exactly 1536×1024. Input image 1 is the edit target and exact information-layout reference. Preserve its top app navigation 聊天 今天 留下, settings tabs 陪伴的样子 / 怎么相处 / 阅读与节奏 / 连接与资料 and the complete single room preview on the right. Preserve the right room's camera, window, furniture, original youthful Sakiko, supported seated posture and character scale. This is a design reference only; keep all real UI text outside the room.\nMAKE THESE PRECISE INFORMATION REDUCTIONS: The narrow left column has ONLY TWO quiet clickable rows. Row 1: 伙伴 — a small current Sakiko avatar, 祥子, and ONE chevron at the far right. Remove the ellipsis; no second action within this row. Row 2: 光线 — the plain concise value 随窗外 and ONE chevron. Remove ALL four permanently visible color swatches. Completely REMOVE the third 随天气 row, its cloud icon, toggle and its separator: auto atmosphere and light choice are one relation, not repeated concepts. Leave the rest of the left column beautifully quiet, without filler content or labels. The character chooser, custom image/favorites/light-only operations and automatic/four-manual-environment choices are on demand behind these rows, so DO NOT paint any of those expanded controls on this CLEAN DEFAULT screen. No Adopt/Cancel controls, no disabled controls, no preview label, no big slogan or declaration heading. No activity/pose buttons, nickname/personality panels, dragging instruction or track, change-position button, weather data card, temperatures or locations. Keep only meaningful concise labels and the TWO rows; no unnecessary duplicate icons. Clean precise Chinese typography, realistic app proportions, quiet surfaces and fine separators. No green UI, dashboard boxes, watermark, decorative explanatory text or invented active weather fact.\nB2 NIGHT STATE: Input image 2 is the SAME CLEAN ROOM at rainy night and is a physical lighting reference only. Use its whole-room blue night window and amber practical desk lamp illumination to re-light the complete room of image 1 WITH the same Sakiko at the same original scale/posture/support. Keep all furniture positions and the lamp at its original room location. Window is visibly night across the entire width, with dark blue outside, rain on exterior glass, distant small warm lights reflected on the lake. No sun, sunset, white daytime sky, daytime foliage/window-grid sun projections, or bright white curtains. Practical amber light falls on the real desk, character, linen and dry wooden floor. Surrounding interface is coordinated warm charcoal/taupe night paper with readable warm ivory text and restrained muted gold, not flat black, gray-gold panels or a bright white daytime room. Two rows remain EXACTLY 伙伴 / 祥子 and 光线 / 随窗外 with one chevron each. Do not add a weather badge or third row. The choice of night art is an environmental appearance concept, not a claim of real local rain.",
+  "promptSha256": "f27f92b252fddf9770a4f1053f06dcfbce19d8d51d9583652bd07020d87065c0",
+  "inputs": [
+    {
+      "role": "approved B information layout edit target",
+      "file": "前端视觉创新设计/来源记录/2026-10-24-matrix/settings/appearance-redesign-b-v1.png",
+      "sha256": "acb1adaab6e7de4858dd13e43de063997e40ec490e51fc88deb632b533e6989e"
+    },
+    {
+      "role": "complete rainy-night light reference only",
+      "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "originalGeneratedFile": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-60a8d64e-89bb-45e5-9ca2-40afd6c4ef4b.png",
+  "designerPersonallyViewed": true,
+  "designerObservation": "Personally viewed. Clean default has only partner avatar/name/one entry and light current-value/one entry. No default swatches, third weather row, ellipsis, adoption controls or activity director. Night uses the same room at coherent blue/amber night with matching warm dark interface; day uses coherent warm ivory/daylight. Design reference only, not registered room artwork.",
+  "primaryReview": {
+    "reviewer": "root",
+    "personallyViewed": true,
+    "decision": "accepted_ui_layout_relationships_only",
+    "recordedOn": "2026-10-25T05:14:34.939816+00:00",
+    "designSha256": "1bae4c58e9dae55b5b1e589755e108c8004f3cdff3395b1f51a21d884ace5982",
+    "acceptedScope": [
+      "Two default rows: partner and light; one entry per row.",
+      "Partner choices and automatic/four manual environments stay collapsed until requested.",
+      "Clean default has no adoption/cancel group, preview label or activity director.",
+      "Complete same-room preview; daytime and coordinated night interface are layout/atmosphere references."
+    ],
+    "notEvidenceFor": [
+      "Functional, persistence, keyboard or motion acceptance.",
+      "Live weather access, current conditions or accuracy.",
+      "Runtime scene artwork, same-canvas layers, calibration or registration approval."
+    ]
+  },
+  "runtimeAccepted": false
+}

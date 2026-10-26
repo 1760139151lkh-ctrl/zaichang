@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "whole-scene-chat-light-mother-candidate",
+  "character": "mutsumi",
+  "activity": "chat",
+  "palette": "mist",
+  "environmentVariant": "overcast-day",
+  "wave": "chat-light-wave",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-fb3b2cb0-6adc-4023-8266-810fb9739341.png",
+  "executionId": "exec-fb3b2cb0-6adc-4023-8266-810fb9739341",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.png",
+      "sha256": "9d529789ece89f44b166f39dd259136257598cfd546009e49fae74140cbf8b6d",
+      "role": "primary exact approved same-character apricot-chat mother, identity/pose/geometry edit target"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "role": "approved corresponding empty literary room environment/whole-light reference"
+    }
+  ],
+  "inputAcceptanceBasis": "Root explicitly approved each same-character apricot chat mother and the matching empty plate; no unreviewed wave-b or old-room figure used.",
+  "wholeSceneRelighting": true,
+  "newUIPaletteOption": false,
+  "promptFile": "mutsumi-chat-mist-v1.prompt.txt",
+  "promptFileSha256": "0d2bf0c56caca02b4c78efada34dd41ecaf12ff50c83585f892d460ef198d739",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; exact submitted text",
+  "submittedPromptSha256": "62c804f2b9ee8cf6a1973bc83c94bb80e43e9190edac3113df05f768897018ea",
+  "output": {
+    "file": "mutsumi-chat-mist-v1.png",
+    "sha256": "58296d7af61df080a9c784f28b22da63dd23a21de291751acb3512416250a02a",
+    "bytes": 2383322,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved complete mother before next light. Dry cloudy daytime landscape and diffuse window light replace the clear-day sun; hard floor/seat leaf-grid patches are absent. Mint hair, golden-brown eyes, navy sailor cloth/hem and skin receive coherent softer room light while small existing lamps retain local warmth. Source chat lap hands, supported hip/seat, uncrossed knees/ankles, full head/shoes and comparable apparent scale/coordinates remain visually stable; face/eyelid/iris versus fringe remains clear. No new prop, filter-like blue face, split lighting or forced sad expression observed. Producer static observation only; root/layers/runtime pending."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "Whole-scene static mother candidate only; root review pending. Apricot layer masks do not grant light-variant layer acceptance.",
+  "privateUserDataUsed": false
+}

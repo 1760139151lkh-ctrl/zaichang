@@ -1,0 +1,44 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rana study 暖杏 · v2 原位分层观察</title>
+<style>*{box-sizing:border-box}body{margin:24px;font:15px/1.5 system-ui,"Microsoft YaHei",sans-serif;color:#302827;background:#eee9e3}h1{font-size:24px}h2{font-size:19px}section{margin:30px 0 42px;scroll-margin-top:16px}a{color:#68412c}nav,.row{display:flex;gap:20px;flex-wrap:wrap}figure{margin:0;max-width:100%}figcaption{padding:8px 0}.whole{display:block;width:100%;max-width:min(1536px,calc((100vh - 100px)*1.5));height:auto}.layer{display:block;width:260px;max-width:100%;height:auto}.detail{display:block;width:340px;max-width:100%;height:auto}.light{background:#faf7f1}.dark{background:#211b27}.checker{background-color:#ddd;background-image:linear-gradient(45deg,#aaa 25%,transparent 25%),linear-gradient(-45deg,#aaa 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#aaa 75%),linear-gradient(-45deg,transparent 75%,#aaa 75%);background-size:24px 24px;background-position:0 0,0 12px,12px -12px,-12px 0}</style>
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" style="position:absolute"><defs>
+<image id="mother" width="1536" height="1024" href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-study-apricot-mother-candidate-v2.png?sha256=fb66bbcfffc5f3d42b421c8769cc53ae7f1b605246a68187f5043435eabbe205"/>
+<image id="bg" width="1536" height="1024" href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-study-apricot-background-calibrated-v2.png?sha256=59542ebc693a1d5d2f8f3c83efdc5925a06aca9f4475bcead82566cc633dbf4b"/>
+<image id="figure" width="1536" height="1024" href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-study-apricot-figure-calibrated-v1.png?sha256=b2cc7ceaec540facaee33f7bad57dc92d4c2be2ac9edcc23e321791414d7e7b1"/>
+<image id="mask" width="1536" height="1024" href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-study-apricot-mask-calibrated-v1.png?sha256=f8acb7c03e909e6e98317a3a206729fece251753c2c901f52715ef91dcea8fdf"/>
+<image id="shadow" width="1536" height="1024" href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-study-apricot-shadow-calibrated-v2.png?sha256=06ee5687a44b21e32e47fe3933b8fcc4eb2b104f22bc109c6ad6e2a93fa1df6c"/>
+<g id="composite"><use href="#bg"/><use href="#shadow"/><use href="#figure"/></g>
+</defs></svg>
+<h1>Rana study 暖杏 · v2 原位分层观察</h1>
+<p>独立静态素材观察。原文件、原 RGB、原坐标 source-over；不代表产品、拖动、运行或主审验收。原 scene 为 travel 0。</p>
+<nav><a href="#original">母图</a><a href="#background">空背景</a><a href="#scene">原位整景</a><a href="#alpha">人物浅深底</a><a href="#shadow-layer">影层</a><a href="#desk">手与桌面</a><a href="#seat">椅面承重</a><a href="#boots">双靴接触</a></nav>
+<section id="original"><h2>母图 v2</h2><svg class="whole" viewBox="0 0 1536 1024" role="img" aria-label="study完整母图"><use href="#mother"/></svg></section>
+<section id="background"><h2>分离背景 calibrated v2</h2><svg class="whole" viewBox="0 0 1536 1024" role="img" aria-label="study分离空背景"><use href="#bg"/></svg></section>
+<section id="scene"><h2>原位整景 · background → shadow → figure</h2><svg class="whole" viewBox="0 0 1536 1024" role="img" aria-label="study原位三层合成"><use href="#composite"/></svg></section>
+<section id="alpha"><h2>人物与 Alpha mask · 原像素 1:1</h2><div class="row">
+<figure><svg class="layer light" viewBox="790 320 260 440" role="img" aria-label="study人物浅底"><use href="#figure"/></svg><figcaption>人物 · 浅底</figcaption></figure>
+<figure><svg class="layer dark" viewBox="790 320 260 440" role="img" aria-label="study人物深底"><use href="#figure"/></svg><figcaption>人物 · 深底</figcaption></figure>
+<figure><svg class="layer checker" viewBox="790 320 260 440" role="img" aria-label="study人物棋盘底"><use href="#figure"/></svg><figcaption>人物 · 棋盘底</figcaption></figure>
+<figure><svg class="layer dark" viewBox="790 320 260 440" role="img" aria-label="study白RGB Alpha遮罩"><use href="#mask"/></svg><figcaption>白 RGB / Alpha 遮罩</figcaption></figure>
+</div></section>
+<section id="shadow-layer"><h2>独立 normal RGBA 影层 · 原像素 1:1</h2><div class="row">
+<figure><svg class="layer light" viewBox="790 320 260 440" role="img" aria-label="study影层浅底"><use href="#shadow"/></svg><figcaption>浅底</figcaption></figure>
+<figure><svg class="layer dark" viewBox="790 320 260 440" role="img" aria-label="study影层深底"><use href="#shadow"/></svg><figcaption>深底</figcaption></figure>
+<figure><svg class="layer checker" viewBox="790 320 260 440" role="img" aria-label="study影层棋盘底"><use href="#shadow"/></svg><figcaption>棋盘底</figcaption></figure>
+</div></section>
+<section id="desk"><h2>前臂、手、纸张与桌边 · 同区 2:1</h2><div class="row">
+<figure><svg class="detail" viewBox="870 455 170 95" role="img" aria-label="母图手桌关系"><use href="#mother"/></svg><figcaption>母图</figcaption></figure>
+<figure><svg class="detail" viewBox="870 455 170 95" role="img" aria-label="合成手桌关系"><use href="#composite"/></svg><figcaption>v2 原位合成</figcaption></figure>
+<figure><svg class="detail" viewBox="870 455 170 95" role="img" aria-label="空背景手桌区域"><use href="#bg"/></svg><figcaption>空背景</figcaption></figure>
+</div></section>
+<section id="seat"><h2>裤边、大腿与椅面 · 同区 2:1</h2><div class="row">
+<figure><svg class="detail" viewBox="810 530 170 95" role="img" aria-label="母图椅面承重"><use href="#mother"/></svg><figcaption>母图</figcaption></figure>
+<figure><svg class="detail" viewBox="810 530 170 95" role="img" aria-label="合成椅面承重"><use href="#composite"/></svg><figcaption>v2 原位合成</figcaption></figure>
+<figure><svg class="detail" viewBox="810 530 170 95" role="img" aria-label="空背景椅面"><use href="#bg"/></svg><figcaption>空背景</figcaption></figure>
+</div></section>
+<section id="boots"><h2>双靴与地面 · 同区 2:1</h2><div class="row">
+<figure><svg class="detail" viewBox="885 650 170 120" role="img" aria-label="母图双靴接触"><use href="#mother"/></svg><figcaption>母图</figcaption></figure>
+<figure><svg class="detail" viewBox="885 650 170 120" role="img" aria-label="合成双靴接触"><use href="#composite"/></svg><figcaption>v2 原位合成</figcaption></figure>
+<figure><svg class="detail" viewBox="885 650 170 120" role="img" aria-label="空背景双靴区域"><use href="#bg"/></svg><figcaption>空背景</figcaption></figure>
+</div></section>
+</html>

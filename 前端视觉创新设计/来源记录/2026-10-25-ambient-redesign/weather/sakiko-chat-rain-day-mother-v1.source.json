@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "assetType": "complete-room4-weather-character-mother-prototype",
+  "id": "sakiko-chat-rain-day-mother-v1",
+  "character": "sakiko",
+  "activity": "chat",
+  "environmentVariant": "rain-day",
+  "intendedCondition": "rain",
+  "isDay": true,
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-chat-rain-day-mother-v1.prompt.json",
+  "promptFileSha256": "1d84b7e37d93e3fefc9d6d25ece304a18667b5d45112701059a064b3d27bdc00",
+  "submittedPrompt": "Use case: identity-preserve and compositing. Asset: complete SAME-ROOM Sakiko chat mother prototype, not a cutout or UI.\nImage 1 is the PRIMARY EDIT TARGET: the approved clean RAINY DAY room4 at exactly 1536 x 1024. Preserve its full fixed camera/framing, all furniture positions, complete window frame/mullions, pale gray daytime rain sky/lake/town, visible outdoor rain and droplets, soft cool daylight and small warm desk lamp, dry indoor wood floor/rug, and quiet left two-thirds. Image 2 is ONLY the approved original apricot-chat identity, clothing, seated pose and SMALL IN-ROOM SCALE reference. Do not import its sunny background, sunlight patches or sunny figure RGB. Do not enlarge her or create a portrait.\nDraw the complete youthful Sakiko from Image 2 naturally seated on the SAME right window bench at the SAME source scale. Original full figure plus book/hand bounds approximately x=1115..1432, y=257..786; crown-to-shoe-sole height about 529 pixels on this full 1536x1024 canvas. Crown near y=260, face near (1290,345), hips supported on the existing bench cushion around (1293,589), seat around y=594, both shoe soles near y=775..785 at x=1115..1237. Do not make her taller, broader, closer to camera, older, or larger-headed than Image 2. Keep this wide room viewpoint; do not crop, zoom, move furniture, recenter or put her head near the upper window frame.\nPreserve Image 2's recognizable youthful anime face, long soft blue-lavender hair with small dark side ribbons, navy gold-button cardigan, white blouse and pale bow, dark pleated plaid skirt, navy knee socks and brown loafers. Keep a naturally gentle attentive chat expression toward the viewer: rain does NOT force her to look sad, distressed, crying or sleepy. Knees are near each other, lower legs uncrossed and naturally angled toward two grounded loafers. One relaxed hand rests on a closed small blue book across her lap around (1246,525); the other real palm is supported by the cushion around (1405,582). Make believable shoulders/elbows/fingers, actual hip-seat contact and soft compression/contact darkness, foreshortened seated thighs, natural knees/ankles and complete shoes grounded on the dry floor. No floating figure, overlong shins, impossible crossed legs, missing shoe, extra limb or detached book.\nRENDER THE WHOLE GIRL for the actual rainy DAY light: diffuse cool-neutral window skylight shapes her hair, skin, white blouse and navy clothes; the nearby small lamp adds only a restrained warm accent. No sunny golden rim, harsh bright noon white skin or pasted daylight cutout. Keep the outer view visibly daytime rainy and the complete room coherent; do not turn it into midnight or a global blue veil. Add physically modest true shoe-floor and hip-cushion contact shadows consistent with this soft light. The floor stays dry and the character is indoors, no rain on her clothes/hair and no puddles.\nMaintain refined painterly anime detail in the complete original room. No extra people, props, new lamps, UI, controls, words, tutorial, cards, watermark, grid, border or side-by-side composition. Output one complete opaque RGB 1536 x 1024 mother image.",
+  "submittedPromptSha256Utf8NoTrailingLF": "31281e83ad264b7f7fba62e827cf3b40ca4c9155a62fe5a8ef04639949bf8bb0",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/room4-rainy-day-v1.png",
+      "sha256": "d561c4db01557f642d7ccbabd444ab916d1fd200e8dc8392295dbbb9ff5c0cdd",
+      "role": "primary edit target; exact-SHA root-approved clean same-room rainy daytime background"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+      "sha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1",
+      "role": "personally viewed approved youthful identity, seated-pose and scale reference only; its sunny RGB/lighting/background must not be pasted"
+    }
+  ],
+  "scaleRecord": "sakiko-chat-weather-scale-v1.json",
+  "output": {
+    "file": "sakiko-chat-rain-day-mother-v1.png",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17126-cdea-77e3-9abe-3d71acd87e8b\\exec-2ce85254-43d1-4361-a906-4f9ba6c14a2d.png",
+    "sha256": "e287875d209fc367d4316b4dcdb53201fb514f8404de8ebc63cd6fe46a99e7d8",
+    "bytes": 2257727,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "transparentBackground": false,
+  "prototypeBoundary": {
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "layersGenerated": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  },
+  "review": {
+    "personallyViewed": true,
+    "observation": "Personally viewed the complete generated mother at original full-room framing. Youthful identity and small in-room scale remain visually close to registered apricot and the dry-night prototype; crown is roughly a dozen pixels lower than the original while soles remain around y780, without enlargement. Hips are supported by the cushion, right palm rests on it, the left hand and closed blue book stay on the lap, and two complete loafers have floor contact beneath uncrossed legs. Broad rainy-day skylight models face/hair/gray-white blouse without a bright sunny cutout; the restrained lamp and real daytime rain window are preserved. Expression stays gently attentive, not forced sad. These are approximate visual observations, not new mask-derived calibration or runtime/motion acceptance.",
+    "approvedByRoot": true,
+    "rootApproval": {
+      "sha256": "e287875d209fc367d4316b4dcdb53201fb514f8404de8ebc63cd6fe46a99e7d8",
+      "scope": "Complete Sakiko chat rainy-day mother image only; no separated layers or runtime acceptance.",
+      "evidence": "Root personally viewed the complete original PNG and accepted stable seated scale, hip/right-palm/two-shoe support and coherent weather lighting."
+    },
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "primaryNativeCompositeViewed": true,
+    "primaryLayerApprovalRecord": "sakiko-chat-rain-day-primary-layer-approval-v1.json",
+    "primaryLayerApprovalScope": "Exact-SHA original-position static same-canvas layers only; runtime independent"
+  },
+  "status": "primary-admitted-original-position-static-layer-runtime-separate"
+}

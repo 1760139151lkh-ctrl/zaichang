@@ -1,0 +1,23 @@
+/* Input owns the next moment. Keep the existing room, seat and paper geometry;
+   cancel optional presentation rather than switching to the reading layout. */
+.companion-scene.is-yielding-to-input .scene-canvas,
+.companion-scene.is-yielding-to-input .scene-actor-layer,
+.companion-scene.is-yielding-to-input .scene-layer,
+.companion-scene.is-yielding-to-input .companion-figure,
+.companion-scene.is-yielding-to-input .companion-figure > img {
+  animation-play-state: paused;
+  transition: none;
+}
+/* A one-time custom portrait entrance is retired, so leaving the input never
+   restarts it or resumes a half-transparent first frame. */
+.companion-scene.has-yielded-to-input .companion-figure > img {
+  animation: none;
+}
+.companion-scene.is-yielding-to-input .scene-character-grab,
+.companion-scene.is-yielding-to-input .companion-figure.is-editable,
+.companion-scene.is-yielding-to-input .companion-resize-handle {
+  pointer-events: none;
+}
+.companion-scene.is-yielding-to-input .scene-focus-ring {
+  opacity: 0;
+}

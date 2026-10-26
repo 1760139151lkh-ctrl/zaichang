@@ -1,0 +1,18 @@
+Use case: illustration-story. ONE new complete nyamu / attention / apricot mother, 1536×1024.
+Image 1 is the approved clean EMPTY new literary room and the PRIMARY space input. Keep the exact full canvas, close camera, perspective, timber window/lake/town/hills, desk/chair, shelves/books/plants, ceramic lamp/cup table, cream long bench/plaid pillows/throw, foreground plants, rug and wood floor. No old room4, room redesign, new furniture or camera zoom.
+Image 2 is ONLY this same character's root-approved chat identity/outfit/apparent-person reference. Do not copy the chat body gesture or facial expression; build this different activity as one coherent newly drawn person in the actual room. Do not transplant a face or another character body.
+
+新东西一出现，她先看到了哪一点值得被记住，接着又像是想起：漂亮之外，还得有东西托住。她收住原来的手势，认真转向那一处，眼里有被点亮的兴致，但不是被召来的夸张惊讶。
+
+那一点值得记住的变化，让她的眼神先亮了一下。
+
+她想被记住，也肯把让人记住的那几秒练扎实。自信、竞争心、得意和锋芒都可以存在；亲近时会交出不那么漂亮的一遍，听见难处又能把表现欲收住。不要把她固定成直播镜头前的笑脸，也不要在严肃时抹掉她自己的活力。
+祐天寺若麦的原作青春二次元辨识：短至下颌与颈侧的薰衣草紫 bob，柔软不齐刘海与侧边发丝，红紫眼；细致而鲜活的年轻脸。维持已核身份文字中的灰色荷叶边短袖上衣与细肩带、黑色细颈圈、黑短裙及低稳跟踝带鞋，衣着自然完整。不是成熟写实时装照，不用过重妆容或魅惑摆拍代替性格；不自动塞入正在拍摄的手机或相机。
+暖杏：清亮的金色窗光落在短发边缘、指尖和织物褶皱，皮肤是健康自然的暖色；紫发、红紫眼、灰衣与黑颈圈仍保固有色。得意来自她正在做的事，不是被阳光统一涂上的大笑。
+这是有自己思想、喜好和不同反应的具体人物。用这件事里的注意与心情决定表情，不把同一万能笑容/安慰套进全部情境。原作辨识和衣着沿正确本人身份参考；共同相处情境是项目原创，不是真实用户历史或已完成行动。青春精细二次元人物与柔绘、木纹织物触感的文学房间自然同景。
+
+Basic real support, without a rigid anatomy diagram:
+仍在原长凳真实坐稳，头与上身朝左侧共同注意处自然转向，手先停住或轻让开。红紫眼有一点被点亮的兴致，也有自己的判断，不大张嘴惊叫，不wink或指示箭头。新对象在画外，不添加UI、屏幕或舞台；不强行站起、不缩小全身。膝踝不交叉，完整踝带低跟鞋由木地面支撑。
+保持近处窗凳完整头鞋的人物尺度，头部含发约180–195像素宽，普通坐姿头顶约y110、鞋底约y890；随真实自然侧转/动作稍变，不探头画大、不缩小全身。髋/座垫、手/物件、膝踝鞋的支撑衔接清楚，本轮不交腿，不画交腿却双脚并排平贴的歧义。
+衣着自然完整，脸、双手和实际支撑不靠夸张道具遮掉。把脸作为一个完整结构画出，发丝/眉毛/眼睑/可见虹膜分离，视线连贯；不把刘海融进虹膜，不复制眼睛、拼脸、金属碎片、网格线。手指自然不多指、不粘连、不断腕。这是 EMPTY-HANDED shared attention：两手明确空着，一手开放地轻落座面，一手空着停在膝前；视线越过左侧房间看向画外的共同注意处，不能变成低头阅读、书页思考或持物展示。没有手持道具，不增加第三只手。
+保持原房间光向与真实强弱，作用于皮肤、固有发色、衣物、实际支撑面与投影/接触影，不全幅套色、不绿UI。一个完整自然房间，禁止UI、文字标签、字幕、按钮、箭头、轨迹、教程、边框、水印、拼贴与分屏。

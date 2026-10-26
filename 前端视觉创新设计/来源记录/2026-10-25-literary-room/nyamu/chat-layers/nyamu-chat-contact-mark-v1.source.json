@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "included-local-contact-receiver-selection-markup",
+  "character": "nyamu",
+  "activity": "chat",
+  "palette": "apricot",
+  "step": "S1",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-5c54d167-d366-4a65-a523-1ec5ce32c747.png",
+  "executionId": "exec-5c54d167-d366-4a65-a523-1ec5ce32c747",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.png",
+      "sha256": "096bd7f5f0138e8b961c91d52dc8e68b29bcda1600bbb9ca444bd1c7eff75313",
+      "role": "sole original approved mother; select real local source contact-receiving material"
+    }
+  ],
+  "approvedOriginalMother": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.png",
+    "sha256": "096bd7f5f0138e8b961c91d52dc8e68b29bcda1600bbb9ca444bd1c7eff75313",
+    "approvalEvidence": "root personally reviewed and approved this exact chat mother; central primary-cast-chat-mother-reviews-v1.json"
+  },
+  "intendedAssembly": {
+    "contactShadowMode": "included",
+    "formula": "U=MAX(L(F),L(S)); draw original mother RGB through U exactly once over matching empty BG",
+    "allMotionZero": true,
+    "separateCleanCasterClaim": false,
+    "pngPixelEditing": false
+  },
+  "promptFile": "nyamu-chat-contact-mark-v1.prompt.txt",
+  "promptFileSha256": "fdc669265923780b8ddeeb68e63614d31a6cb74ed2ec0690be2dd730b0bbf870",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; submitted text exact",
+  "submittedPromptSha256": "ec513f613058838f222aa8db17f41950c4af3153f846f6892b3c99f8695a2e6e",
+  "output": {
+    "file": "nyamu-chat-contact-mark-v1.png",
+    "sha256": "3b2f8f5d88783ba680a8e73e17616cd8b417059f9ad38070cf30456da321f5eb",
+    "bytes": 2448903,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "extrema": [
+      [
+        2,
+        255
+      ],
+      [
+        0,
+        255
+      ],
+      [
+        0,
+        255
+      ]
+    ]
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed full saved S1: thin irregular white marks follow the actual skirt/seat contact, seat-support palm receiver and both shoe toe/sole/heel contacts. The original colored girl and room remain recognizable. These marks deliberately include adjacent local receiving material and some source perimeter, not a portable independent shadow."
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "Raw selection-stage candidate only; no layer or runtime approval."
+}

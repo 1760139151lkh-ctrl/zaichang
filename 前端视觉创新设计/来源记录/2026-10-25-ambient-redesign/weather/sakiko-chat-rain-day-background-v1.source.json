@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-canvas-matching-clean-background",
+  "id": "sakiko-chat-rain-day-background-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-chat-rain-day-background-v1.prompt.json",
+  "promptFileSha256": "9f5ecd3855300cc47ad6b8d20aa26e4b1b2a5525e4bf0f1092ff60d78b90d6ca",
+  "submittedPrompt": "Use case: precise-object-edit. Asset: MATCHING SAME-CANVAS clean empty background extracted from the approved complete RAINY DAY Sakiko chat mother.\nImage 1 is the ONLY exact full 1536 x 1024 edit target. Preserve THIS mother's original fixed camera/framing, complete window frames/mullions, walls, all furniture and bench, floor/rug, materials and physical rainy DAY illumination. This must match the exact new mother, not the earlier empty weather room. No crop, zoom, recenter, resize, recolor, redecorate or camera move.\nRemove ONLY the seated girl on the right bench: all hair/ribbons, skin/clothes/socks, BOTH WORN brown loafers and the closed small blue LAP book beneath her left hand. Remove only shadows caused by her hips, right supporting palm and two shoes. Reconstruct the newly exposed cushion, small hidden pillow/window areas and dry wooden floor using nearby source textures, perspective and light. No remaining girl shadow, person-shaped stain, hair, hand, lap book, ghost or detached shoes.\nKeep the separate blue DESK book, mug and original small warm lamp ON THE CENTER DESK. Keep all furniture, pillows, blanket, curtain folds, plants and normal furniture shadows. Keep a clearly daytime rainy outdoor view: pale gray daylight through rain and droplets on window, cloudy lake/town and coherent cool-neutral indoor skylight with a restrained warm lamp accent. The indoor floor stays DRY. Do not turn into night, add puddles, sunshine beams, new objects or a global blue filter. Do not brighten the former-person patch.\nReturn one clean opaque RGB image exactly registered at original source (0,0), full 1536 x 1024. No UI, words, watermark, grid, border, labels, masks or transparency.",
+  "submittedPromptSha256Utf8NoTrailingLF": "4511ecb5cc29f94c5e1fcf3ddf251c2600ea39fb4ee326acdd31f2600be09077",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/weather/sakiko-chat-rain-day-mother-v1.png",
+      "sha256": "e287875d209fc367d4316b4dcdb53201fb514f8404de8ebc63cd6fe46a99e7d8",
+      "role": "sole exact-SHA approved complete rainy-day mother; earlier empty weather room deliberately not reused"
+    }
+  ],
+  "output": {
+    "file": "sakiko-chat-rain-day-background-v1.png",
+    "sha256": "13ebf75894baa3d008742573b4d402824cfe2f02a39a31e5579f74fd08193eeb",
+    "bytes": 2211620,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-c7a36c81-cd15-4e23-af76-746cd8f6e704.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": true,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observationBoundary": "Producer directly viewed full original PNG output only. Root native original-RGB recomposition review pending; no runtime or movement acceptance.",
+    "primaryNativeCompositeViewed": true,
+    "primaryLayerApprovalRecord": "sakiko-chat-rain-day-primary-layer-approval-v1.json",
+    "primaryLayerApprovalScope": "Exact-SHA original-position static same-canvas layers only; runtime independent"
+  },
+  "status": "primary-admitted-original-position-static-layer-runtime-separate"
+}

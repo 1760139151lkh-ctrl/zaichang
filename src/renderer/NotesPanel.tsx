@@ -2,7 +2,6 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import {
   Check,
   BookOpen,
-  Bookmark,
   ChevronLeft,
   ChevronRight,
   History,
@@ -25,6 +24,7 @@ import {
   type NoteQuoteReference,
   type NotesBridge,
   type NoteDraftAddress,
+  type NoteSummary,
 } from '../shared/notes';
 import { IconButton, PagePanel, uiError } from './ui';
 import { DEFAULT_TIME_ZONE, formatDateTime } from './time';
@@ -34,6 +34,7 @@ import { readBookmarkTransfer, useBookmarkTray, writeBookmarkTransfer } from './
 import { SOURCE_BOOKMARK_MIME, sourceBookmarkReferenceSchema, type ConversationBookmarkReference, type SourceBookmarkPreview, type SourceBookmarkReference } from '../shared/source-bookmark';
 import type { NoteReturnAddress } from './workspace-return';
 import './notes.css';
+import './keep-note-actions.css';
 
 type Editor = { note?: NoteDocument; title: string; body: string };
 type NoteSelection = { editor: Editor; start: number; end: number; left: number; top: number };
@@ -49,6 +50,57 @@ const editable = (note: NoteDocument): Editor => ({
   title: note.title,
   body: note.body,
 });
+const referenceNoteTitle = '纸边的一段原文';
+const ownNoteLabel = (note: Pick<NoteDocument, 'title' | 'source'>) =>
+  note.source.referenceOnly && note.title === referenceNoteTitle ? '摘录笔记' : note.title || '没有标题的一页';
+function noteSourceReference(note?: Pick<NoteDocument, 'source'>): SourceBookmarkReference | undefined {
+  if (!note?.source.referenceOnly) return;
+  const { material, notebook, conversation } = note.source;
+  return material ? { kind: 'material', reference: materialQuoteAddress(material) } : notebook ? { kind: 'notebook', reference: notebook }
+    : conversation ? { kind: 'conversation', reference: conversation } : undefined;
+}
+/** A visible source label is a fresh owner projection, never a saved title or
+ * a cache used to recreate words withdrawn from the original. */
+function KeptNoteEntry({ note, active, boundary, busy, current, hasDraft, date, onOpen }: {
+  note: NoteSummary; active: boolean; boundary: string; busy: boolean; current: boolean; hasDraft: boolean;
+  date: string; onOpen: () => void;
+}) {
+  const button = useRef<HTMLButtonElement>(null), generation = useRef(0);
+  const [visible, setVisible] = useState(false);
+  const [loaded, setLoaded] = useState<{ key: string; value: SourceBookmarkPreview }>();
+  const [unavailable, setUnavailable] = useState(false);
+  const address = noteSourceReference(note), addressKey = JSON.stringify(address);
+  const key = `${boundary}:${note.id}@${note.revision}:${note.sha256}:${note.state}`;
+  const preview = active && note.state === 'active' && loaded?.key === key ? loaded.value : undefined;
+  useEffect(() => {
+    if (!active || !button.current) return;
+    if (typeof IntersectionObserver === 'undefined') { setVisible(true); return; }
+    const observer = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) { setVisible(true); observer.disconnect(); }
+    });
+    observer.observe(button.current); return () => observer.disconnect();
+  }, [active, note.id]);
+  useEffect(() => {
+    const request = ++generation.current; setLoaded(undefined); setUnavailable(false);
+    if (!active || !visible || note.state !== 'active' || !address) return;
+    void window.zaichang.sourceBookmarkPreview(address).then(value => {
+      if (generation.current === request) setLoaded({ key, value });
+    }).catch(() => { if (generation.current === request) setUnavailable(true); });
+    return () => { generation.current++; };
+  }, [active, visible, key, addressKey]);
+  const ownTitle = note.title && (!note.source.referenceOnly || note.title !== referenceNoteTitle) ? note.title : undefined;
+  const sourceName = preview ? `${preview.title}${preview.page ? ` · 第 ${preview.page} 页` : ''}`
+    : note.source.material ? `资料摘录${note.source.material.page ? ` · 第 ${note.source.material.page} 页` : ''}`
+      : note.source.conversation ? '对话摘录' : '笔记摘录';
+  return <button ref={button} className={`notes-entry ${current ? 'is-current' : ''}`} disabled={busy}
+    onClick={onOpen} aria-current={current ? 'true' : undefined} onFocus={() => setVisible(true)} onMouseEnter={() => setVisible(true)}>
+    <strong>{ownTitle || (note.source.referenceOnly ? sourceName : '没有标题的一页')}</strong>
+    {note.preview && <span className="notes-preview">{note.preview}</span>}
+    {preview && <span className="notes-preview notes-source-preview">{Array.from(preview.text).slice(0, 140).join('')}</span>}
+    {!preview && unavailable && <small>原文暂时打不开，你写的想法仍在。</small>}
+    <small>{hasDraft ? '还有没写完的字' : date}</small>
+  </button>;
+}
 
 function noteTextPosition(control: HTMLTextAreaElement, start: number, end: number) {
     // Measure the real editor's wrapped text. The mirror is only geometry;
@@ -113,6 +165,7 @@ export function NotesPanel({
   quoteBoundary = '',
   quoteEnabled = true,
   active = true,
+  refreshKey,
   focus,
   embedded = false,
   bridge = window.zaichang as unknown as NotesBridge,
@@ -130,6 +183,7 @@ export function NotesPanel({
   quoteBoundary?: string;
   quoteEnabled?: boolean;
   active?: boolean;
+  refreshKey?: string | number;
   focus?: { locator: Extract<LocalSearchLocator, { kind: 'note' }>; requestId: number };
   embedded?: boolean;
   bridge?: NotesBridge;
@@ -233,14 +287,8 @@ export function NotesPanel({
       reportReturnAddress();
     });
   }, [active, busy, editor, resumeProof]);
-  const sourceReference = (note?: NoteDocument): SourceBookmarkReference | undefined => {
-    if (!note?.source.referenceOnly) return;
-    const { material, notebook, conversation } = note.source;
-    return material ? { kind: 'material', reference: materialQuoteAddress(material) } : notebook ? { kind: 'notebook', reference: notebook }
-      : conversation ? { kind: 'conversation', reference: conversation } : undefined;
-  };
   useEffect(() => {
-    const turn = ++excerptGeneration.current, reference = sourceReference(editor?.note);
+    const turn = ++excerptGeneration.current, reference = noteSourceReference(editor?.note);
     setLoadedExcerpt(undefined); setExcerptError(''); setExcerptLoading(false);
     if (!active || deleted || !reference) return;
     setExcerptLoading(true);
@@ -324,6 +372,8 @@ export function NotesPanel({
       // A restarted mount must retry navigation whose read was just invalidated.
       // In StrictMode the refs survive the cleanup, unlike the pending read.
       focusRequest.current = 0;
+      resumeRequest.current = 0;
+      resumeAddress.current = undefined;
       focusPending.current = undefined;
     };
   }, []);
@@ -387,7 +437,7 @@ export function NotesPanel({
   }
   useEffect(() => {
     if (active) void loadList();
-  }, [state, appliedQuery, active]);
+  }, [state, appliedQuery, active, refreshKey]);
   useEffect(() => {
     if (!active || !focus || busy || focusRequest.current === focus.requestId) return;
     focusRequest.current = focus.requestId;
@@ -601,7 +651,7 @@ export function NotesPanel({
   }
   function selectPassage(control: HTMLTextAreaElement, point?: { x: number; y: number }) {
     returnSelection.current = undefined;
-    if (!onQuote || !active || !editor || deleted || busy || quoting || control.value !== editor.body) return;
+    if ((!onQuote && !bookmarkTray) || !active || !editor || deleted || busy || quoting || control.value !== editor.body) return;
     const from = control.selectionStart, to = control.selectionEnd;
     const text = control.value.slice(from, to);
     if (!text.trim()) { setSelection(undefined); return; }
@@ -666,11 +716,11 @@ export function NotesPanel({
     try {
       const note = isDirty(editor) ? await save() : editor.note;
       if (!note || !current()) return;
-      if (note.body !== selected.editor.body) throw new Error('这一页的内容变了，请重新选中想拿起的那一段。');
+      if (note.body !== selected.editor.body) throw new Error('这一页的内容变了，请重新选中想留下的那一段。');
       const quote = await bridge.notesQuote({ id: note.id, revision: note.revision, sha256: note.sha256,
         start: selected.start, end: selected.end });
       if (!current()) return;
-      await bookmarkTray.pick({ kind: 'notebook', reference: noteQuoteAddress(quote) },
+      await bookmarkTray.note({ kind: 'notebook', reference: noteQuoteAddress(quote) },
         host.current?.querySelector<HTMLTextAreaElement>('textarea.notes-body'));
     } catch (cause) { if (current()) setError(uiError(cause)); }
     finally { if (mounted.current && generation === quoteGeneration.current) setQuoting(false); }
@@ -919,21 +969,10 @@ export function NotesPanel({
               </p>
             )}
             <div className="notes-list">
-              {list.items.map((note) => (
-                <button
-                  className={`notes-entry ${editor?.note?.id === note.id ? 'is-current' : ''}`}
-                  key={note.id}
-                  disabled={busy}
-                  onClick={() => void open(note.id)}
-                  aria-current={editor?.note?.id === note.id ? 'true' : undefined}
-                >
-                  <strong>{note.title || '没有标题的一页'}</strong>
-                  {note.preview && <span className="notes-preview">{note.preview}</span>}
-                  <small>
-                    {drafts.current.has(note.id) || savedDrafts.current.has(note.id) ? '还有没写完的字' : date(note.updatedAt)}
-                  </small>
-                </button>
-              ))}
+              {list.items.map(note => <KeptNoteEntry key={note.id} note={note} active={active} boundary={quoteBoundary}
+                busy={busy} current={editor?.note?.id === note.id}
+                hasDraft={drafts.current.has(note.id) || savedDrafts.current.has(note.id)} date={date(note.updatedAt)}
+                onOpen={() => void open(note.id)} />)}
             </div>
             {list.hasMore && (
               <button
@@ -950,7 +989,7 @@ export function NotesPanel({
               </button>
             )}
           </aside>
-          <section className="notes-reading-area" aria-label={editor?.note?.title || '笔记正文'}>
+          <section className="notes-reading-area" aria-label={editor?.note?.source.referenceOnly ? '摘录与自己的想法' : editor?.note?.title || '笔记正文'}>
             {!editor ? (
               <div className="notes-paper notes-start">
                 <div>
@@ -1010,13 +1049,13 @@ export function NotesPanel({
                         className="notes-title"
                         aria-label="笔记标题"
                         placeholder="给这一页起个名字"
-                        value={editor.title}
+                        value={editor.note?.source.referenceOnly && editor.title === referenceNoteTitle ? '' : editor.title}
                         maxLength={NOTE_LIMITS.title}
                         readOnly={deleted || busy}
-                        onChange={(event) => changeDraft({ title: event.target.value })}
+                        onChange={(event) => changeDraft({ title: editor.note?.source.referenceOnly && !event.target.value ? referenceNoteTitle : event.target.value })}
                       />
                     </label>
-                    {editor.note?.source.referenceOnly && <section className="note-live-excerpt" aria-label="留在这页旁的原文" aria-busy={excerptLoading}>
+                    {editor.note?.source.referenceOnly && <section className="note-live-excerpt" aria-label="引用的原文" aria-busy={excerptLoading}>
                       {sourceExcerpt && <><header><BookOpen size={15} /><span>{sourceExcerpt.title}{sourceExcerpt.page ? ` · 第 ${sourceExcerpt.page} 页` : ''}</span></header><blockquote tabIndex={-1} onDragStart={event => {
                         const selection = window.getSelection(), node = event.currentTarget;
                         if (!selection?.rangeCount || selection.isCollapsed || node.textContent !== sourceExcerpt.text) { event.preventDefault(); return; }
@@ -1030,45 +1069,50 @@ export function NotesPanel({
                         bookmarkDrag.current = reference; bookmarkTray?.stage(reference, node);
                         writeBookmarkTransfer(event.dataTransfer, reference);
                       }} onDragEnd={releaseBookmarkDrag}>{sourceExcerpt.text}</blockquote>
-                        <div>{sourceExcerpt.reference.kind === 'material' && onOpenMaterialSource && <button type="button" className="text-button" onClick={() => void openMaterial()}>回到原文</button>}
-                          {sourceExcerpt.reference.kind === 'notebook' && <button type="button" className="text-button" onClick={() => void openNotebookSource()}>回到原句</button>}
-                          {sourceExcerpt.reference.kind === 'conversation' && onOpenConversationSource && <button type="button" className="text-button" onClick={() => {
-                            const reference = sourceExcerpt.reference; if (reference.kind === 'conversation') void onOpenConversationSource(reference.reference).catch(cause => setExcerptError(uiError(cause)));
-                          }}>回到原句</button>}
-                          {bookmarkTray && <button type="button" className="text-button" draggable onDragStart={event => {
+                        <div>{sourceExcerpt.reference.kind === 'material' && onOpenMaterialSource && <button type="button" className="text-button" disabled={busy || sourceOpening} onClick={() => void openMaterial()}>打开原文</button>}
+                          {sourceExcerpt.reference.kind === 'notebook' && <button type="button" className="text-button" disabled={busy || sourceOpening} onClick={() => void openNotebookSource()}>打开原文</button>}
+                          {sourceExcerpt.reference.kind === 'conversation' && onOpenConversationSource && <button type="button" className="text-button" disabled={busy || sourceOpening} onClick={() => {
+                            const reference = sourceExcerpt.reference, generation = excerptGeneration.current;
+                            if (reference.kind === 'conversation') void onOpenConversationSource(reference.reference).catch(cause => {
+                              if (generation === excerptGeneration.current && quoteDestination.current.active) setExcerptError(uiError(cause));
+                            });
+                          }}>打开原文</button>}
+                          {bookmarkTray && <button type="button" className="text-button" disabled={busy || sourceOpening} draggable={!busy && !sourceOpening} onDragStart={event => {
                             bookmarkDrag.current = sourceExcerpt.reference;
                             bookmarkTray.stage(sourceExcerpt.reference, event.currentTarget.closest('.note-live-excerpt')?.querySelector<HTMLElement>('blockquote'));
                             writeBookmarkTransfer(event.dataTransfer, sourceExcerpt.reference);
-                          }} onDragEnd={releaseBookmarkDrag} onClick={event => void bookmarkTray.pick(sourceExcerpt.reference,
-                            event.currentTarget.closest('.note-live-excerpt')?.querySelector<HTMLElement>('blockquote'))}><Bookmark size={14} />拿到纸边</button>}</div></>}
+                          }} onDragEnd={releaseBookmarkDrag} onClick={event => void bookmarkTray.cite(sourceExcerpt.reference,
+                            event.currentTarget.closest('.note-live-excerpt')?.querySelector<HTMLElement>('blockquote'))}><MessageCircle size={14} />引用这段</button>}</div></>}
                       {excerptLoading && <p role="status">翻回留下的那一段…</p>}{excerptError && <><p role="status">{excerptError}</p><div>
                         {(editor.note.source.notebook || editor.note.source.material && onOpenMaterials) && <button type="button" className="text-button" disabled={busy || sourceOpening} onClick={() => void recoverOriginalPage()}>{editor.note.source.notebook ? '看看现在的原页' : '重新带来资料'}</button>}
                         <button type="button" className="text-button" disabled={busy || excerptLoading} onClick={() => setExcerptRefresh(value => value + 1)}>再看一次</button></div></>}
                     </section>}
                     <label className="notes-body-label">
-                      <span className="sr-only">笔记正文</span>
+                      <span className={editor.note?.source.referenceOnly ? 'note-own-thoughts-label' : 'sr-only'}>{editor.note?.source.referenceOnly ? '自己的想法' : '笔记正文'}</span>
                       <textarea
                         className="notes-body"
                         aria-label="笔记正文"
-                        placeholder="把眼前的想法，慢慢写在这里…"
+                        placeholder={editor.note?.source.referenceOnly ? '写下自己的理解，原文仍在上方。' : '把眼前的想法，慢慢写在这里…'}
                         value={editor.body}
                         maxLength={NOTE_LIMITS.body}
                         readOnly={deleted || busy}
                         onChange={(event) => changeDraft({ body: event.target.value })}
                         onPointerUp={event => selectPassage(event.currentTarget, { x: event.clientX, y: event.clientY })}
                         onKeyDown={event => {
+                          if (event.nativeEvent.isComposing) return;
                           if (event.key === 'Escape' && selection?.editor === editor) {
                             event.preventDefault(); event.stopPropagation(); cancelQuote();
                           }
                         }}
                         onKeyUp={event => {
+                          if (event.nativeEvent.isComposing) return;
                           if (event.key === 'Escape') cancelQuote();
                           else selectPassage(event.currentTarget);
                         }}
                         onScroll={() => setSelection(undefined)}
                         onDragStart={event => {
                           if (!bookmarkTray) return;
-                          if (dirty || !editor.note) { event.preventDefault(); setReceipt('这句还在草稿里，可以点「保存并拿起」。'); return; }
+                          if (dirty || !editor.note) { event.preventDefault(); setReceipt('这句还在草稿里，可以点「保存并引用」。'); return; }
                           if (!selection || selection.editor !== editor) { event.preventDefault(); return; }
                           const reference: SourceBookmarkReference = { kind: 'notebook', reference: {
                             id: editor.note.id, revision: editor.note.revision, sha256: editor.note.sha256,
@@ -1095,18 +1139,19 @@ export function NotesPanel({
                           && !(event.relatedTarget instanceof Element && event.relatedTarget.closest('.source-bookmark-tray'))) setSelection(undefined);
                       }}
                       onMouseDown={event => event.preventDefault()}>
-                      <button type="button" disabled={busy || quoting || !quoteEnabled || !!conflict}
-                        onClick={() => void discussSelection()}><MessageCircle size={16} />{dirty ? '保存并聊这一段' : '聊这一段'}</button>
-                      {bookmarkTray && <button type="button" disabled={busy || quoting || !!conflict} onClick={() => void pickSelection()}><Bookmark size={16} />{dirty ? '保存并拿起' : '书签夹'}</button>}
+                      {onQuote && <button type="button" disabled={busy || quoting || !quoteEnabled || !!conflict}
+                        onClick={() => void discussSelection()}><MessageCircle size={16} />{dirty ? '保存并引用' : '引用这段'}</button>
+                      }
+                      {bookmarkTray && <button type="button" disabled={busy || quoting || !!conflict} onClick={() => void pickSelection()}><FileText size={16} />{dirty ? '保存并留作笔记' : '留作笔记'}</button>}
                     </div>}
                     {editor.note?.source.notebook && !editor.note.source.referenceOnly && <div className="note-material-source"><div className="note-material-source-name"><FileText size={17} /><span>从原来的笔记留来</span></div>
-                      <button type="button" className="text-button" disabled={sourceOpening || busy} onClick={() => void openNotebookSource()}><BookOpen size={16} />回到原句</button></div>}
+                      <button type="button" className="text-button" disabled={sourceOpening || busy} onClick={() => void openNotebookSource()}><BookOpen size={16} />打开原文</button></div>}
                     {editor.note?.source.notebook && sourceError && <p className="note-material-source-error" role="status">{sourceError}</p>}
                     {editor.note?.source.material && !editor.note.source.referenceOnly && <div className="note-material-source">
                       <div className="note-material-source-name"><FileText size={17} /><span>{editor.note.source.material.name}{editor.note.source.material.page ? ` · 第 ${editor.note.source.material.page} 页` : ''}</span></div>
                       <div className="note-material-source-actions">
-                        {onOpenMaterialSource && <><button type="button" className="text-button" disabled={sourceOpening} onClick={() => void openMaterial()}><BookOpen size={16} />回到原文</button>
-                          <button type="button" className="text-button" disabled={sourceOpening} onClick={() => void openMaterial(true)}><MessageCircle size={16} />聊这一段</button></>}
+                        {onOpenMaterialSource && <><button type="button" className="text-button" disabled={sourceOpening} onClick={() => void openMaterial()}><BookOpen size={16} />打开原文</button>
+                          <button type="button" className="text-button" disabled={sourceOpening} onClick={() => void openMaterial(true)}><MessageCircle size={16} />引用这段</button></>}
                       </div>
                       {sourceError && <div className="note-material-source-error" role="alert"><p>{sourceError}</p>{onOpenMaterials && <button type="button" className="text-button" onClick={onOpenMaterials}>重新带来资料</button>}</div>}
                     </div>}
@@ -1186,7 +1231,7 @@ export function NotesPanel({
                         <div className="notes-conflict-compare">
                           <details open>
                             <summary>你刚写的</summary>
-                            <h4>{editor.title || '没有标题的一页'}</h4>
+                            <h4>{editor.note ? ownNoteLabel({ ...editor.note, title: editor.title }) : editor.title || '没有标题的一页'}</h4>
                             <pre>{editor.body}</pre>
                           </details>
                           <details open>
@@ -1194,7 +1239,7 @@ export function NotesPanel({
                               新的内容
                               {conflict.state === 'deleted' ? ' · 已收起' : ''}
                             </summary>
-                            <h4>{conflict.title || '没有标题的一页'}</h4>
+                            <h4>{ownNoteLabel(conflict)}</h4>
                             <pre>{conflict.body}</pre>
                           </details>
                         </div>
@@ -1249,7 +1294,7 @@ export function NotesPanel({
                             </button>
                             <div className="notes-version-copy">
                               <p>{date(version.updatedAt)}</p>
-                              <h4>{version.title || '没有标题的一页'}</h4>
+                              <h4>{ownNoteLabel(version)}</h4>
                               <pre>{version.body || '这一页还没有正文。'}</pre>
                             </div>
                             <div className="notes-side-actions">

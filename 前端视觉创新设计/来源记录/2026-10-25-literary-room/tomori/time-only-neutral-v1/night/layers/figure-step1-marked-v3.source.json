@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "recordType": "source-rgb-included-layer-image-stage",
+  "characterId": "tomori",
+  "neutralTime": "night",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "stage": "F1-v3",
+  "tool": "image_gen.imagegen",
+  "toolElapsedMs": 36041,
+  "recordedAt": "2026-10-26T01:53:15.111800+00:00",
+  "sourceConversationId": "01a17365-def4-7ef0-9767-09f785cec060",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/tomori-neutral-time-night-v1.png",
+      "sha256": "36e1e2e4029d81914b4192cee8351d84b44fa0ef188c88910dd58d400a3e4300",
+      "role": "Only exact root-approved clean night mother; precise narrow original arm slit and complete shoe/book selection, no held derivative input",
+      "personallyViewedBeforeGeneration": true
+    }
+  ],
+  "exactSubmittedPrompt": "CRITICAL ORIGINAL ARM GAP PRECISION: the exposed ivory curtain slit is extremely NARROW, about1–3sourcepixels wide near x1014,y480, and only lower between bent sleeve and torso. It is NOT an enlarged triangular opening. The original dark blazer at (1016,466), (1016,472), (1017,480), (1015,462) and (1010,480) is FOREGROUND: paint all of it WHITE. At about (1014,480) the genuine bright curtain sliver stays original COLORED room. Follow the actual original outside silhouette; don't widen the gap upward or to its right. No rectangle fill or invented coordinates elsewhere.\n\nUse case: precise-object-edit. F1-v3 CLEAN-MOTHER semantic selection. ONLY input exact root-approved Tomori neutral TIME-NIGHT full mother1536x1024. Same camera/fullcanvas/every source coordinate, no crop/zoom/resize/recenter/pose/contour redesign. Mark the COMPLETE person plus WHOLE pencil and WHOLE open notebook SOLID PURE WHITE: every short outer hair strand, full head/face/ears/neck, all blazer panels/folds/shirt/collar/sleeves/cuffs, plaid skirt/lowest hem, both complete hands/fingers/wrists, exposed thighs/knees/calf socks and BOTH entire loafers including actual toe/sidewall/sole rim/bottom heel pixels. Keep full true shoe contours, no erosion. Pencil upper end→page tip, all notebook pages/spine/thin dark lower cover/hand/lap form ONE connected white foreground, no internal book seam or hole.\n\nEvery selected interior is featureless WHITE: no eye/mouth/hand/clothing/book/sock/shoe tracing left gray/colored. Fine gray only true outer antialiasing. Preserve only real outside gaps between separate hair strands/limbs/legs as original COLORED room; no new inner holes.\n\nEverything else stays exact ORIGINAL COLORED NIGHT ROOM: closed opaque curtain, naturally bright lamp/shade/flowers/cup/table/bookstack, linen cushion/throw/pillows, left furniture/plants/rug/wood floor and separate near-contact shade. No natural-white room selection, receiver mark, new shadow/glow/texture, outline, grid/checker/labels. Final original RGB is drawn once from unchanged mother using MAX(F,S); this marked image only expresses coverage.",
+  "submittedPromptSha256": "ec11d9e6fc3cab5f16a7a2686b8e2d598d38e0614a53775464e22e1853bcba53",
+  "promptFile": "figure-step1-marked-v3.prompt.txt",
+  "promptFileSha256": "b7f5b0b8f2d58279be9620277147534cd9d2791649c5fac7667bfdcdf37bf352",
+  "requestFile": "figure-step1-marked-v3.request.json",
+  "requestSha256": "8a5f33758d88fde8dcea880d8b3f11d371825eb7ccc5c87c99e2df5a373b26c0",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-a16716e7-a4ee-4202-9c7c-c2eae86be824.png",
+  "toolOriginalSha256": "05ceaeb3fec4fdc4128f098a41c48b2f61f403149097a0dd08e874f56faf699e",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/night/layers/figure-step1-marked-v3.png",
+    "sha256": "05ceaeb3fec4fdc4128f098a41c48b2f61f403149097a0dd08e874f56faf699e",
+    "bytes": 1937197,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true,
+    "resizedOrRetouched": false
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "status": "HOLD_expanded_arm_slit_loses_real_dark_blazer",
+    "observations": [
+      "Actual markup still leaves source blazer near (1016,466),(1016,472),(1017,480) unselected while true enclosed curtain slit is only roughly 1–3px. Never fed forward."
+    ],
+    "readOnlyPixelEvidence": {
+      "sourceBlazer466": [
+        44,
+        17,
+        11
+      ],
+      "marked466": [
+        171,
+        99,
+        57
+      ],
+      "sourceBlazer472": [
+        73,
+        39,
+        24
+      ],
+      "marked472": [
+        180,
+        112,
+        68
+      ],
+      "sourceBlazer480": [
+        60,
+        38,
+        34
+      ],
+      "marked480": [
+        137,
+        88,
+        58
+      ]
+    }
+  },
+  "primaryApproved": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "generationInputAllowed": false,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "original360ExactActivityCell": false,
+  "sourceCodeOrRegistryChanged": false
+}

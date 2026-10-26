@@ -1,0 +1,342 @@
+{
+  "schemaVersion": 1,
+  "scope": "Four independent static source-RGB rigs; primary/runtime remain false pending root.",
+  "assets": [
+    {
+      "id": "mutsumi",
+      "body": {
+        "file": "mutsumi-meme-cat-v1-body.png",
+        "sha256": "475c605f70f6de4d95b668c380515d49ce7ba62d1eef3a64d1ddb6efeb4c4d0d",
+        "bytes": 815430,
+        "canvas": [
+          1536,
+          1024
+        ],
+        "mode": "RGBA",
+        "alphaBounds": [
+          32,
+          150,
+          1395,
+          886
+        ]
+      },
+      "tail": {
+        "file": "mutsumi-meme-cat-v1-tail.png",
+        "sha256": "dba08bbfbbed4e5f5f8c03c6bd39d353116b8f880c9424c921b7753d66c8c970",
+        "bytes": 57012,
+        "canvas": [
+          1536,
+          1024
+        ],
+        "mode": "RGBA",
+        "alphaBounds": [
+          1321,
+          339,
+          1507,
+          692
+        ]
+      },
+      "tailPivotPx": [
+        1354,
+        660
+      ],
+      "supportY": 846,
+      "rgb": {
+        "body": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tail": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "clean": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "uika",
+      "body": {
+        "file": "uika-meme-cat-v1-body.png",
+        "sha256": "07da5395cc73220d8dbdb25de563ed4cae5a0c8128a3de144fdd20e9ac8a96c0",
+        "bytes": 768525,
+        "canvas": [
+          1536,
+          1024
+        ],
+        "mode": "RGBA",
+        "alphaBounds": [
+          49,
+          169,
+          1395,
+          883
+        ]
+      },
+      "tail": {
+        "file": "uika-meme-cat-v1-tail.png",
+        "sha256": "793078af85336aee99c842e53709b8ff616767ac870989b5c8b86d4480446fef",
+        "bytes": 58628,
+        "canvas": [
+          1536,
+          1024
+        ],
+        "mode": "RGBA",
+        "alphaBounds": [
+          1318,
+          339,
+          1513,
+          695
+        ]
+      },
+      "tailPivotPx": [
+        1353,
+        664
+      ],
+      "supportY": 847,
+      "rgb": {
+        "body": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tail": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "clean": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "umiri",
+      "body": {
+        "file": "umiri-meme-cat-v1-body.png",
+        "sha256": "235854f475d7e5ad8fbe0fdbd0a12ca1d8d09871ad3f2a252bd4e6de7aeaa406",
+        "bytes": 712720,
+        "canvas": [
+          1536,
+          1024
+        ],
+        "mode": "RGBA",
+        "alphaBounds": [
+          63,
+          168,
+          1391,
+          887
+        ]
+      },
+      "tail": {
+        "file": "umiri-meme-cat-v1-tail.png",
+        "sha256": "5548ac15850d5810168bb3f3e0cd0c8d3b6403426a03bb763ed70c48f33043ec",
+        "bytes": 58021,
+        "canvas": [
+          1536,
+          1024
+        ],
+        "mode": "RGBA",
+        "alphaBounds": [
+          1312,
+          339,
+          1508,
+          692
+        ]
+      },
+      "tailPivotPx": [
+        1347,
+        662
+      ],
+      "supportY": 850,
+      "rgb": {
+        "body": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tail": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "clean": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "nyamu",
+      "body": {
+        "file": "nyamu-meme-cat-v1-body.png",
+        "sha256": "f049acfc6b9a5727988fd001650aeaddbf854a21b45730d76480732fa880fb42",
+        "bytes": 769638,
+        "canvas": [
+          1536,
+          1024
+        ],
+        "mode": "RGBA",
+        "alphaBounds": [
+          42,
+          161,
+          1395,
+          879
+        ]
+      },
+      "tail": {
+        "file": "nyamu-meme-cat-v1-tail.png",
+        "sha256": "4f72ed3a5d2ab289c4f1e7c2225abd415151ec225360de5056a087eb62b0d70f",
+        "bytes": 60352,
+        "canvas": [
+          1536,
+          1024
+        ],
+        "mode": "RGBA",
+        "alphaBounds": [
+          1323,
+          336,
+          1503,
+          699
+        ]
+      },
+      "tailPivotPx": [
+        1359,
+        666
+      ],
+      "supportY": 845,
+      "rgb": {
+        "body": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tail": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "clean": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      }
+    }
+  ]
+}

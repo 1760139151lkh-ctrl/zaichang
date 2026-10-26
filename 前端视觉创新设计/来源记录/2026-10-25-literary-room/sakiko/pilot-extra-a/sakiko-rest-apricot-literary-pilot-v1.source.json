@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "assetType": "new-literary-room-complete-single-sakiko-rest-mother-pilot",
+  "id": "sakiko-rest-apricot-literary-pilot-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-rest-apricot-literary-pilot-v1.prompt.json",
+  "promptFileSha256": "379ae69f4fa96f1d6bc2ac1a3245a5c619b2a9a2724bf94a5071b150823dccde",
+  "submittedPrompt": "Create one complete literary anime mother illustration for 在场: Sakiko Togawa / REST / apricot clear afternoon.\nThe SINGLE supplied image is the approved EMPTY new literary room, full1536x1024. It is the only image input. Preserve its exact close wide camera, framing, large timber window/lake/town/hills, left desk/shelves/chair, ceramic lamp/cup/flowers on the small side table, cream window-bench cushion, checked pillows and knitted throw, foreground plants, floor/rug and coherent clear-afternoon light. No old room, extra camera zoom, relocated furniture or blank UI backdrop.\n\nThe emotional moment comes first:\nSakiko has spent enough of the day holding herself to an exacting standard. For this small interval she chooses to loosen that grip. Nothing dramatic has been repaired; she is simply allowing herself an ordinary comfortable breath. There is a quiet dignity in the decision. The cushion can take some of her weight, the afternoon can go on without being measured, and she does not have to make this rest useful.\nShe is aware of you nearby without performing reassurance. Her thoughts remain her own. Her shoulders have softened after a small unhurried stretch, and the corners of her mouth are at rest rather than arranged into a welcome smile. Her open, readable golden eyes look toward a small patch of light or the middle distance, still clear and alive. Let a little self-possessed tenderness enter the scene: the softness of someone who has chosen to stop scolding herself for a moment. This is neither defeat nor sleep, and it need not become sadness or a cheerful pose.\n\nIdentity and simple supported body:\nDraw original youthful Sakiko Togawa from BanG Dream! Ave Mujica: long silver-blue hair with dark navy ribbon accents, clear golden eyes, navy school cardigan over white blouse and pale collar ribbon, navy plaid skirt, dark knee socks and complete brown loafers. One naturally seated girl on the RIGHT window bench, comfortably supported at the hips, knees relaxed, hands resting simply on her own lap and the cushion. No held prop is needed. Both full shoes meet the floor in a believable way. Clothes remain ordinary and fully worn; no glamour or sensual emphasis.\nKeep the human-preferred CLOSE IN-ROOM SCALE: crown approximately y110 and lowest shoe soles approximately y890 on this1536x1024 canvas. She belongs in the right portion at the bench's furniture scale, with full head-to-shoes visible. Do not lean her head toward the lens, enlarge her face, push her nearer to camera, crop the feet or revert to a tiny far-away room4 figure.\n\nFace/hair and finish:\nA subtle three-quarter face with both eyes clearly readable. Separate fine front hair strands from upper eyelids, irises and eyebrows; no fused fringe/iris, metal-like eye fragments, duplicate eye or stray mesh lines. Gentle opening around the eyes. Simple coherent hands and sleeves, continuous limbs and actual cushion/shoe contact. Shared warm daylight on skin, silver-blue hair, navy fabric and room; refined2D anime linework with painterly lived-in background detail. Keep the entire room's depth and quiet living texture.\nOne coherent full opaque RGB scene1536x1024. No interface, words, labels, tutorial, arrows, split view, collage, border or watermark.",
+  "submittedPromptSha256Utf8NoTrailingLF": "b3b49d68b44b483bc0f9c5a5406dfb55ca930980a195643a5d1d8ba6e94eccea",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "sole root-approved EMPTY new literary room plate; no character/old-room image input"
+    }
+  ],
+  "output": {
+    "file": "sakiko-rest-apricot-literary-pilot-v1.png",
+    "sha256": "144a167d9c7d1bc594051ef1ca3fcf0b92e97f1a8ddbf8cd63eb6b54c8a460f8",
+    "bytes": 2466058,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-0e550587-d5a1-4f3d-b2f8-97505d250ddc.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observation": "Viewed full saved1536x1024 original. Crown visually near y110 and full shoe soles near y895 at the selected close scale, not enlarged toward lens. Silver-blue hair, distinct golden eyes/lids and navy school layers readable. One hand rests on lap and other on cushion; hips sit supported, both uncrossed legs continue into complete grounded loafers. Windowward thoughtful gaze and relaxed mouth avoid generic welcome smile. Shared warm room light and original furniture/camera remain coherent. These are approximate direct visual observations, not measured runtime calibration."
+  },
+  "status": "producer-full-original-viewed-complete-rest-mother-pilot-root-review-pending",
+  "character": "sakiko",
+  "activity": "rest",
+  "palette": "apricot",
+  "sceneFamily": "literary-room-v1",
+  "selectedReadingMotherUsedAsInput": false,
+  "oldRoom4OrCharacterImageUsedAsInput": false,
+  "uniqueInputCount": 1,
+  "primaryApproved": false,
+  "rootApproved": false,
+  "runtimeAccepted": false,
+  "scaleReferencePersonallyViewedOnly": {
+    "file": "../../../2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+    "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+    "role": "User-selected image personally viewed for close camera/scale and literary intent only; NOT a tool image input."
+  }
+}

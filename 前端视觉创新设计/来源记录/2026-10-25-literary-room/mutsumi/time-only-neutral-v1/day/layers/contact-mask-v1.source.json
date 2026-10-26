@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T01:09:04.304Z",
+  "producer": "/root/study_reading",
+  "character": "mutsumi",
+  "purpose": "neutral-presence",
+  "environmentVariant": "time-day",
+  "weather": "unknown",
+  "exactActivityMatrixCredit": 0,
+  "stage": "contact-mask-v1",
+  "tool": "image_gen.imagegen",
+  "originalToolPath": "C:/Users/17601/.codex/generated_images/01a17365-8901-7202-bd9e-0859826906dc/exec-6537351a-8782-481c-a388-74070b6eea07.png",
+  "transparentBackground": false,
+  "submittedPrompt": "Use case: precise-object-edit. S2 exact-coordinate RAW CONTACT LUMINANCE MASK. Input1 is correct S1 Mutsumi day source-colored scene with deliberately white receiver patches; input2 is clean original solely to distinguish naturally pale fabric. Canvas1536x1024 unchanged. Convert ONLY deliberate added white S1 marks, at PRECISE SAME ORIGINAL LOCATIONS, into WHITE255 contact cores with a very short1..5pixel GRAY fade at the existing outer source-shadow edge. The entire local wood shadow under BOTH original complete shoe soles/toes/heel blocks must remain included; no shrink to a thin outline and do not shift either shoe group. Far shoe originalx879..1005,y823..897, nearx1020..1158,y846..934; preserve marked wood BELOW each toe/bottom rim. Preserve S1's SMALL actual compressed cushion receiver bands just outside navy skirt/hip at their original coordinates; not the entire empty cushion. Everything ELSE BLACK0: the complete actual girl including all hair/face/hands/clothing/legs/socks/shoes is BLACK except permissible tiny contact overlap already in S1; all naturally cream curtain/cushions/throw/lamp and unrelated room/floor illumination BLACK. Do NOT interpret pale room textiles as deliberate marks. No new white islands, no generic ellipses, no translation/scale/warp/crop/recenter, no white silhouette, no repainting or added props. Opaque grayscale mask only. Preserve full source receiver footprints, short soft outer support; it will be combined with F by MAX and sample unchanged original mother RGB ONCE, no shadow color multiplied into another shadow.",
+  "submittedPromptSha256": "5b2bee1deb70faf85bece192e3c4a226bd3d2fe1f1ce9b257d478aa6cfe091ee",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/day/layers/contact-step1-marked-v1.png",
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-day-v1.png"
+  ],
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/day/layers/contact-step1-marked-v1.png",
+      "role": "correct S1 contact markup",
+      "sha256": "34fb6f263152fb0b431cc45eef02c5c545eef1e5033c6bc6799db4b71f7fd0b3",
+      "bytes": 2305277
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-day-v1.png",
+      "role": "clean mother discrimination",
+      "sha256": "8c1d8e006fa332a85a9d7fed40989170fce6f6956a0b18e351efa83f29404f6f",
+      "bytes": 2440649
+    }
+  ],
+  "originalMother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-day-v1.png",
+    "sha256": "8c1d8e006fa332a85a9d7fed40989170fce6f6956a0b18e351efa83f29404f6f",
+    "approvalRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-day-v1.primary-approval.json"
+  },
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/day/layers/contact-mask-v1.png",
+    "sha256": "de08f94a921eb2d8cbb8ee5f9c403d064e95071b08c9643f74e043472727cb46",
+    "bytes": 288808,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "rawToolBytesPreserved": true,
+  "producerPersonallyViewed": true,
+  "observations": [
+    "Personally viewed: both local shoe-base islands present; SMALL seat receiver marks are absent from this conversion. HOLD: omitted seat receiver; this output cannot be a downstream generation input. Need original RGB review and correct S1 reconversion."
+  ],
+  "producerUseDecision": "HOLD-seat-receiver-marks-omitted",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "userApproved": false,
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "fixedOriginalCoordinates": true,
+    "travel": 0,
+    "perspective": 0,
+    "slope": 0,
+    "contactShadow": "included"
+  },
+  "method": {
+    "sourceRgb": "exact unchanged mother only",
+    "union": "MAX(L(F),L(S))",
+    "originalRgbDrawsPerUnion": 1,
+    "pngPixelEditing": false,
+    "manualThreshold": false,
+    "morphology": false,
+    "warp": false
+  },
+  "scope": "Production candidate only; native browser union, seam and full source RGB must be personally viewed before primary static-layer admission."
+}

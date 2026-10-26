@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-canvas-original-person-white-in-room-intermediate",
+  "id": "rana-chat-apricot-white-in-room-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "rana-chat-apricot-white-in-room-v1.prompt.json",
+  "promptFileSha256": "b24baf865c3844da83d480f609cc3695be108ad48e658a864279f30176152ccb",
+  "submittedPrompt": "Use case: precise-object-edit. STEP 1 of registered local color replacement, not a new pose or black-background cutout.\nImage 1 is the ONLY exact full 1536x1024 target. Preserve ALL original room/camera/furniture/object/sunlight/source coordinates. Within the SAME unmodified colored room, fill ONLY the original seated girl completely flat opaque PURE WHITE, exactly up to her original visible outer contour.\nInclude ALL visible original silver bob hair/strands, face/neck, black short-sleeve shirt and all distressed hem edges, white long sleeves/cuffs, both hands/fingers, ENTIRE white frilled shorts/ruffled hem including the underside where hips meet the bench, bare thighs/knees/shins, black lace-up ankle boots including laces/tongues/heels/soles. No held prop is present. All original person details INSIDE her silhouette become white: eyes, facial lines, black shirt, frills/folds, boot laces and finger lines all opaque pure white with no gray interior or accidental holes.\nCrucial: the pale shorts and their seated underside are PERSON, not cushion. Preserve and fill white the original shorts/skin silhouette around source (1280,582), plus the original right shorts hem around x1320..1375,y548..583 and the supporting palm/finger edges around x1395..1451,y555..583. Do not erase her actual source body RGB regions into room gaps. These are position guides; trace only existing person pixels without inventing hidden anatomy.\nThe bench cushion, its seam/contact shadows, blanket/pillows, visible room gaps between limbs/arm/torso, all floor shadows and every other room object remain ORIGINAL COLOR. Do NOT whiten the cushion, sunlight, white curtains, desk book, cup/lamp or furniture. Do not blacken/remove the room at this step.\nKeep exact original small in-room scale/pose and contours: crown around y286, far-right hand around y580, left boot around y735 and lower/right boot around y771. No enlarge/shrink/translate/crop/zoom/recenter, no smoothing into a new pose. Narrow original outer antialiasing only.\nReturn the SAME complete sunny apricot room with only the exact complete person flat WHITE at original source coordinates. Opaque RGB 1536x1024; no transparency, black backdrop, text/grid/border/watermark/new objects.",
+  "submittedPromptSha256Utf8NoTrailingLF": "59673713826d7e0f5d27990c80ab8c437cb96ff0ee3b3292bc06fb1f5242648b",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png",
+      "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+      "role": "sole exact approved original mother, complete visible shorts/seat RGB retained; no rejected v9 layer input"
+    }
+  ],
+  "output": {
+    "file": "rana-chat-apricot-white-in-room-v1.png",
+    "sha256": "2d1ca061b8a27120bbc08cb6f927272ce2a33515e82c997adb8d288a7d4e4b59",
+    "bytes": 2103788,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-a78b46e1-d74e-4992-baec-fbd926314620.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observationBoundary": "Producer directly viewed exact original PNG only; primary native original-RGB recomposition and known-seat-gap review pending."
+  },
+  "status": "superseded-intermediate-never-used-downstream",
+  "replacement": "rana-chat-apricot-white-in-room-v2.png",
+  "reason": "Restarted from original mother with explicit full distressed shirt side-flap and pale shorts ownership; no structural pose error inferred."
+}

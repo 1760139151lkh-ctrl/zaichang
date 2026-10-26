@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "recordType": "complete-companion-mother-theme-relighting",
+  "dateLocal": "2026-10-24",
+  "timeZone": "America/Los_Angeles",
+  "character": "rana",
+  "activity": "resume",
+  "theme": "mist",
+  "version": 1,
+  "tool": "image_gen.imagegen (built-in)",
+  "executionId": "exec-96fae88e-9f76-43d4-9ac5-4cab7a041aee",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "originalOutput": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-96fae88e-9f76-43d4-9ac5-4cab7a041aee.png",
+  "prompt": "rana-resume-mist-mother-v1.prompt.txt",
+  "promptFileSha256": "92fb533d84aa06ede77090f7e405ca7987ca233ea78501bffa74d1f60c1ef0cf",
+  "submittedPromptTransform": "UTF-8 prompt file trimEnd, exactly as submitted",
+  "submittedPromptSha256": "674e7407f2c14963bb433143a18c0f5a708a7e85abe19f0986c8de4b6f6c0f1c",
+  "inputs": [
+    {
+      "file": "rana-resume-apricot-mother-v1.png",
+      "sha256": "54dd1803e9ff81797c1b3ad69ee36a92b3cde58072705e21f7869a38d17717cb",
+      "role": "sole editable target: exact primary-accepted complete warm resume mother; all geometry, identity, expression and supported activity"
+    },
+    {
+      "file": "../../../assets-design-generated/2026-10-23-companion-matrix/room-mist-candidate.png",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df",
+      "role": "empty whole-room theme light/sky/weather reference only; never a replacement furniture layout or source of character pixels"
+    }
+  ],
+  "identityFromApprovedMotherSource": "rana-resume-apricot-mother-v1.source.json",
+  "output": {
+    "file": "rana-resume-mist-mother-v1.png",
+    "sha256": "72d4abe857f7f2fe93fdc8aa59f3c8d05894872e10900494f01d32e670ba6834",
+    "bytes": 2130020,
+    "width": 1536,
+    "height": 1024
+  },
+  "approvalScope": "Theme candidate only. Warm mother acceptance does not approve this output, its layers or runtime. Resume remains semantic renewed attention, not a new furniture anchor or wholly new spatial action.",
+  "review": {
+    "producerViewedFullOriginal": true,
+    "primaryViewed": false,
+    "primaryApproved": false,
+    "layersAccepted": false,
+    "runtimeAccepted": false
+  },
+  "status": "producer-inspected complete theme mother awaiting primary review",
+  "producerObservation": "Personally viewed full original: white bob and different eyes remain, guitar lies on thighs with both real hands still at neck/strings, complete boots on floor. Same clocktower/camera/bench/furniture remain visually aligned, morning sky/lake mist and softened cool daylight are coherent, lamp off; no new gesture or bright sticker character. Primary judgement remains separate."
+}

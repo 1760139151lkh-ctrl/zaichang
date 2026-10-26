@@ -52,13 +52,20 @@
   "review": {
     "producerPersonallyViewed": true,
     "producerObservation": "Complete youthful short-blond Uika, violet eyes, white tee and long taupe skirt. Lower body remains angled left, shoulders/gaze open toward viewer with small personal expectation. Both independent socks/sneakers, seated skirt and planted rear palm visible. Book has a clear cover/page block and holding hand; no visibly pierced cover. Primary should inspect small pillow/support changes and compare activity distinctness.",
-    "approvedByPrimary": false,
+    "approvedByPrimary": true,
     "layers": "not extracted",
-    "runtimeAccepted": false
+    "runtimeAccepted": false,
+    "primaryApprovalScope": "Root personally viewed the original PNG: youthful identity, hip/seat support, two knee-ankle-shoe chains, full shoes; Uika lap-supported half-closed book, Nyamu independent forward-lean silhouette. Mother only; no layer/runtime acceptance.",
+    "primaryApprovalDate": "2026-10-24"
   },
   "identityBasis": {
     "officialProfile": "https://anime.bang-dream.com/avemujica/character/uika/",
     "textVerifiedOn": "2026-10-24",
     "boundary": "Official profile supports identity/background; this university-companion resume moment is project-original. No official or third-party character pixels were image inputs."
+  },
+  "matrixCell": {
+    "character": "uika",
+    "activity": "resume",
+    "theme": "apricot"
   }
 }

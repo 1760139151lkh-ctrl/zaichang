@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "assetType": "desk-visible-foreground-luminance-selection-F",
+  "id": "desk-figure-mask-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "desk-figure-mask-v1.prompt.json",
+  "promptFileSha256": "32619730e38297bf573edd5f642ed98188f61fd8512518c2540539fe15cd0ddb",
+  "submittedPrompt": "Use case: precise-object-edit. STEP2: exact same-canvas VISIBLE FOREGROUND luminance mask.\nImage1 is the ONLY1536x1024 input. It is the original left-desk room with the actual VISIBLE girl and held writing pen already filled WHITE at their correct source pixels. Keep every existing white person/pen pixel and its contour at EXACT existing positions and scale. Do not draw/reconstruct a new silhouette.\nTurn ONLY the rest of the colored room PURE BLACK: desk/open desk page/book, wood chair back/slats/seat cloth/legs, foreground plant/leaves, lamps, shelves, curtains/window, floor/rug, all independent room shadows and empty right bench become black. Natural light objects are room and also black. Preserve actual room gaps/occluders through the white figure, especially wood slats and foreground leaves; do not fill across them or reconstruct hidden feet/anatomy.\nThe existing white foreground remains solid opaque white: all visible hair/ribbons/face, sleeves/hands, held pen and tip, all skirt pleat/hem/dark trim edges, visible skin/socks and all actual visible loafer/sole/heel fragments. Remove faint internal person line detail by filling WHITE, without eroding the existing outer edge or altering pose. Gray only at original thin outer antialias.\nKeep head/hand/seat/shoe fragments at their current source locations, no crop/zoom/translation/rescale/recenter/repose or new shadow. Return one full opaque RGB1536x1024 black canvas with only the exact original visible foreground white. No colored room, texture, labels, checkerboard, text/UI/grid/border/watermark/transparency.",
+  "submittedPromptSha256Utf8NoTrailingLF": "d70884e8113b15797112dc124c17d849742e26febd32e44f2f3bd7830ca0b23b",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/desk-layers/desk-figure-marked-v1.png",
+      "sha256": "fbd0f2a8a4d1f80cbfd25194cbe7ae15a3efa2133699e24f235fecf214f77555",
+      "role": "sole exact marked original desk scene; only colored environment converted to black; no changed pose or hidden anatomy"
+    }
+  ],
+  "output": {
+    "file": "desk-figure-mask-v1.png",
+    "sha256": "bcb7752d297460db826c4add32d93e7ae5d87ce02134a16ab2e0e77987d2ddb8",
+    "bytes": 436357,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-f21c7a86-f03c-4d6e-9bca-66f98b878706.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": true,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observation": "Exact F output contains visible person/held pen plus white-selected chair leg/crossbar material. Those are not claimed as pure person pixels; native MAX viewer displays actual original RGB receivers. Raw PNG kept unchanged.",
+    "primaryLayerApprovalRecord": "sakiko-desk-writing-literary-included-primary-admission-v1.json",
+    "primaryLayerApprovalScope": "Exact fixed desk-writing source RGB MAX included; source differences accepted; no invisible-foot/motion/runtime signoff."
+  },
+  "status": "joint-included-selection-F-candidate-not-pure-person",
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "activity": "study",
+  "palette": "apricot",
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "fullImageResultRetainedInStore": false
+}

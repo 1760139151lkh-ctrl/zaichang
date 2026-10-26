@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "assetId": "taki-resume-apricot-literary-v1",
+  "roomFamily": "literary-room-v1",
+  "characterId": "taki",
+  "activity": "resume",
+  "palette": "apricot",
+  "createdOn": "2026-10-25",
+  "tool": "image_gen.imagegen (built-in)",
+  "callOrdinalInBoundedBatch": 10,
+  "executionId": "exec-3fd00efd-7fec-4e80-8dba-db3cd4bd5ebc",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-3fd00efd-7fec-4e80-8dba-db3cd4bd5ebc.png",
+  "inputs": [
+    {
+      "file": "../../plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "image1: approved clean room geometry/light"
+    },
+    {
+      "file": "../chat-pilot/taki-chat-apricot-literary-v1.png",
+      "sha256": "0eb782e67b9954b406130a4994e9e75dd8774c8c3eb2a690d75d3e55338aad16",
+      "role": "image2: approved same-role identity/uniform/scale only; new body drawn for activity"
+    }
+  ],
+  "brief": "../../briefs/mygo-a/taki-36-briefs.md",
+  "briefCell": "taki/resume/apricot",
+  "briefTitle": "刚才停在这里",
+  "promptFile": "taki-resume-apricot-literary-v1.prompt.txt",
+  "promptFileSha256": "b5d1be88ac398e8ff35c02fc5750c7cdde26b7556a3eb683839bef590602c82b",
+  "submittedPrompt": "Create one 1536 × 1024 landscape complete-scene illustration. Image 1 is the approved EMPTY literary room and is the geometry/light source: retain its exact close camera and framing, same window panes/current cropping, autumn lake town/mountains, wood shelves/books/plants, writing desk and wooden chair at the left, round table/ceramic lamp/cup/flowers, linen window bench with right plaid cushions and cream knit throw, wood floor/rug and foreground soft plant. Preserve continuous clear-day warm apricot light, garment colors and neutral skin detail; no whole-image color film. Image 2 is this SAME girl's approved chat mother: use only correct youthful identity, facial features/hair/uniform and room-consistent scale, never its fixed pose or body as a pasted template. Draw the activity completely anew from text. No other room, other girl, mask, extracted layer or rejected figure is an input.\nCareful expressive anime character linework must sit naturally in the tactile softly painterly room. A convincing ordinary body matters more than elaborate gestures: real pelvis/seat support, coherent joints, hands and objects with weight, clothing gravity and honest shadows/occlusion. Keep full head/hair inside the frame. On the bench, keep uncrossed naturally placed legs and complete shoes in frame; do not force mirrored flat soles, stretch anatomy or cross one knee over the other. At the real desk, use its own correct chair/desk scale and natural foreground/furniture occlusion, without inventing hidden feet or moving the foreground plant just to reveal them. Do not put a bench-scale body at the desk or make an enlarged head lean toward the camera.\nKeep each fringe lock, eyebrow, eyelash, upper/lower eyelid, sclera and iris separately readable. Natural downward or side gaze must not merge eyes into fringe shadows. No stock service smile, fixed scowl, compulsory blush or generic comfort performance. Inner intention below is a project-original fictional scene, not a verified user event. No readable user text, equations/answers/schedules, completion receipts, labels, UI, watermarks, logos, diagrams, second person or duplicated limbs. Only one girl and a few simple grounded objects.\n\nCHARACTER:\nShiina Taki (椎名立希), BanG Dream! It's MyGO!!!!!: youthful high-school face, long straight purple-black hair with side-parted fringe, clear violet eyes. Camel-brown Hanasakigawa sailor uniform with white collar/thin dark trim, red ribbon, gold buttons, camel pleated skirt, dark socks and brown loafers. Preserve the approved same-role chat reference identity.\n\n刚才停在这里 — RESUME / the previous place is still here. She is seated naturally on the original window bench, her open thin book still low on the same supported thighs with a simple paper marker at the margin. One hand has loosened a little from the page edge and now rests where it can continue easily; the other still supports the lower book cover. She notices the person nearby and pauses for a beat with familiar earnest eyes, a very slight warmth around the mouth, no specially prepared greeting smile. The unfinished shared object remains her anchor; don't rearrange the whole body to welcome someone, wave, or thrust the head toward the camera. Real cushion/pelvis support, full head, uncrossed knees and complete shoes. No legible saved quote or claims that a promise or task was fulfilled.",
+  "output": {
+    "file": "taki-resume-apricot-literary-v1.png",
+    "sha256": "42fc10d73ff8187f26186be1b669c343bf9e78004db1d712ebc7974a12a50a0e",
+    "bytes": 2414760,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "decision": "static mother candidate for primary inspection",
+    "observation": "Complete original viewed: Taki keeps an open thin book low on her thighs, one hand loosely retains a page edge and the other supports the outer cover. A pale pink paper strip is visible at the page margin. She looks toward the nearby person with familiar earnestness and a softened mostly closed mouth, without a greeting wave or body rearrangement. Both violet irises, eyelids and fringe edges clear. Pelvis/cushion contact, coherent uncrossed legs and complete floor-supported shoes visible; room stable.",
+    "limits": "Fictional continuation impression only; not proof of saved state, actual return, kept promise or completed work. Producer observation predates separate exact-SHA primary mother approval; layer/runtime remain false."
+  },
+  "primaryApproved": true,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "acceptanceScope": "Primary-approved exact-SHA static mother only; no layer/runtime admission.",
+  "primaryApprovalRecord": "primary-mother-admission-v1.json",
+  "primaryApprovalAssetId": "taki-resume-apricot-literary-v1"
+}

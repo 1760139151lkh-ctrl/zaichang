@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "assetType": "independently-generated-2d-human-bust-avatar-candidate",
+  "characterId": "tomori",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in independent human portrait generation, transparent background",
+  "wardrobeId": "haneoka-upper-blazer-and-white-collar; neckwear not claimed from obscured reference",
+  "promptFile": "tomori-independent-avatar-v1.prompt.txt",
+  "submittedPrompt": "Create ONE genuinely new, independently drawn transparent-background portrait avatar of Takamatsu Tomori / 高松灯 / 高松 燈 from MyGO!!!!!. Square 1024 x 1024 composition, head and upper chest only, full crown and side hair comfortably inside frame, both shoulders naturally visible. This is a HUMAN 2D portrait, not a cat or mascot. Do not crop a head from an existing scene or reproduce an official standing render.\nThe only supplied image is a CLEAN EMPTY literary room. Use it solely to understand the product's softly hand-painted air, quiet warm-cool natural window light and tactile literary atmosphere. It does NOT prescribe the avatar camera and it must NOT appear as a backdrop. Paint a fresh head, face, neck, shoulders and cloth together from words; no room, furniture, window rectangle, halo or other scene fragment is included. Background is real TRANSPARENT RGBA.\nTomori's stable identity: short softly layered steel-gray / gray-lavender bob around the jaw and nape, separated irregular fringe groups, fine little cheek/nape strands. Preserve the short recognizable silhouette, not a bowl helmet, long hair, blue wig or tiny cropped pixie. Muted rose-brown / dusty pink-gray irises with clear pupils, sclera, eyelids, brows and separate fringe. A genuinely youthful teenage anime face: gently rounded short jaw, modest small nose and mouth, ordinary clear eye proportions, no mature elongated face, heavy makeup or fashion-model glamour; also no chibi/infant proportions, giant glossy glass-marble eyes or blank doll expression. No invented hair ribbon, cat ears, ornament, face plaster or accessory.\nThe portrait catches a particular small instant rather than a neutral publicity smile. She had been quietly choosing the exact word for something she noticed in a shared page below the frame. The other person has just offered a different word that unexpectedly makes sense. Her eyes have lifted from that page, still holding the thought, with a little courage to say what she really thinks. A very slight open softness of the lips and a tiny attentive brow change, shoulders relaxed, the head inclined only a little: thoughtful recognition, not helpless anxiety, compulsory tears, generic warm customer-service smile or triumphant grin. The common page stays outside this close portrait; do not insert a hand pointing at absent content or a notebook that hides the face.\nUpper-chest clothing can show the modest gray-purple school blazer's light piping and white collared shirt in a simplified truthful upper-lapel relation. Do not add a large ribbon, fancy jewelry, logo or readable school text. Neckwear details are not the identity focus and should not be invented as decoration. No hands or held objects are needed; keep a clean avatar silhouette.\nDraw in refined genuinely TWO-DIMENSIONAL anime linework with a softly hand-painted gouache/pencil sensibility that belongs beside the supplied literary room. Natural soft window light from upper left gives a faint warm edge to gray hair and a quiet cool reflected plane; skin remains fresh and naturally colored, never wax, plastic, photoreal pores or 3D smooth shading. Use a few readable hair groups with restrained fine accents, not a tangle of high-frequency strands. Eyes and mouth remain legible at small UI-avatar size. Do not imitate an artist name or official model-material finish.\nTrue transparency surrounding the complete new bust, with clean hair tips/shoulder edges. No circular disk, medallion, frame, gradient background, white/black rectangle, fake checkerboard, room crop, vignette, glow, fog, drop shadow, text, title, badge, speech bubble, watermark or collage. One complete original standalone 2D human avatar only.",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "role": "only image input: clean empty literary room for 2D painting/light atmosphere only; no face, body or layout to copy",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c"
+    }
+  ],
+  "readSources": {
+    "passport": {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/tomori.md",
+      "fullReadBeforeCall": true,
+      "version": "2026-10-25",
+      "sha256AtArchive": "3a73a8f8299e7645ea96f6d07051a38bb2ccdb4b4e7e25e19eb08d51e2d08d3c"
+    },
+    "method": {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "fullReadBeforeCall": true,
+      "sha256AtArchive": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840"
+    }
+  },
+  "facts": {
+    "officialSources": [
+      "https://mygo-movie.bang-dream.com/character/tomori/",
+      "https://bang-dream.com/artist/mygo/takamatsu-tomori/"
+    ],
+    "identityObserved": "short gray-lavender/steel-gray hair, rose-brown eyes, youthful face; no fixed large hair ornament in inspected art",
+    "projectOriginal": "new portrait composition, page-related expression, hand-painted lighting and avatar wardrobe simplification; no claim of actual user history"
+  },
+  "output": {
+    "file": "tomori-independent-avatar-v1.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-81b30f61-75a2-4b35-ac6b-85bb848ab86c.png",
+    "sha256": "1ddc64238767e6a13beb296ebdbbdbea2295e6b8610ad18537302146963c8170",
+    "bytes": 1837396,
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "cornerAlpha": 0
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "First independent portrait personally viewed before expansion: short layered gray-lavender hair, rose-brown eyes, youthful short jaw and small partly open mouth; shoulders and soft painted lapels newly drawn, no scene crop/disk/cat/3D render. Soft light and brush texture fit literary atmosphere. It is still a candidate; small-size and transparency review follow, root final identity/emotion admission remains separate.",
+    "decision": "single-character route candidate, root review pending",
+    "smallSizeReview": {
+      "personallyViewed": true,
+      "page": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mygo/avatars/producer-observe-v1.html",
+      "pageSha256": "d3d0f896387a83b07478ec07cf55c48cab3dc5b34d3d88b9ac8a588c891e18e4",
+      "cssImageSize": [
+        48,
+        48
+      ],
+      "viewportDuringExactCapture": [
+        1280,
+        800
+      ],
+      "captureDpr": 1,
+      "method": "original PNG browser composition on light/dark plus 48px; only own observation tab metrics temporarily changed, original measured 1280x591 DPR3 restored",
+      "observation": "48px light/dark: short hair, rose-brown gaze and small mouth opening distinguishable; no opaque backdrop. Original full-size fine colored hair perimeter remains separately documented.",
+      "rawPerimeterBoundary": "Sparse red/yellow fine fringe visible in original black viewer; not conspicuous as a colored external frame in actual light/dark/48px composition. Not all densities/runtime approved."
+    }
+  },
+  "primaryApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "croppedFromScene": false,
+  "officialArtCopied": false,
+  "humanMatrixCoverage": false,
+  "promptFileSha256": "64b146fb25252bda93d8326583c73bbb745e44d1b81171661dd19c061dac636d",
+  "submittedPromptSha256": "cbd5374a0e6812fd7d60995477e04f7a873647d871bd6dba6f384558ee54508e",
+  "archivedAtUtc": "2026-10-25T16:49:48.709869+00:00",
+  "primaryRouteReview": {
+    "source": "parent root direct message in this healthy session",
+    "observation": "Root personally viewed complete original and accepted independent 2D/youthful identity/subtle lifted gaze with partly open mouth as expansion route. Root explicitly retained alpha edge/small-size/runtime boundary.",
+    "formalRuntimeAdmission": false
+  }
+}

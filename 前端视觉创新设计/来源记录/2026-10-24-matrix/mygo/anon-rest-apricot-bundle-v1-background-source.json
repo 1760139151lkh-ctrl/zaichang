@@ -1,0 +1,27 @@
+{
+  "recordType": "original-mother-layer-extraction",
+  "key": "anon/rest/apricot",
+  "layer": "background",
+  "tool": "built-in image_gen.imagegen",
+  "createdAtUtc": "2026-10-25T03:54:56.432Z",
+  "file": "anon-rest-apricot-bundle-v1-background.png",
+  "sha256": "f9f813996de52282620dae291460c38012af16df00d14e96237a038ed700c4d1",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "promptSha256": "99b174d4de05767cb4dacf3910846abce879325101ea1e53f762e17f8df40f41",
+  "prompt": "anon-rest-apricot-bundle-v1-background-prompt.txt",
+  "input": {
+    "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-rest-apricot-mother-candidate-v1.png",
+    "sha256": "55d2d4d6873bb1089bef893e5fe4e9d953a3e8d1eca651d50a575532e8c0ffbd",
+    "role": "approved complete mother; sole edit target"
+  },
+  "originalOutputBasename": "exec-aa21a3c1-722f-4ff6-9e6b-994d794e5813.png",
+  "originalExecutionId": "aa21a3c1-722f-4ff6-9e6b-994d794e5813",
+  "originalSessionId": "01a170ed-b14d-7321-9cf7-3bd222b6ff42",
+  "inspection": "awaiting manual original-RGB composition inspection",
+  "approvedByPrimary": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false
+}

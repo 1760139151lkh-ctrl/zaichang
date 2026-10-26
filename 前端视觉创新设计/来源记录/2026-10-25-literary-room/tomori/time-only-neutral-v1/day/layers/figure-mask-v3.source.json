@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "recordType": "source-rgb-included-layer-image-stage",
+  "characterId": "tomori",
+  "neutralTime": "day",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "stage": "F2-v3",
+  "tool": "image_gen.imagegen",
+  "toolElapsedMs": 25605,
+  "recordedAt": "2026-10-26T01:24:43.674078+00:00",
+  "sourceConversationId": "01a17365-def4-7ef0-9767-09f785cec060",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/figure-step1-marked-v3.png",
+      "sha256": "da963edf705edfa96808ac259643b6a2328f0723f54b1b0445263a1260e1e6a5",
+      "role": "Only personally inspected healthy clean-mother F1-v3 markup; no rejected mask/composite/screenshot input",
+      "personallyViewedBeforeGeneration": true
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: background-extraction. Convert ONLY this personally inspected healthy F1-v3 semantic WHITE MARKUP to an OPAQUE 1536x1024 pure black/white luminance mask. Keep EXACT full canvas and every outside shape coordinate. No crop/resize/zoom/recenter/dilation/erosion or semantic redesign.\n\nThe connected deliberately-white original person + whole pencil + open notebook + lap + legs + BOTH complete loafers becomes SOLID FEATURELESS PURE WHITE. Include every fine outer short hair strand, all head/face/eyes/ears/neck, blazer panels/sleeves/shirt/collar/skirt/lower hem, complete hands/wrists/fingers, exposed thighs/knees/calf socks, pencil upper end→page tip, full notebook page blocks/spine/dark bottom cover, whole toe/sole/heel outlines. FILL all faint selected internal lines WHITE. No book/lap curve, face mark, garment fold, hand line, pencil centerline or shoe seam may remain black/gray inside the selected region.\n\nThe actual arm/torso slit is ONLY the tiny lower gap ALREADY in this markup around x1010..1020,y470..500. Keep it narrow and lower exactly; DO NOT extend it upward or sideways into the blazer at x1015,y450 or x1010,y480. Those deliberately whitened blazer pixels stay WHITE. True outside gaps between hair strands and legs likewise BLACK. No new internal hole. The whole connected notebook/lap at x885..1070,y495..540 is WHITE including every thin lower-cover edge; no black seam.\n\nAll remaining ORIGINAL COLORED ROOM—including naturally pale curtain/linen/throw/lamp/flower highlights, cushion/pillows/table/desk/plants/floor/rug and separate receiving shadows—becomes BLACK. Natural white materials are not the deliberate flat selected white. Fine gray only original external antialiasing. No colored RGB/checker/gray background/outline/labels/new shadow. Final original RGB will be drawn once from untouched clean mother under MAX(F,S); this output is coverage only.",
+  "submittedPromptSha256": "36f972594c410cf56fadfec6717a673a4d5074352236c5fe75c801b33f6d9898",
+  "promptFile": "figure-mask-v3.prompt.txt",
+  "promptFileSha256": "e944ce5f29260551cf656939c8cf0c4f5c813388645de4b6efa7bbf70d00b0fb",
+  "requestFile": "figure-mask-v3.request.json",
+  "requestSha256": "e8df0f16799ca64912039350197e4412b2ff8a18533b30af104c0d0fcdf9c9f3",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-b99406f4-1073-440c-9af7-1624b2d0bb3d.png",
+  "toolOriginalSha256": "da290969009ad5a936bd387aef77b36f8fe18162cb9f01dd5d091d1768e69177",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/figure-mask-v3.png",
+    "sha256": "da290969009ad5a936bd387aef77b36f8fe18162cb9f01dd5d091d1768e69177",
+    "bytes": 443076,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true,
+    "resizedOrRetouched": false
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "status": "candidate_await_native_original_rgb_review",
+    "observations": "F2-v3 complete foreground solid-white with whole pencil/notebook/soles, no internal book line. Arm gap now narrow and lower; garment point corrections retained. Must still recheck original-RGB native composition, no layer approval inferred."
+  },
+  "primaryApproved": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "generationInputAllowed": false,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "original360ExactActivityCell": false,
+  "sourceCodeOrRegistryChanged": false
+}

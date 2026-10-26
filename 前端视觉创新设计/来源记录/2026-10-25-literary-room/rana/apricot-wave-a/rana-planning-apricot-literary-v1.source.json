@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "assetType": "literary-room-complete-mother",
+  "id": "rana-planning-apricot-literary-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "rana-planning-apricot-literary-v1.prompt.json",
+  "promptFileSha256": "c2c01314de3516d4d3a8ec88591a2b2301f4aa7fa2ffca34c0d3436a2b9f3854",
+  "submittedPrompt": "Make a complete 1536×1024 landscape illustrated mother scene in this same warm literary room. Reference image 1 is the sole spatial/camera/furniture plate: keep all room geometry, window framing, light, lake-town view, empty left desk and wooden chair, lamp/cup on round table, right cream window bench with plaid cushion and knit blanket, rug and foreground plants. Reference image 2 supplies only Rana Kaname's correct identity, original casual outfit, and approved close bench body scale. Create a fresh planning moment from image 1 with her own expression and simple new hands; do not copy the chat pose or face.\n\n“Leave one unnamed corner in today.” After looking at a small plan, Rana notices the blank part first. She has a definite liking for it: perhaps something interesting will happen there, perhaps nothing will. She is willing to help put what actually matters in place, but doesn't believe every minute needs filling. The face should have alert, particular judgment, a tiny questioning lift of one brow, relaxed lips as if asking which thing you truly want to keep. A little candid insistence and warmth coexist. Avoid the same smiling helper face, motivational sentiment, or a literal full calendar UI. This is an original emotional moment, not a claim that she has scheduled anything.\n\nOn the near right bench, Rana sits comfortably upright, slightly angled toward the viewer without advancing her head toward camera. Match reference 2's near-bench depth/apparent size: crown roughly y110, whole lace-up boots and soles around y890, not cut off. Her hips and thighs are honestly supported by the linen cushion. A thin plain little notebook lies open across her lap with plenty of empty paper. One hand steadies its near edge on her thigh; the other makes a restrained, simple fingertip contact with a blank paper corner, not a floating pointing gesture. Knees, ankles and boots stay naturally connected, feet have believable floor contact, no crossed anatomy stunt. Keep notebook, wrists and sleeves easy to read and physically reachable; no reach toward the distant desk.\n\nRana is a youthful anime girl with a short silver-white bob, faint lavender ends, soft separated bangs; own right iris gold and own left iris blue, viewer-left gold/viewer-right blue in frontal view. Keep the eyelids, iris shapes, brows and individual hair strands distinct, with eyes readable below the hair. Loose black short sleeve outer shirt over pale white long sleeves, white shorts, black lace-up ankle boots. Her person, cushion and paper share the apricot sunlight and rich fabric/wood texture; contact shadows connect her to the bench and floor. Notebook is mostly blank with only faint nonlinguistic marks, no readable writing or dates. No baked captions, buttons, panels, cat, guitar, costume change, other person or artificial character spotlight. Preserve the whole complete lived-in room and its clear camera.",
+  "submittedPromptSha256Utf8NoTrailingLF": "a866009b88c543fb05ac19d0adbe5844e5d5446c00c4bdc4bf1caf6c03fe3550",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "sole-room-and-camera-input"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.png",
+      "sha256": "060e897c7b9ebdefc5ab84d6fbada2983625b19e6a4ebc57501ede19c5259919",
+      "role": "root-approved-Rana-identity-and-near-bench-scale-only"
+    }
+  ],
+  "output": {
+    "file": "rana-planning-apricot-literary-v1.png",
+    "sha256": "98495376accc84e9e5bab4dc3ca4269bd7372bcad9b0aa0f4d9028db785269fc",
+    "bytes": 2439207,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-2d0a3f3a-e644-4b05-969a-c74bc10fa2f3.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "primaryApproved": false,
+    "layerApproved": false
+  },
+  "status": "producer-viewed-awaiting-root-mother-review",
+  "producerReview": {
+    "reviewedAt": "2026-10-25T12:23:11.613308+00:00",
+    "method": "Personally inspected actual full native ImageGen output at 1536x1024 before next call.",
+    "observations": [
+      "Distinct gold/blue irises and bob; direct thoughtful gaze with restrained mouth.",
+      "Thin notebook lies on supported thighs, one hand rests on page; other hand coherently holds a pen near chin.",
+      "Complete head and both boot soles are in frame at near-bench reference depth; hips/cushion, knees/lower legs and floor relation visually coherent."
+    ],
+    "issues": [
+      "Model substituted a simple pen-near-chin gesture for the requested fingertip-on-paper corner; it remains a planning moment, but actual gesture differs.",
+      "Notebook contains faint unreadable line marks rather than entirely blank pages."
+    ],
+    "rootApprovalRequired": true
+  },
+  "character": "rana",
+  "activity": "planning",
+  "palette": "apricot",
+  "creativeBrief": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/rana-planning-apricot.md",
+    "sha256": "514cc6a28b351e3e12a0566d3875e769e046a02dd2d53f9de6f67844242058b6",
+    "title": "给今天留一个没定的角",
+    "role": "literary-direction-text-only"
+  },
+  "generationBudget": {
+    "wave": "rana-apricot-wave-a",
+    "maxCalls": 8,
+    "callOrdinal": 3,
+    "callsForThisCell": 1,
+    "retries": 0
+  },
+  "approvalBoundary": {
+    "primaryAccepted": false,
+    "layerAccepted": false,
+    "runtimeAccepted": false,
+    "runtimeRegistered": false,
+    "rootReviewPending": true,
+    "motherOnly": true
+  }
+}

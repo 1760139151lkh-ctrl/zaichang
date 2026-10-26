@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "character": "taki",
+  "sceneCategory": "S9_RESUME",
+  "semanticAction": "welcome-resume",
+  "palette": "mist",
+  "intendedCanvas": [
+    1536,
+    1024
+  ],
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "executionId": "exec-c4f18842-14a4-4325-b002-024bcfa61a43",
+  "observedAtUtc": "2026-10-25 02:16:54 UTC",
+  "promptFile": "taki-resume-mist-mother-v1.prompt.txt",
+  "promptFileSha256": "f6ef96b4b4ca50278dc761caaf85b21101ec7aba667d806951ecf9a37066ba3c",
+  "submittedPrompt": "Exact UTF-8 promptFile contents with leading/trailing whitespace trimmed; identical string submitted to the tool.",
+  "inputs": [
+    {
+      "role": "primary-approved apricot mother; exact character identity, accepted anatomy/pose, contacts and figure registration",
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/resume/taki-resume-apricot-mother-v1.png",
+      "sha256": "cc83d2b25be52d462f2328551a132e61615fe9ddbce71129cef749543a73ef2a"
+    },
+    {
+      "role": "personally viewed clean empty matching theme room; full-room light/weather reference only",
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-mist-candidate.png",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
+    }
+  ],
+  "transparentBackground": false,
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/resume/taki-resume-mist-mother-v1.png",
+    "defaultToolPath": "C:/Users/17601/.codex/generated_images/01a16fb5-6e96-71d2-a0fa-07807b277582/exec-c4f18842-14a4-4325-b002-024bcfa61a43.png",
+    "sha256": "5401d8a8a44f29c6f9e74d49dd32d663dc44addd7d0f7deeff264d1d9196acfb",
+    "bytes": 2132978,
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "copyMethod": "Copy-Item without image processing; default tool output retained"
+  },
+  "status": "candidate-awaiting-primary-review",
+  "review": {
+    "personallyViewedOutput": true,
+    "approvedByPrimary": false,
+    "layersAccepted": false,
+    "runtimeAccepted": false,
+    "note": "Personally viewed the returned full mist mother. Youthful taki identity, accepted pose, right-side hand/pad/bench support, uncrossed leg chains and both complete shoes remain coherent. The full room and figure share the corresponding mist illumination, without global material-color replacement or a pasted daytime figure. No layer/runtime or real recovery acceptance is inferred."
+  }
+}

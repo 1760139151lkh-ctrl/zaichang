@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "assetType": "literary-room-complete-activity-light-mother",
+  "id": "sakiko-rest-violet-literary-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-rest-violet-literary-v1.prompt.json",
+  "promptFileSha256": "fc468954b605d0b7a63a2e2cc3710bd2264fb426fc129cdd07abafe229f4cc4d",
+  "submittedPrompt": "Create one complete 1536×1024 landscape literary mother illustration of Togawa Sakiko. FIRST reference is the approved target empty room, camera and all illumination; SECOND is the exact approved same-activity apricot mother for Sakiko's identity, supported pose, apparent head/body size, objects and furniture support only. Preserve image 1's room camera, big window divisions, town/lake/mountains, curtains, shelves/desk, round lamp table, near right linen bench, plaid pillows, knitted throw, rug and foreground plants. Keep image 2's original youthful silver-blue long hair, clear golden irises, navy uniform details and actual body/hand/object relationships; hair strands, eyelids, irises and brows remain distinct. Do not paste a daytime figure or apply a theme tint to old lighting. Apricot hard solar highlights, white noon patches, window-grid/leaf shadows and bright floor rectangles in image 2 are NOT identity or pose and must not transfer. Repaint ALL hair, skin, paper, clothes, receiving furniture and floor under the first reference's actual illumination. No half-day/half-night division, new spotlight, UI, readable text/caption, new person or costume change. Preserve her own thought and judgment; no universal soothing smile, no theme-imposed sadness. One coherent lived-in scene with credible contact shadows.\n\nTarget is CONTINUOUS TWILIGHT. Match the exact rose-gold/lilac sunset and dim town/lake view of image 1, existing warm lamp fill plus quieter cool dusk. Relight hair, face, paper, navy/white clothes and indoor floor together. Retain only target-source light/shadow relations; no inherited bright noon patches, extra sun or global purple filter. Natural skin/silver-blue hair retain their own colors. Dusk does not require a sad face.\n\nKeep the approved rest mother's actual relaxed seated support and autonomous attention toward window, reachable supported palms/thighs, complete head/hair and shoes, same near-bench depth/apparent proportions. No enlarged forward-lean head or invented stretching anatomy.\nExplicitly rebuild the near knee/thigh lighting from target warm lamps and dusk as smooth form shading. The apricot mother's sharp bright patch on top of that knee is old solar illumination, not anatomy, and must not survive as a white cutout.\n\nLiterary direction (original project performance, not canon or real user memory):\n刚才那股要把事情做好 的劲还在，只是暂时不必举着。她望了一会儿窗外，允许这个普通时刻不需要证明什么。\n身体留在原座位深度，手掌与软垫自然支撑，目光自主朝窗外；不向前倾成近脸肖像。\n窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。",
+  "submittedPromptSha256Utf8NoTrailingLF": "ee0ee6dfe39d4cda8dae5d2f99ed43daccf58273d1eb7e5e26538e4110641c1b",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+      "role": "first-approved-target-room-and-all-lighting",
+      "approval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.primary-approval.json"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-rest-apricot-literary-pilot-v1.png",
+      "sha256": "144a167d9c7d1bc594051ef1ca3fcf0b92e97f1a8ddbf8cd63eb6b54c8a460f8",
+      "role": "second-approved-same-activity-identity-pose-scale-not-apricot-sun",
+      "approval": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+        "sha256": "0dc133f5dc0ac1702bce894b279304dde90ab45ddbe57c4107ee9caf360fe8d0",
+        "key": "sakiko/rest/apricot",
+        "decision": "approved",
+        "rootApproved": true
+      }
+    }
+  ],
+  "output": {
+    "file": "sakiko-rest-violet-literary-v1.png",
+    "sha256": "c9cfd038a34ccf2cc9ba2cf74b088f4d38c59b6349d11a5790f0bf0b5c12926e",
+    "bytes": 2259244,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-ce5257a6-4987-4760-98b8-b920c6cc332a.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "primaryApproved": false,
+    "layerApproved": false
+  },
+  "status": "producer-viewed-awaiting-root-mother-review",
+  "producerReview": {
+    "reviewedAt": "2026-10-25T13:54:02.265558+00:00",
+    "method": "Personally inspected actual full native ImageGen output at 1536x1024 before next call.",
+    "observations": [
+      "Full original viewed: continuous target dusk/lamp room; skin, hair, blouse, cardigan, linen and floor share warm/cool lighting.",
+      "Near knee's former sharp white solar patch is no longer a hard white cutout; smooth warm form light remains.",
+      "Autonomous window gaze, original hip/palm/cushion support, coherent legs and complete shoes retained, gold eyes clear."
+    ],
+    "issues": [
+      "Target twilight floor keeps its warm/dark structural light bands."
+    ],
+    "rootApprovalRequired": true
+  }
+}

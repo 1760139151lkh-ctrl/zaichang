@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "character": "mutsumi",
+  "activity": "resume",
+  "sceneCategory": "S9_RESUME",
+  "palette": "rain",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "mutsumi-resume-rain-v1-prompt.txt",
+  "promptFileSha256": "95ed0901f49c92a49486ca72fcf6e99960a8f1ac13c6a81bad1cd111a6cbbacf",
+  "submittedPrompt": "Exact UTF-8 promptFile contents with trailing newline trimmed.",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mujica/resume/mutsumi-resume-apricot-mother-candidate-v1.png",
+      "role": "primary-personally-reviewed approved apricot mother; exact figure/pose/support edit target",
+      "sha256": "c78de272c79fd5041e09e18075837392c8696134ff4aba56004b97b1e63501d8"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-rain-candidate-v2.png",
+      "role": "clean empty theme room; whole-scene light/weather reference only",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "output": {
+    "file": "mutsumi-resume-rain-mother-candidate-v1.png",
+    "toolOriginalPath": "$CODEX_HOME/generated_images/01a1702e-1e74-7ac0-9f86-f1d6b1ffcf30/exec-08fa4148-cc67-40a7-befa-69d6a89a5580.png",
+    "sha256": "d52fb749335360e5f3dde1196fd2b4b8d628ed4115d93d86652bb8b402d7148a",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "bytes": 2163118
+  },
+  "review": {
+    "producerPersonallyViewed": true,
+    "producerObservation": "Full image personally viewed. Blue rainy window/city reflections, warm local lamp, amber bounce on face/hair/sailor dress/shoes and cool window shade form one night room. Old apricot hard sun-grid/leaf highlights removed. Original small attentive look, page finger, lap notebook, rear palm/seat and two complete loafers retained; no newly imposed sadness or definite anatomical drift.",
+    "approvedByPrimary": false,
+    "layers": "not extracted",
+    "runtimeAccepted": false
+  },
+  "sourceSupportReference": "mutsumi-resume-apricot-v1-source.json",
+  "boundary": "Approved apricot INPUT is not approval of this themed OUTPUT. No sourceSupportReference is claimed as new runtime calibration.",
+  "matrixCell": {
+    "character": "mutsumi",
+    "activity": "resume",
+    "theme": "rain"
+  },
+  "identityBasis": {
+    "officialProfile": "https://anime.bang-dream.com/avemujica/character/mutsumi/",
+    "textVerifiedOn": "2026-10-24",
+    "boundary": "Official identity/background; university-companion resume moment is project-original. This relighting uses only approved generated character mother and clean generated theme room, no third-party character pixels."
+  }
+}

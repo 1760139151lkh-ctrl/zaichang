@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "character": "sakiko",
+  "activity": "play",
+  "palette": "apricot",
+  "sceneFamily": "room4",
+  "motherVersion": "scale-v5",
+  "role": "luminance-figure-mask",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-play-apricot-scale-v5-figure-mask-v1-prompt.txt",
+  "promptFileSha256": "c4b50367068328da62648822a643d4fcded154853d55aca45f708aabc758ce0c",
+  "submittedPrompt": "Use case: precise-object-edit. Technical SAME-CANVAS FIGURE OPACITY MASK; not new character art and not an RGBA cutout.\nInput image 1 is the complete approved Sakiko playful paper-bird mother V5, 1536 x 1024. Return an OPAQUE full-canvas black/white/grayscale mask at exactly 1536 x 1024. Paint only her exact currently visible figure AND the small paper bird held on her hand pure white. Paint all original room/window/furniture/pillows/blanket/floor pixels pure black, including every visible hole between hair strands, fingers/bird, arm/body and the two legs. Narrow 1-2 pixel grayscale antialiasing at the exact source outline only. Do not include contact shadows in this figure mask.\nExact geometry: the person is SMALL in the far-right part of the original wide canvas. Her visible silhouette is approximately x=1125..1438,y=285..791. Head top remains near y=286, seated hips near (1310,590), supporting rear palm near (1410,586), two complete shoes near the original floor positions around y=760..790. Leave the entire left 1110 pixels black, more than 270 pixels black above her head and more than 220 pixels black below her shoes. The modest forward lean lowers her head; do not enlarge, straighten, shift, recenter, rotate or redraw her head/body. Keep exactly the source apparent scale relative to the bench and chair.\nTrace the original true outer hair/ribbon, paper-bird tips, fingertips, cardigan/skirt, knees, socks and both full loafers. Exclude any bright sky, blue window pixels or pale cushion strip outside the actual figure. Preserve all real fine strands and visible anatomy; do not invent hidden parts. The white figure interior is plain white with no face/clothing details. Black outside and enclosed holes, narrow antialiasing only: no colour, aura, broad glow, haze, shadow fringe, text, UI, grid, border or crop. The priority is exact V5 source registration with no sudden growth or background fragments.",
+  "inputs": [
+    {
+      "file": "sakiko-play-apricot-scale-v5-mother.png",
+      "sha256": "876d39377ec165cd6fcbab19c646a7d63d97c2f85b5dc354711d0cb961a22d87",
+      "role": "sole approved V5 complete mother; no V4 reference"
+    }
+  ],
+  "transparentBackground": false,
+  "output": {
+    "file": "sakiko-play-apricot-scale-v5-figure-mask-v1.png",
+    "originalFile": "C:\\Users\\17601\\.codex\\generated_images\\01a16fb4-beb3-75e2-8677-73edb8072aa0\\exec-cb3d2b10-a3c3-4385-8e1b-9dde68f6c999.png",
+    "sourceOutput": "generated_images/01a16fb4-beb3-75e2-8677-73edb8072aa0/exec-cb3d2b10-a3c3-4385-8e1b-9dde68f6c999.png",
+    "sha256": "d2be8ab71f43ae778fd2a0e3396e66afb6d8815224dce809629527272b3178a4",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "status": "producer-rejected-scale-registration",
+  "motherPrimaryApproved": true,
+  "primaryApproved": false,
+  "layersAccepted": false,
+  "runtimeAccepted": false,
+  "producerObservation": {
+    "maskWhiteBounds": [
+      1093,
+      253,
+      1455,
+      808
+    ],
+    "reason": "mask enlarged and shifted relative to approved V5 mother; not used as any generation input or runtime layer"
+  }
+}

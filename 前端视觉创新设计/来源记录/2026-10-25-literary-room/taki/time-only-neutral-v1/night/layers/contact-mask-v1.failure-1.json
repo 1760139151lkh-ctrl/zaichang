@@ -1,0 +1,16 @@
+{
+  "tool": "built-in image_gen.imagegen",
+  "recordedAt": "2026-10-26T01:08:23.034941+00:00",
+  "requestPromptFile": "contact-mask-v1.prompt.txt",
+  "inputFile": "contact-step1-marked-v1.png",
+  "result": "no image returned",
+  "failureSource": "image tool output safety rejection, not model conversation termination",
+  "httpStatus": 400,
+  "code": "moderation_blocked",
+  "moderationStage": "output",
+  "categories": [
+    "other"
+  ],
+  "requestId": "057447d1-3815-41e4-bb4f-53edd2f0030f",
+  "nextStep": "one exact same benign mask conversion retry; retain same healthy session, no replacement or model switch"
+}

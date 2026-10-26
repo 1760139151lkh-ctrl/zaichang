@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "characterId": "tomori",
+  "activity": "chat",
+  "palette": "apricot",
+  "roomFamily": "literary-room-v1",
+  "stage": "shadow2",
+  "createdOn": "2026-10-25",
+  "tool": "image_gen.imagegen (built-in)",
+  "callOrdinalInBoundedBatch": 4,
+  "executionId": "exec-602dc950-2e7f-4034-866e-f376f17b6d7a",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-602dc950-2e7f-4034-866e-f376f17b6d7a.png",
+  "input": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/chat-layers/shadow-step1-marked-v1.png",
+    "sha256": "322b67232dcace9a6754edb6642ef29f4764c4162bd7687927b2dbfdbb925025",
+    "role": "only image input; immediately preceding S1 marked contact receiver source"
+  },
+  "promptFile": "shadow-step2-prompt-v1.txt",
+  "promptFileSha256": "643d4e4f1c683dfc48bbbacdd3a0608e055fadee6572e527d53c7d8217a8247e",
+  "submittedPrompt": "Use case: background-extraction. Asset: INCLUDED CONTACT luminance mask, STEP S2 of S2.\nImage 1 is the ONLY input: Takamatsu Tomori's original 1536x1024 literary chat source with small contact-receiving regions already deliberately marked pure white.\nKeep ONLY those EXISTING deliberate white marks white at EXACTLY the same source positions/shapes. Turn EVERYTHING ELSE pure BLACK, including the colored girl, book, natural white collar/pages, linen, plaid cushions, curtains/clouds, lamp shade, sunlight, wood floor/rug and scenery. Do not redraw or infer any new contact region from scratch.\nThe marked selection belongs to the small irregular original seat-contact receiving regions (the narrow cushion compression/contact-receiving material beneath the rear hip and checked hem around x930..1240,y540..610, and the small real seat contact below the far-right supporting palm around x1230..1320,y550..592) and the existing local floor contacts (the real irregular floor contact and short local shade directly below both soles around x825..1050,y835..910). These are bounding guides only. Preserve the actual white source marks; never fill a bounding rectangle/ellipse or join distant groups. A deliberate narrow garment/sole-edge overlap remains if already white. Do not move the seat group onto lap/book or the shoe groups up/down.\nThis mask will be used only in MAX(F,S) over the unchanged original mother RGB once, as a FIXED included-contact subject. It is not a portable separate caster. Keep exact original canvas, scale, framing and coordinates. Solid white interior; grey only at fine original antialias boundaries.\nOutput ONE opaque 1536x1024 PNG, pure black canvas with only the same deliberate white contact regions. No colored scene, person redraw, new shadow, crop, zoom, resize, grid, checkerboard, labels, arrows, rectangles or text.",
+  "output": {
+    "file": "shadow-mask-v1.png",
+    "sha256": "b38a654f02628ce4d0d438fa7ffb2df337c112e5dc20af3a5a3a7faf901259c6",
+    "bytes": 306511,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Full S2 original viewed: black canvas retains separate small white hip/hem/palm contact bands and two short sole-contact strips. There is no full room, broad floor island or connecting bridge. Any foreground-edge overlap will intentionally participate in MAX(F,S); fixed included source-RGB inspection remains pending."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "representation": "Fixed original-coordinate included-contact union; no independent caster/travel claim."
+}

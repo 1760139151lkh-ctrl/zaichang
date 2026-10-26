@@ -1,0 +1,327 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-canvas-source-rgb-edge-cat-static-rig-candidate",
+  "sceneFamily": "edge-meme-cat-v3-family",
+  "characterId": "taki",
+  "assetVariant": "head-left-body-right",
+  "source": {
+    "file": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mygo\\edge-cats\\taki-edge-meme-cat-v1.png",
+    "sha256": "94f804ad07e07377305e54e6ad0a55db2f9b107945b2af6c4b16d2786afb5647",
+    "originalPreserved": true
+  },
+  "readDependencies": [
+    {
+      "path": ".agents\\skills\\zaichang-frontend-director\\references\\characters\\taki.md",
+      "sha256": "48f954585e91b84599430c573ff38e498959d3168f18a9ca46c0c3c1e7f7bc7a",
+      "scope": "Full relevant text read before each generation call in this production turn"
+    },
+    {
+      "path": ".agents\\skills\\zaichang-frontend-director\\references\\character-art-direction.md",
+      "sha256": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840",
+      "scope": "Full relevant text read before each generation call in this production turn"
+    }
+  ],
+  "files": {
+    "body": {
+      "file": "taki-edge-meme-cat-v1-body.png",
+      "sha256": "20ff50d8effd624fe694b8002a9ce1555fc2d0f0567834c57283ccd86cbe4be5",
+      "bytes": 742238,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        37,
+        167,
+        1423,
+        876
+      ]
+    },
+    "tail": {
+      "file": "taki-edge-meme-cat-v1-tail.png",
+      "sha256": "98c9e77cc1981d59b5e6c08b417f2d05b81ffc7ff97b89cc41f598616eea236c",
+      "bytes": 58570,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        1312,
+        347,
+        1518,
+        709
+      ]
+    },
+    "clean": {
+      "file": "taki-edge-meme-cat-v1-clean.png",
+      "sha256": "71e3047cdc61b1e92f22dc40716fb00b8fabebbb6843d68e75b8b0103de136dc",
+      "bytes": 781534,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        37,
+        167,
+        1518,
+        876
+      ]
+    }
+  },
+  "layerOrder": [
+    "tail",
+    "body"
+  ],
+  "calibration": {
+    "id": "taki",
+    "characterId": "taki",
+    "stem": "taki-edge-meme-cat-v1",
+    "source": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mygo\\edge-cats\\taki-edge-meme-cat-v1.png",
+    "sourceSha256": "94f804ad07e07377305e54e6ad0a55db2f9b107945b2af6c4b16d2786afb5647",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "sourceMode": "RGBA",
+    "sourceAlphaRange": [
+      0,
+      254
+    ],
+    "tailSide": "right",
+    "tailPivotPx": [
+      1351,
+      676
+    ],
+    "tailPivotNormalized": [
+      0.8795572916666666,
+      0.66015625
+    ],
+    "paperEdgeSourceY": 851,
+    "paperEdgeNormalized": 0.8310546875,
+    "frontPawVisualRefsPx": [
+      [
+        245,
+        780
+      ],
+      [
+        593,
+        835
+      ]
+    ],
+    "pawScope": "Visible paw support/holding references; props belong to fixed body, no hypothetical joints or forced equal paw-bottom rule.",
+    "propOwnership": "folded paper bridge retained with supporting forepaw",
+    "bodyArcSamplesY_X": [
+      [
+        600,
+        1313
+      ],
+      [
+        610,
+        1324
+      ],
+      [
+        620,
+        1330
+      ],
+      [
+        630,
+        1339
+      ],
+      [
+        640,
+        1345
+      ],
+      [
+        660,
+        1357
+      ],
+      [
+        670,
+        1361
+      ],
+      [
+        680,
+        1366
+      ],
+      [
+        710,
+        1379
+      ]
+    ],
+    "visibleTailEndY": 708,
+    "wholeGuardExpansionRadius": 38,
+    "sourceSolidOutsideWholeGuardBounds": null,
+    "tailSemanticExpansionRadius": 12,
+    "rootUnderlapPx": 18,
+    "bodyForegroundInkOverlapPx": 4,
+    "mirrorSafe": true,
+    "eyeIdentity": null,
+    "selectedMask": "semantic-mask-v1.png",
+    "selectedMaskToolPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-56438831-1a0b-428c-a254-d4d1d54330c9.png",
+    "outputs": {
+      "body": {
+        "sha256": "20ff50d8effd624fe694b8002a9ce1555fc2d0f0567834c57283ccd86cbe4be5",
+        "bytes": 742238,
+        "alphaBounds": [
+          37,
+          167,
+          1423,
+          876
+        ],
+        "visibleRgbDifferenceRange": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "tail": {
+        "sha256": "98c9e77cc1981d59b5e6c08b417f2d05b81ffc7ff97b89cc41f598616eea236c",
+        "bytes": 58570,
+        "alphaBounds": [
+          1312,
+          347,
+          1518,
+          709
+        ],
+        "visibleRgbDifferenceRange": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "clean": {
+        "sha256": "71e3047cdc61b1e92f22dc40716fb00b8fabebbb6843d68e75b8b0103de136dc",
+        "bytes": 781534,
+        "alphaBounds": [
+          37,
+          167,
+          1518,
+          876
+        ],
+        "visibleRgbDifferenceRange": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      }
+    },
+    "primaryApproved": false,
+    "runtimeAccepted": false
+  },
+  "processing": {
+    "rgb": "All visible output RGB equal original same-coordinate RGB; transparent-only RGB zeroed. No face, hair, prop, anatomy, colour, crop, scale or orientation redrawn during layer production.",
+    "mask": "Each actual source received its own ImageGen semantic mask, never shared another role mask. Coarse guard expansion is measured per original and all native alpha>=250 solid source pixels are inside guard.",
+    "alpha": "Source alpha max254. Multiply original alpha by a 230-to-250 opacity gate then source-specific semantic guard; wide blue halo exits while original solid ink/colour remains.",
+    "root": "Tail constrained beyond this actual original rump arc, with 18px original-neighbour hidden RGB underlap. Original navy rump foreground remains on body with narrow original-ink-only overlap. Left-tail reverse uses its own original pixels and left-side arc, not a mirror of a right-tail rig.",
+    "props": "Original stone/bird/pick/note/bridge belongs to fixed body together with holding paw; no moved or model-interpreted source prop becomes a business object."
+  },
+  "directVisibleRgbInspection": {
+    "body": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "tail": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "clean": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  "producerReview": {
+    "personallyViewedWholeSource": true,
+    "personallyViewedSourceRoot": true,
+    "personallyViewed128pxAndRootExtremes": true,
+    "evidence": "static-production-review.png",
+    "observed": "Blue broad glow removed; source form, face/eyes/hair and actual held prop remain. Body/paws fixed; tail -5/0/+5 static root details checked. Normal small-size readability reviewed on light/dark.",
+    "mirrorScope": "Both normal and mirrored small-size views inspected.",
+    "staticOnly": true
+  },
+  "motionBoundary": {
+    "tailPivotPx": [
+      1351,
+      676
+    ],
+    "tailPivotNormalized": [
+      0.8795572916666666,
+      0.66015625
+    ],
+    "paperEdgeSourceY": 851,
+    "paperEdgeNormalized": 0.8310546875,
+    "usualTailRotationDegrees": [
+      -3,
+      3
+    ],
+    "staticViewedExtremesDegrees": [
+      -5,
+      5
+    ],
+    "mirrorSafe": true,
+    "eyeIdentity": null,
+    "facingPairRig": null
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "fullHumanMatrixCredit": false
+}

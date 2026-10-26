@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-mother-fixed-included-layer-imagegen-stage",
+  "character": "nyamu",
+  "purpose": "neutral-presence",
+  "neutralTime": "night",
+  "palette": "rain",
+  "light": "night",
+  "weather": "unknown",
+  "weatherClaim": false,
+  "stage": "S1",
+  "tool": "built-in image_gen.imagegen",
+  "toolArguments": {
+    "prompt": "Use case: precise-object-edit. Nyamu neutral-presence time-night, UNKNOWN WEATHER, exact approved 1536x1024 source mother. Create S1 PURE-WHITE LOCAL RECEIVER SELECTION marks on this exact original mother; not a new shadow or caster. ONLY input is the clean approved complete mother. Whole 1536x1024 canvas, camera, every source coordinate, original person/props/colors remain unchanged.\nPaint pure white ONLY on tight source-local material actually bearing the seated skirt/hip and BOTH real shoe contacts. Select the original short linen compression/contact-darkening islands immediately below/around the black outer skirt hem where it touches the cushion. Trace actual source contact, not a long bench strip, big white pillow, distant empty cushion or rectangle. Paper fan/arms are held by hands/body and have NO separate contact island on the bench.\nAt each of the TWO complete black ankle-strap shoes, select the ENTIRE actual short dark floor footprint right under the toe/forefoot sole, arch/heel and the connected soft outer original contact shade. This is NOT a thin2px shoe contour. Include the real source dark wood receiver from toe to heel, typically8..25source pixels beyond actual soles only where shadow exists, with the original irregular soft footprint edge. Especially preserve the front lower shoe's source dark wood immediately in front of the toe and front sole. No floating strip behind only one heel, no generalized ellipse, new shadow, long floor band or hard polygon. Shoe interiors/straps/soles themselves stay COLORED for F; a tiny edge overlap is harmless later MAX.\nEvery unmarked pixel stays original color, including all girl/hair/face/choker/ruffles/skin/skirt/held fan/shoes, naturally pale linen/curtains/lamp, plaid/knit, table/books/flowers, left furniture/plants, floor reflections/rug and unrelated shadows. Do not mark large bright or dark areas merely for their brightness. No redrawing, new light, recentering, crop, resize or text. One full opaque original RGB scene with only actual small receiver material patches deliberately white; fixed original-position included material, travel/slope/perspective0.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/nyamu-neutral-presence-time-night-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "submittedPrompt": "Use case: precise-object-edit. Nyamu neutral-presence time-night, UNKNOWN WEATHER, exact approved 1536x1024 source mother. Create S1 PURE-WHITE LOCAL RECEIVER SELECTION marks on this exact original mother; not a new shadow or caster. ONLY input is the clean approved complete mother. Whole 1536x1024 canvas, camera, every source coordinate, original person/props/colors remain unchanged.\nPaint pure white ONLY on tight source-local material actually bearing the seated skirt/hip and BOTH real shoe contacts. Select the original short linen compression/contact-darkening islands immediately below/around the black outer skirt hem where it touches the cushion. Trace actual source contact, not a long bench strip, big white pillow, distant empty cushion or rectangle. Paper fan/arms are held by hands/body and have NO separate contact island on the bench.\nAt each of the TWO complete black ankle-strap shoes, select the ENTIRE actual short dark floor footprint right under the toe/forefoot sole, arch/heel and the connected soft outer original contact shade. This is NOT a thin2px shoe contour. Include the real source dark wood receiver from toe to heel, typically8..25source pixels beyond actual soles only where shadow exists, with the original irregular soft footprint edge. Especially preserve the front lower shoe's source dark wood immediately in front of the toe and front sole. No floating strip behind only one heel, no generalized ellipse, new shadow, long floor band or hard polygon. Shoe interiors/straps/soles themselves stay COLORED for F; a tiny edge overlap is harmless later MAX.\nEvery unmarked pixel stays original color, including all girl/hair/face/choker/ruffles/skin/skirt/held fan/shoes, naturally pale linen/curtains/lamp, plaid/knit, table/books/flowers, left furniture/plants, floor reflections/rug and unrelated shadows. Do not mark large bright or dark areas merely for their brightness. No redrawing, new light, recentering, crop, resize or text. One full opaque original RGB scene with only actual small receiver material patches deliberately white; fixed original-position included material, travel/slope/perspective0.",
+  "originalToolOutput": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-b1cda6f6-a982-4e58-a361-d373d49c4655.png",
+  "outputFile": "contact-step1-marked-v1.png",
+  "mother": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/nyamu-neutral-presence-time-night-v1.png",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/nyamu-neutral-presence-time-night-v1.png",
+      "role": "exact root-approved original whole mother",
+      "sha256": "799a1602dc9d40fb3409f75502fa643b6635a25a98fe28f568359db4bbc7a44a"
+    }
+  ],
+  "producerObservation": "Complete tool output personally viewed: tight actual hem/linen and two complete source toe/sole/heel receiving footprints deliberately white; original person/fan kept colored.",
+  "sourceRgbDrawsInFinalAssembly": 1,
+  "assembly": "U=MAX(L(F),L(S)); exact original mother RGB drawn only once; local receiver material fixed at source position",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "pngPixelEditing": false,
+  "croppingOrResizingSourcePNG": false,
+  "thresholdOrMorphologyEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "dynamicAdmission": false,
+  "original360CreditAssigned": false,
+  "userApproved": false,
+  "reviewScreenshotsUsedAsImageInput": false,
+  "recordedAtUTC": "2026-10-26T01:08:15.844270+00:00",
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/night/layers/contact-step1-marked-v1.png",
+    "sha256": "ad73a815258da89f6c51ab453488c3048526a0040cac87f34406865dc4beed84",
+    "bytes": 2084691,
+    "originalToolOutputSHA256": "ad73a815258da89f6c51ab453488c3048526a0040cac87f34406865dc4beed84",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "motherSHA256": "799a1602dc9d40fb3409f75502fa643b6635a25a98fe28f568359db4bbc7a44a",
+  "dossierVersion": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/nyamu.md",
+    "sha256": "c5acd92fe6cd9ccf35785bd09e7f71337bca5bf7eb0fdd37629e78780eb9ebe1"
+  },
+  "methodVersion": {
+    "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+    "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d"
+  },
+  "submittedPromptSHA256": "cb39e98c3d6ee66a1f3ac5f5ef4916782a02bfd059829a728e459ac9c027d2d3",
+  "promptFileSHA256": "a65c78a187a741e9d590235eb6e6e62f6ec14775fb6a261437f8294f6b69ac6f"
+}

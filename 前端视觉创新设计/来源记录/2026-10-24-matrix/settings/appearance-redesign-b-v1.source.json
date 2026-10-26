@@ -1,0 +1,26 @@
+{
+  "createdOn": "2026-10-25T04:01:01.857498+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "kind": "ui-mockup",
+  "scope": "simplified companion appearance settings",
+  "candidate": "b",
+  "file": "前端视觉创新设计/来源记录/2026-10-24-matrix/settings/appearance-redesign-b-v1.png",
+  "sha256": "acb1adaab6e7de4858dd13e43de063997e40ec490e51fc88deb632b533e6989e",
+  "bytes": 1935548,
+  "width": 1536,
+  "height": 1024,
+  "exactPrompt": "Use case: ui-mockup. Create ONE refined, feasible desktop product design for the existing Chinese companion app 在场, landscape 1536×1024. Input image 1 is the CURRENT REAL SCREEN, a source of exact app navigation, ten original anime character identities and same-room art, not a layout to preserve. The user explicitly rejects its excessive buttons, permanent categories, activity director controls, role/personality controls repeated inside appearance, explanatory clutter and dark-shell/white-room mismatch. Redesign the 陪伴的样子 component into an affectionate quiet place where the room and a companion matter more than settings. Keep the real top navigation 聊天 今天 留下 and settings tabs 陪伴的样子 / 怎么相处 / 阅读与节奏 / 连接与资料, with the first active. Keep character identity faithful and youthful, full-room perspective/camera continuous with the screenshot. The same warm apricot daylight must inform room artwork AND the surrounding warm ivory paper UI. Fine muted gold focus, clean Chinese typography, gentle wood/linen, no green UI, no frosted gray dashboard, no random illustration. Do not add controls for 闲聊/推导/倾听/小发现/看书/安排/rest/activity; those are natural chat semantics, not settings. No dragging path or trajectory, no drag instructions, no 换个位置 button, no duplicate nickname/personality editor, no role adoption or 留下约定 block. Keep main character selection, four whole-room light themes and one simple relation to real weather. No weather chart, temperature card, invented live weather/temperature/location or data dashboard. Secondary favorite/import/custom image/display/less motion actions belong to one contextual ellipsis, not visible tool rows. No generic slogan, design explanation, prototype badge, coverage metrics, engineering text or watermark. The interface text should be only concise genuine labels.\nCANDIDATE B — QUIET ROWS, CHOICES ONLY WHEN ASKED: Build a calm asymmetrical settings composition with a narrow LEFT column of three simple spacious paper rows and a large RIGHT complete-room preview. The left rows are: 伙伴 with a small current Sakiko portrait, value 祥子 and disclosure chevron; 光线 with four very small unlabeled color swatches and current value 暖杏; 随天气 with a single clear switch. One small ellipsis aligned with the current companion carries the secondary actions. The 伙伴 disclosure is CLOSED in this default state; all ten roles/custom images/favorites are available inside its on-demand chooser, but DO NOT paint a permanent character grid, filmstrip, drawer or categories on this default screen. The right room preview remains one uninterrupted warm apricot canvas, complete same window and furniture, Sakiko full-body seated on bench at normal scale. No button overlays on the picture, no preview header, no save actions because this is the CLEAN SAVED state. The user's eyes go first to the room, then to the three calm rows; the rows should feel as quiet as changing one familiar preference, no stacked boxed cards, no explanatory paragraph. This must differ structurally from a room-above-filmstrip layout. Preserve app navigation and place all actual content inside an ordinary desktop settings page, not a promotional hero.",
+  "promptSha256": "62e1af0b2b254dc8ac44e9f54c223eb02724f8ad75358b151e48c948160efa41",
+  "inputs": [
+    {
+      "role": "user-provided current real screen; navigation and same-room context only",
+      "file": "C:\\Users\\17601\\AppData\\Local\\Temp\\codex-clipboard-34cf783e-0d4b-49c4-903f-c4e8b4e8ef5e.png",
+      "sha256": "81c2028a4a7d6195c976b8d0844e641bdd30f37851261a4e6267f3f3e1dc7e30"
+    }
+  ],
+  "originalGeneratedFile": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-d3ee84f5-b4a7-4496-9706-b0db2e70dac0.png",
+  "designerPersonallyViewed": true,
+  "designerObservation": "A uses the complete room above a compact ten-character filmstrip and one light/weather line; B uses three quiet rows with the character picker closed and complete room beside them. The candidates have materially different choice disclosure and spatial composition. Mockup art is design reference, not a runtime room asset.",
+  "primaryReview": false,
+  "runtimeAccepted": false
+}

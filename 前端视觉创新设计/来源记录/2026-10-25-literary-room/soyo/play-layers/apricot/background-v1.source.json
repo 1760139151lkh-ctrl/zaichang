@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-play-apricot-background-v1",
+  "cell": "soyo/play/apricot",
+  "stage": "background-v1",
+  "tool": "image_gen.imagegen",
+  "actualToolArguments": {
+    "prompt": "Use case: precise-object-edit. Asset: same-camera EMPTY receiving background for a fixed original-RGB union.\nThe ONLY input is this exact clean root-approved Soyo play apricot mother, 1536x1024. Preserve the entire original canvas, all source coordinates and camera framing. No crop/resize/zoom/centering/shift, no changes to pose, expression, proportions, wardrobe, linework or source geometry. This is technical selection/restoration for a FIXED original-RGB included layer, not a new character illustration. Root approved minor theme/pose differences; preserve this exact original.\nRemove ONLY the entire girl including all fine hair, full clothes/hands/legs/socks/both whole shoes, the complete open book on her lap including every lifted page edge, and any single pencil or bookmark ribbon she holds, plus their actual near contact/cast shade and local cushion compression. Restore the SAME original room behind them: continuous pale embroidered linen cushion, corresponding window/sill and bench/front wood where obscured, continuous exact wood-floor plank directions and natural reflections where feet/shade were. No residual human/book/pencil/ribbon ghost, new replacement object, spare book on empty bench, or silhouette in seat/floor.\nPreserve EVERY other visible thing: side-table lamp/base/cup/small books/flowers, desk/chair/left shelves/plants/framed art, curtains, right pillows/plaid/throw, rug/fringe, town/lake/mountains/window glass and all existing major window mullion/table/bench/floor anchors. Keep source materials/painting texture/color temperature and warm sunlit apricot clear day, preserve actual original sunlight patches and room shadows precisely. This is an object-removal edit, not a redesigned/recolored generic room. Preserve ambient/window/table/furniture shadows that are unrelated to the removed subject, removing only her own physically connected local contact/shadow. Restore natural uncompressed linen only where her weight was; do not invent a large bright patch. One opaque 1536x1024 clean empty scene. It sits behind original mother RGB at exactly the unchanged source coordinates; local receiving-seat/floor matching matters, not stylistic reinterpretation.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-play-apricot-literary-v2.png"
+    ],
+    "transparent_background": false
+  },
+  "submittedPromptSha256": "106baa769850dd9554858dc80dab7d7b5d5d973fa425f0e0af7a5b855760a014",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-play-apricot-literary-v2.png",
+      "sha256": "82bca80705934963059213bfb9ab31eb9edb9765ead04194cd1125cf98191d3c",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-play-apricot-literary-v2.png",
+    "sha256": "82bca80705934963059213bfb9ab31eb9edb9765ead04194cd1125cf98191d3c",
+    "bytes": 2474782,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    }
+  },
+  "rootPrimaryRecordSha256AtRead": "f6b3a0b7ac9974993b61553e907f0ebfa7c39763ebef7d33ca7efb215a99fbb2",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/play-layers/apricot/scene-background-v1.png",
+    "sha256": "ace1057fe9b76092c219865078553073f2bec813bb48d0cc0c5340291a7342e5",
+    "bytes": 2455685,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-1f79b45a-6dc7-4670-8cb3-9203d3025b88.png",
+  "producerObservations": [
+    "Personally viewed full actual empty same-mother scene: complete girl/lap book/pencil removed; no residual figure ghost or spare book seen; main room framing, receiver-seat/floor and theme light remain.",
+    "Hidden material restoration is generated, not bitwise original hidden pixels; exact original-RGB composite review remains required."
+  ],
+  "status": "background-candidate-awaiting-original-rgb-review",
+  "pngBytesUnchanged": true,
+  "pngPixelEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0
+}

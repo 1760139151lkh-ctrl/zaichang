@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "kind": "primary-static-mother-admission",
+  "key": "mutsumi/study/apricot",
+  "reviewer": "root",
+  "decision": "approved",
+  "primaryPersonallyViewed": true,
+  "mother": {
+    "file": "mutsumi-study-apricot-v1.png",
+    "sha256": "0fed56bbb3ae86b4ee81f1957e243b1d01b9e7f40c56e79e285ac686a1b6c5ac",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "sourceRecord": "mutsumi-study-apricot-v1.source.json",
+  "observation": "Root personally viewed left-desk paper/thought pose, forearm supported by desk edge and natural chair-seat contact. Plant naturally occludes lower legs/shoes; contourComplete=false. Camera, main desk and round side table remain coherent.",
+  "contourComplete": false,
+  "scope": "Exact-SHA complete static mother only. Actual rendered scene semantics recorded honestly; no layer, audio/performance, motion or runtime admission.",
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "evidenceSource": "Explicit root message after personally viewing all five Mutsumi wave-b full mothers"
+}

@@ -1,0 +1,1794 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "cellCount": 36,
+  "scope": "36 project-original literary drafts. Existing exact output prompts and root admissions stay authoritative; no new generation performed.",
+  "selectedMother": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+  "pilotAdmission": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+    "sha256": "010ceb6067ad63560676b1af5af8e641102ecba6d773b5310490ac33aab4c48d",
+    "bytes": 9123,
+    "capturedAt": "2026-10-25T09:14:02.908764+00:00"
+  },
+  "forbiddenInputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-listening-apricot-literary-pilot-v1.png",
+      "sha256": "ac97872e1632ee8cbfde69fb5ed6a15c55bcc5b7057158f4d3db3e12690ee329",
+      "decision": "held-for-scale-repair"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v1.png",
+      "sha256": "5f3dfd09f4ea2c5b2d22c5803474195358157c857e9350cb4794ead646db05a5",
+      "decision": "rejected"
+    }
+  ],
+  "identityBoundary": "Selected visual identity and original youthful character recognition; not new canonical plot/relationship claims.",
+  "cells": [
+    {
+      "key": "sakiko/chat/apricot",
+      "character": "sakiko",
+      "activity": "chat",
+      "palette": "apricot",
+      "paletteName": "暖杏",
+      "psychologicalBeat": "话停在一个还没说尽的地方。她没有急着填满安静，而是把自己的注意放过来，像愿意听你把最细的一点也讲完。",
+      "bodyAndGaze": "双手自然松合在膝上，不拿书、不伸向镜头；目光清楚但不逼人回应。",
+      "materialLight": "柔金窗光在银蓝发丝、手指、深蓝衣料与木头上各有层次。温暖从相处里来，不要求她为了阳光多笑一点。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "话停在一个还没说尽的地方。她没有急着填满安静，而是把自己的注意放过来，像愿意听你把最细的一点也讲完。\n\n双手自然松合在膝上，不拿书、不伸向镜头；目光清楚但不逼人回应。\n\n柔金窗光在银蓝发丝、手指、深蓝衣料与木头上各有层次。温暖从相处里来，不要求她为了阳光多笑一点。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+          "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "bytes": 2524961,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.png",
+          "sha256": "8d8ca2d001893c16106ab797ec4a8a8c1e6576115a5a4c76ff1dd519eff4e2cd",
+          "bytes": 2459089,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:chat:apricot",
+        "generated": true,
+        "motherApproved": true,
+        "activeMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.png",
+          "sha256": "8d8ca2d001893c16106ab797ec4a8a8c1e6576115a5a4c76ff1dd519eff4e2cd",
+          "bytes": 2459089,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "reviewStatus": "approved_static_mother",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/chat/mist",
+      "character": "sakiko",
+      "activity": "chat",
+      "palette": "mist",
+      "paletteName": "晨雾蓝",
+      "psychologicalBeat": "话停在一个还没说尽的地方。她没有急着填满安静，而是把自己的注意放过来，像愿意听你把最细的一点也讲完。",
+      "bodyAndGaze": "双手自然松合在膝上，不拿书、不伸向镜头；目光清楚但不逼人回应。",
+      "materialLight": "散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "话停在一个还没说尽的地方。她没有急着填满安静，而是把自己的注意放过来，像愿意听你把最细的一点也讲完。\n\n双手自然松合在膝上，不拿书、不伸向镜头；目光清楚但不逼人回应。\n\n散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "bytes": 2526101,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.png",
+          "sha256": "8d8ca2d001893c16106ab797ec4a8a8c1e6576115a5a4c76ff1dd519eff4e2cd",
+          "bytes": 2459089,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:chat:mist",
+        "generated": true,
+        "motherApproved": false,
+        "activeMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-mist-v1.png",
+          "sha256": "6cbd83def33cf8284056992f10315a98101002d8f36f4d3d497548b7b4b73b9f",
+          "bytes": 2461416,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "reviewStatus": "producer_candidate_pending_root",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/chat/violet",
+      "character": "sakiko",
+      "activity": "chat",
+      "palette": "violet",
+      "paletteName": "暮色紫",
+      "psychologicalBeat": "话停在一个还没说尽的地方。她没有急着填满安静，而是把自己的注意放过来，像愿意听你把最细的一点也讲完。",
+      "bodyAndGaze": "双手自然松合在膝上，不拿书、不伸向镜头；目光清楚但不逼人回应。",
+      "materialLight": "窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "话停在一个还没说尽的地方。她没有急着填满安静，而是把自己的注意放过来，像愿意听你把最细的一点也讲完。\n\n双手自然松合在膝上，不拿书、不伸向镜头；目光清楚但不逼人回应。\n\n窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "bytes": 2350339,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.png",
+          "sha256": "8d8ca2d001893c16106ab797ec4a8a8c1e6576115a5a4c76ff1dd519eff4e2cd",
+          "bytes": 2459089,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:chat:violet",
+        "generated": true,
+        "motherApproved": false,
+        "activeMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-violet-v1.png",
+          "sha256": "3115fb3058cff052bddc376d4612aa842c96925e6708a809b434097980274b84",
+          "bytes": 2309955,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "reviewStatus": "producer_candidate_pending_root",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/chat/rain",
+      "character": "sakiko",
+      "activity": "chat",
+      "palette": "rain",
+      "paletteName": "夜雨暖金",
+      "psychologicalBeat": "话停在一个还没说尽的地方。她没有急着填满安静，而是把自己的注意放过来，像愿意听你把最细的一点也讲完。",
+      "bodyAndGaze": "双手自然松合在膝上，不拿书、不伸向镜头；目光清楚但不逼人回应。",
+      "materialLight": "雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "话停在一个还没说尽的地方。她没有急着填满安静，而是把自己的注意放过来，像愿意听你把最细的一点也讲完。\n\n双手自然松合在膝上，不拿书、不伸向镜头；目光清楚但不逼人回应。\n\n雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "bytes": 2270751,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.png",
+          "sha256": "8d8ca2d001893c16106ab797ec4a8a8c1e6576115a5a4c76ff1dd519eff4e2cd",
+          "bytes": 2459089,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:chat:rain",
+        "generated": true,
+        "motherApproved": false,
+        "activeMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-rain-v1.png",
+          "sha256": "229156a8a56698f5e0fb73424c3b65dc5fe3adde0fbee3101033ca5df1ce3f2f",
+          "bytes": 2274460,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "reviewStatus": "producer_candidate_pending_root",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/study/apricot",
+      "character": "sakiko",
+      "activity": "study",
+      "palette": "apricot",
+      "paletteName": "暖杏",
+      "psychologicalBeat": "那一步好像终于通了，她却没有急着庆祝。她还想认真听一听，你是不是在同一个地方看见了不同的路。",
+      "bodyAndGaze": "小本低放腿上，一手稳页、一手握笔，专注来自当前问题；不把人往镜头前推。",
+      "materialLight": "柔金窗光在银蓝发丝、手指、深蓝衣料与木头上各有层次。温暖从相处里来，不要求她为了阳光多笑一点。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "那一步好像终于通了，她却没有急着庆祝。她还想认真听一听，你是不是在同一个地方看见了不同的路。\n\n小本低放腿上，一手稳页、一手握笔，专注来自当前问题；不把人往镜头前推。\n\n柔金窗光在银蓝发丝、手指、深蓝衣料与木头上各有层次。温暖从相处里来，不要求她为了阳光多笑一点。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+          "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "bytes": 2524961,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-study-apricot-v1.png",
+          "sha256": "e7181f8b7a73cb57208375b95dd11135c67ff6f71055d59528a83ab6530ee285",
+          "bytes": 2432882,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:study:apricot",
+        "generated": true,
+        "motherApproved": true,
+        "activeMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-study-apricot-v1.png",
+          "sha256": "e7181f8b7a73cb57208375b95dd11135c67ff6f71055d59528a83ab6530ee285",
+          "bytes": 2432882,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "reviewStatus": "approved_static_mother",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/study/mist",
+      "character": "sakiko",
+      "activity": "study",
+      "palette": "mist",
+      "paletteName": "晨雾蓝",
+      "psychologicalBeat": "那一步好像终于通了，她却没有急着庆祝。她还想认真听一听，你是不是在同一个地方看见了不同的路。",
+      "bodyAndGaze": "小本低放腿上，一手稳页、一手握笔，专注来自当前问题；不把人往镜头前推。",
+      "materialLight": "散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "那一步好像终于通了，她却没有急着庆祝。她还想认真听一听，你是不是在同一个地方看见了不同的路。\n\n小本低放腿上，一手稳页、一手握笔，专注来自当前问题；不把人往镜头前推。\n\n散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "bytes": 2526101,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-study-apricot-v1.png",
+          "sha256": "e7181f8b7a73cb57208375b95dd11135c67ff6f71055d59528a83ab6530ee285",
+          "bytes": 2432882,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:study:mist",
+        "generated": false,
+        "motherApproved": false,
+        "activeMother": null,
+        "reviewStatus": "not_submitted",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/study/violet",
+      "character": "sakiko",
+      "activity": "study",
+      "palette": "violet",
+      "paletteName": "暮色紫",
+      "psychologicalBeat": "那一步好像终于通了，她却没有急着庆祝。她还想认真听一听，你是不是在同一个地方看见了不同的路。",
+      "bodyAndGaze": "小本低放腿上，一手稳页、一手握笔，专注来自当前问题；不把人往镜头前推。",
+      "materialLight": "窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "那一步好像终于通了，她却没有急着庆祝。她还想认真听一听，你是不是在同一个地方看见了不同的路。\n\n小本低放腿上，一手稳页、一手握笔，专注来自当前问题；不把人往镜头前推。\n\n窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "bytes": 2350339,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-study-apricot-v1.png",
+          "sha256": "e7181f8b7a73cb57208375b95dd11135c67ff6f71055d59528a83ab6530ee285",
+          "bytes": 2432882,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:study:violet",
+        "generated": false,
+        "motherApproved": false,
+        "activeMother": null,
+        "reviewStatus": "not_submitted",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/study/rain",
+      "character": "sakiko",
+      "activity": "study",
+      "palette": "rain",
+      "paletteName": "夜雨暖金",
+      "psychologicalBeat": "那一步好像终于通了，她却没有急着庆祝。她还想认真听一听，你是不是在同一个地方看见了不同的路。",
+      "bodyAndGaze": "小本低放腿上，一手稳页、一手握笔，专注来自当前问题；不把人往镜头前推。",
+      "materialLight": "雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "那一步好像终于通了，她却没有急着庆祝。她还想认真听一听，你是不是在同一个地方看见了不同的路。\n\n小本低放腿上，一手稳页、一手握笔，专注来自当前问题；不把人往镜头前推。\n\n雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "bytes": 2270751,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-study-apricot-v1.png",
+          "sha256": "e7181f8b7a73cb57208375b95dd11135c67ff6f71055d59528a83ab6530ee285",
+          "bytes": 2432882,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:study:rain",
+        "generated": false,
+        "motherApproved": false,
+        "activeMother": null,
+        "reviewStatus": "not_submitted",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/reading/apricot",
+      "character": "sakiko",
+      "activity": "reading",
+      "palette": "apricot",
+      "paletteName": "暖杏",
+      "psychologicalBeat": "一句话触到她小心折好的心事。她让它在心里多停一会儿，也在这点停顿里给你留了一处位置。",
+      "bodyAndGaze": "承接原选 v1：蓝书自然打开在双手之间，眼睛落在页上，肩膝松下，座垫确实承重。",
+      "materialLight": "柔金窗光在银蓝发丝、手指、深蓝衣料与木头上各有层次。温暖从相处里来，不要求她为了阳光多笑一点。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "一句话触到她小心折好的心事。她让它在心里多停一会儿，也在这点停顿里给你留了一处位置。\n\n承接原选 v1：蓝书自然打开在双手之间，眼睛落在页上，肩膝松下，座垫确实承重。\n\n柔金窗光在银蓝发丝、手指、深蓝衣料与木头上各有层次。温暖从相处里来，不要求她为了阳光多笑一点。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+          "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "bytes": 2524961,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+          "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+          "bytes": 2606101,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:reading:apricot",
+        "generated": true,
+        "motherApproved": true,
+        "activeMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+          "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+          "bytes": 2606101,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "reviewStatus": "approved_static_mother",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/reading/mist",
+      "character": "sakiko",
+      "activity": "reading",
+      "palette": "mist",
+      "paletteName": "晨雾蓝",
+      "psychologicalBeat": "一句话触到她小心折好的心事。她让它在心里多停一会儿，也在这点停顿里给你留了一处位置。",
+      "bodyAndGaze": "承接原选 v1：蓝书自然打开在双手之间，眼睛落在页上，肩膝松下，座垫确实承重。",
+      "materialLight": "散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "一句话触到她小心折好的心事。她让它在心里多停一会儿，也在这点停顿里给你留了一处位置。\n\n承接原选 v1：蓝书自然打开在双手之间，眼睛落在页上，肩膝松下，座垫确实承重。\n\n散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "bytes": 2526101,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+          "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+          "bytes": 2606101,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:reading:mist",
+        "generated": false,
+        "motherApproved": false,
+        "activeMother": null,
+        "reviewStatus": "not_submitted",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/reading/violet",
+      "character": "sakiko",
+      "activity": "reading",
+      "palette": "violet",
+      "paletteName": "暮色紫",
+      "psychologicalBeat": "一句话触到她小心折好的心事。她让它在心里多停一会儿，也在这点停顿里给你留了一处位置。",
+      "bodyAndGaze": "承接原选 v1：蓝书自然打开在双手之间，眼睛落在页上，肩膝松下，座垫确实承重。",
+      "materialLight": "窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "一句话触到她小心折好的心事。她让它在心里多停一会儿，也在这点停顿里给你留了一处位置。\n\n承接原选 v1：蓝书自然打开在双手之间，眼睛落在页上，肩膝松下，座垫确实承重。\n\n窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "bytes": 2350339,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+          "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+          "bytes": 2606101,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:reading:violet",
+        "generated": false,
+        "motherApproved": false,
+        "activeMother": null,
+        "reviewStatus": "not_submitted",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/reading/rain",
+      "character": "sakiko",
+      "activity": "reading",
+      "palette": "rain",
+      "paletteName": "夜雨暖金",
+      "psychologicalBeat": "一句话触到她小心折好的心事。她让它在心里多停一会儿，也在这点停顿里给你留了一处位置。",
+      "bodyAndGaze": "承接原选 v1：蓝书自然打开在双手之间，眼睛落在页上，肩膝松下，座垫确实承重。",
+      "materialLight": "雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "一句话触到她小心折好的心事。她让它在心里多停一会儿，也在这点停顿里给你留了一处位置。\n\n承接原选 v1：蓝书自然打开在双手之间，眼睛落在页上，肩膝松下，座垫确实承重。\n\n雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "bytes": 2270751,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+          "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+          "bytes": 2606101,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:reading:rain",
+        "generated": false,
+        "motherApproved": false,
+        "activeMother": null,
+        "reviewStatus": "not_submitted",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/planning/apricot",
+      "character": "sakiko",
+      "activity": "planning",
+      "palette": "apricot",
+      "paletteName": "暖杏",
+      "psychologicalBeat": "她想让拥挤的一天有一点可以改动的余地。认真仍在，但纸上的空白不是疏忽，是留给另一个人的选择。",
+      "bodyAndGaze": "小本与铅笔靠近腿面并有承托，不悬空端出计划板；目光在真实笔记与对方之间有自然停顿。",
+      "materialLight": "柔金窗光在银蓝发丝、手指、深蓝衣料与木头上各有层次。温暖从相处里来，不要求她为了阳光多笑一点。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "她想让拥挤的一天有一点可以改动的余地。认真仍在，但纸上的空白不是疏忽，是留给另一个人的选择。\n\n小本与铅笔靠近腿面并有承托，不悬空端出计划板；目光在真实笔记与对方之间有自然停顿。\n\n柔金窗光在银蓝发丝、手指、深蓝衣料与木头上各有层次。温暖从相处里来，不要求她为了阳光多笑一点。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+          "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "bytes": 2524961,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-planning-apricot-literary-pilot-v1.png",
+          "sha256": "d3439fe3a604aaa3291889291b3dc7ff93d22297b765af98c21f00bea78269e7",
+          "bytes": 2488850,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:planning:apricot",
+        "generated": true,
+        "motherApproved": true,
+        "activeMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-planning-apricot-literary-pilot-v1.png",
+          "sha256": "d3439fe3a604aaa3291889291b3dc7ff93d22297b765af98c21f00bea78269e7",
+          "bytes": 2488850,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "reviewStatus": "approved_static_mother",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/planning/mist",
+      "character": "sakiko",
+      "activity": "planning",
+      "palette": "mist",
+      "paletteName": "晨雾蓝",
+      "psychologicalBeat": "她想让拥挤的一天有一点可以改动的余地。认真仍在，但纸上的空白不是疏忽，是留给另一个人的选择。",
+      "bodyAndGaze": "小本与铅笔靠近腿面并有承托，不悬空端出计划板；目光在真实笔记与对方之间有自然停顿。",
+      "materialLight": "散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "她想让拥挤的一天有一点可以改动的余地。认真仍在，但纸上的空白不是疏忽，是留给另一个人的选择。\n\n小本与铅笔靠近腿面并有承托，不悬空端出计划板；目光在真实笔记与对方之间有自然停顿。\n\n散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "bytes": 2526101,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-planning-apricot-literary-pilot-v1.png",
+          "sha256": "d3439fe3a604aaa3291889291b3dc7ff93d22297b765af98c21f00bea78269e7",
+          "bytes": 2488850,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:planning:mist",
+        "generated": false,
+        "motherApproved": false,
+        "activeMother": null,
+        "reviewStatus": "not_submitted",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/planning/violet",
+      "character": "sakiko",
+      "activity": "planning",
+      "palette": "violet",
+      "paletteName": "暮色紫",
+      "psychologicalBeat": "她想让拥挤的一天有一点可以改动的余地。认真仍在，但纸上的空白不是疏忽，是留给另一个人的选择。",
+      "bodyAndGaze": "小本与铅笔靠近腿面并有承托，不悬空端出计划板；目光在真实笔记与对方之间有自然停顿。",
+      "materialLight": "窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "她想让拥挤的一天有一点可以改动的余地。认真仍在，但纸上的空白不是疏忽，是留给另一个人的选择。\n\n小本与铅笔靠近腿面并有承托，不悬空端出计划板；目光在真实笔记与对方之间有自然停顿。\n\n窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "bytes": 2350339,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-planning-apricot-literary-pilot-v1.png",
+          "sha256": "d3439fe3a604aaa3291889291b3dc7ff93d22297b765af98c21f00bea78269e7",
+          "bytes": 2488850,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:planning:violet",
+        "generated": false,
+        "motherApproved": false,
+        "activeMother": null,
+        "reviewStatus": "not_submitted",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/planning/rain",
+      "character": "sakiko",
+      "activity": "planning",
+      "palette": "rain",
+      "paletteName": "夜雨暖金",
+      "psychologicalBeat": "她想让拥挤的一天有一点可以改动的余地。认真仍在，但纸上的空白不是疏忽，是留给另一个人的选择。",
+      "bodyAndGaze": "小本与铅笔靠近腿面并有承托，不悬空端出计划板；目光在真实笔记与对方之间有自然停顿。",
+      "materialLight": "雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "她想让拥挤的一天有一点可以改动的余地。认真仍在，但纸上的空白不是疏忽，是留给另一个人的选择。\n\n小本与铅笔靠近腿面并有承托，不悬空端出计划板；目光在真实笔记与对方之间有自然停顿。\n\n雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "bytes": 2270751,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-planning-apricot-literary-pilot-v1.png",
+          "sha256": "d3439fe3a604aaa3291889291b3dc7ff93d22297b765af98c21f00bea78269e7",
+          "bytes": 2488850,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:planning:rain",
+        "generated": false,
+        "motherApproved": false,
+        "activeMother": null,
+        "reviewStatus": "not_submitted",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/rest/apricot",
+      "character": "sakiko",
+      "activity": "rest",
+      "palette": "apricot",
+      "paletteName": "暖杏",
+      "psychologicalBeat": "刚才那股要把事情做好 的劲还在，只是暂时不必举着。她望了一会儿窗外，允许这个普通时刻不需要证明什么。",
+      "bodyAndGaze": "身体留在原座位深度，手掌与软垫自然支撑，目光自主朝窗外；不向前倾成近脸肖像。",
+      "materialLight": "柔金窗光在银蓝发丝、手指、深蓝衣料与木头上各有层次。温暖从相处里来，不要求她为了阳光多笑一点。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "刚才那股要把事情做好 的劲还在，只是暂时不必举着。她望了一会儿窗外，允许这个普通时刻不需要证明什么。\n\n身体留在原座位深度，手掌与软垫自然支撑，目光自主朝窗外；不向前倾成近脸肖像。\n\n柔金窗光在银蓝发丝、手指、深蓝衣料与木头上各有层次。温暖从相处里来，不要求她为了阳光多笑一点。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+          "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "bytes": 2524961,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-rest-apricot-literary-pilot-v1.png",
+          "sha256": "144a167d9c7d1bc594051ef1ca3fcf0b92e97f1a8ddbf8cd63eb6b54c8a460f8",
+          "bytes": 2466058,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:rest:apricot",
+        "generated": true,
+        "motherApproved": true,
+        "activeMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-rest-apricot-literary-pilot-v1.png",
+          "sha256": "144a167d9c7d1bc594051ef1ca3fcf0b92e97f1a8ddbf8cd63eb6b54c8a460f8",
+          "bytes": 2466058,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "reviewStatus": "approved_static_mother",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/rest/mist",
+      "character": "sakiko",
+      "activity": "rest",
+      "palette": "mist",
+      "paletteName": "晨雾蓝",
+      "psychologicalBeat": "刚才那股要把事情做好 的劲还在，只是暂时不必举着。她望了一会儿窗外，允许这个普通时刻不需要证明什么。",
+      "bodyAndGaze": "身体留在原座位深度，手掌与软垫自然支撑，目光自主朝窗外；不向前倾成近脸肖像。",
+      "materialLight": "散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "刚才那股要把事情做好 的劲还在，只是暂时不必举着。她望了一会儿窗外，允许这个普通时刻不需要证明什么。\n\n身体留在原座位深度，手掌与软垫自然支撑，目光自主朝窗外；不向前倾成近脸肖像。\n\n散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "bytes": 2526101,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-rest-apricot-literary-pilot-v1.png",
+          "sha256": "144a167d9c7d1bc594051ef1ca3fcf0b92e97f1a8ddbf8cd63eb6b54c8a460f8",
+          "bytes": 2466058,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:rest:mist",
+        "generated": false,
+        "motherApproved": false,
+        "activeMother": null,
+        "reviewStatus": "not_submitted",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/rest/violet",
+      "character": "sakiko",
+      "activity": "rest",
+      "palette": "violet",
+      "paletteName": "暮色紫",
+      "psychologicalBeat": "刚才那股要把事情做好 的劲还在，只是暂时不必举着。她望了一会儿窗外，允许这个普通时刻不需要证明什么。",
+      "bodyAndGaze": "身体留在原座位深度，手掌与软垫自然支撑，目光自主朝窗外；不向前倾成近脸肖像。",
+      "materialLight": "窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "刚才那股要把事情做好 的劲还在，只是暂时不必举着。她望了一会儿窗外，允许这个普通时刻不需要证明什么。\n\n身体留在原座位深度，手掌与软垫自然支撑，目光自主朝窗外；不向前倾成近脸肖像。\n\n窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "bytes": 2350339,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-rest-apricot-literary-pilot-v1.png",
+          "sha256": "144a167d9c7d1bc594051ef1ca3fcf0b92e97f1a8ddbf8cd63eb6b54c8a460f8",
+          "bytes": 2466058,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:rest:violet",
+        "generated": false,
+        "motherApproved": false,
+        "activeMother": null,
+        "reviewStatus": "not_submitted",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/rest/rain",
+      "character": "sakiko",
+      "activity": "rest",
+      "palette": "rain",
+      "paletteName": "夜雨暖金",
+      "psychologicalBeat": "刚才那股要把事情做好 的劲还在，只是暂时不必举着。她望了一会儿窗外，允许这个普通时刻不需要证明什么。",
+      "bodyAndGaze": "身体留在原座位深度，手掌与软垫自然支撑，目光自主朝窗外；不向前倾成近脸肖像。",
+      "materialLight": "雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "刚才那股要把事情做好 的劲还在，只是暂时不必举着。她望了一会儿窗外，允许这个普通时刻不需要证明什么。\n\n身体留在原座位深度，手掌与软垫自然支撑，目光自主朝窗外；不向前倾成近脸肖像。\n\n雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "bytes": 2270751,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-rest-apricot-literary-pilot-v1.png",
+          "sha256": "144a167d9c7d1bc594051ef1ca3fcf0b92e97f1a8ddbf8cd63eb6b54c8a460f8",
+          "bytes": 2466058,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:rest:rain",
+        "generated": false,
+        "motherApproved": false,
+        "activeMother": null,
+        "reviewStatus": "not_submitted",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/listening/apricot",
+      "character": "sakiko",
+      "activity": "listening",
+      "palette": "apricot",
+      "paletteName": "暖杏",
+      "psychologicalBeat": "她原本也有一句想说的话，此刻却先放下了。对方的停顿不需要她立刻命名，她想等那句话自己长完整。",
+      "bodyAndGaze": "重新从合格空房与身份文字设计直立、安稳的倾听坐姿，手留近膝或座面。禁止用 held v1 的前倾放大头部作输入。",
+      "materialLight": "柔金窗光在银蓝发丝、手指、深蓝衣料与木头上各有层次。温暖从相处里来，不要求她为了阳光多笑一点。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "她原本也有一句想说的话，此刻却先放下了。对方的停顿不需要她立刻命名，她想等那句话自己长完整。\n\n重新从合格空房与身份文字设计直立、安稳的倾听坐姿，手留近膝或座面。禁止用 held v1 的前倾放大头部作输入。\n\n柔金窗光在银蓝发丝、手指、深蓝衣料与木头上各有层次。温暖从相处里来，不要求她为了阳光多笑一点。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+          "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "bytes": 2524961,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": null,
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:listening:apricot",
+        "generated": true,
+        "motherApproved": false,
+        "activeMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-listening-apricot-literary-pilot-v1.png",
+          "sha256": "ac97872e1632ee8cbfde69fb5ed6a15c55bcc5b7057158f4d3db3e12690ee329",
+          "bytes": 2454944,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "reviewStatus": "held_for_scale_repair",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/listening/mist",
+      "character": "sakiko",
+      "activity": "listening",
+      "palette": "mist",
+      "paletteName": "晨雾蓝",
+      "psychologicalBeat": "她原本也有一句想说的话，此刻却先放下了。对方的停顿不需要她立刻命名，她想等那句话自己长完整。",
+      "bodyAndGaze": "重新从合格空房与身份文字设计直立、安稳的倾听坐姿，手留近膝或座面。禁止用 held v1 的前倾放大头部作输入。",
+      "materialLight": "散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "她原本也有一句想说的话，此刻却先放下了。对方的停顿不需要她立刻命名，她想等那句话自己长完整。\n\n重新从合格空房与身份文字设计直立、安稳的倾听坐姿，手留近膝或座面。禁止用 held v1 的前倾放大头部作输入。\n\n散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "bytes": 2526101,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": null,
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:listening:mist",
+        "generated": false,
+        "motherApproved": false,
+        "activeMother": null,
+        "reviewStatus": "not_submitted",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/listening/violet",
+      "character": "sakiko",
+      "activity": "listening",
+      "palette": "violet",
+      "paletteName": "暮色紫",
+      "psychologicalBeat": "她原本也有一句想说的话，此刻却先放下了。对方的停顿不需要她立刻命名，她想等那句话自己长完整。",
+      "bodyAndGaze": "重新从合格空房与身份文字设计直立、安稳的倾听坐姿，手留近膝或座面。禁止用 held v1 的前倾放大头部作输入。",
+      "materialLight": "窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "她原本也有一句想说的话，此刻却先放下了。对方的停顿不需要她立刻命名，她想等那句话自己长完整。\n\n重新从合格空房与身份文字设计直立、安稳的倾听坐姿，手留近膝或座面。禁止用 held v1 的前倾放大头部作输入。\n\n窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "bytes": 2350339,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": null,
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:listening:violet",
+        "generated": false,
+        "motherApproved": false,
+        "activeMother": null,
+        "reviewStatus": "not_submitted",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/listening/rain",
+      "character": "sakiko",
+      "activity": "listening",
+      "palette": "rain",
+      "paletteName": "夜雨暖金",
+      "psychologicalBeat": "她原本也有一句想说的话，此刻却先放下了。对方的停顿不需要她立刻命名，她想等那句话自己长完整。",
+      "bodyAndGaze": "重新从合格空房与身份文字设计直立、安稳的倾听坐姿，手留近膝或座面。禁止用 held v1 的前倾放大头部作输入。",
+      "materialLight": "雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "她原本也有一句想说的话，此刻却先放下了。对方的停顿不需要她立刻命名，她想等那句话自己长完整。\n\n重新从合格空房与身份文字设计直立、安稳的倾听坐姿，手留近膝或座面。禁止用 held v1 的前倾放大头部作输入。\n\n雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "bytes": 2270751,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": null,
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:listening:rain",
+        "generated": false,
+        "motherApproved": false,
+        "activeMother": null,
+        "reviewStatus": "not_submitted",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/play/apricot",
+      "character": "sakiko",
+      "activity": "play",
+      "palette": "apricot",
+      "paletteName": "暖杏",
+      "psychologicalBeat": "纸鸟没有什么用处，她自己却先觉得有趣。那一点藏不住的小得意不是表演，像把一个刚想到的可能性轻轻分你一半。",
+      "bodyAndGaze": "严格沿合格 play v2 的直立躯干、原榻深度与小掌间纸鸟。动作只占一小处，不向镜头探头或伸满画面。",
+      "materialLight": "柔金窗光在银蓝发丝、手指、深蓝衣料与木头上各有层次。温暖从相处里来，不要求她为了阳光多笑一点。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "纸鸟没有什么用处，她自己却先觉得有趣。那一点藏不住的小得意不是表演，像把一个刚想到的可能性轻轻分你一半。\n\n严格沿合格 play v2 的直立躯干、原榻深度与小掌间纸鸟。动作只占一小处，不向镜头探头或伸满画面。\n\n柔金窗光在银蓝发丝、手指、深蓝衣料与木头上各有层次。温暖从相处里来，不要求她为了阳光多笑一点。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+          "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "bytes": 2524961,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v2.png",
+          "sha256": "f3e046d90a4f08c6f4afab56bb38c98cd6634f1731d80b145008041f26287f2d",
+          "bytes": 2462149,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:play:apricot",
+        "generated": true,
+        "motherApproved": true,
+        "activeMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v2.png",
+          "sha256": "f3e046d90a4f08c6f4afab56bb38c98cd6634f1731d80b145008041f26287f2d",
+          "bytes": 2462149,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "reviewStatus": "approved_static_mother",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/play/mist",
+      "character": "sakiko",
+      "activity": "play",
+      "palette": "mist",
+      "paletteName": "晨雾蓝",
+      "psychologicalBeat": "纸鸟没有什么用处，她自己却先觉得有趣。那一点藏不住的小得意不是表演，像把一个刚想到的可能性轻轻分你一半。",
+      "bodyAndGaze": "严格沿合格 play v2 的直立躯干、原榻深度与小掌间纸鸟。动作只占一小处，不向镜头探头或伸满画面。",
+      "materialLight": "散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "纸鸟没有什么用处，她自己却先觉得有趣。那一点藏不住的小得意不是表演，像把一个刚想到的可能性轻轻分你一半。\n\n严格沿合格 play v2 的直立躯干、原榻深度与小掌间纸鸟。动作只占一小处，不向镜头探头或伸满画面。\n\n散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "bytes": 2526101,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v2.png",
+          "sha256": "f3e046d90a4f08c6f4afab56bb38c98cd6634f1731d80b145008041f26287f2d",
+          "bytes": 2462149,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:play:mist",
+        "generated": false,
+        "motherApproved": false,
+        "activeMother": null,
+        "reviewStatus": "not_submitted",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/play/violet",
+      "character": "sakiko",
+      "activity": "play",
+      "palette": "violet",
+      "paletteName": "暮色紫",
+      "psychologicalBeat": "纸鸟没有什么用处，她自己却先觉得有趣。那一点藏不住的小得意不是表演，像把一个刚想到的可能性轻轻分你一半。",
+      "bodyAndGaze": "严格沿合格 play v2 的直立躯干、原榻深度与小掌间纸鸟。动作只占一小处，不向镜头探头或伸满画面。",
+      "materialLight": "窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "纸鸟没有什么用处，她自己却先觉得有趣。那一点藏不住的小得意不是表演，像把一个刚想到的可能性轻轻分你一半。\n\n严格沿合格 play v2 的直立躯干、原榻深度与小掌间纸鸟。动作只占一小处，不向镜头探头或伸满画面。\n\n窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "bytes": 2350339,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v2.png",
+          "sha256": "f3e046d90a4f08c6f4afab56bb38c98cd6634f1731d80b145008041f26287f2d",
+          "bytes": 2462149,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:play:violet",
+        "generated": false,
+        "motherApproved": false,
+        "activeMother": null,
+        "reviewStatus": "not_submitted",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/play/rain",
+      "character": "sakiko",
+      "activity": "play",
+      "palette": "rain",
+      "paletteName": "夜雨暖金",
+      "psychologicalBeat": "纸鸟没有什么用处，她自己却先觉得有趣。那一点藏不住的小得意不是表演，像把一个刚想到的可能性轻轻分你一半。",
+      "bodyAndGaze": "严格沿合格 play v2 的直立躯干、原榻深度与小掌间纸鸟。动作只占一小处，不向镜头探头或伸满画面。",
+      "materialLight": "雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "纸鸟没有什么用处，她自己却先觉得有趣。那一点藏不住的小得意不是表演，像把一个刚想到的可能性轻轻分你一半。\n\n严格沿合格 play v2 的直立躯干、原榻深度与小掌间纸鸟。动作只占一小处，不向镜头探头或伸满画面。\n\n雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "bytes": 2270751,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-play-apricot-v2.png",
+          "sha256": "f3e046d90a4f08c6f4afab56bb38c98cd6634f1731d80b145008041f26287f2d",
+          "bytes": 2462149,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:play:rain",
+        "generated": false,
+        "motherApproved": false,
+        "activeMother": null,
+        "reviewStatus": "not_submitted",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/attention/apricot",
+      "character": "sakiko",
+      "activity": "attention",
+      "palette": "apricot",
+      "paletteName": "暖杏",
+      "psychologicalBeat": "刚才翻过去的细节忽然有了意思。她先真切地看见它，才想让你也看看；那一点明亮不需要变成一场惊喜仪式。",
+      "bodyAndGaze": "沿合格小幅指向：一手近膝，另一手手指短程指向当前对象；全身与头部尺度不因发现而跳大。",
+      "materialLight": "柔金窗光在银蓝发丝、手指、深蓝衣料与木头上各有层次。温暖从相处里来，不要求她为了阳光多笑一点。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "刚才翻过去的细节忽然有了意思。她先真切地看见它，才想让你也看看；那一点明亮不需要变成一场惊喜仪式。\n\n沿合格小幅指向：一手近膝，另一手手指短程指向当前对象；全身与头部尺度不因发现而跳大。\n\n柔金窗光在银蓝发丝、手指、深蓝衣料与木头上各有层次。温暖从相处里来，不要求她为了阳光多笑一点。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+          "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "bytes": 2524961,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-attention-apricot-literary-pilot-v1.png",
+          "sha256": "ee521a0bf2b68e4d36c62a5c7755549006400e96d4ce252e0b154fe6587156b9",
+          "bytes": 2467510,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:attention:apricot",
+        "generated": true,
+        "motherApproved": true,
+        "activeMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-attention-apricot-literary-pilot-v1.png",
+          "sha256": "ee521a0bf2b68e4d36c62a5c7755549006400e96d4ce252e0b154fe6587156b9",
+          "bytes": 2467510,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "reviewStatus": "approved_static_mother",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/attention/mist",
+      "character": "sakiko",
+      "activity": "attention",
+      "palette": "mist",
+      "paletteName": "晨雾蓝",
+      "psychologicalBeat": "刚才翻过去的细节忽然有了意思。她先真切地看见它，才想让你也看看；那一点明亮不需要变成一场惊喜仪式。",
+      "bodyAndGaze": "沿合格小幅指向：一手近膝，另一手手指短程指向当前对象；全身与头部尺度不因发现而跳大。",
+      "materialLight": "散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "刚才翻过去的细节忽然有了意思。她先真切地看见它，才想让你也看看；那一点明亮不需要变成一场惊喜仪式。\n\n沿合格小幅指向：一手近膝，另一手手指短程指向当前对象；全身与头部尺度不因发现而跳大。\n\n散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "bytes": 2526101,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-attention-apricot-literary-pilot-v1.png",
+          "sha256": "ee521a0bf2b68e4d36c62a5c7755549006400e96d4ce252e0b154fe6587156b9",
+          "bytes": 2467510,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:attention:mist",
+        "generated": false,
+        "motherApproved": false,
+        "activeMother": null,
+        "reviewStatus": "not_submitted",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/attention/violet",
+      "character": "sakiko",
+      "activity": "attention",
+      "palette": "violet",
+      "paletteName": "暮色紫",
+      "psychologicalBeat": "刚才翻过去的细节忽然有了意思。她先真切地看见它，才想让你也看看；那一点明亮不需要变成一场惊喜仪式。",
+      "bodyAndGaze": "沿合格小幅指向：一手近膝，另一手手指短程指向当前对象；全身与头部尺度不因发现而跳大。",
+      "materialLight": "窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "刚才翻过去的细节忽然有了意思。她先真切地看见它，才想让你也看看；那一点明亮不需要变成一场惊喜仪式。\n\n沿合格小幅指向：一手近膝，另一手手指短程指向当前对象；全身与头部尺度不因发现而跳大。\n\n窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "bytes": 2350339,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-attention-apricot-literary-pilot-v1.png",
+          "sha256": "ee521a0bf2b68e4d36c62a5c7755549006400e96d4ce252e0b154fe6587156b9",
+          "bytes": 2467510,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:attention:violet",
+        "generated": false,
+        "motherApproved": false,
+        "activeMother": null,
+        "reviewStatus": "not_submitted",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/attention/rain",
+      "character": "sakiko",
+      "activity": "attention",
+      "palette": "rain",
+      "paletteName": "夜雨暖金",
+      "psychologicalBeat": "刚才翻过去的细节忽然有了意思。她先真切地看见它，才想让你也看看；那一点明亮不需要变成一场惊喜仪式。",
+      "bodyAndGaze": "沿合格小幅指向：一手近膝，另一手手指短程指向当前对象；全身与头部尺度不因发现而跳大。",
+      "materialLight": "雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "刚才翻过去的细节忽然有了意思。她先真切地看见它，才想让你也看看；那一点明亮不需要变成一场惊喜仪式。\n\n沿合格小幅指向：一手近膝，另一手手指短程指向当前对象；全身与头部尺度不因发现而跳大。\n\n雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "bytes": 2270751,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-b/sakiko-attention-apricot-literary-pilot-v1.png",
+          "sha256": "ee521a0bf2b68e4d36c62a5c7755549006400e96d4ce252e0b154fe6587156b9",
+          "bytes": 2467510,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:attention:rain",
+        "generated": false,
+        "motherApproved": false,
+        "activeMother": null,
+        "reviewStatus": "not_submitted",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/resume/apricot",
+      "character": "sakiko",
+      "activity": "resume",
+      "palette": "apricot",
+      "paletteName": "暖杏",
+      "psychologicalBeat": "书签留下的那一句还在那里。你愿意回来，她先认出的是这个选择；接下来从哪里读，仍可以由你们重新商量。",
+      "bodyAndGaze": "沿合格 resume 母图的书与手、稳固座位和完整鞋位；只承接真实停点，不编造上次经过。",
+      "materialLight": "柔金窗光在银蓝发丝、手指、深蓝衣料与木头上各有层次。温暖从相处里来，不要求她为了阳光多笑一点。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "书签留下的那一句还在那里。你愿意回来，她先认出的是这个选择；接下来从哪里读，仍可以由你们重新商量。\n\n沿合格 resume 母图的书与手、稳固座位和完整鞋位；只承接真实停点，不编造上次经过。\n\n柔金窗光在银蓝发丝、手指、深蓝衣料与木头上各有层次。温暖从相处里来，不要求她为了阳光多笑一点。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+          "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+          "bytes": 2524961,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-resume-apricot-literary-pilot-v1.png",
+          "sha256": "b13d26385d89f3087c198645b489512f25093db6cbbd221f28b2cd7572368589",
+          "bytes": 2508942,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:resume:apricot",
+        "generated": true,
+        "motherApproved": true,
+        "activeMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-resume-apricot-literary-pilot-v1.png",
+          "sha256": "b13d26385d89f3087c198645b489512f25093db6cbbd221f28b2cd7572368589",
+          "bytes": 2508942,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "reviewStatus": "approved_static_mother",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/resume/mist",
+      "character": "sakiko",
+      "activity": "resume",
+      "palette": "mist",
+      "paletteName": "晨雾蓝",
+      "psychologicalBeat": "书签留下的那一句还在那里。你愿意回来，她先认出的是这个选择；接下来从哪里读，仍可以由你们重新商量。",
+      "bodyAndGaze": "沿合格 resume 母图的书与手、稳固座位和完整鞋位；只承接真实停点，不编造上次经过。",
+      "materialLight": "散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "书签留下的那一句还在那里。你愿意回来，她先认出的是这个选择；接下来从哪里读，仍可以由你们重新商量。\n\n沿合格 resume 母图的书与手、稳固座位和完整鞋位；只承接真实停点，不编造上次经过。\n\n散射的白昼让书页和脸更安静，银蓝头发与肌肤仍是自己的颜色；没有凭蓝色加上雨丝或愁容。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "bytes": 2526101,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-resume-apricot-literary-pilot-v1.png",
+          "sha256": "b13d26385d89f3087c198645b489512f25093db6cbbd221f28b2cd7572368589",
+          "bytes": 2508942,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:resume:mist",
+        "generated": false,
+        "motherApproved": false,
+        "activeMother": null,
+        "reviewStatus": "not_submitted",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/resume/violet",
+      "character": "sakiko",
+      "activity": "resume",
+      "palette": "violet",
+      "paletteName": "暮色紫",
+      "psychologicalBeat": "书签留下的那一句还在那里。你愿意回来，她先认出的是这个选择；接下来从哪里读，仍可以由你们重新商量。",
+      "bodyAndGaze": "沿合格 resume 母图的书与手、稳固座位和完整鞋位；只承接真实停点，不编造上次经过。",
+      "materialLight": "窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "书签留下的那一句还在那里。你愿意回来，她先认出的是这个选择；接下来从哪里读，仍可以由你们重新商量。\n\n沿合格 resume 母图的书与手、稳固座位和完整鞋位；只承接真实停点，不编造上次经过。\n\n窗外湖山慢慢沉入冷紫，室内灯与木色接住她的面颊和纸边；她仍可以认真、顽皮或安静，不被黄昏统一表情。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "bytes": 2350339,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-resume-apricot-literary-pilot-v1.png",
+          "sha256": "b13d26385d89f3087c198645b489512f25093db6cbbd221f28b2cd7572368589",
+          "bytes": 2508942,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:resume:violet",
+        "generated": false,
+        "motherApproved": false,
+        "activeMother": null,
+        "reviewStatus": "not_submitted",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    },
+    {
+      "key": "sakiko/resume/rain",
+      "character": "sakiko",
+      "activity": "resume",
+      "palette": "rain",
+      "paletteName": "夜雨暖金",
+      "psychologicalBeat": "书签留下的那一句还在那里。你愿意回来，她先认出的是这个选择；接下来从哪里读，仍可以由你们重新商量。",
+      "bodyAndGaze": "沿合格 resume 母图的书与手、稳固座位和完整鞋位；只承接真实停点，不编造上次经过。",
+      "materialLight": "雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。",
+      "retreat": "对方开始输入、改选或收回时，先收小手与目光的占位；不抢焦点，不等待表演播完。",
+      "promptDraft": "书签留下的那一句还在那里。你愿意回来，她先认出的是这个选择；接下来从哪里读，仍可以由你们重新商量。\n\n沿合格 resume 母图的书与手、稳固座位和完整鞋位；只承接真实停点，不编造上次经过。\n\n雨留在窗外，灯光穿过发缘、指节和衣料的褶皱。她的亲近不靠悲伤；屋里暖，但眼睛与深色衣物仍清楚。\n\n保持用户选定文学房间的近而不压迫的相机、木窗和湖山纵深、左桌椅与生活细节、右侧软榻与边桌、陶瓷灯杯、织物和前景；不用旧room4的几何。她仍是原作青春辨识的祥子，视觉服装与脸发关系沿选定v1及合格pilot，不把艺术化服饰细节宣称为原作新事实。全景自然支撑，头发、脸、手、膝踝和鞋清楚，不靠裁切藏结构问题。无UI、字句、标签、引导线或拼贴。",
+      "promptStatus": "new literary brief draft only; not the exact submitted prompt of an existing output",
+      "inputPlan": {
+        "approvedEnvironmentPlate": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "bytes": 2270751,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "approvedSameActivityApricotMother": {
+          "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot-extra-a/sakiko-resume-apricot-literary-pilot-v1.png",
+          "sha256": "b13d26385d89f3087c198645b489512f25093db6cbbd221f28b2cd7572368589",
+          "bytes": 2508942,
+          "canvas": {
+            "width": 1536,
+            "height": 1024
+          },
+          "format": "PNG"
+        },
+        "rule": "后续主题重照只能用合格本活动母图与匹配空房；没有合格本活动母图时从干净空房与身份文字重画，不用held/rejected人物骨架。实际输入以每次提交来源为准，不预填完成。"
+      },
+      "currentEvidence": {
+        "ledgerPath": "../../matrix-ledger-v1.json",
+        "ledgerKey": "literary-room-v1:sakiko:resume:rain",
+        "generated": false,
+        "motherApproved": false,
+        "activeMother": null,
+        "reviewStatus": "not_submitted",
+        "layersApproved": false,
+        "runtimeAccepted": false
+      },
+      "generationReleasedByThisBrief": false
+    }
+  ],
+  "snapshotStartedAt": "2026-10-25T09:14:02.908188+00:00"
+}

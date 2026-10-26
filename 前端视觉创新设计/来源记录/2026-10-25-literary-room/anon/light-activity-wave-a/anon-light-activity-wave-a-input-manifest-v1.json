@@ -1,0 +1,285 @@
+{
+  "schemaVersion": 1,
+  "character": "anon",
+  "waveLimit": 24,
+  "characterLimit": 12,
+  "motherOnly": true,
+  "entries": [
+    {
+      "id": "anon-reading-mist-literary-v1",
+      "prompt": "anon-reading-mist-literary-v1.prompt.json",
+      "activity": "reading",
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "inputs": [
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "role": "approved matching empty weather/light plate",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-overcast-day-v1.primary-approval.json"
+        },
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-a\\anon-reading-apricot-literary-v1.png",
+          "sha256": "ae3144f78b5b0edd125a1573ed74c8cc4afa926bc05a91405bae0483706cca2c",
+          "role": "approved same-activity apricot pose/identity/support authority",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-a\\anon-apricot-wave-a-primary-mother-admission-v1.json"
+        }
+      ],
+      "output": "anon-reading-mist-literary-v1.png",
+      "source": "anon-reading-mist-literary-v1.source.json"
+    },
+    {
+      "id": "anon-reading-violet-literary-v1",
+      "prompt": "anon-reading-violet-literary-v1.prompt.json",
+      "activity": "reading",
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "inputs": [
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "role": "approved matching empty weather/light plate",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-twilight-v1.primary-approval.json"
+        },
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-a\\anon-reading-apricot-literary-v1.png",
+          "sha256": "ae3144f78b5b0edd125a1573ed74c8cc4afa926bc05a91405bae0483706cca2c",
+          "role": "approved same-activity apricot pose/identity/support authority",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-a\\anon-apricot-wave-a-primary-mother-admission-v1.json"
+        }
+      ],
+      "output": "anon-reading-violet-literary-v1.png",
+      "source": "anon-reading-violet-literary-v1.source.json"
+    },
+    {
+      "id": "anon-reading-rain-literary-v1",
+      "prompt": "anon-reading-rain-literary-v1.prompt.json",
+      "activity": "reading",
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "inputs": [
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "role": "approved matching empty weather/light plate",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-rain-night-v1.primary-approval.json"
+        },
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-a\\anon-reading-apricot-literary-v1.png",
+          "sha256": "ae3144f78b5b0edd125a1573ed74c8cc4afa926bc05a91405bae0483706cca2c",
+          "role": "approved same-activity apricot pose/identity/support authority",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-a\\anon-apricot-wave-a-primary-mother-admission-v1.json"
+        }
+      ],
+      "output": "anon-reading-rain-literary-v1.png",
+      "source": "anon-reading-rain-literary-v1.source.json"
+    },
+    {
+      "id": "anon-planning-mist-literary-v1",
+      "prompt": "anon-planning-mist-literary-v1.prompt.json",
+      "activity": "planning",
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "inputs": [
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "role": "approved matching empty weather/light plate",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-overcast-day-v1.primary-approval.json"
+        },
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-a\\anon-planning-apricot-literary-bench-v2.png",
+          "sha256": "bc17327c66441e6ff1dd4e5cac5d3771bcc9f5e014c5010bed1420d2c9a9a4a7",
+          "role": "approved same-activity apricot pose/identity/support authority",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-a\\anon-planning-apricot-literary-bench-v2-primary-mother-admission-v1.json"
+        }
+      ],
+      "output": "anon-planning-mist-literary-v1.png",
+      "source": "anon-planning-mist-literary-v1.source.json"
+    },
+    {
+      "id": "anon-planning-violet-literary-v1",
+      "prompt": "anon-planning-violet-literary-v1.prompt.json",
+      "activity": "planning",
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "inputs": [
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "role": "approved matching empty weather/light plate",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-twilight-v1.primary-approval.json"
+        },
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-a\\anon-planning-apricot-literary-bench-v2.png",
+          "sha256": "bc17327c66441e6ff1dd4e5cac5d3771bcc9f5e014c5010bed1420d2c9a9a4a7",
+          "role": "approved same-activity apricot pose/identity/support authority",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-a\\anon-planning-apricot-literary-bench-v2-primary-mother-admission-v1.json"
+        }
+      ],
+      "output": "anon-planning-violet-literary-v1.png",
+      "source": "anon-planning-violet-literary-v1.source.json"
+    },
+    {
+      "id": "anon-planning-rain-literary-v1",
+      "prompt": "anon-planning-rain-literary-v1.prompt.json",
+      "activity": "planning",
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "inputs": [
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "role": "approved matching empty weather/light plate",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-rain-night-v1.primary-approval.json"
+        },
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-a\\anon-planning-apricot-literary-bench-v2.png",
+          "sha256": "bc17327c66441e6ff1dd4e5cac5d3771bcc9f5e014c5010bed1420d2c9a9a4a7",
+          "role": "approved same-activity apricot pose/identity/support authority",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-a\\anon-planning-apricot-literary-bench-v2-primary-mother-admission-v1.json"
+        }
+      ],
+      "output": "anon-planning-rain-literary-v1.png",
+      "source": "anon-planning-rain-literary-v1.source.json"
+    },
+    {
+      "id": "anon-rest-mist-literary-v1",
+      "prompt": "anon-rest-mist-literary-v1.prompt.json",
+      "activity": "rest",
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "inputs": [
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "role": "approved matching empty weather/light plate",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-overcast-day-v1.primary-approval.json"
+        },
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-a\\anon-rest-apricot-literary-v1.png",
+          "sha256": "b9aaf551c5105b67e180fc686fcb26c118ec56db4dcca07aee24d1b69e2b0b52",
+          "role": "approved same-activity apricot pose/identity/support authority",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-a\\anon-apricot-wave-a-primary-mother-admission-v1.json"
+        }
+      ],
+      "output": "anon-rest-mist-literary-v1.png",
+      "source": "anon-rest-mist-literary-v1.source.json"
+    },
+    {
+      "id": "anon-rest-violet-literary-v1",
+      "prompt": "anon-rest-violet-literary-v1.prompt.json",
+      "activity": "rest",
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "inputs": [
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "role": "approved matching empty weather/light plate",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-twilight-v1.primary-approval.json"
+        },
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-a\\anon-rest-apricot-literary-v1.png",
+          "sha256": "b9aaf551c5105b67e180fc686fcb26c118ec56db4dcca07aee24d1b69e2b0b52",
+          "role": "approved same-activity apricot pose/identity/support authority",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-a\\anon-apricot-wave-a-primary-mother-admission-v1.json"
+        }
+      ],
+      "output": "anon-rest-violet-literary-v1.png",
+      "source": "anon-rest-violet-literary-v1.source.json"
+    },
+    {
+      "id": "anon-rest-rain-literary-v1",
+      "prompt": "anon-rest-rain-literary-v1.prompt.json",
+      "activity": "rest",
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "inputs": [
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "role": "approved matching empty weather/light plate",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-rain-night-v1.primary-approval.json"
+        },
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-a\\anon-rest-apricot-literary-v1.png",
+          "sha256": "b9aaf551c5105b67e180fc686fcb26c118ec56db4dcca07aee24d1b69e2b0b52",
+          "role": "approved same-activity apricot pose/identity/support authority",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-a\\anon-apricot-wave-a-primary-mother-admission-v1.json"
+        }
+      ],
+      "output": "anon-rest-rain-literary-v1.png",
+      "source": "anon-rest-rain-literary-v1.source.json"
+    },
+    {
+      "id": "anon-study-mist-literary-v1",
+      "prompt": "anon-study-mist-literary-v1.prompt.json",
+      "activity": "study",
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "inputs": [
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "role": "approved matching empty weather/light plate",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-overcast-day-v1.primary-approval.json"
+        },
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-b\\anon-study-apricot-literary-v1.png",
+          "sha256": "a0e5ce5637ca48e6f16f36722c5a835d3421ab601a3780439ca0e7483d5c8fda",
+          "role": "approved same-activity apricot pose/identity/support authority",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-b\\anon-apricot-wave-b-primary-mother-admission-v1.json"
+        }
+      ],
+      "output": "anon-study-mist-literary-v1.png",
+      "source": "anon-study-mist-literary-v1.source.json"
+    },
+    {
+      "id": "anon-study-violet-literary-v1",
+      "prompt": "anon-study-violet-literary-v1.prompt.json",
+      "activity": "study",
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "inputs": [
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "role": "approved matching empty weather/light plate",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-twilight-v1.primary-approval.json"
+        },
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-b\\anon-study-apricot-literary-v1.png",
+          "sha256": "a0e5ce5637ca48e6f16f36722c5a835d3421ab601a3780439ca0e7483d5c8fda",
+          "role": "approved same-activity apricot pose/identity/support authority",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-b\\anon-apricot-wave-b-primary-mother-admission-v1.json"
+        }
+      ],
+      "output": "anon-study-violet-literary-v1.png",
+      "source": "anon-study-violet-literary-v1.source.json"
+    },
+    {
+      "id": "anon-study-rain-literary-v1",
+      "prompt": "anon-study-rain-literary-v1.prompt.json",
+      "activity": "study",
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "inputs": [
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "role": "approved matching empty weather/light plate",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-rain-night-v1.primary-approval.json"
+        },
+        {
+          "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-b\\anon-study-apricot-literary-v1.png",
+          "sha256": "a0e5ce5637ca48e6f16f36722c5a835d3421ab601a3780439ca0e7483d5c8fda",
+          "role": "approved same-activity apricot pose/identity/support authority",
+          "approvalPath": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-b\\anon-apricot-wave-b-primary-mother-admission-v1.json"
+        }
+      ],
+      "output": "anon-study-rain-literary-v1.png",
+      "source": "anon-study-rain-literary-v1.source.json"
+    }
+  ]
+}

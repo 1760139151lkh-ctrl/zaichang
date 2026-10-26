@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-canvas-original-person-white-in-room-intermediate",
+  "id": "rana-chat-apricot-white-in-room-v2",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "rana-chat-apricot-white-in-room-v2.prompt.json",
+  "promptFileSha256": "f7667457196ca8eee27f213b6f40330bffa9736aaa4c531f528baea0754ff74e",
+  "submittedPrompt": "Use case: precise-object-edit. Exact registered LOCAL PERSON-TO-WHITE replacement in the original room.\nImage 1 is the ONLY input, the original complete 1536x1024 Rana seated chat mother. Do not change the room, camera, composition, person scale/pose/contour or any coordinate. Turn EVERY visible ORIGINAL PERSON pixel flat opaque PURE WHITE, leaving every ROOM pixel original color.\nWhite all original silver bob/hair strands, face/neck, black shirt including EVERY distressed edge/side flap, white long sleeves/cuffs, both hands/fingers, ENTIRE white ruffled shorts including seated underside, thighs/knees/shins, and BOTH complete lace-up black boots including all tongues/laces/heels/soles. Remove all interior person lines/colors/shading into flat white. No person-shaped black or colored holes.\nPay particular attention to the black/gray frayed shirt flap at her RIGHT HIP beside the supporting forearm/wrist around source x1363..1394,y544..578. That ORIGINAL dark fabric is part of her shirt, not the bench: fill it and its tiny existing ruffled edges WHITE right to its source edge. Also retain ALL original white shorts/skin and ruffles around source (1280,582) and x1300..1370,y548..583; pale person material must not be mistaken for cushion. These coordinates identify existing source material; do not invent cloth, fill the genuine empty arm/body gap or expand the contour.\nKeep actual visible room gaps and every bench cushion/seam/shadow, blanket/pillow, curtain, window/sky, furniture, desk book/cup/lamp, sunlight/floor and contact shadows exactly their ORIGINAL COLOR. There are no held props. Do not whiten support surfaces or shadows; do not remove/blacken the room.\nThis is NOT a new person, cutout or new pose. Crown stays around y286, supporting palm near y580, left boot sole near y737, right boot sole near y771. No enlarge, shrink, translate, recenter, crop, zoom, straighten, smoothing into generic silhouette or reconstructing hidden anatomy.\nOutput the SAME full colored sunny room with ONLY its existing COMPLETE girl filled flat white, narrow original outer antialiasing only. Opaque RGB 1536x1024, no text/UI/grid/border/watermark/transparency/new object.",
+  "submittedPromptSha256Utf8NoTrailingLF": "fc1eac4585c4050e17c42a01b84bd13d462594d8e116116ade4a57bc3a42f7c9",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png",
+      "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812",
+      "role": "sole exact original approved mother; full distressed shirt side flap and white seat shorts; no rejected old layer or v1 intermediate input"
+    }
+  ],
+  "output": {
+    "file": "rana-chat-apricot-white-in-room-v2.png",
+    "sha256": "f3b2754d630bb7be6b0d1c342b77b4aba146a7f1aa12c17a578d5f7d8c18fec6",
+    "bytes": 2095128,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-a008c7c0-c948-4621-9170-f5115d7fa802.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observationBoundary": "Producer directly viewed exact original PNG only; primary native original-RGB recomposition and known-seat-gap review pending."
+  },
+  "status": "producer-exact-output-viewed-primary-native-composite-review-pending"
+}

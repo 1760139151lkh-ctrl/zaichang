@@ -1,0 +1,74 @@
+{
+  "cell": "nyamu/attention/mist",
+  "role": "nyamu",
+  "activity": "attention",
+  "palette": "mist",
+  "seed": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-b/nyamu-attention-apricot-v1.png",
+    "sha256": "21fb4b183cd76e742fcc006fd8f9f492bbec543e9758668c02457314d77783de",
+    "bytes": 2417081,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "format": "PNG",
+    "writtenByUtc": "2026-10-25T12:08:08.709355+00:00"
+  },
+  "plate": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+    "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+    "bytes": 2526101,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "format": "PNG"
+  },
+  "outputDirectory": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/missing-theme-extension-v1",
+  "brief": {
+    "index": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-prompt-plan.json",
+      "sha256": "9f549b3785d8e59d903dec1f220f05880ce0b57213591c5111effa3a98da9dea",
+      "bytes": 103955,
+      "capturedAt": "2026-10-25T09:14:03.038468+00:00"
+    },
+    "jsonPointer": "/cells/29",
+    "briefKey": "nyamu/attention/mist",
+    "producerBriefRef": null
+  },
+  "exactBrief": {
+    "key": "nyamu/attention/mist",
+    "character": "nyamu",
+    "activity": "attention",
+    "palette": "mist",
+    "paletteName": "晨雾蓝",
+    "status": "held_for_root_release",
+    "promptDraft": "新东西一出现，她先看到了哪一点值得被记住，接着又像是想起：漂亮之外，还得有东西托住。她收住原来的手势，认真转向那一处，眼里有被点亮的兴致，但不是被召来的夸张惊讶。\n\n清早的清楚不需要放大成惊讶脸，她已经在看原因。\n\n晨雾蓝：通透蓝白的早光让纸、书架和面孔一起变清楚，灰上衣不是一片冰蓝。她可以带着还没排练完的神气醒来，也能很快认真；不用晨光把她变成另一个乖巧人偶。\n\n祐天寺若麦的原作青春二次元辨识：短至下颌与颈侧的薰衣草紫 bob，柔软不齐刘海与侧边发丝，红紫眼；细致而鲜活的年轻脸。维持已核身份文字中的灰色荷叶边短袖上衣与细肩带、黑色细颈圈、黑短裙及低稳跟踝带鞋，衣着自然完整。不是成熟写实时装照，不用过重妆容或魅惑摆拍代替性格；不自动塞入正在拍摄的手机或相机。\n\n坐在真实支撑上自然侧转，手先停下或让开，头与视线转向新对象；近镜头不勉强站起、不把人缩小，不画指示箭头。\n\n只给出基本姿势：让髋与真实座垫、手与书页或支撑面确实接触，膝踝关系自然，鞋与地面或自然悬垂随具体姿势成立；不以脚数或固定腿长比例判断。脸、视线、刘海和手部要清楚，衣着完整，关键肢体不靠裁切掩盖。\n\n承接用户选定的新文学居室，而非旧 room4：近而不压迫的相机、分格木窗与湖山远景，左后方真正有人使用的书桌和木椅，书架、纸张与小物的生活层次；窗边长软榻、邻近的小边桌、陶瓷灯、书与杯，织物的触感和有限的前景景深。最终相机、家具、留白与人物尺度以 root 新空房 plate 和已通过的单祥子跨情境打样为准，不自行锁像素坐标，不把本参考中的祥子身体或旧房间带入。画面是一整个自然房间，不画 UI、文字标签、箭头、轨迹、拼贴分界或水印。",
+    "inputPlan": {
+      "newLiteraryPlate": null,
+      "ownApprovedActivityMother": null,
+      "rule": "首轮从新批准空房与角色文字同景创作；有本角色本活动新母图通过后，主题再用其自身母图与对应新空房整体重照。不得输入旧room4、旧人物分层或本参考的祥子身体来替代角色。"
+    },
+    "output": null,
+    "primaryReview": null,
+    "runtimeAccepted": false
+  },
+  "dossier": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/nyamu.md",
+    "sha256": "c5acd92fe6cd9ccf35785bd09e7f71337bca5bf7eb0fdd37629e78780eb9ebe1",
+    "version": "2026-10-25",
+    "readComplete": true
+  },
+  "method": {
+    "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+    "sha256": "91fb8b8de3e8d954a9367a585f09b71b8f5a9962d8ed0107249c348390fb7f05",
+    "readComplete": true
+  },
+  "baseName": "nyamu-attention-mist-literary-extension-v1",
+  "wardrobeId": "nyamu-daily-grey-ruffle-black-skirt-ankle-strap",
+  "inputPaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-b/nyamu-attention-apricot-v1.png"
+  ],
+  "productionStatus": "prepared-before-actual-image-call"
+}

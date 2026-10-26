@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-9725-7bd3-aa74-f7fa6487bfed/exec-abea863e-a806-4931-9674-3dab58e7d4cd.png",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mygo\\edge-cats\\anon-edge-meme-cat-v1.png",
+      "sha256": "f56249db73c9c499914b6232bd2e6c9444cce33631f730835bfaf55606adcf7e",
+      "role": "Only character source; source-local RGB/identity authority"
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": ".agents\\skills\\zaichang-frontend-director\\references\\characters\\anon.md",
+      "sha256": "de7782a11d0e620b3d25de33ac7a964142a39322e6fa8f0ceceea2bc6d501b19",
+      "scope": "Full relevant text read before each generation call in this production turn"
+    },
+    {
+      "path": ".agents\\skills\\zaichang-frontend-director\\references\\character-art-direction.md",
+      "sha256": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840",
+      "scope": "Full relevant text read before each generation call in this production turn"
+    }
+  ],
+  "promptFile": "semantic-mask-v1.prompt.txt",
+  "submittedPromptSha256": "94f7152691bd27edbbdad278f394097ba76962b3d6fdd1c00fef6542d8caebaa",
+  "output": {
+    "file": "semantic-mask-v1.png",
+    "sha256": "288c9ac5adc3e876ac8e2a29a6b24d3a128bc6653b41389ccfba6be03c92303c",
+    "bytes": 790255,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "alphaBounds": null
+  },
+  "decision": "rejected raw mask: large opaque white face incorrectly labelled black; replaced by separately generated v2 technical repair",
+  "primaryApproved": false,
+  "runtimeAccepted": false
+}

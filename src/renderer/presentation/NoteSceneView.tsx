@@ -47,7 +47,10 @@ export function NoteSceneView({ scene, sessionId, messageId, boundaryKey, api, o
     {scene.kind === 'note_reference' && <button className="note-reading-history" type="button" disabled={!messageId || pending}
       aria-expanded={open} onClick={() => { if (open) { generation.current++; setOpen(false); setLoaded(undefined); } else void show(); }}>
       {scene.label}<ArrowUpRight size={13} aria-hidden="true" /></button>}
-    {open && <>{current && <article className="note-reading-paper" aria-label={`笔记原文：${current.title}`}>
+    {open && <>{current && <article className="note-reading-paper" aria-label={`笔记原文：${current.title}`}
+      data-note-id={current.proof.id} data-note-revision={current.proof.revision} data-note-sha256={current.proof.sha256}
+      data-note-start={current.proof.start} data-note-end={current.proof.end}
+      data-note-scene-id={scene.id} data-note-scene-revision={scene.revision}>
       <header className="note-reading-heading"><div className="note-reading-meta"><span>笔记原文</span>
         <time dateTime={current.updatedAt}>{formatDateTime(current.updatedAt, timeZone)}</time></div>
         <h3>{current.title}</h3></header>

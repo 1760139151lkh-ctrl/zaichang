@@ -1,0 +1,61 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "bounded-apricot-literary-wave-b",
+  "character": "umiri",
+  "activity": "play",
+  "palette": "apricot",
+  "sceneFamily": "literary-room-v1",
+  "environmentVariant": "clear-day",
+  "waveCallIndex": 8,
+  "waveCallLimit": 10,
+  "numberOfImageInputs": 2,
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "image 1 approved empty room/camera"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v2.png",
+      "sha256": "b54800a320a163629dba745183efa63d18a83aa1ae19ba0f9382fdb546b12844",
+      "role": "image 2 approved own chat identity/clothes/scale only"
+    }
+  ],
+  "creativeBrief": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-b/umiri-literary-room-36-cells-v1.json",
+    "sha256": "b8f97f1a2ce86161c1068f9b0d12c26370cece95b85680f9f1fc5ef70f701c4b",
+    "cell": "umiri/play/apricot"
+  },
+  "referenceBoundary": "Approved empty plate plus this exact character approved chat mother for identity/clothes/scale only; no old Umiri v1, old room4, wrong character or copied pose.",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-9165c716-3889-457b-85bd-e4e6a210f33a.png",
+  "output": "umiri-play-apricot-literary-wave-b-v1.png",
+  "outputSha256": "de073cb1a22270d2a4082188de17e890bd43d6efa89bb7cab60c217f434efde1",
+  "promptFile": "umiri-play-apricot-literary-wave-b-v1.prompt.txt",
+  "prompt": "Use case: stylized-concept. Asset: ONE new 1536x1024 warm-apricot daylight activity mother in the approved literary room.\nIMAGE 1 is the approved CLEAN EMPTY ROOM: exact camera, connected window/lake/town/mountain, desk and chair at left, books/plants/shelves/pictures, round side table with porcelain lamp/books/cup/flowers, right bench/plaid pillows/knitted throw, foreground blur, rug/floor. Keep their locations, perspective and sizes unchanged. IMAGE 2 is THIS CHARACTER'S approved chat mother for IDENTITY, CLOTHES and CLOSE HUMAN SCALE ONLY. Draw a NEW action and expression from words. Do not copy the chat hand/bracing pose or pasted body; no different character, old room or erroneous crossed legs.\nKeep head top roughly y110..150 according to natural tilt, hip truly supported on the right bench cushion around y550..585, complete soles around y875..915. Same normal youthful human size; no enlarged face, leaning toward lens, zoom/crop, chibi or mature glamour. Keep COMPLETE head/hair, palms/fingers, hem, ankles and both shoes in frame. Natural hip-cushion and feet-floor contact, real weight and material shadow.\nFine Japanese anime figure integrated into the richly painted room. Separate hair groups, cheek strands, upper eyelid/lashes, iris and pupil: readable eyes even when looking down, never fringe/lash/iris fused as black shapes. Distinct skin, hair, paper, fabric and wood in existing window light. The warm side light is calm and dimensional, not an all-over orange filter.\nNo UI, text labels, floating panels, speech bubbles, icons, arrows, motion trails, halo, badges, watermark or readable book print. No new furniture or profession/stage symbols. This is one coherent complete room mother, not a cutout/layer/contact-mask/split-view.\n\nCHARACTER: Yahata Umiri (八幡海铃), approved CORRECT image 2 v2 identity. Dark charcoal shoulder-length hair, layered cheek strands and side fringe, clear gray-teal/blue-gray irises, small earrings and black choker; youthful original anime face. Same black leather jacket, dark burgundy top, gray belted pleated short skirt, bare lower legs and complete black lace-up platform ankle/calf boots. Dark hair and leather remain different materials. No blonde bob, violet eyes, Sakiko uniform or profession props.\nBASIC LEG TOPOLOGY: both thighs rest on cushion, two knees side by side with a small natural gap, two uninterrupted calves naturally parallel, two distinct ankles and TWO complete boots each visibly bearing weight on the SAME original floor. No crossed thighs/knees/ankles, no one calf ending in the other boot, no attached/floating footwear. Keep the natural full body size of approved v2, not any held v1 pose.\n\nNEW ACTIVITY — PLAY / \"认真地开个玩笑\". She solemnly sets down a very unimportant little paper airplane as if announcing something serious. A deadpan face conceals a tiny grin; gray-teal eyes reveal the deliberate joke before the lip corner barely loosens. She looks from the airplane to the nearby person, awaiting an equally absurd answer. ONE CLOSED HARDCOVER book rests flat securely on lap; ONE SIMPLE PAPER AIRPLANE rests fully ON ITS COVER, NOT flying. One hand holds book edge, the other index fingertip lightly touches the airplane's NOSE with a clearly separate finger/paper boundary. Body remains steadily seated, parallel knees/two grounded boots. No throwing gesture, trails, bass/stage symbols or sparkling effects. Youthful dry humor, not generic broad laughter.",
+  "submittedPromptSha256NoTrailingNewline": "c5d7d1800f223ebe35e182831e535db20ef3327af3645cd86415365624c5bd18",
+  "promptFileSha256": "c5d7d1800f223ebe35e182831e535db20ef3327af3645cd86415365624c5bd18",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "actualMode": "RGB",
+  "pngEdited": false,
+  "producerViewed": true,
+  "primaryApproved": false,
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "reviewBoundary": "This one activity mother only. No layer or runtime approval, no unlimited retry or other-palette expansion.",
+  "remaining": [
+    "Root personally inspect this exact mother for identity, emotion, framing and physical support",
+    "No layer, registration or runtime acceptance"
+  ],
+  "producerObservations": [
+    "Personally viewed complete saved play mother before attention. A simple paper airplane rests on a closed hardcover book on lap; one hand steadies book and the other index fingertip meets the plane nose with distinguishable paper/finger edges.",
+    "A restrained small mouth curve and amused gray-teal eyes give dry humor rather than broad laughter; charcoal hair/face/eyelids remain readable.",
+    "Hip/cushion contact, side-by-side separate knees, continuous calves and two full grounded boots remain coherent. No throwing pose, trails, stage props or added furniture observed."
+  ],
+  "producerConcerns": [
+    "The precise point contact between finger and plane is small; primary should inspect source pixels before any layer use. Mother-only candidate, not a claim about hidden palm surfaces."
+  ]
+}

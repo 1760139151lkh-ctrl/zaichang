@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "mapping": {
+    "palette": "mist",
+    "timeOfDay": "morning"
+  },
+  "selected": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-day-v1.png",
+      "sha256": "35a318faaab82305b4a5f28e4f109701986e7ce75b312536835216306c2945af",
+      "bytes": 2351824,
+      "role": "SOLE original RGB drawn ONCE for complete figure/book + actual receivingmaterial; root-approved time-only day neutralmother",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/day/layers/background-v1.png",
+      "sha256": "ff438a04b35a7a3a86b21b1cb21f11534b1a991dcb32bf2033ff6ad3de0ecb67",
+      "bytes": 2239428,
+      "role": "Actual ImageGen removal from THIS exact mother, no figure/book/shoes/person-contact; no alternateplate or weather",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "figureMask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/day/layers/figure-mask-v2.png",
+      "sha256": "99a56c9ea69b540f06427070203306b9c93417b1e5c92e3bb43a55f69fc20b39",
+      "bytes": 483784,
+      "role": "Rawactual ImageGen luminance F2-v2, complete figure/book, thin cover/lap hole repaired from cleanmother through F1-v2",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "contactMask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/day/layers/contact-mask-v1.png",
+      "sha256": "31be1a964933513b6e5199f0656d145bcdc0866fc248179ea0ce3a34b08ba204",
+      "bytes": 298653,
+      "role": "Rawactual ImageGen luminance S2-v1, source-local linen/wood/shoe-footprint receiver with softedge; fixedsource material, not independent caster",
+      "canvas": [
+        1536,
+        1024
+      ]
+    }
+  },
+  "assembly": {
+    "kind": "source-rgb-max-luminance-v1",
+    "sourceRgb": "mother only",
+    "originalRgbDrawsPerUnion": 1,
+    "coverage": "U = MAX(L(F), L(S))",
+    "luminanceCoefficients": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorInterpolationFilters": "sRGB",
+    "maxImplementation": "native SVG feBlend mode=lighten on rec709 FL,SL",
+    "pngPixelEditing": false,
+    "manualMaskPainting": false,
+    "manualThresholdOrColorDifference": false,
+    "morphology": false,
+    "croppingOrResizing": false,
+    "background": "same-mother actualImageGen person-removal",
+    "unionSvg": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/day/layers/union-source-v1.svg",
+      "sha256": "0b876d65e5b5476d6839823c8572fb1e1fc7d2971d0c7bccc972f779651a5db4",
+      "bytes": 1242,
+      "role": "Complete sourceRGB once underMAX coverage"
+    },
+    "compositeSvg": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/day/layers/composite-source-v1.svg",
+      "sha256": "c2f4e9a499aa2929d88725538beddfe7f0fdf39fdcac86bd6ebb240addb04f03",
+      "bytes": 1341,
+      "role": "Separate same-mother generatedemptyBG behind sourceRGB jointonce"
+    },
+    "fullCanvasBitwiseReconstructionClaimed": false
+  },
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false
+}

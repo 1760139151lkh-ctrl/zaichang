@@ -1,0 +1,300 @@
+{
+  "schemaVersion": 1,
+  "kind": "root-approved-exact-source-isolated-registration",
+  "role": "rana",
+  "recordedAt": "2026-10-25T11:41:51.573918+00:00",
+  "primaryAdmission": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/rana-chat-apricot-included-primary-admission-v1.json",
+    "sha256": "a23e48fcaa0f3afe95ead344e6832b7ceecffd22888d8ec9095f7d8efd22355a",
+    "bytes": 2864
+  },
+  "files": [
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/contact-mask-v1.png",
+        "sha256": "a1ccab76d88deaebc84a61a6287f5f898959a13bac41c9adf666a97a9c76a6e6",
+        "bytes": 305379
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/contact-mask-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/contact-mask-v1.prompt.txt",
+        "sha256": "76101c8cda7f7e633d7809f2a3d3a6f2a9558a7bc3ae775381afccc196575b91",
+        "bytes": 1363
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/contact-mask-v1.prompt.txt",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/contact-mask-v1.source.json",
+        "sha256": "5bf66294959948b6a60c10839a1b653ffdfbcdbaccf249169dfa8b476f9244ca",
+        "bytes": 1909
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/contact-mask-v1.source.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/contact-step1-marked-v1.png",
+        "sha256": "6ae556af3107a835fa9effa4bd9dd7ef0536fac3c97186d0863771633a0ddbe8",
+        "bytes": 2415070
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/contact-step1-marked-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/contact-step1-marked-v1.prompt.txt",
+        "sha256": "1cc15388ea4e4158f260a4c10c690ccfe4dd04386d3fd231bb5d79a265f7c44c",
+        "bytes": 1821
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/contact-step1-marked-v1.prompt.txt",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/contact-step1-marked-v1.source.json",
+        "sha256": "aea56f255a8a336c7a316654c9aaaad6653bbbb529ac7291ce5f658997bdbf76",
+        "bytes": 2011
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/contact-step1-marked-v1.source.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/figure-mask-v1.png",
+        "sha256": "db455865e6f624158babe8d34ac42af15b4702ce1ad4697e6cc03e4fe1e40bd7",
+        "bytes": 466820
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/figure-mask-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/figure-mask-v1.prompt.txt",
+        "sha256": "93b44ea1cdb6ffac8a39962bec9673b4707661aceb4d1e19199a38d4d1e3cab0",
+        "bytes": 1495
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/figure-mask-v1.prompt.txt",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/figure-mask-v1.source.json",
+        "sha256": "29cfd7dd15d5e1a873c989e92808c7826df373e1bc7fd92e7d4e0b4d97d6d0d8",
+        "bytes": 1944
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/figure-mask-v1.source.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/figure-step1-marked-v1.png",
+        "sha256": "f45aa639996fede23e67dc2dc98388b495940ced2a724c37372acd5f4f8c0d9a",
+        "bytes": 2293901
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/figure-step1-marked-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/figure-step1-marked-v1.prompt.txt",
+        "sha256": "0576c18c1af70ce0f2f55e8c797c3452bcd7f23cd89ab498d813d81682c8bb91",
+        "bytes": 1799
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/figure-step1-marked-v1.prompt.txt",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/figure-step1-marked-v1.source.json",
+        "sha256": "b84cc2cb1c2903265ea7ec9bd6bae6753356b2724760d9deda055412e42d4251",
+        "bytes": 2010
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/figure-step1-marked-v1.source.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/rana-chat-apricot-included-bundle-v1.json",
+        "sha256": "d03f2e5069c454910adfb97ddcbc40bf678f4b71a9ef6175bdce5ae1335a62b2",
+        "bytes": 8227
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/rana-chat-apricot-included-bundle-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/rana-chat-apricot-included-observe-v1.html",
+        "sha256": "cf273f86dd7efbd09a603f2af97ddcc8cc29d8f2aabfad97f04528f008e10534",
+        "bytes": 24186
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/rana-chat-apricot-included-observe-v1.html",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/rana-chat-apricot-included-primary-admission-v1.json",
+        "sha256": "a23e48fcaa0f3afe95ead344e6832b7ceecffd22888d8ec9095f7d8efd22355a",
+        "bytes": 2864
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/rana-chat-apricot-included-primary-admission-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/README.md",
+        "sha256": "b7d5c3e49439143b30f674a1455de26f9807342b9bf8dd8f3e23a0560fcec030",
+        "bytes": 1512
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/README.md",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/union-source-v1.svg",
+        "sha256": "771d3fddedc8df645c80e6a99bf7ed7bd191240d4ca551e4e564c703af1dadde",
+        "bytes": 1332
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/union-source-v1.svg",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.png",
+        "sha256": "060e897c7b9ebdefc5ab84d6fbada2983625b19e6a4ebc57501ede19c5259919",
+        "bytes": 2417341
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.source.json",
+        "sha256": "722ffa0154fd1266a2829d10a0536e9700ef8295ea2eedf493505a85b6516359",
+        "bytes": 7962
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.source.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.prompt.json",
+        "sha256": "f67d0417755f699af487ed503b3a8c0d65f8767aff45773a825b73e33a8c2322",
+        "bytes": 4344
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.prompt.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+        "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+        "bytes": 2524961
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json",
+        "sha256": "5425e475efa8264874f2f3b083b8737b4b1f9d35399e9b2c3d86dc561a36cddb",
+        "bytes": 1250
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.prompt.txt",
+        "sha256": "3e854eda45e9e76baed6ad514c67488656035d0990663f089cbf6f24575cae26",
+        "bytes": 1584
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.prompt.txt",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-cast-chat-mother-reviews-v1.json",
+        "sha256": "b32551906bac652f6e981a9145d8a0abc3f5436e3332add92749c745b6c6eb4d",
+        "bytes": 10548
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-cast-chat-mother-reviews-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/literary-room-empty-plates-primary-admission-v1.json",
+        "sha256": "8ed5c9723ccf61f178ffa5e7f90a66f05b18fc6e44c8ba1124782b679a045c0c",
+        "bytes": 4399
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/literary-room-empty-plates-primary-admission-v1.json",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/source-closure-v1.json",
+        "sha256": "0a4716927575615a9b80605005c6a888c79ced6ed6dab400086c0abfc9f622a0",
+        "bytes": 6300
+      },
+      "destination": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/source-closure-v1.json",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.png",
+        "sha256": "060e897c7b9ebdefc5ab84d6fbada2983625b19e6a4ebc57501ede19c5259919",
+        "bytes": 2417341
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/rana-chat-apricot-literary-mother-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+        "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+        "bytes": 2524961
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/literary-room-clear-day-v1.png",
+      "status": "already_exact"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/figure-mask-v1.png",
+        "sha256": "db455865e6f624158babe8d34ac42af15b4702ce1ad4697e6cc03e4fe1e40bd7",
+        "bytes": 466820
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/rana-chat-apricot-literary-figure-mask-v1.png",
+      "status": "copied"
+    },
+    {
+      "source": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-layers/contact-mask-v1.png",
+        "sha256": "a1ccab76d88deaebc84a61a6287f5f898959a13bac41c9adf666a97a9c76a6e6",
+        "bytes": 305379
+      },
+      "destination": "前端视觉创新设计/运行素材/companion/scenes/rana-chat-apricot-literary-contact-mask-v1.png",
+      "status": "copied"
+    }
+  ],
+  "sceneJson": "前端视觉创新设计/运行素材/companion/scenes/rana-chat-apricot-literary-v1.scene.json",
+  "sceneSha256": "3ce1a789b7669aec418d2c02fede0f033ef49bab857fe325b16e23e133eb4be7",
+  "bodyBoundsPixelBasis": [
+    891,
+    99,
+    1324,
+    894
+  ],
+  "receiverPixelBoundsSeparate": [
+    860,
+    540,
+    1332,
+    904
+  ],
+  "runtimeAccepted": false,
+  "sharedTSModified": false,
+  "ledgerRefreshed": false
+}

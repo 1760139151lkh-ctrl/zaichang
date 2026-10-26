@@ -39,7 +39,7 @@
 | S6_MAP | attention或rest，明确复用 | 注意力朝向路线内容；房间窗景不冒充真实校园几何。 |
 | S7_CAST | chat，明确复用 | 选择外观不暗改已编辑的人格与称呼。 |
 | S8_THEME | rest或chat，明确复用 | 每个主题必须使用该主题同源场景与人物，不给暖杏人物套色冒充完成。 |
-| S9_RESUME | resume，独立的新动作 | 从看书抬头、以页签保住停点。四主题完整母图已生成；暖杏母图主代理已亲看，其余主题、分层和运行分别待审，不计全格完成。 |
+| S9_RESUME | resume，独立的新动作 | 从看书抬头、以页签保住停点。四主题完整母图均获主代理亲看接受；暖杏分层准入限原位travel0，其他三主题分层与所有运行验收仍独立待审，不计全格完成。 |
 
 ## 新迎接动作
 
@@ -47,4 +47,6 @@
 
 首次内置调用返回 `HTTP 404 / proxy_route_not_found / Unsupported router route`。用户修复工具后，主代理以相同完整 Prompt 与唯一空房输入成功重试；首个失败 attempt 与成功输出分别保存在 `sakiko-resume-apricot-v1-source.json`，没有抹掉失败。四张完整母图现为 `sakiko-resume-{apricot,mist,violet,rain}-mother-v1.png`。
 
-暖杏分离改用 ImageGen 同画布黑白 mask 与原母图 RGB，避免透明提取自动放大和宽亮晕。`resume-layer-production.json` 保留各次真正输出、Prompt 和具体拒因。`resume-layer-preview-mask-v1.html` 与 `resume-layer-preview-mask-v2.html` 各自锁定版本；后者作为原 RGB 人物 mask 会带浅坐面条，已被主代理拒绝。另有明确标为候选的原RGB / v1人物mask + v2深色影mask组合，须独立亲看后才决定采用，没有注册到运行素材。
+暖杏分离改用 ImageGen 同画布黑白 mask 与原母图 RGB，避免透明提取自动放大和宽亮晕。`resume-layer-production.json` 保留各次真正输出、Prompt 和具体拒因。`resume-layer-preview-mask-v1.html` 与 `resume-layer-preview-mask-v2.html` 各自锁定版本；后者作为原 RGB 人物 mask 会带浅坐面条，已被主代理拒绝。主代理随后亲看接受原RGB / v1人物mask + v2深棕影mask（`#291c16`、0.48）的组合，范围限原位travel0；准确文件SHA与范围见 `primary-resume-approval.json`。四张新副本与独立 `sakiko-resume-apricot-v1.scene.json` 已复制运行目录，实际宿主Stage仍须另验，不将浏览器分层观察冒充运行验收。
+
+晨雾、暮色、夜雨分别从各自已接受的母图生成匹配背景、干净人物mask和contact mask，没有共用暖杏层。夜雨v1/refined仍含少量蓝窗景发缘，已退为诊断；独立从原母图重画的tight版去掉了该背景边。三套完整原位候选均在真实Chrome看过原像素浅深底和原房间，固定页面为 `resume-{mist,violet,rain}-layers-v1-preview.html`；准确输出与候选bundle字节分别见 `theme-layer-production.json`、`resume-theme-layer-bundles.json`。这些三主题层尚未准入，未拷运行目录。

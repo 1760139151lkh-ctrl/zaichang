@@ -1,45 +1,48 @@
 /* Based on reading-rhythm-preferences and the existing connection concept.
    Every control retains its existing state owner and values. */
-.settings-refined { --settings-page-width: min(1240px, calc(100% - 80px)); }
+.settings-refined { --settings-page-width: min(1440px, calc(100% - 72px)); }
 .settings-refined .page-content,
-.settings-refined.memory-page:has(.memory-layout.is-editing) .page-content { width: var(--settings-page-width); padding-top: 28px; }
-.settings-refined .page-heading { margin-bottom: 24px; }
-.settings-refined .page-heading h1 { font-size: clamp(25px, 2.5vw, 34px); }
+.settings-refined.memory-page:has(.memory-layout.is-editing) .page-content { width: var(--settings-page-width); padding-top: 16px; }
+.settings-refined .page-heading { margin-bottom: 10px; }
+.settings-refined .page-heading h1 { font-size: 15px; }
+.settings-refined.page-panel .page-heading .page-return { display: none; }
 .settings-refined.settings-rhythm .rhythm-layout,
 .settings-refined.settings-conversation .panel-body { max-width: 1150px; }
 .settings-refined.memory-page .panel-body { max-width: 1080px; }
 .settings-refined.memory-page .memory-layout:not(.is-editing) { max-width: 800px; }
-.settings-refined .page-heading h1 { font-family: var(--font-display); font-weight: 480; letter-spacing: -.035em; }
-.settings-refined .panel-tabs { margin-bottom: 26px; gap: clamp(16px, 3vw, 44px); overflow-x: auto; overflow-y: hidden; flex-wrap: nowrap; }
-.settings-refined .panel-tabs > button { white-space: nowrap; padding: 10px 0 15px; font-size: 14px; flex-shrink: 0; }
-.settings-refined .settings-lede { color: var(--text-secondary); margin: -5px 0 29px; font-size: 15px; }
-.settings-refined .rhythm-layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr); gap: clamp(30px, 4vw, 64px); align-items: start; }
-.settings-refined .rhythm-controls > .preference-section { padding: 0 0 28px; margin: 0 0 28px; border: 0; border-bottom: 1px solid var(--separator); }
-.settings-refined .rhythm-controls > .preference-section:last-child { border-bottom: 0; }
-.settings-refined .section-title { font-size: 17px; font-weight: 540; color: var(--text); margin: 0 0 20px; }
+.settings-refined .page-heading h1 { font-family: var(--font-body); font-weight: 500; letter-spacing: 0; color: var(--text-secondary); }
+.settings-refined .panel-tabs { margin-bottom: 22px; gap: clamp(22px, 3vw, 40px); overflow-x: auto; overflow-y: hidden; flex-wrap: nowrap; }
+.settings-refined .panel-tabs > button { white-space: nowrap; padding: 9px 0 12px; font-size: 14px; flex-shrink: 0; }
+.settings-refined .rhythm-layout { display: grid; grid-template-columns: minmax(260px, .85fr) minmax(0, 1.15fr); gap: clamp(32px, 5vw, 76px); align-items: start; }
+.settings-refined .rhythm-controls > .preference-section { padding: 0 0 20px; margin: 0; border: 0; }
+.settings-refined .section-title { font-size: 14px; font-weight: 540; color: var(--text); margin: 0 0 16px; }
 .settings-refined .preference-scope-note { margin: -8px 0 18px; font-size: 12px; line-height: 1.8; color: var(--text-secondary); }
 .settings-refined .initiative-section .preference-scope-note { margin-top: 8px; }
-.settings-refined .rhythm-choice-row { display: grid; grid-template-columns: 94px minmax(0, 1fr); gap: 14px; align-items: center; margin: 14px 0; font-size: 14px; }
-.settings-refined .rhythm-segmented { display: flex; padding: 3px; gap: 3px; border: 1px solid var(--separator); border-radius: 12px; background: color-mix(in srgb, var(--wash) 40%, transparent); }
-.settings-refined .rhythm-segmented button { flex: 1; min-width: 0; border: 0; border-radius: 9px; padding: 10px 6px; font-size: 12px; color: var(--text-secondary); background: transparent; transition: background 180ms ease, color 180ms ease; }
-.settings-refined .rhythm-segmented button[aria-pressed='true'] { background: var(--surface-raised); color: var(--accent); box-shadow: 0 1px 5px #33220910; }
-.settings-refined .initiative-choices { display: grid; gap: 10px; }
-.settings-refined .initiative-choices > button { display: flex; align-items: center; justify-content: space-between; gap: 16px; border: 1px solid var(--separator); border-radius: 13px; padding: 16px 18px; text-align: left; background: transparent; color: var(--text); }
-.settings-refined .initiative-choices > button[aria-pressed='true'] { border-color: var(--accent-dim); background: color-mix(in srgb, var(--accent-soft) 42%, transparent); }
-.settings-refined .initiative-choices strong { display: block; font-size: 14px; font-weight: 510; line-height: 1.6; }
-.settings-refined .initiative-choices small { display: block; margin-top: 4px; font-size: 12px; line-height: 1.65; color: var(--text-secondary); }
-.settings-refined .initiative-radio { width: 17px; height: 17px; border: 1px solid var(--border); border-radius: 50%; flex-shrink: 0; }
-.settings-refined [aria-pressed='true'] > .initiative-radio { border-color: var(--accent); background: var(--accent); box-shadow: inset 0 0 0 3px var(--surface); }
+.settings-refined .rhythm-choice-row { display: grid; grid-template-columns: minmax(88px, .7fr) minmax(0, 1fr); gap: 18px; align-items: center; margin: 0; padding: 13px 0; font-size: 14px; }
+.settings-refined .rhythm-choice-row select { width: 100%; min-width: 0; min-height: 36px; padding: 6px 28px 6px 10px; border: 1px solid var(--separator); border-radius: 8px; color: var(--text); background: var(--surface); font: inherit; font-size: 13px; }
+.settings-refined .rhythm-choice-row select:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.settings-refined .settings-disclosure { border-top: 1px solid var(--separator); margin: 0; padding: 0; }
+.settings-refined .settings-disclosure > summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 54px; padding: 13px 0; list-style: none; cursor: pointer; font-size: 14px; }
+.settings-refined .settings-disclosure > summary::-webkit-details-marker { display: none; }
+.settings-refined .settings-disclosure > summary::after { content: '›'; color: var(--text-tertiary); font-size: 20px; line-height: 1; }
+.settings-refined .settings-disclosure[open] > summary::after { transform: rotate(90deg); }
+.settings-refined .settings-disclosure > summary small { margin-left: auto; font-size: 12px; color: var(--text-secondary); }
+.settings-refined .settings-disclosure > summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 3px; }
+.settings-refined .settings-disclosure-body { padding: 0 0 20px; }
+.settings-refined .settings-disclosure-body > :first-child { margin-top: 0; }
+.settings-refined .settings-disclosure .switch-row { padding: 13px 0; }
+.settings-refined .settings-disclosure .switch-row:last-child { border-bottom: 0; }
+.settings-refined.settings-conversation .panel-body > .settings-disclosure { max-width: 760px; }
+.settings-refined.settings-conversation .settings-disclosure .preference-fields { gap: 0; margin: 0; }
+.settings-refined.settings-conversation .settings-disclosure .preference-fields label { grid-template-columns: 88px minmax(0, 1fr); gap: 18px; padding: 12px 0; }
+.settings-refined.settings-conversation .settings-disclosure .preference-fields select { min-height: 36px; }
 .settings-refined .rhythm-preview-column { position: sticky; top: 20px; }
-.settings-refined .reading-feel-preview { position: relative; border: 1px solid var(--separator); border-radius: 22px; overflow: hidden; padding: clamp(25px, 3vw, 43px); min-height: 380px; background: radial-gradient(ellipse at 100% 0, color-mix(in srgb, var(--accent-soft) 65%, transparent), transparent 75%), var(--surface); font-size: var(--reading-size); line-height: 2; }
-.settings-refined .reading-preview-label { font-size: 11px; color: var(--accent); display: inline-block; letter-spacing: .07em; margin-bottom: 23px; }
-.settings-refined .reading-feel-preview h3 { font-family: var(--font-display); font-size: 1.65em; line-height: 1.6; font-weight: 470; letter-spacing: -.025em; margin: 0 0 22px; }
-.settings-refined .reading-preview-scroll { max-height: min(43dvh, 390px); overflow: auto; overscroll-behavior: contain; scrollbar-gutter: stable; padding: 3px 10px 3px 0; overflow-anchor: none; }
+.settings-refined .reading-feel-preview { position: relative; border: 1px solid var(--separator); border-radius: 12px; overflow: hidden; padding: clamp(24px, 3vw, 40px); background: var(--surface); font-size: var(--reading-size); line-height: 2; }
+.settings-refined .reading-feel-preview h3 { font-family: var(--font-display); font-size: 1.25em; line-height: 1.6; font-weight: 500; letter-spacing: -.015em; margin: 0 0 20px; }
+.settings-refined .reading-preview-scroll { max-height: min(55dvh, 520px); overflow: auto; overscroll-behavior: contain; scrollbar-gutter: stable; padding: 3px 10px 3px 0; overflow-anchor: none; }
 .settings-refined .reading-preview-text { color: var(--text); }
 .settings-refined .reading-preview-scroll:focus-visible { outline: 2px solid var(--accent-dim); outline-offset: 5px; border-radius: 3px; }
 .settings-refined .reading-feel-preview .katex-display { margin: 1.2em 0; font-size: 1.1em; color: var(--text); overflow-x: auto; overflow-y: hidden; }
-.settings-refined .reminder-preference { border-top: 0; margin: 25px 0 0; padding: 12px 6px; }
-.settings-refined .reminder-preference .section-title { margin-bottom: 4px; }
 .settings-refined .data-controls { border-top: 1px solid var(--separator); margin-top: 12px; padding: 22px 0; }
 .settings-refined .data-controls > summary { font-size: 14px; color: var(--text-secondary); cursor: pointer; }
 .settings-refined .data-controls-body { max-width: 760px; }
@@ -48,20 +51,23 @@
 .settings-refined .switch[aria-checked='true'] { background: var(--accent) !important; border-color: var(--accent) !important; }
 .settings-refined.settings-connect .panel-body,
 .settings-refined .panel-body[aria-label='资料来源设置'] { max-width: 770px; }
-.settings-refined.settings-connect .section-heading { margin: 18px 0 30px; }
-.settings-refined.settings-connect .section-heading h3 { font-size: 25px; }
+.settings-refined.settings-connect .section-heading { margin: 4px 0 18px; }
+.settings-refined.settings-connect .section-heading h3 { font-size: 18px; }
 .settings-refined.settings-connect .model-runtime-note { padding: 0; border: 0; background: transparent; }
-.settings-refined.settings-connect .field-label > input { height: 52px; border-radius: 13px; }
-.settings-refined.settings-connect .settings-navigation { margin-top: 36px; border-top: 1px solid var(--separator) !important; padding: 24px 0 !important; }
+.settings-refined.settings-connect .field-label > input { height: 42px; border-radius: 8px; }
+.settings-refined.settings-connect .connection-actions { margin: 18px 0; }
+.settings-refined.settings-connect .connection-technical { margin: 22px 0; font-size: 13px; }
+.settings-refined.settings-connect .connection-technical summary { cursor: pointer; }
+.settings-refined.settings-connect .connection-extra { margin-top: 22px; }
+.settings-refined.settings-connect .settings-navigation { margin-top: 24px; border-top: 1px solid var(--separator) !important; padding: 20px 0 !important; }
 .settings-refined .settings-navigation { text-align: left; }
 .settings-refined .campus-source-block { margin-top: 28px !important; }
-.settings-refined .campus-import-block { padding-bottom: 20px; }
+.settings-refined .campus-import-block { padding-bottom: 0; }
 .settings-refined .preference-section[hidden], .settings-refined [hidden] { display: none !important; }
 @media (max-width: 900px) {
  .settings-refined .rhythm-layout { grid-template-columns: 1fr; gap: 10px; }
- .settings-refined .rhythm-preview-column { position: static; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(220px, .8fr); gap: 22px; }
+ .settings-refined .rhythm-preview-column { position: static; }
  .settings-refined .reading-feel-preview { min-height: 0; }
- .settings-refined .reading-feel-preview h3 br { display: none; }
 }
 @media (max-width: 620px) {
  .settings-refined { --settings-page-width: calc(100% - 36px); }
@@ -69,9 +75,6 @@
  .settings-refined .panel-tabs > button { font-size: 12px; }
  .settings-refined .rhythm-choice-row { grid-template-columns: 75px minmax(0, 1fr); gap: 8px; }
  .settings-refined .rhythm-preview-column { display: block; }
- .settings-refined .rhythm-segmented button { font-size: 11px; }
  .settings-refined .reading-feel-preview { padding: 26px; }
  .settings-refined .connector { flex-wrap: wrap; }
 }
-@media (prefers-reduced-motion: reduce) { .settings-refined .rhythm-segmented button, .settings-refined .reading-feel-preview { transition: none; } }
-:root[data-motion='reduced'] .settings-refined .rhythm-segmented button, :root[data-motion='reduced'] .settings-refined .reading-feel-preview { transition: none; }

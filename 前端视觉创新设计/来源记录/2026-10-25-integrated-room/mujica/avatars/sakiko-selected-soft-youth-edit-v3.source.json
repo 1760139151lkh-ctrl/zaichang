@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "recordType": "user-selected-avatar-refinement",
+  "role": "sakiko",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-selected-soft-youth-edit-v3.png",
+    "sha256": "50ed57c7cb690ac52eb49190762f878a2b8e8db5eb75d5d3d3f220e771d86974",
+    "bytes": 2309543
+  },
+  "prompt": "精细编辑这唯一一张用户亲自选定的丰川祥子近景头像。她来自 MyGO!!!!! / Ave Mujica。这是‘在场’陪伴产品的独立头像，必须保有原作少女的青春和矜持，保有对一个人卸下一点防备、刚好听见对方理解自己的温柔瞬间。不要换人、不要变成成熟少妇，也不要幼儿化。请保留参考原图的淡蓝紫长发、双侧深色丝带、金色眼睛、海军蓝制服与白领、相同近景构图及细腻2D手绘线条、柔和笔触和透明背景。只把用户指出的面部关键关系重新认真画好：刘海调整为更轻软自然的细束，保留祥子可识别的分缕和额前轮廓；眼型略圆润、上下眼睑柔和，金色眼瞳透亮有温度，但不要夸张成幼儿大圆眼，不浓妆不僵直；适度缩短中下面部与下巴，脸颊更柔和、带一点少女自然的饱满弧度，避免长尖下巴和狭长成人脸。她正轻轻偏头看向熟悉的人，一直认真绷着的眉眼此刻放松了，眼尾藏着一点终于被听懂的欢喜，嘴角是一抹能在小头像里看清的含蓄、可爱、温柔的闭口微笑。不要傻笑、不要强烈羞红、不要媚态或商业拍照表情。脸型修改要精确又自然，不能简单缩放、拉扁整个头，头发和颈部比例也要协调。画面主要是脸与头发，仅在下方露出少量白领和丝带，不加入手、道具、房间、文字、边框、圆形底盘或亮色光圈。保存完整细腻2D绘画质感，不要3D模型材质、写实毛孔、塑料高光或表情包粗线条。输出高品质方形透明PNG，为34px/48px圆形头像裁切保留清楚的眼睛、柔软脸颊和微笑。",
+  "inputs": [
+    {
+      "kind": "user-selected-clean-independent-portrait",
+      "sha256": "bc92a4e0096411b0e58b5e4dfc12d61b48bf255f0fd7a544c039ae9e4cd7fc32",
+      "sourcePath": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-user-selected-youth-avatar-20261025.png"
+    }
+  ],
+  "intention": "按用户选定原图精修刘海、眼型、下巴与柔和脸颊，保青春、可爱温柔神情及细腻2D手绘感。",
+  "primaryStaticReview": {
+    "status": "approved-for-integrated-circle-inspection",
+    "reviewer": "root",
+    "observed": "亲看实际生成原图；金瞳蓝紫发双丝带辨识保留、下脸与脸颊关系柔化、含蓄微笑；尚未签34/48运行效果或用户最终认可。"
+  },
+  "runtimeAccepted": false,
+  "registration": {
+    "registry": "src/renderer/companion-portraits.ts",
+    "runtimeCopy": "前端视觉创新设计/运行素材/companion/portraits/sakiko-selected-soft-youth-edit-v3-20261025.png",
+    "runtimeCopySha256": "50ed57c7cb690ac52eb49190762f878a2b8e8db5eb75d5d3d3f220e771d86974",
+    "sourceCopyUnchanged": true,
+    "avatar": {
+      "left": "-4%",
+      "top": "-6%",
+      "width": "108%"
+    },
+    "scope": "Connected for integrated circle inspection; source itself not stretched, cropped or rewritten",
+    "runtimeCopyDirectShaVerified": true
+  },
+  "userApproved": false,
+  "userSelectedOriginal": false,
+  "userSelectedReferenceSha256": "bc92a4e0096411b0e58b5e4dfc12d61b48bf255f0fd7a544c039ae9e4cd7fc32",
+  "producerCircleInspection": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/review/ten-registry-current-soft-v3-circles-20261025.png",
+    "sha256": "35455ae173cc5f6672761c7ce9777e9627e617dd373b4ac04b411c1eb7bc2e62",
+    "personallyViewedByProducer": true,
+    "sizes": [
+      96,
+      48,
+      34
+    ],
+    "backgrounds": [
+      "#fff9f2",
+      "#20212c"
+    ],
+    "scope": "Actual-size raster approximation of current registry uniform-scale/offset geometry. Not browser/DPR or integrated chat/titlebar evidence."
+  }
+}

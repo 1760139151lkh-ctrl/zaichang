@@ -63,7 +63,8 @@ export class NativeSourceBookmarkService {
       const quote = bookmark.target
         ? await this.store.runtime.materials.nativeQuote({ target: bookmark.target, quote: bookmark.reference })
         : await this.store.runtime.materials.nativeBookmarkQuote(bookmark.reference);
-      value = { reference: bookmark, title: quote.name, text: quote.text, ...(quote.page ? { page: quote.page } : {}) };
+      value = { reference: bookmark, title: quote.name, text: quote.text, ...(quote.page ? { page: quote.page } : {}),
+        ...(this.store.runtime.materials.notebookOriginalRequired(quote) ? { retainOriginalRequired: true } : {}) };
     } else if (bookmark.kind === 'notebook') {
       const quote = this.store.notes.quote(bookmark.reference);
       value = { reference: bookmark, title: quote.title || '没有标题的笔记', text: quote.text };
@@ -97,9 +98,11 @@ export class NativeSourceBookmarkService {
     // Source names can contain the very words later withdrawn from their
     // original owner too. Keep only a neutral label here; the live preview
     // supplies the current source name when this page is opened.
-    return this.store.notes.create({ title: '纸边的一段原文',
+    const createNote = () => this.store.notes.create({ title: '纸边的一段原文',
       body: annotation || '' }, undefined, { via: 'notebook', referenceOnly: true,
       ...(adopted.kind === 'material' ? { material: { ...adopted.reference, name: '原来的资料' } }
         : adopted.kind === 'notebook' ? { notebook: adopted.reference } : { conversation: adopted.reference }) });
+    return adopted.kind === 'material' && input.retainOriginal
+      ? this.store.runtime.materials.retainNotebookOriginal(adopted.reference, createNote) : createNote();
   }
 }

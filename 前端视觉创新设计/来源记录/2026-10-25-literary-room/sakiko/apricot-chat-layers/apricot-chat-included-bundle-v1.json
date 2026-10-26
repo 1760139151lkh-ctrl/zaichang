@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "key": "sakiko/chat/apricot",
+  "sceneFamily": "literary-room-v1",
+  "kind": "fixed-original-source-MAX-included-joint-subject-candidate",
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "registered": false,
+  "status": "root-static-approved-fixed-included-chat-runtime-pending",
+  "mother": {
+    "path": "../pilot/sakiko-chat-apricot-v1.png",
+    "sha256": "8d8ca2d001893c16106ab797ec4a8a8c1e6576115a5a4c76ff1dd519eff4e2cd",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "primaryMotherApproved": true,
+    "approvalScope": "Full original mother only, not these new masks or runtime."
+  },
+  "background": {
+    "path": "../../plates/literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "rootApprovedEmptyPlate": true
+  },
+  "F": {
+    "path": "figure-mask-v1.png",
+    "sha256": "976e6a52af3fd9fd8b8ef9a7a017cddb37fec6ebae961256c5b1134ad0cba59d",
+    "sourceRecord": "figure-mask-v1.source.json"
+  },
+  "S": {
+    "path": "contact-mask-v1.png",
+    "sha256": "9ee1264c492186058e9069b3ab5b86679690a0349363bcf970fc241251a2e159",
+    "sourceRecord": "contact-mask-v1.source.json"
+  },
+  "composition": {
+    "formula": "U(x,y)=MAX(L(F(x,y)),L(S(x,y)))",
+    "luminanceWeights": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorSpace": "sRGB",
+    "nativeImplementation": "full-canvas feImage, replicated luminance feColorMatrix, feBlend lighten, luminance mask",
+    "nativeSvg": "union-source-v1.svg",
+    "nativeSvgSha256": "b5e2e0211f341f578ce93b9854f755509591330eb3936648f19d386c8004c62e",
+    "originalMotherRgbDrawCount": 1,
+    "contactShadow": "included",
+    "pureCaster": false,
+    "newRaster": false,
+    "pngPixelEditing": false,
+    "thresholding": false,
+    "subtraction": false,
+    "geometryPatch": false,
+    "extraColorPaint": false
+  },
+  "sourceRegistration": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "x": 0,
+    "y": 0,
+    "scale": 1,
+    "rotation": 0,
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "layerOrder": [
+      "approved clear background",
+      "one original mother RGB masked by MAX"
+    ]
+  },
+  "actualReceiverExtent": [
+    "Original linen/cushion material left of and beneath visible plaid hem",
+    "Source knit/linen edge adjacent to right skirt/seat contact",
+    "Local original dry-floor material immediately around both soles/heels"
+  ],
+  "producerInspection": {
+    "personallyViewedOriginals": true,
+    "personallyViewedNativeSvg": true,
+    "browser": "Connected Chrome extension via cua_repl, own normal5188 static technical tab",
+    "page": "apricot-chat-included-observe-v1.html",
+    "pageSha256": "a0d7ebfa23330978d401e2b6b21181f89ddacfb5fb7d422c17debfd509bd6f33",
+    "pageUrl": "http://127.0.0.1:5188/来源记录/2026-10-25-literary-room/sakiko/apricot-chat-layers/apricot-chat-included-observe-v1.html",
+    "recordedAt": "2026-10-25T12:12:40.226005+00:00",
+    "statesViewed": [
+      "Whole original mother vs clearBG+MAX subject",
+      "Full light/dark subject upper and lower",
+      "Full checker subject upper and lower",
+      "Face/eyes/hair and real neck/hair gap original/composite/subject",
+      "Both hands and lap/knee original/composite/subject",
+      "Full plaid hem/folded dark trim and actual seat contact",
+      "Actual broad left/right source cushion/knit receiver fringe",
+      "Both complete loafers/toes/outsoles/heel blocks and local floor contacts"
+    ],
+    "observations": [
+      "Original apparent head/body size and supported seated relation retained in the whole scene.",
+      "Golden eyes, eyelids, eyebrows and hair strands retain source RGB. Real neck/hair background opening remains a gap, not an invented facial hole.",
+      "Clasped palms, knees and complete dark plaid hem/tips remain visible in source comparisons.",
+      "Both full shoes and source sole/heel contours remain with local floor material; no obvious white slit or doubled RGB observed in inspected original/composite crops.",
+      "S intentionally yields wider original linen/knit receiver strips visible on light/dark/checker. They remain part of this fixed source joint, not independently movable shadows."
+    ],
+    "specificMajorIssuesObserved": [],
+    "limits": [
+      "This is a producer static observation; primary admission and runtime remain false.",
+      "Subtle full-room generation differences and included receiver fringe are not a pixel-identical entire-room claim.",
+      "No actual show/hide/pose-switch/weather/drag workflow was exercised."
+    ]
+  },
+  "geometryProposal": {
+    "file": "apricot-chat-geometry-proposal-v1.json",
+    "sha256": "09486a35fbe847d2304c976fb9234be7494dff5450ac9c13f94ad024750605b4"
+  },
+  "generationCalls": {
+    "maximum": 4,
+    "successful": 4,
+    "inFlight": false,
+    "furtherCallsAllowed": false
+  },
+  "permittedCandidateOperations": [
+    "Whole fixed joint visibility",
+    "Whole independently reviewed pose replacement",
+    "One shared viewport transform with matchingBG"
+  ],
+  "unsupportedOperations": [
+    "Relative body/shadow translation",
+    "Independent limb deformation",
+    "Transporting included cushion/knit/floor pixels elsewhere",
+    "Registration or runtime use before primary approval"
+  ],
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "producerRecommendation": "Root static exact-SHA admitted; unique registration owner copies isolated, producer does not register.",
+    "primaryAdmissionRecord": "sakiko-chat-apricot-literary-included-primary-admission-v1.json"
+  },
+  "primaryAdmissionRecord": "sakiko-chat-apricot-literary-included-primary-admission-v1.json"
+}

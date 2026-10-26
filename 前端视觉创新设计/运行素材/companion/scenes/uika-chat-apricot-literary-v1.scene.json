@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "id": "uika-chat-apricot-literary-v1",
+  "sceneFamily": "literary-room-v1",
+  "character": "uika",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "width": 1536,
+  "height": 1024,
+  "mother": "uika-chat-apricot-literary-mother-v1.png",
+  "background": "literary-room-clear-day-v1.png",
+  "mask": "uika-chat-apricot-literary-figure-mask-v1.png",
+  "maskMode": "luminance",
+  "contactMask": "uika-chat-apricot-literary-contact-mask-v1.png",
+  "seat": [
+    0.7682291666666666,
+    0.5517578125
+  ],
+  "ground": [
+    0.6067708333333334,
+    0.8564453125
+  ],
+  "bodyBounds": [
+    0.55078125,
+    0.11328125,
+    0.8587239583333334,
+    0.8544921875
+  ],
+  "safeTextBoundary": 0.53578125,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "55.078125% 11.328125%, 85.87239583333334% 11.328125%, 85.87239583333334% 85.44921875%, 55.078125% 85.44921875%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/uika-chat-apricot-joint-primary-admission-v1.json",
+    "geometryRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-layers/chat-layers-included-bundle-v1.json",
+    "geometryStatus": "Actual Uika visible support proposal personally compared with complete original; conservative actual F envelope, fixed source only.",
+    "geometryEvidence": {
+      "actualPersonDominantCoverageBBox": [
+        846,
+        116,
+        1319,
+        875
+      ],
+      "includedReceiverDominantCoverageBBox": [
+        828,
+        468,
+        1330,
+        883
+      ],
+      "measurement": "Read-only fixed >=0.5 luminance for conservative layout envelope only; original PNG/continuous runtime mask unchanged. bodyBounds uses F only, not receiver outline.",
+      "seatGround": "visible cushion/support and visible shoe-floor reference points, not hidden anatomical joints or unshown feet"
+    },
+    "runtimeSourceSha256": {
+      "mother": "df94d1a87f41775108d5b319a6bcc8ec4372283b770ef05ae764adedf2500c5d",
+      "background": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "F": "937cb2e07ce767950ef7f113a8a3131f5b2f21569bd09fcb391050ae88004bea",
+      "S": "eae4756cefb4ab68ff3f596128972eac539ca40f664487532e92afd4743f22fd"
+    },
+    "layerReview": "root exact-SHA static MAX(F,S) included joint; no pure caster, independent body motion or runtime acceptance"
+  }
+}

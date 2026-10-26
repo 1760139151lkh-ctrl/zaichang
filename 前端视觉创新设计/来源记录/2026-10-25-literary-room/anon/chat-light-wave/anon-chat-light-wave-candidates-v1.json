@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "kind": "light-chat-wave-mother-candidates",
+  "character": "anon",
+  "waveTotalCallsAllowed": 6,
+  "waveTotalCallsCompleted": 6,
+  "characterCallsCompleted": 3,
+  "generationStopped": true,
+  "inputs": "each matching primary-approved empty atmosphere plate plus own primary-approved apricot chat mother only",
+  "cells": [
+    {
+      "key": "anon/chat/mist",
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "png": {
+        "path": "anon-chat-mist-literary-v1.png",
+        "sha256": "435fed8471dcabefa77fd99a3924800926f21a431f46bd3eac0842dc3b251de2",
+        "bytes": 2374086,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "anon-chat-mist-literary-v1.prompt.json",
+        "sha256": "81a7d9de475fbd681d5a6daaaf033221bd554a645699103ce33d9fa7d929b2f6"
+      },
+      "source": {
+        "path": "anon-chat-mist-literary-v1.source.json",
+        "sha256": "1724a78628fb72ed7b73b1637f75c31100978ef6d452bac03c458285cbff5b0b"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "concerns": [],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "plateApprovalRecordSHA": true
+      }
+    },
+    {
+      "key": "anon/chat/violet",
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "png": {
+        "path": "anon-chat-violet-literary-v1.png",
+        "sha256": "fcca3947308a48f174356c73e1046131ac96c47ec7a29836748905449acfd92b",
+        "bytes": 2266497,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "anon-chat-violet-literary-v1.prompt.json",
+        "sha256": "f09dc87e44694f0d7aec82ea6b6d27354fa47eb5a191b16aad8e42047b4b16f3"
+      },
+      "source": {
+        "path": "anon-chat-violet-literary-v1.source.json",
+        "sha256": "7fed6b3efac3d8bc7a5297a0b06ba14c9038982d3fe85978bc66a9ebfe0beda1"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "concerns": [],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "plateApprovalRecordSHA": true
+      }
+    },
+    {
+      "key": "anon/chat/rain",
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "png": {
+        "path": "anon-chat-rain-literary-v1.png",
+        "sha256": "e57bc61b2a9ae7d5d376ef5e4c9919bd10e0eb2ea9fd827efee3e521f4f0c9ef",
+        "bytes": 2218320,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "anon-chat-rain-literary-v1.prompt.json",
+        "sha256": "f722e43d80b1bf23a9cc4948932a9c332c99104bcd14dfa4c7e07add482cff7b"
+      },
+      "source": {
+        "path": "anon-chat-rain-literary-v1.source.json",
+        "sha256": "424c2a12edecec5f5196a2053628aea60569ac3ff39cc266f3d7a67ce953a3b6"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": false,
+      "primaryLayerApproved": false,
+      "runtimeAccepted": false,
+      "concerns": [
+        "发顶右侧仍有较暖的轮廓亮边，其夜间光源关系留root整图照明主审。"
+      ],
+      "sourceConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "plateApprovalRecordSHA": true
+      }
+    }
+  ],
+  "approvedByPrimary": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "layerWorkStarted": false,
+  "runtimeRegistered": false
+}

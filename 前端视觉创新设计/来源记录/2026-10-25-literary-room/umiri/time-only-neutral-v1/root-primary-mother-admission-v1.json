@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "recordType": "root-primary-time-only-neutral-static-mother-admission",
+  "character": "umiri",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "palette": "mist",
+  "light": "morning",
+  "weather": "unknown",
+  "weatherClaim": false,
+  "selected": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-day-v1.png",
+    "sha256": "5daa0e42c8ef945858ebdc5f065270c14989d4d1d107756ab8667600af797108",
+    "bytes": 2383284,
+    "actualSHA256AtRecord": "5daa0e42c8ef945858ebdc5f065270c14989d4d1d107756ab8667600af797108"
+  },
+  "approvalEvidence": {
+    "source": "Direct parent /root NEW_TASK in this same healthy task session after root personally viewed the complete exact original PNG.",
+    "messageVerbatim": "同健康session继续。Root刚逐完整PNG亲看Umiri day5daa0e42…7108：短发灰青眼与可靠会意笑、皮衣红衫及原书/身侧按垫、受座髋膝到双完整厚底系带靴地面支撑成立，闭帘无天气，准STATIC mother＋同角色night基底。保存exactSHA/本消息分项准入，不签层/runtime/360/userApproved。可做Umiri night1张，仅准同角色day全姿势母＋准v3 identity＋准time-night净plate，脸体量/视线/同一书手支撑保持，整个人/布垫/木面共同夜灯化，合帘不露天气/无白日残斑，不换相机；night候选交根。Nyamu night我下一步看，此时未准下游，不做layers。"
+  },
+  "primaryApproved": true,
+  "approvedStaticMother": true,
+  "generationInputAllowed": true,
+  "allowedNextGeneration": "One same-character time-night using this exact full-pose day mother, root-approved Umiri v3 identity and approved clean time-night plate only.",
+  "reviewComponents": {
+    "identityEmotion": "短发灰青眼与可靠会意笑成立。",
+    "clothing": "皮衣红衫及完整厚底系带靴成立。",
+    "handsObjects": "原书/身侧按垫关系成立，保同一书与手支撑。",
+    "anatomySupport": "受座髋膝到双完整厚底系带靴地面支撑成立。",
+    "roomWeather": "闭帘无天气。"
+  },
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "dynamicAdmission": false,
+  "original360CreditAssigned": false,
+  "userApproved": false,
+  "boundary": "STATIC mother and exact same-character night input only. No layer, runtime, all-purpose or 360 exact-activity adoption. Nyamu night not admitted downstream by this message.",
+  "recordedAtUTC": "2026-10-26T00:32:18.639881+00:00",
+  "originalGenerationRecord": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-day-v1.source.json",
+    "sha256": "dcb3a92f5007408baf218f68ac05f342e9d242167e214a5139f3412efef03d98"
+  }
+}

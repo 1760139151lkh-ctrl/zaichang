@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "scope": "First-round three empty room4 weather candidates only: dry clear night, rainy daytime, and the explicitly requested additional dry cloudy daytime. Root review precedes any character or matrix expansion.",
+  "designIntent": "真实天气改变整个空间气氛：窗外昼夜、降水、室内受光、木材反射和纸面环境共同协调，不给整图叠色膜，不将黑夜窗与白日室内拼接。角色不随雨强迫悲伤；未来 UI 纸面跟随场景保持清楚、温和的灰金关系。",
+  "evidenceBoundary": "图库是表现材料而非天气证据。只由真实 owner 的有效 condition 与昼夜字段选择相符表现；数据未知、过期、不可用或关闭时不得展示假天气。此目录没有实况天气数据，也没有用户位置。",
+  "reference": {
+    "path": "../../assets-design-generated/2026-10-23-companion-matrix/room-apricot-candidate-v4.png",
+    "pathRelativeToRepository": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-apricot-candidate-v4.png",
+    "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "qualificationRecord": "../../2026-10-24-matrix/sakiko/room4-scene-relationships.md",
+    "personallyViewed": true,
+    "observation": "Empty fixed-camera room with left desk and shelves, large lake/town window, center-right desk/chair, right upholstered window bench, unchanged floor and rug. No person or human shadow. Existing central desk lamp, blue book and cup remain room-owned."
+  },
+  "weatherContractObserved": {
+    "source": "src/shared/environment.ts",
+    "condition": [
+      "clear",
+      "cloudy",
+      "fog",
+      "rain",
+      "snow",
+      "storm",
+      "unknown"
+    ],
+    "status": [
+      "fresh",
+      "disabled",
+      "unavailable",
+      "expired"
+    ],
+    "isDay": "boolean | null",
+    "knownReferenceTimeZone": "Asia/Shanghai",
+    "ownerConfirmed": "cast_mygo_recovered confirmed the existing CompanionEnvironment owner contract. Only fresh can represent factual weather; disabled/unavailable/expired carry unknown condition and null isDay and use the existing time-only fallback. No second weather fact store is introduced here.",
+    "note": "This records the finite public-reference contract, not current observed weather or a claim that an asset selector has adopted these candidates."
+  },
+  "candidates": [
+    {
+      "file": "room4-dry-clear-night-v1.png",
+      "intendedCondition": "clear",
+      "isDay": false,
+      "rain": false
+    },
+    {
+      "file": "room4-rainy-day-v1.png",
+      "intendedCondition": "rain",
+      "isDay": true,
+      "rain": true
+    },
+    {
+      "file": "room4-cloudy-day-v1.png",
+      "intendedCondition": "cloudy",
+      "isDay": true,
+      "rain": false
+    }
+  ],
+  "geometryPolicy": "Same 1536x1024 canvas and original camera. Preserve wall/window/furniture/rug layout and left reading-safe negative space. Change illumination and actual window weather coherently across the whole room, not through a filter, split or overlay.",
+  "characterPrototypeStage": {
+    "authorizedScope": "After root personally approved the three exact-SHA empty backgrounds, root explicitly requested only three Sakiko chat weather mother prototypes before any further expansion.",
+    "scaleReference": "sakiko-chat-weather-scale-v1.json",
+    "mothers": [
+      "sakiko-chat-dry-night-mother-v1.png",
+      "sakiko-chat-rain-day-mother-v1.png",
+      "sakiko-chat-overcast-day-mother-v1.png"
+    ],
+    "approvedByRoot": true,
+    "approvalScope": "Only the three exact-SHA complete weather chat mother images, recorded individually in source JSON. Layers and runtime remain independent and unaccepted.",
+    "layersProduced": true,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "layerScope": "All three exact-SHA weather chat original-position static layer bundles admitted by primary, each with its own approval record. No runtime registration or acceptance by this producer.",
+    "layerBundles": [
+      "sakiko-chat-overcast-day-bundle-v1.json",
+      "sakiko-chat-dry-night-bundle-v1.json",
+      "sakiko-chat-rain-day-bundle-v1.json"
+    ]
+  },
+  "review": {
+    "approvedByRoot": true,
+    "approvalScope": "Three exact-SHA empty backgrounds only, as recorded per source; character mothers, layers and runtime are separate pending review.",
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  }
+}

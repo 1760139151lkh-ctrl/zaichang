@@ -1,0 +1,73 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "first-character-literary-chat-pilot",
+  "sceneFamily": "literary-room-v1",
+  "character": "uika",
+  "activity": "chat",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "generationMode": "sole-approved-empty-plate-input",
+  "numberOfImageInputs": 1,
+  "input": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "role": "sole actual image input, approved clean plate"
+  },
+  "creativeBrief": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-b/uika-literary-room-36-cells-v1.json",
+    "sha256": "f7746767db671c1a5b52504f36649c2a7239e077d2b4d19856605b99d2d889b6",
+    "cell": "uika/chat/apricot"
+  },
+  "referenceBoundary": "Sakiko pilots establish room/emotional direction only; no Sakiko image, previous character body or old room4 image was passed as input.",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-69d0edd2-59d3-4da3-bcf1-6ed3493636bd.png",
+  "output": "uika-chat-apricot-literary-pilot-v1.png",
+  "outputSha256": "df94d1a87f41775108d5b319a6bcc8ec4372283b770ef05ae764adedf2500c5d",
+  "promptFile": "uika-chat-apricot-literary-pilot-v1.prompt.txt",
+  "prompt": "Use case: stylized-concept, same-room character mother.\nCreate ONE complete 1536 x 1024 warm-apricot literary room illustration. The ONLY image input is the approved CLEAN EMPTY literary room plate. It is the exact source for the entire room, close camera, furniture, materials, daylight and perspective. No character image, face reference or previous person body is supplied. Paint a complete new Uika naturally supported in this room; do not change a face on another character's body.\n\nLOCK THE SPACE: retain the full connected wooden window, lake/mountains/town, sheer curtains, left wooden writing desk/chair, shelves/books/plants/pictures, round side table with porcelain lamp/books/cup/flowers, continuous cushioned right window bench, plaid pillows, knitted throw, foreground blurred books/plant, rug and wooden floor. Keep their original positions, scale and daylight. No camera move, crop, zoom, resized person portrait, new furniture, empty gradient, white workspace, UI, floating card, speech bubble, arrows, labels or lettering.\n\nCHARACTER IDENTITY: Misumi Uika (三角初华), the original youthful BanG Dream! Ave Mujica anime high-school girl. Short LIGHT WARM BLONDE bob, chin-to-neck length, a light uneven fringe and fine longer side strands around her cheeks; subtle warm pink-beige reflected undertones, not silver-blue hair, not long hair and not an unrelated generic girl. Clear VIOLET/PURPLE irises and pupils. Fine separate hair groups, upper eyelid, lashes and iris must stay readable, including near the fringe. Do not change her eyes to amber or brown under the sun. Soft young jaw and ordinary slim youthful build, not mature fashion-model styling, not a chibi.\nHer modest casual clothes: plain white short-sleeved T-shirt, a plain soft taupe-gray long skirt, white ankle socks, complete black-and-white low canvas sneakers. No uniform borrowed from Sakiko, no stage costume, microphone, guitar, idol accessory or invented professional symbol. Keep skin, white cloth, blonde hair, gray skirt and wood as distinct materials.\n\nCHAT / LITERARY PSYCHOLOGY: she has just heard the beginning of someone's good news and wants to hear the part they have not finished saying. There is a little of her own anticipation, not a service greeting. Eyes directed toward the nearby listener in the left foreground; lips lightly parted, only a tiny change at one corner, brows softly interested. Do not give a broad ready-made smile, exaggerated blush, vacant doll gaze or worried consolation expression. She seems about to ask for that particular small continuation, without taking the story over.\n\nPOSE AND SUPPORT: sit on the front half of the RIGHT window bench, torso naturally three-quarters toward the left foreground, shoulders relaxed. One hand rests loosely on the skirt near a knee, the other palm lightly supports beside the hip on the real cushion. No held prop. Every finger has a coherent relaxed shape. Pelvis and rear thighs truly meet the cushion; skirt drapes over continuous thighs and close uncrossed knees, lower legs naturally lead to two separate socked ankles and both sneakers on the existing floor. No floating seat, disconnected legs or bench cutting through skirt.\nKeep the APPROVED CLOSE HUMAN SCALE: head top approximately y=110..135, supported hip at the actual bench around y=550..585, shoe soles approximately y=870..900; complete person roughly x=875..1390 within the 1536x1024 room. Do not lean her head toward the camera, make a giant face or push shoes to the foreground edge. Show complete head/hair, both hands, skirt hem, ankles and both whole shoes, with real local contact shadows.\n\nIMAGE QUALITY: delicate youthful Japanese anime character drawing integrated into this exact rich literary interior, fine separate hair strands, clear violet iris/eyelid structure, calm warm-cool skin shading and tactile fabric. Golden window light grazes blonde hair without bleaching it into the white shirt; preserve violet eyes. A quiet bright wish to keep listening is the emotional center, not stage glamour or a stock companion grin. No added objects, symbols, logos, watermark, split views, borders or collage. Output only the one complete same-size room mother.",
+  "submittedPromptSha256NoTrailingNewline": "365d544c2ccbacbe0b3ed062ec6ff1f02af9ea7dc6db66570fd88e7421c93dd3",
+  "promptFileSha256": "365d544c2ccbacbe0b3ed062ec6ff1f02af9ea7dc6db66570fd88e7421c93dd3",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "actualMode": "RGB",
+  "producerViewed": true,
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "registered": false,
+  "reviewBoundary": "One first-role chat mother only. No matrix expansion, layer or runtime acceptance.",
+  "producerObservations": [
+    "Complete fresh output personally viewed before opening Umiri generation. Short warm-blonde bob, purple irises and distinct hair/eyelid/iris structure are visible; no Sakiko hair/uniform transfer.",
+    "White tee, plain taupe-gray long skirt, white socks and both complete canvas sneakers are visible. Hip and thighs are on cushion, one palm supported beside hip, other relaxed on lap; shoes meet floor.",
+    "Room camera/furniture are retained. Head top visually around y120, soles around y875; no obvious enlarged portrait head. She inclines slightly toward listener and sits a little left of the Sakiko reading placement, so exact cross-role framing remains for primary comparison.",
+    "Lips slightly parted and eyes engaged, brighter/curious listening rather than stage performance. No held instrument, board, floating UI or added furniture observed."
+  ],
+  "producerConcerns": [
+    "Primary should compare exact cross-role placement/scale and whether the forward listening inclination remains restrained enough."
+  ],
+  "remaining": [
+    "Root identity, emotion, framing and physical support review",
+    "No layer extraction or runtime acceptance"
+  ],
+  "inputApprovalSource": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json",
+    "sha256": "5425e475efa8264874f2f3b083b8737b4b1f9d35399e9b2c3d86dc561a36cddb"
+  },
+  "promptFileMatchesToolInput": true,
+  "primaryApprovalScope": "mother_only",
+  "layersApproved": false,
+  "primaryReview": {
+    "reviewer": "root",
+    "motherAccepted": true,
+    "scope": "exact mother PNG only",
+    "outputSha256": "df94d1a87f41775108d5b319a6bcc8ec4372283b770ef05ae764adedf2500c5d",
+    "personallyObservedByPrimary": [
+      "clear blonde hair and purple eyes",
+      "light responsive chat expression",
+      "supporting palm, long skirt, canvas shoes and seat support",
+      "room composition and close character scale"
+    ],
+    "layerAccepted": false,
+    "runtimeAccepted": false
+  }
+}

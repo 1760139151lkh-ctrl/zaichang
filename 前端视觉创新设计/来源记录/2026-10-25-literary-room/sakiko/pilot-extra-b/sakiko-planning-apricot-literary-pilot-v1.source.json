@@ -1,0 +1,58 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "single-character-cross-activity-pilot",
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "activity": "planning",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "generationMode": "sole-approved-empty-plate-input",
+  "input": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "role": "sole actual image input, approved clean plate"
+  },
+  "referenceBoundary": "Human-selected reading mother was personally viewed for camera/scale only and was not passed as an image input. No old room4 or person image input.",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-9e5c3518-6746-4dc5-a9b6-310b825de1b5.png",
+  "output": "sakiko-planning-apricot-literary-pilot-v1.png",
+  "outputSha256": "d3439fe3a604aaa3291889291b3dc7ff93d22297b765af98c21f00bea78269e7",
+  "promptFile": "sakiko-planning-apricot-literary-pilot-v1.prompt.txt",
+  "prompt": "Use case: stylized-concept, same-room character mother.\nCreate ONE complete 1536 x 1024 warm-apricot literary room illustration. The ONLY image input is the approved CLEAN EMPTY literary room plate. Use it as the exact full-canvas room, camera, furniture, material and daylight source. No person-reference image is supplied. Do not copy an older room, reframe, crop, zoom, move the camera, move furniture or simplify the lived-in left side.\n\nLOCK THE ROOM: preserve the close window-side camera, the large connected wooden window and lake/mountain town, sheer curtains, left writing desk and wooden chair, shelves/books/plants/pictures, the round side table with porcelain lamp/books/cup/flowers, the continuous upholstered right window bench, plaid pillows, knitted throw, foreground books/plant blur and rug/floor. Keep all these at their exact existing positions, scale and light. Add only the girl with a small planning notebook. No painted UI, gradient workspace, floating cards, dashboard, board, speech bubble or readable text.\n\nSUBJECT: Toyokawa Sakiko (丰川祥子), original youthful BanG Dream! anime high-school identity. Long pale silver-blue hair with fine distinct flowing strands and dark navy ribbon ties; clear golden-amber irises with visible pupils, eyelids and delicate lashes. Do not merge fringe, eyelid and iris into a dark patch. Youthful ordinary build and face, not a mature fashion model, not a chibi. Navy long-sleeved school uniform with clean white collar and a restrained gray ribbon, navy checked pleated skirt, dark knee socks and complete brown loafers. Preserve distinct hair, skin, cloth, leather and wood colors under the warm light.\n\nACTIVITY planning: she is quietly making a little breathing room among a tangled sequence of things, without deciding for the other person. She has her own careful judgment and leaves a place that can still be changed. Show a thoughtful, lightly concentrated expression: lips resting naturally, a small easing of the brow, no generic welcoming smile, no exaggerated worry. Her golden eyes look down toward a SMALL stiff notebook resting low across her lap, then seem ready to listen to another preference. The notebook is a modest real object with a few natural unreadable marks and useful empty space, not a glowing planner UI. One hand steadies a page corner; the other holds a simple pencil resting close to that page. Fingers have real grip and separation.\n\nPHYSICAL POSE AND SCALE: sit naturally on the front half of the RIGHT window bench, at the close human scale of a resident in this room. Approximately head top y=110..135, seated hips at the real cushion near y=550..585, shoe soles near y=870..900. Complete silhouette roughly x=875..1390; do not lean the head toward the camera or enlarge it. Pelvis and rear thighs are truly supported by the seat. Modest skirt drapes over two continuous thighs and close uncrossed knees; lower legs descend naturally to two distinct ankles and both loafers resting on the actual floor. Elbows stay near her body, notebook weight is supported by lap and hand, no floating forearm or impossible reach to the distant side table. Show entire head, hair ends, both hands, skirt hem and both complete shoes, with natural local contact shadows and no body/furniture penetration.\n\nLITERARY IMAGE QUALITY: intimate, quietly alive, high-detail youthful Japanese anime character linework integrated into this richly painted sunlit room. Soft apricot window light, fine hair groups, separate upper eyelid/lashes/amber iris, calm warm-cool skin shading, nuanced cloth folds. Keep the atmosphere of someone considering a shared day, not a professional manager, staged portrait, alert or theatrical gesture. No new furniture, signs, lettering, watermark, split-screen, duplicate views or borders. Output only the complete original-size same-room mother.",
+  "submittedPromptSha256NoTrailingNewline": "570f6e748883ab035ef9c264800314af37a74f53d6cf54f28f64207931448b07",
+  "promptFileSha256": "570f6e748883ab035ef9c264800314af37a74f53d6cf54f28f64207931448b07",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "actualMode": "RGB",
+  "producerViewed": true,
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "reviewBoundary": "One generated mother; no layer extraction or runtime claim.",
+  "producerObservations": [
+    "Personally viewed complete fresh output before starting attention. Room camera/furniture and close character scale remain consistent with supplied empty plate direction.",
+    "Head top is approximately y125 and both complete loafers reach about y885; no forward head enlargement or edge crop observed.",
+    "Small notebook and pencil replace the reading-book gesture; notebook is supported at lap by hand and thighs, both hands visible. Close uncrossed knees, continuous lower legs, socked ankles and floor-supported shoes are visible.",
+    "Expression is concentrated and restrained rather than a generic smile. Silver-blue hair groups, upper eyelids and golden irises are separately legible.",
+    "No floating UI, added furniture or large professional planning symbol observed. Notebook contains decorative unreadable marks; it is not actual user schedule data."
+  ],
+  "remaining": [
+    "Root inspect emotional planning nuance, identity and exact support geometry",
+    "No layer or runtime acceptance"
+  ],
+  "numberOfImageInputs": 1,
+  "inputApprovalSource": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json",
+    "sha256": "5425e475efa8264874f2f3b083b8737b4b1f9d35399e9b2c3d86dc561a36cddb"
+  },
+  "selectedReadingReference": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+    "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+    "role": "Personally viewed only for close camera/scale; NOT an actual tool image input."
+  },
+  "promptFileMatchesToolInput": true,
+  "producerConcerns": [
+    "Static planning image supports a concentrated pause, but subtle psychological fit and exact cross-activity scale remain for primary review."
+  ]
+}

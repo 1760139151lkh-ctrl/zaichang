@@ -1,0 +1,40 @@
+{
+  "key": "anon/attention/mist",
+  "tool": "built-in image_gen.imagegen",
+  "createdAtUtc": "2026-10-25T02:43:53.135Z",
+  "stage": "complete whole-scene lighting edit",
+  "file": "anon-attention-mist-mother-v1.png",
+  "sha256": "3873bf3f80cdd279a7065a9efcc1c609ab4ae8c2aa85efdae40e4c13d8022ea6",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "promptSha256": "709f31978fab29ae5ba67f287d75ee560d48bbc1039a0cf8daa64b13a7e38a37",
+  "originalOutputBasename": "exec-f8dfa308-393f-45a2-ba82-54704f81bc9f.png",
+  "originalOutputEvent": {
+    "sessionId": "01a170ed-b14d-7321-9cf7-3bd222b6ff42",
+    "executionId": "f8dfa308-393f-45a2-ba82-54704f81bc9f",
+    "tool": "image_gen.imagegen"
+  },
+  "prompt": "anon-attention-mist-mother-v1.prompt.txt",
+  "inputs": [
+    {
+      "file": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-attention-apricot-mother-candidate-v1.png",
+      "role": "approved apricot complete mother; edit target",
+      "sha256": "f695acaaabfb0395d5b0f33a649fa9bb2d3fefeac454d15d1146d31066550b3d"
+    },
+    {
+      "file": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-mist-candidate.png",
+      "role": "clean-room light reference only",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
+    }
+  ],
+  "officialIdentitySource": "https://anime.bang-dream.com/mygo/character/anon/",
+  "projectOriginalSituation": "Zaichang room companion introducing a newly appeared object; not a claim about original canon",
+  "designerPersonallyViewed": true,
+  "designerObservation": "Personally viewed complete generated original. Full standing silhouette, open introducing palm and leftward gaze remain lively; rear hand preserves actual window-sill contact. Hips, knees, ankles and two complete loafers remain connected and grounded. Cooler morning window light, lake mist and soft wood bounce form one continuous scene. Lamp is off, left work area clear; no UI/text or changed furniture.",
+  "primaryMotherReview": "pending_current_root_review",
+  "approvedByPrimary": false,
+  "layers": "not_produced",
+  "runtime": "not_registered"
+}

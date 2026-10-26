@@ -24,11 +24,12 @@ export interface SourceBookmarkPreview {
   title: string;
   text: string;
   page?: number;
+  retainOriginalRequired?: boolean;
   locator?: Extract<import('./search').LocalSearchLocator, { kind: 'conversation' }>;
 }
 export const SOURCE_BOOKMARK_MIME = 'application/x-zaichang-source-bookmark';
 export const sourceBookmarkKeepSchema = z.object({ bookmark: sourceBookmarkReferenceSchema,
-  annotation: z.string().max(4000).optional() }).strict();
+  annotation: z.string().max(4000).optional(), retainOriginal: z.boolean().optional() }).strict();
 export type SourceBookmarkKeepInput = z.infer<typeof sourceBookmarkKeepSchema>;
 export function sourceBookmarkAddress(value: SourceBookmarkReference): SourceBookmarkReference {
   return value.kind === 'material' ? { kind: 'material', reference: value.reference } : value;

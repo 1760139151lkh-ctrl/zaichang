@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "characterId": "soyo",
+  "neutralTime": "night",
+  "purpose": "neutral-presence-fixed-included-layer",
+  "kind": "same-mother-clean-empty-background",
+  "createdAt": "2026-10-26T01:34:49.971384+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "exactPromptFile": "background-v1.prompt.txt",
+  "promptSha256": "bf92f5c84db03804a52090f89281884ac207159ccbd406049aa1d4e54f672ceb",
+  "requestFile": "background-v1.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/soyo-neutral-time-night-literary-v1.png",
+      "sha256": "82a918b778cbe9549572410ceba0c27af7c0e11d33f9f2ae14614a280e36d9b6",
+      "role": "sole exact root-approved full night mother"
+    }
+  ],
+  "output": {
+    "file": "background-v1.png",
+    "sha256": "4142e34426feb030bf4b471c084bb089850e4a8c28f44b01e96092781f46e90a",
+    "bytes": 2127283,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "originalBasename": "exec-3dd49912-1d50-408e-86c8-de7d0e8bbeb6.png",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteOutput": true,
+    "observations": [
+      "Girl/book/shoes removed; original opaque night curtain and receiving linen/wood/floor restored, lamp warmth retained.",
+      "Newly uncovered cushion join and source floor transition need original-coordinate composite inspection, no new weather or exterior."
+    ],
+    "eligibleAsNextStepInput": true
+  },
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "countsToward360ExactActivities": false,
+  "pngPixelEditing": false,
+  "primaryStaticLayerApproved": true,
+  "primaryAdmissionRecord": "root-primary-layer-admission-v1.json",
+  "primaryApprovalScope": "Exact static fixed included layer in this same source canvas; no runtime, motion or activity360 acceptance"
+}

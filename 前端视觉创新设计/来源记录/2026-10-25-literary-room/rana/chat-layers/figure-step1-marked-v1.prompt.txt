@@ -1,0 +1,9 @@
+Use case: precise-object-edit.
+Asset type: exact source-space COMPLETE FOREGROUND selection markup, F step 1 of 2.
+The ONLY input is the approved original 1536 x 1024 Rana literary CHAT mother in the warm clear-day room. Do not redraw her curious face or her room; this is selection markup only.
+
+Paint the ENTIRE visible Rana SOLID PURE WHITE directly over her ORIGINAL pixels, preserving her exact scale, pose and location: complete short bob, every pale/lavender hair wisp, whole face/eyes/neck, black loose short-sleeve outer shirt including every small distressed hem tip, both pale long under-sleeves, both full hands/fingers including the supporting palm extended on the cushion to the RIGHT, all visible white shorts and their hem folds, both complete thighs/knees/lower legs, and BOTH complete BLACK LACE-UP BOOTS. Include the tongue, every lace/eyelet outline, ankle shafts, toe caps, thick dark tread/outsole rims and heel blocks. Do not mistake black shirt or very dark rubber boot soles for shadow.
+The entire selected interior is flat pure white with no eye/hair/cloth/lace drawing left inside. Preserve the exact fine outer perimeter and real spaces between legs, hand/fingers or hair; do not erode thin garment or sole edges. Do not invent hidden anatomy.
+
+Keep ALL non-person surfaces in ORIGINAL room RGB: cushion, pillows, throw, bench, side table/lamp/cup, desk/chair, rug, wood floor, window and scenery. Immediate palm/seat/boot receiver shadows remain original for a separate S selection. No broad white seat/floor patches.
+Keep exactly x0,y0,1536x1024 and the original full framing. No crop, zoom, shift, pose change, new room, new props, relighting, labels or text. Output one opaque same-size original room with only the complete visible person painted pure white in place.

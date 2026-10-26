@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "id": "rana-chat-apricot-native-cast-calibration-v2",
+  "source": "Root directly inspected formal Tab.screenshot clip of v3 and found bottom-to-y606 polygon crossed horizontal cushion front around y596..598, exposing a brown polygon on the vertical wooden front. Root supplied a narrowed same-source candidate; no new bitmap production.",
+  "sourceMother": {
+    "file": "../../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png",
+    "sha256": "26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812"
+  },
+  "imageGenMatte": {
+    "file": "rana-chat-apricot-contact-shadow-mask-v3.png",
+    "sha256": "5c0963db7cd7c2c393c07fd69d0de7b06cc361df1afa7e6dd154d3f600e166ae",
+    "provenance": "Built-in ImageGen two-step broad-cast-white in original room, then background black. Original raster unchanged."
+  },
+  "nativeGeometry": {
+    "provenance": "Explicit primary-agent text coordinates, implemented as native SVG polygon; not ImageGen output and not a raster asset.",
+    "coordinateSpace": "original mother pixels",
+    "polygonPixels": [
+      [
+        1255,
+        573
+      ],
+      [
+        1327,
+        573
+      ],
+      [
+        1338,
+        576
+      ],
+      [
+        1341,
+        579
+      ],
+      [
+        1320,
+        584
+      ],
+      [
+        1308,
+        589
+      ],
+      [
+        1298,
+        594
+      ],
+      [
+        1283,
+        596
+      ],
+      [
+        1264,
+        596
+      ],
+      [
+        1261,
+        591
+      ],
+      [
+        1258,
+        584
+      ],
+      [
+        1254,
+        579
+      ]
+    ],
+    "operation": "Union unchanged ImageGen v3 luminance matte with narrowed source-coordinate polygon; soft variant Gaussian1.2 is contained within that polygon; multiply by inverse independent figure luminance mask.",
+    "variants": [
+      {
+        "id": "hard",
+        "featherStdDeviationSourcePixels": 0
+      },
+      {
+        "id": "soft",
+        "featherStdDeviationSourcePixels": 1.2,
+        "featherContainment": "Native SVG clipPath uses the same narrowed polygon so Gaussian feather cannot expose extra source RGB outside the calibrated horizontal-cushion footprint."
+      }
+    ],
+    "rgb": "Same original complete mother RGB through calibrated mask, no scale/color/position change or separate image patch.",
+    "rasterWritten": false
+  },
+  "coupling": {
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "lifecycle": "The entire fixed pose layer bundle is removed together on hide/pose change. Geometric cast calibration may not be moved independently or reused across a pose."
+  },
+  "observationPage": "rana-chat-apricot-layers-v4.html",
+  "review": {
+    "primaryLayerApproved": true,
+    "primaryVariantSelected": "soft",
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "approvalRecord": "rana-chat-apricot-primary-layer-approval-v1.json"
+  },
+  "supersedes": "rana-chat-apricot-native-cast-calibration-v1.json",
+  "previousPrimaryFinding": "v3 restored white triangle but polygon below y596..598 crossed onto front wood, showing a brown polygon; hard and .5 feather both not admitted."
+}

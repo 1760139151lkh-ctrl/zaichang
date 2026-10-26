@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "character": "sakiko",
+  "activity": "play",
+  "palette": "apricot",
+  "sceneFamily": "room4",
+  "motherVersion": "scale-v5",
+  "role": "matching-background",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-play-apricot-scale-v5-background-v1-prompt.txt",
+  "promptFileSha256": "cf4d9745a35ba0f7f286c60134a97c03960853a0f6d6ebc84b704f1faaa2863b",
+  "submittedPrompt": "Use case: precise-object-edit. Production SAME-CANVAS BACKGROUND extraction.\nInput image 1 is the approved complete Sakiko playful paper-bird mother V5, exactly 1536 x 1024. Return its matching clean empty room on that identical full canvas, camera and scale. This is source-layer separation, not a new room illustration.\nRemove only the seated girl, all her hair/ribbons/clothing/limbs/two shoes, the small folded paper bird held in her hand, and the contact/cast shadows specifically created by her and the held bird. Reconstruct the originally hidden portions of the right bench cushion, pillows, window view and floor from the immediate same-image surrounding surfaces. Keep the existing blue book, mug and lamp on the desk: those belong to the room.\nPreserve all already visible room surfaces and their original positions as closely as possible: complete window frame and curtains, outside lake/town/foliage, rear left writing table/chair/shelves/plants, central desk/upholstered chair, right window bench/cushions/blanket, wall/floor/rug edges and original apricot daylight/dappled room shadows. No moved/resized furniture, changed lens, recolouring, new props or new light. No girl/ghost/hair/shoe residue, transparency, text, UI, grid, watermark, crop, zoom or recentering. One clean background registered to the V5 mother at x=0,y=0, full 1536 x 1024.",
+  "inputs": [
+    {
+      "file": "sakiko-play-apricot-scale-v5-mother.png",
+      "sha256": "876d39377ec165cd6fcbab19c646a7d63d97c2f85b5dc354711d0cb961a22d87",
+      "role": "sole approved V5 complete mother; no V4 reference"
+    }
+  ],
+  "transparentBackground": false,
+  "output": {
+    "file": "sakiko-play-apricot-scale-v5-background-v1.png",
+    "originalFile": "C:\\Users\\17601\\.codex\\generated_images\\01a16fb4-beb3-75e2-8677-73edb8072aa0\\exec-713de84d-950a-4ee6-9f5e-a6210d79879f.png",
+    "sourceOutput": "generated_images/01a16fb4-beb3-75e2-8677-73edb8072aa0/exec-713de84d-950a-4ee6-9f5e-a6210d79879f.png",
+    "sha256": "8219bb91988495693880f7cea53ff65a6c40c36813fc68d1f138f3e5df418ed1",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "status": "generated-awaiting-primary-layer-review",
+  "motherPrimaryApproved": true,
+  "primaryApproved": false,
+  "layersAccepted": false,
+  "runtimeAccepted": false
+}

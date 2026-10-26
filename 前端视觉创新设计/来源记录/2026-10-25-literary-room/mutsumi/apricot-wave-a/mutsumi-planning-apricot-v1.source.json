@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "character-activity-mother-candidate",
+  "character": "mutsumi",
+  "activity": "planning",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "wave": "apricot-wave-a",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-499764c4-4bbc-4901-b62a-e0b9cd4df5f9.png",
+  "executionId": "exec-499764c4-4bbc-4901-b62a-e0b9cd4df5f9",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "primary approved clean empty environment edit target; room/camera/furniture/light invariant"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.png",
+      "sha256": "9d529789ece89f44b166f39dd259136257598cfd546009e49fae74140cbf8b6d",
+      "role": "root-approved same-character chat mother for correct identity/outfit/apparent scale only; not pose input"
+    }
+  ],
+  "brief": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/mutsumi-prompt-plan.json",
+    "sha256": "66ade9700cb7bb993b43bd7e247b678878b79ad71237b0b5dcd915a43a3be2ca",
+    "key": "mutsumi/planning/apricot",
+    "release": "root released only reading/planning/rest apricot for Mutsumi/Nyamu after selected-room Sakiko cross-scene and each own chat mother acceptance; no other cells released",
+    "transformation": "Own literary narrative/core/lighting and identity retained; correct same-character chat mother added as identity-only input; activity support and fixed room constraints made explicit"
+  },
+  "fictionalCompanionScene": true,
+  "privateUserDataUsed": false,
+  "promptFile": "mutsumi-planning-apricot-v1.prompt.txt",
+  "promptFileSha256": "5bac05aebbeb8776a50ed1a0701b843ca36dc9bbd75db4467716b1343be1ca6f",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; submitted text exact",
+  "submittedPromptSha256": "23a48d2e433c6dc47fdd8a42134d3e78c340f90c4732abadb51884adb61602ec",
+  "output": {
+    "file": "mutsumi-planning-apricot-v1.png",
+    "sha256": "67190814223746eb9d9039f38357ac1005d7d8c1066313fc33c84b815c7eea67",
+    "bytes": 2415970,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved full original before next generation. Same close clear-day room/window/furniture and character identity remain visually coherent. She looks back toward the interlocutor while comparing two small papers, with a thin notebook resting on the lap; papers are held higher than the planned lap-level arrangement, but both real hands visibly grip their edges and no floating paper/extra limb is observed. The gap between choices and her attentive, restrained expression distinguish planning from reading. Full head and shoes, cushion support, parallel uncrossed knees/ankles, clear golden-brown irises/eyelids versus mint fringe and shared warm light read coherently in full view. Producer observation predates root mother review; subsequent exact-SHA mother-only acceptance is recorded in primaryApprovalRecord. Layers/runtime remain unaccepted."
+  },
+  "primaryApproved": true,
+  "primaryApprovalRecord": "mutsumi-planning-apricot-v1.primary-approval.json",
+  "primaryApprovalScope": "Root personally viewed and approved exact-SHA complete static mother only; layer and runtime acceptance remain false.",
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "Root-approved exact-SHA complete static mother only; layer, matrix assembly, motion and runtime acceptance remain false."
+}

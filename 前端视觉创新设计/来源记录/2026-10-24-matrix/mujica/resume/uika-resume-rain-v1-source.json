@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "character": "uika",
+  "activity": "resume",
+  "sceneCategory": "S9_RESUME",
+  "palette": "rain",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "uika-resume-rain-v1-prompt.txt",
+  "promptFileSha256": "1498b31469235a9428ebf285318c07bfa2a4c4681836ca2e523f896c16ea2eaf",
+  "submittedPrompt": "Exact UTF-8 promptFile contents with trailing newline trimmed.",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mujica/resume/uika-resume-apricot-mother-candidate-v1.png",
+      "role": "primary-personally-reviewed approved apricot mother; exact figure/pose/support edit target",
+      "sha256": "29211468c28e8dd5cb20c50b62851d7b32fa9cd8639dbed4f419335e733c465a"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-rain-candidate-v2.png",
+      "role": "clean empty theme room; whole-scene light/weather reference only",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c"
+    }
+  ],
+  "output": {
+    "file": "uika-resume-rain-mother-candidate-v1.png",
+    "toolOriginalPath": "$CODEX_HOME/generated_images/01a1702e-1e74-7ac0-9f86-f1d6b1ffcf30/exec-62bbd0b4-033d-4bf3-b29d-3be440dec0e6.png",
+    "sha256": "68544390e8454af878911e9a9656c182efbe0403284ff1aee23328bc8c504953",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "bytes": 2126924
+  },
+  "review": {
+    "producerPersonallyViewed": true,
+    "producerObservation": "Full image personally viewed. Original modest smile, shoulder opening, half-closed hand/lap-supported book, long skirt and two full sneakers retained. Rain-blue window, distant lights, amber local lamp and floor reflection relight person and furniture together. No old apricot bright sun-grid remains; no added sad expression or definite support drift.",
+    "approvedByPrimary": false,
+    "layers": "not extracted",
+    "runtimeAccepted": false
+  },
+  "sourceSupportReference": "uika-resume-apricot-v1-source.json",
+  "boundary": "Approved apricot INPUT is not approval of this themed OUTPUT. No sourceSupportReference is claimed as new runtime calibration.",
+  "matrixCell": {
+    "character": "uika",
+    "activity": "resume",
+    "theme": "rain"
+  },
+  "identityBasis": {
+    "officialProfile": "https://anime.bang-dream.com/avemujica/character/uika/",
+    "textVerifiedOn": "2026-10-24",
+    "boundary": "Official identity/background; university-companion resume moment is project-original. This relighting uses only approved generated character mother and clean generated theme room, no third-party character pixels."
+  }
+}

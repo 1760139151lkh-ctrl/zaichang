@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "kind": "scene-proposal-only-not-registration",
+  "id": "umiri-chat-apricot-literary-included-v1",
+  "sceneFamily": "literary-room-v1",
+  "character": "umiri",
+  "activity": "chat",
+  "palette": "apricot",
+  "light": "morning",
+  "environmentVariant": "clear-day",
+  "width": 1536,
+  "height": 1024,
+  "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v2.png",
+  "background": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+  "mask": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/figure-mask-v1.png",
+  "maskMode": "luminance",
+  "contactMask": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/contact-mask-v1.png",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "jointSourceAssembly": {
+    "record": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/chat-layers-included-bundle-v1.json",
+    "formula": "MAX(L(F),L(S)); original mother RGB drawn once",
+    "nativeSvg": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/joint-source-v1.svg",
+    "requiresJointCoverageSupport": true,
+    "notStandaloneFigureRgba": true
+  },
+  "seat": [
+    0.7259114583333334,
+    0.556640625
+  ],
+  "ground": [
+    0.6302083333333334,
+    0.88671875
+  ],
+  "bodyBounds": [
+    0.5481770833333334,
+    0.126953125,
+    0.8268229166666666,
+    0.8916015625
+  ],
+  "support": "window-seat",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "proposalOnly": true,
+  "registered": false,
+  "review": {
+    "approvedByPrimary": false,
+    "runtimeAccepted": false,
+    "stage": "fixed-source-union-proposal",
+    "sourceBundleRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/chat-layers-included-bundle-v1.json"
+  },
+  "contractBoundary": "A proposal for root/Scene owner, not a currently enabled registry file. F alone is insufficient; required MAX coverage and full joint show/hide semantics must be honored."
+}

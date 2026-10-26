@@ -1,0 +1,10 @@
+Use case: precise-object-edit.
+Asset type: a local eye-white underlayer for the SAME approved READING character rig, original full 1536×1024 canvas.
+
+Image 1 is the approved reading scene. Remove ONLY the golden iris, dark pupil and their tiny highlights from BOTH of Sakiko's eyes. Fill only the exposed eyeball areas with matching softly lit ivory eye white. Preserve the original down-left head angle, eyelid/lash lines, eye corners, eyebrows, skin, face, expression, bangs and hair at their exact original coordinates. Do not open, enlarge, close, move or redraw the eye shapes.
+
+The viewer-LEFT eye opening is near x=1351–1367, y=381–396 with iris center about (1359,388). The viewer-RIGHT eye opening is near x=1375–1396, y=376–391 with iris center about (1385,383). These are the original small eyes of the character at the far right. Keep all original upper eyelids and front hair in front; only the exposed colored iris/pupil is removed so original iris pixels can be controlled later inside an eyelid mask.
+
+Everything else is unchanged: both original arms/hands and their book contact, open book, torso, reclined pillow/seat support, crossed legs, feet, room, light, camera and exact canvas. No new face, no smoothed facial oval, no glow, no added pupils, no repositioning, no text.
+
+Output one normal opaque PNG. The blank eye whites are intentional local production underlayers and must not be displayed as a final face or used as an identity reference.

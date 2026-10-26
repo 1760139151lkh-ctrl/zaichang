@@ -1,0 +1,282 @@
+{
+  "schemaVersion": 1,
+  "kind": "same-mother-literary-reading-layer-candidate",
+  "key": "sakiko/reading/apricot",
+  "primary": false,
+  "runtime": false,
+  "status": "four_call_candidate_visually_inspected_not_admitted",
+  "callLimit": 4,
+  "callsUsed": 4,
+  "furtherImageGenCalls": 0,
+  "inFlight": false,
+  "mother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+    "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "approval": "Root approved mother; no layer/runtime admission implied."
+  },
+  "background": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "personallyViewed": true
+  },
+  "figure": {
+    "mask": "figure-mask-v1.png",
+    "maskMode": "luminance",
+    "maskSha256": "d72a00b683ceb61cad80f49278618972fea309df051672c843d8e04399b44dfc",
+    "maskCanvas": [
+      1536,
+      1024
+    ],
+    "sourceRgb": "approved mother only",
+    "nativeSvgSource": "figure-source-v1.svg",
+    "nearWhiteGreaterThan200BoundsExclusive": [
+      872,
+      106,
+      1351,
+      898
+    ],
+    "note": "Bounds are read-only diagnostic observation, not threshold remapping; native SVG uses unmodified generated mask.",
+    "inspection": "Main subject/book visible, but hem/sole contour ownership relative to the independent shadow remains unresolved; candidate only."
+  },
+  "shadow": {
+    "mask": "shadow-mask-v1.png",
+    "maskMode": "luminance",
+    "maskSha256": "971c1c6fce428abfb6457e3a20b58655ea32b8bda10b7af2761500afdd989992",
+    "maskCanvas": [
+      1536,
+      1024
+    ],
+    "sourceRgb": "approved mother only",
+    "nativeSvgSource": "shadow-source-v1.svg",
+    "subtract": "black rectangle drawn through the original generated figure luminance mask inside the shadow luminance mask; effective selection S × (1 − F)",
+    "nearWhiteGreaterThan200BoundsExclusive": [
+      873,
+      548,
+      1341,
+      900
+    ],
+    "uniformColorPaint": false,
+    "syntheticEllipse": false,
+    "inspection": "Not a clean independent room shadow: residual original foreground hem and sole/heel edges are visible after figure subtraction."
+  },
+  "sameCanvas": {
+    "width": 1536,
+    "height": 1024,
+    "transform": {
+      "x": 0,
+      "y": 0,
+      "scale": 1
+    },
+    "layerOrder": [
+      "matching clear background",
+      "unchanged mother RGB through independent shadow mask with figure selection removed",
+      "unchanged mother RGB through figure-and-held-book mask"
+    ],
+    "blendMode": "normal",
+    "nativeSvgMustBeInlined": true,
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "generationRecords": [
+    "figure-step1-source-v1.json",
+    "figure-step2-source-v1.json",
+    "shadow-step1-source-v1.json",
+    "shadow-step2-source-v1.json"
+  ],
+  "calls": [
+    {
+      "number": 1,
+      "role": "figure-step1-marked",
+      "executionId": "exec-f2d8d74d-0401-4024-882d-df32e656d2ca",
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-step1-marked-v1.png",
+      "sha256": "04e9b6c3e3a6b4dfd0242e31c5ce7d564e7700b548a8116f44d8a71782698433",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17125-a57d-70f3-9b8f-9ecfd8cef13e\\exec-f2d8d74d-0401-4024-882d-df32e656d2ca.png"
+    },
+    {
+      "number": 2,
+      "role": "figure-step2-luminance-mask",
+      "executionId": "exec-046b8e82-26b3-4236-b25f-979ed9628935",
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-mask-v1.png",
+      "sha256": "d72a00b683ceb61cad80f49278618972fea309df051672c843d8e04399b44dfc",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17125-a57d-70f3-9b8f-9ecfd8cef13e\\exec-046b8e82-26b3-4236-b25f-979ed9628935.png"
+    },
+    {
+      "number": 3,
+      "role": "shadow-step1-marked",
+      "executionId": "exec-c91dfc72-8f7a-40ae-865d-907c59565252",
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/shadow-step1-marked-v1.png",
+      "sha256": "648b38d8ec733b9e21be55cb35b0f2e81fd152e8803a866adfbbb7a41282c448",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17125-a57d-70f3-9b8f-9ecfd8cef13e\\exec-c91dfc72-8f7a-40ae-865d-907c59565252.png"
+    },
+    {
+      "number": 4,
+      "role": "shadow-step2-luminance-mask",
+      "executionId": "exec-d6cd85ac-fd9e-424c-9a8e-6079f7e6de84",
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/shadow-mask-v1.png",
+      "sha256": "971c1c6fce428abfb6457e3a20b58655ea32b8bda10b7af2761500afdd989992",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17125-a57d-70f3-9b8f-9ecfd8cef13e\\exec-d6cd85ac-fd9e-424c-9a8e-6079f7e6de84.png"
+    }
+  ],
+  "geometry": {
+    "status": "candidate_not_primary_measured",
+    "bodyBoundsCandidate": [
+      0.5677083333333334,
+      0.103515625,
+      0.8795572916666666,
+      0.876953125
+    ],
+    "seatSupport": "selected original linen window bench; to be checked against original hip/skirt contact",
+    "handsSupport": "Both original hands hold the open book; no fabricated palm-to-seat contact asserted.",
+    "detailRois": [
+      {
+        "id": "face",
+        "title": "刘海、眼睛与发丝 · 原像素",
+        "rect": [
+          1000,
+          100,
+          355,
+          249
+        ]
+      },
+      {
+        "id": "book",
+        "title": "双掌与完整手持书 · 原像素",
+        "rect": [
+          972,
+          355,
+          245,
+          155
+        ]
+      },
+      {
+        "id": "seat",
+        "title": "髋、裙摆与软垫支撑 · 原像素",
+        "rect": [
+          932,
+          490,
+          390,
+          150
+        ]
+      },
+      {
+        "id": "feet",
+        "title": "双鞋、鞋底与地面 · 原像素",
+        "rect": [
+          846,
+          796,
+          231,
+          128
+        ]
+      }
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "visualInspection": {
+    "status": "current_static_browser_inspection_complete_with_explicit_layer_ownership_issues",
+    "page": "reading-layers-observe-v1.html",
+    "pageUrl": "http://127.0.0.1:5188/来源记录/2026-10-25-literary-room/sakiko/reading-layers/reading-layers-observe-v1.html",
+    "statesViewed": [
+      "full approved mother and matching empty background",
+      "full original versus background+source-shadow+source-figure recomposition",
+      "original RGB figure/book on light and dark surfaces, upper and lower halves at source pixel scale",
+      "source-pixel face/hair/eyes comparison",
+      "source-pixel both palms and entire open held book",
+      "source-pixel hip/skirt/cushion support with no-shadow and shadow variants",
+      "source-pixel both full socks/loafers and floor contact",
+      "raw shadow mask and effective original-RGB shadow after figure subtraction on checker"
+    ],
+    "observations": [
+      "The main face, long hair, ribbons, both hands, complete held open book, skirt, legs, socks and both loafers remain visible from unchanged original mother RGB.",
+      "The full composition and hip/sole samples with the added source shadow look closer to the mother's local darkness than background+figure alone; this does not establish clean layer ownership.",
+      "At artificial dark background the immutable source retains thin warm/light edge colors, particularly fine hair loops.",
+      "On checker, the effective independent shadow visibly contains a strip of original plaid skirt hem at the seat. The generated figure/white-shadow contours are not fully consistent there.",
+      "On checker, the effective floor-shadow selection also exposes portions of the original sole/heel edge. It is not established as an independent floor-only shadow."
+    ],
+    "specificIssues": [
+      {
+        "id": "seat-shadow-contains-foreground-cloth",
+        "status": "unresolved_no_further_calls_under_task_boundary",
+        "approximateSourcePixelRegion": [
+          1068,
+          545,
+          280,
+          62
+        ],
+        "observed": "Plaid skirt pixels remain visible in the effective source shadow after nominal S × (1 − F) subtraction; the figure silhouette does not fully own that original edge and/or the shadow selection includes foreground.",
+        "evidenceAnchor": "#shadow",
+        "secondaryAnchor": "#seat",
+        "acceptanceImplication": "Do not admit this as a clean independent room-shadow layer merely because the final composite resembles the mother."
+      },
+      {
+        "id": "floor-shadow-contains-sole-edge",
+        "status": "unresolved_no_further_calls_under_task_boundary",
+        "approximateSourcePixelRegion": [
+          867,
+          850,
+          172,
+          54
+        ],
+        "observed": "Source sole/heel pixels remain in the effective shadow fringe after figure subtraction, indicating imperfect source contour ownership.",
+        "evidenceAnchor": "#shadow",
+        "secondaryAnchor": "#feet",
+        "acceptanceImplication": "Whole figure visibility and grounded appearance are not proof that the separate shadow is clean."
+      }
+    ],
+    "at": "2026-10-25 09:02:05 UTC",
+    "browser": "connected Chrome extension through cua_repl; no 9222/9223 use"
+  },
+  "displayRequirements": {
+    "showFigure": true,
+    "motherReady": true,
+    "failedMother": false,
+    "failedLayer": false,
+    "character": "sakiko",
+    "activity": "reading",
+    "palette": "apricot",
+    "motherSha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+    "removeOn": [
+      "figure hidden",
+      "mother/source mismatch",
+      "activity/palette/character change",
+      "mother or required layer failure"
+    ]
+  },
+  "scopeBoundary": {
+    "pngEdited": false,
+    "figureRgbGenerated": false,
+    "newBackgroundGenerated": false,
+    "srcEdited": false,
+    "runtimeRegistered": false,
+    "newTests": false,
+    "childrenSpawned": false,
+    "controls9222Or9223Used": false
+  },
+  "limitations": [
+    "Four-call boundary reached; no further generation, mask correction, source-space geometry patch or adaptive color-difference algorithm added.",
+    "Technical candidate display is static source selection, not tested product runtime or motion.",
+    "Matching clear background is a generated empty plate and may differ from the mother behind/around the figure; actual comparison is required."
+  ],
+  "review": {
+    "producerRecommendation": "hold_layer_admission_and_show_original_rgb_candidate_and_explicit_issues_to_root",
+    "primaryLayerApproved": false,
+    "runtimeAccepted": false,
+    "callBoundaryReached": true,
+    "furtherGenerationPerformed": false
+  },
+  "memoryHandling": {
+    "fullImageGenerationResultsReleasedFromOrchestrationStore": true,
+    "persistentOutputs": "All four PNGs in this directory; only small source/path/SHA metadata retained.",
+    "noSessionReplacement": true
+  }
+}

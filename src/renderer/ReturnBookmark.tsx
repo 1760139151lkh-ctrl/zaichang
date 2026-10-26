@@ -32,7 +32,7 @@ export function ReturnBookmark({ point, onDismiss, disabled = false }: {
       const ticket = ++request.current, pointId = point.id;
       setOpening(true); setError('');
       const current = () => ticket === request.current && activePoint.current === pointId;
-      void Promise.resolve().then(point.onResume).catch(problem => { if (current()) setError(uiError(problem) || '这次没打开，再试一次。'); })
+      void Promise.resolve().then(() => { if (current()) return point.onResume(); }).catch(problem => { if (current()) setError(uiError(problem) || '这次没打开，再试一次。'); })
         .finally(() => { if (current()) setOpening(false); });
     }}>接着这里<ArrowUpRight size={14} aria-hidden="true" /></button>
     <button type="button" className="return-bookmark-dismiss" aria-label="先收起书签" onClick={() => { request.current++; setDismissed(point.id); onDismiss?.(); }}><X size={14} /></button>

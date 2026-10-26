@@ -1,0 +1,400 @@
+{
+  "schemaVersion": 1,
+  "kind": "existing-chat-layers-admission-candidate",
+  "key": "taki/chat/apricot",
+  "primary": false,
+  "runtime": false,
+  "sourceScene": {
+    "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/taki-chat-apricot.scene.json",
+    "sha256": "1a8a93365a6a924c25eb9416727bb3d0e3d4f196e56fa0f3c24cda098f7f9639",
+    "id": "taki-chat-apricot-room4",
+    "selection": "exact existing scene pointers; no largest-version guessing"
+  },
+  "assets": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/taki-chat-apricot-mother-candidate-v1.png",
+      "bytes": 2209951,
+      "sha256": "7149e550768972bfde3f7eb7398660d74352da5fdef02e05033e79c2e08e328f",
+      "mode": "RGB",
+      "size": [
+        1536,
+        1024
+      ],
+      "rgbSha256": "62120ddf52552d3fb20956f1d25cc7591adb0f61b9c9acaa10a67d306ef5a810",
+      "alphaBounds": null
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/taki-chat-apricot-background-calibrated-v9.png",
+      "bytes": 2125705,
+      "sha256": "93858908f6e7227a8639e413b638a0b75f3b62d1eb2dfece4e1d65ace4c833c9",
+      "mode": "RGB",
+      "size": [
+        1536,
+        1024
+      ],
+      "rgbSha256": "c75d38e36ef77729174f3a6735efcf73ea92782e91b429a1f1b5b2667f2327d0",
+      "alphaBounds": null
+    },
+    "figure": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/taki-chat-apricot-figure-calibrated-v8.png",
+      "bytes": 2469617,
+      "sha256": "a6f2c0d0734190005605c84eb895e507b5a5ca26f6e854c70a8958407d61bc11",
+      "mode": "RGBA",
+      "size": [
+        1536,
+        1024
+      ],
+      "rgbSha256": "62120ddf52552d3fb20956f1d25cc7591adb0f61b9c9acaa10a67d306ef5a810",
+      "alphaBounds": [
+        1104,
+        312,
+        1383,
+        784
+      ]
+    },
+    "mask": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/taki-chat-apricot-mask-calibrated-v8.png",
+      "bytes": 22698,
+      "sha256": "eb3215245b8a8cfca66729497f180f3c7ab65ed44865436fed865bb5e32b8844",
+      "mode": "RGBA",
+      "size": [
+        1536,
+        1024
+      ],
+      "rgbSha256": "c9bd2aa628c888e2eb30ca79390f4eb910f3cf93453d20d5df2e09455575f801",
+      "alphaBounds": [
+        1104,
+        312,
+        1383,
+        784
+      ]
+    },
+    "shadow": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/taki-chat-apricot-shadow-calibrated-v9.png",
+      "bytes": 56136,
+      "sha256": "2addbd47f3c9b729831d463771fbe6949cf1201c64d5838c6b104b5793aa46ae",
+      "mode": "RGBA",
+      "size": [
+        1536,
+        1024
+      ],
+      "rgbSha256": "dd1d58401cf4255e311ba7f3e95ca97fa351c344b2944464d7f1dab314e47411",
+      "alphaBounds": [
+        1101,
+        571,
+        1383,
+        787
+      ]
+    }
+  },
+  "sourceProvenance": {
+    "record": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/taki-chat-apricot-source.json",
+    "recordSha256": "79fd18ab1cfbfc024e32dfe0750a78d2946c9facae733e61368a974c2bff75e3",
+    "originalExecutionId": "exec-86734368-7f0e-4e5c-b8da-d826f7c8c578",
+    "prompt": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/taki-chat-apricot-prompt.txt",
+    "promptSha256": "ae37e539befb2a1e7f5e71b6df0dd125b9d53183a2702768e1f4977fb2143eee",
+    "promptShaMatchesRecorded": true,
+    "promptRead": true,
+    "motherShaMatchesRecorded": true,
+    "layerProcessing": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/taki-chat-apricot-layer-processing-v9.json",
+    "processingToolRecorded": "extract-scene-layers.py",
+    "existingOutputsMatchRecorded": [
+      {
+        "file": "taki-chat-apricot-figure-calibrated-v8.png",
+        "sha256": "a6f2c0d0734190005605c84eb895e507b5a5ca26f6e854c70a8958407d61bc11",
+        "matchesActual": true
+      },
+      {
+        "file": "taki-chat-apricot-mask-calibrated-v8.png",
+        "sha256": "eb3215245b8a8cfca66729497f180f3c7ab65ed44865436fed865bb5e32b8844",
+        "matchesActual": true
+      },
+      {
+        "file": "taki-chat-apricot-background-calibrated-v9.png",
+        "sha256": "93858908f6e7227a8639e413b638a0b75f3b62d1eb2dfece4e1d65ace4c833c9",
+        "matchesActual": true
+      },
+      {
+        "file": "taki-chat-apricot-shadow-calibrated-v9.png",
+        "sha256": "2addbd47f3c9b729831d463771fbe6949cf1201c64d5838c6b104b5793aa46ae",
+        "matchesActual": true
+      }
+    ],
+    "layerProcessingSha256": "4065781b19ef6130667909372b9342dccfa5d7b83d7aa5460ba96f621176158c"
+  },
+  "readOnlyPixelInspection": {
+    "method": "Decoded PNG channel-byte hashes read through Pillow; no raster writes, rematting or new test files",
+    "motherRgbSha256": "62120ddf52552d3fb20956f1d25cc7591adb0f61b9c9acaa10a67d306ef5a810",
+    "figureRgbSha256": "62120ddf52552d3fb20956f1d25cc7591adb0f61b9c9acaa10a67d306ef5a810",
+    "entireFigureRgbIsOriginal": true,
+    "figureAlphaSha256": "6a8f79cd4b054e8830959135613dfcd5980d29247a4531cacff675460d52d106",
+    "maskAlphaSha256": "6a8f79cd4b054e8830959135613dfcd5980d29247a4531cacff675460d52d106",
+    "maskAlphaExactlyMatchesFigure": true,
+    "allCanvases": [
+      1536,
+      1024
+    ],
+    "maskMode": "alpha (RGB is white across the full mask; luminance would reveal the entire room)",
+    "nonzeroFigureAlphaBoundsExclusive": [
+      1104,
+      312,
+      1383,
+      784
+    ],
+    "figureReplay": "Original mother RGB through exact unchanged existing mask alpha in inline native SVG",
+    "maskRgbExtrema": [
+      [
+        255,
+        255
+      ],
+      [
+        255,
+        255
+      ],
+      [
+        255,
+        255
+      ]
+    ]
+  },
+  "sameCanvas": {
+    "width": 1536,
+    "height": 1024,
+    "transform": {
+      "x": 0,
+      "y": 0,
+      "scale": 1
+    },
+    "layerOrder": [
+      "scene-specific background",
+      "scene-specific normal source-over RGBA shadow",
+      "original mother RGB through scene-specific original alpha"
+    ],
+    "blendMode": "normal",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "geometry": {
+    "status": "candidate_source_specific_visual_calibration_for_parent_review",
+    "basis": "Each own full mother and its actual alpha bounds; support proxy anchors are visible cushion/sole contacts, not inferred hidden anatomy.",
+    "seatPixels": [
+      1330,
+      595
+    ],
+    "groundPixels": [
+      1268,
+      781
+    ],
+    "seat": [
+      0.8658854166666666,
+      0.5810546875
+    ],
+    "ground": [
+      0.8255208333333334,
+      0.7626953125
+    ],
+    "bodyBounds": [
+      0.71875,
+      0.3046875,
+      0.900390625,
+      0.765625
+    ],
+    "safeTextBoundary": 0.64,
+    "safeTextBoundaryPixels": 983.04,
+    "safeTextBoundaryBasis": "Existing room text boundary retained; source-specific alpha bounds stay to its right. It is not a new page-layout approval.",
+    "support": "window-seat",
+    "palmContacts": [
+      {
+        "kind": "forearms-to-thighs and relaxed hands",
+        "point": [
+          1216,
+          588
+        ]
+      }
+    ],
+    "footContacts": [
+      {
+        "kind": "image-left forward loafer",
+        "point": [
+          1137,
+          759
+        ]
+      },
+      {
+        "kind": "image-right nearer loafer",
+        "point": [
+          1270,
+          781
+        ]
+      }
+    ],
+    "detailRois": [
+      {
+        "name": "髋部与座面",
+        "rect": [
+          1180,
+          548,
+          224,
+          88
+        ]
+      },
+      {
+        "name": "前臂、手掌与膝",
+        "rect": [
+          1170,
+          532,
+          118,
+          94
+        ]
+      },
+      {
+        "name": "错前双鞋与地面",
+        "rect": [
+          1086,
+          698,
+          247,
+          110
+        ]
+      }
+    ],
+    "inheritedSceneHitPolygon": {
+      "value": "80% 30%, 84% 31%, 87% 41%, 89% 53%, 90% 58%, 88% 60%, 85% 66%, 85% 77%, 80% 77%, 80% 71%, 78% 65%, 75% 73%, 72% 75%, 72% 72%, 75% 61%, 78% 53%, 77% 43%, 78% 34%",
+      "status": "legacy coarse interaction geometry not independently admitted; visible alpha is the inspection authority"
+    },
+    "discardedLegacyMotion": {
+      "travel": 0.006,
+      "slope": 0.09,
+      "perspective": 0,
+      "reason": "No transport/bench tangent/perspective claim admitted by this static package"
+    },
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "sourceSupportObservation": [
+    "Forward torso, separate forearms/hands over thighs, and tan skirt are supported by the front cushion.",
+    "Two staggered complete brown loafers remain visible; source perspective puts the image-right sole lower on the floor."
+  ],
+  "shadow": {
+    "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/taki-chat-apricot-shadow-calibrated-v9.png",
+    "methodRecorded": {
+      "mode": "normal source-over RGBA residual",
+      "polygons": [
+        [
+          [
+            1087,
+            736
+          ],
+          [
+            1184,
+            736
+          ],
+          [
+            1191,
+            778
+          ],
+          [
+            1086,
+            778
+          ]
+        ],
+        [
+          [
+            1234,
+            751
+          ],
+          [
+            1318,
+            751
+          ],
+          [
+            1326,
+            803
+          ],
+          [
+            1234,
+            803
+          ]
+        ],
+        [
+          [
+            1180,
+            573
+          ],
+          [
+            1381,
+            573
+          ],
+          [
+            1381,
+            624
+          ],
+          [
+            1180,
+            624
+          ]
+        ]
+      ],
+      "featherPixels": 1.2,
+      "maximumDistanceFromFigurePixels": 3,
+      "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+    },
+    "actualNonzeroAlphaBoundsExclusive": [
+      1101,
+      571,
+      1383,
+      787
+    ],
+    "acceptance": "offer-for-primary-review; local seat and sole contact observed in static replay"
+  },
+  "visualInspection": {
+    "status": "current_static_browser_inspection_complete_parent_review_pending",
+    "motherViewed": true,
+    "originalPromptRead": true,
+    "observationPage": "taki-chat-apricot-observe-v1.html",
+    "pageUrl": "http://127.0.0.1:5188/来源记录/2026-10-25-ambient-redesign/cast-chat/mygo-a/taki-chat-apricot-observe-v1.html",
+    "rolesViewed": [
+      "complete original mother PNG",
+      "exact original prompt text and source record",
+      "full mother versus recomposition",
+      "complete empty room versus independent shadow on checker",
+      "original-source alpha on light, dark and checker surfaces at 1 source pixel per CSS pixel",
+      "source-pixel mother / background+figure / background+shadow+figure for hip/seat, palms and complete shoes"
+    ],
+    "observations": [
+      "Purple-black hair, tan sailor uniform, forearms over thighs, distinct relaxed hands, staggered legs and two complete loafers remain in original RGB.",
+      "No broad furniture rectangle or missing shoe/hand was observed in the displayed alpha; fine source-colored edges remain at enlarged scale.",
+      "The existing empty room has no visible remaining full character or hair footprint at the displayed scale.",
+      "At the source-pixel hip/palm/sole ROIs the independent shadow restores local darkness relative to background+figure alone, without an obvious broad floor patch edge.",
+      "The image-left shoe is farther forward and source perspective places the image-right sole lower; the package preserves that original geometry."
+    ],
+    "specificIssues": [],
+    "limitations": [
+      "Static candidate asset inspection only. No renderer integration, live interaction or layer admission changed.",
+      "Current figures use their original RGBA alpha; warm source edge color is preserved by immutable original RGB.",
+      "No PNG was edited; old extraction provenance is recorded, not re-executed.",
+      "Fine source-colored matte edges remain on artificial dark backgrounds; this task preserves original RGB and does not perform edge recoloring."
+    ],
+    "at": "2026-10-25 06:35:58 UTC",
+    "browser": "connected Chrome extension through cua_repl; no 9222/Electron control"
+  },
+  "displayRequirements": {
+    "showFigure": true,
+    "motherReady": true,
+    "failed": false,
+    "sameCharacter": "taki",
+    "sameActivity": "chat",
+    "samePalette": "apricot",
+    "sameMotherSha256": "7149e550768972bfde3f7eb7398660d74352da5fdef02e05033e79c2e08e328f",
+    "sourceLayerFailure": "remove shadow and figure together",
+    "hideOrPoseOrThemeChange": "remove scene-specific shadow and figure; no reuse under a different mother"
+  },
+  "runtimeIntegration": false,
+  "review": {
+    "producerRecommendation": "offer-existing-layers-for-primary-static-review",
+    "primaryLayerApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  }
+}

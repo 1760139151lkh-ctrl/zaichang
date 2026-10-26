@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "characterId": "taki",
+  "wave": "apricot-wave-b",
+  "reviewedOn": "2026-10-25",
+  "reviewer": "root primary agent",
+  "evidence": "Direct primary-agent message confirming personal inspection of all five complete Taki wave-b original mothers.",
+  "decision": "approved",
+  "scope": "Exact-SHA static mother only",
+  "commonObservation": "Clear hair/eyes and all visible hand/body/chair-or-bench support natural; four bench mothers retain complete legs/shoes. Camera and major desk/round-table/window layout stable.",
+  "entries": [
+    {
+      "activity": "study",
+      "assetId": "taki-study-apricot-literary-v1",
+      "file": "taki-study-apricot-literary-v1.png",
+      "sha256": "cbfbe17eb125d85813864ac15a700c3b1580cf840ea769ff1c1bc6187cb5b4ab",
+      "bytes": 2415115,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "observation": "Real left-desk looking-back study with paper/pencil/wrist and chair-seat support accepted. Natural foreground plant occludes shoe contours; contourComplete=false.",
+      "bodyContour": {
+        "contourComplete": false,
+        "naturalFurnitureForegroundOcclusion": true
+      },
+      "decision": "approved-exact-SHA-static-mother-only"
+    },
+    {
+      "activity": "listening",
+      "assetId": "taki-listening-apricot-literary-v1",
+      "file": "taki-listening-apricot-literary-v1.png",
+      "sha256": "cf48e29b3c636be8cc34b2fca85ad7ceefed5c7956d5417b3e4a5d3958ce3c89",
+      "bytes": 2405098,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "observation": "Closed book and loosened hand with sideward attentive gaze accepted.",
+      "bodyContour": {
+        "contourComplete": true,
+        "naturalFurnitureForegroundOcclusion": false
+      },
+      "decision": "approved-exact-SHA-static-mother-only"
+    },
+    {
+      "activity": "play",
+      "assetId": "taki-play-apricot-literary-v1",
+      "file": "taki-play-apricot-literary-v1.png",
+      "sha256": "1e01dddcae67de37887d7338b3056aa4a3bf04609db7de15c75b83ba2b8f735f",
+      "bytes": 2440128,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "observation": "One hand holds a small folded paper, the other book/lap supported, with an understated smile.",
+      "bodyContour": {
+        "contourComplete": true,
+        "naturalFurnitureForegroundOcclusion": false
+      },
+      "decision": "approved-exact-SHA-static-mother-only"
+    },
+    {
+      "activity": "attention",
+      "assetId": "taki-attention-apricot-literary-v1",
+      "file": "taki-attention-apricot-literary-v1.png",
+      "sha256": "58de13810d18c43ead5764cbaccdf2cfa8e994313b3d938c75c716c0826fe7e9",
+      "bytes": 2448399,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "observation": "Pencil paused while looking toward the left nearby page; head proportions do not jump.",
+      "bodyContour": {
+        "contourComplete": true,
+        "naturalFurnitureForegroundOcclusion": false
+      },
+      "decision": "approved-exact-SHA-static-mother-only"
+    },
+    {
+      "activity": "resume",
+      "assetId": "taki-resume-apricot-literary-v1",
+      "file": "taki-resume-apricot-literary-v1.png",
+      "sha256": "42fc10d73ff8187f26186be1b669c343bf9e78004db1d712ebc7974a12a50a0e",
+      "bytes": 2414760,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "observation": "Low supported book/page retained while she recognizes the nearby conversational partner.",
+      "bodyContour": {
+        "contourComplete": true,
+        "naturalFurnitureForegroundOcclusion": false
+      },
+      "decision": "approved-exact-SHA-static-mother-only"
+    }
+  ],
+  "layerApproved": false,
+  "runtimeAccepted": false
+}

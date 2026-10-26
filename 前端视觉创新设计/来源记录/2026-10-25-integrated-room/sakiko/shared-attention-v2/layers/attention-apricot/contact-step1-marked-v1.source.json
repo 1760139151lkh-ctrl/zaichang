@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "cell": "sakiko/attention/apricot",
+  "character": "sakiko",
+  "activity": "attention",
+  "palette": "apricot",
+  "stage": "S1",
+  "assetType": "raw-Image-source-selection-mask-or-markup",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: precise-object-edit. Asset type: actual source-local support receiver selection S1, Sakiko ATTENTION APRICOT. The ONLY input is the exact approved complete 1536x1024 original mother. Keep all original RGB/person/ribbons/hands/held open book/clothing/socks/shoes/furniture/camera/source coordinates unchanged. No mask/union/old background is input.\n\nPaint solid PURE WHITE only over actual local ORIGINAL RECEIVING MATERIALS that support this seated figure:\n1. The genuinely visible very narrow linen compression/contact directly under/next to the hips and trailing skirt/cardigan hem. Inspect only local x985..1345,y550..640, following actual tiny tapered cushion receiver pieces, not filling that area. Whole hair, hands, held book, skirt dark folds and knees remain ORIGINAL COLORED. The long empty bench at x<975 and unrelated cushion/throw/pillows remain colored even where naturally white. Do not select whole bright seat, whole wood front, or dark garment hem as linen.\n2. The COMPLETE actual soft grounded floor receiver/shade immediately UNDER and AROUND BOTH original loafers. Inspect shoes near x902..1100,y823..935 and their local original floor support near x888..1125,y862..966. These are inspection neighborhoods, NEVER rectangles or generic ellipses to fill. Follow the visible source shadow-to-floor transition under each toe/sole/heel, including the real small soft floor AREA, not merely a thin white outline at the outsole. White the actual dark local receiving wood core, keeping genuine soft outer falloff in restrained grey antialias; not a luminous halo/bloom or added floor buffer. Keep every whole shoe/outsole/heel RGB ORIGINAL COLOR, since these belong to F. If the source contacts touch/merge locally, retain the actual relation, do not invent a connecting wash.\n\nCritical daylight distinction: preserve this source's unrelated sunny window-lattice strips and broad sunlit floor/cushion in ORIGINAL COLOR. They are lighting, NOT contact selection. Do not whiten floor sunlight, furniture cast shadows, rug or the large room shadow just because it is bright/dark. Select only real near body/sole receiving material. The held open book does not touch a separate room surface; do not invent a book-on-seat contact or any new prop.\n\nAll other original scene RGB remains colored and fixed. This is a fixed INCLUDED source-RGB support layer, not newly painted shadow and not a movable independent caster. No person/pose/wardrobe reconstruction or camera change. Output ONE opaque 1536x1024 complete colored mother with only those genuine small seat and full soft near-shoe floor receivers marked white/true-edge grey. No black mask yet, outlines, text, labels, arrows, boxes, grid, crop, resize, zoom, recenter or translation.",
+  "submittedPromptSha256": "1b7eb9474487ff20959498e8cefcd800abdaff3d9b55bed7e32e8f5fe99516f7",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-apricot-shared-page-v2.png",
+      "sha256": "f04805d0e723420c48cf4e16005d4c863df50042339c65290a34491e553de238",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    }
+  ],
+  "originalRgbOwner": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-apricot-shared-page-v2.png",
+    "sha256": "f04805d0e723420c48cf4e16005d4c863df50042339c65290a34491e553de238",
+    "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-apricot-shared-page-v2.source.json",
+    "sourceRecordSha256": "eb4a257d8ba38e8df98eddbd86ce907a0f48cd441881555253b20180c4d434ec",
+    "rootMotherStaticReview": {
+      "status": "approved_static_mother",
+      "reviewer": "root",
+      "observed": "Actual full output inspected: soft youthful gold eyes/blue-purple hair, finger has a visible book-page contact, other hand supports book; hip supported on cushion, two uncovered knees/below-knee calf socks and complete grounded shoes; consistent clear-day warm room. This proves a still shared attention direction, not a live model having read user PDF."
+    }
+  },
+  "method": "Actual Image same-mother F1/F2 or S1/S2 chain. F is whole human/ribbons/hands/held book/clothing/knees/calf socks/complete shoes. S includes real source-local seat and full soft grounded floor receiver, not just sole line; original RGB MAX(F,S) drawn once only.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\sakiko\\shared-attention-v2\\layers\\attention-apricot\\contact-step1-marked-v1.png",
+    "sha256": "1efe63bff3c4d85e2fbdaad6642b1651353e897cd6666cf115348585bb2f9642",
+    "bytes": 2442021,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-2c3c0f61-3c92-4476-b27f-94ad19c82532.png",
+    "pngBytesUnchanged": true
+  },
+  "producerObservation": {
+    "personallyViewedFullNative": true,
+    "observation": "Full native S1 viewed: original person/open book/shoes remain colored; local white seat pieces sit immediately beneath trailing skirt/hips, not the long empty bench. Shoe-ground selection is now a substantial soft receiver area around both full loafers rather than only a sole line; it includes source-local floor material. Whether its left extent follows actual daylit cast/receiver without excess bright wood must be judged in original-RGB union/composite, not from coordinates alone."
+  },
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "sourceOrigin": [
+      0,
+      0
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": "included",
+    "independentCaster": false
+  },
+  "motherReconstructed": false,
+  "primaryLayerApproved": false,
+  "layerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "status": "producer-candidate-awaiting-source-RGB-union-browser-and-root-review",
+  "inputBoundary": "Only current exact root-approved mother and its correct same-canvas working intermediates. No HOLD rain-attention-v2, white-sock resume-mist-v3, screenshot, audit collage or other mother mask.",
+  "promptFile": "contact-step1-marked-v1.prompt.json",
+  "promptFileSha256": "657869f7f309d11ca3b503ed3b2cbb347b7a370d90d2c9d67213c850e05466b0"
+}

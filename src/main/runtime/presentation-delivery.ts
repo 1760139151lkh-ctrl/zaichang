@@ -4,6 +4,14 @@ import { getInteractiveProgramSpec } from '../../shared/interactive-library';
 import { validateProgramStateAndEvaluate } from './interactive-program-compiler';
 
 type DeliveredPart = Record<string, unknown>;
+function pianoProjection(props: Record<string, unknown>) {
+  return {
+    fields: Object.fromEntries(['heldField', 'selectedField', 'pedalField', 'phaseField'].map(key => [key, props[key]])),
+    parameters: Object.fromEntries(['velocity', 'slowMotion', 'tuningHz', 'lengthRatio', 'tensionRatio', 'densityRatio', 'brightness', 'showMechanism'].map(key => [key, props[key]])),
+    instrument: 'bounded_modal_synthesis', keys: 88,
+    meaning: '同一作品里的88键、和弦、踏板、可接管机构与真实数字输出。字段指向同一局部输入；参数是当前native求值结果。机构是简化示意，声音为独立衰减泛音的模态合成，非某型号采样或实测。慢放只改变机构时间；音高沿十二平均律和理想弦相对比例。这里没有观察浏览器按键、播放完成或设备听感。',
+  };
+}
 export interface ProgramReadablePresentation {
   parts: DeliveredPart[];
   coverage: { scope: 'evaluated_native_node_outline'; offset: number; end: number; total: number;
@@ -52,6 +60,9 @@ export function boundedProgramPresentation(value: unknown,
         sustainField: props.sustainField, triggerField: props.triggerField,
         ...(props.trigger === undefined ? {} : { trigger: props.trigger }) };
       part.playback = 'configuration_not_browser_output';
+    } else if (node.typeName === 'Piano') {
+      part.piano = pianoProjection(props);
+      part.playback = 'configuration_not_browser_output';
     } else if (node.typeName === 'Press') {
       part.press = { field: props.field, strength: props.strength, pressureField: props.pressureField,
         triggerField: props.triggerField, hotkey: props.hotkey };
@@ -90,6 +101,8 @@ function programParts(value: unknown, add: (part: DeliveredPart) => void) {
         sustainField: props.sustainField, triggerField: props.triggerField,
         ...(props.trigger === undefined ? {} : { trigger: props.trigger }) },
       meaning: '这是这次作品的初始声音设置。没有单独的trigger时，发声时机由gate从关闭变为开启来决定，声音的起落和延续仍按这份设置运行。这些设置本身没有记录声音是否已开启、是否真的响过，设备上的听感也要以实际播放为准。' });
+    } else if (node.typeName === 'Piano') {
+      add({ ...identity, piano: pianoProjection(props), playback: 'configuration_not_browser_output' });
     } else if (node.typeName === 'Press') {
       add({ ...identity, label: props.label, press: { field: props.field, strength: props.strength,
         pressureField: props.pressureField, triggerField: props.triggerField, hotkey: props.hotkey },

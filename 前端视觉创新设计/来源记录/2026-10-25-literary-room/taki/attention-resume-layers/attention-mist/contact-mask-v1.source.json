@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-mother-original-rgb-included-layer-production",
+  "cell": "taki/attention/mist",
+  "stage": "S2",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: background-extraction. Asset: S2 exact local contact/receiving-material luminance mask for taki/attention/mist. FIRST input is this mother with deliberate S1 pure-white local receiver marks. SECOND input is its exact original approved mother only to distinguish ADDED WHITE from naturally pale material. Keep every actual original coordinate and whole 1536x1024 canvas. No crop/resize/zoom/shift/redraw.\n\nConvert ONLY deliberately ADDED PURE-WHITE receiver marks in image1 to WHITE. Entire COLORED girl/props become BLACK: all hair/face/collar/bow/dress/hands/legs/socks/whole shoes, complete open notebook/covers/pages/cream slip/pencil. All UNMARKED room/linen/curtains/lamp/flowers/plaid/knit/window/clouds/floor/rug and unrelated room/table light/shade become solid BLACK. Do not keep naturally pale empty cushion from image2 or add a long empty seat strip. Keep only the few marked tight seat receiver/contact islands directly below source hem/hip. No separate book or book-bottom island exists on the cushion.\n\nCRITICAL full ground contact: preserve COMPLETE actual white-added local floor-shadow receiver footprints immediately beneath/around BOTH soles, not merely shoe-bottom contour strokes. Keep white core across the original dark center/toe/heel-contact region so original source shadow/wood RGB will restore grounding; use a SHORT SOFT GRAY fade only at the original diffuse outer receiver boundary, a few source pixels near mark edge, not a sharp white polygon or newly enlarged oval/pool. Roughly8..35px beyond each sole only where image1 deliberately marks actual source shade. Shoe interiors themselves BLACK (small overlap harmless in MAX union but don't redraw shoe). Two source patches may meet where already marked; never connect far room reflections. No fake generic caster, empty floor stripe, new shadows or brightness-based object selection.\n\nOutput ONE opaque BLACK/WHITE/edge-GRAY 1536x1024 mask, same exact source positions, no color/checkerboard/text/grid. Raw luminance alone selects the original unchanged mother RGB ONCE through MAX(F,S), fixed receiver material with travel/slope/perspective0.",
+  "promptFile": "contact-mask-v1.prompt.txt",
+  "actualToolArguments": {
+    "prompt": "Use case: background-extraction. Asset: S2 exact local contact/receiving-material luminance mask for taki/attention/mist. FIRST input is this mother with deliberate S1 pure-white local receiver marks. SECOND input is its exact original approved mother only to distinguish ADDED WHITE from naturally pale material. Keep every actual original coordinate and whole 1536x1024 canvas. No crop/resize/zoom/shift/redraw.\n\nConvert ONLY deliberately ADDED PURE-WHITE receiver marks in image1 to WHITE. Entire COLORED girl/props become BLACK: all hair/face/collar/bow/dress/hands/legs/socks/whole shoes, complete open notebook/covers/pages/cream slip/pencil. All UNMARKED room/linen/curtains/lamp/flowers/plaid/knit/window/clouds/floor/rug and unrelated room/table light/shade become solid BLACK. Do not keep naturally pale empty cushion from image2 or add a long empty seat strip. Keep only the few marked tight seat receiver/contact islands directly below source hem/hip. No separate book or book-bottom island exists on the cushion.\n\nCRITICAL full ground contact: preserve COMPLETE actual white-added local floor-shadow receiver footprints immediately beneath/around BOTH soles, not merely shoe-bottom contour strokes. Keep white core across the original dark center/toe/heel-contact region so original source shadow/wood RGB will restore grounding; use a SHORT SOFT GRAY fade only at the original diffuse outer receiver boundary, a few source pixels near mark edge, not a sharp white polygon or newly enlarged oval/pool. Roughly8..35px beyond each sole only where image1 deliberately marks actual source shade. Shoe interiors themselves BLACK (small overlap harmless in MAX union but don't redraw shoe). Two source patches may meet where already marked; never connect far room reflections. No fake generic caster, empty floor stripe, new shadows or brightness-based object selection.\n\nOutput ONE opaque BLACK/WHITE/edge-GRAY 1536x1024 mask, same exact source positions, no color/checkerboard/text/grid. Raw luminance alone selects the original unchanged mother RGB ONCE through MAX(F,S), fixed receiver material with travel/slope/perspective0.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-mist/contact-step1-marked-v1.png",
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-mist-literary-extension-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-mist/contact-step1-marked-v1.png",
+      "role": "same-mother deliberate S1 local receiver white selection",
+      "sha256": "8e07b739f8b7518d10849b6de76b78d7c417e044830c15f0b69f9b13462cec5f"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-mist-literary-extension-v1.png",
+      "role": "exact approved original mother for distinguishing natural linen from deliberate marks",
+      "sha256": "e7eef81215132f5963188f53280341c03bc5374fae84aa9040828a2709f2aa77"
+    }
+  ],
+  "mother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-mist-literary-extension-v1.png",
+    "sha256": "e7eef81215132f5963188f53280341c03bc5374fae84aa9040828a2709f2aa77",
+    "sourceRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-mist-literary-extension-v1.source.json",
+    "sourceRecordSHA": "15d45ac4592dc1b524ce6e58757595c824898c85287a8438bb6af88392277452",
+    "primaryAdmission": {
+      "cell": "taki/attention/mist",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-mist-literary-extension-v1.png",
+        "sha256": "e7eef81215132f5963188f53280341c03bc5374fae84aa9040828a2709f2aa77",
+        "bytes": 2448185,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.848Z",
+      "observation": "Taki dark hair/purple eyes and brown-red school wardrobe remain. Pencil tip lands on the real lap page; eyes are directed down toward the task. Whole mist light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    "primaryAdmissionFile": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/root-human-mother-primary-review-20261025.json"
+  },
+  "output": {
+    "file": "contact-mask-v1.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-47460c72-17c8-4e6a-8a03-aef8aed16521.png",
+    "sha256": "ac33cc5cd810098cdd6248cc07a3afa6550abc84a01ceb139b1c78e9fda60a7e",
+    "bytes": 309842,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewedWholeOutput": true,
+    "status": "producer_candidate_browser_reviewed_pending_primary_priority_hold",
+    "observations": [
+      "完整原图亲看：黑底仅小坐垫接触岛及两鞋近端完整软接收片，鞋内部黑；未退成一条鞋底白线或扩大成整地板长带。",
+      "短灰渐隐边存在，具体软影与原木/布材质合成仍需浏览亲看。"
+    ]
+  },
+  "originalMotherRGBChanged": false,
+  "pngPixelEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "promptSha256Utf8": "32db29563fd34f01a29e9818a02980ba0c26a386993890429681fe3cbdf5c59e",
+  "promptFileSha256": "9d9eef2f1f3cb3dcd1bc21f82c493f411d6a677806861fede4309cb0d4da55bf"
+}

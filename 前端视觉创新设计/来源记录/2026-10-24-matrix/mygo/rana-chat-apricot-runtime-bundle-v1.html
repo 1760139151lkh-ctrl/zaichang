@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rana chat 暖杏 · v9 原位分层观察</title>
+<style>
+  :root { color-scheme: light; font-family: system-ui, "Microsoft YaHei", sans-serif; color: #302827; background: #eee9e3; }
+  * { box-sizing: border-box; }
+  body { margin: 0 auto; max-width: 1600px; padding: 24px; }
+  h1 { font-size: 24px; margin: 0 0 10px; } h2 { font-size: 20px; margin: 0 0 14px; }
+  p { margin: 8px 0; line-height: 1.6; } a { color: #68412c; }
+  nav { display: flex; flex-wrap: wrap; gap: 14px; margin: 18px 0 28px; }
+  section { margin: 32px 0 52px; scroll-margin-top: 16px; }
+  .whole { display: block; width: 100%; max-width: min(1536px, calc((100vh - 90px) * 1.5)); height: auto; background: white; }
+  .row { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; }
+  figure { margin: 0; max-width: 100%; }
+  figcaption { padding: 9px 0; font-size: 14px; }
+  .crop { display: block; width: 380px; max-width: 100%; height: auto; }
+  .contact { display: block; width: 440px; max-width: 100%; height: auto; }
+  .seat { display: block; width: 540px; max-width: 100%; height: auto; }
+  .light { background: #faf7f1; } .dark { background: #211b27; }
+  .checker { background-color: #ddd; background-image: linear-gradient(45deg,#aaa 25%,transparent 25%),linear-gradient(-45deg,#aaa 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#aaa 75%),linear-gradient(-45deg,transparent 75%,#aaa 75%); background-size: 24px 24px; background-position: 0 0,0 12px,12px -12px,-12px 0; }
+  .note { max-width: 980px; font-size: 14px; }
+  .files { display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 14px; }
+  @media (max-width: 600px) { body { padding: 16px; } h1 { font-size: 21px; } }
+</style>
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" style="position:absolute">
+  <defs>
+    <image id="mother-image" width="1536" height="1024" href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png?sha256=26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812"/>
+    <image id="room-image" width="1536" height="1024" href="../../assets-design-generated/2026-10-23-companion-matrix/room-apricot-candidate-v4.png?sha256=fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"/>
+    <image id="background-image" width="1536" height="1024" href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-background-candidate-v9.png?sha256=d478299aae1bd2953338cf13cee783bce48472e420ced60e2f9c48c05fa0b027"/>
+    <image id="figure-image" width="1536" height="1024" href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-figure-candidate-v9.png?sha256=714ea5f9107e1e799c790d921140ecfa87502f10cb33d808d89a3ab18bc0cc5a"/>
+    <image id="mask-image" width="1536" height="1024" href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mask-candidate-v9.png?sha256=feb39b3967c8fd8787db6c600bdd444fac2bda8bc63d4cba7b3facc0973a3be7"/>
+    <image id="shadow-image" width="1536" height="1024" href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-shadow-candidate-v9.png?sha256=752322c4b74f53e51c7e24cafa5be0ca03d23fc59cc6e39dff68e97ef524df54"/>
+    <g id="composite-image"><use href="#background-image"/><use href="#shadow-image"/><use href="#figure-image"/></g>
+  </defs>
+</svg>
+<header>
+  <h1>Rana chat 暖杏 · v9 原位分层观察</h1>
+  <p class="note">静态素材观察页。原文件、原 RGB 与原坐标 source-over 合成；不是产品页面，也不代表运行、拖动或主代理验收。</p>
+  <nav aria-label="观察位置"><a href="#mother">母图</a><a href="#room4">原房间</a><a href="#background">分离背景</a><a href="#composite">原位合成</a><a href="#figure">人物透明层</a><a href="#mask">遮罩</a><a href="#shadow">接触影层</a><a href="#contact">接触局部</a><a href="#seat">坐垫放大</a><a href="#files">固定原文件</a></nav>
+</header>
+<main>
+  <section id="mother"><h2>母图 v1</h2><svg class="whole" viewBox="0 0 1536 1024" role="img" aria-label="Rana chat 暖杏完整母图"><use href="#mother-image"/></svg></section>
+  <section id="room4"><h2>同源空房间 v4</h2><svg class="whole" viewBox="0 0 1536 1024" role="img" aria-label="Rana 母图唯一输入空房间 v4"><use href="#room-image"/></svg></section>
+  <section id="background"><h2>分离背景 v9</h2><svg class="whole" viewBox="0 0 1536 1024" role="img" aria-label="从母图局部复原的背景 v9"><use href="#background-image"/></svg></section>
+  <section id="composite"><h2>原位合成 · background → shadow → figure</h2><svg class="whole" viewBox="0 0 1536 1024" role="img" aria-label="v9三层同坐标原位合成"><use href="#composite-image"/></svg></section>
+  <section id="figure"><h2>人物 RGBA v9 · 原像素 1:1</h2><div class="row">
+    <figure id="figure-light"><svg class="crop light" viewBox="1090 270 380 520" role="img" aria-label="人物透明层浅底"><use href="#figure-image"/></svg><figcaption>浅底 #faf7f1</figcaption></figure>
+    <figure id="figure-dark"><svg class="crop dark" viewBox="1090 270 380 520" role="img" aria-label="人物透明层深底"><use href="#figure-image"/></svg><figcaption>深底 #211b27</figcaption></figure>
+    <figure id="figure-checker"><svg class="crop checker" viewBox="1090 270 380 520" role="img" aria-label="人物透明层棋盘底"><use href="#figure-image"/></svg><figcaption>棋盘底</figcaption></figure>
+  </div></section>
+  <section id="mask"><h2>白 RGB / Alpha 遮罩 v9 · 原像素 1:1</h2><div class="row">
+    <figure><svg class="crop light" viewBox="1090 270 380 520" role="img" aria-label="遮罩浅底"><use href="#mask-image"/></svg><figcaption>浅底</figcaption></figure>
+    <figure><svg class="crop dark" viewBox="1090 270 380 520" role="img" aria-label="遮罩深底"><use href="#mask-image"/></svg><figcaption>深底；按 Alpha 使用，不能取白色 RGB 的亮度</figcaption></figure>
+  </div></section>
+  <section id="shadow"><h2>独立接触影层 v9 · 原像素 1:1</h2><div class="row">
+    <figure><svg class="crop light" viewBox="1090 270 380 520" role="img" aria-label="接触影层浅底"><use href="#shadow-image"/></svg><figcaption>浅底 · normal source-over</figcaption></figure>
+    <figure><svg class="crop dark" viewBox="1090 270 380 520" role="img" aria-label="接触影层深底"><use href="#shadow-image"/></svg><figcaption>深底 · normal source-over</figcaption></figure>
+    <figure><svg class="crop checker" viewBox="1090 270 380 520" role="img" aria-label="接触影层棋盘底"><use href="#shadow-image"/></svg><figcaption>棋盘底 · 未叠人物</figcaption></figure>
+  </div></section>
+  <section id="contact"><h2>坐垫、手掌、双靴接触 · 同一区域 1:1</h2><div class="row">
+    <figure><svg class="contact" viewBox="1080 450 440 350" role="img" aria-label="母图接触局部"><use href="#mother-image"/></svg><figcaption>母图</figcaption></figure>
+    <figure><svg class="contact" viewBox="1080 450 440 350" role="img" aria-label="v9原位合成接触局部"><use href="#composite-image"/></svg><figcaption>v9 原位合成</figcaption></figure>
+    <figure><svg class="contact" viewBox="1080 450 440 350" role="img" aria-label="分离背景接触局部"><use href="#background-image"/></svg><figcaption>分离背景；检查残肢、垫面和地板纹理</figcaption></figure>
+  </div></section>
+  <section id="seat"><h2>坐垫接触放大 · 同一区域 2:1</h2><div class="row">
+    <figure><svg class="seat" viewBox="1190 520 270 100" role="img" aria-label="母图坐垫接触二倍放大"><use href="#mother-image"/></svg><figcaption>母图</figcaption></figure>
+    <figure><svg class="seat" viewBox="1190 520 270 100" role="img" aria-label="v9合成坐垫接触二倍放大"><use href="#composite-image"/></svg><figcaption>v9 原位合成</figcaption></figure>
+  </div></section>
+  <section id="files"><h2>固定原文件</h2><div class="files">
+    <a href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mother-candidate-v1.png?sha256=26bf57f84c03de99efad34ec75a6abd759d484d29933b1830b36c15cabbff812">母图 v1</a>
+    <a href="../../assets-design-generated/2026-10-23-companion-matrix/room-apricot-candidate-v4.png?sha256=fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa">空房间 v4</a>
+    <a href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-background-candidate-v9.png?sha256=d478299aae1bd2953338cf13cee783bce48472e420ced60e2f9c48c05fa0b027">背景 v9</a>
+    <a href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-figure-candidate-v9.png?sha256=714ea5f9107e1e799c790d921140ecfa87502f10cb33d808d89a3ab18bc0cc5a">人物 RGBA v9</a>
+    <a href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-mask-candidate-v9.png?sha256=feb39b3967c8fd8787db6c600bdd444fac2bda8bc63d4cba7b3facc0973a3be7">Alpha 遮罩 v9</a>
+    <a href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-shadow-candidate-v9.png?sha256=752322c4b74f53e51c7e24cafa5be0ca03d23fc59cc6e39dff68e97ef524df54">接触影层 v9</a>
+    <a href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-alpha-calibrated-v9.png?sha256=02b94e6974e270f80a74deaafe8dad2946e3da64457ea4fb7d51fd870885b0c5">标定 matte v9</a>
+    <a href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/rana-chat-apricot-candidate-v9.scene.json?sha256=0553417e74cc27746be9554017ecc9de05a525826cd9f9472f9081c0d77ed70d">原 scene v9</a>
+    <a href="rana-chat-apricot-runtime-bundle-v1.json">候选 bundle 记录</a>
+  </div></section>
+</main>
+</html>

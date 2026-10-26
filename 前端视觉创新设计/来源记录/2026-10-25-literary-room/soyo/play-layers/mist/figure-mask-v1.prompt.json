@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-play-mist-f2-v1",
+  "submittedPrompt": "Use case: background-extraction. Asset: F2 original-position figure/open-book/single-pencil luminance mask. The ONLY input is the 1536x1024 Soyo play mist scene deliberately marked white in F1. Convert only that deliberately WHITE complete figure and her complete open lap-book and full thin pencil into solid WHITE; convert the entire colored environment to pure BLACK. Keep all exact source coordinates, full canvas and scale unchanged. White includes all fine trailing hair locks, face/head/neck/body, every finger, hands, clothing and bow/crest, complete skirt hem, bare knees, below-knee socks, both complete shoes including heel/sole, BOTH entire open book page faces with spine/page block/lower cover edge, and the one exact thin pencil shaft/end/tip from approximately x861,y434 to x909,y497. Do not omit any pencil segment protruding beyond the hand. Faint pencil/page contour lines enclosed within the white F1 selection are not holes: the entire physical page block and pencil interior remain opaque white. Preserve only real narrow background gaps between locks/fingers/legs; no newly invented cutouts or holes. Every colored cushion, bench, floor, rug, plant, window and cast/contact shadow becomes black. Natural white/cream room highlights remain black because they were not deliberately selected in F1. No gray fill, shading or scene texture inside white shape; only a very narrow antialiased edge around the exact silhouette may be edge-gray. No crop, zoom, resize, recenter, new figure outline, checkerboard, transparency, labels or arrows. Output ONE opaque black-and-white 1536x1024 PNG mask. The original approved mother, not this markup, will later supply RGB exactly once; this mask is not new character art.",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/play-layers/mist/figure-step1-marked-v1.png"
+  ],
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/play-layers/mist/figure-step1-marked-v1.png",
+      "sha256": "756847d31092e19f66b4f56f636a832ab437aa05b4e3672cd2ae0c1775459243",
+      "bytes": 2316323
+    }
+  ],
+  "transparentBackground": false
+}

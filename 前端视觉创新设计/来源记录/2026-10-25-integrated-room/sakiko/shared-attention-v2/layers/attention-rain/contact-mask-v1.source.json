@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "cell": "sakiko/attention/rain",
+  "character": "sakiko",
+  "activity": "attention",
+  "palette": "rain",
+  "stage": "S2",
+  "assetType": "raw-Image-source-selection-mask-or-markup",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: background-extraction. Asset type: S2 fixed INCLUDED same-mother receiving-material luminance mask, Sakiko ATTENTION RAIN v3. Image 1 is the NEW separately inspected S1 original-position marked mother. Image 2 is the exact clean approved original, used only to distinguish deliberate white marks from naturally lamp-lit linen/page/light. No other mask, composite or review image is input.\n\nKeep ALL AND ONLY the deliberate S1 receiver selections WHITE at EXACT existing coordinates, preserve their true soft GREY falloff. The selections are: the narrow irregular cushion compression/contact immediately under the original hip/skirt hem, including the small actual left underhem island near x940..985,y540..580 and the thin strip directly below the right skirt/hip near x1090..1330,y580..620; and the complete local soft near-shoe floor receiving region roughly x790..1030,y850..950. These ranges only identify existing marks for inspection, not rectangles to fill. Preserve BOTH selected seat pieces; do not accidentally lose a small marked island because the surrounding linen is naturally bright. Keep the complete near-shoe soft region, not a thin white sole outline. Do not invent, shift, widen or geometrically regularize any receiver.\n\nTurn EVERY other pixel BLACK: original figure/hair/ribbons/face/eyes/hands, held open book/cover/pages, navy clothes/skirt, bare knees/calf socks and all original shoe/toe/heel/outsole pixels; long empty seat to the left, naturally bright linen/curtain/lamp/flowers, plaid pillow/knit throw, window/rain/town/lake, furniture and the entire unmarked floor/rug/reflections/shadows. Do not brightness-key the original: compare the clean mother only to recognize deliberate white marks. True soft-edge antialias remains grey only on real selected edges.\n\nOutput ONE opaque exact 1536x1024 BLACK PNG, with only unchanged original-position WHITE/edge-GREY seat and shoe-floor receiving material. No colors, new body/shadow/object, checkerboard/text/UI/arrows/grid/labels, mask rectangles, crop/resize/zoom/recenter/translation. This is original RGB MAX(F,S) INCLUDED fixed contact, not an independently movable caster; travel/slope/perspective stay zero.",
+  "submittedPromptSha256": "764d27c314f9f6b8f4557468fa01b4fb0e26d71f1ebf3b6cb75f28525114b6ff",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-rain/contact-step1-marked-v1.png",
+      "sha256": "c058bf60692088f0e3a74168995a1dcb2553f3b2ca5b4b13631aca20346735e8",
+      "personallyViewedBeforeCall": true
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.png",
+      "sha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    }
+  ],
+  "originalRgbOwner": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.png",
+    "sha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac",
+    "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.source.json",
+    "sourceRecordSha256": "c569c6ae9ac68037fcf95b4d8497bd40369d5576fae1ac0c8c250ae46fe3ebec",
+    "rootMotherStaticReview": {
+      "status": "approved_static_mother",
+      "reviewer": "root",
+      "observed": "Root inspected whole actual output: rain-night room now has local lamp pools and dark wood/reflections without daylight window-grid patches. Youthful gold eyes/blue-purple hair, visible book-page finger contact, physical seated support, two uncovered knees/dark calf socks and complete grounded shoes. Bow is a darker cloth variant of project wardrobe, not asserted official."
+    }
+  },
+  "method": "Actual Image same-mother F1/F2 or S1/S2 chain. F is whole human/ribbons/hands/held book/clothing/knees/calf socks/complete shoes. S includes real source-local seat and full soft grounded floor receiver, not just sole line; original RGB MAX(F,S) drawn once only.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\sakiko\\shared-attention-v2\\layers\\attention-rain\\contact-mask-v1.png",
+    "sha256": "43f9770fbde6eaf407d174362c1d6c4ae61f6e3552d35fecc98bb29bcbd5d992",
+    "bytes": 341304,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-6bbb46a2-4d83-444b-b799-188463dbe071.png",
+    "pngBytesUnchanged": true
+  },
+  "producerObservation": {
+    "personallyViewedFullNative": true,
+    "observation": "Actual full native black/white S2 inspected: both underhem seat receiver pieces and the complete soft near-shoe floor receiver retained; person/book/shoes/unmarked long seat/room black. No rectangular/oval expansion; exact original-RGB comparison still pending."
+  },
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "sourceOrigin": [
+      0,
+      0
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": "included",
+    "independentCaster": false
+  },
+  "motherReconstructed": false,
+  "primaryLayerApproved": false,
+  "layerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "status": "producer-browser-inspected-awaiting-root-layer-review",
+  "inputBoundary": "Only current exact root-approved mother and its correct same-canvas working intermediates. No HOLD rain-attention-v2, white-sock resume-mist-v3, screenshot, audit collage or other mother mask.",
+  "promptFile": "contact-mask-v1.prompt.json",
+  "promptFileSha256": "7a9f0756c078b30c9bd2dfffc647ed629e1148d2b3ace17d1d6ec67c7487fae5",
+  "generatedAt": "2026-10-25T23:36:43.623Z",
+  "nativeBrowserObservation": {
+    "at": "2026-10-25T23:48:46.649Z",
+    "reviewer": "/root/mujica_matrix",
+    "method": "Actual native SVG same original RGB once under MAX(L(F),L(S)), source/BG/union closeups",
+    "observations": [
+      {
+        "file": "browser-observations/mother-composite-v4.png",
+        "sha256": "f9a527982ca7aed9973b68c502eea8cddef35f9978df44e0c66d54516d18fd0e"
+      },
+      {
+        "file": "browser-observations/light-dark-checker-full-v4.png",
+        "sha256": "dbc6f268156b51104f9fc549ebc54c2ae0dc94ad82b64b306ce98067be17003f"
+      },
+      {
+        "file": "browser-observations/face-hair-original-union-composite-v4.png",
+        "sha256": "b38ccad6eaa8918cca3d6ac7bdfdfb84950603be8ca550c4894b942bcbbb1313"
+      },
+      {
+        "file": "browser-observations/book-seat-original-union-composite-v4.png",
+        "sha256": "606cb1782bf2ad4b21e972602e624d66c7b501c6f5baf645f393dfe8edd866b5"
+      },
+      {
+        "file": "browser-observations/shoes-contact-original-union-composite-v4.png",
+        "sha256": "7e9811748fd81435cfef88de54c4b0ca8c34db24528e9c9a30441caf0d95c13d"
+      }
+    ]
+  }
+}

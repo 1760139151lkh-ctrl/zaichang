@@ -1,0 +1,28 @@
+{
+  "recordType": "original-mother-layer-extraction",
+  "layer": "luminance-mask",
+  "key": "anon/listening/apricot",
+  "tool": "built-in image_gen.imagegen",
+  "createdAtUtc": "2026-10-25T03:43:11.952Z",
+  "file": "anon-listening-apricot-bundle-v1-mask.png",
+  "sha256": "f77cd32ed702e63031556318cc095eac49fa09b1784b8e92219c9497131b6310",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "promptSha256": "802be2a62a77510e2908e79e36d4f76c83d05c7089750cf250b3816c952d255d",
+  "prompt": "anon-listening-apricot-bundle-v1-mask-prompt.txt",
+  "input": {
+    "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-listening-apricot-mother-candidate-v2.png",
+    "sha256": "352fc80272d9ae4e224225980bd270b2481516dbd32c0b7a0dc5814e8c3457bb",
+    "role": "approved complete mother; sole edit target"
+  },
+  "originalOutputBasename": "exec-ea62746e-3216-410b-8f10-3467f892dfeb.png",
+  "originalExecutionId": "ea62746e-3216-410b-8f10-3467f892dfeb",
+  "originalSessionId": "01a170ed-b14d-7321-9cf7-3bd222b6ff42",
+  "designerPersonallyViewed": true,
+  "designerObservation": "Full-canvas white figure silhouette on black retains the folded knee and two socked foot shapes; separate empty shoes excluded. Actual original-RGB masked composition, interior holes and edge registration still require browser inspection; this record does not claim layer admission.",
+  "approvedByPrimary": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false
+}

@@ -1,0 +1,339 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-listening-violet-included-candidate-v1",
+  "character": "soyo",
+  "activity": "listening",
+  "palette": "violet",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "producer": "/root/openui_creation",
+  "maskSupportProducer": "/root/mujica_matrix",
+  "motherStaticDirectionApproved": true,
+  "motherApprovalEvidence": "Root personally viewed exact four current listening mother PNGs and approved static mother direction only; latest steering preserves their small theme/pose differences. This does not approve new layers.",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "status": "producer-reviewed-fixed-included-candidate-awaiting-root-static-layer-review",
+  "selected": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-violet-literary-v1.png",
+      "sha256": "99ebaaa7158f9cf12c3308fa4fa0231e136b51ad6a81add4693159fb2a103ccb",
+      "bytes": 2335853,
+      "role": "sole source RGB for complete figure/book/contact union; existing root-approved static mother",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/listening-background-v1.png",
+      "sha256": "8b34b7661386796db687eb8d35ca4d44da0fc1cf98fd9159ff8daacbad8111ea",
+      "bytes": 2310034,
+      "role": "actual Image removal from this exact mother; empty receiving scene",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "figureMask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/figure-mask-v1.png",
+      "sha256": "ff3ec4d3b9c86842f5f4d240294b185bfb2dd112773008547196e229eba5311e",
+      "bytes": 448444,
+      "role": "raw actual Image luminance F, entire person and separate closed book",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "contactMask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/contact-mask-v2.png",
+      "sha256": "ff46e988ff55593df734ba040ee2fde7aa846b830e2dae13b2e30bf8c7206fb6",
+      "bytes": 306150,
+      "role": "raw actual Image luminance S, source-local seat/book/floor receiver and actual grounding shade",
+      "canvas": [
+        1536,
+        1024
+      ]
+    }
+  },
+  "method": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "nativeSvg": true,
+    "union": "U = MAX(L(F), L(S))",
+    "luminanceCoefficients": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorInterpolationFilters": "sRGB",
+    "maxOperation": "feBlend mode=lighten over FL,SL",
+    "originalRgbDrawsPerUnion": 1,
+    "alpha": "raw Image mask luminance; overlap maximized, not summed",
+    "sourceRgb": "mother only",
+    "bg": "same-mother actual Image removal, separate from RGB owner",
+    "pngPixelEditing": false,
+    "manualThresholdOrColorDiff": false,
+    "fullCanvasBitwiseReconstructionClaimed": false
+  },
+  "geometry": {
+    "anchorMode": "fixed-original-canvas",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": "included",
+    "allowedTransforms": [
+      "whole source posture visibility",
+      "shared uniform viewport scaling of background and union"
+    ],
+    "forbidden": [
+      "independent figure/body/book/limb translation or deformation",
+      "independent caster movement",
+      "reuse mask on another mother",
+      "claiming new dynamic scene coverage"
+    ]
+  },
+  "observed": [
+    "Producer personally viewed full mother, all selected Image outputs, native browser original/composite, light/dark/checker union, face/hair, empty hands/knees, complete hem/seat contact, book cover/spine/page block/lower edge and both whole shoes/local floor shade.",
+    "Original face/hair/uniform/skin/shoe/book RGB is taken only from this mother; marked scene RGB is never adopted. No broad clipped hair group, dropped book page block or shaved shoe sole was observed in the compared views.",
+    "Final S restores real local source floor material and soft contact shade around the soles. This carries a small warm/cool source receiver patch and local seat/book material; light/dark views expose it honestly. It is not an independently portable transparent shadow.",
+    "The native MAX union draws mother RGB once, including F/S overlap; no double body/book/sole color accumulation. F and S remain original tool PNG bytes. No manual raster painting, threshold, color-diff extraction, crop, recoloring or morphological mask edit was used.",
+    "Same-mother empty background was actually generated with Image after old common plate floor reflection differences were observed. Hidden room continuation is generated, so full-canvas bitwise reproduction of every original room pixel is not claimed. Final static optical comparison shows continuous receiver material without a large rectangular seam.",
+    "Only static source-fixed included candidate is delivered. No independent body/limb/book/shadow motion, no cross-room pixel translation and no additional dynamic/runtime cell credit."
+  ],
+  "browserObservation": {
+    "tool": "cua_repl current Chrome extension",
+    "url": "http://127.0.0.1:5188/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/listening-included-observe-v1.html",
+    "screenshots": [
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/browser-observations/book-edge-original-union-composite-v1.png",
+        "sha256": "9f9161d9163d9091240382f03dfee0748248955577888a9fe3d62ec94e92d8f7",
+        "bytes": 101893,
+        "role": "browser observation only; NEVER Image reference input",
+        "canvas": [
+          1265,
+          584
+        ]
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/browser-observations/contact-receiver-v1.png",
+        "sha256": "68b96181fbc87551826e94bd967d8e3e4073f4e164f26e018e1fe2baf2853541",
+        "bytes": 42782,
+        "role": "browser observation only; NEVER Image reference input",
+        "canvas": [
+          1265,
+          584
+        ]
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/browser-observations/hem-shoes-original-union-composite-v1.png",
+        "sha256": "d544ca119549deec47591ee932a1344af80426933d90c1d1cc8a9fb9e906d5e3",
+        "bytes": 99467,
+        "role": "browser observation only; NEVER Image reference input",
+        "canvas": [
+          1265,
+          584
+        ]
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/browser-observations/light-dark-checker-v1.png",
+        "sha256": "5fa0803727b24104e2bdeb3811b7762c1851c0a1d973e26caeaae7335facf344",
+        "bytes": 91862,
+        "role": "browser observation only; NEVER Image reference input",
+        "canvas": [
+          1265,
+          584
+        ]
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/browser-observations/mother-composite-v1.png",
+        "sha256": "80088bf91e55e51e230fae4c4221d3d7de58f1013479ca05b8eab80de9a82cd6",
+        "bytes": 125691,
+        "role": "browser observation only; NEVER Image reference input",
+        "canvas": [
+          1265,
+          584
+        ]
+      }
+    ],
+    "note": "Comparison screenshots are review evidence, not generative input. Earlier hem-shoes screenshot precedes later addition of a separate book closeup to HTML; exact selected F/S/BG/mother assets are unchanged."
+  },
+  "nativeArtifacts": {
+    "union": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/union-source-v1.svg",
+      "sha256": "b69fea6ee28c2073a2c93068394459f55ccf6980a155ca7776d951eed1a20853",
+      "bytes": 1400,
+      "role": "native same-canvas source-RGB MAX union"
+    },
+    "composite": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/composite-source-v1.svg",
+      "sha256": "be39178cc1990284540751259d86189d4866d0576988057ec9af32e9f22e75d9",
+      "bytes": 1514,
+      "role": "native same-canvas generated empty BG + source-RGB union"
+    },
+    "browser": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/listening-included-observe-v1.html",
+      "sha256": "364ddcac74947008f0262f2477481134f7be7bde780536050745942894e62434",
+      "bytes": 31409,
+      "role": "static observation page"
+    }
+  },
+  "generationReceipts": [
+    {
+      "record": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/contact-mask-v1.source.json",
+        "sha256": "e2f23905049b809be27d73a38116e5a201e0dd8cabc87c8cad6cd1b57d356284",
+        "bytes": 6113,
+        "role": "actual Image prompt/input/output/observation receipt"
+      },
+      "output": {
+        "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\listening-layers\\violet\\contact-mask-v1.png",
+        "sha256": "efd117d364c8d410aeb91a2550ce5f52eed6caca3ba9847d2df8edda8f37848c",
+        "bytes": 339517,
+        "width": 1536,
+        "height": 1024,
+        "pngColorType": 2,
+        "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-eb7de6e4-8c8f-473c-992f-a9039cf902ad.png",
+        "pngBytesUnchanged": true
+      },
+      "status": "held-insufficient-floor-receiver-awaiting-v2",
+      "currentUseDecision": null
+    },
+    {
+      "record": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/contact-mask-v2.source.json",
+        "sha256": "dfa1ea227abb7e6f8578b880b38a86156148aafba4eb0fe3497c71e6552919d3",
+        "bytes": 6319,
+        "role": "actual Image prompt/input/output/observation receipt"
+      },
+      "output": {
+        "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\listening-layers\\violet\\contact-mask-v2.png",
+        "sha256": "ff46e988ff55593df734ba040ee2fde7aa846b830e2dae13b2e30bf8c7206fb6",
+        "bytes": 306150,
+        "width": 1536,
+        "height": 1024,
+        "pngColorType": 2,
+        "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-4c63c97e-dd8a-4ae8-ab59-7dcdd2eaab80.png",
+        "pngBytesUnchanged": true
+      },
+      "status": "producer-candidate-awaiting-fixed-source-RGB-union-and-primary-review",
+      "currentUseDecision": null
+    },
+    {
+      "record": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/contact-step1-marked-v1.source.json",
+        "sha256": "44118fa7800e29d599014dc389bca37deece6b13c0c3374978497777eb82e33c",
+        "bytes": 6471,
+        "role": "actual Image prompt/input/output/observation receipt"
+      },
+      "output": {
+        "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\listening-layers\\violet\\contact-step1-marked-v1.png",
+        "sha256": "898cdbc465e520b97a7991eea1efbcbe46f2096bf8894320067588808b151569",
+        "bytes": 2319164,
+        "width": 1536,
+        "height": 1024,
+        "pngColorType": 2,
+        "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-0c350330-adf9-4c80-be3d-fe62f897c95a.png",
+        "pngBytesUnchanged": true
+      },
+      "status": "held-insufficient-floor-receiver-awaiting-v2",
+      "currentUseDecision": null
+    },
+    {
+      "record": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/contact-step1-marked-v2.source.json",
+        "sha256": "5b895b3b29198c323bb6183af91455737ca53d48ddc9e124f754d579098c41dd",
+        "bytes": 6736,
+        "role": "actual Image prompt/input/output/observation receipt"
+      },
+      "output": {
+        "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\listening-layers\\violet\\contact-step1-marked-v2.png",
+        "sha256": "358bc5541457001582f88ce357d2db1e3716f5338a68798ba605a6055eec9402",
+        "bytes": 2293622,
+        "width": 1536,
+        "height": 1024,
+        "pngColorType": 2,
+        "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-2bd8a0a8-2389-4c09-b79c-659ba765e78d.png",
+        "pngBytesUnchanged": true
+      },
+      "status": "producer-candidate-awaiting-fixed-source-RGB-union-and-primary-review",
+      "currentUseDecision": null
+    },
+    {
+      "record": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/figure-mask-v1.source.json",
+        "sha256": "ff16c1d408613abab0cb06f9110087637ed3a9ef5585c49b52361cced5822da6",
+        "bytes": 5210,
+        "role": "actual Image prompt/input/output/observation receipt"
+      },
+      "output": {
+        "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\listening-layers\\violet\\figure-mask-v1.png",
+        "sha256": "ff3ec4d3b9c86842f5f4d240294b185bfb2dd112773008547196e229eba5311e",
+        "bytes": 448444,
+        "width": 1536,
+        "height": 1024,
+        "pngColorType": 2,
+        "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-bb84adc6-f354-425a-afa5-e25e82bd98a1.png",
+        "pngBytesUnchanged": true
+      },
+      "status": "producer-candidate-awaiting-fixed-source-RGB-union-and-primary-review",
+      "currentUseDecision": null
+    },
+    {
+      "record": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/figure-step1-marked-v1.source.json",
+        "sha256": "146bd40d9b66545f066681adfd6f8fc5ffc1ab72d7f327aa8cecd746f9e913e5",
+        "bytes": 5909,
+        "role": "actual Image prompt/input/output/observation receipt"
+      },
+      "output": {
+        "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\listening-layers\\violet\\figure-step1-marked-v1.png",
+        "sha256": "5aff1e25b404bf82c92d1c8203c744f133bd263a22c5deffa35041cf005cc87d",
+        "bytes": 2240122,
+        "width": 1536,
+        "height": 1024,
+        "pngColorType": 2,
+        "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-54ad4a55-2181-4a6e-8fa1-a3075a4d5915.png",
+        "pngBytesUnchanged": true
+      },
+      "status": "producer-candidate-awaiting-fixed-source-RGB-union-and-primary-review",
+      "currentUseDecision": null
+    },
+    {
+      "record": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/listening-background-v1.source.json",
+        "sha256": "36e67a2c84e7eaee2241f6bc1f099fc39fbc837a1dfff2be87ad153d93a959ca",
+        "bytes": 6396,
+        "role": "actual Image prompt/input/output/observation receipt"
+      },
+      "output": {
+        "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\listening-layers\\violet\\listening-background-v1.png",
+        "sha256": "8b34b7661386796db687eb8d35ca4d44da0fc1cf98fd9159ff8daacbad8111ea",
+        "bytes": 2310034,
+        "width": 1536,
+        "height": 1024,
+        "pngColorType": 2,
+        "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-db88f808-a98d-4359-9b05-cb3a1bea458a.png",
+        "pngBytesUnchanged": true
+      },
+      "status": "producer-candidate-awaiting-fixed-source-RGB-union-and-primary-review",
+      "currentUseDecision": null
+    }
+  ],
+  "sourceIntegrity": {
+    "allListedInputAndOutputShaReRead": true,
+    "problems": []
+  },
+  "scope": {
+    "newHumanMotherCells": 0,
+    "newRuntimeStates": 0,
+    "globalLedgerWritten": false,
+    "appOrBackendWritten": false,
+    "newTestsFixturesRunners": false,
+    "cleanup": "No original outputs, source records or review evidence removed."
+  }
+}

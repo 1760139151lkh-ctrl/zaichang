@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "empty-room-plate",
+  "environmentVariant": "rain-night",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "executionId": "exec-d1b245d5-e1a9-401a-8e5a-4bca263f5fd1",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-d1b245d5-e1a9-401a-8e5a-4bca263f5fd1.png",
+  "inputs": [
+    {
+      "file": "literary-room-dry-night-v1.png",
+      "sha256": "edad31b1ce0c7f21be59d939cc54a0d6230b31d6fe380d0d553af515032fd0f4",
+      "role": "sole approved empty dry-night environment edit target; no person image input",
+      "admissionRecord": "literary-room-dry-night-v1.primary-approval.json"
+    }
+  ],
+  "selectedMotherLineage": {
+    "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+    "imageInputForThisCall": false
+  },
+  "promptFile": "literary-room-rain-night-v1.prompt.txt",
+  "promptFileSha256": "4f6eecd450b75507a0f40f840f3186e8fccc8deddade327ff9e4fdc907ecb96c",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd, exactly as submitted",
+  "submittedPromptSha256": "abd2258674debcea69fa3160e9170f6bbe47a7cc70e528fd1643f6c01fea6499",
+  "output": {
+    "file": "literary-room-rain-night-v1.png",
+    "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+    "bytes": 2270751,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed complete saved original: dark cloudy rainy exterior, glass drops/trails and rain-broken town/lake reflections replace the dry starry view; no visible star field, moon or daylight patch. Same close camera, original furniture/curtains/bench/foreground depth remain. Existing ceramic lamp keeps its local warm interior, all indoor fabric/wood/rug stay dry and old daytime sun stripes are absent. Producer view only, no primary/runtime acceptance."
+  },
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "approvalScope": "Static empty environment candidate only, not character/activity/layers/runtime approval.",
+  "primaryApprovalRecord": "literary-room-rain-night-v1.primary-approval.json",
+  "primaryApprovalScope": "Complete static empty environment plate only; same selected close room and corresponding weather/time illumination. No character/activity/layers/motion/runtime approval."
+}

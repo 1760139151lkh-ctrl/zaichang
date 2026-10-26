@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "character": "soyo",
+  "activity": "listening",
+  "palette": "rain",
+  "stage": "S1-v3",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Priority precision for this revision: this is NON-EMISSIVE source selection paint, never a glowing light pool or bloom. Only real local source receiver under the close shoes and book is selected. On the FLOOR, every pixel LEFT of x742, RIGHT of x970, ABOVE y849 or BELOW y929 stays ORIGINAL COLOR. Inside that inspection neighborhood do NOT fill a rectangle/ellipse: trace ONLY the actual irregular floor-shadow/material shapes under and immediately around the original soles/toes/heels, including their true visible soft falloff. Select their complete local source softness, wider than a thin sole outline, but no added buffer of ordinary bright floor. Use white cores and a thin grey antialias at the actual outer boundary, not a diffuse halo extending outwards. The shoes themselves remain colored.\n\nFor the separate book receiver, every pixel RIGHT of x1266 MUST remain original colored. The tiny underlying support ends at the actual book footprint near x1262, with at most the real few-pixel original contact at its edge, never a broad linen tail. Preserve book cover/pages original RGB. For the seat, keep ONLY the genuine narrow compressed linen/hip support, not a continuous bright bench stripe.\n\nUse case: precise-object-edit. Asset type: revised S1 COMPLETE ORIGINAL LOCAL SUPPORT RECEIVER selection for Soyo LISTENING RAIN. The ONLY image input is the exact approved original colored 1536x1024 RAIN mother. No prior mask, marked intermediate, empty BG, union or audit image is input. Preserve every original object/person/book RGB, camera, canvas and coordinate.\n\nPrimary correction: select the FULL existing soft floor receiver/shadow that grounds the TWO CLOSE ORIGINAL SHOES. Paint actual local shadowed wood/material solid white across its real core and include its genuine softer outer falloff with gentle edge-grey antialias. Do NOT draw only a thin white outline at the soles. Do NOT invent a new shadow, white oval, rectangle or broad room-floor wash.\n\nInspect original shoes around x754..919,y788..882. Their actual local receiving ground softness is approximately within x743..970,y850..927. This is an INSPECTION NEIGHBORHOOD, NOT A BOX TO FILL. Follow the source's existing irregular dark-to-floor transition under and around toes/soles/heels, including complete local support softness onto the nearby floor. If their original near shadows join between close shoes, keep that actual joining receiver; do not artificially separate the real shared patch or connect any distant unrelated shade. The actual shoes, outsole walls and heels stay ORIGINAL COLORED, not selected floor. Unrelated lamp/furniture shadows, large warm floor reflections, rug and generic dark wood grain remain colored.\n\nRetain only these small authentic non-floor receivers:\n- Actual narrow visible linen compression/contact directly adjacent to and under the hip/skirt, near x805..1140,y548..604, respecting the exact garment boundary. No body/hair/hand/knee or dark skirt pixels, no whole long bench.\n- Tiny actual linen support directly UNDER the separate closed book on image-right, near x1120..1266,y552..577. The original book's actual right edge is about x1262. Tighten the receiver to this true bottom footprint, never a long pale cloth tail reaching x1280 or farther right. Keep the entire cover/page block/spine/bottom-cover RGB colored. Select only the underlying support/material, not bright pages.\n\nEverything unselected retains original source color, including whole girl/empty knee hands, all clothes/hosiery/shoes, independent closed book, unselected cream cushion, plaid/knit, lamps, rain window, room and light. No new geometry, added shadow or moved object. The white/grey is a selection of existing original receiver material for a fixed MAX union, not a portable caster.\n\nOutput ONE opaque original-position 1536x1024 complete COLOR mother with ONLY those local receivers deliberately marked white/true soft-edge grey. No black mask yet, body change, crop, resize, zoom, recentering, translation, text, labels, arrows, boxes or grid.",
+  "promptSha256Utf8NoTrailingLF": "656d65999388c7fe1c792ff8c9fe24b0b5d206d8850dc581e7a69042a9a20a4e",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-rain-literary-v1.png",
+      "sha256": "dca2dd09063832af700bcb833ddaae40cde16b01aed2d27429204762cd3c7210",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "sourceMotherSha256": "dca2dd09063832af700bcb833ddaae40cde16b01aed2d27429204762cd3c7210",
+  "approvalEvidence": "Root static approval of Soyo listening four mothers relayed by openui_creation delegation. Exact violet/rain source images independently viewed and hashes verified. This does not approve any new mask.",
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/soyo.md",
+      "sha256": "1ec8b260d40f8363c096ed8392547dd276d2318df5aadbe34b1f51e51e2ed04e",
+      "readScope": "Complete current text read before this layer task"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "readScope": "Complete current text read before this layer task"
+    }
+  ],
+  "method": "Read mature Soyo/chat-layers F1/F2/S1/S2 actual prompts and root Sakiko recognition-v2-layers contact S1-v3/S2-v2 repair prompts. Original mother -> same-canvas marked selection -> black/white extraction only. No held images, threshold/manual PNG paint or review collage input.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\listening-layers\\rain\\contact-step1-marked-v3.png",
+    "sha256": "dbf916971d21563220477675db2452e9b496409fc269294c1849beac02e2d663",
+    "bytes": 2181483,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-fada1f9b-34b5-4796-af2b-ccab11bbc5e3.png",
+    "pngBytesUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "fullNativeImage": true,
+    "observations": "亲看完整1536×1024：从原母新重建后，鞋旁白接收区收回至紧接两鞋的实际局部附近，有面积的白芯/灰软缘而非薄描线；不再有v2远向左的大白池。书底条也收回原书足迹、右缘未见长伸的粉布尾，裙髋下有小窄接触。整个人/空手/鞋/书保持彩色，未涂长空座或大灯影。局部source木地板是否恢复原母软影完整形状仍须caller新BG+原RGB MAX实看，不签primary。"
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "status": "producer-candidate-awaiting-fixed-source-RGB-union-and-primary-review",
+  "useBoundary": "Only fixed original-source included union MAX(F,S); local receiver pixels are not a portable independent cast-shadow layer. No new pose/dynamic credit.",
+  "revisionPurpose": "Rebuilt from exact clean mother after held rain S1-v2 oversized floor receiver/book tail; tighter actual source-local footprint with full soft grounded support. Held v1/v2 and composites were never inputs."
+}

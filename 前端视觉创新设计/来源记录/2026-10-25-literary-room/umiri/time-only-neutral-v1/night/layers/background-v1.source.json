@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-mother-fixed-included-layer-imagegen-stage",
+  "character": "umiri",
+  "purpose": "neutral-presence",
+  "neutralTime": "night",
+  "palette": "rain",
+  "light": "night",
+  "weather": "unknown",
+  "weatherClaim": false,
+  "stage": "BG",
+  "tool": "built-in image_gen.imagegen",
+  "toolArguments": {
+    "prompt": "Use case: precise-object-edit. Exact root-approved Umiri neutral-presence time-night 1536x1024 mother, weather unknown. Create CLEAN SAME-MOTHER empty BG by object-removal only, using ONLY this exact approved whole mother. Keep canvas1536x1024, original camera/perspective, all furniture/window-bench/pillow/throw/table/lamp/cup/books/flowers/left shelves/desk/chair/plants/floor/rug coordinates and original subdued warm ceramic-lamp nighttime color/light. All opaque inner curtains including seam stay fully CLOSED with no readable weather/exterior.\nRemove ONLY ENTIRE Umiri: every hair/ear/choker/jacket/red top/skirt/belt/arm/side palm/finger/leg/both complete mid-calf lace-up platform boots AND her COMPLETE small thigh book including covers/page block/binding/hand-adjacent thin edges. Remove local cushion/palm compression/contact shadow and boot floor-contact/cast shade caused by removed person/boots. No remaining hair/hand/boot/lace/book/page fragment, ghost silhouette or replacement prop.\nReconstruct matching original hidden linen cushion folds and wood bench/floorboard geometry/material where obscured. Match untouched same-mother contact-adjacent cloth and wood colors/lighting, preserve unrelated furniture/ambient shadows. No new scene/room plate, camera/furniture drift, changed exposure/theme, bright day patch in night, added object, text/UI/border/watermark/crop/resize. One complete opaque clean empty SAME room, for fixed MAX-masked exact original RGB later. Not a claim of bitwise recovery of hidden texture.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-night-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "submittedPrompt": "Use case: precise-object-edit. Exact root-approved Umiri neutral-presence time-night 1536x1024 mother, weather unknown. Create CLEAN SAME-MOTHER empty BG by object-removal only, using ONLY this exact approved whole mother. Keep canvas1536x1024, original camera/perspective, all furniture/window-bench/pillow/throw/table/lamp/cup/books/flowers/left shelves/desk/chair/plants/floor/rug coordinates and original subdued warm ceramic-lamp nighttime color/light. All opaque inner curtains including seam stay fully CLOSED with no readable weather/exterior.\nRemove ONLY ENTIRE Umiri: every hair/ear/choker/jacket/red top/skirt/belt/arm/side palm/finger/leg/both complete mid-calf lace-up platform boots AND her COMPLETE small thigh book including covers/page block/binding/hand-adjacent thin edges. Remove local cushion/palm compression/contact shadow and boot floor-contact/cast shade caused by removed person/boots. No remaining hair/hand/boot/lace/book/page fragment, ghost silhouette or replacement prop.\nReconstruct matching original hidden linen cushion folds and wood bench/floorboard geometry/material where obscured. Match untouched same-mother contact-adjacent cloth and wood colors/lighting, preserve unrelated furniture/ambient shadows. No new scene/room plate, camera/furniture drift, changed exposure/theme, bright day patch in night, added object, text/UI/border/watermark/crop/resize. One complete opaque clean empty SAME room, for fixed MAX-masked exact original RGB later. Not a claim of bitwise recovery of hidden texture.",
+  "originalToolOutput": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-de298c77-462e-402e-8146-e32c60c6fdc1.png",
+  "outputFile": "background-v1.png",
+  "mother": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-night-v1.png",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-night-v1.png",
+      "role": "exact root-approved original whole mother",
+      "sha256": "c6f19f399ab4a05727cb52d36a780fd3fde3f4222e4c31dc39dee6b2f1b19731"
+    }
+  ],
+  "producerObservation": "Complete tool output personally viewed: empty same-mother lamp-lit night room, no girl/book/boot/lace ghost; closed curtains/camera/furniture and ambient night light maintained.",
+  "sourceRgbDrawsInFinalAssembly": 1,
+  "assembly": "U=MAX(L(F),L(S)); exact original mother RGB drawn only once; local receiver material fixed at source position",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "pngPixelEditing": false,
+  "croppingOrResizingSourcePNG": false,
+  "thresholdOrMorphologyEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "dynamicAdmission": false,
+  "original360CreditAssigned": false,
+  "userApproved": false,
+  "reviewScreenshotsUsedAsImageInput": false,
+  "recordedAtUTC": "2026-10-26T01:28:55.611965+00:00",
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/night/layers/background-v1.png",
+    "sha256": "a440a13e08fb69b87fb4351132cfff6969f1ae2bb1d54c65676d6376812340df",
+    "bytes": 2141510,
+    "originalToolOutputSHA256": "a440a13e08fb69b87fb4351132cfff6969f1ae2bb1d54c65676d6376812340df",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "motherSHA256": "c6f19f399ab4a05727cb52d36a780fd3fde3f4222e4c31dc39dee6b2f1b19731",
+  "dossierVersion": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/umiri.md",
+    "sha256": "760b038d3ff84a770c80bf6144e52265d8109e41ecd5cb3440408561ac2bc0da"
+  },
+  "methodVersion": {
+    "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+    "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d"
+  },
+  "submittedPromptSHA256": "a084abccac3a63a1c6875797d1dbfcf64102dec67c654d2d1939504c15cb15ff",
+  "promptFileSHA256": "450a2e30f3faf501bf9703854349d857a2b364d358dc32e668d8060fc9446e77"
+}

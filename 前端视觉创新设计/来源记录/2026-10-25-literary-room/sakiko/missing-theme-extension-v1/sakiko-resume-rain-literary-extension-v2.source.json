@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "recordType": "new-complete-human-theme-mother-candidate",
+  "sceneFamily": "literary-room-v1",
+  "cell": "sakiko/resume/rain",
+  "character": "sakiko",
+  "activity": "resume",
+  "palette": "rain",
+  "tool": "image_gen.imagegen",
+  "transparentBackground": false,
+  "recordedAt": "2026-10-25T18:56:14.764411+00:00",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-98b55215-836f-4989-9fa9-4e8cc8b5ef44.png",
+  "toolOriginalSha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9",
+  "generationPlan": {
+    "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\missing-human-mother-production-plan-v1.json",
+    "sha256": "251f83b82c17e5ea7646559e29655dd9daae9b2dcdc370fcce2169bd62debc9f",
+    "brief": {
+      "index": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/sakiko/sakiko-literary-room-36-cells-v1.json",
+        "sha256": "a771f7473ebeb6dfed1d1143ef83cf41f0037885ed750ee1914c01e1a07eec2d",
+        "bytes": 124020,
+        "capturedAt": "2026-10-25T09:14:03.049739+00:00"
+      },
+      "jsonPointer": "/cells/35",
+      "briefKey": "sakiko/resume/rain",
+      "producerBriefRef": null
+    },
+    "precedence": "Current explicit14-cell parent release supersedes historical held flags/obsolete input pointers. Only actual input list was submitted. Taki violet aliases dusk brief wording."
+  },
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "readScope": "Complete current role dossier and full art-direction personally read before the production; exact unchanged read version bound to this call."
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "91fb8b8de3e8d954a9367a585f09b71b8f5a9962d8ed0107249c348390fb7f05",
+      "readScope": "Complete current role dossier and full art-direction personally read before the production; exact unchanged read version bound to this call."
+    }
+  ],
+  "seedInspection": {
+    "artifact": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/sakiko-recognition-apricot-v2.png",
+      "sha256": "a8801f784b77d632509818d102a8b899d0bdda99afe904085196a9e8c5bee279",
+      "bytes": 2460394,
+      "canvas": {
+        "width": 1536,
+        "height": 1024
+      },
+      "format": "PNG"
+    },
+    "personallyViewedWholeExactSeed": true,
+    "actuallyInput": false,
+    "decision": "Rain only clean plate + complete identity/wardrobe/story text. Prior theme candidates HOLD for diagonal daytime sunlight patches; neither rejected night nor apricot body is input. Exact apricot seed personally inspected only, no longer submitted."
+  },
+  "targetPlate": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+    "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+    "bytes": 2270751,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "format": "PNG"
+  },
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "role": "primary CLEAN target room/camera/theme"
+    }
+  ],
+  "promptFile": "sakiko-resume-rain-literary-extension-v2.prompt.txt",
+  "promptFileSha256": "24348ec39ebf6598bbac653347e8a3166209462acaa59d792a57d17210d825fe",
+  "submittedPromptTransform": "Exact literal submittedPrompt stored in preparation JSON and passed to ImageGen; no trim or appendedLF. Prompt .txt created by apply_patch has its own finalLF and separate raw-file SHA.",
+  "exactSubmittedPrompt": "Create ONE newly painted complete literary-room mother illustration, exact LANDSCAPE1536x1024 canvas. This is one continuous physical room and one youthful human character, not a UI mock, collage, figure pasted over scenery, portrait, sprite or theme filter. Image1 is the approved CLEAN target-theme EMPTY room: it is the PRIMARY room/camera/furniture and lighting reference. Retain its camera, full timber window/lake/town/mountain depth, left desk/chair/bookcase/plants, near ceramic lamp/cup/flowers on round side table, long linen window-seat, right plaid cushions/cream knitted throw, wood floor/rug and soft foreground plant. Keep the original whole room, no extra desk, no new furniture, zoom, empty UI panel or divided day/night scene. The LEFT half remains a complete naturally furnished room, not painted blank.\n\nThere is ONLY ONE input: the exact CLEAN target RAIN-NIGHT EMPTY room. Create the complete person from the full identity/outfit/story text. No apricot human, no previous night candidate, no old attention/resume body is input.\n\nTHE LIVING MOMENT:\nShe had been reading her own small navy clothbound book on the right window-seat. A familiar person comes back from just offscreen LEFT and speaks softly. Her right thumb still holds the line for HERSELF, her left hand still supports the spine; the eyes recognize the person a half-beat before the head finishes turning. The tiny seriousness between brows loosens, gold eyes brighten with clear young pleasure, and only then one small smile catches at the mouth. She is still proper and has her own pride; there is a visible wish to share that unfinished sentence, not pity, maternal reassurance, a posed welcome or an arm wave. Looking specifically toward the familiar face offscreen left is appropriate; no unsupported pointing.\n\nCHARACTER AND COMPLETE CHOSEN WARDROBE:\nSakiko Togawa/丰川祥子 from MyGO!!!!!/AveMujica, pale BLUE-LAVENDER long hair with real blue base, delicate ordered bangs, modest dark navy side hair ribbon and gathered side-lock relation; clear GOLD eyes, youthful thoughtful soft cheeks. Match accepted recognition-v2 identity, not silver-white hair or mature mentor face. Chosen project wardrobe sakiko-literary-navy-adaptation: navy long-sleeve cardigan, pale blouse collar with SMALL dark bow, navy plaid pleated skirt, DARK NAVY BELOW-KNEE CALF SOCKS. BOTH KNEES AND A NATURAL SKIN GAP ABOVE EACH SOCK ARE EXPOSED. Complete brown-black everyday loafers. No pantyhose, thigh-highs, over-knee hosiery, sheer black thigh veil, school blazer/green tie mix or stage outfit. This is an original literary navy adaptation, not asserted official uniform.\n\nTHE WHOLE THEME IS PHYSICALLY RE-LIT, NOT A COLOR FILTER:\nRAIN NIGHT /夜雨暖金: actual rain stays OUTSIDE the same panes; deep blue wet lake/town distant lamps and mountain silhouettes. Near ceramic lamp gives soft AMBER light to page, fingers, face and warm wood. Dark hair/navy fabric remain distinct with subtle reflected edges, not a black silhouette. No daylight sun streaks, tears, tired/sleepy mood or magical glow.\nThe actual target plate controls the outside weather/time, room values and lamp strength; do NOT keep the apricot source sunshine. Paint matching light on face, hair, paper, cloth, cushion, floor and contact shadows together, preserving intrinsic hair/eye/skin/fabric colors. No blue skin, neon eyes, muddy black figure or glowing page. Night changes light, not her personality into sorrow or sleep.\n\nBODY, OBJECT AND CAMERA:\nSame recognition-v2 supported right bench seating and near-room scale: original cushion under hips, slightly turned shoulders, open book across upper thighs supported by two real hands. Knees together naturally incline a little left, calves descend to two complete loafers on floor without crossed/raised legs. Keep calf sock tops visibly BELOW both knees.\nReal pelvis weight compresses existing bench cushion; shoulder/forearm/hand and book have one continuous weight-bearing relation. Keep both hip-knee-ankle chains coherent, knees uncrossed, socks separate below exposed knees, complete loafers naturally supported by original wood floor, full head/hair and full shoe soles inside safe frame margins. Do not make a long-legged body merely to force the soles flat, mirror the two feet rigidly, lift a heel without support, cross legs with broken joints, hide anatomy behind a prop, move a whole figure pack across furniture or invent a third hand. Keep original bench-person apparent scale, with full head roughly near y110..160 and shoes roughly y850..930 according to natural perspective, not a numeric anatomy stencil. Natural joint/occlusion and real source bench support decide exact positions. One single girl, no other person's hand. A few book/page marks can be softly suggested but NO legible text, formula, answer, user quote or task receipt. No UI/text/title/signature/logo/watermark/arrows/guidelines/split screen or decorative emotion icons.\n\nART:\nYouthful expressive2D anime-derived literary linework integrated with tactile wood/linen and room air. Separate fringe, eyebrows, lids, sclera and irises; natural skin, soft cheek volume and light chin. No mature makeup/model long face, cold stock scowl, glass baby eyes, compulsory blush or advertising smile. Show this role's small specific change of attention. This is a project-original fictional companionship moment, not an assertion that a user file was read, a bookmark found, a promise kept or real work completed. Preserve only the selected healthy family and exact intended target light; output a new whole-scene painting.\n\nNIGHTLIGHT IS A HARD PHYSICAL CONDITION: It is genuinely night outside. The blue rain window supplies only weak diffuse cool fill and CANNOT project a golden sunbeam or window-grid shadow onto the floor, cushion or knees. REMOVE every sharp DIAGONAL RECTANGULAR APRICOT SUN PATCH, gold window-bar stripe, sunlight shaft and bright striped patch from the floor and bench. The ceramic lamp has a soft continuous falloff/LOCAL ROUND AMBER POOL near the side table and cushion, with subdued plausible nearby furniture shadow; farther wood floor is quiet darker brown, not a bright bar projector. Foreground floor and bench must have no distinct daytime sunlight grid/banded highlights. A wet dark window is not sufficient: the whole interior must read lamp-lit night. Preserve face/hands/wardrobe legibility using gentle reflected lamp light without brightening a daylight body. No window sunlight even if a previous approved apricot pose exists. The ONLY image input is the clean rain-night room; redraw complete person from textual identity/support/moment, not from any rejected night image or any apricot person pixels.",
+  "submittedPromptSha256": "442354f0945d727f200ad6065cfb8d1d7194d635477cb01603e9cb213cb8b4a3",
+  "fictionalCompanionScene": true,
+  "privateUserDataUsed": false,
+  "output": {
+    "file": "sakiko-resume-rain-literary-extension-v2.png",
+    "sha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9",
+    "bytes": 2242270,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "observation": "Youthful gold-eyed blue-lavender-haired Sakiko looks toward a familiar person with visible young pleasure, book held by two real hands; navy adaptation, BOTH exposed knees, below-knee calf socks and complete brown-black loafers. Bench pelvis and uncrossed legs remain coherent. Dedicated clean-plate-only night rebuild: actual output floor and cushion personally checked for daylight contamination. Exterior stays dark blue rain, near ceramic lamp forms local continuous warm falloff on cloth/wood/person; no distinct bright diagonal daytime window-grid sun patch on floor or bench. Subdued wood reflections remain. Not exact background-pixel identity, source admission or runtime proof.",
+    "nightCleanRebuild": true,
+    "staticOnly": true,
+    "cameraRegistration": "Complete room family/camera/support visually continuous. Generated source is NOT claimed pixel-identical to empty plate or pre-aligned/admitted layers."
+  },
+  "generationStatus": "actual-image-output-saved-static-candidate",
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "postureTopologyCredit": "Supported existing activity family with newly redrawn common-object relation; theme cell generation does not prove new major furniture-support topology or dynamics.",
+  "submittedPromptReceipt": {
+    "file": "sakiko-resume-rain-literary-extension-v2.preparation.json",
+    "sha256": "8d615f064dd9eb1eb6b9ae09136e01b999d4e38f7e6c2f63dbebd5cab53a6978"
+  }
+}

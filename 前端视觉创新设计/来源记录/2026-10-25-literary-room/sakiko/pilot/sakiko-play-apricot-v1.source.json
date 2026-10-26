@@ -1,0 +1,29 @@
+{
+  "tool": "built-in image_gen",
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "activity": "play",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "kind": "clean-empty-room-only"
+    }
+  ],
+  "damagedCharacterInput": false,
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a16fb3-8f8d-7c72-a744-a441e8907c91\\exec-e0cf57db-6f62-4993-ace1-88c77173ecad.png",
+  "output": "sakiko-play-apricot-v1.png",
+  "outputSha256": "5f3dfd09f4ea2c5b2d22c5803474195358157c857e9350cb4794ead646db05a5",
+  "promptFile": "sakiko-play-apricot-v1.prompt.txt",
+  "submittedPromptSha256": "d6c1a2f2ef25d7648be360cb70357153695a060028a487c93ec76a372ddd0917",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "reviewBoundary": "Primary viewed source-pixel four-head comparison: play v1 leans forward and visibly enlarges head versus selected reading/chat/study. Emotional gesture retained only as text; this rejected picture must not be an input for repair.",
+  "primaryDecision": "rejected-for-active-matrix"
+}

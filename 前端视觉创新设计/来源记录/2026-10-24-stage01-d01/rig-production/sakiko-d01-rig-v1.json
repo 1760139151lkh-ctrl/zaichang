@@ -1,0 +1,92 @@
+{
+  "id": "sakiko-chat-apricot-d01-rig-v1",
+  "width": 1536,
+  "height": 1024,
+  "source": "../../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+  "cleanPlate": "sakiko-body-clean-right-arm-v1.png",
+  "arm": {
+    "erasePath": "M 1237 418 C 1253 415 1269 430 1269 450 L 1264 478 C 1260 494 1257 506 1261 515 C 1266 522 1267 535 1258 541 C 1245 546 1230 536 1225 526 C 1220 517 1222 505 1221 491 L 1224 460 Z",
+    "upperPath": "M 1241 418 C 1250 418 1258 425 1258 440 L 1256 467 C 1255 482 1252 492 1247 498 L 1231 499 C 1226 494 1228 483 1230 475 C 1234 463 1237 450 1237 436 Z",
+    "forearmPath": "M 1231 483 C 1240 480 1254 484 1256 491 L 1253 505 L 1255 512 C 1257 518 1263 522 1263 528 L 1260 532 L 1258 537 L 1253 539 L 1248 539 L 1244 536 L 1238 534 L 1233 529 L 1230 523 L 1229 514 L 1227 505 L 1227 495 Z",
+    "shoulder": [
+      1247,
+      429
+    ],
+    "elbow": [
+      1237,
+      491
+    ],
+    "wrist": [
+      1247,
+      514
+    ],
+    "foregroundPath": "M 1207 539 L 1287 546 L 1307 532 L 1306 538 L 1287 552 L 1208 545 Z"
+  },
+  "eyes": {
+    "cleanPlate": "sakiko-eye-white-clean-v1.png",
+    "apertures": [
+      {
+        "path": "M 1252 341 C 1254 338 1260 335 1265 337 C 1267 340 1265 346 1261 347 C 1257 347 1253 344 1252 341 Z",
+        "irisPath": "M 1258 337 C 1261 335 1264 337 1265 340 L 1264 344 C 1262 348 1259 348 1257 343 L 1257 340 Z",
+        "center": [
+          1261,
+          342
+        ]
+      },
+      {
+        "path": "M 1284 331 C 1286 327 1292 325 1298 326 C 1300 328 1298 332 1296 334 C 1291 336 1287 335 1284 331 Z",
+        "irisPath": "M 1289 326 C 1292 324 1295 326 1296 329 L 1296 331 C 1295 335 1291 335 1289 331 Z",
+        "center": [
+          1293,
+          330
+        ]
+      }
+    ],
+    "travel": [
+      2,
+      1.2
+    ]
+  },
+  "head": {
+    "background": "../../../运行素材/companion/scenes/sakiko-chat-apricot-background-calibrated-v3.png",
+    "erasePath": "M 1234 276 C 1247 261 1272 255 1293 261 C 1321 267 1338 286 1344 311 C 1349 335 1344 359 1329 378 L 1305 397 L 1297 413 L 1270 413 L 1270 392 C 1252 386 1238 371 1232 353 C 1224 331 1223 300 1234 276 Z",
+    "path": "M 1234 276 C 1247 261 1272 255 1293 261 C 1321 267 1338 286 1344 311 C 1349 335 1344 359 1329 378 L 1305 397 L 1297 413 L 1270 413 L 1270 392 C 1252 386 1238 371 1232 353 C 1224 331 1223 300 1234 276 Z",
+    "pivot": [
+      1283,
+      401
+    ],
+    "foregroundPath": "M 1264 399 L 1278 406 L 1291 400 L 1305 413 L 1315 430 L 1305 452 L 1287 442 L 1271 454 L 1260 429 Z",
+    "maxTilt": 1
+  },
+  "production": {
+    "sceneCalibration": "../../../运行素材/companion/scenes/sakiko-chat-apricot.scene.json",
+    "coordinateSpace": "mother-pixels",
+    "rootTransform": "owned by the existing scene actor; no root travel",
+    "staticReview": "producer inspected original mother, clean/body plate, eye-white plate, and existing same-family empty background",
+    "runtimeReview": "pending integrated review; seed paths must be adjusted against actual renderer if seams or contact are visible",
+    "handBookContact": [
+      1250,
+      533
+    ],
+    "suggestedWristLiftPixels": [
+      12,
+      20
+    ],
+    "layerOrder": [
+      "same-family background",
+      "fixed body/root with right-arm/head erase regions",
+      "upper arm",
+      "forearm and hand",
+      "book front edge",
+      "front head with eye-white and iris sublayers",
+      "collar foreground"
+    ],
+    "useRestriction": "The clean plates are local repair underlayers, never standalone expressions. The original source supplies all arm, hand, head and iris pixels. Rejected transparent arm variants are not runtime assets.",
+    "remaining": [
+      "Inspect shoulder/hair and elbow overlap while moving.",
+      "Inspect book front edge before accepting contact.",
+      "Inspect head cut line and collar coverage at both tilt extrema.",
+      "Inspect actual left/down eye movement within the eyelid aperture."
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+Use case: precise-object-edit.
+Asset: COMPLETE original-coordinate foreground selection MARKUP, F step 1 of 2, not a new character illustration.
+The attached image is the ONLY input: ROOT-APPROVED Mutsumi chat literary mother, exactly 1536×1024. Keep the original room, camera, perspective, scale, pose and EVERY object coordinate unchanged.
+
+Paint ALL visible original Mutsumi pixels SOLID PURE WHITE in their existing source position: every mint long-hair strand and silver clip, complete head/face/neck, navy sailor collar/bow/badge, both whole sleeves/cuffs/arms, both relaxed lap hands and every finger, the entire navy skirt and all pleats, both visible knees/lower legs, both knee socks and BOTH complete brown loafers. The white interior has no eyes, face, garment linework or texture.
+
+Important dark ownership:
+The WHOLE folded navy skirt edge, its two pale hem stripes, every dark lower trim/outline and small outward cloth tip are foreground. Do not mistake a dark navy hem for a cushion shadow or erode the clothing perimeter. Its source lower contour spans approximately x980..1360,y515..650; these are finding limits, not a box to fill.
+Both brown shoes include ALL toe tips, uppers, dark outsole rims, side/back heel walls, complete heel blocks and exact bottom contours, roughly x905..1120,y795..905. Keep every actual dark shoe pixel white, not classified as independent floor shadow.
+Preserve the exact outer source antialias perimeter, real gaps between strands/arms/legs, and the exact existing lap-hand pose. Do not enlarge, contract, center or redraw the silhouette.
+
+Everything except the original complete visible person remains in its ORIGINAL COLOR: cream linen cushion, plaid pillows, knitted throw, skin-contact receiving material outside her body, furniture, wood floor/rug and independent cast shadows, lamp/cup/flowers, shelf, plant, window/lake/town. Do not whiten the surrounding cushion or floor.
+Output ONE opaque 1536×1024 PNG, original colored room with the entire existing person filled solid white in place. No checkerboard, black background yet, new body, crop, zoom, movement, labels, lines, boxes, arrows or text.

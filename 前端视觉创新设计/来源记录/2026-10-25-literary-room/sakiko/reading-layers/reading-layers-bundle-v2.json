@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "key": "sakiko/reading/apricot",
+  "kind": "limited-foreground-repair-round2",
+  "primary": false,
+  "runtime": false,
+  "status": "round2_two_call_boundary_reached_candidate_not_admitted",
+  "repairRound": {
+    "number": 2,
+    "callLimit": 2,
+    "callsUsed": 2,
+    "totalCallsIncludingRound1": 6,
+    "inFlight": false,
+    "furtherCallsPerformed": false,
+    "onlyNewF": true
+  },
+  "previousBundle": "reading-layers-bundle-v1.json",
+  "mother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+    "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "background": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "unchanged": true
+  },
+  "oldFigure": {
+    "mask": "figure-mask-v1.png",
+    "sha256": "d72a00b683ceb61cad80f49278618972fea309df051672c843d8e04399b44dfc",
+    "unchanged": true
+  },
+  "newFigure": {
+    "mask": "figure-mask-v2.png",
+    "sha256": "0561235343377c9d760d4aab0a95e197c01904ff1dd9fefab53dd66f0ea7a11d",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "maskMode": "luminance",
+    "rgbSource": "unchanged approved original mother",
+    "nativeSvgSource": "figure-source-v2.svg"
+  },
+  "existingShadow": {
+    "mask": "shadow-mask-v1.png",
+    "sha256": "971c1c6fce428abfb6457e3a20b58655ea32b8bda10b7af2761500afdd989992",
+    "unchanged": true,
+    "effectiveMask": "original S luminance × (1 − new F luminance)",
+    "sourceRgb": "unchanged approved original mother",
+    "nativeSvgSource": "shadow-source-v2.svg"
+  },
+  "generationRecords": [
+    "figure-step1-source-v2.json",
+    "figure-step2-source-v2.json"
+  ],
+  "calls": [
+    {
+      "number": 1,
+      "totalNumber": 5,
+      "role": "repair-round2-figure-step1",
+      "executionId": "exec-bc847126-ab5e-4a18-828d-5fcd496a39ec",
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-step1-marked-v2.png",
+      "sha256": "aa4c1536d5835f1f566e8307f303a12edac042b3c46374e55ec9f9da4c19fa83",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17125-a57d-70f3-9b8f-9ecfd8cef13e\\exec-bc847126-ab5e-4a18-828d-5fcd496a39ec.png"
+    },
+    {
+      "number": 2,
+      "totalNumber": 6,
+      "role": "repair-round2-figure-step2-luminance-mask",
+      "executionId": "exec-c4813114-ba5f-46bc-a740-f1e28aa1124a",
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/figure-mask-v2.png",
+      "sha256": "0561235343377c9d760d4aab0a95e197c01904ff1dd9fefab53dd66f0ea7a11d",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17125-a57d-70f3-9b8f-9ecfd8cef13e\\exec-c4813114-ba5f-46bc-a740-f1e28aa1124a.png"
+    }
+  ],
+  "inputPolicy": "Fresh step1 uses only correct original mother. Step2 uses only fresh complete-white derivative. No old F or S supplied to ImageGen.",
+  "sameCanvas": {
+    "width": 1536,
+    "height": 1024,
+    "transform": {
+      "x": 0,
+      "y": 0,
+      "scale": 1
+    },
+    "layerOrder": [
+      "unchanged matching BG",
+      "original RGB through unchanged S after new F subtraction",
+      "original RGB through new F"
+    ],
+    "nativeSvgMustBeInlined": true,
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "visualInspection": {
+    "status": "current_static_browser_inspection_complete_remaining_edge_ownership_concerns",
+    "page": "reading-layers-observe-v2.html",
+    "pageUrl": "http://127.0.0.1:5188/来源记录/2026-10-25-literary-room/sakiko/reading-layers/reading-layers-observe-v2.html",
+    "statesViewed": [
+      "original / old composite / new composite full scene",
+      "old and new original-RGB figure on light surfaces, upper body and complete shoe/lower-body portions",
+      "old and new original-RGB figure on dark surfaces, upper body and complete shoe/lower-body portions",
+      "original / old-F / new-F plaid hem and thin lower garment edge on checker at original pixel scale",
+      "original / old-F / new-F complete soles and heels on checker at original pixel scale",
+      "original / old-F / new-F both hands and complete held open book",
+      "original / old-composite / new-composite cushion support",
+      "same unchanged S with old versus new F subtraction side-by-side on checker"
+    ],
+    "observations": [
+      "Fresh step1 and step2 used only the correct original mother and its fresh white-filled derivative; no previous F or S was supplied to ImageGen.",
+      "The main original face, long hair/ribbons, both hands, held open book, skirt, socks and both loafers remain visible through the new F on light/dark surfaces.",
+      "No broad furniture rectangle or new body RGB was added. Thin source edge colors remain because source RGB is unchanged.",
+      "In the current side-by-side effective-shadow view, both old and new F subtraction still leave a narrow dark floor curve with heel-shaped endpoints. The second round does not establish that the root-identified sole/heel foreground concern is cleared.",
+      "The seat-source remnant reads mostly as cream/brown linen plus a dark pointed end in the current v2 view. Complete separation at the thin clothing boundary is not established by overall composite similarity.",
+      "The full and seat composites remain close to the mother, but that alone is not a clean-shadow acceptance criterion."
+    ],
+    "specificIssues": [
+      {
+        "id": "sole-heel-shaped-shadow-remnant-still-visible",
+        "classification": "remaining root-identified foreground-removal concern; not accepted",
+        "approximateSourcePixelRegion": [
+          867,
+          850,
+          172,
+          54
+        ],
+        "observed": "A dark paired-sole curve and heel-shaped end are still visible in S × (1 − F_new), much like the old-F comparison.",
+        "evidenceAnchors": [
+          "#shadow",
+          "#heel"
+        ],
+        "requiredJudgment": "Root must compare the exact original source edge and decide ownership before calling the independent shadow clean. No extra calls or pixel edits added."
+      },
+      {
+        "id": "seat-edge-ownership-not-fully-confirmed",
+        "classification": "primary review still required",
+        "approximateSourcePixelRegion": [
+          1068,
+          545,
+          280,
+          62
+        ],
+        "observed": "Effective seat-source selection retains a small dark pointed/rim region along with linen. New F does not supply convincing evidence that all original fine garment trim has transferred out of the independent selection.",
+        "evidenceAnchors": [
+          "#hem",
+          "#shadow",
+          "#seat"
+        ],
+        "requiredJudgment": "Do not sign complete foreground coverage from the composed image alone."
+      }
+    ],
+    "at": "2026-10-25 09:15:54 UTC",
+    "browser": "Connected Chrome extension through cua_repl; no 9222/9223"
+  },
+  "scopeBoundary": {
+    "newFigureRgb": false,
+    "bodyRedraw": false,
+    "pngPixelEditing": false,
+    "shadowModified": false,
+    "backgroundModified": false,
+    "colorDifferenceAlgorithm": false,
+    "srcEdits": false,
+    "newTests": false,
+    "children": false,
+    "controls9222Or9223": false,
+    "largeResultStored": false
+  },
+  "review": {
+    "producerRecommendation": "hold_clean_independent_shadow_admission_pending_root_exact_edge_review",
+    "primaryLayerApproved": false,
+    "runtimeAccepted": false,
+    "roundLimitReached": true,
+    "additionalCallsAfterLimit": 0
+  },
+  "unchangedFileInspection": {
+    "oldFigureSha256": "d72a00b683ceb61cad80f49278618972fea309df051672c843d8e04399b44dfc",
+    "shadowSha256": "971c1c6fce428abfb6457e3a20b58655ea32b8bda10b7af2761500afdd989992",
+    "checkedAfterGeneration": true
+  }
+}

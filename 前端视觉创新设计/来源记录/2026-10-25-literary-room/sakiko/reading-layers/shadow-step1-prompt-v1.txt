@@ -1,0 +1,10 @@
+Use case: precise-object-edit.
+Asset type: source contact/cast-shadow selection markup, STEP 1.
+Image 1 is the ONLY input: the approved original Sakiko literary reading mother, exactly 1536x1024. Leave the full room, girl, held open book, camera, scale and every object at the exact original positions.
+Paint SOLID NEUTRAL PURE WHITE over ONLY the real visible contact/compression darkness and local cast shadows caused by this girl and her held book in this source. Do not invent or redraw any shadow. Trace the real soft irregular regions instead of drawing ellipses or filling rectangles.
+The important independent room contacts are:
+- The compressed linen cushion / plaid-skirt rear-hip contact and the small adjacent real hair/seat cast shade, around x1030..1310,y545..618. Preserve the skirt, thighs, fingers and hair themselves unchanged. Select the actual dark soft cushion band directly below the skirt/hip; include its tapering soft extent, not just a one-pixel outline, and do not whiten the whole bright cushion.
+- Actual immediately grounded sole contacts beneath BOTH brown loafers and their short visible local cast shade, around x855..1095,y850..936. Follow each original sole and its own source floor darkness. Do not paint a generic shared oval or the window's sunlight lattice.
+- If a real independent shadow from the hands/book reaches the seat or another room surface, include only that source shadow. Hand/book self-shadows on skin/clothing are figure interior and remain unchanged.
+Everything else remains in the original colored mother: the full girl and book, all face/eye/hair detail, the linen and pillow material outside the selected dark regions, plaid-pillow design, knitted throw, wood grain, furniture shadows, ceramic lamp, shelves, plants, window/lake and sun pattern. Do not interpret the pillow's plaid or inherent wood color as a body shadow.
+Output ONE opaque 1536x1024 PNG: original source scene with only those existing real contact/cast-shadow regions whitened, fixed in place. No new character RGB, no new background, no crop/zoom/movement, no black mask yet, no labels, outlines, arrows, boxes or text.

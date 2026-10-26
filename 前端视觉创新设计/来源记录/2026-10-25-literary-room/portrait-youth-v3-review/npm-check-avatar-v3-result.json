@@ -1,0 +1,7 @@
+{
+  "command": "npm run check",
+  "exitCode": 0,
+  "wallTimeSeconds": 2.9291052,
+  "stdout": "\n> zaichang@0.3.0 check\n> tsc --noEmit\n\n",
+  "scope": "Existing tsc --noEmit command only; no new tests or runtime interaction."
+}

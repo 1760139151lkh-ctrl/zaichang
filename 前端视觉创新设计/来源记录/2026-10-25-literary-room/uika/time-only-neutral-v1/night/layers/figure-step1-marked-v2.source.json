@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T01:38:02.630Z",
+  "producer": "/root/study_reading",
+  "character": "uika",
+  "purpose": "neutral-presence",
+  "environmentVariant": "time-night",
+  "weather": "unknown",
+  "exactActivityMatrixCredit": 0,
+  "stage": "figure-step1-marked-v2",
+  "tool": "image_gen.imagegen",
+  "originalToolPath": "C:/Users/17601/.codex/generated_images/01a17365-8901-7202-bd9e-0859826906dc/exec-b43f1f2b-3923-4511-9a6f-2568d8785a0e.png",
+  "transparentBackground": false,
+  "submittedPrompt": "Use case: precise-object-edit. F1 COMPLETE FIGURE WHITE MARKUP of this ONE CLEAN approved Uika mother1536x1024, preserve exact original coordinates/camera/pose/outer silhouette. Paint ENTIRE GIRL PUREWHITE255: all bob hair/face/neck/whiteTshirt/both arms/every hand/finger and side palm; FULL long taupe skirt including EVERY INNER DARK FOLD AND REAR HANGING PANEL BEHIND BOTH ANKLES; exposed legs/short socks; BOTH COMPLETE canvas sneakers including lace loops/uppers/full white soles and toes. IMPORTANT the dark brown/taupe area BEHIND and BETWEEN her ankles is her LONG SKIRT INNER/REAR FABRIC, NOT empty room. ALL that rear skirt fabric must also be SOLIDWHITE together with outer skirt. There must be NO punched open background hole between her lower legs above the true skirt bottom. Keep continuous full long-skirt envelope all the way around ankle openings, retaining the dark inner fabric seen behind shins; dark clothes/shadows are part of figure and selected WHITE, not transparency. FILL any internal skirt/skin/ankle/shoe lines solidwhite, no residual slash. Preserve only TRUE original-colored room OUTSIDE whole visible girl contour, plus clear actual gap between UPPER arm and waist above skirt. Actual floor gap BELOW shoes remains room, never fill huge rectangle. No guessed leg separation from anatomy: trace visible fabric exactly. Room including naturally cream curtains/cushion and all floor/contact shade remains ORIGINALCOLOR, don't white emptyseat/shadows. No prop/book added, no redraw/crop/translation/resize/recenter, no alpha/checkerboard/text/UI. Exact original full opaque scene with entire actual person incl dark behind-ankle skirt fabric deliberately white; selected interiors completely uniform.",
+  "submittedPromptSha256": "2ca278fa948568d2ed1199ba36b8a03b01c9d54cdc510936305f5b00059cbd7c",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-night-v1.png"
+  ],
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-night-v1.png",
+      "role": "sole approved clean mother; no failed F1/F2",
+      "sha256": "7c53b03795295ddf3b7b490fe1332db82326a49dcace9fe9f6502b2cee5636d9",
+      "bytes": 2215829
+    }
+  ],
+  "originalMother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-night-v1.png",
+    "sha256": "7c53b03795295ddf3b7b490fe1332db82326a49dcace9fe9f6502b2cee5636d9",
+    "approvalRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-night-v1.primary-approval.json"
+  },
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/night/layers/figure-step1-marked-v2.png",
+    "sha256": "84fe6f24e434237b6b1eb422e6424761b6e2e99f366e3cbf72b0f1eaa26e4c6b",
+    "bytes": 2066709,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "rawToolBytesPreserved": true,
+  "producerPersonallyViewed": true,
+  "observations": [
+    "Personally viewed: complete dark rear long-skirt fabric behind both ankles is now deliberately whitened with continuous true fabric silhouette; only actual floor below shoes remains colored. Some interior faint gray lineart must become fully white in F2."
+  ],
+  "producerUseDecision": "candidate-awaiting-static-union-review",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "userApproved": false,
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "fixedOriginalCoordinates": true,
+    "travel": 0,
+    "perspective": 0,
+    "slope": 0,
+    "contactShadow": "included"
+  },
+  "method": {
+    "sourceRgb": "exact unchanged mother only",
+    "union": "MAX(L(F),L(S))",
+    "originalRgbDrawsPerUnion": 1,
+    "pngPixelEditing": false,
+    "manualThreshold": false,
+    "morphology": false,
+    "warp": false
+  },
+  "scope": "Production candidate only; native browser union, seam and full source RGB must be personally viewed before primary static-layer admission."
+}

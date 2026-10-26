@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "recordType": "bounded-human-theme-extension-production-handoff",
+  "role": "mutsumi",
+  "generationPlan": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/missing-human-mother-production-plan-v1.json",
+    "sha256": "251f83b82c17e5ea7646559e29655dd9daae9b2dcdc370fcce2169bd62debc9f"
+  },
+  "currentCandidateCount": 6,
+  "heldHistoricalOutputCount": 2,
+  "currentCandidates": [
+    {
+      "cell": "mutsumi/attention/mist",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-mist-literary-extension-v1.png",
+      "sha256": "d568e4d718b78938e4167d8dbaa43340ed82f19d71f2e49d072b9e3283c7f088",
+      "bytes": 2466302,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-mist-literary-extension-v1.source.json",
+      "sourceRecordSha256": "b0849ded247c9c4bac8d0917b3ce7a4dae023ca71df773e506cd7eae6731eb08",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-mist-literary-extension-v1.prompt.txt",
+      "submittedPromptSha256": "439ed20a4d3cf08c509d30a62ece8c91e084d95c81bf4398cc7a236a72d19bfc",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "mutsumi/attention/rain",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-rain-literary-extension-v2.png",
+      "sha256": "4f3f18da25893fe28573384e2c7c4b60c4a025d56beabf160389a5ade6caea00",
+      "bytes": 2248892,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-rain-literary-extension-v2.source.json",
+      "sourceRecordSha256": "ddf733c3028aee757e2e627c8cd0eb66eb53b1317ea5a9d005b1d28720ed07c4",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-rain-literary-extension-v2.prompt.txt",
+      "submittedPromptSha256": "62eff5432545081954f01bc107f0ddb2f0f65f93d4046ddaf04371abcc2fc065",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "mutsumi/attention/violet",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-violet-literary-extension-v1.png",
+      "sha256": "56797968161abce8b9441ebf073cc623b8dd9aa0b999145163dfae8811bfe014",
+      "bytes": 2369619,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-violet-literary-extension-v1.source.json",
+      "sourceRecordSha256": "6c3f40f80dbf9b7edfb5c7104f17cfae7886b262dc4b8cc9801472c0453669ab",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-violet-literary-extension-v1.prompt.txt",
+      "submittedPromptSha256": "70dd9b151718759721199b2b358d7442c4d60bfae6615b7038f8d98caaeabb39",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "mutsumi/resume/mist",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-mist-literary-extension-v1.png",
+      "sha256": "dbd6bab85718cb6bf4fe53c3502bf7fbc0a3d78b69c8f1e29cba04ceaefea8ef",
+      "bytes": 2434826,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-mist-literary-extension-v1.source.json",
+      "sourceRecordSha256": "65b15565df5d421d9cc1207788f14b83a3140b39cd839aa206e2f3912ee9c86f",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-mist-literary-extension-v1.prompt.txt",
+      "submittedPromptSha256": "dc4f17db6ac649425fbfa8829c679c7328482a34c233ff5feb2b5744356cc604",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "mutsumi/resume/rain",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-rain-literary-extension-v2.png",
+      "sha256": "948402e09dedcb2a0f8b1777b29d2bc543485419984d4e057a925b1499c62df9",
+      "bytes": 2320363,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-rain-literary-extension-v2.source.json",
+      "sourceRecordSha256": "68ac6a78edbab9d3ef09b1db5734031e6052c2aca6f02c26eb468727bf39ba68",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-rain-literary-extension-v2.prompt.txt",
+      "submittedPromptSha256": "c93072f76502b2146f3a70fe65cb86891ce2d4a4a0ec057e4e45f2f722b6ccb5",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "mutsumi/resume/violet",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-violet-literary-extension-v1.png",
+      "sha256": "ba9249784ddce618ac8b670163dd4de9d6f794d5a18549f19f489c58a6c6be43",
+      "bytes": 2356570,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-violet-literary-extension-v1.source.json",
+      "sourceRecordSha256": "4b44c355b78d64fb6388297e658c1ebd53cf2b887bd2791138f04a14b3fa3c63",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-violet-literary-extension-v1.prompt.txt",
+      "submittedPromptSha256": "36c9b3704213e986150830ea3ac06f744a86a6714d884ab49422c5a78edd460b",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "heldNeverInput": [
+    {
+      "cell": "mutsumi/attention/rain",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-rain-literary-extension-v1.png",
+      "sha256": "9908c1f92f37f1c5bcf14e84c87566a88864515cf9c6dd9de2b78c409b43b6bc",
+      "bytes": 2316817,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-rain-literary-extension-v1.source.json",
+      "sourceRecordSha256": "c32663d38e422b70ed9e027ca4e0497a5832991701fc929ab835828fc7138558",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-rain-literary-extension-v1.prompt.txt",
+      "submittedPromptSha256": "82b779a3e2ed193c9ba3c8b5d1fb28ea925697613d9bc2d35f290715e65f0775",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "mutsumi/resume/rain",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-rain-literary-extension-v1.png",
+      "sha256": "7be0900c44d9f2ca53df4a6f7abe5355e66e0a590ac4986361e4b44dc1e8c88f",
+      "bytes": 2297654,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-rain-literary-extension-v1.source.json",
+      "sourceRecordSha256": "462a8e24e9b37b588031df1fc36351781923c348c5b9941606c8e66ea118a426",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-rain-literary-extension-v1.prompt.txt",
+      "submittedPromptSha256": "9e5f96f1cdbea58434ab16ede8691f6f6dbf0cb0890642632d26abbbc7ec6e00",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "reviewBoundary": "Actual Image outputs and producer whole-image inspection only. New original mother/root admission, layers, alignment, motion and runtime remain separate. No total ledger/App edited.",
+  "nightLighting": "Current rain variants arev2 CLEAN rain plate + full character text only; oldrainv1 areHOLD for daylight grid/light-patch concern. Actual floor/cushion/figure relighting viewed; parent must inspect full originals."
+}

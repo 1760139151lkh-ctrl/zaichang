@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-canvas-independent-contact-shadow-luminance-mask",
+  "id": "rana-chat-apricot-contact-shadow-mask-v2",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "rana-chat-apricot-contact-shadow-mask-v2.prompt.json",
+  "promptFileSha256": "feccd2b7029aaa240d145891366216bde1ddbc24faadb9c57854695b1826558e",
+  "submittedPrompt": "Use case: precise-object-edit. STEP 2 of registered local CONTACT-SHADOW replacement.\nImage 1 is the ONLY exact full 1536x1024 input. In that original colored room, the few actual existing contact seams have already been recolored WHITE/GRAY at the correct source locations: cushion seam immediately BELOW seated thigh/shorts around y578..590 including (1280,582), tiny surface contact beneath supporting palm around y580..587, and floor fringe directly beneath original left/right boot soles around y737/y771.\nPreserve those EXISTING locally painted contact-shadow white/gray regions EXACTLY where they already are, at the same source pixels, narrow shapes and scale. Change EVERYTHING ELSE into PURE BLACK: the entire original person including naturally pale hair/white shorts/skin/white sleeves and the actual boot surfaces, the whole room/window/sky/curtains/furniture/floor/sunlight and normal furniture shadows. Only the already locally recolored true contact-shadow footprint regions remain white/gray. Naturally white clothing/cushion/clouds are NOT contact masks and must turn black.\nDo not draw new shadows or infer new locations. Never shift the cushion seam upward onto the lap/shorts around y535..565; its existing painted position immediately below the seated thigh at y582 must stay fixed. Do not create white/gray shoe silhouettes or hand/body patches. Actual boots, including toes/highlights/heels/soles and laces, are BLACK. Preserve only their existing locally white floor fringe OUTSIDE/BELOW the original boot outline. No new oval, wide bar, rectangle, ghost person, surface texture or glow.\nThis is local color replacement, no translation, resize, recenter, crop, zoom, enlargement, rotation or altered canvas. Retain original narrow fading edges without expanding them.\nOutput only those exact registered local white/gray contact shadows on an otherwise PURE BLACK full 1536x1024 opaque grayscale RGB canvas. No transparency, room color, text/label/grid/border/watermark/UI.",
+  "submittedPromptSha256Utf8NoTrailingLF": "1c3cf56cc12f92ca6cda81d537b587bb0a5d6d12e8191f614a7c59e85ce1a405",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/rana/rana-chat-apricot-contact-white-in-room-v1.png",
+      "sha256": "3d572ef228e337320ff389586d465d3c0c263eb990c9d177633a7f5728584505",
+      "role": "sole same-source locally whitened real contact seam intermediate; blacken environment/person while retaining exact existing support coordinates"
+    }
+  ],
+  "output": {
+    "file": "rana-chat-apricot-contact-shadow-mask-v2.png",
+    "sha256": "22e79f3a804d5137ee7d5b1ae49a83526f121bf91a587b01a6b5a54b19f41157",
+    "bytes": 289812,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-1ac8a8d5-8df6-496a-b1ad-9f9b9e5c929c.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observationBoundary": "Producer directly viewed exact original PNG only; primary native original-RGB recomposition and known-seat-gap review pending."
+  },
+  "status": "not-admitted-narrow-contact-misses-broad-thigh-cast-shadow",
+  "primaryFinding": "Root actual #known-defect inspection identified whole triangular cushion CAST SHADOW; this narrow seam matte left source(1280,582) zero and did not restore it.",
+  "supersededBy": "rana-chat-apricot-contact-shadow-mask-v3.png"
+}

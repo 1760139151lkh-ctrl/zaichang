@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "matched-mother-native-included-joint-candidate",
+  "character": "sakiko",
+  "activity": "chat",
+  "palette": "mist",
+  "environmentVariant": "overcast-day",
+  "recordedAt": "2026-10-25T13:32:09.239445+00:00",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "mother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-mist-v1.png",
+    "sha256": "6cbd83def33cf8284056992f10315a98101002d8f36f4d3d497548b7b4b73b9f"
+  },
+  "background": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+    "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a"
+  },
+  "F": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/mist/figure-mask-v1.png",
+    "sha256": "29bbc0bfc8493a5b46bcc9e74e99376d60f7da1330663ac111cf11c994b2baca"
+  },
+  "S": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/mist/contact-mask-v1.png",
+    "sha256": "b6bf64a9dbea688526c83f78740c55ff2d2935e453b07daa7c69d0dec59a24fd"
+  },
+  "S1": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/mist/contact-white-environment-v1.png",
+    "sha256": "a6d54d468215d2ca03de2e1d82fb9adcfbb4645d91034a3032413c7f30f9ed16"
+  },
+  "composition": {
+    "selection": "MAX(luminance(F),luminance(S))",
+    "originalMotherRgbDraws": 1,
+    "contactShadow": "included real receiver cloth/wood/floor; not pure caster",
+    "x": 0,
+    "y": 0,
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "thresholdOrMorphology": false,
+    "nativePngPixelsEdited": false
+  },
+  "technicalSvg": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/mist/native-matched-FS-candidate-v1.svg",
+    "sha256": "44447c83fbd549e29f96c4cee67c3b5309b794a38ba9cd5fd32466cac3eecc18"
+  },
+  "viewer": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/mist/native-matched-FS-observe-v1.html",
+    "sha256": "7bc4ede19bb7c9f3437bc7ca8608680981c66e454a1ea970074d3057d15f3777"
+  },
+  "generationClosure": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/mist/figure-white-environment-v1.png",
+      "sha256": "5b9bccd48f633cefec9c6d22e0056a279366f2a446eca627e8a0429bfdee837f",
+      "bytes": 2323022
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/mist/figure-white-environment-v1.prompt.txt",
+      "sha256": "ea5448248accdf60abb38916eb425f2d858e6fcdfe7125004247faf965aaa829",
+      "bytes": 1360
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/mist/figure-white-environment-v1.source.json",
+      "sha256": "07e96dd00073ae15344a993b1aa028bdddca2010eae8f2327d23c43e26ceeeb5",
+      "bytes": 3113
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/mist/figure-mask-v1.png",
+      "sha256": "29bbc0bfc8493a5b46bcc9e74e99376d60f7da1330663ac111cf11c994b2baca",
+      "bytes": 466342
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/mist/figure-mask-v1.prompt.txt",
+      "sha256": "5df7d429cd73a8de1b82c59a641dfc0b869cc95a6f08f904371b92f95d459e96",
+      "bytes": 1164
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/mist/figure-mask-v1.source.json",
+      "sha256": "03bb315c7d96516c302386c92ff2304408a659fde9a9259c6826080c36ba2d0f",
+      "bytes": 3117
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/mist/contact-white-environment-v1.png",
+      "sha256": "a6d54d468215d2ca03de2e1d82fb9adcfbb4645d91034a3032413c7f30f9ed16",
+      "bytes": 2399996
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/mist/contact-white-environment-v1.prompt.txt",
+      "sha256": "6bc2b85bf88c92be03f7d10612130032c521b2e35e62c68bde88dffdbd8ef141",
+      "bytes": 1779
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/mist/contact-white-environment-v1.source.json",
+      "sha256": "f05110a140150b56f458a00ead893b776ffbe64647d8541815a58ee57b0b9181",
+      "bytes": 3192
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/mist/contact-mask-v1.png",
+      "sha256": "b6bf64a9dbea688526c83f78740c55ff2d2935e453b07daa7c69d0dec59a24fd",
+      "bytes": 299189
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/mist/contact-mask-v1.prompt.txt",
+      "sha256": "b2fd0fe2c49a46cf1657e4711f319f55e300ff355bd996c968c362e87a1535e4",
+      "bytes": 1314
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/mist/contact-mask-v1.source.json",
+      "sha256": "679909825cc46b8451e39845e47eb6b3349a50cb21b49442daf50dd91279ad82",
+      "bytes": 3179
+    }
+  ],
+  "calls": {
+    "F": 2,
+    "S": 2,
+    "waveFTotal": 6,
+    "waveSTotal": 6,
+    "stopped": true
+  },
+  "priorOldSAttempt": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-layers/mist/native-new-F-old-S-candidate-v1.json",
+    "decision": "hold retained as history, not a generation input or accepted fallback"
+  },
+  "producerPersonallyViewedNative": true,
+  "producerDecision": "candidate-ready-for-root-static-review",
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "coreMatrixCompletionCredit": false,
+  "registrationChanged": false,
+  "producerReviewedAt": "2026-10-25T13:35:23.328543+00:00",
+  "producerObservation": "Complete original vs actual native composition personally viewed in browser: crown/eyes/long hair and ribbons, both lap palms/full skirt, both complete shoes/rear heels, cushion and floor receivers. The prior old-mask large crops and misplaced floor strip are not visible in this matched candidate. No obvious white seam or broad patch observed at inspected source scale. Included receiving cloth/wood remains deliberate and fixed; not pure caster or independent motion. Fine alpha/source compatibility is for exact root review.",
+  "observedAnchors": [
+    "scene",
+    "face",
+    "hands",
+    "feet",
+    "receiver",
+    "checker"
+  ],
+  "inputApprovals": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json",
+      "sha256": "0dc133f5dc0ac1702bce894b279304dde90ab45ddbe57c4107ee9caf360fe8d0",
+      "jsonPointer": "/records/11",
+      "scope": "exact static mother only, independent of this new layer candidate"
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/literary-room-empty-plates-primary-admission-v1.json",
+      "sha256": "8ed5c9723ccf61f178ffa5e7f90a66f05b18fc6e44c8ba1124782b679a045c0c",
+      "jsonPointer": "/assets/3",
+      "scope": "exact empty plate only"
+    }
+  },
+  "promptLineageBoundary": "Prompt file byte SHA and exact submitted LF-text SHA are separately verified; no prompt content or PNG pixels changed."
+}

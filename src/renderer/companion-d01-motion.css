@@ -1,0 +1,17 @@
+.companion-d01-motion {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: visible;
+  pointer-events: none;
+  user-select: none;
+  isolation: isolate;
+}
+
+.companion-d01-motion image {
+  pointer-events: none;
+}
+
+.companion-d01-motion[data-d01-state="hidden"] {
+  visibility: hidden;
+}

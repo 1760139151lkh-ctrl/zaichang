@@ -1,0 +1,12 @@
+{
+  "recordType": "root-scoped-fixed-included-material-decision",
+  "source": "Parent /root direct message in same healthy session",
+  "recordedAt": "2026-10-26T02:04:07.037130+00:00",
+  "exactMessage": "Root裁决允许这一窄固定included语义：仅被人物外轮廓完整围住、实际1–3px的内部原背景细缝，可连同母RGB作为固定source接收/覆盖的一部分保留，避免把邻近真实深色西装咬掉；不得外扩人物外轮廓、保长窗沿/大片帘，禁止像素手补/阈值涂白。仍clean母→Image输出最终连续覆盖、MAX原RGB只一次，0travel/persp/slope，不称这些细缝独立透明、不允许人物相对BG移动。请在bundle明确这处保源范围与实际像素材料/局部Browser证据，然后Root亲看再定层。不是批准现HOLD F或提前签layer；不再围绕同一个1px孔盲重复。保健康S/BG，bad/HOLD继续禁input。完成Tomori对再给可复核path，Anon/Rana尚未做可稍后分给其他健康agent，不要声称已补。",
+  "scope": "Tomori time-night original RGB only; tiny fully enclosed internal original-curtain material, fixed coordinates",
+  "motherSha256": "36e1e2e4029d81914b4192cee8351d84b44fa0ef188c88910dd58d400a3e4300",
+  "doesNotApproveHeldMasks": true,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false
+}

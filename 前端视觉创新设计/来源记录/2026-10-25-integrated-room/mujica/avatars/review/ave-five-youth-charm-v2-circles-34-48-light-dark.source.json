@@ -1,0 +1,190 @@
+{
+  "kind": "inspection-only-not-generation-input",
+  "sourceImagesUnedited": true,
+  "backgrounds": [
+    "#fff9f2",
+    "#20212c"
+  ],
+  "roles": [
+    {
+      "role": "sakiko",
+      "source": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\avatars\\sakiko-youth-charm-avatar-v2.png",
+      "sha256": "9a55d061acf4496b1ca0a7722c96ca3658cb173b27255c333747c0bdae023d24",
+      "mode": "RGBA",
+      "size": [
+        1254,
+        1254
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "nonzeroAlphaBBox": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "circleSourceRect": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "circleCenterPercent": [
+        50,
+        50
+      ],
+      "circleZoom": 1,
+      "reviewSizes": [
+        180,
+        48,
+        34
+      ]
+    },
+    {
+      "role": "mutsumi",
+      "source": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\avatars\\mutsumi-youth-charm-avatar-v2.png",
+      "sha256": "a39e50dae66da5928168510c8bb00e48b4c0d5d89967b0a4977a2eb81afcb6c2",
+      "mode": "RGBA",
+      "size": [
+        1254,
+        1254
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "nonzeroAlphaBBox": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "circleSourceRect": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "circleCenterPercent": [
+        50,
+        50
+      ],
+      "circleZoom": 1,
+      "reviewSizes": [
+        180,
+        48,
+        34
+      ]
+    },
+    {
+      "role": "uika",
+      "source": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\avatars\\uika-youth-charm-avatar-v2.png",
+      "sha256": "0e06d03c06ce3d582f09be8a21f69be7e663e6fbe95f75b64cf42db03fbbc58c",
+      "mode": "RGBA",
+      "size": [
+        1254,
+        1254
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "nonzeroAlphaBBox": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "circleSourceRect": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "circleCenterPercent": [
+        50,
+        50
+      ],
+      "circleZoom": 1,
+      "reviewSizes": [
+        180,
+        48,
+        34
+      ]
+    },
+    {
+      "role": "umiri",
+      "source": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\avatars\\umiri-youth-charm-avatar-v2.png",
+      "sha256": "4132dd17cf54c52a5a6ee7674f780182cb14a45e8870313417765b9e1ef4c46a",
+      "mode": "RGBA",
+      "size": [
+        1254,
+        1254
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "nonzeroAlphaBBox": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "circleSourceRect": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "circleCenterPercent": [
+        50,
+        50
+      ],
+      "circleZoom": 1,
+      "reviewSizes": [
+        180,
+        48,
+        34
+      ]
+    },
+    {
+      "role": "nyamu",
+      "source": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\avatars\\nyamu-youth-charm-avatar-v2.png",
+      "sha256": "8ce8e16572956939f16e4baaf9fe3d504f051e24bbde64c9c535fd8a5127f241",
+      "mode": "RGBA",
+      "size": [
+        1254,
+        1254
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "nonzeroAlphaBBox": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "circleSourceRect": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "circleCenterPercent": [
+        50,
+        50
+      ],
+      "circleZoom": 1,
+      "reviewSizes": [
+        180,
+        48,
+        34
+      ]
+    }
+  ]
+}

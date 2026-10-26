@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-376f4345-b1f7-41d6-a989-a291d93fd83d.png",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mygo\\edge-cats\\anon-edge-meme-cat-v1.png",
+      "sha256": "f56249db73c9c499914b6232bd2e6c9444cce33631f730835bfaf55606adcf7e",
+      "role": "Only character source; source-local RGB/identity authority"
+    },
+    {
+      "file": "semantic-mask-v1.png",
+      "sha256": "288c9ac5adc3e876ac8e2a29a6b24d3a128bc6653b41389ccfba6be03c92303c",
+      "role": "Technical edit target with mistaken face-hole; not a character reference"
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": ".agents\\skills\\zaichang-frontend-director\\references\\characters\\anon.md",
+      "sha256": "de7782a11d0e620b3d25de33ac7a964142a39322e6fa8f0ceceea2bc6d501b19",
+      "scope": "Full relevant text read before each generation call in this production turn"
+    },
+    {
+      "path": ".agents\\skills\\zaichang-frontend-director\\references\\character-art-direction.md",
+      "sha256": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840",
+      "scope": "Full relevant text read before each generation call in this production turn"
+    }
+  ],
+  "promptFile": "semantic-mask-v2.prompt.txt",
+  "submittedPromptSha256": "a5d44d79fa1442078bab90f4b77e61d5fe90fb34b1663f1d48db0c91347e511c",
+  "output": {
+    "file": "semantic-mask-v2.png",
+    "sha256": "bdedf7f3620833432cb909c5923156fa00d19adb711d389909241f37a49eb8c8",
+    "bytes": 793845,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "alphaBounds": null
+  },
+  "labels": {
+    "white": "all actual opaque head/body/paws and touching/held prop, including original ink",
+    "red": "actual tail including original ink",
+    "black": "background/open gaps/glow"
+  },
+  "review": "Semantic identity only. Native-alpha original contours and asset-specific body arc calibrate precise source-RGB layer ownership. No mask black facial line is treated as true transparent face.",
+  "primaryApproved": false,
+  "runtimeAccepted": false
+}

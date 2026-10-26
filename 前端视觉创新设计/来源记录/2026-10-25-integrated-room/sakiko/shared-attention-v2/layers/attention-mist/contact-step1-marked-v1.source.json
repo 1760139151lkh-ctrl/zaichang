@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "stage": "S1",
+  "recordType": "same-mother-layer-production",
+  "tool": "image_gen.imagegen",
+  "recordedAt": "2026-10-25T23:29:40.554285+00:00",
+  "sceneFamily": "literary-room-v1",
+  "characterId": "sakiko",
+  "activity": "attention",
+  "palette": "mist",
+  "motherSha256": "0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88",
+  "motherStaticApprovalEvidence": "../../sakiko-attention-mist-shared-page-v2.source.json",
+  "inputImages": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-mist-shared-page-v2.png",
+      "sha256": "0bb53a305da106c8e499cc3c97cb9c399e8958ce421c5077a97631683ae2bb88"
+    }
+  ],
+  "promptFile": "contact-step1-marked-v1.prompt.txt",
+  "promptFileSha256": "861924cfaaa11c7deab182613ee95377845f070b58c78d54722368468ae1e30a",
+  "requestFile": "contact-step1-marked-v1.request.json",
+  "exactSubmittedPrompt": "Use case: precise-object-edit. STEP S1 actual SOURCE-LOCAL receivingmaterial/contactselection for a FIXED included originalRGB layer. The ONLY input is exactroot-approved Sakiko attention-MIST shared-page-v2 complete1536x1024mother. Keep wholecanvas/camera/all originalsourcepositions and entireperson/openbook in ORIGINAL COLORS. This is selectionmarkup, not newshadow/caster/pose/recolor.\nMark PUREWHITE only the ACTUAL original tiny receiverpatches physically touching her seatedweight and BOTH shoegrounding:\nSEAT: small visible original linen/softcompression immediately below/touching hip/trailinghem/thigh where sourcecontactshade occurs, looseinspection x985..1360,y555..620, NOT boxes. Keep naturallybright EMPTY seat farleft black/unmarkedcolored; do not whiten a longbenchstrip or broad cushion. Book rests on her knees and already belongs toF, NO separate book-on-emptycushionreceiver.\nFLOOR: preserve COMPLETE short actual source darkenedwood receivingfootprints immediately beneath/around both soles/toes/heels. NOT1–2px whitecontourlines. Include the real darkcenter against eachsole and the actualsoftoutsidefloor shading roughly8..35sourcepx beyondsole where visible, especially the FRONT visible shoe’s forward/toe underside contact. Looseinspection neighborhoodx880..1140,y835..965 is NOT a rectangle tofill. Follow the original irregularwoodgrain/shortshadow/softboundary, no newgenericoval/rectangle/longfloorband, no artificialshadowextension. Shoes themselves/toes/sidewalls/heels remain COLORED; they areforegroundF. Only tiny F/Soverlap atactualcontactedges is harmless.\nKeep all unmarkedperson/hair/face/uniform/skin/hands/legs/socks/book, naturalwhitecurtain/linen/lamps/flowers, pillows/throw, lake/clouds/town/window/plants/rug/furniture shadows and farfloorreflections originalcolored. Do not select lamp/chair/table shades or emptyfloor/sunlight asfootshadow. No newbodyRGB, no checker/arrows/grid/labels, no crop/resize/zoom/shift.\nOutput one fullopaque1536x1024 sourcecoloredscene with ONLY these few actualconnected linen/floorreceiverpatches deliberatelywhite. Their SOURCE MATERIAL RGB will join originalfigure ONCE viaMAX(F,S), travel/slope/perspective0, not an independentportable shadow.",
+  "submittedPromptSha256": "50cf466dfd6850e773d30b59af43da90257416b9e5547021920203548c0f9c0b",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-c07fe2be-3a39-4476-8aec-ea539e3d1870.png",
+  "toolOriginalSha256": "02806e36dae91488fecb4ca44eada303f94d6e3c8fe02070fc8bf1890782d2f8",
+  "output": {
+    "file": "contact-step1-marked-v1.png",
+    "sha256": "02806e36dae91488fecb4ca44eada303f94d6e3c8fe02070fc8bf1890782d2f8",
+    "bytes": 2389071,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "unchangedToolPngBytes": true
+  },
+  "producerReview": "Wholeoriginal viewed: small actualunderhem linen and fullshortwhitefootprint surrounding bothshoecontact, not2pxline. Convertedmask/nativegroundingcheck stillrequired.",
+  "dossierVersion": "2026-10-25.1",
+  "wardrobeId": "sakiko-literary-navy-adaptation",
+  "selectionStatus": "producer-candidate-await-native-review",
+  "rgbOwner": "Original approvedmother ONLY, not markedimage RGB",
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "sourceConversationId": "01a17364-9725-7bd3-aa74-f7fa6487bfed",
+  "executionId": "exec-c07fe2be-3a39-4476-8aec-ea539e3d1870",
+  "requestSha256": "4de3181cb26dc69f7265c192e6f06bdcedefe1913627f0b5da5905545fdff402",
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256AtArchive": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "fullyReadForThisProduction": true
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256AtArchive": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "fullyReadForThisProduction": true
+    }
+  ]
+}

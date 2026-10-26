@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-mother-fixed-included-layer-imagegen-stage",
+  "character": "nyamu",
+  "purpose": "neutral-presence",
+  "neutralTime": "night",
+  "palette": "rain",
+  "light": "night",
+  "weather": "unknown",
+  "weatherClaim": false,
+  "stage": "F2",
+  "tool": "built-in image_gen.imagegen",
+  "toolArguments": {
+    "prompt": "Use case: background-extraction. F2 FOREGROUND LUMINANCE MASK for exact Nyamu neutral night mother. ONLY input is the personally inspected full1536x1024 deliberate F1 white selection. Preserve complete source canvas, every marked coordinate and fine original silhouette, no crop/zoom/resize/redraw/shift/shrink/grow.\nKeep the COMPLETE deliberately marked girl and entire held folded PAPER FAN solid PURE WHITE. Every hair/face/eye/skin/gray blouse/ruffle/strap/choker/ribbon/arm/hand/finger/fan/black waist/skirt/bare leg/ankle and BOTH complete ankle-strap shoes including heel bottoms/soles/buckles stay white. ALL INNER selected seams, finger/fan-rib folds, thin dark paper rim, clothing lines and hair/neck detail become WHITE, never transparent cuts or gray holes. The hand-fan-forearm/lap foreground is whole and solid. True actual empty gaps between separated hair, arm/body, two legs and heel arch become BLACK. Only the true narrow antialiased OUTER boundary can be gray.\nEverything unmarked becomes solid PURE BLACK: naturally pale curtains/linen/knit/lamp/flowers/cup, all pillows/table/books/left room/plants/wood/rug, and all separate seat/floor receiver material/shadow. Do NOT turn naturally bright room surfaces white. Output one full opaque1536x1024 black image with just the full selected figure/props white and narrow gray perimeter. No color, checkerboard, new figure detail, labels, boxes or text. This mask selects exact mother RGB later, it never supplies person RGB.\nThe neck choker and both dangling ribbon ends are already selected in this v2 markup: keep them WHITE. Faint internal paper fan ribs/hand/garment seams are also solid WHITE, only true background gaps BLACK.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/night/layers/figure-step1-marked-v2.png"
+    ],
+    "transparent_background": false
+  },
+  "submittedPrompt": "Use case: background-extraction. F2 FOREGROUND LUMINANCE MASK for exact Nyamu neutral night mother. ONLY input is the personally inspected full1536x1024 deliberate F1 white selection. Preserve complete source canvas, every marked coordinate and fine original silhouette, no crop/zoom/resize/redraw/shift/shrink/grow.\nKeep the COMPLETE deliberately marked girl and entire held folded PAPER FAN solid PURE WHITE. Every hair/face/eye/skin/gray blouse/ruffle/strap/choker/ribbon/arm/hand/finger/fan/black waist/skirt/bare leg/ankle and BOTH complete ankle-strap shoes including heel bottoms/soles/buckles stay white. ALL INNER selected seams, finger/fan-rib folds, thin dark paper rim, clothing lines and hair/neck detail become WHITE, never transparent cuts or gray holes. The hand-fan-forearm/lap foreground is whole and solid. True actual empty gaps between separated hair, arm/body, two legs and heel arch become BLACK. Only the true narrow antialiased OUTER boundary can be gray.\nEverything unmarked becomes solid PURE BLACK: naturally pale curtains/linen/knit/lamp/flowers/cup, all pillows/table/books/left room/plants/wood/rug, and all separate seat/floor receiver material/shadow. Do NOT turn naturally bright room surfaces white. Output one full opaque1536x1024 black image with just the full selected figure/props white and narrow gray perimeter. No color, checkerboard, new figure detail, labels, boxes or text. This mask selects exact mother RGB later, it never supplies person RGB.\nThe neck choker and both dangling ribbon ends are already selected in this v2 markup: keep them WHITE. Faint internal paper fan ribs/hand/garment seams are also solid WHITE, only true background gaps BLACK.",
+  "originalToolOutput": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-1b733d70-438c-48aa-a504-3869df38d2a2.png",
+  "outputFile": "figure-mask-v1.png",
+  "mother": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/nyamu-neutral-presence-time-night-v1.png",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/night/layers/figure-step1-marked-v2.png",
+      "role": "personally inspected same-mother F1 deliberate white selection",
+      "sha256": "c3902c3138e919f24219418adf8fcc232c1cbe6b03681673776645bcc6168101"
+    }
+  ],
+  "producerObservation": "Complete tool output personally viewed: whole hair/person/choker/ribbons/gray ruffles/skirt/bare legs/full ankle-strap shoes and held fan white on black. Actual empty gaps black; original source RGB only later.",
+  "sourceRgbDrawsInFinalAssembly": 1,
+  "assembly": "U=MAX(L(F),L(S)); exact original mother RGB drawn only once; local receiver material fixed at source position",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "pngPixelEditing": false,
+  "croppingOrResizingSourcePNG": false,
+  "thresholdOrMorphologyEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "dynamicAdmission": false,
+  "original360CreditAssigned": false,
+  "userApproved": false,
+  "reviewScreenshotsUsedAsImageInput": false,
+  "recordedAtUTC": "2026-10-26T01:13:19.891941+00:00",
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/night/layers/figure-mask-v1.png",
+    "sha256": "1a47cde2b2f94fd5d7904722b1537a4c95f814979a44fce0498f6cc6bfed2101",
+    "bytes": 443690,
+    "originalToolOutputSHA256": "1a47cde2b2f94fd5d7904722b1537a4c95f814979a44fce0498f6cc6bfed2101",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "motherSHA256": "799a1602dc9d40fb3409f75502fa643b6635a25a98fe28f568359db4bbc7a44a",
+  "dossierVersion": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/nyamu.md",
+    "sha256": "c5acd92fe6cd9ccf35785bd09e7f71337bca5bf7eb0fdd37629e78780eb9ebe1"
+  },
+  "methodVersion": {
+    "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+    "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d"
+  },
+  "submittedPromptSHA256": "7ce47337636abc59e67fd9f22ed72fa906affb68a73e049a71e042b32a059dad",
+  "promptFileSHA256": "16fb6186532d759bb684997221c550045308e808c71e5dc0c89494ba07936e0d"
+}

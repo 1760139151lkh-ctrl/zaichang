@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "kind": "bounded-literary-mother-wave-producer-record",
+  "character": "umiri",
+  "palette": "apricot",
+  "wave": "apricot-wave-b",
+  "sceneFamily": "literary-room-v1",
+  "scope": "Five new mother images only, individually generated, immediately persisted then personally viewed before next image.",
+  "characterCalls": 5,
+  "sharedWaveCalls": 10,
+  "sharedWaveCallLimit": 10,
+  "generationStopped": true,
+  "tool": "built-in image_gen",
+  "largeImageResultStored": false,
+  "pngEdited": false,
+  "primaryApproved": false,
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "image 1 approved empty room/camera"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v2.png",
+      "sha256": "b54800a320a163629dba745183efa63d18a83aa1ae19ba0f9382fdb546b12844",
+      "role": "image 2 approved own chat identity/clothes/scale only"
+    }
+  ],
+  "outputs": [
+    {
+      "activity": "study",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-study-apricot-literary-wave-b-v1.png",
+      "motherSha256": "00e7de1bd0befad8932dc9684af860c982fe853cec855e163f5ad76f455d114a",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-study-apricot-literary-wave-b-v1.source.json",
+      "sourceSha256": "ee4a6bdf51d4f548ed6264c078fb485f6e98ae2c2fa7d54b493a527a4b653a86",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-study-apricot-literary-wave-b-v1.prompt.txt",
+      "promptSha256": "c9ad1abe3334c6f571a89d172bfe2cac6ba0318a6288176a5346b0a4003277da",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Sheet fold/overlap edge is subtle rather than strongly exposed; do not claim every fold visibly proven.",
+        "Index finger points toward paper surface, not strictly only its outer edge. Root should judge exact pointing relation and study emotion."
+      ],
+      "primaryApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "listening",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-listening-apricot-literary-wave-b-v1.png",
+      "motherSha256": "76f1e619c7570c38c36f028d70ecd4b513b0a3fc982194ebde25b7a738aa6020",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-listening-apricot-literary-wave-b-v1.source.json",
+      "sourceSha256": "01f08abc9db521c95ac1967a0afcc76667798366b35a279fe5a86d870387334d",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-listening-apricot-literary-wave-b-v1.prompt.txt",
+      "promptSha256": "7cf1be0910e54c98ee55970ae9b94c7183437652cd5cc226a1fe4ea57d3d4687",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Knees sit close together rather than leaving a broad gap; their separate forward surfaces and two continuous calves are visible, with no crossed-leg relation observed.",
+        "Overlapped hands conceal inner fingers naturally; no claim of inspection of hidden surfaces. Root still must judge the listening expression and exact scale."
+      ],
+      "primaryApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "play",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-play-apricot-literary-wave-b-v1.png",
+      "motherSha256": "de073cb1a22270d2a4082188de17e890bd43d6efa89bb7cab60c217f434efde1",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-play-apricot-literary-wave-b-v1.source.json",
+      "sourceSha256": "c8ef05bf4fadd00964686ef9b0771784d08e2287415bcf0353d0061ba74a8e49",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-play-apricot-literary-wave-b-v1.prompt.txt",
+      "promptSha256": "c5d7d1800f223ebe35e182831e535db20ef3327af3645cd86415365624c5bd18",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "The precise point contact between finger and plane is small; primary should inspect source pixels before any layer use. Mother-only candidate, not a claim about hidden palm surfaces."
+      ],
+      "primaryApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "attention",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-attention-apricot-literary-wave-b-v1.png",
+      "motherSha256": "debeda36370892960220a12fea5a4e701e2016c0e1210109f1f7e7bd3f4b67bc",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-attention-apricot-literary-wave-b-v1.source.json",
+      "sourceSha256": "921cd812f40dba33af009ab40383a3c2d21fe8ff1637d096024cc8b488df916e",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-attention-apricot-literary-wave-b-v1.prompt.txt",
+      "promptSha256": "e9d4b6e8f988eadd3b64fbd73100a7b3b94c70002ba26798ce0d53c4ed698c05",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Head tilt and lifted eyelids make the questioning beat somewhat more visible than a tiny eye-only shift; primary should judge subtlety. Turning-page hand is naturally partially occluded by paper, not every inner surface shown."
+      ],
+      "primaryApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "activity": "resume",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-resume-apricot-literary-wave-b-v1.png",
+      "motherSha256": "6842a6222779a5607400400a6a1df5e3b732c814777f447defc5d5951413328e",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-resume-apricot-literary-wave-b-v1.source.json",
+      "sourceSha256": "07579b368f296161d42a3331e25ecb50fd857b177b6bdf725f972e2c515c4e3d",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-b/umiri-resume-apricot-literary-wave-b-v1.prompt.txt",
+      "promptSha256": "471faadfa99574c6eecf821536202d4a19bdfba80e746a96ad03d0713a24a596",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Book remains V-open rather than nearly closed. A specific finger inserted between retained pages is not distinctly visible; stopping-point continuity is intended emotion, not claimed pixel proof.",
+        "Primary still must inspect exact source for emotion, identity and physical support before layers or registration."
+      ],
+      "primaryApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "reviewBoundary": "Producer observations and limitations are recorded per mother. Root has not approved these wave-b mothers; no layers, runtime, shared source or registration change."
+}

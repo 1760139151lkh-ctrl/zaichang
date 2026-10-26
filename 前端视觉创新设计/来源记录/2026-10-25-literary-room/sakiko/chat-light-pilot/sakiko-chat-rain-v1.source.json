@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "character-activity-mother-candidate",
+  "character": "sakiko",
+  "activity": "chat",
+  "palette": "rain",
+  "environmentVariant": "rain-night",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-e5b0a00b-7972-459f-8ea9-2ddf3e682ce2.png",
+  "executionId": "exec-e5b0a00b-7972-459f-8ea9-2ddf3e682ce2",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "role": "sole approved clean empty room environment input; fresh character from text",
+      "approvalEvidence": "root delegated chat-light-pilot task explicitly states plate personally viewed and admitted"
+    }
+  ],
+  "selectedMotherLineage": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+    "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+    "imageInputForThisCall": false,
+    "purpose": "personally viewed human scale and space-emotion reference only"
+  },
+  "promptFile": "sakiko-chat-rain-v1.prompt.txt",
+  "promptFileSha256": "3e695ac2ada6be6ba416eb527d6f510392dea8603a3a40459adc18b2360001f9",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; submitted text exact",
+  "submittedPromptSha256": "24f9446cf2dd4d23131a01266a58bd8f131667ab60ace37790dcbbb29f534f49",
+  "output": {
+    "file": "sakiko-chat-rain-v1.png",
+    "sha256": "229156a8a56698f5e0fb73424c3b65dc5fe3adde0fbee3101033ca5df1ce3f2f",
+    "bytes": 2274460,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved full original. Same close rainy-night room, window/town, existing ceramic lamp, bench/cushions and dry interior remain visually in place. Crown is near y105 and complete soles near y900; apparent head scale remains close to the selected intimate reference without a lensward enlarged head. Weight on the cushion, relaxed lap hands, leg continuity and complete grounded shoes read coherently in the full view. Golden irises are distinct from eyelids and silver-blue fringe. Warm lamp light reaches the left hair edge, cheek, hands, navy fabric and floor while the blue rainy exterior remains outside. Her awake, reserved attention is neither tearful nor a broad reassuring smile. Producer static observation only; root/layers/runtime remain pending."
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "Producer-viewed single-character static mother candidate only; root review pending, no layer, matrix, motion or runtime acceptance."
+}

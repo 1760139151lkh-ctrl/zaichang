@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "included-local-contact-receiver-luminance-mask",
+  "character": "nyamu",
+  "activity": "chat",
+  "palette": "apricot",
+  "step": "S2",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-17817494-1ae1-4d10-9101-9fd8998e8bd5.png",
+  "executionId": "exec-17817494-1ae1-4d10-9101-9fd8998e8bd5",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-contact-mark-v1.png",
+      "sha256": "3b2f8f5d88783ba680a8e73e17616cd8b417059f9ad38070cf30456da321f5eb",
+      "role": "sole immediately preceding S1 local contact receiver markup; keep exact existing white marks"
+    }
+  ],
+  "approvedOriginalMother": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.png",
+    "sha256": "096bd7f5f0138e8b961c91d52dc8e68b29bcda1600bbb9ca444bd1c7eff75313",
+    "approvalEvidence": "root personally reviewed and approved this exact chat mother; central primary-cast-chat-mother-reviews-v1.json"
+  },
+  "intendedAssembly": {
+    "contactShadowMode": "included",
+    "formula": "U=MAX(L(F),L(S)); draw original mother RGB through U exactly once over matching empty BG",
+    "allMotionZero": true,
+    "separateCleanCasterClaim": false,
+    "pngPixelEditing": false
+  },
+  "promptFile": "nyamu-chat-contact-mask-v1.prompt.txt",
+  "promptFileSha256": "8037c9e52b866ca7d43584e7cb4bfdd7301b4920d4dc179745904d042f0cb2bc",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; submitted text exact",
+  "submittedPromptSha256": "b0daf89efb026ae669cacfa5a48bade1ce715cbe4d0d153099661dc4a55ffd28",
+  "output": {
+    "file": "nyamu-chat-contact-mask-v1.png",
+    "sha256": "0702dd3af004fefa908aad843e906e17e30738fad28acb0df1143723059f71db",
+    "bytes": 316897,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "extrema": [
+      [
+        0,
+        255
+      ],
+      [
+        0,
+        255
+      ],
+      [
+        0,
+        255
+      ]
+    ]
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed full saved S2: black canvas contains a local seat band, a small separate palm/throw receiver island and two original-position shoe-contact outlines. No full figure or broad room block survives. The separate palm receiver island appears farther right than the real hand and must be exposed in native union/checker/seat review; no clipping/threshold/relocation applied to hide it."
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "Raw mask component accepted only within exact root-approved MAX(F,S)/original-RGB fixed included joint assembly; no standalone caster, motion or runtime approval.",
+  "includedAssemblyPrimaryAccepted": true,
+  "includedAssemblyAdmissionRecord": "nyamu-chat-included-primary-admission-v1.json"
+}

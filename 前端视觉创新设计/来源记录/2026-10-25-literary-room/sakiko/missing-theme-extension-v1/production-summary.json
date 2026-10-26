@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "recordType": "bounded-human-theme-extension-production-handoff",
+  "role": "sakiko",
+  "generationPlan": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/missing-human-mother-production-plan-v1.json",
+    "sha256": "251f83b82c17e5ea7646559e29655dd9daae9b2dcdc370fcce2169bd62debc9f"
+  },
+  "currentCandidateCount": 2,
+  "heldHistoricalOutputCount": 1,
+  "currentCandidates": [
+    {
+      "cell": "sakiko/resume/rain",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.png",
+      "sha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9",
+      "bytes": 2242270,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.source.json",
+      "sourceRecordSha256": "1cf9daa11db3353467feae4a9ca4f68c711dce9b43be483e895e00b1f81440df",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.prompt.txt",
+      "submittedPromptSha256": "442354f0945d727f200ad6065cfb8d1d7194d635477cb01603e9cb213cb8b4a3",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "sakiko/resume/violet",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-violet-literary-extension-v1.png",
+      "sha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973",
+      "bytes": 2367723,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-violet-literary-extension-v1.source.json",
+      "sourceRecordSha256": "097fe6bded9b9c54b0190de457584fcb7ed76958ab72068bea16e8652e985be6",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-violet-literary-extension-v1.prompt.txt",
+      "submittedPromptSha256": "dd04203a85de2382f3c2c929facdb1c0d8f8dd9dac82e0345561e7759bc444ca",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "heldNeverInput": [
+    {
+      "cell": "sakiko/resume/rain",
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v1.png",
+      "sha256": "599216e934eb0604ce1d432b15d09a3e9bf41cadc6a146848411817fabd86dbf",
+      "bytes": 2310620,
+      "actualCanvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v1.source.json",
+      "sourceRecordSha256": "c09823f1730cd6f6bf8f008ff09a2c7747744a38204f7b50eef890a942331881",
+      "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v1.prompt.txt",
+      "submittedPromptSha256": "f730db6feb4e562a9cc6bcdcc95c4d0a7280089267b343e3a5990562c439c61e",
+      "producerWholeOutputViewed": true,
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "reviewBoundary": "Actual Image outputs and producer whole-image inspection only. New original mother/root admission, layers, alignment, motion and runtime remain separate. No total ledger/App edited.",
+  "nightLighting": "Current rain variants arev2 CLEAN rain plate + full character text only; oldrainv1 areHOLD for daylight grid/light-patch concern. Actual floor/cushion/figure relighting viewed; parent must inspect full originals."
+}

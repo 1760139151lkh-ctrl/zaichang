@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "characterId": "taki",
+  "neutralTime": "night",
+  "purpose": "neutral-presence-fixed-included-layer",
+  "kind": "same-mother-clean-empty-background",
+  "createdAt": "2026-10-26T01:10:13.308720+00:00",
+  "tool": "built-in image_gen.imagegen",
+  "exactPromptFile": "background-v1.prompt.txt",
+  "promptSha256": "a7df9dde1d41e51c71bd62f77ab889ac1979adbeb6596bf6200e81ffaca747fc",
+  "requestFile": "background-v1.request.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/taki-neutral-time-night-literary-v1.png",
+      "sha256": "79aae6d833d537e9667f9ec77850fe00121aa886031ca3e2cba15ccc49401800",
+      "role": "sole exact root-approved night mother"
+    }
+  ],
+  "output": {
+    "file": "background-v1.png",
+    "sha256": "bcd8d39e53d1be77b273612074968dc56c4e219ba34caa52389ecd5a72de993a",
+    "bytes": 2160997,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "originalBasename": "exec-86197802-cfc3-4c06-a904-047e892f026e.png",
+    "fullPngDecoded": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteOutput": true,
+    "observations": [
+      "Girl/open book/shoes and their local contacts removed from same night room; curtain remains opaque with no weather.",
+      "Bench, lamp, pillows, throw and warm wooden floor retain matching full canvas and camera."
+    ],
+    "eligibleAsNextStepInput": true
+  },
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "countsToward360ExactActivities": false,
+  "pngPixelEditing": false,
+  "primaryStaticLayerApproved": true,
+  "primaryAdmissionRecord": "root-primary-layer-admission-v1.json",
+  "primaryApprovalScope": "Exact static fixed included layer in this same source canvas; no runtime, motion or activity360 acceptance"
+}

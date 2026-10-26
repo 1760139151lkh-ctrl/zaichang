@@ -6,6 +6,9 @@ import type { TurnControlInteractionContext } from './turn-controls';
 import { mapStoryReferenceIdentity } from './story-setting';
 import { programReferenceIdentity } from './interactive-program-sources';
 import { NativeSourceBookmarkService } from './source-bookmark-native';
+import { workspaceContextSchema, type WorkspaceTarget } from '../../shared/workspace-context';
+import { workspaceInputControls } from './workspace-context';
+import { canonical } from './semantics';
 
 type Runtime = Pick<RuntimeCoordinator, 'repo' | 'policy' | 'store' | 'context' | 'broker' | 'companionSessions' | 'curiosityInvitations' | 'studyCompanion' | 'reflectiveLetters' | 'rehearsals' | 'notePresentation' | 'materials' | 'presentation' | 'nativeAgenda' | 'spatial' | 'scenes'>;
 
@@ -13,17 +16,32 @@ type Runtime = Pick<RuntimeCoordinator, 'repo' | 'policy' | 'store' | 'context' 
  * address is re-read through its current owner using read-only permissions.
  * This is not an ingress scope, evidence receipt, read-purpose approval or a
  * promise that the same object will remain available after admission. */
-export function interactionContextForControls(runtime: Runtime, controls: InputControls, sessionId: string): TurnControlInteractionContext | undefined {
+export function interactionContextForControls(runtime: Runtime, controls: InputControls, sessionId: string,
+  materialDocument?: Extract<WorkspaceTarget, { kind: 'material' }>['reference']): TurnControlInteractionContext | undefined {
   if (controls.transmission === 'local_only' || controls.audience && controls.audience !== 'self'
     || controls.memoryMode === 'current_sources_only' || controls.subjectId && controls.subjectId !== runtime.repo.identity.principalId
     || controls.worldId && controls.worldId !== 'real') return;
-  if (!controls.curiosityReference && !controls.companionReference && !controls.studyInteraction && !controls.letterReference && !controls.rehearsalInteraction && !controls.noteReference && !controls.noteQuote && !controls.preparationReference && !controls.notebookQuote && !controls.mapRouteReference && !controls.agendaFocus && !controls.materialQuote && !controls.conversationQuote && !controls.programReference && !controls.selection) return;
+  if (controls.workspaceContext) {
+    const parsed = workspaceContextSchema.safeParse(controls.workspaceContext);
+    if (!parsed.success) return;
+    const objects = parsed.data.objects.flatMap(object => {
+      const identity = interactionContextForControls(runtime, workspaceInputControls(controls, object.target), sessionId,
+        object.target.kind === 'material' ? object.target.reference : undefined);
+      return identity ? [{ slot: object.slot, activity: identity.activity, contentIdentity: identity.contentIdentity, focus: identity.focus }] : [];
+    });
+    if (!objects.length) return;
+    const same = objects.every(object => object.activity === objects[0].activity && object.contentIdentity === objects[0].contentIdentity);
+    return { activity: same ? objects[0].activity : 'discussion', contentIdentity: same ? objects[0].contentIdentity : 'mixed',
+      focus: objects.length === 1 ? objects[0].focus : 'shared_object', objects,
+      ...(objects.length === 2 && parsed.data.relation ? { relation: parsed.data.relation } : {}) };
+  }
+  if (!materialDocument && !controls.curiosityReference && !controls.companionReference && !controls.studyInteraction && !controls.letterReference && !controls.rehearsalInteraction && !controls.noteReference && !controls.noteQuote && !controls.preparationReference && !controls.notebookQuote && !controls.mapRouteReference && !controls.agendaFocus && !controls.materialQuote && !controls.conversationQuote && !controls.programReference && !controls.selection) return;
   const baseline = runtime.policy.hostScope(), host = runtime.policy.validate(baseline);
   let sources = [...host.sources];
   if (controls.sources) sources = sources.filter(source => controls.sources!.includes(source));
   if (controls.memoryMode === 'none' || !runtime.store.settings().memoryEnabled && !controls.memoryMode)
     sources = sources.filter(source => source !== 'history:self' && source !== 'profile:self');
-  if (!controls.materialQuote && (controls.agendaFocus ? !sources.includes('local-agenda')
+  if (!materialDocument && !controls.materialQuote && (controls.agendaFocus ? !sources.includes('local-agenda')
     : controls.mapRouteReference ? !sources.includes('map:local')
     : controls.noteReference || controls.noteQuote || controls.notebookQuote ? !sources.includes('notes:self')
     : controls.programReference || controls.conversationQuote ? !sources.includes('history:self') : !sources.includes('work:self'))) return;
@@ -31,6 +49,11 @@ export function interactionContextForControls(runtime: Runtime, controls: InputC
     grants: host.grants.filter(grant => grant === 'evidence:read' || (controls.programReference || controls.preparationReference) && grant.endsWith(':read')
       || (!!controls.selection || !!controls.mapRouteReference) && grant === 'map:read'), currentEventIds: [] });
   try {
+    if (materialDocument) {
+      runtime.materials.workspaceIdentity(handle, materialDocument);
+      runtime.policy.validate(handle);
+      return { activity: 'material_reading', contentIdentity: 'external_document', focus: 'source_object' };
+    }
     if (controls.conversationQuote) {
       new NativeSourceBookmarkService(runtime.store).conversationQuote(handle, controls.conversationQuote);
       runtime.policy.validate(handle);
@@ -125,6 +148,28 @@ export function interactionContextForControls(runtime: Runtime, controls: InputC
  * never grants old content or changes the whole event's inference label. */
 export function creationSourceContextForIngress(runtime: Runtime, controls: InputControls, sessionId: string,
   ingress: Pick<IngressDecision, 'contract' | 'localOnly'>): EvidenceEvent['sourceContext'] | undefined {
+  if (controls.workspaceContext) {
+    const parsed = workspaceContextSchema.safeParse(controls.workspaceContext);
+    if (!parsed.success || ingress.localOnly) return;
+    const contexts = parsed.data.objects.flatMap(object => {
+      const focused = workspaceInputControls(controls, object.target);
+      if (focused.rehearsalInteraction) {
+        try {
+          runtime.rehearsals.referenceIdentity(ingress.contract.scope, sessionId, focused.rehearsalInteraction);
+          const ref = focused.rehearsalInteraction.ref;
+          return [{ kind: 'relationship_rehearsal' as const, origin: 'user_interface_reference' as const,
+            artifactId: ref.id, artifactRevision: ref.revision, matterId: ref.matterId, activeTurnId: ref.activeTurnId,
+            inputKind: 'reference' as const }];
+        } catch (error) { if (!(error instanceof HarnessError || error instanceof ZodError)) throw error; return []; }
+      }
+      const context = creationSourceContextForIngress(runtime, focused, sessionId, ingress);
+      return context ? [context] : [];
+    });
+    // One event can retain one exact origin. Distinct A/B origins stay in the
+    // control context and currentWorkspace rather than borrowing either ID.
+    return contexts.length === parsed.data.objects.length && contexts.every(context => canonical(context) === canonical(contexts[0]))
+      ? contexts[0] : undefined;
+  }
   if (ingress.localOnly || controls.preparationReference || controls.noteQuote || controls.rehearsalInteraction || controls.letterReference || controls.noteReference || controls.notebookQuote || controls.mapRouteReference || controls.agendaFocus || controls.materialQuote) return;
   const handle: ScopeHandle = ingress.contract.scope, scope = runtime.policy.validate(handle);
   if (scope.child || scope.subjectId !== scope.principalId || scope.worldId !== 'real' || scope.audience !== 'self'

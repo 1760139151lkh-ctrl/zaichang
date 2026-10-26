@@ -1,0 +1,335 @@
+{
+  "schemaVersion": 1,
+  "cell": "sakiko/attention/rain",
+  "producer": "/root/mujica_matrix",
+  "producedAt": "2026-10-25T23:48:46.649Z",
+  "source": {
+    "mother": {
+      "path": "../../sakiko-attention-rain-shared-page-v3.png",
+      "sha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac",
+      "bytes": 2343269
+    },
+    "background": {
+      "path": "background-v1.png",
+      "sha256": "942f027ea58b53feb2b0a2c50f20fcd8f80f54d50332837f4a6a9c050a5ce463",
+      "bytes": 2283004
+    },
+    "figureMask": {
+      "path": "figure-mask-v4.png",
+      "sha256": "8694a78182b5d234fcc2e532a492536cbeec1286c6c7b15f852186db2babb65e",
+      "bytes": 464753
+    },
+    "contactMask": {
+      "path": "contact-mask-v1.png",
+      "sha256": "43f9770fbde6eaf407d174362c1d6c4ae61f6e3552d35fecc98bb29bcbd5d992",
+      "bytes": 341304
+    },
+    "unionSvg": {
+      "path": "union-source-v4.svg",
+      "sha256": "6e57afea87345b76ed0aa66d990533efa08895e83b1c41f570a7129ca335921c",
+      "bytes": 1519
+    },
+    "compositeSvg": {
+      "path": "composite-source-v4.svg",
+      "sha256": "f9915d5cdecb400dba8933b84c10fc0330f0c25d6a55bc31692820758207468f",
+      "bytes": 1623
+    },
+    "observationPage": {
+      "path": "attention-rain-included-observe-v4.html",
+      "sha256": "2a5d2c070fd98fc67db7dd6719d5183a5f73acd166895b86e3138e698f74833b",
+      "bytes": 29231
+    }
+  },
+  "sourceRecords": [
+    {
+      "path": "background-v1.source.json",
+      "sha256": "71a07bac68de0372d0bb21106eeeb8768d5b17c2025fe58490bfe48ed2ae26c0"
+    },
+    {
+      "path": "contact-mask-v1.source.json",
+      "sha256": "07ae007482d5460766ae510b293076530cb003525d95ec9964da185dae701266"
+    },
+    {
+      "path": "contact-step1-marked-v1.source.json",
+      "sha256": "3b5c134ced79d7b1fdbd9785c9741dff78f4b6add8fed3fb70042f27febabc20"
+    },
+    {
+      "path": "figure-mask-v1.source.json",
+      "sha256": "aa3b6e098ba54e3d28af628b5dcf480d2efeffbf4a1776bae0d024d4f5f93fdc"
+    },
+    {
+      "path": "figure-mask-v2.source.json",
+      "sha256": "96aae1fcfaa25043a2af40d35d3dd3483e3420e3060659fd02bef88b389dc66c"
+    },
+    {
+      "path": "figure-mask-v3.source.json",
+      "sha256": "734e020639a4552e018adcdbfcc9d5ef3f593d1b790e305a63ff5e806787b285"
+    },
+    {
+      "path": "figure-mask-v4.source.json",
+      "sha256": "f118ed64b7ec57a1187169f993557217581412758d2ca50b7d036b6f999ebbc1"
+    },
+    {
+      "path": "figure-step1-marked-v1.source.json",
+      "sha256": "20704e7e48ca173a42bbd539b27a80d6257066704e6ff209d5aea8f9e0814dc5"
+    },
+    {
+      "path": "figure-step1-marked-v2.source.json",
+      "sha256": "044f99bc6ef55924f3e3cd3bc36517ab5b0b8dafa1d4ee5bee1ed706a74c43dd"
+    }
+  ],
+  "sourceClosure": [
+    {
+      "record": "background-v1.source.json",
+      "output": {
+        "recordedSha256": "942f027ea58b53feb2b0a2c50f20fcd8f80f54d50332837f4a6a9c050a5ce463",
+        "actualSha256": "942f027ea58b53feb2b0a2c50f20fcd8f80f54d50332837f4a6a9c050a5ce463"
+      },
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.png",
+          "recordedSha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac",
+          "actualSha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac"
+        }
+      ]
+    },
+    {
+      "record": "contact-mask-v1.source.json",
+      "output": {
+        "recordedSha256": "43f9770fbde6eaf407d174362c1d6c4ae61f6e3552d35fecc98bb29bcbd5d992",
+        "actualSha256": "43f9770fbde6eaf407d174362c1d6c4ae61f6e3552d35fecc98bb29bcbd5d992"
+      },
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-rain/contact-step1-marked-v1.png",
+          "recordedSha256": "c058bf60692088f0e3a74168995a1dcb2553f3b2ca5b4b13631aca20346735e8",
+          "actualSha256": "c058bf60692088f0e3a74168995a1dcb2553f3b2ca5b4b13631aca20346735e8"
+        },
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.png",
+          "recordedSha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac",
+          "actualSha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac"
+        }
+      ]
+    },
+    {
+      "record": "contact-step1-marked-v1.source.json",
+      "output": {
+        "recordedSha256": "c058bf60692088f0e3a74168995a1dcb2553f3b2ca5b4b13631aca20346735e8",
+        "actualSha256": "c058bf60692088f0e3a74168995a1dcb2553f3b2ca5b4b13631aca20346735e8"
+      },
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.png",
+          "recordedSha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac",
+          "actualSha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac"
+        }
+      ]
+    },
+    {
+      "record": "figure-mask-v1.source.json",
+      "output": {
+        "recordedSha256": "de906de97be3f61d88db039f67f1ea1e7dcf831f33451f281de4c046c23b5470",
+        "actualSha256": "de906de97be3f61d88db039f67f1ea1e7dcf831f33451f281de4c046c23b5470"
+      },
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-rain/figure-step1-marked-v1.png",
+          "recordedSha256": "d4fd3d05d2acb5206b81808e6212859dd4b748010c11007ca58338a81ac3d48b",
+          "actualSha256": "d4fd3d05d2acb5206b81808e6212859dd4b748010c11007ca58338a81ac3d48b"
+        }
+      ]
+    },
+    {
+      "record": "figure-mask-v2.source.json",
+      "output": {
+        "recordedSha256": "f73d46f43aeec3f665c6c42c41a7b3fccb825ee2d7dde086bf240a469d9f4064",
+        "actualSha256": "f73d46f43aeec3f665c6c42c41a7b3fccb825ee2d7dde086bf240a469d9f4064"
+      },
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-rain/figure-step1-marked-v1.png",
+          "recordedSha256": "d4fd3d05d2acb5206b81808e6212859dd4b748010c11007ca58338a81ac3d48b",
+          "actualSha256": "d4fd3d05d2acb5206b81808e6212859dd4b748010c11007ca58338a81ac3d48b"
+        },
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.png",
+          "recordedSha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac",
+          "actualSha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac"
+        }
+      ]
+    },
+    {
+      "record": "figure-mask-v3.source.json",
+      "output": {
+        "recordedSha256": "f79ed7cd34fb2a0dbd615b68ad2189243b10ddf850364b0627721e419b778470",
+        "actualSha256": "f79ed7cd34fb2a0dbd615b68ad2189243b10ddf850364b0627721e419b778470"
+      },
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.png",
+          "recordedSha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac",
+          "actualSha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac"
+        }
+      ]
+    },
+    {
+      "record": "figure-mask-v4.source.json",
+      "output": {
+        "recordedSha256": "8694a78182b5d234fcc2e532a492536cbeec1286c6c7b15f852186db2babb65e",
+        "actualSha256": "8694a78182b5d234fcc2e532a492536cbeec1286c6c7b15f852186db2babb65e"
+      },
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-rain/figure-step1-marked-v2.png",
+          "recordedSha256": "30630e1495c86b3dfe41835d4f6d58d8f7e4ac0922c22470acb99e409754473a",
+          "actualSha256": "30630e1495c86b3dfe41835d4f6d58d8f7e4ac0922c22470acb99e409754473a"
+        }
+      ]
+    },
+    {
+      "record": "figure-step1-marked-v1.source.json",
+      "output": {
+        "recordedSha256": "d4fd3d05d2acb5206b81808e6212859dd4b748010c11007ca58338a81ac3d48b",
+        "actualSha256": "d4fd3d05d2acb5206b81808e6212859dd4b748010c11007ca58338a81ac3d48b"
+      },
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.png",
+          "recordedSha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac",
+          "actualSha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac"
+        }
+      ]
+    },
+    {
+      "record": "figure-step1-marked-v2.source.json",
+      "output": {
+        "recordedSha256": "30630e1495c86b3dfe41835d4f6d58d8f7e4ac0922c22470acb99e409754473a",
+        "actualSha256": "30630e1495c86b3dfe41835d4f6d58d8f7e4ac0922c22470acb99e409754473a"
+      },
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-rain/figure-step1-marked-v1.png",
+          "recordedSha256": "d4fd3d05d2acb5206b81808e6212859dd4b748010c11007ca58338a81ac3d48b",
+          "actualSha256": "d4fd3d05d2acb5206b81808e6212859dd4b748010c11007ca58338a81ac3d48b"
+        }
+      ]
+    }
+  ],
+  "assembly": {
+    "formula": "U=MAX(L(F),L(S)); original mother RGB drawn once over same-mother generated empty BG",
+    "luminance": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "rgbDrawCount": 1,
+    "nativeImplementation": "SVG feColorMatrix(sRGB luminance) + feBlend(lighten) under luminance mask",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "sourceOrigin": [
+      0,
+      0
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": "included",
+    "independentCaster": false,
+    "maskPngBytesUnchanged": true,
+    "originalRgbUnchanged": true,
+    "hiddenBackground": "Generated continuation of formerly occluded pixels, no promise of exact hidden original recovery"
+  },
+  "held": [
+    {
+      "file": "figure-mask-v1.png",
+      "issue": "Faint internal book/hand/shoe linework",
+      "generationInputAllowed": false
+    },
+    {
+      "file": "figure-mask-v2.png",
+      "issue": "Visible grey book-lower-edge interior line",
+      "generationInputAllowed": false
+    },
+    {
+      "file": "figure-mask-v3.png",
+      "issue": "Clean-original direct extraction changed silhouette coordinates/scale",
+      "generationInputAllowed": false
+    }
+  ],
+  "browser": {
+    "actualChromeTab": "500947826",
+    "observations": [
+      {
+        "file": "browser-observations/mother-composite-v4.png",
+        "sha256": "f9a527982ca7aed9973b68c502eea8cddef35f9978df44e0c66d54516d18fd0e",
+        "bytes": 109947,
+        "width": 65536,
+        "height": 4292542531,
+        "personallyViewed": true,
+        "captureMethod": "Official Chrome extension cua_repl Tab.screenshot clip of actual DOM document region, unchanged bytes",
+        "reviewOnly": true,
+        "generationInputAllowed": false,
+        "observed": "Whole source original compared with same-mother empty BG + original RGB once: original seated scale/support and full room light retained, soft lamp pools and no daylight-grid patch."
+      },
+      {
+        "file": "browser-observations/light-dark-checker-full-v4.png",
+        "sha256": "dbc6f268156b51104f9fc549ebc54c2ae0dc94ad82b64b306ce98067be17003f",
+        "bytes": 91919,
+        "width": 65536,
+        "height": 4292542531,
+        "personallyViewed": true,
+        "captureMethod": "Official Chrome extension cua_repl Tab.screenshot clip of actual DOM document region, unchanged bytes",
+        "reviewOnly": true,
+        "generationInputAllowed": false,
+        "observed": "Complete body on identical-crop light/dark/checker tiles: all head/hair/book/knees/calf-socks/shoes present. Fixed original seat/floor material included, not portable independent shadow."
+      },
+      {
+        "file": "browser-observations/face-hair-original-union-composite-v4.png",
+        "sha256": "b38ccad6eaa8918cca3d6ac7bdfdfb84950603be8ca550c4894b942bcbbb1313",
+        "bytes": 114985,
+        "width": 65536,
+        "height": 4292542531,
+        "personallyViewed": true,
+        "captureMethod": "Official Chrome extension cua_repl Tab.screenshot clip of actual DOM document region, unchanged bytes",
+        "reviewOnly": true,
+        "generationInputAllowed": false,
+        "observed": "Actual original gold eyes/youthful face/hair preserved as original RGB, strand gaps readable and no broad room selection patch observed."
+      },
+      {
+        "file": "browser-observations/book-seat-original-union-composite-v4.png",
+        "sha256": "606cb1782bf2ad4b21e972602e624d66c7b501c6f5baf645f393dfe8edd866b5",
+        "bytes": 90584,
+        "width": 65536,
+        "height": 4292542531,
+        "personallyViewed": true,
+        "captureMethod": "Official Chrome extension cua_repl Tab.screenshot clip of actual DOM document region, unchanged bytes",
+        "reviewOnly": true,
+        "generationInputAllowed": false,
+        "observed": "Targeted original/union/composite closeup: prior book-edge internal F2 line has been removed through healthy F1 interior-cleanup then F2 v4 conversion; real covers/pages/hands/underhem source material remain."
+      },
+      {
+        "file": "browser-observations/shoes-contact-original-union-composite-v4.png",
+        "sha256": "7e9811748fd81435cfef88de54c4b0ca8c34db24528e9c9a30441caf0d95c13d",
+        "bytes": 85672,
+        "width": 65536,
+        "height": 4292542531,
+        "personallyViewed": true,
+        "captureMethod": "Official Chrome extension cua_repl Tab.screenshot clip of actual DOM document region, unchanged bytes",
+        "reviewOnly": true,
+        "generationInputAllowed": false,
+        "observed": "Both full loafers and source-local soft near-foot floor receiver match in fixed composite. S has small outsole/floor overlap with F; MAX original RGB once avoids double rendering."
+      }
+    ]
+  },
+  "review": {
+    "producer": "Actual Browser complete still and cropped original-RGB comparisons personally inspected",
+    "primaryLayerApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "sourceMotherStaticOnly": true,
+    "limits": "Static producer candidate, not root layer/runtime approval. User-preserved original weather/scale differences were not reconstructed. Complete actual Image raw outputs and HOLD history retained; no faulty F2 used as later Image input."
+  }
+}

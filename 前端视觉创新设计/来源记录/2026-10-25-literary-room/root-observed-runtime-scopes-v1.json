@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "recordedAt": "2026-10-25T13:20:52.971092+00:00",
+  "source": "Explicit root messages in this delegated healthy session on 2026-10-25; exact observation event times not supplied. Recorded by asset ledger owner, not self-witnessed by this lane.",
+  "environment": "isolated publication worktree, real Electron renderer; root owns complete acceptance",
+  "observedSceneIds": [
+    "sakiko-chat-apricot-literary-v1",
+    "sakiko-reading-apricot-literary-v1",
+    "sakiko-study-apricot-literary-desk-v1",
+    "anon-chat-apricot-literary-v1"
+  ],
+  "reportedObservedScopes": [
+    "Sakiko chat/day, reading, desk and Anon chat integrated/preview rendering",
+    "Real lamp activation into Focus",
+    "Desk-to-bench and bench-to-desk drag pose transfer",
+    "Body-side-dependent paper rearrangement",
+    "Return to same previous draft"
+  ],
+  "reportedExistingChecks": {
+    "check": true,
+    "build": true,
+    "smokeExistingPassed": 282,
+    "hermesExistingPassed": 9,
+    "newHeaderCssRequiresRebuildAtReport": true
+  },
+  "notEstablished": [
+    "All thirteen scenes personally inspected in live runtime",
+    "Every role/theme/activity/narrow-screen/motion state",
+    "Whole 360 matrix runtime acceptance"
+  ],
+  "allSceneRuntimeAcceptedRemainsFalse": true
+}

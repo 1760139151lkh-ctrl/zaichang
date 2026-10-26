@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-resume-rain-background-v1",
+  "cell": "soyo/resume/rain",
+  "stage": "background-v1",
+  "submittedPrompt": "Use case: precise-object-edit. Asset: same-camera EMPTY receiving background for a fixed original-RGB union.\nThe ONLY input is this exact clean root-approved Soyo resume rain mother, 1536x1024. Preserve the entire original canvas, all source coordinates and camera framing. No crop/resize/zoom/centering/shift, no changes to pose, expression, proportions, wardrobe, linework or source geometry. This is technical selection/restoration for a FIXED original-RGB included layer, not a new character illustration. Root approved minor theme/pose differences; preserve this exact original.\nRemove ONLY the entire girl including all fine hair, full clothes/hands/legs/socks/both whole shoes, the complete open book on her lap including every lifted page edge, and any single pencil or bookmark ribbon she holds, plus their actual near contact/cast shade and local cushion compression. Restore the SAME original room behind them: continuous pale embroidered linen cushion, corresponding window/sill and bench/front wood where obscured, continuous exact wood-floor plank directions and natural reflections where feet/shade were. No residual human/book/pencil/ribbon ghost, new replacement object, spare book on empty bench, or silhouette in seat/floor.\nPreserve EVERY other visible thing: side-table lamp/base/cup/small books/flowers, desk/chair/left shelves/plants/framed art, curtains, right pillows/plaid/throw, rug/fringe, town/lake/mountains/window glass and all existing major window mullion/table/bench/floor anchors. Keep source materials/painting texture/color temperature and true rain night with the source localized warm lamp pool, dark outside and original furniture/table shade; absolutely no daylight sun-window lattice or hard sunbeam. This is an object-removal edit, not a redesigned/recolored generic room. Preserve ambient/window/table/furniture shadows that are unrelated to the removed subject, removing only her own physically connected local contact/shadow. Restore natural uncompressed linen only where her weight was; do not invent a large bright patch. One opaque 1536x1024 clean empty scene. It sits behind original mother RGB at exactly the unchanged source coordinates; local receiving-seat/floor matching matters, not stylistic reinterpretation.",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-resume-rain-literary-v1.png"
+  ],
+  "transparentBackground": false,
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-resume-rain-literary-v1.png",
+      "sha256": "e9626878846a6566239bf002c24aeaf964ee0c4ba302eb8f9871db0304c0eef0",
+      "role": "sole exact root-approved clean mother; personally viewed before call"
+    }
+  ],
+  "outputFile": "scene-background-v1.png",
+  "generationStatus": "prepared-not-yet-called",
+  "scope": "selection/restoration only; mother RGB once by MAX; runtime=false"
+}

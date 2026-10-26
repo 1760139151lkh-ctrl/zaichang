@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "assetType": "literary-room-complete-mother",
+  "id": "rana-rest-apricot-literary-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "rana-rest-apricot-literary-v1.prompt.json",
+  "promptFileSha256": "79236cd621e26ae7c652efb5c7e3a3f116c55392acf2653b2a269ef1b65f39dd",
+  "submittedPrompt": "Create a complete 1536×1024 landscape mother illustration in the exact warm apricot literary room of image 1. Keep the same camera/depth, wooden lake-view window divisions, town and mountains, left desk/chair, round lamp/cup table, long cream-cushioned near right bench, blue plaid cushions, knitted throw, foreground plants, textured rug and wood floor. Image 2 is ONLY Rana Kaname's correct identity, clothing and near-bench apparent scale. Create a new quiet resting moment from the empty plate, not her chat expression or a rearranged paper/prop pose.\n\n“Light slowly reaches the toes of her boots.” There is nowhere this interval has to lead. Rana has noticed a small patch of sunlight inching across the floor; it feels like a private discovery she does not need to collect or explain. She enjoys her own stillness and does not mind your being there. Companionship can remain quiet without a performance. Give her a freely chosen, alert quiet, not exhaustion, sadness, therapeutic consolation, sleep, or a posed welcoming smile. Her lips are naturally closed or softly relaxed. Attention has settled toward the near floor/window light; her eyes remain legible enough to be gently called back. Let the small mental event and breathing room lead the image.\n\nSeat her securely on the near RIGHT cream bench, at the approved close-bench depth and youthful proportions of image 2: crown around y110 and complete boots/soles near y890. She sits back comfortably without pushing her head toward camera, shoulders released, hands resting simply on cushion beside her hips or loosely on her own thighs with clear reachable contact. No held objects. Her hips compress the cushion, thighs/knees/lower legs connect naturally, black boots rest believably by the sunlight on the wooden floor, perhaps one slightly ahead of the other. Keep the pose simple and anatomically coherent; complete head/hair and both boots within the image. The far writing desk stays empty.\n\nRecognizable Rana: short silver-white soft bob with faint lavender ends; distinct own-right gold iris and own-left blue iris (viewer-left gold/viewer-right blue when frontal), clear separate eyelids, irises, brows and hair strands. Gentle downward attention must not hide both eyes behind bangs. Loose black short sleeve outer shirt over pale white long sleeves, white shorts and black lace-up ankle boots, no uniform or costume change. Youthful anime character integrated into rich warm natural material rendering, with the same sunlight on hair, sleeves, cushion and floor; natural contact shadows. Her expression has her own quiet autonomy. No forced smile, cat, guitar, cup in hands, notebook, new screen, UI, text, added person or symbolic decoration. Make a single whole lived-in scene, preserving the approved room and camera.",
+  "submittedPromptSha256Utf8NoTrailingLF": "601d1daa782496e518dd635121e4a334182f226b453f7942eb51fe9614cd597c",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "sole-room-and-camera-input"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/chat-pilot/rana-chat-apricot-literary-pilot-v1.png",
+      "sha256": "060e897c7b9ebdefc5ab84d6fbada2983625b19e6a4ebc57501ede19c5259919",
+      "role": "root-approved-Rana-identity-and-near-bench-scale-only"
+    }
+  ],
+  "output": {
+    "file": "rana-rest-apricot-literary-v1.png",
+    "sha256": "bf9e9784cd5945e357268856d668056e14ac2918ed9b3635acb72bcde6877075",
+    "bytes": 2433393,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-c5c8ae05-cd2f-4910-a332-caa31da1ab38.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "primaryApproved": false,
+    "layerApproved": false
+  },
+  "status": "producer-viewed-awaiting-root-mother-review",
+  "producerReview": {
+    "reviewedAt": "2026-10-25T12:24:38.262258+00:00",
+    "method": "Personally inspected actual full native ImageGen output at 1536x1024 before next call.",
+    "observations": [
+      "Downward quiet attention, distinct gold/blue eyes and relaxed mouth; no held object or compulsory symbol.",
+      "One hand rests on knee and other palm on cushion, hips/thighs supported, coherent knees and lower legs.",
+      "Full black boots visible; one slightly advances into the sun patch with soles near y900; complete head remains in frame."
+    ],
+    "issues": [
+      "Actual rest pose remains close to approved chat composition, with distinction mainly in quiet gaze and advanced boot; root should judge emotional separation.",
+      "Crown is approximately y120 and lower boot around y900, a small variation from requested y110/y890 rather than head-forward enlargement."
+    ],
+    "rootApprovalRequired": true
+  },
+  "character": "rana",
+  "activity": "rest",
+  "palette": "apricot",
+  "creativeBrief": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/rana/rana-rest-apricot.md",
+    "sha256": "c8ffda9a4f497ac636d3b27ac5161cbaa6260a90529aabaffafa3407a2c377cf",
+    "title": "光慢慢走到鞋尖",
+    "role": "literary-direction-text-only"
+  },
+  "generationBudget": {
+    "wave": "rana-apricot-wave-a",
+    "maxCalls": 8,
+    "callOrdinal": 4,
+    "callsForThisCell": 1,
+    "retries": 0
+  },
+  "approvalBoundary": {
+    "primaryAccepted": false,
+    "layerAccepted": false,
+    "runtimeAccepted": false,
+    "runtimeRegistered": false,
+    "rootReviewPending": true,
+    "motherOnly": true
+  }
+}

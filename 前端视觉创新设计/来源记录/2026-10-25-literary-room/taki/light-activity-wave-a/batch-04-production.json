@@ -1,0 +1,253 @@
+{
+  "schemaVersion": 1,
+  "characterId": "taki",
+  "batch": 4,
+  "totalWaveCap": 24,
+  "completedCalls": 6,
+  "callOrdinals": [
+    19,
+    20,
+    21,
+    22,
+    23,
+    24
+  ],
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "entries": [
+    {
+      "assetId": "taki-rest-mist-literary-v1",
+      "activity": "rest",
+      "palette": "mist",
+      "callOrdinal": 19,
+      "file": "taki-rest-mist-literary-v1.png",
+      "sha256": "cda569dc1fc36e6f7ff4540a0bfc4b3f4afa96d42f65b514e3b5c69832c76d0f",
+      "bytes": 2382622,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "taki-rest-mist-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-a/taki-rest-apricot-literary-v1.png",
+          "sha256": "d4f8289259d5797c27aebac314b124123e7f4b6a5964124f2378b954551f9c61",
+          "role": "image2: root-approved exact activity identity/pose/scale/support reference; original daylight not retained",
+          "primaryApprovalRecord": "../apricot-wave-a/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: approved right-cushion settled pose, softened shoulders, upper-left sideward gaze, thigh hand/seat palm and closed book beside are retained. Overcast diffuse light reaches skin, camel uniform, linen/book and floor without hard apricot pools. Clear violet eyes/fringe/lids, coherent hip/seat and full uncrossed legs/shoes at source scale; no task-ready gesture.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "Static rest/light impression only; primary/layer/runtime remain false."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "taki-rest-violet-literary-v1",
+      "activity": "rest",
+      "palette": "violet",
+      "callOrdinal": 20,
+      "file": "taki-rest-violet-literary-v1.png",
+      "sha256": "fc1e68d17ed145ba98c799ada299e53dc5a7903f917ecf5f6407380712a28441",
+      "bytes": 2260240,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "taki-rest-violet-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-a/taki-rest-apricot-literary-v1.png",
+          "sha256": "d4f8289259d5797c27aebac314b124123e7f4b6a5964124f2378b954551f9c61",
+          "role": "image2: root-approved exact activity identity/pose/scale/support reference; original daylight not retained",
+          "primaryApprovalRecord": "../apricot-wave-a/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: settled right-side support, upper-left relaxed gaze, thigh hand, seat palm and closed book beside retained. Warm dusk/lamp illumination coherently reaches skin, camel clothing, book/linen and floor; no noon window grid. Clear violet eyes/fringe/lids, full shoes and coherent uncrossed legs/hip contact at source scale, major room stable.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "Static rest/light comparison only; primary/layer/runtime remain false."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "taki-rest-rain-literary-v1",
+      "activity": "rest",
+      "palette": "rain",
+      "callOrdinal": 21,
+      "file": "taki-rest-rain-literary-v1.png",
+      "sha256": "c73de62cbd097e4631455e7fc9859bc3984f5f7982c19c075a4bee633b5a0488",
+      "bytes": 2232952,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "taki-rest-rain-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-a/taki-rest-apricot-literary-v1.png",
+          "sha256": "d4f8289259d5797c27aebac314b124123e7f4b6a5964124f2378b954551f9c61",
+          "role": "image2: root-approved exact activity identity/pose/scale/support reference; original daylight not retained",
+          "primaryApprovalRecord": "../apricot-wave-a/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: unchanged relaxed seat/cushion support, sideward awake gaze, thigh hand/seat palm and closed book beside. Rainy dark glass/town reflections and warm lamp treat skin/uniform/linen/floor together with no noon grid. No new mournful face; eye/fringe/lid detail clear, full coherent legs/shoes and hip contact preserved at source scale.",
+        "bodyContour": {
+          "contourComplete": true
+        },
+        "limits": "Static rest/light inspection only; primary/layer/runtime remain false."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "taki-study-mist-literary-v1",
+      "activity": "study",
+      "palette": "mist",
+      "callOrdinal": 22,
+      "file": "taki-study-mist-literary-v1.png",
+      "sha256": "701ec5c104312e96c668cafe8b552425ad8941965a5ae57b8847dcf61357301b",
+      "bytes": 2390457,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "taki-study-mist-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-overcast-day-v1.png",
+          "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-b/taki-study-apricot-literary-v1.png",
+          "sha256": "cbfbe17eb125d85813864ac15a700c3b1580cf840ea769ff1c1bc6187cb5b4ab",
+          "role": "image2: root-approved exact activity identity/pose/scale/support reference; original daylight not retained",
+          "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: exact approved left-desk looking-back pose, supported paper/pencil/forearms, chair-seat/back geometry and long hair/slat overlap remain; bench empty. Overcast diffuse light reaches face, uniform, page, desk/chair and floor without hard apricot pools. Violet eyes/fringe/lids clear; source plant/furniture naturally occludes lower legs/shoes with coherent visible portions.",
+        "bodyContour": {
+          "contourComplete": false,
+          "reason": "Approved source natural plant/furniture occlusion; hidden feet not reconstructed."
+        },
+        "limits": "No full two-sole proof or primary/layer/runtime admission."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "taki-study-violet-literary-v1",
+      "activity": "study",
+      "palette": "violet",
+      "callOrdinal": 23,
+      "file": "taki-study-violet-literary-v1.png",
+      "sha256": "6e5d995e7dd9e10202215e7074ec40bfda0e8c1e92bc3508917c6397db30b90a",
+      "bytes": 2274387,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "taki-study-violet-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-twilight-v1.png",
+          "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-b/taki-study-apricot-literary-v1.png",
+          "sha256": "cbfbe17eb125d85813864ac15a700c3b1580cf840ea769ff1c1bc6187cb5b4ab",
+          "role": "image2: root-approved exact activity identity/pose/scale/support reference; original daylight not retained",
+          "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: root-approved desk look-back/chair support, paper/pencil/forearms and long-hair/slat overlaps retained, right bench empty. Dusk plus existing task/ceramic-lamp light reach skin/uniform/page/chair/wood/floor coherently without noon grid. Clear eyes/fringe at farther desk scale and naturally plant-occluded shoe portions remain; no false full-feet reconstruction.",
+        "bodyContour": {
+          "contourComplete": false,
+          "reason": "Natural source foreground/furniture occlusion retained."
+        },
+        "limits": "No complete hidden contour/sole-contact or primary/layer/runtime claim."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "assetId": "taki-study-rain-literary-v1",
+      "activity": "study",
+      "palette": "rain",
+      "callOrdinal": 24,
+      "file": "taki-study-rain-literary-v1.png",
+      "sha256": "ac349fb31d87f5410587431c0fa723fa350d6e1c6b1ec8034497d71d67caa5b7",
+      "bytes": 2193623,
+      "width": 1536,
+      "height": 1024,
+      "sourceFile": "taki-study-rain-literary-v1.source.json",
+      "inputs": [
+        {
+          "file": "../../plates/literary-room-rain-night-v1.png",
+          "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+          "role": "image1: approved exact target empty plate and illumination"
+        },
+        {
+          "file": "../apricot-wave-b/taki-study-apricot-literary-v1.png",
+          "sha256": "cbfbe17eb125d85813864ac15a700c3b1580cf840ea769ff1c1bc6187cb5b4ab",
+          "role": "image2: root-approved exact activity identity/pose/scale/support reference; original daylight not retained",
+          "primaryApprovalRecord": "../apricot-wave-b/primary-mother-admission-v1.json"
+        }
+      ],
+      "producerReview": {
+        "personallyViewed": true,
+        "reviewedOn": "2026-10-25",
+        "decision": "static mother candidate for primary inspection",
+        "observation": "Complete original viewed: root-approved left-desk look-back/chair-seat geometry, supported forearms/paper/pencil and hair/slat occlusion remain at original activity scale; bench empty. Rainy dark outside, warm task/ceramic lights and soft cool fill repaint face/uniform/page/chair/wood/floor together without noon lattice or added grief. Eyes/fringe readable; actually exposed shoe portions coherent behind original plant occlusion.",
+        "bodyContour": {
+          "contourComplete": false,
+          "reason": "Natural source foreground/furniture occlusion retained, no hidden-foot reconstruction."
+        },
+        "limits": "No full two-sole proof or primary/layer/runtime admission."
+      },
+      "primaryApproved": false,
+      "layerApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "scope": "Six actual saved and personally viewed same-activity light mother candidates; root/layer/runtime approval remains separate. No layer progression or registration."
+}

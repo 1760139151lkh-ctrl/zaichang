@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "cell": "rana/resume/rain",
+  "generatedAt": "2026-10-25T19:06:56.221Z",
+  "tool": "image_gen.imagegen",
+  "originalOutput": "C:\\Users\\17601\\.codex\\generated_images\\01a17366-5b01-78f3-8d02-c6a9cdf4f220\\exec-894a2a0b-1aa2-486e-aa17-a380fb7fc0d2.png",
+  "promptFile": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-resume-rain-literary-v2.prompt.json",
+  "submittedPrompt": "唯一输入是1536×1024干净雨夜空房。完整重新画一张相同比例、相同相机的二维文学同景母图，不提供、不复制任何旧人物或失败夜图。完整保留原湖城雨窗、左书桌椅与书架、圆桌陶瓷暖灯、右长窗榻/蓝格靠枕/白针织毯、木地板与地毯，不裁镜头、不增减或改造家具。乐奈坐在原右近窗榻，头顶约y110，完整靴底约y890，身体尺度和相机深度自然，不向前冲到镜头前。\n\n乐奈是年轻而聪明的原作少女：银白层次短bob、分束软刘海、淡灰紫发梢；自身右眼金黄、自身左眼蓝，近正面为观者左金右蓝，禁止镜像颠倒。眉、眼睑、虹膜和发丝独立清楚；青春饱满面颊、自然短下巴，不幼儿化、不成熟狭眼长脸，不怜悯式营业笑。明确项目私服是无图案的宽松黑短袖叠白色长袖、白短裤、黑色系带踝靴，只有这些衣服，无项链、吊坠、印花或额外饰品。髋与大腿实落软垫，肩髋/膝踝/手腕袖口连贯，双靴完整，脚位服从实际承重与地板。\n\n夜间光线严格沿唯一空房：只有柔软室内暖灯和暗蓝雨夜窗光，人物、皮肤、白袖、软垫、木地板共享同一夜光与自然软暗部。无太阳、无直射日光、无窗格硬投影、无白昼亮斑。皮肤与白袖不画孤立白亮点、不出现叶片形日照光斑，不用油亮皮肤、白发自发光或新聚光灯替代可读性。保暖而有真实夜暗，不把全图机械染蓝。\n\n她刚把自己正在看的棕色薄书合上。无字封面书稳稳落在大腿，一只手的指腹轻停封页，另一手掌在自己身旁软垫有实际接触。听见熟悉的人回来，她从书那边轻回望，眼神里有认出与很小的高兴，嘴角自然柔和，仍有自己的节奏与好奇，不演等候已久、亏欠或客服欢迎。书签只是一条无字的小纸边，不写任何用户草稿、页码、已完成标记或旧事件；不声称离开期间替对方工作。动作完整而简单，书与手受同一柔灯照，不画腿/白袖上的硬白光点。\n\n脸与眼睛仍要能读到人物自己此刻的意思。画面无文字、UI、灰白板、额外人物、猫、吉他、字幕、水印或新道具。人物、衣料、纸书与接触影必须是在房间里一起画出的完整母图。",
+  "promptSha256": "01cac3e1a85578c5c8e46d41cf32d3ca969d81a9ee6632d37d15bbb1df11ac0e",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "role": "only input: approved clean rainy-night empty room; full Rana identity/outfit/action redrawn from complete text"
+    }
+  ],
+  "brief": {
+    "key": "rana-resume-rain",
+    "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\briefs\\rana\\rana-resume-rain.md",
+    "sha256": "d164993d74b2247242ff7ef72df9702b12a51e98e333c67207fef8ccf13c9a43",
+    "matrixJsonPointerObserved": "/entries/35",
+    "planJsonPointerHistorical": "/entries/35"
+  },
+  "dossier": ".agents/skills/zaichang-frontend-director/references/characters/rana.md",
+  "dossierSha256": "d39286e83289d7c67222428a139b8650ff9f60a0e78e49c0a8393b3079f2e892",
+  "wardrobe": "project-original black short sleeve over white long sleeve, white shorts, black lace-up ankle boots",
+  "seedAuthorization": "Root requires unique clean rain plate plus full text rebuild after night-source drift/lighting ambiguity. No failed night image or warm figure is provided in this call.",
+  "artifact": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/missing-theme-extension-v1/rana-resume-rain-literary-v2.png",
+    "sha256": "c5a05eec8c023c47cc5cbc9402e672eaa384747721f4f6a93f336c2574f8511f",
+    "bytes": 2252126,
+    "canvas": {
+      "width": 1536,
+      "height": 1024
+    },
+    "format": "PNG"
+  },
+  "producerReview": {
+    "by": "/root/integrated_shell",
+    "fullOriginalViewed": true,
+    "status": "producer-static-candidate-awaiting-root",
+    "observed": "完整夜雨resume v2亲看：唯一clean夜plate全文重画，薄棕书闭合在腿上，封页手停、另一掌实触自己身旁软垫；温和认出而非催促，右金左蓝与银白层次短发、朴素黑叠白私服正确。原v1膝/白袖孤立硬白亮点已消除，人物与窗榻/地板同一柔灯夜暗，无太阳窗格斑。双靴完整并有木地板接触，靴底位置较暖seed偏上，人物尺度/坐深须root按完整原景复核，尚无layer/runtime准入。",
+    "limitations": [
+      "Boot-bottom placement is higher than the apricot seed; exact family scale/depth requires root review before runtime."
+    ]
+  },
+  "motherReviewApproved": false,
+  "generationInputAllowed": false,
+  "layersApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false
+}

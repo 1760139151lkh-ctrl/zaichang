@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "assetId": "tomori-chat-mist-literary-v1",
+  "roomFamily": "literary-room-v1",
+  "characterId": "tomori",
+  "activity": "chat",
+  "palette": "mist",
+  "ambientPlateKey": "overcast-day",
+  "createdOn": "2026-10-25",
+  "generationMode": "whole-scene-same-pose-relighting",
+  "tool": "image_gen.imagegen (built-in)",
+  "callOrdinalInBoundedBatch": 1,
+  "executionId": "exec-0e514aec-2794-4b86-b485-15b28dce5c57",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-0e514aec-2794-4b86-b485-15b28dce5c57.png",
+  "inputs": [
+    {
+      "file": "../chat-pilot/tomori-chat-apricot-literary-v1.png",
+      "sha256": "f075324f63e151e4045b4ac5ee87f30dc8295295b81f12c97ddb30ab56ac34d9",
+      "role": "image1: primary-approved exact chat identity/pose/scale/support reference"
+    },
+    {
+      "file": "../../plates/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "role": "image2: primary-approved empty plate target light and atmosphere"
+    }
+  ],
+  "promptFile": "tomori-chat-mist-literary-v1.prompt.txt",
+  "promptFileSha256": "aa22d235775f9c67ec3d3bdff0eb3071604d42e9f5d997b983861932cf85af52",
+  "submittedPrompt": "Create ONE 1536×1024 complete landscape literary companion scene by genuinely RELIGHTING an approved chat mother. Image 1 is the PRIMARY-APPROVED original same-role apricot CHAT MOTHER, and is the exact human identity, pose, anatomical silhouette, scale, support/occlusion and camera reference. Image 2 is the PRIMARY-APPROVED matching EMPTY ROOM for the new environmental light; it is the target atmosphere and illumination reference. These two images are the only inputs. No layer/mask, unreviewed activity mother, old room, different girl or face replacement.\nPreserve the same close camera and original framing. Preserve ALL original person coordinates/scale, her seated hips in the real linen bench, exact shoulders/arms/hands/book/hem/knees/ankles and both complete shoes at their real original floor contacts. Head and shoes stay fully in frame. No translation, enlargement, leaning toward camera, new gesture or reposed limbs; natural originals gaps and occlusion remain. Keep the same large wooden multi-pane window and its current crop, lake/town/mountain geometry, shelves/books/plants, left desk and chair, round table/ceramic lamp/cup/flowers, right plaid cushions/knit throw, rug/floor and foreground plant at the same positions. Keep the room continuous, no day/night split, hard color boundary or replacement furniture.\nRepaint the WHOLE scene's light, including character face/hair/clothes/book, cushion compression/contact shadows and floor, consistently with image 2. The target is natural integrated illumination, NOT a tinted transparent overlay, filter, pasted daytime figure or simple hue swap. Use precise expressive anime character drawing inside the tactile softly painterly room. Keep each fringe lock, eyebrow, eyelash, eyelid, sclera and iris separate and readable; no hair-eye fusion or changed eye color. Do not trade youthful identity for an adult generic face.\nNo readable text, captions, fake user state, diagrams, UI, logos, watermarks, duplicate body parts, new person, crop, zoom, picture-in-picture or poster layout. The emotional scenario is project-original and does not assert an actual user's past action, promise or completed task.\n\nCHARACTER: Takamatsu Tomori (高松燈) from BanG Dream! It's MyGO!!!!! — youthful short layered steel-gray/gray-lavender neck-length hair, muted rose-brown/dusty pink-gray eyes; gray-purple white-piped blazer, white shirt, dark striped tie, checked skirt, dark socks and complete brown loafers.\nORIGINAL PERFORMANCE: Her earnest, small joy in sharing the light/page detail remains: softly expectant readable eyes, a tiny slightly parted mouth, low open thin book on thighs, one hand steadying the page and the other actual palm supporting her on the cushion. Preserve that exact calm conversational body performance; no invented greeting or pose change.\nTARGET LIGHT: An overcast DAY with soft cool-blue diffuse window light, muted lake/town/autumn distance and no hard sunshine spots or window-lattice sunlight on the floor, cushion, skin or clothes. The room remains inhabited, tactile and naturally warm in its wood, with any existing lamp fill exactly as in image 2. Relight skin, hair, uniform, book and contact regions under this soft daytime light; keep canonical garment colors, clear eyes and neutral detailed skin. This is not a blue wash over apricot sunlight.",
+  "output": {
+    "file": "tomori-chat-mist-literary-v1.png",
+    "sha256": "f7dd8d3e42f225e2ecc7f46e0dc19edae506024fe657d04eec09a3bdf6ae1fc9",
+    "bytes": 2340785,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "decision": "static theme mother candidate for primary inspection",
+    "observation": "Complete original viewed: overcast sky and softened lake distance, diffuse room/person light and no hard daylight lattice on cushion/floor/legs. Original chat head/body scale, low open book/page hand, supporting palm, hip/cushion and both complete shoes remain at the observed source positions. Hair/eyelids/rose-brown eyes remain distinct; youthful curious sharing expression retained. Wood and uniform keep local color rather than a blue overlay.",
+    "limits": "Visual static comparison only, not pixel-identical coordinates or runtime lighting proof. No primary/layer/runtime admission."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "acceptanceScope": "Static theme mother candidate only; no new layers or registration."
+}

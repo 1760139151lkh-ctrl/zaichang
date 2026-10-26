@@ -14,7 +14,7 @@
 | --- | --- | --- |
 | **1. `RunFactory`** | `zc.run.start`, `zc.run.ready`, `zc.child.authorize`, `zc.child.open` | 为主回合与每个并行子代理（`delegate`）创建绑定了 `runId`、`privacyEpoch`、`taskVersion` 与受限工具集（`tools`）的独立 `AIAgent` 实例。 |
 | **2. `StateSink`** | `zc.child.event`, `zc.child.result`, `zc.run.complete` | 接收子代理状态流转（`queued → running → produced → consumed / failed`）、上下文压缩回执（`HermesCompressionReceipt`）与最终消息序列。 |
-| **3. `TransportObserver`** | `zc.model.complete` | **Python 侧绝不持有 API Key 或直接发外网请求**！所有模型调用均通过 `zc.model.complete` 回调 Electron 主进程，由宿主统一执行 `PolicyKernel.validate()`、工具白名单核验、输出 Token 预算封顶（主回合 `16384`、子代理 `4096`）、`ConversationRhythm` 流式分片脱敏发布与长上下文压缩后继保护。 |
+| **3. `TransportObserver`** | `zc.model.complete` | **Python侧不持有API Key或旁路请求模型**。模型请求回宿主，核当前范围、实际传输和来源，计量真实usage，经ConversationRhythm发布合法正文。预算按当前provider合同处理；Luna声明输出数为advisory，不能沿用旧16384/4096数字作完成后的拒收门。压缩与取消继续沿锁定主循环。 |
 | **4. `ToolBridge`** | `zc.tool.call` | 将 `AIAgent` 的工具调用路由回宿主 `ToolRegistry.execute()`，绑定当前 `ScopeHandle`、`AbortSignal` 与 `ContextReceipt` 审计账本。 |
 
 ---
@@ -80,7 +80,7 @@ Attempting (记录 Attempt 与请求摘要)
 - **`INV-05`（六阶段协作状态不冒充）**：`generated`、`rendered`、`seen`、`understood`、`accepted`、`executed` 严格区分；UI 选中、拖动或浏览不等于接受或完成。
 - **`INV-06`（`local_only` 零出网）**：标记为 `local_only` 的输入或附件，在任何阶段（含前置控制解析、意图分类、检索、生成）均不得发往云端 Provider。
 - **`INV-07`（`session_only` 阅后即焚）**：`session_only` 回合不落盘对话历史、不进后台记忆队列、不在会话结束后残留协议链缓存。
-- **`INV-08`（瞬时遗忘屏障全链路生效）**：`privacy_epoch` / `fence` 变更后，被撤回内容立即从 SQLite、FTS、向量、编译包、流式草稿及在途子代理中剔除。
+- **`INV-08`（遗忘屏障全链路生效）**：`privacy_epoch/fence`变更后立即阻断受影响内容继续采用，再沿真实依赖清理存储、索引、编译包、草稿及在途结果；保留独立未删片段。物理清理、备份与离线设备各有状态，不把普通修订或当前阻断冒称全部副本瞬间擦除。
 - **`INV-09`（外部文本与角色卡零指令权）**：附件、工具输出、校园通知、外部角色卡永远作为 `data` 隔离，不得开启权限或触发未授权工具。
 - **`INV-10`（主模型零词法阉割）**：不得因情绪词、年龄词或正则匹配剥夺主模型的工具访问权或分析深度。
 - **`INV-11`（子代理权限单调收窄）**：`delegate` 子代理权限必为父 `ScopeHandle` 子集，只读、无副作用、共享总预算，且用途必须锚定根用户原话。

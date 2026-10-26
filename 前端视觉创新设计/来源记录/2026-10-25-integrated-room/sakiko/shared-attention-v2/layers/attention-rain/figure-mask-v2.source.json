@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "cell": "sakiko/attention/rain",
+  "character": "sakiko",
+  "activity": "attention",
+  "palette": "rain",
+  "stage": "F2",
+  "assetType": "raw-Image-source-selection-mask-or-markup",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: background-extraction. Produce a FINAL SOLID F2 luminance selection mask from Image 1, the verified F1 marked mother for Sakiko ATTENTION RAIN v3. Image 2 is the exact clean original mother only to distinguish real exterior book/hair/limb boundaries from room pixels. DO NOT redraw, alter or improve the original person or pose.\n\nPreserve the EXACT intended white outer silhouette of the F1: all original blue-purple long hair and ribbons, whole face/neck, both hands/fingers, the real full held OPEN BOOK covers/pages/spine, navy clothing/complete skirt hem, exposed knees, dark below-knee calf socks and BOTH COMPLETE LOAFERS including toes, sidewalls, outsole rims and heel blocks. Solidly fill EVERY interior pixel of this foreground PURE WHITE. This is not a line drawing: remove all faint grey interior hand/finger outlines, book opening/page/cover lines, sleeve/skirt creases, sock-edge lines and shoe panel/lace/outsole lines. No black or grey hairline scratch inside the solid foreground, no facial hole or fading interior. Thin grey antialias only on true exterior edges.\n\nThe correct F1 exterior and clean original determine boundaries: retain real tiny hair/ribbon tips and true black gaps between strands/arms/legs, do not bridge them. Retain the actual BOOK left tip around x962,y488 but do not include the neighboring horizontal wooden window ledge or add any left-pointing strip outside the real cover. All source positions remain unchanged; no body/face/book/foot scale or relation drift. Rough coordinates identify inspection locations only, never fill rectangle boxes.\n\nTurn EVERY other pixel PURE BLACK: colored rain-night window/lake/town, naturally bright lamp/curtains/linen/flowers, cushion and narrow receiver shade, blue plaid pillow/knit throw, table/desk/chair/plants/shelves, rug, entire unselected floor and all contact/cast receivers/reflections. Only the deliberately whitened whole person and held real book survive, not a brightness threshold of the original room.\n\nOutput ONE opaque exact 1536x1024 BLACK PNG with the original-coordinate full human+book SOLID WHITE and true outer-edge grey only. No original colored scene, interior contour illustration, checkerboard, new object/person/shadow, text/UI/arrows/labels/grid/boxes, zoom/crop/resize/recenter/translation. This is an original RGB selection layer, not a newly generated identity.",
+  "submittedPromptSha256": "b5011dbd1a4bb879635ba3f41316169d1e765690351ef27aac997ed78ec2cb36",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/attention-rain/figure-step1-marked-v1.png",
+      "sha256": "d4fd3d05d2acb5206b81808e6212859dd4b748010c11007ca58338a81ac3d48b",
+      "personallyViewedBeforeCall": true
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.png",
+      "sha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    }
+  ],
+  "originalRgbOwner": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.png",
+    "sha256": "e786baed27b104ea90afa41a398918f4efcebc72cc370518f058d555779c98ac",
+    "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-attention-rain-shared-page-v3.source.json",
+    "sourceRecordSha256": "c569c6ae9ac68037fcf95b4d8497bd40369d5576fae1ac0c8c250ae46fe3ebec",
+    "rootMotherStaticReview": {
+      "status": "approved_static_mother",
+      "reviewer": "root",
+      "observed": "Root inspected whole actual output: rain-night room now has local lamp pools and dark wood/reflections without daylight window-grid patches. Youthful gold eyes/blue-purple hair, visible book-page finger contact, physical seated support, two uncovered knees/dark calf socks and complete grounded shoes. Bow is a darker cloth variant of project wardrobe, not asserted official."
+    }
+  },
+  "method": "Actual Image same-mother F1/F2 or S1/S2 chain. F is whole human/ribbons/hands/held book/clothing/knees/calf socks/complete shoes. S includes real source-local seat and full soft grounded floor receiver, not just sole line; original RGB MAX(F,S) drawn once only.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\sakiko\\shared-attention-v2\\layers\\attention-rain\\figure-mask-v2.png",
+    "sha256": "f73d46f43aeec3f665c6c42c41a7b3fccb825ee2d7dde086bf240a469d9f4064",
+    "bytes": 460199,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-5432a86d-16cd-42e6-95f9-e2358e76773b.png",
+    "pngBytesUnchanged": true
+  },
+  "producerObservation": {
+    "personallyViewedFullNative": true,
+    "observation": "Full native image inspected. Most internal marks cleared but a visible grey line remains through the held-book lower edge inside the intended full human/book silhouette. This is HOLD, not an accepted solid F2."
+  },
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "sourceOrigin": [
+      0,
+      0
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": "included",
+    "independentCaster": false
+  },
+  "motherReconstructed": false,
+  "primaryLayerApproved": false,
+  "layerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "status": "producer-HOLD-book-interior-line",
+  "inputBoundary": "Only current exact root-approved mother and its correct same-canvas working intermediates. No HOLD rain-attention-v2, white-sock resume-mist-v3, screenshot, audit collage or other mother mask.",
+  "promptFile": "figure-mask-v2.prompt.json",
+  "promptFileSha256": "dcef577c202d05bf344a45a5c92497c789bc09cd27e71ae6b706b177d65f3ec2",
+  "generatedAt": "2026-10-25T23:38:48.468Z",
+  "generationInputAllowed": false,
+  "observedIssue": {
+    "issue": "Grey book lower-edge interior line persists; rebuild directly from exact clean original rather than feed this faulty mask.",
+    "nextInputBoundary": "Only clean rain-v3 original mother, no F2 v1/v2."
+  }
+}

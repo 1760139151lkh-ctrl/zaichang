@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "character": "uika",
+  "activity": "resume",
+  "sceneCategory": "S9_RESUME",
+  "palette": "violet",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "uika-resume-violet-v1-prompt.txt",
+  "promptFileSha256": "98d93764afebe1affdc17487eed3bebb17912776484d8004efd01088e5b760ac",
+  "submittedPrompt": "Exact UTF-8 promptFile contents with trailing newline trimmed.",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-24-matrix/mujica/resume/uika-resume-apricot-mother-candidate-v1.png",
+      "role": "primary-personally-reviewed approved apricot mother; exact figure/pose/support edit target",
+      "sha256": "29211468c28e8dd5cb20c50b62851d7b32fa9cd8639dbed4f419335e733c465a"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-violet-candidate.png",
+      "role": "clean empty theme room; whole-scene light/weather reference only",
+      "sha256": "9603628e30970a35cdbf14fe2ed405466cab02aff222e850477dc19d0e89cba3"
+    }
+  ],
+  "output": {
+    "file": "uika-resume-violet-mother-candidate-v1.png",
+    "toolOriginalPath": "$CODEX_HOME/generated_images/01a1702e-1e74-7ac0-9f86-f1d6b1ffcf30/exec-fbefa27a-8b29-4f28-8fd1-04392a092f19.png",
+    "sha256": "a133f452b4145838decf633a3f90cae463f7bab6a8c0ef24395c4da03ee4c7c3",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "bytes": 2185924
+  },
+  "review": {
+    "producerPersonallyViewed": true,
+    "producerObservation": "Full image personally viewed. Whole-room peach/violet sunset and warm lamp; face, bob, white tee, taupe skirt and sneakers receive matching dusk light. Half-closed book remains hand/lap supported, shoulders open and lower body left-oriented; rear palm and full soles retained. No definite new support/furniture drift.",
+    "approvedByPrimary": false,
+    "layers": "not extracted",
+    "runtimeAccepted": false
+  },
+  "sourceSupportReference": "uika-resume-apricot-v1-source.json",
+  "boundary": "Approved apricot INPUT is not approval of this themed OUTPUT. No sourceSupportReference is claimed as new runtime calibration.",
+  "matrixCell": {
+    "character": "uika",
+    "activity": "resume",
+    "theme": "violet"
+  },
+  "identityBasis": {
+    "officialProfile": "https://anime.bang-dream.com/avemujica/character/uika/",
+    "textVerifiedOn": "2026-10-24",
+    "boundary": "Official identity/background; university-companion resume moment is project-original. This relighting uses only approved generated character mother and clean generated theme room, no third-party character pixels."
+  }
+}

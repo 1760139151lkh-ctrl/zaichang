@@ -1,0 +1,382 @@
+{
+  "schemaVersion": 1,
+  "recordType": "root-primary-circle-avatar-purpose-admission",
+  "recordedAt": "2026-10-26T00:59:31.289720+00:00",
+  "authority": "Direct root message after personally viewing four actual three-frame browser screenshots for10roles34/48lightdark, previous9originalPNGs and96pxcircles. Rootprimaryaesthetic acceptance, not humanuser sign-off.",
+  "rootActualJudgment": "青春短柔面、轻而各异笑意；34px识别、48px表情。圆形头像材质内允许暖色边光，不宣称任意自由立绘/全身matte/房间母图合格。",
+  "admittedPurpose": "circular-avatar-only",
+  "admittedAssets": [
+    {
+      "characterId": "tomori",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/portrait/tomori-avatar-youth-v3.png",
+      "sourceSha256": "986470992b8c303016d9b7b383138d5f2c66f962fb4453939cf0feeb43c6a9b9",
+      "runtimeFile": "前端视觉创新设计/运行素材/companion/portraits/tomori-youth-charm-v3-20261025.png",
+      "runtimeSha256": "986470992b8c303016d9b7b383138d5f2c66f962fb4453939cf0feeb43c6a9b9",
+      "bytes": 2085402,
+      "sourceAndDestinationBytesEqual": true,
+      "approvedCircleFrame": {
+        "left": "-4%",
+        "top": "-6%",
+        "width": "108%"
+      },
+      "primaryCirclePurposeApproved": true,
+      "runtimeAccepted": false,
+      "registrationReadback": {
+        "importResolvesToCopiedPng": true,
+        "tsSha256EqualsCopiedPng": true,
+        "tsFrame": {
+          "left": "-4%",
+          "top": "-6%",
+          "width": "108%"
+        },
+        "frameEqualsRootDecision": true,
+        "sourceDestinationBytesStillEqual": true
+      }
+    },
+    {
+      "characterId": "anon",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/time-only-neutral-v1/portrait/anon-avatar-youth-v3.png",
+      "sourceSha256": "132d7f7f8d513634fc45145fc2405543a8e2b9bc0df47bfad614b94381a2663c",
+      "runtimeFile": "前端视觉创新设计/运行素材/companion/portraits/anon-youth-charm-v3-20261025.png",
+      "runtimeSha256": "132d7f7f8d513634fc45145fc2405543a8e2b9bc0df47bfad614b94381a2663c",
+      "bytes": 2174800,
+      "sourceAndDestinationBytesEqual": true,
+      "approvedCircleFrame": {
+        "left": "-7%",
+        "top": "-10%",
+        "width": "114%"
+      },
+      "primaryCirclePurposeApproved": true,
+      "runtimeAccepted": false,
+      "registrationReadback": {
+        "importResolvesToCopiedPng": true,
+        "tsSha256EqualsCopiedPng": true,
+        "tsFrame": {
+          "left": "-7%",
+          "top": "-10%",
+          "width": "114%"
+        },
+        "frameEqualsRootDecision": true,
+        "sourceDestinationBytesStillEqual": true
+      }
+    },
+    {
+      "characterId": "rana",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/time-only-neutral-v1/portrait/rana-avatar-youth-v3.png",
+      "sourceSha256": "400f6a20398a978d24561f7b484ab03bdf4ff3951cdfa95595a78691828a9aad",
+      "runtimeFile": "前端视觉创新设计/运行素材/companion/portraits/rana-youth-charm-v3-20261025.png",
+      "runtimeSha256": "400f6a20398a978d24561f7b484ab03bdf4ff3951cdfa95595a78691828a9aad",
+      "bytes": 2176794,
+      "sourceAndDestinationBytesEqual": true,
+      "approvedCircleFrame": {
+        "left": "-7%",
+        "top": "-10%",
+        "width": "114%"
+      },
+      "primaryCirclePurposeApproved": true,
+      "runtimeAccepted": false,
+      "registrationReadback": {
+        "importResolvesToCopiedPng": true,
+        "tsSha256EqualsCopiedPng": true,
+        "tsFrame": {
+          "left": "-7%",
+          "top": "-10%",
+          "width": "114%"
+        },
+        "frameEqualsRootDecision": true,
+        "sourceDestinationBytesStillEqual": true
+      }
+    },
+    {
+      "characterId": "soyo",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/time-only-neutral-v1/portrait/soyo-avatar-youth-v3.png",
+      "sourceSha256": "735d92cac98476e597a9ca6bb86df60c4de1ccf5481a88597f5d4a17e359c418",
+      "runtimeFile": "前端视觉创新设计/运行素材/companion/portraits/soyo-youth-charm-v3-20261025.png",
+      "runtimeSha256": "735d92cac98476e597a9ca6bb86df60c4de1ccf5481a88597f5d4a17e359c418",
+      "bytes": 2248353,
+      "sourceAndDestinationBytesEqual": true,
+      "approvedCircleFrame": {
+        "left": "-7%",
+        "top": "-10%",
+        "width": "114%"
+      },
+      "primaryCirclePurposeApproved": true,
+      "runtimeAccepted": false,
+      "registrationReadback": {
+        "importResolvesToCopiedPng": true,
+        "tsSha256EqualsCopiedPng": true,
+        "tsFrame": {
+          "left": "-7%",
+          "top": "-10%",
+          "width": "114%"
+        },
+        "frameEqualsRootDecision": true,
+        "sourceDestinationBytesStillEqual": true
+      }
+    },
+    {
+      "characterId": "taki",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/time-only-neutral-v1/portrait/taki-avatar-youth-v3.png",
+      "sourceSha256": "6597cfbe08e2e4ce4906c498bcfc5d2e41d3d3910e5a8a80762c2aa53d4ed873",
+      "runtimeFile": "前端视觉创新设计/运行素材/companion/portraits/taki-youth-charm-v3-20261025.png",
+      "runtimeSha256": "6597cfbe08e2e4ce4906c498bcfc5d2e41d3d3910e5a8a80762c2aa53d4ed873",
+      "bytes": 2268488,
+      "sourceAndDestinationBytesEqual": true,
+      "approvedCircleFrame": {
+        "left": "-4%",
+        "top": "-6%",
+        "width": "108%"
+      },
+      "primaryCirclePurposeApproved": true,
+      "runtimeAccepted": false,
+      "registrationReadback": {
+        "importResolvesToCopiedPng": true,
+        "tsSha256EqualsCopiedPng": true,
+        "tsFrame": {
+          "left": "-4%",
+          "top": "-6%",
+          "width": "108%"
+        },
+        "frameEqualsRootDecision": true,
+        "sourceDestinationBytesStillEqual": true
+      }
+    },
+    {
+      "characterId": "mutsumi",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-avatar-youth-v3.png",
+      "sourceSha256": "accf39ccc205ee077827b9ed3b24a4c67921cb693b0f20cb2037c96cad01e24c",
+      "runtimeFile": "前端视觉创新设计/运行素材/companion/portraits/mutsumi-youth-charm-v3-20261025.png",
+      "runtimeSha256": "accf39ccc205ee077827b9ed3b24a4c67921cb693b0f20cb2037c96cad01e24c",
+      "bytes": 2098970,
+      "sourceAndDestinationBytesEqual": true,
+      "approvedCircleFrame": {
+        "left": "-4%",
+        "top": "-6%",
+        "width": "108%"
+      },
+      "primaryCirclePurposeApproved": true,
+      "runtimeAccepted": false,
+      "registrationReadback": {
+        "importResolvesToCopiedPng": true,
+        "tsSha256EqualsCopiedPng": true,
+        "tsFrame": {
+          "left": "-4%",
+          "top": "-6%",
+          "width": "108%"
+        },
+        "frameEqualsRootDecision": true,
+        "sourceDestinationBytesStillEqual": true
+      }
+    },
+    {
+      "characterId": "uika",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-avatar-youth-v3.png",
+      "sourceSha256": "842725f73a3d8bd1af9941e58783a523e3adb3b7f43e21c2a9b2579f0f680257",
+      "runtimeFile": "前端视觉创新设计/运行素材/companion/portraits/uika-youth-charm-v3-20261025.png",
+      "runtimeSha256": "842725f73a3d8bd1af9941e58783a523e3adb3b7f43e21c2a9b2579f0f680257",
+      "bytes": 1997252,
+      "sourceAndDestinationBytesEqual": true,
+      "approvedCircleFrame": {
+        "left": "-7%",
+        "top": "-10%",
+        "width": "114%"
+      },
+      "primaryCirclePurposeApproved": true,
+      "runtimeAccepted": false,
+      "registrationReadback": {
+        "importResolvesToCopiedPng": true,
+        "tsSha256EqualsCopiedPng": true,
+        "tsFrame": {
+          "left": "-7%",
+          "top": "-10%",
+          "width": "114%"
+        },
+        "frameEqualsRootDecision": true,
+        "sourceDestinationBytesStillEqual": true
+      }
+    },
+    {
+      "characterId": "umiri",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/avatars/umiri-avatar-youth-v3.png",
+      "sourceSha256": "560073dc61f3dee7e48052d3f0cfe16bba041071b8b8ec2889bb7de9bdb565ef",
+      "runtimeFile": "前端视觉创新设计/运行素材/companion/portraits/umiri-youth-charm-v3-20261025.png",
+      "runtimeSha256": "560073dc61f3dee7e48052d3f0cfe16bba041071b8b8ec2889bb7de9bdb565ef",
+      "bytes": 2085682,
+      "sourceAndDestinationBytesEqual": true,
+      "approvedCircleFrame": {
+        "left": "-4%",
+        "top": "-6%",
+        "width": "108%"
+      },
+      "primaryCirclePurposeApproved": true,
+      "runtimeAccepted": false,
+      "registrationReadback": {
+        "importResolvesToCopiedPng": true,
+        "tsSha256EqualsCopiedPng": true,
+        "tsFrame": {
+          "left": "-4%",
+          "top": "-6%",
+          "width": "108%"
+        },
+        "frameEqualsRootDecision": true,
+        "sourceDestinationBytesStillEqual": true
+      }
+    },
+    {
+      "characterId": "nyamu",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/time-only-neutral-v1/avatars/nyamu-avatar-youth-v3.png",
+      "sourceSha256": "ebffcd406edb975c91c7b62f0c246850340248a62828b7338a7897d48095cc72",
+      "runtimeFile": "前端视觉创新设计/运行素材/companion/portraits/nyamu-youth-charm-v3-20261025.png",
+      "runtimeSha256": "ebffcd406edb975c91c7b62f0c246850340248a62828b7338a7897d48095cc72",
+      "bytes": 2137264,
+      "sourceAndDestinationBytesEqual": true,
+      "approvedCircleFrame": {
+        "left": "-7%",
+        "top": "-10%",
+        "width": "114%"
+      },
+      "primaryCirclePurposeApproved": true,
+      "runtimeAccepted": false,
+      "registrationReadback": {
+        "importResolvesToCopiedPng": true,
+        "tsSha256EqualsCopiedPng": true,
+        "tsFrame": {
+          "left": "-7%",
+          "top": "-10%",
+          "width": "114%"
+        },
+        "frameEqualsRootDecision": true,
+        "sourceDestinationBytesStillEqual": true
+      }
+    }
+  ],
+  "primaryCircleAestheticApproved": true,
+  "userApprovalInferred": false,
+  "freeformMatteOrMotherAdmission": false,
+  "runtimeAccepted": false,
+  "runtimeAcceptancePending": "Root personally checks integratedchat/titlebar after this registration; no9335 interaction performed by this task.",
+  "sakikoPreservation": {
+    "runtimeFile": "前端视觉创新设计/运行素材/companion/portraits/sakiko-selected-soft-youth-edit-v3-20261025.png",
+    "sha256Before": "50ed57c7cb690ac52eb49190762f878a2b8e8db5eb75d5d3d3f220e771d86974",
+    "frame": {
+      "left": "-4%",
+      "top": "-6%",
+      "width": "108%"
+    },
+    "newFaceSelected": false,
+    "pngBytesMustRemainUnchanged": true,
+    "importLineBefore": "import sakiko from '../../前端视觉创新设计/运行素材/companion/portraits/sakiko-selected-soft-youth-edit-v3-20261025.png';",
+    "mappingBlockBefore": "  sakiko: { image: sakiko, sha256: '50ed57c7cb690ac52eb49190762f878a2b8e8db5eb75d5d3d3f220e771d86974',\n    avatar: { left: '-4%', top: '-6%', width: '108%' } },",
+    "sha256After": "50ed57c7cb690ac52eb49190762f878a2b8e8db5eb75d5d3d3f220e771d86974",
+    "pngBytesUnchanged": true,
+    "importLineUnchanged": true,
+    "mappingBlockUnchanged": true
+  },
+  "protectedOldRuntimeAssets": [
+    {
+      "characterId": "tomori",
+      "path": "前端视觉创新设计/运行素材/companion/portraits/tomori-youth-charm-20261025.png",
+      "sha256Before": "8c829c4380843fab92cb66bd4343a9d696d2bbcff7bcd50514f8d228f3ed4b43",
+      "isSakiko": false,
+      "sha256After": "8c829c4380843fab92cb66bd4343a9d696d2bbcff7bcd50514f8d228f3ed4b43",
+      "bytesUnchanged": true
+    },
+    {
+      "characterId": "anon",
+      "path": "前端视觉创新设计/运行素材/companion/portraits/anon-youth-charm-20261025.png",
+      "sha256Before": "7f1e2c6e782ea0d688825dc68c36c28c526856750a2ab9c29772efa6632d62d9",
+      "isSakiko": false,
+      "sha256After": "7f1e2c6e782ea0d688825dc68c36c28c526856750a2ab9c29772efa6632d62d9",
+      "bytesUnchanged": true
+    },
+    {
+      "characterId": "rana",
+      "path": "前端视觉创新设计/运行素材/companion/portraits/rana-youth-charm-20261025.png",
+      "sha256Before": "eae8f6bd24c70dd265f061bdfd7d633192d718170561fb6b6d7da50b4d8bba55",
+      "isSakiko": false,
+      "sha256After": "eae8f6bd24c70dd265f061bdfd7d633192d718170561fb6b6d7da50b4d8bba55",
+      "bytesUnchanged": true
+    },
+    {
+      "characterId": "soyo",
+      "path": "前端视觉创新设计/运行素材/companion/portraits/soyo-youth-charm-20261025.png",
+      "sha256Before": "f14cf584972ef3d165a2834a6240ea7a6183edda97ad8290e618f1ff1952df81",
+      "isSakiko": false,
+      "sha256After": "f14cf584972ef3d165a2834a6240ea7a6183edda97ad8290e618f1ff1952df81",
+      "bytesUnchanged": true
+    },
+    {
+      "characterId": "taki",
+      "path": "前端视觉创新设计/运行素材/companion/portraits/taki-youth-charm-20261025.png",
+      "sha256Before": "c83367bce9967601aade4049df5e3153caa4cf7fd9f5a8a7aede88dac14aea80",
+      "isSakiko": false,
+      "sha256After": "c83367bce9967601aade4049df5e3153caa4cf7fd9f5a8a7aede88dac14aea80",
+      "bytesUnchanged": true
+    },
+    {
+      "characterId": "mutsumi",
+      "path": "前端视觉创新设计/运行素材/companion/portraits/mutsumi-youth-charm-20261025.png",
+      "sha256Before": "a39e50dae66da5928168510c8bb00e48b4c0d5d89967b0a4977a2eb81afcb6c2",
+      "isSakiko": false,
+      "sha256After": "a39e50dae66da5928168510c8bb00e48b4c0d5d89967b0a4977a2eb81afcb6c2",
+      "bytesUnchanged": true
+    },
+    {
+      "characterId": "uika",
+      "path": "前端视觉创新设计/运行素材/companion/portraits/uika-youth-charm-20261025.png",
+      "sha256Before": "0e06d03c06ce3d582f09be8a21f69be7e663e6fbe95f75b64cf42db03fbbc58c",
+      "isSakiko": false,
+      "sha256After": "0e06d03c06ce3d582f09be8a21f69be7e663e6fbe95f75b64cf42db03fbbc58c",
+      "bytesUnchanged": true
+    },
+    {
+      "characterId": "umiri",
+      "path": "前端视觉创新设计/运行素材/companion/portraits/umiri-youth-charm-20261025.png",
+      "sha256Before": "4132dd17cf54c52a5a6ee7674f780182cb14a45e8870313417765b9e1ef4c46a",
+      "isSakiko": false,
+      "sha256After": "4132dd17cf54c52a5a6ee7674f780182cb14a45e8870313417765b9e1ef4c46a",
+      "bytesUnchanged": true
+    },
+    {
+      "characterId": "nyamu",
+      "path": "前端视觉创新设计/运行素材/companion/portraits/nyamu-youth-charm-20261025.png",
+      "sha256Before": "8ce8e16572956939f16e4baaf9fe3d504f051e24bbde64c9c535fd8a5127f241",
+      "isSakiko": false,
+      "sha256After": "8ce8e16572956939f16e4baaf9fe3d504f051e24bbde64c9c535fd8a5127f241",
+      "bytesUnchanged": true
+    },
+    {
+      "characterId": "sakiko",
+      "path": "前端视觉创新设计/运行素材/companion/portraits/sakiko-selected-soft-youth-edit-v3-20261025.png",
+      "sha256Before": "50ed57c7cb690ac52eb49190762f878a2b8e8db5eb75d5d3d3f220e771d86974",
+      "isSakiko": true,
+      "sha256After": "50ed57c7cb690ac52eb49190762f878a2b8e8db5eb75d5d3d3f220e771d86974",
+      "bytesUnchanged": true
+    }
+  ],
+  "implementationFile": "src/renderer/companion-portraits.ts",
+  "implementationSha256Before": "fd4a9af6b78beb911d4582ff12cadd78b8b5f2aad70d299d31f52f7b18eba4c6",
+  "copyChangesOnly": "Exact original9PNG bytecopies to newv3 filenames; oldv2/Saki retained; TS imports/SHA/frame9 + necessarypurposecomment only.",
+  "npmCheck": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "wallTimeSeconds": 2.9291052,
+    "stdout": "\n> zaichang@0.3.0 check\n> tsc --noEmit\n\n",
+    "scope": "Existing tsc --noEmit command only; no new tests or runtime interaction.",
+    "record": "npm-check-avatar-v3-result.json",
+    "recordSha256": "678ba4d172f06ff8d2ea5818d9342b8d9151fdcdf3e82e6548d6ad518b7be0a1",
+    "status": "passed"
+  },
+  "boardsGenerationInputAllowed": false,
+  "imageGenerationCalls": 0,
+  "pngPixelEdits": false,
+  "newTestsOrRunner": false,
+  "otherSourceFilesOr9335Touched": false,
+  "cleanupPerformed": false,
+  "implementationSha256After": "6e033b3e6509982b870a7c7d62e7cc68f39c03ca32342e52b34a7284948ec16e",
+  "registrationReadbackIssues": [],
+  "runtimeAssetsRegistered": true,
+  "completedAt": "2026-10-26T01:02:31.517619+00:00",
+  "historicalReviewRecordsPreserved": true,
+  "priorPendingNotesSuperseded": "This root circle-purpose decision supersedes earlier producer pending-circle/advice statements only; old snapshots/boards remain historical. Prior current-v2 column is review-start snapshot, not an auto-updating runtime view."
+}

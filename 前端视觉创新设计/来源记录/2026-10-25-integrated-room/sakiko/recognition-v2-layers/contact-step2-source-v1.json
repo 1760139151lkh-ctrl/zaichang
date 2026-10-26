@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-source-local-contact-receiver-luminance-mask",
+  "id": "sakiko-resume-apricot-recognition-v2-S2",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "dossier": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+    "version": "2026-10-25.1",
+    "readComplete": true,
+    "wardrobeId": "sakiko-literary-navy-adaptation"
+  },
+  "method": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+  "promptFile": "contact-step2-prompt-v1.txt",
+  "submittedPrompt": "Use case: background-extraction. Asset type: SAME-CANVAS LOCAL CONTACT RECEIVER LUMINANCE MASK, STEP S2. Image 1 is the ONLY input: the 1536x1024 Sakiko recognition v2 original-color scene with its genuine little source contact receiver regions already deliberately painted pure white.\n\nKeep ONLY those ALREADY PAINTED WHITE CONTACT MARKS white, in exactly their present source coordinates, shapes and soft extent. Turn every other colored or naturally light pixel pure BLACK. Do not reinterpret or redraw a shadow, shift any group, move marks upward onto the person, enlarge them, connect distant groups, or invent an oval. The marks belong to the small compressed linen contact directly beneath the actual skirt/hip edge and the individual source sole/floor contacts directly around the bottoms of both loafers. Preserve only what the input already deliberately marked; enclosing furniture is not a filled box.\n\nThe entire original girl, long hair/ribbons, face/eyes, hands/book, navy clothes and plaid skirt, exposed knees, BELOW-KNEE socks and complete shoes become BLACK. Natural light linen/pillow/throw, clouds/curtains, lamp shade, flower petals, sunlit floor/rug, room highlights and every unrelated object also become BLACK. Only the deliberately painted contact selections survive, with thin grey source-edge antialias if present.\n\nOutput exactly ONE opaque 1536x1024 black PNG canvas with these unchanged original-position local white contact selections. No colored scene, new body, new shadow, text, labels, arrows, grid, rectangles, checkerboard, crop, resize, recenter, zoom or translation.",
+  "inputs": [
+    {
+      "path": "contact-step1-marked-v1.png",
+      "sha256": "e062b8e829e37fbd56c4763dc6ef6dc20148256a118af8774f5abd32608e3b1f",
+      "role": "only same-canvas original marked receivers",
+      "actualSha256": "e062b8e829e37fbd56c4763dc6ef6dc20148256a118af8774f5abd32608e3b1f"
+    }
+  ],
+  "output": {
+    "file": "contact-mask-v1.png",
+    "sha256": "d5ea19a7a84954083b15cfd171f521c3be77608e84915122289ac06d4632ae5b",
+    "bytes": 282709,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-454d-7bb3-8b77-bcaadd75b8a4\\exec-5f871d5f-d95c-469c-8b46-3b6bb03631b4.png"
+  },
+  "review": {
+    "producerPersonallyViewed": true,
+    "observation": "Native mask retains two local source shoe-contact groups. Seat coverage is missing and this version is held for receiver repair; not a complete contact bundle.",
+    "approvedByPrimary": false,
+    "runtimeAccepted": false,
+    "generationInputAllowed": false
+  },
+  "status": "held-incomplete-seat-contact-coverage",
+  "submittedPromptSha256Utf8NoTrailingLF": "8e77eb5e6c78a96f5d9e9507fba5f230d16bca931ec6beac480039ce391a379d",
+  "promptFileSha256": "5df40dd81b24cd64874c87fb40f328e357d87e5006e1107fad2ba46423281554",
+  "promptEncodingBoundary": "submittedPrompt is the exact built-in inline text; prompt file retains its terminal LF independently."
+}

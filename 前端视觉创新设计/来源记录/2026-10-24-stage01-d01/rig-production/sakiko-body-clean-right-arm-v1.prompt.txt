@@ -1,0 +1,10 @@
+Use case: precise-object-edit.
+Asset type: one clean/body plate for the SAME approved 1536×1024 window-seat character rig.
+
+Image 1 is the approved original edit target. Change ONLY the character's anatomical RIGHT arm, which is on the image-LEFT side of her torso and ends with the hand resting on the blue book on her lap. Remove that entire right sleeve/arm/hand from shoulder seam to fingertips, and reconstruct only the previously hidden cardigan/torso edge, lap area and uninterrupted BLUE BOOK COVER behind it. The blue book must remain closed, stable on her lap, at exactly the same size, angle and coordinates.
+
+Do not remove or change the other arm/hand at the far image-right that supports her weight on the cushion. Do not change her head, face, hair, bow, torso position, skirt, legs, feet, hip support, cushion, bench, background, furniture, outside view, shadows or lighting. The original right shoulder location near (1240,430) must still be a natural cardigan shoulder seam, ready to receive a separately controlled arm component. This clean plate intentionally has no visible right arm; do not invent a new arm pose, hidden hand, extra sleeve or replacement limb.
+
+Keep the exact original full 1536×1024 framing and pixel scale. The original composition and all existing support relationships remain locked. Cleanly repair the small book area near (1248,524) formerly covered by the right hand without moving or redesigning the book. No new objects, no text, no border, no arrows, no change to any anatomy outside the removed arm region.
+
+Output a normal opaque PNG clean/body plate. This is one tightly localized removal/repair for animation layers, not a restyled scene.

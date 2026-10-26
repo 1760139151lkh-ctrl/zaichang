@@ -1,22 +1,23 @@
-import { createContext, useCallback, useContext, useEffect, useId, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent, type ReactNode } from 'react';
+import { createContext, useCallback, useContext, useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent, type ReactNode } from 'react';
 import { ArrowLeft, X } from 'lucide-react';
 import { Portal } from './ui';
 import morning from '../../前端视觉创新设计/运行素材/companion/morning.png';
 import dusk from '../../前端视觉创新设计/运行素材/companion/dusk.png';
 import night from '../../前端视觉创新设计/运行素材/companion/night.png';
-import readingMorning from '../../前端视觉创新设计/运行素材/companion/reading-morning.png';
-import readingDusk from '../../前端视觉创新设计/运行素材/companion/reading-dusk.png';
-import readingNight from '../../前端视觉创新设计/运行素材/companion/reading-night.png';
-import { companionMoment, type CompanionMoment } from './companion-variants';
+import { companionEnvironmentStamp, companionMoment, type CompanionMoment } from './companion-variants';
 import { companionActivities } from '../shared/companion-activity';
-import { CompanionSceneStage, companionSceneArtwork, companionScenePosition, companionScenePortrait, companionPaletteLight, companionRegisteredSceneArtwork, companionSceneTransferTargets, type SceneCharacter, type SceneTransferChoice } from './companion-scenes';
-import { APPEARANCE_PALETTES, readAppearance, useAppearance, type AppearancePalette } from './appearance';
+import { companionPortrait } from './companion-portraits';
+import { CompanionRoomStage, CompanionSceneStage, companionActiveSceneFamily, companionAmbientArtwork, companionSceneArtwork, companionNeutralPresenceArtwork, companionScenePosition, companionPaletteLight, companionRegisteredSceneArtwork, companionSceneTransferTargets, type CompanionAmbientFit, type CompanionRoomActions, type SceneCharacter, type SceneLight, type SceneTransferChoice, type NeutralSceneTime } from './companion-scenes';
+import { APPEARANCE_PALETTES, readEffectiveEnvironment, useEffectiveEnvironment, type AppearancePalette, type EnvironmentVariant, type EffectiveEnvironment } from './appearance';
 import './companion.css';
+import './companion-input-yield.css';
 
 export type { CompanionMoment } from './companion-variants';
+export { companionRoomFrame } from './companion-scenes';
+export type { CompanionRoomLayout, CompanionRoomRect, CompanionRoomActions, CompanionAmbientFit } from './companion-scenes';
 
-// Identity crops use the primary-approved original scene pixels. A portrait
-// makes its character selectable without claiming any activity pack is ready.
+// Each identity has its own drawn portrait. It makes the character selectable
+// without claiming any room, activity or light asset is ready.
 const characterSlots = [
   { id: 'sakiko', name: '祥子', fullName: '丰川祥子', category: 'Ave Mujica' },
   { id: 'mutsumi', name: '睦', fullName: '若叶睦', category: 'Ave Mujica' },
@@ -30,9 +31,9 @@ const characterSlots = [
   { id: 'taki', name: '立希', fullName: '椎名立希', category: 'MyGO!!!!!' },
 ] as const;
 export const COMPANIONS = characterSlots.map(character => ({
-  ...character, image: companionScenePortrait(character.id) || '',
+  ...character, image: companionPortrait(character.id)?.image || '',
   frame: { portrait: '122%', portraitTop: '0%', anchor: '50%' },
-  avatar: { left: '0%', top: '0%', width: '100%' },
+  avatar: companionPortrait(character.id)?.avatar || { left: '-30%', top: '-16%', width: '160%' },
 })).filter(character => character.image);
 export const WINDOW_LIGHT = { morning, dusk, night };
 type CharacterId = SceneCharacter | 'light' | `custom:${string}`;
@@ -55,7 +56,7 @@ interface CompanionState extends CompanionPreference {
   sceneChoices: Record<string, string>;
   retiredFavorites: string[];
 }
-export interface SceneChoiceExpected { currentChoice?: string; sceneId: string; position: number }
+export interface SceneChoiceExpected { currentChoice?: string; sceneId: string; position: number; environmentStamp?: string }
 interface CompanionExpected { preference: CompanionPreference; positions: Record<string, number>; choices?: Record<string, string> }
 const preferenceKey = 'zaichang.companion.v1';
 const imageKey = 'zaichang.companion.image.v1';
@@ -69,36 +70,57 @@ const defaults: CompanionPreference = {
 };
 const emptyState = (): CompanionState => ({ ...defaults, pictures: [], favorites: [], names: {}, scenePositions: {}, sceneChoices: {}, retiredFavorites: [] });
 const retiredCharacters = ['mio', 'haruka', 'saku', 'nagi'];
+const scenePositionKey = /^(?:[a-z0-9][a-z0-9-]{0,63}:)?[a-z0-9-]{1,100}$/;
+const sceneChoiceLimit = 720;
 const knownCharacter = (id: unknown): id is CharacterId => typeof id === 'string' && (id === 'light' || characterSlots.some(item => item.id === id) || /^custom:[a-zA-Z0-9-]{1,80}$/.test(id));
 export function companionSceneChoiceKey(character: string, moment: CompanionMoment, palette: AppearancePalette) {
-  return `${character}-${moment === 'night' ? 'chat' : moment}-${palette}`;
+  return `${companionActiveSceneFamily() ?? 'unavailable'}:${character}-${moment === 'night' ? 'chat' : moment}-${palette}`;
 }
 function choiceScope(key: string) {
-  const parts = /^([a-z]+)-([a-z]+)-([a-z]+)$/.exec(key);
-  if (!parts || !characterSlots.some(item => item.id === parts[1])
-    || !companionActivities.includes(parts[2] as typeof companionActivities[number])
-    || !APPEARANCE_PALETTES.some(item => item.id === parts[3])) return undefined;
-  return { character: parts[1] as SceneCharacter, moment: parts[2] as Exclude<CompanionMoment, 'night'>, palette: parts[3] as AppearancePalette };
+  const parts = /^(?:([a-z0-9][a-z0-9-]{0,63}):)?([a-z]+)-([a-z]+)-([a-z]+)$/.exec(key);
+  if (!parts || !characterSlots.some(item => item.id === parts[2])
+    || !companionActivities.includes(parts[3] as typeof companionActivities[number])
+    || !APPEARANCE_PALETTES.some(item => item.id === parts[4])) return undefined;
+  return { sceneFamily: parts[1], character: parts[2] as SceneCharacter, moment: parts[3] as Exclude<CompanionMoment, 'night'>, palette: parts[4] as AppearancePalette };
 }
-function registeredChoice(key: string, sceneId: unknown) {
+function sceneEnvironmentContext(environment: EffectiveEnvironment) {
+  const variant = environment.mode === 'auto' ? environment.requestedVariant : undefined;
+  const neutralTime: NeutralSceneTime | undefined = variant === 'unknown' ? environment.isDay ? 'day' : 'night' : undefined;
+  return { variant, neutralTime, stamp: `${companionEnvironmentStamp(environment, companionActiveSceneFamily())}:${neutralTime ?? 'weather-or-manual'}` };
+}
+function registeredChoice(key: string, sceneId: unknown, variant?: EnvironmentVariant, light?: SceneLight, neutralTime?: NeutralSceneTime) {
   const scope = choiceScope(key);
-  return scope && typeof sceneId === 'string' && /^[a-z0-9-]{1,100}$/.test(sceneId)
-    ? companionRegisteredSceneArtwork(sceneId, scope.character, companionPaletteLight(scope.palette), scope.palette) : undefined;
+  return scope && companionActiveSceneFamily() && scope.sceneFamily === companionActiveSceneFamily() && typeof sceneId === 'string' && /^[a-z0-9-]{1,100}$/.test(sceneId)
+    ? companionRegisteredSceneArtwork(sceneId, scope.character, light ?? companionPaletteLight(scope.palette), scope.palette, variant, neutralTime) : undefined;
+}
+// Presence can keep a reviewed neutral chat pose while its finer activity is
+// unavailable. Exact cell/coverage lookups remain exact, and the source keeps
+// its own support, geometry and environment rather than inheriting the request.
+// Only auto unknown-weather presence separates that time-only room from the
+// clock UI palette; manual and known-weather artwork queries stay exact.
+function presenceArtwork(character: string, moment: CompanionMoment, light: SceneLight, palette: AppearancePalette, variant?: EnvironmentVariant, neutralTime?: NeutralSceneTime) {
+  if (variant === 'unknown') return neutralTime === undefined ? undefined : companionNeutralPresenceArtwork(character, neutralTime);
+  return companionSceneArtwork(character, moment, light, palette, variant)
+    ?? (moment !== 'chat' && moment !== 'night' ? companionSceneArtwork(character, 'chat', light, palette, variant) : undefined);
 }
 function checkedSceneChoice(value: CompanionState, key: string, choice: SceneTransferChoice, expected?: SceneChoiceExpected) {
   const scope = choiceScope(key);
-  const target = registeredChoice(key, choice.sceneId);
+  const environment = readEffectiveEnvironment();
+  const { variant, neutralTime, stamp } = sceneEnvironmentContext(environment);
+  if (expected?.environmentStamp !== undefined && expected.environmentStamp !== stamp)
+    throw new Error('房间的光线刚变过，原来的位置还在。');
+  const target = registeredChoice(key, choice.sceneId, variant, environment.light, neutralTime);
   if (!scope || value.character !== scope.character || !target || !Number.isFinite(choice.position)
     || target.positionKey !== choice.positionKey || target.activity !== choice.moment)
     throw new Error('这个坐姿现在还不能采用，原来的位置还在。');
   const selected = value.sceneChoices[key];
-  const original = selected ? registeredChoice(key, selected)
-    : companionSceneArtwork(scope.character, scope.moment, companionPaletteLight(scope.palette), scope.palette);
-  const source = original && companionRegisteredSceneArtwork(original.id, scope.character, companionPaletteLight(scope.palette), scope.palette);
+  const original = registeredChoice(key, selected, variant, environment.light, neutralTime)
+    ?? presenceArtwork(scope.character, scope.moment, environment.light, scope.palette, variant, neutralTime);
+  const source = original && companionRegisteredSceneArtwork(original.id, scope.character, environment.light, scope.palette, variant, neutralTime);
   const sourcePosition = source ? companionScenePosition(source, value.scenePositions) : 0;
   if (!source || expected && (selected !== expected.currentChoice || source.id !== expected.sceneId || sourcePosition !== expected.position))
     throw new Error('这里的坐姿刚在另一处改过。原来的选择还在，看看现在的样子再决定。');
-  const targets = companionSceneTransferTargets(scope.character, source, companionPaletteLight(scope.palette), scope.palette, value.scenePositions, scope.moment);
+  const targets = companionSceneTransferTargets(scope.character, source, environment.light, scope.palette, value.scenePositions, scope.moment, variant, neutralTime);
   if (!targets.some((item: SceneTransferChoice) => item.sceneId === choice.sceneId && item.moment === choice.moment && item.positionKey === choice.positionKey))
     throw new Error('这个地方现在还不能坐，原来的位置还在。');
   return { ...choice, position: companionScenePosition(target, { [target.positionKey]: choice.position }) };
@@ -133,12 +155,14 @@ function readCompanion(): CompanionState {
         if ((knownCharacter(id) || retiredCharacters.includes(id)) && typeof name === 'string' && name.trim()) result.names[id] = name.trim().slice(0, 60);
       }
       result.retiredFavorites = [...new Set([...(Array.isArray(stored.retiredFavorites) ? stored.retiredFavorites : []), ...(Array.isArray(stored.favorites) ? stored.favorites : [])].filter((id: unknown): id is string => typeof id === 'string' && retiredCharacters.includes(id)))];
-      if (stored.scenePositions && typeof stored.scenePositions === 'object') for (const [id, position] of Object.entries(stored.scenePositions).slice(0, 640)) {
-        if (/^[a-z0-9-]{1,100}$/.test(id) && typeof position === 'number' && Number.isFinite(position)) result.scenePositions[id] = Math.max(-1, Math.min(1, position));
+      if (stored.scenePositions && typeof stored.scenePositions === 'object') for (const [id, position] of Object.entries(stored.scenePositions).slice(0, 1280)) {
+        if (scenePositionKey.test(id) && typeof position === 'number' && Number.isFinite(position)) result.scenePositions[id] = Math.max(-1, Math.min(1, position));
       }
       if (stored.sceneChoices && typeof stored.sceneChoices === 'object') for (const [key, sceneId] of Object.entries(stored.sceneChoices)) {
-        if (Object.keys(result.sceneChoices).length >= 360) break;
-        if (registeredChoice(key, sceneId)) result.sceneChoices[key] = sceneId as string;
+        if (Object.keys(result.sceneChoices).length >= sceneChoiceLimit) break;
+        // Preserve historical choices as data, without resolving them into
+        // another room's active artwork or silently rewriting the preference.
+        if (choiceScope(key) && typeof sceneId === 'string' && /^[a-z0-9-]{1,100}$/.test(sceneId)) result.sceneChoices[key] = sceneId;
       }
       return result;
     }
@@ -199,14 +223,18 @@ export function CompanionProvider({ children }: { children: ReactNode }) {
     }
     const scenePositions = { ...current.scenePositions };
     if (positions) for (const [key, position] of Object.entries(positions)) {
-      if (/^[a-z0-9-]{1,100}$/.test(key) && Number.isFinite(position)) scenePositions[key] = Math.max(-1, Math.min(1, position));
+      if (companionActiveSceneFamily() && key.startsWith(`${companionActiveSceneFamily()}:`) && scenePositionKey.test(key) && Number.isFinite(position)) scenePositions[key] = Math.max(-1, Math.min(1, position));
     }
     const sceneChoices = { ...current.sceneChoices };
+    const environment = readEffectiveEnvironment(), context = sceneEnvironmentContext(environment);
     if (choicesPatch) for (const [key, sceneId] of Object.entries(choicesPatch)) {
-      if (!registeredChoice(key, sceneId)) throw new Error('有一个坐姿现在还不能采用，试看的样子还在。');
+      const selected = registeredChoice(key, sceneId);
+      const neutral = registeredChoice(key, sceneId, context.variant, environment.light, context.neutralTime);
+      if (!selected && (!neutral || neutral.purpose !== 'neutral-presence' || choiceScope(key)?.palette !== environment.palette))
+        throw new Error('有一个坐姿现在还不能采用，试看的样子还在。');
       sceneChoices[key] = sceneId;
     }
-    if (Object.keys(sceneChoices).length > 360) throw new Error('这些坐姿选择暂时还不能一起留下，原来的选择还在。');
+    if (Object.keys(sceneChoices).length > sceneChoiceLimit) throw new Error('这些坐姿选择暂时还不能一起留下，原来的选择还在。');
     const next = { ...current, ...preference({ ...current, ...patch }), scenePositions, sceneChoices };
     if (next.character.startsWith('custom:') && !next.pictures.some(item => item.id === next.character)) throw new Error('这张图片已经不在收藏里了，选另一张吧。');
     commit(next);
@@ -240,7 +268,7 @@ export function CompanionProvider({ children }: { children: ReactNode }) {
     commit({ ...current, favorites: current.favorites.includes(id) ? current.favorites.filter(item => item !== id) : [...current.favorites, id] });
   }, [commit]);
   const setScenePosition = useCallback((sceneId: string, position: number, expectedPosition?: number) => {
-    if (!/^[a-z0-9-]{1,100}$/.test(sceneId) || !Number.isFinite(position)) return;
+    if (!companionActiveSceneFamily() || !sceneId.startsWith(`${companionActiveSceneFamily()}:`) || !scenePositionKey.test(sceneId) || !Number.isFinite(position)) return;
     const current = readCompanion();
     if (expectedPosition !== undefined && (current.scenePositions[sceneId] ?? 0) !== expectedPosition) {
       setValue(current);
@@ -251,7 +279,9 @@ export function CompanionProvider({ children }: { children: ReactNode }) {
   const setSceneChoice = useCallback((scope: string, choice: SceneTransferChoice, expected?: SceneChoiceExpected) => {
     const current = readCompanion();
     const parsed = choiceScope(scope);
-    if (!parsed || readAppearance().palette !== parsed.palette || current.presence !== 'window')
+    const environment = readEffectiveEnvironment();
+    if (!parsed || environment.palette !== parsed.palette || current.presence !== 'window'
+      || expected?.environmentStamp !== undefined && expected.environmentStamp !== sceneEnvironmentContext(environment).stamp)
       throw new Error('这里的样子刚换过。原来的选择还在，看看现在的房间再决定。');
     const selected = checkedSceneChoice(current, scope, choice, expected);
     const sceneChoices = { ...current.sceneChoices, [scope]: selected.sceneId };
@@ -301,17 +331,22 @@ function selectedPicture(value: CompanionState, moment: CompanionMoment = 'chat'
 export function companionName(value: CompanionState, id: CharacterId = value.character) {
   return value.names[id] || (id === 'light' ? '只留一束光' : characterSlots.find(item => item.id === id)?.name || value.pictures.find(item => item.id === id)?.name || '我的形象');
 }
-export function CompanionAvatar({ className = '', size = 34 }: { className?: string; size?: number }) {
+/** A legacy display-label fallback, never an identity migration or biography. */
+export function companionAuthorArtwork(authorName?: string) {
+  return COMPANIONS.find(character => character.fullName === authorName)?.id;
+}
+export function CompanionAvatar({ className = '', size = 34, characterId }: { className?: string; size?: number; characterId?: string }) {
   const { value } = useCompanion();
-  const character = COMPANIONS.find(item => item.id === value.character);
+  const shownCharacter = characterId ?? value.character;
+  const character = COMPANIONS.find(item => item.id === shownCharacter), custom = shownCharacter.startsWith('custom:');
   // The portrait identifies this character. It does not claim a matching
   // room, activity or light asset exists for the current stage.
   const image = value.presence === 'hidden' ? undefined
-    : value.character.startsWith('custom:') ? selectedPicture(value) : character?.image;
+    : custom ? value.pictures.find(item => item.id === shownCharacter)?.image : character?.image;
   const [failed, setFailed] = useState(false);
   useEffect(() => setFailed(false), [image]);
   return <span className={`companion-avatar ${className} ${image && !failed ? '' : 'is-light'}`} style={{ width: size, height: size }} aria-hidden="true">
-    {image && !failed ? <img src={image} alt="" style={value.character.startsWith('custom:') ? undefined : character?.avatar} onError={() => setFailed(true)} /> : <Portal size={Math.round(size * .64)} />}
+    {image && !failed ? <img src={image} alt="" style={custom ? undefined : character?.avatar} onError={() => setFailed(true)} /> : <Portal size={Math.round(size * .64)} />}
   </span>;
 }
 
@@ -328,8 +363,8 @@ function fittedFigure(area: { width: number; height: number }, ratio: number, pl
   return { width, height, left: (area.width - width) * placement.position / 100, top: (area.height - height) * placement.verticalPosition / 100 };
 }
 
-function CompanionFigure({ image, name, placement, interaction, onError }: {
-  image: string; name: string; placement: CompanionPlacement; interaction?: PlacementInteraction; onError: () => void;
+function CompanionFigure({ image, name, placement, interaction, yieldToInput = false, onError }: {
+  image: string; name: string; placement: CompanionPlacement; interaction?: PlacementInteraction; yieldToInput?: boolean; onError: () => void;
 }) {
   const areaRef = useRef<HTMLDivElement>(null);
   const instructions = useId();
@@ -358,6 +393,14 @@ function CompanionFigure({ image, name, placement, interaction, onError }: {
     if (cancel) change(current.placement);
     else latest.current.interaction?.onCommit(draft.current);
   }
+  useLayoutEffect(() => {
+    if (!yieldToInput) return;
+    finish(true);
+    if (keyboardOrigin.current) {
+      const origin = keyboardOrigin.current;
+      keyboardOrigin.current = undefined; change(origin);
+    }
+  }, [yieldToInput]);
   useEffect(() => {
     const element = areaRef.current;
     if (!element) return;
@@ -382,7 +425,7 @@ function CompanionFigure({ image, name, placement, interaction, onError }: {
   useEffect(() => { keyboardOrigin.current = undefined; }, [image]);
   const figure = fittedFigure(area, ratio, placement);
   function begin(event: PointerEvent<HTMLElement>, mode: 'move' | 'resize') {
-    if (!interaction || event.button !== 0 || !event.isPrimary || !area.width || !area.height) return;
+    if (yieldToInput || !interaction || event.button !== 0 || !event.isPrimary || !area.width || !area.height) return;
     event.preventDefault(); event.stopPropagation();
     keyboardOrigin.current = undefined;
     event.currentTarget.focus({ preventScroll: true });
@@ -416,7 +459,7 @@ function CompanionFigure({ image, name, placement, interaction, onError }: {
     }
   }
   function keyDown(event: KeyboardEvent<HTMLDivElement>) {
-    if (!interaction) return;
+    if (yieldToInput || !interaction) return;
     if (event.key === 'Escape' && keyboardOrigin.current) {
       event.preventDefault(); event.stopPropagation();
       const original = keyboardOrigin.current;
@@ -473,40 +516,93 @@ function CompanionFigure({ image, name, placement, interaction, onError }: {
   </div>;
 }
 
-export function CompanionScene({ preview = false, quiet = false, immersive = false, moment, placement, interaction, paletteOverride }: { preview?: boolean; quiet?: boolean; immersive?: boolean; moment?: CompanionMoment; placement?: CompanionPlacement; interaction?: PlacementInteraction; paletteOverride?: AppearancePalette }) {
+export function CompanionScene({ preview = false, quiet = false, yieldToInput = false, representation = 'auto', ambientFit = 'room', immersive = false, moment, placement, interaction, paletteOverride,
+  onRoomLayout, onStartFocus, onRest, focusActive = false }: { preview?: boolean; quiet?: boolean; yieldToInput?: boolean; representation?: 'auto' | 'scene' | 'portrait'; ambientFit?: CompanionAmbientFit; immersive?: boolean; moment?: CompanionMoment; placement?: CompanionPlacement; interaction?: PlacementInteraction; paletteOverride?: AppearancePalette } & CompanionRoomActions) {
   const { value, setScenePosition, setSceneChoice } = useCompanion();
-  const [appearance] = useAppearance();
-  const palette = paletteOverride ?? appearance.palette;
-  const light = value.character === 'light' || value.character.startsWith('custom:') ? value.light : companionPaletteLight(palette);
+  const sceneElement = useRef<HTMLDivElement>(null);
+  const [hotspotsAvailable, setHotspotsAvailable] = useState(false);
+  const environment = useEffectiveEnvironment();
+  const palette = paletteOverride ?? environment.palette;
+  const light = paletteOverride ? companionPaletteLight(palette) : environment.light;
+  const manualEnvironment = paletteOverride !== undefined || environment.mode === 'manual';
+  const context = sceneEnvironmentContext(environment);
+  const variant = manualEnvironment ? undefined : context.variant;
+  const neutralTime = manualEnvironment ? undefined : context.neutralTime;
+  const environmentStamp = context.stamp;
   const semanticMoment = moment ?? (immersive ? 'rest' : companionMoment({ reading: quiet && !preview, night: light === 'night' }));
   const semanticActivity = semanticMoment === 'night' ? 'chat' : semanticMoment;
   const scope = companionSceneChoiceKey(value.character, semanticMoment, palette);
-  const chosenArtwork = registeredChoice(scope, value.sceneChoices[scope]);
-  const artwork = chosenArtwork ?? companionSceneArtwork(value.character, semanticMoment, light, palette);
-  const sceneMoment = chosenArtwork?.activity ?? semanticMoment;
+  const chosenArtwork = registeredChoice(scope, value.sceneChoices[scope], variant, light, neutralTime);
+  const resolvedArtwork = chosenArtwork ?? presenceArtwork(value.character, semanticMoment, light, palette, variant, neutralTime);
+  const artwork = resolvedArtwork?.source.kind === 'registered' ? resolvedArtwork : undefined;
+  const ambient = companionAmbientArtwork({ mode: manualEnvironment ? 'manual' : 'auto', palette,
+    requestedVariant: environment.requestedVariant, isDay: manualEnvironment ? light !== 'night' : environment.isDay });
+  const sceneMoment = artwork?.activity ?? semanticMoment;
+  const presenceFallback = artwork?.purpose === 'neutral-presence' ? 'time-neutral'
+    : !chosenArtwork && artwork?.activity === 'chat' && semanticActivity !== 'chat' ? 'neutral-chat' : undefined;
   const image = value.character.startsWith('custom:') ? selectedPicture(value, semanticMoment, palette) : artwork?.mother;
-  const transferTargets = artwork ? companionSceneTransferTargets(value.character, artwork, light, palette, value.scenePositions, semanticActivity) : [];
-  const showFigure = !!image && (immersive || value.presence === 'window') && value.presence !== 'hidden';
-  const readingRoom = quiet && !preview && !value.character.startsWith('custom:');
+  const transferTargets = artwork ? companionSceneTransferTargets(value.character, artwork, light, palette, value.scenePositions, semanticActivity, variant, neutralTime) : [];
+  // Reading is a temporary representation, never a rewrite of the person's
+  // saved presence preference. The existing titlebar portrait stays callable.
+  // A layout with room for the complete reviewed side pose can opt into scene.
+  const bodyPresentation = representation === 'scene' || representation === 'auto' && (!quiet || preview || immersive);
+  // Cropping is decorative only. A full-body presentation always retains the
+  // original room camera, including custom figures and their saved placement.
+  const roomAmbientFit = bodyPresentation ? 'room' : ambientFit;
+  const showFigure = !!image && value.presence === 'window' && bodyPresentation;
   const [failed, setFailed] = useState(false);
+  const inputHasYielded = useRef(false);
+  if (yieldToInput) inputHasYielded.current = true;
   useEffect(() => setFailed(false), [image]);
   const editable = preview && showFigure ? interaction : undefined;
-  const scene = !!artwork && value.presence === 'window';
-  return <div className={`companion-scene ${preview ? 'is-preview' : ''} ${quiet || (preview && value.presence !== 'window') ? 'is-quiet' : ''} ${immersive ? 'is-immersive' : ''} ${value.character.startsWith('custom:') ? 'has-custom-art' : ''} ${scene ? 'has-scene-art' : ''}`} data-light={light} data-moment={sceneMoment} aria-hidden={scene && showFigure ? undefined : editable ? undefined : true}>
+  // The portrait representation opens an admitted empty plate directly. It
+  // never falls back to a mother that still contains the full person.
+  const scene = !!artwork && bodyPresentation;
+  const hasRoom = scene || !!ambient;
+  const roomInteractive = roomAmbientFit === 'room' && !preview && !immersive && !value.character.startsWith('custom:');
+  useEffect(() => { if (!hasRoom) onRoomLayout?.(null); }, [hasRoom, onRoomLayout]);
+  useEffect(() => {
+    if (!hasRoom || roomAmbientFit === 'cover' || preview || immersive) return;
+    const main = sceneElement.current?.closest<HTMLElement>('.app-main');
+    if (!main) return;
+    // Blank room areas remain clickable. Wheel input within the real paper
+    // column still belongs to the existing scroll owner, without a hit layer.
+    const wheel = (event: WheelEvent) => {
+      if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.shiftKey || !event.deltaY) return;
+      const target = event.target;
+      if (!(target instanceof Element) || target.closest('.message-scroll,.workspace.welcome,canvas,[role="slider"],.materials-panel,.reading-divider,.interactive-program,.conversation-map')) return;
+      if (!target.closest('.scene-object-hotspot') && target.closest('button,a,input,textarea,select,summary,[contenteditable="true"]')) return;
+      const scroll = main.querySelector<HTMLElement>('.conversation-space:not([hidden]) .workspace.conversation > .message-scroll')
+        ?? main.querySelector<HTMLElement>('.conversation-space:not([hidden]) .workspace.welcome');
+      const paper = scroll?.querySelector<HTMLElement>(scroll.classList.contains('welcome') ? '.welcome-inner' : ':scope > .messages');
+      if (!scroll || !paper || scroll.scrollHeight <= scroll.clientHeight) return;
+      const bounds = scroll.getBoundingClientRect(), column = paper.getBoundingClientRect();
+      if (event.clientX < column.left || event.clientX > column.right || event.clientY < bounds.top || event.clientY > bounds.bottom) return;
+      const unit = event.deltaMode === 1 ? parseFloat(getComputedStyle(scroll).lineHeight) || 16 : event.deltaMode === 2 ? scroll.clientHeight : 1;
+      const before = scroll.scrollTop;
+      scroll.scrollTop = Math.max(0, Math.min(scroll.scrollHeight - scroll.clientHeight, before + event.deltaY * unit));
+      if (scroll.scrollTop !== before) event.preventDefault();
+    };
+    main.addEventListener('wheel', wheel, { passive: false });
+    return () => main.removeEventListener('wheel', wheel);
+  }, [hasRoom, roomAmbientFit, preview, immersive]);
+  const paperSide = roomAmbientFit === 'cover' ? undefined
+    : artwork && (artwork.bodyBounds[0] + artwork.bodyBounds[2]) / 2 < .5 ? 'right' : 'left';
+  return <div ref={sceneElement} className={`companion-scene ${preview ? 'is-preview' : ''} ${quiet || (preview && value.presence !== 'window') ? 'is-quiet' : ''} ${yieldToInput ? 'is-yielding-to-input' : ''} ${inputHasYielded.current ? 'has-yielded-to-input' : ''} ${immersive ? 'is-immersive' : ''} ${value.character.startsWith('custom:') ? 'has-custom-art' : ''} ${hasRoom ? 'has-scene-art' : ''}`} data-scene-family={companionActiveSceneFamily()} data-ambient-fit={roomAmbientFit} data-paper-side={paperSide} data-light={light} data-moment={sceneMoment} data-requested-moment={semanticMoment} data-presence-representation={value.presence === 'hidden' ? 'hidden' : value.presence === 'corner' ? 'corner' : bodyPresentation ? 'scene' : 'reading-portrait'} data-presence-fallback={presenceFallback} data-scene-purpose={artwork?.purpose} data-neutral-time={artwork?.neutralTime} data-environment-variant={variant} data-environment-state={scene ? artwork?.purpose === 'neutral-presence' ? 'time-only-presence' : 'matched' : ambient ? 'ambient-only' : 'unavailable'} aria-hidden={roomAmbientFit === 'cover' ? true : scene && showFigure || editable || hotspotsAvailable ? undefined : true}>
     {scene ? <>
       <CompanionSceneStage artwork={artwork} name={companionName(value)} position={companionScenePosition(artwork, value.scenePositions)}
-        onCommit={position => setScenePosition(artwork.positionKey, position, value.scenePositions[artwork.positionKey] ?? 0)} transferTargets={transferTargets} transferScope={scope}
-        onTransferCommit={(choice: SceneTransferChoice, origin: Pick<SceneChoiceExpected, 'sceneId' | 'position'>) => setSceneChoice(scope, choice, { ...origin, currentChoice: value.sceneChoices[scope] })}
-        showFigure={showFigure} interactive={showFigure} quiet={quiet && !preview} reducedMotion={value.reducedMotion} previewOnly={preview} />
-      <div className="scene-content-wash" />
+        onCommit={position => setScenePosition(artwork.positionKey, position, value.scenePositions[artwork.positionKey] ?? 0)} transferTargets={transferTargets} transferScope={`${scope}:${environmentStamp}`}
+        onTransferCommit={(choice: SceneTransferChoice, origin: Pick<SceneChoiceExpected, 'sceneId' | 'position'>) => setSceneChoice(scope, choice, { ...origin, currentChoice: value.sceneChoices[scope], environmentStamp })}
+        showFigure={showFigure} interactive={showFigure} quiet={quiet && !preview} yieldToInput={yieldToInput} reducedMotion={value.reducedMotion} previewOnly={preview}
+        onRoomLayout={onRoomLayout} onStartFocus={roomInteractive ? onStartFocus : undefined} onRest={roomInteractive ? onRest : undefined} focusActive={focusActive} onHotspotsAvailableChange={setHotspotsAvailable} />
     </> : <>
-      <div className="window-room room-day" style={{ backgroundImage: `url(${light === 'dusk'
-        ? readingRoom ? readingDusk : dusk : readingRoom ? readingMorning : morning})` }} />
-      <div className="window-room room-night" style={{ backgroundImage: `url(${readingRoom ? readingNight : night})` }} />
-      <div className="window-wash" />
-      {showFigure && value.character.startsWith('custom:') && !failed && <CompanionFigure key={value.character} image={image!} name={companionName(value)} placement={placement ?? value} interaction={editable} onError={() => setFailed(true)} />}
+      {ambient ? <CompanionRoomStage artwork={ambient} ambientFit={roomAmbientFit} reducedMotion={value.reducedMotion} onRoomLayout={onRoomLayout}
+        onStartFocus={roomInteractive ? onStartFocus : undefined} onRest={roomInteractive ? onRest : undefined} focusActive={focusActive} onHotspotsAvailableChange={setHotspotsAvailable} />
+        : <div className="scene-environment-neutral" />}
+      {showFigure && value.character.startsWith('custom:') && !failed && <CompanionFigure key={value.character} image={image!} name={companionName(value)} placement={placement ?? value} interaction={editable} yieldToInput={yieldToInput} onError={() => setFailed(true)} />}
     </>}
     {preview && value.presence === 'corner' && <CompanionAvatar className="companion-preview-corner" size={40} />}
+    {immersive && value.presence === 'corner' && <CompanionAvatar className="companion-rest-corner" size={40} />}
   </div>;
 }
 
@@ -518,7 +614,7 @@ export function RestSpace({ onClose }: { onClose: () => void }) {
     return () => { ref.current?.close(); if (opener?.isConnected) opener.focus({ preventScroll: true }); };
   }, []);
   return <dialog ref={ref} className="rest-space" aria-label="先坐一会儿" onCancel={event => { event.preventDefault(); onClose(); }}>
-    <CompanionScene immersive />
+    <CompanionScene immersive moment="rest" />
     <div className="rest-brand"><Portal size={28} /><span>在场</span></div>
     <button type="button" className="icon-button rest-close" aria-label="回到聊天" onClick={onClose}><X size={19} /></button>
     <div className="rest-return"><h1>先坐一会儿。</h1><button type="button" onClick={onClose}><ArrowLeft size={17} />回到聊天</button></div>

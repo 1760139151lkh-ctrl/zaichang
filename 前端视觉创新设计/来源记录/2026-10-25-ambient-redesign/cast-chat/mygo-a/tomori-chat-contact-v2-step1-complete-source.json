@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "kind": "imagegen-contact-matte-step1-complete-compression",
+  "primary": false,
+  "runtime": false,
+  "tool": "built-in image_gen.imagegen",
+  "prompt": "Use case: precise-object-edit.\nThis is a source-contact selection markup, NOT a new scene, not shadow painting. Image 1 is the only reference: the original correct Tomori chat mother, full canvas 1536x1024. Lock all room, figure and camera pixels in place.\nPaint WHITE over the COMPLETE already-visible dark contact/compression region on the cream bench directly below the rear half of the plaid skirt. The exact repair area is around x1287..1375,y582..604. It is the existing soft grey-brown compressed cushion/hem shade below the hip, approximately 8–12 pixels thick in its central part, tapering at its real ends. Cover the ENTIRE actual existing soft dark region, including the cushion compression shading immediately below the sharp hem edge. Do not mark only a one-pixel outline. Follow the actual irregular shaded source region and its soft extent, not a rectangular box and not a new ellipse. Preserve the plaid skirt and body unchanged; only the old dark cushion-contact pixels are whitened.\nAlso preserve in place the source's small real resting-palm contact at x1388..1446,y580..599 and the immediate two sole-contact fringes x1153..1271,y760..791, painting those existing dark contact regions white if visible.\nAll selected marks must be neutral pure RGB WHITE, not warm cream, pale yellow or partly transparent color. Keep anti-alias only at the narrow selection perimeter. The cream cushion itself outside the actual dark compression stays unchanged. No new shadow, no white blanket/whole bench patch, no marked rectangle, no crop, resizing or coordinate shift. Do not redraw the girl, seat, floor or room.\nOutput ONE opaque PNG at exactly the original 1536x1024 canvas. Everything except these original contact-darkness regions stays as the input mother.",
+  "input": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/tomori-chat-apricot-mother.png",
+    "sha256": "7e2d61d5874ede02beba0808b329b18922dfe6b3f20f2d923a9c2ea4c22978d9",
+    "role": "sole original mother; earlier generated selection is not an input"
+  },
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/mygo-a/tomori-chat-contact-v2-step1-complete-marked.png",
+    "originalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17125-a57d-70f3-9b8f-9ecfd8cef13e\\exec-44b3f575-475e-49fe-9b4c-ae84b6f9ae3b.png",
+    "executionId": "exec-44b3f575-475e-49fe-9b4c-ae84b6f9ae3b",
+    "sha256": "ead3a2e6d34b2ac6d81207528ac589ea162acf55deddf64c62be29770cd65789",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2095574,
+    "originalOutputLastWriteTimeUtc": "2026-10-25T08:18:45.0590103Z"
+  },
+  "scope": "Targeted completion of the observed source cushion-contact selection; no output RGB used in compositing.",
+  "status": "not_admitted_after_root_stop",
+  "inspection": {
+    "reason": "Saved as generated; not used for figure/background RGB or accepted as successful extraction."
+  }
+}

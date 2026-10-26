@@ -1,0 +1,196 @@
+{
+  "schemaVersion": 1,
+  "kind": "literary-room-apricot-wave-a-mother-candidates",
+  "character": "anon",
+  "authorizedMotherCalls": 3,
+  "completedMotherCalls": 3,
+  "generationStopped": true,
+  "scope": [
+    "reading",
+    "planning",
+    "rest"
+  ],
+  "inputs": "approved clear-day cleanplate + own approved new-room chat identity/clothing/scale only",
+  "cells": [
+    {
+      "id": "anon-reading-apricot-literary-v1",
+      "briefCell": "anon/reading/apricot",
+      "activity": "reading",
+      "palette": "apricot",
+      "png": {
+        "path": "anon-reading-apricot-literary-v1.png",
+        "sha256": "ae3144f78b5b0edd125a1573ed74c8cc4afa926bc05a91405bae0483706cca2c",
+        "bytes": 2439085,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "anon-reading-apricot-literary-v1.prompt.json",
+        "sha256": "0c7307dd8c318ff7e4a6f8b4f0a84775001247b3b37e08a51757fb0dcd6f7aac"
+      },
+      "source": {
+        "path": "anon-reading-apricot-literary-v1.source.json",
+        "sha256": "45aa717279fefaa5e52c2cc26a8c290264d859ec7d5b5d9d4f2f5405da4ca7a2"
+      },
+      "directInspection": "saved-original-PNG-personally-viewed-before-next-generation",
+      "selfDisposition": "awaiting-primary-review",
+      "concerns": [
+        "抬眼轻张口的表情仍接近已审chat的轻快感；被书戳中后的自我调侃分寸留root文学主审。"
+      ],
+      "approvedByPrimary": true,
+      "runtimeAccepted": false,
+      "contentConsistency": {
+        "outputSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "LF": true
+      },
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static original mother only",
+        "rationale": "Root personally viewed and approved original identity, hair/eyes/hands/book and visible real support; static mother only. Sharing the reading toward the reader is an acceptable distinctive relationship, not required to look down.",
+        "source": "Root direct message 2026-10-25; exact message timestamp not provided"
+      }
+    },
+    {
+      "id": "anon-planning-apricot-literary-v1",
+      "briefCell": "anon/planning/apricot",
+      "activity": "planning",
+      "palette": "apricot",
+      "png": {
+        "path": "anon-planning-apricot-literary-v1.png",
+        "sha256": "ad3f6a9067d88913849c6d0f5db532fdab2aa76347a40e4ffdfe76f2459dfca3",
+        "bytes": 2437315,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "anon-planning-apricot-literary-v1.prompt.json",
+        "sha256": "ea43cca8d6c28831cac7bf25e7a88bc17858cbe4480b3dce7444ac6ee549bd8d"
+      },
+      "source": {
+        "path": "anon-planning-apricot-literary-v1.source.json",
+        "sha256": "458b0b5cb95029e229014ba676646a199203e524ad07ffebcc1a5da36d4818b8"
+      },
+      "directInspection": "saved-original-PNG-personally-viewed-before-next-generation",
+      "selfDisposition": "reject-room-layout-drift",
+      "concerns": [
+        "reject-room-layout-drift：原圆几位置及桌椅几何未保持，不能作为原房固定布局合格母图；本波仅存证、不追加retry。"
+      ],
+      "approvedByPrimary": false,
+      "runtimeAccepted": false,
+      "contentConsistency": {
+        "outputSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "LF": true
+      },
+      "primaryDecision": {
+        "approvedByPrimary": false,
+        "scope": "static original mother only",
+        "rationale": "Root rejects enlarged desktop and shifted round table; forbidden as any later ImageGen input.",
+        "source": "Root direct message 2026-10-25; exact message timestamp not provided"
+      }
+    },
+    {
+      "id": "anon-rest-apricot-literary-v1",
+      "briefCell": "anon/rest/apricot",
+      "activity": "rest",
+      "palette": "apricot",
+      "png": {
+        "path": "anon-rest-apricot-literary-v1.png",
+        "sha256": "b9aaf551c5105b67e180fc686fcb26c118ec56db4dcca07aee24d1b69e2b0b52",
+        "bytes": 2441235,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "anon-rest-apricot-literary-v1.prompt.json",
+        "sha256": "2cefd6f1bfcd5cdd3a9c9a3c82910b879214b742aac341bd8b0fa77de45e4772"
+      },
+      "source": {
+        "path": "anon-rest-apricot-literary-v1.source.json",
+        "sha256": "10d23626382b7529315664648b29fb5ba86dfc6a9d75083596b4cf317dacdd72"
+      },
+      "directInspection": "saved-original-PNG-personally-viewed-before-next-generation",
+      "selfDisposition": "awaiting-primary-review",
+      "concerns": [
+        "近景头顶比通用约y110参照略低；休息后靠和实际座位深度的尺度分寸待root主审。"
+      ],
+      "approvedByPrimary": true,
+      "runtimeAccepted": false,
+      "contentConsistency": {
+        "outputSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ],
+        "LF": true
+      },
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static original mother only",
+        "rationale": "Root personally viewed and approved original identity, hair/eyes/hands/book and visible real support; static mother only.",
+        "source": "Root direct message 2026-10-25; exact message timestamp not provided"
+      }
+    }
+  ],
+  "approvedByPrimary": false,
+  "layerWorkStarted": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "primaryAdmissionRecord": {
+    "path": "anon-apricot-wave-a-primary-mother-admission-v1.json",
+    "sha256": "e9e2122afb31b49d1d9b1da97aa6772a090a8b0addd6a57f4edda5969b7aa4b9"
+  },
+  "approvalScope": "per-cell static mother only",
+  "additionalRootAuthorizedMotherCalls": 1,
+  "additionalCompletedMotherCalls": 1,
+  "additionalCandidates": [
+    {
+      "id": "anon-planning-apricot-literary-bench-v2",
+      "activity": "planning",
+      "pose": "window-bench",
+      "png": {
+        "path": "anon-planning-apricot-literary-bench-v2.png",
+        "sha256": "bc17327c66441e6ff1dd4e5cac5d3771bcc9f5e014c5010bed1420d2c9a9a4a7",
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "anon-planning-apricot-literary-bench-v2.prompt.json",
+        "sha256": "ea1e74c4a9b9dc1824b760d3f3a0e3ccb0ce4bc4a11ca74332e51e535e7c4f18"
+      },
+      "source": {
+        "path": "anon-planning-apricot-literary-bench-v2.source.json",
+        "sha256": "1d1e7b159fa7282c35f2528828a70192bdc08a2cf52add2e71f12b19cbba3a70"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": true,
+      "runtimeAccepted": false,
+      "replacesRejectedCandidateOnlyAfterPrimaryApproval": true,
+      "primaryAdmissionRecord": {
+        "path": "anon-planning-apricot-literary-bench-v2-primary-mother-admission-v1.json",
+        "sha256": "c5d3d6f4f14cde49763eacacef9473a31f62d67b66f4bdf7c4c4264234bc0936"
+      }
+    }
+  ]
+}

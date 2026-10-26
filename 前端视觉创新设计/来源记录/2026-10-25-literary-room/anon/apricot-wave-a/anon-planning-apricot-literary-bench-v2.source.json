@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "id": "anon-planning-apricot-literary-bench-v2",
+  "assetType": "complete-mother-literary-room-apricot-wave-a",
+  "createdAtUtc": "2026-10-25T11:37:50.343828+00:00",
+  "tool": {
+    "name": "image_gen.imagegen",
+    "mode": "edit-cleanplate-add-one-character-with-approved-identity-reference",
+    "originalEventId": "exec-85c23e58-ea41-46d2-a588-12b7535d511c",
+    "outputHint": "Generated images are saved to C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270 as C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-85c23e58-ea41-46d2-a588-12b7535d511c.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  "prompt": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-a\\anon-planning-apricot-literary-bench-v2.prompt.json",
+    "fileSHA256": "ea1e74c4a9b9dc1824b760d3f3a0e3ccb0ce4bc4a11ca74332e51e535e7c4f18",
+    "submittedPrompt": "Use case: illustration-story. Create ONE complete 1536×1024 literary-room mother artwork for Anon planning. Image 1 is the primary-approved clean EMPTY literary room, the exact authority for room/camera/furniture/light. Image 2 is Anon's approved correct CHAT mother from this same new room, used ONLY for her identity, clothing, near-camera human scale and linework; do not copy its body, held booklet, pose or activity. No rejected planning image or old room4 image is supplied or permitted. Build the entire new planning pose from these words.\n\nLiterary moment: 她把想做的事摊开，愿意留出你来改写的一角。她确实还想替最期待的那一边争取一次，却也愿意把自己的安排留出一个能让你改写的空角。认真里有一点不服气的小亮意，目光清楚，不把一份漂亮安排说成已经决定。此刻她从膝上小本子的空角轻轻抬眼看向画外同伴，眉梢微扬，唇线稍收，准备先听你的想法。Keep the lively specificity of Anon, a thoughtful hopeful pause rather than a broad generic smile, theatrical sadness or a presentation pose. There is only one visible person; the companion is off camera.\n\nPreserve Image 1's EXACT complete close-camera room: full wooden window and clear autumn lake-town view, curtains, LEFT writing desk and original wooden chair, shelves/books/frames/plants, the ROUND table with blue-white porcelain lamp/cup/flowers/books, long linen window bench, right blue-gray plaid pillows and knitted throw, wood floor/rug/foreground plant. The round table stays approximately x435–690 with its top near y500; the left desk ends around x400 with its top near y380. Do not enlarge the desk, move the chair/table, change the window, change camera/perspective, crop or redesign furniture. This pose uses the existing BENCH, so there is no need to alter the desk at all.\n\nAnon Chihaya / 千早愛音, BanG Dream! It's MyGO!!!!!. Faithful youthful anime identity as in her correct approved second input: long clear PINK hair, natural side-swept bangs, large clear BLUE-GRAY eyes and a fine lively youthful face. BOTH eyes and bangs remain clear. Her Haneoka uniform remains a pale lavender-gray blazer with white piping/two small gold buttons, white shirt, dark green necktie, dark green/gold plaid skirt, dark knee socks and BLACK loafers. Ordinary youthful student proportions, fully clothed; no borrowed face, chibi or mature model body, no recoloring her whole body gold.\n\nBasic supported planning pose: sit on the actual open section of the window BENCH, pelvis and thighs settled with weight on its linen cushion, upper body balanced and gently angled toward the off-camera companion. Hold a SMALL plain notebook low over the lap, one hand naturally steadying it, the other holding a simple pencil lightly paused above an empty corner of the page. The lap supports the notebook; hands and wrists connect clearly to her own arms. Only faint abstract pencil traces, no readable calendar, dates, names, schedule, quotes or completed-arrangement text. Keep the pose simple, fresh and naturally supported, with her complete face visible above the small notebook. Comfortable separately readable knees and lower legs, each belonging to its own continuous hip/thigh/ankle chain. Both complete black loafers rest naturally on the visible real floor with subtle local contacts. Avoid one knee crossing over the other while two parallel feet pretend to be flat. No floating stool, extra limb, hand through book, furniture penetration or invented limb hidden under a blanket.\n\nMatch the approved close-room human scale, head top roughly y110–140 and shoe soles naturally around y850–900 according to the actual bench depth. Do not enlarge her head, lean her face toward the camera, stretch shins or move furniture to force a coordinate. Keep all hair, both hands, skirt/knees/ankles and BOTH complete shoes in the frame with breathing room. Almond-gold clear-day light touches pink hair tips, paper and hands, with a clear gentle facial shadow side. Preserve the same original room light and natural local colors. Refined 2D anime linework and soft anime shading integrated with the literary-room illustration, no sticker border, gray/gold overlay, new spotlight, UI, logo, watermark, captions, collage or fog.",
+    "submittedPromptSHA256": "c2640f6dac1e5e13153a46b1212662f6fc580a85fd1ae5ae5447689261d2a1a7"
+  },
+  "inputs": [
+    {
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "primary-approved-empty-literary-room; sole authority for room/camera/furniture/light",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\chat-pilot\\anon-chat-apricot-literary-v1.png",
+      "sha256": "53ee79ee3e5e210fc875d6ed062543c21cc2001831ede42dad814367a6103b7c",
+      "role": "same-character-primary-approved-new-literary-chat mother; identity/clothing/near-camera scale only, not body/pose/activity",
+      "primaryApprovalEvidence": "Root direct message 2026-10-25: personally reviewed and approved Anon/Soyo chat-apricot mother; accepted Anon deep-seat shoe y825 and Soyo open booklet",
+      "approvedScope": "mother only, not a layer or runtime approval"
+    }
+  ],
+  "brief": {
+    "cellId": "anon/planning/apricot; root-authorized bench revision",
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\briefs\\mygo-b\\anon-literary-room-briefs-v1.json",
+    "sha256": "1ec7df1a6421c59d25aa041baae6e99e02573b74aecc42b69ece2cde22842918",
+    "releaseScope": "Root released exactly ONE additional Anon planning BENCH redraw after chat joint delivery; rejected desk-planning mother explicitly forbidden as any image input"
+  },
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-a\\anon-planning-apricot-literary-bench-v2.png",
+    "sha256": "bc17327c66441e6ff1dd4e5cac5d3771bcc9f5e014c5010bed1420d2c9a9a4a7",
+    "bytes": 2421836,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-85c23e58-ea41-46d2-a588-12b7535d511c.png"
+  },
+  "review": {
+    "directInspection": "saved-original-PNG-personally-viewed-before-next-generation",
+    "approvedByPrimary": true,
+    "primaryLayerApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observations": [
+      "已亲看保存原图1536×1024；回到真实长凳靠圆几的凳段，圆几灯杯与左原桌椅保持布局，未复用被拒的放大书桌规划图。",
+      "Anon粉发、双眼刘海、原制服清楚；一手托膝上小本、一手持铅笔，身体由凳垫承托，完整膝小腿与双黑鞋接地可辨。",
+      "表情微扬眉并轻张口，像愿意把自己的期待拿来商量；并非纯低头阅读或大笑迎宾。",
+      "目测头顶约y115、鞋底约y835，仍是靠圆几较深凳段；两膝并置，未见一膝交叠却双脚假平贴。"
+    ],
+    "concerns": [
+      "铅笔实际举至胸前附近，较prompt的刚停在小本空角上方更高；笔记本有浅不可辨笔迹，无具体日期/安排回执。",
+      "鞋底约y835较通用850–900参照略高，实际较深座位的尺度解释留root母图主审。"
+    ],
+    "producer": {
+      "directInspectionComplete": true,
+      "recommendation": "bench planning mother candidate for root visual review",
+      "limits": [
+        "铅笔实际举至胸前附近，较prompt的刚停在小本空角上方更高；笔记本有浅不可辨笔迹，无具体日期/安排回执。",
+        "鞋底约y835较通用850–900参照略高，实际较深座位的尺度解释留root母图主审。"
+      ]
+    },
+    "primary": {
+      "approved": true,
+      "scope": "static mother only",
+      "record": "anon-planning-apricot-literary-bench-v2-primary-mother-admission-v1.json"
+    },
+    "runtime": {
+      "accepted": false,
+      "registered": false
+    }
+  },
+  "boundaries": [
+    "mother only",
+    "new cleanplate plus own approved new-room chat identity reference only",
+    "no old room4 or invalid character pixels",
+    "no layer extraction, runtime registration or source-code change",
+    "one additional authorized bench-planning call only; stop after saving"
+  ],
+  "status": "mother-candidate-directly-inspected-awaiting-root-review",
+  "previousRejectedCandidate": {
+    "path": "anon-planning-apricot-literary-v1.png",
+    "sha256": "ad3f6a9067d88913849c6d0f5db532fdab2aa76347a40e4ffdfe76f2459dfca3",
+    "disposition": "root rejected furniture drift; forbidden as any later image input",
+    "suppliedAsInput": false
+  },
+  "authorization": {
+    "additionalCallsAllowed": 1,
+    "additionalCallsUsed": 1,
+    "generationStopped": true,
+    "scope": "new Anon bench planning mother only after eight chat joint calls were delivered"
+  },
+  "sourceConsistency": {
+    "output": true,
+    "toolOriginal": true,
+    "promptFile": true,
+    "inputs": [
+      true,
+      true
+    ],
+    "rejectedImageNotSupplied": true
+  },
+  "primaryAdmissionRecord": "anon-planning-apricot-literary-bench-v2-primary-mother-admission-v1.json"
+}

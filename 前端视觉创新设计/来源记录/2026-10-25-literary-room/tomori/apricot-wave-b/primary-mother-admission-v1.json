@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "characterId": "tomori",
+  "wave": "apricot-wave-b",
+  "reviewedOn": "2026-10-25",
+  "reviewer": "root primary agent",
+  "evidence": "Direct primary-agent message confirming personal inspection of all five complete Tomori wave-b original mothers.",
+  "decision": "approved",
+  "scope": "Exact-SHA static mother only",
+  "commonObservation": "Clear hair/eyes and visible hand/support relationships without fusion; main desk, round table and window layout retained. The four bench mothers retain both complete shoes.",
+  "entries": [
+    {
+      "activity": "study",
+      "assetId": "tomori-study-apricot-literary-v1",
+      "file": "tomori-study-apricot-literary-v1.png",
+      "sha256": "5d83c9d46e4919810cb0547c01da7f761823e7d16c438ff80f810b82edc3e9f6",
+      "bytes": 2413616,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "observation": "Real left-desk forearm/pencil/page and chair-seat relationships accepted. Repositioning the portable small metal task lamp and chair orientation are allowed. Foreground plant naturally occludes shoe contours; contourComplete=false.",
+      "bodyContour": {
+        "contourComplete": false,
+        "naturalFurnitureForegroundOcclusion": true
+      },
+      "decision": "approved-exact-SHA-static-mother-only"
+    },
+    {
+      "activity": "listening",
+      "assetId": "tomori-listening-apricot-literary-v1",
+      "file": "tomori-listening-apricot-literary-v1.png",
+      "sha256": "292ccd83be7064fdef9a5dd3cfa729078bd7299f2dc805df145f8830a10b4468",
+      "bytes": 2425989,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "observation": "Closed book on lap and slightly open mouth read as an effective listening response; closed lips are not required.",
+      "bodyContour": {
+        "contourComplete": true,
+        "naturalFurnitureForegroundOcclusion": false
+      },
+      "decision": "approved-exact-SHA-static-mother-only"
+    },
+    {
+      "activity": "play",
+      "assetId": "tomori-play-apricot-literary-v1",
+      "file": "tomori-play-apricot-literary-v1.png",
+      "sha256": "aff22695d16c32fd4a09877951a33c27812cad8f8ce9a023988b0d1a67322106",
+      "bytes": 2434917,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "observation": "Small folded paper/bird-like shape supported by distinct hands, appropriate quiet delight.",
+      "bodyContour": {
+        "contourComplete": true,
+        "naturalFurnitureForegroundOcclusion": false
+      },
+      "decision": "approved-exact-SHA-static-mother-only"
+    },
+    {
+      "activity": "attention",
+      "assetId": "tomori-attention-apricot-literary-v1",
+      "file": "tomori-attention-apricot-literary-v1.png",
+      "sha256": "22b2ae5582d852a3b0fd565d3e52f95acd6cbdc5ed5b8c58a5076d1540e30013",
+      "bytes": 2442897,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "observation": "Lowered gaze retains pencil/page pause without enlarging the head toward camera.",
+      "bodyContour": {
+        "contourComplete": true,
+        "naturalFurnitureForegroundOcclusion": false
+      },
+      "decision": "approved-exact-SHA-static-mother-only"
+    },
+    {
+      "activity": "resume",
+      "assetId": "tomori-resume-apricot-literary-v1",
+      "file": "tomori-resume-apricot-literary-v1.png",
+      "sha256": "aa97ef281ebb77b5b3707744e7fb76e6d0b8e7f94a04673ee9c513ae7d2552b8",
+      "bytes": 2417353,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "observation": "Raised eyes, retained page and small smile have complete original-room support.",
+      "bodyContour": {
+        "contourComplete": true,
+        "naturalFurnitureForegroundOcclusion": false
+      },
+      "decision": "approved-exact-SHA-static-mother-only"
+    }
+  ],
+  "layerApproved": false,
+  "runtimeAccepted": false
+}

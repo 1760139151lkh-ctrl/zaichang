@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "stage": "F1",
+  "tool": "image_gen.imagegen",
+  "recordedAt": "2026-10-25T22:33:34.787134+00:00",
+  "sceneFamily": "literary-room-v1",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "motherSha256": "35a318faaab82305b4a5f28e4f109701986e7ce75b312536835216306c2945af",
+  "inputImages": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-day-v1.png",
+      "sha256": "35a318faaab82305b4a5f28e4f109701986e7ce75b312536835216306c2945af"
+    }
+  ],
+  "promptFile": "figure-step1-marked-v1.prompt.txt",
+  "promptFileSha256": "133bd205f6f2304f8fb33bf6a266a7ae603b3e04c32d9efdd3ca3bae6e64c510",
+  "requestFile": "figure-step1-marked-v1.request.json",
+  "exactSubmittedPrompt": "Use case: precise-object-edit. Selection markup STEP F1 for an unchanged SOURCE-RGB included figure/book/contact layer.\nThe ONLY input is the EXACT root-approved Sakiko time-only DAY neutral-reading mother1536x1024. Keep the entire original canvas, camera and every source coordinate. This is selection markup, not a redrawn person, another pose, a new silhouette, new light or moving caster. Output original1536x1024 with no crop/resize/zoom/recenter/shift.\n\nPaint SOLID PURE WHITE directly onto the COMPLETE visible Sakiko AND her COMPLETE OPEN BOOK. Include every blue-lavender hair strand/tip, dark side ribbons, entire youthful head/face/eyes/ears/neck, full navycardigan/sleeves/cuffs, whitecollar/darkclothbow, all navyplaid skirt and complete outward/darklowerhem folds, BOTH hands/fingers/wrists, all barethighs/EXPOSED knees, both below-knee calfsocks, both complete darkloafers with toeedges, sidewalls, solerims/heelblocks and BOTTOMMOST outlines. Whole openbook includes both thin darkcovers, the spine, every pageblock and the dark lower binding/cover visible between pageedge and lap. Do NOT mistake that very thin darkbookbottom or lower skirtfold for a background gap.\nEvery selected interior is completely SOLID white, no facial eye/mouth/nose/hair/clothes/book lines or original natural-light texture inside the white region. Fine grey only existing antialiased outer edge. Preserve actual original background gaps between separated hair/arms/body/legs as ORIGINAL COLORED room. No inward contraction/erosion, dilation, new holes, enlarged outer shape.\nInspection limits NOT boxes tofill: complete figure/hair/book approximatelyx820..1360,y155..930; openbook aroundx960..1170,y470..535; both complete groundedshoes aroundx820..1000,y800..930.\n\nALL unselected room remains ORIGINAL COLORED RGB, including closed opaqueivorycurtains, naturallywhitelinen, pillows/knitthrow, ceramiclamp/shade/flowers/cup/table, leftdeskchair/plants, woodfloor/rug and independent seat/floor receiving shadows. Do NOT select naturalwhite curtain/linen as figure. No contactshadow mark here; S is separate. No checkerboard/text/arrows/grid/outline. Original colored room with ONLY the complete original-position person+openbook deliberately white. The later foregroundRGB comes solely from the unchanged approved original mother, never this markedimage.",
+  "submittedPromptSha256": "5f9016663dd3b487121077267c558ca275a632e35b3da4f16b13cfc6dbfb03ee",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-b5b5a7cd-5a00-47b9-97a2-a040a11f068e.png",
+  "toolOriginalSha256": "79aa9972cc9ac6c489bda5cb52c89d1053fdacbb7251b8b59fae342c6c6d3eed",
+  "output": {
+    "file": "figure-step1-marked-v1.png",
+    "sha256": "79aa9972cc9ac6c489bda5cb52c89d1053fdacbb7251b8b59fae342c6c6d3eed",
+    "bytes": 2145150,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "unchangedToolPngBytes": true
+  },
+  "producerReview": "Whole original result viewed. Complete figure/book markedwhite; faint book/hand/shoe internalgray tracing must be filled to solidwhite during conversion; no visiblefacehole. ActualRGB never taken from marked image. F2/native-originalRGB review still required.",
+  "dossierVersion": "2026-10-25.1",
+  "role": "Selection markup only, not newhuman/roomRGB; no clip/handmask/threshold/morphology.",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "selectionStatus": "HOLD_not_selected",
+  "holdReason": "Actual native Chrome original/union/composite bookcloseup proved thin lowerbookcover/lap foreground hole in F2-v1; remake F1 from clean original only. Do not use oldmarked/mask as newinput.",
+  "browserEvidence": "browser-observations/HOLD-book-edge-v1.png",
+  "generationInputAllowed": false
+}

@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "recordType": "source-rgb-included-layer-image-stage",
+  "characterId": "tomori",
+  "neutralTime": "day",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "stage": "F1-v3",
+  "tool": "image_gen.imagegen",
+  "toolElapsedMs": 35610,
+  "recordedAt": "2026-10-26T01:22:46.312240+00:00",
+  "sourceConversationId": "01a17365-def4-7ef0-9767-09f785cec060",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/tomori-neutral-time-day-v1.png",
+      "sha256": "ee943e04da7a50748d3e331ed4339548b842388027d0a5fe360e95a4c2d270b7",
+      "role": "Only exact root-approved clean mother, precise garment/whole-book selection rebuild; no failed mask or screenshot input",
+      "personallyViewedBeforeGeneration": true
+    }
+  ],
+  "exactSubmittedPrompt": "CRITICAL EXACT SOURCE-SELECTION REBUILD FROM CLEAN MOTHER ONLY. The actual original person must keep ALL her blazer pixels. The narrow ivory slit between the viewer-left bent sleeve and torso is tiny and lower; it is NOT the large triangle from shoulder/elbow down to book. In particular the original dark blazer at x1015,y450 and x1010,y480 belongs to FOREGROUND: paint WHITE, not room. Leave only the ORIGINAL visibly ivory gap, never widen it upward/sideways. Around x1000..1035,y440..505 inspect the actual source colors/garment boundary carefully, no invented arm hole. The notebook lower cover around x885..1070,y495..540 is whole connected FOREGROUND with hands/lap: include every dark/brown cover edge WHITE, no internal curve left colored.\n\nUse case: precise-object-edit. F1-v3 markup. ONLY input is the exact root-approved Tomori TIME-DAY 1536x1024 mother. Keep full original canvas and every source coordinate; no crop/resize/zoom/recenter/pose or contour redesign. Paint solid featureless PURE WHITE directly over the COMPLETE person, full thin pencil and full open notebook: every short fine hair strand, head/face/eyes/ears/neck, ALL blazer including dark narrow panels and folds, shirt/collar/sleeves/cuffs, plaid skirt/dark lower hem, both hands/fingers/wrists, bare thighs/knees, calf socks, BOTH COMPLETE loafers down to toe/sole/heel bottom, whole pencil upper end→page tip and all notebook pages/spine/thin dark lower cover.\n\nEvery selected interior feature is SOLID WHITE: no facial mark, clothes fold/seam, book curve/page line, pencil centerline, hand outline or shoe seam. No new inner holes. True outside gaps BETWEEN source hair strands/limbs/legs stay original colored room, but never mistake a dark garment panel for a gap. Faint gray only existing external antialiasing. No erosion/dilation/expanded silhouette.\n\nAll actual room remains original COLORED RGB: naturally ivory curtain/cushion/throw, pillows, ceramic lamp/shade/flowers/cup/table/book stack, left room/plants/rug/floor and separate near-contact receiving shadows. Do not select natural whites. No receiver markup, new shadow, outline, checker, label, guide or texture. This is semantic coverage only; final RGB is the clean original mother once under MAX(F,S).",
+  "submittedPromptSha256": "8548083f15b88166b303fc08ebf2d7e86b4b2708925260bab34dfa5f04fbcc92",
+  "promptFile": "figure-step1-marked-v3.prompt.txt",
+  "promptFileSha256": "baa8ec1384bf104dd47aa82d697aff3d77f28075835b711e2440df34c42fe9f2",
+  "requestFile": "figure-step1-marked-v3.request.json",
+  "requestSha256": "19ecb6033e1880366141f8f08bcef30d525e482b4c9a33d839e23aa9e0641dc5",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-e11c661e-2638-4a67-b566-7fd7d7892071.png",
+  "toolOriginalSha256": "da963edf705edfa96808ac259643b6a2328f0723f54b1b0445263a1260e1e6a5",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/figure-step1-marked-v3.png",
+    "sha256": "da963edf705edfa96808ac259643b6a2328f0723f54b1b0445263a1260e1e6a5",
+    "bytes": 2159016,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true,
+    "resizedOrRetouched": false
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "status": "healthy_semantic_markup_for_F2",
+    "observations": "Whole F1-v3 viewed: original lower narrow arm gap instead of expanded triangle; critical dark blazer source pixels restored into selected white, complete notebook/lower-cover/lap solid-white without interior line, full pencil/hair/whole shoes retained. Candidate requires final original-RGB native review."
+  },
+  "primaryApproved": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "generationInputAllowed": true,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "original360ExactActivityCell": false,
+  "sourceCodeOrRegistryChanged": false,
+  "generationInputScope": "Immediate F2 conversion only"
+}

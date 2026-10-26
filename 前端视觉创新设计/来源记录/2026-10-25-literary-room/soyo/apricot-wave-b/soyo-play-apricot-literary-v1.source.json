@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-play-apricot-literary-v1",
+  "assetType": "complete-mother-literary-room-apricot-wave-b",
+  "createdAtUtc": "2026-10-25T11:57:38.137216+00:00",
+  "tool": {
+    "name": "image_gen.imagegen",
+    "mode": "edit-cleanplate-add-one-character-with-approved-identity-reference",
+    "originalEventId": "exec-efcf1033-dd6b-46a0-b05d-20101dde612b",
+    "outputHint": "Generated images are saved to C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270 as C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-efcf1033-dd6b-46a0-b05d-20101dde612b.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  "prompt": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-b\\soyo-play-apricot-literary-v1.prompt.json",
+    "fileSHA256": "158ab05e40ef8699a2ff9c9e545a002ec61769b38fe937b05cf5a446f70ebce1",
+    "submittedPrompt": "Use case: illustration-story. One complete literary-room companion mother artwork, exactly 1536 × 1024 pixels, horizontal canvas. There are two image inputs, with distinct authority: IMAGE 1 is the primary-approved EMPTY literary room and is the sole authority for the room, camera, furniture and clear-day atmosphere. IMAGE 2 is this same character's newly approved literary-room CHAT mother, used ONLY for her correct identity, school clothing, linework and near-camera human scale. Do not carry over its seated body, gesture, held booklet or activity. Build the entire body anew for the requested situation. No old room4 image, different character image or anatomical silhouette is supplied.\n\nKeep the exact close room camera and mild perspective of IMAGE 1. Preserve its complete large wood window, autumn lake-town and mountain view, ivory curtains, left wood writing desk and original wooden chair, shelves/books/frames/plants, round side table and its blue-white porcelain lamp/cup/books/flowers, long wood window bench with linen cushion, blue-gray plaid pillows and knit throw at right, wood floor, woven rug and softly blurred foreground plant. The view is a fictional illustrated literary room, not a claimed actual location. One person only. No new desk, extra chair, moved window, zoom, crop, room redesign, second person or extra off-camera hands. Existing lamp and cup stay on their original table.\n\nSpatial priority: keep the round table at its original x≈435–690, top near y500; keep the LEFT desk top near y380 ending around x400 and its original chair centered near x260. Do not enlarge the desktop or translate the table/chair into the walkway to make a frontal body. The chair may rotate locally for real occupancy. For desk activity use a natural three-quarter side relation, not an extreme over-shoulder twist. Honest existing foreground-plant occlusion is preferable to changing furniture. All other activity uses the real bench.\n\n文学瞬间：给漂亮借口留一处破绽。\n心理：两人随手编一个小故事，她偏偏留下一句过分周全的借口，等对方看出人物其实另有所愿。 轻轻的揶揄里有自己的偏爱，也欢迎对方把她的含蓄拆得更直白。 她很想知道对方会不会一下拆穿这个借口。\n目光：先看纸上的小设想，再看同伴是否识破。 先看纸，再抬眼找回应。\n相处：交出一小段可改的东西，快乐来自两个人轮流把它改活。 把可改的位置留得明显一点。\n表情：眼里一点狡黠，笑意从具体的误会里生出来。 浅笑带一点狡黠。\n光线：杏金光点亮眼与纸角，室内材质保持细腻。\n\nCharacter: Soyo Nagasaki / 長崎そよ, BanG Dream! It's MyGO!!!!!. Keep the youthful identifiable anime face and ordinary student proportions of her approved input: long LIGHT BROWN hair with softly curved side locks and gently curled ends, airy fine bangs, clear BLUE eyes and an observant delicate youthful face. Both eyes and bangs remain clearly drawn and visible. Faithful Tsukinomori uniform: dark NAVY sailor blouse with broad WHITE collar and fine navy trim, gray-blue bow with small GOLD school crest at throat, dark navy pleated knee-length skirt with TWO white hem lines, dark knee socks and BROWN loafers. Preserve these own colors under the light. No blonde/pink/blue borrowed hair, mature model styling or chibi proportions. Modest fully clothed school-day companionship.\n\n\nNew activity and basic real support: Sit on the real bench near the original round table. A small plain thin paper booklet rests on her lap, with one hand holding the paper corner and a plain pencil lightly in her other hand near that corner. Only a few faint abstract pencil marks, no readable story words. She has just left one deliberate little opening in a too-perfect excuse within their invented story, and looks toward the off-camera companion to see whether they notice. A subtle knowing amusement in her blue eyes, one very slight smile, warm playful teasing that belongs to this small shared idea. No stage props, magician pose or generic broad grin. Both wrists/hands coherent, booklet supported, hips and thighs on the cushion, clear separate knees/lower legs and both complete grounded brown shoes.\nPreserve the approved near-camera human scale, with the whole original-style person within the frame. Bench figures may have hair top around y110–140 and shoe depth following the real seat; a desk figure follows the actual deeper chair perspective, never a mechanically pasted bench scale. Do not enlarge the head, lean toward the lens, stretch shins or resize furniture to force coordinates. Both eyes/bangs, hands/wrists and visible limb connections remain coherent; no extra limb, fused fingers, furniture penetration or one crossed knee pretending both parallel feet are flat. Keep every actually visible shoe edge truthful; do not invent hidden anatomy behind the existing foreground plant. Gentle local contact shadows. Apricot almond-gold clear-day light on hair, hands and paper, with clear natural face shadow planes and local clothing colors. Refined 2D anime linework and soft anime shading integrated with the exact detailed literary room. Plain paper/book marks remain faint abstract texture, with no readable quotes, dates, names, schedules or completed-action claims. No UI, captions, icons, logos, watermark, collage, border, fog or gray/gold overlay.\n",
+    "submittedPromptSHA256": "e80ddac50f4d52962828b83eb878bdb3cda78b127b45924257a3f00518c64a69"
+  },
+  "inputs": [
+    {
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "primary-approved-empty-literary-room; sole authority for room/camera/furniture/light",
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\chat-pilot\\soyo-chat-apricot-literary-v1.png",
+      "sha256": "20942d064ae0af479ede2868d689e105433022e8c0448d45301bd7fc9301bfd8",
+      "role": "same-character-primary-approved-new-literary-chat mother; identity/clothing/near-camera scale only, not body/pose/activity",
+      "primaryApprovalEvidence": "Root direct message 2026-10-25: personally reviewed and approved Anon/Soyo chat-apricot mother; accepted Anon deep-seat shoe y825 and Soyo open booklet",
+      "approvedScope": "mother only, not a layer or runtime approval"
+    }
+  ],
+  "brief": {
+    "cellId": "soyo/play/apricot",
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\briefs\\mygo-b\\soyo-literary-room-briefs-v1.json",
+    "sha256": "14e055e68af80cfdb1302cd1eb3b115323c414dee43f67ab22b0df3f376b8789",
+    "releaseScope": "Root released Anon/Soyo study,listening,play,attention,resume apricot wave B, one mother each, ten calls maximum; no layers before primary review"
+  },
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\apricot-wave-b\\soyo-play-apricot-literary-v1.png",
+    "sha256": "dcfe060914aa55fe373104a0f46bab903fda44a7b1ed2120230af81d7d5d60ba",
+    "bytes": 2442361,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-efcf1033-dd6b-46a0-b05d-20101dde612b.png"
+  },
+  "review": {
+    "directInspection": "original full-resolution tool PNG personally viewed after generation; archived copy is byte-identical",
+    "approvedByPrimary": true,
+    "primaryLayerApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observations": [
+      "原尺寸工具输出已亲看；膝上薄册由一手留在纸角，另一手持铅笔，浅笑与目光有轻微揶揄，不同于Anon纸船的开朗。",
+      "原制服、双眼、腕手、两膝小腿与完整双棕鞋可辨，原圆几/桌椅/窗保持。"
+    ],
+    "concerns": [
+      "铅笔实际抬至唇边而非册角附近，手部小动作偏离brief但承托自然；留root文学审。"
+    ],
+    "producer": {
+      "inspected": true,
+      "recommendation": "mother candidate for root review",
+      "contourLimit": "full visible knees/lower legs/shoes observed, primary contour certification pending"
+    },
+    "primary": {
+      "approved": true,
+      "scope": "static mother only",
+      "record": "soyo-apricot-wave-b-primary-mother-admission-v1.json",
+      "finding": "pencil near lips, notebook supported on lap, subtle playful smile accepted"
+    },
+    "runtime": {
+      "accepted": false,
+      "registered": false
+    }
+  },
+  "boundaries": [
+    "mother only",
+    "new cleanplate plus own approved new-room chat identity reference only",
+    "no old room4 or invalid character pixels",
+    "no layer extraction, runtime registration or source-code change",
+    "stop after ten authorized wave B calls; metadata handoff after five"
+  ],
+  "status": "primary-approved-static-mother-only",
+  "sourceConsistency": {
+    "outputSHA": true,
+    "toolOriginalSHA": true,
+    "promptFileSHA": true,
+    "submittedPromptSHA": true,
+    "inputSHAs": [
+      true,
+      true
+    ]
+  },
+  "primaryAdmissionRecord": "soyo-apricot-wave-b-primary-mother-admission-v1.json",
+  "contourComplete": true,
+  "allowedAsImageInput": true,
+  "currentUseDecision": {
+    "status": "held-for-wardrobe-correction",
+    "observedAtUtc": "2026-10-25T18:34:23.991767+00:00",
+    "observedBy": "openui_creation whole-original inspection",
+    "issue": "The warm mother and its exact submitted prompt put a round gold ornament/crest at the bow or throat, while the current complete Soyo dossier places the gold school crest on her left chest and explicitly excludes a gold jewel at bow center.",
+    "historicalStaticReviewPreserved": true,
+    "allowedAsFutureImageInput": false,
+    "repairInputBoundary": "approved clean room plate plus complete corrected textual reconstruction only",
+    "rootInstruction": "Root explicitly approved clean-plate reconstruction for all 12 theme gaps and then four separate warm corrections in this healthy session.",
+    "runtimeAccepted": false,
+    "correctionCandidate": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-play-apricot-literary-v2.png",
+      "sha256": "82bca80705934963059213bfb9ab31eb9edb9765ead04194cd1125cf98191d3c",
+      "bytes": 2474782,
+      "canvas": {
+        "width": 1536,
+        "height": 1024
+      },
+      "format": "PNG"
+    },
+    "correctionScope": "new whole mother from approved clean plate and corrected complete text; old held image was not fed"
+  }
+}

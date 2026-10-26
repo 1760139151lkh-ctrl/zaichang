@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "recordType": "source-rgb-included-layer-image-stage",
+  "characterId": "tomori",
+  "neutralTime": "night",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "stage": "F2-v2",
+  "tool": "image_gen.imagegen",
+  "toolElapsedMs": 26556,
+  "recordedAt": "2026-10-26T01:44:27.622080+00:00",
+  "sourceConversationId": "01a17365-def4-7ef0-9767-09f785cec060",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/night/layers/figure-step1-marked-v2.png",
+      "sha256": "cb588ae6028b4d453159242a5c36921154ef62670af86859267d0f20964a7c31",
+      "role": "Current semantic F1-v2 markup, internal tracing to be filled; not final coverage",
+      "personallyViewedBeforeGeneration": true
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/tomori-neutral-time-night-v1.png",
+      "sha256": "36e1e2e4029d81914b4192cee8351d84b44fa0ef188c88910dd58d400a3e4300",
+      "role": "Exact clean root-approved night mother for complete shoe and true outside gap contours only",
+      "personallyViewedBeforeGeneration": true
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: background-extraction. F2-v2 final same-source luminance mask1536x1024 OPAQUE PNG. Input1 is current semantic-white NIGHT F1-v2 markup. Input2 is exact clean root-approved NIGHT mother ONLY to verify COMPLETE ORIGINAL outside contours and genuine gaps. No held F mask, no composite or screenshot is provided. Exact source canvas/positions; no crop/resize/zoom/recenter/dilation/erosion.\n\nOutput PURE BLACK room and SOLID FEATURELESS PURE WHITE COMPLETE Tomori + whole pencil + whole open notebook. ALL selected internal hand/book/sock outlines in input1 MUST BE FILLED WHITE. No face feature, clothes fold, page/cover seam, pencil line, hand outline or sock/shoe seam may remain gray/black. Entire notebook, its thin dark lower binding, hands/lap are one connected white foreground.\n\nCRITICAL full shoes: follow actual source BLACK LEATHER AND SOLE edges in clean input2, not a simplified inside silhouette. Front loafer x855..1005,y820..915 needs complete outer toe curve, sidewall/sole rim and bottommost heel; rear loafer x780..905,y795..885 likewise. Do NOT shave diagonal toe/side-sole highlights or leave source leather transparent. Every original shoe pixel up to its actual outer antialiased edge is selected. No extra floor or new shoe geometry.\n\nKeep all fine original hair tips, full head/face/ears/neck, dark blazer panels/cuffs/shirt/collar/skirt/lowest hem, both hands/wrists/fingers, exposed thighs/knees, calf socks and full pencil upper end→page tip. The true narrow lower arm/torso room slit near x1010..1020,y470..500 is black with exact original outline. Original dark blazer at x1015,y450 and x1010,y480 stays white, not an enlarged triangular hole. True hair/leg outside gaps black. No new internal gaps.\n\nEverything actual room BLACK, including bright warm lamp/flowers/cup/books and natural pale curtain/linen/throw/cushion/pillows, left furniture/plants/rug/floor and independent receiver/cast shades. This is semantic marked-selection conversion, not brightness thresholding or retaining source interior detail. Fine gray only original OUTSIDE antialiasing. No RGB, checker, gray background, outline, guide, labels, invented shadow/texture. Coverage selects only unchanged original mother RGB once through MAX(F,S), not regenerated body colors.",
+  "submittedPromptSha256": "843148ff98bd4f26b705e0ac397c762e5b931cd7d1b271ba739086f87d878f37",
+  "promptFile": "figure-mask-v2.prompt.txt",
+  "promptFileSha256": "2e496395e3b6ac0fa96fed8be585694187b668900e8d79b720becead923f1080",
+  "requestFile": "figure-mask-v2.request.json",
+  "requestSha256": "06d80c67b74f974a9f40e3c111a4767630de421cebdfc7b72842cb982b08ad0f",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-3284cdaf-168d-4b5c-9ad2-f5eeaefc7aaa.png",
+  "toolOriginalSha256": "4012993d01bb5d5a8f9e62ac869320ab3a05f4d9dda45f965634a29dde53cdbb",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/night/layers/figure-mask-v2.png",
+    "sha256": "4012993d01bb5d5a8f9e62ac869320ab3a05f4d9dda45f965634a29dde53cdbb",
+    "bytes": 439335,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true,
+    "resizedOrRetouched": false
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "status": "HOLD_shifted_scaled_silhouette",
+    "observedIssue": "F2-v2 visibly moves/scales source outline: crown rises about20px and shoes extend lower/left relative to exact same mother. Forbidden for same-coordinate sourceRGB. Never selected or fed onward."
+  },
+  "primaryApproved": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "generationInputAllowed": false,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "original360ExactActivityCell": false,
+  "sourceCodeOrRegistryChanged": false,
+  "status": "HOLD_shifted_scaled_silhouette"
+}

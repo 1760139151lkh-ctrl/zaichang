@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "foreground-luminance-mask",
+  "character": "nyamu",
+  "activity": "chat",
+  "palette": "apricot",
+  "step": "F2",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-6e607c13-681f-4243-98ff-2a9838d2f56e.png",
+  "executionId": "exec-6e607c13-681f-4243-98ff-2a9838d2f56e",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-figure-mark-v1.png",
+      "sha256": "dbc808452d2dac5b488c665924a841a1a7577585764578f1bfff897ab6077647",
+      "role": "sole immediately preceding F1 original-coordinate white foreground markup; retain full original contour"
+    }
+  ],
+  "approvedOriginalMother": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.png",
+    "sha256": "096bd7f5f0138e8b961c91d52dc8e68b29bcda1600bbb9ca444bd1c7eff75313",
+    "approvalEvidence": "root personally reviewed and approved this exact chat mother; central primary-cast-chat-mother-reviews-v1.json"
+  },
+  "intendedAssembly": {
+    "contactShadowMode": "included",
+    "formula": "U=MAX(L(F),L(S)); draw original mother RGB through U exactly once over matching empty BG",
+    "allMotionZero": true,
+    "separateCleanCasterClaim": false,
+    "pngPixelEditing": false
+  },
+  "promptFile": "nyamu-chat-figure-mask-v1.prompt.txt",
+  "promptFileSha256": "0a134a08af5eef978587928751b839a61ea96f6785e21d4dc8ce5a6fb8e03808",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; submitted text exact",
+  "submittedPromptSha256": "5d571e5ae855bb3f4d7972dfaf4a4c593c574199c478db7a7fb74aeaf940046f",
+  "output": {
+    "file": "nyamu-chat-figure-mask-v1.png",
+    "sha256": "e134398076c27e95c17d8ffdf20bdeac59a0107924bd5edc2cdde1ad885ca6ff",
+    "bytes": 473612,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "extrema": [
+      [
+        0,
+        255
+      ],
+      [
+        0,
+        255
+      ],
+      [
+        0,
+        255
+      ]
+    ]
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed full saved F2: complete original-position white Nyamu silhouette on black includes both different hands, skirt frills, complete legs and full shoes/heel blocks, with real arm/arch/leg gaps retained. No large white room block visibly remains. Final original-RGB/MAX viewer is required to judge edge loss or included fringe."
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "Raw mask component accepted only within exact root-approved MAX(F,S)/original-RGB fixed included joint assembly; no standalone caster, motion or runtime approval.",
+  "includedAssemblyPrimaryAccepted": true,
+  "includedAssemblyAdmissionRecord": "nyamu-chat-included-primary-admission-v1.json"
+}

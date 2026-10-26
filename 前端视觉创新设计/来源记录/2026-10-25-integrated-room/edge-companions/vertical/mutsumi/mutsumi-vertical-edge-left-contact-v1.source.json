@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "edge-meme-cat-v3-family",
+  "character": "mutsumi",
+  "kind": "independently-redrawn-opposite-left-contact-vertical-cat-preserving-mutsumi-clip-side",
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-7e232c50-4a83-4c3d-9d21-488bb73319cc.png",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/edge-companions/vertical/sakiko/sakiko-vertical-edge-cat-pilot-v1.png",
+      "sha256": "5bfc229f5c0506f6fcb93646d4058543d42dbba910eafb5f99a5ebdefcb55d05",
+      "role": "Approved Sakiko vertical pilot, simple family and vertical contact grammar only; never copy Sakiko head"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/edge-cats/mutsumi-meme-cat-v1.png",
+      "sha256": "d6438e8e96199328fd5302af27516881dd52f0120a40a0b22c54f05aaf2dff12",
+      "role": "This character accepted clean simple cat; their own identity, head/hair/eye/accessory and personality only"
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/mutsumi.md",
+      "sha256": "189d1a17f6e4c2656692437167c50d2a89379cf50b16bc354df3ac8406e4610c",
+      "scope": "Fully read before this character vertical cat creative call"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840",
+      "scope": "Fully read before this character vertical cat creative call"
+    }
+  ],
+  "exactSubmittedPrompt": "Create ONE separately redrawn MUTSUMI WAKABA / 若叶睦 VERTICAL CAT with the OPPOSITE CONTACT SIDE, square 1024x1024 RGBA genuinely transparent. Image 1 is the approved Sakiko vertical cat, ONLY simple 2D family and plausible vertical grip grammar; Image 2 is the approved clean Mutsumi cat, ONLY Mutsumi head/hair/eyes/twin hair clips and quiet personality. No image may simply be flipped. This must be a new complete opposite-body-direction drawing, not whole-image mirror or 90-degree rotation.\nOPPOSITE SUPPORT: Imagine a VERTICAL paper edge on HER LEFT / VIEWER LEFT of the cat's body. Her two connected front paws now clasp this INVISIBLE LEFT edge at TWO DIFFERENT HEIGHTS, one near cheek and one near upper belly. A complete vertical rounded WHITE CAT TORSO and real haunch remain to the RIGHT of this left-side paw-contact alignment. One lower bent hind paw braces the SAME LEFT alignment; the farther leg may be naturally occluded. ONE tail grows from the actual rump and curves downward to the RIGHT, complete/uncut. Face remains UPRIGHT NEAR-FRONTAL toward the person, ears point upward, both round eyes clear and near horizontal. Similar compact large-head/simple-cat-body family to inputs, whole head/paws/torso/rear legs/tail inside alpha margins. No floating hands/extra legs. Only body/support direction changes, not the anatomical side of her identity features.\nCRITICAL IDENTITY THAT MUST NOT MIRROR: Mutsumi's exactly ONE PAIR of TWO thin SILVER HAIR CLIPS stays at HER OWN LEFT TEMPLE. For this NEAR-FRONTAL FACE, the clips must visibly remain on the VIEWER'S RIGHT temple/hair side, AWAY from the new LEFT gripping paws. Never put them on viewer-left or duplicate on both sides. Pale MINT-GRAY-GREEN long straight hair in a few broad flat masses, simple fine fringe, gold-brown TWO-TONE round eye disks (muted ochre top/pale gold bottom), WHITE round little face, tiny closed cat mouth and minimal quiet interested brows. No Sakiko ribbons/blue hair, no generic head recolor, no fine human avatar features.\nMOMENT: She was following a small difference in the nearby line for herself; the familiar person calls from the other side, and her eyes notice first while the tiny mouth still holds one precise thought. She stays quietly anchored, attentive rather than sleepy/blank/obedient or broadly smiling. Both front paws keep real grip, no waving. Preserve the gentle independent thought behind the small expression.\nALL parts use ONE uniform ultra-simple 2D Doro-like meme-cartoon style: bold clean navy outlines, broad flat hair shapes, big WHITE face and WHITE complete cat body, few smooth curves, minimal or no shading. No realistic fur, plush, 3D, human skin/flesh, detailed nose/lips, makeup, mature face, human torso/limbs, school uniform, socks/shoes, props, symbols, UI/text/bubble or watermark. DO NOT DRAW the actual paper/panel, vertical line, shelf, wall, pole, rope, frame, long stripe, background, glow/halo or floor shadow. Real alpha only, no painted black/white/checkerboard backdrop. Project-original cat pose, no human-matrix credit.",
+  "submittedPromptSha256": "14ada6fcf8a0a43502daf90d1d9c001eaeb859d8a0e39a8b8b89c0dd81cc7445",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mutsumi\\mutsumi-vertical-edge-left-contact-v1.png",
+    "sha256": "98eb98555e027734224ce646bdab69428133bd60a3ac980bfcf87b1486b3d8d2",
+    "bytes": 898592,
+    "width": 1254,
+    "height": 1254,
+    "pngColorType": 6
+  },
+  "intendedSupport": {
+    "kind": "imagined-vertical-paper-edge",
+    "contactSide": "left",
+    "frontPaws": "two connected paws at distinct heights",
+    "body": "complete vertical white cat to right of left paw-contact alignment",
+    "hindPaw": "bent bracing lower",
+    "tail": "rooted at rump, curves downward-right",
+    "actualPanelPixelsDrawn": false
+  },
+  "identitySide": {
+    "hairClips": {
+      "count": 2,
+      "anatomicalSide": "left",
+      "viewerSide": "right"
+    },
+    "mechanicalMirrorAllowed": false
+  },
+  "wholeImageQuarterTurn": false,
+  "producerViewed": true,
+  "producerObservation": "Personally viewed complete separately redrawn opposite-contact Mutsumi cat: connected two front paws now clasp left at distinct heights; complete white vertical torso/haunch is to their right, left hind brace and rump-rooted tail hanging/curving down-right. Near-frontal upright white face, mint long hair and exactly two silver clips STILL at viewer-right/own-left temple, away from gripping paws. Not a whole-image mirror or 90-degree turn. Simple gold-brown eye disks/closed quiet attentive mouth, no Sakiko bows/human avatar/material/panel/stripe. Root and rig/runtime pending.",
+  "primaryApproved": false,
+  "rigApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "independentTailLayer": false,
+  "privateWechatSourceUsed": false,
+  "officialArtworkInput": false,
+  "fullHumanMatrixCredit": false,
+  "pngEdited": false,
+  "mechanicalMirror": false,
+  "contactGeometryCandidate": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mutsumi\\mutsumi-vertical-edge-left-contact-v1.geometry-candidate.json",
+  "directAlphaObservation": {
+    "mode": "RGBA",
+    "extrema": [
+      0,
+      255
+    ],
+    "canvas": [
+      1254,
+      1254
+    ],
+    "nativePixelsUnmodified": true
+  },
+  "producerSmallSizeReview": {
+    "personallyViewed": true,
+    "widthPx": 220,
+    "backgrounds": [
+      "#fff9f2",
+      "#20212c"
+    ],
+    "evidence": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\mutsumi\\mutsumi-left-contact-220px-light-dark-review.png",
+    "sha256": "48ffd4f4cd675c4a1aefb5047ec8a6158b9a40dc660ca49716edca4cf2b3e058",
+    "observation": "Left front-paw grips/body-right/tail-right complete and readable; near-frontal face keeps one twin-clip pair viewer-right/own-left. Not mechanically mirrored."
+  }
+}

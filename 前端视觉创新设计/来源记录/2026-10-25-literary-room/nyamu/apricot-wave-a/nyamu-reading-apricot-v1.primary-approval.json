@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "kind": "primary-static-mother-admission",
+  "key": "nyamu/reading/apricot",
+  "reviewer": "root",
+  "evidenceSource": "Explicit root message to cast_settings_recovered after root personally viewed all six wave-a full mothers",
+  "decision": "approved",
+  "primaryPersonallyViewed": true,
+  "mother": {
+    "file": "nyamu-reading-apricot-v1.png",
+    "sha256": "f47b5fbc4103e0b58ff155996eb944f63796e3cdbefc73ae54a78398a633b587",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "sourceRecord": "nyamu-reading-apricot-v1.source.json",
+  "observation": "Root personally viewed complete mother: one palm supports book on the lap and the other lightly touches near the lips; natural support, distinct eyes/fringe, supported seat and full shoes.",
+  "scope": "Exact-SHA complete static mother only; no layer/extraction/motion/runtime admission.",
+  "layerApproved": false,
+  "runtimeAccepted": false
+}

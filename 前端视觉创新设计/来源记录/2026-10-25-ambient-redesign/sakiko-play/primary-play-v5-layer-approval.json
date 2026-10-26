@@ -1,0 +1,22 @@
+{
+  "reviewer": "root / primary agent",
+  "recordedAtUtc": "2026-10-25T06:05:24Z",
+  "decision": "accepted-layer-bundle-at-fixed-original-position",
+  "personallyViewed": [
+    "Complete V5 mother and matching background / original RGB / luminance figure mask / dark contact recomposition",
+    "Original pixel figure on light and dark backgrounds, including hair, fingers, paper bird and complete shoes",
+    "Original mother versus recomposition at hip, supporting palm and shoe/floor contact"
+  ],
+  "files": {
+    "sakiko-play-apricot-scale-v5-mother.png": "876d39377ec165cd6fcbab19c646a7d63d97c2f85b5dc354711d0cb961a22d87",
+    "sakiko-play-apricot-scale-v5-background-v1.png": "8219bb91988495693880f7cea53ff65a6c40c36813fc68d1f138f3e5df418ed1",
+    "sakiko-play-apricot-scale-v5-figure-mask-v3.png": "4ddd7cd99109a2987b054b2e189a2d78a9a686d734917cd5fb8f9c00b7329a9a",
+    "sakiko-play-apricot-scale-v5-contact-mask-v1.png": "9aeee1e208d96f5b2e2c43162611aca8ffc73fb41f027e131554a1c18f7ceda8"
+  },
+  "canvas": [1536, 1024],
+  "figureMaskMode": "luminance",
+  "contact": { "mode": "luminance", "color": "#291c16", "opacity": 0.48 },
+  "travel": 0,
+  "runtimeAccepted": false,
+  "scope": "The corrected V5 original scale and actual supports are accepted without independently shrinking the figure. Admission permits real same-canvas Scene integration; pointer motion, activity transition, persistence and final integrated scale still require primary runtime observation. Rejected V1/V2 figure masks and oversize V4 are not admitted."
+}

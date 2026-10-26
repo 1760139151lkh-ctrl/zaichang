@@ -1,0 +1,70 @@
+{
+  "stage": "F2-v2",
+  "cell": "mutsumi/attention/violet",
+  "submittedPrompt": "Use case: background-extraction, F STEP2 pure source-position foreground LUMINANCE MASK. Image1 is the exact1536x1024 marked Mutsumi ATTENTION violet mother, already painted pure WHITE over ENTIRE girl and her HELD OPEN BOOK/marker. There is NO second image. Image1 alone is the corrected already-white complete figure/book markup; every deliberately white face/mouth/eye/hair-interior and book/clothing/hand pixel must stay SOLID WHITE. Never reconstruct old facial ink or introduce a dark mouth/eye hole. No new object, shape or correction of character is wanted.\nKeep ALL deliberately marked girl and actual held book/marker solid WHITE, every fine hair strand/silver clip/face/neck/finger/cuff/bow/crest/full navy skirt hem and pointed folds/exposed knees/socks, BOTH WHOLE LOAFERS with outsole rim/heel bottom. The entire open book is foreground: all dark covers/spine/page-block/white page tips/lower cover edge/marker and holding hands. Do not turn its pale page into a hole or omit a dark cover. No internal eye/cloth/shading holes. Real open gaps between hair, between legs or between arm/book/body are background BLACK where original room shows.\nTurn ALL other colored OR naturally bright room pure BLACK: unmarked linen/plaid/knit/curtain/lamp/flower, window/lake/town, desk/chair/table/cup, original floor/cushion contact shade and every floor/rug highlight. Natural whites are not deliberately painted selection; Only the deliberate whole person/book selection survives. Original exact canvas, scale, location and irregular thin antialias edges stay. Do not grow, shrink, erode, simplify, recenter or translate silhouette.\nOutput ONE opaque1536x1024 black PNG with only exact unchanged solid WHITE complete figure+held book/marker silhouette, without mouth/eye/cloth/opaque hair pinholes, no colored RGB/checkerboard/transparency/labels/grid/crop/zoom/resize. This mask selects original mother RGB once later; no marked RGB will be adopted.",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\mutsumi\\attention-resume-layers\\attention-violet\\figure-step1-marked-v2.png",
+      "sha256": "2d74160154eaaeb739c822aa3150ec566c89c3735acc7baafe595d8673833f22"
+    }
+  ],
+  "motherSha256": "56797968161abce8b9441ebf073cc623b8dd9aa0b999145163dfae8811bfe014",
+  "readDependencies": [
+    {
+      "path": ".agents\\skills\\zaichang-frontend-director\\references\\characters\\mutsumi.md",
+      "sha256": "189d1a17f6e4c2656692437167c50d2a89379cf50b16bc354df3ac8406e4610c",
+      "scope": "Full text personally read before source-fixed layer production."
+    },
+    {
+      "path": ".agents\\skills\\zaichang-frontend-director\\references\\character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "scope": "Full text personally read before source-fixed layer production."
+    }
+  ],
+  "rootMotherApproval": {
+    "path": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\root-human-mother-primary-review-20261025.json",
+    "sha256": "f6b3a0b7ac9974993b61553e907f0ebfa7c39763ebef7d33ca7efb215a99fbb2",
+    "record": {
+      "cell": "mutsumi/attention/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-violet-literary-extension-v1.png",
+        "sha256": "56797968161abce8b9441ebf073cc623b8dd9aa0b999145163dfae8811bfe014",
+        "bytes": 2369619,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.840Z",
+      "observation": "Mutsumi green-tinted hair/gold eyes and anatomical-left paired clips remain; quiet curiosity or recognition is distinct from a stock smiling pose. Hands physically support the book, legs/shoes and bench support are coherent. Small sock decoration in rain remains project illustration, not new official wardrobe fact. Whole violet light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    }
+  },
+  "outputStem": "figure-mask-v2",
+  "outputDirectory": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\mutsumi\\attention-resume-layers\\attention-violet",
+  "tool": "image_gen.imagegen",
+  "transparentBackground": false,
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-85551967-1bbd-42bd-b1d6-ad6906189bee.png",
+  "toolOriginalSha256": "71639316d454fd3a33aeaf4893b91b94be9353900065ce4168f839a936f574df",
+  "output": {
+    "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\mutsumi\\attention-resume-layers\\attention-violet\\figure-mask-v2.png",
+    "sha256": "71639316d454fd3a33aeaf4893b91b94be9353900065ce4168f839a936f574df",
+    "bytes": 462889,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "pngBytesUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Whole corrected source-fixed selection returned and personally viewed. Opaque facial/held-book/body interiors are solid white; true external strand/limb room gaps remain. No old defective F was input. Needs actual native original-RGB comparison."
+  },
+  "productionStatus": "producer-candidate",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false
+}

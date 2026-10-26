@@ -1,0 +1,382 @@
+{
+  "schemaVersion": 1,
+  "kind": "existing-chat-layers-admission-candidate",
+  "key": "soyo/chat/apricot",
+  "primary": false,
+  "runtime": false,
+  "sourceScene": {
+    "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/soyo-chat-apricot.scene.json",
+    "sha256": "6633f8aa6dc584955b9ad5ae1be82837585741114b6983e6849ef02412a9f5bf",
+    "id": "soyo-chat-apricot-room4",
+    "selection": "exact existing scene pointers; no largest-version guessing"
+  },
+  "assets": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/soyo-chat-apricot-mother-candidate-v1.png",
+      "bytes": 2172586,
+      "sha256": "e5860a2adf427032f84d15dcec6c59c8b6ffa7dff8ede6eadf9ec669f4e00b29",
+      "mode": "RGB",
+      "size": [
+        1536,
+        1024
+      ],
+      "rgbSha256": "a859dc970f59368cfacdd8583cb12185ccf73da89d8c1b95c70c6de64d93a7ce",
+      "alphaBounds": null
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/soyo-chat-apricot-background-calibrated-v3.png",
+      "bytes": 2084877,
+      "sha256": "15e38994f3e19f342dabe7edd60b75ed33117e46709c47bf82bddf9a61ef3023",
+      "mode": "RGB",
+      "size": [
+        1536,
+        1024
+      ],
+      "rgbSha256": "7cea3409a22f136e78312e79dd284b88759cdc2f444d4353b84a2942ff9431e5",
+      "alphaBounds": null
+    },
+    "figure": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/soyo-chat-apricot-figure-calibrated-v2.png",
+      "bytes": 2426654,
+      "sha256": "8958ec7dea3a1dec70cd61ed0739f36063dfdd55f424328a639f9b0c918b9d00",
+      "mode": "RGBA",
+      "size": [
+        1536,
+        1024
+      ],
+      "rgbSha256": "a859dc970f59368cfacdd8583cb12185ccf73da89d8c1b95c70c6de64d93a7ce",
+      "alphaBounds": [
+        1169,
+        279,
+        1395,
+        781
+      ]
+    },
+    "mask": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/soyo-chat-apricot-mask-calibrated-v2.png",
+      "bytes": 21061,
+      "sha256": "edf8f77287a4fd5e400261fa912dd9d6448d2007c72ac17f08ac621a6ef456bf",
+      "mode": "RGBA",
+      "size": [
+        1536,
+        1024
+      ],
+      "rgbSha256": "c9bd2aa628c888e2eb30ca79390f4eb910f3cf93453d20d5df2e09455575f801",
+      "alphaBounds": [
+        1169,
+        279,
+        1395,
+        781
+      ]
+    },
+    "shadow": {
+      "path": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/soyo-chat-apricot-shadow-calibrated-v3.png",
+      "bytes": 52296,
+      "sha256": "35f177d23491f6cc38d8557a469f40318baecabe1210d82362ac04b4ff1117c4",
+      "mode": "RGBA",
+      "size": [
+        1536,
+        1024
+      ],
+      "rgbSha256": "4ff40fd0f5f11eca2cc4814f04a157e533c63a738e0a90a4380238e9fd57257d",
+      "alphaBounds": [
+        1167,
+        568,
+        1388,
+        784
+      ]
+    }
+  },
+  "sourceProvenance": {
+    "record": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/soyo-chat-apricot-source.json",
+    "recordSha256": "58dbcafd1a41e15d344793e33b7a69ebac30153570a319f1333ba5581a706938",
+    "originalExecutionId": "exec-debcfed5-7780-42c7-a3d1-41c7a4eef46a",
+    "prompt": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/soyo-chat-apricot-prompt.txt",
+    "promptSha256": "22f6925f3b66fef97e821e30e799f5d2f8125741c71a1cc7a7d560497c22ae76",
+    "promptShaMatchesRecorded": true,
+    "promptRead": true,
+    "motherShaMatchesRecorded": true,
+    "layerProcessing": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/soyo-chat-apricot-layer-processing-v3.json",
+    "processingToolRecorded": "extract-scene-layers.py",
+    "existingOutputsMatchRecorded": [
+      {
+        "file": "soyo-chat-apricot-figure-calibrated-v2.png",
+        "sha256": "8958ec7dea3a1dec70cd61ed0739f36063dfdd55f424328a639f9b0c918b9d00",
+        "matchesActual": true
+      },
+      {
+        "file": "soyo-chat-apricot-mask-calibrated-v2.png",
+        "sha256": "edf8f77287a4fd5e400261fa912dd9d6448d2007c72ac17f08ac621a6ef456bf",
+        "matchesActual": true
+      },
+      {
+        "file": "soyo-chat-apricot-background-calibrated-v3.png",
+        "sha256": "15e38994f3e19f342dabe7edd60b75ed33117e46709c47bf82bddf9a61ef3023",
+        "matchesActual": true
+      },
+      {
+        "file": "soyo-chat-apricot-shadow-calibrated-v3.png",
+        "sha256": "35f177d23491f6cc38d8557a469f40318baecabe1210d82362ac04b4ff1117c4",
+        "matchesActual": true
+      }
+    ],
+    "layerProcessingSha256": "e5c649699ac5a196347006007d7bed5340fc82c04208a0696f1e296edf126337"
+  },
+  "readOnlyPixelInspection": {
+    "method": "Decoded PNG channel-byte hashes read through Pillow; no raster writes, rematting or new test files",
+    "motherRgbSha256": "a859dc970f59368cfacdd8583cb12185ccf73da89d8c1b95c70c6de64d93a7ce",
+    "figureRgbSha256": "a859dc970f59368cfacdd8583cb12185ccf73da89d8c1b95c70c6de64d93a7ce",
+    "entireFigureRgbIsOriginal": true,
+    "figureAlphaSha256": "46259391a1301041faea2721a164e68e1bb9215cf66f99692d000af1ff816a5e",
+    "maskAlphaSha256": "46259391a1301041faea2721a164e68e1bb9215cf66f99692d000af1ff816a5e",
+    "maskAlphaExactlyMatchesFigure": true,
+    "allCanvases": [
+      1536,
+      1024
+    ],
+    "maskMode": "alpha (RGB is white across the full mask; luminance would reveal the entire room)",
+    "nonzeroFigureAlphaBoundsExclusive": [
+      1169,
+      279,
+      1395,
+      781
+    ],
+    "figureReplay": "Original mother RGB through exact unchanged existing mask alpha in inline native SVG",
+    "maskRgbExtrema": [
+      [
+        255,
+        255
+      ],
+      [
+        255,
+        255
+      ],
+      [
+        255,
+        255
+      ]
+    ]
+  },
+  "sameCanvas": {
+    "width": 1536,
+    "height": 1024,
+    "transform": {
+      "x": 0,
+      "y": 0,
+      "scale": 1
+    },
+    "layerOrder": [
+      "scene-specific background",
+      "scene-specific normal source-over RGBA shadow",
+      "original mother RGB through scene-specific original alpha"
+    ],
+    "blendMode": "normal",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "geometry": {
+    "status": "candidate_source_specific_visual_calibration_for_parent_review",
+    "basis": "Each own full mother and its actual alpha bounds; support proxy anchors are visible cushion/sole contacts, not inferred hidden anatomy.",
+    "seatPixels": [
+      1317,
+      595
+    ],
+    "groundPixels": [
+      1239,
+      779
+    ],
+    "seat": [
+      0.857421875,
+      0.5810546875
+    ],
+    "ground": [
+      0.806640625,
+      0.7607421875
+    ],
+    "bodyBounds": [
+      0.7610677083333334,
+      0.2724609375,
+      0.908203125,
+      0.7626953125
+    ],
+    "safeTextBoundary": 0.64,
+    "safeTextBoundaryPixels": 983.04,
+    "safeTextBoundaryBasis": "Existing room text boundary retained; source-specific alpha bounds stay to its right. It is not a new page-layout approval.",
+    "support": "window-seat",
+    "palmContacts": [
+      {
+        "kind": "two hands loosely meeting on lap",
+        "point": [
+          1269,
+          535
+        ]
+      }
+    ],
+    "footContacts": [
+      {
+        "kind": "image-left loafer",
+        "point": [
+          1195,
+          769
+        ]
+      },
+      {
+        "kind": "image-right loafer",
+        "point": [
+          1239,
+          778
+        ]
+      }
+    ],
+    "detailRois": [
+      {
+        "name": "髋部与裙摆座面",
+        "rect": [
+          1180,
+          550,
+          238,
+          84
+        ]
+      },
+      {
+        "name": "膝上双掌",
+        "rect": [
+          1223,
+          506,
+          113,
+          68
+        ]
+      },
+      {
+        "name": "完整双鞋与地面",
+        "rect": [
+          1153,
+          710,
+          160,
+          94
+        ]
+      }
+    ],
+    "inheritedSceneHitPolygon": {
+      "value": "83% 27%, 86% 28%, 88% 34%, 90% 48%, 91% 57%, 88% 60%, 85% 67%, 83% 76%, 76% 77%, 76% 73%, 78% 63%, 78% 56%, 79% 47%, 80% 33%",
+      "status": "legacy coarse interaction geometry not independently admitted; visible alpha is the inspection authority"
+    },
+    "discardedLegacyMotion": {
+      "travel": 0.008,
+      "slope": 0.09,
+      "perspective": 0,
+      "reason": "No transport/bench tangent/perspective claim admitted by this static package"
+    },
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "sourceSupportObservation": [
+    "Long brown hair and navy uniform remain the original source; relaxed fingertips meet over the lap.",
+    "Skirt and thighs overlap the front cushion naturally; both separate brown loafers have source floor contact."
+  ],
+  "shadow": {
+    "file": "前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/soyo-taki/soyo-chat-apricot-shadow-calibrated-v3.png",
+    "methodRecorded": {
+      "mode": "normal source-over RGBA residual",
+      "polygons": [
+        [
+          [
+            1167,
+            744
+          ],
+          [
+            1291,
+            744
+          ],
+          [
+            1300,
+            791
+          ],
+          [
+            1162,
+            791
+          ]
+        ],
+        [
+          [
+            1170,
+            570
+          ],
+          [
+            1384,
+            570
+          ],
+          [
+            1384,
+            622
+          ],
+          [
+            1170,
+            622
+          ]
+        ]
+      ],
+      "featherPixels": 1.2,
+      "maximumDistanceFromFigurePixels": 3,
+      "method": "Source contact darkness/color solved against matching empty RGB inside explicit source contact ROIs only; figure pixels excluded; no multiply or floor RGB patch."
+    },
+    "actualNonzeroAlphaBoundsExclusive": [
+      1167,
+      568,
+      1388,
+      784
+    ],
+    "acceptance": "offer-for-primary-review; local seat and sole contact observed in static replay"
+  },
+  "visualInspection": {
+    "status": "current_static_browser_inspection_complete_parent_review_pending",
+    "motherViewed": true,
+    "originalPromptRead": true,
+    "observationPage": "soyo-chat-apricot-observe-v1.html",
+    "pageUrl": "http://127.0.0.1:5188/来源记录/2026-10-25-ambient-redesign/cast-chat/mygo-a/soyo-chat-apricot-observe-v1.html",
+    "rolesViewed": [
+      "complete original mother PNG",
+      "exact original prompt text and source record",
+      "full mother versus recomposition",
+      "complete empty room versus independent shadow on checker",
+      "original-source alpha on light, dark and checker surfaces at 1 source pixel per CSS pixel",
+      "source-pixel mother / background+figure / background+shadow+figure for hip/seat, palms and complete shoes"
+    ],
+    "observations": [
+      "Long hair, navy uniform, both lap hands, skirt, knees, socks and two whole brown loafers are visible on light, dark and checker surfaces.",
+      "No broad furniture rectangle or cut-off wrist/shoe was observed in the displayed alpha; a fine warm source edge remains at enlarged scale.",
+      "The empty room is clear of the observed hair/figure footprint at the displayed scale.",
+      "At the original hip and sole ROIs the independent source-specific shadow darkens the boundaries relative to the unshadowed composition, without an obvious broad floor patch edge.",
+      "The relaxed lap fingertip contact and separate side-by-side legs remain those of the original mother."
+    ],
+    "specificIssues": [],
+    "limitations": [
+      "Static candidate asset inspection only. No renderer integration, live interaction or layer admission changed.",
+      "Current figures use their original RGBA alpha; warm source edge color is preserved by immutable original RGB.",
+      "No PNG was edited; old extraction provenance is recorded, not re-executed.",
+      "Fine source-colored matte edges remain on artificial dark backgrounds; this task preserves original RGB and does not perform edge recoloring."
+    ],
+    "at": "2026-10-25 06:35:58 UTC",
+    "browser": "connected Chrome extension through cua_repl; no 9222/Electron control"
+  },
+  "displayRequirements": {
+    "showFigure": true,
+    "motherReady": true,
+    "failed": false,
+    "sameCharacter": "soyo",
+    "sameActivity": "chat",
+    "samePalette": "apricot",
+    "sameMotherSha256": "e5860a2adf427032f84d15dcec6c59c8b6ffa7dff8ede6eadf9ec669f4e00b29",
+    "sourceLayerFailure": "remove shadow and figure together",
+    "hideOrPoseOrThemeChange": "remove scene-specific shadow and figure; no reuse under a different mother"
+  },
+  "runtimeIntegration": false,
+  "review": {
+    "producerRecommendation": "offer-existing-layers-for-primary-static-review",
+    "primaryLayerApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false
+  }
+}

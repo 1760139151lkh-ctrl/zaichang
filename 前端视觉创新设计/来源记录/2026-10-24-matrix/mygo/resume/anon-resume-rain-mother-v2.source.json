@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "recordType": "complete-companion-mother-theme-relighting",
+  "dateLocal": "2026-10-24",
+  "timeZone": "America/Los_Angeles",
+  "character": "anon",
+  "activity": "resume",
+  "theme": "rain",
+  "version": 2,
+  "tool": "image_gen.imagegen (built-in)",
+  "executionId": "exec-c9cc8435-9786-4629-b350-a16f334c145f",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "originalOutput": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-c9cc8435-9786-4629-b350-a16f334c145f.png",
+  "prompt": "anon-resume-rain-mother-v2.prompt.txt",
+  "promptFileSha256": "21444f8a2438e0ae4b75b8659b878f78296f1a20d42b34075b654b628f482411",
+  "submittedPromptTransform": "UTF-8 prompt file trimEnd, exactly as submitted",
+  "submittedPromptSha256": "047863fb44f9e3633c5c0734a0b193c828bbe39e4d1a71a2b3180d43979b4f80",
+  "inputs": [
+    {
+      "file": "anon-resume-apricot-mother-v1.png",
+      "sha256": "4a5a2a9711ab78401cdc57d243b5cf4042f89eef136eb257fb2fc04ca8b84fd5",
+      "role": "sole editable target: exact primary-accepted complete warm resume mother; all geometry, identity, expression and supported activity"
+    },
+    {
+      "file": "../../../assets-design-generated/2026-10-23-companion-matrix/room-rain-candidate-v2.png",
+      "sha256": "707aa99c8a5f61362d5f1074050538001a574a081080792330e032ab2dfd458c",
+      "role": "empty whole-room theme light/sky/weather reference only; never a replacement furniture layout or source of character pixels"
+    }
+  ],
+  "identityFromApprovedMotherSource": "anon-resume-apricot-mother-v1.source.json",
+  "output": {
+    "file": "anon-resume-rain-mother-v2.png",
+    "sha256": "8124e7c90c9b896847152b8bac53b5263609a92456ee7cf32301f3066cf3a369",
+    "bytes": 2058871,
+    "width": 1536,
+    "height": 1024
+  },
+  "approvalScope": "Theme candidate only. Warm mother acceptance does not approve this output, its layers or runtime. Resume remains semantic renewed attention, not a new furniture anchor or wholly new spatial action.",
+  "review": {
+    "producerViewedFullOriginal": true,
+    "primaryViewed": false,
+    "primaryApproved": false,
+    "layersAccepted": false,
+    "runtimeAccepted": false
+  },
+  "status": "producer-inspected complete theme mother awaiting primary review",
+  "replacesRejectedAttempt": {
+    "file": "anon-resume-rain-mother-v1.source.json",
+    "reason": "Prior output shifted clocktower; it was never an image input for this correction."
+  },
+  "producerObservation": "Personally viewed complete correction: original pink-hair occlusion is retained rather than moving the clocktower into the left-side gap. Same small chest-height greeting, closed-mouth recognition, seat/palm/knee/shoe relationships remain. Night sky/glass rain, distant warm windows and local existing desk-lamp light span the whole scene; old hard daylight wall/floor leaf patterns are absent, no forced sorrow or added light fixture observed."
+}

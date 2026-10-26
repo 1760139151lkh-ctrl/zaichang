@@ -1,0 +1,81 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "bounded-same-activity-weather-light-mother",
+  "character": "umiri",
+  "activity": "planning",
+  "palette": "rain",
+  "environmentVariant": "rain-night",
+  "sceneFamily": "literary-room-v1",
+  "wave": "light-activity-wave-a",
+  "waveCallIndex": 18,
+  "waveCallLimit": 24,
+  "numberOfImageInputs": 2,
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "role": "image 1 approved empty weather/time room and illumination",
+      "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.source.json",
+      "actualSha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "approvalRecordSha256": "fae6d70ec523dfb8780207d57677bd6ae383d270255acac1856c7d0888cb92e7"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-a/umiri-planning-apricot-literary-wave-a-v1.png",
+      "sha256": "51f175f589262c767b68e08f21d18569c05910558dda13fc1fa2017bdc8497ac",
+      "role": "image 2 root-approved apricot SAME ACTIVITY pose/identity/support",
+      "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-a/root-mother-admission-v1.json",
+      "actualSha256": "51f175f589262c767b68e08f21d18569c05910558dda13fc1fa2017bdc8497ac",
+      "approvalRecordSha256": "9fb312f18597f4a1ced3ddf727878f222c36a31ad4bd2b730ee0cc0d06aa68dd"
+    }
+  ],
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-a/umiri-planning-apricot-literary-wave-a-v1.png",
+    "sha256": "51f175f589262c767b68e08f21d18569c05910558dda13fc1fa2017bdc8497ac",
+    "role": "image 2 root-approved apricot SAME ACTIVITY pose/identity/support",
+    "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/apricot-wave-a/root-mother-admission-v1.json",
+    "actualSha256": "51f175f589262c767b68e08f21d18569c05910558dda13fc1fa2017bdc8497ac",
+    "approvalRecordSha256": "9fb312f18597f4a1ced3ddf727878f222c36a31ad4bd2b730ee0cc0d06aa68dd"
+  },
+  "lightingTarget": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.png",
+    "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+    "role": "image 1 approved empty weather/time room and illumination",
+    "approvalRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-rain-night-v1.source.json",
+    "actualSha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+    "approvalRecordSha256": "fae6d70ec523dfb8780207d57677bd6ae383d270255acac1856c7d0888cb92e7"
+  },
+  "referenceBoundary": "First input exact approved matching weather/time empty plate; second exact root-approved apricot same-activity mother, not unreviewed light/chat or old held Umiri v1. Preserve source pose/identity/camera/scale/support; redraw true complete lighting.",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17127-9e3c-7f01-accf-b7d2e70d4e7a\\exec-96068800-6c8f-4cf1-9fed-a7bbe76ce055.png",
+  "output": "umiri-planning-rain-literary-light-wave-a-v1.png",
+  "outputSha256": "9ee89a4fdaf04bc9a82c68435c5feb6a7add7cac5d28ff9a90ee84028edd4506",
+  "promptFile": "umiri-planning-rain-literary-light-wave-a-v1.prompt.txt",
+  "prompt": "Use case: lighting-weather. Return ONE complete 1536x1024 literary-room activity mother.\nINPUT ROLES: IMAGE 1 is the root-approved EMPTY matching weather/time room, authoritative for full room geometry, camera and LIGHT. IMAGE 2 is the root-approved APRICOT SAME-ACTIVITY mother, authoritative for this character's identity, exact pose, body proportions, image location, support, hands and small objects. Use ONLY these two approved inputs. This is a light/weather change preserving a correct pose, NOT a new activity or free pose redraw.\nLOCK the source camera/perspective/window divisions and all major furniture to image 1: desk/chair, shelves/plants/books/pictures, original ceramic lamp/round table/cup/flowers, right bench/pillows/knitted throw, foreground depth/rug/floor. Preserve image 2's complete source figure: head angle/gaze, hair silhouette, torso/back/pelvis, elbows/wrists/palms/fingers, skirt/legs and complete shoes. Same youthful body size and source positions; no zoom, head enlargement, leaning toward lens, body translation, crop or moved furniture. True hip/cushion, back/pillow, hand/object and shoe/floor contacts remain. Complete head/hair, hands, hem and both shoes in frame. Never replace with chat/listening pose.\nREPAINT physically coherent illumination across the ENTIRE person, hair/skin/clothes, paper/books/pencil where present, cushion/contact receiver, wood and floor to image 1. The old hard sunny window bars, hot skin patches and gold noon rim are NOT identity: remove/repaint them under new weather. Match material reflections, contact softness, exposure and lamp falloff. Not a CSS/global color wash, pasted sunny figure or half-day/half-night split. No added lamp or prop; keep interior dry.\nClear fine original youthful anime linework in rich painted room. Hair groups/cheek strands, eyelids/lashes, iris and pupil readable and separate even in downcast/profile eyes. No dark fringe/eye fusion, mature glamour or chibi. No UI, readable text, labels, card, badge, bubble, trail, arrow, halo, signature, watermark or split view.\n\nUmiri/八幡海铃: exact charcoal layered shoulder-length hair, gray-teal irises, small earrings/choker, black leather jacket, burgundy top, gray belted skirt and full black lace-up platform boots from image 2. Hair/leather/cloth remain different materials. Preserve source separate side-by-side knees, two continuous naturally parallel calves and two complete boots each bearing weight on original floor. Never held old crossed-knee v1, no detached calf/boot or new leg crossing.\nPLANNING — preserve source thoughtful gray-teal look, pencil held by DISTINCT fingers near lips/chin and open spiral notebook supported on thighs in the OTHER hand. Root approved this exact hand/pencil/face relation: no merged finger, new writing pose or extra pencil. Preserve real notebook support. She is checking what must come first while leaving the choice open, not commanding a plan.\nRAIN / RAIN NIGHT: exact image 1 dark cloudy rainy sky, drops/trails on glass and rain-broken town/lake reflections. Original ceramic lamp provides local warm interior glow with natural falloff; faint cool window fill separates far contours without neon. Person, hair/skin/clothes/WHITE PAPER/boots, cushion and floor all share night exposure; NO old daytime bars, solar skin patches or pasted bright noon head. Indoor fabric/floor/books stay DRY, rain only outside/on glass. No moon/stars/new fixture. Preserve activity emotion: rain does NOT automatically mean sadness.",
+  "submittedPromptSha256NoTrailingNewline": "c1834c6e14613e33549a36940d382ca991c0dc11f26de73dfd3a51c54b5aaa28",
+  "promptFileSha256": "c1834c6e14613e33549a36940d382ca991c0dc11f26de73dfd3a51c54b5aaa28",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "actualMode": "RGB",
+  "pngEdited": false,
+  "cssFilter": false,
+  "largeImageResultStored": false,
+  "producerViewed": true,
+  "primaryMotherApproved": false,
+  "primaryApproved": false,
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "reviewBoundary": "This new light mother only. Approved input mother and plate do not approve this output or layers/runtime.",
+  "remaining": [
+    "Root personally inspect this exact light mother",
+    "No layers, registration or runtime acceptance"
+  ],
+  "producerObservations": [
+    "Personally viewed full planning rain: original pencil near face with distinct grip and supported spiral notebook, thoughtful gaze, parallel legs and complete two boots retained.",
+    "Night exposure reaches paper/skin/leather and room floor with rainy dark glass and local lamp; dry indoors, no old floor sun lattice; source camera/major furniture stable."
+  ],
+  "producerConcerns": [
+    "Warm knee-top and hair/skin highlights remain visible, though dimmer; root should judge their practical-light credibility. Fine pencil/face/finger contours not pixel-exact."
+  ]
+}

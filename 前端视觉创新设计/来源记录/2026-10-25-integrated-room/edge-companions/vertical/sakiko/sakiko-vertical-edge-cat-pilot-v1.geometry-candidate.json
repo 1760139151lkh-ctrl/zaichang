@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "character": "sakiko",
+  "source": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\sakiko\\sakiko-vertical-edge-cat-pilot-v1.png",
+    "sha256": "5bfc229f5c0506f6fcb93646d4058543d42dbba910eafb5f99a5ebdefcb55d05",
+    "canvas": [
+      1254,
+      1254
+    ]
+  },
+  "coordinateSpace": "native source PNG pixels, origin upper-left",
+  "inspection": {
+    "personallyViewed": true,
+    "method": "Human source-image inspection with 100px grid and explicit candidate line/ROI overlay; not derived from prompt",
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\vertical\\sakiko\\sakiko-contact-grid-candidate-v1.png",
+    "sha256": "75f6186803e1798102f13b766137099019ac7cc161495e89b5d49b8ea2167ef7"
+  },
+  "contactAxis": {
+    "side": "right",
+    "x": 915,
+    "xNormalized": 0.7296650717703349
+  },
+  "pawRanges": [
+    {
+      "part": "upper-front",
+      "bounds": [
+        853,
+        462,
+        972,
+        581
+      ],
+      "lineContactY": [
+        495,
+        552
+      ]
+    },
+    {
+      "part": "lower-front",
+      "bounds": [
+        786,
+        634,
+        958,
+        768
+      ],
+      "lineContactY": [
+        661,
+        733
+      ]
+    },
+    {
+      "part": "bracing-hind",
+      "bounds": [
+        772,
+        944,
+        944,
+        1117
+      ],
+      "lineContactY": [
+        984,
+        1061
+      ]
+    }
+  ],
+  "candidateOnly": true,
+  "geometryApproved": false,
+  "runtimeAccepted": false,
+  "boundary": "Candidate visible grip alignment for real-edge integration; no claim of completed rigid-body motion, independent tail or tested surface attachment. Overlay is never a generation input."
+}

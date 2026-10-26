@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-9725-7bd3-aa74-f7fa6487bfed/exec-8a273797-9cc8-4287-868e-cc58071c69ac.png",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计\\运行素材\\companion\\edge\\sakiko-meme-cat-v3.png",
+      "sha256": "15b21bfb6c94aef1dfd8ae7b168f970fbe9998cddb705b64ac7dabdceab0c161",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGBA",
+      "userAcceptedForm": true,
+      "originalPreserved": true
+    },
+    {
+      "file": "tail-mask-v1.png",
+      "sha256": "d0d2e4a87a0570621adc7bec7acd8b017f78fdacf961688603b846ef4b39d407",
+      "bytes": 303754,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB",
+      "alphaBounds": null
+    }
+  ],
+  "promptFile": "tail-mask-v2.prompt.txt",
+  "submittedPromptSha256": "59c3aabe3c1dd47ef4fb2574e2f958c791b16574918a9fd1798d76ea0c902699",
+  "output": {
+    "file": "tail-mask-v2.png",
+    "sha256": "5691c729f50ec4eeb4e71b35361e61dce88ae8c8419862f14dd349289ec279e2",
+    "bytes": 365410,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "alphaBounds": null
+  },
+  "producerReview": "semantic tail ownership candidate; navy contour still underselected by several pixels and calibrated against original alpha/ink",
+  "primaryApproved": false,
+  "runtimeAccepted": false
+}

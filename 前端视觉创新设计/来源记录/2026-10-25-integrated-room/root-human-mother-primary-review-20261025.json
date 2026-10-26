@@ -1,0 +1,1015 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "root",
+  "scope": "Actual complete mother images personally viewed; static approval only, independent from layers and runtime.",
+  "records": [
+    {
+      "cell": "soyo/listening/apricot",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-listening-apricot-literary-v2.png",
+        "sha256": "f242a5b6865d6ac27688ba75bdb8b0e733e6cbb8ea9724b4ea338973288c3862",
+        "bytes": 2445061,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:15:18.871Z",
+      "observation": "Soyo leans into attentive listening, unforced open or closed lips, hands grounded at knees; no generic comfort performance. Brown hair/blue eyes and original youthful character remain. Gray-blue cloth bow and single left-chest school crest replace old throat ornament. Hip/bench, knees/ankles and complete shoes have coherent support. Whole apricot environment and figure share the same rendered light; this is still artwork, not independent motion.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "soyo/listening/mist",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-mist-literary-v1.png",
+        "sha256": "5fbcbd2acb5bfdf36ab1ac5273dee2ec7567a03bc3a12869751b90a43adea154",
+        "bytes": 2456604,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:15:18.873Z",
+      "observation": "Soyo leans into attentive listening, unforced open or closed lips, hands grounded at knees; no generic comfort performance. Brown hair/blue eyes and original youthful character remain. Gray-blue cloth bow and single left-chest school crest replace old throat ornament. Hip/bench, knees/ankles and complete shoes have coherent support. Whole mist environment and figure share the same rendered light; this is still artwork, not independent motion.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "soyo/listening/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-violet-literary-v1.png",
+        "sha256": "99ebaaa7158f9cf12c3308fa4fa0231e136b51ad6a81add4693159fb2a103ccb",
+        "bytes": 2335853,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:15:18.874Z",
+      "observation": "Soyo leans into attentive listening, unforced open or closed lips, hands grounded at knees; no generic comfort performance. Brown hair/blue eyes and original youthful character remain. Gray-blue cloth bow and single left-chest school crest replace old throat ornament. Hip/bench, knees/ankles and complete shoes have coherent support. Whole violet environment and figure share the same rendered light; this is still artwork, not independent motion.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "soyo/listening/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-rain-literary-v1.png",
+        "sha256": "dca2dd09063832af700bcb833ddaae40cde16b01aed2d27429204762cd3c7210",
+        "bytes": 2297476,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:15:18.876Z",
+      "observation": "Soyo leans into attentive listening, unforced open or closed lips, hands grounded at knees; no generic comfort performance. Brown hair/blue eyes and original youthful character remain. Gray-blue cloth bow and single left-chest school crest replace old throat ornament. Hip/bench, knees/ankles and complete shoes have coherent support. Rain-night has localized warm lamp light and shaded room surfaces without the discarded daylight window-grid streaks.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "soyo/play/apricot",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-play-apricot-literary-v2.png",
+        "sha256": "82bca80705934963059213bfb9ab31eb9edb9765ead04194cd1125cf98191d3c",
+        "bytes": 2474782,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:15:18.877Z",
+      "observation": "A single actual pencil touches the lap-supported drawing book; small knowing/playful smile and shared-making attention, no duplicated pencil or empty pointing. Brown hair/blue eyes and original youthful character remain. Gray-blue cloth bow and single left-chest school crest replace old throat ornament. Hip/bench, knees/ankles and complete shoes have coherent support. Whole apricot environment and figure share the same rendered light; this is still artwork, not independent motion.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "soyo/play/mist",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-play-mist-literary-v2.png",
+        "sha256": "0d6df59d4ade1ff32688d2f9618ca7a42ef7ff4d1ec8fb6c45cebfe80ac7d106",
+        "bytes": 2474859,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:15:18.879Z",
+      "observation": "A single actual pencil touches the lap-supported drawing book; small knowing/playful smile and shared-making attention, no duplicated pencil or empty pointing. Brown hair/blue eyes and original youthful character remain. Gray-blue cloth bow and single left-chest school crest replace old throat ornament. Hip/bench, knees/ankles and complete shoes have coherent support. Whole mist environment and figure share the same rendered light; this is still artwork, not independent motion.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "soyo/play/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-play-violet-literary-v1.png",
+        "sha256": "9736097a25ed857e8dbc998b194963913773d8ea5223f38cd97b3777aff3cb34",
+        "bytes": 2405500,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:15:18.881Z",
+      "observation": "A single actual pencil touches the lap-supported drawing book; small knowing/playful smile and shared-making attention, no duplicated pencil or empty pointing. Brown hair/blue eyes and original youthful character remain. Gray-blue cloth bow and single left-chest school crest replace old throat ornament. Hip/bench, knees/ankles and complete shoes have coherent support. Whole violet environment and figure share the same rendered light; this is still artwork, not independent motion.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "soyo/play/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-play-rain-literary-v1.png",
+        "sha256": "af55c0e673c5034caa12918f86fcbd572eb54c5d19c58f07a7abd202025329d9",
+        "bytes": 2280481,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:15:18.882Z",
+      "observation": "A single actual pencil touches the lap-supported drawing book; small knowing/playful smile and shared-making attention, no duplicated pencil or empty pointing. Brown hair/blue eyes and original youthful character remain. Gray-blue cloth bow and single left-chest school crest replace old throat ornament. Hip/bench, knees/ankles and complete shoes have coherent support. Rain-night has localized warm lamp light and shaded room surfaces without the discarded daylight window-grid streaks.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "soyo/attention/apricot",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-attention-apricot-literary-v2.png",
+        "sha256": "31a7653701242d58e9cc464a18b0131f0e50a8fcdd7e4f078695e4a379e02f1e",
+        "bytes": 2445247,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:15:18.883Z",
+      "observation": "Finger/page contact and other supporting hand make the shared object visible; slight inquisitive look back to the person, no hand pointing into empty room. Brown hair/blue eyes and original youthful character remain. Gray-blue cloth bow and single left-chest school crest replace old throat ornament. Hip/bench, knees/ankles and complete shoes have coherent support. Whole apricot environment and figure share the same rendered light; this is still artwork, not independent motion.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "soyo/attention/mist",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-attention-mist-literary-v1.png",
+        "sha256": "34f51931954d0d3db7c9a89a1195113f794768bfed32b7a21855a50c98773b48",
+        "bytes": 2481568,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:15:18.885Z",
+      "observation": "Finger/page contact and other supporting hand make the shared object visible; slight inquisitive look back to the person, no hand pointing into empty room. Brown hair/blue eyes and original youthful character remain. Gray-blue cloth bow and single left-chest school crest replace old throat ornament. Hip/bench, knees/ankles and complete shoes have coherent support. Whole mist environment and figure share the same rendered light; this is still artwork, not independent motion.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "soyo/attention/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-attention-violet-literary-v1.png",
+        "sha256": "deee535f86c75f30fbcf67ec786fa060400787af8384f893efa113caa99c01cb",
+        "bytes": 2365264,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:15:18.887Z",
+      "observation": "Finger/page contact and other supporting hand make the shared object visible; slight inquisitive look back to the person, no hand pointing into empty room. Brown hair/blue eyes and original youthful character remain. Gray-blue cloth bow and single left-chest school crest replace old throat ornament. Hip/bench, knees/ankles and complete shoes have coherent support. Whole violet environment and figure share the same rendered light; this is still artwork, not independent motion.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "soyo/attention/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-attention-rain-literary-v1.png",
+        "sha256": "5ce538bd49912e4e5dfcd3c28865ff57917e49cbe1ea801457a4b248c8cc3536",
+        "bytes": 2321520,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:15:18.889Z",
+      "observation": "Finger/page contact and other supporting hand make the shared object visible; slight inquisitive look back to the person, no hand pointing into empty room. Brown hair/blue eyes and original youthful character remain. Gray-blue cloth bow and single left-chest school crest replace old throat ornament. Hip/bench, knees/ankles and complete shoes have coherent support. Rain-night has localized warm lamp light and shaded room surfaces without the discarded daylight window-grid streaks.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "soyo/resume/apricot",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-resume-apricot-literary-v2.png",
+        "sha256": "4381d5f5faeeeedf1b84bf9e69bad71fe4a6dc06a7d8653c8b1f88b48c559cbe",
+        "bytes": 2473344,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:15:18.891Z",
+      "observation": "Page retained by real fingers while she recognizes the returning person with a small youthful smile; book remains physically supported, no claim to have read any real user material. Brown hair/blue eyes and original youthful character remain. Gray-blue cloth bow and single left-chest school crest replace old throat ornament. Hip/bench, knees/ankles and complete shoes have coherent support. Whole apricot environment and figure share the same rendered light; this is still artwork, not independent motion.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "soyo/resume/mist",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-resume-mist-literary-v1.png",
+        "sha256": "a7fc19f9af9788ce88964d4b532dd770407700500bb96ecf87a26a6e99b9dc55",
+        "bytes": 2503359,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:15:18.895Z",
+      "observation": "Page retained by real fingers while she recognizes the returning person with a small youthful smile; book remains physically supported, no claim to have read any real user material. Brown hair/blue eyes and original youthful character remain. Gray-blue cloth bow and single left-chest school crest replace old throat ornament. Hip/bench, knees/ankles and complete shoes have coherent support. Whole mist environment and figure share the same rendered light; this is still artwork, not independent motion.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "soyo/resume/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-resume-violet-literary-v1.png",
+        "sha256": "205ea0cd58831c7c830c72f17f7912ae575e35a7fea0b451fa53f542c0f5861f",
+        "bytes": 2315480,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:15:18.897Z",
+      "observation": "Page retained by real fingers while she recognizes the returning person with a small youthful smile; book remains physically supported, no claim to have read any real user material. Brown hair/blue eyes and original youthful character remain. Gray-blue cloth bow and single left-chest school crest replace old throat ornament. Hip/bench, knees/ankles and complete shoes have coherent support. Whole violet environment and figure share the same rendered light; this is still artwork, not independent motion.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "soyo/resume/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-resume-rain-literary-v1.png",
+        "sha256": "e9626878846a6566239bf002c24aeaf964ee0c4ba302eb8f9871db0304c0eef0",
+        "bytes": 2310721,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:15:18.899Z",
+      "observation": "Page retained by real fingers while she recognizes the returning person with a small youthful smile; book remains physically supported, no claim to have read any real user material. Brown hair/blue eyes and original youthful character remain. Gray-blue cloth bow and single left-chest school crest replace old throat ornament. Hip/bench, knees/ankles and complete shoes have coherent support. Rain-night has localized warm lamp light and shaded room surfaces without the discarded daylight window-grid streaks.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "sakiko/resume/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-violet-literary-extension-v1.png",
+        "sha256": "f336dd4689043b487411daa49d93ee83ce67fc670d01c971d42938ba84222973",
+        "bytes": 2367723,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.834Z",
+      "observation": "Youthful blue-purple hair/gold eyes, recognition looking toward a returning familiar person; actual hands support the book, two exposed knees/dark calf socks/complete shoes. Whole violet light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "sakiko/resume/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/missing-theme-extension-v1/sakiko-resume-rain-literary-extension-v2.png",
+        "sha256": "e1161313017fa5038b241a7f8ee8e846fd7675e8b9b7e63ee5c2458487b7b7f9",
+        "bytes": 2242270,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.836Z",
+      "observation": "Youthful blue-purple hair/gold eyes, recognition looking toward a returning familiar person; actual hands support the book, two exposed knees/dark calf socks/complete shoes. Whole rain light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "mutsumi/attention/mist",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-mist-literary-extension-v1.png",
+        "sha256": "d568e4d718b78938e4167d8dbaa43340ed82f19d71f2e49d072b9e3283c7f088",
+        "bytes": 2466302,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.838Z",
+      "observation": "Mutsumi green-tinted hair/gold eyes and anatomical-left paired clips remain; quiet curiosity or recognition is distinct from a stock smiling pose. Hands physically support the book, legs/shoes and bench support are coherent. Small sock decoration in rain remains project illustration, not new official wardrobe fact. Whole mist light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "mutsumi/attention/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-violet-literary-extension-v1.png",
+        "sha256": "56797968161abce8b9441ebf073cc623b8dd9aa0b999145163dfae8811bfe014",
+        "bytes": 2369619,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.840Z",
+      "observation": "Mutsumi green-tinted hair/gold eyes and anatomical-left paired clips remain; quiet curiosity or recognition is distinct from a stock smiling pose. Hands physically support the book, legs/shoes and bench support are coherent. Small sock decoration in rain remains project illustration, not new official wardrobe fact. Whole violet light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "mutsumi/attention/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-attention-rain-literary-extension-v2.png",
+        "sha256": "4f3f18da25893fe28573384e2c7c4b60c4a025d56beabf160389a5ade6caea00",
+        "bytes": 2248892,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.841Z",
+      "observation": "Mutsumi green-tinted hair/gold eyes and anatomical-left paired clips remain; quiet curiosity or recognition is distinct from a stock smiling pose. Hands physically support the book, legs/shoes and bench support are coherent. Small sock decoration in rain remains project illustration, not new official wardrobe fact. Whole rain light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "mutsumi/resume/mist",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-mist-literary-extension-v1.png",
+        "sha256": "dbd6bab85718cb6bf4fe53c3502bf7fbc0a3d78b69c8f1e29cba04ceaefea8ef",
+        "bytes": 2434826,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.843Z",
+      "observation": "Mutsumi green-tinted hair/gold eyes and anatomical-left paired clips remain; quiet curiosity or recognition is distinct from a stock smiling pose. Hands physically support the book, legs/shoes and bench support are coherent. Small sock decoration in rain remains project illustration, not new official wardrobe fact. Whole mist light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "mutsumi/resume/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-violet-literary-extension-v1.png",
+        "sha256": "ba9249784ddce618ac8b670163dd4de9d6f794d5a18549f19f489c58a6c6be43",
+        "bytes": 2356570,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.844Z",
+      "observation": "Mutsumi green-tinted hair/gold eyes and anatomical-left paired clips remain; quiet curiosity or recognition is distinct from a stock smiling pose. Hands physically support the book, legs/shoes and bench support are coherent. Small sock decoration in rain remains project illustration, not new official wardrobe fact. Whole violet light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "mutsumi/resume/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/missing-theme-extension-v1/mutsumi-resume-rain-literary-extension-v2.png",
+        "sha256": "948402e09dedcb2a0f8b1777b29d2bc543485419984d4e057a925b1499c62df9",
+        "bytes": 2320363,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.846Z",
+      "observation": "Mutsumi green-tinted hair/gold eyes and anatomical-left paired clips remain; quiet curiosity or recognition is distinct from a stock smiling pose. Hands physically support the book, legs/shoes and bench support are coherent. Small sock decoration in rain remains project illustration, not new official wardrobe fact. Whole rain light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "taki/attention/mist",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-mist-literary-extension-v1.png",
+        "sha256": "e7eef81215132f5963188f53280341c03bc5374fae84aa9040828a2709f2aa77",
+        "bytes": 2448185,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.848Z",
+      "observation": "Taki dark hair/purple eyes and brown-red school wardrobe remain. Pencil tip lands on the real lap page; eyes are directed down toward the task. Whole mist light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "taki/attention/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-violet-literary-extension-v1.png",
+        "sha256": "322e2e43b3a93587098bf35f0a36d314d0cd4f23a541782353c2e9bc20cb2a26",
+        "bytes": 2330841,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.850Z",
+      "observation": "Taki dark hair/purple eyes and brown-red school wardrobe remain. Pencil tip lands on the real lap page; eyes are directed down toward the task. Whole violet light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "taki/attention/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-rain-literary-extension-v2.png",
+        "sha256": "90a756337fbfb434a9de07ee77f0148b8e5619b58b88c8772ee2ed4f5355f912",
+        "bytes": 2237125,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.851Z",
+      "observation": "Taki dark hair/purple eyes and brown-red school wardrobe remain. Pencil tip lands on the real lap page; eyes are directed down toward the task. Whole rain light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "taki/resume/mist",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-resume-mist-literary-extension-v1.png",
+        "sha256": "0f50c0b0a2d27e5765347e92cdda98da320d5b04b8a70b5ce7f66654be64b243",
+        "bytes": 2391079,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.853Z",
+      "observation": "Taki dark hair/purple eyes and brown-red school wardrobe remain. Book lies supported at lap with small welcoming recognition, not empty pointing. Whole mist light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "taki/resume/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-resume-violet-literary-extension-v1.png",
+        "sha256": "ba92ed144d2c30d09c04a65ff6e2cccca13773505cb90e3c786d912a6e77ec39",
+        "bytes": 2307342,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.854Z",
+      "observation": "Taki dark hair/purple eyes and brown-red school wardrobe remain. Book lies supported at lap with small welcoming recognition, not empty pointing. Whole violet light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "taki/resume/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-resume-rain-literary-extension-v2.png",
+        "sha256": "f5fc5fe22fda83ba69d3b31c8defbcdf50ba1508d0ab65d8a05d79f166cc8eb2",
+        "bytes": 2245596,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.856Z",
+      "observation": "Taki dark hair/purple eyes and brown-red school wardrobe remain. Book lies supported at lap with small welcoming recognition, not empty pointing. Whole rain light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "nyamu/listening/mist",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/missing-theme-extension-v1/nyamu-listening-mist-literary-extension-v1.png",
+        "sha256": "a282e24177dc30c3e80b9a661b0d1d22470efa0e4979d72add0592557572fc71",
+        "bytes": 2386435,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T20:05:08.250Z",
+      "observation": "Nyamu purple bob/rose eyes, characteristic ruffled top/black skirt/choker. Cheek held by real hand with elbow supported at crossed arm/knee; attentive, slightly thoughtful, not generic comfort smiling. Whole mother personally viewed: coherent hip/cushion support, knees/ankles and complete shoes. mist light shared by character and room; current rain has lamp pools and dark outside, no old window-grid stripes. Minor highlights/scale/pose variation kept under user explicit no-reconstruction steering; future consistency rule remains. Static direction only.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "nyamu/listening/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/missing-theme-extension-v1/nyamu-listening-violet-literary-extension-v1.png",
+        "sha256": "395c621f82623f42c9de5a02fa52f7f78a075c667034830739e2739234c43e92",
+        "bytes": 2256700,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T20:05:08.251Z",
+      "observation": "Nyamu purple bob/rose eyes, characteristic ruffled top/black skirt/choker. Cheek held by real hand with elbow supported at crossed arm/knee; attentive, slightly thoughtful, not generic comfort smiling. Whole mother personally viewed: coherent hip/cushion support, knees/ankles and complete shoes. violet light shared by character and room; current rain has lamp pools and dark outside, no old window-grid stripes. Minor highlights/scale/pose variation kept under user explicit no-reconstruction steering; future consistency rule remains. Static direction only.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "nyamu/listening/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/missing-theme-extension-v1/nyamu-listening-rain-literary-extension-v1.png",
+        "sha256": "6859ba9316630b585ec06eae6d1cf2ffc6a82b83374e4cfc2d7f4e67baa2b4e1",
+        "bytes": 2202660,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T20:05:08.253Z",
+      "observation": "Nyamu purple bob/rose eyes, characteristic ruffled top/black skirt/choker. Cheek held by real hand with elbow supported at crossed arm/knee; attentive, slightly thoughtful, not generic comfort smiling. Whole mother personally viewed: coherent hip/cushion support, knees/ankles and complete shoes. rain light shared by character and room; current rain has lamp pools and dark outside, no old window-grid stripes. Minor highlights/scale/pose variation kept under user explicit no-reconstruction steering; future consistency rule remains. Static direction only.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "nyamu/play/mist",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/missing-theme-extension-v1/nyamu-play-mist-literary-extension-v1.png",
+        "sha256": "b4c9ccf74eb02cd9a21eb8d76dab4a2ccd9e7a27e4ede3e9f8bcf8705f74380e",
+        "bytes": 2404361,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T20:05:08.255Z",
+      "observation": "Nyamu holds a real small paper fold while the other finger points to that visible object; asymmetrical playful smile, no floating gesture into empty room. Whole mother personally viewed: coherent hip/cushion support, knees/ankles and complete shoes. mist light shared by character and room; current rain has lamp pools and dark outside, no old window-grid stripes. Minor highlights/scale/pose variation kept under user explicit no-reconstruction steering; future consistency rule remains. Static direction only.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "nyamu/play/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/missing-theme-extension-v1/nyamu-play-violet-literary-extension-v1.png",
+        "sha256": "868444bd95f106915ce3e670bbc3e21437f3d9e0b74def7ed143f1c528ed5147",
+        "bytes": 2273576,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T20:05:08.257Z",
+      "observation": "Nyamu holds a real small paper fold while the other finger points to that visible object; asymmetrical playful smile, no floating gesture into empty room. Whole mother personally viewed: coherent hip/cushion support, knees/ankles and complete shoes. violet light shared by character and room; current rain has lamp pools and dark outside, no old window-grid stripes. Minor highlights/scale/pose variation kept under user explicit no-reconstruction steering; future consistency rule remains. Static direction only.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "nyamu/play/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/missing-theme-extension-v1/nyamu-play-rain-literary-extension-v1.png",
+        "sha256": "e133e04226d2855720aa5ff3c14725f57a37f18668797968c90c6cdfd2de1793",
+        "bytes": 2213568,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T20:05:08.258Z",
+      "observation": "Nyamu holds a real small paper fold while the other finger points to that visible object; asymmetrical playful smile, no floating gesture into empty room. Whole mother personally viewed: coherent hip/cushion support, knees/ankles and complete shoes. rain light shared by character and room; current rain has lamp pools and dark outside, no old window-grid stripes. Minor highlights/scale/pose variation kept under user explicit no-reconstruction steering; future consistency rule remains. Static direction only.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "nyamu/attention/mist",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/missing-theme-extension-v1/nyamu-attention-mist-literary-extension-v1.png",
+        "sha256": "bd374f9e219516069b087ea77875f5db2425931d721e6b4f4c1e87d2fd15b59a",
+        "bytes": 2399646,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T20:05:08.260Z",
+      "observation": "Nyamu leans toward the shared little paper object on her knees, other hand at cheek; gaze/hand relation has a visible object instead of an arbitrary off-screen point. Whole mother personally viewed: coherent hip/cushion support, knees/ankles and complete shoes. mist light shared by character and room; current rain has lamp pools and dark outside, no old window-grid stripes. Minor highlights/scale/pose variation kept under user explicit no-reconstruction steering; future consistency rule remains. Static direction only.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "nyamu/attention/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/missing-theme-extension-v1/nyamu-attention-violet-literary-extension-v1.png",
+        "sha256": "bd23b1c4d18d2e680accc90db58a470e8cb66ff76d3b0a9af206939d3eedb9d8",
+        "bytes": 2281594,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T20:05:08.262Z",
+      "observation": "Nyamu leans toward the shared little paper object on her knees, other hand at cheek; gaze/hand relation has a visible object instead of an arbitrary off-screen point. Whole mother personally viewed: coherent hip/cushion support, knees/ankles and complete shoes. violet light shared by character and room; current rain has lamp pools and dark outside, no old window-grid stripes. Minor highlights/scale/pose variation kept under user explicit no-reconstruction steering; future consistency rule remains. Static direction only.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "nyamu/attention/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/missing-theme-extension-v1/nyamu-attention-rain-literary-extension-v1.png",
+        "sha256": "a7bd2c22966f0669b8fa840c5cb2091923d97424d5de9477a388d5e0f53b9279",
+        "bytes": 2261028,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T20:05:08.264Z",
+      "observation": "Nyamu leans toward the shared little paper object on her knees, other hand at cheek; gaze/hand relation has a visible object instead of an arbitrary off-screen point. Whole mother personally viewed: coherent hip/cushion support, knees/ankles and complete shoes. rain light shared by character and room; current rain has lamp pools and dark outside, no old window-grid stripes. Minor highlights/scale/pose variation kept under user explicit no-reconstruction steering; future consistency rule remains. Static direction only.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "nyamu/resume/mist",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/missing-theme-extension-v1/nyamu-resume-mist-literary-extension-v1.png",
+        "sha256": "1e9203f55610d6ab8c204b15e01c263cfb66c122508f9ec72c92be13d4db74c2",
+        "bytes": 2413313,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T20:05:08.266Z",
+      "observation": "Nyamu still holds her own small paper work and looks toward a familiar returning person with a bright recognizable smile; scattered paper objects are physically supported by cushion. Whole mother personally viewed: coherent hip/cushion support, knees/ankles and complete shoes. mist light shared by character and room; current rain has lamp pools and dark outside, no old window-grid stripes. Minor highlights/scale/pose variation kept under user explicit no-reconstruction steering; future consistency rule remains. Static direction only.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "nyamu/resume/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/missing-theme-extension-v1/nyamu-resume-violet-literary-extension-v1.png",
+        "sha256": "53aa03b57b8a17fd3414d715d6aa31deb2d59b3dc354dc780a7eb21ae7097e7a",
+        "bytes": 2312715,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T20:05:08.270Z",
+      "observation": "Nyamu still holds her own small paper work and looks toward a familiar returning person with a bright recognizable smile; scattered paper objects are physically supported by cushion. Whole mother personally viewed: coherent hip/cushion support, knees/ankles and complete shoes. violet light shared by character and room; current rain has lamp pools and dark outside, no old window-grid stripes. Minor highlights/scale/pose variation kept under user explicit no-reconstruction steering; future consistency rule remains. Static direction only.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "nyamu/resume/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/missing-theme-extension-v1/nyamu-resume-rain-literary-extension-v1.png",
+        "sha256": "c7d8492f5521961b5e2f622b1ac06ac44669a9536dcd37d6f87208db93063b42",
+        "bytes": 2235259,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T20:05:08.272Z",
+      "observation": "Nyamu still holds her own small paper work and looks toward a familiar returning person with a bright recognizable smile; scattered paper objects are physically supported by cushion. Whole mother personally viewed: coherent hip/cushion support, knees/ankles and complete shoes. rain light shared by character and room; current rain has lamp pools and dark outside, no old window-grid stripes. Minor highlights/scale/pose variation kept under user explicit no-reconstruction steering; future consistency rule remains. Static direction only.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "umiri/resume/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/missing-theme-extension-v1/umiri-resume-violet-literary-extension-v1.png",
+        "sha256": "dc76ebe0ce4bbcfcebfeef02f6598aece3d157ba3a0f3392c5650b6c377349ea",
+        "bytes": 2276774,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T20:05:08.273Z",
+      "observation": "Umiri recognizable dark hair/blue-gray eyes, leather/wine wardrobe and full laced boots. A supported open lap book and seat-bracing hand accompany a small recognition glance toward the person. Whole mother personally viewed: coherent hip/cushion support, knees/ankles and complete shoes. violet light shared by character and room; current rain has lamp pools and dark outside, no old window-grid stripes. Minor highlights/scale/pose variation kept under user explicit no-reconstruction steering; future consistency rule remains. Static direction only.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "umiri/resume/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/missing-theme-extension-v1/umiri-resume-rain-literary-extension-v2.png",
+        "sha256": "2f4d2b06f76c0ddaa9e52bb9945de2cc8ccd8adda67e681e0da7f953c2c03256",
+        "bytes": 2260220,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T20:05:08.275Z",
+      "observation": "Umiri recognizable dark hair/blue-gray eyes, leather/wine wardrobe and full laced boots. A supported open lap book and seat-bracing hand accompany a small recognition glance toward the person. Whole mother personally viewed: coherent hip/cushion support, knees/ankles and complete shoes. rain light shared by character and room; current rain has lamp pools and dark outside, no old window-grid stripes. Minor highlights/scale/pose variation kept under user explicit no-reconstruction steering; future consistency rule remains. Static direction only.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "anon/attention/mist",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/missing-theme-extension-v1/anon-attention-mist-literary-extension-v1.png",
+        "sha256": "f5208370a8bbb13e16a6d82b4157a7e1fdcaa8716210cbfc12b9fe448cd94eaf",
+        "bytes": 2454415,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-26T01:32:27.652Z",
+      "observation": "爱音把页角停在指下，像刚注意到交谈者的停顿；回视与书页有明确关系，手与书、膝面及坐垫连续。 粉长发、明亮灰蓝眼与原作制服辨识度保留，脸颊青春柔和。髋与坐垫、膝踝与完整鞋的承重可解释，人物和房间共享本主题全景光照。天气间既有轻微尺度差异按用户要求保留，不据此重构健康人物。这里只准静态母图，不准层、独立动作或运行格。",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "anon/attention/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/missing-theme-extension-v1/anon-attention-rain-literary-extension-v2.png",
+        "sha256": "14ead946914e1cfb32cb8f75669cfc355014c7ff96df8ace021643f2881641a1",
+        "bytes": 2221230,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-26T01:32:27.654Z",
+      "observation": "爱音把页角停在指下，像刚注意到交谈者的停顿；回视与书页有明确关系，手与书、膝面及坐垫连续。 粉长发、明亮灰蓝眼与原作制服辨识度保留，脸颊青春柔和。髋与坐垫、膝踝与完整鞋的承重可解释，人物和房间共享本主题全景光照。天气间既有轻微尺度差异按用户要求保留，不据此重构健康人物。这里只准静态母图，不准层、独立动作或运行格。",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "anon/attention/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/missing-theme-extension-v1/anon-attention-violet-literary-extension-v1.png",
+        "sha256": "aa8c8a6e0498a94c8a0b4a981b41c1aea8b499fd19b7acff2a2530947641eefe",
+        "bytes": 2318155,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-26T01:32:27.656Z",
+      "observation": "爱音把页角停在指下，像刚注意到交谈者的停顿；回视与书页有明确关系，手与书、膝面及坐垫连续。 粉长发、明亮灰蓝眼与原作制服辨识度保留，脸颊青春柔和。髋与坐垫、膝踝与完整鞋的承重可解释，人物和房间共享本主题全景光照。天气间既有轻微尺度差异按用户要求保留，不据此重构健康人物。这里只准静态母图，不准层、独立动作或运行格。",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "anon/listening/mist",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/missing-theme-extension-v1/anon-listening-mist-literary-extension-v1.png",
+        "sha256": "508f4ac502df569b657b730c926ac8dda038cbb271d620e5299ed25515ed702d",
+        "bytes": 2427567,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-26T01:32:27.658Z",
+      "observation": "爱音收住明快，双手伏在膝上略探身，闭嘴认真等一句话；旁边的小本安放在坐垫，不以笑容代替倾听。 粉长发、明亮灰蓝眼与原作制服辨识度保留，脸颊青春柔和。髋与坐垫、膝踝与完整鞋的承重可解释，人物和房间共享本主题全景光照。天气间既有轻微尺度差异按用户要求保留，不据此重构健康人物。这里只准静态母图，不准层、独立动作或运行格。",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "anon/listening/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/missing-theme-extension-v1/anon-listening-rain-literary-extension-v1.png",
+        "sha256": "7b3b06cfc328a908c173e53dfff4e8b7a0a2ae33c126c7ef5c7d765d824c1aa1",
+        "bytes": 2233864,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-26T01:32:27.661Z",
+      "observation": "爱音收住明快，双手伏在膝上略探身，闭嘴认真等一句话；旁边的小本安放在坐垫，不以笑容代替倾听。 粉长发、明亮灰蓝眼与原作制服辨识度保留，脸颊青春柔和。髋与坐垫、膝踝与完整鞋的承重可解释，人物和房间共享本主题全景光照。天气间既有轻微尺度差异按用户要求保留，不据此重构健康人物。这里只准静态母图，不准层、独立动作或运行格。",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "anon/listening/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/missing-theme-extension-v1/anon-listening-violet-literary-extension-v1.png",
+        "sha256": "55aebafe99489a32dda4b1fdb90f9ff59c6e867180137502e12a704a4dd344c6",
+        "bytes": 2289286,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-26T01:32:27.666Z",
+      "observation": "爱音收住明快，双手伏在膝上略探身，闭嘴认真等一句话；旁边的小本安放在坐垫，不以笑容代替倾听。 粉长发、明亮灰蓝眼与原作制服辨识度保留，脸颊青春柔和。髋与坐垫、膝踝与完整鞋的承重可解释，人物和房间共享本主题全景光照。天气间既有轻微尺度差异按用户要求保留，不据此重构健康人物。这里只准静态母图，不准层、独立动作或运行格。",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "anon/play/mist",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/missing-theme-extension-v1/anon-play-mist-literary-extension-v1.png",
+        "sha256": "49acabd6bfae41a5edaf5cfdc3417b56d0a4fa54aca11fa4635241fc3336ea57",
+        "bytes": 2475170,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-26T01:32:27.667Z",
+      "observation": "爱音把折纸小舟托在掌中，另一手捻住折边，眼神与轻快的笑承接分享小发现的意图；道具与手指实际相接。 粉长发、明亮灰蓝眼与原作制服辨识度保留，脸颊青春柔和。髋与坐垫、膝踝与完整鞋的承重可解释，人物和房间共享本主题全景光照。天气间既有轻微尺度差异按用户要求保留，不据此重构健康人物。这里只准静态母图，不准层、独立动作或运行格。",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "anon/play/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/missing-theme-extension-v1/anon-play-rain-literary-extension-v2.png",
+        "sha256": "104ce2d904384a0c6dfecf581c7fdd50496af97db74d5ce7f657ec94220af641",
+        "bytes": 2262600,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-26T01:32:27.669Z",
+      "observation": "爱音把折纸小舟托在掌中，另一手捻住折边，眼神与轻快的笑承接分享小发现的意图；道具与手指实际相接。 粉长发、明亮灰蓝眼与原作制服辨识度保留，脸颊青春柔和。髋与坐垫、膝踝与完整鞋的承重可解释，人物和房间共享本主题全景光照。天气间既有轻微尺度差异按用户要求保留，不据此重构健康人物。这里只准静态母图，不准层、独立动作或运行格。",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "anon/play/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/missing-theme-extension-v1/anon-play-violet-literary-extension-v1.png",
+        "sha256": "c18dc0f201b41a72fe9f93b03e3c73c238e76691c09123fbb12bca767b53b42c",
+        "bytes": 2355282,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-26T01:32:27.671Z",
+      "observation": "爱音把折纸小舟托在掌中，另一手捻住折边，眼神与轻快的笑承接分享小发现的意图；道具与手指实际相接。 粉长发、明亮灰蓝眼与原作制服辨识度保留，脸颊青春柔和。髋与坐垫、膝踝与完整鞋的承重可解释，人物和房间共享本主题全景光照。天气间既有轻微尺度差异按用户要求保留，不据此重构健康人物。这里只准静态母图，不准层、独立动作或运行格。",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "anon/resume/mist",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/missing-theme-extension-v1/anon-resume-mist-literary-extension-v2.png",
+        "sha256": "bd8d1d40f8f3c6b47b683b8489e91267acf08586ab170913de6e7d92e8767467",
+        "bytes": 2412405,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-26T01:32:27.673Z",
+      "observation": "爱音停在半翻的书页或页边，抬眼接住回来的人；笑意明快而不夸张，持书和回望有同一个来由。 粉长发、明亮灰蓝眼与原作制服辨识度保留，脸颊青春柔和。髋与坐垫、膝踝与完整鞋的承重可解释，人物和房间共享本主题全景光照。天气间既有轻微尺度差异按用户要求保留，不据此重构健康人物。这里只准静态母图，不准层、独立动作或运行格。",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "anon/resume/rain",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/missing-theme-extension-v1/anon-resume-rain-literary-extension-v2.png",
+        "sha256": "e956f552f78eba5df3d5f2b8da40dbae1e819d8d6026d338382441805313aeee",
+        "bytes": 2301616,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-26T01:32:27.675Z",
+      "observation": "爱音停在半翻的书页或页边，抬眼接住回来的人；笑意明快而不夸张，持书和回望有同一个来由。 粉长发、明亮灰蓝眼与原作制服辨识度保留，脸颊青春柔和。髋与坐垫、膝踝与完整鞋的承重可解释，人物和房间共享本主题全景光照。天气间既有轻微尺度差异按用户要求保留，不据此重构健康人物。这里只准静态母图，不准层、独立动作或运行格。",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "cell": "anon/resume/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/missing-theme-extension-v1/anon-resume-violet-literary-extension-v3.png",
+        "sha256": "332c5dc7b774b1818001e69dfd9cd6b4021057cd4746cc5a5da73e8b48d2da5c",
+        "bytes": 2331209,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-26T01:32:27.678Z",
+      "observation": "爱音停在半翻的书页或页边，抬眼接住回来的人；笑意明快而不夸张，持书和回望有同一个来由。 粉长发、明亮灰蓝眼与原作制服辨识度保留，脸颊青春柔和。髋与坐垫、膝踝与完整鞋的承重可解释，人物和房间共享本主题全景光照。天气间既有轻微尺度差异按用户要求保留，不据此重构健康人物。这里只准静态母图，不准层、独立动作或运行格。",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    }
+  ]
+}

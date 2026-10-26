@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 1,
+  "recordType": "root-primary-design-admission",
+  "recordedAt": "2026-10-25T21:55:20.350454+00:00",
+  "authority": "Direct parent /root final message after personally viewing all six originals; this record reports that actual primary review, not producer self-approval.",
+  "originals": [
+    {
+      "direction": "A",
+      "file": "direction-a-content-folio-v1.png",
+      "sha256": "b2b70789efa0b36fd2ef2de6fdfb443c92784f1338017418565d3ba8ee45c291",
+      "bytes": 1893177,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "sourceRecord": "direction-a-content-folio-v1.source.json",
+      "sourceRecordSha256AtAdmission": "1634329199f79ed0fa92c7c804ba9dff34e5353a7ff9282e0f2a90f12bb3f7dd",
+      "rootPersonallyViewedWholeOriginal": true,
+      "rootDecision": "不选；两个大棕框与三类栏过重。",
+      "explicitlyRejectedDeviations": [
+        "大棕框",
+        "三类栏"
+      ],
+      "runtimeAccepted": false,
+      "generationInputAllowed": false
+    },
+    {
+      "direction": "B",
+      "file": "direction-b-continue-thread-v1.png",
+      "sha256": "44344bdba529f908614a9410f07b86d9c13a7c67d57c90eb395fcdd654c269e7",
+      "bytes": 2002598,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "sourceRecord": "direction-b-continue-thread-v1.source.json",
+      "sourceRecordSha256AtAdmission": "61875c9e7687c3391c43f5c273c11548823031b85fe1f3a44287e806f2193e8e",
+      "rootPersonallyViewedWholeOriginal": true,
+      "rootDecision": "只保开放窗心/地板连续的空间经验；不选整体布局。",
+      "explicitlyRejectedDeviations": [
+        "重金左rail",
+        "重复RoLM标题/摘要",
+        "助手导读",
+        "通用星记",
+        "虚构钢琴照片"
+      ],
+      "runtimeAccepted": false,
+      "generationInputAllowed": false
+    },
+    {
+      "direction": "C",
+      "file": "direction-c-kept-page-v1.png",
+      "sha256": "9640f3f9bc1984a2b7cfc351ff9f0ddbf40186916a3c4d494dc87aecfabc9452",
+      "bytes": 2345075,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "sourceRecord": "direction-c-kept-page-v1.source.json",
+      "sourceRecordSha256AtAdmission": "27fe4f5884813a0055ee88ab93054a563dc90a11f73711608b93cbc1ed27cbad",
+      "rootPersonallyViewedWholeOriginal": true,
+      "rootDecision": "不选；夜间大浅纸与实体小钢琴、过大猫抢眼。",
+      "explicitlyRejectedDeviations": [
+        "大浅物理纸",
+        "实体小钢琴",
+        "过大猫"
+      ],
+      "runtimeAccepted": false,
+      "generationInputAllowed": false
+    },
+    {
+      "direction": "D",
+      "file": "direction-d-within-reach-v1.png",
+      "sha256": "c6f027acfb242d2830efaf4731c1f23146574d4d723741b9dc93f55828c8cb7e",
+      "bytes": 2244982,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "sourceRecord": "direction-d-within-reach-v1.source.json",
+      "sourceRecordSha256AtAdmission": "ca671dbf06bbfba8af6be023d94f8d20a3daee5c369fc5da84290e920ff41cab",
+      "rootPersonallyViewedWholeOriginal": true,
+      "rootDecision": "空间方向采用：右侧角色安静在场、窗中心开放，低左一条本人笔记，另一作品轻入口。",
+      "explicitlyRejectedDeviations": [
+        "皮纹/撕纸",
+        "猫过大",
+        "自发固定台词",
+        "生成像素作runtime素材"
+      ],
+      "runtimeAccepted": false,
+      "generationInputAllowed": false
+    },
+    {
+      "direction": "D2",
+      "file": "direction-d-within-reach-v2.png",
+      "sha256": "7f75e6d438d0f61661e86cc2cbd6ade72d2a83ad94437506a91744dd37c2e1cc",
+      "bytes": 2140066,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "sourceRecord": "direction-d-within-reach-v2.source.json",
+      "sourceRecordSha256AtAdmission": "9223de1b7abebd19a3d574c01e64280951f04a7daf20c8e6bea241cb9e433c3c",
+      "rootPersonallyViewedWholeOriginal": true,
+      "rootDecision": "采用平滑局部烟茶材质与本人短句主、原题小的层级；不加大caption。",
+      "explicitlyRejectedDeviations": [
+        "过大猫",
+        "过大表面/字级照搬",
+        "大诗意caption",
+        "人物图作新素材或重绘基准"
+      ],
+      "runtimeAccepted": false,
+      "generationInputAllowed": false
+    },
+    {
+      "direction": "state",
+      "file": "direction-d-source-quote-state-v1.png",
+      "sha256": "026350d9b908bb8eb7b35c9f8bf22426d29709c29964a5ef972b5f42ec10f454",
+      "bytes": 2023840,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "sourceRecord": "direction-d-source-quote-state-v1.source.json",
+      "sourceRecordSha256AtAdmission": "4ed7c9b1055d1e3781e466172ccdfdd885456fbeeac74e04158a2b4ef8e3cdff",
+      "rootPersonallyViewedWholeOriginal": true,
+      "rootDecision": "采用nav-only留下；同对象上方展开原文，原位唯一输入引用关系。",
+      "explicitlyRejectedDeviations": [
+        "两猫",
+        "猫过大",
+        "假PDF线/数据/缩图",
+        "铅笔页码代替红PDF原源入口",
+        "拟议短泡固化为产品台词",
+        "生成像素作runtime素材"
+      ],
+      "runtimeAccepted": false,
+      "generationInputAllowed": false
+    }
+  ],
+  "rootPersonallyViewedCount": 6,
+  "selectedDesignScope": [
+    "D：完整房间中右侧当前角色安静在场、窗心无遮挡，低左一条本人的笔记，另一件作品是轻入口，保持单页。",
+    "D2：平滑小面积半透明烟茶承托与细微暖边；本人短句优先，原标题退为小标签。",
+    "静页仅已有导航留下，不另加大caption；不把诗意导读变成常驻正文。",
+    "原文由同一对象上方就地展开；引用带回同一原位唯一输入，保持原稿与来源关系，不自动发送。",
+    "实际只用已有批准独立一只猫、当前专用头像、现有原文件render与现有正确人物素材；钢琴仍是独立原作品。"
+  ],
+  "notAnAssetAdmission": [
+    "全部生成UI稿均仅空间/层级/交互意图参考，不作为runtime贴图、裁猫/头像/人物来源或下一轮Image输入。",
+    "D2/state的尺寸和生成偏差不照搬；猫按实际独立素材小比例，非生成大猫/双猫。",
+    "原文正文始终使用现有原文件render，不采生成PDF线/缩图/文字作为数据。",
+    "铅笔、页码、红PDF原源入口、编辑笔记与引用动作分别保真实含义。"
+  ],
+  "runtimeAcceptedCount": 0,
+  "runtimeAccepted": false,
+  "motionOrInteractionVerifiedByThisArtGroup": false,
+  "remainingVerification": "真实集成后的打开原页、引用、同稿恢复、拖动/中断与动效，待root实操；静图不代签。",
+  "imageGroupFrozen": true,
+  "newImageCallsAllowedForThisGroup": false,
+  "futureImageCondition": "仅后续真实UI检查发现具体缺口并由root重新委托时调用。",
+  "preparedNotCalled": [
+    "direction-c-kept-page-v2.prompt.txt",
+    "direction-c-kept-page-v2.request.json"
+  ],
+  "currentAdmissionSupersedes": "Earlier producer pending/await-root wording in archived source records and initial comparison stages; original generation/source facts remain preserved.",
+  "sourceCodeOrAppChanged": false,
+  "cleanupPerformed": false
+}

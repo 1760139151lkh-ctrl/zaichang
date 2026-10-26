@@ -1,0 +1,276 @@
+{
+  "schemaVersion": 1,
+  "kind": "bounded-same-activity-light-mother-producer-batch",
+  "wave": "light-activity-wave-b",
+  "character": "umiri",
+  "tool": "built-in image_gen",
+  "completedSharedCalls": 18,
+  "sharedCallLimit": 24,
+  "batchFirstCall": 13,
+  "batchLastCall": 18,
+  "batchCalls": 6,
+  "producerViewedAll": true,
+  "primaryMotherApproved": false,
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "pngEdited": false,
+  "largeImageResultStored": false,
+  "outputs": [
+    {
+      "call": 13,
+      "activity": "listening",
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-b/umiri-listening-mist-literary-light-wave-b-v1.png",
+      "motherSha256": "bf986d9854aeec8112333f065582c0c6f02a8b7a69672a14ab66ba95a8b63031",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-b/umiri-listening-mist-literary-light-wave-b-v1.source.json",
+      "sourceSha256": "6be4d3ef27add768625e938b101b54632e4f941424cec47ac1238b06e9d39e81",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-b/umiri-listening-mist-literary-light-wave-b-v1.prompt.txt",
+      "promptSha256": "328590ecf82bee38a970da66ef5d07f70aec752adefe52922d3b5695ac02e2c9",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Inner overlapping fingers are naturally hidden; root judges visible contact and expression, not concealed anatomy or exact pixel transfer."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "call": 14,
+      "activity": "listening",
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-b/umiri-listening-violet-literary-light-wave-b-v1.png",
+      "motherSha256": "5411cf53e3fb38a4a52cc8d0bcbdc37403bf35ad3bfc2a2d688b1d3cc2756327",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-b/umiri-listening-violet-literary-light-wave-b-v1.source.json",
+      "sourceSha256": "ce724fe00ba3bb580371b546cfd10dc5a935408721962bf9c5e5edfd436a7b06",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-b/umiri-listening-violet-literary-light-wave-b-v1.prompt.txt",
+      "promptSha256": "52f24f1a4bb0dae9d684c6afba739ec2db080675b982457535165b6097deb4df",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Local warm knee/forearm emphasis remains for root's practical-light judgment; inner overlapping fingers naturally hidden, no exact-pixel claim."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "call": 15,
+      "activity": "listening",
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-b/umiri-listening-rain-literary-light-wave-b-v1.png",
+      "motherSha256": "1e1a44d056b47737207809f4d1739c2ef3872ab57d3bda8ff85359b7fe57c314",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-b/umiri-listening-rain-literary-light-wave-b-v1.source.json",
+      "sourceSha256": "b9ae9078198e8bb671921332ae8e6c71ad28fc8ec9ea66a45224ba504c81ddc3",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-b/umiri-listening-rain-literary-light-wave-b-v1.prompt.txt",
+      "promptSha256": "572a985c72cc105759f62864b98ed153531efbe1ed80cbfc6e809dd809f49ff0",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Local warm knee/forearm emphasis and naturally occluded inner fingers remain for root's exact light/contact judgment."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "call": 16,
+      "activity": "play",
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-b/umiri-play-mist-literary-light-wave-b-v1.png",
+      "motherSha256": "9b543378e2319bde93ed2cbb323ee268b626d0edc06601dfcc4f653e534390c8",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-b/umiri-play-mist-literary-light-wave-b-v1.source.json",
+      "sourceSha256": "1f7bfa1a2250d1e815c0797b9eb1b8cf29a1042962d1b923979524e0ddd15017",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-b/umiri-play-mist-literary-light-wave-b-v1.prompt.txt",
+      "promptSha256": "73a030dcb302e744c21d620f2d051681acf73733a7429b42e848eea8947a66f0",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Small plane fold/tip and finger contact contours vary slightly; root should inspect exact source pixels before layer use, not infer hidden surfaces."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "call": 17,
+      "activity": "play",
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-b/umiri-play-violet-literary-light-wave-b-v1.png",
+      "motherSha256": "48de540ca747a193e8888181406672f61c872bd18683ccbf245cb948d1b0821f",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-b/umiri-play-violet-literary-light-wave-b-v1.source.json",
+      "sourceSha256": "aa6c0087febbbc1dcf50e1004210aaca8b81370a150d5fe5683ccf09d1b3e1bd",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-b/umiri-play-violet-literary-light-wave-b-v1.prompt.txt",
+      "promptSha256": "084e54ccda333c25065d7834e29664c5bc90a382baa512be2bbeb2d881bce4aa",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Fine plane folds/finger contact and local warm knee highlights remain for root's actual source/light judgment."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "call": 18,
+      "activity": "play",
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-b/umiri-play-rain-literary-light-wave-b-v1.png",
+      "motherSha256": "516b62b0cf7ee7427dd545dcf38c994d57f09d19e6dbaf498d31f5048f92b7cd",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-b/umiri-play-rain-literary-light-wave-b-v1.source.json",
+      "sourceSha256": "dcaf0a8d69057632ced46873f716c3b9514af3c78fdee973f9d20603f8c2f79d",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/light-activity-wave-b/umiri-play-rain-literary-light-wave-b-v1.prompt.txt",
+      "promptSha256": "625c88b93da3773c00dc47e5b7c30b129016f724944f7bec539315182c24d770",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Small plane-fold/finger contours and local warm knee/forearm emphasis remain for root's exact light/contact judgment."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "directFileVerification": [
+    {
+      "call": 13,
+      "imageShaMatch": true,
+      "toolOriginalShaMatch": true,
+      "inputShaMatches": [
+        true,
+        true
+      ],
+      "exactPromptMatches": true,
+      "promptShaMatch": true,
+      "noTrailingNewline": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true
+    },
+    {
+      "call": 14,
+      "imageShaMatch": true,
+      "toolOriginalShaMatch": true,
+      "inputShaMatches": [
+        true,
+        true
+      ],
+      "exactPromptMatches": true,
+      "promptShaMatch": true,
+      "noTrailingNewline": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true
+    },
+    {
+      "call": 15,
+      "imageShaMatch": true,
+      "toolOriginalShaMatch": true,
+      "inputShaMatches": [
+        true,
+        true
+      ],
+      "exactPromptMatches": true,
+      "promptShaMatch": true,
+      "noTrailingNewline": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true
+    },
+    {
+      "call": 16,
+      "imageShaMatch": true,
+      "toolOriginalShaMatch": true,
+      "inputShaMatches": [
+        true,
+        true
+      ],
+      "exactPromptMatches": true,
+      "promptShaMatch": true,
+      "noTrailingNewline": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true
+    },
+    {
+      "call": 17,
+      "imageShaMatch": true,
+      "toolOriginalShaMatch": true,
+      "inputShaMatches": [
+        true,
+        true
+      ],
+      "exactPromptMatches": true,
+      "promptShaMatch": true,
+      "noTrailingNewline": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true
+    },
+    {
+      "call": 18,
+      "imageShaMatch": true,
+      "toolOriginalShaMatch": true,
+      "inputShaMatches": [
+        true,
+        true
+      ],
+      "exactPromptMatches": true,
+      "promptShaMatch": true,
+      "noTrailingNewline": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true
+    }
+  ],
+  "reviewBoundary": "Exact approved weather plate first, approved same-activity apricot mother second. Every new output independently pending root mother review; no layer or runtime approval."
+}

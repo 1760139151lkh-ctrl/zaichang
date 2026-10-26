@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-mother-fixed-included-layer-imagegen-stage",
+  "character": "umiri",
+  "purpose": "neutral-presence",
+  "neutralTime": "night",
+  "palette": "rain",
+  "light": "night",
+  "weather": "unknown",
+  "weatherClaim": false,
+  "stage": "S2",
+  "tool": "built-in image_gen.imagegen",
+  "toolArguments": {
+    "prompt": "Use case: background-extraction. Make ONLY a LOCAL RECEIVER luminance mask for this exact approved Umiri neutral night full1536x1024 mother. ONLY INPUT is clean original. Output an opaque entirely BLACK1536x1024 image with just FOUR TINY original contact-material islands in WHITE/soft-edgeGRAY. Not a portrait, room, full cushion, silhouette or new shadow.\nThe FOUR islands are (1) tiny linen contact directly under original seated SKIRT HEM/hip, (2) tiny linen contact directly under the SIDE SUPPORTING PALM/fingers, (3) short original wood footprint immediately under/around LEFT boot sole/toe/heel, (4) short original wood footprint under/around RIGHT boot sole/toe/heel. Preserve complete true original short contact shadow with a white inner receiver core and short soft gray outer fade, about8..18px beyond each original sole only where source contact shade exists. No invented generic oval.\nSOURCE LOCALIZATION: seated skirt contact lies near x1045..1245,y551..610; side palm contact x1260..1365,y550..590; first boot ground x770..930,y846..898; second boot ground x930..1095,y878..936. These are ONLY loose search neighborhoods, never rectangles to fill: trace the real tiny contact shade/material within. EVERY PIXEL OUTSIDE these four source neighborhoods must be pure BLACK. Especially ALL empty cushion LEFT of x1045 is BLACK, not selected. No long white bench strip or wide floor slab, no distant lamp reflection.\nAll figure pixels, skirt/hand/whole boots/book themselves BLACK even inside neighborhoods; white is only nearby receiver linen/wood/shadow. Tiny true boundary overlap can merge with F by MAX but must not add a figure outline. Entire head/hair/torso/upper arms/background/curtains/furniture/plants/rug/unrelated floor/pillow/knit BLACK. No visible room texture outside the four tiny areas and no person contour. Exact original camera/coordinates; no crop/resize/shift/redraw. One opaque BLACK/WHITE/softedgeGRAY mask only. Fixed original RGB receiving material once through MAX(F,S), travel/slope/perspective0; no caster, colors, checkerboard, text or labels.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-night-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "submittedPrompt": "Use case: background-extraction. Make ONLY a LOCAL RECEIVER luminance mask for this exact approved Umiri neutral night full1536x1024 mother. ONLY INPUT is clean original. Output an opaque entirely BLACK1536x1024 image with just FOUR TINY original contact-material islands in WHITE/soft-edgeGRAY. Not a portrait, room, full cushion, silhouette or new shadow.\nThe FOUR islands are (1) tiny linen contact directly under original seated SKIRT HEM/hip, (2) tiny linen contact directly under the SIDE SUPPORTING PALM/fingers, (3) short original wood footprint immediately under/around LEFT boot sole/toe/heel, (4) short original wood footprint under/around RIGHT boot sole/toe/heel. Preserve complete true original short contact shadow with a white inner receiver core and short soft gray outer fade, about8..18px beyond each original sole only where source contact shade exists. No invented generic oval.\nSOURCE LOCALIZATION: seated skirt contact lies near x1045..1245,y551..610; side palm contact x1260..1365,y550..590; first boot ground x770..930,y846..898; second boot ground x930..1095,y878..936. These are ONLY loose search neighborhoods, never rectangles to fill: trace the real tiny contact shade/material within. EVERY PIXEL OUTSIDE these four source neighborhoods must be pure BLACK. Especially ALL empty cushion LEFT of x1045 is BLACK, not selected. No long white bench strip or wide floor slab, no distant lamp reflection.\nAll figure pixels, skirt/hand/whole boots/book themselves BLACK even inside neighborhoods; white is only nearby receiver linen/wood/shadow. Tiny true boundary overlap can merge with F by MAX but must not add a figure outline. Entire head/hair/torso/upper arms/background/curtains/furniture/plants/rug/unrelated floor/pillow/knit BLACK. No visible room texture outside the four tiny areas and no person contour. Exact original camera/coordinates; no crop/resize/shift/redraw. One opaque BLACK/WHITE/softedgeGRAY mask only. Fixed original RGB receiving material once through MAX(F,S), travel/slope/perspective0; no caster, colors, checkerboard, text or labels.",
+  "originalToolOutput": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-fe846cb1-410e-47a3-9f80-606c31e05995.png",
+  "outputFile": "contact-mask-v1.png",
+  "mother": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-night-v1.png",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-night-v1.png",
+      "role": "exact root-approved original whole mother",
+      "sha256": "c6f19f399ab4a05727cb52d36a780fd3fde3f4222e4c31dc39dee6b2f1b19731"
+    }
+  ],
+  "producerObservation": "Complete tool output personally viewed: four local skirt/palm/two boot receivers on black, source wood/linen with soft edges, no whole body outline or far empty bench.",
+  "sourceRgbDrawsInFinalAssembly": 1,
+  "assembly": "U=MAX(L(F),L(S)); exact original mother RGB drawn only once; local receiver material fixed at source position",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "pngPixelEditing": false,
+  "croppingOrResizingSourcePNG": false,
+  "thresholdOrMorphologyEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "dynamicAdmission": false,
+  "original360CreditAssigned": false,
+  "userApproved": false,
+  "reviewScreenshotsUsedAsImageInput": false,
+  "recordedAtUTC": "2026-10-26T01:28:54.753999+00:00",
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/night/layers/contact-mask-v1.png",
+    "sha256": "b5e2c279b7e7fa8fefca71e3647b88e406ac5cdf217fdec6ea2ad62e9496add8",
+    "bytes": 333322,
+    "originalToolOutputSHA256": "b5e2c279b7e7fa8fefca71e3647b88e406ac5cdf217fdec6ea2ad62e9496add8",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "motherSHA256": "c6f19f399ab4a05727cb52d36a780fd3fde3f4222e4c31dc39dee6b2f1b19731",
+  "dossierVersion": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/umiri.md",
+    "sha256": "760b038d3ff84a770c80bf6144e52265d8109e41ecd5cb3440408561ac2bc0da"
+  },
+  "methodVersion": {
+    "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+    "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d"
+  },
+  "submittedPromptSHA256": "8e0ba51f29dc566fb8e5d114c25f57422439613ca0cce4d56a44ce59390c50bc",
+  "promptFileSHA256": "9ecb6180934f5847877dac42eb6cb2cb000ea2f213c8d8eb2b2b58d041c281ec",
+  "producerHeld": true,
+  "imageGenerationInputAllowed": false,
+  "laterObservedDefect": "Receiver coordinates drifted upward relative to actual source soles/hem. Day native Chrome shoes/retarget proved front boot drops directly onto checkerboard and intended shadow floats at wrong source position; not a portable shift repair. Rebuild only from clean mother."
+}

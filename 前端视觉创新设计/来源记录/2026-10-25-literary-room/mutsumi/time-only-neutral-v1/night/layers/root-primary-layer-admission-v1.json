@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 1,
+  "recordType": "root-primary-time-only-neutral-static-layer-admission",
+  "recordedAt": "2026-10-26T01:26:05.306Z",
+  "character": "mutsumi",
+  "purpose": "neutral-presence",
+  "neutralTime": "night",
+  "weather": "unknown",
+  "environmentBasis": "time",
+  "mapping": {
+    "palette": "rain",
+    "light": "night"
+  },
+  "approvalEvidence": {
+    "source": "Direct parent /root message in same healthy session after personally viewing exact Browser screenshots.",
+    "messageVerbatim": "Root已亲看睦day四张final（native1536/checker/face/hands-shoes）和night四张（native1536/checker/face-diagnostic/contact），选定day F9961af…/S115452…/BG852118…与night F9e25e9…/S4296a9…/BG3f01b0…静态层主审准入。脸发细丝/双夹、双手膝裙坐垫、完整鞋底柔地影在sameRGB MAX合成合理，无明显盒缝；S含原位布木不称caster。Root另看了day browser-diagnostic-contact-v1，它像旧HOLD Sv2含皮肤局部，不纳入final证据，请明确它的历史归属，勿声称finalRoot批准旧坏mask。请在当前Image调用自然结束边界先记录准确逐SHA root-primary-layer-admission，将这2套8PNG+2scene.json注册Runtime，id mutsumi-neutral-presence-time-{day,night}-included-v1，purpose neutral-presence，neutralTime；day/mist/morning，night/rain/night，environmentVariant留空；0travel/slope/persp，真实U包络不缩。参考已成功Saki neutral，同族camera勿改；不签runtime或360。完成后继续Uika原任务。只写本组source/runtime，不改TS/CSS/9335，核字节及npm check。",
+    "views": [
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/night/layers/browser-native-1536-v1.png",
+        "sha256": "2cc3e3580fe9ddef832778c45faf94fe596ee09ae86a9a7414cf08a91a95cb24",
+        "bytes": 229467,
+        "primaryPersonallyViewed": true,
+        "assembly": "F-v1/S-v1/BG-v1 selected final; diagnostic in face filename was a cautious preliminary name, same selected SHA assembly"
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/night/layers/browser-light-dark-checker-v1.png",
+        "sha256": "90487adf0873ceaf8b6b04ddaad08bd2597b9a57f9f6502e24e4ce6fb9d7dffd",
+        "bytes": 214971,
+        "primaryPersonallyViewed": true,
+        "assembly": "F-v1/S-v1/BG-v1 selected final; diagnostic in face filename was a cautious preliminary name, same selected SHA assembly"
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/night/layers/browser-face-diagnostic-v1.png",
+        "sha256": "d757ac72c4534bd4fc122bc2704aa2c6a966eb42a3a1b16e47a39335d992c9aa",
+        "bytes": 200345,
+        "primaryPersonallyViewed": true,
+        "assembly": "F-v1/S-v1/BG-v1 selected final; diagnostic in face filename was a cautious preliminary name, same selected SHA assembly"
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/night/layers/browser-contact-v1.png",
+        "sha256": "38c8dc8ea20cc7b0494973a99f126765d03fb4b7efb45f55b05920d7ec10a0a8",
+        "bytes": 208931,
+        "primaryPersonallyViewed": true,
+        "assembly": "F-v1/S-v1/BG-v1 selected final; diagnostic in face filename was a cautious preliminary name, same selected SHA assembly"
+      }
+    ]
+  },
+  "primaryLayerApproved": true,
+  "runtimeRegistered": true,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "dynamicAdmission": false,
+  "original360ExactActivityAdmission": false,
+  "selected": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-night-v1.png",
+      "sha256": "ecd0ac024c414ae54c94558301e4eeb7d1e4e773cc264a195044fe9030088e36",
+      "bytes": 2240587,
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/night/layers/background-v1.png",
+      "sha256": "3f01b081128e75e150652fabdaed9f2babde2410e16462d842e0683257c694dd",
+      "bytes": 2206781,
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "F": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/night/layers/figure-mask-v1.png",
+      "sha256": "9e25e904f56f9577cf55db97a5f9904bd5a7748a5ff4d796e6327245defdaec0",
+      "bytes": 481590,
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "S": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/night/layers/contact-mask-v1.png",
+      "sha256": "4296a97883d68a7b5b19592cefce6c0b708cd1eabba73df1765f59e7337c73e3",
+      "bytes": 321004,
+      "canvas": [
+        1536,
+        1024
+      ]
+    }
+  },
+  "geometry": {
+    "figureEnvelope": {
+      "sourcePixels": [
+        879,
+        128,
+        1325,
+        931
+      ],
+      "normalized": [
+        0.572265625,
+        0.125,
+        0.8626302083333334,
+        0.9091796875
+      ],
+      "basis": "Read-only original PNG Rec.709 luminance F >32; right/bottom exclusive, diagnostic only; original continuous mask bytes unchanged."
+    },
+    "jointReceiverEnvelope": {
+      "sourcePixels": [
+        852,
+        128,
+        1325,
+        957
+      ],
+      "normalized": [
+        0.5546875,
+        0.125,
+        0.8626302083333334,
+        0.9345703125
+      ],
+      "basis": "Read-only MAX(L(F),L(S)) >32 envelope, complete actual fixed seat/wood receiver included, not tightened."
+    },
+    "supportAnchors": {
+      "seatPixels": [
+        1214,
+        625
+      ],
+      "groundPixels": [
+        1080,
+        931
+      ],
+      "basis": "Personally viewed exact mother and native source RGB: visible lower hip/skirt to compressed linen seat, complete nearer loafer sole contact with wood; fixed visible reference points, not hidden-joint reconstruction or travel calibration."
+    },
+    "familyFramingCodeUnchanged": true,
+    "naturalFamilyBoundaryEffect": "New true U reaches y957; existing shared family camera includes this exact receiver automatically. No fabricated smaller bound or TS camera override."
+  },
+  "assembly": {
+    "sourceRgb": "exact unchanged mother only",
+    "coverage": "U=MAX(L(F),L(S))",
+    "originalRgbDraws": 1,
+    "contactShadow": "included fixed source receiver; never independent caster",
+    "pngPixelEditing": false,
+    "manualThresholdOrMorphology": false
+  },
+  "runtime": {
+    "registration": {
+      "path": "前端视觉创新设计/运行素材/companion/scenes/mutsumi-neutral-presence-time-night-included-v1.scene.json",
+      "sha256": "b8adfa69c1491e250f20b88e97e81cc9ed5f16416ef67f858fba63768224ece0",
+      "bytes": 3748
+    },
+    "copies": {
+      "mother": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/mutsumi-neutral-presence-time-night-included-v1-mother.png",
+        "sha256": "ecd0ac024c414ae54c94558301e4eeb7d1e4e773cc264a195044fe9030088e36",
+        "bytes": 2240587,
+        "sourceByteIdentical": true
+      },
+      "background": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/mutsumi-neutral-presence-time-night-included-v1-background.png",
+        "sha256": "3f01b081128e75e150652fabdaed9f2babde2410e16462d842e0683257c694dd",
+        "bytes": 2206781,
+        "sourceByteIdentical": true
+      },
+      "F": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/mutsumi-neutral-presence-time-night-included-v1-mask.png",
+        "sha256": "9e25e904f56f9577cf55db97a5f9904bd5a7748a5ff4d796e6327245defdaec0",
+        "bytes": 481590,
+        "sourceByteIdentical": true
+      },
+      "S": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/mutsumi-neutral-presence-time-night-included-v1-contact-mask.png",
+        "sha256": "4296a97883d68a7b5b19592cefce6c0b708cd1eabba73df1765f59e7337c73e3",
+        "bytes": 321004,
+        "sourceByteIdentical": true
+      }
+    }
+  },
+  "historicalDiagnosticsExcluded": [],
+  "remaining": "Root still owns integrated runtime verification. Static layer registration cannot sign actual runtime or exact activity360."
+}

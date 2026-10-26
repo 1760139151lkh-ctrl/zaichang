@@ -25,15 +25,19 @@
       "inputs": [
         {
           "file": "sakiko-resume-apricot-mother-v1.png",
-          "role": "sole approved full-scene edit target"
+          "role": "sole approved full-scene edit target",
+          "sha256": "4f6cbda7f205da55b6f50bfa355a45d487b320a1529794f44e18f477129fdee8",
+          "width": 1536,
+          "height": 1024
         }
       ],
       "transparentBackground": false,
-      "status": "candidate",
+      "status": "layer-admitted-for-original-position",
       "producerPersonallyViewed": true,
-      "approvedByPrimary": false,
+      "approvedByPrimary": true,
       "runtimeAccepted": false,
-      "observation": "Root viewed background structure as a usable candidate; layers remain unaccepted."
+      "observation": "Root viewed background structure as a usable candidate; layers remain unaccepted.",
+      "approvedUse": "original-position matching clean background"
     },
     {
       "kind": "figure-v1",
@@ -56,7 +60,10 @@
       "inputs": [
         {
           "file": "sakiko-resume-apricot-mother-v1.png",
-          "role": "sole approved full-scene edit target"
+          "role": "sole approved full-scene edit target",
+          "sha256": "4f6cbda7f205da55b6f50bfa355a45d487b320a1529794f44e18f477129fdee8",
+          "width": 1536,
+          "height": 1024
         }
       ],
       "transparentBackground": true,
@@ -87,7 +94,10 @@
       "inputs": [
         {
           "file": "sakiko-resume-apricot-mother-v1.png",
-          "role": "sole approved full-scene edit target"
+          "role": "sole approved full-scene edit target",
+          "sha256": "4f6cbda7f205da55b6f50bfa355a45d487b320a1529794f44e18f477129fdee8",
+          "width": 1536,
+          "height": 1024
         }
       ],
       "transparentBackground": true,
@@ -118,15 +128,19 @@
       "inputs": [
         {
           "file": "sakiko-resume-apricot-mother-v1.png",
-          "role": "sole approved full-scene edit target"
+          "role": "sole approved full-scene edit target",
+          "sha256": "4f6cbda7f205da55b6f50bfa355a45d487b320a1529794f44e18f477129fdee8",
+          "width": 1536,
+          "height": 1024
         }
       ],
       "transparentBackground": false,
-      "status": "candidate",
+      "status": "layer-admitted-for-original-position",
       "producerPersonallyViewed": true,
-      "approvedByPrimary": false,
+      "approvedByPrimary": true,
       "runtimeAccepted": false,
-      "observation": "Opaque grayscale silhouette retained source coordinates; viewed with original RGB on light/dark/room. No contact-shadow fringe."
+      "observation": "Opaque grayscale silhouette retained source coordinates; viewed with original RGB on light/dark/room. No contact-shadow fringe.",
+      "approvedUse": "original RGB luminance figure mask, travel0"
     },
     {
       "kind": "mask-v2",
@@ -149,19 +163,27 @@
       "inputs": [
         {
           "file": "sakiko-resume-apricot-mask-v1.png",
-          "role": "technical mask edit target"
+          "role": "technical mask edit target",
+          "sha256": "9988530621a46c99260a015c9b6e0fc322c3de6cc55f1bf8205bc058378e6297",
+          "width": 1536,
+          "height": 1024
         },
         {
           "file": "sakiko-resume-apricot-mother-v1.png",
-          "role": "original RGB and registration guide"
+          "role": "original RGB and registration guide",
+          "sha256": "4f6cbda7f205da55b6f50bfa355a45d487b320a1529794f44e18f477129fdee8",
+          "width": 1536,
+          "height": 1024
         }
       ],
       "transparentBackground": false,
-      "status": "rejected",
+      "status": "layer-admitted-as-dark-shadow-mask-only",
       "producerPersonallyViewed": true,
-      "approvedByPrimary": false,
+      "approvedByPrimary": true,
       "runtimeAccepted": false,
-      "observation": "Primary rejected pale cushion strip beneath skirt/palm and wide grey shoe fringes in actual dark-ground rendering."
+      "observation": "Primary rejected pale cushion strip beneath skirt/palm and wide grey shoe fringes in actual dark-ground rendering.",
+      "approvedUse": "dark luminance shadow mask only beneath clean mask v1; color #291c16 opacity 0.48 travel0",
+      "rejectedUse": "source RGB figure mask carries pale cushion/shoe fringe"
     },
     {
       "kind": "figure-v3",
@@ -184,11 +206,17 @@
       "inputs": [
         {
           "file": "sakiko-resume-apricot-mask-v1.png",
-          "role": "technical mask edit target"
+          "role": "technical mask edit target",
+          "sha256": "9988530621a46c99260a015c9b6e0fc322c3de6cc55f1bf8205bc058378e6297",
+          "width": 1536,
+          "height": 1024
         },
         {
           "file": "sakiko-resume-apricot-mother-v1.png",
-          "role": "original RGB and registration guide"
+          "role": "original RGB and registration guide",
+          "sha256": "4f6cbda7f205da55b6f50bfa355a45d487b320a1529794f44e18f477129fdee8",
+          "width": 1536,
+          "height": 1024
         }
       ],
       "transparentBackground": true,
@@ -219,7 +247,10 @@
       "inputs": [
         {
           "file": "sakiko-resume-apricot-mother-v1.png",
-          "role": "sole approved full-scene edit target"
+          "role": "sole approved full-scene edit target",
+          "sha256": "4f6cbda7f205da55b6f50bfa355a45d487b320a1529794f44e18f477129fdee8",
+          "width": 1536,
+          "height": 1024
         }
       ],
       "transparentBackground": true,
@@ -250,11 +281,17 @@
       "inputs": [
         {
           "file": "sakiko-resume-apricot-mother-v1.png",
-          "role": "source of contact geometry"
+          "role": "source of contact geometry",
+          "sha256": "4f6cbda7f205da55b6f50bfa355a45d487b320a1529794f44e18f477129fdee8",
+          "width": 1536,
+          "height": 1024
         },
         {
           "file": "sakiko-resume-apricot-mask-v1.png",
-          "role": "registered silhouette coordinate guide"
+          "role": "registered silhouette coordinate guide",
+          "sha256": "9988530621a46c99260a015c9b6e0fc322c3de6cc55f1bf8205bc058378e6297",
+          "width": 1536,
+          "height": 1024
         }
       ],
       "transparentBackground": false,
@@ -264,5 +301,19 @@
       "runtimeAccepted": false,
       "observation": "Opaque shadow-only map still shifted the upper contact zone; not used. Existing figure mask v2 is being considered only as a dark shadow mask below clean figure mask v1."
     }
-  ]
+  ],
+  "primaryApprovalRecord": "primary-resume-approval.json",
+  "admittedBundle": {
+    "mother": "sakiko-resume-apricot-mother-v1.png",
+    "background": "sakiko-resume-apricot-background-v1.png",
+    "mask": "sakiko-resume-apricot-mask-v1.png",
+    "maskMode": "luminance",
+    "shadow": "sakiko-resume-apricot-mask-v2.png",
+    "shadowMode": "luminance",
+    "shadowColor": "#291c16",
+    "shadowOpacity": 0.48,
+    "travel": 0,
+    "approvedByPrimary": true,
+    "runtimeAccepted": false
+  }
 }

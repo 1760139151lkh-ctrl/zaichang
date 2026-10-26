@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "assetId": "tomori-chat-apricot-literary-v1",
+  "reviewedOn": "2026-10-25",
+  "reviewer": "root primary agent",
+  "evidence": "Direct primary-agent message after personally viewing both complete generated mother originals.",
+  "output": {
+    "file": "tomori-chat-apricot-literary-v1.png",
+    "sha256": "f075324f63e151e4045b4ac5ee87f30dc8295295b81f12c97ddb30ab56ac34d9",
+    "bytes": 2446159,
+    "width": 1536,
+    "height": 1024
+  },
+  "decision": "approved",
+  "scope": "Static full-scene mother only",
+  "observations": "Distinct sincere conversational performance; clear eyebrows/eyelids/fringe/eyes; hand/book, cushion and complete shoe support accepted.",
+  "layerApproved": false,
+  "runtimeAccepted": false
+}

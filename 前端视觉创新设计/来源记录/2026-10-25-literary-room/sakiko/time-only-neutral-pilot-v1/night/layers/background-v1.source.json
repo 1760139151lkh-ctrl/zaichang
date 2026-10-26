@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-mother-original-rgb-included-layer-production",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "palette": "rain",
+  "timeOfDay": "night",
+  "neutralTime": "night",
+  "weather": "unknown",
+  "original360ExactActivityCell": false,
+  "cell": "sakiko/neutral-presence/rain/night/time-night",
+  "stage": "BG",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: precise-object-edit.\nAsset: SAME-MOTHER empty receiving BG for the exact neutral-presence TIME-ONLY NIGHT Sakiko mother. ONLY input is this root-approved complete1536x1024 original mother. Object removal, NOT a common plate, new room or lighting redesign.\n\nRemove ONLY the ENTIRE girl, all pale blue-lavender fine hair/curls/dark ribbons, navy cardigan/collar/bow/plaid skirt, all hands/limbs/calf socks/complete shoes, and the ENTIRE open lap book including all covers/pages/thin edge strips. Remove the actual body-caused local cushion compression/contact and near-shoe contact/cast shade. No remaining hair/hand/book/shoe fragments, silhouette ghost, replacement object or separate cushion book.\n\nReconstruct matching pale linen seat/soft folds/bench wood/fully opaque closed inner curtain hidden behind the girl, plus continuous original wood floor planks and source lamp reflections under the removed feet. Match adjacent source material color, texture and perspective. Preserve ALL other original coordinates and objects: full edge-to-edge CLOSED OPAQUE ivory curtain and its existing folds/lower hem, side lace curtains, original central-left ROUND table/ceramic lamp/cup/books/flowers, left desk/chair/shelves/plants, right pillows/knit, floor/rug/camera. No crop, shift, zoom, resize or furniture movement.\n\nNight is known; weather is UNKNOWN. Keep source's actual warm central-left lamp falloff, shadowed far corners/wood and closed curtain: NO visible slit/window/outdoors, lake/town/tree/sky/stars/rain/snow, no invented weather and no daylight solar/window-grid patch. Reconstructed bookless/peopleless cushion should blend softly into source, not become a brighter new seat. One coherent opaque EMPTY SAME1536x1024 room. It sits behind fixed original-mother RGB selected once, so contact-adjacent cloth/floor color matching matters. Do not use an old common plate. No text/UI/checkerboard/arrows/axes/borders/watermark.",
+  "promptFile": "background-v1.prompt.txt",
+  "promptFileSHA256": "7dd665a28cbacc73a15881f101c4403fde542d2f6ee2bf3375ca59b29320be26",
+  "actualToolArguments": {
+    "prompt": "Use case: precise-object-edit.\nAsset: SAME-MOTHER empty receiving BG for the exact neutral-presence TIME-ONLY NIGHT Sakiko mother. ONLY input is this root-approved complete1536x1024 original mother. Object removal, NOT a common plate, new room or lighting redesign.\n\nRemove ONLY the ENTIRE girl, all pale blue-lavender fine hair/curls/dark ribbons, navy cardigan/collar/bow/plaid skirt, all hands/limbs/calf socks/complete shoes, and the ENTIRE open lap book including all covers/pages/thin edge strips. Remove the actual body-caused local cushion compression/contact and near-shoe contact/cast shade. No remaining hair/hand/book/shoe fragments, silhouette ghost, replacement object or separate cushion book.\n\nReconstruct matching pale linen seat/soft folds/bench wood/fully opaque closed inner curtain hidden behind the girl, plus continuous original wood floor planks and source lamp reflections under the removed feet. Match adjacent source material color, texture and perspective. Preserve ALL other original coordinates and objects: full edge-to-edge CLOSED OPAQUE ivory curtain and its existing folds/lower hem, side lace curtains, original central-left ROUND table/ceramic lamp/cup/books/flowers, left desk/chair/shelves/plants, right pillows/knit, floor/rug/camera. No crop, shift, zoom, resize or furniture movement.\n\nNight is known; weather is UNKNOWN. Keep source's actual warm central-left lamp falloff, shadowed far corners/wood and closed curtain: NO visible slit/window/outdoors, lake/town/tree/sky/stars/rain/snow, no invented weather and no daylight solar/window-grid patch. Reconstructed bookless/peopleless cushion should blend softly into source, not become a brighter new seat. One coherent opaque EMPTY SAME1536x1024 room. It sits behind fixed original-mother RGB selected once, so contact-adjacent cloth/floor color matching matters. Do not use an old common plate. No text/UI/checkerboard/arrows/axes/borders/watermark.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.png",
+      "sha256": "2d571adc2146dd779954f0d014ef015b658a83250d6626d707dcece3c6335d8e",
+      "role": "only exact root-approved neutral time-night complete mother"
+    }
+  ],
+  "mother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.png",
+    "sha256": "2d571adc2146dd779954f0d014ef015b658a83250d6626d707dcece3c6335d8e",
+    "sourceRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/sakiko-neutral-reading-time-night-v1.source.json",
+    "sourceRecordSHA256": "c4a7dfd47161498c7801b25e520fd00b0b36fd66f5de1b90da86462d2ec5efe2",
+    "primaryAdmission": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/time-only-neutral-pilot-v1/root-primary-mother-admission-v1.json",
+    "primaryAdmissionSHA256": "1ddf9b15e52dcbc9bc360ec7edd172b9d26c25057efe808e98cbe52f30417666"
+  },
+  "readDependencies": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "bytes": 12246
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/.agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "bytes": 12645
+    }
+  ],
+  "dossierVersion": "2026-10-25.1",
+  "wardrobeId": "sakiko-literary-navy-adaptation",
+  "output": {
+    "file": "background-v1.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-f923e03a-ee57-4c52-9020-ac460110277b.png",
+    "sha256": "fe3d14cd347137c1ee8df22c68fb7b474978c207377b39f3fe0cb674f71c6c92",
+    "bytes": 2056317,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "status": "producer_candidate_browser_reviewed_pending_root",
+    "observations": [
+      "亲看完整输出：全人物和开放书已去除，闭帘保持完整不见外景；圆几、陶瓷灯、桌椅、软垫、木地板的同景坐标与夜灯明暗保留；未见人物残片或假天气。隐藏材质为重建，不称全部像素精确恢复。"
+    ],
+    "browserEvidence": [
+      "browser-observations/01-scene.png",
+      "browser-observations/02-subject.png",
+      "browser-observations/03-face.png",
+      "browser-observations/04-book.png",
+      "browser-observations/05-hem.png",
+      "browser-observations/06-shoes.png",
+      "browser-observations/07-contact.png"
+    ]
+  },
+  "originalMotherRGBChanged": false,
+  "pngPixelEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "selectedForAssembly": true,
+  "submittedPromptSHA256": "0a59a027c96c320dc66325b7c72251192db71f444a53c3ec3cd4991fc7b9250d"
+}

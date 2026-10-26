@@ -1,0 +1,10 @@
+Use case: precise-object-edit.
+Asset type: an eye-white clean plate for a production 2D rig, full original 1536×1024 opaque canvas.
+
+Image 1 is the approved edit target. Edit only the TWO TINY EYE IRIS/PUPIL REGIONS on Sakiko's face. Remove the colored golden iris, dark pupil and their highlights from both eyes and fill only the exposed eyeball area with the matching softly lit ivory eye white. Keep the original eyelids, lash lines, eye corners, skin, nose, eyebrows, bangs, hair, face shape and expression at exactly their original coordinates. Do not enlarge, re-aim, close or redraw the eyes.
+
+The viewer-left eye is centered near original pixel (1260,342); its complete eye opening is approximately x=1251–1270, y=334–349. The viewer-right eye is centered near (1292,330); its opening is approximately x=1280–1303, y=321–339. These are small original-size eyes on the far-right character. Leave the upper eyelids and front hair in front; only the exposed colored iris/pupil disappears, so original iris pixels can later be placed back behind the original eyelid mask by code.
+
+Everything outside these two small eye openings is unchanged: same character, head tilt, face, bow, dress/cardigan, arms, blue book, legs, bench support, room, camera, lighting and full canvas. No glow, no added highlights, no new pupil, no face smoothing, no blank facial oval. Keep the exact original 1536×1024 framing and scale.
+
+Output one normal opaque PNG eye-white clean plate. The white eyes are intentional production underlayers, not a final facial expression or a new identity reference.

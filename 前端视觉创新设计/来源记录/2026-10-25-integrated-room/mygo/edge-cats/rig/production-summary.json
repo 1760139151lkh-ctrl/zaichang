@@ -1,0 +1,384 @@
+{
+  "schemaVersion": 1,
+  "scope": "Five MyGO roles plus independently drawn opposite-facing Rana; static candidates only, never identity-swapping mirror.",
+  "assets": [
+    {
+      "id": "tomori",
+      "characterId": "tomori",
+      "assetVariant": "head-left-body-right",
+      "files": {
+        "body": {
+          "file": "tomori-edge-meme-cat-v1-body.png",
+          "sha256": "45824dc8831cf474ba657660ecd6c4e14581ff838367e4e664e18c0bb47297d7",
+          "bytes": 756020,
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGBA",
+          "alphaBounds": [
+            35,
+            158,
+            1403,
+            885
+          ]
+        },
+        "tail": {
+          "file": "tomori-edge-meme-cat-v1-tail.png",
+          "sha256": "835eb8d421be38ebfbab3ba7df0ba54e03dce45d9829474f02333a29c17752e9",
+          "bytes": 59298,
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGBA",
+          "alphaBounds": [
+            1324,
+            331,
+            1518,
+            696
+          ]
+        },
+        "clean": {
+          "file": "tomori-edge-meme-cat-v1-clean.png",
+          "sha256": "6fadf46c2ba150b8324f3b4c746e425dcda4e5cc05f9f6c3614458ebdd7e67cb",
+          "bytes": 793453,
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGBA",
+          "alphaBounds": [
+            35,
+            158,
+            1518,
+            885
+          ]
+        }
+      },
+      "pivot": [
+        1357,
+        659
+      ],
+      "supportY": 848,
+      "mirrorSafe": true,
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "id": "anon",
+      "characterId": "anon",
+      "assetVariant": "head-left-body-right",
+      "files": {
+        "body": {
+          "file": "anon-edge-meme-cat-v1-body.png",
+          "sha256": "e2f9bc6831f9f6a740d826014b2262397b1546f165a3ad7aa84f69c1f08aeb42",
+          "bytes": 919839,
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGBA",
+          "alphaBounds": [
+            18,
+            135,
+            1396,
+            915
+          ]
+        },
+        "tail": {
+          "file": "anon-edge-meme-cat-v1-tail.png",
+          "sha256": "e52e8a7c08e5f76d8eb7fac55a4ec51345be10adf5ad453d4a93f4c83d2421b4",
+          "bytes": 62973,
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGBA",
+          "alphaBounds": [
+            1323,
+            322,
+            1519,
+            702
+          ]
+        },
+        "clean": {
+          "file": "anon-edge-meme-cat-v1-clean.png",
+          "sha256": "763ee236abaf9c3b18c914b74397be65f37e96d0e204066582858ff0617ef9b2",
+          "bytes": 960636,
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGBA",
+          "alphaBounds": [
+            18,
+            135,
+            1519,
+            915
+          ]
+        }
+      },
+      "pivot": [
+        1358,
+        670
+      ],
+      "supportY": 854,
+      "mirrorSafe": true,
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "id": "rana",
+      "characterId": "rana",
+      "assetVariant": "head-left-body-right",
+      "files": {
+        "body": {
+          "file": "rana-edge-meme-cat-v1-body.png",
+          "sha256": "0f49dd64d084726f1393133a8227df06e4a609acea85d3aa4418538c298bc75f",
+          "bytes": 760505,
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGBA",
+          "alphaBounds": [
+            48,
+            176,
+            1390,
+            879
+          ]
+        },
+        "tail": {
+          "file": "rana-edge-meme-cat-v1-tail.png",
+          "sha256": "59fe11eb046b4c6f0e3c98ffd18ec3a977804063a4e0189fbe37e8ec0219ce62",
+          "bytes": 62581,
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGBA",
+          "alphaBounds": [
+            1307,
+            328,
+            1504,
+            705
+          ]
+        },
+        "clean": {
+          "file": "rana-edge-meme-cat-v1-clean.png",
+          "sha256": "a9ba946c72fdc3830cf502c530fe115916d8f86c086b51c78056c721bdae0936",
+          "bytes": 800997,
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGBA",
+          "alphaBounds": [
+            48,
+            176,
+            1504,
+            879
+          ]
+        }
+      },
+      "pivot": [
+        1344,
+        672
+      ],
+      "supportY": 846,
+      "mirrorSafe": false,
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "id": "soyo",
+      "characterId": "soyo",
+      "assetVariant": "head-left-body-right",
+      "files": {
+        "body": {
+          "file": "soyo-edge-meme-cat-v1-body.png",
+          "sha256": "c5eeb93d2dda476172336fc4de637f7ff63b6d4ef4fcdddb4b7b2c2a6f234461",
+          "bytes": 859395,
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGBA",
+          "alphaBounds": [
+            27,
+            143,
+            1399,
+            886
+          ]
+        },
+        "tail": {
+          "file": "soyo-edge-meme-cat-v1-tail.png",
+          "sha256": "ef03adf22853e2f17d16cbfb7dc90bfc2c74c5169cfff9a562f9d7968e09c337",
+          "bytes": 62396,
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGBA",
+          "alphaBounds": [
+            1323,
+            336,
+            1512,
+            705
+          ]
+        },
+        "clean": {
+          "file": "soyo-edge-meme-cat-v1-clean.png",
+          "sha256": "66e4b6a617ce2d979ff66098ba32cc71bb928636dc9ae8c1872d134883b5b91f",
+          "bytes": 899383,
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGBA",
+          "alphaBounds": [
+            27,
+            143,
+            1512,
+            886
+          ]
+        }
+      },
+      "pivot": [
+        1356,
+        673
+      ],
+      "supportY": 850,
+      "mirrorSafe": true,
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "id": "taki",
+      "characterId": "taki",
+      "assetVariant": "head-left-body-right",
+      "files": {
+        "body": {
+          "file": "taki-edge-meme-cat-v1-body.png",
+          "sha256": "20ff50d8effd624fe694b8002a9ce1555fc2d0f0567834c57283ccd86cbe4be5",
+          "bytes": 742238,
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGBA",
+          "alphaBounds": [
+            37,
+            167,
+            1423,
+            876
+          ]
+        },
+        "tail": {
+          "file": "taki-edge-meme-cat-v1-tail.png",
+          "sha256": "98c9e77cc1981d59b5e6c08b417f2d05b81ffc7ff97b89cc41f598616eea236c",
+          "bytes": 58570,
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGBA",
+          "alphaBounds": [
+            1312,
+            347,
+            1518,
+            709
+          ]
+        },
+        "clean": {
+          "file": "taki-edge-meme-cat-v1-clean.png",
+          "sha256": "71e3047cdc61b1e92f22dc40716fb00b8fabebbb6843d68e75b8b0103de136dc",
+          "bytes": 781534,
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGBA",
+          "alphaBounds": [
+            37,
+            167,
+            1518,
+            876
+          ]
+        }
+      },
+      "pivot": [
+        1351,
+        676
+      ],
+      "supportY": 851,
+      "mirrorSafe": true,
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "id": "rana-reverse",
+      "characterId": "rana",
+      "assetVariant": "head-right-body-left",
+      "files": {
+        "body": {
+          "file": "rana-head-right-v1-body.png",
+          "sha256": "8dff799a03366dfb038e0ab5a31df8864ed698f84db0d49b53b9673fe768d336",
+          "bytes": 748542,
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGBA",
+          "alphaBounds": [
+            146,
+            176,
+            1485,
+            869
+          ]
+        },
+        "tail": {
+          "file": "rana-head-right-v1-tail.png",
+          "sha256": "5a0f9faba65933e5fed9e47c77a5d8a0d77de4a785ba7f8609844b8957ed179a",
+          "bytes": 67132,
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGBA",
+          "alphaBounds": [
+            33,
+            322,
+            239,
+            697
+          ]
+        },
+        "clean": {
+          "file": "rana-head-right-v1-clean.png",
+          "sha256": "7cb7794ef4e0baf16f80d88976b7b40d166ae3a58d8d697ea57d02b8061906a0",
+          "bytes": 793797,
+          "canvas": [
+            1536,
+            1024
+          ],
+          "mode": "RGBA",
+          "alphaBounds": [
+            33,
+            176,
+            1485,
+            869
+          ]
+        }
+      },
+      "pivot": [
+        199,
+        656
+      ],
+      "supportY": 832,
+      "mirrorSafe": false,
+      "primaryApproved": false,
+      "runtimeAccepted": false
+    }
+  ]
+}

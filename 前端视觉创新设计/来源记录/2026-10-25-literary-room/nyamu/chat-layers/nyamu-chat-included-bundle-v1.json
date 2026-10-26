@@ -1,0 +1,211 @@
+{
+  "schemaVersion": 1,
+  "key": "nyamu/chat/apricot",
+  "kind": "original-source-union-subject-included-contact-candidate",
+  "primary": true,
+  "runtime": false,
+  "status": "primary_approved_exact_fixed_source_included_union_runtime_pending",
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-pilot/nyamu-chat-apricot-v1.png",
+    "sha256": "096bd7f5f0138e8b961c91d52dc8e68b29bcda1600bbb9ca444bd1c7eff75313",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "admissionRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-cast-chat-mother-reviews-v1.json"
+  },
+  "background": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+    "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "inputs": {
+    "F": {
+      "path": "nyamu-chat-figure-mask-v1.png",
+      "sha256": "e134398076c27e95c17d8ffdf20bdeac59a0107924bd5edc2cdde1ad885ca6ff",
+      "generationSource": "nyamu-chat-figure-mask-v1.source.json"
+    },
+    "S": {
+      "path": "nyamu-chat-contact-mask-v1.png",
+      "sha256": "0702dd3af004fefa908aad843e906e17e30738fad28acb0df1143723059f71db",
+      "generationSource": "nyamu-chat-contact-mask-v1.source.json"
+    }
+  },
+  "union": {
+    "formula": "U(x,y)=MAX(L(F(x,y)),L(S(x,y)))",
+    "luminanceWeights": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorSpace": "sRGB",
+    "nativeSvgMethod": "feImage at original source canvas; luminance feColorMatrix; feBlend mode=lighten; luminance mask",
+    "nativeSvgSource": "nyamu-chat-included-union-v1.svg",
+    "originalMotherRgbDrawsPerSubject": 1,
+    "newRaster": false,
+    "pngPixelEditing": false,
+    "thresholding": false,
+    "subtraction": false,
+    "croppingToHideResidual": false,
+    "extraShadowPaint": false,
+    "nativeSvgSourceSha256": "8e9b9fe47b3416995ecc9ea4588d76aa93c305f37664101ee8b1d91898d75c58"
+  },
+  "contactShadow": {
+    "mode": "included",
+    "meaning": "Source-fixed whole foreground plus local adjacent seat/palm/floor receiver material; not a clean portable independent caster"
+  },
+  "composition": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "layerOrder": [
+      "matching empty BG",
+      "one unchanged original mother RGB image through U"
+    ],
+    "sharedStage": true,
+    "transform": {
+      "x": 0,
+      "y": 0,
+      "scale": 1,
+      "rotation": 0
+    },
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0
+  },
+  "calibration": {
+    "seat": [
+      0.797526,
+      0.546875
+    ],
+    "ground": [
+      0.634766,
+      0.881836
+    ],
+    "bodyBounds": [
+      0.520833,
+      0.097656,
+      0.904948,
+      0.898438
+    ],
+    "safeTextBoundary": 0.5,
+    "support": "window-seat",
+    "contactShadow": {
+      "mode": "included"
+    },
+    "contourComplete": true,
+    "hitPolygon": "69% 10%, 82% 10%, 86% 30%, 90% 58%, 80% 62%, 72% 90%, 52% 90%, 62% 64%, 63% 47%, 65% 35%",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "sourcePixelEstimates": {
+      "seat": [
+        1225,
+        560
+      ],
+      "ground": [
+        975,
+        903
+      ],
+      "bodyBounds": [
+        800,
+        100,
+        1390,
+        920
+      ]
+    },
+    "basis": "Role-specific manual visual estimates on this exact original mother; no generic chair calibration and no pixel-measurement claim"
+  },
+  "allowedPresentation": [
+    "Entire fixed pose shown/hidden together",
+    "Whole pose replacement with its own mother/masks/matching BG",
+    "Shared scene viewport transform"
+  ],
+  "unsupportedPresentation": [
+    "Independent translation/limb deformation",
+    "Separate shadow motion or alpha effect as caster",
+    "Moving included receiving material to another support/room",
+    "Claiming full-room baked image as layered character"
+  ],
+  "rawGeneration": [
+    {
+      "character": "nyamu",
+      "step": "F1",
+      "name": "nyamu-chat-figure-mark-v1",
+      "status": "saved",
+      "sha256": "dbc808452d2dac5b488c665924a841a1a7577585764578f1bfff897ab6077647"
+    },
+    {
+      "character": "nyamu",
+      "step": "F2",
+      "name": "nyamu-chat-figure-mask-v1",
+      "status": "saved",
+      "sha256": "e134398076c27e95c17d8ffdf20bdeac59a0107924bd5edc2cdde1ad885ca6ff"
+    },
+    {
+      "character": "nyamu",
+      "step": "S1",
+      "name": "nyamu-chat-contact-mark-v1",
+      "status": "saved",
+      "sha256": "3b2f8f5d88783ba680a8e73e17616cd8b417059f9ad38070cf30456da321f5eb"
+    },
+    {
+      "character": "nyamu",
+      "step": "S2",
+      "name": "nyamu-chat-contact-mask-v1",
+      "status": "saved",
+      "sha256": "0702dd3af004fefa908aad843e906e17e30738fad28acb0df1143723059f71db"
+    }
+  ],
+  "visualInspection": {
+    "status": "current_static_browser_view_complete",
+    "page": "nyamu-chat-included-observe-v1.html",
+    "pageUrl": "http://127.0.0.1:5188/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-included-observe-v1.html",
+    "pageSha256": "74957ab5e24977e9c3f71545c01936cc185111032860522442982052d28d43e3",
+    "personallyViewedRawSteps": true,
+    "browser": "Chrome CUA static page only; no product/debug target",
+    "statesViewed": [
+      "full original mother versus BG+joint scene",
+      "complete F/S/MAX coverage",
+      "original RGB union on light/dark/checker incl lower shoes",
+      "native face/fringe/eyelids/irises",
+      "native both hands including supporting palm",
+      "native full hem and seat receiver triptych",
+      "native complete shoes/heels/floor receiver triptych"
+    ],
+    "observations": [
+      "Original mother versus matching BG plus union read naturally at observed full-scene size; original scale and pose remain.",
+      "Native face/eyes/fringe, speaking hand and full seat-support palm, black skirt and knees preserve original RGB appearance.",
+      "A small separate original linen/throw receiver island to the right of the supporting palm remains visible on light/dark/checker and the native hem/seat view; nothing was clipped or relocated to hide it.",
+      "Full toe/sole/low-heel and ankle-strap geometry plus narrow original floor receiver are retained. This is fixed included material rather than a clean caster."
+    ],
+    "specificIssues": [
+      {
+        "kind": "included-receiver-island",
+        "observation": "Small separate source linen/throw receiver island right of supporting palm remains explicitly visible.",
+        "disposition": "Root personally viewed and accepted it as part of this exact fixed-source included joint layer; it must not be reclassified as a pure caster or moved."
+      }
+    ]
+  },
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "separateCastShadowClaim": false,
+    "scope": "Exact source mother, matching BG, F and S joint fixed static representation only",
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-included-primary-admission-v1.json"
+  },
+  "runtimeIntegration": false,
+  "scopeBoundary": {
+    "srcEdits": false,
+    "registration": false,
+    "pngEdits": false,
+    "newTests": false,
+    "portChanges": false,
+    "children": false
+  },
+  "primaryAdmissionRecord": "nyamu-chat-included-primary-admission-v1.json"
+}

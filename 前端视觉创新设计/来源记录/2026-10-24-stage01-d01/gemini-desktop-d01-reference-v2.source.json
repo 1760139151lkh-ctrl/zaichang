@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "id": "s01-d01-gemini-desktop-reference-v2",
+  "producer": "Gemini desktop",
+  "clientVersion": "1.16.0",
+  "observedUi": {
+    "mode": "video",
+    "modelSelection": "3.8 Flash",
+    "thinkingLevel": "高（超级详尽）",
+    "thinkingChoices": [
+      "低",
+      "中",
+      "高"
+    ],
+    "aspectRatio": "16:9"
+  },
+  "backendVideoModel": "not_shown",
+  "input": "../../运行素材/companion/scenes/sakiko-chat-apricot-mother.png",
+  "inputSha256": "163bfa2ffe4fe061f2a5ea0ffaca9d0ecb4a48fc408bba686de008735e896ee1",
+  "prompt": "gemini-desktop-d01-reference-v2-edit.prompt.txt",
+  "output": "gemini-desktop-d01-reference-v2.mp4",
+  "sha256": "0a29de5a185ca03341377f18460308ef3a415a2abdc02a9fc071b6a0eec3b4c5",
+  "bytes": 1328471,
+  "observedMedia": {
+    "width": 1280,
+    "height": 720,
+    "videoSeconds": 10,
+    "containerSeconds": 10.005,
+    "fps": 24,
+    "frames": 240,
+    "videoCodec": "h264",
+    "pixelFormat": "yuv420p",
+    "audioCodec": "aac",
+    "audioSampleRate": 48000,
+    "audioChannels": 2
+  },
+  "classification": "B",
+  "status": "motion-direction-reference-only",
+  "review": {
+    "fullAvDecode": "passed",
+    "keyFramesInspected": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      9.958333333333334
+    ],
+    "retained": "Look to the left, right-hand indication and return to the blue book; original unwanted target poster absent in inspected frames.",
+    "defects": [
+      "A small dark flying shape appears near the curtain at 4 seconds; the prompt requested no added objects.",
+      "Hand indication is broader than the intended restrained product motion.",
+      "The lower-line retarget is not established by the inspected samples."
+    ],
+    "normalSpeedPlayback": "Played once in the native Gemini player; observed at start, approximately 1 second and 9 seconds. This is not an uninterrupted full-motion acceptance.",
+    "audioListening": "Tool audio input unavailable; AAC track exists and was decoded. No listening claim.",
+    "loopReview": "not_accepted_as_loop",
+    "runtimeAllowed": false
+  },
+  "runtimeReference": null,
+  "nextRevision": "Use only direction and timing as reference for the separately verified local controllable rig.",
+  "parent": "gemini-desktop-d01-reference-v1.source.json"
+}

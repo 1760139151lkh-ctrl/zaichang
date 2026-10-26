@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-56438831-1a0b-428c-a254-d4d1d54330c9.png",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mygo\\edge-cats\\taki-edge-meme-cat-v1.png",
+      "sha256": "94f804ad07e07377305e54e6ad0a55db2f9b107945b2af6c4b16d2786afb5647",
+      "role": "Only character source; source-local RGB/identity authority"
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": ".agents\\skills\\zaichang-frontend-director\\references\\characters\\taki.md",
+      "sha256": "48f954585e91b84599430c573ff38e498959d3168f18a9ca46c0c3c1e7f7bc7a",
+      "scope": "Full relevant text read before each generation call in this production turn"
+    },
+    {
+      "path": ".agents\\skills\\zaichang-frontend-director\\references\\character-art-direction.md",
+      "sha256": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840",
+      "scope": "Full relevant text read before each generation call in this production turn"
+    }
+  ],
+  "promptFile": "semantic-mask-v1.prompt.txt",
+  "submittedPromptSha256": "ffb1afb53da169b720cd6022aa09a06cebc567f45c4767e8d8613ee462ec12b4",
+  "output": {
+    "file": "semantic-mask-v1.png",
+    "sha256": "4b1f10808251f596b2a9b40254df4eea2760c1fc9821294c07152043fea89b6b",
+    "bytes": 740985,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "alphaBounds": null
+  },
+  "labels": {
+    "white": "all actual opaque head/body/paws and touching/held prop, including original ink",
+    "red": "actual tail including original ink",
+    "black": "background/open gaps/glow"
+  },
+  "review": "Semantic identity only. Native-alpha original contours and asset-specific body arc calibrate precise source-RGB layer ownership. No mask black facial line is treated as true transparent face.",
+  "primaryApproved": false,
+  "runtimeAccepted": false
+}

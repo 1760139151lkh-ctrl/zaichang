@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>爱音 · 暖杏规划 · 原景分层候选 v3</title>
+<style>
+*{box-sizing:border-box}html{scroll-behavior:auto}body{margin:0;padding:24px;background:#eee8e0;color:#332d2a;font:15px/1.5 system-ui,"Microsoft YaHei",sans-serif}h1{font-size:22px;margin:0 0 12px;font-weight:600}h2{font-size:16px;margin:0 0 10px;font-weight:600}p{margin:8px 0;color:#75675d}nav,.controls{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin:12px 0 24px}a{color:#745c68}button,select{font:inherit;color:inherit;background:#fffaf3;border:1px solid #b7a99b;border-radius:7px;padding:7px 12px}button:focus-visible,select:focus-visible{outline:3px solid #8b667d;outline-offset:3px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin:24px 0}.stage{position:relative;width:100%;aspect-ratio:3/2;overflow:hidden;background:#faf6ed}.layer{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block}.crop{position:relative;width:330px;height:470px;overflow:hidden}.crop .layer{width:1536px;height:1024px;left:-780px;top:-286px;max-width:none}.solid{display:flex;justify-content:center;overflow:auto}.light{background:#fff7e8}.dark{background:#231f28}.trio{display:flex;gap:20px;flex-wrap:wrap}.contact-crop{position:relative;width:370px;height:360px;overflow:hidden}.contact-crop .layer{width:1536px;height:1024px;left:-750px;top:-400px;max-width:none}.wide{grid-column:1/-1}.hidden{display:none!important}footer{margin-top:24px}output{color:#75675d}@media(max-width:850px){body{padding:16px}.grid{grid-template-columns:1fr}.wide{grid-column:auto}}
+</style>
+<h1>爱音 · 暖杏规划 · 原景分层候选 v3</h1>
+<nav><a href="#compare">母图与叠合</a><a href="#edges">浅深底</a><a href="#contacts">座面、手与鞋</a></nav>
+<div class="controls"><button id="visibility" type="button" aria-pressed="true">隐藏爱音</button><label>主题 <select id="theme"><option value="apricot">暖杏</option><option value="mist">晨雾蓝</option></select></label><label>姿态 <select id="pose"><option value="planning">规划</option><option value="reading">共读</option></select></label><label><input id="fail" type="checkbox">模拟来源不可用</label><output id="status" aria-live="polite">读取母图</output></div>
+<main>
+<section class="grid" id="compare">
+<article><h2>已审母图</h2><div class="stage"><img class="layer" src="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-planning-apricot-mother-candidate-v1.png" alt="已审原母图"></div></article>
+<article><h2>同画布叠合</h2><div class="stage" id="runtime"><img class="layer" src="anon-planning-apricot-bundle-v1-background.png" alt="空房间"><svg class="layer source-contact" viewBox="0 0 1536 1024" aria-hidden="true"><defs><clipPath id="planning-contact-5" clipPathUnits="userSpaceOnUse"><polygon points="885,601 897,605 924,599 948,594 952,597 926,603 898,610 886,606"/><polygon points="944,733 951,737 974,739 1007,735 1009,738 998,742 959,742 945,739"/><polygon points="1016,736 1036,739 1063,738 1082,733 1085,736 1074,741 1042,743 1019,741"/></clipPath></defs><image href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-planning-apricot-mother-candidate-v1.png" width="1536" height="1024" preserveAspectRatio="none" clip-path="url(#planning-contact-5)"/></svg><svg class="layer figure" viewBox="0 0 1536 1024" aria-label="原母人物RGB经亮度遮罩与椅背排除" role="img"><defs><mask id="planning-corrected-mask-1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="1536" height="1024" style="mask-type:luminance"><image href="anon-planning-apricot-bundle-v1-mask.png" width="1536" height="1024" preserveAspectRatio="none"/><polygon points="820,509 857,509 864,525 870,549 878,577 889,607 820,607" fill="black"/></mask></defs><image href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-planning-apricot-mother-candidate-v1.png" width="1536" height="1024" preserveAspectRatio="none" mask="url(#planning-corrected-mask-1)"/></svg></div></article>
+<article><h2>空房</h2><div class="stage"><img class="layer" src="anon-planning-apricot-bundle-v1-background.png" alt="移去爱音与手持纸张的空房"></div></article>
+<article><h2>亮度遮罩</h2><div class="stage dark"><img class="layer" src="anon-planning-apricot-bundle-v1-mask.png" alt="白人物黑房间"></div></article>
+</section>
+<section class="grid" id="edges">
+<article><h2>原母 RGB · 浅底</h2><div class="solid light"><div class="crop"><svg class="layer figure" viewBox="0 0 1536 1024" aria-label="原母人物RGB经亮度遮罩与椅背排除" role="img"><defs><mask id="planning-corrected-mask-2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="1536" height="1024" style="mask-type:luminance"><image href="anon-planning-apricot-bundle-v1-mask.png" width="1536" height="1024" preserveAspectRatio="none"/><polygon points="820,509 857,509 864,525 870,549 878,577 889,607 820,607" fill="black"/></mask></defs><image href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-planning-apricot-mother-candidate-v1.png" width="1536" height="1024" preserveAspectRatio="none" mask="url(#planning-corrected-mask-2)"/></svg></div></div></article>
+<article><h2>原母 RGB · 深底</h2><div class="solid dark"><div class="crop"><svg class="layer figure" viewBox="0 0 1536 1024" aria-label="原母人物RGB经亮度遮罩与椅背排除" role="img"><defs><mask id="planning-corrected-mask-3" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="1536" height="1024" style="mask-type:luminance"><image href="anon-planning-apricot-bundle-v1-mask.png" width="1536" height="1024" preserveAspectRatio="none"/><polygon points="820,509 857,509 864,525 870,549 878,577 889,607 820,607" fill="black"/></mask></defs><image href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-planning-apricot-mother-candidate-v1.png" width="1536" height="1024" preserveAspectRatio="none" mask="url(#planning-corrected-mask-3)"/></svg></div></div></article>
+</section>
+<section id="contacts"><h2>座面、手与完整双鞋 · 母图 / 无补源 / 补源</h2><div class="trio"><article><div class="contact-crop"><img class="layer" src="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-planning-apricot-mother-candidate-v1.png" alt="原母座面手与鞋"></div><p>母图</p></article><article><div class="contact-crop"><img class="layer" src="anon-planning-apricot-bundle-v1-background.png" alt=""><svg class="layer figure" viewBox="0 0 1536 1024" aria-label="原母人物RGB经亮度遮罩与椅背排除" role="img"><defs><mask id="planning-corrected-mask-8" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="1536" height="1024" style="mask-type:luminance"><image href="anon-planning-apricot-bundle-v1-mask.png" width="1536" height="1024" preserveAspectRatio="none"/><polygon points="820,509 857,509 864,525 870,549 878,577 889,607 820,607" fill="black"/></mask></defs><image href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-planning-apricot-mother-candidate-v1.png" width="1536" height="1024" preserveAspectRatio="none" mask="url(#planning-corrected-mask-8)"/></svg></div><p>空房 + 原 RGB 人物</p></article><article><div class="contact-crop"><img class="layer" src="anon-planning-apricot-bundle-v1-background.png" alt=""><svg class="layer source-contact" viewBox="0 0 1536 1024" aria-hidden="true"><defs><clipPath id="planning-contact-6" clipPathUnits="userSpaceOnUse"><polygon points="885,601 897,605 924,599 948,594 952,597 926,603 898,610 886,606"/><polygon points="944,733 951,737 974,739 1007,735 1009,738 998,742 959,742 945,739"/><polygon points="1016,736 1036,739 1063,738 1082,733 1085,736 1074,741 1042,743 1019,741"/></clipPath></defs><image href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-planning-apricot-mother-candidate-v1.png" width="1536" height="1024" preserveAspectRatio="none" clip-path="url(#planning-contact-6)"/></svg><svg class="layer figure" viewBox="0 0 1536 1024" aria-label="原母人物RGB经亮度遮罩与椅背排除" role="img"><defs><mask id="planning-corrected-mask-7" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="1536" height="1024" style="mask-type:luminance"><image href="anon-planning-apricot-bundle-v1-mask.png" width="1536" height="1024" preserveAspectRatio="none"/><polygon points="820,509 857,509 864,525 870,549 878,577 889,607 820,607" fill="black"/></mask></defs><image href="../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-planning-apricot-mother-candidate-v1.png" width="1536" height="1024" preserveAspectRatio="none" mask="url(#planning-corrected-mask-7)"/></svg></div><p>空房 + 原母窄接触区 + 原 RGB 人物</p></article></div></section>
+</main>
+<footer><a href="anon-planning-apricot-bundle-v1.json">生成与来源</a> · <a href="anon-planning-apricot-runtime-bundle-v1.json">固定房间装配约束</a> · 固定 v3：原生 SVG 排除椅背、窄接触源条；未接入产品注册。</footer>
+<script>
+const EXPECTED='74aae35f25cf35d0c1c34ca150e650956bd60218a8e759d15ad44abbb41adc4e';
+const state={showFigure:true,motherReady:false,failed:false,theme:'apricot',pose:'planning',motherSha256:null};
+const runtime=document.getElementById('runtime'),status=document.getElementById('status');
+function update(){
+ const allowed=state.showFigure&&state.motherReady&&!state.failed&&state.theme==='apricot'&&state.pose==='planning'&&state.motherSha256===EXPECTED;
+ runtime.querySelectorAll('.figure,.source-contact').forEach(el=>el.classList.toggle('hidden',!allowed));
+ document.getElementById('visibility').textContent=state.showFigure?'隐藏爱音':'显示爱音';
+ document.getElementById('visibility').setAttribute('aria-pressed',String(state.showFigure));
+ status.value=allowed?'原位显示':state.failed?'来源不可用':!state.motherReady?'读取母图':!state.showFigure?'已隐藏':'当前主题或姿态不匹配';
+ runtime.dataset.figureVisible=String(allowed);
+}
+document.getElementById('visibility').addEventListener('click',()=>{state.showFigure=!state.showFigure;update()});
+document.getElementById('theme').addEventListener('change',e=>{state.theme=e.target.value;update()});
+document.getElementById('pose').addEventListener('change',e=>{state.pose=e.target.value;update()});
+document.getElementById('fail').addEventListener('change',e=>{state.failed=e.target.checked;update()});
+update();
+(async()=>{
+ try{
+ const response=await fetch('../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-planning-apricot-mother-candidate-v1.png'); if(!response.ok)throw new Error('mother HTTP');
+ const bytes=await response.arrayBuffer();state.motherSha256=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),b=>b.toString(16).padStart(2,'0')).join('');
+ await Promise.all(Array.from(runtime.querySelectorAll('img')).map(img=>img.decode()));
+ const source=new Image();source.src='../../assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-planning-apricot-mother-candidate-v1.png';await source.decode();
+ const matte=new Image();matte.src='anon-planning-apricot-bundle-v1-mask.png';await matte.decode();
+ if(source.naturalWidth!==1536||source.naturalHeight!==1024||matte.naturalWidth!==1536||matte.naturalHeight!==1024||state.motherSha256!==EXPECTED)throw new Error('source mismatch');
+ state.motherReady=true;
+ }catch(error){state.failed=true;state.motherReady=false}
+ update();
+})();
+</script>
+</html>
+

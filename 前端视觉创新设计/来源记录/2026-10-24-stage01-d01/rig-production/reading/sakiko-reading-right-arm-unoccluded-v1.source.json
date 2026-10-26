@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "s01-d01-sakiko-reading-right-arm-unoccluded-v1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "recordedAt": "2026-10-25T08:01:26Z",
+  "generationId": "exec-d46e7086-fb7b-4b45-909b-71c79a7aa847",
+  "prompt": "sakiko-reading-right-arm-unoccluded-v1.prompt.txt",
+  "inputs": [
+    {
+      "path": "../../../../运行素材/companion/scenes/sakiko-reading-apricot-v2-mother.png",
+      "sha256": "8f2358c0af7a78451259d049517cf3dedfe011023fdbabc44ec4bd850d3e671b",
+      "role": "approved original READING mother; only image reference used for every generation in this folder"
+    }
+  ],
+  "output": "sakiko-reading-right-arm-unoccluded-v1.png",
+  "sha256": "99db9a27db58bbce1dec4fd3457a2b8df2660c46f9d7c3680d29f522971a6a09",
+  "bytes": 2103057,
+  "canvas": {
+    "width": 1536,
+    "height": 1024
+  },
+  "outputMode": "RGB",
+  "character": "sakiko",
+  "sceneFamily": "sakiko-reading-apricot-room4",
+  "classification": "B",
+  "status": "approved-local-component",
+  "runtimeAllowed": "only the registered local component/repair paths",
+  "staticReview": {
+    "producerInspected": true,
+    "alsoInspectedBy": "s01_04_participation",
+    "observed": "The book was removed intentionally; the original right forearm, cuff, wrist, palm, thumb and fingers are complete and connected. Exactly two hands remain, with original torso and seated support retained.",
+    "limitation": "Only the right-arm component supplies runtime texture. The bookless scene is never displayed or used as a final character pose."
+  },
+  "originalNotOverwritten": true,
+  "noCrossFamilyPixels": true,
+  "motionVerified": false,
+  "inAppVerified": false,
+  "runtimeRig": "sakiko-reading-d01-rig-v1.json"
+}

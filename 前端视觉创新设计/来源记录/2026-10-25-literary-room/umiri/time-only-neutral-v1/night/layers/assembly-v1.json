@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 1,
+  "recordType": "time-only-neutral-fixed-original-rgb-included-layer-candidate",
+  "recordedAtUTC": "2026-10-26T01:30:56.289071+00:00",
+  "character": "umiri",
+  "purpose": "neutral-presence",
+  "neutralTime": "night",
+  "palette": "rain",
+  "light": "night",
+  "weather": "unknown",
+  "weatherClaim": false,
+  "sourceCanvas": [
+    1536,
+    1024
+  ],
+  "selected": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-night-v1.png",
+      "sha256": "c6f19f399ab4a05727cb52d36a780fd3fde3f4222e4c31dc39dee6b2f1b19731",
+      "bytes": 2218442,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "F": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/night/layers/figure-mask-v1.png",
+      "sha256": "1e9f44e5081788c3abaf003692cb61d4350d338295c32684e95ceabca038448e",
+      "bytes": 470868,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "S": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/night/layers/contact-mask-v1.png",
+      "sha256": "b5e2c279b7e7fa8fefca71e3647b88e406ac5cdf217fdec6ea2ad62e9496add8",
+      "bytes": 333322,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "BG": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/night/layers/background-v1.png",
+      "sha256": "a440a13e08fb69b87fb4351132cfff6969f1ae2bb1d54c65676d6376812340df",
+      "bytes": 2141510,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    }
+  },
+  "motherPrimaryAdmission": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/root-primary-night-mother-admission-v1.json",
+    "sha256": "0931b08f8be109976a530dd0f2fcd222857121cfcd7d0e3f2ebfa032ada1299d",
+    "scope": "exact complete static mother and layer production only; not new layer approval"
+  },
+  "composition": {
+    "formula": "U=MAX(L(F),L(S))",
+    "luminanceCoefficients": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorInterpolationFilters": "sRGB",
+    "nativeImplementation": "feColorMatrix then feBlend lighten then luminance mask",
+    "sourceRGBDrawCountPerUnion": 1,
+    "sourceRGBDrawCountPerComposite": 1,
+    "generatedMarkupRGBAdopted": false,
+    "sameMotherImageRemovalBG": true,
+    "commonPlateUsedInsteadOfSameMotherBG": false,
+    "fixedOriginalPositionMaterialReceiver": true,
+    "independentActorPropReceiverMovementAllowed": false,
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "pngPixelEditing": false,
+    "croppingResizingSourcePNG": false,
+    "thresholdMorphologyEditing": false
+  },
+  "generationRecords": [
+    {
+      "sourceRecord": "background-v1.source.json",
+      "sourceSHA256": "2a65173ef076f84d9ccb67223a090670145859edaa190da71a3acf518ddac0db",
+      "stage": "BG",
+      "outputFile": "background-v1.png",
+      "outputSHA256": "a440a13e08fb69b87fb4351132cfff6969f1ae2bb1d54c65676d6376812340df",
+      "toolOriginalSHA256": "a440a13e08fb69b87fb4351132cfff6969f1ae2bb1d54c65676d6376812340df",
+      "submittedPromptSHA256": "a084abccac3a63a1c6875797d1dbfcf64102dec67c654d2d1939504c15cb15ff",
+      "promptFileSHA256": "450a2e30f3faf501bf9703854349d857a2b364d358dc32e668d8060fc9446e77",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-night-v1.png",
+          "role": "exact root-approved original whole mother",
+          "sha256": "c6f19f399ab4a05727cb52d36a780fd3fde3f4222e4c31dc39dee6b2f1b19731"
+        }
+      ],
+      "producerHeld": false,
+      "producerObservation": "Complete tool output personally viewed: empty same-mother lamp-lit night room, no girl/book/boot/lace ghost; closed curtains/camera/furniture and ambient night light maintained."
+    },
+    {
+      "sourceRecord": "contact-mask-v1.source.json",
+      "sourceSHA256": "eb75c46c1cce60937e7efa92ddfb195ecf052af3dfd53ecb3d40359aba341cbf",
+      "stage": "S2",
+      "outputFile": "contact-mask-v1.png",
+      "outputSHA256": "b5e2c279b7e7fa8fefca71e3647b88e406ac5cdf217fdec6ea2ad62e9496add8",
+      "toolOriginalSHA256": "b5e2c279b7e7fa8fefca71e3647b88e406ac5cdf217fdec6ea2ad62e9496add8",
+      "submittedPromptSHA256": "8e0ba51f29dc566fb8e5d114c25f57422439613ca0cce4d56a44ce59390c50bc",
+      "promptFileSHA256": "9ecb6180934f5847877dac42eb6cb2cb000ea2f213c8d8eb2b2b58d041c281ec",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-night-v1.png",
+          "role": "exact root-approved original whole mother",
+          "sha256": "c6f19f399ab4a05727cb52d36a780fd3fde3f4222e4c31dc39dee6b2f1b19731"
+        }
+      ],
+      "producerHeld": false,
+      "producerObservation": "Complete tool output personally viewed: four local skirt/palm/two boot receivers on black, source wood/linen with soft edges, no whole body outline or far empty bench."
+    },
+    {
+      "sourceRecord": "figure-mask-v1.source.json",
+      "sourceSHA256": "c6e6285893985286d75aecea93f9ccb9350bca1709d153df3cc226912396d9c3",
+      "stage": "F2",
+      "outputFile": "figure-mask-v1.png",
+      "outputSHA256": "1e9f44e5081788c3abaf003692cb61d4350d338295c32684e95ceabca038448e",
+      "toolOriginalSHA256": "1e9f44e5081788c3abaf003692cb61d4350d338295c32684e95ceabca038448e",
+      "submittedPromptSHA256": "25c1c285c4e6989ca190e09455d3344aaeacf06ce2b0030c2f53c904bf62076c",
+      "promptFileSHA256": "ea64a2c8fc6a1975ac643f8f053a01121b95188f8de4f3ed920583d0f335ee67",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/night/layers/figure-step1-marked-v1.png",
+          "role": "personally inspected same-mother F1 deliberate white selection",
+          "sha256": "7b4f4c8fb7627426bc845de36c9e1ff745227e168b77d6db1589a5653a006172"
+        }
+      ],
+      "producerHeld": false,
+      "producerObservation": "Complete tool output personally viewed: entire original person/book/side palm and full boot/lace/sole silhouettes white with actual empty arm/leg gaps black; final browser validation pending."
+    },
+    {
+      "sourceRecord": "figure-step1-marked-v1.source.json",
+      "sourceSHA256": "55dd617c7629acff1254882d24980e259378818f906b5ed9fd41c4ea9e04c05e",
+      "stage": "F1",
+      "outputFile": "figure-step1-marked-v1.png",
+      "outputSHA256": "7b4f4c8fb7627426bc845de36c9e1ff745227e168b77d6db1589a5653a006172",
+      "toolOriginalSHA256": "7b4f4c8fb7627426bc845de36c9e1ff745227e168b77d6db1589a5653a006172",
+      "submittedPromptSHA256": "6d76a09e27681c4fe6636f47f23fff4c830d259289b015d414b775de6de6d06c",
+      "promptFileSHA256": "4d063de6053590eb097d8d5357f5c75e8a541c54d9379ee6a1712a1e38785fdf",
+      "inputs": [
+        {
+          "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-night-v1.png",
+          "role": "exact root-approved original whole mother",
+          "sha256": "c6f19f399ab4a05727cb52d36a780fd3fde3f4222e4c31dc39dee6b2f1b19731"
+        }
+      ],
+      "producerHeld": false,
+      "producerObservation": "Complete tool output personally viewed: full person/book/extended side palm, both complete boots and fine lace tails deliberately white; actual empty arm/leg background gaps remain colored."
+    }
+  ],
+  "imageGenerationCallCount": 4,
+  "nativeSVGReadback": [
+    {
+      "file": "union-source-v1.svg",
+      "sha256": "c1264b5fe2e205658915c6276da90db841de5d197cc69eb1c51746c822ea88d4",
+      "originalMotherRGBDrawCount": 1,
+      "nativeMaxModeLighten": true,
+      "nativeLuminance": true
+    },
+    {
+      "file": "composite-source-v1.svg",
+      "sha256": "553361555832b5f16fa6aa87aa3ec11a5b7b126383f1fc19c2b582720efbf5bd",
+      "originalMotherRGBDrawCount": 1,
+      "nativeMaxModeLighten": true,
+      "nativeLuminance": true
+    }
+  ],
+  "observationPage": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/night/layers/included-observe-v1.html",
+    "sha256": "4fa7a0d73028061db2ad68693d26c2a84c8055bbf761e74ddcfdd06644671c02",
+    "browserEvidencePending": true,
+    "imageGenerationInputAllowed": false
+  },
+  "primaryLayerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "dynamicAdmission": false,
+  "original360CreditAssigned": false,
+  "userApproved": false,
+  "producerHeld": true,
+  "holdReason": "WIP direct S support positions fail source contact closure; supersede with new clean-mother S1/S2, no bad-mask input."
+}

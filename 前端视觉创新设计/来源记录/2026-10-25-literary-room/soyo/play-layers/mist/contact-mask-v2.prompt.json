@@ -1,0 +1,14 @@
+{
+  "submittedPrompt": "Precise mark-to-mask conversion, not a new scene or semantic contact inference. The ONLY input is the actual Soyo mist play S1 full-color scene, 1536x1024. Keep its exact canvas. Convert the deliberate pure-white added receiver paint to white at THE SAME POSITIONS, and all original-colored pixels to pure black. Do not move or redesign any selected blob. Ignore natural white paper/cushion/collar because only the solid deliberate added white paint is the selection.\nIn this input the TWO tiny seat marks are immediately outside the actual navy hem: a short narrow white curved patch image-left of the knee near x792..810,y556..581, and a small horizontal white patch underneath the INNER skirt/knee near x958..1000,y586..603. These are reading neighborhoods, NOT rectangles to fill. The right marker is next to the knee at x980, NOT far out on the right empty cushion at x1090. Copy those actual painted shapes in place. Do not place a new upper mark based on a guessed hip. The two shoe-floor marked patches remain exactly the white paint immediately around the source soles near x686..910,y844..905; actual shoe interiors must remain black and actual white receiver paint around them remains white. Keep each footprint complete, with white center and only a few pixels of gray softness at its outer diffuse edge. Do not reduce to a 2px stroke, enlarge to an oval, join unrelated floor shadows, or include rug fringe.\nEverything else black: whole girl and all hair, complete shoes, open lap book/page block, the one pencil, room and naturally pale empty cushion. No other white, no gray silhouettes or texture. No crop, shift, zoom, resize, recenter, perspective change, labels, arrows, checkerboard or transparency. Produce one opaque raw 1536x1024 black/white/edge-gray selection mask with exact same marked outlines and original coordinates. Later only the clean source mother supplies RGB, never this marked scene.",
+  "referencedImagePaths": [
+    "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\play-layers\\mist\\contact-step1-marked-v1.png"
+  ],
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/play-layers/mist/contact-step1-marked-v1.png",
+      "sha256": "50dfc6e5276bbfb5c05a666a9c66369b8da08b83941d87cdfd6549635e50a981",
+      "bytes": 2369202
+    }
+  ],
+  "transparentBackground": false
+}

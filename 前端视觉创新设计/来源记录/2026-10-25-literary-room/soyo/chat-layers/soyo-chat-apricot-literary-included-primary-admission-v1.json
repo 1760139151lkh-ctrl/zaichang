@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "kind": "exact-sha-primary-static-included-union-admission",
+  "character": "soyo",
+  "activity": "chat",
+  "palette": "apricot",
+  "sceneFamily": "literary-room-v1",
+  "recordedAtUtc": "2026-10-25T11:41:42.003716+00:00",
+  "primaryApprovalEvidence": {
+    "source": "Root direct message in this healthy session, 2026-10-25; exact message timestamp not provided",
+    "personallyViewed": [
+      "#scene full mother/composite",
+      "#face eyes/bangs/hair edges three-way",
+      "#hem hands/book or knee/full skirt/seat reception three-way",
+      "#heel complete shoes/sole/heel/local floor three-way"
+    ],
+    "finding": "fixed original-position combination has no white seam or obvious patch; fine bright hair edges are natural source window light and read naturally on same BG"
+  },
+  "exactSourceSha256": {
+    "mother": "20942d064ae0af479ede2868d689e105433022e8c0448d45301bd7fc9301bfd8",
+    "background": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+    "F": "5ba1a554039012e7bf744e028f18a4c16b335a6e12a8bbf426b2e371e6578200",
+    "S": "f170ba21bfff70b2db41ef2fa559318f70f1994556dd85253825cc3ec7ee0c90"
+  },
+  "sourcePaths": {
+    "mother": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\chat-pilot\\soyo-chat-apricot-literary-v1.png",
+    "background": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\plates\\literary-room-clear-day-v1.png",
+    "F": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\chat-layers\\figure-mask-v1.png",
+    "S": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\chat-layers\\shadow-mask-v1.png"
+  },
+  "representation": {
+    "formula": "MAX(luminance(F),luminance(S))",
+    "originalMotherRgbDraws": 1,
+    "contactShadow": "included",
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "independentCasterClaim": false,
+    "extraPolygon": false,
+    "pngEdits": false
+  },
+  "placement": {
+    "sourceCanvas": [
+      1536,
+      1024
+    ],
+    "bodyBoundsNormalized": [
+      0.4869791666666667,
+      0.1025390625,
+      0.7473958333333334,
+      0.8642578125
+    ],
+    "boundsStatus": "conservative visual references from this exact visible source, not hidden anatomy certification",
+    "sourceSeat": [
+      0.6770833333333334,
+      0.576171875
+    ],
+    "sourceGround": [
+      0.5403645833333334,
+      0.8447265625
+    ],
+    "actualBodyLocation": "middle-right window bench, use this own source bounds, not Sakiko template",
+    "layoutRecommendation": "choose paper/stacked from this own visible source bounds; no template substitution",
+    "safeTextBoundaryStatus": "provisional single-side reference only, not permission to force left paper layout"
+  },
+  "approval": {
+    "approvedByPrimary": true,
+    "scope": "exact-SHA fixed original-source included static layer only",
+    "runtimeAccepted": false,
+    "runtimeRegisteredByProducer": false,
+    "wholePoseShowHideOrReplacementOnly": true,
+    "noIndependentBodyOrShadowMotion": true
+  },
+  "bundle": "chat-included-bundle-v1.json",
+  "sceneProposal": "soyo-chat-apricot-literary-v1.scene-proposal.json",
+  "selectedSourceClosure": "chat-included-selected-source-closure-v1.json",
+  "registrationOwner": "/root/cast_mygo_recovered"
+}

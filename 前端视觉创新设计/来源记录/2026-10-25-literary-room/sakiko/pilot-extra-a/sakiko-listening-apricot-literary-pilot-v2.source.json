@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "assetType": "new-literary-room-fresh-sakiko-listening-mother-single-scale-repair-pilot",
+  "id": "sakiko-listening-apricot-literary-pilot-v2",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "promptFile": "sakiko-listening-apricot-literary-pilot-v2.prompt.json",
+  "promptFileSha256": "266ff72a8fd03de196985aee530de1c3cef3bc134042c0f3acd7e5e57a48decf",
+  "submittedPrompt": "Create a fresh complete literary illustration of Sakiko quietly LISTENING in the new 在场 room, clear apricot afternoon, full1536x1024.\nTwo correct image inputs have DIFFERENT ROLES:\nImage1 is the PRIMARY EMPTY ROOM edit target. Keep its entire exact camera/framing, furniture positions, large timber window/lake/town/hills, left writing desk/chair/shelves, small round table with ceramic lamp/cup/flowers, right cream bench/pillows/knit throw, foreground plants, floor/rug and shared daylight.\nImage2 is ONLY the approved correct Sakiko identity and IN-ROOM apparent-head-size/depth reference. Match her actual youthful facial proportions, head size and seated bench depth exactly. Her book-reading pose is not the requested action. Draw a fresh listening pose, without a held book. Do not zoom the camera or bring the head closer than Image2.\n\nThe moment:\nShe was about to answer. Then something particular in what you said reaches her more honestly than the answer she had prepared. Sakiko lets her own next sentence wait. Her stillness contains a choice: she is willing to be changed a little by hearing you, rather than only arranging the perfect reply.\nKeep her intelligence and judgment present. She does not become a blank reassuring face. The attention in her golden eyes is steady, personal and slightly searching, as though she wants to hear the exact thing you mean. Her mouth rests quietly, the words not yet spoken. There is softness in that restraint, and a trace of her own pride learning to leave space. She can care without agreeing to everything; she can remain serious without looking cold. Let the scene feel close through genuine attention, not a large-eyed service smile, pity, theatrical sadness or eager bodily approach.\n\nIdentity and basic truthful sitting:\nUse Image2's original youthful Sakiko: long silver-blue hair and dark navy ribbon accents, proportionate golden eyes, the same navy school cardigan/white blouse/pale collar ribbon, navy plaid skirt, knee socks and brown loafers. Keep those ordinary clothing details without adding emblems or decorative stocking marks.\nShe sits BACK AT THE SAME BENCH DEPTH as Image2, hips genuinely supported on the same right cushion, torso naturally upright and relaxed rather than bending toward the lens. A small turn toward the near-camera speaker is enough. One hand rests simply on her own lap/knee, the other on the cushion beside her, with coherent fingers and sleeve connections. No book in either hand, no complicated gesture. Both complete shoes rest naturally on the real floor; full head through soles remain inside the image.\nCritical apparent-scale lock: match Image2's head width/face size and depth, crown near source y110 and lowest soles near y890 on the unchanged1536x1024 frame. Keep the forehead well below the upper edge with the SAME space above the crown as Image2. The face and irises must not be enlarged and the head must not project forward. Do not stretch the sitting torso upward to make a taller figure. Preserve furniture scale and quiet left-side room depth.\n\nClear facial drawing and finish:\nBoth eyes readable in a gentle three-quarter face with the same natural eye proportions as Image2. Front locks sweep apart; fine hair strands, upper eyelids, iris rims and eyebrows stay separate and intentional. No fused fringe/iris/eyelid, duplicate eye, metallic eye shard, floating hair patch or mesh line. Clean youthful anime linework with soft coherent shading, real hip/palm/shoe support, integrated warm daylight across hair/skin/navy cloth/cushion/wood.\nOne refined complete2D anime mother scene, opaque RGB1536x1024. No interface, text, captions, labels, arrows, controls, borders, watermark, collage or split view.",
+  "submittedPromptSha256Utf8NoTrailingLF": "e35516bf91b5712e03c41e62cd0aa07abe1a8a974badc39b783d67345f7ed4fb",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "primary root-approved EMPTY new literary room plate; fixed original camera/layout/light"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/sakiko-reading-literary/sakiko-reading-apricot-literary-v1.png",
+      "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+      "role": "correct user-selected original reading mother; identity and apparent head size/bench depth only, not copied book pose; held listening v1 never supplied"
+    }
+  ],
+  "output": {
+    "file": "sakiko-listening-apricot-literary-pilot-v2.png",
+    "sha256": "e88e85dfba21e9639d5414375518b4a1dc85ef0660e9d7f79772306f14a1113d",
+    "bytes": 2446146,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "bitDepth": 8,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a171a6-df24-7153-8594-289decacbc1c\\exec-21ce5a7d-05cc-47e9-967a-6c755627051e.png"
+  },
+  "transparentBackground": false,
+  "review": {
+    "personallyViewed": true,
+    "approvedByRoot": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "observation": "Viewed full saved1536x1024 original immediately after persistence. Apparent head/face size and original bench depth look close to correct selected reading mother: crown abouty110, complete soles abouty895; no recurrence of prior head-forward enlargement. Torso is naturally upright with a small relaxed turn. Silver-blue hair and original navy ribbons, golden irises, upper eyelids/brows/front locks are separately readable, with ordinary matching school layers and no newly added stocking motif. No held book: one simple hand rests on knee/lap and the other palm rests on the cushion, hips remain supported and uncrossed legs continue into two full grounded loafers. Quiet attentive direct gaze and restrained mouth retain personal judgment rather than a broad service smile. Same room camera/furniture/lighting remain coherent. Approximate visual observations only, not runtime calibration or interaction proof.",
+    "producerScaleIssueObserved": false,
+    "producerMajorAnatomyIssueObserved": false
+  },
+  "status": "producer-full-original-viewed-single-listening-v2-scale-repair-root-review-pending",
+  "character": "sakiko",
+  "activity": "listening",
+  "palette": "apricot",
+  "sceneFamily": "literary-room-v1",
+  "primaryApproved": false,
+  "rootApproved": false,
+  "runtimeAccepted": false,
+  "uniqueInputCount": 2,
+  "heldListeningV1UsedAsInput": false,
+  "oldRoom4OrWrongCharacterUsedAsInput": false,
+  "generationCallsForThisRepair": 1,
+  "furtherGenerationStopped": true,
+  "fullImageResultRetainedInStore": false,
+  "inputRoleBoundary": "Approved empty new room is camera/layout/light authority; correct user-selected reading mother supplies identity/apparent head size and seated depth only. Book-reading hand action is replaced by lap/bench listening pose."
+}

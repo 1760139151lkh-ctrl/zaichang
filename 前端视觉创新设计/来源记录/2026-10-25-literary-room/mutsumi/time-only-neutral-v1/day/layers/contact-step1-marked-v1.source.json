@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T01:08:03.180Z",
+  "producer": "/root/study_reading",
+  "character": "mutsumi",
+  "purpose": "neutral-presence",
+  "environmentVariant": "time-day",
+  "weather": "unknown",
+  "exactActivityMatrixCredit": 0,
+  "stage": "contact-step1-marked-v1",
+  "tool": "image_gen.imagegen",
+  "originalToolPath": "C:/Users/17601/.codex/generated_images/01a17365-8901-7202-bd9e-0859826906dc/exec-19da51d5-a46e-4920-929f-d0737855967e.png",
+  "transparentBackground": false,
+  "submittedPrompt": "Use case: precise-object-edit. S1 deliberate actual-contact receiver selection, exact clean Mutsumi time-DAY mother 1536x1024, ONLY this mother input. Preserve original canvas/camera/coordinates and whole source-colored person including every hair strand, clothing, crossed hands on her KNEES, legs/socks and both complete brown loafers. There is no book/prop and NO palm pressing the seat to invent. Mark PUREWHITE only SMALL ACTUAL RECEIVER PATCHES from the original: (A) woven cushion directly under the skirt/hip load, tight real fabric compression/contact dark strip just outside navy hem around x1120..1315,y611..655 and any actual tiny adjacent receiver by left hem; don't white the girl's hem or huge empty cushion; (B) ENTIRE actual local SHOE-FLOOR CONTACT SHADOWS on wooden floor around BOTH source shoes, including dense dark shadow directly below the full bottom soles and heel blocks plus the SHORT existing soft shadow perimeter into surrounding wood. Far shoe aroundx879..1005,y823..897, nearshoex1020..1158,y846..934: select full supporting wood shade especially BELOW front toe/bottom sole, about8..30 sourcepixels of real fade where it exists, not merely a2px rim, not arbitrary oval/box. Small overlap of underneath contact with figure perimeter is acceptable but shoe RGB itself stays colored. Keep real irregular source contact shape. EVERY other original room/object stays ORIGINAL COLOR including pale closed curtain and all unpressed empty cushion, knit throw, pillows, bench face, unrelated lamp/furniture shadows and broad floor illumination. Do not add a generic shadow, invent a white leg/shoe/person or repaint floor. No crops/translation/resize/new camera/alpha/checkerboard/text/UI. Output one opaque1536x1024 original-colored scene with only the real small seat receivers and complete local floor shadow deliberately painted white, for a later exact-coordinate S mask.",
+  "submittedPromptSha256": "0f503132893ad7780527c36fe9f70d1ff372404f27cf8f7014ed7649fdd1d138",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-day-v1.png"
+  ],
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-day-v1.png",
+      "role": "sole clean root-approved mother",
+      "sha256": "8c1d8e006fa332a85a9d7fed40989170fce6f6956a0b18e351efa83f29404f6f",
+      "bytes": 2440649
+    }
+  ],
+  "originalMother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-day-v1.png",
+    "sha256": "8c1d8e006fa332a85a9d7fed40989170fce6f6956a0b18e351efa83f29404f6f",
+    "approvalRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/mutsumi-neutral-time-day-v1.primary-approval.json"
+  },
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/time-only-neutral-v1/day/layers/contact-step1-marked-v1.png",
+    "sha256": "34fb6f263152fb0b431cc45eef02c5c545eef1e5033c6bc6799db4b71f7fd0b3",
+    "bytes": 2305277,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "rawToolBytesPreserved": true,
+  "producerPersonallyViewed": true,
+  "observations": [
+    "Personally viewed full S1: person remains source-colored; selected small cushion receiver beside/below hem and complete local footing patches beneath each full shoe, rather than whole cushion/floor. Exact material/edge review via native RGB union pending."
+  ],
+  "producerUseDecision": "candidate-awaiting-static-union-review",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "userApproved": false,
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "fixedOriginalCoordinates": true,
+    "travel": 0,
+    "perspective": 0,
+    "slope": 0,
+    "contactShadow": "included"
+  },
+  "method": {
+    "sourceRgb": "exact unchanged mother only",
+    "union": "MAX(L(F),L(S))",
+    "originalRgbDrawsPerUnion": 1,
+    "pngPixelEditing": false,
+    "manualThreshold": false,
+    "morphology": false,
+    "warp": false
+  },
+  "scope": "Production candidate only; native browser union, seam and full source RGB must be personally viewed before primary static-layer admission."
+}

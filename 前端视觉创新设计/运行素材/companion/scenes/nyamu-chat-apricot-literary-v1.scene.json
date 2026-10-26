@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "id": "nyamu-chat-apricot-literary-v1",
+  "sceneFamily": "literary-room-v1",
+  "character": "nyamu",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "width": 1536,
+  "height": 1024,
+  "mother": "nyamu-chat-apricot-literary-mother-v1.png",
+  "background": "literary-room-clear-day-v1.png",
+  "mask": "nyamu-chat-apricot-literary-figure-mask-v1.png",
+  "maskMode": "luminance",
+  "contactMask": "nyamu-chat-apricot-literary-contact-mask-v1.png",
+  "seat": [
+    0.797526,
+    0.546875
+  ],
+  "ground": [
+    0.634766,
+    0.881836
+  ],
+  "bodyBounds": [
+    0.520833,
+    0.097656,
+    0.904948,
+    0.898438
+  ],
+  "safeTextBoundary": 0.5,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "69% 10%, 82% 10%, 86% 30%, 90% 58%, 80% 62%, 72% 90%, 52% 90%, 62% 64%, 63% 47%, 65% 35%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": false,
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-included-primary-admission-v1.json",
+    "geometryRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/chat-layers/nyamu-chat-apricot-included.scene.proposal.json",
+    "geometryStatus": "Actual complete role mother personally viewed; its own visible source body/palm/cushion/whole-shoe references, stationary only; no hidden joint or draggable-support certification.",
+    "geometryEvidence": {
+      "bodyEnvelope": [
+        0.520833,
+        0.097656,
+        0.904948,
+        0.898438
+      ],
+      "FWholeCoverageDominantPixelBBox": [
+        825,
+        106,
+        1369,
+        906
+      ],
+      "receiverCoverageDominantPixelBBox": [
+        820,
+        549,
+        1461,
+        914
+      ],
+      "readOnlyMeasurement": "fixed >=0.5 luminance for metadata envelope only; raw PNG/continuous runtime coverage unchanged",
+      "receiverBoundary": "Nyamu supporting-palm-right receiver island retained exactly, not cropped/moved/body/caster"
+    },
+    "runtimeSourceSha256": {
+      "mother": "096bd7f5f0138e8b961c91d52dc8e68b29bcda1600bbb9ca444bd1c7eff75313",
+      "background": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "F": "e134398076c27e95c17d8ffdf20bdeac59a0107924bd5edc2cdde1ad885ca6ff",
+      "S": "0702dd3af004fefa908aad843e906e17e30738fad28acb0df1143723059f71db"
+    },
+    "layerReview": "Exact root-approved MAX(F,S), original mother RGB once; all relative motion zero, runtime pending"
+  }
+}

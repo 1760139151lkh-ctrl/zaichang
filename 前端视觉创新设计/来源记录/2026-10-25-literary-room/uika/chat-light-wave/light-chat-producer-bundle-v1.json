@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "kind": "bounded-chat-weather-light-mother-producer-record",
+  "character": "uika",
+  "activity": "chat",
+  "sceneFamily": "literary-room-v1",
+  "wave": "light-chat-wave",
+  "tool": "built-in image_gen",
+  "characterCalls": 3,
+  "sharedWaveCalls": 6,
+  "sharedWaveCallLimit": 6,
+  "generationStopped": true,
+  "inputBoundary": "Only exact root-approved own apricot chat mother (Umiri v2 only) and corresponding root-approved empty weather/time plate. All six outputs are new mothers pending primary review.",
+  "method": "Actual image generation repaint across person, clothing, room contact surfaces and lighting; no CSS filter, no PNG editing or day-night split.",
+  "largeImageResultStored": false,
+  "pngEdited": false,
+  "primaryMotherApproved": false,
+  "layersApproved": false,
+  "runtimeAccepted": false,
+  "registered": false,
+  "outputs": [
+    {
+      "palette": "mist",
+      "environmentVariant": "overcast-day",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-light-wave/uika-chat-mist-literary-light-v1.png",
+      "motherSha256": "97ba96f7d9b4f6fe5e46b655b494209286af1d7d7c1461849dc1782e56b15ac7",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-light-wave/uika-chat-mist-literary-light-v1.source.json",
+      "sourceSha256": "53d5a7f0c47ec7dd3e336b254aefcbd5bae4314ac8c66870a41d22ad88af7937",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-light-wave/uika-chat-mist-literary-light-v1.prompt.txt",
+      "promptSha256": "59e6e5051580f38c85108bc71c05da29947a7f9d6397f607446fed0f48d271e3",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Pose fidelity is a full-image visual observation, not a pixel-identical silhouette or hidden-joint measurement; primary must approve this new light mother separately."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "palette": "violet",
+      "environmentVariant": "twilight",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-light-wave/uika-chat-violet-literary-light-v1.png",
+      "motherSha256": "ef8c3a76dd064300432ea74b8fe926bac3afb564aba4683b6781f94dfc532404",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-light-wave/uika-chat-violet-literary-light-v1.source.json",
+      "sourceSha256": "484b4fb5dc04fd994bf80a6b028fe929eaaa6e52045e076614b0910e5542c961",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-light-wave/uika-chat-violet-literary-light-v1.prompt.txt",
+      "promptSha256": "62c007e807ede55e4fbdbcca99ed89204a506e9fd9f5398550ee6ff3ee039f90",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Head top appears around y140 versus around y120 in approved apricot source; body/shoes remain in original seating area. This small head/upper-body pose drift must be judged by root rather than called pixel-exact pose transfer.",
+        "Light fidelity is observed across whole source image; no runtime light transition or independent layers claimed."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    {
+      "palette": "rain",
+      "environmentVariant": "rain-night",
+      "mother": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-light-wave/uika-chat-rain-literary-light-v1.png",
+      "motherSha256": "05689bc36885207990743b888e50eac2d631bb92da05740e6efc6c57929c4401",
+      "source": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-light-wave/uika-chat-rain-literary-light-v1.source.json",
+      "sourceSha256": "e065665fc547aa3a6cebbc3376683667057c210472fa6297d66c2d4679c5b4c1",
+      "prompt": "前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/chat-light-wave/uika-chat-rain-literary-light-v1.prompt.txt",
+      "promptSha256": "8cee0caa4e7d6f6ba89feac5091b4ef5d9cf7b5ed071364b4b49682145a20d09",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "producerViewed": true,
+      "producerConcerns": [
+        "Some warm hair/skin edging remains as painted local night lighting; root should judge the overall practical-light plausibility. This is not claimed as a pixel-identical light-only edit or runtime transition."
+      ],
+      "primaryMotherApproved": false,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "reviewBoundary": "Producer visually inspected every full saved source before next call. Prior source-mother/plate approvals do not approve these new mothers or any layer/runtime."
+}

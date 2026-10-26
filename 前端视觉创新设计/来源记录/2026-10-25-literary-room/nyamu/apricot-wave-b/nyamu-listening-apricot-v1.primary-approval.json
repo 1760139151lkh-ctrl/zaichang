@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "kind": "primary-static-mother-admission",
+  "key": "nyamu/listening/apricot",
+  "reviewer": "root",
+  "decision": "approved",
+  "primaryPersonallyViewed": true,
+  "mother": {
+    "file": "nyamu-listening-apricot-v1.png",
+    "sha256": "60a3651486c24f9d1d9904f96414efee5710d88e6d7b05889801f932397644ee",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "sourceRecord": "nyamu-listening-apricot-v1.source.json",
+  "observation": "Root personally viewed full mother: cheek-on-palm forward lean retains head proportion at the original bench depth. Natural hair/eyes/hand and seat support, complete bench-pose shoes, no floating/disconnected hands or wrong crossed-knee relation.",
+  "contourComplete": true,
+  "scope": "Exact-SHA complete static mother only; actual generated pose/prop semantics recorded honestly. No layer, motion, real background action or runtime admission.",
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "evidenceSource": "Explicit root message after personally viewing all five Nyamu wave-b original mothers"
+}

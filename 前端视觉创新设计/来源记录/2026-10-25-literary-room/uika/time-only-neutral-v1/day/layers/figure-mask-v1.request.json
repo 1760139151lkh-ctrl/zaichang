@@ -1,0 +1,8 @@
+{
+  "prompt": "Use case: precise-object-edit. F2 exact trace conversion of correct F1 deliberately white Uika figure (input1), input2 clean original only for edge identity. Full1536x1024 source coordinates unchanged, no redraw/crop/resize/shift/recenter. Convert entire intentionally WHITE girl in input1 to pure255white on0black room. Preserve every fine bob curl/flyaway, full face/neck/whiteT sleeves, both arms and EVERY FINGER including relaxed knee hand and splayed supporting side palm, full long taupe pleated skirt/irregular hem, exposed shins/ankles/short socks, both COMPLETE black-white laceup canvas shoes including ALL white toe caps and sole/heel bottom contours, laces/loops. Entire selected interior WHITE solid: no face/T/hand/cloth/skirt/lace/shoe lines or gray holes. Only REAL gaps between arm/waist, hair and body, separate ankles and between lace loops OUTSIDE shoe silhouette stay BLACK at precise original locations. ALL room/naturally cream curtain/cushion/lamp/woodfloor/contactshade BLACK, no selecting naturally white background. No extra white islands, floor/seat shadow or generic halo. Fine original outer edge antialias only. Opaque raw grayscale mask1536x1024, no color/alpha/checkerboard/text/UI. Final sole color source is unchanged clean mother; exact F1 silhouette only.",
+  "referenced_image_paths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/day/layers/figure-step1-marked-v1.png",
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-day-v1.png"
+  ],
+  "transparent_background": false
+}

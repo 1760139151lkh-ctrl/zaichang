@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "character": "soyo",
+  "activity": "listening",
+  "palette": "violet",
+  "stage": "S2-v2",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: background-extraction. Asset type: revised S2 fixed original-RGB LOCAL SUPPORT RECEIVER luminance mask, including FULL soft shoe-ground area.\n\nImage 1 is the NEW same-canvas S1-v2 marked original mother, with intended support receivers painted WHITE/soft-edge GREY. Image 2 is the exact original colored violet mother ONLY to distinguish naturally bright source linen/pages/highlights from intentionally changed selection. Do not create a mask from the natural brightness of image2. Do not use an older mask or union. Output follows only the already-marked selections in image1 at their exact coordinates.\n\nPreserve the FULL AREA of both ALREADY MARKED broad soft shoe-ground receiving patches. They are now actual small floor areas under/around the soles/toes/heels, NOT thin white outsole contour lines. Keep their white cores and grey soft-boundary antialias, without reducing them to a line, shrinking their area or drawing an oval. The local floor pieces are around the source shoes approximately x740..885,y846..913 and x883..1031,y851..922; bounds only identify image1's actual irregular markings, NOT rectangles or new shapes. Preserve the genuine existing shape and any original split/merge; do not connect remote groups or expand into the whole floor/lamp shadow/rug.\n\nPreserve ONLY the genuinely deliberately whitened small seat/hip receiver next to/below the skirt (including the tiny visible marked patch near x1010..1045,y578..600 and any other already-marked local seat piece), not naturally pale cushion. Preserve the deliberately whitened very thin support strip under the separate right closed book, tight to its original footprint near x1107..1259,y558..580. No long tail beyond the book's true right edge. These are marked receiving materials, not body or book.\n\nMake EVERYTHING ELSE PURE BLACK: original colored figure, hair/face/empty hands/clothes/skirts/knees/socks/whole loafers, the entire separate book's covers/pages/spine, every naturally bright white collar/linen/plaid/curtain/lamp/flower, dusk sky, windows, furniture and unrelated floor/rug light. The whole long empty bench must be black. Do not keep white book pages or natural cream seat because they are bright. Compare image2 only to avoid these confusions.\n\nOutput ONE opaque 1536x1024 black PNG with ONLY the unchanged already-marked white/edge-grey receiver patches. No color scene, new person/shadow, geometry, labels, arrows, boxes, grid, text, checkerboard, crop, resize, zoom, recenter, translation. Fixed original RGB MAX(F,S) included support only; not a portable independent shadow.",
+  "promptSha256Utf8NoTrailingLF": "0043120d4eaf7e7e57b239ee423e9ce2a8a859e2e935fbfda68c6180b8f4dd0d",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/violet/contact-step1-marked-v2.png",
+      "sha256": "358bc5541457001582f88ce357d2db1e3716f5338a68798ba605a6055eec9402",
+      "personallyViewedBeforeCall": true
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-violet-literary-v1.png",
+      "sha256": "99ebaaa7158f9cf12c3308fa4fa0231e136b51ad6a81add4693159fb2a103ccb",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "sourceMotherSha256": "99ebaaa7158f9cf12c3308fa4fa0231e136b51ad6a81add4693159fb2a103ccb",
+  "approvalEvidence": "Root static approval of Soyo listening four mothers relayed by openui_creation delegation. Exact violet/rain source images independently viewed and hashes verified. This does not approve any new mask.",
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/soyo.md",
+      "sha256": "1ec8b260d40f8363c096ed8392547dd276d2318df5aadbe34b1f51e51e2ed04e",
+      "readScope": "Complete current text read before this layer task"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "readScope": "Complete current text read before this layer task"
+    }
+  ],
+  "method": "Read mature Soyo/chat-layers F1/F2/S1/S2 actual prompts and root Sakiko recognition-v2-layers contact S1-v3/S2-v2 repair prompts. Original mother -> same-canvas marked selection -> black/white extraction only. No held images, threshold/manual PNG paint or review collage input.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\soyo\\listening-layers\\violet\\contact-mask-v2.png",
+    "sha256": "ff46e988ff55593df734ba040ee2fde7aa846b830e2dae13b2e30bf8c7206fb6",
+    "bytes": 306150,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-e9e3-74e1-a4b5-80529647118b\\exec-4c63c97e-dd8a-4ae8-ab59-7dcdd2eaab80.png",
+    "pngBytesUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "fullNativeImage": true,
+    "observations": "亲看完整1536×1024：鞋旁两片有面积的白芯/灰柔缘地板receiver保留，不再是细鞋线；全鞋/身体本身黑，座下小接触与独立合书下小条仍在，其他长空座/大地板/灯光全黑。小接触与书条的细边是否恰好贴原源、完整落地影恢复程度需caller新BG+原RGB MAX合成近看。"
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "status": "producer-candidate-awaiting-fixed-source-RGB-union-and-primary-review",
+  "useBoundary": "Only fixed original-source included union MAX(F,S); local receiver pixels are not a portable independent cast-shadow layer. No new pose/dynamic credit.",
+  "revisionPurpose": "Preserve full S1-v2 soft local floor receiver area instead of v1 thin outsole traces; preserve tight seat/book contacts. Inputs only new S1-v2 and correct original mother, never defective v1."
+}

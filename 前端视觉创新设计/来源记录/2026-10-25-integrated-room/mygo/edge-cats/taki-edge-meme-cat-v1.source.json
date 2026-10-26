@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "assetType": "project-original-2d-edge-meme-cat-candidate",
+  "characterId": "taki",
+  "shapeFamily": "user-selected-sakiko-meme-cat-v3",
+  "wardrobeId": "project-original-meme-cat/no-human-costume",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in transparent original character generation from family style reference",
+  "promptFile": "taki-edge-meme-cat-v1.prompt.txt",
+  "submittedPrompt": "Create ONE original Taki Shiina / 椎名立希 (MyGO!!!!!) edge-companion meme cat in one genuinely transparent RGBA PNG, with the complete horizontal body.\nThe ONLY picture supplied is the user's accepted Sakiko v3 meme cat. Use it ONLY for the family's concise integrated 2D visual grammar and apparent scale: bold clean dark-navy contour, flat WHITE face and WHITE loafing cat body, a FEW large flat hair masses, simple circular eyes split into two flat color zones, tiny readable mouth, round resting front paws, complete long low belly/rump/tucked hind paw and full upcurved tail. Keep the head at the LEFT, body extending to the RIGHT, paws and belly comfortably supported along the same horizontal imaginary paper-edge baseline. Transparent padding surrounds the entire cat and tail. No room, ledge, floor, card panel or paper background is shown.\nDraw Taki's identity independently from words. She has LONG DEEP CHARCOAL-BROWN / near-black hair, with a few clear diagonal fringe groups and long side masses flowing beside the white face toward the shoulder. Use simple broad graphic hair shapes, with only one restrained secondary charcoal plane, not detailed anime strands or plastic highlights. Eyes are PURPLE/VIOLET: two open uncomplicated ROUND irises, each made of TWO FLAT HORIZONTAL violet zones in the accepted v3 language. No borrowed Sakiko gold eyes, silver-blue hair, ribbons, hair ornaments, uniform bow, collar or costume. Her face remains flat white, without flesh skin tone, folded skin, realistic nose planes, makeup, mature glamour or giant infant-eye proportions. Do not paste a serious human portrait onto a cat.\nThis is a small shared experiment, not an order or a generic smile. She was checking a tiny folded-paper bridge of her own; the nearby person turned one fold differently, and it has just stood without her help for the first brief moment. She is letting go of the end she was steadying. Her look has that direct 'oh, it really stayed up' concentration, plus one small smile she did not quite plan to show: a tiny near-straight mouth with only one corner turned up, a slight attentive brow change, clear calm violet eyes. Do NOT default to a broad gentle grin, a permanent angry scowl, blushing, shouting or smug teacher face.\nA SINGLE TINY cream folded-paper arch/bridge is in front of the resting forepaws, with two simple connected folded feet that actually stand on the same baseline and one connected bridge deck. One round paw is just easing off one end, the other stays relaxed, leaving the shared object available. Keep the little paper form simple and subordinate, not an engineering diagram, big book, UI card, floating icon, guitar, drumsticks or prop pile. No human fingers, hands, arms, legs or empty-air pointing.\nAll parts belong to ONE original 2D cartoon: ears and hair integrated with the white face, two connected front paws and supported belly, complete rounded white hindquarters with a simple tucked hind-paw contour, and tail emerging correctly from the far rump and curving upward at the RIGHT. Never crop the body/tail, detach paws, add extra limbs, make a head-only bust, a standing kitten, realistic furry cat or plush object.\nRestrained palette: white face/body, deep charcoal hair blocks, flat two-tone violet eyes, small cream bridge and dark-navy outline. Genuine transparency outside the cat and one tiny supported paper bridge. No black/white rectangle, fake checkerboard, aura, rim glow, blurry shadow, photoreal fur, 3D model, plastic shading, clothing/school uniform/socks/shoes, speech balloon, text, names, logo, watermark or collage. Output ONE clean complete standalone transparent asset only.",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/运行素材/companion/edge/sakiko-meme-cat-v3.png",
+      "role": "only image input: clean v3 2D family grammar/scale, not Sakiko identity",
+      "sha256": "15b21bfb6c94aef1dfd8ae7b168f970fbe9998cddb705b64ac7dabdceab0c161"
+    }
+  ],
+  "readSources": {
+    "passport": {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/taki.md",
+      "fullReadBeforeCall": true,
+      "version": "2026-10-25",
+      "sha256AtArchive": "48f954585e91b84599430c573ff38e498959d3168f18a9ca46c0c3c1e7f7bc7a"
+    },
+    "method": {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "fullReadBeforeCall": true,
+      "sha256AtArchive": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840"
+    }
+  },
+  "output": {
+    "file": "taki-edge-meme-cat-v1.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-d88e3a8f-b145-49a5-9afa-b59fe4860cde.png",
+    "sha256": "94f804ad07e07377305e54e6ad0a55db2f9b107945b2af6c4b16d2786afb5647",
+    "bytes": 1338274,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      254
+    ],
+    "cornerAlpha": 0
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Whole original viewed: long deep charcoal hair, violet two-zone circular eyes, a small one-corner mouth and focused brows; one paw eases off a connected cream paper bridge with two actual folded feet/deck. Full white horizontal cat body/rump/tail intact; no human costume or anatomy. Reference-like faint halo visible against dark viewer; candidate only.",
+    "decision": "candidate for root personal review",
+    "transparentBackgroundReview": {
+      "personallyViewed": true,
+      "method": "actual browser rendering of original PNG on warm-light, dark and 160px-width surfaces",
+      "page": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mygo/edge-cats/producer-observe-v1.html",
+      "pageSha256": "7f90deccf18a5180984b74140418619ec4a703ba47745f002b8acca85297be2f",
+      "observations": "Full silhouettes and role hair/eye colors remained readable, including full rump and tail; no opaque background rectangle. Root acceptance, actual UI edges and interactions remain separate."
+    }
+  },
+  "primaryApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "humanMatrixCoverage": false,
+  "promptFileSha256": "edd6fafa96be3703402f20990531b61395ad552de32334283a18d2895110b8e2",
+  "submittedPromptSha256": "8e7dea812a1f43b4644d6a8fb44563174bc122d30dbfdc2a4f1e951a4a8db38d",
+  "archivedAtUtc": "2026-10-25T15:59:29.227846+00:00"
+}

@@ -1,0 +1,160 @@
+{
+  "id": "tomori",
+  "characterId": "tomori",
+  "stem": "tomori-edge-meme-cat-v1",
+  "source": "前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mygo\\edge-cats\\tomori-edge-meme-cat-v1.png",
+  "sourceSha256": "4abb8cf4523d23984ba816ad3d44e3024f0b4e130c21593378a85d7980af3ef3",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "sourceMode": "RGBA",
+  "sourceAlphaRange": [
+    0,
+    254
+  ],
+  "tailSide": "right",
+  "tailPivotPx": [
+    1357,
+    659
+  ],
+  "tailPivotNormalized": [
+    0.8834635416666666,
+    0.6435546875
+  ],
+  "paperEdgeSourceY": 848,
+  "paperEdgeNormalized": 0.828125,
+  "frontPawVisualRefsPx": [
+    [
+      320,
+      824
+    ],
+    [
+      579,
+      838
+    ]
+  ],
+  "pawScope": "Visible paw support/holding references; props belong to fixed body, no hypothetical joints or forced equal paw-bottom rule.",
+  "propOwnership": "small gray stone retained with body",
+  "bodyArcSamplesY_X": [
+    [
+      610,
+      1334
+    ],
+    [
+      620,
+      1342
+    ],
+    [
+      640,
+      1354
+    ],
+    [
+      650,
+      1360
+    ],
+    [
+      660,
+      1365
+    ],
+    [
+      670,
+      1370
+    ],
+    [
+      690,
+      1378
+    ],
+    [
+      700,
+      1382
+    ]
+  ],
+  "visibleTailEndY": 695,
+  "wholeGuardExpansionRadius": 18,
+  "sourceSolidOutsideWholeGuardBounds": null,
+  "tailSemanticExpansionRadius": 14,
+  "rootUnderlapPx": 18,
+  "bodyForegroundInkOverlapPx": 4,
+  "mirrorSafe": true,
+  "eyeIdentity": null,
+  "selectedMask": "semantic-mask-v1.png",
+  "selectedMaskToolPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17364-9725-7bd3-aa74-f7fa6487bfed\\exec-c8479dfa-fa21-46bd-985e-0a569019700f.png",
+  "outputs": {
+    "body": {
+      "sha256": "45824dc8831cf474ba657660ecd6c4e14581ff838367e4e664e18c0bb47297d7",
+      "bytes": 756020,
+      "alphaBounds": [
+        35,
+        158,
+        1403,
+        885
+      ],
+      "visibleRgbDifferenceRange": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    "tail": {
+      "sha256": "835eb8d421be38ebfbab3ba7df0ba54e03dce45d9829474f02333a29c17752e9",
+      "bytes": 59298,
+      "alphaBounds": [
+        1324,
+        331,
+        1518,
+        696
+      ],
+      "visibleRgbDifferenceRange": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    "clean": {
+      "sha256": "6fadf46c2ba150b8324f3b4c746e425dcda4e5cc05f9f6c3614458ebdd7e67cb",
+      "bytes": 793453,
+      "alphaBounds": [
+        35,
+        158,
+        1518,
+        885
+      ],
+      "visibleRgbDifferenceRange": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    }
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "correction": "Expanded semantic guard by two additional source pixels to remove nine subopaque far-tail antialias pixels from fixed body ownership; source RGB unchanged."
+}

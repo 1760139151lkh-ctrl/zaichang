@@ -106,7 +106,7 @@ export interface BusinessChoiceRequest {
 /** One exact independent business choice; this never grants chat retention,
  * creates an object, edits arbitrary work data, or authorizes an agenda effect. */
 export async function checkBusinessChoice(
-  request: { current: ContextualCurrent; history: ContextualHistory[]; choice: BusinessChoiceRequest; now: string; timeZone: string; image?: import('../../shared/types').ImageAttachment },
+  request: { current: ContextualCurrent; history: ContextualHistory[]; choice: BusinessChoiceRequest; now: string; timeZone: string; images?: import('../../shared/types').ImageAttachment[]; image?: import('../../shared/types').ImageAttachment },
   complete: DeepSeekClient['complete'], signal: AbortSignal,
 ): Promise<BusinessChoiceVerdict> {
   const { $schema: _, ...parameters } = z.toJSONSchema(businessChoiceSchema);
@@ -118,7 +118,8 @@ export async function checkBusinessChoice(
     if (value.retentionBasis.some(source => !evidence.get(source.id)?.includes(source.quote)) || value.permitsIndependentRetention && !value.retentionBasis.length)
       context.addIssue({ code: 'custom', message: '还没在这次可读的用户原话里找到愿意留下这份选择的片段。助手以前说过什么、记录已经有什么，能帮助认清前情，决定仍要从用户的话里找。' });
   });
-  const input = { ...request, image: undefined, history: request.history.filter(message => message.role === 'user') };
+  const images = request.images || (request.image ? [request.image] : []);
+  const input = { ...request, image: undefined, images: undefined, history: request.history.filter(message => message.role === 'user') };
   return structuredResult({ schema: verified, tool, complete, signal,
     options: { thinking: 'enabled', maxOutputTokens: 4096, phase: 'verification' }, failureCode: 'business_choice_unknown', failureMessage: '这次还没读清是否已经选定这个方案，以及是否愿意留下这项选择；事项保持原样。',
     messages: [...contextualGuidance(request),
@@ -127,12 +128,12 @@ export async function checkBusinessChoice(
 还想请你分开看看保留这件事的意思。不保存聊天，与明确托付的一项独立业务记录，可以同时成立。允许的同会话用户前文可以说明这一事项的保留许可；当前有没有选定方案，则从current这句话理解。过去愿意保留事项、助手的承诺、已有记录或日程成功，都没有替用户作出眼前的选择，也没有扩大到所有事项。明确连业务也不保存、只临时比较或这次不更改事项时，permitsIndependentRetention为false。仅仅登记一个日程，也有别于选定这份已有方案。
 
 verify_business_choice会把你的理解交给程序。currentQuote留下用户这次选中的逐字原话；retentionBasis用current/history里的用户id和原话说明愿意留下哪些内容。工具结果与助手文字能帮助认清对象，是否同意仍从用户的话里找。若还差资料，或原话里确实有会改变决定的另一种理解，就具体讲清，程序先保留原样。这一步只记眼前这份选择和它的结果；保存聊天、人物理解、其他事项内容、frame、目标、日程和对外操作仍按各自的约定办理。` },
-      { role: 'user', content: request.image ? [{ type: 'text', text: JSON.stringify(input) }, { type: 'image_url', image_url: { url: request.image.dataUrl } }] : JSON.stringify(input) },
+      { role: 'user', content: images.length ? [{ type: 'text', text: JSON.stringify(input) }, ...images.map(image => ({ type: 'image_url' as const, image_url: { url: image.dataUrl } }))] : JSON.stringify(input) },
     ] });
 }
 
 export async function checkLocalDelegation(
-  request: { current: ContextualCurrent; history: ContextualHistory[]; action: unknown; now: string; timeZone: string; conversationRetention?: string; observations?: { tool: string; result: unknown; toolCallId?: string }[]; image?: import('../../shared/types').ImageAttachment; selection?: import('../../shared/scenes').VerifiedSelection;
+  request: { current: ContextualCurrent; history: ContextualHistory[]; action: unknown; now: string; timeZone: string; conversationRetention?: string; observations?: { tool: string; result: unknown; toolCallId?: string }[]; images?: import('../../shared/types').ImageAttachment[]; image?: import('../../shared/types').ImageAttachment; selection?: import('../../shared/scenes').VerifiedSelection;
     agendaFocus?: import('../../shared/agenda').AgendaFocus & { occurrence?: { start: string; end: string | null }; executionAuthorized: false } },
   complete: DeepSeekClient['complete'], signal: AbortSignal,
 ): Promise<DelegationVerdict> {
@@ -142,7 +143,8 @@ export async function checkLocalDelegation(
     : (request.action as { targetKind?: string } | null)?.targetKind === 'planning_intent'
       ? schema.safeExtend({ parameterObservationIds: schema.shape.parameterObservationIds.unwrap() }) : schema;
   const { $schema: _, ...parameters } = z.toJSONSchema(reviewSchema);
-  const projected = { ...request, observations: observationsForReview(request.observations || []),
+  const images = request.images || (request.image ? [request.image] : []);
+  const projected = { ...request, image: undefined, images: undefined, observations: observationsForReview(request.observations || []),
     ...(agendaTarget ? { agendaParameterReview: { proposalDigest: agendaTarget.proposalDigest, fields: agendaTarget.fields } } : {}) };
   const tool: ToolSpec = { type: 'function', function: { name: 'verify_local_delegation', description: '一起读懂用户这次想办的事，看看眼前这项本地可撤销操作是不是同一件；对外提交仍由程序另查批准。', parameters } };
   const messages: ModelWireMessage[] = [
@@ -200,7 +202,7 @@ execute_local说明眼前这项操作已有用户原话支持，missing也为空
     { role: 'system', content: `提醒有两个容易混淆的时间，想请你分别想清楚：原事项何时开始，以及提醒自己何时触发。已托付提前一段时间提醒时，从核实的原事项开始时刻扣除提前量，才得到提醒时刻。若新建reminder的startsAt和remindAt都指这个提前后的时刻，interpretedStart与interpretedReminderAt也各自对应你独立算出的这个时间；原事项开始时刻在这里承担计算依据与参数观察的作用。
 
 拟写值与这份理解相冲突、原事项还有多个候选或时间未知时，这个具体动作还没有执行依据。“提醒时间”和“通知时间”若在日常表达里指同一个触发时刻，则可以自然地理解为同一件事。` },
-    { role: 'user', content: request.image ? [{ type: 'text', text: JSON.stringify({ ...projected, image: undefined, history: request.history.filter(message => message.role === 'user'), assistantContextNotAuthorization: request.history.filter(message => message.role === 'assistant') }) }, { type: 'image_url', image_url: { url: request.image.dataUrl } }] : JSON.stringify({ ...projected, history: request.history.filter(message => message.role === 'user'), assistantContextNotAuthorization: request.history.filter(message => message.role === 'assistant') }) },
+    { role: 'user', content: images.length ? [{ type: 'text', text: JSON.stringify({ ...projected, history: request.history.filter(message => message.role === 'user'), assistantContextNotAuthorization: request.history.filter(message => message.role === 'assistant') }) }, ...images.map(image => ({ type: 'image_url' as const, image_url: { url: image.dataUrl } }))] : JSON.stringify({ ...projected, history: request.history.filter(message => message.role === 'user'), assistantContextNotAuthorization: request.history.filter(message => message.role === 'assistant') }) },
   ];
   const evidence = new Map([[request.current.id, request.current.text], ...request.history.filter(m => m.role === 'user').map(m => [m.id, m.content] as [string, string])]);
   const parameterEvidence = new Map(evidence);

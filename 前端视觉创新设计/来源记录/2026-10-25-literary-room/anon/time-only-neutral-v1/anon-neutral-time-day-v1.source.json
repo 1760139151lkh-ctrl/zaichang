@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "recordType": "time-only-neutral-presence-human-mother",
+  "characterId": "anon",
+  "sceneFamily": "literary-room-v1",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "neutralTime": "day",
+  "palette": "mist",
+  "timeOfDay": "morning",
+  "weather": "unknown",
+  "weatherClaim": "none; opaque fully closed curtain",
+  "originalInteraction": "Project original: she pauses over her own unfinished paper fold, notices an idea, then raises her eyes with a small expectant smile; not canon or an existing user-work claim",
+  "wardrobeId": "anon-movie-haneoka-school-uniform",
+  "dossierVersion": "2026-10-25",
+  "tool": "image_gen.imagegen",
+  "recordedAt": "2026-10-26T00:14:01.510599+00:00",
+  "sourceConversationId": "01a17365-def4-7ef0-9767-09f785cec060",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-time-day-v1.png",
+      "sha256": "aa4ce3dcab5cd2366c9f1c4eadcff0ab85537ab45e5a3b0643c4d01588e6e247",
+      "purpose": "Only root-approved clean time-day room/camera/closed curtain/whole light",
+      "personallyViewedBeforeGeneration": true
+    },
+    {
+      "path": "前端视觉创新设计/运行素材/companion/portraits/anon-youth-charm-20261025.png",
+      "sha256": "7f1e2c6e782ea0d688825dc68c36c28c526856750a2ab9c29772efa6632d62d9",
+      "purpose": "Current independent 2D Anon face identity only; latest face-proportion requirement not inherited as accepted",
+      "personallyViewedBeforeGeneration": true
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/SKILL.md",
+      "sha256AtGeneration": "d3dafe3e370dfe2aa6bbd522dd64242efb6e9dbed265daa0b68a9532734e1a58",
+      "fullyRead": true
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256AtGeneration": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "fullyRead": true
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/anon.md",
+      "sha256AtGeneration": "de7782a11d0e620b3d25de33ac7a964142a39322e6fa8f0ceceea2bc6d501b19",
+      "fullyRead": true
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: illustration-story. Make a NEW complete 1536 x 1024 literary 2D character-in-room mother for 在场. This is time-only neutral company: morning/day in the mist environment family, weather UNKNOWN. An original small everyday interaction, not an anime-canon event, a task-completion claim or a UI mockup.\n\nInput 1 is the root-approved clean literary-room-time-day empty plate and determines the exact wide room, camera and gentle whole light: left shelves, desk and wooden chair, foreground foliage and rug, round side table with blue-floral ceramic lamp, and RIGHT long cushioned window bench with blue checked pillows and the knitted throw. Preserve these established positions and full frame. The substantial ivory INNER CURTAIN remains FULLY CLOSED and opaque across the entire window. The central seam is fabric/hardware, no outdoor gap. Input 2 is the current independently drawn 2D Anon avatar, ONLY an identity reference for long pink separated hair, youthful eye shape and gray-blue eyes. Do not paste the head, inherit adult/long face proportions, enlarge the head to avatar scale, or copy its broad open-mouth smile and lighting.\n\nChihaya Anon of MyGO!!!!! is a youthful high-school girl, bright and sociable but with her own pride and small hesitation, not a universally agreeable hostess. Here she has been amusing herself with one small unfinished folded cream paper on her lap. She has just noticed a simple way the awkward fold could work. Before saying anything, her clear GRAY-BLUE eyes lift from that actual paper toward her familiar companion at left-front. One brow has a tiny alert lift, and one corner of her closed or barely parted lips begins an expectant, slightly pleased smile: she wants to share an idea, but is leaving room for the other person's response. No huge toothy laugh, wink, star eyes, empty grin, embarrassed tears or teacher expression. She can quietly return to the crease if they do not engage.\n\nLong pink hair has distinct airy bangs and natural separated side lengths, with subtle warm/cool painted strands; no plastic shine, invented bow, dark Sakiko ribbons or cat ears. A softly compact youthful cheek-and-chin relation and natural short chin, not a long adult jaw, pointed glamour face, huge glass eyes or infant/chibi proportions. Keep recognizable eye shape, restrained fine lashes, a natural small nose and fine lips. Delicate hand-drawn literary 2D lineweight and softly modeled cloth/hair/skin, no 3D figurine, photographic skin or anime cutout pasted into a photo.\n\nUse the dossier's movie Haneoka school uniform: gray-violet blazer with pale lapel/front/pocket piping and gold buttons, white shirt, dark green diagonal-striped tie, dark green plaid pleated skirt with restrained yellow-green grid, dark green BELOW-KNEE calf socks with clear exposed knees, and complete BLACK loafers. Do not change this into a stage outfit, brown shoes, tights or over-knee socks. The fixed green clothing is not a green atmosphere or green UI.\n\nSeat her on the existing RIGHT bench at the same human scale as this series, full figure contained roughly in the right half, crown near y170, hips/thighs on the cushion near y560 and shoe soles near y920. These are framing guides, not rigid limb geometry. Slightly turn the torso left-front without twisting the hips away from their support. Pelvis and thighs compress the real cushion gently; two continuous natural legs descend through uncovered knees and calf socks to ankles and BOTH full loafers resting on the real wooden floor, a quiet small difference in foot angle. No oversized head, long shins, floating pelvis, clipped heels or shoes on the cushion.\n\nBoth complete hands stay LOW at the real little paper, not raised or pointing into empty air. One hand steadies its small existing fold, the other supports the lower corner, and the lap supports its weight. Fingers are relaxed and individually coherent. The paper is plainly a small incomplete fold, not a large white UI card, a finished origami bird or a poster with words. No readable writing or text to claim a saved user work. This is her own little idea, not an invented shared history. Keep complete hair, wrists, skirt, knees, socks and both shoes in frame.\n\nAll room and figure share the exact neutral diffuse DAY luminosity of input 1: broad ivory light through the CLOSED opaque curtain, warm wood reflections and soft receiving contact shadows. No sun beam, solar window lattice, leaf-shadow pattern, readable lake/sky/trees/town, rain, snow or stars. The blue-floral lamp is subtle, not an artificial spotlight. Preserve a lived-in but spacious left room, not a gray blank block. No other people, cat, controls, labels, title, speech bubble, borders, avatar circle, watermark or collage. One coherent fresh full painting with a personable small pause.",
+  "submittedPromptSha256": "087b097f0060fb1ccb412dc6e48e67b09b947fdb5ddd643aef53d2eb4395d9a0",
+  "promptFile": "anon-neutral-time-day-v1.prompt.txt",
+  "promptFileSha256": "7b4404dc333fff4ad5b25717eb816339a435cfaecee3964810ad9deb30d8a26b",
+  "requestFile": "anon-neutral-time-day-v1.request.json",
+  "requestSha256": "2b27c8e82fad8a35371bf8af47104ea536c97b562ca16b343a7629075b60c326",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-754bc579-8e9a-4b0d-87b9-fb0be5ea3652.png",
+  "toolOriginalSha256": "a7a8454ad67c374244dcc919a6af754c9e9fa2c153617584cce4f7dadafe0920",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/time-only-neutral-v1/anon-neutral-time-day-v1.png",
+    "sha256": "a7a8454ad67c374244dcc919a6af754c9e9fa2c153617584cce4f7dadafe0920",
+    "bytes": 2496553,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true,
+    "resizedOrRetouched": false
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "observations": "Whole output viewed: long separated pink hair and gray-blue eyes, small expectant slightly parted smile rather than broad avatar laugh. Both hands low at actual small folded paper, not an empty pointer; seated hips/thighs meet cushion, knees exposed above dark green calf socks, both full black loafers grounded. Closed opaque curtain, no readable outdoor weather or hard sun grid; original room furniture retained. A small gold mark is visible on one sock; this record does not assert that detail as an officially verified feature. Producer candidate only.",
+    "staticOnly": true
+  },
+  "primaryApproved": true,
+  "generationInputAllowed": true,
+  "layersProduced": false,
+  "runtimeAccepted": false,
+  "motionVerified": false,
+  "original360ExactActivityCell": false,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "uiOrScreenshotOrHoldUsedAsInput": false,
+  "sourceCodeOrSceneRegistryChanged": false,
+  "status": "root_approved_with_scoped_boundaries",
+  "userApproved": false,
+  "primaryReview": {
+    "reviewer": "root",
+    "scope": "static_day_mother_and_same_character_night_pose_reference",
+    "record": "root-primary-day-and-avatar-admission-v1.json",
+    "exactMessage": "Root刚逐完整PNG亲看Anon daya7a8454a…0920和Rana dayb8d0c29a…6a08：闭帘无天气、青年身份与合适眼神、Anon手中小纸与Rana膝上自有书/身侧按垫、髋座到露膝袜口/完整双鞋地面支撑成立。两张准STATIC mother＋同角色night基底，保存exactSHA与分项本消息；不签层/runtime/360/userApproved。可继续各一night：同角色准day全姿势＋已准v3 identity＋准time-night净plate，全人物/布垫/木面共同转夜灯，脸/体量/动作/视线对象保持，合帘无天气/白日亮斑，不换相机，不用他人母；先候选交根。Tomori night已给许可可正常完成。"
+  }
+}

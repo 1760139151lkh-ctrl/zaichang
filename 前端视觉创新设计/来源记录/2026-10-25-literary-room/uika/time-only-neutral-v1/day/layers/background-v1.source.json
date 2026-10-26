@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T01:23:22.885Z",
+  "producer": "/root/study_reading",
+  "character": "uika",
+  "purpose": "neutral-presence",
+  "environmentVariant": "time-day",
+  "weather": "unknown",
+  "exactActivityMatrixCredit": 0,
+  "stage": "background-v1",
+  "tool": "image_gen.imagegen",
+  "originalToolPath": "C:/Users/17601/.codex/generated_images/01a17365-8901-7202-bd9e-0859826906dc/exec-b3ff0c3a-3c0d-45ff-a9ed-8c2137cee278.png",
+  "transparentBackground": false,
+  "submittedPrompt": "Use case: precise-object-edit. Same-mother clean EMPTY background, exact Uika neutral TIME-DAY1536x1024 mother, ONLY input. Remove complete girl including all bob hair/flyaways, face/whiteT/arms/hands/fingers, whole hanging long skirt/legs/socks and BOTH entire black/white sneakers; remove only her own seat/palm pressure and local footwear/hem ground-contact shadows. Reconstruct hidden cushion textile continuously with existing original perspective and diffuse DAY lighting, softly relax compressed seat/palm fabric, reconstruct hidden woodbench and floorboard grain naturally. Preserve sourcecanvas1536x1024/camera/furniture/closedopaque innercurtain and rest of entire room as original. Do NOT redesign or move plaidpillow, knitthrow, lamp/table/cup/flowers, desk/chair/shelves/plants/rug; no broad repaint or phantom skin/skirt/shoe/shadow. No outdoors/weather details through curtain, no new hard sunlight grids. Unrelated furniture/lamp shadows remain. Complete opaque empty scene at exact original geometry, no remaining person/prop/text/UI/checkerboard. Used beneath single unchanged sourceRGB MAX(F,S) union; hidden scene inpainted, not claimed bitwise original.",
+  "submittedPromptSha256": "6e2e736fde4812a57cf9fa96d8ab28cd2096ca60907684127998a48ead319e92",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-day-v1.png"
+  ],
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-day-v1.png",
+      "role": "sole approved Uika clean day mother",
+      "sha256": "e05d24ff0a1943e66e635880d5265fb79a66dac13e8656ca6d820b1b171ebbea",
+      "bytes": 2427278
+    }
+  ],
+  "originalMother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-day-v1.png",
+    "sha256": "e05d24ff0a1943e66e635880d5265fb79a66dac13e8656ca6d820b1b171ebbea",
+    "approvalRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/uika-neutral-time-day-v1.primary-approval.json"
+  },
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/uika/time-only-neutral-v1/day/layers/background-v1.png",
+    "sha256": "f603f08f07afdba3b184dc39ddb4d273f210ccc46dbadee4172312e72ac56e97",
+    "bytes": 2294651,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "rawToolBytesPreserved": true,
+  "producerPersonallyViewed": true,
+  "observations": [
+    "Personally viewed: complete empty room, person/skirt/shoes removed, reconstructed uninterrupted seat/floor, closed curtain and furniture retained."
+  ],
+  "producerUseDecision": "candidate-awaiting-static-union-review",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "userApproved": false,
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "fixedOriginalCoordinates": true,
+    "travel": 0,
+    "perspective": 0,
+    "slope": 0,
+    "contactShadow": "included"
+  },
+  "method": {
+    "sourceRgb": "exact unchanged mother only",
+    "union": "MAX(L(F),L(S))",
+    "originalRgbDrawsPerUnion": 1,
+    "pngPixelEditing": false,
+    "manualThreshold": false,
+    "morphology": false,
+    "warp": false
+  },
+  "scope": "Production candidate only; native browser union, seam and full source RGB must be personally viewed before primary static-layer admission."
+}

@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "included-local-contact-receiver-selection-markup",
+  "character": "mutsumi",
+  "activity": "chat",
+  "palette": "apricot",
+  "step": "S1",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-4e0a6f9f-7203-4277-bd5c-458a88b9ac08.png",
+  "executionId": "exec-4e0a6f9f-7203-4277-bd5c-458a88b9ac08",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.png",
+      "sha256": "9d529789ece89f44b166f39dd259136257598cfd546009e49fae74140cbf8b6d",
+      "role": "sole original approved mother; select real adjacent contact-receiving source material"
+    }
+  ],
+  "approvedOriginalMother": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/mutsumi/chat-pilot/mutsumi-chat-apricot-v1.png",
+    "sha256": "9d529789ece89f44b166f39dd259136257598cfd546009e49fae74140cbf8b6d",
+    "approvalEvidence": "root personally reviewed and approved this exact chat mother; central primary-cast-chat-mother-reviews-v1.json"
+  },
+  "intendedAssembly": {
+    "contactShadowMode": "included",
+    "formula": "U=MAX(L(F),L(S)); draw original mother RGB through U exactly once over matching empty BG",
+    "allMotionZero": true,
+    "separateCleanCasterClaim": false,
+    "pngPixelEditing": false
+  },
+  "promptFile": "mutsumi-chat-contact-mark-v1.prompt.txt",
+  "promptFileSha256": "131bf0dc13aec2c6a76e68ac82fa3147930f8f76f0ba8cbecda87e33b54926e1",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; submitted text exact",
+  "submittedPromptSha256": "e47640f279b33f89be6464eff6c14292233ed747ec13b02da220550ec9a89c30",
+  "output": {
+    "file": "mutsumi-chat-contact-mark-v1.png",
+    "sha256": "ba27ff9988d0157305fc074eca8e4a2e64b46a4c6c006dda08d278e16b89bda1",
+    "bytes": 2379876,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "extrema": [
+      [
+        3,
+        255
+      ],
+      [
+        0,
+        255
+      ],
+      [
+        0,
+        255
+      ]
+    ]
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed full saved S1: original colored girl/room remains, with local white receiver material under the skirt/hip and around actual loafer soles. The shoe white marks include adjacent floor, deliberately included rather than a pure caster; no whole-room white selection is visible. Final S2 and MAX union must expose the seat/sole source-material extent."
+  },
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "Raw selection-stage candidate only; no layer or runtime approval."
+}

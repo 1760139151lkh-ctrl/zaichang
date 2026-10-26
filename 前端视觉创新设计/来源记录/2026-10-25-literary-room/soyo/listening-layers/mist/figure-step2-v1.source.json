@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-listening-mist-figure-step2-v1",
+  "cell": "soyo/listening/mist",
+  "stage": "F2",
+  "submittedPrompt": "Use case: background-extraction. Asset: complete original-position FOREGROUND luminance mask, STEP F2.\nThe ONLY input is the exact 1536x1024 Soyo LISTENING mist mother already marked for this same-canvas selection. Keep the entire canvas and every existing deliberately marked pixel at its actual coordinates; this is a second-step mask conversion, not a new silhouette or shadow.\nKeep the ALREADY DELIBERATELY WHITE complete person AND the separate CLOSED BOOK on the cushion at image-right WHITE. Everything else becomes PURE BLACK. The white person includes full light-brown hair/strands, head/face/neck, collar/bow/left-chest crest, sleeves/cuffs, every hand/finger and wrist, complete navy skirt and every thin outward dark hem tip, bare thighs/knees, below-knee socks, and both whole shoes with complete dark sole/heel-bottom contour. Do not erase any selected foreground because its original clothing/shoe was dark. Keep the entire already-white closed book (both covers, pages and bottom edge), approximately x1110..1280,y535..585. It is intentional foreground, not natural white linen.\nWhite interiors stay solid with no face/clothing details or holes; fine grey is allowed ONLY at the existing antialiased perimeter. Preserve true gaps between hair strands/limbs/legs, and any real gap between book and person as BLACK. Keep all source contour positions without erosion, contraction, dilation, scaling or recentering.\nThe rest of the colored room, naturally light cushion and curtains, original lamp shade, flowers/cup, cloud/window light, pillows/throw, sunlight or lamp highlights on floor/rug and every independent receiving/contact patch become black. No large natural room white can survive as selected figure/book.\nOutput exactly ONE opaque 1536x1024 BLACK PNG with only the same complete WHITE foreground and separate white book; no color, checkerboard, new person RGB, new geometry, labels, text, arrows, rectangles, crop, zoom or movement.\n",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/mist/figure-step1-marked-v1.png"
+  ],
+  "transparentBackground": false,
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/mist/figure-step1-marked-v1.png",
+      "sha256": "a96007bea7d70e76adac3add7d18189110522550bf9a02818ad55d9693d6ed6e",
+      "role": "same exact mother deliberate selection intermediate, not an independent person or geometry reference"
+    }
+  ],
+  "outputFile": "figure-mask-v1.png",
+  "scope": "luminance selection only; source mother RGB is never replaced",
+  "generationStatus": "prepared-not-yet-called",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "actualToolArguments": {
+    "prompt": "Use case: background-extraction. Asset: complete original-position FOREGROUND luminance mask, STEP F2.\nThe ONLY input is the exact 1536x1024 Soyo LISTENING mist mother already marked for this same-canvas selection. Keep the entire canvas and every existing deliberately marked pixel at its actual coordinates; this is a second-step mask conversion, not a new silhouette or shadow.\nKeep the ALREADY DELIBERATELY WHITE complete person AND the separate CLOSED BOOK on the cushion at image-right WHITE. Everything else becomes PURE BLACK. The white person includes full light-brown hair/strands, head/face/neck, collar/bow/left-chest crest, sleeves/cuffs, every hand/finger and wrist, complete navy skirt and every thin outward dark hem tip, bare thighs/knees, below-knee socks, and both whole shoes with complete dark sole/heel-bottom contour. Do not erase any selected foreground because its original clothing/shoe was dark. Keep the entire already-white closed book (both covers, pages and bottom edge), approximately x1110..1280,y535..585. It is intentional foreground, not natural white linen.\nWhite interiors stay solid with no face/clothing details or holes; fine grey is allowed ONLY at the existing antialiased perimeter. Preserve true gaps between hair strands/limbs/legs, and any real gap between book and person as BLACK. Keep all source contour positions without erosion, contraction, dilation, scaling or recentering.\nThe rest of the colored room, naturally light cushion and curtains, original lamp shade, flowers/cup, cloud/window light, pillows/throw, sunlight or lamp highlights on floor/rug and every independent receiving/contact patch become black. No large natural room white can survive as selected figure/book.\nOutput exactly ONE opaque 1536x1024 BLACK PNG with only the same complete WHITE foreground and separate white book; no color, checkerboard, new person RGB, new geometry, labels, text, arrows, rectangles, crop, zoom or movement.\n",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/mist/figure-step1-marked-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/listening-layers/mist/figure-mask-v1.png",
+    "sha256": "fd9faa1956dd18f990d409602763de491bad42daa0b76e6e84f5163a7e63771f",
+    "bytes": 426325,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "originalToolOutputPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-85c0983c-131b-4946-a51d-b50e264f1014.png",
+  "recordedAtUtc": "2026-10-25T19:25:37.929217+00:00",
+  "submittedPromptSha256": "9c9e65b805ccbc2c1b66ceae65221338962479b3ba53ae039df769e5e1c28bba",
+  "producerInspection": {
+    "status": "mask-candidate-awaiting-original-rgb-composite-review",
+    "scope": "luminance mask only, not generated person RGB",
+    "observations": [
+      "Complete white person and separate closed book on black personally viewed, with hair gaps and both shoe bottoms retained. This mask supplies luminance only; no generated RGB is adopted. Fine edge/source coverage awaits original-RGB browser inspection."
+    ]
+  },
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "pngPixelEditing": false
+}

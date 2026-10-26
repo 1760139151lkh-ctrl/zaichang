@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "role": "shadow-step2-luminance-mask",
+  "callNumber": 4,
+  "taskCallLimit": 4,
+  "tool": "built-in image_gen.imagegen",
+  "prompt": "Use case: background-extraction.\nAsset type: same-canvas CONTACT/CAST-SHADOW LUMINANCE MASK, STEP 2.\nImage 1 is the ONLY input: the original 1536x1024 Sakiko literary reading scene with real contact shadows already marked pure white. Preserve the original full canvas and the EXACT EXISTING WHITE MARK POSITIONS AND SHAPES. Do not draw another shadow or reinterpret its geometry.\nKeep ONLY the deliberately painted white contact-shadow regions WHITE. Turn EVERY OTHER colored or naturally light part of the input pure BLACK. The selected groups are the existing irregular white compressed-cushion strip immediately beneath the skirt/rear hip (source x1030..1320,y545..618, most of the band sits near y575..605), and the already marked irregular white sole/floor contacts immediately below both loafers (source x855..1095,y850..936, visible white strokes are close to the actual shoe soles). If the input has a tiny already-white independent hand/book cast mark, retain only that exact mark.\nDo not move the cushion shadow upwards onto the lap or book. Do not move the shoe marks up/down, enlarge them, connect distant groups, or draw an ellipse. The enclosing coordinates are limits, not boxes to fill; preserve the actual input's painted contours only.\nThe entire girl, hair, face, hands, held book, clothes, socks and shoes become black. Natural bright cushion, plaid-pillow light stripes, knitted throw, curtains, clouds, lamp shade, flower petals, sunlit floor/rug and all unrelated room objects also become black. Only the contact selections deliberately whitened in step 1 survive.\nOutput exactly ONE opaque 1536x1024 PNG: black canvas, white original-position contact silhouettes, thin source-edge grey antialias allowed. No colored scene, no new body, no labels, arrows, grid, rectangles, text, checkerboard or split view.",
+  "input": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/shadow-step1-marked-v1.png",
+    "sha256": "648b38d8ec733b9e21be55cb35b0f2e81fd152e8803a866adfbbb7a41282c448",
+    "role": "sole original-position white-marked shadow derivative",
+    "originalMotherSha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd"
+  },
+  "output": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/reading-layers/shadow-mask-v1.png",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17125-a57d-70f3-9b8f-9ecfd8cef13e\\exec-d6cd85ac-fd9e-424c-9a8e-6079f7e6de84.png",
+    "executionId": "exec-d6cd85ac-fd9e-424c-9a8e-6079f7e6de84",
+    "sha256": "971c1c6fce428abfb6457e3a20b58655ea32b8bda10b7af2761500afdd989992",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 288214,
+    "toolOriginalLastWriteTimeUtc": "2026-10-25T08:54:53.2864181Z"
+  },
+  "primary": false,
+  "runtime": false,
+  "status": "saved_and_visually_inspected_candidate_not_admitted",
+  "rgbUse": "Only original mother RGB through the independent shadow selection, with generated figure mask subtracted; no synthetic uniform shadow color.",
+  "inspection": "Shadow mask viewed through original RGB with figure removed. Effective shadow retains plaid hem and sole/heel foreground pixels; not admitted.",
+  "authoritativeBundle": "reading-layers-bundle-v1.json"
+}

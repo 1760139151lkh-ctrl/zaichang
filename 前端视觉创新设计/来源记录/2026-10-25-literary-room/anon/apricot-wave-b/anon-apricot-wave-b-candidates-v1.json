@@ -1,0 +1,238 @@
+{
+  "schemaVersion": 1,
+  "kind": "literary-room-apricot-wave-b-mother-candidates",
+  "character": "anon",
+  "authorizedCharacterCalls": 5,
+  "completedCharacterCalls": 5,
+  "waveTotalLimit": 10,
+  "characterGenerationStopped": true,
+  "cells": [
+    {
+      "activity": "study",
+      "key": "anon/study/apricot",
+      "png": {
+        "path": "anon-study-apricot-literary-v1.png",
+        "sha256": "a0e5ce5637ca48e6f16f36722c5a835d3421ab601a3780439ca0e7483d5c8fda",
+        "bytes": 2432886,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "anon-study-apricot-literary-v1.prompt.json",
+        "sha256": "7230997414f075ebba3d427ae3dda1a98892210ea85b3b506bb2320fe1179842"
+      },
+      "source": {
+        "path": "anon-study-apricot-literary-v1.source.json",
+        "sha256": "23ffd9574d93d862ecf3f63eada4edfee5daee10b01be999f52ccac162abd76e"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": true,
+      "runtimeAccepted": false,
+      "contourComplete": false,
+      "concerns": [
+        "原前景植物自然遮住部分小腿和鞋，完整双鞋轮廓不能签；木椅有局部拉转，留root空间主审。"
+      ],
+      "contentConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ]
+      },
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static mother only",
+        "finding": "left desk writing/steadying page and true chair support; chair naturally pulled locally, original plant occludes feet",
+        "source": "Root direct complete-original review in this healthy session 2026-10-25; exact timestamp not provided"
+      }
+    },
+    {
+      "activity": "listening",
+      "key": "anon/listening/apricot",
+      "png": {
+        "path": "anon-listening-apricot-literary-v1.png",
+        "sha256": "569b85c9dff9b8e6984f68d1d97b85ce6f708b764a203a6f8e3ea0cc7ca53973",
+        "bytes": 2435673,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "anon-listening-apricot-literary-v1.prompt.json",
+        "sha256": "5d681b6556304444217c74775b806fcae6d2176fc9d44ed27e6b406ea066d9b6"
+      },
+      "source": {
+        "path": "anon-listening-apricot-literary-v1.source.json",
+        "sha256": "fab4ceb1544f425e90b345693dd210cc4ddc3a7fa62043d5d42225f7ee50b7d2"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": true,
+      "runtimeAccepted": false,
+      "contourComplete": true,
+      "concerns": [],
+      "contentConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ]
+      },
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static mother only",
+        "finding": "empty hands at knees, serious attentive listening",
+        "source": "Root direct complete-original review in this healthy session 2026-10-25; exact timestamp not provided"
+      }
+    },
+    {
+      "activity": "play",
+      "key": "anon/play/apricot",
+      "png": {
+        "path": "anon-play-apricot-literary-v1.png",
+        "sha256": "2c538c5fe334104ebd7b7c4478d0d9ed185ff9df65523dd1b01db79f41619139",
+        "bytes": 2434978,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "anon-play-apricot-literary-v1.prompt.json",
+        "sha256": "ab944a5c97593d033d4cdcf2a91f7ecca5c033c980d893b3b52f01d241f916c7"
+      },
+      "source": {
+        "path": "anon-play-apricot-literary-v1.source.json",
+        "sha256": "7c00df8adee8f7095901f1bea1f63ce0c0a38b6e68980e5e363aeb68b8dc8e8d"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": true,
+      "runtimeAccepted": false,
+      "contourComplete": true,
+      "concerns": [
+        "纸船实际举在胸前，较brief的膝前更高，但手承托成立，留root文学主审。"
+      ],
+      "contentConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ]
+      },
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static mother only",
+        "finding": "a small tangible paper idea supported by hands; specific individual playful expression",
+        "source": "Root direct complete-original review in this healthy session 2026-10-25; exact timestamp not provided"
+      }
+    },
+    {
+      "activity": "attention",
+      "key": "anon/attention/apricot",
+      "png": {
+        "path": "anon-attention-apricot-literary-v1.png",
+        "sha256": "2e2ddf10a45c957268103996550e7b61178e50727cfc8823790b3daeaaf883d7",
+        "bytes": 2422541,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "anon-attention-apricot-literary-v1.prompt.json",
+        "sha256": "216e755277c0cd216ff748054a6c32967fd9749ed71c133f288ed2b8705ec6cc"
+      },
+      "source": {
+        "path": "anon-attention-apricot-literary-v1.source.json",
+        "sha256": "43e4ab411fbb1a65b60c32d1ef8599a1efd20a3238f3f5770fe6c303670a9abc"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": true,
+      "runtimeAccepted": false,
+      "contourComplete": true,
+      "concerns": [
+        "轻张口与头倾仍近chat轻快性格，具体attention差异主要由留页/书签与目光承担，待root文学主审。"
+      ],
+      "contentConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ]
+      },
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static mother only",
+        "finding": "one fingertip preserves the page while eyes answer/question the companion",
+        "source": "Root direct complete-original review in this healthy session 2026-10-25; exact timestamp not provided"
+      }
+    },
+    {
+      "activity": "resume",
+      "key": "anon/resume/apricot",
+      "png": {
+        "path": "anon-resume-apricot-literary-v1.png",
+        "sha256": "c1beaeb11e57d6c07bb3d2582aa340e5948aef7643125a102296e333cb617e74",
+        "bytes": 2437624,
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "prompt": {
+        "path": "anon-resume-apricot-literary-v1.prompt.json",
+        "sha256": "90515ebc88ab70823c46d9e8d70a6c0d55b23f31fa31d3c0615926f4b4aac192"
+      },
+      "source": {
+        "path": "anon-resume-apricot-literary-v1.source.json",
+        "sha256": "eb6dc1f515fd3a7bbe4fb59d3b2c2608eedd4366530a55168ee99434fd5a9c72"
+      },
+      "producerInspected": true,
+      "approvedByPrimary": true,
+      "runtimeAccepted": false,
+      "contourComplete": true,
+      "concerns": [
+        "开口笑实际比brief的短暂浅笑更明显；原页上有细浅不可辨行迹，留root文学主审。"
+      ],
+      "contentConsistency": {
+        "outputSHA": true,
+        "toolOriginalSHA": true,
+        "promptFileSHA": true,
+        "submittedPromptSHA": true,
+        "inputSHAs": [
+          true,
+          true
+        ]
+      },
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static mother only",
+        "finding": "eyes recognize companion while current bookmarked page remains; a real different position along the same long bench is accepted",
+        "source": "Root direct complete-original review in this healthy session 2026-10-25; exact timestamp not provided"
+      }
+    }
+  ],
+  "approvedByPrimary": true,
+  "layerWorkStarted": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "primaryAdmissionRecord": {
+    "path": "anon-apricot-wave-b-primary-mother-admission-v1.json",
+    "sha256": "283f3ddb135f2a233f42f264125b4c4bd8b83376f826ecdd02794ac502266bcb"
+  },
+  "approvalScope": "per-cell static mother only"
+}

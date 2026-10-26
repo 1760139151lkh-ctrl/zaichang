@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-canvas-original-person-luminance-mask",
+  "id": "anon-chat-apricot-figure-mask-v1",
+  "createdAtUtc": "2026-10-25T06:35:08.672006+00:00",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "producerRuntime": {
+    "model": "gpt-6.1-sol",
+    "effort": "ultra",
+    "turnId": "01a171c1-2501-76c3-8a23-286d375357f7"
+  },
+  "submittedPrompt": "Use case: precise-object-edit. STEP 2 of registered segmentation; this is NOT a new person drawing.\nImage 1 is the ONLY input: the existing full 1536 x 1024 original room with Anon's exact seated chat silhouette already filled white. Preserve that EXACT EXISTING WHITE REGION in its current original pixel positions. Do not redraw, enlarge, reduce, translate, re-center, re-pose or alter the contour.\nChange ONLY the entire surrounding COLORED ROOM into SOLID PURE BLACK. Every curtain, wall, window reflection, white cloud, yellow leaf, pillow, blanket, desk, floor and all cast/contact shadows must be black, including naturally pale or white room patches near the hair. Only the already white seated girl remains solid PURE WHITE.\nPreserve the white region's real fine hair strands and tips, the complete head, chest-hand gesture and individual visible fingers, supporting bench palm, blazer, skirt, legs, socks, and BOTH COMPLETE loafer silhouettes. Preserve real background gaps between hair strands/fingers/legs as black. The crown remains near y235, supporting palm near x1430/y580, soles near y798. Do not reconstruct hidden anatomy. No black face/eye/clothing/shoe details or gray texture inside the white person.\nMost critical: do not convert window glare, yellow leaves or white sunlight reflections outside the true existing white hair contour into islands of white. Do not add a halo or detached flecks to the back/right of the head or around hair tips. Keep original thin hair contour at exactly the existing source coordinates; surrounding room and holes between strands are all black.\nOutput exactly one opaque RGB 1536 x 1024 PNG: this existing registered solid-white person on otherwise pure-black full canvas, thin outer antialias only. No room texture/color, gray shadows, labels, border, crop, grid, checkerboard, transparency or watermark.",
+  "submittedPromptSha256Utf8NoTrailingLF": "4add1f8a6c60b7716a0bddb0434adeeb652a1d436236fe48aa167bcd65405462",
+  "promptFile": "anon-chat-apricot-figure-mask-v1.prompt.json",
+  "promptFileSha256": "c060b455e33c172eb923a4e40e33dc4e6870b8eb6cd445e921818df98fed1294",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-ambient-redesign/cast-chat/anon/anon-chat-apricot-white-in-room-v1.png",
+      "sha256": "c5ff9b6d17ec729b52e46772125637a486ba7f066ae14d221e2b9ba069e4b529",
+      "role": "sole white-person-in-original-room intermediate; blacken room only"
+    }
+  ],
+  "mother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/assets-design-generated/2026-10-23-companion-matrix/rana-anon/anon-chat-apricot-mother-candidate-v1.png",
+    "sha256": "99c8acd4c2b875659afc9471b3c020219d394aae025cba2f164daf47babb5986"
+  },
+  "output": {
+    "file": "anon-chat-apricot-figure-mask-v1.png",
+    "sha256": "684c1e55b8db9812587af31dbac756efdeb21ceb6b93ae1d5c18096d86b33641",
+    "bytes": 376346,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17124-fe06-7350-a049-f395856b9270\\exec-5f404799-3ec8-4e39-8f63-e188a5d0780e.png",
+    "originalEvent": "exec-5f404799-3ec8-4e39-8f63-e188a5d0780e"
+  },
+  "transparentBackground": false,
+  "maskMode": "luminance",
+  "rgbMethod": "Unmodified approved mother RGB shown through native inline SVG luminance mask; no new figure RGB or PNG pixel processing.",
+  "review": {
+    "primaryLayerApproved": false,
+    "runtimeRegistered": false,
+    "runtimeAccepted": false,
+    "producerAccepted": false
+  },
+  "status": "rejected-pillow-corner-in-hair-gap",
+  "rejection": {
+    "sourceRegionPixels": [
+      1403,
+      462,
+      17,
+      12
+    ],
+    "reason": "Natural white checked-pillow corner remains visible as a detached light block through the right hair loop; confirmed in 400-percent original/figure/mask comparison.",
+    "observationPage": "anon-chat-apricot-mask-repair-v2.html#hair-gap"
+  }
+}

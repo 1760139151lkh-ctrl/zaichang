@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "recordType": "independent-youth-v3-avatar-candidate",
+  "characterId": "tomori",
+  "purpose": "independent-avatar",
+  "originalInteraction": "Original project moment: her carefully chosen words have received a familiar thoughtful reply; softened bright eyes and a small shy sincere smile",
+  "tool": "image_gen.imagegen",
+  "recordedAt": "2026-10-26T00:11:15.327900+00:00",
+  "sourceConversationId": "01a17365-def4-7ef0-9767-09f785cec060",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/运行素材/companion/portraits/tomori-youth-charm-20261025.png",
+      "sha256": "8c829c4380843fab92cb66bd4343a9d696d2bbcff7bcd50514f8d228f3ed4b43",
+      "purpose": "2D short-hair and rose-brown-eye identity only; latest proportional requirement remains unaccepted; no old face length/3D/adult makeup inheritance",
+      "personallyViewedBeforeGeneration": true
+    }
+  ],
+  "dossierVersion": "2026-10-25",
+  "exactSubmittedPrompt": "Use case: illustration-story. Draw a NEW independent avatar portrait of Takamatsu Tomori (MyGO!!!!!), exactly 1024 x 1024, with a genuinely transparent background. This is an original warm personal moment for 在场, not a scene from canon. Use the single supplied 2D portrait ONLY to recognize her short layered gray-lilac hair, airy separated bangs and rose-brown eyes. Do NOT inherit a vertically long face, adult jaw, the old exact smile, its head tilt, or its proportions. This is a fresh youth-v3 portrait, not a crop from a full-body room image.\n\nThe moment: she had offered a few carefully chosen words, unsure whether they had reached her familiar companion. She has just heard the familiar, thoughtful response. Let the eyes show the relief and small bright pleasure of actually being understood before the smile finishes arriving. Both clear rose-brown irises look gently toward the viewer, focused and alive, the brows relax naturally, and a tiny sincere upward curve becomes visible at the lips, slightly uneven as she is still a little shy about showing her happiness. She is thoughtful and present, not tearful, exhausted, blankly cute, a sales smile or laughing with a huge open mouth. Her own quiet determination remains in the gaze. Do not illustrate the story with text, props or another person.\n\nYouth and face are essential: delicate literary 2D hand drawing with soft youthful cheeks, a naturally short rounded chin and a softly compact middle-to-lower face. Keep Tomori's recognizable eye shape and normal restrained eye size, believable eye/nose/mouth relations, subtle small nose, fine natural lips and no adult long lower jaw, deep nasolabial lines, heavy fashion lashes, dramatic makeup or mature lipstick. Young anime teenager rather than an adult glamour portrait; NEVER toddler, chibi doll, oversized glass eyes or round infant face. Do not mechanically squash the whole skull; redesign the cheek and chin planes coherently. Warm familiarity should be legible in her own eyes and mouth, not a generic repeated smile.\n\nKeep her short gray-lilac / muted gray-brown layered hair around cheeks, jaw and nape with separate airy locks and slightly uneven bangs, not a rigid helmet or long hair. No invented bow, hair ornament, cat ears or bandage. Fine lineweight and softly painted 2D hair planes, not 3D model skin, photo realism, glossy plastic, plush toy or painterly smudges hiding the eyes. Gentle neutral studio-like soft illumination, enough cool gray base in hair and actual rose-brown irises, light natural cheek warmth, no environment-colored cast.\n\nComposition: head and complete hair dominate the canvas, a friendly near-frontal portrait with only a few degrees of natural turn. Both eyes, brows, full cheeks, chin, top of head and all side hair are safely inside the square, ready for a small circular avatar without losing identity. Only a tiny necessary neck and hint of white shirt collar with gray-violet blazer at the very bottom; no large torso, arms, hands or shoulders taking up the picture. Avoid a long exposed neck. No room, scenery, circle frame, badge, text, watermark or colored backdrop. Preserve real alpha transparency and natural clean fine hair edges, not a checkerboard painted into the image.",
+  "submittedPromptSha256": "9d30563cbf0433ed9af77c449437ec9f52c63122daa4585d127d5e33913750de",
+  "promptFile": "tomori-avatar-youth-v3.prompt.txt",
+  "promptFileSha256": "c7d63807ef801d4e0f5b219f38b63bfcf470eda4f38e3097b6e0ff40f7ecead8",
+  "requestFile": "tomori-avatar-youth-v3.request.json",
+  "requestSha256": "722de4324a0c357f58418c244b303d5c2ebccb1a86870a6fb76a7affd424d16d",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-981d4be2-ad3f-4332-a4fb-6203f533c47d.png",
+  "toolOriginalSha256": "986470992b8c303016d9b7b383138d5f2c66f962fb4453939cf0feeb43c6a9b9",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/portrait/tomori-avatar-youth-v3.png",
+    "sha256": "986470992b8c303016d9b7b383138d5f2c66f962fb4453939cf0feeb43c6a9b9",
+    "bytes": 2085402,
+    "canvas": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "toolPngBytesUnchanged": true,
+    "resizedOrRetouched": false
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "observations": "Whole output viewed: separate layered gray-lilac short hair, rose-brown irises, youthful smooth cheeks, softly short chin, small uneven closed-mouth smile, faint blush and attentive direct gaze; complete portrait rather than full-body crop. Fine edge hair and a small lower neckline are visible. Output still retains a gentle tilted near-front relation to the input; final short-soft proportional acceptance belongs to root, not this record.",
+    "realSmallSizeOrRuntimeVerified": false
+  },
+  "latestRequirementAccepted": true,
+  "primaryApproved": true,
+  "generationInputAllowed": true,
+  "runtimeAccepted": false,
+  "roomMotherCropUsed": false,
+  "threeDOrHoldOrUiUsed": false,
+  "sourceCodeOrRegistryChanged": false,
+  "status": "root_approved_with_scoped_boundaries",
+  "userApproved": false,
+  "primaryReview": {
+    "reviewer": "root",
+    "scope": "original_portrait_face_aesthetic_and_identity_reference",
+    "record": "root-primary-day-and-avatar-admission-v1.json",
+    "exactMessage": "root亲看Tomori day原PNG ee943e…70b7：闭帘无天气、2D青春灰紫短发/玫褐眼、笔停真实页/另一手扶页、坐垫髋腿与全鞋落地成立，准STATIC mother且可作同角色后续time-night完整姿势基底，不准layer/runtime/360。Tomori avatar-v3 986470…a9b9也亲看：短柔颊下巴、抬眼的亮意与不对称闭口笑、细2D发色眼色身份成立；准原画面部审美与identity generation参考，细发透明边缘/34/48真实圆框与runtime仍未验，不签它们。请保存root本消息分项准入，不把userApproved改true；后续night只准day母+已准头像+time-night净plate，别用别人脸/天气母/截图。其余Anon/Rana独立头像/日母继续，优先头像交根。"
+  },
+  "fineAlphaEdgesVerified": false,
+  "real34And48CircleVerified": false,
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/SKILL.md",
+      "sha256AtRecord": "d3dafe3e370dfe2aa6bbd522dd64242efb6e9dbed265daa0b68a9532734e1a58",
+      "fullyRead": true
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256AtRecord": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "fullyRead": true
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/tomori.md",
+      "sha256AtRecord": "3a73a8f8299e7645ea96f6d07051a38bb2ccdb4b4e7e25e19eb08d51e2d08d3c",
+      "fullyRead": true
+    }
+  ]
+}

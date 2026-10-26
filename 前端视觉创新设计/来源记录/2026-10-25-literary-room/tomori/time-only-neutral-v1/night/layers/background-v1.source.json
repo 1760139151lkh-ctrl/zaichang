@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "recordType": "source-rgb-included-layer-image-stage",
+  "characterId": "tomori",
+  "neutralTime": "night",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "stage": "BG",
+  "tool": "image_gen.imagegen",
+  "toolElapsedMs": 19877,
+  "recordedAt": "2026-10-26T01:37:59.132182+00:00",
+  "sourceConversationId": "01a17365-def4-7ef0-9767-09f785cec060",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/tomori-neutral-time-night-v1.png",
+      "sha256": "36e1e2e4029d81914b4192cee8351d84b44fa0ef188c88910dd58d400a3e4300",
+      "role": "Only exact root-approved clean night mother; actual removal of complete person/pencil/notebook and source-local near contact",
+      "personallyViewedBeforeGeneration": true
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: precise-object-edit. SAME-MOTHER clean receiving BACKGROUND. ONLY input is exact root-approved 1536x1024 Tomori TIME-NIGHT neutral full mother. Remove objects only, no redesigned room, weather, camera, light or exposure.\n\nRemove the complete girl and every fine hair strand, uniform/skirt/hands/skin/calf socks/BOTH entire shoes, her ONE open notebook and whole thin pencil, plus person/book/shoe-specific near cast shade, cushion compression and contact. No ghost, human fragment, book cover/pencil bit, shoe rim, replacement object or person. Reconstruct only the room hidden behind: continuous opaque closed curtain, original relaxed unoccupied linen cushion with natural folds, same bench front and real floor planks/reflections without shoe-contact shade. Hidden material is generated in place; do not replace the scene with another empty plate.\n\nKeep every unrelated room feature at its exact original coordinate: left shelves/desk/wood chair/plants, foreground plant/rug, round table/blue-floral ceramic lamp/shade, vase/flowers/cup/book stack, blue checked pillows/knit throw, floor woodgrain and bench geometry. Preserve the actual warm dim ceramic-lamp pool/falloff, table/chair castshade and broad floor reflections. Do NOT erase the legitimate lamp-light pattern along with shoe contact, shift furniture/seams or brighten the whole image.\n\nThe substantial ivory inner curtain stays fully CLOSED and OPAQUE exactly as this source. No slit or readable outside/lake/sky/trees/town light/rain/stars/snow/weather silhouette, no new daylight solar grid/leaf shadow or white sun patch. All room materials retain the same coherent NIGHT light. The exact original figure/contact RGB will later be placed at these original coordinates, so cushion edge/depth, floor planks and curtain folds must stay aligned. No crop/zoom/resize, gray/white panel, guide, UI, label, border, caption, new prop/furniture or altered camera. Output one full opaque1536x1024 same-night-room empty receiving background.",
+  "submittedPromptSha256": "72d576fa208891d048c289cad1f823d8b6619e879f5f9d833037b21b00f2d3ff",
+  "promptFile": "background-v1.prompt.txt",
+  "promptFileSha256": "b80b4f47f72d153e6d65f79776a69dee5924e275c5d1b2c0d4913e2808e127ee",
+  "requestFile": "background-v1.request.json",
+  "requestSha256": "2f972c0994fc5cc8f53fa26886e6d7eb77becc9130be903d5bf844c1f8fb49d8",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-fba4bf80-be09-461a-a5d3-22feafc786dc.png",
+  "toolOriginalSha256": "37b07f90a6cc0c0aee3ea820468e62eeab582453890a487e5b6f75807b57126d",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/night/layers/background-v1.png",
+    "sha256": "37b07f90a6cc0c0aee3ea820468e62eeab582453890a487e5b6f75807b57126d",
+    "bytes": 2110676,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true,
+    "resizedOrRetouched": false
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "status": "same_mother_clean_background_candidate",
+    "observations": "Complete night person/pencil/notebook/shoes and near contact removed, no ghost visible; same opaque closed curtain/furniture/camera/warm lamp light retained, unoccupied cushion/floor generated in place. No bitwise hidden-background recovery claimed."
+  },
+  "primaryApproved": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "generationInputAllowed": false,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "original360ExactActivityCell": false,
+  "sourceCodeOrRegistryChanged": false
+}

@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "empty-room-plate",
+  "environmentVariant": "dry-night",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "executionId": "exec-20ff811a-90cc-4f23-9ac2-4f9d0a02c820",
+  "sourceConversationId": "01a16fb4-85f3-7d40-b7de-f5038af4a504",
+  "toolOriginalPath": "generated_images/01a16fb4-85f3-7d40-b7de-f5038af4a504/exec-20ff811a-90cc-4f23-9ac2-4f9d0a02c820.png",
+  "inputs": [
+    {
+      "file": "literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "sole approved clean empty room edit target; no character image input",
+      "admissionRecord": "literary-room-clear-day-v1.source.json"
+    }
+  ],
+  "selectedMotherLineage": {
+    "sha256": "e9d41849151b5678082567ed80cada650ab47e7955dd6061dbd2251a5c03a9fd",
+    "imageInputForThisCall": false
+  },
+  "promptFile": "literary-room-dry-night-v1.prompt.txt",
+  "promptFileSha256": "eb06e8d27cadc636af8b88fb5567a85b35fa415ff9621fcee9b424dbe5d07998",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd, exactly as submitted",
+  "submittedPromptSha256": "8cfefb54aa3a79aee6e7b10cf401b70cd3716f2e9468b3a3af72a5da3a2255b1",
+  "output": {
+    "file": "literary-room-dry-night-v1.png",
+    "sha256": "edad31b1ce0c7f21be59d939cc54a0d6230b31d6fe380d0d553af515032fd0f4",
+    "bytes": 2249307,
+    "width": 1536,
+    "height": 1024
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed complete saved original: same close literary room and original window divisions/furniture/seat/foreground depth are preserved. Clear dark-blue outside sky carries a few faint stars; the original town/church/castle geometry has modest warm windows and lake reflections, with no rain. Existing ceramic lamp gives the gentle local warm pool, left brass fixture remains non-emissive, far pillows and right floor fall into readable warm shadow. Original daytime leaf/window-grid sun patterns are absent. No added person, extra lamp or obvious furniture shift observed. Producer inspection only; root and runtime acceptance remain separate."
+  },
+  "primaryApproved": true,
+  "runtimeAccepted": false,
+  "approvalScope": "Empty environment plate candidate only; does not approve character poses, layers, matrix coverage or runtime.",
+  "primaryApprovalRecord": "literary-room-dry-night-v1.primary-approval.json",
+  "primaryApprovalScope": "Complete static empty environment plate only; same selected close room and corresponding weather/time illumination. No character/activity/layers/motion/runtime approval."
+}

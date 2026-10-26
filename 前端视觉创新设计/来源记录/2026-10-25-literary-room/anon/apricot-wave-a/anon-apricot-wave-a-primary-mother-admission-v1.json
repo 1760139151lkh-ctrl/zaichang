@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "kind": "exact-sha-primary-mother-decisions",
+  "character": "anon",
+  "recordedAtUtc": "2026-10-25T11:36:47.484017+00:00",
+  "decisionSource": "Root personally viewed all six wave-a mothers and issued exact per-image decisions in this healthy session",
+  "scope": "mother static only, no layer or runtime approval",
+  "cells": [
+    {
+      "key": "anon/reading/apricot",
+      "mother": {
+        "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-a\\anon-reading-apricot-literary-v1.png",
+        "sha256": "ae3144f78b5b0edd125a1573ed74c8cc4afa926bc05a91405bae0483706cca2c",
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "producerSource": "anon-reading-apricot-literary-v1.source.json",
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static original mother only",
+        "rationale": "Root personally viewed and approved original identity, hair/eyes/hands/book and visible real support; static mother only. Sharing the reading toward the reader is an acceptable distinctive relationship, not required to look down.",
+        "source": "Root direct message 2026-10-25; exact message timestamp not provided"
+      },
+      "contourComplete": null,
+      "visibleContourNote": "see original visible contour; no layer-mask certification made by this mother record",
+      "allowedAsFutureImageInput": true,
+      "imageInputBoundary": "future generation still needs explicit task release; this records correct-mother eligibility only",
+      "primaryLayerApproved": false,
+      "runtimeRegistered": false,
+      "runtimeAccepted": false
+    },
+    {
+      "key": "anon/planning/apricot",
+      "mother": {
+        "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-a\\anon-planning-apricot-literary-v1.png",
+        "sha256": "ad3f6a9067d88913849c6d0f5db532fdab2aa76347a40e4ffdfe76f2459dfca3",
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "producerSource": "anon-planning-apricot-literary-v1.source.json",
+      "primaryDecision": {
+        "approvedByPrimary": false,
+        "scope": "static original mother only",
+        "rationale": "Root rejects enlarged desktop and shifted round table; forbidden as any later ImageGen input.",
+        "source": "Root direct message 2026-10-25; exact message timestamp not provided"
+      },
+      "contourComplete": null,
+      "visibleContourNote": "see original visible contour; no layer-mask certification made by this mother record",
+      "allowedAsFutureImageInput": false,
+      "imageInputBoundary": "forbidden for all later generation inputs; retained as rejected historical evidence only",
+      "primaryLayerApproved": false,
+      "runtimeRegistered": false,
+      "runtimeAccepted": false
+    },
+    {
+      "key": "anon/rest/apricot",
+      "mother": {
+        "path": "前端视觉创新设计\\来源记录\\2026-10-25-literary-room\\anon\\apricot-wave-a\\anon-rest-apricot-literary-v1.png",
+        "sha256": "b9aaf551c5105b67e180fc686fcb26c118ec56db4dcca07aee24d1b69e2b0b52",
+        "canvas": [
+          1536,
+          1024
+        ]
+      },
+      "producerSource": "anon-rest-apricot-literary-v1.source.json",
+      "primaryDecision": {
+        "approvedByPrimary": true,
+        "scope": "static original mother only",
+        "rationale": "Root personally viewed and approved original identity, hair/eyes/hands/book and visible real support; static mother only.",
+        "source": "Root direct message 2026-10-25; exact message timestamp not provided"
+      },
+      "contourComplete": null,
+      "visibleContourNote": "see original visible contour; no layer-mask certification made by this mother record",
+      "allowedAsFutureImageInput": true,
+      "imageInputBoundary": "future generation still needs explicit task release; this records correct-mother eligibility only",
+      "primaryLayerApproved": false,
+      "runtimeRegistered": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "layerWorkAuthorizedByThisRecord": false,
+  "runtimeAccepted": false
+}

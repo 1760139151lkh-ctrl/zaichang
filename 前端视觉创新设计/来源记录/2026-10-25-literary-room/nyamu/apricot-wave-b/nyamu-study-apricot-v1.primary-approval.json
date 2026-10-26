@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "kind": "primary-static-mother-admission",
+  "key": "nyamu/study/apricot",
+  "reviewer": "root",
+  "decision": "approved",
+  "primaryPersonallyViewed": true,
+  "mother": {
+    "file": "nyamu-study-apricot-v1.png",
+    "sha256": "671dd56f7fddff1d8a63c638d460be8e6d8a5aae046bdff4d45ef116a473d677",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "sourceRecord": "nyamu-study-apricot-v1.source.json",
+  "observation": "Root personally viewed full mother: lowered gaze writing at the desk page, other elbow supported by desk edge while hand supports cheek, and plausible chair-seat support. Metal lamp and chair changes are accepted portable adjustments. Plant naturally occludes shoes, so contourComplete=false; no complete two-shoe claim. Hair/eyes, visible hands and support are natural, camera and major furniture stable.",
+  "contourComplete": false,
+  "scope": "Exact-SHA complete static mother only; actual generated pose/prop semantics recorded honestly. No layer, motion, real background action or runtime admission.",
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "evidenceSource": "Explicit root message after personally viewing all five Nyamu wave-b original mothers"
+}

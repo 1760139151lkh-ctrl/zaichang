@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-source-local-contact-receiver-selection-markup",
+  "id": "sakiko-resume-apricot-recognition-v2-S1",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "dossier": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+    "version": "2026-10-25.1",
+    "readComplete": true,
+    "wardrobeId": "sakiko-literary-navy-adaptation"
+  },
+  "method": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+  "promptFile": "contact-step1-prompt-v1.txt",
+  "submittedPrompt": "Use case: precise-object-edit. Asset type: SAME-SOURCE LOCAL CONTACT RECEIVER SELECTION MARKUP, STEP S1, for Sakiko recognition v2. Image 1 is the ONLY input, the root-reviewed complete 1536x1024 new recognition v2 mother. Keep the original full canvas, camera, every object coordinate, all original person/book RGB, glance, clothing and BELOW-KNEE calf socks exactly unchanged. Do not use any earlier pose, shadow, mask or other room.\n\nPaint SOLID NEUTRAL PURE WHITE directly over ONLY the ACTUAL VISIBLE SMALL CONTACT/COMPRESSION AND LOCAL CAST-SHADE REGIONS that THIS seated girl causes in the source room. Trace the source's real irregular material-darkness contours with their tapering soft extent. Do not invent a shadow, draw an ellipse, cover a bounding rectangle or select an entire bright furniture surface.\n\nThe receiving surfaces are: the actual compressed pale linen right window-seat strip directly under the rear hip and the full plaid-skirt underside, the tiny immediately adjacent source hair/body cast shade on linen/throw only where visibly present, and the real wood-floor sole contacts and very short local cast shade immediately beneath BOTH complete brown-black loafers. Select the darkness on RECEIVING linen/floor, not the dark garment trim, skin, socks, shoe soles/heel blocks or other foreground. Keep the whole original girl, book, fingers, skirt edge, exposed knees, calf socks and both full shoes in their original colors. Include any tiny true book/hand room-surface cast shade only if it exists, not book self-shading. Both shoes remain complete, original and grounded; do not paint over their dark outlines.\n\nEverything unrelated stays the original colored source: all large linen and knitted texture, plaid pillow patterns, wood grain, sunlight lattice and floor rectangles, rug/plants, lamp/table/cup, shelves/desk/chair, curtains/window/lake/town. Do not mistake navy clothing, pillow plaid, inherent wood color or the original window sun pattern for contact shade.\n\nOutput ONE opaque 1536x1024 PNG: unchanged original mother with only its genuine small source contact/compression/cast-shade receiver regions marked white, in place. No new body RGB, pose, room, shadow, crop, recenter, zoom, resize, movement, text, arrows, grid, labels, outlines or boxes.",
+  "inputs": [
+    {
+      "path": "../sakiko-recognition-apricot-v2.png",
+      "sha256": "a8801f784b77d632509818d102a8b899d0bdda99afe904085196a9e8c5bee279",
+      "role": "only exact same-canvas source for this selection step",
+      "actualSha256": "a8801f784b77d632509818d102a8b899d0bdda99afe904085196a9e8c5bee279"
+    }
+  ],
+  "output": {
+    "file": "contact-step1-marked-v1.png",
+    "sha256": "e062b8e829e37fbd56c4763dc6ef6dc20148256a118af8774f5abd32608e3b1f",
+    "bytes": 2424265,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-454d-7bb3-8b77-bcaadd75b8a4\\exec-a8e3b1e8-198f-49e2-9f83-445f8e786891.png"
+  },
+  "review": {
+    "producerPersonallyViewed": true,
+    "observation": "Original-sized receiver markup personally viewed: small linen/skirt support strip and individual source sole-contact marks. Markup is a selection intermediate, not independent shadow RGB or runtime approval.",
+    "approvedByPrimary": false,
+    "runtimeAccepted": false
+  },
+  "status": "producer-viewed-native-selection-awaiting-composite-review",
+  "submittedPromptSha256Utf8NoTrailingLF": "310b59606fa3a52e4e8cec340d76acb7ac6a9f3c4bfc6a45ab4ff4527a2371f6",
+  "promptFileSha256": "aed3c6efee2d5df6cd3a73cd0617138a6a23169b10c5b7e30e4cec13f9383b7f",
+  "promptEncodingBoundary": "submittedPrompt is the exact built-in inline text; prompt file retains its terminal LF independently."
+}

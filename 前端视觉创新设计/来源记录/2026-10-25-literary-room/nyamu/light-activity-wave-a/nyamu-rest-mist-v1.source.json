@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "sceneFamily": "literary-room-v1",
+  "kind": "same-activity-whole-light-mother-candidate",
+  "character": "nyamu",
+  "activity": "rest",
+  "palette": "mist",
+  "environmentVariant": "overcast-day",
+  "wave": "light-activity-wave-a",
+  "dateLocal": "2026-10-25",
+  "timeZone": "America/Los_Angeles",
+  "tool": "image_gen.imagegen (built-in)",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a170a6-8e49-7cd0-a76c-b39ffc076c2e\\exec-a530f986-cd1e-4407-bd80-369a34bd4e1b.png",
+  "executionId": "exec-a530f986-cd1e-4407-bd80-369a34bd4e1b",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a",
+      "role": "first input; approved empty environment plate, primary camera and authoritative target whole-room light"
+    },
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-a/nyamu-rest-apricot-v1.png",
+      "sha256": "dacfe14559f694e2ee69e1ebbc395a279b8ef895441f9ddd2faeb641996cd734",
+      "role": "second input; root-approved exact same-activity apricot mother, correct identity/pose/proportion/props/physical support"
+    }
+  ],
+  "apricotActivityMotherApproval": "前端视觉创新设计/来源记录/2026-10-25-literary-room/nyamu/apricot-wave-a/nyamu-rest-apricot-v1.primary-approval.json",
+  "sourceMotherContourComplete": true,
+  "intendedSupport": "window-seat",
+  "sourceSpecificPose": "Exact source pose: relaxed supported lean into existing plaid cushions, head/eyes turned toward window, one hand on lap and the other on real seat/throw, no handheld prop. Preserve the actual source shoulder/back/hip support, head depth, uncrossed legs and complete shoes; no forced sleepiness.",
+  "brief": {
+    "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/briefs/mujica-a/nyamu-prompt-plan.json",
+    "sha256": "9f549b3785d8e59d903dec1f220f05880ce0b57213591c5111effa3a98da9dea",
+    "key": "nyamu/rest/apricot",
+    "role": "own role/activity literary psychology; light redirection keeps actual accepted mother pose"
+  },
+  "wholeSceneRelighting": true,
+  "oldApricotHeatSpotsAreNotIdentity": true,
+  "unreviewedLightCandidateUsedAsInput": false,
+  "promptFile": "nyamu-rest-mist-v1.prompt.txt",
+  "promptFileSha256": "b527b72ad1ba396ddc749164a0967624542457aeb4e1ea5613ff50823943354b",
+  "submittedPromptTransform": "UTF-8 prompt contents trimEnd; exact submitted text",
+  "submittedPromptSha256": "f2ec08df53a8744053ac8888bfdfcc064713f5e4603ac1b1f6e1686785ca6cd8",
+  "output": {
+    "file": "nyamu-rest-mist-v1.png",
+    "sha256": "06c15c47ad5589fbe323d3e9cd6cd2e86f325600c9bc4346b238f27cc151b23f",
+    "bytes": 2423451,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Personally viewed saved complete mother. Same approved rest's supported rear lean into plaid cushion, window-facing gaze, lap hand and full seat/throw-support palm, correct lavender/red-purple identity and source lower rest head depth remain. Full head/shoes, hip/back support and uncrossed knee/ankle/floor relations are readable. Dry overcast diffuse light reaches skin, grey cloth, cushion and wood/floor; exposed knee/leg shading is broad and continuous, without a hard isolated apricot white island or floor sunlight lattice. Visible eyes/eyelids separate from fringe, no new prop or imposed sadness/sleepiness. Root/layer/runtime pending."
+  },
+  "primaryApproved": false,
+  "layerApproved": false,
+  "runtimeAccepted": false,
+  "approvalScope": "New static mother candidate only, root review pending; no layer, registration or runtime acceptance.",
+  "privateUserDataUsed": false
+}

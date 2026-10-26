@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_matrix",
+  "cell": "sakiko/resume/mist",
+  "character": "sakiko",
+  "activity": "resume",
+  "palette": "mist",
+  "stage": "F2",
+  "assetType": "raw-Image-source-selection-mask-or-markup",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Make the FINAL foreground luminance mask from this EXACT selection markup. Preserve the full 1536x1024 canvas and every existing white selection boundary at exactly its current coordinate. This is a technical selection conversion, not a new drawing.\n\nThe deliberately painted connected WHITE foreground is ALREADY SOLID AND CORRECT. Keep it solid PURE WHITE, including all small original white strand tips and the entire lower white footwear shape. Do not recognize, outline, reinterpret or draw any features inside it. No inner line, grey seam, crease, shading, edge between parts, or pinhole may be introduced. Do not change the outer silhouette or invent new gaps. Keep the true existing colored gaps between the thin white strands and between the two long white leg shapes out of the selection.\n\nConvert ALL remaining COLORED room pixels, including any originally naturally bright cream/white areas, to PURE BLACK. Select ONLY the deliberately uniform white painted subject, never a brightness key of natural room features. There should be no room color, floor/seat receiver, lamp/curtain/sky, broad blank fabric or unrelated highlight in the mask.\n\nOutput ONE opaque exact 1536x1024 PNG: the original-position intentional full WHITE selection on a PURE BLACK field. Grey only at the original true exterior antialias. No interior illustration or outline, new object, checkerboard/text/labels/arrows/grid/UI/boxes, crop/zoom/resize/recenter/shift.",
+  "submittedPromptSha256": "cf983251cfbc9f9875752bf4bfeaf3c03ef32264d7fe213d832283b36d56eb3b",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/layers/resume-mist/figure-step1-marked-v2.png",
+      "sha256": "88c3102934e89201252a54a3885ffa1403fe45dde68ee6fe99122f17012f68e2",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "readDependencies": [
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+      "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    },
+    {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "sha256": "f4fd2bad7cf6d71aabf64f0915b234b584eddd0e127721c884a21367fa5e822d",
+      "scope": "Complete current dossier/method read before this role layer batch"
+    }
+  ],
+  "originalRgbOwner": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-resume-mist-soft-recognition-v4.png",
+    "sha256": "9c9e2aa283a1d809a3e6edf9f574e026de3046093e6c8dcd8b7c0316961dc624",
+    "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/sakiko/shared-attention-v2/sakiko-resume-mist-soft-recognition-v4.source.json",
+    "sourceRecordSha256": "15c8a582a317dd760947eb56b6bfc31d6ed78fd63d06ac4d4bd02c6ae73a0371",
+    "rootMotherStaticReview": {
+      "status": "approved_static_mother",
+      "reviewer": "root",
+      "observed": "Actual whole image inspected. Familiar-person recognition in soft gold eyes/small smile, page-holding hand and supported book; two knees exposed above dark navy below-knee socks, complete grounded shoes; hip/cushion and legs continuous; overcast diffuse room light. New image built only from clean plate and independent identity portrait, not white-sock v3 or old mature resume."
+    }
+  },
+  "method": "Actual Image same-mother F1/F2 or S1/S2 chain. F is whole human/ribbons/hands/held book/clothing/knees/calf socks/complete shoes. S includes real source-local seat and full soft grounded floor receiver, not just sole line; original RGB MAX(F,S) drawn once only.",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\sakiko\\shared-attention-v2\\layers\\resume-mist\\figure-mask-v1.png",
+    "sha256": "a48c3f85d41b27e58eb3080cf6e3279edd743bb509da669e47793e2fc292941a",
+    "bytes": 507969,
+    "width": 1536,
+    "height": 1024,
+    "pngColorType": 2,
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-e9e3-74e1-a4b5-80529647118b/exec-c32bdad7-e508-49b0-91e1-6094c9998789.png",
+    "pngBytesUnchanged": true
+  },
+  "producerObservation": {
+    "personallyViewedFullNative": true,
+    "observation": "Actual full F2 inspected: original position, full white person/book and whole shoes, no remaining interior ink lines; actual strand and leg gaps black. Native RGB closeups still pending."
+  },
+  "geometry": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "sourceOrigin": [
+      0,
+      0
+    ],
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": "included",
+    "independentCaster": false
+  },
+  "motherReconstructed": false,
+  "primaryLayerApproved": false,
+  "layerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "status": "producer-browser-inspected-awaiting-root-layer-review",
+  "inputBoundary": "Only current exact root-approved mother and its correct same-canvas working intermediates. No HOLD rain-attention-v2, white-sock resume-mist-v3, screenshot, audit collage or other mother mask.",
+  "promptFile": "figure-mask-v1.prompt.json",
+  "promptFileSha256": "fa6584d1429e92099aef20b43194312a54798e50a81841884f999170771e24be",
+  "generatedAt": "2026-10-25T23:56:02.560Z",
+  "nativeBrowserObservation": {
+    "at": "2026-10-26T00:00:10.904Z",
+    "reviewer": "/root/mujica_matrix",
+    "method": "Actual native SVG same original RGB once under MAX(L(F),L(S)), source/BG/union closeups",
+    "observations": [
+      {
+        "file": "browser-observations/mother-composite-v1.png",
+        "sha256": "edbe24d47c09fb3e9af6277466a8332cec9c2f1a1b9b31c3f4c77833022d88ee"
+      },
+      {
+        "file": "browser-observations/light-dark-checker-full-v1.png",
+        "sha256": "a4439e087d64437e63a633e58b3697c17037fb1b79051a2c4cff17af3009dc3b"
+      },
+      {
+        "file": "browser-observations/face-hair-original-union-composite-v1.png",
+        "sha256": "d5c09c57126dd28a0f145d5ff9e4e36497bc966b81e536f43c94f610d4e6fe84"
+      },
+      {
+        "file": "browser-observations/book-seat-original-union-composite-v1.png",
+        "sha256": "49a634b5ac99f91b1ef6fa26d8b314e7fab80e1ff5bea909d6607d03e6eb8c66"
+      },
+      {
+        "file": "browser-observations/shoes-contact-original-union-composite-v1.png",
+        "sha256": "01c43bcc68a47c0bb178d08caf042eec98a42ce366e97247de076d04a19f7e99"
+      }
+    ]
+  }
+}

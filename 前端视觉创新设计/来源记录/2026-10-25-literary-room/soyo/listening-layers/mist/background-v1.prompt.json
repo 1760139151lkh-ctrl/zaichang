@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-listening-mist-background-v1",
+  "submittedPrompt": "Use case: precise-object-edit. Asset: exact same-camera EMPTY receiving background for the root-approved Soyo LISTENING mist scene. The ONLY input is that clean full 1536x1024 mother. Keep the complete canvas at exactly its existing framing, perspective, window mullion locations, bench top/front edges, table legs and every furniture coordinate. This is an object-removal edit, NOT a fresh room illustration, recoloring, exposure change, redesigned cushion or camera move. No crop/resize/zoom/shift.\nRemove ONLY the entire girl (including every fine hair strand, complete sailor uniform, empty hands, legs, socks, both loafers), the ONE closed book lying separately on the seat immediately image-right of her, and the local compression/contact/cast shade specifically caused by her seated body, closed book and shoes. Reconstruct the actual original room behind them: continuous pale linen seat with natural embroidery/folds flowing into untouched visible linen; continuous wooden window/bench front where covered by body/legs; the exact same wooden floor planks and soft overcast diffuse reflections where her shoes and local shade were. Preserve true underlying room ambient/window/table shadows and all unrelated illumination. No residual person/limb/hair/book/shoe/shadow silhouette, no ghost, no replacement object.\nEverything else stays visually and geometrically exact to the input: lamp and its vase, cup and small books on the round side table, flowers, chair and desk at left, hanging plants, shelves and framed art, both curtains, all cushions at image-right, crochet throw, floor/rug, lake/town/mountain/window view, original linework/material painting style and overcast mist-day diffuse lighting with no new sun-window lattice or hard sunlight. Keep the original scene color temperature, texture and detail; do not make a generic room. Output one opaque clean 1536x1024 PNG of the empty SAME scene. It will sit behind an exact original-mother-RGB joint figure/contact layer at fixed original coordinates; matching receiver geometry and local floor/seat light matters more than artistic reinterpretation.",
+  "referencedImagePaths": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-mist-literary-v1.png"
+  ],
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/missing-theme-extension-v1/soyo-listening-mist-literary-v1.png",
+      "sha256": "5fbcbd2acb5bfdf36ab1ac5273dee2ec7567a03bc3a12869751b90a43adea154",
+      "role": "sole exact root-approved listening mother, no masks/UI/composite"
+    }
+  ],
+  "transparentBackground": false,
+  "outputFile": "listening-background-v1.png",
+  "generationStatus": "returned-and-preserved"
+}

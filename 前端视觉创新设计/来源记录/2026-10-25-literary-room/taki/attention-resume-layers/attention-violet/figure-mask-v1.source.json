@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "assetType": "same-mother-original-rgb-included-layer-production",
+  "cell": "taki/attention/violet",
+  "stage": "F2",
+  "tool": "image_gen.imagegen",
+  "submittedPrompt": "Use case: background-extraction. Asset: exact-position FOREGROUND luminance mask F2 for taki/attention/violet. ONLY input is the full 1536x1024 exact same-mother deliberate F1 white selection. Preserve every marked source coordinate, full canvas and fine contour; do not crop/resize/zoom/recenter/redraw or shift.\n\nKeep ONLY the ALREADY DELIBERATELY WHITE ENTIRE girl AND ALL held props WHITE: complete near-black long hair and separated fine tip islands, head/face/neck, sailor collar/red bow/camel dress sleeves/cuffs/buttons/waist tabs, all fingers/wrists, every outward dark pleated skirt hem tip, bare knees, calf socks, BOTH COMPLETE loafers including toes/sidewalls/sole rims/heel bottoms, ENTIRE thin OPEN NOTEBOOK with both covers/page-block/all thin edge strips, cream marker/slip and ENTIRE thin PENCIL to its actual tip. No clothing/face/page/hand linework or holes inside solid white. Thin gray is allowed ONLY at original narrow antialiased OUTER perimeter. The subtle internal book/arm seam must be WHITE, not a transparent cut through the selected body/props. True actual empty hair/arm/body/leg gaps stay BLACK. No contraction/dilation/erosion/threshold redesign.\n\nEverything else becomes solid PURE BLACK: naturally pale empty cushion/curtains/lamp/sailor-like room highlights, lake/clouds/window, plants/plaid/knit, cup/flowers/side-table books, floor/rug and ALL independent receiving/contact material/shade. Do NOT treat natural brightness as selection. There is NO separate book on the cushion and no new white object. Output ONE opaque full 1536x1024 black PNG with only the same complete white person/held props and a fine gray outer antialias. It selects original mother RGB later; this output contributes NO new person RGB, no checkerboard/color/text/labels/arrows/boxes.",
+  "promptFile": "figure-mask-v1.prompt.txt",
+  "actualToolArguments": {
+    "prompt": "Use case: background-extraction. Asset: exact-position FOREGROUND luminance mask F2 for taki/attention/violet. ONLY input is the full 1536x1024 exact same-mother deliberate F1 white selection. Preserve every marked source coordinate, full canvas and fine contour; do not crop/resize/zoom/recenter/redraw or shift.\n\nKeep ONLY the ALREADY DELIBERATELY WHITE ENTIRE girl AND ALL held props WHITE: complete near-black long hair and separated fine tip islands, head/face/neck, sailor collar/red bow/camel dress sleeves/cuffs/buttons/waist tabs, all fingers/wrists, every outward dark pleated skirt hem tip, bare knees, calf socks, BOTH COMPLETE loafers including toes/sidewalls/sole rims/heel bottoms, ENTIRE thin OPEN NOTEBOOK with both covers/page-block/all thin edge strips, cream marker/slip and ENTIRE thin PENCIL to its actual tip. No clothing/face/page/hand linework or holes inside solid white. Thin gray is allowed ONLY at original narrow antialiased OUTER perimeter. The subtle internal book/arm seam must be WHITE, not a transparent cut through the selected body/props. True actual empty hair/arm/body/leg gaps stay BLACK. No contraction/dilation/erosion/threshold redesign.\n\nEverything else becomes solid PURE BLACK: naturally pale empty cushion/curtains/lamp/sailor-like room highlights, lake/clouds/window, plants/plaid/knit, cup/flowers/side-table books, floor/rug and ALL independent receiving/contact material/shade. Do NOT treat natural brightness as selection. There is NO separate book on the cushion and no new white object. Output ONE opaque full 1536x1024 black PNG with only the same complete white person/held props and a fine gray outer antialias. It selects original mother RGB later; this output contributes NO new person RGB, no checkerboard/color/text/labels/arrows/boxes.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-violet/figure-step1-marked-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/attention-resume-layers/attention-violet/figure-step1-marked-v1.png",
+      "sha256": "a9c8939b9d6a561d7691729686eba91af3b73cc586cc3450a36e5391d1dd5ffe",
+      "role": "same-mother deliberate F1 white selection"
+    }
+  ],
+  "mother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-violet-literary-extension-v1.png",
+    "sha256": "322e2e43b3a93587098bf35f0a36d314d0cd4f23a541782353c2e9bc20cb2a26",
+    "sourceRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-violet-literary-extension-v1.source.json",
+    "sourceRecordSHA": "a82ef2f551a0012a0e3cf98a451bd4370b18471aff4778d8f0db77ee83a053f6",
+    "primaryAdmission": {
+      "cell": "taki/attention/violet",
+      "artifact": {
+        "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/taki/missing-theme-extension-v1/taki-attention-violet-literary-extension-v1.png",
+        "sha256": "322e2e43b3a93587098bf35f0a36d314d0cd4f23a541782353c2e9bc20cb2a26",
+        "bytes": 2330841,
+        "canvas": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "decision": "approved_static_mother",
+      "reviewedAt": "2026-10-25T19:51:09.850Z",
+      "observation": "Taki dark hair/purple eyes and brown-red school wardrobe remain. Pencil tip lands on the real lap page; eyes are directed down toward the task. Whole violet light is shared by figure and room; rain candidates use corrected localized lamp light without the discarded daylight grid. Static direction only; minor scale/pose differences retained per user explicit no-reconstruction instruction.",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false
+    },
+    "primaryAdmissionFile": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/root-human-mother-primary-review-20261025.json"
+  },
+  "output": {
+    "file": "figure-mask-v1.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-b25f1a74-d3f2-4000-9be4-3bc20c927c13.png",
+    "sha256": "fe8b6621f72244255d9a65401e903bc07cdb6de9b2b73e75dd82b8c00a479bd4",
+    "bytes": 459238,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "producerReview": {
+    "personallyViewedWholeOutput": true,
+    "status": "producer_candidate_browser_reviewed_pending_primary_priority_hold",
+    "observations": [
+      "亲看完整返回：黑底完整白人物、书笔、裙摆及双鞋；原空隙为黑，浅内线被实白覆盖，细发/笔尖保留。"
+    ]
+  },
+  "originalMotherRGBChanged": false,
+  "pngPixelEditing": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "promptSha256Utf8": "e52acdce805f4bf5bb755c90c797a8536515accc60349800af6ec60aa382c96e",
+  "promptFileSha256": "561af3975cdac4208f8d454d5a929415f21c50ad2c58f80c82b072c72ef3f30e"
+}

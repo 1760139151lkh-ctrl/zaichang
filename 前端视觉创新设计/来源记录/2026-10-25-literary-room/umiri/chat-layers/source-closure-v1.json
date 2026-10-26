@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixed-source-joint-closure",
+  "character": "umiri",
+  "activity": "chat",
+  "palette": "apricot",
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "files": {
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v2.png": {
+      "sha256": "b54800a320a163629dba745183efa63d18a83aa1ae19ba0f9382fdb546b12844",
+      "bytes": 2456064
+    },
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png": {
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "bytes": 2524961
+    },
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-pilot/umiri-chat-apricot-literary-pilot-v2.source.json": {
+      "sha256": "79f2bb44da76f89950f0d4a9e96bec6c86137d4772323d7d6440dfa7df2b13b9",
+      "bytes": 8878
+    },
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.source.json": {
+      "sha256": "5425e475efa8264874f2f3b083b8737b4b1f9d35399e9b2c3d86dc561a36cddb",
+      "bytes": 1250
+    },
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/chat-included-scene-proposal-v1.scene.json": {
+      "sha256": "f20b3a38d6bcd8d9b5cd1bc483aa9a1d2601375627c137bddaa61f1e74054c9d",
+      "bytes": 2133
+    },
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/chat-layers-included-bundle-v1.json": {
+      "sha256": "f9b2b5cac65f172dd4e019fb611efcc876dda5c81cc421c0d39ae7f918142b7e",
+      "bytes": 8534
+    },
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/chat-layers-included-observe-v1.html": {
+      "sha256": "62e2990eb20c1994a0d280e18da5cada284168bb94d7b088248293306ba05903",
+      "bytes": 8349
+    },
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/chat-layers-source-pixels-observe-v1.html": {
+      "sha256": "cc662c116f45e96dac4ae75bf843b552a095b62ee8224a7bd3771af7c23e8c08",
+      "bytes": 8387
+    },
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/contact-mask-v1.png": {
+      "sha256": "5123edf75d3c989f9a463d558ccd2989e574c6c1d165a4a65853749e33e55a02",
+      "bytes": 292853
+    },
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/contact-step1-marked-v1.png": {
+      "sha256": "23725746bd3de0bccd0689a3fbba561d14a6e5b24159eb83835a8649482aea85",
+      "bytes": 2422612
+    },
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/f1-actual-prompt-v1.txt": {
+      "sha256": "e73880d6f1354a09da427e0b631e379a20e9c2b6aea7c7677e3c9df816ae2945",
+      "bytes": 2216
+    },
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/f1-source-v1.json": {
+      "sha256": "5d375dd122b4f545cdbd70b209880afb63d8e19caeb15dea1ef30d7c64f7f847",
+      "bytes": 4119
+    },
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/f2-actual-prompt-v1.txt": {
+      "sha256": "c5ce3b8b155f52bfe7d8e41b922cece6886d84ceefff8658383a483a52a640d5",
+      "bytes": 2173
+    },
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/f2-source-v1.json": {
+      "sha256": "da37ffd7eb24e2eb1c42d8428133f61cba09d0be25e8bce211d317a42661a5b3",
+      "bytes": 4100
+    },
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/figure-mask-v1.png": {
+      "sha256": "45e143667fdcba8dc0a09a521bf2f579eba2d11946bb987068ee0646980e19d6",
+      "bytes": 434087
+    },
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/figure-step1-marked-v1.png": {
+      "sha256": "3bd584194d3b3a514b70f9ff19896ddf6bcc1261bd6dd8adf8e0ad420fea7bb9",
+      "bytes": 2327266
+    },
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/joint-source-v1.svg": {
+      "sha256": "591723e2dbf909cf68adaafa26a75b5f4da7c792b7107001945271f801ab8d24",
+      "bytes": 1252
+    },
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/s1-actual-prompt-v1.txt": {
+      "sha256": "eadddabe8c189f433860285a8045d527fc46fd93ab6e8395a9ad591b130aed5d",
+      "bytes": 2319
+    },
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/s1-source-v1.json": {
+      "sha256": "bbeba0e6bd47ede42748d63e37bf353cb28be641904dcf3a58b2d569c3e8488d",
+      "bytes": 4278
+    },
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/s2-actual-prompt-v1.txt": {
+      "sha256": "66ffb7dd3d957141e21818952fe00cef91ea569f305a13af9050e611f0d80dd6",
+      "bytes": 1632
+    },
+    "前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/chat-layers/s2-source-v1.json": {
+      "sha256": "c0c87e607321c4801ed80408d72a38be252f8bef9009b446cf02b30fab7e770b",
+      "bytes": 3528
+    }
+  },
+  "scope": "Exact approved v2 mother and clear plate, original F/S plus marked intermediates, exact prompts/source records, native SVG, frozen observation pages and scene proposal. No runtime code, no generated RGB figure, no portable caster claim."
+}

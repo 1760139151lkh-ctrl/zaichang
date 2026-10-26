@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "assetType": "independently-generated-2d-human-bust-avatar-candidate",
+  "characterId": "soyo",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in independent human portrait generation, transparent background",
+  "wardrobeId": "official-observed-tsukinomori-navy-upper-sailor-white-collar-grayblue-bow-left-chest-gold-patch",
+  "promptFile": "soyo-independent-avatar-v1.prompt.txt",
+  "submittedPrompt": "Paint ONE independently composed original HUMAN 2D portrait avatar of Soyo Nagasaki / 长崎素世 / 長崎そよ, MyGO!!!!!. Square 1024x1024 genuinely transparent RGBA, head and upper chest with full crown and natural shoulder relation. Leave 12–15 percent clear TRANSPARENT headroom and comfortable side margins; no crown/parting clipped against the edge. It is not a scene crop, official 3D/model cutout, cat, mascot, decorative disk or publicity bust on a background.\nThe ONLY picture is a CLEAN EMPTY literary room, for its quiet hand-painted air and natural warm-cool window light only. Do not copy the room's camera, furniture, window, background or any person's anatomy. Draw Soyo's new face, hair, neck, shoulders and fabric together from the description, on real transparency.\nStable youthful identity: LONG LIGHT-BROWN hair, softly grouped off-center bangs, delicate curved cheek locks and gently turned lower ends. Keep it light brown rather than blonde, mature large curls, pink, green or a generic brown helmet. Clear BLUE irises with pupils, sclera, eyelids and brows distinct from fringe. Natural young teenage anime proportions, softly short jaw and small nose/lips, calm alert eyes; not an older motherly face, seductive half-lids, heavy eyeliner, makeup, glossy doll skin, chibi baby or giant watery glass eyes. No invented large hair ornament, Sakiko ribbons, jewelry or cat ears.\nHer own wish and the shared instant matter. She had been reading a small fictional scene that the two of them were composing, and deliberately left one too-tidy excuse a little unconvincing, because the character really wanted something else. The nearby person has just recognized that hidden wish. She looks up from the page just below the frame with quiet knowing amusement, not Anon's caught-out exuberance or Tomori's uncertain parted lips. Her lips are CLOSED and lightly held, one corner barely acknowledging the shared discovery; brows remain calm rather than worried, her blue gaze precise and observant, head nearly level, shoulders at ease. There is a trace of her own preference and pleasure in being understood, with space for the other person to disagree. Not a standard gentle customer-service smile, seductive smirk, broad grin, habitual consolation or tearful concern. The fictional page remains outside this close bust; no hand gesture or prop hides the face.\nFaithful upper Tsukinomori school outfit: dark NAVY sailor blouse, broad WHITE collar with fine dark trim, modest GRAY-BLUE bow at the neck. A small GOLD school-crest patch belongs on HER OWN LEFT CHEST, not in the middle of the bow; if the crop would hide it, omit it rather than moving it into jewelry. No readable letters/logo, stage fabric, elaborate badge or invented accessory. Bust naturally ends at upper chest, neck and shoulders coherent, not a floating face.\nRefined actual TWO-DIMENSIONAL anime linework with restrained painterly pencil/gouache-like planes, so the portrait belongs beside the supplied literary-room art. Soft upper-left daylight grazes light-brown hair with gentle cool reflected fill, fresh naturally colored skin and cloth; no plastic/3D/CG model material, photoreal pores, metallic hair streaks or glam lighting. Hair masses are readable at small size, with selected fine accents. Eyes are intelligent and clear rather than liquid sparkling marbles. The subtle contained recognition should still read at 48px.\nReal transparency around the complete new bust and clean hair/shoulder edges. Keep warm highlights inside actual hair; no detached red/yellow pixels, contaminated matte border, room residue, aura/glow, fog or outer shadow. No circle, frame, gradient/white/black backdrop, fake checkerboard, window fragment, UI, caption, text, speech bubble, watermark or collage. Output one standalone original 2D human avatar only.",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "role": "only image input: clean empty literary room for 2D painting/light atmosphere only; no face/body/layout to copy",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c"
+    }
+  ],
+  "readSources": {
+    "passport": {
+      "path": ".agents/skills/zaichang-frontend-director/references/characters/soyo.md",
+      "fullReadBeforeCall": true,
+      "version": "2026-10-25",
+      "sha256AtArchive": "1ec8b260d40f8363c096ed8392547dd276d2318df5aadbe34b1f51e51e2ed04e"
+    },
+    "method": {
+      "path": ".agents/skills/zaichang-frontend-director/references/character-art-direction.md",
+      "fullReadBeforeCall": true,
+      "sha256AtArchive": "92e849883768adda245b9b830831a2769adfe8236e8897a89af8ed25b46ad840"
+    }
+  },
+  "facts": {
+    "officialSources": [
+      "https://mygo-movie.bang-dream.com/character/soyo/",
+      "https://bang-dream.com/artist/mygo/nagasaki-soyo/"
+    ],
+    "identityObserved": "long light-brown hair with soft curved side/end groups, blue eyes, navy sailor blouse/white collar/gray-blue bow; gold crest at own-left chest rather than bow center",
+    "projectOriginal": "new independent bust and contained knowing recognition around co-written fiction; no actual user history or canonical private-thought claim"
+  },
+  "output": {
+    "file": "soyo-independent-avatar-v1.png",
+    "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17364-c27d-78c3-865c-07732ba456c2/exec-3d430ae8-4036-4643-913c-55be8efa28cf.png",
+    "sha256": "0ad405446b4029bf7b1e366ba7e6e9196012c842e103f8af6d4feaa8b905d5d2",
+    "bytes": 1863242,
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "cornerAlpha": 0
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "status": "candidate",
+    "observation": "Whole original personally viewed: long light-brown hair, blue eyes, closed lightly held smile and observant brows; gold crest at own-left chest, not bow. Newly drawn 2D bust with youthful jaw and painted cloth. Sparse red/yellow perimeter residue visible at full size; small-size review follows.",
+    "decision": "candidate for root independent-image review",
+    "smallSizeReview": {
+      "personallyViewed": true,
+      "page": "前端视觉创新设计/来源记录/2026-10-25-integrated-room/mygo/avatars/producer-observe-v1.html",
+      "pageSha256": "d3d0f896387a83b07478ec07cf55c48cab3dc5b34d3d88b9ac8a588c891e18e4",
+      "cssImageSize": [
+        48,
+        48
+      ],
+      "viewportDuringExactCapture": [
+        1280,
+        800
+      ],
+      "captureDpr": 1,
+      "method": "original PNG browser composition on light/dark plus 48px; only own observation tab metrics temporarily changed, original measured 1280x591 DPR3 restored",
+      "observation": "48px light/dark: light-brown long hair, blue gaze and closed lightly held recognition remain distinguishable. Own-left chest patch confirmed in full image; no claim tiny heraldic detail reads at 48px.",
+      "rawPerimeterBoundary": "Sparse red/yellow fine fringe visible in original black viewer; not conspicuous as a colored external frame in actual light/dark/48px composition. Not all densities/runtime approved."
+    }
+  },
+  "primaryApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "croppedFromScene": false,
+  "officialArtCopied": false,
+  "humanMatrixCoverage": false,
+  "promptFileSha256": "1a5a39ed1fe45dfb686ea00669be0767436f193892da5e0e9e25776c6ded4d26",
+  "submittedPromptSha256": "54eeba5ad2aa5472d823cb4f0187dc3a7ca13f782f31db79c723abf680f37afa",
+  "archivedAtUtc": "2026-10-25T16:49:48.655912+00:00"
+}
