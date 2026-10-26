@@ -1,0 +1,31 @@
+{
+  "name": "studio-ui",
+  "kind": "mockup",
+  "source": "C:\\Users\\17601\\.codex\\generated_images\\01a1789a-60fe-76f0-b0b3-4db58b792d38\\exec-afc9782a-bc5b-43ee-9d57-127e29ab6c09.png",
+  "prompt": "Use case: ui-mockup. One1536x1024 desktop screen for 在场, a shared small workshop for exploring a principle through an actual interactive work. The user's current conversation “琴槌为什么要先脱离？” has unfolded into a wide instrument/mechanism workspace. Use the input near-overhead work desk and literary wood/linen material as the peripheral environment, not a wall-cover chat page. Warm daylight, no green UI. Same top navigation 在场 聊天 今天 留下, search/new/small portrait.\nThe main area has a large legible cutaway grand-piano action with a depressed key, jack, hammer, string and damper; fine navy/copper explanatory lines, discreet labels 琴键 顶杆 琴槌 琴弦 制音器. A piano keyboard is genuinely the main direct manipulation object across the lower middle. Current key C4 is depressed and current phase indicates 琴槌自由击弦. Important phrase “手已经松开，声音还在继续。” sits near the real moving part, not big title. Small contextual actions 慢看 恢复 and “撤回这一笔” beside the work; no many disconnected cards or settings dashboard. Input at lower edge holds “那制音器什么时候落回去？” and a compact reference to this same work. A tiny simple Sakiko cat at keyboard edge yields away from the user's active key. Same approved youthful face in a44px byline, no full figure.\nThe work occupies most of screen; descriptive paragraph and model explanation remain readable beside it. The piece can be interrupted, keyboard input takes over immediately, parameters and the question remain when collapsed and reopened. This image explores hierarchy and a manipulable workshop; mechanism, sound and values are to be produced by existing code, not painted fake functionality. No micro-copy claiming tool or test status. Avoid enormous white rectangle pasted over a bedroom or decoration pretending to be an operating instrument.",
+  "review": "采用宽幅共同作品与近旁解释关系；图中琴槌机构、声音说明与参数不作为真实原理数据，按现有交互引擎另验。",
+  "output": "前端视觉创新设计/补充图稿/2026-10-26-product-reassessment/studio-ui.png",
+  "sha256": "58123e9585bf409ca6534e14015b14766b84606f5fae7a5e0ba6627ecf75caea",
+  "tool": "built-in image_gen",
+  "primaryImageInspection": "complete",
+  "runtimeVerification": {
+    "admitted": false,
+    "evidence": "docs/evidence/2026-10-26-frontend-reassessment.md",
+    "scope": "原图逐幅亲看；采用对应环境与布局。实际交互证据见 docs/evidence/2026-10-26-frontend-reassessment.md，未逐一声明全部主题与全部内容的组合。"
+  },
+  "inputs": [
+    {
+      "path": "C:\\Users\\17601\\.codex\\generated_images\\01a1789a-60fe-76f0-b0b3-4db58b792d38\\exec-fb4ebbda-871d-4b17-9047-e5db4c081c27.png",
+      "sha256": "5a1c65a27eb4cb6e6fd95f5904f6f0207df2f78c564d3c85c3ce00a6abd86019"
+    },
+    {
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\avatars\\sakiko-user-selected-youth-avatar-20261025.png",
+      "sha256": "bc92a4e0096411b0e58b5e4dfc12d61b48bf255f0fd7a544c039ae9e4cd7fc32"
+    },
+    {
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\rig-v3\\sakiko-meme-cat-v3-clean-composite.png",
+      "sha256": "ee1d4331e0f940267ea1850cb05f70bdf9dd320e6dd1906dd767847925d8c157"
+    }
+  ],
+  "classification": "A"
+}

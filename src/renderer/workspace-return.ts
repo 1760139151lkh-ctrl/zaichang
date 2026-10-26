@@ -6,6 +6,7 @@ import { agendaReferenceSchema } from '../shared/agenda';
 import { studyFocusRefSchema } from '../shared/study-presentation';
 import { sourceBookmarkAddress, sourceBookmarkReferenceSchema } from '../shared/source-bookmark';
 import { materialDocumentAddressSchema } from './materials/material-document-transfer';
+import { assistantTextReferenceSchema } from '../shared/workspace-context';
 
 const id = z.string().min(1).max(160), pixel = z.number().finite().min(0).max(100_000_000);
 const sha256 = z.string().regex(/^[a-f0-9]{64}$/), revision = z.number().int().positive();
@@ -23,6 +24,7 @@ const noteReturnSchema = z.object({
   id: z.union([noteQuoteReferenceSchema.shape.id, z.literal('new')]),
   revision: revision.optional(), sha256: sha256.optional(),
   selection: noteQuoteReferenceSchema.optional(), scrollTop: pixel.optional(), pageTop: pixel.optional(),
+  discussion: z.enum(['note', 'chat']).optional(),
 }).strict().refine(value => value.id === 'new' ? !value.selection
   : !!value.revision && !!value.sha256 && (!value.selection || value.selection.id === value.id
     && value.selection.revision === value.revision && value.selection.sha256 === value.sha256));
@@ -38,6 +40,8 @@ export const workspaceReturnAddressSchema = z.object({
   composer: z.object({ start: z.number().int().nonnegative(), end: z.number().int().nonnegative(),
     direction: z.enum(['forward', 'backward', 'none']).optional(), focused: z.boolean().optional() }).strict().refine(value => value.end >= value.start).optional(),
   quote: sourceBookmarkReferenceSchema.transform(sourceBookmarkAddress).optional(),
+  assistantText: assistantTextReferenceSchema.optional(),
+  assistantTextKind: z.enum(['text', 'formula']).optional(),
   material: materialReturnSchema.optional(),
   materialDocument: materialDocumentAddressSchema.optional(),
   study: z.object({ messageId: id, focus: studyFocusRefSchema,
@@ -46,13 +50,15 @@ export const workspaceReturnAddressSchema = z.object({
   agenda: z.object({ record: agendaReferenceSchema, timeZone: z.string().min(1).max(100),
     trial: z.object({ proposedStart: z.string().datetime({ offset: true }),
       durationMinutes: z.number().int().min(1).max(1440).nullable().optional() }).strict().optional() }).strict().optional(),
-}).strict().refine(value => !(value.message || value.study) || !!value.sessionId);
+}).strict().refine(value => (!(value.message || value.study) || !!value.sessionId)
+  && (!value.assistantText || value.assistantText.sessionId === value.sessionId));
 export type WorkspaceReturnAddress = z.infer<typeof workspaceReturnAddressSchema>;
 export type WorkspaceReturnCheckpoint = WorkspaceReturnAddress & { savedAt: number };
 export type MaterialReturnAddress = NonNullable<WorkspaceReturnAddress['material']>;
 export type StudyReturnAddress = NonNullable<WorkspaceReturnAddress['study']>;
 export type NoteReturnAddress = NonNullable<WorkspaceReturnAddress['note']>;
 export type AgendaReturnAddress = NonNullable<WorkspaceReturnAddress['agenda']>;
+export type AssistantTextReturnAddress = NonNullable<WorkspaceReturnAddress['assistantText']>;
 const storageKey = 'zaichang.workspace-return.v1';
 // A process-local invalidation counter must cancel live writes. The two
 // durable epochs identify the same original owners when the app reopens.

@@ -1,0 +1,31 @@
+{
+  "kind": "mockup",
+  "tool": "built-in image_gen",
+  "prompt": "Use case: ui-mockup. A high fidelity live-use desktop screen of 在场, 1536x1024. Scene is “a reading stand beside the bookshelf”, for 留下: returning to a thought the user chose to keep, reading and editing it, finding its origin, then continuing the same conversation. This must have its own atmosphere, not the cover's window-seat, not the chat background and not a card dashboard. Imagine a quiet intimate shelf niche with an oak display/writing surface and soft warm lamp. Camera faces the open sheet at comfortable reading angle; the actual textual content is flat, legible, large. Environment visible at edges, not stealing the page.\nGlobal top horizontal navigation 在场 聊天 今天 留下, underline 留下; search, new, small approved portrait. On the left a restrained index of saved objects with readable titles and short excerpts, rather than three abstract icons. For this populated screen show five entries:\n两个自由量 — 我还不确定第二个等号\n夜行的小旋律 — 最后四个音想再改一遍\n一条愿意再走的路 — 桥边那段很安静\n微分方程讲义 — 第12页\n那次谈起的书 — 还没聊完的结尾\nEach item's type/date secondary and modest. Active first entry is clearly selected with a fine warm rule, not a giant filled card. The user's own kept notes form the primary index; “全部内容” and search can reach materials/conversations without hiding them.\nMain content as one open manuscript, title 两个自由量, small source 原对话 · 微分方程讲义 12页. Full text:\n“我还不确定第二个等号。”\n今天终于把“位置”和“速度”分开想了。一个时刻的位置，并没有替我选好接下来走的方向。\ny(t)=A cos t+B sin t\nA 留住起点，B 留住起步的速度。两者放在一起，才是相空间中的一个点。\n我想下次试试：把几条从相同位置出发的轨迹画在一起。\nAt the lower end a tiny pencil squiggle/star made by the user next to their thought, not system badge. A discreet local action row 编辑, 接着这页聊, 回到原文, overflow for history/trash. No toolbar mountain, no completion meter. Small search near collection. 新写一页 is clear and discoverable.\nSakiko only as tiny simplified 2D cat lying along the actual current page edge, keeping a place with a paw. Reference 2 supplies youthful blue-lilac hair/gold eye/navy ribbon identity, reference 3 supplies meme-cat form. No large person on this page. Open/edit/discuss should visibly occur around this same sheet, not different website layouts. Reusable same nav and type scale. Cream paper, navy ink, copper and muted plum, warm wood. No green UI, no explanatory slogans, no huge greeting, no grey stacked cards. Design the visual relationships and readable Chinese text together. Reference1 supplies painterly materials and warmth only; do not reuse its room layout.",
+  "generatedSource": "C:\\Users\\17601\\.codex\\generated_images\\01a1789a-60fe-76f0-b0b3-4db58b792d38\\exec-8a6037f7-555a-4346-a9c7-1a48198893b1.png",
+  "review": "采用展读台与可识别对象索引；实现收敛重复搜索、压缩顶部装饰、保正文完整及原owner。",
+  "status": "primary-visually-inspected",
+  "output": "前端视觉创新设计/补充图稿/2026-10-26-product-reassessment/keep-ui.png",
+  "sha256": "05b9b89767f6019d2c58efa1d0f21bf4a7f59f9c764aed81c20a3d3842366754",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/对话导出/2026-10-25-重做角色场景图稿矩阵/images/m01-image-01.png",
+      "sha256": "86b2af7843f9602e8099675765b3cbfd1c2aa344aabf09afc72cfd44d3ecea60"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-user-selected-youth-avatar-20261025.png",
+      "sha256": "bc92a4e0096411b0e58b5e4dfc12d61b48bf255f0fd7a544c039ae9e4cd7fc32"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/edge-companions/rig-v3/sakiko-meme-cat-v3-clean-composite.png",
+      "sha256": "ee1d4331e0f940267ea1850cb05f70bdf9dd320e6dd1906dd767847925d8c157"
+    }
+  ],
+  "primaryImageInspection": "complete",
+  "runtimeVerification": {
+    "admitted": false,
+    "evidence": "docs/evidence/2026-10-26-frontend-reassessment.md",
+    "scope": "原图逐幅亲看；采用对应环境与布局。实际交互证据见 docs/evidence/2026-10-26-frontend-reassessment.md，未逐一声明全部主题与全部内容的组合。"
+  },
+  "classification": "A"
+}

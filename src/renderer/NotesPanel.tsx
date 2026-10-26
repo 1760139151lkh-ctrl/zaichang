@@ -1,12 +1,14 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import {
   Check,
   BookOpen,
   ChevronLeft,
+  ChevronDown,
   ChevronRight,
   History,
   FileText,
   MessageCircle,
+  MoreHorizontal,
   Plus,
   RotateCcw,
   Search,
@@ -161,6 +163,8 @@ export function NotesPanel({
   onReturnAddressChange,
   resume,
   onQuote,
+  discussion,
+  onCloseDiscussion,
   quoteContext = '',
   quoteBoundary = '',
   quoteEnabled = true,
@@ -178,7 +182,10 @@ export function NotesPanel({
   onOpenConversationSource?: (reference: ConversationBookmarkReference) => Promise<void>;
   onReturnAddressChange?: (address: NoteReturnAddress | undefined) => void;
   resume?: { address: NoteReturnAddress; requestId: number };
-  onQuote?: (quote: NoteQuote) => boolean;
+  onQuote?: (quote: NoteQuote, stayHere?: boolean) => boolean;
+  /** The original conversation DOM, including its one composer and replies. */
+  discussion?: ReactNode;
+  onCloseDiscussion?: () => void;
   quoteContext?: string;
   quoteBoundary?: string;
   quoteEnabled?: boolean;
@@ -190,6 +197,11 @@ export function NotesPanel({
   timeZone?: string;
 }) {
   const bookmarkTray = useBookmarkTray();
+  const panelId = useId();
+  const [indexOpen, setIndexOpen] = useState(!resume && !focus);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const indexButton = useRef<HTMLButtonElement>(null), indexSearch = useRef<HTMLInputElement>(null);
+  const menuButton = useRef<HTMLButtonElement>(null), objectMenu = useRef<HTMLDivElement>(null);
   const [list, setList] = useState<NoteList>({
     items: [],
     total: 0,
@@ -216,11 +228,17 @@ export function NotesPanel({
   const excerptGeneration = useRef(0);
   const [selection, setSelection] = useState<NoteSelection>();
   const [quoting, setQuoting] = useState(false);
+  const [discussionPane, setDiscussionPane] = useState<'note' | 'chat'>('chat');
+  useEffect(() => { if (discussion) setDiscussionPane('chat'); }, [!!discussion]);
+  useEffect(() => { if (resume?.address.discussion) setDiscussionPane(resume.address.discussion); }, [resume?.requestId]);
   const quoteGeneration = useRef(0), bookmarkDrag = useRef<SourceBookmarkReference | undefined>(undefined);
   const quoteDestination = useRef({ context: quoteContext, boundary: quoteBoundary, enabled: quoteEnabled, active, focus });
   quoteDestination.current = { context: quoteContext, boundary: quoteBoundary, enabled: quoteEnabled, active, focus };
   const returnSelection = useRef<{ address: NoteQuoteReference; boundary: string;
     scrollTop: number; pageTop: number; width: number; height: number } | undefined>(undefined);
+  const [selectionRestoreRequest, requestSelectionRestore] = useState(0);
+  const pendingDiscussionRestore = useRef(false);
+  const closingDiscussion = useRef(false);
   const drafts = useRef(new Map<string, Editor>()),
     request = useRef(0),
     listRequest = useRef(0),
@@ -233,6 +251,7 @@ export function NotesPanel({
   const backedDrafts = useRef(new Map<string, Editor>());
   const [draftBackupRevision, bumpDraftBackup] = useState(0);
   const host = useRef<HTMLDivElement>(null);
+  const escapeKey = useRef<((event: KeyboardEvent) => void) | undefined>(undefined);
   const focusRequest = useRef(0), focusPending = useRef<typeof focus>(undefined);
   const unsavedCallback = useRef(onUnsavedChange);
   unsavedCallback.current = onUnsavedChange;
@@ -244,6 +263,29 @@ export function NotesPanel({
   const resumeRequest = useRef(0), resumeAddress = useRef<NoteReturnAddress | undefined>(undefined);
   const editorCurrent = useRef(editor); editorCurrent.current = editor;
   const viewingGeneration = useRef(0);
+  useEffect(() => {
+    // The conversation is portalled here physically, while its React parent
+    // remains App. Listen after local React controls and before window fallback.
+    const key = (event: KeyboardEvent) => escapeKey.current?.(event);
+    document.addEventListener('keydown', key);
+    return () => document.removeEventListener('keydown', key);
+  }, []);
+  useEffect(() => {
+    if (!menuOpen) return;
+    const frame = requestAnimationFrame(() => objectMenu.current?.querySelector<HTMLButtonElement>('button')?.focus());
+    const outside = (event: PointerEvent) => {
+      if (event.target instanceof Node && !objectMenu.current?.contains(event.target) && !menuButton.current?.contains(event.target)) setMenuOpen(false);
+    };
+    document.addEventListener('pointerdown', outside, true);
+    return () => { cancelAnimationFrame(frame); document.removeEventListener('pointerdown', outside, true); };
+  }, [menuOpen]);
+  useEffect(() => { if (!active) setMenuOpen(false); }, [active]);
+  useEffect(() => { if (history || conflict) setIndexOpen(false); }, [history, conflict]);
+  useEffect(() => {
+    if (!active || busy || !pendingDiscussionRestore.current) return;
+    pendingDiscussionRestore.current = false;
+    requestSelectionRestore(value => value + 1);
+  }, [active, busy]);
   const [resumeProof, setResumeProof] = useState(0);
   const reportReturnAddress = (includeSelection = true) => {
     if (!active || !editor || deleted || resumeAddress.current || resume && resumeRequest.current !== resume.requestId) return;
@@ -251,11 +293,12 @@ export function NotesPanel({
       page = host.current?.querySelector<HTMLElement>('.notes-embedded, .page-panel');
     returnCallback.current?.({ id: editor.note?.id || 'new',
       ...(editor.note ? { revision: editor.note.revision, sha256: editor.note.sha256 } : {}),
+      ...(discussion ? { discussion: discussionPane } : {}),
       ...(includeSelection && !dirty && editor.note && selection?.editor === editor ? { selection: {
         id: editor.note.id, revision: editor.note.revision, sha256: editor.note.sha256, start: selection.start, end: selection.end } } : {}),
       scrollTop: control?.scrollTop || 0, pageTop: page?.scrollTop || 0 });
   };
-  useEffect(() => { reportReturnAddress(); }, [active, editor, selection, dirty, deleted]);
+  useEffect(() => { reportReturnAddress(); }, [active, editor, selection, dirty, deleted, !!discussion, discussionPane]);
   useEffect(() => {
     if (!active || !resume || busy || resumeRequest.current === resume.requestId) return;
     resumeRequest.current = resume.requestId; resumeAddress.current = resume.address;
@@ -471,6 +514,8 @@ export function NotesPanel({
     const id = editor.note.id,
       revision = editor.note.revision,
       token = ++request.current;
+    const currentEditor = editor, explicitDiscussionReturn = closingDiscussion.current;
+    closingDiscussion.current = false;
     const activationFocus = document.activeElement, activationViewing = viewingGeneration.current,
       activationInteraction = bookmarkTray?.getInteractionVersion();
     setBusy(true);
@@ -484,26 +529,37 @@ export function NotesPanel({
         }
         const resume = returnSelection.current, destination = quoteDestination.current;
         if (!resume || !destination.active) return;
+        if (pendingDiscussionRestore.current && !explicitDiscussionReturn) return;
+        const currentFocus = document.activeElement;
+        const retiredDiscussionFocus = explicitDiscussionReturn && (currentFocus === document.body
+          || currentFocus instanceof HTMLElement && !currentFocus.getClientRects().length
+            && !!currentFocus.closest('.notes-discussion,.conversation-workspace-host'));
         if (resume.boundary !== destination.boundary
           || destination.focus && destination.focus.requestId !== focusRequest.current || focusPending.current
           || note.state !== 'active' || note.id !== resume.address.id || note.revision !== resume.address.revision
-          || note.sha256 !== resume.address.sha256 || document.activeElement !== activationFocus
+          || note.sha256 !== resume.address.sha256 || editorCurrent.current !== currentEditor || isDirty(editorCurrent.current)
+          || currentFocus !== activationFocus && !retiredDiscussionFocus
           || activationViewing !== viewingGeneration.current || activationInteraction !== bookmarkTray?.getInteractionVersion()) {
           returnSelection.current = undefined;
           return;
         }
         // The existing owner read qualified the same saved document. Restore
         // its native editor range once; no copied body or durable focus exists.
-        returnSelection.current = undefined;
         const control = host.current?.querySelector<HTMLTextAreaElement>('textarea.notes-body');
-        if (!control) return;
+        if (!control || control.value !== note.body) return;
+        returnSelection.current = undefined;
         const points = Array.from(note.body);
-        revealNoteMatch(control, points.slice(0, resume.address.start).join('').length,
-          points.slice(0, resume.address.end).join('').length);
+        const start = points.slice(0, resume.address.start).join('').length,
+          end = points.slice(0, resume.address.end).join('').length;
+        revealNoteMatch(control, start, end);
+        const page = host.current?.querySelector<HTMLElement>('.notes-embedded, .page-panel');
         if (control.clientWidth === resume.width && control.clientHeight === resume.height) {
           control.scrollTop = resume.scrollTop;
-          const page = host.current?.querySelector<HTMLElement>('.notes-embedded, .page-panel');
           if (page) page.scrollTop = resume.pageTop;
+        } else if (page) {
+          const line = noteTextPosition(control, start, end);
+          page.scrollTop += control.getBoundingClientRect().top - page.getBoundingClientRect().top
+            + line.top - control.scrollTop - page.clientHeight * .35;
         }
       })
       .catch((cause) => {
@@ -512,7 +568,7 @@ export function NotesPanel({
       .finally(() => {
         if (mounted.current && token === request.current) setBusy(false);
       });
-  }, [active]);
+  }, [active, selectionRestoreRequest]);
 
   function retainDraft() {
     if (editor && isDirty(editor)) { drafts.current.set(keyOf(editor), editor); scheduleDraft(editor); void flushDraft(keyOf(editor)); }
@@ -670,6 +726,8 @@ export function NotesPanel({
   function cancelQuote() {
     quoteGeneration.current++;
     returnSelection.current = undefined;
+    pendingDiscussionRestore.current = false;
+    closingDiscussion.current = false;
     setSelection(undefined);
     setQuoting(false);
   }
@@ -700,9 +758,34 @@ export function NotesPanel({
       const resume = control ? { address: noteQuoteAddress(quote), boundary: quoteDestination.current.boundary,
         scrollTop: control.scrollTop, pageTop: page?.scrollTop || 0,
         width: control.clientWidth, height: control.clientHeight } : undefined;
-      if (onQuote(quote)) { returnSelection.current = resume; setSelection(undefined); }
+      if (onQuote(quote, embedded && !!onCloseDiscussion)) { returnSelection.current = resume; setSelection(undefined); }
     } catch (cause) { if (current()) setError(uiError(cause)); }
     finally { if (mounted.current && generation === quoteGeneration.current) setQuoting(false); }
+  }
+  function closeDiscussion() {
+    const current = editorCurrent.current, interaction = bookmarkTray?.getInteractionVersion(), viewing = viewingGeneration.current;
+    closingDiscussion.current = true;
+    onCloseDiscussion?.();
+    setSelection(undefined);
+    if (current && isDirty(current)) {
+      returnSelection.current = undefined;
+      closingDiscussion.current = false;
+      requestAnimationFrame(() => {
+        if (quoteDestination.current.active && editorCurrent.current === current && viewingGeneration.current === viewing
+          && interaction === bookmarkTray?.getInteractionVersion()) host.current?.querySelector<HTMLTextAreaElement>('textarea.notes-body')?.focus({ preventScroll: true });
+      });
+      return;
+    }
+    // Reuse the same owner-qualified restoration as returning from chat.
+    // A pending note operation finishes first; hiding the discussion is immediate.
+    if (busy) pendingDiscussionRestore.current = true;
+    else requestSelectionRestore(value => value + 1);
+  }
+  function toggleIndex() {
+    setMenuOpen(false);
+    const next = !indexOpen;
+    setIndexOpen(next);
+    requestAnimationFrame(() => next ? indexSearch.current?.focus() : indexButton.current?.focus());
   }
   async function pickSelection() {
     if (!selection || selection.editor !== editor || !bookmarkTray || busy || quoting || deleted || conflict) return;
@@ -865,36 +948,55 @@ export function NotesPanel({
   }
   const date = (value: string) => formatDateTime(value, timeZone);
   const hasContent = !!editor?.title.trim() || !!editor?.body.trim();
+  escapeKey.current = event => {
+    if (!active || event.key !== 'Escape' || event.defaultPrevented || event.isComposing
+      || !(event.target instanceof Node) || !host.current?.contains(event.target) && event.target !== document.body) return;
+    event.preventDefault(); event.stopPropagation();
+    if (menuOpen) { setMenuOpen(false); menuButton.current?.focus(); }
+    else if (indexOpen) { setIndexOpen(false); indexButton.current?.focus(); }
+    else if (discussion) closeDiscussion();
+    else void close();
+  };
   return (
-    <div className="notes-host" hidden={!active} ref={host}
+    <div className="notes-host" hidden={!active} ref={host} data-discussion-pane={discussionPane}
       onPointerDownCapture={() => { viewingGeneration.current++; }} onWheelCapture={() => { viewingGeneration.current++; }}
       onKeyDownCapture={() => { viewingGeneration.current++; }}
       onScrollCapture={() => { setSelection(undefined); reportReturnAddress(false); }}>
       <NotesFrame embedded={embedded} onClose={close}>
+        {discussion && <nav className="notes-discussion-tabs" aria-label="笔记与交流">
+          <button type="button" aria-pressed={discussionPane === 'note'} onClick={() => setDiscussionPane('note')}>笔记</button>
+          <button type="button" aria-pressed={discussionPane === 'chat'} onClick={() => setDiscussionPane('chat')}>一起聊</button>
+        </nav>}
+        <div className="notes-folio">
         <div className="notes-toolbar">
-          <form
-            className="notes-search"
-            onSubmit={(event) => {
-              event.preventDefault();
-              if (!busy) setAppliedQuery(query);
-            }}
-          >
-            <Search size={17} aria-hidden="true" />
-            <input
-              aria-label="搜索笔记"
-              placeholder="找一段写过的话"
-              value={query}
-              disabled={busy}
-              onChange={(event) => setQuery(event.target.value)}
-            />
-            <button className="text-button" disabled={loading || busy}>
-              查找
+          <button type="button" className="notes-back" disabled={busy} onClick={() => void close()}><ChevronLeft size={16} aria-hidden="true" /><span>留下</span></button>
+          <div className="notes-page-tools">
+            <button ref={indexButton} type="button" className="notes-index-toggle" aria-label="翻翻笔记" title="翻翻笔记"
+              aria-expanded={indexOpen} aria-controls={`${panelId}-index`} disabled={busy || quoting} onClick={toggleIndex}>
+              <BookOpen size={17} aria-hidden="true" /><span>笔记</span><ChevronDown size={12} aria-hidden="true" />
             </button>
-          </form>
-          <button className="primary-button notes-new" onClick={newNote} disabled={busy}>
-            <Plus size={17} />
-            写一页
-          </button>
+            <div className="notes-object-menu">
+              <button ref={menuButton} type="button" className="notes-icon-button" aria-label="当前笔记操作" title="当前笔记操作"
+                aria-haspopup="menu" aria-expanded={menuOpen} aria-controls={`${panelId}-menu`} disabled={busy || quoting}
+                onClick={() => setMenuOpen(current => !current)}><MoreHorizontal size={19} aria-hidden="true" /></button>
+              {menuOpen && <div ref={objectMenu} id={`${panelId}-menu`} role="menu" className="notes-object-menu-items"
+                onBlur={event => { if (!(event.relatedTarget instanceof Node) || !event.currentTarget.contains(event.relatedTarget)) setMenuOpen(false); }}
+                onKeyDown={event => {
+                  const items = [...event.currentTarget.querySelectorAll<HTMLButtonElement>('button:not(:disabled)')];
+                  const current = items.indexOf(document.activeElement as HTMLButtonElement);
+                  const next = event.key === 'ArrowDown' ? (current + 1) % items.length : event.key === 'ArrowUp' ? (current + items.length - 1) % items.length
+                    : event.key === 'Home' ? 0 : event.key === 'End' ? items.length - 1 : undefined;
+                  if (next !== undefined) { event.preventDefault(); items[next]?.focus(); }
+                }}>
+                <button type="button" role="menuitem" onClick={() => { setMenuOpen(false); setIndexOpen(false); void newNote(); }}><Plus size={15} />写一页</button>
+                {editor?.note && <button type="button" role="menuitem" onClick={() => { setMenuOpen(false); void showHistory(); }}><History size={15} />以前写下的</button>}
+                <button type="button" role="menuitem" onClick={() => { setMenuOpen(false); setState('deleted'); setIndexOpen(true); }}><RotateCcw size={15} />最近收起的</button>
+                {editor?.note && !deleted && <button type="button" role="menuitem" disabled={dirty} title={dirty ? '先保存刚写的字，再收起这页' : '之后可以放回'}
+                  onClick={() => { setMenuOpen(false); void mutate('state', 'deleted'); }}><Trash2 size={15} />收起这页</button>}
+                {editor?.note && undoRevision && !dirty && <button type="button" role="menuitem" onClick={() => { setMenuOpen(false); void mutate('undo', undoRevision); }}><RotateCcw size={15} />撤回这次改动</button>}
+              </div>}
+            </div>
+          </div>
         </div>
         {closing && (
           <div className="notes-leave" role="alert">
@@ -934,7 +1036,13 @@ export function NotesPanel({
           </div>
         )}
         <div className="notes-workspace" aria-busy={busy}>
-          <aside className="notes-index" aria-label="笔记列表">
+          <aside className="notes-index" id={`${panelId}-index`} aria-label="笔记列表" hidden={!indexOpen}>
+            <div className="notes-index-heading"><span>笔记</span><IconButton label="收起笔记抽屉" onClick={() => { setIndexOpen(false); indexButton.current?.focus(); }}><X size={16} /></IconButton></div>
+            <form className="notes-search" onSubmit={event => { event.preventDefault(); if (!busy) setAppliedQuery(query); }}>
+              <Search size={15} aria-hidden="true" />
+              <input ref={indexSearch} aria-label="搜索笔记" placeholder="找一段写过的话" value={query} disabled={busy} onChange={event => setQuery(event.target.value)} />
+              <button type="submit" className="text-button" disabled={loading || busy}>查找</button>
+            </form>
             <div className="notes-tabs" role="tablist" aria-label="笔记范围">
               <button
                 role="tab"
@@ -972,7 +1080,7 @@ export function NotesPanel({
               {list.items.map(note => <KeptNoteEntry key={note.id} note={note} active={active} boundary={quoteBoundary}
                 busy={busy} current={editor?.note?.id === note.id}
                 hasDraft={drafts.current.has(note.id) || savedDrafts.current.has(note.id)} date={date(note.updatedAt)}
-                onOpen={() => void open(note.id)} />)}
+                onOpen={() => { setIndexOpen(false); void open(note.id); }} />)}
             </div>
             {list.hasMore && (
               <button
@@ -1005,34 +1113,8 @@ export function NotesPanel({
               <div
                 className={`notes-reader-grid ${history || conflict ? 'has-companion-panel' : ''}`}
               >
-                <div className="notes-paper">
-                  <div className="notes-document-meta">
-                    <span>
-                      {deleted
-                        ? '收在这里，随时可以放回笔记'
-                        : dirty
-                          ? '还在写的这一版'
-                          : editor.note
-                            ? date(editor.note.updatedAt)
-                            : '新的一页'}
-                    </span>
-                    {editor.note && (
-                      <button
-                        className="text-button"
-                        disabled={busy}
-                        aria-label="查看历史版本"
-                        onClick={() =>
-                          history
-                            ? (setHistory(undefined), setVersion(undefined))
-                            : void showHistory()
-                        }
-                        aria-expanded={!!history}
-                      >
-                        <History size={15} />
-                        以前写下的
-                      </button>
-                    )}
-                  </div>
+                <div className="notes-paper" data-presence-edge="notes-paper" data-presence-edge-label="正在写的这一页" data-presence-edge-sides="top right left">
+                  {deleted && <p className="notes-archived">收起的这一页</p>}
                   <form
                     className="notes-editor"
                     data-bookmark-target="note"
@@ -1048,7 +1130,7 @@ export function NotesPanel({
                       <input
                         className="notes-title"
                         aria-label="笔记标题"
-                        placeholder="给这一页起个名字"
+                        placeholder="这一页的名字"
                         value={editor.note?.source.referenceOnly && editor.title === referenceNoteTitle ? '' : editor.title}
                         maxLength={NOTE_LIMITS.title}
                         readOnly={deleted || busy}
@@ -1091,8 +1173,9 @@ export function NotesPanel({
                       <span className={editor.note?.source.referenceOnly ? 'note-own-thoughts-label' : 'sr-only'}>{editor.note?.source.referenceOnly ? '自己的想法' : '笔记正文'}</span>
                       <textarea
                         className="notes-body"
+                        rows={6}
                         aria-label="笔记正文"
-                        placeholder={editor.note?.source.referenceOnly ? '写下自己的理解，原文仍在上方。' : '把眼前的想法，慢慢写在这里…'}
+                        placeholder={editor.note?.source.referenceOnly ? '写下自己的理解…' : '接着写…'}
                         value={editor.body}
                         maxLength={NOTE_LIMITS.body}
                         readOnly={deleted || busy}
@@ -1140,7 +1223,7 @@ export function NotesPanel({
                       }}
                       onMouseDown={event => event.preventDefault()}>
                       {onQuote && <button type="button" disabled={busy || quoting || !quoteEnabled || !!conflict}
-                        onClick={() => void discussSelection()}><MessageCircle size={16} />{dirty ? '保存并引用' : '引用这段'}</button>
+                        onClick={() => void discussSelection()}><MessageCircle size={16} />{dirty ? '保存并接着聊' : '接着这句'}</button>
                       }
                       {bookmarkTray && <button type="button" disabled={busy || quoting || !!conflict} onClick={() => void pickSelection()}><FileText size={16} />{dirty ? '保存并留作笔记' : '留作笔记'}</button>}
                     </div>}
@@ -1156,7 +1239,7 @@ export function NotesPanel({
                       {sourceError && <div className="note-material-source-error" role="alert"><p>{sourceError}</p>{onOpenMaterials && <button type="button" className="text-button" onClick={onOpenMaterials}>重新带来资料</button>}</div>}
                     </div>}
                     <div className="notes-editor-actions">
-                      {deleted ? (
+                      <div className="notes-save-anchor">{deleted ? (
                         <button
                           className="primary-button"
                           type="button"
@@ -1166,52 +1249,19 @@ export function NotesPanel({
                           <RotateCcw size={16} />
                           放回笔记
                         </button>
-                      ) : (
+                      ) : dirty ? (
                         <button
                           className="primary-button"
                           type="submit"
+                          aria-label="保存笔记"
                           disabled={busy || !hasContent || !dirty || !!conflict}
                         >
-                          保存笔记
+                          {busy ? '保存中…' : error ? '再保存一次' : '保存'}
                         </button>
-                      )}
-                      {(dirty || draftCount > 0) && (
-                        <button
-                          className="text-button notes-draft-action"
-                          type="button"
-                          disabled={busy}
-                          onClick={close}
-                        >
-                          先放下
-                        </button>
-                      )}
-                      {editor.note && !deleted && (
-                        <button
-                          className="text-button notes-delete"
-                          type="button"
-                          disabled={busy || dirty}
-                          title={dirty ? '先保存刚写的字，再收起这页' : '收进回收站，之后可以放回'}
-                          aria-label="移入回收站"
-                          onClick={() => void mutate('state', 'deleted')}
-                        >
-                          <Trash2 size={15} />
-                          收起这页
-                        </button>
-                      )}
+                      ) : editor.note ? <span className="notes-saved-mark" title={`已保存 · ${date(editor.note.updatedAt)}`} aria-label={`已保存 · ${date(editor.note.updatedAt)}`}><Check size={18} aria-hidden="true" /></span> : null}</div>
                       {receipt && (
-                        <span className="notes-receipt" role="status">
-                          <Check size={15} />
+                        <span className={`notes-receipt${receipt === '保存好了' ? ' sr-only' : ''}`} role="status">
                           {receipt}
-                          {undoRevision && !dirty && (
-                            <button
-                              className="text-button"
-                              type="button"
-                              disabled={busy}
-                              onClick={() => void mutate('undo', undoRevision)}
-                            >
-                              撤销
-                            </button>
-                          )}
                         </span>
                       )}
                     </div>
@@ -1370,13 +1420,18 @@ export function NotesPanel({
             {error && (
               <div className="inline-problem notes-error" role="alert">
                 <span>{error}</span>
-                <button className="text-button" disabled={busy} onClick={() => void loadList()}>
+                {!dirty && <button className="text-button" disabled={busy} onClick={() => { setIndexOpen(true); void loadList(); }}>
                   再打开笔记列表
-                </button>
+                </button>}
               </div>
             )}
           </section>
         </div>
+        </div>
+        <section className="notes-discussion" hidden={!discussion} aria-label="接着这页聊">
+          <div className="notes-discussion-tools"><button type="button" className="notes-icon-button" aria-label="收起交流，回到选中的句子" title="回到这一句" onClick={closeDiscussion}><X size={16} aria-hidden="true" /></button></div>
+          {discussion}
+        </section>
       </NotesFrame>
     </div>
   );

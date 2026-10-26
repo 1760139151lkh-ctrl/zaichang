@@ -5,6 +5,7 @@ import '@fontsource-variable/noto-sans-sc';
 import './design-system.css';
 import { initializeAppearance } from './appearance';
 import { CompanionProvider, initializeCompanion } from './companion';
+import './workspace-scenes.css';
 initializeAppearance();
 initializeCompanion();
 createRoot(document.getElementById('root')!).render(

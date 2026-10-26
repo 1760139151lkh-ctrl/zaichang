@@ -35,7 +35,7 @@ import {
 import { KernelRepository } from '../storage/repository';
 import { PolicyKernel, type IngressDecision, type InputControls, type HostIngressExecution } from './policy';
 import { creationSourceContextForIngress } from './interaction-control-context';
-import { mapRouteReferenceSchema, type MapRouteReference } from '../../shared/map-context';
+import { mapRouteReferenceSchema, sharedMapRouteSchema, type MapRouteReference } from '../../shared/map-context';
 import { ContextCompiler } from './context';
 import { listWorkflowSkills, readWorkflowSkill } from './skills';
 import { INTERACTIVE_PROGRAM_METHOD_ID, interactiveProgramCapabilityHint, interactiveProgramMethodReadFields,
@@ -2180,6 +2180,11 @@ export class RuntimeCoordinator {
           const text = canonical(focusedPack.data.currentNote);
           pack.receipt.budget.readBytes += Buffer.byteLength(text);
           pack.receipt.budget.estimatedTokens += Math.ceil(Array.from(text).length / 1.4);
+        } else if (object.target.kind === 'assistant_text') {
+          this.assertWorkspaceTarget(session, object.target);
+          focusedPack.data.currentAssistantText = this.repo.readAssistantTextReference(pack.contract.scope,
+            session.sessionId, object.target.reference, this.memoryInquiryPermissions(session).permits);
+          this.context.recordAssistantTextSources(pack, [object.target.reference]);
         } else if (object.target.kind === 'scene') {
           const reference = object.target.reference, scope = pack.contract.scope;
           const academic = this.scenes.academicSelectionIdentity(scope, session.sessionId, reference)
@@ -2210,7 +2215,7 @@ export class RuntimeCoordinator {
         signal.throwIfAborted(); this.assertWorkspaceTarget(session, object.target);
         const key = workspaceProjectionKey(object.target), projection = focusedPack.data[key];
         if (!projection) throw new HarnessError('workspace_context_changed', '这一处原对象目前不能展开，回原处重新选一下就能接着聊。');
-        if (object.target.kind === 'material' || object.target.kind === 'scene') {
+        if (object.target.kind === 'material' || object.target.kind === 'scene' || object.target.kind === 'assistant_text') {
           const text = canonical(projection);
           pack.receipt.budget.readBytes += Buffer.byteLength(text);
           pack.receipt.budget.estimatedTokens += Math.ceil(Array.from(text).length / 1.4);
@@ -2300,6 +2305,11 @@ export class RuntimeCoordinator {
       }
       case 'note': this.notePresentation.readPurposeReference(handle, target.reference, session.sessionId); break;
       case 'conversation_quote': new NativeSourceBookmarkService(this.store).conversationQuote(handle, target.reference); break;
+      case 'assistant_text':
+        if (this.store.conversationPolicy(session.sessionId)?.retention === 'session_only')
+          throw new HarnessError('workspace_context_changed', '这段解释没有可接回的已保存原回复，当前问题仍可以继续聊。');
+        this.repo.assistantTextReferenceIdentity(handle, session.sessionId, target.reference, permits);
+        break;
       case 'agenda': this.nativeAgenda.resolveReference(handle, target.reference); break;
       case 'map_route': this.spatial.sharedRoute(handle, target.reference); break;
       case 'study': this.studyCompanion.assertCurrent(handle, target.reference.studyId, target.reference.studyRevision, {
@@ -2764,7 +2774,16 @@ export class RuntimeCoordinator {
             route: routes[index] ? projectMapRoute(routes[index]) : null })),
           reason: '至少一段还没有完整的稳定起终点，未用成功首段替代整个旅程，也未覆盖正在查看的旅程。逐段保留实际失败；先核对缺失地点再更新。',
         } : results[0]);
-        const scene = this.scenes.map(sceneSessionId, routes, { previous, stops: args.stops, runId: contract.id, preparationOnly: session.background });
+        const scene = this.scenes.map(sceneSessionId, routes, { previous, stops: args.stops, stageOnly: true });
+        scene.journey.legs.forEach((leg, index) => {
+          const query = queries[index], route = routes[index];
+          if (!query.from || query.from.kind === 'current' || !query.to) return;
+          leg.routeConditions = sharedMapRouteSchema.parse({ fromId: query.from.id, fromKind: query.from.kind,
+            toId: query.to.id, toKind: query.to.kind, mapVersion: route.source.version,
+            ...(route.profileRevision ? { profileRevision: route.profileRevision } : {}),
+            avoidStairs: !!query.avoidStairs, allowConditional: !!query.allowConditional });
+        });
+        this.scenes.remember(sceneSessionId, scene, contract.id, session.background);
         const sceneRef = { id: scene.id, revision: scene.revision };
         const admitted = finish(args.stops ? { status: results.every(result => result.status === 'fresh') ? 'fresh' : 'partial', sourceId: 'map:local', simulated: results.some(result => result.simulated), fetchedAt: scene.source.fetchedAt, sceneRef,
           journey: { ...scene.journey, legs: scene.journey.legs.map(({ id, fromStopId, toStopId, route }) => ({ id, fromStopId, toStopId, routeStatus: route.status, distance: route.distance, warnings: route.warnings, reason: route.reason,
@@ -4228,6 +4247,7 @@ export class RuntimeCoordinator {
                 offset: passage.start, limit: Math.min(16000, passage.end - passage.start) } } };
           } else {
             const start = args.offset, end = Math.min(passage.end, start + args.limit);
+            this.context.recordAssistantTextSources(pack, row.assistantTextSources);
             result = { status: 'fresh', textOnly: true, messageId: row.id, passageId: args.passageId,
             previous: { tool: 'read_assistant_history', arguments: { id: row.id, textOnly: true, previous: true } }, items: [{
             id: row.id, sessionId: row.sessionId, createdAt: row.createdAt, authority: row.authority, contentSha256,
@@ -4262,6 +4282,8 @@ export class RuntimeCoordinator {
         this.context.recordReleaseSources(pack, result.items.filter(item => item.text.length > 0).flatMap(item => item.releaseSources));
         this.context.recordInteractiveProgramSources(pack, rows.flatMap(row =>
           this.repo.conversationInteractiveProgramSources(handle, row.sessionId, [row.id])));
+        this.context.recordAssistantTextSources(pack, result.items.filter(item => item.text.length > 0).flatMap(item =>
+          this.repo.conversationAssistantTextSources(handle, item.sessionId, [item.id])));
         this.context.recordPersonalMethodSources(pack, rows.flatMap(row =>
           this.repo.conversationPersonalMethodSources(handle, row.sessionId, [row.id])));
         this.context.recordNoteSources(pack, rows.flatMap(row => this.repo.conversationNoteSources(handle, row.sessionId, [row.id])));
@@ -5362,7 +5384,17 @@ export class RuntimeCoordinator {
           if (capability === 'map.route' && result.data) {
             const route = result.data as import('../../shared/map-v2').MapRouteResult;
             if (route.from && route.to) {
-              const scene = this.scenes.map(session.sceneSessionId || session.sessionId, [route], { runId: session.ingress.contract.id, preparationOnly: session.background });
+              const scene = this.scenes.map(session.sceneSessionId || session.sessionId, [route], { stageOnly: true });
+              const query = effectiveInput as import('../../shared/map-v2').MapRouteQuery;
+              if (query.from && query.from.kind !== 'current' && query.to && query.to.kind !== 'current') {
+                scene.journey.legs[0].routeConditions = sharedMapRouteSchema.parse({ fromId: query.from.id, fromKind: query.from.kind,
+                  toId: query.to.id, toKind: query.to.kind, mapVersion: route.source.version,
+                  ...(route.profileRevision ? { profileRevision: route.profileRevision } : {}),
+                  ...(query.originAccessId ? { originAccessId: query.originAccessId } : {}),
+                  ...(query.destinationAccessId ? { destinationAccessId: query.destinationAccessId } : {}),
+                  avoidStairs: !!query.avoidStairs, allowConditional: !!query.allowConditional });
+              }
+              this.scenes.remember(session.sceneSessionId || session.sessionId, scene, session.ingress.contract.id, session.background);
               displayScene = scene;
               view = { ...result, sceneRef: { id: scene.id, revision: scene.revision }, journeyId: scene.journey.id, journeyRevision: scene.journey.revision,
                 journeyEstimate: scene.journey.estimate };
@@ -5566,6 +5598,11 @@ export class RuntimeCoordinator {
       try { this.assertWorkspaceTarget(session, object.target); }
       catch (error) {
         if (!(error instanceof HarnessError || error instanceof InteractiveProgramValueError)) throw error;
+        // An admitted passage may already be in a tool wire. Removing the
+        // visible slot cannot retract that wire or a late model draft; use
+        // the ordinary source-change boundary before sending or adopting it.
+        if (object.target.kind === 'assistant_text')
+          throw new HarnessError('workspace_context_changed', '刚才指着的解释或它的来源已有变化，这次先停在原处；重新选择当前允许的那句话后可以接着聊。');
         unavailableSlots.push(object.slot);
       }
     }
@@ -5663,6 +5700,8 @@ export class RuntimeCoordinator {
         throw new HarnessError('letter_source_changed', '来信中的一处来由已经变化，先回到现在允许展开的内容。');
     if (!this.repo.assistantWorkSourcesReadable(pack.contract.scope, pack.receipt.assistantWorkSources || []))
       throw new HarnessError('assistant_work_changed', '共同作品的原章或来由已有变化，旧正文不能继续进入模型；先沿当前允许的章节重新读取。');
+    if (!this.repo.assistantTextSourcesReadable(pack.contract.scope, pack.receipt.assistantTextSources))
+      throw new HarnessError('workspace_context_changed', '刚才指着的解释或它的来源已有变化，旧文字不能继续用于这次交流。');
     if (!programSourcesReadable(this, pack.contract.scope, pack.receipt.interactiveProgramSources || [], session))
       throw new HarnessError('interactive_program_source_changed', '刚才交互的一处来由已改变，没有继续用旧画面或旧条件推演。');
     if (!this.repo.noteSourcesReadable(pack.contract.scope, pack.receipt.noteSources || []))

@@ -429,6 +429,16 @@ export function StudySceneView({ scene, sessionId, messageId, ownerRevisionHint,
   const historyMore = current && current.historyWindow.offset + current.attemptChoices.length < current.history.attemptCount;
   const hasExploration = hintOpen && !!current?.help?.exploration;
   const spacious = hintOpen && (hasExploration || current?.help?.kind === 'explanation' || (current?.help?.text.length || 0) > 600);
+  const hintMenu = <details className="study-hint-menu"
+    onKeyDown={event => { if (event.key === 'Escape' && event.currentTarget.open) { event.preventDefault(); event.stopPropagation(); event.currentTarget.open = false; event.currentTarget.querySelector('summary')?.focus(); } }}
+    onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) event.currentTarget.open = false; }}>
+    <summary aria-label="提示的其他操作"><MoreHorizontal size={18} aria-hidden="true" /></summary>
+    <div>
+      <button type="button" disabled={pending || disabled} onClick={event => { event.currentTarget.closest('details')?.removeAttribute('open'); requestSmallerHint(); }}>更小一点</button>
+      {!hintOpen && <button type="button" disabled={pending || disabled} onClick={event => { event.currentTarget.closest('details')?.removeAttribute('open'); keepHint('later'); }}>收好</button>}
+      <button type="button" disabled={pending || disabled} onClick={event => { event.currentTarget.closest('details')?.removeAttribute('open'); keepHint('down'); }}>放下</button>
+    </div>
+  </details>;
   // A same-boundary read can clear all old source text while the one real
   // editor stays put. This retained address is not permission to send or
   // display anything: App still reopens the owner before a study send.
@@ -454,12 +464,13 @@ export function StudySceneView({ scene, sessionId, messageId, ownerRevisionHint,
       </button>
     </div>}</> : <>
       <div className="study-desk-papers">
-        <section className="study-source-paper" aria-labelledby={originalId}>
+        <section className="study-source-paper" aria-labelledby={originalId}
+          data-presence-edge={`study-source:${current.owner.id}`} data-presence-edge-label="原题纸">
           <div className="study-source-reference">
-          <header className="study-source-heading"><span>{sourceName}{current.problem.origin.page ? ` · 第 ${current.problem.origin.page} 页` : ''}</span>
+          {(sourceName !== '这次的原题' || current.problem.origin.resourceId || current.problem.origin.note) && <header className="study-source-heading"><span>{sourceName}{current.problem.origin.page ? ` · 第 ${current.problem.origin.page} 页` : ''}</span>
             {(current.problem.origin.resourceId || current.problem.origin.note && onOpenSource) && <button type="button" onClick={() => void openOriginal()} disabled={pending || disabled}
-              aria-expanded={current.problem.origin.note ? undefined : sourceOpen}>{current.problem.origin.note ? '打开原笔记' : <>{sourceOpen ? '收起原' : '看看原'}{current.problem.origin.page ? '页' : '文'}</>}{sourceOpen ? <X size={13} aria-hidden="true" /> : <ArrowUpRight size={13} aria-hidden="true" />}</button>}</header>
-          <div className="study-question-label"><h4 id={originalId}>这一题</h4></div>
+              aria-expanded={current.problem.origin.note ? undefined : sourceOpen}>{current.problem.origin.note ? '打开原笔记' : <>{sourceOpen ? '收起原' : '看看原'}{current.problem.origin.page ? '页' : '文'}</>}{sourceOpen ? <X size={16} aria-hidden="true" /> : <ArrowUpRight size={16} aria-hidden="true" />}</button>}</header>}
+          <div className="study-question-label"><h4 id={originalId}>原题</h4></div>
           <div ref={question} className="study-question" onScroll={capturePaperScroll}>{sourceOpen ? <div className="study-original-inline" aria-label="原来的学习资料" aria-busy={sourcePending}>
             {sourcePending ? <p role="status">正在打开原{current.problem.origin.page ? '页' : '文'}…</p>
               : sourceError ? <p role="status">{sourceError}</p>
@@ -474,19 +485,20 @@ export function StudySceneView({ scene, sessionId, messageId, ownerRevisionHint,
 
         <StudyPaperDivider key={requestKey} />
         <section className={`study-work-paper${dropActive ? ' is-bookmark-drop' : ''}`} data-bookmark-target={bookmarkTarget} aria-labelledby={headingId}
+          data-presence-edge={`study-work:${current.owner.id}`} data-presence-edge-label="推导纸"
           onDragOver={event => { if (tray && event.dataTransfer.types.includes(SOURCE_BOOKMARK_MIME)) { event.preventDefault(); event.stopPropagation(); event.dataTransfer.dropEffect = 'copy'; setDropActive(true); } }}
           onDragLeave={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setDropActive(false); }}
           onDrop={event => { const reference = readBookmarkTransfer(event.dataTransfer); setDropActive(false); if (reference && tray) { event.preventDefault(); event.stopPropagation(); void tray.offer(reference, bookmarkTarget); } }}>
           <header className="study-work-heading"><h3 id={headingId}>{current.heading}</h3>
             {current.status === 'active' && <button type="button" className="study-park" onClick={() => void park()} disabled={pending || disabled}>
               <Bookmark size={14} aria-hidden="true" /><span>先放一放</span></button>}</header>
-          <div ref={workRow} className={`study-work-row${spacious ? ' is-spacious' : ''}`}>
+          <div ref={workRow} className={`study-work-row${spacious ? ' is-spacious' : ''}${current.learnerAttempt ? ' has-attempt' : ''}`}>
             {pencilLink && <svg className={`study-pencil-link${reveal.help ? ' is-new' : ''}`} aria-hidden="true"
               width="100%" height="100%" viewBox={`0 0 ${pencilLink.width} ${pencilLink.height}`}>
               <path d={pencilLink.path} pathLength="1" /><circle cx={pencilLink.x} cy={pencilLink.y} r="2.6" />
             </svg>}
             <div className="study-my-work">
-              <label>{current.learnerAttempt ? '我想到这里' : '从这里试试看'}</label>
+              {current.learnerAttempt && <label>我写到这里</label>}
               {current.learnerAttempt ? <div ref={manuscript} className="study-manuscript" aria-label="自己留下的推导" onScroll={capturePaperScroll}>
                 {current.learnerLines.map(line => <div className={`study-manuscript-line${line.id === current.learnerAttempt?.id ? ' is-current' : ''}`} key={line.id}>
                   <ReadableFocus key={`${current.owner.revision}:${line.id}`} label="我写的这一行"
@@ -513,17 +525,13 @@ export function StudySceneView({ scene, sessionId, messageId, ownerRevisionHint,
               {current.help.exploration && <ExplorableStudyView key={current.help.id} spec={current.help.exploration}
                 disabled={pending || disabled || closed} onContinue={continueExploration} />}
               {foldedHint && <div className="study-hint-expanded-actions">
-                <button type="button" disabled={pending || disabled} onClick={requestSmallerHint}>更小一点</button>
-                <button type="button" disabled={pending || disabled} onClick={() => keepHint('later')}>收好</button>
-                <button type="button" disabled={pending || disabled} onClick={() => keepHint('down')}>放下</button>
+                <button type="button" disabled={pending || disabled} onClick={() => keepHint('later')}>收起提示</button>
+                {hintMenu}
               </div>}
             </aside>}
             {foldedHint && !hintOpen && !hintDown && <aside className="study-hint-envelope" aria-label="纸边的小提示">
-              <Bookmark size={16} aria-hidden="true" /><span>{hintState?.state === 'later' ? '收在纸边的小提示' : '给这一行的一点提示'}</span>
-              <div><button type="button" disabled={pending || disabled} onClick={() => void openHint()}>接过</button>
-                <button type="button" disabled={pending || disabled} onClick={requestSmallerHint}>更小一点</button>
-                <button type="button" disabled={pending || disabled} onClick={() => keepHint('later')}>收好</button>
-                <button type="button" disabled={pending || disabled} onClick={() => keepHint('down')}>放下</button></div>
+              <Bookmark size={18} aria-hidden="true" /><span>{current.help?.title || '这一行的提示'}</span>
+              <div className="study-hint-choices"><button type="button" disabled={pending || disabled} onClick={() => void openHint()}>打开提示</button>{hintMenu}</div>
             </aside>}
           </div>
 

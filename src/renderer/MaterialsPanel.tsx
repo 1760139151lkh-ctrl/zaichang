@@ -92,6 +92,8 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
   const request = useRef(0), selectionRequest = useRef(0), mounted = useRef(true);
   const prose = useRef<HTMLPreElement>(null), scroller = useRef<HTMLDivElement>(null);
   const reader = useRef<HTMLDivElement>(null), paneSurface = useRef<HTMLElement>(null);
+  const quoteActions = useRef<HTMLDivElement>(null);
+  const quoteRange = useRef<{ key: string; sha256: string; start: number; end: number; range: Range } | undefined>(undefined);
   const positions = useRef(new Map<string, number>());
   const bookmarks = useRef(new Map<string, { page: number; offset: number; view: 'text' | 'page'; zoom: number }>());
   const readingPositions = useMaterialReadingPosition({ boundary, readerId });
@@ -459,21 +461,39 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     return () => window.removeEventListener('pointerdown', clear);
   }, [quote, frameless]);
   function positionHeldQuote() {
-    if (!frameless || !quote || !active) return;
-    const mark = reader.current?.querySelector<HTMLElement>('.material-pdf-text-layer mark.is-reference'),
-      box = reader.current?.getBoundingClientRect(), scroll = scroller.current?.getBoundingClientRect();
-    if (!mark || !box || !scroll) return;
-    const rect = mark.getBoundingClientRect();
-    if (rect.bottom < scroll.top || rect.top > scroll.bottom) { setQuotePosition(undefined); return; }
-    setQuotePosition({ left: Math.max(8, Math.min(box.width - 292, rect.left - box.left)),
-      top: Math.max(52, Math.min(box.height - 58, rect.top - box.top - 44)) });
+    if (!quote || !active) return;
+    const box = reader.current?.getBoundingClientRect(), scroll = scroller.current?.getBoundingClientRect();
+    if (!box || !scroll) return;
+    const held = quoteRange.current;
+    const marks = document?.image ? [...reader.current!.querySelectorAll<HTMLElement>('.material-pdf-text-layer mark.is-reference')]
+      : highlight?.field === 'body' && highlight.sha256 === quote.sha256 && highlight.offset === quote.start && highlight.end === quote.end
+        ? [...reader.current!.querySelectorAll<HTMLElement>('.material-search-match')] : [];
+    const rectangles = marks.length ? marks.flatMap(mark => [...mark.getClientRects()])
+      : held?.key === readingKey && held.sha256 === quote.sha256 && held.start === quote.start && held.end === quote.end
+        && held.range.startContainer.isConnected && held.range.endContainer.isConnected
+        ? [...held.range.getClientRects()] : [];
+    const rect = rectangles.find(value => value.bottom > scroll.top && value.top < scroll.bottom
+      && value.right > scroll.left && value.left < scroll.right);
+    if (!rect) { if (frameless) setQuotePosition(undefined); return; }
+    const actions = quoteActions.current?.getBoundingClientRect();
+    const width = actions?.width || Math.min(300, box.width - 16), height = actions?.height || 48;
+    const minTop = Math.max(8, scroll.top - box.top + 8);
+    const maxTop = Math.max(minTop, Math.min(box.height - height - 8, scroll.bottom - box.top - height - 8));
+    const above = rect.top - box.top - height - 8, below = rect.bottom - box.top + 8;
+    const top = above >= minTop ? above : below <= maxTop ? below : Math.max(minTop, Math.min(maxTop, above));
+    setQuotePosition(current => {
+      const next = { left: Math.max(8, Math.min(box.width - width - 8, rect.left - box.left)), top };
+      return current?.left === next.left && current.top === next.top ? current : next;
+    });
   }
+  useLayoutEffect(() => { positionHeldQuote(); }, [quote, active, zoom, frameless, !!quotePosition]);
   useEffect(() => {
-    if (!frameless || !quote || !reader.current) return;
-    const observer = new ResizeObserver(() => requestAnimationFrame(positionHeldQuote));
-    observer.observe(reader.current); requestAnimationFrame(positionHeldQuote);
+    if (!quote || !reader.current) return;
+    const observer = new ResizeObserver(positionHeldQuote);
+    observer.observe(reader.current);
+    if (quoteActions.current) observer.observe(quoteActions.current);
     return () => observer.disconnect();
-  }, [frameless, quote, active, zoom]);
+  }, [frameless, quote, active, zoom, !!quotePosition]);
   useEffect(() => {
     if (libraryOnly || !pendingRef || target?.kind === 'saved') return;
     setPage(1); setOffset(0); setView(pendingRef.mediaType === 'application/pdf' ? 'page' : 'text');
@@ -643,6 +663,7 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     const start = document.start + Array.from(prefix.toString()).length;
     const current = { resourceId: document.item.resourceId, sha256: document.item.sha256, name: document.item.name,
       text, page: document.page, start, end: start + Array.from(text).length };
+    quoteRange.current = { key: readingKey, sha256: current.sha256, start: current.start, end: current.end, range: range.cloneRange() };
     setQuote(current);
     const rect = range.getBoundingClientRect(), container = reader.current?.getBoundingClientRect();
     if (container) setQuotePosition({ left: Math.max(12, Math.min(container.width - 292, rect.left - container.left)),
@@ -655,13 +676,16 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     if (selection.end - selection.start > 4000) { setQuote(undefined); setNotice('这段有些长，选短一点，我们接着聊。'); return; }
     const text = Array.from(document.text).slice(selection.start - document.start, selection.end - document.start).join('');
     if (!text.trim()) { setQuote(undefined); return; }
+    const selected = window.getSelection();
+    quoteRange.current = selected?.rangeCount ? { key: readingKey, sha256: document.item.sha256,
+      start: selection.start, end: selection.end, range: selected.getRangeAt(0).cloneRange() } : undefined;
     setQuote({ resourceId: document.item.resourceId, sha256: document.item.sha256, name: document.item.name,
       text, page: document.page, start: selection.start, end: selection.end });
     const container = reader.current?.getBoundingClientRect(), rect = selection.rect;
     if (container) setQuotePosition({ left: Math.max(12, Math.min(container.width - 292, rect.left - container.left)),
       top: Math.max(76, Math.min(container.height - 110, rect.top - container.top - 52)) });
     setNotice(''); setSavedNote(undefined);
-  }, [document]);
+  }, [document, readingKey]);
   async function useQuote(operation: 'chat' | 'note' | 'tray') {
     if (!quote || !target || quoteBusy || !destination.current.active || operation === 'chat' && !destination.current.enabled) return;
     const selected = quote, originalDestination = { ...destination.current }, originalReadingKey = currentReadingKey.current;
@@ -838,7 +862,7 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
         onDragStart={event => beginDocumentTransfer(event, item, bookmarks.current.get(item.resourceId) || readingPositions.restore(item))}
         onDragEnd={() => setDocumentCarried(undefined)} onClick={() => open(item, item.resourceId === pendingRef?.resourceId)}>
         <span className="material-file-cover-slot"><MaterialFileCover mediaType={item.mediaType} size="regular" /></span>
-        <span><strong>{item.name}</strong><small>{item.resourceId === pendingRef?.resourceId ? '这次带来的' : item.sessionId ? '对话里留下的' : '随笔记留着的'} · {item.mediaType === 'application/pdf' ? 'PDF' : item.mediaType === 'text/markdown' ? 'Markdown' : '文字'}</small></span><ChevronRight size={15} />
+        <span><strong>{item.name}</strong></span><ChevronRight size={15} />
       </button>)}
       {!!query && !visibleItems.length && <p className="materials-muted">换一个词，或再带来一份资料。</p>}
     </div>
@@ -851,10 +875,9 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
       onPointerDownCapture={() => { revealPending.current = false; if (resumeInFlight.current) interruptResume(); }}
       onWheelCapture={() => { revealPending.current = false; if (resumeInFlight.current) interruptResume(); }}
       onKeyDownCapture={() => { revealPending.current = false; if (resumeInFlight.current) interruptResume(); }}>
-      {!target && <header className="materials-heading"><button className="text-button" onClick={onClose}><ArrowLeft size={16} />回到聊天</button></header>}
       {!target ? <div className="materials-welcome">
         <div className="materials-welcome-copy"><h1>资料</h1></div>
-        {allItems.length ? index : <div className="materials-empty"><div className="materials-paper-mark"><FileText size={52} strokeWidth={1} /></div><p>讲义、文章，或刚记下的一段话。</p><button className="primary-button" onClick={() => void attach()} disabled={choosing || !draftEnabled}><FolderOpen size={17} />{choosing ? '等你选好…' : '选一份资料'}</button><small>PDF、Markdown 和文字文件</small></div>}
+        {allItems.length ? index : <div className="materials-empty"><div className="materials-paper-mark"><FileText size={52} strokeWidth={1} /></div><button className="primary-button" title="打开 PDF、Markdown 或文字文件" onClick={() => void attach()} disabled={choosing || !draftEnabled}><FolderOpen size={17} />{choosing ? '等你选好…' : '选一份资料'}</button></div>}
         {listError && !allItems.length && <p className="materials-muted" role="alert">{listError}</p>}
       </div> : <>
         <div className="materials-toolbar">
@@ -907,7 +930,7 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
             {view === 'text' && document.needsVisual && document.text && <p className="materials-page-note">这一页还有图表，切到「页面」可以一起看。</p>}
           </> : null}
         </div>
-        {quote && (!frameless || quotePosition) && currentBoundary && !readingBusy && documentReadingKey.current === readingKey && <div className="material-selection-actions" style={quotePosition} role="group" aria-label="选段操作" onMouseDown={event => event.preventDefault()}>
+        {quote && (!frameless || quotePosition) && currentBoundary && !readingBusy && documentReadingKey.current === readingKey && <div ref={quoteActions} className="material-selection-actions" style={quotePosition} role="group" aria-label="选段操作" onMouseDown={event => event.preventDefault()}>
           {(!!children || !!conversationTarget || !!bookmarkTray) && <button type="button" className="material-drag-quote" aria-label="拖动引用选段到当前推导、笔记或对话" title="拖动这段原文"
             disabled={!draftEnabled || quoteBusy} onPointerDown={beginQuotePointer} onPointerMove={moveQuotePointer}
             onPointerUp={endQuotePointer} onPointerCancel={clearQuoteTransfer}

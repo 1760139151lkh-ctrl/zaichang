@@ -1,0 +1,21 @@
+{
+  "kind": "environment",
+  "tool": "built-in image_gen",
+  "prompt": "Use case: precise-object-edit. Extract a clean environment from this approved co-reading concept. Keep the near-overhead oak desk, fine woven writing mat, brass lamp base, ceramic tea cup, sparse books and fine pen at the outermost edges. Remove ALL open paper documents, pages, notepads, UI, text, symbols, equations, diagrams, character/cat, photographs, toolbars, icons, buttons. The large center and left work area become one continuous empty subtle warm cream woven writing mat lying flat on the desk, from x=3% to97% and y=10% to96%, with no fake paper borders or central split. We will place the actual PDF and editable working sheet as separate live components. Top library/desk accessories restricted to topmost 8% and narrow side edges so no banner steals content height. Blank book spines, no writing anywhere. Same delicate literary painting, daylight, refined warm oak, natural cloth, subtle depth, no green UI, no people. Landscape1536x1024. Preserve a fully usable broad workspace; never put painted controls in the background.",
+  "generatedSource": "C:\\Users\\17601\\.codex\\generated_images\\01a1789a-60fe-76f0-b0b3-4db58b792d38\\exec-fb4ebbda-871d-4b17-9047-e5db4c081c27.png",
+  "output": "前端视觉创新设计/运行素材/workspaces/study-apricot.png",
+  "sha256": "5a1c65a27eb4cb6e6fd95f5904f6f0207df2f78c564d3c85c3ce00a6abd86019",
+  "inputs": [
+    {
+      "path": "C:\\Users\\17601\\.codex\\generated_images\\01a1789a-60fe-76f0-b0b3-4db58b792d38\\exec-5d7ef230-97d9-4558-a999-3d632497a8b8.png",
+      "sha256": "9b13ccbe17d8618944a531eb57d3fd483c3b9b60c37a3f2493331a27459f17a1"
+    }
+  ],
+  "primaryImageInspection": "complete",
+  "runtimeVerification": {
+    "admitted": true,
+    "evidence": "docs/evidence/2026-10-26-frontend-reassessment.md",
+    "scope": "原图逐幅亲看；采用对应环境与布局。实际交互证据见 docs/evidence/2026-10-26-frontend-reassessment.md，未逐一声明全部主题与全部内容的组合。"
+  },
+  "classification": "A"
+}

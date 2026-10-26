@@ -1,6 +1,6 @@
 .conversation-space.has-reading-desk { position: relative; isolation: isolate; }
 .app-main > .reading-desk { inset: 72px 8px 8px; }
-.conversation-space.has-reading-desk.has-open-reading-window > .workspace {
+.conversation-space.has-reading-desk.has-open-reading-window > .conversation-workspace-home {
   flex: 0 0 auto;
   width: clamp(340px, 44%, 640px);
   max-width: calc(100% - 360px);
@@ -43,8 +43,8 @@
 :root[data-palette='rain'] .app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer :is(textarea,.icon-button,.composer-context-button) { color: #eddec5; }
 :root[data-palette='rain'] .app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer textarea::placeholder { color: #cbbb9e; }
 @media (max-width: 900px) {
-  .conversation-space.has-reading-desk.has-open-reading-window > .workspace { flex-basis: 100%; width: 100%; max-width: none; min-width: 0; }
-  .app-main[data-workspace-view='materials'] > .conversation-space.has-open-reading-window[data-reading-pane='reader'] > .workspace,
+  .conversation-space.has-reading-desk.has-open-reading-window > .conversation-workspace-home { flex-basis: 100%; width: 100%; max-width: none; min-width: 0; }
+  .app-main[data-workspace-view='materials'] > .conversation-space.has-open-reading-window[data-reading-pane='reader'] > .conversation-workspace-home,
   .app-main[data-workspace-view='materials']:has(> .conversation-space[data-reading-pane='chat']) > .reading-desk { display: none; }
   .composer-area > .attachment-shelf { padding-inline: 4px; }
 }

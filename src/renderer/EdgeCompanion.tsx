@@ -8,9 +8,9 @@ import { clampEdgeSprite, edgeRatio, edgeSpriteBox, localEdgePoint, nearestEdgeD
 import './edge-companion.css';
 
 export type { EdgeCompanionPlacement } from './edge-companion-geometry';
-type Figure = Pick<EdgeCompanionDock, 'artwork' | 'mirrored' | 'rotation' | 'width' | 'height'>;
+type Figure = Pick<EdgeCompanionDock, 'artwork' | 'mirrored' | 'rotation' | 'width' | 'height' | 'support'>;
 type Grab = { id: number; node: HTMLButtonElement; start: EdgePoint; offset: EdgePoint;
-  before: EdgeCompanionPlacement; moved: boolean; last: EdgePoint; time: number; velocity: EdgePoint };
+  before: EdgeCompanionPlacement; moved: boolean; last: EdgePoint; dropContact: EdgePoint; time: number; velocity: EdgePoint };
 const quietMotion = () => document.hidden || document.documentElement.dataset.motion === 'reduced'
   || matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -50,7 +50,8 @@ function EdgeCompanionFigure({ host: givenHost, anchor, character = 'sakiko', pl
   const [figure, setFigure] = useState<Figure | undefined>(undefined), visual = useRef(figure); visual.current = figure;
   const [visible, setVisible] = useState(false), [dragging, setDragging] = useState(false);
   const [open, setOpen] = useState(false), [acknowledged, setAcknowledged] = useState(false);
-  const [imageReady, setImageReady] = useState({ assetId: '', body: false, tail: false, whole: false }), [failedAsset, setFailedAsset] = useState('');
+  const [imageReady, setImageReady] = useState<Record<string, { body: boolean; tail: boolean; whole: boolean }>>({});
+  const [failedAsset, setFailedAsset] = useState('');
   const callbacks = useRef({ onPlacementChange, onRatioChange }); callbacks.current = { onPlacementChange, onRatioChange };
   const x = useSpringValue(0, { stiffness: 320, damping: 35, precision: .08 });
   const y = useSpringValue(0, { stiffness: 320, damping: 35, precision: .08 });
@@ -67,8 +68,8 @@ function EdgeCompanionFigure({ host: givenHost, anchor, character = 'sakiko', pl
     tail.animate(2.4, { onRest: () => { if (ticket === tailOperation.current) tail.animate(0); } });
   }
   function imageLoaded(part: 'body' | 'tail' | 'whole', id: string, ready = true) {
-    if (currentArtwork.current !== id) return;
-    setImageReady(value => ({ ...(value.assetId === id ? value : { assetId: id, body: false, tail: false, whole: false }), [part]: ready }));
+    setImageReady(value => value[id]?.[part] === ready ? value : ({ ...value,
+      [id]: { ...(value[id] || { body: false, tail: false, whole: false }), [part]: ready } }));
   }
   function layerError(id: string) { if (currentArtwork.current === id) { quietTail(); setFailedAsset(id); setOpen(false); } }
   function release() {
@@ -79,7 +80,7 @@ function EdgeCompanionFigure({ host: givenHost, anchor, character = 'sakiko', pl
   }
   function currentContact(): EdgePoint {
     const sprite = visual.current;
-    const support = sprite ? edgeSpriteBox(sprite.artwork, sprite.mirrored, Math.max(sprite.width, sprite.height), sprite.rotation).support : { x: 0, y: 0 };
+    const support = sprite?.support ?? { x: 0, y: 0 };
     return { x: x.get().value + support.x, y: y.get().value + support.y };
   }
   function place(dock: EdgeCompanionDock, commit = false, velocity?: EdgePoint, immediate = false) {
@@ -90,8 +91,8 @@ function EdgeCompanionFigure({ host: givenHost, anchor, character = 'sakiko', pl
       const beforeX = x.get(), beforeY = y.get();
       const nextShape = edgeSpriteBox(dock.artwork, dock.mirrored, Math.max(dock.width, dock.height), dock.rotation);
       const beforeShape = previous ? edgeSpriteBox(previous.artwork, previous.mirrored, Math.max(previous.width, previous.height), previous.rotation) : nextShape;
-      const origin = { x: beforeX.value + beforeShape.support.x - nextShape.support.x,
-        y: beforeY.value + beforeShape.support.y - nextShape.support.y };
+      const origin = { x: beforeX.value + (previous?.support ?? beforeShape.support).x - dock.support.x,
+        y: beforeY.value + (previous?.support ?? beforeShape.support).y - dock.support.y };
       const start = scene.current ? clampEdgeSprite(scene.current, dock.artwork, dock.mirrored, dock.width, dock.height, origin, dock.rotation) : origin;
       x.set(start.x, beforeX.velocity); y.set(start.y, beforeY.velocity);
       const ink = nextShape.ink, bounds = scene.current?.bounds;
@@ -143,7 +144,7 @@ function EdgeCompanionFigure({ host: givenHost, anchor, character = 'sakiko', pl
       }
       const current = grab.current, sprite = visual.current;
       if (current && sprite) {
-        const point = clampEdgeSprite(next, sprite.artwork, sprite.mirrored, sprite.width, sprite.height, { x: x.get().value, y: y.get().value }, sprite.rotation, true);
+        const point = clampEdgeSprite(next, sprite.artwork, sprite.mirrored, sprite.width, sprite.height, { x: x.get().value, y: y.get().value }, sprite.rotation);
         x.set(point.x); y.set(point.y);
         followMotion(); return;
       }
@@ -171,7 +172,7 @@ function EdgeCompanionFigure({ host: givenHost, anchor, character = 'sakiko', pl
       if (records.some(record => !(record.target instanceof Element && record.target.closest('.edge-companion-stage')))) request();
     });
     mutations.observe(host, { childList: true, subtree: true, attributes: true,
-      attributeFilter: ['style', 'class', 'hidden', 'inert', 'data-presence-edge', 'data-presence-edge-sides', 'data-presence-edge-disabled'] });
+      attributeFilter: ['style', 'class', 'hidden', 'inert', 'data-presence-edge', 'data-presence-edge-sides', 'data-presence-edge-disabled', 'data-presence-edge-pose', 'data-presence-edge-point'] });
     const visibility = () => { if (document.hidden) { operation.current++; returnHome(true); x.stop(); y.stop(); quietTail(); setVisible(false); setOpen(false); } else request(); };
     const paperGesture = (event: globalThis.PointerEvent) => { if (event.target instanceof Node && !root.current?.contains(event.target)) { quietTail(); request(); } };
     const paperInput = (event: globalThis.KeyboardEvent) => { if (event.target instanceof Node && !root.current?.contains(event.target)) quietTail(); };
@@ -192,10 +193,18 @@ function EdgeCompanionFigure({ host: givenHost, anchor, character = 'sakiko', pl
   useEffect(() => {
     // Warm only this character's admitted poses before a drop changes stance.
     // These are local artwork requests, with no conversation or document input.
-    const poses = [edgeCompanionArtwork(character), edgeCompanionArtwork(character, true)];
-    const sources = new Set(poses.flatMap(pose => pose ? [pose.body, ...(pose.tail ? [pose.tail] : [])] : []));
-    const images = [...sources].map(source => { const image = new Image(); image.decoding = 'async'; image.src = source; return image; });
-    return () => { for (const image of images) image.removeAttribute('src'); };
+    const poses = [...new Map((['stretch', 'loaf', 'curl'] as const).flatMap(pose =>
+      [edgeCompanionArtwork(character, false, pose), edgeCompanionArtwork(character, true, pose)])
+      .filter(pose => !!pose).map(pose => [pose.id, pose])).values()];
+    let active = true;
+    const images = poses.flatMap(pose => ([['body', pose.body], ['tail', pose.tail], ['whole', pose.whole]] as const)
+      .flatMap(([part, source]) => {
+        if (!source) return [];
+        const image = new Image(); image.decoding = 'async';
+        image.onload = () => { if (active) imageLoaded(part, pose.id); };
+        image.src = source; return [image];
+      }));
+    return () => { active = false; for (const image of images) { image.onload = null; image.removeAttribute('src'); } };
   }, [character]);
   useEffect(() => { setOpen(false); quietTail(); setFailedAsset(''); }, [artworkId]);
   useEffect(() => {
@@ -218,7 +227,7 @@ function EdgeCompanionFigure({ host: givenHost, anchor, character = 'sakiko', pl
     const at = localEdgePoint(currentScene, event.clientX, event.clientY), beforeX = x.stop(), beforeY = y.stop();
     x.set(beforeX.value, beforeX.velocity); y.set(beforeY.value, beforeY.velocity); event.currentTarget.setPointerCapture(event.pointerId);
     grab.current = { id: event.pointerId, node: event.currentTarget, start: at, offset: { x: at.x - beforeX.value, y: at.y - beforeY.value },
-      before: home.current, moved: false, last: { x: beforeX.value, y: beforeY.value }, time: event.timeStamp, velocity: { x: beforeX.velocity, y: beforeY.velocity } };
+      before: home.current, moved: false, last: { x: beforeX.value, y: beforeY.value }, dropContact: currentContact(), time: event.timeStamp, velocity: { x: beforeX.velocity, y: beforeY.velocity } };
     setDragging(true);
   }
   function move(event: PointerEvent<HTMLButtonElement>) {
@@ -226,7 +235,10 @@ function EdgeCompanionFigure({ host: givenHost, anchor, character = 'sakiko', pl
     if (!current || current.id !== event.pointerId || !currentScene || !sprite) return;
     event.preventDefault(); event.stopPropagation(); const at = localEdgePoint(currentScene, event.clientX, event.clientY);
     current.moved ||= Math.hypot(at.x - current.start.x, at.y - current.start.y) > 4;
-    const point = clampEdgeSprite(currentScene, sprite.artwork, sprite.mirrored, sprite.width, sprite.height, { x: at.x - current.offset.x, y: at.y - current.offset.y }, sprite.rotation, true);
+    // Keep the whole drawing visible while the hand can still reach an outer
+    // edge. The intended contact, rather than a clipped old stance, picks it.
+    current.dropContact = { x: at.x - current.offset.x + sprite.support.x, y: at.y - current.offset.y + sprite.support.y };
+    const point = clampEdgeSprite(currentScene, sprite.artwork, sprite.mirrored, sprite.width, sprite.height, { x: at.x - current.offset.x, y: at.y - current.offset.y }, sprite.rotation);
     const elapsed = Math.max(1, event.timeStamp - current.time) / 1000;
     current.velocity = { x: Math.max(-1200, Math.min(1200, (point.x - current.last.x) / elapsed)), y: Math.max(-1200, Math.min(1200, (point.y - current.last.y) / elapsed)) };
     current.last = point; current.time = event.timeStamp; x.set(point.x, current.velocity.x); y.set(point.y, current.velocity.y);
@@ -234,7 +246,7 @@ function EdgeCompanionFigure({ host: givenHost, anchor, character = 'sakiko', pl
   function finish(event: PointerEvent<HTMLButtonElement>) {
     const current = grab.current, currentScene = scene.current, sprite = visual.current;
     if (!current || current.id !== event.pointerId || !currentScene || !sprite) return;
-    const next = nearestEdgeDock(currentScene, character, currentContact());
+    const next = nearestEdgeDock(currentScene, character, current.dropContact);
     if (current.moved) skipPointerClick.current = true;
     const moved = current.moved, velocity = current.velocity; release(); if (moved && next) place(next, true, velocity); else returnHome();
   }
@@ -244,7 +256,8 @@ function EdgeCompanionFigure({ host: givenHost, anchor, character = 'sakiko', pl
     const currentScene = scene.current, current = target.current; if (!currentScene || !current) return;
     event.preventDefault(); event.stopPropagation(); release(); setOpen(false); quietTail();
     const horizontal = current.placement.side === 'top' || current.placement.side === 'bottom';
-    const along = ['Home', 'End', ...(horizontal ? ['ArrowLeft', 'ArrowRight'] : ['ArrowUp', 'ArrowDown'])].includes(event.key);
+    const along = !current.surface.point && ['Home', 'End', ...(horizontal ? ['ArrowLeft', 'ArrowRight'] : ['ArrowUp', 'ArrowDown'])].includes(event.key);
+    if (current.surface.point && ['Home', 'End'].includes(event.key)) return;
     const next = along ? resolveEdgePlacement(currentScene, character, { ...current.placement,
       ratio: event.key === 'Home' ? 0 : event.key === 'End' ? 1 : edgeRatio(current.placement.ratio
         + (['ArrowLeft', 'ArrowUp'].includes(event.key) ? -1 : 1) * (event.shiftKey ? .01 : .05)) },
@@ -256,21 +269,23 @@ function EdgeCompanionFigure({ host: givenHost, anchor, character = 'sakiko', pl
   if (!host || !figure || !artwork || hidden || !active) return null;
   const failed = failedAsset === artwork.id;
   const sprite = edgeSpriteBox(artwork, figure.mirrored, Math.max(figure.width, figure.height), figure.rotation), hit = sprite.ink;
-  const ready = imageReady.assetId === artwork.id && (failed ? !!artwork.whole && imageReady.whole : imageReady.body && (!artwork.tail || imageReady.tail));
+  const opened = imageReady[artwork.id];
+  const ready = !!opened && (failed ? !!artwork.whole && opened.whole : opened.body && (!artwork.tail || opened.tail));
   const bounds = scene.current?.bounds, bubble = open && visible && bounds && (text.trim() || replyAvailable || busy || acknowledged);
   const spaceRight = bounds ? bounds.right - (x.value + figure.width) - 12 : 0, spaceLeft = bounds ? x.value - bounds.left - 12 : 0;
   const bubbleRight = spaceRight >= 120 || spaceRight >= spaceLeft;
-  const bubbleWidth = Math.max(80, Math.min(240, bubbleRight ? spaceRight : spaceLeft, bounds ? bounds.right - bounds.left : 240));
+  const bubbleWidth = Math.max(80, Math.min(280, bubbleRight ? spaceRight : spaceLeft, bounds ? bounds.right - bounds.left : 280));
   const bubbleX = bounds ? Math.max(bounds.left, Math.min(bounds.right - bubbleWidth, bubbleRight ? x.value + figure.width + 8 : x.value - bubbleWidth - 8)) : 0;
-  const bubbleY = bounds ? Math.max(bounds.top, Math.min(bounds.bottom - 96, y.value + figure.height * .2)) : 0;
+  const bubbleY = bounds ? Math.max(bounds.top, Math.min(bounds.bottom - 160, y.value + figure.height * .2)) : 0;
   const turn = figure.rotation === 90 ? `translate(${sprite.canvasHeight}px,0) rotate(90deg)`
     : figure.rotation === -90 ? `translate(0,${sprite.canvasWidth}px) rotate(-90deg)`
       : figure.rotation === 180 ? `translate(${sprite.canvasWidth}px,${sprite.canvasHeight}px) rotate(180deg)` : '';
   const facing = figure.mirrored ? `translate(${sprite.canvasWidth}px,0) scaleX(-1)` : '';
   return createPortal(<div ref={root} className="edge-companion-stage" data-dragging={dragging}>
     <div className="edge-companion" data-character={artwork.character} data-asset={artwork.id} data-mirrored={figure.mirrored} data-rotation={figure.rotation} data-edge-side={target.current?.placement.side} data-dragging={dragging}
-      style={{ width: figure.width, height: figure.height, left: x.value, top: y.value, visibility: visible && ready ? 'visible' : 'hidden' }}>
-      <button ref={button} type="button" className="edge-companion-cat" aria-label={`轻唤${label}，或拖到另一处边缘`} aria-describedby={helpId}
+      style={{ width: figure.width, height: figure.height, left: x.value, top: y.value,
+        visibility: visible && (ready || document.activeElement === button.current) ? 'visible' : 'hidden' }}>
+      <button ref={button} type="button" className="edge-companion-cat" aria-label={`轻唤${label}，当前位置：${target.current?.surface.label || '边缘'}；可拖动`} aria-describedby={helpId}
         style={{ left: hit.left, top: hit.top, width: hit.right - hit.left, height: hit.bottom - hit.top }}
         onPointerDown={begin} onPointerMove={move} onPointerUp={finish} onPointerCancel={event => { if (grab.current?.id === event.pointerId) returnHome(); }}
         onLostPointerCapture={event => { if (grab.current?.id === event.pointerId) returnHome(); }} onKeyDown={key}
@@ -278,7 +293,7 @@ function EdgeCompanionFigure({ host: givenHost, anchor, character = 'sakiko', pl
           setOpen(true); setAcknowledged(true); acknowledge(); if (!busy) onCall?.(); }}>
         <span className="edge-companion-artwork" aria-hidden="true"
           style={{ left: -hit.left, top: -hit.top, width: sprite.canvasWidth, height: sprite.canvasHeight,
-            transformOrigin: '0 0', transform: `${turn} ${facing}`.trim() || 'none' }}>
+            visibility: ready ? 'visible' : 'hidden', transformOrigin: '0 0', transform: `${turn} ${facing}`.trim() || 'none' }}>
           {failed && artwork.whole ? <img key={`${artwork.id}-whole`} src={artwork.whole} alt="" draggable={false} onLoad={() => imageLoaded('whole', artwork.id)} onError={() => imageLoaded('whole', artwork.id, false)} /> : !failed ? <>
             {artwork.tail && artwork.tailOrigin && <img key={`${artwork.id}-tail`} className="edge-companion-tail" src={artwork.tail} alt="" draggable={false}
               style={{ transform: `rotate(${tail.value}deg)`, transformOrigin: `${artwork.tailOrigin[0] * 100}% ${artwork.tailOrigin[1] * 100}%` }} onLoad={() => imageLoaded('tail', artwork.id)} onError={() => layerError(artwork.id)} />}
@@ -287,12 +302,12 @@ function EdgeCompanionFigure({ host: givenHost, anchor, character = 'sakiko', pl
         </span>
       </button>
     </div>
-    <span id={helpId} className="sr-only">拖动到另一张纸或窗口边缘，放手吸附。方向键沿边移动，另一方向选择边缘，Home、End到两端，Escape放回。回车轻唤。</span>
+    <span id={helpId} className="sr-only">拖到可见的书、灯、座位、人物落点或纸张和窗口边缘，放手吸附。方向键沿边移动，另一方向选择落点，Home、End到两端，Escape放回。回车轻唤。</span>
     {bubble && <div className="edge-companion-bubble" role="status" aria-live="polite" aria-busy={busy} data-right={bubbleRight}
-      style={{ left: bubbleX, top: bubbleY, width: bubbleWidth, maxHeight: Math.max(32, Math.min(120, bounds.bottom - bubbleY)) }}
+      style={{ left: bubbleX, top: bubbleY, width: bubbleWidth, maxHeight: Math.max(32, Math.min(160, bounds.bottom - bubbleY)) }}
       onKeyDown={event => { if (event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); setOpen(false); quietTail(); button.current?.focus({ preventScroll: true }); } }}>
       {text.trim() ? <span>{text.trim()}</span> : replyAvailable && !busy ? <button type="button" className="edge-companion-open-reply" onClick={onOpenReply}>到对话里接着看</button> : <span>…</span>}<button type="button" aria-label="收起这句话" onPointerDown={event => { if (event.button === 0) event.preventDefault(); }}
-        onClick={event => { event.stopPropagation(); setOpen(false); quietTail(); if (event.detail === 0) button.current?.focus({ preventScroll: true }); }}><X size={12} /></button>
+        onClick={event => { event.stopPropagation(); setOpen(false); quietTail(); if (event.detail === 0) button.current?.focus({ preventScroll: true }); }}><X size={16} /></button>
     </div>}
   </div>, host);
 }

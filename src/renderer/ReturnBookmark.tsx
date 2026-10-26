@@ -24,17 +24,16 @@ export function ReturnBookmark({ point, onDismiss, disabled = false }: {
   if (dismissed === point.id) return null;
   return <aside className="return-bookmark" aria-label="上次留在这里的书签">
     <Bookmark className="return-bookmark-mark" size={19} aria-hidden="true" />
-    <div className="return-bookmark-copy"><strong>{point.title}</strong>{point.detail && <span>{point.detail}</span>}
-      {point.excerpt && <p>{point.excerpt}</p>}
+    <div className="return-bookmark-copy" title={point.title}><strong>{point.excerpt || point.title}</strong>{point.detail && <span>{point.detail}</span>}
       {error && <span role="status">{error}</span>}
     </div>
-    <button type="button" className="return-bookmark-resume" disabled={disabled || opening} onClick={() => {
+    <button type="button" className="return-bookmark-resume" aria-label="接着这里" title="接着这里" disabled={disabled || opening} onClick={() => {
       const ticket = ++request.current, pointId = point.id;
       setOpening(true); setError('');
       const current = () => ticket === request.current && activePoint.current === pointId;
       void Promise.resolve().then(() => { if (current()) return point.onResume(); }).catch(problem => { if (current()) setError(uiError(problem) || '这次没打开，再试一次。'); })
         .finally(() => { if (current()) setOpening(false); });
-    }}>接着这里<ArrowUpRight size={14} aria-hidden="true" /></button>
+    }}><ArrowUpRight size={19} aria-hidden="true" /></button>
     <button type="button" className="return-bookmark-dismiss" aria-label="先收起书签" onClick={() => { request.current++; setDismissed(point.id); onDismiss?.(); }}><X size={14} /></button>
   </aside>;
 }

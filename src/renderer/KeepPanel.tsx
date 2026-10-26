@@ -1,5 +1,5 @@
 import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent, type ReactNode } from 'react';
-import { ArrowUpRight, BookOpen, ChevronRight, LoaderCircle, MessageCircle, NotebookPen, PanelsTopLeft,
+import { ArrowUpRight, BookOpen, ChevronRight, Clock3, LoaderCircle, MessageCircle, NotebookPen, PanelsTopLeft,
   PencilLine, Plus, Search } from 'lucide-react';
 import type { KeepSnapshot, KeepWorkItem, KeepWorkLocator } from '../shared/keep';
 import { materialQuoteAddress } from '../shared/materials';
@@ -70,10 +70,6 @@ type KeepObject =
 
 const sections: KeepSectionKind[] = ['notes', 'materials', 'works', 'conversations'];
 const validDate = (value?: string) => value && Number.isFinite(Date.parse(value)) ? value : undefined;
-const shortName = (value: string, limit = 14) => {
-  const points = Array.from(value);
-  return points.length <= limit ? value : `${points.slice(0, limit).join('')}…`;
-};
 const workKey = (work: KeepWorkItem) => `work:${work.locator.sessionId}:${work.locator.messageId}:${work.locator.programId}:${work.locator.revision}`;
 const noteTitle = (note: NoteSummary) => note.source.referenceOnly && note.title.trim() === '纸边的一段原文'
   ? '摘录笔记' : note.title.trim() || '未命名笔记';
@@ -114,6 +110,36 @@ function noteDiscussion(note: NoteSummary): SourceBookmarkReference | undefined 
   if (note.bodyLength === 0) return keptNoteSource(note);
 }
 
+/** The collection opens the original notebook revision. Its list excerpt is
+ * useful in the index, but must never stand in for the page being read. */
+function KeptNoteBody({ note, active, boundary }: { note: NoteSummary; active: boolean; boundary: string }) {
+  const key = `${boundary}:${note.id}:${note.revision}:${note.sha256}`;
+  const [read, setRead] = useState<{ key: string; body?: string; error?: string }>();
+  const [attempt, setAttempt] = useState(0);
+  useEffect(() => {
+    let current = true;
+    if (!active) return;
+    void (async () => {
+      let offset = 0, body = '';
+      while (current) {
+        const page = await window.zaichang.notesRead({ id: note.id, revision: note.revision, offset });
+        if (!current) return;
+        if (page.note.sha256 !== note.sha256 || page.note.state !== 'active') throw new Error('这一页后来有过修改，请重新打开。');
+        body += page.body;
+        if (!page.hasMore) { setRead({ key, body }); return; }
+        if (page.end <= offset) throw new Error('这页后面的文字暂时没有打开，可以再试一次。');
+        offset = page.end;
+      }
+    })().catch(error => { if (current) setRead({ key, error: uiError(error, { operation: 'open' }) }); });
+    return () => { current = false; };
+  }, [active, key, attempt]);
+  const content = active && read?.key === key ? read : undefined;
+  if (content?.error) return <div className="keep-body-error" role="status"><p>{content.error}</p>
+    <button type="button" className="text-button" onClick={() => { setRead(undefined); setAttempt(value => value + 1); }}>重新打开</button></div>;
+  if (content?.body === undefined) return <div className="keep-body-loading" role="status" aria-label="正在打开笔记"><LoaderCircle size={16} className="spin" /></div>;
+  return content.body ? <p className="keep-note-thought">{content.body}</p> : null;
+}
+
 /** One room and one changing object, with the original owners behind every
  * entrance. Selection is local viewing only, never an automatic quotation. */
 export function KeepPanel({ snapshot, active = true, loading = false, loadingMore, error, disabled = false,
@@ -123,7 +149,10 @@ export function KeepPanel({ snapshot, active = true, loading = false, loadingMor
   onHistory, onNewNote }: KeepPanelProps) {
   const id = useId();
   const boundary = snapshot ? `${snapshot.boundary.privacyEpoch}:${snapshot.boundary.policyRevision}:${snapshot.boundary.sourceBoundary}` : '';
-  const items = useMemo(() => objects(snapshot), [snapshot]);
+  const allItems = useMemo(() => objects(snapshot), [snapshot]);
+  const [collection, setCollection] = useState<'kept' | 'all'>('kept');
+  const items = useMemo(() => collection === 'all' ? allItems
+    : allItems.filter(item => item.kind === 'notes' || item.kind === 'works'), [allItems, collection]);
   const [choice, setChoice] = useState<{ boundary: string; key: string }>();
   const consumedSelectionRequest = useRef<number | undefined>(undefined);
   const selectionPending = !!selectionRequest && consumedSelectionRequest.current !== selectionRequest.requestId;
@@ -144,12 +173,18 @@ export function KeepPanel({ snapshot, active = true, loading = false, loadingMor
   const locked = disabled || !!pending;
   const localFailure = active && failedAction.current?.boundary === boundary
     && failedAction.current.objectKey === selected?.key ? localError : '';
-  const more = snapshot ? sections.filter(kind => snapshot[kind].hasMore) : [];
+  const more = snapshot ? sections.filter(kind => snapshot[kind].hasMore
+    && (collection === 'all' || kind === 'notes' || kind === 'works')) : [];
+  const empty = !selected && !loading && !error && !localFailure;
 
   useEffect(() => {
     mounted.current = true;
     return () => { mounted.current = false; actionGeneration.current++; pendingAction.current = false; failedAction.current = undefined; };
   }, []);
+  useEffect(() => {
+    const kind = selectionRequest && selectionKind(selectionRequest.key);
+    if (kind === 'materials' || kind === 'conversations') setCollection('all');
+  }, [selectionRequest?.requestId]);
   useEffect(() => {
     actionGeneration.current++; pendingAction.current = false; failedAction.current = undefined; setPending(''); setLocalError('');
     reportedSelection.current = undefined; manualSelection.current = false;
@@ -178,9 +213,11 @@ export function KeepPanel({ snapshot, active = true, loading = false, loadingMor
       setChoice({ boundary, key: selected.key });
     const list = rail.current, button = list?.querySelector<HTMLElement>('[aria-selected="true"]');
     if (!list || !button) return;
-    const left = button.offsetLeft, right = left + button.offsetWidth;
-    if (left < list.scrollLeft) list.scrollLeft = left;
-    else if (right > list.scrollLeft + list.clientWidth) list.scrollLeft = right - list.clientWidth;
+    const listBox = list.getBoundingClientRect(), buttonBox = button.getBoundingClientRect();
+    if (buttonBox.left < listBox.left) list.scrollLeft += buttonBox.left - listBox.left;
+    else if (buttonBox.right > listBox.right) list.scrollLeft += buttonBox.right - listBox.right;
+    if (buttonBox.top < listBox.top) list.scrollTop += buttonBox.top - listBox.top;
+    else if (buttonBox.bottom > listBox.bottom) list.scrollTop += buttonBox.bottom - listBox.bottom;
   }, [active, boundary, selected?.key]);
   useEffect(() => {
     if (!active || !snapshot) return;
@@ -239,8 +276,8 @@ export function KeepPanel({ snapshot, active = true, loading = false, loadingMor
   }
   function date(value?: string) {
     const instant = validDate(value);
-    return instant ? <time dateTime={instant} title={formatDateTime(instant, timeZone)}>
-      {formatDateTime(instant, timeZone, { hour: undefined, minute: undefined })}</time> : null;
+    return instant ? <time dateTime={instant} title={formatDateTime(instant, timeZone)} aria-label={formatDateTime(instant, timeZone)}>
+      <Clock3 size={17} aria-hidden="true" /></time> : null;
   }
   function openObject(item: KeepObject) {
     if (item.kind === 'notes') return onOpenNote(item.value.id, item.value.revision);
@@ -265,14 +302,14 @@ export function KeepPanel({ snapshot, active = true, loading = false, loadingMor
   }
   function detail(item: KeepObject) {
     if (item.kind === 'notes') {
-      const note = item.value, discussion = noteDiscussion(note), preview = note.preview.trim();
+      const note = item.value, discussion = noteDiscussion(note);
       return <>
         <div className="keep-object-meta">{sourceButton(note)}{date(note.updatedAt)}</div>
-        {preview && <p className="keep-note-thought">{preview}</p>}
         <button type="button" className="keep-object-title keep-note-title" disabled={locked}
           onClick={() => void perform('open', () => openObject(item))} title={item.title}>
           <span>{item.title}</span><ArrowUpRight size={13} aria-hidden="true" />
         </button>
+        <KeptNoteBody note={note} active={active} boundary={boundary} />
         <div className="keep-object-actions">
           {discussion && onDiscussSource && <button type="button" className="keep-continue" disabled={locked}
             onClick={() => void perform('discuss', () => onDiscussSource(discussion))}>
@@ -280,7 +317,7 @@ export function KeepPanel({ snapshot, active = true, loading = false, loadingMor
           </button>}
           <button type="button" className="keep-icon-action keep-secondary-action" disabled={locked}
             aria-label="继续编辑这页笔记" title="继续编辑"
-            onClick={() => void perform('edit', () => onOpenNote(note.id, note.revision))}><PencilLine size={18} aria-hidden="true" /></button>
+            onClick={() => void perform('edit', () => onOpenNote(note.id, note.revision))}><PencilLine size={18} aria-hidden="true" /><span>编辑</span></button>
         </div>
       </>;
     }
@@ -322,39 +359,51 @@ export function KeepPanel({ snapshot, active = true, loading = false, loadingMor
     </>;
   }
 
-  return <section className="keep-panel" hidden={!active} aria-label="留下" aria-busy={loading && !snapshot}>
-    <h1 className="sr-only">留下</h1>
+  return <section className={`keep-panel${empty ? ' is-empty' : ''}`} hidden={!active} aria-label="留下" aria-busy={loading && !snapshot}>
     <div className="keep-within-reach">
       <header className="keep-heading" aria-label="留下的操作">
+        <h1>留下</h1>
         <div className="keep-tools">
           <button type="button" className="keep-icon-action" disabled={locked} title="找一找" aria-label="找一找留下的内容"
             onClick={() => void perform('find', onHistory)}><Search size={18} aria-hidden="true" /></button>
-          <button type="button" className="keep-icon-action" disabled={locked} title="写一页笔记" aria-label="写一页笔记"
-            onClick={() => void perform('new', onNewNote)}><Plus size={19} aria-hidden="true" /></button>
+          <button type="button" className="keep-new-page" disabled={locked} title="写一页笔记" aria-label="写一页笔记"
+            onClick={() => void perform('new', onNewNote)}><Plus size={17} aria-hidden="true" /><span>新写一页</span></button>
         </div>
       </header>
+      <aside className="keep-index" aria-label="收藏目录">
+        <div className="keep-collection-switch" aria-label="浏览范围">
+          <button type="button" aria-pressed={collection === 'kept'} onClick={() => setCollection('kept')}>笔记与作品</button>
+          <button type="button" aria-pressed={collection === 'all'} onClick={() => setCollection('all')}>全部内容</button>
+        </div>
+        {!!items.length && <div className="keep-object-flow" ref={rail} role="tablist" aria-label="留下的内容" aria-orientation="vertical">
+          {items.map((item, index) => <button type="button" role="tab" key={item.key} data-keep-key={item.key}
+            id={`${id}-entry-${index}`} aria-controls={`${id}-object`} aria-selected={selected?.key === item.key}
+            tabIndex={selected?.key === item.key ? 0 : -1} className="keep-object-entry" disabled={locked}
+            title={item.title} aria-label={item.title} onClick={() => select(item)} onKeyDown={event => move(event, index)}>
+            <span className="keep-entry-mark"><ObjectMark item={item} /></span>
+            <span className="keep-entry-copy"><span className="keep-entry-label">{item.title}</span>
+            </span>
+          </button>)}
+        </div>}
+        <div className="keep-index-links">
+          <button type="button" disabled={locked} onClick={() => void perform('notes', onBrowseNotes)}>翻翻笔记</button>
+          <button type="button" disabled={locked} onClick={() => void perform('materials', onBrowseMaterials)}>打开资料</button>
+        </div>
+      </aside>
       {selected ? <article className="keep-object" id={`${id}-object`} role="tabpanel"
         aria-labelledby={`${id}-entry-${selectedIndex}`} data-presence-edge="keep-object"
         data-presence-edge-label="留下的这一页" data-presence-edge-sides="top right left" data-keep-kind={selected.kind}>
         <div className="keep-object-content" key={selected.key}>{detail(selected)}</div>
-      </article> : !loading && !error && !localFailure ? <div className="keep-empty">
-        <button type="button" className="keep-empty-write" disabled={locked} onClick={() => void perform('new', onNewNote)}>
-          <NotebookPen size={22} aria-hidden="true" /><span>写一页笔记</span><ArrowUpRight size={14} aria-hidden="true" />
+      </article> : empty ? <div className="keep-empty">
+        <button type="button" className="keep-empty-write" disabled={locked} aria-label="写一页笔记" onClick={() => void perform('new', onNewNote)}>
+          <PencilLine size={22} aria-hidden="true" /><span>写一页</span>
         </button>
         <div className="keep-empty-tools">
-          <button type="button" disabled={locked} onClick={() => void perform('notes', onBrowseNotes)}>翻翻笔记</button>
-          <button type="button" disabled={locked} onClick={() => void perform('materials', onBrowseMaterials)}>打开资料</button>
+          <button type="button" disabled={locked} onClick={() => void perform('notes', onBrowseNotes)}><NotebookPen size={16} aria-hidden="true" />翻翻笔记</button>
+          <button type="button" disabled={locked} onClick={() => void perform('materials', onBrowseMaterials)}><BookOpen size={16} aria-hidden="true" />打开资料</button>
         </div>
       </div> : null}
       <div className="keep-composer-slot" data-keep-composer-slot hidden={!composer}>{composer}</div>
-      {!!items.length && <div className="keep-object-flow" ref={rail} role="tablist" aria-label="留下的内容">
-        {items.map((item, index) => <button type="button" role="tab" key={item.key} data-keep-key={item.key}
-          id={`${id}-entry-${index}`} aria-controls={`${id}-object`} aria-selected={selected?.key === item.key}
-          tabIndex={selected?.key === item.key ? 0 : -1} className="keep-object-entry" disabled={locked}
-          title={item.title} aria-label={item.title} onClick={() => select(item)} onKeyDown={event => move(event, index)}>
-          <span className="keep-entry-mark"><ObjectMark item={item} /></span><span className="keep-entry-label">{shortName(item.title)}</span>
-        </button>)}
-      </div>}
       {(loading && !snapshot || pending || loadingMore) && <div className="keep-progress" role="status">
         <LoaderCircle size={14} aria-hidden="true" /><span>{loading && !snapshot ? '翻开看看…' : pending === 'more' || loadingMore ? '再翻找一下…' : '正在打开…'}</span>
       </div>}

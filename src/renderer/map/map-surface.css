@@ -9,7 +9,7 @@
 .campus-v2-header {height:62px;border:0;background:linear-gradient(var(--bg),color-mix(in srgb,var(--bg) 94%,transparent));padding:0 24px;}
 .campus-v2-body {height:calc(100% - 62px);}
 .campus-v2-header strong {font-size:23px;letter-spacing:3px;}
-.campus-v2-header > div > span {font-size:11px;letter-spacing:.12em;opacity:.8;}
+.campus-v2-header > div > span {display:none;}
 .campus-v2-return {border-radius:24px;padding:0 16px;}
 .campus-v2-search,.campus-v2-mode > button,.campus-v2-controls > div,.campus-v2-route,.campus-v2-floating,.campus-v2-results,.campus-v2-tooltip {
   background:linear-gradient(135deg,var(--cm-shine),transparent 40%),var(--cm-glass);
@@ -103,7 +103,7 @@
 .campus-v2-footer {left:28px;right:26px;bottom:14px;}
 .campus-v2-footer > div:first-child {min-width:0;flex:1;}
 .campus-v2-footer .campus-v2-attribution {max-width:100%;text-align:left;line-height:16px;}
-.campus-v2-location-state {font-size:10px!important;background:var(--cm-glass)!important;border:1px solid var(--cm-rim)!important;border-radius:20px;padding:6px 12px;}
+.campus-v2-location-state {font-size:16px!important;background:var(--cm-glass)!important;border:1px solid var(--cm-rim)!important;border-radius:20px;padding:6px 12px;}
 .campus-v2-help {background:var(--cm-glass)!important;width:32px;height:32px;border-color:var(--cm-rim)!important;}
 .campus-v2-scale {font-size:10px;border-color:var(--cm-muted);opacity:.8;}
 .campus-v2-attribution {opacity:.65;}
@@ -133,3 +133,9 @@
 }
 @media(prefers-reduced-transparency:reduce){.campus-v2-dialog{--cm-glass:var(--surface)}.campus-v2-search,.campus-v2-route,.campus-v2-floating,.campus-v2-controls>div,.campus-v2-results{backdrop-filter:none}}
 @media(prefers-reduced-motion:reduce){.campus-v2-dialog *{animation:none!important;transition:none!important}}
+
+/* Route facts remain readable at the same scale as their actions. */
+.campus-v2-surface :is(.campus-v2-return,.campus-v2-search input,.campus-v2-mode > button,.campus-v2-mode > span,.campus-v2-results [role=option],.campus-v2-results small,.campus-v2-endpoints > button,.campus-v2-route-main p,.campus-v2-route-main small,.campus-v2-primary,.campus-v2-route-actions > button,.campus-v3-place > p,.campus-v3-place summary,.campus-v3-pick-hint,.campus-v3-route-details,.campus-v3-route-details select,.campus-v3-preview label,.campus-v3-road-recovery,.campus-v3-road-recovery p,.campus-v3-road-recovery small,.campus-v3-road-reference-note,.campus-v2-share,.campus-v2-share > details,.campus-v2-about p) { font-size:16px; line-height:1.65; }
+.campus-v2-surface .campus-v2-footer .campus-v2-attribution { font-size:14px; line-height:1.5; }
+.campus-v2-surface .campus-v2-controls > div:first-child button { font-size:16px; }
+.campus-v2-surface .campus-v2-scale { font-size:14px; }

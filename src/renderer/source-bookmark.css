@@ -1,4 +1,24 @@
-.source-bookmark-tray { position:fixed; z-index:90; left:30px; bottom:22px; width:min(450px,calc(100vw - 60px)); max-height:min(400px,65vh); overflow:auto; padding:16px 18px 15px; color:var(--text); background:var(--surface-raised); border:1px solid var(--separator); border-radius:15px; box-shadow:0 12px 40px #49381d20; font-size:13px; animation:bookmark-receive 180ms var(--ease); }
+.source-bookmark-tray { position:fixed; z-index:90; left:30px; bottom:22px; width:min(450px,calc(100vw - 60px)); max-height:min(400px,65vh); overflow:auto; overscroll-behavior:contain; pointer-events:auto; padding:16px 18px 15px; color:var(--text); background:var(--surface-raised); border:1px solid var(--separator); border-radius:15px; box-shadow:0 12px 40px #49381d20; font-size:13px; animation:bookmark-receive 180ms var(--ease); }
+.app-main:has(> .companion-scene[data-scene-family]) > .source-bookmark-tray {
+  --text:var(--room-ink);
+  --text-secondary:var(--room-ink-secondary);
+  --text-tertiary:var(--room-ink-secondary);
+  --surface:var(--room-paper);
+  --surface-raised:var(--room-paper-raised);
+  --border:var(--room-paper-edge);
+  --separator:color-mix(in srgb,var(--room-paper-edge) 70%,transparent);
+  --accent:var(--room-paper-accent);
+  --accent-hover:color-mix(in srgb,var(--room-paper-accent) 84%,var(--room-ink));
+  --accent-soft:var(--room-paper-accent-soft);
+  --accent-dim:color-mix(in srgb,var(--room-paper-accent) 70%,var(--room-paper-edge));
+  --accent-ink:var(--room-paper);
+  --focus:var(--room-paper-accent);
+  --wash:var(--room-paper-accent-soft);
+  --control-disabled:var(--room-paper-accent-soft);
+  --control-disabled-text:var(--room-ink-secondary);
+  color-scheme:light;
+}
+:root[data-palette='rain'] .app-main:has(> .companion-scene[data-scene-family]) > .source-bookmark-tray { color-scheme:dark; }
 .source-bookmark-tray>header { display:flex; align-items:center; gap:8px; color:var(--accent); margin-bottom:12px; }
 .source-bookmark-tray strong { font-weight:520; }.source-bookmark-tray>header>.icon-button { margin-left:auto; width:28px; height:28px; }
 .source-bookmark-paper { border-left:2px solid var(--accent-dim); padding:2px 12px; cursor:grab; }

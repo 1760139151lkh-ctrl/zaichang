@@ -1,0 +1,21 @@
+{
+  "kind": "environment",
+  "tool": "built-in image_gen",
+  "prompt": "Use case: lighting-weather. Keep exact near-overhead writing desk, woven mat, books, cup, lamp base, pen and camera of input. This is the clean study environment, no interface. Change the whole scene from daylight to nighttime warm brass-lamp light and cool quiet shadow. The large mat becomes muted dark charcoal taupe woven cloth, with very low contrast, not a bright white rectangle. Warm amber along wood edges; darkness coherent across accessories; no direct sunshine, no sun shadows. A real original white PDF page will later sit on this dark environment so do not paint pages here. Keep entire center empty, no writing, equations, diagrams, paper borders, UI controls, humans or cat. No readable text on books. Literary material rendering,1536x1024.",
+  "generatedSource": "C:\\Users\\17601\\.codex\\generated_images\\01a1789a-60fe-76f0-b0b3-4db58b792d38\\exec-e85e3cba-fa00-4c80-ad16-126ae3238ac6.png",
+  "output": "前端视觉创新设计/运行素材/workspaces/study-rain.png",
+  "sha256": "3beca82cd7605ca9632bf2e89c6f4d2462ac0bf0e7efd6e45c10a8ff78a471f6",
+  "inputs": [
+    {
+      "path": "C:\\Users\\17601\\.codex\\generated_images\\01a1789a-60fe-76f0-b0b3-4db58b792d38\\exec-fb4ebbda-871d-4b17-9047-e5db4c081c27.png",
+      "sha256": "5a1c65a27eb4cb6e6fd95f5904f6f0207df2f78c564d3c85c3ce00a6abd86019"
+    }
+  ],
+  "primaryImageInspection": "complete",
+  "runtimeVerification": {
+    "admitted": true,
+    "evidence": "docs/evidence/2026-10-26-frontend-reassessment.md",
+    "scope": "原图逐幅亲看；采用对应环境与布局。实际交互证据见 docs/evidence/2026-10-26-frontend-reassessment.md，未逐一声明全部主题与全部内容的组合。"
+  },
+  "classification": "A"
+}

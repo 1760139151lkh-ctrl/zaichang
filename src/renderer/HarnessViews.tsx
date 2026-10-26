@@ -216,9 +216,9 @@ export function ReplyEvidence({ message, onOpenSource }: { message: Message; onO
   }
   return (
     <div className="reply-evidence keep-reply-evidence">
-      <button type="button" className="text-button evidence-toggle" aria-expanded={open}
+      <button type="button" className="icon-button evidence-toggle" aria-label="来源与范围" title="来源与范围" aria-expanded={open}
         aria-controls={`reply-sources-${message.id}`} onClick={() => setOpen(value => !value)}>
-        <span>来源与范围</span><ChevronRight size={13} className={open ? 'rotated' : ''} aria-hidden="true" />
+        <BookOpen size={18} aria-hidden="true" />
       </button>
       {open && <div className="evidence-detail keep-source-details" id={`reply-sources-${message.id}`}>
         {(scope || s?.retention === 'session_only') && <p className="harness-muted">
@@ -317,13 +317,12 @@ export function ChatProcess({ message }: { message: Message }) {
   return (
     <div className={`chat-process${running ? ' is-running' : ''}`}>
       {hasDetails ? (
-        <button type="button" className="text-button chat-process-toggle" aria-expanded={open}
+        <button type="button" className="icon-button chat-process-toggle" aria-label={label} title={label} aria-expanded={open}
           aria-controls={`chat-process-${message.id}`} onClick={() => setOpen(value => !value)}>
-          {running && <LoaderCircle size={13} className="spin" aria-hidden="true" />}
-          <span role={running ? 'status' : undefined}>{label}</span>
-          <ChevronRight size={12} className={open ? 'rotated' : ''} aria-hidden="true" />
+          {running ? <LoaderCircle size={18} className="spin" aria-hidden="true" /> : unfinished ? <CircleAlert size={18} aria-hidden="true" /> : <Layers size={18} aria-hidden="true" />}
+          <span className="sr-only" role={running ? 'status' : undefined}>{label}</span>
         </button>
-      ) : <p className="chat-process-activity" role="status"><LoaderCircle size={13} className="spin" aria-hidden="true" />{label}</p>}
+      ) : <p className="chat-process-activity" role="status" aria-label={label} title={label}><LoaderCircle size={18} className="spin" aria-hidden="true" /></p>}
       {open && hasDetails && (
         <div id={`chat-process-${message.id}`} className="chat-process-details">
           {!!steps.length && <ul className="chat-process-items" aria-label="实际活动">
@@ -805,8 +804,8 @@ export function FeedbackControl({ messageId }: { messageId: string }) {
     [pending, setPending] = useState(false);
   return (
     <div className="feedback-control">
-      <button className="text-button" onClick={() => setOpen(!open)} aria-expanded={open}>
-        反馈这条回复
+      <button className="icon-button" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="反馈这条回复" title="反馈这条回复">
+        <MessageSquareText size={18} aria-hidden="true" />
       </button>
       {open && (
         <form
@@ -1828,7 +1827,7 @@ export function MemoryPanelSimple({
                   <p className="memory-quote">还找不到当时的原话，所以不会把它当作确定的依据。</p>
                 )}
                 <p className="memory-source-meta">
-                  {memory.verification === 'verified' ? '能找到当时的依据' : '还需要回看原话'} · 留下于{' '}
+                  {memory.verification !== 'verified' ? '还需要回看原话 · ' : ''}留下于{' '}
                   {date(memory.createdAt)}
                 </p>
               </div>
@@ -1937,11 +1936,9 @@ export function MemoryPanelSimple({
 
   return (
     <section className="memory-panel-simple">
-      <p className="panel-intro">只保留会帮到你的几件事。需要时可以改，也可以删掉。</p>
       <Switch
         checked={state.settings.memoryEnabled}
         label="让在场慢慢了解我"
-        detail="开启时，在相关的话题里参考过去的聊天与理解；关闭后暂停这些回忆，也不形成新的理解。"
         disabled={!!pending || (busy && !state.settings.memoryEnabled)}
         onChange={(value) =>
           void act('toggle', async () => {
@@ -1953,10 +1950,7 @@ export function MemoryPanelSimple({
       <div className="memory-records">
       {!!current.length && (
         <section className="memory-group-simple">
-          <div className="memory-group-heading">
-            <h3>关于你，记住的几件事</h3>
-            <small>{current.length} 条</small>
-          </div>
+          <h3 className="sr-only">当前记住的内容</h3>
           {current.map((memory) => row(memory, 'current'))}
         </section>
       )}
@@ -2011,7 +2005,7 @@ export function MemoryPanelSimple({
           </div>
         </details>
       )}
-      {!memories.length && <p className="memory-empty">我们可以从一句话开始，慢慢了解彼此。</p>}
+      {!memories.length && <p className="memory-empty">还没有留下关于你的记录。</p>}
       </div>
       <div className={`memory-editor-simple ${editorOpen ? 'open' : ''}`}>
         {!editorOpen ? (
@@ -2022,7 +2016,6 @@ export function MemoryPanelSimple({
             disabled={!!pending}
           >
             <span>告诉在场一件事</span>
-            <small>只保存你明确说出的内容</small>
             <ChevronRight size={15} />
           </button>
         ) : (
@@ -2044,7 +2037,7 @@ export function MemoryPanelSimple({
                   }),
                 );
                 closeEditor();
-                setNotice('这条理解已经留下。需要时，你仍可以改。');
+                setNotice('已留下');
               });
             }}
           >

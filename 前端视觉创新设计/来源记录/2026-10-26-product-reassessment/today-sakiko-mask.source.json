@@ -1,0 +1,24 @@
+{
+  "generator": "image_gen",
+  "source": "C:\\Users\\17601\\.codex\\generated_images\\01a1789a-60fe-76f0-b0b3-4db58b792d38\\exec-89ea98f5-418e-469b-8c00-01fe1205b33c.png",
+  "runtime": "前端视觉创新设计/运行素材/workspaces/today-sakiko-mask.png",
+  "sha256": "53e2901e3ea666b4d83b721a75cbf20a48910871a249766d33b05058e7f346ee",
+  "prompt": "Create an EXACT SAME-CANVAS binary segmentation mask for the woman in this supplied image. This is a technical mask, not a new drawing. Output a 1536x1024 opaque image: pure BLACK background for every non-person pixel, pure WHITE silhouette ONLY where the original woman's visible head, hair strands, bows, face, torso, clothing, arms, hands, skirt, bare knees, socks and shoes are. Preserve the person's EXACT ORIGINAL POSITION, SCALE, OUTER CONTOUR AND POSE from the reference. The head begins near x1240 y310, crown around x1340 y311; both shoes finish near y1000; the entire mask is in the right third. Do not move the head upward, do not center or enlarge the woman, do not reconstruct any hidden part, do not include the bench, closed book, flowers, paving, sky or shadows. White is a flat filled silhouette with no facial features or internal detail. Black must remain between hair strands and in any true gaps. A one-pixel antialiased edge is fine. Keep the exact 1536x1024 registration so this mask can reveal pixels FROM THE ORIGINAL IMAGE; it must not be a redesigned pose. No words, labels, borders or extra objects.",
+  "transparent_background": false,
+  "inputs": [
+    {
+      "path": "C:\\Users\\17601\\.codex\\generated_images\\01a1789a-60fe-76f0-b0b3-4db58b792d38\\exec-1ef23897-a5ee-4311-a822-0cb208a4887a.png",
+      "sha256": "af37e3ab5ea15103049112f9261f2c7ead54cf68009bba7e55657d1556d2f2e7"
+    }
+  ],
+  "review": {
+    "primaryImageViewed": true,
+    "note": "Whole mothers preserve reviewed seated geometry. Figure pixels must come from the original mother through the same-canvas mask, not the rejected rescaled cutout."
+  },
+  "classification": "A",
+  "runtimeVerification": {
+    "admitted": true,
+    "evidence": "docs/evidence/2026-10-26-frontend-reassessment.md",
+    "scope": "四光场的今天页已实看；真实母图像素与同画布蒙版，编辑时退让，取消后返回。人物不声明为动作视频。"
+  }
+}

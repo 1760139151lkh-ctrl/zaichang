@@ -1,0 +1,22 @@
+{
+  "generator": "image_gen",
+  "source": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-26-product-reassessment\\cat-variants\\curl-clean.png",
+  "sha256": "7f29efe5e4e012489ddcac39baffebbd26f34444ece6e126b564fc61d5342ad2",
+  "runtime": "前端视觉创新设计/运行素材/companion/edge/sakiko-curl-v1.png",
+  "prompt": "Clean the supplied sprite into a crisp transparent UI sprite. Preserve the exact cat identity, pose, colors, black/navy outlines, relative proportions and 1536x1024 canvas. Remove ALL blue/purple glow, surrounding haze, drop shadow and any color outside the character's outer dark contour. Outside that contour must be fully transparent alpha=0; only a thin natural anti-aliased edge may remain. The cat itself remains opaque, including its white body and face. Do not add a background, sticker border, cast shadow, furniture, text or extra parts. Do not crop or recenter. This is precise background/glow cleanup, not a redesigned cat.",
+  "transparent_background": true,
+  "inputs": [
+    {
+      "path": "C:\\Users\\17601\\.codex\\generated_images\\01a1789a-60fe-76f0-b0b3-4db58b792d38\\exec-a15b7f04-fc44-4be1-8dae-eb353687abf7.png",
+      "sha256": "9c8ed52b58010fb32824716214746212c3bbd0de0e4e7bda4528fd0ae508d5dd"
+    }
+  ],
+  "review": "Primary image reviewed: closed eyes, wrapped tail and coherent resting body; runtime pending.",
+  "runtimeVerified": false,
+  "classification": "A",
+  "runtimeVerification": {
+    "admitted": true,
+    "evidence": "docs/evidence/2026-10-26-frontend-reassessment.md",
+    "scope": "实际拖动与键盘换点已查看：灯顶、地面、书、扶手、头顶、膝上；灯边轻唤收到真实回复，保留原输入。"
+  }
+}

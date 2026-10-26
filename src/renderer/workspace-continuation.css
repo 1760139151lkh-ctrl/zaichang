@@ -1,6 +1,7 @@
 .conversation-space { display:flex; flex:1; min-height:0; min-width:0; position:relative; }
 .conversation-space[hidden] { display:none; }
-.conversation-space > .workspace { min-width:0; }
+.conversation-workspace-home,.conversation-workspace-host { display:flex; flex:1; min-width:0; min-height:0; }
+.conversation-space .conversation-workspace-host > .workspace { min-width:0; }
 .conversation-heading-label { margin-right:8px; color:var(--text-tertiary); font-size:10px; letter-spacing:.05em; }
 .retained-heading { display:flex; align-items:flex-end; gap:34px; padding:20px clamp(24px,5vw,78px) 22px; flex-shrink:0; }
 .retained-heading h1 { margin:0; font-weight:480; font-size:30px; line-height:1.4; letter-spacing:.04em; }
@@ -11,7 +12,7 @@
 .retained-heading nav button[aria-current='page'] { color:var(--accent); border-bottom-color:var(--accent); }
 .with-materials { gap:0; margin:0 clamp(20px,3vw,48px) 24px; border-radius:20px; }
 .with-materials > .materials-panel { flex:0 0 53%; height:auto; }
-.with-materials > .workspace { flex:1; }
+.with-materials > .conversation-workspace-home { flex:1; }
 .with-materials .conversation-heading { margin:0; width:auto; padding:18px 24px; font-size:12px; }
 .with-materials .message-scroll { padding:0 24px; }
 .with-materials .messages { width:100%; max-width:none; padding-top:20px; }
@@ -32,7 +33,7 @@
   .navigation-menu > .nav-narrow-only { display:flex; }
   .with-materials { margin:0 20px 20px; }
   .with-materials > .materials-panel { flex:1; }
-  .with-materials[data-reading-pane='reader'] > .workspace,
+  .with-materials[data-reading-pane='reader'] > .conversation-workspace-home,
   .with-materials[data-reading-pane='chat'] > .materials-panel { display:none; }
   .with-materials .bottom-composer { margin:0; }
   .retained-heading { padding:16px 24px 20px; gap:24px; flex-wrap:wrap; }
@@ -127,15 +128,17 @@
   --room-paper-accent-soft: #eddfe8;
 }
 :root[data-palette='rain'] .app-main:has(> .companion-scene[data-scene-family]) {
-  --room-paper: #f1e5d0;
-  --room-paper-raised: #f7edda;
-  --room-paper-edge: #d4bd98;
-  --room-paper-accent: #8f6940;
-  --room-paper-accent-soft: #e3d3b5;
+  --room-ink: #f4e6cf;
+  --room-ink-secondary: #d5c1a1;
+  --room-paper: #493224;
+  --room-paper-raised: #4c3527;
+  --room-paper-edge: #8f6a43;
+  --room-paper-accent: #e0bb7b;
+  --room-paper-accent-soft: #6c4c30;
   --room-nav-ink: #fff5e2;
   --room-nav-shadow: var(--room-air-shadow);
 }
-.app-main[data-room-layout]:has(> .companion-scene[data-scene-family]) > .conversation-space > .workspace.welcome > .welcome-inner {
+.app-main[data-room-layout]:has(> .companion-scene[data-scene-family]) > .conversation-space .conversation-workspace-host > .workspace.welcome > .welcome-inner {
   width: min(620px, calc(var(--room-paper-width) - 32px));
   margin-left: calc(var(--room-paper-left) + 16px);
   padding: clamp(30px, 7vh, 70px) 0;
@@ -146,7 +149,7 @@
   backdrop-filter: none;
   color: var(--room-air-ink);
 }
-.app-main[data-room-layout='side']:has(> .companion-scene .scene-stage-viewport[data-art-source='ambient-only']) > .conversation-space > .workspace.welcome > .welcome-inner {
+.app-main[data-room-layout='side']:has(> .companion-scene .scene-stage-viewport[data-art-source='ambient-only']) > .conversation-space .conversation-workspace-host > .workspace.welcome > .welcome-inner {
   width: min(620px, calc(100% - 88px));
   margin-left: clamp(40px, 4vw, 64px);
 }
@@ -176,6 +179,14 @@
   background: transparent;
   box-shadow: none;
   backdrop-filter: none;
+}
+.app-main:has(> .companion-scene[data-ambient-fit='cover']) > .titlebar .primary-navigation {
+  --room-nav-ink: var(--room-ink);
+  --room-nav-shadow: none;
+  border: 1px solid color-mix(in srgb, var(--room-paper-edge) 65%, transparent);
+  border-radius: 28px;
+  background: color-mix(in srgb, var(--room-paper) 86%, transparent);
+  backdrop-filter: blur(12px);
 }
 .app-main:has(> .companion-scene[data-scene-family]) > .titlebar .primary-navigation > button { color: var(--room-nav-ink); text-shadow: var(--room-nav-shadow); }
 .app-main:has(> .companion-scene[data-scene-family]) > .titlebar .primary-navigation > button[aria-current='page'] { color: var(--room-nav-ink); }
@@ -251,7 +262,7 @@
   text-shadow: var(--room-air-shadow);
 }
 .app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .return-bookmark-copy strong {
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 450;
   line-height: 1.75;
 }
@@ -279,11 +290,27 @@
   text-shadow: var(--room-air-shadow);
 }
 .app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome .composer-area > :is(.shared-map-context,.material-composer-quote,.conversation-focus-chip) button { color: inherit; }
+.app-main:has(> .companion-scene[data-scene-family]) .workspace .composer-area > .shared-map-context {
+  box-sizing: border-box;
+  width: fit-content;
+  max-width: 100%;
+  padding: 8px 11px;
+  border: 1px solid var(--room-paper-edge);
+  border-radius: 12px;
+  background: var(--room-paper);
+  color: var(--room-ink);
+  text-shadow: none;
+}
+.app-main:has(> .companion-scene[data-scene-family]) .workspace .shared-map-context > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.app-main:has(> .companion-scene[data-scene-family]) .workspace .shared-map-context button { color: inherit; flex-shrink: 0; }
 .app-main:has(> .companion-scene[data-scene-family]) .workspace.welcome :is(.startup-status,.harness-inline-error) { color: var(--room-air-ink); text-shadow: var(--room-air-shadow); }
 
 /* Only the words and their controls need paper. Leaving the workspace
    transparent keeps a short reply from becoming a curtain over the room. */
-.app-main[data-room-layout]:has(> .companion-scene[data-scene-family]) > .conversation-space > .workspace.conversation {
+.app-main[data-room-layout]:has(> .companion-scene[data-scene-family]) > .conversation-space .conversation-workspace-host > .workspace.conversation {
   --text: var(--room-ink);
   --text-secondary: var(--room-ink-secondary);
   --text-tertiary: #887b6b;
@@ -347,8 +374,88 @@
   background: var(--conversation-text-paper);
 }
 .app-main:has(> .companion-scene[data-scene-family]) .workspace.conversation .message-actions:empty { display: none; }
+
+/* One reply is one reading surface. Keep the direct chat host scoped away
+   from the material reader and the Notes discussion portal. The surface
+   grows with its real content, rather than painting the whole workspace. */
+.app-main[data-room-layout]:has(> .companion-scene[data-scene-family]) > .conversation-space:not(.with-materials) .conversation-workspace-host > .workspace.conversation .assistant-message {
+  box-sizing: border-box;
+  width: fit-content;
+  max-width: min(840px, 100%);
+  min-width: 0;
+  margin-bottom: 28px;
+  padding: 18px 20px 16px;
+  border: 0;
+  border-radius: 18px;
+  background: var(--conversation-text-paper);
+  box-shadow: var(--conversation-text-shadow);
+  color: var(--text);
+}
+.app-main[data-room-layout]:has(> .companion-scene[data-scene-family]) > .conversation-space:not(.with-materials) .conversation-workspace-host > .workspace.conversation .assistant-message:has(.interactive-program,.scene-composition) {
+  width: 100%;
+  max-width: 100%;
+}
+.app-main[data-room-layout]:has(> .companion-scene[data-scene-family]) > .conversation-space:not(.with-materials) .conversation-workspace-host > .workspace.conversation .assistant-message > div {
+  min-width: 0;
+}
+.app-main[data-room-layout]:has(> .companion-scene[data-scene-family]) > .conversation-space:not(.with-materials) .conversation-workspace-host > .workspace.conversation .assistant-message > .assistant-name {
+  margin-bottom: 10px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.app-main[data-room-layout]:has(> .companion-scene[data-scene-family]) > .conversation-space:not(.with-materials) .conversation-workspace-host > .workspace.conversation .assistant-message > div > .markdown {
+  width: auto;
+  max-width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.app-main[data-room-layout]:has(> .companion-scene[data-scene-family]) > .conversation-space:not(.with-materials) .conversation-workspace-host > .workspace.conversation .assistant-message > :is(.message-actions,.message-host-status,.historical-change) {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.app-main[data-room-layout]:has(> .companion-scene[data-scene-family]) > .conversation-space:not(.with-materials) .conversation-workspace-host > .workspace.conversation .assistant-message > .message-actions {
+  margin: 14px 0 0;
+  gap: 12px;
+}
+.app-main[data-room-layout]:has(> .companion-scene[data-scene-family]) > .conversation-space:not(.with-materials) .conversation-workspace-host > .workspace.conversation .assistant-message :is(.keep-reply-evidence,.chat-process) {
+  --source-surface: transparent;
+}
+.app-main[data-room-layout]:has(> .companion-scene[data-scene-family]) > .conversation-space:not(.with-materials) .conversation-workspace-host > .workspace.conversation .assistant-message :is(.chat-process-toggle,.chat-process-activity,.evidence-toggle) {
+  padding-inline: 0;
+  border-radius: 0;
+  background: transparent;
+  backdrop-filter: none;
+}
+.app-main[data-room-layout]:has(> .companion-scene[data-scene-family]) > .conversation-space:not(.with-materials) .conversation-workspace-host > .workspace.conversation .assistant-message :is(.chat-process-details,.keep-source-list,.keep-source-error) {
+  backdrop-filter: none;
+}
+@media (max-width: 600px) {
+  .app-main[data-room-layout]:has(> .companion-scene[data-scene-family]) > .conversation-space:not(.with-materials) .conversation-workspace-host > .workspace.conversation .assistant-message {
+    padding: 16px 14px;
+    border-radius: 16px;
+  }
+}
 .app-main:has(> .companion-scene[data-scene-family]) .workspace.conversation .bottom-composer { padding-bottom: 24px; }
 .app-main:has(> .companion-scene[data-scene-family]) .workspace.conversation .composer-foot { color: var(--text-secondary); }
+.app-main:has(> .companion-scene[data-scene-family]) .workspace.conversation .interactive-program:not(:has(.interactive-paper.is-paper)) .interactive-document.is-flow {
+  padding: 24px 28px;
+  border: 1px solid var(--conversation-text-edge, var(--room-paper-edge));
+  border-radius: 14px;
+  background: var(--room-paper);
+  box-shadow: var(--conversation-text-shadow);
+}
+@media (max-width: 600px) {
+  .app-main:has(> .companion-scene[data-scene-family]) .workspace.conversation .interactive-program:not(:has(.interactive-paper.is-paper)) .interactive-document.is-flow { padding: 18px 16px; }
+}
 
 /* A compact window keeps the complete room above the working area. Its
    captions return to paper ink once they no longer lie over the picture. */
@@ -357,7 +464,7 @@
   --room-air-secondary: var(--text-secondary);
   --room-air-shadow: none;
 }
-.app-main[data-room-layout='stacked']:has(> .companion-scene[data-scene-family]) > .conversation-space > .workspace.welcome > .welcome-inner {
+.app-main[data-room-layout='stacked']:has(> .companion-scene[data-scene-family]) > .conversation-space .conversation-workspace-host > .workspace.welcome > .welcome-inner {
   width: var(--room-paper-width);
   margin: 0 0 0 var(--room-paper-left);
   padding-block: 14px 28px;
@@ -374,14 +481,7 @@
 
 /* At night the same local papers take their light from the lamp. Their
    foreground stays opaque without shading the space between messages. */
-:root[data-palette='rain'] .app-main[data-room-layout]:has(> .companion-scene[data-scene-family]) > .conversation-space > .workspace.conversation {
-  --room-ink: #f4e6cf;
-  --room-ink-secondary: #d5c1a1;
-  --room-paper: #493224;
-  --room-paper-raised: #4c3527;
-  --room-paper-edge: #8f6a43;
-  --room-paper-accent: #e0bb7b;
-  --room-paper-accent-soft: #6c4c30;
+:root[data-palette='rain'] .app-main[data-room-layout]:has(> .companion-scene[data-scene-family]) > .conversation-space .conversation-workspace-host > .workspace.conversation {
   --text-tertiary: #baa486;
   --muted-strong: #e5d2b0;
   --accent-dim: #c59a60;

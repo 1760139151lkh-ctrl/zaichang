@@ -62,7 +62,7 @@
 .material-original { margin:0; min-height:100%; box-sizing:border-box; padding:clamp(23px,3vw,45px); white-space:pre-wrap; overflow-wrap:anywhere; font:400 var(--reading-size)/2 var(--font-body); color:var(--text); background:var(--surface-raised); box-shadow:0 2px 13px #59462f0a; border-radius:3px; }
 .material-original::selection { background:var(--accent-soft); }
 .material-original *::selection { background:var(--accent-soft); }
-.material-selection-actions { position:absolute; z-index:6; display:flex; align-items:center; max-width:calc(100% - 24px); padding:6px; background:var(--surface-raised); border:1px solid var(--separator); border-radius:13px; box-shadow:0 5px 24px #5e45221a; animation:material-action-arrive 150ms var(--ease); }
+.material-selection-actions { position:absolute; z-index:6; display:flex; flex-wrap:wrap; align-items:center; box-sizing:border-box; max-width:calc(100% - 16px); padding:6px; background:var(--surface-raised); border:1px solid var(--separator); border-radius:13px; box-shadow:0 5px 24px #5e45221a; animation:material-action-arrive 150ms var(--ease); }
 .material-selection-actions button { display:flex; align-items:center; gap:8px; border:0; border-radius:8px; background:transparent; color:var(--text); padding:10px 13px; font:inherit; font-size:13px; white-space:nowrap; }
 .material-selection-actions button+button { border-left:1px solid var(--separator); border-radius:0 8px 8px 0; }
 .material-selection-actions button:hover { background:var(--accent-soft); color:var(--accent); }

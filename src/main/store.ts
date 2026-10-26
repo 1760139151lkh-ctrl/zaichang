@@ -348,6 +348,7 @@ export class Store {
           ...(m.contextReceipt.providedSourceIds || []),
           ...(m.contextReceipt.campusSensitiveReads || []).map(source => source.authorizationEventId),
           ...(m.contextReceipt.noteSources || []).map(source => source.id),
+          ...(m.contextReceipt.assistantTextSources || []).map(source => source.messageId),
           ...(m.contextReceipt.spatialSources || []).flatMap(source => source.origin.kind === 'binding' ? [source.origin.id] : []),
           ...(m.contextReceipt.releaseSources || []).map(source => source.messageId),
           ...(m.contextReceipt.materialNavigationSources || []).flatMap(source =>

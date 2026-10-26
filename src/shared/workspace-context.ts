@@ -21,6 +21,15 @@ const id = z.string().min(1).max(160);
 const revision = z.number().int().positive();
 const sha256 = z.string().regex(/^[a-f0-9]{64}$/);
 
+/** A position in a retained published assistant reply. It identifies what
+ * was said, never a user statement, business fact or permission to act. */
+export const assistantTextReferenceSchema = z.object({
+  sessionId: id, messageId: id, contentSha256: sha256,
+  start: z.number().int().nonnegative(), end: z.number().int().positive(),
+}).strict().refine(value => value.end > value.start && value.end - value.start <= 4000,
+  '从这段解释里选一小段，再接着聊。');
+export type AssistantTextReference = z.infer<typeof assistantTextReferenceSchema>;
+
 /** Addresses stay with their original owners. This envelope accepts neither
  * copied source bodies, unsent drafts, filesystem paths nor permissions. */
 export const workspaceTargetSchema = z.discriminatedUnion('kind', [
@@ -28,6 +37,7 @@ export const workspaceTargetSchema = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('note_quote'), reference: noteQuoteReferenceSchema }).strict(),
   z.object({ kind: z.literal('notebook_quote'), reference: notebookQuoteReferenceSchema }).strict(),
   z.object({ kind: z.literal('conversation_quote'), reference: conversationBookmarkReferenceSchema }).strict(),
+  z.object({ kind: z.literal('assistant_text'), reference: assistantTextReferenceSchema }).strict(),
   z.object({ kind: z.literal('agenda'), reference: agendaFocusSchema }).strict(),
   z.object({ kind: z.literal('map_route'), reference: mapRouteReferenceSchema }).strict(),
   z.object({ kind: z.literal('study'), reference: studyFocusRefSchema }).strict(),

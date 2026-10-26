@@ -1,0 +1,289 @@
+{
+  "date": "2026-10-26",
+  "generator": "image_gen",
+  "scope": "本轮主代理独立完成的设计与运行资产。SHA连接原件、生成输入与实际引用；运行文件不依赖生成工具目录。",
+  "evidence": "docs/evidence/2026-10-26-frontend-reassessment.md",
+  "entries": [
+    {
+      "file": "前端视觉创新设计/运行素材/companion/edge/sakiko-curl-v1.png",
+      "sha256": "7f29efe5e4e012489ddcac39baffebbd26f34444ece6e126b564fc61d5342ad2",
+      "bytes": 1377126,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/cat-variants/curl-clean.source.json",
+      "role": "companion-layer",
+      "runtime": true,
+      "archiveCopies": [
+        "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/cat-variants/curl-clean.png"
+      ]
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/companion/edge/sakiko-loaf-v1.png",
+      "sha256": "84ddfa7628a51512b687a1b9fc1df2b200f4d392d2fff46910a4914999c9bdba",
+      "bytes": 1358315,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/cat-variants/loaf-clean.source.json",
+      "role": "companion-layer",
+      "runtime": true,
+      "archiveCopies": [
+        "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/cat-variants/loaf-clean.png"
+      ]
+    },
+    {
+      "file": "前端视觉创新设计/补充图稿/2026-10-26-product-reassessment/conversation-a.png",
+      "sha256": "f14ba0ce959348736091158c18be1b973a3e0191d5183f140c551c21ca959a6c",
+      "bytes": 2003734,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/conversation-a.source.json",
+      "role": "mockup",
+      "runtime": false
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/workspaces/conversation-apricot.png",
+      "sha256": "d69c1a7d0477c66d612759c61fdaa2e4790fcf3494b019a7cebd51f4da3719e2",
+      "bytes": 1936535,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/conversation-apricot.source.json",
+      "role": "environment",
+      "runtime": true
+    },
+    {
+      "file": "前端视觉创新设计/补充图稿/2026-10-26-product-reassessment/conversation-b.png",
+      "sha256": "baade675dc8dcc8ae1965bf737ec0aefea4da43288e19795f79d99f5185a8ea1",
+      "bytes": 2067638,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/conversation-b.source.json",
+      "role": "mockup",
+      "runtime": false
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/workspaces/conversation-mist.png",
+      "sha256": "dbd303ba05cc6625adb3131271f9607f2432f9937b2dba8dfa584bd519734740",
+      "bytes": 1930928,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/conversation-mist.source.json",
+      "role": "environment",
+      "runtime": true
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/workspaces/conversation-rain.png",
+      "sha256": "4ac323acb64d225d56d6f501100c57a21fdfaffec35deadcc4a3bd4f21d89840",
+      "bytes": 1910799,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/conversation-rain.source.json",
+      "role": "environment",
+      "runtime": true
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/workspaces/conversation-violet.png",
+      "sha256": "8fecb803a394166b514a5c3005089ed53020fa785570ca61641769f531debb26",
+      "bytes": 2010839,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/conversation-violet.source.json",
+      "role": "environment",
+      "runtime": true
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/workspaces/keep-apricot.png",
+      "sha256": "5735d5a4ae4c99495faa89fed9c0a2195f713c3be73f5cb80551f53e613bf1eb",
+      "bytes": 2400531,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/keep-apricot.source.json",
+      "role": "environment",
+      "runtime": true
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/workspaces/keep-mist.png",
+      "sha256": "b8b09f12d75e11eb3594acc4eafc1a042222862efeea77f42a8fc5e984d15b82",
+      "bytes": 2204375,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/keep-mist.source.json",
+      "role": "environment",
+      "runtime": true
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/workspaces/keep-rain.png",
+      "sha256": "e9b11f316cbfa3b1a15100db148b39d16b35036d3bb052023da854cff1e08f5f",
+      "bytes": 2123258,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/keep-rain.source.json",
+      "role": "environment",
+      "runtime": true
+    },
+    {
+      "file": "前端视觉创新设计/补充图稿/2026-10-26-product-reassessment/keep-ui.png",
+      "sha256": "05b9b89767f6019d2c58efa1d0f21bf4a7f59f9c764aed81c20a3d3842366754",
+      "bytes": 2196270,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/keep-ui.source.json",
+      "role": "mockup",
+      "runtime": false
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/workspaces/keep-violet.png",
+      "sha256": "c16cf11298fe4c18c6ab8358203de294d92283d126b0d14d1559418f5097f5bc",
+      "bytes": 2127308,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/keep-violet.source.json",
+      "role": "environment",
+      "runtime": true
+    },
+    {
+      "file": "前端视觉创新设计/补充图稿/2026-10-26-product-reassessment/memory-ui.png",
+      "sha256": "a0703ca9c9ee7b701f6eaf687be6c81d1212929a1b45f39f42960812734e5235",
+      "bytes": 2332341,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/memory-ui.source.json",
+      "role": "mockup",
+      "runtime": false
+    },
+    {
+      "file": "前端视觉创新设计/补充图稿/2026-10-26-product-reassessment/studio-ui.png",
+      "sha256": "58123e9585bf409ca6534e14015b14766b84606f5fae7a5e0ba6627ecf75caea",
+      "bytes": 2728563,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/studio-ui.source.json",
+      "role": "mockup",
+      "runtime": false
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/workspaces/study-apricot.png",
+      "sha256": "5a1c65a27eb4cb6e6fd95f5904f6f0207df2f78c564d3c85c3ce00a6abd86019",
+      "bytes": 2887972,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/study-apricot.source.json",
+      "role": "environment",
+      "runtime": true
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/workspaces/study-mist.png",
+      "sha256": "06589f3c295553d1e03415bd45b1f5e8f4adcd1554396de69d199c6202709d50",
+      "bytes": 2939773,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/study-mist.source.json",
+      "role": "environment",
+      "runtime": true
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/workspaces/study-rain.png",
+      "sha256": "3beca82cd7605ca9632bf2e89c6f4d2462ac0bf0e7efd6e45c10a8ff78a471f6",
+      "bytes": 2950905,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/study-rain.source.json",
+      "role": "environment",
+      "runtime": true
+    },
+    {
+      "file": "前端视觉创新设计/补充图稿/2026-10-26-product-reassessment/study-ui.png",
+      "sha256": "9b13ccbe17d8618944a531eb57d3fd483c3b9b60c37a3f2493331a27459f17a1",
+      "bytes": 2361509,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/study-ui.source.json",
+      "role": "mockup",
+      "runtime": false
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/workspaces/study-violet.png",
+      "sha256": "da3fc165d7347b384c32ca11b117efb528b4d621f72389285ba39ef4734d8ae1",
+      "bytes": 2891569,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/study-violet.source.json",
+      "role": "environment",
+      "runtime": true
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/workspaces/today-apricot.png",
+      "sha256": "eea0f2d6b3307530fa641286f441faecc9c870d14e09e19237fc97ba788fa89d",
+      "bytes": 2536988,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/today-apricot.source.json",
+      "role": "environment",
+      "runtime": false
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/workspaces/today-colonnade-apricot.png",
+      "sha256": "8add8f24c3c14274a0fcdf639a0ad45ebb342cff948ce96945283cb5b2d2f077",
+      "bytes": 2362004,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/today-colonnade-apricot.source.json",
+      "role": "companion-layer",
+      "runtime": true
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/workspaces/today-colonnade-mist.png",
+      "sha256": "412a769388b430db8d73de3e3182eac9bbf7671aa02aa6bddfd81e36b49d34d3",
+      "bytes": 2334997,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/today-colonnade-mist.source.json",
+      "role": "companion-layer",
+      "runtime": true
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/workspaces/today-colonnade-rain.png",
+      "sha256": "aee3f4216f060a7fc2ee9c8aad40338e3a8ac76bca970c96012162bc888a09b3",
+      "bytes": 2671301,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/today-colonnade-rain.source.json",
+      "role": "companion-layer",
+      "runtime": true
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/workspaces/today-colonnade-violet.png",
+      "sha256": "6045cc4efc1a3d81a07b971a4401a4d7c5e68abc362d619ab1b117def18c8ffd",
+      "bytes": 2347929,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/today-colonnade-violet.source.json",
+      "role": "companion-layer",
+      "runtime": true
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/workspaces/today-mist.png",
+      "sha256": "1049bcffcebe8c6f6614036275ea0d90feb02696bf74e17f9042754615e2ae0c",
+      "bytes": 2511313,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/today-mist.source.json",
+      "role": "environment",
+      "runtime": false
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/workspaces/today-rain.png",
+      "sha256": "3ad0311054916266fa287c2f4eee914dcb629e41a8fa31c14847877fbeeceb09",
+      "bytes": 2728558,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/today-rain.source.json",
+      "role": "environment",
+      "runtime": false
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/workspaces/today-sakiko-apricot.png",
+      "sha256": "af37e3ab5ea15103049112f9261f2c7ead54cf68009bba7e55657d1556d2f2e7",
+      "bytes": 2464443,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/today-sakiko-apricot.source.json",
+      "role": "companion-layer",
+      "runtime": true,
+      "archiveCopies": [
+        "前端视觉创新设计/补充图稿/2026-10-26-product-reassessment/today-sakiko-apricot.png"
+      ]
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/workspaces/today-sakiko-mask.png",
+      "sha256": "53e2901e3ea666b4d83b721a75cbf20a48910871a249766d33b05058e7f346ee",
+      "bytes": 450322,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/today-sakiko-mask.source.json",
+      "role": "companion-layer",
+      "runtime": true
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/workspaces/today-sakiko-mist.png",
+      "sha256": "751dc039d1657c4b1f090256665fc30340baa982ae9949bbd42854b2eba07af3",
+      "bytes": 2444331,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/today-sakiko-mist.source.json",
+      "role": "companion-layer",
+      "runtime": true
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/workspaces/today-sakiko-rain.png",
+      "sha256": "6c89c21f8d39f887c1cf854ba91fcd820c466f5ee3e16b3706d7a34d1b8be20b",
+      "bytes": 2820336,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/today-sakiko-rain.source.json",
+      "role": "companion-layer",
+      "runtime": true
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/workspaces/today-sakiko-violet.png",
+      "sha256": "618186b052d9cba787e6c0feaa2fa19990647281fb1d4130b8f27ca18a65bfd0",
+      "bytes": 2413088,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/today-sakiko-violet.source.json",
+      "role": "companion-layer",
+      "runtime": true
+    },
+    {
+      "file": "前端视觉创新设计/补充图稿/2026-10-26-product-reassessment/today-ui.png",
+      "sha256": "f71ee3c49365069c005f8d4b0fcdd87abd1fbf4a7db1c4dd922575235e748614",
+      "bytes": 2467285,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/today-ui.source.json",
+      "role": "mockup",
+      "runtime": false
+    },
+    {
+      "file": "前端视觉创新设计/运行素材/workspaces/today-violet.png",
+      "sha256": "9b4c8ef691c6c82b320c38fa12b841580e98af1c87f05fec24af59533350cc4b",
+      "bytes": 2516195,
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/today-violet.source.json",
+      "role": "environment",
+      "runtime": false
+    }
+  ]
+}

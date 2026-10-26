@@ -16,6 +16,9 @@ export function workspaceInputControls(controls: InputControls, target: Workspac
     case 'note_quote': focused.noteQuote = target.reference; break;
     case 'notebook_quote': focused.notebookQuote = target.reference; break;
     case 'conversation_quote': focused.conversationQuote = target.reference; break;
+    // A selected assistant passage uses the workspace's narrow history owner,
+    // never the user-original conversationQuote control.
+    case 'assistant_text': break;
     case 'agenda': focused.agendaFocus = target.reference; break;
     case 'map_route': focused.mapRouteReference = target.reference; break;
     case 'study': focused.studyInteraction = { kind: 'reference', focus: target.reference }; break;
@@ -56,6 +59,7 @@ export function workspaceFocusedRun(session: RunSession, target: WorkspaceTarget
     case 'note_quote': focused.noteQuote = target.reference; break;
     case 'notebook_quote': focused.notebookQuote = target.reference; break;
     case 'conversation_quote': focused.conversationQuote = target.reference; break;
+    case 'assistant_text': break;
     case 'agenda': focused.agendaFocus = target.reference; break;
     case 'map_route': focused.mapRouteReference = target.reference; break;
     case 'study': focused.studyInteraction = { kind: 'reference', focus: target.reference }; break;
@@ -75,6 +79,7 @@ export function workspaceProjectionKey(target: WorkspaceTarget) {
     case 'material_quote': return 'currentMaterial';
     case 'note_quote': case 'notebook_quote': case 'note': case 'notebook': return 'currentNote';
     case 'conversation_quote': return 'currentConversationQuote';
+    case 'assistant_text': return 'currentAssistantText';
     case 'agenda': return 'currentAgenda';
     case 'map_route': return 'currentMapRoute';
     case 'study': return 'currentStudy';

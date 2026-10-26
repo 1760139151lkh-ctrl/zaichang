@@ -1,15 +1,9 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import {
   ArrowUpRight,
-  CalendarDays,
   Check,
-  ChevronLeft,
   ChevronRight,
   Circle,
-  Clock3,
-  List,
-  Plus,
-  Search,
   Undo2,
   X,
 } from 'lucide-react';
@@ -28,6 +22,7 @@ import type { SharedMatterView } from '../shared/presentation';
 import type { CampusScheduleBlock } from '../shared/campus-calendar';
 import type { AgendaDayResult, AgendaFocus, AgendaOccurrence, AgendaReference } from '../shared/agenda';
 import './today.css';
+import { TodayNavigation } from './TodayNavigation';
 import { CalendarHandoff } from './CalendarHandoff';
 import { CampusDayControls, CampusScheduleRow, useCampusDaySchedule } from './CampusDaySchedule';
 import { AgendaDayTimeline, agendaDayWindow, agendaTimedRange, campusTimedRange } from './AgendaDayTimeline';
@@ -401,14 +396,6 @@ export function AgendaView({
     entry.kind === 'action' ? entry.occurrence ? !!entry.item.allDayDate || !entry.occurrence.end : !agendaTimedRange(entry.item)
       : !campusTimedRange(entry.item),
   );
-  const weekday = new Date(`${selectedDate}T12:00:00Z`).getUTCDay();
-  const monday = shiftDate(selectedDate, -((weekday + 6) % 7));
-  const week = Array.from({ length: 7 }, (_, index) => shiftDate(monday, index));
-  const datedDays = new Set(
-    ordered.filter((item) => !item.done && !item.recurrence).map((item) => actionDate(item, zone)),
-  );
-  if (nativeDay?.items.length) datedDays.add(selectedDate);
-  const selectedLabel = dateLabel(selectedDate);
   const heading = section === 'entrusted' ? '你交给我的事' : selectedDate === today ? '今天' : '这一天';
 
   function closeEditor() {
@@ -599,187 +586,21 @@ export function AgendaView({
       }}>
     <PagePanel
       title={heading}
-      eyebrow={section === 'agenda' ? selectedLabel : undefined}
       onClose={onClose}
       className={`agenda-page today-page ${section === 'entrusted' ? 'is-entrusted' : ''}`}
+      headingContent={<TodayNavigation selectedDate={selectedDate} today={today} timeZoneLabel={timeZoneLabel(zone)}
+        section={section} scope={scope} query={query} dayLayout={dayLayout} hasTimeline={hasTimeline} attention={attention}
+        onDateChange={date => { setSelectedDate(date); setScope('day'); setQuery(''); }}
+        onSectionChange={setSection} onScopeChange={value => { setScope(value); setQuery(''); }}
+        onQueryChange={setQuery} onLayoutChange={setDayLayout} onCompose={onCompose}
+        onDiscussDay={() => onContinue(`我们接着聊 ${selectedDate} 这一天的安排。`)}
+        campusTools={state.presentation?.mode !== 'public'
+          ? <CampusDayControls campus={campus} dayVisible={campusDayVisible} timeZone={zone} /> : undefined}
+        calendarTools={<CalendarHandoff date={selectedDate} timeZone={zone} />} />}
     >
       <div className={`today-page-layout ${inlineEditing ? 'has-current-object' : ''}`}>
       <div className="today-main">
-      <div className="today-navigation-row">
-      <div className="today-section-tabs" role="tablist" aria-label="今天的内容">
-        <button
-          type="button"
-          role="tab"
-          id="today-agenda-tab"
-          aria-controls="today-agenda-panel"
-          aria-selected={section === 'agenda'}
-          onClick={() => setSection('agenda')}
-        >
-          安排
-        </button>
-        <button
-          type="button"
-          role="tab"
-          id="today-entrusted-tab"
-          aria-controls="today-entrusted-panel"
-          aria-selected={section === 'entrusted'}
-          onClick={() => setSection('entrusted')}
-        >
-          你交给我的事
-          {attention > 0 && <span className="today-attention-dot" aria-label="有一件事需要看看" />}
-        </button>
-      </div>
-      {section === 'agenda' && (
-        <div className="today-date-heading">
-          <small>{timeZoneLabel(zone)}</small>
-          <div className="today-date-actions">
-            <button
-              type="button"
-              className="text-button"
-              onClick={() => {
-                setSelectedDate(today);
-                setScope('day');
-                setQuery('');
-              }}
-            >
-              今天
-            </button>
-            <label className="today-date-picker">
-              <CalendarDays size={16} />
-              <span>选一天</span>
-              <input
-                type="date"
-                aria-label="选择日期"
-                value={selectedDate}
-                onChange={(event) => {
-                  if (event.target.value) {
-                    setSelectedDate(event.target.value);
-                    setScope('day');
-                    setQuery('');
-                  }
-                }}
-              />
-            </label>
-            <CalendarHandoff date={selectedDate} timeZone={zone} />
-          </div>
-        </div>
-      )}
-      </div>
-      <div
-        id="today-agenda-panel"
-        role="tabpanel"
-        aria-labelledby="today-agenda-tab"
-        hidden={section !== 'agenda'}
-      >
-        <div className="today-week" aria-label="这一周">
-          <IconButton
-            label="前一周"
-            onClick={() => {
-              setSelectedDate(shiftDate(selectedDate, -7));
-              setScope('day');
-              setQuery('');
-            }}
-          >
-            <ChevronLeft size={17} />
-          </IconButton>
-          <div className="today-week-days">
-            {week.map((date, index) => (
-              <button
-                type="button"
-                key={date}
-                aria-label={dateLabel(date)}
-                aria-pressed={selectedDate === date && scope === 'day' && !search}
-                className={date === today ? 'is-today' : ''}
-                onClick={() => {
-                  setSelectedDate(date);
-                  setScope('day');
-                  setQuery('');
-                }}
-              >
-                <span>{['周一', '周二', '周三', '周四', '周五', '周六', '周日'][index]}</span>
-                <strong>{Number(date.slice(8))}</strong>
-                <i className={datedDays.has(date) ? 'has-arrangement' : ''} aria-hidden="true" />
-              </button>
-            ))}
-          </div>
-          <IconButton
-            label="后一周"
-            onClick={() => {
-              setSelectedDate(shiftDate(selectedDate, 7));
-              setScope('day');
-              setQuery('');
-            }}
-          >
-            <ChevronRight size={17} />
-          </IconButton>
-        </div>
-        <div className="today-browse-tools">
-        {state.presentation?.mode !== 'public' && (
-          <CampusDayControls campus={campus} dayVisible={campusDayVisible} timeZone={zone} />
-        )}
-        <div className="today-list-tools">
-          <div className="today-scope" aria-label="安排范围">
-            {(
-              [
-                ['day', '当天'],
-                ['all', '全部安排'],
-                ['undated', '未定日期'],
-                ['completed', '做过的事'],
-              ] as const
-            ).map(([value, label]) => (
-              <button
-                type="button"
-                key={value}
-                aria-pressed={!search && scope === value}
-                onClick={() => {
-                  setScope(value);
-                  setQuery('');
-                }}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-          <div className="today-search-tools">
-            <div className="today-search">
-              <Search size={16} />
-              <input
-                aria-label="搜索所有日期的本机安排"
-                placeholder="找一件事"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-              />
-              {query && (
-                <IconButton label="清空搜索" onClick={() => setQuery('')}>
-                  <X size={13} />
-                </IconButton>
-              )}
-            </div>
-            {scope === 'day' && !search && hasTimeline && (
-              <div className="today-layout-toggle" aria-label="安排视图">
-                <button
-                  type="button"
-                  title="时间轴"
-                  aria-label="时间轴"
-                  aria-pressed={dayLayout === 'timeline'}
-                  onClick={() => setDayLayout('timeline')}
-                >
-                  <Clock3 size={16} />
-                </button>
-                <button
-                  type="button"
-                  title="列表"
-                  aria-label="列表"
-                  aria-pressed={dayLayout === 'list'}
-                  onClick={() => setDayLayout('list')}
-                >
-                  <List size={16} />
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-        </div>
+      <div id="today-agenda-panel" role="region" aria-label="安排" hidden={section !== 'agenda'}>
         {search && <p className="today-search-note">在所有日期的本机安排里找「{query.trim()}」</p>}
         {moveUndo && (
           <div className="today-move-undo" role="status">
@@ -914,21 +735,6 @@ export function AgendaView({
                         ? '还没有记下安排。'
                         : '这一天，还没有记下的安排。'}
               </h2>
-              <p>
-                {search
-                  ? '换个词试试，所有日期里的安排都会一起找。'
-                  : scope === 'completed'
-                    ? '可以回头看看，也可以再接着做。'
-                    : scope === 'undated'
-                      ? '不必马上为它选一个时间。'
-                      : '想起一件事时，再记下来也来得及。'}
-              </p>
-              {scope === 'day' && !search && (
-                <button type="button" className="text-button" onClick={() => setScope('all')}>
-                  看看全部安排
-                  <ArrowUpRight size={14} />
-                </button>
-              )}
             </div>
           )}
         </div>
@@ -945,23 +751,8 @@ export function AgendaView({
         {!search && scope !== 'completed' && scope !== 'undated' && !!repeated.length && (scope !== 'day' || !nativeDay) && (
           <section className="today-repeated">
             <h2>重复的安排</h2>
-            <p>从这里改一次，或调整整个安排。</p>
             {repeated.map((item) => row(item, true))}
           </section>
-        )}
-        <button type="button" className="today-add" onClick={onCompose}>
-          <Plus size={17} />
-          记一件事
-        </button>
-        {scope === 'day' && !search && (
-          <button
-            type="button"
-            className="today-continue-day text-button"
-            onClick={() => onContinue(`我们接着聊 ${selectedDate} 这一天的安排。`)}
-          >
-            接着聊这一天
-            <ArrowUpRight size={14} />
-          </button>
         )}
         {!!state.matters?.length && (
           <details className="shared-matters today-matters">
@@ -982,20 +773,14 @@ export function AgendaView({
             ))}
           </details>
         )}
-        <p className="page-footnote">
-          {state.settings.remindersEnabled
-            ? '在场开着时，会在约好的时间提醒你。'
-            : '想在约好的时间听到提醒，可以在偏好里打开。'}
-        </p>
       </div>
       {active && section === 'entrusted' && (
         <div
           id="today-entrusted-panel"
-          role="tabpanel"
-          aria-labelledby="today-entrusted-tab"
+          role="region"
+          aria-label="你交给我的事"
           className="today-entrusted"
         >
-          <p className="today-entrusted-lede">放在这里的事，随时可以继续，也可以先歇一歇。</p>
           <WorkAndReceipts
             key={`${state.privacyEpoch}:${state.policyRevision}`}
             onResume={onResume}

@@ -176,6 +176,7 @@ export function MapSurface({
   onChoose,
   onEngine,
   onTakeControl,
+  onPresenceHost,
   sharedSelectionId,
 }: {
   initialRoute: MapRouteResult;
@@ -193,6 +194,8 @@ export function MapSurface({
   onChoose?: (point: MapPoint) => void;
   onEngine?: (engine: CampusMapEngine | undefined) => void;
   onTakeControl?: () => void;
+  /** Desktop may carry the same companion into this top-layer surface. */
+  onPresenceHost?: (host: HTMLElement | null) => void;
   /** Reopening a handed-off preview stops acquisition on exit, while keeping
    * that already-authorized snapshot until its normal stop/expiry boundary. */
   sharedSelectionId?: string;
@@ -717,6 +720,7 @@ export function MapSurface({
       : undefined;
   return (
     <section
+      ref={publicOnly ? undefined : onPresenceHost}
       className={`campus-v2-dialog campus-v2-surface${inline?' campus-map-inline':''}`}
       aria-label="校园地图"
       onKeyDown={(event)=>{if(event.key==='Escape')cancel(event);}}

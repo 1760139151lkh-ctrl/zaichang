@@ -1,4 +1,4 @@
-import { edgeCompanionArtwork, type EdgeCompanionArtwork } from './edge-companion-assets';
+import { edgeCompanionArtwork, type EdgeCompanionArtwork, type EdgeCompanionPose } from './edge-companion-assets';
 
 export type PresenceEdgeSide = 'top' | 'right' | 'bottom' | 'left';
 export type EdgeCompanionRotation = -90 | 0 | 90 | 180;
@@ -7,6 +7,10 @@ export interface EdgePoint { x: number; y: number }
 export interface EdgeBox { left: number; top: number; right: number; bottom: number }
 export interface PresenceEdgeSurface {
   id: string; label: string; element: HTMLElement; sides: PresenceEdgeSide[]; box: EdgeBox;
+  pose?: EdgeCompanionPose;
+  point?: boolean;
+  sceneAnchor?: boolean;
+  visibleBox?: EdgeBox;
 }
 export interface EdgeCompanionScene {
   host: HTMLElement; bounds: EdgeBox; surfaces: PresenceEdgeSurface[]; obstacles: EdgeBox[];
@@ -15,7 +19,7 @@ export interface EdgeCompanionScene {
 export interface EdgeCompanionDock {
   placement: EdgeCompanionPlacement; surface: PresenceEdgeSurface; artwork: EdgeCompanionArtwork;
   mirrored: boolean; rotation: EdgeCompanionRotation; x: number; y: number; width: number; height: number; ink: EdgeBox;
-  contact: EdgePoint;
+  contact: EdgePoint; support: EdgePoint;
 }
 
 const sides: PresenceEdgeSide[] = ['top', 'right', 'bottom', 'left'];
@@ -57,8 +61,20 @@ export function readEdgeCompanionScene(host: HTMLElement, anchor?: HTMLElement |
       || element.dataset.presenceEdgeDisabled === 'true') continue;
     const rect = element.getBoundingClientRect();
     if (!rect.width || !rect.height || getComputedStyle(element).visibility === 'hidden') continue;
+    const exposed = element === host ? rect : visibleRect(element, rect);
+    if (!exposed) continue;
+    if (element.dataset.presenceEdgeScene === 'true') {
+      const cover = document.elementsFromPoint(rect.left + rect.width / 2, rect.top + 1)
+        .find(node => !node.closest('.edge-companion-stage'));
+      if (cover?.closest('.titlebar,.page-content,.notes-content,.workspace,.reading-desk-frame,.keep-index,.keep-object,.keep-empty')) continue;
+    }
     const allowed = element.dataset.presenceEdgeSides?.split(/[ ,]+/).filter((side): side is PresenceEdgeSide => sides.includes(side as PresenceEdgeSide));
+    const pose = element.dataset.presenceEdgePose;
     scene.surfaces.push({ id, label: element.dataset.presenceEdgeLabel || (element === host ? '窗口' : '这张纸'), element,
+      ...(pose === 'loaf' || pose === 'curl' ? { pose } : {}),
+      ...(element.dataset.presenceEdgePoint === 'true' ? { point: true } : {}),
+      ...(element.dataset.presenceEdgeScene === 'true' ? { sceneAnchor: true } : {}),
+      visibleBox: element === host ? scene.bounds : local(exposed),
       sides: allowed?.length ? allowed : sides, box: element === host ? scene.bounds : local(rect) });
     seen.add(id);
   }
@@ -68,6 +84,9 @@ export function readEdgeCompanionScene(host: HTMLElement, anchor?: HTMLElement |
     // An inactive reading window is inert but its original page stays visible.
     // Its text/image still needs protection while another window is in front.
     if (element.closest('.edge-companion-stage,[hidden]') || !element.getClientRects().length) continue;
+    // The map is the receiving background. Its full-size canvas must not
+    // forbid every window edge; its actual controls still reserve their space.
+    if (element.tagName === 'CANVAS' && element.closest('.campus-v2-stage')) continue;
     const style = getComputedStyle(element);
     if (style.visibility === 'hidden' || style.display === 'none') continue;
     const actual = element.classList.contains('scene-object-hotspot') ? element.querySelector('polygon')
@@ -103,28 +122,32 @@ export function localEdgePoint(scene: EdgeCompanionScene, clientX: number, clien
     y: (clientY - scene.origin.y) / scene.scaleY + scene.host.scrollTop };
 }
 
-function inkOffsets(artwork: EdgeCompanionArtwork, mirrored: boolean, width: number, height: number): EdgeBox {
+function inkOffsets(artwork: EdgeCompanionArtwork, mirrored: boolean, width: number, height: number, padding = 24): EdgeBox {
   const [canvasWidth, canvasHeight] = artwork.canvas;
   const source = artwork.bounds || [0, 0, canvasWidth, canvasHeight];
   // A little room around registered ink also contains the approved small tail arc.
-  const left = Math.max(0, source[0] - 24) / canvasWidth, right = Math.min(canvasWidth, source[2] + 24) / canvasWidth;
+  const left = Math.max(0, source[0] - padding) / canvasWidth, right = Math.min(canvasWidth, source[2] + padding) / canvasWidth;
   return { left: width * (mirrored ? 1 - right : left), right: width * (mirrored ? 1 - left : right),
-    top: height * Math.max(0, source[1] - 24) / canvasHeight, bottom: height * Math.min(canvasHeight, source[3] + 24) / canvasHeight };
+    top: height * Math.max(0, source[1] - padding) / canvasHeight, bottom: height * Math.min(canvasHeight, source[3] + padding) / canvasHeight };
 }
 
 export function edgeSpriteBox(artwork: EdgeCompanionArtwork, mirrored: boolean, major = 104, rotation: EdgeCompanionRotation = 0) {
   const factor = major / Math.max(...artwork.canvas), canvasWidth = artwork.canvas[0] * factor, canvasHeight = artwork.canvas[1] * factor;
   const sx = (mirrored ? 1 - (artwork.supportX ?? .5) : artwork.supportX ?? .5) * canvasWidth, sy = artwork.supportY * canvasHeight;
   const ink = inkOffsets(artwork, mirrored, canvasWidth, canvasHeight);
-  const edgeOverhang = Math.max(0, ink.bottom - sy);
+  const sourceInk = inkOffsets(artwork, mirrored, canvasWidth, canvasHeight, 0);
+  const rotateInk = (box: EdgeBox): EdgeBox => rotation === 90
+    ? { left: canvasHeight - box.bottom, right: canvasHeight - box.top, top: box.left, bottom: box.right }
+    : rotation === -90 ? { left: box.top, right: box.bottom, top: canvasWidth - box.right, bottom: canvasWidth - box.left }
+      : rotation === 180 ? { left: canvasWidth - box.right, right: canvasWidth - box.left, top: canvasHeight - box.bottom, bottom: canvasHeight - box.top } : box;
+  const edgeInk = rotateInk(sourceInk);
   if (rotation === 90) return { width: canvasHeight, height: canvasWidth, canvasWidth, canvasHeight,
-    edgeOverhang, support: { x: canvasHeight - sy, y: sx }, ink: { left: canvasHeight - ink.bottom, right: canvasHeight - ink.top, top: ink.left, bottom: ink.right } };
+    edgeInk, support: { x: canvasHeight - sy, y: sx }, ink: rotateInk(ink) };
   if (rotation === -90) return { width: canvasHeight, height: canvasWidth, canvasWidth, canvasHeight,
-    edgeOverhang, support: { x: sy, y: canvasWidth - sx }, ink: { left: ink.top, right: ink.bottom, top: canvasWidth - ink.right, bottom: canvasWidth - ink.left } };
-  if (rotation === 180) return { width: canvasWidth, height: canvasHeight, canvasWidth, canvasHeight, edgeOverhang,
-    support: { x: canvasWidth - sx, y: canvasHeight - sy }, ink: { left: canvasWidth - ink.right, right: canvasWidth - ink.left,
-      top: canvasHeight - ink.bottom, bottom: canvasHeight - ink.top } };
-  return { width: canvasWidth, height: canvasHeight, canvasWidth, canvasHeight, edgeOverhang, support: { x: sx, y: sy }, ink };
+    edgeInk, support: { x: sy, y: canvasWidth - sx }, ink: rotateInk(ink) };
+  if (rotation === 180) return { width: canvasWidth, height: canvasHeight, canvasWidth, canvasHeight, edgeInk,
+    support: { x: canvasWidth - sx, y: canvasHeight - sy }, ink: rotateInk(ink) };
+  return { width: canvasWidth, height: canvasHeight, canvasWidth, canvasHeight, edgeInk, support: { x: sx, y: sy }, ink };
 }
 
 function subtract(ranges: [number, number][], first: number, last: number): [number, number][] {
@@ -148,16 +171,16 @@ function exposedEdgeOwner(scene: EdgeCompanionScene, point: EdgePoint): HTMLElem
 
 function surfaceCandidates(scene: EdgeCompanionScene, character: string, surface: PresenceEdgeSurface, side: PresenceEdgeSide,
   point?: EdgePoint, ratio?: number, alongDirection?: -1 | 1): EdgeCompanionDock[] {
-  const horizontal = side === 'top' || side === 'bottom', box = surface.box;
+  const horizontal = side === 'top' || side === 'bottom', box = surface.box, exposed = surface.visibleBox || box;
   const result: EdgeCompanionDock[] = [];
   const windowEdge = surface.element === scene.host;
   const preferredRotation: EdgeCompanionRotation = horizontal ? (windowEdge ? side === 'top' ? 180 : 0 : side === 'bottom' ? 180 : 0)
     : (side === 'left') === !windowEdge ? -90 : 90;
-  const rotations: EdgeCompanionRotation[] = horizontal ? [preferredRotation, preferredRotation === 0 ? 180 : 0]
+  const rotations: EdgeCompanionRotation[] = surface.point ? [0] : horizontal ? [preferredRotation, preferredRotation === 0 ? 180 : 0]
     : [preferredRotation, preferredRotation === 90 ? -90 : 90];
   const poses = rotations.flatMap(rotation => (horizontal ? [false, true] : [false]).map(dockLeft => {
     const sourceRight = horizontal ? dockLeft !== (rotation === 180) : rotation === -90;
-    return { rotation, dockLeft, sourceRight, artwork: edgeCompanionArtwork(character, sourceRight) };
+    return { rotation, dockLeft, sourceRight, artwork: edgeCompanionArtwork(character, sourceRight, surface.pose) };
   }));
   for (const { dockLeft, artwork, sourceRight, rotation } of poses) {
     if (!artwork) continue;
@@ -165,9 +188,15 @@ function surfaceCandidates(scene: EdgeCompanionScene, character: string, surface
     for (const mirrored of mirrors) {
       const length = horizontal ? box.right - box.left : box.bottom - box.top;
       const fixed = side === 'top' ? box.top : side === 'bottom' ? box.bottom : side === 'left' ? box.left : box.right;
+      if (fixed < (horizontal ? exposed.top : exposed.left) - .5 || fixed > (horizontal ? exposed.bottom : exposed.right) + .5) continue;
       let major = Math.min(104, Math.max(64, length * .22)), sprite = edgeSpriteBox(artwork, mirrored, major, rotation);
-      const offsets = (): EdgeBox => ({ left: sprite.ink.left - sprite.support.x, right: sprite.ink.right - sprite.support.x,
-        top: sprite.ink.top - sprite.support.y, bottom: sprite.ink.bottom - sprite.support.y });
+      // A window has no visible receiving frame outside its clipped viewport.
+      // Put the actual silhouette on that edge; the old paw anchor deliberately
+      // hid part of the cat outside it. Paper edges keep their original support.
+      const support = () => windowEdge ? { x: side === 'left' ? sprite.edgeInk.left : side === 'right' ? sprite.edgeInk.right : sprite.support.x,
+        y: side === 'top' ? sprite.edgeInk.top : side === 'bottom' ? sprite.edgeInk.bottom : sprite.support.y } : sprite.support;
+      const offsets = (): EdgeBox => { const contact = support(), ink = windowEdge ? sprite.edgeInk : sprite.ink;
+        return { left: ink.left - contact.x, right: ink.right - contact.x, top: ink.top - contact.y, bottom: ink.bottom - contact.y }; };
       let offset = offsets();
       const boundFirst = horizontal ? scene.bounds.top : scene.bounds.left, boundLast = horizontal ? scene.bounds.bottom : scene.bounds.right;
       if (!windowEdge) {
@@ -176,14 +205,15 @@ function surfaceCandidates(scene: EdgeCompanionScene, character: string, surface
         if (fit < 1 && major * fit >= 64) { major *= fit; sprite = edgeSpriteBox(artwork, mirrored, major, rotation); offset = offsets(); }
       }
       const crossFirst = fixed + (horizontal ? offset.top : offset.left), crossLast = fixed + (horizontal ? offset.bottom : offset.right);
-      // Native window edges can hide the original small paw overhang behind
-      // their frame. The actual contact line stays on the edge, never inset.
-      const overhang = windowEdge ? sprite.edgeOverhang : 0;
-      if (crossFirst < boundFirst - overhang - .01 || crossLast > boundLast + overhang + .01) continue;
-      const start = Math.max(horizontal ? box.left + 6 : box.top + 6, horizontal ? scene.bounds.left : scene.bounds.top)
+      if (crossFirst < boundFirst - .01 || crossLast > boundLast + .01) continue;
+      const pointAlong = horizontal ? (box.left + box.right) / 2 : (box.top + box.bottom) / 2;
+      const start = surface.point ? pointAlong : Math.max(horizontal ? box.left + 6 : box.top + 6, horizontal ? exposed.left : exposed.top, horizontal ? scene.bounds.left : scene.bounds.top)
         - (horizontal ? offset.left : offset.top);
-      const end = Math.min(horizontal ? box.right - 6 : box.bottom - 6, horizontal ? scene.bounds.right : scene.bounds.bottom)
+      const end = surface.point ? pointAlong : Math.min(horizontal ? box.right - 6 : box.bottom - 6, horizontal ? exposed.right : exposed.bottom, horizontal ? scene.bounds.right : scene.bounds.bottom)
         - (horizontal ? offset.right : offset.bottom);
+      if (surface.point && (pointAlong + (horizontal ? offset.left : offset.top) < (horizontal ? scene.bounds.left : scene.bounds.top)
+        || pointAlong + (horizontal ? offset.right : offset.bottom) > (horizontal ? scene.bounds.right : scene.bounds.bottom))) continue;
+      if (surface.point && (pointAlong < (horizontal ? exposed.left : exposed.top) || pointAlong > (horizontal ? exposed.right : exposed.bottom))) continue;
       if (end < start) continue;
       let ranges: [number, number][] = [[horizontal && dockLeft ? start : horizontal ? (start + end) / 2 : start,
         horizontal && dockLeft ? (start + end) / 2 : end]];
@@ -197,7 +227,9 @@ function surfaceCandidates(scene: EdgeCompanionScene, character: string, surface
       // Only its actually exposed edge can hold the companion.
       const inside = (along: number): EdgePoint => ({ x: horizontal ? along : fixed + (side === 'left' ? 1 : -1),
         y: horizontal ? fixed + (side === 'top' ? 1 : -1) : along });
-      for (const other of scene.surfaces) {
+      // Decorative support points have already passed the actual foreground
+      // hit check. A transparent full-page wrapper is not a paper covering it.
+      for (const other of surface.sceneAnchor ? [] : scene.surfaces) {
         if (other.element === scene.host || other.element === surface.element || other.element.contains(surface.element)) continue;
         const first = Math.max(start, horizontal ? other.box.left : other.box.top), last = Math.min(end, horizontal ? other.box.right : other.box.bottom);
         if (last <= first || (horizontal ? fixed < other.box.top || fixed > other.box.bottom : fixed < other.box.left || fixed > other.box.right)) continue;
@@ -215,12 +247,12 @@ function surfaceCandidates(scene: EdgeCompanionScene, character: string, surface
       const along = nearest(wanted, directed);
       if (along === undefined) continue;
       const owner = exposedEdgeOwner(scene, inside(along));
-      if (owner && owner !== surface.element && !owner.contains(surface.element)) continue;
+      if (!surface.sceneAnchor && owner && owner !== surface.element && !owner.contains(surface.element)) continue;
       const contact = { x: horizontal ? along : fixed, y: horizontal ? fixed : along };
-      const x = contact.x - sprite.support.x, y = contact.y - sprite.support.y;
+      const dockSupport = support(), x = contact.x - dockSupport.x, y = contact.y - dockSupport.y;
       result.push({ placement: { edgeId: surface.id, side, ratio: end > start ? edgeRatio((along - start) / (end - start)) : .5 },
         surface, artwork, mirrored, rotation, x, y, width: sprite.width, height: sprite.height,
-        ink: { left: x + sprite.ink.left, right: x + sprite.ink.right, top: y + sprite.ink.top, bottom: y + sprite.ink.bottom }, contact,
+        ink: { left: x + sprite.edgeInk.left, right: x + sprite.edgeInk.right, top: y + sprite.edgeInk.top, bottom: y + sprite.edgeInk.bottom }, contact, support: dockSupport,
       });
     }
   }
@@ -247,14 +279,8 @@ export function nearestEdgeDock(scene: EdgeCompanionScene, character: string, po
 }
 
 export function clampEdgeSprite(scene: EdgeCompanionScene, artwork: EdgeCompanionArtwork, mirrored: boolean,
-  width: number, height: number, point: EdgePoint, rotation: EdgeCompanionRotation = 0, keepContactVisible = false): EdgePoint {
+  width: number, height: number, point: EdgePoint, rotation: EdgeCompanionRotation = 0): EdgePoint {
   const sprite = edgeSpriteBox(artwork, mirrored, Math.max(width, height), rotation), ink = sprite.ink;
-  if (keepContactVisible) {
-    // A free gesture must be able to reach an outer edge before the drop picks
-    // its inward pose. Clamping the old whole stance chooses a nearby paper.
-    return { x: Math.max(scene.bounds.left, Math.min(scene.bounds.right, point.x + sprite.support.x)) - sprite.support.x,
-      y: Math.max(scene.bounds.top, Math.min(scene.bounds.bottom, point.y + sprite.support.y)) - sprite.support.y };
-  }
   return { x: Math.max(scene.bounds.left - ink.left, Math.min(scene.bounds.right - ink.right, point.x)),
     y: Math.max(scene.bounds.top - ink.top, Math.min(scene.bounds.bottom - ink.bottom, point.y)) };
 }

@@ -1,0 +1,28 @@
+{
+  "generator": "image_gen",
+  "source": "C:\\Users\\17601\\.codex\\generated_images\\01a1789a-60fe-76f0-b0b3-4db58b792d38\\exec-4865623a-e6f8-4293-af12-4284d144f084.png",
+  "runtime": "前端视觉创新设计/运行素材/workspaces/today-sakiko-rain.png",
+  "sha256": "6c89c21f8d39f887c1cf854ba91fcd820c466f5ee3e16b3706d7a34d1b8be20b",
+  "prompt": "Relight the FIRST reference into Rainy night. Deep blue rainy distant sky and clock tower, dark softly textured stone on the left, warm amber lantern and cozy golden reflected light on wet paving. Soft warm light on Sakiko with cool rain fill, correct real shadows. No daylight patches, no blue skin. The SECOND reference is the desired environment/light palette guide only. Preserve the FIRST reference's EXACT 1536x1024 camera, architecture, bench geometry, character position, figure scale, hair, face identity, outfit, joints, hands, shoes, book and pose. No redesign, no repositioning, no changes to the bench or anatomy. Both loafers remain fully visible with the same floor margin. The scene's huge left wall must stay completely empty for live UI. Keep original youthful Sakiko face and gold eyes, two navy bows, literary navy outfit. Repaint believable complete lighting across the whole scene, not a colored filter or gradient overlay. No text, icons, interface, cats, additional people, watermarks or dividing line. The output will be registered as the same scene and separated into same-canvas layers, so exact spatial continuity is essential.",
+  "transparent_background": false,
+  "inputs": [
+    {
+      "path": "C:\\Users\\17601\\.codex\\generated_images\\01a1789a-60fe-76f0-b0b3-4db58b792d38\\exec-1ef23897-a5ee-4311-a822-0cb208a4887a.png",
+      "sha256": "af37e3ab5ea15103049112f9261f2c7ead54cf68009bba7e55657d1556d2f2e7"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/运行素材/workspaces/today-rain.png",
+      "sha256": "3ad0311054916266fa287c2f4eee914dcb629e41a8fa31c14847877fbeeceb09"
+    }
+  ],
+  "review": {
+    "primaryImageViewed": true,
+    "note": "Whole mothers preserve reviewed seated geometry. Figure pixels must come from the original mother through the same-canvas mask, not the rejected rescaled cutout."
+  },
+  "classification": "A",
+  "runtimeVerification": {
+    "admitted": true,
+    "evidence": "docs/evidence/2026-10-26-frontend-reassessment.md",
+    "scope": "四光场的今天页已实看；真实母图像素与同画布蒙版，编辑时退让，取消后返回。人物不声明为动作视频。"
+  }
+}

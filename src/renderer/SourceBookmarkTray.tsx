@@ -377,6 +377,9 @@ export function SourceBookmarkProvider({ boundaryKey, active = true, resetKey, o
   const directNoteEditor = directNote && destination === 'note' && !detached;
   const noteSaveLabel = paper?.retainOriginalRequired ? '留笔记与原文'
     : directNoteEditor ? annotation.trim() ? '保存笔记' : '留住这一段' : '留作笔记';
+  // The paper belongs in the room's current light. Keeping the portal on
+  // this stable surface also preserves its draft when the reader is closed.
+  const portalHost = document.querySelector<HTMLElement>('.app-main') || document.body;
   return <BookmarkTrayContext.Provider value={value}>{children}
     {active && (paper || error || detached || busy && !directCiting) && createPortal(<aside ref={tray} className={`source-bookmark-tray${directNoteEditor ? ' is-direct-note' : ''}`} aria-label="引用与笔记"
       onKeyDown={event => { if (event.key === 'Escape' && !event.nativeEvent.isComposing) { event.preventDefault(); event.stopPropagation(); clear(); } }}>
@@ -422,12 +425,12 @@ export function SourceBookmarkProvider({ boundaryKey, active = true, resetKey, o
           const reference = carriedReference.current; if (reference) void offer(reference);
         }}>再看一次</button>}
       </footer>}
-    </aside>, document.body)}
+    </aside>, portalHost)}
     {active && savedNote?.boundary === boundaryKey && createPortal(<aside ref={receipt} className="source-bookmark-tray source-bookmark-receipt" role="status" aria-label="笔记已保存">
       <Check size={16} /><span>已留作笔记</span>
       {onOpenNote && <button type="button" className="text-button" onClick={() => { onOpenNote(savedNote.id, savedNote.revision); setSavedNote(undefined); }}>打开笔记</button>}
       <button type="button" className="icon-button" aria-label="收起笔记保存提示" onClick={dismissReceipt}><X size={16} /></button>
-    </aside>, document.body)}
+    </aside>, portalHost)}
     <span className="sr-only" role="status">{active ? announcement : ''}</span>
   </BookmarkTrayContext.Provider>;
 }

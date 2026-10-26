@@ -9,7 +9,7 @@ import {
   type KeyboardEvent,
   type PointerEvent,
 } from 'react';
-import { BookOpen, Clock3 } from 'lucide-react';
+import { BookOpen } from 'lucide-react';
 import type { Action } from '../shared/types';
 import type { CampusScheduleBlock } from '../shared/campus-calendar';
 import type { AgendaOccurrence, AgendaReference } from '../shared/agenda';
@@ -21,6 +21,7 @@ import { SpringLayoutButton } from './motion/SpringLayoutButton';
 const MINUTE = 60000;
 const HOUR = 60 * MINUTE;
 const PIXELS_PER_HOUR = 68;
+const MINIMUM_CARD_HEIGHT = 44;
 const clamp = (value: number, min: number, max: number) => Math.max(min, Math.min(max, value));
 
 /** A day is a pair of real instants, including 23/25-hour daylight-saving days. */
@@ -116,7 +117,7 @@ function arrangeLanes(entries: Entry[]) {
   for (const entry of sorted) {
     // Short preparations still need a readable label. Partition their visible
     // rectangles without changing any owner interval or conflict arithmetic.
-    const visualEnd = Math.max(entry.end, entry.start + 24 / PIXELS_PER_HOUR * HOUR);
+    const visualEnd = Math.max(entry.end, entry.start + MINIMUM_CARD_HEIGHT / PIXELS_PER_HOUR * HOUR);
     if (entry.start >= groupEnd) {
       finish();
       group = [];
@@ -484,7 +485,8 @@ export function AgendaDayTimeline({
     if (!active.moved && Math.hypot(active.clientY - active.startY, active.clientX - active.startX) < 4) return;
     event.preventDefault();
     active.moved = true;
-    expandDay();
+    const visible = stage.current?.getBoundingClientRect();
+    if (visible && (event.clientY < visible.top + 24 || event.clientY > visible.bottom - 24)) expandDay();
     pointerPosition(active);
     if (frame.current === undefined) frame.current = requestAnimationFrame(followScroll);
   }
@@ -552,7 +554,6 @@ export function AgendaDayTimeline({
       return;
     const range = { start: entry.start, end: entry.end };
     event.preventDefault();
-    expandDay();
     const previous = active?.id === entry.key ? active : undefined;
     const targetDay = previous?.targetDate ? agendaDayWindow(previous.targetDate, timeZone) || day : day;
     const bounds = moveBounds(range.start, range.end, targetDay);
@@ -563,6 +564,7 @@ export function AgendaDayTimeline({
       bounds.min,
       bounds.max,
     );
+    if (instant < viewStart || instant + range.end - range.start > viewEnd) expandDay();
     updateMove({
       id: entry.key,
       original: previous?.original || { ...item },
@@ -626,10 +628,6 @@ export function AgendaDayTimeline({
       }}
     >
       <div className="agenda-timeline-tools">
-        <span>
-          <Clock3 size={14} />
-          {fullDay ? '这一天' : `${clock(viewStart)} — ${viewEnd === day.end ? '24:00' : clock(viewEnd)}`}
-        </span>
         <button
           type="button"
           className="text-button"
@@ -711,6 +709,7 @@ export function AgendaDayTimeline({
             const style = {
               top: pixels(shownStart),
               height: cardHeight,
+              minHeight: MINIMUM_CARD_HEIGHT,
               left: `${(layout.lane / layout.lanes) * 100}%`,
               width: `${100 / layout.lanes}%`,
             } as CSSProperties;
@@ -718,7 +717,7 @@ export function AgendaDayTimeline({
             const pendingLabel = commitment?.state === 'wish' ? '想做的事' : commitment?.state === 'invitation' ? '还没答应' : commitment?.state === 'proposed' ? '在商量'
               : entry.kind === 'action' && !commitment?.occupiesTime ? ({ todo: '待办', deadline: '截止', reminder: '提醒' }[entry.item.kind as 'todo' | 'deadline' | 'reminder'] || '') : '';
             const overlap = moved && (entry.kind === 'campus' || commitment?.occupiesTime) && overlaps(entry.key, labelStart, duration).length > 0;
-            const className = `agenda-timeline-card ${entry.kind === 'campus' ? 'is-campus' : ''} ${commitment && !commitment.occupiesTime ? 'is-nonoccupying' : ''} ${moved ? 'is-moving' : ''} ${overlap ? 'has-overlap' : ''} ${selectedOccurrenceId === entry.key ? 'is-selected' : ''} ${cardHeight < 48 ? 'is-short' : ''} ${isMovable ? 'is-movable' : ''}`;
+            const className = `agenda-timeline-card ${entry.kind === 'campus' ? 'is-campus' : ''} ${commitment && !commitment.occupiesTime ? 'is-nonoccupying' : ''} ${moved ? 'is-moving' : ''} ${overlap ? 'has-overlap' : ''} ${selectedOccurrenceId === entry.key ? 'is-selected' : ''} ${cardHeight < 72 ? 'is-short' : ''} ${isMovable ? 'is-movable' : ''}`;
             const contents = (
               <>
                 <span className="agenda-timeline-card-title">

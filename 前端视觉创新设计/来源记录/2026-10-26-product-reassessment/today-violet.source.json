@@ -1,0 +1,21 @@
+{
+  "kind": "environment",
+  "tool": "built-in image_gen",
+  "prompt": "Use case: lighting-weather. Keep exact camera, entire blank stone wall, campus colonnade arches, empty bench, plants and steps from the input. Change complete lighting to rose-gold late dusk, warm mauve-neutral limestone writing wall still suitable for dark text, lavender shadows, apricot-pink sky in distance, warm lantern beginning to glow, no noon daylight. Preserve natural material colors rather than flat tint. Blank wall stays empty and low contrast. No figures, cats, words, glyphs, readable signs, calendars, UI, controls, dates, charts or added objects. Literary painted environment,1536x1024. No green UI.",
+  "generatedSource": "C:\\Users\\17601\\.codex\\generated_images\\01a1789a-60fe-76f0-b0b3-4db58b792d38\\exec-b54cf2d0-7a4f-4152-8ccd-515b4acf5b40.png",
+  "output": "前端视觉创新设计/运行素材/workspaces/today-violet.png",
+  "sha256": "9b4c8ef691c6c82b320c38fa12b841580e98af1c87f05fec24af59533350cc4b",
+  "inputs": [
+    {
+      "path": "C:\\Users\\17601\\.codex\\generated_images\\01a1789a-60fe-76f0-b0b3-4db58b792d38\\exec-c6855e82-5c5c-4346-bbc9-44ff173fd6fe.png",
+      "sha256": "eea0f2d6b3307530fa641286f441faecc9c870d14e09e19237fc97ba788fa89d"
+    }
+  ],
+  "primaryImageInspection": "complete",
+  "runtimeVerification": {
+    "admitted": false,
+    "evidence": "docs/evidence/2026-10-26-frontend-reassessment.md",
+    "scope": "原图逐幅亲看；采用对应环境与布局。实际交互证据见 docs/evidence/2026-10-26-frontend-reassessment.md，未逐一声明全部主题与全部内容的组合。"
+  },
+  "classification": "B"
+}

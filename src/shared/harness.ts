@@ -780,6 +780,9 @@ export interface ContextReceipt {
   /** Original work addresses supporting supplied text or metadata. This is
    * provenance, not a claim that the entire chapter body was read. */
   assistantWorkSources?: AssistantWorkSource[];
+  /** Selected published assistant words used for continuation; no copied body,
+   * user-fact authority or permission to act. */
+  assistantTextSources?: import('./workspace-context').AssistantTextReference[];
   /** Original typed teaching sources inherited with actually adopted history. */
   historicalWorkSources?: import('./method-work-help').HistoricalWorkSource[];
   interactiveProgramSources?: InteractiveProgramSource[];

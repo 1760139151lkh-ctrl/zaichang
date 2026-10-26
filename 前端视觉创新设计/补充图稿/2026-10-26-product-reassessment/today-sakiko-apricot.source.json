@@ -1,0 +1,21 @@
+{
+  "generator": "image_gen",
+  "source": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\补充图稿\\2026-10-26-product-reassessment\\today-sakiko-apricot.png",
+  "sha256": "af37e3ab5ea15103049112f9261f2c7ead54cf68009bba7e55657d1556d2f2e7",
+  "runtime": null,
+  "prompt": "Preserve the FIRST image's exact 1536x1024 canvas, camera, architecture and furniture. Add one youthful Toyokawa Sakiko seated properly on the RIGHT end of the wooden bench. The second image is her approved FACE identity. Use a slightly smaller seated figure than a foreground portrait: crown near (1330,390), pelvis genuinely resting on the far right seat near (1360,805), knees naturally bending toward lower left near (1215,800), ankles and both brown loafers on the actual paving around (1150,962) and (1250,975). All feet must be entirely inside the image with at least 28 pixels of visible paving below their soles. Do not crop any foot or leg, do not stretch calves, do not make her too tall for the bench. Believable hip/thigh/knee/shin/ankle anatomy, knees next to each other, complete connected legs and normal hands. Slightly angled shins naturally carry her feet to the paving, realistic soft contact shadow under soles. Correct seat support and armrest occlusion. Pale periwinkle long hair, two deep navy ribbons, gold eyes, youthful gentle face as in approved avatar, quiet friendly curiosity toward the viewer. Original literary outfit: navy cardigan, ivory blouse with thin navy ribbon, modest navy-grey checked skirt, calf socks ending below the knees, brown loafers. Hands rest loosely together on one knee, leaving a free bit of the other thigh; small closed book beside her on the bench. Preserve the entire HUGE EMPTY LEFT WALL, and all scene lights and the architectural camera. The figure stays wholly in the right third and matches the sunlit anime / realistic architectural art. No UI, no text, no cats, no extra people, no redesigned bench, no border, no watermark. Make a complete whole-scene mother suitable for later exact same-canvas layer separation.",
+  "transparent_background": false,
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/运行素材/workspaces/today-apricot.png",
+      "sha256": "eea0f2d6b3307530fa641286f441faecc9c870d14e09e19237fc97ba788fa89d"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-user-selected-youth-avatar-20261025.png",
+      "sha256": "bc92a4e0096411b0e58b5e4dfc12d61b48bf255f0fd7a544c039ae9e4cd7fc32"
+    }
+  ],
+  "review": "Primary mother reviewed: complete loafers, believable seated support and youthful identity. Bench geometry differs from the first empty plate; extract all layers from THIS mother. Same-canvas layers now verified in the Today view; static mother artwork does not establish human-motion video.",
+  "runtimeVerified": true,
+  "canonicalSourceRecord": "前端视觉创新设计/来源记录/2026-10-26-product-reassessment/today-sakiko-apricot.source.json"
+}

@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "recordType": "clean-production-paper-fiber-texture",
+  "tool": "built-in image_gen.imagegen",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17614-0e79-7d40-916d-ac46260f023e\\exec-d24ce49f-1bf7-44a6-9512-201cab96b49e.png",
+  "inputImages": [],
+  "previousUiMockUsedAsInput": false,
+  "runtimeScreenshotUsedAsInput": false,
+  "originalPaperPhotoUsedAsInput": false,
+  "promptFile": "paper-fiber-clean-v1.prompt.txt",
+  "submittedPromptSha256": "1b5cad02e661b8ffc2332af2b66d89a4752ee3bb5c3ded6ba4ea6992027f0515",
+  "output": {
+    "file": "paper-fiber-clean-v1.png",
+    "sha256": "f5f0fdb7ed77efa0783d0f8c03890d297eee6a60f03411ae92518b53866ae97c",
+    "bytes": 2841266,
+    "width": 1254,
+    "height": 1254
+  },
+  "producerReview": {
+    "personallyViewed": true,
+    "observation": "Even warm-neutral ivory fiber surface fills the whole canvas. No letters, sheet edge, gray backing, vignette, or UI. The texture has restrained fine irregular fibers and is suitable only as a low-strength material overlay, while semantic surface colors remain code-owned.",
+    "decision": "candidate for primary review"
+  },
+  "primaryApproved": true,
+  "runtimeAccepted": true,
+  "primaryApprovalScope": "Root personally viewed the exact generated paper texture and approved low-strength material use only. No whole-image multiply or night brightening; integrated runtime remains separate.",
+  "runtimeUse": "src/renderer/presentation/study-scene.css: low-opacity soft-light fiber overlay inside semantic paper surfaces and margin notes; no sheet backing, crop mask, or embedded UI.",
+  "runtimeAcceptanceScope": "2026-10-26 primary inspected the integrated native Study paper in rain at full width and mist at 640 CSS px. Existing low-opacity fiber overlay only; no independent claim for unrelated paper variants.",
+  "runtimeEvidence": "docs/evidence/2026-10-26-frontend-reassessment.md"
+}

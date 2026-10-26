@@ -1242,6 +1242,8 @@ export class Harness {
             child.sourceRestrictions, child.run.pack?.receipt.providedEvidenceIds || [])
             || !runtime.repo.assistantWorkSourcesReadable(child.run.ingress.contract.scope, child.run.pack?.receipt.assistantWorkSources || [])
             || !runtime.repo.assistantWorkSourcesReadable(contract.scope, child.run.pack?.receipt.assistantWorkSources || [])
+            || !runtime.repo.assistantTextSourcesReadable(child.run.ingress.contract.scope, child.run.pack?.receipt.assistantTextSources)
+            || !runtime.repo.assistantTextSourcesReadable(contract.scope, child.run.pack?.receipt.assistantTextSources)
             || !runtime.repo.noteSourcesReadable(child.run.ingress.contract.scope, child.run.pack?.receipt.noteSources || [])
             || !runtime.repo.noteSourcesReadable(contract.scope, child.run.pack?.receipt.noteSources || [])
             || !runtime.repo.workoutSourcesReadable(child.run.ingress.contract.scope, child.run.pack?.receipt.workoutSources || [])
@@ -1282,6 +1284,7 @@ export class Harness {
           runtime.context.recordWorkSourceBindings(parentPack, childReceipt.workSourceBindings || []);
           runtime.context.recordReflectiveLetterSources(parentPack, childReceipt.reflectiveLetterSources || []);
           runtime.context.recordAssistantWorkSources(parentPack, childReceipt.assistantWorkSources || []);
+          runtime.context.recordAssistantTextSources(parentPack, childReceipt.assistantTextSources || []);
           runtime.context.recordReleaseSources(parentPack, childReceipt.releaseSources || []);
           runtime.context.recordPersonalMethodSources(parentPack, childReceipt.personalMethodSources || []);
           runtime.context.recordNoteSources(parentPack, childReceipt.noteSources || []);
@@ -2612,7 +2615,8 @@ export class Harness {
           || pack.receipt.historicalAssertionVersions?.length
           || pack.receipt.providedObjectVersions.some(reference => reference.imageSha256 !== undefined)
           || pack.receipt.learningProcessVersions?.length || pack.receipt.workSourceBindings?.length || pack.receipt.reflectiveLetterSources?.length
-          || pack.receipt.assistantWorkSources?.length || pack.receipt.personalMethodSources?.length || pack.receipt.noteSources?.length || pack.receipt.workoutSources?.length || pack.receipt.campusSensitiveReads?.length
+          || pack.receipt.assistantWorkSources?.length || pack.receipt.assistantTextSources?.length
+          || pack.receipt.personalMethodSources?.length || pack.receipt.noteSources?.length || pack.receipt.workoutSources?.length || pack.receipt.campusSensitiveReads?.length
           || pack.receipt.releaseSources?.length || pack.receipt.materialNavigationSources?.length || pack.receipt.spatialSources?.length
           || pack.receipt.campusReadingSources?.length || pack.receipt.campusReadingIncomplete
           || pack.receipt.interactiveProgramSources?.length);

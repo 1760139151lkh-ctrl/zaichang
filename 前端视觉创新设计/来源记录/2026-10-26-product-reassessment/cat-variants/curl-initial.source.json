@@ -1,0 +1,16 @@
+{
+  "generator": "image_gen",
+  "source": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-26-product-reassessment\\cat-variants\\curl-initial.png",
+  "sha256": "9c8ed52b58010fb32824716214746212c3bbd0de0e4e7bda4528fd0ae508d5dd",
+  "runtime": null,
+  "prompt": "Create ONE new curled sleeping pose of this exact charming 2D Sakiko meme-cat identity. Same very simple white drawn kitten body and thick smooth deep navy outlines, pale lilac/periwinkle chibi hair, two navy bows and triangular cat ears. Do not use a realistic furry cat. A warm white kitten curled up into a small bean, head resting on its two front paws on the LEFT, round body tucked behind on the RIGHT, tail wrapping comfortably around the body. Eyes are two gently closed smiling curved lines, tiny peaceful mouth; no human body and no extra limbs. Preserve the distinctive hairstyle and bows. This is a different natural cat posture for sleeping on a lap, on a stack of books or on the floor. The belly and paws have one believable flat contact baseline with a slightly rounded silhouette, no levitation. The character fills about 1250x650 pixels within an unchanged 1536x1024 canvas with clean generous margins. All body parts inside canvas. Solid opaque drawn character on a TRULY TRANSPARENT background, no environment, no speech, no text, no watermark, no sticker outline, no cast shadow baked into a rectangle. One cat only.",
+  "transparent_background": true,
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/edge-companions/rig-v3/sakiko-meme-cat-v3-clean-composite.png",
+      "sha256": "ee1d4331e0f940267ea1850cb05f70bdf9dd320e6dd1906dd767847925d8c157"
+    }
+  ],
+  "review": "Original curled sleeping variant; retained as lineage.",
+  "runtimeVerified": false
+}

@@ -10,10 +10,12 @@ const announceCue = (owner: string) => document.dispatchEvent(new CustomEvent(cu
 /** A whole source object such as a learner's actual line or teaching step.
  * Reading stays quiet; a real point/selection or keyboard focus reveals just
  * that object's one continuation. It never guesses a range in rendered math. */
-export function ReadableFocus({ label, active = false, disabled = false, onFocus, children }: {
+export function ReadableFocus({ label, active = false, disabled = false, inline = false, onFocus, children }: {
   label: string; active?: boolean; disabled?: boolean; onFocus: () => void; children: ReactNode;
+  inline?: boolean;
 }) {
-  const root = useRef<HTMLDivElement>(null), cue = useRef<HTMLButtonElement>(null), owner = useId();
+  const root = useRef<HTMLElement | null>(null), cue = useRef<HTMLButtonElement>(null), owner = useId();
+  const Tag = inline ? 'span' : 'div';
   const point = useRef<{ id: number; x: number; y: number } | undefined>(undefined);
   const [open, setOpen] = useState(false), [position, setPosition] = useState<{ left: number; top: number }>();
   const reveal = (x?: number, y?: number) => {
@@ -41,7 +43,7 @@ export function ReadableFocus({ label, active = false, disabled = false, onFocus
       window.removeEventListener('scroll', clear, true); window.removeEventListener('resize', clear); };
   }, [open]);
   const continueHere = () => { if (!disabled) { setOpen(false); onFocus(); } };
-  return <div ref={root} className={`readable-focus${open && !disabled ? ' is-pointed' : ''}${active ? ' is-referenced' : ''}`}
+  return <Tag ref={element => { root.current = element; }} className={`readable-focus${open && !disabled ? ' is-pointed' : ''}${active ? ' is-referenced' : ''}`}
     role="group" tabIndex={disabled ? -1 : 0} aria-disabled={disabled} aria-label={`${label}，按回车接着聊这一处`} aria-keyshortcuts="Enter"
     onFocus={event => { if (event.target === event.currentTarget && event.currentTarget.matches(':focus-visible')) reveal(); }}
     onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)
@@ -67,8 +69,8 @@ export function ReadableFocus({ label, active = false, disabled = false, onFocus
     {children}
     {open && !disabled && position && createPortal(<button ref={cue} type="button" className="readable-focus-cue" style={position}
       aria-label={`就${label}接着聊`} onPointerDown={event => event.preventDefault()} onClick={continueHere}>
-      就这里聊聊<ArrowUpRight size={12} aria-hidden="true" /></button>, document.body)}
-  </div>;
+      就这里聊聊<ArrowUpRight size={16} aria-hidden="true" /></button>, root.current?.closest('.app-main') || document.body)}
+  </Tag>;
 }
 
 /** Source positions come from literal Markdown text nodes, or from a plain
@@ -172,21 +174,24 @@ function displayedRange(root: HTMLElement, source: string, start: number, end: n
 /** Keeps the actual prose selectable. Choosing a sentence carries an owner
  * address to the ordinary composer; it does not copy that prose into a draft,
  * send a message, accept a suggestion or create another work object. */
-export function LocalTextFocus({ source, label, onFocus, activeRange, disabled = false, children }: {
+export function LocalTextFocus({ source, label, onFocus, activeRange, disabled = false, rangeAllowed, children }: {
   source: string; label: string; onFocus: (range: LocalTextRange) => void;
   activeRange?: { start: number; end: number }; disabled?: boolean; children: ReactNode;
+  rangeAllowed?: (range: LocalTextRange, body?: HTMLElement) => boolean;
 }) {
   const body = useRef<HTMLDivElement>(null), owner = useId();
   const [selection, setSelection] = useState<{ source: string; range: LocalTextRange }>();
   const current = selection?.source === source && !disabled ? selection.range : undefined;
   const capture = useCallback(() => {
-    const range = body.current && !disabled ? selectedRange(body.current, source) : undefined;
+    const candidate = body.current && !disabled ? selectedRange(body.current, source) : undefined;
+    const range = candidate && (!rangeAllowed || rangeAllowed(candidate, body.current || undefined)) ? candidate : undefined;
     if (range) announceCue(owner);
     setSelection(range ? { source, range } : undefined);
-  }, [source, disabled, owner]);
+  }, [source, disabled, rangeAllowed, owner]);
   useEffect(() => { setSelection(undefined); }, [source, disabled]);
   useLayoutEffect(() => {
     if (!body.current || !activeRange) return;
+    if (rangeAllowed && !rangeAllowed({ ...activeRange, preview: Array.from(source).slice(activeRange.start, activeRange.end).join('') }, body.current)) return;
     const range = displayedRange(body.current, source, activeRange.start, activeRange.end);
     if (!range) return;
     const browser = window as unknown as { Highlight?: new (...ranges: Range[]) => unknown;
@@ -197,7 +202,7 @@ export function LocalTextFocus({ source, label, onFocus, activeRange, disabled =
     style.textContent = `::highlight(${name}){background-color:color-mix(in srgb,var(--accent-soft) 60%,transparent);color:inherit}`;
     document.head.append(style); registry.set(name, new browser.Highlight(range));
     return () => { registry.delete(name); style.remove(); };
-  }, [source, activeRange?.start, activeRange?.end, owner]);
+  }, [source, activeRange?.start, activeRange?.end, rangeAllowed, owner]);
   useEffect(() => {
     const clear = () => setSelection(undefined);
     const another = (event: Event) => { if ((event as CustomEvent).detail !== owner) clear(); };

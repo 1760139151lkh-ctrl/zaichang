@@ -45,15 +45,26 @@ function containsGap(value: unknown): boolean {
 
 export function InteractiveGraphic({ props }: Props) {
   const host = useRef<HTMLDivElement>(null), svg = useRef<SVGSVGElement>(null), [width, setWidth] = useState(760);
+  const [readingHeight, setReadingHeight] = useState(window.innerHeight);
   const [controlsLayer, setControlsLayer] = useState<SVGGElement | null>(null);
   const clip = `interactive-clip-${useId().replace(/:/g, '')}`, title = `${clip}-title`;
   useEffect(() => {
     const element = host.current;
     if (!element) return;
-    const update = () => { const value = element.getBoundingClientRect().width; if (value > 0) setWidth(Math.max(160, value)); };
-    update(); const observer = new ResizeObserver(update); observer.observe(element); return () => observer.disconnect();
+    const reading = element.closest<HTMLElement>('.workspace');
+    const update = () => {
+      const value = element.getBoundingClientRect().width;
+      if (value > 0) setWidth(Math.max(160, value));
+      if (reading?.clientHeight) setReadingHeight(reading.clientHeight);
+    };
+    update(); const observer = new ResizeObserver(update); observer.observe(element);
+    if (reading) observer.observe(reading);
+    return () => observer.disconnect();
   }, []);
-  const height = props.height as number, domain = props.domain as GraphicSpace['domain'];
+  // Size against the outer work area: revealing a quote or growing the draft
+  // must not rescale a plot under the pointer. Reserve room for its controls;
+  // geometry and pointer conversion share this same height.
+  const height = Math.min(props.height as number, Math.max(220, (readingHeight - 120) * .55)), domain = props.domain as GraphicSpace['domain'];
   const insetLeft = props.axes ? 43 : 14, insetRight = props.axes ? 28 : 14, insetTop = 18, insetBottom = props.axes ? 34 : 18;
   const availableWidth = Math.max(1, width - insetLeft - insetRight), availableHeight = Math.max(1, height - insetTop - insetBottom);
   const xSpan = domain.xMax - domain.xMin, ySpan = domain.yMax - domain.yMin;

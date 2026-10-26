@@ -1,0 +1,21 @@
+{
+  "kind": "environment",
+  "tool": "built-in image_gen",
+  "prompt": "Use case: lighting-weather. Keep the exact clean bookshelf writing desk, camera, objects and empty work area from the input. Change the full scene into quiet night lamplight: deep walnut wood, warm brass lamp on at upper right, subdued cool charcoal shadows, warm natural highlights concentrated on actual surfaces. No sunshine or daytime leaf shadows, no white bright blank area, no flat color filter. The open center remains a broad clean quiet desk on which real UI paper will be rendered, no books/notebooks/panels in center. Preserve delicate literary art, reasonable contrast, subtle grain, flowers/plant natural at edges. Remove any readable book labels. No text, people, cat, UI, icons, buttons, screens, diagrams. Entire composition coherent nighttime,1536x1024.",
+  "generatedSource": "C:\\Users\\17601\\.codex\\generated_images\\01a1789a-60fe-76f0-b0b3-4db58b792d38\\exec-dffcd465-d80a-4412-b649-221d515b86f5.png",
+  "output": "前端视觉创新设计/运行素材/workspaces/keep-rain.png",
+  "sha256": "e9b11f316cbfa3b1a15100db148b39d16b35036d3bb052023da854cff1e08f5f",
+  "inputs": [
+    {
+      "path": "C:\\Users\\17601\\.codex\\generated_images\\01a1789a-60fe-76f0-b0b3-4db58b792d38\\exec-92347be9-8dc4-4e79-bf1d-0f096f0efe01.png",
+      "sha256": "5735d5a4ae4c99495faa89fed9c0a2195f713c3be73f5cb80551f53e613bf1eb"
+    }
+  ],
+  "primaryImageInspection": "complete",
+  "runtimeVerification": {
+    "admitted": true,
+    "evidence": "docs/evidence/2026-10-26-frontend-reassessment.md",
+    "scope": "原图逐幅亲看；采用对应环境与布局。实际交互证据见 docs/evidence/2026-10-26-frontend-reassessment.md，未逐一声明全部主题与全部内容的组合。"
+  },
+  "classification": "A"
+}

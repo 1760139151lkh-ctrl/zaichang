@@ -79,7 +79,7 @@
   background: var(--surface-raised);
   color: var(--text);
   box-shadow: var(--shadow);
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1.7;
   pointer-events: auto;
   user-select: text;
@@ -91,8 +91,8 @@
   display: grid;
   place-items: center;
   flex: none;
-  width: 22px;
-  min-height: 24px;
+  width: 28px;
+  min-height: 28px;
   padding: 0;
   border: 0;
   border-radius: 7px;

@@ -50,7 +50,7 @@
 /* Empty layout surfaces pass through to the scene; text, controls and
    their scroll descendants keep first claim on input. */
 .app-main:has(> .companion-scene.has-scene-art) > .conversation-space,
-.app-main:has(> .companion-scene.has-scene-art) > .conversation-space > .workspace,
+.app-main:has(> .companion-scene.has-scene-art) > .conversation-space .conversation-workspace-host > .workspace,
 .app-main:has(> .companion-scene.has-scene-art) .workspace > .message-scroll { pointer-events:none; }
 .app-main:has(> .companion-scene.has-scene-art) .welcome-inner,
 .app-main:has(> .companion-scene.has-scene-art) .conversation-heading,
@@ -82,12 +82,12 @@
 .companion-scene[data-scene-family].is-quiet:not(.is-preview) .scene-furniture-menu { display:flex; }
 .app-main[data-room-layout] > .companion-scene[data-scene-family] { inset:auto; left:var(--room-stage-left,0px); top:var(--room-stage-top,0px); width:var(--room-stage-width,100%); height:var(--room-stage-height,100%); }
 .app-main[data-room-layout] > .companion-scene[data-scene-family] .scene-stage-viewport { inset:0; width:100%; height:100%; opacity:1; }
-.app-main[data-room-layout] > .conversation-space { box-sizing:border-box; padding-block-start:var(--room-content-top,0px); }
-.app-main[data-room-layout] > .conversation-space.with-materials { padding-block-start:0; }
-.app-main[data-room-layout] > .conversation-space.with-materials > .workspace { padding-block-start:var(--room-content-top,0px); }
-.app-main[data-room-layout] > .conversation-space > .workspace.welcome { padding-inline:0; }
-.app-main[data-room-layout] > .conversation-space > .workspace > .message-scroll { padding-inline:0; }
-.app-main[data-room-layout] > .conversation-space > .workspace :is(.welcome-inner,.conversation-heading,.messages,.bottom-composer) {
+.app-main[data-room-layout]:not([data-workspace-scene]) > .conversation-space { box-sizing:border-box; padding-block-start:var(--room-content-top,0px); }
+.app-main[data-room-layout]:not([data-workspace-scene]) > .conversation-space.with-materials { padding-block-start:0; }
+.app-main[data-room-layout]:not([data-workspace-scene]) > .conversation-space.with-materials .conversation-workspace-host > .workspace { padding-block-start:var(--room-content-top,0px); }
+.app-main[data-room-layout]:not([data-workspace-scene]) > .conversation-space .conversation-workspace-host > .workspace.welcome { padding-inline:0; }
+.app-main[data-room-layout]:not([data-workspace-scene]) > .conversation-space .conversation-workspace-host > .workspace > .message-scroll { padding-inline:0; }
+.app-main[data-room-layout]:not([data-workspace-scene]) > .conversation-space .conversation-workspace-host > .workspace :is(.welcome-inner,.conversation-heading,.messages,.bottom-composer) {
   box-sizing:border-box; width:var(--room-paper-width); max-width:none; margin-left:var(--room-paper-left); margin-right:0;
 }
 .companion-placement-area { position: absolute; inset: 9% 3% 2% 53%; }

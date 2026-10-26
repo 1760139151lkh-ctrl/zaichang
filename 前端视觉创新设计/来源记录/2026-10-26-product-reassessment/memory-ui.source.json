@@ -1,0 +1,31 @@
+{
+  "name": "memory-ui",
+  "kind": "mockup",
+  "source": "C:\\Users\\17601\\.codex\\generated_images\\01a1789a-60fe-76f0-b0b3-4db58b792d38\\exec-b1d1b147-2043-4826-ae83-d14b8ad7b072.png",
+  "prompt": "Use case: ui-mockup. One 1536x1024 desktop screen for 在场's “关于你”, a personal memory review and correction experience, not a personality dashboard and not ordinary notes. Use the intimate bookshelf desk art only as a subtle outer margin. An open letter is the main reading plane, precise flat Chinese typography and quiet warm paper. Top same horizontal nav 在场 聊天 今天 留下 plus portrait. Page label 关于你, one small remember/pause control “让在场慢慢了解我”, no graphs or scores.\nShow one expanded actual-style understanding: “讨论数学时，先从几何图像进入，再接完整证明。” Under it show a real-source-shaped quotation “这一次先帮我画个图，证明也要完整。” with source “原对话 · 10月26日”. Clearly distinguish current interpretation and source words through layout, not nested grey cards. A user has clicked 更正 and is editing beside that line: “仅这次复习先看图，以后的讲法可以一起商量。” Buttons “保存更正”“取消” near the edited sentence. Other secondary controls “暂时不用”“查看来源”; deletion kept in overflow, not a giant red main action. Show the limitation/condition “这次复习” visibly on the corrected understanding. One or two other collapsed readable entries, restrained.\nSakiko's identity only through the small chosen portrait and tiny simple cat at page margin, no giant figure. No invented user scores, diagnoses or personal profiling. No green UI. No explanatory marketing subtitle. Real user can inspect, correct, pause and return, with draft and source intact. Design “reading a letter together”, belonging to the same product but focused on understanding and its source, not another copy of the cover. Generated content is an example for design, not user facts.",
+  "review": "读信式理解、来源与更正关系采用；去掉示例画像、额外主导航与常驻说明，不将图中文案当作本人事实。",
+  "output": "前端视觉创新设计/补充图稿/2026-10-26-product-reassessment/memory-ui.png",
+  "sha256": "a0703ca9c9ee7b701f6eaf687be6c81d1212929a1b45f39f42960812734e5235",
+  "tool": "built-in image_gen",
+  "primaryImageInspection": "complete",
+  "runtimeVerification": {
+    "admitted": false,
+    "evidence": "docs/evidence/2026-10-26-frontend-reassessment.md",
+    "scope": "原图逐幅亲看；采用对应环境与布局。实际交互证据见 docs/evidence/2026-10-26-frontend-reassessment.md，未逐一声明全部主题与全部内容的组合。"
+  },
+  "inputs": [
+    {
+      "path": "C:\\Users\\17601\\.codex\\generated_images\\01a1789a-60fe-76f0-b0b3-4db58b792d38\\exec-92347be9-8dc4-4e79-bf1d-0f096f0efe01.png",
+      "sha256": "5735d5a4ae4c99495faa89fed9c0a2195f713c3be73f5cb80551f53e613bf1eb"
+    },
+    {
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\mujica\\avatars\\sakiko-user-selected-youth-avatar-20261025.png",
+      "sha256": "bc92a4e0096411b0e58b5e4dfc12d61b48bf255f0fd7a544c039ae9e4cd7fc32"
+    },
+    {
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-25-integrated-room\\edge-companions\\rig-v3\\sakiko-meme-cat-v3-clean-composite.png",
+      "sha256": "ee1d4331e0f940267ea1850cb05f70bdf9dd320e6dd1906dd767847925d8c157"
+    }
+  ],
+  "classification": "A"
+}

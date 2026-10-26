@@ -2,7 +2,7 @@ import { HarnessError, type EvidenceEvent, type ScopeHandle } from '../../shared
 import { ZodError } from 'zod';
 import type { RuntimeCoordinator } from './coordinator';
 import type { IngressDecision, InputControls } from './policy';
-import type { TurnControlInteractionContext } from './turn-controls';
+import type { TurnControlInteractionContext, TurnControlInteractionIdentity } from './turn-controls';
 import { mapStoryReferenceIdentity } from './story-setting';
 import { programReferenceIdentity } from './interactive-program-sources';
 import { NativeSourceBookmarkService } from './source-bookmark-native';
@@ -11,6 +11,26 @@ import { workspaceInputControls } from './workspace-context';
 import { canonical } from './semantics';
 
 type Runtime = Pick<RuntimeCoordinator, 'repo' | 'policy' | 'store' | 'context' | 'broker' | 'companionSessions' | 'curiosityInvitations' | 'studyCompanion' | 'reflectiveLetters' | 'rehearsals' | 'notePresentation' | 'materials' | 'presentation' | 'nativeAgenda' | 'spatial' | 'scenes'>;
+
+function assistantTextInteractionIdentity(runtime: Runtime, controls: InputControls, sessionId: string,
+  target: Extract<WorkspaceTarget, { kind: 'assistant_text' }>): TurnControlInteractionIdentity | undefined {
+  if (target.reference.sessionId !== sessionId || runtime.store.conversationPolicy(sessionId)?.retention === 'session_only') return;
+  const baseline = runtime.policy.hostScope(), host = runtime.policy.validate(baseline);
+  let sources = [...host.sources];
+  if (controls.sources) sources = sources.filter(source => controls.sources!.includes(source));
+  if (controls.memoryMode === 'none' || !runtime.store.settings().memoryEnabled && !controls.memoryMode)
+    sources = sources.filter(source => source !== 'history:self' && source !== 'profile:self');
+  if (!sources.includes('history:self')) return;
+  const handle = runtime.policy.hostScope({ sources, purposes: [controls.purpose || 'personal_assistance'], infer: false,
+    grants: host.grants.filter(grant => grant === 'evidence:read'), currentEventIds: [] });
+  try {
+    runtime.repo.assistantTextReferenceIdentity(handle, sessionId, target.reference);
+    runtime.policy.validate(handle);
+    return { activity: 'message_reading', contentIdentity: 'assistant_interpretation', focus: 'sentence_or_passage' };
+  } catch (error) {
+    if (!(error instanceof HarnessError || error instanceof ZodError)) throw error;
+  }
+}
 
 /** Body-free context for the existing pre-storage control parser. A selected
  * address is re-read through its current owner using read-only permissions.
@@ -25,8 +45,9 @@ export function interactionContextForControls(runtime: Runtime, controls: InputC
     const parsed = workspaceContextSchema.safeParse(controls.workspaceContext);
     if (!parsed.success) return;
     const objects = parsed.data.objects.flatMap(object => {
-      const identity = interactionContextForControls(runtime, workspaceInputControls(controls, object.target), sessionId,
-        object.target.kind === 'material' ? object.target.reference : undefined);
+      const identity = object.target.kind === 'assistant_text' ? assistantTextInteractionIdentity(runtime, controls, sessionId, object.target)
+        : interactionContextForControls(runtime, workspaceInputControls(controls, object.target), sessionId,
+          object.target.kind === 'material' ? object.target.reference : undefined);
       return identity ? [{ slot: object.slot, activity: identity.activity, contentIdentity: identity.contentIdentity, focus: identity.focus }] : [];
     });
     if (!objects.length) return;

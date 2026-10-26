@@ -5,7 +5,7 @@
 .interactive-program button:disabled,.interactive-program input:disabled,.interactive-program select:disabled,.interactive-program textarea:disabled { cursor:default; opacity:.48; }
 .interactive-program :is(button,input,select,textarea):focus-visible { outline:2px solid var(--focus); outline-offset:4px; }
 .interactive-document { position:relative; isolation:isolate; min-width:0; padding:30px 35px 26px; border:1px solid color-mix(in srgb,var(--separator) 68%,transparent); border-radius:14px; background:linear-gradient(135deg,color-mix(in srgb,var(--surface-raised) 96%,var(--accent-soft)),var(--surface-raised) 70%); box-shadow:0 2px 8px #58442b0a; font-family:var(--font-reading); font-size:17px; line-height:1.9; }
-.interactive-document-title,.interactive-text.is-title { margin:0; color:var(--text); font-family:var(--font-reading); font-size:clamp(26px,4.4cqi,41px); font-weight:550; letter-spacing:.015em; line-height:1.5; }
+.interactive-document-title,.interactive-text.is-title { margin:0; color:var(--text); font-family:var(--font-body); font-size:24px; font-weight:500; letter-spacing:.015em; line-height:1.5; }
 .interactive-document-title { margin-bottom:12px; }
 .interactive-document:focus-visible { outline:1px solid var(--focus); outline-offset:3px; }
 .interactive-document.is-flow { display:flex; flex-direction:column; gap:22px; padding:0; border:0; border-radius:0; background:none; box-shadow:none; }
@@ -22,7 +22,7 @@
 .interactive-paper.is-paper { background:color-mix(in srgb,var(--accent-soft) 12%,transparent); }
 .interactive-paper.is-glass { background:color-mix(in srgb,var(--surface) 35%,transparent); backdrop-filter:blur(7px); }
 .interactive-text { margin:0; white-space:pre-wrap; overflow-wrap:anywhere; }
-.interactive-text.is-small { font-family:var(--font-body); font-size:13px; line-height:1.85; }
+.interactive-text.is-small { font-family:var(--font-body); font-size:16px; line-height:1.85; }
 .interactive-text.is-body { font-size:17px; line-height:1.95; }
 .interactive-program .tone-ink { color:var(--text); }
 .interactive-program .tone-muted { color:var(--text-tertiary); }
@@ -58,7 +58,7 @@
 .interactive-formula .katex-display { max-width:100%; margin:.25em 0; padding:5px 0 7px; overflow:auto; text-align:left; scrollbar-width:thin; }
 .interactive-formula .katex { font-size:1.05em; }
 .interactive-formula.is-display { font-size:20px; }
-.interactive-field { min-width:0; margin:0; padding:0; border:0; font-family:var(--font-body); font-size:14px; line-height:1.8; }
+.interactive-field { min-width:0; margin:0; padding:0; border:0; font-family:var(--font-body); font-size:16px; line-height:1.8; }
 .interactive-field>label,.interactive-field>span:first-child,.interactive-field>legend { color:var(--text-secondary); }
 .interactive-field>legend { margin-bottom:9px; }
 .interactive-number { display:flex; flex-direction:column; gap:7px; }
@@ -70,7 +70,7 @@
 .interactive-slider-line input[type='range'] { flex:1; min-width:75px; height:20px; margin:0; padding:0; appearance:none; background:transparent; accent-color:var(--accent); cursor:ew-resize; touch-action:pan-y; }
 .interactive-slider-line input[type='range']::-webkit-slider-runnable-track { height:5px; border-radius:5px; background:linear-gradient(to right,var(--accent-dim) 0,var(--accent-dim) var(--interactive-range-fill,0%),color-mix(in srgb,var(--text-tertiary) 32%,transparent) var(--interactive-range-fill,0%),color-mix(in srgb,var(--text-tertiary) 32%,transparent) 100%); }
 .interactive-slider-line input[type='range']::-webkit-slider-thumb { width:18px; height:18px; margin-top:-6.5px; border:2px solid var(--surface-raised); border-radius:50%; appearance:none; background:var(--accent); box-shadow:0 1px 4px #58442b25; }
-.interactive-range-limit { color:var(--text-tertiary); font-size:12px; white-space:nowrap; }
+.interactive-range-limit { color:var(--text-secondary); font-size:16px; white-space:nowrap; }
 .interactive-number-editor { width:6em; min-width:3em; max-width:100%; padding:3px 4px; border:0; border-bottom:1px solid color-mix(in srgb,var(--accent) 50%,transparent); border-radius:0; background:transparent; color:var(--accent); font-variant-numeric:tabular-nums; }
 .interactive-number-editor[aria-invalid='true'] { border-bottom-color:#ae6859; }
 .interactive-slider-line .interactive-number-editor { width:5em; text-align:right; }
@@ -104,7 +104,7 @@
 .interactive-toggle input:checked+.interactive-toggle-track::after { transform:translateX(13px); }
 .interactive-toggle input:focus-visible+.interactive-toggle-track { outline:2px solid var(--focus); outline-offset:4px; }
 .interactive-toggle input:disabled~span { opacity:.48; }
-.interactive-button { display:inline-flex; align-items:center; justify-content:center; gap:7px; width:fit-content; min-height:30px; padding:4px 0; border:0; border-radius:0; background:transparent; color:var(--text-secondary); font-family:var(--font-body)!important; font-size:13px!important; line-height:1.8; }
+.interactive-button { display:inline-flex; align-items:center; justify-content:center; gap:7px; width:fit-content; min-height:40px; padding:6px 0; border:0; border-radius:0; background:transparent; color:var(--text-secondary); font-family:var(--font-body)!important; font-size:16px!important; line-height:1.8; }
 .interactive-button:hover { color:var(--accent); }
 .interactive-button.is-normal { padding:5px 12px; border:1px solid color-mix(in srgb,var(--accent) 50%,transparent); border-radius:6px; color:var(--accent); }
 .interactive-button.is-continue { color:var(--accent); }
@@ -112,8 +112,8 @@
 .interactive-graphic>svg { display:block; width:100%; max-width:100%; overflow:visible; }
 .interactive-stroke { stroke:currentColor; fill:none; stroke-linecap:round; stroke-linejoin:round; }
 .interactive-axes { color:var(--text-tertiary); stroke:currentColor; stroke-width:.8; fill:currentColor; }
-.interactive-axes text { stroke:none; font-family:var(--font-reading); font-size:13px; }
-.interactive-graphic-label { font-family:var(--font-reading); font-size:16px; fill:currentColor; stroke:none; }
+.interactive-axes text { stroke:none; font-family:var(--font-body); font-size:16px; }
+.interactive-graphic-label { font-family:var(--font-body); font-size:16px; fill:currentColor; stroke:none; }
 .interactive-graphic-gap { margin:6px 0 0; color:var(--text-tertiary); font-family:var(--font-body); font-size:11px; line-height:1.8; }
 .interactive-drag-handle { outline:none; cursor:grab; touch-action:none; }
 .interactive-drag-handle:active { cursor:grabbing; }

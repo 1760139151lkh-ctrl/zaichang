@@ -1,4 +1,6 @@
 import sakikoWhole from '../../前端视觉创新设计/运行素材/companion/edge/sakiko-meme-cat-v3.png';
+import sakikoLoaf from '../../前端视觉创新设计/运行素材/companion/edge/sakiko-loaf-v1.png';
+import sakikoCurl from '../../前端视觉创新设计/运行素材/companion/edge/sakiko-curl-v1.png';
 import sakikoBody from '../../前端视觉创新设计/运行素材/companion/edge/sakiko-meme-cat-v3-body.png';
 import sakikoTail from '../../前端视觉创新设计/运行素材/companion/edge/sakiko-meme-cat-v3-tail.png';
 import mutsumiBody from '../../前端视觉创新设计/运行素材/companion/edge/mutsumi-meme-cat-v1-body.png';
@@ -42,6 +44,17 @@ export interface EdgeCompanionArtwork {
   bodySha256: string;
   tailSha256?: string;
 }
+export type EdgeCompanionPose = 'stretch' | 'loaf' | 'curl';
+const sakikoPoses: Partial<Record<EdgeCompanionPose, EdgeCompanionArtwork>> = {
+  loaf: { id: 'sakiko-loaf-v1', character: 'sakiko', label: '祥子', facing: 'left', mirrorSafe: true,
+    body: sakikoLoaf, canvas: [1536, 1024], bounds: [128, 143, 1381, 900], supportY: 890 / 1024,
+    sourceSha256: '226615cd5220c2e4aee013ea662c994dfd7275f8f78236edb8c0169bf9c5728c',
+    bodySha256: '84ddfa7628a51512b687a1b9fc1df2b200f4d392d2fff46910a4914999c9bdba' },
+  curl: { id: 'sakiko-curl-v1', character: 'sakiko', label: '祥子', facing: 'left', mirrorSafe: true,
+    body: sakikoCurl, canvas: [1536, 1024], bounds: [37, 135, 1501, 888], supportY: 878 / 1024,
+    sourceSha256: '9c8ed52b58010fb32824716214746212c3bbd0de0e4e7bda4528fd0ae508d5dd',
+    bodySha256: '7f29efe5e4e012489ddcac39baffebbd26f34444ece6e126b564fc61d5342ad2' },
+};
 
 // Primary-reviewed source artwork only; integrated runtime acceptance remains
 // pending. These addresses never describe personality or a user's memories.
@@ -129,7 +142,8 @@ for (const value of [...Object.values(artwork), ...Object.values(oppositeFacing)
 
 // Vertical edges reuse this admitted horizontal rig by the user's current
 // quarter-turn rule. Dedicated upright sources remain historical artwork.
-export function edgeCompanionArtwork(character: string, dockLeft = false): EdgeCompanionArtwork | undefined {
+export function edgeCompanionArtwork(character: string, dockLeft = false, pose: EdgeCompanionPose = 'stretch'): EdgeCompanionArtwork | undefined {
   if (!Object.hasOwn(artwork, character)) return undefined;
+  if (character === 'sakiko' && sakikoPoses[pose]) return sakikoPoses[pose];
   return dockLeft && Object.hasOwn(oppositeFacing, character) ? oppositeFacing[character] : artwork[character];
 }

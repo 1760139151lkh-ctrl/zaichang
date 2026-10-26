@@ -360,9 +360,10 @@ export function AgendaEditor({
             )}
           </fieldset>
         )}
-        <div className="agenda-edit-comparison" aria-label="时间前后对照">
+        {(original.allDayDate ? !once && allDayDate !== original.allDayDate
+          : time !== beforeCivil || (duration ? Number(duration) : undefined) !== beforeDuration) && <div className="agenda-edit-comparison" aria-label="时间前后对照">
           <div>
-            <small>原来</small>
+            <span className="sr-only">原来</span>
             <strong>
               {timeDescription(
                 beforeCivil,
@@ -374,7 +375,7 @@ export function AgendaEditor({
           </div>
           <span aria-hidden="true">→</span>
           <div>
-            <small>{trialInstant ? '试试这个时间' : '现在'}</small>
+            <span className="sr-only">{trialInstant ? '试试这个时间' : '现在'}</span>
             <strong>
               {timeDescription(
                 time,
@@ -384,7 +385,7 @@ export function AgendaEditor({
               )}
             </strong>
           </div>
-        </div>
+        </div>}
         {original.allDayDate ? (
           once ? (
             <p className="agenda-all-day">这是一件全天的安排，可以单独改这次的说明。</p>

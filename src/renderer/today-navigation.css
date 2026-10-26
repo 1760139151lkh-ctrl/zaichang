@@ -1,0 +1,59 @@
+.today-navigation { position: relative; display: flex; align-items: center; flex-wrap: wrap; gap: 10px 14px; min-width: 0; margin: 0 0 25px; }
+.today-navigation button,.today-navigation summary { color: var(--text-secondary); font: inherit; font-size: 13px; cursor: pointer; border: 0; background: transparent; border-radius: 10px; }
+.today-navigation button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 40px; padding: 0 11px; }
+.today-navigation button:hover,.today-navigation summary:hover { color: var(--text); background: var(--wash); }
+.today-navigation button:focus-visible,.today-navigation summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.today-navigation button:disabled { opacity: .45; cursor: default; }
+.today-navigation-date { display: flex; align-items: center; min-width: 0; gap: 3px; }
+.today-navigation .today-navigation-icon { display: grid; place-items: center; flex: 0 0 36px; width: 36px; height: 40px; padding: 0; border-radius: 10px; }
+.today-navigation-picker { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 0 10px; color: var(--text); font-size: 13px; white-space: nowrap; cursor: pointer; border-radius: 10px; }
+.today-navigation-picker:hover { background: var(--wash); }
+.today-navigation-picker:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+.today-navigation-picker input { position: absolute; inset: 0; opacity: 0; width: 100%; min-width: 0; cursor: pointer; }
+.today-navigation .today-navigation-now { font-size: 12px; color: var(--accent); }
+.today-navigation .today-navigation-current { color: var(--accent); background: var(--accent-soft); font-size: 12px; }
+.today-navigation-actions { position: relative; display: flex; align-items: center; gap: 5px; margin-left: 3px; }
+.today-navigation-actions::before { content: ''; position: absolute; z-index: -1; inset: -7px -18px; background: radial-gradient(ellipse, color-mix(in srgb, var(--surface) 84%, transparent), color-mix(in srgb, var(--surface) 50%, transparent) 58%, transparent 78%); filter: blur(8px); pointer-events: none; }
+.today-navigation-actions > .today-navigation-icon,.today-navigation-more > .today-navigation-icon { color: var(--text); }
+.today-navigation .today-navigation-add { gap: 6px; color: var(--accent); padding-inline: 12px; }
+.today-navigation-more { position: relative; }
+.today-navigation-more > summary { list-style: none; }
+.today-navigation-more > summary::-webkit-details-marker { display: none; }
+.today-navigation-more[open] > summary { color: var(--accent); background: var(--accent-soft); }
+.today-options-popover { position: absolute; top: calc(100% + 9px); right: 0; z-index: 30; box-sizing: border-box; width: 282px; max-width: calc(100vw - 32px); max-height: min(650px,calc(100dvh - 190px)); overflow-y: auto; overscroll-behavior: contain; padding: 9px; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); box-shadow: var(--shadow); }
+.today-options-scopes { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+.today-options-scopes > button { justify-content: flex-start; padding-inline: 11px; }
+.today-navigation .today-options-popover button[aria-pressed='true'] { color: var(--accent); background: var(--accent-soft); }
+.today-navigation .today-options-entrusted { width: 100%; justify-content: flex-start; margin: 7px 0; }
+.today-options-entrusted > span { flex: 1; text-align: left; }
+.today-options-layout,.today-options-date { display: flex; align-items: center; justify-content: space-between; gap: 4px; border-top: 1px solid var(--separator); padding-top: 7px; margin-top: 7px; }
+.today-options-layout > button { flex: 1; }
+.today-options-date > button { font-size: 12px; }
+.today-options-tools { display: flex; flex-direction: column; gap: 6px; margin-top: 7px; padding-top: 7px; border-top: 1px solid var(--separator); }
+.today-options-tools .today-campus-tools { margin: 0; flex: 0 0 auto; }
+.today-options-tools .today-campus-tools > .text-button,.today-options-tools .calendar-handoff-trigger { min-height: 40px; width: 100%; justify-content: flex-start; padding-inline: 11px; }
+.today-options-tools .calendar-handoff { width: 100%; }
+.today-options-tools .calendar-handoff-sheet,.today-options-tools .calendar-handoff-result { position: relative; top: auto; right: auto; left: auto; width: 100%; max-width: none; margin-top: 8px; padding: 14px 5px; border: 0; border-radius: 0; box-shadow: none; background: transparent; }
+.today-options-tools .calendar-handoff-heading h2 { font-size: 20px; }
+.today-options-tools .calendar-handoff-dates { gap: 8px; }
+.today-options-tools .calendar-handoff-dates input { padding-inline: 5px; }
+.today-options-tools .calendar-handoff-actions { gap: 6px; flex-wrap: wrap; }
+.today-options-tools .calendar-handoff-actions .primary-button { flex-basis: 100%; }
+.today-options-tools .calendar-handoff-actions .text-button { margin-inline: auto; }
+.today-options-zone { display: block; margin: 8px 11px 3px; color: var(--text-tertiary); font-size: 11px; }
+.today-navigation-search { display: flex; align-items: center; flex-basis: 100%; gap: 9px; padding: 0 8px 0 13px; min-height: 44px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); color: var(--text-secondary); }
+.today-navigation-search:focus-within { border-color: var(--accent); }
+.today-navigation-search > input { min-width: 0; flex: 1; border: 0; background: transparent; color: var(--text); font: inherit; font-size: 14px; outline: none; }
+.today-navigation-search > input:focus { box-shadow: none; }
+.today-navigation-search > input::placeholder { color: var(--text-tertiary); }
+@media (max-width: 640px) {
+  .today-navigation { gap: 7px; margin-bottom: 19px; }
+  .today-navigation-date { gap: 0; }
+  .today-navigation-picker { gap: 6px; padding-inline: 5px; font-size: 12px; }
+  .today-navigation-picker > svg { display: none; }
+  .today-navigation-actions { gap: 1px; }
+  .today-navigation .today-navigation-add { width: 36px; padding: 0; }
+  .today-navigation-add > span { display: none; }
+  .today-navigation .today-navigation-icon { width: 32px; flex-basis: 32px; }
+  .today-options-popover { max-height: calc(100dvh - 210px); }
+}

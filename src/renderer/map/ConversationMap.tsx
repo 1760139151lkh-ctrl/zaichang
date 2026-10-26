@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState, type PointerEven
 import { ChevronDown, ChevronUp, Expand, MapPinned, Pause, Play, Route, X } from 'lucide-react';
 import type { MapScene, SemanticSelection } from '../../shared/scenes';
 import { emptyRoute, mapPointEndpoint, routeHasUnverifiedPassages, type MapPoint, type MapRouteResult } from '../../shared/map-v2';
-import type { SharedMapRoute } from '../../shared/map-context';
+import { sharedMapRouteSchema, type SharedMapRoute } from '../../shared/map-context';
 import type { MapSurfaceMemory, MapContextHandoff } from './CampusMap';
 import { MapSurface } from './DesktopMapSheet';
 import type { CampusMapEngine } from './map-engine';
@@ -105,6 +105,7 @@ export function ConversationMap({
   }, [active, collapsed]);
   const [entrances, setEntrances] = useState(false);
   const [pickingOrigin, setPickingOrigin] = useState(false), [originPreview, setOriginPreview] = useState<MapRouteResult>();
+  const [previewConditions, setPreviewConditions] = useState<SharedMapRoute>();
   const [routePending, setRoutePending] = useState(false), [routeIssue, setRouteIssue] = useState(''), [sharing, setSharing] = useState(false);
   const routeRequest = useRef(0), alive = useRef(true);
   const engine = useRef<CampusMapEngine | undefined>(undefined),
@@ -117,7 +118,10 @@ export function ConversationMap({
   const expansionSpring = useSpringValue(1, { stiffness: 290, damping: 33, bounds: [-.12, 1.12] });
   const expansionVector = useRef([0, 0, 0, 0]);
   const expansionOrigin = useRef<DOMRect | undefined>(undefined);
+  // Modal focus can move the message scroller. The return target is the
+  // opening viewport rectangle, not a later off-screen position of its frame.
   const inlineGeometry = useRef<{ width: number; height: number; left: number; top: number } | undefined>(undefined);
+  const focusScroll = useRef<{ element: HTMLElement; top: number; left: number } | undefined>(undefined);
   const focusGesture = useRef<{ pointerId: number; target: HTMLButtonElement; startY: number; lastY: number;
     lastAt: number; velocity: number; startProgress: number; progress: number; distance: number; wasFocused: boolean; moved: boolean } | undefined>(undefined);
   const focusState = useRef(focused);
@@ -186,8 +190,10 @@ export function ConversationMap({
     setTransitioning(!prefersQuietMotion());
     engine.current?.cancelMotion(); setPlaying(false);
     if (next) {
-      const home = element?.getBoundingClientRect(), parent = frame.current?.getBoundingClientRect();
-      if (home && parent) inlineGeometry.current = { width: home.width, height: home.height, left: home.left-parent.left, top: home.top-parent.top };
+      const home = element?.getBoundingClientRect();
+      if (home) inlineGeometry.current = { width: home.width, height: home.height, left: home.left, top: home.top };
+      const scroll = frame.current?.closest<HTMLElement>('.message-scroll');
+      if (scroll) focusScroll.current = { element: scroll, top: scroll.scrollTop, left: scroll.scrollLeft };
       collapsedBeforeFocus.current = collapsed;
       setPlaceholderHeight(frame.current?.getBoundingClientRect().height);
       memory.collapsed = false; setCollapsed(false);
@@ -201,6 +207,14 @@ export function ConversationMap({
     setFocused(next);
   }
   useLayoutEffect(() => {
+    if (!focused) {
+      const scroll = focusScroll.current;
+      focusScroll.current = undefined;
+      if (scroll?.element.isConnected) {
+        scroll.element.scrollTop = scroll.top;
+        scroll.element.scrollLeft = scroll.left;
+      }
+    }
     const element = container.current, before = expansionOrigin.current;
     expansionOrigin.current = undefined;
     if (!element || !before) { setTransitioning(false); return; }
@@ -218,9 +232,9 @@ export function ConversationMap({
     const wasFocused = focusState.current;
     const visible = element.getBoundingClientRect();
     expansionSpring.stop();
-    const home = inlineGeometry.current, parent = frame.current?.getBoundingClientRect();
-    const homeRect = wasFocused && home && parent
-      ? new DOMRect(parent.left+home.left, parent.top+home.top, home.width, home.height) : undefined;
+    const home = inlineGeometry.current;
+    const homeRect = wasFocused && home
+      ? new DOMRect(home.left, home.top, home.width, home.height) : undefined;
     let startProgress = wasFocused ? 1 : 0;
     if (homeRect) {
       expansion.current?.cancel();
@@ -232,7 +246,7 @@ export function ConversationMap({
       if (!matches(homeRect) && !matches(full)) startProgress = Math.max(.001, Math.min(.999, startProgress));
     }
     const homeTop = homeRect?.top ?? visible.top;
-    const focusedTop = window.innerWidth <= 600 ? 0 : 20;
+    const focusedTop = parseFloat(getComputedStyle(element).getPropertyValue('--map-focus-top')) || 84;
     focusGesture.current = { pointerId: event.pointerId, target: event.currentTarget, startY: event.clientY,
       lastY: event.clientY, lastAt: event.timeStamp, velocity: 0, startProgress, progress: startProgress,
       distance: Math.max(96, Math.abs(homeTop-focusedTop)), wasFocused, moved: false };
@@ -299,6 +313,9 @@ export function ConversationMap({
   const browseRoute = useMemo(() => ({ ...emptyRoute(), to: scene.place }), [scene.place]);
   const originalRoute = leg?.route || browseRoute;
   const route = originPreview || originalRoute;
+  const currentConditions = sharedMapRouteSchema.safeParse(originPreview ? previewConditions : leg?.routeConditions);
+  const canKeepRoute = !!route.from && !!route.to && currentConditions.success
+    && !['idle', 'loading', 'error', 'missing_origin', 'missing_destination', 'outside'].includes(route.status);
   const previewRoute = useRef(route);
   const changedRoute = previewRoute.current !== route;
   const total = scene.journey.legs.reduce((sum, value) => sum + (value.route.distance?.totalM || 0), 0);
@@ -306,7 +323,7 @@ export function ConversationMap({
   const valid = scene.journey.legs.every((value) => value.route.status === 'ready');
   function cancelOrigin(clear = true) {
     routeRequest.current++; setPickingOrigin(false); setRoutePending(false); setSharing(false); setRouteIssue('');
-    if (clear) setOriginPreview(undefined);
+    if (clear) { setOriginPreview(undefined); setPreviewConditions(undefined); }
   }
   useEffect(() => {
     cancelOrigin();
@@ -520,12 +537,16 @@ export function ConversationMap({
     if (point.kind === 'water') { setRouteIssue('选岸边的地点作起点吧，水面这里可以先看看。'); return; }
     const request = ++routeRequest.current;
     const requestingEngine = engine.current, cameraTicket = requestingEngine?.ownership.ticket();
-    setRoutePending(true); setRouteIssue(''); setOriginPreview(undefined);
+    setRoutePending(true); setRouteIssue(''); setOriginPreview(undefined); setPreviewConditions(undefined);
     try {
       const result = await window.zaichang.mapRoute({ from: mapPointEndpoint(point), to: mapPointEndpoint(destination),
         version: scene.source.version, avoidStairs: false, allowConditional: false });
       if (!alive.current || request !== routeRequest.current) return;
       setOriginPreview(result); setPickingOrigin(false); setSelected(undefined);
+      const from = result.from && mapPointEndpoint(result.from), to = result.to && mapPointEndpoint(result.to);
+      if (from && from.kind !== 'current' && to && to.kind !== 'current') setPreviewConditions({
+        fromId: from.id, fromKind: from.kind, toId: to.id, toKind: to.kind, mapVersion: result.source.version,
+        ...(result.profileRevision ? { profileRevision: result.profileRevision } : {}), avoidStairs: false, allowConditional: false });
       memory.manual = true;
       if (requestingEngine && requestingEngine === engine.current && cameraTicket !== undefined && requestingEngine.ownership.accepts(cameraTicket)) {
         requestingEngine.cancelMotion(); requestingEngine.fitRoute(result);
@@ -534,15 +555,35 @@ export function ConversationMap({
       if (alive.current && request === routeRequest.current) setRouteIssue(uiError(error) || '这次没找到这段路，换个起点再看看。');
     } finally { if (alive.current && request === routeRequest.current) setRoutePending(false); }
   }
-  async function keepOriginRoute() {
-    const result = originPreview, callback = onUseMapContext;
+  async function refreshOriginalRoute() {
+    const from = originalRoute.from && mapPointEndpoint(originalRoute.from), to = originalRoute.to && mapPointEndpoint(originalRoute.to);
+    if (!from || from.kind === 'current' || !to || to.kind === 'current' || routePending || sharing || scene.storySetting) return;
+    const request = ++routeRequest.current;
+    const requestingEngine = engine.current, cameraTicket = requestingEngine?.ownership.ticket();
+    setRoutePending(true); setRouteIssue('');
+    try {
+      const overview = await window.zaichang.mapOverview();
+      if (!alive.current || request !== routeRequest.current) return;
+      const result = await window.zaichang.mapRoute({ from, to, version: overview.version,
+        profileRevision: overview.profileRevision, avoidStairs: false, allowConditional: false });
+      if (!alive.current || request !== routeRequest.current) return;
+      setOriginPreview(result); setPickingOrigin(false); setSelected(undefined);
+      setPreviewConditions({ fromId: from.id, fromKind: from.kind, toId: to.id, toKind: to.kind,
+        mapVersion: result.source.version, ...(result.profileRevision ? { profileRevision: result.profileRevision } : {}),
+        avoidStairs: false, allowConditional: false });
+      memory.manual = true;
+      if (requestingEngine && requestingEngine === engine.current && cameraTicket !== undefined && requestingEngine.ownership.accepts(cameraTicket)) {
+        requestingEngine.cancelMotion(); requestingEngine.fitRoute(result);
+      }
+    } catch (error) {
+      if (alive.current && request === routeRequest.current) setRouteIssue(uiError(error) || '这次没能重新看这段路，原来的路线还留着。');
+    } finally { if (alive.current && request === routeRequest.current) setRoutePending(false); }
+  }
+  async function keepCurrentRoute() {
+    const result = route, callback = onUseMapContext;
     if (!result?.from || !result.to || !callback || sharing || scene.storySetting
-      || ['idle', 'loading', 'error', 'missing_origin', 'missing_destination', 'outside'].includes(result.status)) return;
-    const from = mapPointEndpoint(result.from), to = mapPointEndpoint(result.to);
-    if (from.kind === 'current' || to.kind === 'current') return;
-    const conditions: SharedMapRoute = { fromId: from.id, fromKind: from.kind, toId: to.id, toKind: to.kind,
-      mapVersion: result.source.version, ...(result.profileRevision ? { profileRevision: result.profileRevision } : {}),
-      avoidStairs: false, allowConditional: false };
+      || !canKeepRoute || !currentConditions.success) return;
+    const conditions = currentConditions.data;
     const request = ++routeRequest.current; let selectionId: string | undefined;
     setSharing(true); setRouteIssue('');
     try {
@@ -741,12 +782,13 @@ export function ConversationMap({
             </div>
           )}
           <div className="conversation-map-caption">
-            <div>
+            <div className="conversation-map-route-copy">
               {pickingOrigin ? <strong>在图上选个起点，也可以搜地点</strong> : selected ? (
                 <strong>关于「{selected.displayName}」</strong>
               ) : leg || originPreview ? (
-                <span>
+                <span className="conversation-map-route-line">
                   {route.from?.displayName} <span aria-hidden="true">→</span> {route.to?.displayName}
+                  {route.distance && <span className="conversation-map-distance">{distance(route.distance.totalM)}</span>}
                 </span>
               ) : (
                 <span>{scene.place?.displayName || '紫金港校园'}</span>
@@ -763,8 +805,19 @@ export function ConversationMap({
                         : '沿着图上有记录的步行道路'}
               </small>
             </div>
+            <div className="conversation-map-actions">
+            {!scene.storySetting && onUseMapContext && originalRoute.to && originalRoute.to.kind !== 'water' && <div className="conversation-map-handoff-actions">
+              {canKeepRoute && <button className="conversation-map-handoff" disabled={sharing || routePending} onClick={() => void keepCurrentRoute()}><MapPinned size={16} aria-hidden="true" />{sharing ? '正在带回' : route.status === 'ready' ? '带这条路回对话' : '带这两处回对话'}</button>}
+              {!currentConditions.success && originalRoute.from && <button className="conversation-map-handoff" disabled={!ready || routePending || sharing} onClick={() => void refreshOriginalRoute()}>{routePending ? '正在重新看这段路' : '重新看看这段路'}</button>}
+              {!pickingOrigin && <button className={!route.from ? 'conversation-map-handoff' : undefined} disabled={!ready || routePending || sharing} onClick={() => {
+                cancelOrigin(); setPickingOrigin(true); setSelected(undefined); memory.manual = true; engine.current?.takeControl();
+                if (collapsed) { memory.collapsed = false; setCollapsed(false); }
+                container.current?.querySelector<HTMLInputElement>('.campus-v2-search input')?.focus({ preventScroll: true });
+              }}>{originalRoute.from || originPreview ? '换个起点' : '选择起点'}</button>}
+              {(pickingOrigin || originPreview || routePending) && <button disabled={sharing} onClick={() => cancelOrigin()}>先放下</button>}
+            </div>}
             {((!!leg || !!originPreview) && !scene.storySetting) && (
-              <>
+              <div className="conversation-map-camera-actions" role="group" aria-label="查看这段路">
                 <button
                   disabled={!ready || route.status !== 'ready'}
                   onClick={() => { if (explaining) { engine.current?.cancelMotion(); takeControl(); } else void explain(); }}
@@ -783,6 +836,7 @@ export function ConversationMap({
                   }}
                 >
                   {playing ? <Pause size={15} /> : <Play size={15} />}
+                  {playing ? '暂停' : '预览'}
                 </button>
                 <button
                   aria-label="回到这段路线"
@@ -794,20 +848,11 @@ export function ConversationMap({
                 >
                   回到路线
                 </button>
-              </>
+              </div>
             )}
-            {!scene.storySetting && onUseMapContext && originalRoute.to && originalRoute.to.kind !== 'water' && (!originalRoute.from || originPreview || pickingOrigin) && <>
-              {!pickingOrigin && <button disabled={!ready || routePending || sharing} onClick={() => {
-                cancelOrigin(); setPickingOrigin(true); setSelected(undefined); memory.manual = true; engine.current?.takeControl();
-                if (collapsed) { memory.collapsed = false; setCollapsed(false); }
-                container.current?.querySelector<HTMLInputElement>('.campus-v2-search input')?.focus({ preventScroll: true });
-              }}>{originPreview ? '换个起点' : '选择起点'}</button>}
-              {(pickingOrigin || originPreview || routePending) && <button disabled={sharing} onClick={() => cancelOrigin()}>先放下</button>}
-              {originPreview?.from && originPreview.to && !['idle', 'loading', 'error', 'missing_origin', 'missing_destination', 'outside'].includes(originPreview.status)
-                && <button disabled={sharing} onClick={() => void keepOriginRoute()}>{sharing ? '正在带回' : originPreview.status === 'ready' ? '带这条路回对话' : '带这两处回对话'}</button>}
-            </>}
             {scene.storySetting && selected && <button onClick={() => { choose(selected); focusMap(false); onContinue?.(); }}>接着写这一幕</button>}
             {!leg && selected && !scene.storySetting && !pickingOrigin && <button onClick={() => choose(selected)}>聊聊这里</button>}
+            </div>
           </div>
           {routeIssue && <p className="conversation-map-issue" role="status">{routeIssue}</p>}
           {(!!leg || !!originPreview) && !scene.storySetting && (

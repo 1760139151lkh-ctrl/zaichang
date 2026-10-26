@@ -19,8 +19,8 @@
 .study-paper-divider:is(:hover,:focus-visible,.is-moving)>span { border-color:var(--accent-dim); background:var(--accent-soft); }
 .study-paper-divider:focus-visible>span { outline:2px solid var(--focus); outline-offset:3px; }
 .study-desk-papers[data-resizing='true'],.study-desk-papers[data-resizing='true'] * { cursor:col-resize!important; user-select:none!important; }
-.study-source-paper,.study-work-paper { position:relative; isolation:isolate; min-width:0; padding:27px 25px; border:0; background:transparent; }
-.study-source-paper::before,.study-work-paper::before { position:absolute; z-index:-2; inset:-29px -14px; content:''; pointer-events:none; background-color:var(--surface-raised); background-image:url('../../../前端视觉创新设计/精选图稿/A-标杆/R144-竖版学习纸张.png'); background-size:100% 100%; background-blend-mode:multiply; mask-image:url('../../../前端视觉创新设计/精选图稿/A-标杆/R144-竖版学习纸张.png'); mask-size:100% 100%; mask-repeat:no-repeat; filter:drop-shadow(0 6px 8px #58442b0b); }
+.study-source-paper,.study-work-paper { position:relative; isolation:isolate; min-width:0; padding:27px 25px; border:0; background:var(--surface-raised); box-shadow:0 1px 4px #3826180a,0 9px 25px #3826180a; }
+.study-source-paper::before,.study-work-paper::before { position:absolute; z-index:-2; inset:0; border-radius:inherit; content:''; pointer-events:none; background:url('../../../前端视觉创新设计/来源记录/2026-10-25-study-materials/paper-fiber-clean-v1.png') repeat center/320px 320px; opacity:.055; mix-blend-mode:soft-light; }
 .study-source-paper { margin:7px 0 8px; border-radius:4px 9px 7px 4px; }
 .study-source-reference { min-width:0; }
 .study-work-paper { container-type:inline-size; container-name:study-work; display:flex; flex-direction:column; min-height:445px; border-radius:8px 4px 4px 8px; padding:27px 29px 20px; }
@@ -65,7 +65,7 @@
 .study-manuscript-line:not(.is-current) .study-handwritten { color:var(--text-secondary); }
 .study-starting-point { margin:13px 0 0; font-size:15px; line-height:1.9; color:var(--text-secondary); }
 .study-margin-note { position:relative; isolation:isolate; min-width:0; margin:0 0 0 24px; padding:15px 18px 16px; background:color-mix(in srgb,var(--accent-soft) 58%,var(--surface-raised)); box-shadow:1px 3px 7px #58442b08; color:var(--text); font-family:var(--font-handwritten); font-size:16px; line-height:1.9; transform:rotate(-.6deg); }
-.study-margin-note::before { position:absolute; inset:0; z-index:-1; content:''; pointer-events:none; background:url('../../../前端视觉创新设计/精选图稿/A-标杆/R144-竖版学习纸张.png') center/100% 100%; opacity:.22; mix-blend-mode:multiply; }
+.study-margin-note::before { position:absolute; inset:0; z-index:-1; content:''; pointer-events:none; background:url('../../../前端视觉创新设计/来源记录/2026-10-25-study-materials/paper-fiber-clean-v1.png') repeat center/320px 320px; opacity:.055; mix-blend-mode:soft-light; }
 .study-margin-note.is-new { animation:study-note-unfold 380ms 90ms both var(--ease); transform-origin:18% 10%; }
 .study-margin-note h4 { margin:0 0 8px; font-size:13px; font-weight:540; }
 .study-margin-note p { margin:0 0 10px; }

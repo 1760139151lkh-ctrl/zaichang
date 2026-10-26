@@ -6,6 +6,10 @@
 
 ## 本轮接续与视觉资产
 
+2026-10-26独立前端重审的当前入口是[实施与验收记录](docs/evidence/2026-10-26-frontend-reassessment.md)。`src/renderer/WorkspaceScenery.tsx`与`workspace-scenes.css`负责各任务的环境、文字尺度和同画布落点；`EdgeCompanion.tsx`、`edge-companion-geometry.ts`与`edge-companion-assets.ts`保留同一个猫的拖动、点/边支撑、姿态与恢复。新艺术资产位于`前端视觉创新设计/运行素材/workspaces`，实际Prompt与SHA位于`前端视觉创新设计/来源记录/2026-10-26-product-reassessment`。本轮按用户明确要求由主代理独立完成，不改变十二阶段正式研发的组织规则。
+
+助手选句/整公式沿`AssistantTextSource.tsx → RichText.tsx/LocalTextFocus.tsx → App.tsx → shared/workspace-context.ts → main/storage/repository.ts`传原文地址。`workspace-return.ts`恢复同地址；`runtime/context.ts`和`runtime/coordinator.ts`核原来源并登记回执。资产采用及对应源码见[本轮索引](前端视觉创新设计/来源记录/2026-10-26-product-reassessment/asset-index.json)。
+
 [核心技能完整目录](核心技能/README.md)分别提供[前端设计](核心技能/前端设计/SKILL.md)、[后端设计](核心技能/后端设计/SKILL.md)和[Gemini 视频生成](核心技能/Gemini视频生成/SKILL.md)。每份保留全部配套文件；前后端的日常维护源仍在 `.agents/skills`，醒目目录与维护源同步更新。仓库同步范围见[2026-10-24 同步说明](docs/GITHUB_SYNC_2026-10-24.md)。
 
 [历史阶段交接](docs/handoff/2026-10-24-stage02-restart/README.md)保存第一、第二阶段背景；[当前理解与实施入口](docs/handoff/2026-10-25-presence-design/CODEX_START.md)统一十二阶段顺序与共同在场设计。先亲读当前输入和必要材料，形成完整理解。实际执行十二阶段研发时每阶段固定八人；解释、评审或修订这些文档不自动触发团队。路线图中的功能与创新要真实实施、亲验并修复后交付。

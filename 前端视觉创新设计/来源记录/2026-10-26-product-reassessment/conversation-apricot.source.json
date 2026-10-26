@@ -1,0 +1,23 @@
+{
+  "kind": "environment",
+  "tool": "built-in image_gen",
+  "prompt": "Use case: precise-object-edit. Input is an approved exploratory application mockup. Create ONLY its clean environmental art layer, landscape 1536x1024, retaining the exact overall arrangement and art style. Remove ALL typography, words, formulas, equations, plots, charts, data, portraits, avatars, human figures, cat, icons, navigation, controls, composer, interface lines, button shapes and document tiles. The entire calm cream reading plane occupying x=22%..90% is clean, blank and softly textured with no residual glyphs and no boxed silhouettes. Keep its honest material surface, no white fog. Preserve the left window edge with blue daylight and thin curtain, small brass lamp, blue-white ceramic cup, close wood desktop at bottom, the shallow right bookshelf edge. No readable book spine text, neutral book spines. Entire scene is close tabletop/reading alcove with content-ready natural space; no window-seat or bed. No green UI or painted interface; natural plants allowed but sparse at outermost edges. This is background art that will receive actual HTML reading content; it must not contain any fake application elements. Keep the stable low-contrast reading plane very large. Warm apricot daylight; no person.",
+  "generatedSource": "C:\\Users\\17601\\.codex\\generated_images\\01a1789a-60fe-76f0-b0b3-4db58b792d38\\exec-813fcdf7-ba41-4c03-adef-9195f337b6b7.png",
+  "review": "干净日间环境，中心无文字与控件，供真实正文独立渲染。",
+  "status": "primary-visually-inspected",
+  "output": "前端视觉创新设计/运行素材/workspaces/conversation-apricot.png",
+  "sha256": "d69c1a7d0477c66d612759c61fdaa2e4790fcf3494b019a7cebd51f4da3719e2",
+  "inputs": [
+    {
+      "path": "C:\\Users\\17601\\.codex\\generated_images\\01a1789a-60fe-76f0-b0b3-4db58b792d38\\exec-8a4157ac-1c3b-49ea-b10d-93c391262ff7.png",
+      "sha256": "baade675dc8dcc8ae1965bf737ec0aefea4da43288e19795f79d99f5185a8ea1"
+    }
+  ],
+  "primaryImageInspection": "complete",
+  "runtimeVerification": {
+    "admitted": true,
+    "evidence": "docs/evidence/2026-10-26-frontend-reassessment.md",
+    "scope": "原图逐幅亲看；采用对应环境与布局。实际交互证据见 docs/evidence/2026-10-26-frontend-reassessment.md，未逐一声明全部主题与全部内容的组合。"
+  },
+  "classification": "A"
+}

@@ -1,14 +1,16 @@
 .conversation-map-frame { min-width:0; display:flow-root; }
 .conversation-map {
+  --map-focus-top: 84px;
   position: relative;
   margin: 22px 0;
   min-width: 0;
-  border: 1px solid var(--border);
-  border-radius: 22px;
+  border: 1px solid color-mix(in srgb, var(--border) 72%, transparent);
+  border-radius: 20px;
   overflow: hidden;
-  background: var(--bg);
+  background: var(--surface);
   color: var(--text);
   isolation: isolate;
+  box-shadow: 0 7px 28px #28170e10, 0 1px 4px #28170e05;
 }
 .conversation-map button {
   font: inherit;
@@ -37,8 +39,8 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 19px 17px 15px;
-  background: var(--bg);
+  padding: 22px 20px 14px;
+  background: transparent;
 }
 .conversation-map .conversation-map-grip {
   position: absolute;
@@ -94,6 +96,8 @@
   position: relative;
   overflow: hidden;
   background: var(--wash);
+  margin: 0 8px;
+  border-radius: 13px;
 }
 .campus-v2-dialog .campus-v2-surface {
   width: 100%;
@@ -228,22 +232,22 @@
   color: var(--accent) !important;
 }
 .conversation-map-caption {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  padding: 2px 18px 12px;
-  flex-wrap: wrap;
+  display: grid;
+  gap: 12px;
+  padding: 15px 20px 10px;
 }
-.conversation-map-caption > div {
-  flex: 1;
-  min-width: 160px;
-  font-size: 12px;
+.conversation-map-route-copy {
+  min-width: 0;
+  font-size: 14px;
   line-height: 1.65;
 }
+.conversation-map-route-line { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.conversation-map-distance { margin-left: 6px; color: var(--accent); font-size: 12px; white-space: nowrap; }
 .conversation-map-caption small {
   display: block;
-  font-size: 10px;
+  font-size: 11px;
   color: var(--text-secondary);
+  margin-top: 3px;
 }
 .conversation-map-caption strong {
   font-weight: 500;
@@ -251,17 +255,20 @@
 }
 .conversation-map-issue { margin: 0; padding: 0 20px 14px; color: var(--text-secondary); font-size: 12px; line-height: 1.7; }
 .conversation-map-caption button {
-  display: flex;
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-  font-size: 11px;
-  padding: 0 10px;
-  border-radius: 18px;
+  font-size: 12px;
+  padding: 0 12px;
+  border-radius: 12px;
+  white-space: nowrap;
 }
-.conversation-map-caption button:last-child {
-  font-size: 10px;
-  color: var(--text-secondary);
-}
+.conversation-map-actions { display: flex; align-items: center; gap: 12px 20px; flex-wrap: wrap; }
+.conversation-map-handoff-actions,.conversation-map-camera-actions { display: flex; align-items: center; gap: 3px; flex-wrap: wrap; }
+.conversation-map-camera-actions { color: var(--text-secondary); }
+.conversation-map .conversation-map-handoff { padding-inline: 16px; color: var(--accent-ink); background: var(--accent); font-weight: 500; }
+.conversation-map .conversation-map-handoff:hover:not(:disabled) { background: var(--accent-hover); }
 .conversation-map-preview {
   display: flex;
   align-items: center;
@@ -271,7 +278,7 @@
   color: var(--text-secondary);
 }
 .conversation-map-evidence {
-  padding: 0 20px 12px;
+  padding: 0 20px 13px;
   font-size: 11px;
   color: var(--text-secondary);
 }
@@ -282,14 +289,15 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  list-style-position: inside;
+  list-style: none;
 }
+.conversation-map-evidence summary::-webkit-details-marker { display: none; }
 .conversation-map-evidence summary::before {
-  content: '+';
+  content: '⌄';
   color: var(--accent);
 }
 .conversation-map-evidence[open] summary::before {
-  content: '−';
+  content: '⌃';
 }
 .conversation-map-evidence > div {
   max-height: 24vh;
@@ -317,7 +325,7 @@
 }
 .conversation-map[data-focused='true'] {
   position: fixed;
-  inset: 20px;
+  inset: var(--map-focus-top) 20px 20px;
   z-index: 1500;
   display: flex;
   flex-direction: column;
@@ -339,7 +347,7 @@
   font-size: 18px;
 }
 .conversation-map[data-focused='true'] .conversation-map-caption {
-  padding: 4px 26px 10px;
+  padding: 15px 26px 10px;
 }
 .conversation-map[data-focused='true'] .conversation-map-journey {
   padding: 8px 22px;
@@ -354,11 +362,14 @@
 }
 @media (max-width: 600px) {
   .conversation-map {
+    --map-focus-top: 100px;
     border-radius: 18px;
     margin: 16px -8px;
   }
   .conversation-map-canvas {
     height: 330px;
+    margin-inline: 6px;
+    border-radius: 11px;
   }
   .conversation-map-heading {
     padding: 20px 12px 12px;
@@ -371,14 +382,15 @@
     width: 30px;
   }
   .conversation-map-caption {
-    padding: 4px 13px 10px;
-    gap: 2px;
+    padding: 13px 14px 10px;
+    gap: 10px;
   }
-  .conversation-map-caption > div {
-    flex-basis: 100%;
-  }
+  .conversation-map-route-copy { font-size: 13px; }
+  .conversation-map-actions { gap: 7px; }
+  .conversation-map-camera-actions { gap: 0; }
+  .conversation-map-caption button { padding-inline: 10px; }
   .conversation-map[data-focused='true'] {
-    inset: 0;
+    inset: var(--map-focus-top) 0 0;
     border-radius: 0;
     margin: 0;
   }

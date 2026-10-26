@@ -97,12 +97,14 @@ export function Portal({ size = 24, className = '' }: { size?: number; className
 export function PagePanel({
   title,
   eyebrow,
+  headingContent,
   children,
   onClose,
   className = '',
 }: {
   title: string;
   eyebrow?: string;
+  headingContent?: ReactNode;
   children: ReactNode;
   onClose: () => void;
   className?: string;
@@ -120,6 +122,7 @@ export function PagePanel({
             <h1 ref={ref} tabIndex={-1}>
               {title}
             </h1>
+            {headingContent}
           </div>
           <button className="text-button page-return" onClick={onClose}>
             回到对话

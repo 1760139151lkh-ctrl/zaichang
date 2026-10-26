@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { MapPoint, MapRouteResult } from './map-v2';
+import type { SharedMapRoute } from './map-context';
 import { planningMaterialProvenanceSchema } from './harness';
 import { discussionArtworkSchema, type DiscussionScene, type VerifiedDiscussionFocus } from './discussion-scene';
 import type { StudyScene, StudyHistoryReference } from './study-presentation';
@@ -23,7 +24,7 @@ export interface SceneSource {
 }
 export interface SceneRef { id: string; revision: number }
 export interface JourneyStop { id: string; placeId: string; label: string; dwellMinutes?: number }
-export interface JourneyLeg { id: string; fromStopId: string; toStopId: string; route: MapRouteResult }
+export interface JourneyLeg { id: string; fromStopId: string; toStopId: string; route: MapRouteResult; routeConditions?: SharedMapRoute }
 export type CameraIntent = 'route' | 'overview' | 'destination' | 'selection' | 'explain';
 interface SceneBase extends SceneRef { createdAt: string; source: SceneSource }
 export interface MapScene extends SceneBase {
@@ -253,10 +254,11 @@ export interface ViewAnchor { offset: number; before: string }
 
 /** Split a reply into prose and views in the order she actually said and
  * showed them. A view whose spot cannot be found falls after the first
- * paragraph, as before anchors existed. */
+ * paragraph, as before anchors existed. Text retains its original whitespace;
+ * sourceStart/sourceEnd address that exact returned text in Unicode points. */
 export function interleaveViews<V extends { id: string; anchor?: ViewAnchor }>(text: string, views: readonly V[]):
-  ({ kind: 'text'; text: string } | { kind: 'view'; view: V })[] {
-  if (!views.length) return text ? [{ kind: 'text', text }] : [];
+  ({ kind: 'text'; text: string; sourceStart: number; sourceEnd: number } | { kind: 'view'; view: V })[] {
+  if (!views.length) return text ? [{ kind: 'text', text, sourceStart: 0, sourceEnd: Array.from(text).length }] : [];
   const firstBreak = text.search(/\n\s*\n/);
   const fallback = firstBreak >= 0 ? firstBreak : text.length;
   const position = (anchor?: ViewAnchor) => {
@@ -268,19 +270,24 @@ export function interleaveViews<V extends { id: string; anchor?: ViewAnchor }>(t
     const found = text.indexOf(anchor.before);
     return found >= 0 && text.indexOf(anchor.before, found + 1) < 0 ? found + anchor.before.length : at;
   };
-  const placed = views.map((view, order) => ({ view, order, at: position(view.anchor) }))
+  // View anchors are UTF-16. A malformed old anchor must not split a Unicode
+  // character into two pieces with incompatible source addresses.
+  const textBoundary = (at: number) => at > 0 && at < text.length
+    && /[\uD800-\uDBFF]/.test(text[at - 1]) && /[\uDC00-\uDFFF]/.test(text[at]) ? at + 1 : at;
+  const placed = views.map((view, order) => ({ view, order, at: textBoundary(position(view.anchor)) }))
     .sort((a, b) => a.at - b.at || a.order - b.order);
-  const parts: ({ kind: 'text'; text: string } | { kind: 'view'; view: V })[] = [];
-  let cursor = 0;
+  const parts: ({ kind: 'text'; text: string; sourceStart: number; sourceEnd: number } | { kind: 'view'; view: V })[] = [];
+  let cursor = 0, sourceCursor = 0;
   for (const item of placed) {
     const at = Math.max(item.at, cursor);
     const chunk = text.slice(cursor, at);
-    if (chunk.trim()) parts.push({ kind: 'text', text: chunk });
+    const sourceEnd = sourceCursor + Array.from(chunk).length;
+    if (chunk.trim()) parts.push({ kind: 'text', text: chunk, sourceStart: sourceCursor, sourceEnd });
     parts.push({ kind: 'view', view: item.view });
-    cursor = at;
+    cursor = at; sourceCursor = sourceEnd;
   }
   const rest = text.slice(cursor);
-  if (rest.trim()) parts.push({ kind: 'text', text: rest });
+  if (rest.trim()) parts.push({ kind: 'text', text: rest, sourceStart: sourceCursor, sourceEnd: sourceCursor + Array.from(rest).length });
   return parts;
 }
 const id = z.string().min(1).max(160);

@@ -529,6 +529,7 @@ export class ContextCompiler {
       this.recordLearningProcesses(pack, this.repo.conversationLearningProcessVersions(historyScope, sessionId, ids));
       this.recordReflectiveLetterSources(pack, this.repo.conversationReflectiveLetterSources(historyScope, sessionId, ids));
       this.recordAssistantWorkSources(pack, this.repo.conversationAssistantWorkSources(historyScope, sessionId, ids));
+      this.recordAssistantTextSources(pack, this.repo.conversationAssistantTextSources(historyScope, sessionId, ids));
       this.recordReleaseSources(pack, this.repo.conversationReleaseSources(historyScope, sessionId, ids));
       this.recordPersonalMethodSources(pack, this.repo.conversationPersonalMethodSources(historyScope, sessionId, ids));
       this.recordNoteSources(pack, this.repo.conversationNoteSources(historyScope, sessionId, ids));
@@ -635,6 +636,7 @@ export class ContextCompiler {
     this.recordLearningProcesses(pack, this.repo.conversationLearningProcessVersions(readScope, sessionId, history.map(message => message.id)));
     this.recordReflectiveLetterSources(pack, this.repo.conversationReflectiveLetterSources(readScope, sessionId, history.map(message => message.id)));
     this.recordAssistantWorkSources(pack, this.repo.conversationAssistantWorkSources(readScope, sessionId, history.map(message => message.id)));
+    this.recordAssistantTextSources(pack, this.repo.conversationAssistantTextSources(readScope, sessionId, history.map(message => message.id)));
     this.recordReleaseSources(pack, this.repo.conversationReleaseSources(readScope, sessionId, history.map(message => message.id)));
     this.recordPersonalMethodSources(pack, this.repo.conversationPersonalMethodSources(readScope, sessionId, history.map(message => message.id)));
     this.recordNoteSources(pack, this.repo.conversationNoteSources(readScope, sessionId, history.map(message => message.id)));
@@ -1213,6 +1215,18 @@ export class ContextCompiler {
       throw new HarnessError('assistant_work_changed', '这份作品或共做页的一处来由已有变化，这次没有继续接入先前的正文；原页面保留现在可读的内容。');
     this.recordWorkSourceBindings(pack, this.repo.assistantWorkSourceBindings(pack.contract.scope, combined));
     pack.receipt.assistantWorkSources = combined;
+    pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), 'history:self'])];
+    this.repo.saveReceipt(pack.contract.scope, pack.receipt);
+  }
+  /** Assistant words remain at their original reply. This provenance supports
+   * continuation only, and cannot turn that reply into a user statement. */
+  recordAssistantTextSources(pack: ContextPack | undefined, sources: NonNullable<ContextPack['receipt']['assistantTextSources']>) {
+    if (!pack || !sources.length) return;
+    const combined = [...new Map([...(pack.receipt.assistantTextSources || []), ...sources]
+      .map(source => [canonical(source), structuredClone(source)])).values()];
+    if (combined.length > 128 || !this.repo.assistantTextSourcesReadable(pack.contract.scope, combined))
+      throw new HarnessError('workspace_context_changed', '刚才指着的解释或它的来源已有变化，这次没有继续接入旧文字。');
+    pack.receipt.assistantTextSources = combined;
     pack.receipt.providedSourceIds = [...new Set([...(pack.receipt.providedSourceIds || []), 'history:self'])];
     this.repo.saveReceipt(pack.contract.scope, pack.receipt);
   }

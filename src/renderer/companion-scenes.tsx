@@ -1092,7 +1092,7 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, transfe
     {sameRoom && (!failedMother || showEmptyRoom) && <div className="scene-canvas" style={{ width: shown.width, height: shown.height,
       transform: `translate(${stageX}px, ${stageY}px) scale(${scale})` }}>
       {layered || showEmptyRoom ? <>
-        <img className="scene-layer" src={imageSource(shown.background)} alt="" draggable={false}
+        <img key={`background-${imageKey}`} className="scene-layer" src={imageSource(shown.background)} alt="" draggable={false}
           onLoad={event => { if (verifyLayer(event.currentTarget)) setOpenedBackground(imageKey); }} onError={failLayer} />
         {showFigure && motherReady && !failedMother && fixedSourceShadow && shown.shadow && <svg className="scene-layer scene-source-shadow" viewBox={`0 0 ${shown.width} ${shown.height}`} aria-hidden="true">
           <defs>

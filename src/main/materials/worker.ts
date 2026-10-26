@@ -91,8 +91,11 @@ function coordinates(raw: RawText, styles: Record<string, { ascent?: number; des
   const height = Math.hypot(tx[2], tx[3]);
   const style = styles[raw.fontName] || {};
   const angle = Math.atan2(tx[1], tx[0]) + (style.vertical ? Math.PI / 2 : 0);
-  const ascent = Number.isFinite(style.ascent) ? style.ascent! * height
-    : Number.isFinite(style.descent) ? (1 + style.descent!) * height : height;
+  // Some embedded fonts report both metrics as zero. Zero is missing font
+  // information, not a baseline at the top of the glyph. Match PDF.js's
+  // TextLayer fallback when neither usable metric is supplied.
+  const ascent = Number.isFinite(style.ascent) && style.ascent! > 0 ? style.ascent! * height
+    : Number.isFinite(style.descent) && style.descent! < 0 ? (1 + style.descent!) * height : .8 * height;
   const width = Math.abs(raw.width * viewport.scale);
   const ux = Math.cos(angle), uy = Math.sin(angle), vx = -uy, vy = ux;
   const left = tx[4] - ascent * vx, top = tx[5] - ascent * vy;

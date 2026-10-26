@@ -1,4 +1,4 @@
-import type { WorkspaceContext, WorkspaceSurface, WorkspaceTarget } from '../shared/workspace-context';
+import type { AssistantTextReference, WorkspaceContext, WorkspaceSurface, WorkspaceTarget } from '../shared/workspace-context';
 import type { SemanticSelection } from '../shared/scenes';
 import type { MaterialQuoteReference } from '../shared/materials';
 import type { NoteQuoteReference } from '../shared/notes';
@@ -16,7 +16,8 @@ import type { RehearsalRef } from '../shared/relationship-rehearsal';
 
 export interface CurrentWorkspaceReferences {
   selection?: SemanticSelection; materialQuote?: MaterialQuoteReference; noteQuote?: NoteQuoteReference;
-  conversationQuote?: ConversationBookmarkReference; agendaFocus?: AgendaFocus; mapRouteReference?: MapRouteReference;
+  conversationQuote?: ConversationBookmarkReference; assistantTextReference?: AssistantTextReference;
+  agendaFocus?: AgendaFocus; mapRouteReference?: MapRouteReference;
   study?: StudyFocusRef; programReference?: ProgramFollowupReference; companionReference?: CompanionFollowupReference;
   curiosityReference?: CuriosityFollowupReference; preparationReference?: PreparationFocusReference; letterReference?: LetterReference;
   noteReference?: NoteReference; rehearsal?: RehearsalRef;
@@ -25,6 +26,7 @@ export function currentWorkspaceTarget(input: CurrentWorkspaceReferences): Works
   if (input.materialQuote) return { kind: 'material_quote', reference: input.materialQuote };
   if (input.noteQuote) return { kind: 'note_quote', reference: input.noteQuote };
   if (input.conversationQuote) return { kind: 'conversation_quote', reference: input.conversationQuote };
+  if (input.assistantTextReference) return { kind: 'assistant_text', reference: input.assistantTextReference };
   if (input.selection) return { kind: 'scene', reference: input.selection };
   if (input.agendaFocus) return { kind: 'agenda', reference: input.agendaFocus };
   if (input.mapRouteReference) return { kind: 'map_route', reference: input.mapRouteReference };
@@ -41,6 +43,7 @@ export function currentWorkspaceTarget(input: CurrentWorkspaceReferences): Works
   if (input.rehearsal) return { kind: 'rehearsal', reference: input.rehearsal };
 }
 export function sameWorkspaceTarget(a: WorkspaceTarget | undefined, b: WorkspaceTarget | undefined) {
+  if (a?.kind === 'assistant_text' && b?.kind === 'assistant_text') return workspaceTargetKey(a) === workspaceTargetKey(b);
   return !!a && !!b && JSON.stringify(a) === JSON.stringify(b);
 }
 export function workspaceTargetAtSend(target: WorkspaceTarget | undefined, readProgramInputs?: () => ProgramStateValues | undefined): WorkspaceTarget | undefined {
@@ -50,6 +53,10 @@ export function workspaceTargetAtSend(target: WorkspaceTarget | undefined, readP
   return { ...target, reference: { ...target.reference, inputs: structuredClone(inputs) } };
 }
 export function workspaceTargetKey(target: WorkspaceTarget) {
+  if (target.kind === 'assistant_text') {
+    const { sessionId, messageId, contentSha256, start, end } = target.reference;
+    return JSON.stringify([target.kind, { sessionId, messageId, contentSha256, start, end }]);
+  }
   const reference = target.kind === 'interactive' ? (({ inputs: _inputs, ...address }) => address)(target.reference) : target.reference;
   return JSON.stringify([target.kind, reference]);
 }
@@ -87,12 +94,27 @@ function nodePoint(root: Node, codePoints: number) {
     remaining -= points.length;
   }
 }
-function literalRangeRect(root: HTMLElement, start: number, end: number, clip?: DOMRectReadOnly) {
+function literalRangeRect(root: HTMLElement, start: number, end: number, clip?: DOMRectReadOnly, continuous = false) {
+  const literalSpans = [...root.querySelectorAll<HTMLElement>('[data-focus-start][data-focus-end]')].filter(span => {
+    const from = Number(span.dataset.focusStart), to = Number(span.dataset.focusEnd);
+    return !span.closest('.katex,math,svg') && Number.isSafeInteger(from) && Number.isSafeInteger(to) && from >= 0 && to > from
+      && Array.from(span.textContent || '').length === to - from;
+  });
+  if (continuous) {
+    let covered = start;
+    const spans = literalSpans.map(span => ({ from: Number(span.dataset.focusStart), to: Number(span.dataset.focusEnd) }))
+      .filter(span => span.from < end && span.to > start);
+    for (let index = 0; index < spans.length; index++) {
+      const span = spans[index];
+      if (index ? span.from !== covered : span.from > start) return null;
+      covered = span.to;
+    }
+    if (covered < end) return null;
+  }
   const boundary = (point: number, upper: boolean) => {
-    const spans = [...root.querySelectorAll<HTMLElement>('[data-focus-start][data-focus-end]')].filter(span => {
+    const spans = literalSpans.filter(span => {
       const from = Number(span.dataset.focusStart), to = Number(span.dataset.focusEnd);
-      return !span.closest('.katex,math,svg') && from <= point && point <= to && to > from
-        && Array.from(span.textContent || '').length === to - from;
+      return from <= point && point <= to;
     });
     const span = upper ? spans[0] : spans.at(-1);
     return span ? nodePoint(span, point - Number(span.dataset.focusStart)) : undefined;
@@ -177,6 +199,31 @@ export async function resolveWorkspaceTargetRect(target: WorkspaceTarget, curren
     }
   }
   if (signal.aborted || !current().isCurrent()) return null;
+  if (target.kind === 'assistant_text' && (state.view === 'chat' || state.view === 'notes')) {
+    const ref = target.reference;
+    const messages = [...document.querySelectorAll<HTMLElement>('.assistant-message[data-message-id]')]
+      .filter(message => message.dataset.sessionId === ref.sessionId && message.dataset.messageId === ref.messageId
+        && message.dataset.assistantContentSha256 === ref.contentSha256 && !!elementRect(message));
+    if (messages.length === 1) {
+      const message = messages[0];
+      const fragments = [...message.querySelectorAll<HTMLElement>('[data-assistant-text-start][data-assistant-text-end]')]
+        .filter(fragment => {
+          const start = Number(fragment.dataset.assistantTextStart), end = Number(fragment.dataset.assistantTextEnd);
+          return fragment.closest('.assistant-message') === message && Number.isSafeInteger(start) && Number.isSafeInteger(end)
+            && start >= 0 && end > start && ref.start >= start && ref.end <= end;
+        });
+      if (fragments.length === 1) {
+        const fragment = fragments[0], start = Number(fragment.dataset.assistantTextStart);
+        const formula = [...fragment.querySelectorAll<HTMLElement>('[data-focus-math-start][data-focus-math-end]')]
+          .find(node => Number(node.dataset.focusMathStart) === ref.start - start && Number(node.dataset.focusMathEnd) === ref.end - start);
+        if (formula) return elementRect(formula);
+        // Only a continuous, proven literal range may point into the reply.
+        // Mathematics, decoded entities and Markdown gaps stay on the chip.
+        const rect = literalRangeRect(fragment, ref.start - start, ref.end - start, elementClip(fragment), true);
+        if (rect) return rect;
+      }
+    }
+  }
   if (target.kind === 'interactive') {
     const ref = target.reference;
     const nodes = [...document.querySelectorAll<HTMLElement>(`[data-program-id="${CSS.escape(ref.programId)}"][data-program-revision="${ref.revision}"] [data-program-node="${CSS.escape(ref.nodeId)}"]`)]
@@ -201,6 +248,7 @@ export async function resolveWorkspaceTargetRect(target: WorkspaceTarget, curren
 export function workspaceSurface(view: string, empty: boolean, target?: WorkspaceTarget): WorkspaceSurface {
   if (view === 'keep' || view === 'materials' || view === 'notes' || view === 'agenda' || view === 'memory' || view === 'settings') return view;
   if (view === 'companion') return 'characters';
+  if (target?.kind === 'assistant_text') return 'conversation';
   if (target?.kind === 'study' || target?.kind === 'interactive' || target?.kind === 'letter'
     || target?.kind === 'preparation' || target?.kind === 'rehearsal') return target.kind;
   if (target?.kind === 'map_route') return 'map';

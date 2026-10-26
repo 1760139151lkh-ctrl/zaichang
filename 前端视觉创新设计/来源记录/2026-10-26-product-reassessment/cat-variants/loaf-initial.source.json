@@ -1,0 +1,16 @@
+{
+  "generator": "image_gen",
+  "source": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-26-product-reassessment\\cat-variants\\loaf-initial.png",
+  "sha256": "226615cd5220c2e4aee013ea662c994dfd7275f8f78236edb8c0169bf9c5728c",
+  "runtime": null,
+  "prompt": "Create ONE new compact loaf pose of the reference's very cute 2D Sakiko meme-cat. Keep the exact design language: simple drawn cat body, thick clean deep navy outlines, tiny rounded paws, large anime human-like chibi head with pale lilac/periwinkle hair, triangular ears, two navy hair bows, huge gold eyes and tiny w-shaped mouth. No realistic fur, no photographic cat body, no human body. This version is a cream-and-soft-grey bicolor kitten, subtle two grey patches on the little back; head identity stays unmistakably Sakiko. Pose: front three-quarter view with head slightly toward LEFT, sitting as a small compact loaf with all paws tucked under the chest, a little tail curled beside the right haunch. The silhouette should be approximately as wide as tall, charming and easily read at 65px. The underside makes a FLAT resting baseline, so it can perch on a book, lamp cap or someone's head without dangling or floating. Keep all of the head, ears, bows, body, paws and tail in view, one coherent body, no detached parts. 1536x1024 canvas, centered artwork with at least 100 pixels of clean margin on all sides. Solid opaque drawn character; truly transparent background outside. No sticker border, no scene, no shadow rectangle, no text, no sheet of multiple poses.",
+  "transparent_background": true,
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/edge-companions/rig-v3/sakiko-meme-cat-v3-clean-composite.png",
+      "sha256": "ee1d4331e0f940267ea1850cb05f70bdf9dd320e6dd1906dd767847925d8c157"
+    }
+  ],
+  "review": "Original bicolor loaf; retained as lineage. Peripheral color sampled outside contour has alpha=0.",
+  "runtimeVerified": false
+}

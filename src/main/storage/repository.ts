@@ -1,6 +1,7 @@
 import { DatabaseSync, type SQLInputValue } from 'node:sqlite';
 import { randomUUID, createHash } from 'node:crypto';
 import type { Message } from '../../shared/types';
+import { assistantTextReferenceSchema, type AssistantTextReference } from '../../shared/workspace-context';
 import fs from 'node:fs';
 import path from 'node:path';
 import { AsyncLocalStorage } from 'node:async_hooks';
@@ -1401,7 +1402,7 @@ export class KernelRepository {
             WHEN field.type IN ('array','object') THEN json(field.value) ELSE field.value END)
           FROM json_each(receipt.value) field WHERE field.key IN ('id','privacyEpoch','providedEvidenceIds','providedSourceIds','providedObjectVersions',
             'planningProvenance','historicalAssertionVersions','learningProcessVersions','workSourceBindings','reflectiveLetterSources',
-            'assistantWorkSources','personalMethodSources','noteSources','workoutSources','campusSensitiveReads','campusReadingProofs','campusReadingSources',
+            'assistantWorkSources','assistantTextSources','personalMethodSources','noteSources','workoutSources','campusSensitiveReads','campusReadingProofs','campusReadingSources',
              'campusReadingIncomplete','interactiveProgramSources','toolAttempts','campusReadingAddresses','releaseSources','materialNavigationSources','spatialSources')
             AND (field.key!='campusReadingAddresses' OR json_type(receipt.value,'$.campusReadingProofs') IS NULL))))
           FROM json_each(draft.value,'$.sourceReceipts') receipt))) FROM json_each(payload,'$.releaseArtifacts') draft) AS release_headers,
@@ -1428,6 +1429,8 @@ export class KernelRepository {
       json_type(payload,'$.contextReceipt.workSourceBindings') AS work_bindings_type,
       json_extract(payload,'$.contextReceipt.assistantWorkSources') AS assistant_works,
       json_type(payload,'$.contextReceipt.assistantWorkSources') AS assistant_works_type,
+      json_extract(payload,'$.contextReceipt.assistantTextSources') AS assistant_texts,
+      json_type(payload,'$.contextReceipt.assistantTextSources') AS assistant_texts_type,
       json_extract(payload,'$.contextReceipt.personalMethodSources') AS personal_methods,
       json_type(payload,'$.contextReceipt.personalMethodSources') AS personal_methods_type,
       json_extract(payload,'$.contextReceipt.campusSensitiveReads') AS campus_sensitive,
@@ -1526,6 +1529,7 @@ export class KernelRepository {
           ...(row.reflective_letters_type === null ? {} : { reflectiveLetterSources: JSON.parse(String(row.reflective_letters)) }),
           ...(row.work_bindings_type === null ? {} : { workSourceBindings: workBindings(row) }),
           ...(row.assistant_works_type === null ? {} : { assistantWorkSources: JSON.parse(String(row.assistant_works)) }),
+          ...(row.assistant_texts_type === null ? {} : { assistantTextSources: JSON.parse(String(row.assistant_texts)) }),
           ...(row.personal_methods_type === null ? {} : { personalMethodSources: JSON.parse(String(row.personal_methods)) }),
           ...(row.campus_sensitive_type === null ? {} : { campusSensitiveReads: JSON.parse(String(row.campus_sensitive)) }),
           ...(row.campus_reading_type === null ? {} : { campusReadingProofs: row.campus_reading_type === 'array' ? JSON.parse(String(row.campus_reading_proofs)) : null }),
@@ -2883,7 +2887,7 @@ export class KernelRepository {
       && Number.isSafeInteger(ref.revision) && ref.revision > 0 && !!this.assertionHistoryVersion(handle, ref.id, ref.revision));
   }
   /** Metadata-only gate for source-bound planning and historical understanding text. */
-  planningMessageReadable(handle: ScopeHandle, value: { contextReceipt?: { providedSourceIds?: unknown; providedObjectVersions?: unknown; imageRequests?: unknown; planningProvenance?: unknown; historicalAssertionVersions?: unknown; learningProcessVersions?: unknown; workSourceBindings?: unknown; reflectiveLetterSources?: unknown; assistantWorkSources?: unknown; personalMethodSources?: unknown; noteSources?: unknown; workoutSources?: unknown; materialNavigationSources?: unknown; spatialSources?: unknown; campusSensitiveReads?: unknown; campusReadingAddresses?: unknown; campusReadingProofs?: unknown; campusReadingSources?: unknown; campusReadingIncomplete?: unknown; interactiveProgramSources?: unknown; toolAttempts?: unknown; releaseSources?: unknown }; scenes?: unknown; releaseArtifacts?: unknown; legacyRelease?: boolean },
+  planningMessageReadable(handle: ScopeHandle, value: { contextReceipt?: { providedSourceIds?: unknown; providedObjectVersions?: unknown; imageRequests?: unknown; planningProvenance?: unknown; historicalAssertionVersions?: unknown; learningProcessVersions?: unknown; workSourceBindings?: unknown; reflectiveLetterSources?: unknown; assistantWorkSources?: unknown; assistantTextSources?: unknown; personalMethodSources?: unknown; noteSources?: unknown; workoutSources?: unknown; materialNavigationSources?: unknown; spatialSources?: unknown; campusSensitiveReads?: unknown; campusReadingAddresses?: unknown; campusReadingProofs?: unknown; campusReadingSources?: unknown; campusReadingIncomplete?: unknown; interactiveProgramSources?: unknown; toolAttempts?: unknown; releaseSources?: unknown }; scenes?: unknown; releaseArtifacts?: unknown; legacyRelease?: boolean },
     proofs: AssistantWorkProofState = { checked: new Map() }) {
     if ((value.releaseArtifacts !== undefined || value.legacyRelease)
       && this.verifyReleaseMessage?.(handle, value.releaseArtifacts, value.contextReceipt, !!value.legacyRelease, proofs) !== true) return false;
@@ -2933,6 +2937,7 @@ export class KernelRepository {
         || !value.contextReceipt.personalMethodSources.every(source => this.verifyPersonalMethodSources?.(handle, source) === true))) return false;
     if (value.contextReceipt?.assistantWorkSources !== undefined
       && !this.assistantWorkSourcesReadable(handle, value.contextReceipt.assistantWorkSources, proofs)) return false;
+    if (!this.assistantTextSourcesReadable(handle, value.contextReceipt?.assistantTextSources, proofs)) return false;
     if (value.contextReceipt?.workSourceBindings !== undefined
       && !this.workBindingsReadable(handle, value.contextReceipt.workSourceBindings)) return false;
     if (value.contextReceipt?.historicalAssertionVersions !== undefined
@@ -4198,7 +4203,8 @@ export class KernelRepository {
     return latest ? this.assistantReplyIdentity(handle, sessionId, String(latest.id)) : undefined;
   }
   /** Exact reply identity only, with the same current source qualification. */
-  assistantReplyIdentity(handle: ScopeHandle, sessionId: string, messageId: string) {
+  assistantReplyIdentity(handle: ScopeHandle, sessionId: string, messageId: string, permits?: (ref: WorkSourceRef) => boolean,
+    proofs: AssistantWorkProofState = { checked: new Map(), permits }) {
     const envelope = this.assistantHistoryEnvelope(handle, true);
     if (!envelope || this.hasFence('history:self') || this.hasFence(messageId, 'history:self')) return;
     const row = this.db.prepare(`${envelope.permitted} SELECT p.id,p.session_id,p.created_at,
@@ -4207,7 +4213,7 @@ export class KernelRepository {
       .get(...envelope.params, messageId, sessionId);
     if (!row || !Number.isSafeInteger(row.code_points) || Number(row.code_points) <= 0) return;
     const source = this.conversationPlanningMetadata(sessionId, new Set([String(row.id)]))[0];
-    if (!source || !this.planningMessageReadable(handle, source.value)) return;
+    if (!source || !this.planningMessageReadable(handle, source.value, proofs)) return;
     return { messageId: String(row.id), sessionId: String(row.session_id), createdAt: String(row.created_at),
       codePoints: Number(row.code_points), status: String(row.reply_status), bodyProvided: false as const,
       ...assistantReplyState(row.reply_status) };
@@ -4239,7 +4245,92 @@ export class KernelRepository {
     if (!body) return;
     this.recordAccess(handle, { id: messageId, source: 'history:self' }, 'assistant_text_' + purpose);
     return { id: messageId, sessionId, createdAt: String(identity.created_at), text: String(body.content),
+      assistantTextSources: (source.value.contextReceipt.assistantTextSources || []) as AssistantTextReference[],
       authority: 'assistant_history_not_user_fact' as const, ...assistantReplyState(body.reply_status) };
+  }
+  /** Qualify one published reply position without projecting its prose. The
+   * local hash scan cannot lend a model the rest of the reply or its Scenes. */
+  assistantTextReferenceIdentity(handle: ScopeHandle, sessionId: string, raw: AssistantTextReference,
+    permits?: (ref: WorkSourceRef) => boolean, proofs: AssistantWorkProofState = { checked: new Map(), permits }) {
+    const reference = assistantTextReferenceSchema.parse(raw);
+    if (reference.sessionId !== sessionId)
+      throw new HarnessError('assistant_text_session', '这段解释不在当前对话里，请回原对话选中后再接着聊。');
+    this.scope(handle);
+    const temporary = this.db.prepare("SELECT json_extract(value,'$.retention') AS retention FROM meta WHERE key=?")
+      .get('conversation-policy:' + sessionId);
+    if (temporary?.retention === 'session_only')
+      throw new HarnessError('assistant_text_unavailable', '这段解释没有可接回的已保存原回复，当前问题仍可以继续聊。');
+    const identity = this.assistantReplyIdentity(handle, sessionId, reference.messageId, permits, proofs);
+    if (!identity) throw new HarnessError('assistant_text_unavailable', '这段解释现在不能从原回复接回，可以回原处重新选择。');
+    const body = this.db.prepare(`SELECT content,json_extract(payload,'$.responseText') AS response_text,
+      json_extract(payload,'$.retention') AS retention FROM messages
+      WHERE id=? AND session_id=? AND role='assistant' AND ${assistantReplyStatusSql('messages')} LIMIT 1`)
+      .get(reference.messageId, sessionId);
+    if (!body || body.retention === 'session_only')
+      throw new HarnessError('assistant_text_unavailable', '这段解释没有可接回的已保存原回复，当前问题仍可以继续聊。');
+    const content = String(body.content), response = typeof body.response_text === 'string' ? body.response_text : content;
+    const total = Array.from(response).length;
+    // The rendered response is the exact prefix before separately authored
+    // release drafts. A DOM selection cannot name hidden appended material.
+    if (!content.startsWith(response) || createHash('sha256').update(content).digest('hex') !== reference.contentSha256
+      || reference.end > total)
+      throw new HarnessError('assistant_text_changed', '这段解释的文字或位置已经变化，可以回原回复重新选择。');
+    this.scope(handle);
+    return { reference, createdAt: identity.createdAt, total, authority: 'assistant_history_not_user_fact' as const,
+      bodyProvided: false as const, ...(identity.replyState ? { replyState: identity.replyState } : {}) };
+  }
+  /** Reuse the current history owner, then deliver only the selected Unicode
+   * window. This is a continuation of her words, never a reusable fact table. */
+  readAssistantTextReference(handle: ScopeHandle, sessionId: string, raw: AssistantTextReference,
+    permits?: (ref: WorkSourceRef) => boolean) {
+    const identity = this.assistantTextReferenceIdentity(handle, sessionId, raw, permits), reference = identity.reference;
+    const body = this.assistantTextForLocalRead(handle, sessionId, reference.messageId, 'passage', permits);
+    if (!body || createHash('sha256').update(body.text).digest('hex') !== reference.contentSha256)
+      throw new HarnessError('assistant_text_changed', '这段解释刚有变化，可以回原回复重新选择，自己的问题仍在。');
+    this.scope(handle);
+    return { ...identity, origin: 'assistant_reply' as const, bodyProvided: true as const,
+      text: codePointSlice(body.text, reference.start, reference.end),
+      coverage: { start: reference.start, end: reference.end, total: identity.total },
+      meaning: '这是你当时说过、对方现在指着的一小段解释。沿这句话接着聊，实际资料和事情办到哪里仍各有原来的依据。' };
+  }
+  /** Recheck direct continuation roots, including their existing derived
+   * permissions. Call-local cycle guards never become stored authority. */
+  assistantTextSourcesReadable(handle: ScopeHandle, raw: unknown,
+    proofs: AssistantWorkProofState = { checked: new Map() }): boolean {
+    if (raw === undefined) return true;
+    if (!Array.isArray(raw) || raw.length > 128) return false;
+    return raw.every(value => {
+      const parsed = assistantTextReferenceSchema.safeParse(value);
+      if (!parsed.success) return false;
+      const reference = parsed.data, key = 'assistant_text:' + canonical(reference), previous = proofs.checked.get(key);
+      if (previous !== undefined) return previous === true;
+      proofs.checked.set(key, 'checking');
+      try {
+        this.assistantTextReferenceIdentity(handle, reference.sessionId, reference, proofs.permits, proofs);
+        proofs.checked.set(key, true);
+        return true;
+      } catch (error) {
+        proofs.checked.set(key, false);
+        if (!(error instanceof HarnessError || error instanceof z.ZodError)) throw error;
+        return false;
+      }
+    });
+  }
+  /** Inherit only the original addresses of replies actually supplied by the
+   * normal history owner; this lookup selects neither prose nor Scene bodies. */
+  conversationAssistantTextSources(handle: ScopeHandle, sessionId: string, messageIds: string[]): AssistantTextReference[] {
+    const scope = this.scope(handle);
+    if (!scope.sources.includes('history:self') || !scope.grants.includes('evidence:read') || scope.audience !== 'self'
+      || scope.subjectId !== scope.principalId || scope.worldId !== 'real') return [];
+    const sources: AssistantTextReference[] = [];
+    if (!messageIds.length) return sources;
+    for (const row of this.conversationPlanningMetadata(sessionId, new Set(messageIds))) {
+      if (!this.planningMessageReadable(handle, row.value))
+        throw new HarnessError('workspace_context_changed', '刚读的解释有一处来源已变化，这次没有继续接入旧文字。');
+      const raw = row.value.contextReceipt.assistantTextSources;
+      if (raw !== undefined) sources.push(...(raw as unknown[]).map(value => assistantTextReferenceSchema.parse(value)));
+    }
+    return [...new Map(sources.map(source => [canonical(source), source])).values()];
   }
   /** Navigation qualification only. Select no reply/scene body and record no
    * assistant read. Exact body provenance is still checked by assistantHistory. */

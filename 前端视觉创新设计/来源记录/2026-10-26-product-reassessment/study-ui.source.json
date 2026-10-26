@@ -1,0 +1,31 @@
+{
+  "kind": "mockup",
+  "tool": "built-in image_gen",
+  "prompt": "Use case: ui-mockup. Create a distinct dedicated co-reading/study screen for 在场, landscape 1536x1024. It belongs to the same literary anime world as the reference but is not the window-seat cover and not a chat screen with a PDF overlay. Design “two people's calculation table”: camera near overhead of a large oak writing table, library light and subtle bookshelf depth only at the periphery. Actual documents and the working mathematical explanation are the main composition. Think through spacious real text, selectable lines, sources and one shared composer. Consistent top navigation 在场 聊天 今天 留下, search/new/small portrait, same calm scale, no sidebar.\nThe left source page is a genuine-looking crisp original document titled 微分方程讲义, page 12/28, about a second-order equation. Preserve the white original page. Text sample:\n二阶线性微分方程\ny″+y=0 的通解为 y=A cos t+B sin t。\n给定 y(0)=a, y′(0)=b，则 A=a，B=b。\nOn the right is a subtly warmer working sheet, title “把这一步接起来”, body showing the user's own attempt “我以为只给 y(0) 就够了。” and Sakiko's response “先别急着消掉 B。位置相同，也可以带着不同的速度出发。” A small same-origin phase-circle diagram with two marked start states. One line of original text has a copper bracket and connected reference near the working sheet, rather than laser magic. The right sheet has a selected passage and small “问这句”; two small source identities with page names remain understandable. One composer anchored under the working sheet with draft “那么 B 描述的就是起点速度？”\nAllow source/working widths to differ naturally; both have adequate height. Avoid three rows of cards, heavy nested borders or huge top illustration. Never compress the reader under a panoramic banner. Tools close to actual selected object: original page next/prev/page number, zoom, close, small note icon; common composer not duplicated. Brand/nav remains fixed in the same top strip as other screens.\nCharacter: refer to approved youthful Sakiko face and her simple meme-cat. Her tiny cat form lies on a paper edge with a paw at the selected line, head+white drawn cat body coherent and 2D, no real furry cat. No giant full-body character. The companion's eye follows the actual shared paragraph. Original selected reference establishes warm wood/textile, air, delicate ink and youth, not fixed camera. Typography is real clear Chinese, body main focus, no green UI. Show enough content to judge actual reading, not labels on blank cards. Artistic scene surrounds the shared work, refined and intimate, honest stable reading surfaces.",
+  "generatedSource": "C:\\Users\\17601\\.codex\\generated_images\\01a1789a-60fe-76f0-b0b3-4db58b792d38\\exec-5d7ef230-97d9-4558-a999-3d632497a8b8.png",
+  "review": "采用双纸/桌面/当前引用关系；假页码、日期、曲线位置及状态标记不进入产品。",
+  "status": "primary-visually-inspected",
+  "output": "前端视觉创新设计/补充图稿/2026-10-26-product-reassessment/study-ui.png",
+  "sha256": "9b13ccbe17d8618944a531eb57d3fd483c3b9b60c37a3f2493331a27459f17a1",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/对话导出/2026-10-25-重做角色场景图稿矩阵/images/m01-image-01.png",
+      "sha256": "86b2af7843f9602e8099675765b3cbfd1c2aa344aabf09afc72cfd44d3ecea60"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-user-selected-youth-avatar-20261025.png",
+      "sha256": "bc92a4e0096411b0e58b5e4dfc12d61b48bf255f0fd7a544c039ae9e4cd7fc32"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/edge-companions/rig-v3/sakiko-meme-cat-v3-clean-composite.png",
+      "sha256": "ee1d4331e0f940267ea1850cb05f70bdf9dd320e6dd1906dd767847925d8c157"
+    }
+  ],
+  "primaryImageInspection": "complete",
+  "runtimeVerification": {
+    "admitted": false,
+    "evidence": "docs/evidence/2026-10-26-frontend-reassessment.md",
+    "scope": "原图逐幅亲看；采用对应环境与布局。实际交互证据见 docs/evidence/2026-10-26-frontend-reassessment.md，未逐一声明全部主题与全部内容的组合。"
+  },
+  "classification": "A"
+}

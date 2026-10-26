@@ -4,6 +4,7 @@ import { ArrowUpRight, Plus, RotateCcw, X } from 'lucide-react';
 import { interactiveActions, validateInteractiveActionPlan, validateInteractivePrimitiveProperties, type InteractiveComponentName } from '../../shared/interactive-library';
 import { checkedProgramPatch, snapProgramNumber, type InteractiveStateDeclaration } from '../../shared/interactive-program';
 import { RichText } from '../RichText';
+import { ReadableFocus } from '../LocalTextFocus';
 import { InteractiveChildren, InteractiveDocument, InteractiveHostContext, InteractiveGraphicSlot, useInteractiveControls } from './interactive-context';
 import { InteractiveGraphic, InteractiveGroup, InteractiveLine, InteractivePolyline, InteractiveCurve, InteractiveCircle,
   InteractiveLabel, InteractiveDragHandle, InteractiveRect, InteractivePolygon } from './interactive-graphics';
@@ -28,15 +29,22 @@ function InteractivePaper({ props }: Props) {
   </section>;
 }
 function InteractiveText({ props }: Props) {
-  const value = props.value;
-  return <div className={`interactive-text is-${props.size} tone-${props.tone}${value == null ? ' is-unknown' : ''}`}
-    data-program-node={props.id}>{value == null ? '尚未给出' : typeof value === 'boolean' ? String(value) : value}</div>;
+  const controls = useInteractiveControls(), value = props.value;
+  return <ReadableFocus key={controls.scopeKey} label="这段文字" disabled={controls.disabled}
+    onFocus={() => controls.continueFrom(props.id, '这段文字')}>
+    <div className={`interactive-text is-${props.size} tone-${props.tone}${value == null ? ' is-unknown' : ''}`}
+      data-program-node={props.id}>{value == null ? '尚未给出' : typeof value === 'boolean' ? String(value) : value}</div>
+  </ReadableFocus>;
 }
 function InteractiveFormula({ props }: Props) {
-  return <div className={`interactive-formula${props.display ? ' is-display' : ''}`} data-program-node={props.id}>
-    {props.tex == null ? <span className="interactive-unknown">这一关系尚未给出</span>
-      : <RichText publicSurface text={props.display ? `\\[\n${props.tex}\n\\]` : `\\(${props.tex}\\)`} />}
-  </div>;
+  const controls = useInteractiveControls();
+  return <ReadableFocus key={controls.scopeKey} label="这个公式" disabled={controls.disabled}
+    onFocus={() => controls.continueFrom(props.id, '这个公式')}>
+    <div className={`interactive-formula${props.display ? ' is-display' : ''}`} data-program-node={props.id}>
+      {props.tex == null ? <span className="interactive-unknown">这一关系尚未给出</span>
+        : <RichText publicSurface text={props.display ? `\\[\n${props.tex}\n\\]` : `\\(${props.tex}\\)`} />}
+    </div>
+  </ReadableFocus>;
 }
 
 function NumberEditor({ value, state, label, disabled, onCommit, onCancel, inline = false, onBeginEdit, onKeyboardDone }: { value: number; state: NumberState;

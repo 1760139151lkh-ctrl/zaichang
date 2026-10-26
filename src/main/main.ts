@@ -1203,7 +1203,13 @@ app.whenReady().then(async () => {
   });
   noteChangeWindow.once('closed', stopNoteChanges);
   window.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
-  window.webContents.on('will-navigate', (event) => event.preventDefault());
+  window.webContents.on('will-navigate', (event) => {
+    // Vite may reload its current document after an entry-point change. Keep
+    // that exact local development page usable without allowing link navigation.
+    const developmentReload = process.env.ZAICHANG_DEV === '1'
+      && event.url === 'http://127.0.0.1:5173/' && event.url === window?.webContents.getURL();
+    if (!developmentReload) event.preventDefault();
+  });
   let environmentLocked = false, environmentSuspended = false;
   const syncEnvironmentActivity = () => {
     const active = !!window && !window.isDestroyed() && window.isVisible() && !window.isMinimized()

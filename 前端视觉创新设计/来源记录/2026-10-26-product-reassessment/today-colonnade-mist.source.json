@@ -1,0 +1,24 @@
+{
+  "generator": "image_gen",
+  "source": "C:\\Users\\17601\\.codex\\generated_images\\01a1789a-60fe-76f0-b0b3-4db58b792d38\\exec-dbe52e63-dc53-4551-bfab-77cefed8ad10.png",
+  "runtime": "前端视觉创新设计/运行素材/workspaces/today-colonnade-mist.png",
+  "sha256": "412a769388b430db8d73de3e3182eac9bbf7671aa02aa6bddfd81e36b49d34d3",
+  "prompt": "Extract a clean empty environment plate from this approved scene. Remove ONLY the seated girl completely, including all hair, ribbons, clothes, limbs, shoes and her contact/cast shadows, and reconstruct the bench slats, armrest, paving and distant background where her body was. Preserve the closed book beside her. Preserve the EXACT 1536x1024 canvas, camera, architectural edges, bench position/shape, floor perspective and all lighting from this supplied image. Do not revert to another bench, do not move the chair or enlarge anything. The rest of the image must remain unchanged. No people, no silhouettes, no ghost shadows, no text or UI. This is the empty background layer for reassembling the original person at her original pixel coordinates.",
+  "transparent_background": false,
+  "inputs": [
+    {
+      "path": "C:\\Users\\17601\\.codex\\generated_images\\01a1789a-60fe-76f0-b0b3-4db58b792d38\\exec-ac35a4a1-674e-4ff1-ac43-bdc53f172235.png",
+      "sha256": "751dc039d1657c4b1f090256665fc30340baa982ae9949bbd42854b2eba07af3"
+    }
+  ],
+  "review": {
+    "primaryImageViewed": true,
+    "note": "Whole mothers preserve reviewed seated geometry. Figure pixels must come from the original mother through the same-canvas mask, not the rejected rescaled cutout."
+  },
+  "classification": "A",
+  "runtimeVerification": {
+    "admitted": true,
+    "evidence": "docs/evidence/2026-10-26-frontend-reassessment.md",
+    "scope": "四光场的今天页已实看；真实母图像素与同画布蒙版，编辑时退让，取消后返回。人物不声明为动作视频。"
+  }
+}

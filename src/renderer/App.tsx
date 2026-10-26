@@ -14,7 +14,7 @@ import { ComposerActions } from './ComposerActions';
 import { FocusContextChip } from './FocusContextChip';
 import { currentWorkspaceTarget, resolveWorkspaceTargetRect, sameWorkspaceTarget, workspaceSendContext, workspaceSurface, workspaceTargetAtSend, workspaceTargetKey } from './workspace-context';
 import type { CompanionD01Target } from './companion-d01-motion';
-import { workspaceSettingsContextSchema, type WorkspaceSettingsContext, type WorkspaceTarget } from '../shared/workspace-context';
+import { assistantTextReferenceSchema, workspaceSettingsContextSchema, type AssistantTextReference, type WorkspaceSettingsContext, type WorkspaceTarget } from '../shared/workspace-context';
 import { readAppearance } from './appearance';
 import { environmentTimeLabels } from './presentation/environment-time';
 import { LetterHistoryCard } from './LetterHistoryCard';
@@ -27,6 +27,7 @@ import { QuietNotice } from './QuietNotice';
 import { SourceBookmarkProvider, type StudyBookmarkDestination } from './SourceBookmarkTray';
 import type { SourceBookmarkReference, ConversationBookmarkReference } from '../shared/source-bookmark';
 import { MessageBookmarkSource, authoredMessageContent } from './MessageBookmarkSource';
+import { AssistantTextSource } from './AssistantTextSource';
 import { SCENE_FRAME_MIME, readSceneFrameTransfer } from '../shared/scene-transfer';
 import { discussionArtworkLabel } from '../shared/discussion-scene';
 import './scene-transfer.css';
@@ -51,6 +52,7 @@ import type { RehearsalInteraction, RehearsalRef } from '../shared/relationship-
 import './workspace-continuation.css';
 import './composer-continuation.css';
 import './reading-desk-integration.css';
+import { WorkspaceScenery } from './WorkspaceScenery';
 import { AgendaView, type AgendaViewPosition, type WorkspaceView } from './Workspace';
 import { Navigation } from './Navigation';
 import { CompanionAvatar, CompanionScene, RestSpace, companionAuthorArtwork, companionRoomFrame, prefersQuietMotion, useCompanion, type CompanionRoomLayout } from './companion';
@@ -78,6 +80,8 @@ import {
   Pencil,
   LampDesk,
   BookOpen,
+  Bookmark,
+  Undo2,
   SlidersHorizontal,
   Columns2,
 } from 'lucide-react';
@@ -114,6 +118,24 @@ import {
 const api = window.zaichang;
 type Panel = 'history' | null;
 type ActionResult = { ok: boolean; error?: string };
+type AssistantPassage = { reference: AssistantTextReference; preview: string; kind: 'text' | 'formula' };
+async function replyTextSha(text: string) {
+  return [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)))]
+    .map(value => value.toString(16).padStart(2, '0')).join('');
+}
+/** Display qualification after the ordinary conversation owner was read.
+ * The native compiler independently checks sources and scope at every send. */
+async function assistantPassageFromMessages(reference: AssistantTextReference, messages: Message[], kind: AssistantPassage['kind'] = 'text'): Promise<AssistantPassage> {
+  const address = assistantTextReferenceSchema.parse(reference);
+  const message = messages.find(item => item.id === address.messageId && item.sessionId === address.sessionId);
+  if (!message || message.role !== 'assistant' || message.status !== 'done' || message.demo || message.retention === 'session_only')
+    throw new Error('这段解释现在不能从原回复接回，可以回原处重新选择。');
+  const response = message.responseText ?? message.content, points = Array.from(response);
+  if (!message.content.startsWith(response) || address.end > points.length || await replyTextSha(message.content) !== address.contentSha256)
+    throw new Error('这段解释的文字或位置已经变化，请重新选一下。');
+  return { reference: address, kind, preview: kind === 'formula' ? '这个公式'
+    : points.slice(address.start, Math.min(address.end, address.start + 120)).join('') + (address.end - address.start > 120 ? '…' : '') };
+}
 interface RoomPaperPosition {
   sourceKey: string;
   mode: 'side' | 'stacked';
@@ -263,6 +285,7 @@ export function App() {
   const [focusStatus, setFocusStatus] = useState<FocusSession['status']>(() => focusSession.get().status);
   const focusActive = focusStatus === 'running';
   const appMainRef = useRef<HTMLDivElement>(null);
+  const [mapPresenceHost, setMapPresenceHost] = useState<HTMLElement | null>(null);
   const conversationSpaceRef = useRef<HTMLDivElement>(null);
   const [roomLayout, setRoomLayout] = useState<CompanionRoomLayout | null>(null);
   const [roomPaperPosition, setRoomPaperPosition] = useState<RoomPaperPosition | null>(null);
@@ -499,6 +522,9 @@ export function App() {
   const [conversationQuote, setConversationQuote] = useState<{ reference: ConversationBookmarkReference; title: string }>();
   const conversationQuoteRef = useRef<typeof conversationQuote>(undefined);
   function clearConversationQuote() { conversationQuoteRef.current = undefined; setConversationQuote(undefined); }
+  const [assistantPassage, setAssistantPassage] = useState<AssistantPassage>();
+  const assistantPassageRef = useRef<AssistantPassage | undefined>(undefined);
+  function clearAssistantPassage() { assistantPassageRef.current = undefined; setAssistantPassage(undefined); }
   const [agendaContext, setAgendaContext] = useState<{ focus: AgendaFocus; label: string }>();
   const agendaContextRef = useRef<typeof agendaContext>(undefined);
   const [comparisonAnchor, setComparisonAnchor] = useState<WorkspaceComparisonReference>();
@@ -629,7 +655,8 @@ export function App() {
     const selected = currentWorkspaceTarget({ selection: sceneSelectionRef.current,
       materialQuote: materialQuoteRef.current ? materialQuoteAddress(materialQuoteRef.current) : undefined,
       noteQuote: noteQuoteRef.current ? noteQuoteAddress(noteQuoteRef.current) : undefined,
-      conversationQuote: conversationQuoteRef.current?.reference, agendaFocus: agendaContextRef.current?.focus,
+      conversationQuote: conversationQuoteRef.current?.reference, assistantTextReference: assistantPassageRef.current?.reference,
+      agendaFocus: agendaContextRef.current?.focus,
       mapRouteReference: sharedMapContextRef.current?.routeReference,
       study: followup?.studyInteraction?.focus || studyDockRef.current?.focus,
       programReference: followup?.programReference, companionReference: followup?.companionReference,
@@ -652,7 +679,7 @@ export function App() {
     if (document) return `${document.name}${document.reference.page ? ` · 第 ${document.reference.page} 页` : ''}`;
     const quote = materialQuoteRef.current || noteQuoteRef.current;
     if (quote) return `${'name' in quote ? quote.name : quote.title} · ${Array.from(quote.text).slice(0, 72).join('')}`;
-    return conversationQuoteRef.current?.title
+    return conversationQuoteRef.current?.title || assistantPassageRef.current?.preview
       || agendaContextRef.current?.label || sharedMapContextRef.current?.label || composerFollowupRef.current?.focusLabel
       || sceneSelectionLabel || '刚才的这一处';
   }
@@ -672,7 +699,7 @@ export function App() {
     if (stop && previous) void api.shareMapContext({ enabled: false,
       ...(previous.selectionId ? { expectedSelectionId: previous.selectionId } : {}) }).catch(() => {});
   }
-  function clearNativeReferences() { clearMaterialDocument(); clearNoteQuote(); clearConversationQuote(); clearAgendaContext(); clearMapContext(); }
+  function clearNativeReferences() { clearMaterialDocument(); clearNoteQuote(); clearConversationQuote(); clearAssistantPassage(); clearAgendaContext(); clearMapContext(); }
   function clearFollowup(dismiss = false) {
     const previous = composerFollowupRef.current;
     if (dismiss && previous) dismissedFollowup.current = automaticFollowupKey(previous, previous.messageId);
@@ -774,12 +801,60 @@ export function App() {
     followRef = useRef(true);
   const [composerHome, setComposerHome] = useState<HTMLDivElement | null>(null);
   const [keepComposerHome, setKeepComposerHome] = useState<HTMLDivElement | null>(null);
+  const [conversationHome, setConversationHome] = useState<HTMLDivElement | null>(null);
+  const [notesDiscussionHome, setNotesDiscussionHome] = useState<HTMLDivElement | null>(null);
+  const [notesDiscussion, setNotesDiscussion] = useState(false);
+  // Keep the actual conversation, its live programs and its single composer
+  // mounted while a note is discussed beside its original text.
+  const [conversationHost] = useState(() => {
+    const element = document.createElement('div');
+    element.className = 'conversation-workspace-host';
+    return element;
+  });
+  useLayoutEffect(() => () => conversationHost.remove(), [conversationHost]);
+  function placeConversation() {
+    const parent = view === 'notes' && notesDiscussion && notesDiscussionHome ? notesDiscussionHome : conversationHome;
+    if (!parent?.isConnected) return;
+    // A DOM island owns live editors and programs. Retire only empty hosts
+    // left by a former renderer; never let them divide the available width.
+    for (const previous of [...parent.children]) {
+      if (previous !== conversationHost && previous.classList.contains('conversation-workspace-host')
+        && !previous.firstElementChild && !previous.textContent?.trim()) previous.remove();
+    }
+    if (conversationHost.parentElement === parent) return;
+    const viewport = scrollRef.current, top = viewport?.scrollTop;
+    const focused = conversationHost.contains(document.activeElement) && document.activeElement instanceof HTMLElement
+      ? document.activeElement : undefined;
+    const selection = focused instanceof HTMLTextAreaElement || focused instanceof HTMLInputElement
+      ? [focused.selectionStart, focused.selectionEnd, focused.selectionDirection] as const : undefined;
+    const atomicParent = parent as HTMLElement & { moveBefore?: (node: Node, child: Node | null) => void };
+    if (conversationHost.isConnected && atomicParent.moveBefore) atomicParent.moveBefore(conversationHost, null);
+    else {
+      if (composing.current) return;
+      parent.appendChild(conversationHost);
+      if (focused) {
+        focused.focus({ preventScroll: true });
+        if (selection && selection[0] !== null && selection[1] !== null
+          && (focused instanceof HTMLTextAreaElement || focused instanceof HTMLInputElement))
+          focused.setSelectionRange(selection[0], selection[1], selection[2] || undefined);
+      }
+    }
+    if (viewport && top !== undefined) viewport.scrollTop = top;
+    if (parent === notesDiscussionHome && viewRef.current === 'notes') {
+      const note = noteQuoteRef.current, material = materialQuoteRef.current, conversation = conversationQuoteRef.current;
+      if (note || material || conversation) focusComposerAfterRead(() => viewRef.current === 'notes'
+        && (note ? noteQuoteRef.current === note : material ? materialQuoteRef.current === material : conversationQuoteRef.current === conversation));
+    }
+  }
+  useLayoutEffect(placeConversation, [conversationHome, notesDiscussionHome, notesDiscussion, view, conversationHost]);
+  useEffect(() => { if (view !== 'notes') setNotesDiscussion(false); }, [view]);
   const pendingReadFocus = useRef<{ owns: () => boolean; gesture: number; navigation: number; search: number; boundary: string; sessionId?: string } | undefined>(undefined);
-  const composerHost = useMemo(() => {
+  const [composerHost] = useState(() => {
     const element = document.createElement('div');
     element.className = 'conversation-composer-host';
     return element;
-  }, []);
+  });
+  useLayoutEffect(() => () => composerHost.remove(), [composerHost]);
   const composerMoveRequested = useRef(false), composerMoveAnimation = useRef<Animation | undefined>(undefined);
   const composerMoveOrigin = useRef<DOMRect | undefined>(undefined);
   function requestComposerMove() {
@@ -803,7 +878,12 @@ export function App() {
   });
   const studyDockRef = useRef(composerDock.target); studyDockRef.current = composerDock.target;
   function moveComposer(parent: HTMLElement, releasing = false) {
-    if (composerHost.parentElement === parent || !parent.isConnected) return;
+    if (!parent.isConnected) return;
+    for (const previous of [...parent.children]) {
+      if (previous !== composerHost && previous.classList.contains('conversation-composer-host')
+        && !previous.firstElementChild && !previous.textContent?.trim()) previous.remove();
+    }
+    if (composerHost.parentElement === parent) return;
     if (composing.current && !releasing) return;
     const from = composerMoveRequested.current && !composing.current && !prefersQuietMotion()
       ? composerMoveOrigin.current || composerHost.getBoundingClientRect() : undefined;
@@ -856,7 +936,7 @@ export function App() {
       : writer.top < visible.top + 16 ? writer.top - visible.top - 16 : 0;
     if (shift) scroll.scrollTo({ top: scroll.scrollTop + shift, behavior: prefersQuietMotion() ? 'instant' : 'smooth' });
   }
-  useLayoutEffect(placeComposer, [composerHome, keepComposerHome, keepWriting, composerHost, composerDock.target, view, draftReady, navigating]);
+  useLayoutEffect(placeComposer, [composerHome, keepComposerHome, keepWriting, composerHost, composerDock.target, notesDiscussion, notesDiscussionHome, view, draftReady, navigating]);
   useEffect(() => { if (view !== 'keep') setKeepWriting(false); }, [view]);
   const readingAnchor = useRef<{ element: HTMLElement; offset: number } | undefined>(undefined);
   function rememberReadingPosition() {
@@ -904,6 +984,10 @@ export function App() {
     if (!ephemeral && editor) address.composer = { start: editor.selectionStart, end: editor.selectionEnd, direction: editor.selectionDirection,
       focused: returnTaskFocus.current === 'composer' };
     if (!ephemeral) {
+      if (assistantPassageRef.current && assistantPassageRef.current.reference.sessionId === currentSession) {
+        address.assistantText = assistantPassageRef.current.reference;
+        address.assistantTextKind = assistantPassageRef.current.kind;
+      }
       if (materialDocumentRef.current) address.materialDocument = materialDocumentRef.current.reference;
       address.quote = materialQuoteRef.current ? { kind: 'material', reference: materialQuoteAddress(materialQuoteRef.current) }
         : noteQuoteRef.current ? { kind: 'notebook', reference: noteQuoteAddress(noteQuoteRef.current) }
@@ -945,7 +1029,6 @@ export function App() {
   const presentedCompanionMoment = latestCompanionView?.comparison ? 'planning'
     : presentedCompanionScenes.map(companionSceneMoment).find(moment => moment !== undefined);
   const companionHint = currentCompanionActivity(messages);
-  const hintNeedsPaper = companionHint !== undefined && ['study', 'reading', 'planning', 'attention'].includes(companionHint);
   const d01CurrentTarget = currentWorkspaceReference(false) || comparisonContinuation?.target;
   const d01First = comparisonAnchor?.target || d01CurrentTarget;
   const d01Second = comparisonAnchor && d01CurrentTarget && workspaceTargetKey(comparisonAnchor.target) !== workspaceTargetKey(d01CurrentTarget)
@@ -981,11 +1064,16 @@ export function App() {
   const canToggleRoom = view === 'chat' && companion.presence === 'window' && !compactConversation && !hasScene && !readingSelectedWork;
   const atWindow = view === 'chat' && companion.presence === 'window'
     && !focusActive && chatSpace !== 'reading' && !readingSelectedWork
-    && (chatSpace === 'window' || !hintNeedsPaper)
-    && (empty || (!compactConversation && !hasScene && (chatSpace === 'window' || !needsReadingRoom)));
+    && (empty || (chatSpace === 'window' && !compactConversation && !hasScene));
+  const workspaceScene = view === 'materials' || view === 'chat' && !atWindow
+    && (focusActive || !!composerDock.target || !!currentComposerFollowup?.studyInteraction
+      || !!latestAssistant?.scenes?.some(scene => scene.kind === 'study' || scene.kind === 'study_reference')) ? 'study'
+    : view === 'chat' && !atWindow ? latestAssistant?.views?.some(value => value.program || value.programReference) ? 'studio' : 'conversation'
+    : view === 'keep' || view === 'notes' ? 'keep' : view === 'agenda' ? 'today'
+    : view === 'memory' ? 'memory' : view === 'settings' || view === 'companion' ? 'settings' : undefined;
   useLayoutEffect(() => {
     const main = appMainRef.current, space = conversationSpaceRef.current, workspace = materialConversationTarget.current;
-    if (!roomLayout || !main || !space || !workspace || view !== 'chat' && view !== 'materials') {
+    if (workspaceScene || !roomLayout || !main || !space || !workspace || view !== 'chat' && view !== 'materials') {
       setRoomPaperPosition(null);
       return;
     }
@@ -1033,7 +1121,7 @@ export function App() {
     window.addEventListener('resize', schedule);
     window.addEventListener('scroll', schedule, true);
     return () => { observer.disconnect(); cancelAnimationFrame(frameRequest); window.removeEventListener('resize', schedule); window.removeEventListener('scroll', schedule, true); };
-  }, [roomLayout, view, readingPane, readingSide, empty, compactConversation, atWindow, hasScene, readingSelectedWork]);
+  }, [workspaceScene, roomLayout, view, readingPane, readingSide, empty, compactConversation, atWindow, hasScene, readingSelectedWork]);
   const roomPaperStyle = roomPaperPosition ? {
     '--room-paper-left': `${roomPaperPosition.left}px`, '--room-paper-width': `${roomPaperPosition.width}px`,
     '--room-stage-left': `${roomPaperPosition.stageLeft}px`, '--room-stage-top': `${roomPaperPosition.stageTop}px`,
@@ -1050,7 +1138,7 @@ export function App() {
   function beginRehearsalCurrentRead(sourceSessionId: string | undefined, messageId: string, boundary: string, rehearsalId: string) {
     if (!draftReady || navigationPending.current || surfaceMode.current === 'public'
       || sourceSessionId !== sessionRef.current || boundary !== boundaryRevision.current
-      || sceneSelectionRef.current || materialQuoteRef.current || materialDocumentRef.current || noteQuoteRef.current
+      || sceneSelectionRef.current || materialQuoteRef.current || materialDocumentRef.current || noteQuoteRef.current || assistantPassageRef.current
       || agendaContextRef.current || sharedMapContextRef.current || studyDockRef.current) return;
     const previous = composerFollowupRef.current;
     if (previous && !(previous.focusOnly && previous.messageId === messageId
@@ -1066,7 +1154,7 @@ export function App() {
         || selectionRequest !== sceneSelectionRequest.current
         || followupVersion !== followupSequence.current || sendVersion !== sendSequence.current
         || composerFollowupRef.current !== previous || sceneSelectionRef.current || materialQuoteRef.current || materialDocumentRef.current
-        || noteQuoteRef.current || conversationQuoteRef.current || agendaContextRef.current || sharedMapContextRef.current || studyDockRef.current) return;
+        || noteQuoteRef.current || conversationQuoteRef.current || assistantPassageRef.current || agendaContextRef.current || sharedMapContextRef.current || studyDockRef.current) return;
       accepted = true;
       // This is the result of the user's own open gesture, not an automatic
       // latest-message focus. Attach only its address; leave the writer alone.
@@ -1085,7 +1173,7 @@ export function App() {
       const latestAssistant = messages.filter(message => message.role === 'assistant').at(-1);
       const key = automaticFollowupKey(request, messageId);
       if (messageId !== latestAssistant?.id || composerFollowupRef.current && !composerFollowupRef.current.focusOnly
-        || sceneSelectionRef.current || materialQuoteRef.current || materialDocumentRef.current || noteQuoteRef.current || conversationQuoteRef.current || agendaContextRef.current
+        || sceneSelectionRef.current || materialQuoteRef.current || materialDocumentRef.current || noteQuoteRef.current || conversationQuoteRef.current || assistantPassageRef.current || agendaContextRef.current
         || sharedMapContextRef.current || key && key === dismissedFollowup.current) return;
       if (key && composerFollowupRef.current?.messageId === messageId
         && automaticFollowupKey(composerFollowupRef.current, messageId) === key) return;
@@ -1135,7 +1223,7 @@ export function App() {
       return;
     }
     if (insertedText !== undefined) replaceDraft({ ...draftRef.current, text: insertedText });
-    setView('chat');
+    if (viewRef.current !== 'notes' || !notesDiscussion) setView('chat');
     setReadingPane('chat');
     requestAnimationFrame(() => {
       if (stillRequested && !stillRequested()) return;
@@ -1158,7 +1246,7 @@ export function App() {
           ? `preparation:${context.preparationReference.id}` : `letter:${context.letterReference.opportunityId}`), boundaryRevision.current);
       return;
     }
-    setView('chat');
+    if (viewRef.current !== 'notes' || !notesDiscussion) setView('chat');
     if (draftRef.current.text.trim()) {
       notify('输入框里还有草稿，已为你保留。可以接着补充。');
       inputRef.current?.focus();
@@ -1669,9 +1757,25 @@ export function App() {
       window.removeEventListener('scroll', place, true);
     };
   }, [attachmentMenu]);
-  useEffect(() => {
-    if (followRef.current) scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight });
+  useLayoutEffect(() => {
+    const viewport = scrollRef.current;
+    if (!viewport?.clientHeight) return;
+    const selection = window.getSelection();
+    if (selection && !selection.isCollapsed && selection.anchorNode && viewport.contains(selection.anchorNode)) followRef.current = false;
+    if (followRef.current) viewport.scrollTo({ top: viewport.scrollHeight });
+    setAway(viewport.scrollHeight - viewport.scrollTop - viewport.clientHeight > 24);
   }, [messages]);
+  useLayoutEffect(() => {
+    const viewport = scrollRef.current, content = viewport?.querySelector('.messages');
+    if (!viewport || !content) return;
+    const observer = new ResizeObserver(() => {
+      if (!viewport.clientHeight) return;
+      if (followRef.current) viewport.scrollTop = viewport.scrollHeight;
+      setAway(viewport.scrollHeight - viewport.scrollTop - viewport.clientHeight > 24);
+    });
+    observer.observe(viewport); observer.observe(content);
+    return () => observer.disconnect();
+  }, [empty]);
   useLayoutEffect(() => {
     const el = inputRef.current;
     const resize = () => {
@@ -1686,7 +1790,7 @@ export function App() {
     resize();
     window.addEventListener('resize', resize);
     return () => window.removeEventListener('resize', resize);
-  }, [input, attachment, view, readingPane, empty, composerDock.target?.key]);
+  }, [input, attachment, view, readingPane, empty, notesDiscussion, notesDiscussionHome, composerDock.target?.key]);
   useEffect(() => {
     const key = (e: KeyboardEvent) => {
       if (e.defaultPrevented) return;
@@ -1821,7 +1925,7 @@ export function App() {
     const expectedSearch = searchNavigation.current;
     returnRestoring.current = true;
     const originalSession = sessionRef.current;
-    const previousReferences = { material: materialQuoteRef.current, document: materialDocumentRef.current, note: noteQuoteRef.current, conversation: conversationQuoteRef.current,
+    const previousReferences = { material: materialQuoteRef.current, document: materialDocumentRef.current, note: noteQuoteRef.current, conversation: conversationQuoteRef.current, assistant: assistantPassageRef.current,
       agenda: agendaContextRef.current, followup: composerFollowupRef.current };
     const current = () => ticket === returnNavigation.current && boundary === boundaryRevision.current
       && gesture === readingGesture.current && expectedNavigation === navigation.current && expectedSearch === searchNavigation.current && !isPublicSurface();
@@ -1851,7 +1955,19 @@ export function App() {
       clearSceneSelection(); clearFollowup(); clearMaterialQuote(); clearNativeReferences();
       setSearchTarget(undefined); setPanel(null);
       pendingReturnPosition.current = { checkpoint: restored, ticket, boundary, gesture, navigation: expectedNavigation, search: expectedSearch, ready: false };
-      if (restored.study && restored.sessionId && !restored.quote && !restored.materialDocument) {
+      if (restored.quote || restored.materialDocument) { delete restored.assistantText; delete restored.assistantTextKind; }
+      if (restored.assistantText) {
+        try {
+          const selection = await assistantPassageFromMessages(restored.assistantText, opened, restored.assistantTextKind);
+          if (!current()) return;
+          assistantPassageRef.current = selection; setAssistantPassage(selection);
+        } catch (problem) {
+          if (!current()) return;
+          delete restored.assistantText; delete restored.assistantTextKind;
+          restorationProblems.push(`${uiError(problem)}。自己的草稿还在`);
+        }
+      }
+      if (restored.study && restored.sessionId && !restored.quote && !restored.materialDocument && !restored.assistantText) {
         try {
           const saved = restored.study;
           const original = opened.find(message => message.id === saved.messageId)?.scenes?.find(scene =>
@@ -1879,7 +1995,7 @@ export function App() {
           delete restored.study;
           restorationProblems.push(`陪学纸这次没接回：${uiError(problem)}。可以从原对话里的纸页重新打开`);
         }
-      } else if (restored.quote || restored.materialDocument) delete restored.study;
+      } else if (restored.quote || restored.materialDocument || restored.assistantText) delete restored.study;
       if (restored.quote) delete restored.materialDocument;
       if (restored.materialDocument) {
         try {
@@ -1986,6 +2102,7 @@ export function App() {
       }
       if (restored.material) { setMaterialsOpened(true); setMaterialResume({ address: restored.material, requestId }); }
       if (restored.note) { setNotesOpened(true); setNoteResume({ address: restored.note, requestId }); }
+      setNotesDiscussion(restored.view === 'notes' && !!restored.note?.discussion && !!(restored.quote || restored.sessionId));
       if (restored.agenda) { setAgendaOpened(true); setAgendaResume({ address: restored.agenda, requestId }); }
       setView(restored.view); setReadingPane(restored.readingPane || 'reader');
       followRef.current = !restored.message;
@@ -2001,6 +2118,7 @@ export function App() {
           materialDocumentRef.current = previousReferences.document; setMaterialDocument(previousReferences.document);
           noteQuoteRef.current = previousReferences.note; setNoteQuote(previousReferences.note);
           conversationQuoteRef.current = previousReferences.conversation; setConversationQuote(previousReferences.conversation);
+          assistantPassageRef.current = previousReferences.assistant; setAssistantPassage(previousReferences.assistant);
           agendaContextRef.current = previousReferences.agenda; setAgendaContext(previousReferences.agenda);
           composerFollowupRef.current = previousReferences.followup; setComposerFollowup(previousReferences.followup);
         }
@@ -2117,6 +2235,7 @@ export function App() {
         sha256: edgeOriginal.resource.sha256 }, name: edgeOriginal.name, mediaType: edgeOriginal.resource.mediaType } : undefined;
     const selectedNoteQuote = consumeDraft || summonEdge ? noteQuoteRef.current : undefined;
     const selectedConversationQuote = consumeDraft || summonEdge ? conversationQuoteRef.current : undefined;
+    const selectedAssistantPassage = consumeDraft || summonEdge ? assistantPassageRef.current : undefined;
     const selectedAgendaContext = consumeDraft ? agendaContextRef.current : undefined;
     const selectedMapContext = consumeDraft ? sharedMapContextRef.current : undefined;
     const selectedFollowup = consumeDraft ? composerFollowupRef.current : undefined;
@@ -2129,7 +2248,7 @@ export function App() {
       || (selectedComparison ? selectedComparisonContinuation?.target : undefined) || currentWorkspaceReference()
       : summonEdge ? currentWorkspaceTarget({ materialQuote: selectedMaterialQuote ? materialQuoteAddress(selectedMaterialQuote) : undefined,
         noteQuote: selectedNoteQuote ? noteQuoteAddress(selectedNoteQuote) : undefined,
-        conversationQuote: selectedConversationQuote?.reference }) : undefined;
+        conversationQuote: selectedConversationQuote?.reference, assistantTextReference: selectedAssistantPassage?.reference }) : undefined;
     const selectedWorkspaceTarget = workspaceTargetAtSend(selectedWorkspaceAddress, selectedWorkspaceInputReader);
     const selectedComparisonTarget = workspaceTargetAtSend(selectedComparison?.target, selectedComparison?.readProgramInputs);
     if (selectedWorkspaceAddress?.kind === 'interactive' && selectedWorkspaceInputReader && !selectedWorkspaceTarget
@@ -2150,7 +2269,7 @@ export function App() {
     const validFollowup = selectedFollowup && selectedFollowup.sessionId === selectedSessionId && selectedFollowup.boundary === selectedBoundary
       ? selectedFollowup : undefined;
     const selectedStudyDock = consumeDraft && !validFollowup && !selectedScene && !selectedMaterialQuote && !selectedMaterialDocument
-      && !selectedNoteQuote && !selectedConversationQuote && !selectedAgendaContext && !selectedMapContext ? studyDockRef.current : undefined;
+      && !selectedNoteQuote && !selectedConversationQuote && !selectedAssistantPassage && !selectedAgendaContext && !selectedMapContext ? studyDockRef.current : undefined;
     const studyInteraction: StudyInteraction | undefined = validFollowup?.studyInteraction
       ? validFollowup.studyInteraction.kind !== 'request' && validFollowup.studyInteraction.kind !== 'attempt'
         || validFollowup.insertedText?.trim() === comparisonText
@@ -2182,11 +2301,11 @@ export function App() {
     const stillCurrent = () => sequence === sendSequence.current && selectedNavigation === navigation.current
       && selectedSessionId === sessionRef.current && selectedBoundary === boundaryRevision.current && !isPublicSurface()
       && (!summonEdge || selectedControls === turnControlsRef.current && selectedMaterialQuote === materialQuoteRef.current
-        && selectedNoteQuote === noteQuoteRef.current && selectedConversationQuote === conversationQuoteRef.current)
+        && selectedNoteQuote === noteQuoteRef.current && selectedConversationQuote === conversationQuoteRef.current && selectedAssistantPassage === assistantPassageRef.current)
       && (!consumeDraft || selectedControls === turnControlsRef.current && selectedScene === sceneSelectionRef.current
         && selectedMaterialQuote === materialQuoteRef.current
         && selectedMaterialDocument === materialDocumentRef.current
-        && selectedNoteQuote === noteQuoteRef.current && selectedConversationQuote === conversationQuoteRef.current
+        && selectedNoteQuote === noteQuoteRef.current && selectedConversationQuote === conversationQuoteRef.current && selectedAssistantPassage === assistantPassageRef.current
         && selectedAgendaContext === agendaContextRef.current
         && selectedMapContext === sharedMapContextRef.current
         && selectedComparison === comparisonAnchorRef.current
@@ -2204,7 +2323,12 @@ export function App() {
     if (summonEdge) {
       followRef.current = false;
       rememberReadingPosition();
-    } else followRef.current = true;
+    } else {
+      followRef.current = true;
+      setAway(false);
+      const viewport = scrollRef.current;
+      if (viewport?.clientHeight) viewport.scrollTo({ top: viewport.scrollHeight, behavior: 'instant' });
+    }
     try {
       if (consumeDraft) {
         // Claim every immutable original before detaching this editor. Its
@@ -2315,6 +2439,7 @@ export function App() {
         if (consumeDraft && materialDocumentRef.current === selectedMaterialDocument) clearMaterialDocument(false);
         if (consumeDraft && noteQuoteRef.current === selectedNoteQuote) clearNoteQuote();
         if (consumeDraft && conversationQuoteRef.current === selectedConversationQuote) clearConversationQuote();
+        if (consumeDraft && assistantPassageRef.current === selectedAssistantPassage) clearAssistantPassage();
         if (consumeDraft && agendaContextRef.current === selectedAgendaContext) clearAgendaContext();
         if (consumeDraft && selectedSettingsContext === settingsContextRef.current) clearSettingsContext();
         if (selectedComparison && selectedWorkspaceTarget && !sameWorkspaceTarget(selectedComparison.target, selectedWorkspaceTarget)) {
@@ -2504,10 +2629,12 @@ export function App() {
     if (!request) return;
     if (request.gesture !== readingGesture.current || request.navigation !== navigation.current || request.search !== searchNavigation.current
       || request.boundary !== boundaryRevision.current || request.sessionId !== sessionRef.current || isPublicSurface()
-      || !['chat', 'materials', 'keep'].includes(viewRef.current) || !request.owns()) { pendingReadFocus.current = undefined; return; }
+      || !['chat', 'materials', 'keep', 'notes'].includes(viewRef.current) || !request.owns()) { pendingReadFocus.current = undefined; return; }
     const input = inputRef.current;
     if (!input?.isConnected || !input.getClientRects().length || input.disabled) return;
     input.focus({ preventScroll: true }); pendingReadFocus.current = undefined; revealKeepComposer();
+    if (viewRef.current === 'notes') (input.closest<HTMLElement>('.composer-area') || input)
+      .scrollIntoView({ block: 'nearest', behavior: prefersQuietMotion() ? 'instant' : 'smooth' });
   }
   function quoteMaterial(quote: MaterialQuote, stayHere = false) {
     if (!draftReady || navigating || navigationPending.current || isPublicSurface()) return false;
@@ -2516,6 +2643,7 @@ export function App() {
     clearSceneSelection(); clearFollowup(); clearNativeReferences();
     materialQuoteRef.current = quote; setMaterialQuote(quote);
     if (stayHere && viewRef.current === 'keep') setKeepWriting(true);
+    else if (stayHere && viewRef.current === 'notes') setNotesDiscussion(true);
     setReadingPane('chat');
     queueReturnCapture();
     focusComposerAfterRead(() => materialQuoteRef.current === quote);
@@ -2583,20 +2711,65 @@ export function App() {
       setReadingPane('reader');
     } catch (error) { if (current()) throw error; }
   }
+  function focusAssistantPassage(reference: AssistantTextReference, preview: string, kind: AssistantPassage['kind'], boundary: string) {
+    if (!draftReady || navigationPending.current || isPublicSurface() || boundary !== boundaryRevision.current
+      || reference.sessionId !== sessionRef.current || !assistantTextReferenceSchema.safeParse(reference).success) return;
+    searchNavigation.current++;
+    clearSceneSelection(); clearFollowup(); clearMaterialQuote(); clearNativeReferences(); clearSettingsContext();
+    const selection = { reference, preview, kind };
+    assistantPassageRef.current = selection; setAssistantPassage(selection);
+    requestComposerMove(); composerDock.returnToChat();
+    if (viewRef.current !== 'notes' || !notesDiscussion) setView('chat');
+    setReadingPane('chat'); queueReturnCapture();
+    window.getSelection()?.removeAllRanges();
+    focusComposerAfterRead(() => assistantPassageRef.current === selection);
+  }
+  async function openAssistantPassage(selection: AssistantPassage) {
+    if (navigationPending.current || isPublicSurface() || selection.reference.sessionId !== sessionRef.current) return;
+    const boundary = boundaryRevision.current, request = ++searchNavigation.current, selectedSession = sessionRef.current;
+    const current = () => request === searchNavigation.current && boundary === boundaryRevision.current
+      && selectedSession === sessionRef.current && assistantPassageRef.current === selection && !isPublicSurface();
+    try {
+      const originals = await api.messages(selectedSession!);
+      if (!current()) return;
+      await assistantPassageFromMessages(selection.reference, originals, selection.kind);
+      if (!current()) return;
+      setMessages(originals);
+      if (viewRef.current !== 'notes' || !notesDiscussion) setView('chat');
+      requestAnimationFrame(() => {
+        if (!current()) return;
+        const message = scrollRef.current?.querySelector<HTMLElement>(`[data-message-id="${CSS.escape(selection.reference.messageId)}"]`);
+        const address = selection.reference;
+        const fragment = [...message?.querySelectorAll<HTMLElement>('[data-assistant-text-start][data-assistant-text-end]') || []]
+          .find(node => Number(node.dataset.assistantTextStart) <= address.start && Number(node.dataset.assistantTextEnd) >= address.end);
+        const offset = Number(fragment?.dataset.assistantTextStart);
+        const formula = fragment && [...fragment.querySelectorAll<HTMLElement>('[data-focus-math-start][data-focus-math-end]')]
+          .find(node => Number(node.dataset.focusMathStart) === address.start - offset && Number(node.dataset.focusMathEnd) === address.end - offset);
+        const passage = fragment && [...fragment.querySelectorAll<HTMLElement>('[data-focus-start][data-focus-end]')]
+          .find(node => Number(node.dataset.focusStart) <= address.start - offset && Number(node.dataset.focusEnd) > address.start - offset);
+        (formula || passage || message)?.scrollIntoView({ block: 'center', behavior: prefersQuietMotion() ? 'instant' : 'smooth' });
+        message?.focus({ preventScroll: true }); followRef.current = false;
+      });
+    } catch (problem) {
+      if (current()) { clearAssistantPassage(); notify(`${uiError(problem)}。原稿还在。`); }
+    }
+  }
   function quoteNote(quote: NoteQuote, stayHere = false) {
     if (!draftReady || navigating || navigationPending.current || isPublicSurface()) return false;
     searchNavigation.current++;
     if (studyDockRef.current) { requestComposerMove(); composerDock.returnToChat(); }
     clearSceneSelection(); clearFollowup(); clearMaterialQuote(); clearNativeReferences();
     noteQuoteRef.current = quote; setNoteQuote(quote);
-    if (stayHere && viewRef.current === 'keep') setKeepWriting(true); else setView('chat');
+    if (stayHere && viewRef.current === 'keep') setKeepWriting(true);
+    else if (stayHere && viewRef.current === 'notes') setNotesDiscussion(true);
+    else setView('chat');
     setReadingPane('chat');
     queueReturnCapture();
     focusComposerAfterRead(() => noteQuoteRef.current === quote);
     return true;
   }
   async function discussBookmark(reference: SourceBookmarkReference) {
-    const stayHere = viewRef.current === 'keep';
+    const stayHere = viewRef.current === 'keep' || viewRef.current === 'notes';
     const boundary = boundaryRevision.current, selectedSession = sessionRef.current, gesture = readingGesture.current,
       selectedNavigation = navigation.current, selectedRead = ++searchNavigation.current;
     const current = () => boundary === boundaryRevision.current && selectedSession === sessionRef.current
@@ -2619,7 +2792,9 @@ export function App() {
     clearSceneSelection(); clearFollowup(); clearMaterialQuote(); clearNativeReferences();
     const selected = { reference: preview.reference.reference, title: preview.title };
     conversationQuoteRef.current = selected; setConversationQuote(selected);
-    if (stayHere) setKeepWriting(true); else setView('chat');
+    if (stayHere && viewRef.current === 'keep') setKeepWriting(true);
+    else if (stayHere && viewRef.current === 'notes') setNotesDiscussion(true);
+    else setView('chat');
     setReadingPane('chat');
     queueReturnCapture();
     focusComposerAfterRead(() => conversationQuoteRef.current === selected);
@@ -2832,6 +3007,7 @@ export function App() {
     try {
       const quote = await api.materialsQuote({ target, quote: materialQuoteAddress(source) });
       if (!current()) return;
+      if (discuss && viewRef.current === 'notes') { quoteMaterial(quote, true); return; }
       openDeskItem({ id: quote.resourceId, kind: 'material', name: quote.name,
         ...(attached?.kind === 'text' ? { pending: attached } : {}),
         address: { resourceId: quote.resourceId, sha256: quote.sha256, ...(quote.page ? { page: quote.page } : {}), offset: quote.start } });
@@ -3001,9 +3177,9 @@ export function App() {
         {!comparisonAnchor && <button type="button" className="icon-button" aria-label="留作对照，再选另一处" title="留作对照，再选另一处" onClick={compareCurrentReference}><Columns2 size={14} /></button>}
       </div>}
       {materialQuote && showCurrentWorkspaceReference && <div className="material-composer-quote" data-workspace-target={workspaceTargetKey({ kind: 'material_quote', reference: materialQuoteAddress(materialQuote) })}>
-        <button type="button" className="material-quote-source" title={materialQuote.text} onClick={() => void attempt(() => openMaterialSource(materialQuote))}>
-          <FileText size={16} /><span>{comparisonAnchor ? `另一处 · ${Array.from(materialQuote.text).slice(0, 100).join('')}`
-            : `${materialQuote.name}${materialQuote.page ? ` · 第 ${materialQuote.page} 页` : ''}`}</span>
+        <button type="button" className="material-quote-source" title={materialQuote.text} aria-label={`${materialQuote.name}${materialQuote.page ? ` · 第 ${materialQuote.page} 页` : ''}`} onClick={() => void attempt(() => openMaterialSource(materialQuote))}>
+          <FileText size={16} /><span>{comparisonAnchor ? `另一处 · ${Array.from(materialQuote.text).slice(0, 100).join('')}` : materialQuote.name}</span>
+          {!comparisonAnchor && materialQuote.page && <span className="material-quote-page">第 {materialQuote.page} 页</span>}
         </button>
         {!comparisonAnchor && <button type="button" className="icon-button" aria-label="留作对照，再选另一处" title="留作对照，再选另一处"
           onPointerDown={event => { if (event.button === 0) event.preventDefault(); }} onClick={compareCurrentReference}><Columns2 size={14} /></button>}
@@ -3019,6 +3195,11 @@ export function App() {
         onCompare={!comparisonAnchor ? compareCurrentReference : undefined}
         onOpen={() => void attempt(() => openConversationSource(conversationQuote.reference))}
         onClear={() => { searchNavigation.current++; clearConversationQuote(); clearComparisonContinuation(); inputRef.current?.focus({ preventScroll: true }); }} />}
+      {assistantPassage && showCurrentWorkspaceReference && <FocusContextChip label={assistantPassage.preview}
+        targetKey={workspaceTargetKey({ kind: 'assistant_text', reference: assistantPassage.reference })}
+        onCompare={!comparisonAnchor ? compareCurrentReference : undefined}
+        onOpen={() => void openAssistantPassage(assistantPassage)}
+        onClear={() => { searchNavigation.current++; clearAssistantPassage(); clearComparisonContinuation(); inputRef.current?.focus({ preventScroll: true }); }} />}
       {agendaContext && showCurrentWorkspaceReference && <div className="material-composer-quote" data-workspace-target={workspaceTargetKey({ kind: 'agenda', reference: agendaContext.focus })}>
         <button type="button" className="material-quote-source" onClick={() => setView('agenda')}>
           <CalendarDays size={16} /><span>{agendaContext.label}</span>
@@ -3090,7 +3271,7 @@ export function App() {
           maxLength={LIMITS.draftText}
           disabled={!draftReady || navigating}
           onCompositionStart={() => { composing.current = true; setComposerWriting(true); }}
-          onCompositionEnd={() => { composing.current = false; requestAnimationFrame(placeComposer); }}
+          onCompositionEnd={() => { composing.current = false; requestAnimationFrame(() => { placeConversation(); placeComposer(); }); }}
           onFocus={() => { setComposerFocused(true); setComposerWriting(false); }}
           onBlur={() => { setComposerFocused(false); setComposerWriting(false); }}
           onChange={(e) => { setComposerWriting(true); updateDraft({ text: e.target.value }); queueReturnCapture(); }}
@@ -3219,15 +3400,15 @@ export function App() {
           </div>
         </div>
       </form>
-      <EdgeCompanion host={appMainRef.current} anchor={edgeAnchor} character={companion.character} placement={edgePlacement} text={edgeSpeech} busy={busy}
+      <EdgeCompanion host={mapSheet ? mapPresenceHost : appMainRef.current} anchor={mapSheet ? null : edgeAnchor} character={companion.character} placement={edgePlacement} text={edgeSpeech} busy={busy}
         replyAvailable={!!edgeReplyText && edgeReply?.status !== 'running'} onOpenReply={() => {
           if (!edgeReply) return;
-          setView('chat'); setReadingPane('chat');
+          setMapSheet(null); setView('chat'); setReadingPane('chat');
           requestAnimationFrame(() => scrollRef.current?.querySelector<HTMLElement>(`[data-message-id="${CSS.escape(edgeReply.id)}"]`)
             ?.scrollIntoView({ block: 'center', behavior: 'auto' }));
         }}
         name={state?.settings.persona.core.name || '祥子'}
-        active={!resting && (view === 'keep' || view === 'materials' || view === 'chat' && !atWindow)}
+        active={!resting && (!!mapSheet || view !== 'chat' || !atWindow)}
         hidden={companion.presence === 'hidden' || surfaceMode.current === 'public'}
         onPlacementChange={placement => {
           setEdgePlacement(placement);
@@ -3236,7 +3417,7 @@ export function App() {
         onCall={() => {
           if (busy || !draftReady || navigating || surfaceMode.current === 'public') return;
           if (view === 'chat') setChatSpace('reading');
-          const quoted = materialQuoteRef.current || noteQuoteRef.current || conversationQuoteRef.current;
+          const quoted = materialQuoteRef.current || noteQuoteRef.current || conversationQuoteRef.current || assistantPassageRef.current;
           void send(quoted ? '就我引用的这一段，和我说一两句吧。'
             : `${state?.settings.persona.core.name?.trim() || '祥子'}，想听你说句话，一两句就好。`, false, undefined, undefined, true);
         }} />
@@ -3256,25 +3437,28 @@ export function App() {
       </div>
       <div className="composer-foot">
         {temporaryConversation && (
-          <span role="status">
-            {conversationRetention?.clearConversationOnExit
+          <span role="status" className="draft-saved-mark" title={conversationRetention?.clearConversationOnExit
               ? '离开时不留下这段聊天，记下的安排会保留。'
-              : '这段聊天不留下。'}
+              : '这段聊天不留下。'} aria-label="这段聊天不保存">
+            <Info size={17} aria-hidden="true" />
           </span>
         )}
         {(input || attachment) && (
           <div className="draft-status">
             {draftSaved ? (
-              <span role="status">这段话已留好</span>
+              <span role="status" className="draft-saved-mark" title="草稿已保存" aria-label="草稿已保存"><Check size={17} aria-hidden="true" /></span>
             ) : turnControls.retention === 'session_only' || temporaryConversation ? (
-              <span>离开时不留下这段话</span>
+              <span className="draft-saved-mark" title="离开时不留下这段话" aria-label="离开时不留下这段话"><Info size={17} aria-hidden="true" /></span>
             ) : (
               <button
                 type="button"
                 disabled={savingDraft || navigating}
+                className="icon-button"
+                aria-label={savingDraft ? '正在保存草稿' : '留作草稿'}
+                title={savingDraft ? '正在保存草稿' : '留作草稿'}
                 onClick={() => void saveCurrentDraft()}
               >
-                {savingDraft ? '正在留好…' : '留作草稿'}
+                {savingDraft ? <LoaderCircle size={17} className="spin" /> : <Bookmark size={17} />}
               </button>
             )}
           </div>
@@ -3283,6 +3467,7 @@ export function App() {
           <button
             className="scroll-bottom"
             aria-label="回到最新消息"
+            title="回到最新消息"
             onClick={() => {
               followRef.current = true;
               scrollRef.current?.scrollTo({
@@ -3293,8 +3478,7 @@ export function App() {
               });
             }}
           >
-            <ArrowDown size={15} />
-            回到最新
+            <ArrowDown size={20} />
           </button>
         ) : null}
       </div>
@@ -3352,6 +3536,9 @@ export function App() {
             );
           }}
           onQuote={quotePassage}
+          assistantPassage={assistantPassage?.reference}
+          onAssistantPassage={(reference, preview, kind) => focusAssistantPassage(reference, preview, kind,
+            `${state?.privacyEpoch}:${state?.policyRevision}:${state?.sourceBoundary ?? 0}`)}
           onOpenMap={(route) => { searchNavigation.current++; openMap(route); }}
           onUseMapContext={useMapContext}
           sceneSelection={sceneSelection}
@@ -3407,7 +3594,7 @@ export function App() {
           latestRehearsalRevisions={latestRehearsalRevisions}
           latestStudyRevisions={latestStudyRevisions}
           sceneInterruptionKey={messages.filter(message=>message.role==='user').at(-1)?.id}
-          onContinueScene={()=>{setView('chat');requestAnimationFrame(()=>inputRef.current?.focus());}}
+          onContinueScene={()=>{if (viewRef.current !== 'notes' || !notesDiscussion) setView('chat');requestAnimationFrame(()=>inputRef.current?.focus());}}
           onPreviewImage={setPreviewImage}
           onOpenAttachment={openAttachment}
           onCopyText={(text, label = '回复') =>
@@ -3438,7 +3625,7 @@ export function App() {
         </MessageView>
         </Fragment>
       )),
-    [messages, visibleHelpBodies, state?.agenda, state?.matters, state?.preparations, state?.settings.timeZone, state?.privacyEpoch, state?.policyRevision, state?.sourceBoundary, turnControls.retention, notesUnsaved, materialUnsaved, draftReady, busy,sceneSelection,latestRehearsalRevisions,latestStudyRevisions,preparationRequest,
+    [messages, assistantPassage, visibleHelpBodies, state?.agenda, state?.matters, state?.preparations, state?.settings.timeZone, state?.privacyEpoch, state?.policyRevision, state?.sourceBoundary, turnControls.retention, notesUnsaved, materialUnsaved, notesDiscussion, draftReady, busy,sceneSelection,latestRehearsalRevisions,latestStudyRevisions,preparationRequest,
       // Highlight the current address without rebuilding history for each local value.
       currentComposerFollowup?.programReference?.messageId, currentComposerFollowup?.programReference?.programId,
       currentComposerFollowup?.programReference?.revision, currentComposerFollowup?.programReference?.nodeId],
@@ -3464,12 +3651,14 @@ export function App() {
     {state?.presentation?.mode === 'public' ? <PublicDisplay surface={state.presentation} onEnd={endDisplay} notice={publicCloseNotice} /> : <ConversationTextFocusContext.Provider value={textFocus}>
     <ConversationComposerDockContext.Provider value={composerDock.value}>
     <div className={`app-shell ${atWindow ? 'has-window' : ''}${focusActive ? ' is-focusing' : ''}`}>
-      <div className="app-main" ref={appMainRef} style={roomPaperStyle} data-workspace-view={view}
-        data-room-layout={roomPaperPosition?.mode} data-room-paper-side={roomPaperPosition?.paperSide} data-room-source={roomPaperPosition?.sourceKey}>
-        {(view === 'chat' || view === 'materials' || view === 'keep' || view === 'notes') && <CompanionScene quiet={view !== 'chat' || !atWindow}
-          representation={view === 'keep' ? compactConversation ? 'portrait' : 'scene' : view === 'materials' || view === 'notes' || hasScene || readingSelectedWork ? 'portrait' : 'auto'}
-          ambientFit={view === 'keep' && compactConversation ? 'cover' : 'room'}
-          yieldToInput={composerFocused && composerWriting && !navigating && view !== 'keep'} moment={view === 'keep' || view === 'notes' ? 'reading' : companionActivity}
+      <div className="app-main" ref={appMainRef} style={workspaceScene ? undefined : roomPaperStyle} data-workspace-view={view} data-workspace-scene={workspaceScene}
+        data-room-layout={workspaceScene ? undefined : roomPaperPosition?.mode} data-room-paper-side={workspaceScene ? undefined : roomPaperPosition?.paperSide} data-room-source={workspaceScene ? undefined : roomPaperPosition?.sourceKey}>
+        {workspaceScene && workspaceScene !== 'settings' && <WorkspaceScenery scene={workspaceScene}
+          character={companion.character} showCharacter={companion.presence === 'window'} />}
+        {!workspaceScene && (view === 'chat' || view === 'agenda' || view === 'materials' || view === 'keep' || view === 'notes') && <CompanionScene quiet={view !== 'chat' || !atWindow}
+          representation={view === 'keep' ? compactConversation ? 'portrait' : 'scene' : view === 'agenda' || view === 'materials' || view === 'notes' || hasScene || readingSelectedWork ? 'portrait' : 'auto'}
+          ambientFit={view === 'agenda' || view === 'materials' || view === 'notes' || view === 'keep' && compactConversation ? 'cover' : 'room'}
+          yieldToInput={composerFocused && composerWriting && !navigating && view !== 'keep'} moment={view === 'agenda' ? 'planning' : view === 'keep' || view === 'notes' ? 'reading' : companionActivity}
           onRoomLayout={setRoomLayout} onStartFocus={draftReady && !navigating ? startFocus : undefined} onRest={openRest} focusActive={focusActive} />}
         <header className="titlebar">
           <button className="brand" onClick={() => setView('chat')} aria-label="在场，回到对话">
@@ -3488,9 +3677,6 @@ export function App() {
           />
           <WindowControls onClose={() => void requestClose()} />
         </header>
-        {view === 'notes' && <div className="retained-heading"><h1>留下</h1>
-          <button type="button" className="text-button" onClick={() => setView('keep')}>返回留下<ChevronRight size={13} /></button>
-        </div>}
         {view === 'materials' && <div className="retained-heading reading-workspace-heading">
           <button type="button" className="text-button" onClick={() => setView('chat')}>回到对话</button>
           <div className="reading-pane-switch" aria-label="阅读与对话">
@@ -3556,81 +3742,7 @@ export function App() {
           onAttach={value => appendAttachment(value)} onQuote={quoteMaterial} onOpenNote={openMaterialNote} onClose={() => setView('chat')}
         />}
         {view === 'materials' && !activeDeskId && <ReadingDivider presentationSide={readingSide} />}
-        <main ref={materialConversationTarget} className={`workspace ${empty && view !== 'materials' ? 'welcome' : 'conversation'}`}
-          data-presence-edge="conversation-paper" data-presence-edge-sides="top right bottom left" data-presence-edge-label="对话纸边"
-          data-presence-edge-disabled={view === 'materials' || atWindow ? 'true' : undefined}>
-          {empty && view !== 'materials' ? (
-            <div className="welcome-inner">
-              <div className="welcome-greeting">
-                <p className="welcome-date">{new Date().toLocaleDateString('zh-CN', { timeZone: state?.settings.timeZone || DEFAULT_TIME_ZONE, weekday: 'long' })}</p>
-                <h1>{state?.settings.persona.core.address.trim() ? `${state.settings.persona.core.address.trim()}，回来啦。` : '回来啦。'}</h1>
-              </div>
-              {loadError && <QuietNotice message={loadError} action={{ label: '重新打开', onClick: () => setLoadAttempt(n => n + 1) }} />}
-              {!draftReady && !loadError && (
-                <p className="startup-status" role="status">
-                  正在回到这里…
-                </p>
-              )}
-              <div className="composer-home" ref={setComposerHome} />
-              {!(startupReturn && startupReturnBoundary.current === boundaryRevision.current) && previousConversation && <div className="welcome-next" aria-label="从这里继续">
-                <button type="button" onClick={() => void openConversation(previousConversation.id)} disabled={busy || navigating}><History size={18} /><span>接着上次<small>{previousConversation.title}</small></span><ArrowUpRight size={14} /></button>
-              </div>}
-              {startupReturn && startupReturnBoundary.current === boundaryRevision.current && <ReturnBookmark disabled={!draftReady || busy || navigating}
-                point={{ id: String(startupReturn.savedAt),
-                  title: startupReturn.view === 'keep' ? '留下的那一页'
-                    : startupReturn.sessionId ? state?.conversations.find(item => item.id === startupReturn.sessionId)?.title || '桌边留着的那段话'
-                    : startupReturn.note ? '留下的那一页' : startupReturn.agenda ? state?.agenda.find(item => item.id === startupReturn.agenda?.record.id)?.title || '那次试放的安排'
-                      : startupReturn.material ? '上次读到的那一页' : '还没写完的这句话',
-                  ...(startupReturn.material ? { detail: `第 ${startupReturn.material.page} 页` } : {}),
-                  ...(!startupReturn.sessionId && startupReturn.view === 'chat' && input ? { excerpt: Array.from(input).slice(0, 100).join('') } : {}),
-                  onResume: () => restoreWorkspace(startupReturn) }}
-                onDismiss={() => { cancelReturnResume(); returnDismissedGesture.current = readingGesture.current;
-                  setStartupReturn(undefined); workspaceReturn.forget(); }} />}
-              {materials}
-            </div>
-          ) : (
-            <>
-              <div className="conversation-heading">
-                <span>{state?.conversations.find(conversation => conversation.id === sessionId)?.title || '我们慢慢说'}</span>
-              </div>
-              <div
-                className="message-scroll"
-                ref={scrollRef}
-                onScroll={() => {
-                  const el = scrollRef.current!;
-                  followRef.current = el.scrollHeight - el.scrollTop - el.clientHeight < 120;
-                  setAway(!followRef.current);
-                  rememberReadingPosition();
-                }}
-              >
-                <div className="messages">
-                  {empty && view === 'materials' && !input.trim() && <div className="reading-conversation-welcome"><BookOpen size={24} strokeWidth={1.2} /><h2>这一页，我们一起读。</h2><p>不明白的地方，可以选一段带过来。<br />想到哪里，就从哪里聊起。</p></div>}
-                  {renderedMessages}
-                  {activeMatter && (
-                    <details className="current-matter">
-                      <summary>
-                        接着说「{activeMatter.title}」<ChevronRight size={14} />
-                      </summary>
-                      <MatterCard
-                        matter={activeMatter}
-                        interaction={matterInteractions[activeMatter.id]}
-                        onInteraction={(value) => updateMatterInteraction(activeMatter.id, value)}
-                        onState={updateState}
-                        onPresent={() => void prepareDisplay({ matter: activeMatter })}
-                        onMap={(id) => void showPlace(id)}
-                      />
-                    </details>
-                  )}
-                  {materials}
-                </div>
-              </div>
-              <div className="bottom-composer">
-                {!composerDock.target && memoryHint}
-                <div className="composer-home" ref={setComposerHome} />
-              </div>
-            </>
-          )}
-        </main>
+        <div className="conversation-workspace-home" ref={setConversationHome} />
         </div>
         {state && materialsOpened && <ReadingDesk items={readingDeskItems} requestOpen={deskOpenRequest} openingRect={deskOpeningRect}
           active={view === 'keep' || view === 'materials' && (!compactConversation || readingPane === 'reader')}
@@ -3672,7 +3784,7 @@ export function App() {
             onReturnAddressChange={reportAgendaReturn} resume={agendaResume}
           />
         )}
-        {notesOpened && state && <NotesPanel embedded key={state.privacyEpoch} active={view === 'notes'} refreshKey={`${keepContentRevision}:${noteAddressRevision}`} onReturnAddressChange={reportNoteReturn} resume={noteResume} focus={searchTarget?.locator.kind === 'note' ? { locator: searchTarget.locator, requestId: searchTarget.requestId } : undefined} onUnsavedChange={setNotesUnsaved} onOpenMaterialSource={openMaterialSource} onOpenConversationSource={openConversationSource} onOpenMaterials={() => setView('materials')} onQuote={quoteNote} quoteEnabled={draftReady && !navigating} quoteContext={`${sessionId || 'new'}:${state.privacyEpoch}:${state.policyRevision}:${state.sourceBoundary ?? 0}`} quoteBoundary={`${state.privacyEpoch}:${state.policyRevision}:${state.sourceBoundary ?? 0}`} onClose={() => setView('chat')} timeZone={state.settings.timeZone} />}
+        {notesOpened && state && <NotesPanel embedded key={state.privacyEpoch} active={view === 'notes'} refreshKey={`${keepContentRevision}:${noteAddressRevision}`} onReturnAddressChange={reportNoteReturn} resume={noteResume} focus={searchTarget?.locator.kind === 'note' ? { locator: searchTarget.locator, requestId: searchTarget.requestId } : undefined} onUnsavedChange={setNotesUnsaved} onOpenMaterialSource={openMaterialSource} onOpenConversationSource={openConversationSource} onOpenMaterials={() => setView('materials')} onQuote={quoteNote} quoteEnabled={draftReady && !navigating} quoteContext={`${sessionId || 'new'}:${state.privacyEpoch}:${state.policyRevision}:${state.sourceBoundary ?? 0}`} quoteBoundary={`${state.privacyEpoch}:${state.policyRevision}:${state.sourceBoundary ?? 0}`} discussion={notesDiscussion ? <div className="notes-discussion-home" ref={setNotesDiscussionHome} /> : undefined} onCloseDiscussion={() => setNotesDiscussion(false)} onClose={() => { setNotesDiscussion(false); setView('keep'); }} timeZone={state.settings.timeZone} />}
         {(view === 'settings' || view === 'memory' || view === 'companion') && state && (
           <SettingsPanel
             key={`${view}:${state.privacyEpoch}`}
@@ -3824,6 +3936,7 @@ export function App() {
           initialRoute={mapSheet}
           initialConditions={mapSheetConditions} memory={mapSheetMemory}
           onWindowClose={() => void requestClose()}
+          onPresenceHost={setMapPresenceHost}
           returnLabel={
             view === 'chat'
               ? '返回对话'
@@ -3833,6 +3946,8 @@ export function App() {
                   ? '返回关于你'
                   : view === 'notes'
                     ? '返回笔记'
+                    : view === 'keep'
+                      ? '返回留下'
                     : view === 'materials'
                       ? '返回资料'
                       : view === 'companion'
@@ -3865,6 +3980,88 @@ export function App() {
           }}
         />
       )}
+      {createPortal(
+        <main ref={materialConversationTarget} className={`workspace ${empty && view !== 'materials' && view !== 'notes' ? 'welcome' : 'conversation'}`}
+          aria-label={state?.conversations.find(conversation => conversation.id === sessionId)?.title || '对话'}
+          data-presence-edge="conversation-paper" data-presence-edge-sides="top right bottom left" data-presence-edge-label="对话纸边"
+          data-presence-edge-disabled={view === 'materials' || atWindow ? 'true' : undefined}>
+          {empty && view !== 'materials' && view !== 'notes' ? (
+            <div className="welcome-inner">
+              <div className="welcome-greeting">
+                <p className="welcome-date">{new Date().toLocaleDateString('zh-CN', { timeZone: state?.settings.timeZone || DEFAULT_TIME_ZONE, weekday: 'long' })}</p>
+                <h1>{state?.settings.persona.core.address.trim() ? `${state.settings.persona.core.address.trim()}，回来啦。` : '回来啦。'}</h1>
+              </div>
+              {loadError && <QuietNotice message={loadError} action={{ label: '重新打开', onClick: () => setLoadAttempt(n => n + 1) }} />}
+              {!draftReady && !loadError && (
+                <p className="startup-status" role="status">
+                  正在回到这里…
+                </p>
+              )}
+              <div className="composer-home" ref={setComposerHome} />
+              {!(startupReturn && startupReturnBoundary.current === boundaryRevision.current) && previousConversation && <div className="welcome-next" aria-label="从这里继续">
+                <button type="button" title={`接着上次：${previousConversation.title}`} aria-label={`接着上次：${previousConversation.title}`} onClick={() => void openConversation(previousConversation.id)} disabled={busy || navigating}><History size={18} /><span>{previousConversation.title}</span><ArrowUpRight size={17} /></button>
+              </div>}
+              {startupReturn && startupReturnBoundary.current === boundaryRevision.current && <ReturnBookmark disabled={!draftReady || busy || navigating}
+                point={{ id: String(startupReturn.savedAt),
+                  title: startupReturn.view === 'keep' || startupReturn.view === 'notes' && startupReturn.note ? '留下的那一页'
+                    : startupReturn.view === 'materials' && startupReturn.material ? '上次读到的那一页'
+                    : startupReturn.view === 'agenda' && startupReturn.agenda ? state?.agenda.find(item => item.id === startupReturn.agenda?.record.id)?.title || '上次看到的安排'
+                    : startupReturn.sessionId ? state?.conversations.find(item => item.id === startupReturn.sessionId)?.title || '桌边留着的那段话'
+                      : '还没写完的这句话',
+                  ...(startupReturn.view === 'materials' && startupReturn.material ? { detail: `第 ${startupReturn.material.page} 页` } : {}),
+                  ...(!startupReturn.sessionId && startupReturn.view === 'chat' && input ? { excerpt: Array.from(input).slice(0, 100).join('') } : {}),
+                  onResume: () => restoreWorkspace(startupReturn) }}
+                onDismiss={() => { cancelReturnResume(); returnDismissedGesture.current = readingGesture.current;
+                  setStartupReturn(undefined); workspaceReturn.forget(); }} />}
+              {materials}
+            </div>
+          ) : (
+            <>
+              <div
+                className="message-scroll"
+                ref={scrollRef}
+                onWheelCapture={() => { followRef.current = false; rememberReadingPosition(); }}
+                onPointerDownCapture={() => { followRef.current = false; rememberReadingPosition(); }}
+                onKeyDownCapture={() => { followRef.current = false; rememberReadingPosition(); }}
+                onScroll={() => {
+                  const el = scrollRef.current!;
+                  const atEnd = el.scrollHeight - el.scrollTop - el.clientHeight < 24;
+                  // Layout, unfolding a hint or a composer resize may also
+                  // scroll here. Only send / return-to-latest resumes following
+                  // after an intentional reading gesture.
+                  setAway(!atEnd);
+                  rememberReadingPosition();
+                }}
+              >
+                <div className="messages">
+                  {empty && view === 'materials' && !input.trim() && <div className="reading-conversation-welcome"><BookOpen size={24} strokeWidth={1.2} /><h2>这一页，我们一起读。</h2><p>不明白的地方，可以选一段带过来。<br />想到哪里，就从哪里聊起。</p></div>}
+                  {renderedMessages}
+                  {activeMatter && (
+                    <details className="current-matter">
+                      <summary>
+                        接着说「{activeMatter.title}」<ChevronRight size={14} />
+                      </summary>
+                      <MatterCard
+                        matter={activeMatter}
+                        interaction={matterInteractions[activeMatter.id]}
+                        onInteraction={(value) => updateMatterInteraction(activeMatter.id, value)}
+                        onState={updateState}
+                        onPresent={() => void prepareDisplay({ matter: activeMatter })}
+                        onMap={(id) => void showPlace(id)}
+                      />
+                    </details>
+                  )}
+                  {materials}
+                </div>
+              </div>
+              <div className="bottom-composer">
+                {!composerDock.target && memoryHint}
+                <div className="composer-home" ref={setComposerHome} />
+              </div>
+            </>
+          )}
+        </main>
+      , conversationHost)}
       {createPortal(composer, composerHost)}
     </div>
     </ConversationComposerDockContext.Provider>
@@ -3887,6 +4084,8 @@ function MessageView({
   onPresent,
   onMessageChanged,
   onQuote,
+  assistantPassage,
+  onAssistantPassage,
   onViewAgenda,
   onActionEditChange,
   onOpenSource,
@@ -3934,6 +4133,8 @@ function MessageView({
   onPresent: (artifact: ReleaseArtifact) => void;
   onMessageChanged: (message: Message) => void;
   onQuote: (text: string) => void;
+  assistantPassage?: AssistantTextReference;
+  onAssistantPassage: (reference: AssistantTextReference, preview: string, kind: AssistantPassage['kind']) => void;
   onViewAgenda: (item?: Action, occurrenceDate?: string) => void;
   onActionEditChange: (sessionId: string, messageId: string, id: string, dirty: boolean, pending: boolean) => void;
   onOpenSource: (source: ReplySourceAddress) => void | Promise<void>;
@@ -3959,6 +4160,16 @@ function MessageView({
   boundary: string;
 }) {
   const [selectedPassage, setSelectedPassage] = useState('');
+  const canReferenceAssistant = m.role === 'assistant' && m.status === 'done' && !m.demo && m.retention !== 'session_only'
+    && !programStateEphemeral && !primaryBodyPresented;
+  const [assistantHash, setAssistantHash] = useState<{ content: string; value: string }>();
+  useEffect(() => {
+    let current = true;
+    if (!canReferenceAssistant) { setAssistantHash(undefined); return; }
+    void replyTextSha(m.content).then(value => { if (current) setAssistantHash({ content: m.content, value }); })
+      .catch(() => { if (current) setAssistantHash(undefined); });
+    return () => { current = false; };
+  }, [canReferenceAssistant, m.content]);
   const livePresentation=useRef(m.status==='running');
   const article = useRef<HTMLElement>(null),
     prose = useRef<HTMLDivElement>(null),
@@ -4102,14 +4313,21 @@ function MessageView({
   if (activity) presentationItems.push({ id: `activity:${activity.callId}`, anchor: { offset: activity.anchor, before: '' }, activity });
   const renderActivity = () => activity && <PresentationActivity key={`activity:${activity.callId}`} phase={activity.phase} />;
   const body=manuscriptView
-    ?<>{!!lead&&<div className="markdown"><RichText text={lead}/></div>}{m.views?.map(renderView)}{renderActivity()}</>
+    ?<>{!!lead&&<div className="markdown">{canReferenceAssistant ? <AssistantTextSource text={lead}
+      sourceStart={0} sourceEnd={Array.from(lead).length}
+      referenceBase={assistantHash?.content === m.content ? { sessionId: m.sessionId, messageId: m.id, contentSha256: assistantHash.value } : undefined}
+      activeReference={assistantPassage} onFocus={onAssistantPassage} /> : <RichText text={lead}/>}</div>}{m.views?.map(renderView)}{renderActivity()}</>
     :interleaveViews(renderedResponse,presentationItems).map((part,index)=>part.kind==='text'
-      ?<div className="markdown" key={`text-${index}`}><RichText text={part.text}/></div>
+      ?<div className="markdown" key={`text-${index}`}>{canReferenceAssistant ? <AssistantTextSource text={part.text}
+        sourceStart={part.sourceStart} sourceEnd={part.sourceEnd}
+        referenceBase={assistantHash?.content === m.content ? { sessionId: m.sessionId, messageId: m.id, contentSha256: assistantHash.value } : undefined}
+        activeReference={assistantPassage} onFocus={onAssistantPassage} /> : <RichText text={part.text}/>}</div>
       :part.view.view ? renderView(part.view.view) : renderActivity());
   // An unstamped legacy author must not borrow whichever picture is current.
   const authorArtwork = m.authorCompanionId || companionAuthorArtwork(m.authorName);
   return (
-    <article className="assistant-message" ref={article} data-message-id={m.id} tabIndex={-1}
+    <article className="assistant-message" ref={article} data-message-id={m.id} data-session-id={m.sessionId}
+      data-assistant-content-sha256={assistantHash?.content === m.content ? assistantHash.value : undefined} tabIndex={-1}
       onMouseUp={selectionChanged} onKeyUp={selectionChanged}>
       <div className="assistant-name">
         {authorArtwork && <CompanionAvatar size={31} characterId={authorArtwork} />}
@@ -4117,7 +4335,6 @@ function MessageView({
         {m.demo && <small>示例</small>}
         {m.proactive && <small className="assistant-proactive" title={new Date(m.createdAt).toLocaleString()}>{m.proactive === 'check_in' ? '来找你' : '替你留意到'}</small>}
       </div>
-      {m.status === 'running' && processBlock}
       <div ref={prose}>
         {body}
       </div>
@@ -4202,7 +4419,6 @@ function MessageView({
             ]
           : [];
       })}
-      <ReplyEvidence key={boundary} message={m} onOpenSource={onOpenSource} />
       {!m.scenes?.some(scene=>scene.kind==='map')&&m.mapCards?.map((card, cardIndex) => (
         <MapRouteCard key={cardIndex} card={card} onOpen={() => onOpenMap(card.route)} />
       ))}
@@ -4213,16 +4429,14 @@ function MessageView({
           <p>{m.hostStatus?.text || (m.status === 'cancelled' ? '好，先停在这里。' : '这件事没做完，你写的话都还在。')}</p>
         </div>
       )}
-      {m.status !== 'running' && processBlock}
-      {m.status !== 'running' && (
         <div className="message-actions">
-          {!!response.trim() && <IconButton label="复制回复" onClick={() => onCopyText(response)}>
+          <ReplyEvidence key={boundary} message={m} onOpenSource={onOpenSource} />
+          {processBlock}
+          {m.status !== 'running' && !!response.trim() && <IconButton label="复制回复" onClick={() => onCopyText(response)}>
             <Copy size={14} />
           </IconButton>}
           {m.status === 'done' && (
-            <button className="text-button" onClick={onCorrect} disabled={busy}>
-              说说哪里不对
-            </button>
+            <IconButton label="说说哪里不对" onClick={onCorrect} disabled={busy}><Pencil size={17} /></IconButton>
           )}
           {m.status === 'done' && !m.demo && m.retention !== 'session_only' && (
             <FeedbackControl messageId={m.id} />
@@ -4233,11 +4447,9 @@ function MessageView({
                 <ArrowUpRight size={13} />
                 接着说
               </button>
-              <small>在当前输入继续，草稿会保留。</small>
             </div>
           )}
         </div>
-      )}
     </article>
   );
 }
@@ -4569,29 +4781,23 @@ function ActionCard({
         <Check size={19} aria-hidden="true" />
         <div>
           <strong>{savedItem.title}</strong>
-          <small>
-            {savedItem.done ? '已完成' : cancellingOccurrence ? '已取消这一次' : restoringOccurrence ? '已恢复这一次' : savedItem.planning?.state === 'invitation' ? '已记录邀请' : savedItem.planning?.state === 'wish' ? '已保留愿望' : savedItem.planning?.state === 'proposed' ? '已保留方案' : isCalendarChange ? '已更新安排' : '已加入安排'}
-            {savedItem.startsAt ? ` · ${formatDate(savedItem.startsAt, savedItem.timeZone || zone)} · ${timeZoneLabel(savedItem.timeZone || zone)}` : ''}
-            {action.coverage === 'conditional' && !!action.missingNeeds?.length ? ' · 还有条件未确定' : ''}
-          </small>
+          <span className="saved-action-info">
+            {savedItem.startsAt && <time dateTime={savedItem.startsAt} title={timeZoneLabel(savedItem.timeZone || zone)}>{formatDate(savedItem.startsAt, savedItem.timeZone || zone)}</time>}
+            {(savedItem.done || cancellingOccurrence || restoringOccurrence || savedItem.planning?.state === 'invitation' || savedItem.planning?.state === 'wish' || savedItem.planning?.state === 'proposed') && <span>
+              {savedItem.done ? '已完成' : cancellingOccurrence ? '已取消这一次' : restoringOccurrence ? '已恢复这一次' : savedItem.planning?.state === 'invitation' ? '邀请' : savedItem.planning?.state === 'wish' ? '愿望' : '方案'}
+            </span>}
+            {action.coverage === 'conditional' && !!action.missingNeeds?.length && <span>还有条件未确定</span>}
+          </span>
           {actionError && (
             <p className="inline-problem" role="alert">
               {actionError}
             </p>
           )}
         </div>
-        <button
-          className="text-button"
-          onClick={() => void revoke()}
-          disabled={disabled || revoking}
-          aria-label={`撤回这项安排：${action.title}`}
-        >
-          {revoking ? '正在撤销…' : '撤销'}
-        </button>
-        <button className="text-button" onClick={viewArrangement}>
-          查看安排
-          <ChevronRight size={14} />
-        </button>
+        <IconButton label={`撤回这项安排：${action.title}`} onClick={() => void revoke()} disabled={disabled || revoking}>
+          {revoking ? <LoaderCircle size={18} className="spin" /> : <Undo2 size={18} />}
+        </IconButton>
+        <IconButton label={`查看安排：${savedItem.title}`} onClick={viewArrangement}><ArrowUpRight size={19} /></IconButton>
       </div>
     );
   if (saved && (failure || unresolved || !effect?.action))
