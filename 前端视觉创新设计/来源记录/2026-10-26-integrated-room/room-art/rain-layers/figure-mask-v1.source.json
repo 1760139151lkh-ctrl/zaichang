@@ -1,0 +1,32 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "complete figure+both hands+held cup+full worn shoes F",
+  "exactRequest": {
+    "prompt": "Create an exact SAME-CANVAS opaque 1536×1024 FIGURE selection mask F from this approved rainy-night mother, the ONLY image input. Trace the original actual existing girl and the cup held in both hands at the SAME pixel coordinates without redrawing, shifting, resizing or changing the pose.\n\nThe ENTIRE selected object is solid PURE WHITE inside: all hair/fine strands/ribbon, head/face/ear/eyes, neck, entire cardigan/blouse/ribbon, both arms and complete hands/fingers, the full blue-and-white cup she is holding, complete skirt and all skirt corners, exposed knees, both continuous calf socks and both full worn brown loafers/heels/soles. Her forward-leaning torso and lowered cup remain exactly where the mother places them. IMPORTANT: ALL interior linework/eyes/seams/buttons/cup patterns/shoe detail/fold lines MUST be WHITE TOO, with no black facial holes, no thin internal cuts and no grayscale texture. This is a SOLID selection of existing original source pixels, not a line-art portrait.\n\nOnly actual holes where the room shows through between separate hair strands, limbs or cup/hand gaps remain black. Keep all true outer hair tips and skirt/shoe outlines with a thin natural antialiased edge. Everything outside the person and held cup is solid PURE BLACK: every cushion/pillow/throw/table/lamp/books/vase, the missing-cup table position, window/lake/town/rain, floor/rug and every contact/cast shadow. Do not include receiving fabric or shoe-floor shadow in F.\n\nReturn a full original 1536×1024 black canvas with only this exact complete solid-white girl-plus-held-cup silhouette. No new body/pose/shoes, imagined anatomy, outlines inside the solid silhouette, colored room, cropped canvas, extra margin, guide marks, text, border, checkerboard or transparency.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-26-integrated-room/room-art/sakiko-listening-forward-rain-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "inputSha256": "abce5e07f77e0e847ef553c032ebcd43607f12cc87b9d258697fe43a51fc64e6",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-3caf-7462-9134-40d17eea23a0\\exec-b18d7a65-5653-4402-89f0-8cbc6eeda025.png",
+  "output": {
+    "file": "figure-mask-v1.png",
+    "sha256": "6423cbf6756405749922677d673623bf16e32562d4c09e974d338f768d2fe082",
+    "bytes": 473229,
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "promptFile": "figure-mask-v1.prompt.txt",
+  "promptFileSha256": "cece28aba752a27e76d01ed8445e0c93371c579bfdb1e917924b11619adea0f4",
+  "selectedForCurrentBundle": true,
+  "review": {
+    "productionAgentViewed": true,
+    "primaryApproved": false,
+    "runtimeAccepted": false
+  },
+  "boundary": "Same original mother RGB rendered once through U=MAX(LF,LS); no PNG pixel script edits, no threshold/dilation/edge repaint or geometric patch. Fixed original receiving material, not pure caster."
+}

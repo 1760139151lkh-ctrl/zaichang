@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "stage": "F2-direct-from-mother",
+  "recordedAtUtc": "2026-10-26T05:54:13.101687+00:00",
+  "tool": "image_gen.imagegen",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-resume-apricot-literary-v2.png",
+      "sha256": "4381d5f5faeeeedf1b84bf9e69bad71fe4a6dc06a7d8653c8b1f88b48c559cbe",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: precise-object-edit. Make ONLY an exact original-position semantic FOREGROUND COVERAGE MASK from the one supplied 1536x1024 approved Soyo resume mother. This is selection markup, NOT a new illustration or silhouette redesign. Preserve every original coordinate, full canvas and exact outer source contours. Do not crop, resize, move, recenter, change expression, body, clothes, hands, book, bookmark, knees or shoes.\n\nOutput ONE fully opaque 1536x1024 BLACK-AND-WHITE PNG. Paint the COMPLETE actual girl AND COMPLETE open lap book AND entire red ribbon bookmark SOLID FEATURELESS PURE WHITE. Select every real hair strand and wisp, entire head/face/ears/eyes/mouth/neck, all clothes/bow/crest/cuffs/buttons/skirt/white trim, both entire hands and fingers, all legs/knees/socks, and both complete brown loafers including dark soles and heels. The lifted book pages, page blocks, dark binding/spine/cover, supporting hands and the narrow red ribbon from book spine toward knee ALL belong to the opaque white foreground.\n\nMOST IMPORTANT: every pixel INSIDE every selected object must be opaque white. Obliterate ALL internal facial lines, hair interiors, cloth seam/fold/button/crest lines, finger outlines, page writing/pictures, book page/cover/binding outlines and red ribbon outline. The book and bookmark must be solid white shapes, NOT white paper with retained dark contour drawing. NEVER trace black lines around the book INSIDE the foreground. There must be NO black or gray holes/lines inside the book, ribbon, face, clothing, hands, legs or shoes. Original internal dark lines are source RGB, never holes in a mask. Grayscale may occur ONLY at the authentic outer antialiased perimeter.\n\nPaint EVERYTHING ELSE PURE BLACK: all window/town, curtains, lamp, flowers, table/cup/table books, empty cushion and knit throw, pillows, wood bench, floor/rug and all independent contact/cast shadow/receiving materials. Natural pale room objects are BLACK, never accidentally selected. Only genuine background gaps BETWEEN separate outer hair loops/limbs become black; preserve those exact genuine gaps without eroding a book, shoe sole or garment.\n\nApproximate inspection regions ONLY, not boxes to fill: whole selected person x735..1155,y116..896; open book/hands x840..1065,y435..520; ribbon x909..928,y488..545; both whole shoes x736..930,y787..896. Follow actual source, not mechanical boxes. No dilation/erosion, no oval/rectangular support, no white floor band, no gray room detail, no checkerboard, text, arrows, guides or extra object. Do not select seat/floor contact in F; a distinct S mask handles those later. Exact source RGB will be drawn once using MAX of luminance F and S; a dark internal line would wrongly punch through the source book, which must not happen.",
+  "submittedPromptSha256": "5f6919d0d78eb2df008233efd517f0225c62a4bcdf813ff6c75b96185d6e69eb",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-6d0f-74b2-b205-667f6c3b967b\\exec-df95ae7a-4038-42ff-ab18-6b3f37e07a5c.png",
+  "toolOriginalSha256": "8ee91f768cffb9ddea4a60d52113cd8a193562bb6bbb695fddd131bb1df70295",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\来源记录\\2026-10-26-integrated-room\\mygo\\soyo\\resume-apricot-v2-layers\\figure-mask-v2.png",
+    "sha256": "8ee91f768cffb9ddea4a60d52113cd8a193562bb6bbb695fddd131bb1df70295",
+    "bytes": 463646,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "toolPngBytesUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteActualOutput": true,
+    "status": "hold_pending_original_rgb_observation",
+    "observation": "Book interior lines largely removed, but new black wedges near neck/hair and dark arc beneath book may be erroneous holes; do not use as future Image input or final mask."
+  },
+  "generationInputAllowed": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false
+}

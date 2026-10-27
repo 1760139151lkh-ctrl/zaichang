@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "assetType": "ui-mockup",
+  "id": "today-rhythm-paper-v1",
+  "createdDate": "2026-10-25",
+  "createdBy": "life_today_map",
+  "tool": "image_gen.imagegen",
+  "prompt": "Use case: ui-mockup. Asset type: a complete high fidelity 1536x1024 Today page for the existing Chinese companion app 在场. Input image 1 is an approved CLEAN EMPTY ROOM and is the sole spatial/lighting reference; no UI screenshot, no character or dirty composite is provided. Preserve the beautiful complete wooden window, soft linen curtains, reading desk at left and warm continuous afternoon light as ONE inhabited room. Reframe only as needed to leave a comfortable usable planning surface while keeping the room truly visible, not just a decorative right strip. Primary request: make the student's day feel like a humane rhythm with commitments, meaningful free time and thoughtful choices, not a calendar administration dashboard. Show a single clear today timeline as the center of the product. Stable top navigation 在场 at left, 聊天 今天 留下 centered with 今天 selected, quiet search and ellipsis upper right. Page heading 今天 with small date 10月26日 周一, one compact date navigation (not a giant seven-day card row). A quiet “回到对话” at the normal upper-right content position. One small “记一件事” action and restrained more menu hold secondary administration. Avoid rows of filters, tabs, multiple mode selectors and categories. The primary content left about 60–65% is a graceful real timeline 08:00 to 20:00 on warm paper that receives the same window light; the paper edge feels part of the room, with no gray application background or multiple nested boxes. Show realistic density: a pale mist-blue course 高等数学 09:00–10:15; a small contiguous preparation/transition band 10:15–10:30 labelled 换教室; a second blue course 10:30–11:45; a calm light apricot 午饭 12:00–13:00; a gold movable study block 复习常微分方程 14:00–15:30; and a preserved dinner commitment 和朋友吃饭 18:00–19:00. The gaps remain visibly open and calm; no automatic suggestion to fill them, no productivity score. Keep exact hour labels and event durations visually coherent. A selected study block is lifted only slightly and its original slot has a thin dashed ghost; it is being trialed at 15:00–16:30, same event identity and full duration. A small paper fold near that event opens an understated single current-object note in the lower-right foreground, not a giant right sidebar: heading 复习常微分方程, old 14:00—15:30 in quieter ink, trial 15:00—16:30 in golden ink, small “晚饭仍留在 18:00” to express a real protected commitment. Give two precise selectable choices “13:30—15:00” and “15:00—16:30”, one clear primary “采用这个时间”, and secondary “先放回”. This note belongs to the same timeline, not a second app. Beneath it a discreet “一起商量” returns the same event to the existing conversation. No new chat input on Today. The right upper part remains the clean physical window seat, book, lamp and real room; no invented character, no isolated portrait, no progress mascot. Keep Chinese typography crisp and naturally sized, ample breathing room, optical alignment and subtle warm paper textures. Restrained Apple-like craft, precise actions, minimum necessary borders, no glass on glass, no thick shadow stack, no opaque gray blocks, no giant white rectangle erasing the room, no green UI, no day/night split, no engineering status labels, no fake completed receipt, no full-page photograph frame. This is a product design reference; all text, events, calendar arithmetic, actions, trial and undo will be native live components owned by the real agenda service. Do not imitate an old product screenshot.",
+  "inputImages": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "Approved clean empty room; sole reference, no UI or character"
+    }
+  ],
+  "originalOutput": "C:/Users/17601/.codex/generated_images/01a17614-34fc-72d1-8428-5c796f529733/exec-504115e3-3bf7-4238-9198-1e3fafea3875.png",
+  "output": "前端视觉创新设计/补充图稿/2026-10-25-life-continuity/today-rhythm-paper-v1.png",
+  "review": {
+    "producerViewed": true,
+    "primaryApproved": false,
+    "runtimeAccepted": false,
+    "conclusion": "Candidate comparison only: one clear day and same-event trial, but the opaque sheet covers too much room and illustrated tick/card geometry is inaccurate; do not use as an input."
+  },
+  "adoptionScope": "Only the product's spatial and interaction relationship may be adopted after primary comparison. Never use the complete page raster as an implemented UI.",
+  "outputSha256": "622f86a426db7df5fc203eaf57f4071e68a695c97622f922429ce126c4dea68c",
+  "outputBytes": 2231075
+}

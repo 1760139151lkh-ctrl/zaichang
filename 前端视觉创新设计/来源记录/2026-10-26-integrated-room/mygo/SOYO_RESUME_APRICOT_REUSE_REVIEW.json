@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-10-26T05:45:06.713Z",
+  "scope": "Read-only reuse feasibility; no image call, registry, or new admission",
+  "characterId": "soyo",
+  "activity": "resume",
+  "palette": "apricot",
+  "decision": "reuse_existing_healthy_mother_but_existing_layers_not_ready",
+  "newProductionStopped": true,
+  "runtimeRegistered": false,
+  "newPrimaryOrRuntimeApprovalGranted": false,
+  "mother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-resume-apricot-literary-v2.png",
+    "sha256": "4381d5f5faeeeedf1b84bf9e69bad71fe4a6dc06a7d8653c8b1f88b48c559cbe",
+    "bytes": 2473344,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "personallyViewedCompleteOriginal": true,
+    "artObservation": "Youthful long brown hair/blue eyes, plain cloth bow center and left-chest crest; lifted eyes recognize the returning person while fingers retain the actual page and red bookmark; lap/palm support book, pelvis/cushion and knees/ankles/whole loafers are coherent. Keep this real resume moment; no new person required.",
+    "existingRootStaticReview": {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/root-human-mother-primary-review-20261025.json",
+      "currentRecordFileSha256": "6f67fcc8efc9f1a4be5581c9fda78a508a60769ad1362bba8154367cbc977954",
+      "cell": "soyo/resume/apricot",
+      "reviewedAt": "2026-10-25T19:15:18.891Z",
+      "decision": "approved_static_mother",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false,
+      "scope": "Existing static mother review, not new generation authorization now"
+    },
+    "producerSourceStillHasOldFalseFlags": true
+  },
+  "existingLayers": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/figure-step1-marked-v1.png",
+      "sha256": "cd988baff0313725c348bee352cc98dc84a0b5697a00ade072f16fce0fe1a344",
+      "bytes": 2373017,
+      "stage": "F1",
+      "sourceRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/figure-step1-v1.source.json",
+      "exactMotherSha256": "4381d5f5faeeeedf1b84bf9e69bad71fe4a6dc06a7d8653c8b1f88b48c559cbe",
+      "personallyViewedCompleteOriginal": true,
+      "decision": "genuine_same_mother_selection_intermediate_only",
+      "observation": "Correct outer source positions and main selection; book/page/ribbon internal linework remains, not a final luminance mask."
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/figure-mask-v1.png",
+      "sha256": "ed2360ccaa8010bce7668dbdf639a5edab0d743a78dc7d04825fe62dbcb3b1b5",
+      "bytes": 459386,
+      "stage": "F2",
+      "sourceRecord": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/figure-step2-v1.source.json",
+      "exactMotherSha256": "4381d5f5faeeeedf1b84bf9e69bad71fe4a6dc06a7d8653c8b1f88b48c559cbe",
+      "personallyViewedCompleteOriginal": true,
+      "decision": "not_accepted_internal_book_and_ribbon_lines_reduce_coverage",
+      "observation": "Visible dark internal book/page/ribbon contours. Current MAX of luminance masks would reduce opacity there and let restored empty scene show through real foreground; do not borrow/threshold/hand-fill as a passed F."
+    }
+  ],
+  "missingOutputs": [
+    {
+      "stage": "S1",
+      "expectedPath": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/contact-step1-marked-v1.png",
+      "present": false,
+      "preparedPrompt": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/contact-step1-v1.prompt.json",
+      "generationStatusInPrompt": "prepared-not-yet-called"
+    },
+    {
+      "stage": "S2",
+      "expectedPath": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/contact-mask-v1.png",
+      "present": false,
+      "preparedPrompt": null
+    },
+    {
+      "stage": "BG",
+      "expectedPath": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/scene-background-v1.png",
+      "present": false,
+      "preparedPrompt": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/background-v1.prompt.json",
+      "generationStatusInPrompt": "prepared-not-yet-called"
+    }
+  ],
+  "searchScope": "Soyo resume source folder file inventory; full 前端视觉创新设计 file names matching Soyo/resume; source-record references to exact mother SHA. No claim to have read every raw historical chat turn.",
+  "reusePlanAfterRootExplicitRelease": [
+    "Keep exact v2 healthy mother PNG; do not regenerate the person or rename attention to resume.",
+    "Extract F again from this exact admitted mother so full book/page/bookmark interior is solid selection; do not use known hole F2 as input.",
+    "Obtain source-local S1/S2 around actual hip/skirt compression and both shoe contact receivers from same mother; preserve source wood/linen as fixed included material.",
+    "Obtain same-camera BG by removing only this exact figure/book/ribbon and its contact, preserving source room light/furniture.",
+    "Jointly inspect exact original RGB once under MAX(L(F),L(S)) at original coordinates, light/dark/checker, book/hands/ribbon, hip/linen and shoe/floor; retain travel/slope/perspective zero; root reviews before registration."
+  ],
+  "excludedShortcuts": [
+    "No old chat/attention/neutral mask or background borrowed by filename.",
+    "No registering current incomplete F as contour-complete.",
+    "No using another scene's generic empty plate as proven same-mother restored BG.",
+    "No flattening the whole mother into a movable character layer."
+  ],
+  "scopeNotClaimed": [
+    "Fixing exact resume would not fix chat v1 bow ornament or all other activities.",
+    "No dynamic/full 360 completion or runtime acceptance inferred."
+  ]
+}

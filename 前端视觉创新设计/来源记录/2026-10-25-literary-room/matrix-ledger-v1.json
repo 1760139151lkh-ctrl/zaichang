@@ -49191,7 +49191,9 @@
       "497c402c9411a01f98c50132d93068cf9841c239126fedb89595da8d8f3f4c83",
       "7b9caf4e538c3b4ac4da1923ec14ca2413c01506567e7005f2d15a800e25f2d9",
       "7ae96b362f848525b692dd3a1de220e68153fd8e370808f91d0beb65fa394e56",
-      "c65437eeca50a78ac4f032ea0bb82a6380e7a64803b763c3ceb747d89624ce36"
+      "c65437eeca50a78ac4f032ea0bb82a6380e7a64803b763c3ceb747d89624ce36",
+      "ee943e04da7a50748d3e331ed4339548b842388027d0a5fe360e95a4c2d270b7",
+      "36e1e2e4029d81914b4192cee8351d84b44fa0ef188c88910dd58d400a3e4300"
     ],
     "currentUserBlockedCells": [
       "sakiko/attention/apricot",
@@ -49277,5 +49279,22 @@
     "sourceHeldParentsUsed": false,
     "boundary": "Root personally viewed exact static union and approved this single layer; study no-pending release allowed manifest registration. No actual runtime acceptance or other cell credit.",
     "registeredScene": "前端视觉创新设计/运行素材/companion/scenes/sakiko-resume-apricot-recognition-v2.scene.json"
+  },
+  "currentNeutralPresenceWithdrawals": {
+    "tomori": {
+      "status": "withdrawn_user_rejected_mature_identity",
+      "neutralTimes": [
+        "day",
+        "night"
+      ],
+      "motherSha256": [
+        "ee943e04da7a50748d3e331ed4339548b842388027d0a5fe360e95a4c2d270b7",
+        "36e1e2e4029d81914b4192cee8351d84b44fa0ef188c88910dd58d400a3e4300"
+      ],
+      "allDerivativesForbiddenAsInput": true,
+      "record": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/current-neutral-revocation-v1.json",
+      "original360CellsChanged": false,
+      "independentAvatarChanged": false
+    }
   }
 }

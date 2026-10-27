@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "tool": "image_gen.imagegen",
+  "inputImages": [],
+  "originalToolOutput": "C:\\Users\\17601\\.codex\\generated_images\\01a17614-5c43-7040-a97d-0d5ccac98d4c\\exec-f2c59dfd-a053-40b3-ab4d-0fc9d9147940.png",
+  "output": "piano-pause-paper-v1.png",
+  "sha256": "c8452b5c87e81a052fe231bf95645cce401299504a319500992b6818504ba7b5",
+  "status": "hold_mechanism_and_key_order_not_accuracy_reference",
+  "producerViewed": true,
+  "rootApproved": false,
+  "runtimeAsset": false,
+  "mustNotBeReferenceInput": true,
+  "assessment": "Calm integrated paper composition useful. Key-front downward/rear upward ghost is visible, but generated capstan/hammer-joint supports and black-key grouping still unsuitable for scientific accuracy. No bitmap/geometry adopted.",
+  "promptFile": "piano-pause-paper-v1.prompt.txt",
+  "promptSha256": "142342ac07968a595182689f817ed854ff180bfc3cf88eda642673f64d794bc0"
+}

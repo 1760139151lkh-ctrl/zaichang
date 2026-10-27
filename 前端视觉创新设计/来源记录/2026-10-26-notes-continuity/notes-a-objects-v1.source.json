@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "prompt": "notes-a-objects-v1.prompt.txt",
+  "request": "notes-a-objects-v1.request.json",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "clean daytime room only"
+    }
+  ],
+  "output": {
+    "file": "notes-a-objects-v1.png",
+    "sha256": "0a5a82e5792e2395c97959270fc05dc8af92c108854fae6fdb4e3239af0db497",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2242345
+  },
+  "review": {
+    "reviewer": "notes_shell_design",
+    "imagePersonallyViewed": true,
+    "scope": "Drawer, object menu, version sidecar and archived-page relationships. Reject generated blue top save action and keep the approved footer anchor.",
+    "primaryAccepted": false,
+    "runtimeAccepted": false
+  },
+  "sampleCopyIsAuthoredDesignExample": true,
+  "userUploadedImagesUsedAsInputs": false,
+  "generationInputAllowed": false,
+  "runtimeUse": "none"
+}

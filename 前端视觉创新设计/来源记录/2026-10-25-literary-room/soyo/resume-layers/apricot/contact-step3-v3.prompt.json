@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-resume-apricot-contact-step3-v3",
+  "stage": "S3-source-contact-falloff",
+  "tool": "image_gen.imagegen",
+  "actualToolArguments": {
+    "prompt": "Use case: precise-object-edit. Technical soft contact matte refinement ONLY.\nInput 1 is current 1536x1024 S receiver matte; Input 2 is exact original mother to understand actual cloth/sole contacts. Keep same full canvas and exact locations. No character/RGB illustration.\nRefine ONLY the edge opacity of the existing small white seat/floor receiver selections. Current hard white margins cause a pasted patch when source receiver RGB is put onto the restored empty room. Keep 255 white at the ACTUAL contact core immediately touching the skirt hem / shoe sole (about 2..4 source pixels). Within the rest of each EXISTING selected small receiver patch, feather smoothly from white through gray to pure black at its existing outer boundary, with no abrupt polygon edge. The lower skirt receiver near x989..1047,y577..593 must especially taper smoothly downwards onto the actual linen, not remain a hard white trapezoid. The longer right linen margin and small left margin likewise dissolve naturally within their existing bounds. Preserve the shadow/contact core, not an invented new shadow.\nFloor receiver near the two loafers similarly keeps contact core white directly under the soles, then a gentle short gray fade to black within existing 8..22-pixel footprint. Do not broaden, move, connect or create a patch beyond current original-position selection. No whole-floor gradient, ellipse, seat rectangle, new detached island or halo. Everywhere outside those few existing contact receiver bounds stays pure BLACK; all actual girl/skirt/shoes/book stay black. Output one opaque 1536x1024 GRAYSCALE opacity matte with local purposeful white-to-gray-to-black falloff, black everywhere else. No color, text, resizing, crop or shift. This source receiver remains FIXED/included, travel=0, never a moving projection.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/contact-mask-v2.png",
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-resume-apricot-literary-v2.png"
+    ],
+    "transparent_background": false
+  },
+  "generationStatus": "completed-output-and-exact-arguments-in-source-record",
+  "scope": "Only existing receiver opacity falloff, same source geometry; original RGB retained.",
+  "completedSourceRecord": "contact-step3-v3.source.json"
+}

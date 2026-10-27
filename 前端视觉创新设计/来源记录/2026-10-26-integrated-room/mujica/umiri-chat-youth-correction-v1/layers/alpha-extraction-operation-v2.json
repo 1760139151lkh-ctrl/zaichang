@@ -1,0 +1,62 @@
+{
+  "operation": "same-source MAX of independent F1/F2 coverage, then explicitly authorized material-interior alpha repair; no RGB/body/face edits",
+  "Finputs": [
+    "figure-mask-v1.png",
+    "figure-mask-v2.png"
+  ],
+  "Fformula": "Fbase=MAX(L(F1),L(F2)); recover inspected source coat flap/boot contour coverage, no arbitrary offset or dilation",
+  "luminance": [
+    0.2126,
+    0.7152,
+    0.0722
+  ],
+  "alphaRepair": {
+    "sourceRegion": [
+      1070,
+      410,
+      1290,
+      540
+    ],
+    "method": "only in inspected opaque jacket/pencil/hands/notebook/skirt region, fill enclosed material holes and whiten material interior >2.5px from exterior using supplied-mask alpha>=128 material topology; all exterior/gap-edge values and all pixels outside sourceRegion unchanged",
+    "pixelsChanged": 21702,
+    "permissionSource": "root direct collaboration instruction allowing confirmed entity-internal alpha repair"
+  },
+  "receiver": {
+    "source": "included-coverage-v1.png",
+    "domains": {
+      "leftHipLinen": [
+        995,
+        580,
+        1110,
+        613
+      ],
+      "rightHipLinen": [
+        1245,
+        577,
+        1328,
+        610
+      ],
+      "soleAdjacentFloor": [
+        975,
+        885,
+        1225,
+        968
+      ]
+    },
+    "formula": "S=L(J)*(1-F/255) only within inspected source-local contact domains; zero outside; no new shadow painted",
+    "note": "raw J overall is not adopted; its top hair-loop room patch and noncontact marks are excluded; this pose has no side-palm support",
+    "domainBoundary": "8px smoothstep opacity gate INSIDE the two linen source-domain boundaries to avoid hard rectangular truncation; no source RGB/shadow repaint; boot-domain boundary lies outside actual selected footprint"
+  },
+  "composition": "U=MAX(F,S); unchanged original mother RGB drawn ONCE over matching BG",
+  "sourceRGBChanged": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "portableReceiver": false,
+  "outputVersion": 2,
+  "backgroundMatteCleanup": {
+    "operation": "derived alpha values 0..2 normalized to 0; no source RGB changed",
+    "reason": "raw generated black mask contained 1..2/255 background noise, which is unselected room, not real material or meaningful edge coverage",
+    "rawToolMasksUntouched": true
+  }
+}

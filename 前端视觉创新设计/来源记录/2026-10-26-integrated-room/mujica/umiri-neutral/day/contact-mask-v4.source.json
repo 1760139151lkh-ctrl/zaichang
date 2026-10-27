@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-mother-fixed-included-layer-production",
+  "producer": "/root/mujica_art",
+  "character": "umiri",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "weather": "unknown",
+  "weatherClaim": false,
+  "canvas": [
+    1536,
+    1024
+  ],
+  "stage": "S-direct",
+  "tool": "built-in image_gen.imagegen",
+  "exactPrompt": "Use case: background-extraction. Produce a source-aligned LOCAL SUPPORT RECEIVER luminance selection mask from the ONLY input: the exact complete healthy original 1536x1024 Umiri DAY mother. Do not draw a new shadow and do not move or resize ANY source feature. We will use mask luminance to show this untouched original mother RGB at fixed coordinates, so all receiving shapes must lie under the ACTUAL original body/hand/shoes at their original positions.\n\nRender the entire girl, her book, all furniture and room pure BLACK. Select WHITE only these actual exposed supporting surfaces already visible in the original:\n- The very small compressed LINEN lip immediately beneath the grey skirt/hip, on the cushion front seating plane. This is the little pale seat material touching the underside of her skirt on image right. It is around x1140..1215,y568..581. NOT her thigh or knee, not the lifted book, not the long empty seat, not a mark near y500. Follow the real visible source seam, with slight grey fade down into immediately adjacent linen.\n- A tiny LINEN sliver directly beneath the side supporting palm's fingers on the seat, around x1280..1361,y566..579. All skin and the blue plaid pillow behind her hand are BLACK. Never select the plaid wedge that runs beyond the fingertips; the receiver's TOP does not go behind the hand. Only real cushion BELOW the fingers, with softness downward into linen. Nothing to the right beyond x1366; no knitted throw.\n- Actual soft wood-floor contact under/around each complete black platform boot. The image-left/back boot sole bottom is y882, around x782..925. The image-right/front boot sole bottom is y914, around x943..1080. Select the ORIGINAL irregular dark-to-wood grounding below the real toe, sole and heel, with white solid contact core and the actual short gray falloff into nearby floor. The local receiving wood is within roughly x770..943,y860..908 and x930..1100,y890..939; these are inspection neighborhoods NOT rectangles/ovals to fill. Keep enough real source softness for grounded shoes, never just a hard thin rim. Whole boots including sole walls remain BLACK. No invented wide floor wash or new cast shadow.\n\nAll unselected original material BLACK, including all naturally bright cushion/curtain/lamp/page/flower/knit, the girl's entire legs and hand, any dark skirt or jacket, blue plaid, rug, far wood reflections and other furniture shadows. No person outline or internal line-art. Do not shrink/rescale/recenter shapes to fit a compositional arrangement: their exact original locations are mandatory. One opaque full-canvas 1536x1024 black mask with only these four SMALL source-local receiver islands WHITE and genuine outer softness GREY; no color, text, labels, boxes, grid, arrows, transparency, crop, padding or new geometry.",
+  "toolArguments": {
+    "prompt": "Use case: background-extraction. Produce a source-aligned LOCAL SUPPORT RECEIVER luminance selection mask from the ONLY input: the exact complete healthy original 1536x1024 Umiri DAY mother. Do not draw a new shadow and do not move or resize ANY source feature. We will use mask luminance to show this untouched original mother RGB at fixed coordinates, so all receiving shapes must lie under the ACTUAL original body/hand/shoes at their original positions.\n\nRender the entire girl, her book, all furniture and room pure BLACK. Select WHITE only these actual exposed supporting surfaces already visible in the original:\n- The very small compressed LINEN lip immediately beneath the grey skirt/hip, on the cushion front seating plane. This is the little pale seat material touching the underside of her skirt on image right. It is around x1140..1215,y568..581. NOT her thigh or knee, not the lifted book, not the long empty seat, not a mark near y500. Follow the real visible source seam, with slight grey fade down into immediately adjacent linen.\n- A tiny LINEN sliver directly beneath the side supporting palm's fingers on the seat, around x1280..1361,y566..579. All skin and the blue plaid pillow behind her hand are BLACK. Never select the plaid wedge that runs beyond the fingertips; the receiver's TOP does not go behind the hand. Only real cushion BELOW the fingers, with softness downward into linen. Nothing to the right beyond x1366; no knitted throw.\n- Actual soft wood-floor contact under/around each complete black platform boot. The image-left/back boot sole bottom is y882, around x782..925. The image-right/front boot sole bottom is y914, around x943..1080. Select the ORIGINAL irregular dark-to-wood grounding below the real toe, sole and heel, with white solid contact core and the actual short gray falloff into nearby floor. The local receiving wood is within roughly x770..943,y860..908 and x930..1100,y890..939; these are inspection neighborhoods NOT rectangles/ovals to fill. Keep enough real source softness for grounded shoes, never just a hard thin rim. Whole boots including sole walls remain BLACK. No invented wide floor wash or new cast shadow.\n\nAll unselected original material BLACK, including all naturally bright cushion/curtain/lamp/page/flower/knit, the girl's entire legs and hand, any dark skirt or jacket, blue plaid, rug, far wood reflections and other furniture shadows. No person outline or internal line-art. Do not shrink/rescale/recenter shapes to fit a compositional arrangement: their exact original locations are mandatory. One opaque full-canvas 1536x1024 black mask with only these four SMALL source-local receiver islands WHITE and genuine outer softness GREY; no color, text, labels, boxes, grid, arrows, transparency, crop, padding or new geometry.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-day-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "originalToolOutput": "C:/Users/17601/.codex/generated_images/01a17613-9fc7-7603-bafc-5dc75152a695/exec-e697d1bf-cf49-4a7e-86b4-cfffb311e8ac.png",
+  "output": {
+    "file": "contact-mask-v4.png",
+    "sha256": "9b44c939ce069fc98020bf9b8407c2847fb531b5447a5098271ba338c655c663",
+    "bytes": 368634,
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mujica/umiri-neutral/day/contact-mask-v4.png"
+  },
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-day-v1.png",
+      "sha256": "5daa0e42c8ef945858ebdc5f065270c14989d4d1d107756ab8667600af797108"
+    }
+  ],
+  "promptFile": "contact-mask-v4.prompt.txt",
+  "pngPixelEdited": false,
+  "producerPersonallyViewedOriginal": true,
+  "producerHeld": true,
+  "generationInputAllowed": false,
+  "producerObservation": "Direct original-mother S attempt still terminated ground shapes near/above sole bottoms; excluded and never fed forward.",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "dynamicAdmission": false,
+  "userApproved": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "heldOrReviewImagesUsedAsInput": false,
+  "privateExportOrUploadedReferenceUsedAsInput": false,
+  "exactPromptSHA256": "67d181f9a5af3b1cc619ee96738b64a7a4e93f80aae9ffddebe2ae0260325fed",
+  "promptFileSHA256": "987a9df6a476415ae6ddc9293cfe36e2be55174ac09e39978f4044e160d5fb7a",
+  "originalToolOutputSHA256": "9b44c939ce069fc98020bf9b8407c2847fb531b5447a5098271ba338c655c663",
+  "outputMatchesOriginalToolBytes": true
+}

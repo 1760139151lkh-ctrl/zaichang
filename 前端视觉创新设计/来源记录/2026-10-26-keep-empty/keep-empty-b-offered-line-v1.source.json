@@ -1,0 +1,30 @@
+{
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "purpose": "Keep empty-state interface exploration; no runtime bitmap adoption",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "clean empty room only"
+    }
+  ],
+  "review": {
+    "reviewer": "notes_shell_design",
+    "imagePersonallyViewed": true,
+    "runtimeAccepted": false,
+    "primaryAccepted": true,
+    "primaryAcceptanceScope": "Root personally viewed A/B and selected B's small smoke-tea writing action plus unboxed notebook/material entrances, empty state only. No runtime or generated navigation adoption."
+  },
+  "runtimeUse": "none",
+  "prompt": "keep-empty-b-offered-line-v1.prompt.txt",
+  "request": "keep-empty-b-offered-line-v1.request.json",
+  "output": {
+    "file": "keep-empty-b-offered-line-v1.png",
+    "sha256": "9d028a0ab029d6dca399b7ac10eedfb765144a960c0ea50c17b9fbb5e14c8ac7",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2411472
+  },
+  "directionSelectedBySubagent": true
+}

@@ -1,0 +1,8 @@
+{
+  "source": "C:\\Users\\17601\\.codex\\generated_images\\01a1789a-60fe-76f0-b0b3-4db58b792d38\\exec-86756fc4-d3c0-4328-a034-c301a6be5f48.png",
+  "sha256": "4efa54879054770481ea99e7e73cabc80907767d586c98971dd591aa3e7334bf",
+  "decision": "rejected",
+  "generationInputAllowed": false,
+  "runtimeAllowed": false,
+  "reason": "The color cutout moved the crown from about y310 to y180 and changed upper-body scale. It is not a registered same-canvas layer. Runtime instead uses original mother pixels through the reviewed segmentation mask."
+}

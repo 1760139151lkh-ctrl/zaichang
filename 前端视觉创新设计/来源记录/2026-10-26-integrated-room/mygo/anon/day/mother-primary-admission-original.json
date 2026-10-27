@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "root / primary agent",
+  "recordedAt": "2026-10-26T00:33:49.984368+00:00",
+  "source": "direct root collaboration messages in this healthy session",
+  "exactAvatarPrimaryMessage": "Root现逐原PNG亲看Anon v3 132d7f7f…2663c、Rana v3 400f6a20…9aad：各发色/眼识别与细2D青春短柔颊下巴成立，Anon期待的轻开口笑、Rana自在小好奇半笑可读，准原画面部审美与同角色identity generation参考；透明细发边/34/48圆框/真实runtime未验，不签全用途或userApproved true。3张day原母已到，我下一步看Anon/Rana后再明确night；Tomori日母和v3已准，你可以先按原影一张time-night延拓（day完整姿势＋已准v3 identity＋准time-night纯空plate），闭帘无天气，全人物/书物/软垫/地面同夜光，不改体量/脸型和视线对象/不凭空歪腿；只准母候选、不制layers或registry。全源保留。",
+  "exactDayPrimaryMessage": "Root刚逐完整PNG亲看Anon daya7a8454a…0920和Rana dayb8d0c29a…6a08：闭帘无天气、青年身份与合适眼神、Anon手中小纸与Rana膝上自有书/身侧按垫、髋座到露膝袜口/完整双鞋地面支撑成立。两张准STATIC mother＋同角色night基底，保存exactSHA与分项本消息；不签层/runtime/360/userApproved。可继续各一night：同角色准day全姿势＋已准v3 identity＋准time-night净plate，全人物/布垫/木面共同转夜灯，脸/体量/动作/视线对象保持，合帘无天气/白日亮斑，不换相机，不用他人母；先候选交根。Tomori night已给许可可正常完成。",
+  "items": [
+    {
+      "file": "anon-neutral-time-day-v1.png",
+      "sha256": "a7a8454ad67c374244dcc919a6af754c9e9fa2c153617584cce4f7dadafe0920",
+      "approvedScope": "static time-only day mother and same-character time-night full-pose generation base",
+      "generationInputAllowed": true,
+      "layersApproved": false,
+      "runtimeAccepted": false,
+      "original360ExactActivityCell": false
+    },
+    {
+      "file": "portrait/anon-avatar-youth-v3.png",
+      "sha256": "132d7f7f8d513634fc45145fc2405543a8e2b9bc0df47bfad614b94381a2663c",
+      "approvedScope": "original portrait face aesthetics and identity generation reference only",
+      "generationInputAllowed": true,
+      "fineAlphaEdgesVerified": false,
+      "real34And48CircleVerified": false,
+      "runtimeAccepted": false
+    }
+  ],
+  "userApproved": false
+}

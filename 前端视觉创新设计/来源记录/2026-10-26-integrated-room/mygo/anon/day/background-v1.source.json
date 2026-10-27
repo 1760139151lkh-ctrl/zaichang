@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "tool": "image_gen.imagegen",
+  "characterId": "anon",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "recordedAtUtc": "2026-10-26T03:16:59.048550+00:00",
+  "stage": "background-v1",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/anon/day/mother.png",
+      "sha256": "a7a8454ad67c374244dcc919a6af754c9e9fa2c153617584cce4f7dadafe0920",
+      "bytes": 2496553
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: precise-object-edit. Exact SAME-MOTHER empty receiving BACKGROUND for the primary-approved Anon neutral-presence TIME-ONLY DAY1536×1024 original. ONLY this exact full clean mother is input. Preserve same camera, every room/furniture coordinate, fully closed opaque inner curtains and seam, complete desk/chair/shelves/plants, blue-white porcelain lamp/cup/books/flowers on round table, linen window bench/pillows/knit, original wood floor/rug. Preserve exact soft neutral daytime light and original room colors.\nRemove ONLY entire girl, every pink hair strand, all uniform/skin/long socks/both shoes and the COMPLETE small folded-paper piece held by her hands. Remove ONLY her own cushion compression/contact and shoe floor/cast shadows. No ghost pink hair, paper scrap, sock, sole or replacement prop. Reconstruct matching local linen folds, bench wood and floorboards hidden by her, consistent with surrounding exact source. Do not redesign, move furniture, straighten all cloth, retheme, crop or add text. Curtains stay fully CLOSED opaque, no visible outside/weather/sky. Full opaque empty SAME room, exactly1536×1024. This is generated hidden BG for original RGB union later, not claimed bitwise source recovery.",
+  "promptFile": {
+    "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/anon/day/background-v1.prompt.txt",
+    "sha256": "7d2f026a1890ab81cf60eccebd119f905b04ec1a98e7f635fce4c6bb7ad48fef",
+    "bytes": 1230
+  },
+  "toolOriginal": {
+    "path": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-6d0f-74b2-b205-667f6c3b967b\\exec-a6eac866-fca3-4751-b051-603184ab85a7.png",
+    "sha256": "75b93193387c903f00101162eb0052f94be407d7b6318cd5e2ee456352e970d0",
+    "bytes": 2378747
+  },
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/anon/day/background-v1.png",
+    "sha256": "75b93193387c903f00101162eb0052f94be407d7b6318cd5e2ee456352e970d0",
+    "bytes": 2378747,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "pngBytesUnchanged": true,
+  "producerStatus": "actual_output_viewed_pending_original_RGB_browser_review",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "original360ExactActivityCell": false,
+  "generationInputAllowed": false
+}

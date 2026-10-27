@@ -1,0 +1,17 @@
+Use case: scientific-educational. ONE newly drawn 1536x1024 product concept, TEXT ONLY, no reference images.
+A quiet single ivory paper on a walnut desk, very restrained soft window light. In 在场 a person pauses a grand-piano stroke before escapement so their companion can explain this exact instant. Refined printed-book illustration, flat two-dimensional engineering line art with warm brown wood and muted brass, soft blue only for contact emphasis. NO 3D render, no photoreal mechanism, no green, no decorative machine parts.
+
+Draw EXACTLY one simple schematic in the center of the paper. It must explain these linked parts, and no others:
+(1) one LONG KEY LEVER is supported by a triangular central balance pivot. Front at LEFT is lower, rear at RIGHT is higher; faint rest ghost horizontal behind it. A short upward arrow at the REAR and downward arrow at FRONT.
+(2) a short vertical CAPSTAN stands on the REAR of the key and visibly CONTACTS the underside of the WIPPEN, lifting it.
+(3) the WIPPEN is a rigid almost-horizontal second lever ABOVE the key, hinged at its far RIGHT end on its own stationary support. The capstan pushes its LEFT side upward.
+(4) a thin nearly VERTICAL JACK stands on that lifted left portion of the wippen. Its TOP visibly TOUCHES a small round knuckle beneath the hammer shank. In this paused EARLY driven stage the jack has NOT escaped, so leave NO GAP between jack tip and knuckle.
+(5) the HAMMER is a SINGLE straight shank with a small ROUND FIXED PIVOT at LEFT and a felt oval HEAD at RIGHT, the head raised toward a horizontal STRING above it. The knuckle is a small round contact pad on the underside of the SAME shank between pivot and head. The hammer head is still clearly BELOW the string, not striking. No second diagonal hammer arm or unexplained butt, no floating joints.
+(6) a separate simple DAMPER PAD sits CLEARLY ABOVE and away from the right part of that string, connected by one vertical stem upward. Its lift is caused by the pressed key, but do not invent a long visible linkage crossing the mechanism.
+
+Keep parts separated so the eye can trace KEY REAR -> CAPSTAN -> WIPPEN -> JACK TOUCHING KNUCKLE -> HAMMER. Three fixed pivots at key balance, right wippen hinge, left hammer hinge should be small circles on pale stationary supports. The mechanism is a minimal illustrative lever chain, not a claim of one exact piano model.
+
+Exact title upper-left “停在这里，就看清了”.
+Tiny precise labels with leader lines only once: “琴键”, “柱钉”, “联动器”, “顶杆”, “琴槌”, “琴弦”, “制音器”.
+Below schematic ONE fine process slider at about one fifth with endpoint words “按下” and “回落”. Beneath that only ONE small white piano key, visibly depressed under a fingertip at left, and one modest pedal outline plus short quiet decaying waveform at right. DO NOT draw a keyboard or black-key sequence. Bottom-right quiet text “接着这个变化聊 ↗”.
+Generous breathing space. No sidebar, avatar, app screenshot, progress percentage, disclaimer, repeated cards, decorative gears, irrelevant textbook paragraphs. Physical contact and motion carry the explanation.

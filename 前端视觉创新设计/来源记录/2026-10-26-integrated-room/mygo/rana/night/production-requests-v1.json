@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "characterId": "rana",
+  "neutralTime": "night",
+  "purpose": "neutral-presence",
+  "motherOriginalPath": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/rana/time-only-neutral-v1/rana-neutral-time-night-v1.png",
+  "stages": [
+    {
+      "key": "figureMarkup",
+      "name": "figure-step1-marked-v1",
+      "prompt": "Use case: precise-object-edit. On this EXACT clean primary-approved Kaname Rana TIME-ONLY NIGHT mother, create F1 deliberate SOLID WHITE foreground selection markup. Full original1536×1024 canvas and EVERY source coordinate unchanged. No redraw, new identity, pose or light.\nPaint featureless PURE WHITE over the ENTIRE visible seated girl AND her complete open book. Include every silver-white fine hair strand, whole head/face/ears/neck, sailor collar/bow/top/skirt/outer hem, complete arms/wrists/hands/fingers including the rightmost hand actually pressing the cushion, both bare knees/thighs, long knee socks, BOTH COMPLETE brown loafers with full toes/sidewalls/outsoles/heels, and the ENTIRE open book including dark cover/spine/lower page edge and hand-held page. Fill ALL enclosed internal face, garment, finger, page/cover/fold and shoe details WHITE with no colored or dark strokes inside. Book and hand union remains fully selected, never an internal dark line along the lap.\nOnly real OUTSIDE gaps between separated hair strands, between the legs and visible exterior spaces outside arm/body remain ORIGINAL COLORED ROOM. No new inside hole, no limb erosion, no expanding silhouette. All unselected scene stays its original RGB: closed curtains, lamp/flower/table/book stack, bench cushion/pillows/knit, desk/chair/plants, wood floor/rug and separate receiving shadows. No white floor ring, new object, text, checker, crop, resize, recenter or transparency. One opaque full original scene with ONLY complete Rana+held book intentionally flat white, exact1536×1024.",
+      "input": "mother",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-6d0f-74b2-b205-667f6c3b967b\\exec-795332a3-50f3-45ce-ae7a-744cc37b4698.png"
+    },
+    {
+      "key": "contactMarkup",
+      "name": "contact-step1-marked-v1",
+      "prompt": "Use case: precise-object-edit. Exact primary-approved Rana neutral-presence TIME-ONLY NIGHT mother,1536×1024, same original camera/coordinates. Create S1 WHITE LOCAL RECEIVER markup without scene redraw.\nPaint pure white over BOTH ENTIRE loafers including all dark toe/upper/sidewall/sole/heel outlines, plus their actual small original wood floor-contact shade as one continuous local region per shoe. Fill internal shoe details white. No excluded black shoe edge or moat. Keep wood selection tight to original contact, usually8..20px beyond soles only where source shade exists; feather softly into original colored floor over outer8px, no hard pointed wedge, detached ellipse or broad floor strip.\nAlso white-select the short real linen compression/contact directly under seated skirt/hip AND the tiny actual cloth receiver immediately under her rightmost supporting palm. Trace real local receiver, do not connect them with a broad empty bench band. Book is supported on lap and in hands; no separate book receiver on bench. All girl above shoe openings, socks, book/hands/hair/face/clothes stay original colored. Every unrelated room surface, curtain, lamp, empty cushion/pillow/knit, table/plant/desk/floor/rug stays original RGB. No new shadow, geometry, object, labels, crop/resize/recenter/transparency. Full opaque source scene with only shoes+real tiny receiving materials deliberately WHITE; fixed-position source included coverage.",
+      "input": "mother",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-6d0f-74b2-b205-667f6c3b967b\\exec-5f4b77c4-c093-4682-a9e9-b18075eff47d.png"
+    },
+    {
+      "key": "background",
+      "name": "background-v1",
+      "prompt": "Use case: precise-object-edit. Produce exact SAME-MOTHER EMPTY BACKGROUND from this approved Kaname Rana neutral-presence TIME-ONLY NIGHT mother. Only this exact full clean original is input. Preserve full1536×1024, original camera and ALL room/furniture coordinates, fully closed opaque curtains/seam, desk/chair/shelves/plants, round table with porcelain lamp/cup/flowers/books, window bench/linen/pillows/knit, wood floor/rug and exact warm lamp-lit NIGHT light/colors.\nRemove ONLY the whole girl: all silver hair, uniform/skin/socks/both shoes/arms/hands and the COMPLETE OPEN BOOK in her lap/hands, no cover/page/hand/hair ghost. Remove only compression/contact/cast shadow caused by her seated hip, supporting rightmost palm and shoes. Reconstruct matching hidden local linen/folds, bench and original floorboards with surrounding soft light. No moved furniture, new book, prop, altered curtains, retheme, readable outside sky/weather, text, border, crop or resize. Full opaque empty SAME room, exactly1536×1024. Hidden surfaces are generatively reconstructed, not claimed bitwise known source.",
+      "input": "mother",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-6d0f-74b2-b205-667f6c3b967b\\exec-6562bd1e-e6f1-4a89-8d7d-7e1a3820928c.png"
+    },
+    {
+      "key": "figureMask",
+      "name": "figure-mask-v1",
+      "prompt": "Use case: background-extraction. Convert ONLY this inspected healthy white-foreground markup to an OPAQUE exact-coordinate1536×1024 black/white luminance mask. All deliberately WHITE girl+ENTIRE OPEN BOOK become featureless PURE WHITE: every face/hair/clothes/hand/finger/book-cover/page/spine/lap/sock/shoe internal line FILLED WHITE. Especially remove the faint curved BOOK interior line near x1040..1190,y490..540 by filling it white; no black seam cuts selected book from selected lap. Whole rightmost hand/fingers pressing cushion stay selected with her sleeve. All actual outside gaps between hair strands, legs and the exterior side-arm/body stay BLACK, not new holes. Both loafers fully selected to complete toe/sidewall/sole/heel outlines. Gray only original external antialias.\nEVERY originally colored room pixel becomes BLACK, including naturally pale silver-like curtain/linen/lamp/flowers highlights, whole empty cushion, table/desk/plant/floor/rug and separate receiving shadows. Do not make natural pale room into selection. No crop, resize, recenter, expansion, erosion, new contours, checker, text, RGB or transparency. Exact1536×1024 coverage for sourceRGB once underMAX(F,S).",
+      "input": "figure-step1-marked-v1",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-6d0f-74b2-b205-667f6c3b967b\\exec-cdd4899b-cfbe-408f-9a0c-02c2aaae7423.png"
+    },
+    {
+      "key": "contactMask",
+      "name": "contact-mask-v1",
+      "prompt": "Use case: background-extraction. Convert ONLY this full1536×1024 deliberate shoes+LOCAL receiver white markup to a same-coordinate OPAQUE BLACK/WHITE/SOFT-GRAY luminance mask. Complete TWO white-marked loafers become SOLID PURE WHITE, every interior shoe crease/seam and sole detail filled white. Include their deliberately marked tiny immediate original floor contact/soft feather; no black moat on any shoe edge. Deliberate little white linen marks under hip/skirt and under rightmost supporting palm become white with their existing short soft edges. Do not extend to an empty bench band or new floor ellipse. Preserve exact marked coordinates and original external antialias/soft marked feather only. All remaining originally colored pixels including entire girl above shoe openings, socks, hands/book/hair/skin/uniform, naturally pale curtains/lamp/cushion, all room/furniture/plants/rug/floor become BLACK. No new geometry, color, text, checkerboard, crop, resize, recenter or transparency. Fixed source-local receiving material, overlapping F at shoes intentionally; original sourceRGB drawn only once withMAX.",
+      "input": "contact-step1-marked-v1",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-6d0f-74b2-b205-667f6c3b967b\\exec-8c3f0668-7fa1-4571-b0ed-68adc44c0e9f.png"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "prompt": "notes-b-writing-v1.prompt.txt",
+  "request": "notes-b-writing-v1.request.json",
+  "input": [
+    {
+      "file": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "approved clean empty room only"
+    }
+  ],
+  "output": {
+    "file": "notes-b-writing-v1.png",
+    "sha256": "750aed7ecb5c817ca677e6dcbd0c29f1ce7424a717e1583376ab5f59f3311aeb",
+    "width": 1774,
+    "height": 887,
+    "bytes": 2325727
+  },
+  "sampleCopy": {
+    "authoredForThisDesign": true,
+    "isLiveUserOrModelContent": false
+  },
+  "review": {
+    "reviewer": "notes_shell_design",
+    "imagePersonallyViewed": true,
+    "scope": "In-place kept thought; rejected generated category labels, tag field, extra search and unrequested timestamp.",
+    "primaryAccepted": false,
+    "runtimeAccepted": false
+  },
+  "runtimeUse": "none",
+  "generationInputAllowed": false
+}

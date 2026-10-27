@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-resume-apricot-figure-step2-v3",
+  "stage": "F2-local-source-sleeve-correction",
+  "tool": "image_gen.imagegen",
+  "actualToolArguments": {
+    "prompt": "Use case: precise-object-edit. Technical matte correction ONLY; NOT a new character or RGB illustration.\nInput 1 is the current 1536x1024 foreground matte. Input 2 is its exact original source mother. Preserve canvas, position, outer hair, head, torso, skirt, both legs and shoes as existing. Correct the single semantic omission and residual internal detail. Output opaque black/white matte only.\nThe dark NAVY LEFT SLEEVE which supports the left underside of the open book is real cloth, NOT air: in source coordinates approximately x852..915,y488..523, it forms the small dark curved hanging sleeve beneath the left book cover, immediately above the source left knee. Read its exact SOURCE outer contour from Input 2 and include the WHOLE existing sleeve there as solid WHITE. Do not invent sleeve outside the actual source. Preserve the brown background immediately outside this real sleeve and between source sleeve/skirt as BLACK wherever actually visible. Do not cut off any real book cover or sleeve, and do not whiten imaginary gap.\nInside the actual whole book, both hands and long red bookmark ribbon around x911..928,y489..543, REMOVE EVERY internal crease/cover/page/hand/ribbon line: physical material is PURE WHITE. The white foreground must not have black/gray line drawings inside its solid material. Internal book linework and the ribbon on top of the knee are not holes. Keep only external antialiasing. The rest of the physical girl is opaque WHITE as well; no face, clothing or hair texture inside solid selected material.\nKeep all TRUE outside air spaces black, particularly the separated legs and small external hair loops. Every room/furniture/cushion/floor/shadow stays black. Do not redraw approximate whole-body contour, do not reframe, crop, zoom, stretch or shift. Source RGB later comes unchanged from Input 2; no source RGB will be adopted from this matte. One exact 1536x1024 matte, no text or new object.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/figure-mask-v2.png",
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-resume-apricot-literary-v2.png"
+    ],
+    "transparent_background": false
+  },
+  "generationStatus": "completed-output-and-exact-arguments-in-source-record",
+  "scope": "Technical source sleeve omission and material interior correction; no new anatomy or RGB changes.",
+  "completedSourceRecord": "figure-step2-v3.source.json"
+}

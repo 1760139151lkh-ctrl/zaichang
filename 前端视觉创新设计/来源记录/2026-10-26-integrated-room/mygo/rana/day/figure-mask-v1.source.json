@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "tool": "image_gen.imagegen",
+  "characterId": "rana",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "recordedAtUtc": "2026-10-26T03:50:26.971537+00:00",
+  "stage": "figure-mask-v1",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/rana/day/figure-step1-marked-v1.png",
+      "sha256": "316e98afbe0e35565ac4da059c9296cf761b774c1b8c9e70bf84d16b5964ff0b",
+      "bytes": 2150834
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: background-extraction. Convert ONLY this inspected healthy white-foreground markup to an OPAQUE exact-coordinate1536×1024 black/white luminance mask. All deliberately WHITE girl+ENTIRE OPEN BOOK become featureless PURE WHITE: every face/hair/clothes/hand/finger/book-cover/page/spine/lap/sock/shoe internal line FILLED WHITE. Especially remove the faint curved BOOK interior line near x1040..1190,y490..540 by filling it white; no black seam cuts selected book from selected lap. Whole rightmost hand/fingers pressing cushion stay selected with her sleeve. All actual outside gaps between hair strands, legs and the exterior side-arm/body stay BLACK, not new holes. Both loafers fully selected to complete toe/sidewall/sole/heel outlines. Gray only original external antialias.\nEVERY originally colored room pixel becomes BLACK, including naturally pale silver-like curtain/linen/lamp/flowers highlights, whole empty cushion, table/desk/plant/floor/rug and separate receiving shadows. Do not make natural pale room into selection. No crop, resize, recenter, expansion, erosion, new contours, checker, text, RGB or transparency. Exact1536×1024 coverage for sourceRGB once underMAX(F,S).",
+  "promptFile": {
+    "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/rana/day/figure-mask-v1.prompt.txt",
+    "sha256": "708b4731cda6212850c792c58ae2c91a66f1caa86304dd174c07c15761cf2d62",
+    "bytes": 1198
+  },
+  "toolOriginal": {
+    "path": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-6d0f-74b2-b205-667f6c3b967b\\exec-71e39299-0139-4d03-b834-c1aa02954dbe.png",
+    "sha256": "05f4514394129ea47646ae62354453acfa41b510ac279a1d3f8c8e128c47eab0",
+    "bytes": 436628
+  },
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/rana/day/figure-mask-v1.png",
+    "sha256": "05f4514394129ea47646ae62354453acfa41b510ac279a1d3f8c8e128c47eab0",
+    "bytes": 436628,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "pngBytesUnchanged": true,
+  "producerStatus": "actual_output_viewed_pending_original_RGB_browser_review",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "original360ExactActivityCell": false,
+  "generationInputAllowed": false,
+  "currentProductionStatus": "stopped_pending_root_art_base_selection",
+  "currentScopeNote": "Further mask production stopped by root; no identity rejection of Rana asserted. Retain returned actual outputs and historical generation facts."
+}

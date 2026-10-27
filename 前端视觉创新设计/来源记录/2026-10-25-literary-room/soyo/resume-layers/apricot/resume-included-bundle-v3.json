@@ -1,0 +1,249 @@
+{
+  "schemaVersion": 1,
+  "key": "soyo/resume/apricot",
+  "kind": "original-source-union-subject-included-contact-candidate",
+  "recordedAtUtc": "2026-10-26T06:41:33.773Z",
+  "status": "producer-static-layer-review-complete-awaiting-root-primary-and-runtime-review",
+  "primary": false,
+  "runtime": false,
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-resume-apricot-literary-v2.png",
+    "sha256": "4381d5f5faeeeedf1b84bf9e69bad71fe4a6dc06a7d8653c8b1f88b48c559cbe",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "existingRootMotherDecision": "approved_static_mother",
+    "layersApproved": false
+  },
+  "artPurpose": "她仍留着自己正在读的那页，听见熟悉的人回来先抬眼；托书的双手、完整纸页与红书签承接这个重逢瞬间。此工序保留已接受的青春面相、普通布结、左胸章与裙双白线，只分离原景。",
+  "background": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/scene-background-v1.png",
+    "sha256": "5d9d33a5824ea2654f36b032db952c674046c6ddd76f03e9b0f1936bdf2639ea",
+    "bytes": 2418373,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "figureSelection": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/figure-mask-solid-v1.png",
+    "sha256": "93fd279d79e329a8dcddedbecc5e2861d7f1dc6fce57aeb26d4734ff2e020874",
+    "bytes": 25882,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "L"
+  },
+  "receiverSelection": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/contact-mask-final-v3.png",
+    "sha256": "2c42a9c4fba7ec8d63013c38b0d91e465e2f6ee9a20508ce315e501861f1cfd5",
+    "bytes": 10917,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "L"
+  },
+  "unionSelection": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/included-mask-v3.png",
+    "sha256": "4cc44d977f44bf7d1ff051b757040ffa3ef2c9400bfb02b14ea4a9e7f4408e55",
+    "bytes": 29749,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "L"
+  },
+  "includedRgba": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/included-original-rgb-v3.png",
+    "sha256": "6d6774e023fe953f9f866c3cc8da144b8ff0238bf15266276c816453766d4bb4",
+    "bytes": 2763001,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA"
+  },
+  "staticComposite": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/scene-composite-v3.png",
+    "sha256": "34a439f963c0b863b526803d4b75c25fe8e84361581aa0507ed87d2f60dcc721",
+    "bytes": 2404373,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "diagnosticOnlySeparateRgba": {
+    "figure": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/figure-original-rgb-v1.png",
+      "sha256": "a90e6d05e911267122a4387c13d38b50c2e3135ab50a8f4626b6e92eb9744ec9",
+      "bytes": 2758878,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    "receiver": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/receiver-original-rgb-v3.png",
+      "sha256": "7a2a6b73aba7b2e2d1b82e2d53c820df44f2c8bd7276fd3ec84ddd265f3613fd",
+      "bytes": 2749638,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    }
+  },
+  "composition": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "formula": "U(x,y)=MAX(Fsolid(x,y),Ssoft(x,y)); RGBA(x,y)=(original mother RGB(x,y),U(x,y))",
+    "originalMotherRgbDrawsPerSubject": 1,
+    "rgbExactlyOriginal": true,
+    "backgroundThenSingleIncludedRgba": true,
+    "sharedStage": true,
+    "transform": {
+      "x": 0,
+      "y": 0,
+      "scale": 1,
+      "rotation": 0
+    },
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": {
+      "mode": "included",
+      "meaning": "fixed source contact/receiving linen and local floor material with original source shade; includes a few cloth/sole boundary overlaps covered by F, used once via MAX; no independent caster",
+      "separateCasterApproved": false
+    }
+  },
+  "alphaDerivation": {
+    "sourceFigure": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/figure-mask-v3.png",
+      "sha256": "17666afee26800c057e04ac80c0865a6111bc8690e49c50713e2eb07a74365aa",
+      "bytes": 440360,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "sourceReceiver": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/contact-mask-soft-v3.png",
+      "sha256": "84b2bce7d680fa6ec18288458850cef4eb67ae063eb9bffad3e5b50e4750334b",
+      "bytes": 309529,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "figureOperations": [
+      "Pillow convert('L') on generated grayscale technical matte",
+      "Clear luminance <=8 to zero to remove generated black-background compression/noise",
+      "Locate existing nonblack selection at luminance>=32; apply 5x5 MinFilter only to this binary core (2px inset), then set this already-selected, source-confirmed opaque material interior to255",
+      "Preserve original generated edge antialias above8 outside inset core; no contour dilation or manually painted outer geometry; no global hole fill"
+    ],
+    "receiverOperations": [
+      "Pillow convert('L') on Image-generated soft opacity",
+      "Clear luminance<=8 tozero; retain all other intentional grayscale falloff unchanged; do not core-solidify or hard-threshold contact falloff"
+    ],
+    "rgbOperations": "All RGBA color channels copied pixel-for-pixel from exact mother. No RGB color painting, pose/face/wardrobe edits, body geometry change, resizing, crop, or alignment transform.",
+    "alphaPixelEditing": true,
+    "rawGeneratedPngBytesUnchanged": true
+  },
+  "generation": {
+    "tool": "image_gen.imagegen built-in",
+    "callsThisRecovery": 8,
+    "sourceRecords": [
+      "figure-step2-v2.source.json",
+      "contact-step1-v1.source.json",
+      "background-v1.source.json",
+      "contact-step2-v1.source.json",
+      "figure-step2-v3.source.json",
+      "contact-step1-v2.source.json",
+      "contact-step2-v2.source.json",
+      "contact-step3-v3.source.json"
+    ],
+    "oldV1F1AndF2Retained": true
+  },
+  "repairHistory": [
+    "F2-v2 still retained book/ribbon interior linework; not selected.",
+    "Actual source left sleeve under book was mistaken for air in old matte; F3 Image call restored that physical cloth and removed book/ribbon linework.",
+    "White S1/S2 selected garment hem rather than enough linen; superseded by explicit magenta real-linen markup and its mask.",
+    "Hard S2 linen boundary made a visible source patch under skirt; Image S3 changed only existing local contact falloff, then static composition rechecked."
+  ],
+  "producerVisualReview": {
+    "method": "Direct built-in view_image of whole source mother, raw generated F/S/BG and actual original-RGB layer/composite PNGs; no browser, live runtime or dynamic claim.",
+    "personallyViewed": true,
+    "figureViews": [
+      "review-v2/figure-on-light-v1.png",
+      "review-v2/figure-on-dark-v1.png",
+      "review-v2/figure-on-checker-v1.png"
+    ],
+    "receiverViews": [
+      "review-v2/receiver-on-light-v3.png",
+      "review-v2/receiver-on-dark-v3.png",
+      "review-v2/receiver-on-checker-v3.png"
+    ],
+    "unionViews": [
+      "review-v2/included-on-light-v3.png",
+      "review-v2/included-on-dark-v3.png",
+      "review-v2/included-on-checker-v3.png"
+    ],
+    "detailViews": [
+      "review-v2/mother-book-detail.png",
+      "review-v2/mother-seat-detail.png",
+      "review-v2/included-book-dark-v2.png",
+      "review-v2/composite-seat-detail-v3.png",
+      "review-v2/composite-feet-detail-v3.png"
+    ],
+    "wholeComposite": "scene-composite-v3.png",
+    "observations": [
+      "Existing youthful face and accepted wardrobe/pose preserved from exact mother RGB.",
+      "Whole book/pages, both hands, red bookmark and source support sleeve remain physical opaque material; no observed book/ribbon alpha piercing in final.",
+      "Separated legs and fine external hair loops retain actual air; no mechanical hole fill.",
+      "F alone shows no broad floor blocks. Soft S remains small local receiver material at skirt and soles; raw material is not portable projected shadow.",
+      "Final seat composite no longer has the prior hard local trapezoid; whole scene preserves cushion/leg/shoe relation.",
+      "Fine bright/blue hair fringe still contains the original window-lit edge mixture; producer regards it as source illumination in this scene, root should inspect at final runtime scale. No independent different-background portability claimed."
+    ]
+  },
+  "review": {
+    "approvedByPrimary": false,
+    "primaryApproved": false,
+    "runtimeAccepted": false,
+    "runtimeRegistered": false,
+    "producerRecommendation": "Root inspect exact final static bundle and source records before any register/copy to runtime."
+  },
+  "scopeBoundary": {
+    "srcEdits": false,
+    "sharedLedgerEdits": false,
+    "runtimeCopied": false,
+    "uiOperated": false,
+    "newTests": false,
+    "newRunners": false,
+    "newCharacterOrWeatherBatch": false,
+    "otherSoyoActivitiesRepaired": false
+  },
+  "remainingBoundaries": [
+    "Only exact soyo/resume/apricot corrected mother is covered. Chat v1 bow ornament and other first-five-action weather cells remain separate work.",
+    "No continuous reading/gaze/handing/real-pillow/bridge relationship or complete dynamic/full-matrix admission follows from this bundle.",
+    "No travel, projection, limb deformation or arbitrary furniture move.",
+    "Mature user-revoked Tomori mothers and all derived inputs remain excluded; none used."
+  ],
+  "runtimeIdentity": {
+    "sessionId": "01a176d5-c7d7-7052-9110-2c35bcf9b466",
+    "turnContextTimestamp": "2026-10-26T06:11:26.900Z",
+    "model": "gpt-6.1-sol",
+    "effort": "ultra",
+    "evidenceSource": "C:/Users/17601/.codex/sessions/2026/10/25/rollout-2026-10-25T23-11-24-01a176d5-c7d7-7052-9110-2c35bcf9b466.jsonl latest actual turn_context"
+  },
+  "cleanup": "No cleanup; original outputs, failed/superseded selections and actual visual diagnosis retained as source/evidence; no temporary runner created."
+}

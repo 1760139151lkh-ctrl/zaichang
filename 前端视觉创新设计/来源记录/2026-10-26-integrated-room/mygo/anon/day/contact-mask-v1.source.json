@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "tool": "image_gen.imagegen",
+  "characterId": "anon",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "recordedAtUtc": "2026-10-26T03:16:59.083047+00:00",
+  "stage": "contact-mask-v1",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/anon/day/contact-step1-marked-v1.png",
+      "sha256": "1548f94bbc44c96480d6f2eaf5844e42d1900e3e03045a30faa5e274b01ddb26",
+      "bytes": 2307995
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: background-extraction. Convert ONLY this full1536×1024 deliberate WHITE SHOES + LOCAL RECEIVER markup to exact-coordinate opaque black/white/soft-gray luminance mask. TWO ENTIRE deliberately white shoes become SOLID PURE WHITE including all internal seams, toes, sidewalls, soles and heels. Small deliberately white cushion receiver becomes white. Preserve existing smooth soft marked receiver halos as smooth white→gray→black coverage, never hard wedges. Shoe interiors and connection to receiver remain continuously white, no crack or excluded shoe edge. Every other original COLORED pixel becomes BLACK: girl above shoes, socks, hands/paper/hair/face/uniform, curtains, naturally pale lamp/linen/flowers, room furniture/plants/empty cushion/rug and unrelated floor. Gray only explicitly marked soft outer receiver transition and original antialias. No new geometry, crop/resize/recenter, outline, checker, RGB, alpha, text.1536×1024 fixed original source coverage for MAX(F,S), originalRGB once.",
+  "promptFile": {
+    "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/anon/day/contact-mask-v1.prompt.txt",
+    "sha256": "1cd56af3e79371fef7ffce2dfe0930bd082468b6ca85a3e77b4ba96fcf677f10",
+    "bytes": 1014
+  },
+  "toolOriginal": {
+    "path": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-6d0f-74b2-b205-667f6c3b967b\\exec-7fc3243a-fd88-4ce7-9707-fa836d9c30f8.png",
+    "sha256": "ad7cdcfa4aa4af6dbf829c07192d7aea9c0ca069c3dfeff4c9a60209e6a994da",
+    "bytes": 368820
+  },
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/anon/day/contact-mask-v1.png",
+    "sha256": "ad7cdcfa4aa4af6dbf829c07192d7aea9c0ca069c3dfeff4c9a60209e6a994da",
+    "bytes": 368820,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "pngBytesUnchanged": true,
+  "producerStatus": "actual_output_viewed_pending_original_RGB_browser_review",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "original360ExactActivityCell": false,
+  "generationInputAllowed": false
+}

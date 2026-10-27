@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "tool": "image_gen.imagegen",
+  "inputImages": [],
+  "originalToolOutput": "C:\\Users\\17601\\.codex\\generated_images\\01a17614-5c43-7040-a97d-0d5ccac98d4c\\exec-3a82ed7c-65d4-49fc-bcfe-7c6c5a4bb259.png",
+  "output": "piano-pause-paper-v3.png",
+  "sha256": "dda1af40e3213933aacea9b57fe804d9957261c0120eb0978dfc1909542e9120",
+  "promptFile": "piano-pause-paper-v3.prompt.txt",
+  "promptSha256": "4adf032f0146088386102f2580e17da848e052acf7605681e03402bd6d6ed34a",
+  "producerViewed": true,
+  "rootApproved": false,
+  "runtimeAsset": false,
+  "mustNotBeReferenceInput": true,
+  "status": "candidate_paper_causality_layout_only",
+  "assessment": "Hammer/string separation and jack/knuckle contact are clear. Capstan support at key balance remains unsuitable as physical reference, so geometry and sample slider position are excluded. Await root review of paper/causal attention relationship; no measured mechanism claim."
+}

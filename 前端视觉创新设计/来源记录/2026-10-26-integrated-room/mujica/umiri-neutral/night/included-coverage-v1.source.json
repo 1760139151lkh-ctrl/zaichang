@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-mother-fixed-included-coverage-production",
+  "producer": "/root/mujica_art",
+  "character": "umiri",
+  "purpose": "neutral-presence",
+  "neutralTime": "night",
+  "weather": "unknown",
+  "weatherClaim": false,
+  "stage": "J",
+  "tool": "built-in image_gen.imagegen",
+  "exactPrompt": "Use case: background-extraction. Asset: ONE source-aligned FIXED INCLUDED COVERAGE MASK, full 1536x1024. Input is ONLY the exact healthy root-approved complete original Umiri NIGHT mother. This is not new artwork. Preserve source girl/room geometry, camera, scale, pose and all contact positions absolutely. Output black/white/gray technical mask; all final color will be taken from the untouched ORIGINAL mother RGB once. No transparency, crop, padding, resize, recenter or compositional rearrangement.\n\nWHITE selected coverage contains the ENTIRE existing girl and entire little open book, plus only the small ORIGINAL source receiving-material contacts that actually join her to this seat and floor. Use the full recognizable original human silhouette to keep every small contact anchored to its exact source body part. Do not output four floating receiver islands independently.\n\nMake ALL original figure and book material SOLID WHITE: every fine hair strand, face/ears/neck/choker, full jacket/belt tails/red top/grey skirt, both hands with all fingers, entire book covers/pages, BOTH full thighs/knees/bare calves, and both COMPLETE original lace-up platform boots including soles/heels/laces. No internal line-art holes or gray shading. Touching knees are continuous skin, not a transparent slit; internal book page/cover crease lines are WHITE. Preserve actual original AIR gaps BLACK, including separated calves, side arm-to-waist opening, true book/forearm gap and real spaces between fine hair strands/fingers.\n\nConnect this white source figure naturally with these local source receiver extensions ONLY:\n- A very narrow compressed linen lip immediately under the original image-right skirt/hip, following its actual underside around x1120..1220,y565..581. It adjoins the white garment; do not move it up to her thigh or draw a long empty seat strip.\n- A tiny linen contact immediately BELOW her supporting side palm/fingers around x1280..1362,y565..580. It adjoins the white hand on the seat. Exclude the BLUE PLAID pillow BEHIND/beyond the fingertips and exclude the knitted throw. No white/grey extension above the hand into the pillow, no blue-pillow tail to the right.\n- The actual original local soft receiving WOOD/contact shadow directly under and around EACH complete original boot sole. Back/image-left sole bottom near y882; front/image-right sole bottom near y917. Retain their real source-connected irregular toe/sole/heel grounding with white contact core and the complete short soft GREY fade into nearby wood. Never stop above the boot bottom, leave a transparent crack, select only a hard thin rim, invent a generic oval, or extend into unrelated floor. Ground contact must touch the actual white boot edges at EXACT original source positions. Both real boots remain solid white inside; their local wood/shadow is a small extension beyond those edges.\n\nAll OTHER original room material PURE BLACK: natural pale curtains/cushions/lamps/flowers/pages outside selected book, all empty seat, blue plaid, knit, rug, distant floor reflections and furniture shadows. Keep external fine edges antialiased without halo; only genuine receiving softness may fade to grey. No person redraw, shifted limbs, copied old mask, new shadow art, labels, text, grid, arrows or scene colors. One full-frame BLACK technical coverage mask with this exact original person+book and source-local seat/floor support in WHITE/soft-GRAY. Fixed original position only; source RGB drawn once, travel/slope/perspective zero.\n\nThis is the approved closed-curtain NIGHT mother. Keep its exact person, book, supporting hand, sole contours and receiver positions, without using any DAY mask. We adopt no generated scene RGB or invented light; the final layer always samples the original night mother once, preserving its quiet reliable recognition, warm lamp light on skin/leather/linen/wood, closed curtains and unknown weather. Ensure both entire night boot bottoms and their actual soft original ground support remain connected at source position. No internal holes through knee overlap, book cover/pages or soles; actual negative air openings only.",
+  "toolArguments": {
+    "prompt": "Use case: background-extraction. Asset: ONE source-aligned FIXED INCLUDED COVERAGE MASK, full 1536x1024. Input is ONLY the exact healthy root-approved complete original Umiri NIGHT mother. This is not new artwork. Preserve source girl/room geometry, camera, scale, pose and all contact positions absolutely. Output black/white/gray technical mask; all final color will be taken from the untouched ORIGINAL mother RGB once. No transparency, crop, padding, resize, recenter or compositional rearrangement.\n\nWHITE selected coverage contains the ENTIRE existing girl and entire little open book, plus only the small ORIGINAL source receiving-material contacts that actually join her to this seat and floor. Use the full recognizable original human silhouette to keep every small contact anchored to its exact source body part. Do not output four floating receiver islands independently.\n\nMake ALL original figure and book material SOLID WHITE: every fine hair strand, face/ears/neck/choker, full jacket/belt tails/red top/grey skirt, both hands with all fingers, entire book covers/pages, BOTH full thighs/knees/bare calves, and both COMPLETE original lace-up platform boots including soles/heels/laces. No internal line-art holes or gray shading. Touching knees are continuous skin, not a transparent slit; internal book page/cover crease lines are WHITE. Preserve actual original AIR gaps BLACK, including separated calves, side arm-to-waist opening, true book/forearm gap and real spaces between fine hair strands/fingers.\n\nConnect this white source figure naturally with these local source receiver extensions ONLY:\n- A very narrow compressed linen lip immediately under the original image-right skirt/hip, following its actual underside around x1120..1220,y565..581. It adjoins the white garment; do not move it up to her thigh or draw a long empty seat strip.\n- A tiny linen contact immediately BELOW her supporting side palm/fingers around x1280..1362,y565..580. It adjoins the white hand on the seat. Exclude the BLUE PLAID pillow BEHIND/beyond the fingertips and exclude the knitted throw. No white/grey extension above the hand into the pillow, no blue-pillow tail to the right.\n- The actual original local soft receiving WOOD/contact shadow directly under and around EACH complete original boot sole. Back/image-left sole bottom near y882; front/image-right sole bottom near y917. Retain their real source-connected irregular toe/sole/heel grounding with white contact core and the complete short soft GREY fade into nearby wood. Never stop above the boot bottom, leave a transparent crack, select only a hard thin rim, invent a generic oval, or extend into unrelated floor. Ground contact must touch the actual white boot edges at EXACT original source positions. Both real boots remain solid white inside; their local wood/shadow is a small extension beyond those edges.\n\nAll OTHER original room material PURE BLACK: natural pale curtains/cushions/lamps/flowers/pages outside selected book, all empty seat, blue plaid, knit, rug, distant floor reflections and furniture shadows. Keep external fine edges antialiased without halo; only genuine receiving softness may fade to grey. No person redraw, shifted limbs, copied old mask, new shadow art, labels, text, grid, arrows or scene colors. One full-frame BLACK technical coverage mask with this exact original person+book and source-local seat/floor support in WHITE/soft-GRAY. Fixed original position only; source RGB drawn once, travel/slope/perspective zero.\n\nThis is the approved closed-curtain NIGHT mother. Keep its exact person, book, supporting hand, sole contours and receiver positions, without using any DAY mask. We adopt no generated scene RGB or invented light; the final layer always samples the original night mother once, preserving its quiet reliable recognition, warm lamp light on skin/leather/linen/wood, closed curtains and unknown weather. Ensure both entire night boot bottoms and their actual soft original ground support remain connected at source position. No internal holes through knee overlap, book cover/pages or soles; actual negative air openings only.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-night-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-night-v1.png",
+      "sha256": "c6f19f399ab4a05727cb52d36a780fd3fde3f4222e4c31dc39dee6b2f1b19731",
+      "role": "Only exact healthy root-approved NIGHT mother; no day, failed mask, composite, upload or private export input."
+    }
+  ],
+  "originalToolOutput": "C:/Users/17601/.codex/generated_images/01a17613-9fc7-7603-bafc-5dc75152a695/exec-0aaf040f-e013-46a3-82ae-5a1426e73d5f.png",
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mujica/umiri-neutral/night/included-coverage-v1.png",
+    "sha256": "de3a9219aa8f018de75e25c756a91929a68146cd394e48c06804a5aaacd46749",
+    "bytes": 536260,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "promptFile": "included-coverage-v1.prompt.txt",
+  "rawOutputBytesCopied": true,
+  "pngPixelEdited": false,
+  "producerPersonallyViewedCompleteOriginal": true,
+  "producerHeld": true,
+  "generationInputAllowed": false,
+  "producerObservation": "Standalone joint candidate held after native Chrome showed platform-sole groove transparency: light/checker leaked through tread notches. Not used as generation input or final coverage.",
+  "primaryLayerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "dynamicAdmission": false,
+  "original360Credit": false,
+  "userApproved": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "exactPromptSHA256": "ffb4e01a353e48fe246dba9981b86e6041925c328300a3ac83879192e1eaf349",
+  "promptFileSHA256": "3284567580bfcd8603ca74925f84297c7610279547f0fb42d60c526d0d9af4a6",
+  "originalToolOutputSHA256": "de3a9219aa8f018de75e25c756a91929a68146cd394e48c06804a5aaacd46749",
+  "outputMatchesOriginalToolBytes": true
+}

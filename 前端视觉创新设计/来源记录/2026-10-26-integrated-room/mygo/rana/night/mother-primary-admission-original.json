@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "root / primary agent",
+  "recordedAt": "2026-10-26T01:01:01.014598+00:00",
+  "source": "direct root message in same healthy session",
+  "exactPrimaryMessage": "根代理已逐张亲看tomori/anon/rana三个night-v1母图（SHA36e1e2…4300、b8c250…b2d8、9188cb…6b9），全部通过本次 neutral-presence/time-only 的静态母图审美/结构准入：暖灯有全身明暗，书/纸与手和膝/坐垫支承连续，低头/迎视有对象，闭合不透明帘不冒报窗外天气；不是exact activity/360，也非runtime签验。",
+  "asset": {
+    "file": "rana-neutral-time-night-v1.png",
+    "sha256": "9188cbcf796537a4279efa30605439d0ec9beb385aa07dbc8e32f656039f66b9"
+  },
+  "primaryApproved": true,
+  "generationInputAllowed": true,
+  "scope": "neutral-presence/time-only static mother aesthetics/structure and same-mother layer-generation input only",
+  "original360ExactActivityCell": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false
+}

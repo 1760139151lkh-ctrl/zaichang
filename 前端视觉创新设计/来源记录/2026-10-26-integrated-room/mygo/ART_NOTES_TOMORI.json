@@ -1,0 +1,185 @@
+{
+  "scope": "Complete-original artistic observations only; no new primary/runtime approval. Tomori time-only neutral excluded.",
+  "notes": {
+    "tomori/chat/apricot": {
+      "disposition": "可复用",
+      "poseFamily": "窗榻正坐迎话",
+      "artJudgement": "清亮抬眼与未放下的翻页手有接话先后，脸颊轻、短发有疏密，学生感强；窗光和坐垫连续。是迎话情境，不是新增空间动作。"
+    },
+    "tomori/chat/mist": {
+      "disposition": "可复用",
+      "poseFamily": "窗榻正坐迎话",
+      "artJudgement": "阴天整室降亮仍保玫褐眼、轻开口和翻页迎视，面部没有成熟neutral的沉重；同坐面与全鞋稳定。光线变体不另算动作。"
+    },
+    "tomori/chat/violet": {
+      "disposition": "可复用",
+      "poseFamily": "窗榻正坐迎话",
+      "artJudgement": "暮光中面颊与开口仍轻快，翻页手和迎视不漂成成人照料笑；整窗夕色与近灯相容，座面稳定。保现有天气版本。"
+    },
+    "tomori/chat/rain": {
+      "disposition": "可复用",
+      "poseFamily": "窗榻正坐迎话",
+      "artJudgement": "夜灯下眼眉、唇与书页仍可读，迎话对象明确，人物未保白昼窗格硬斑；同榻前坐可继续夜聊，但不是雨夜抱膝新动作。"
+    },
+    "tomori/study/apricot": {
+      "disposition": "可复用",
+      "poseFamily": "左书桌木椅书写",
+      "artJudgement": "真正从窗榻换到原木椅，髋坐椅面、前臂与笔纸落桌，抬眼像先停笔确认；短发侧脸仍学生感。植物诚实遮小腿，右侧空间舒展；需按左侧人物重排正文安全区。"
+    },
+    "tomori/study/mist": {
+      "disposition": "可复用",
+      "poseFamily": "左书桌木椅书写",
+      "artJudgement": "灰蓝漫射使神情更认真但未显成熟，笔尖/纸/桌支撑清楚；与暖杏同一真实书写拓扑，脚部分被前景遮挡不能宣称全足验毕。不能套窗榻热区。"
+    },
+    "tomori/study/violet": {
+      "disposition": "可复用",
+      "poseFamily": "左书桌木椅书写",
+      "artJudgement": "暮色把侧脸压入柔影，仍有年轻的专注与抬眼，不是成人讲师；纸、笔、桌及椅背遮挡连贯。真实换家具位，正文应获得右侧空间。"
+    },
+    "tomori/study/rain": {
+      "disposition": "可复用",
+      "poseFamily": "左书桌木椅书写",
+      "artJudgement": "暖桌灯照实际笔纸，脸和袖子一起受夜光，未见白昼硬光残留；身体仍在原椅上，部分鞋被植物挡住。可用作夜学停笔确认，不能把抬眼当已指准公式。"
+    },
+    "tomori/reading/apricot": {
+      "disposition": "可复用（不作面部首基准）",
+      "poseFamily": "窗榻正坐低头共读",
+      "artJudgement": "书的重量由双手和膝承住，眼睛确实落向打开页，认真有对象；低头与投影使表情更内收，不作迎人面部首基准，但这本身不是年龄不合格证据。可保安静共读，仍属同榻读书变体。"
+    },
+    "tomori/reading/mist": {
+      "disposition": "可复用（不作面部首基准）",
+      "poseFamily": "窗榻正坐低头共读",
+      "artJudgement": "阴天降亮没有把眼睛糊掉，页内注意和手书关系完整；沉静略收紧，保作阅读而不拿来锁全角色脸。身体仍沿聊天膝位，不能冒称侧座退让。"
+    },
+    "tomori/reading/violet": {
+      "disposition": "可复用（不作面部首基准）",
+      "poseFamily": "窗榻正坐低头共读",
+      "artJudgement": "夕光、书页和面颊暖影一起变化，眼神停书里而非镜头假读；下颌较修长但不需因此整批重画。可保安静共读，非新增侧坐或缩身动作。"
+    },
+    "tomori/reading/rain": {
+      "disposition": "可复用（不作面部首基准）",
+      "poseFamily": "窗榻正坐低头共读",
+      "artJudgement": "夜灯只把近页和脸侧照亮，深衣/头发未糊成黑块；书与膝有重量，页内注意成立。表情更内收，适于自己的阅读，不应代替chat/play的迎人面部首基准；不由低头暗影推定成熟。"
+    },
+    "tomori/planning/apricot": {
+      "disposition": "可复用",
+      "poseFamily": "窗榻正坐摊本指页",
+      "artJudgement": "指尖落在膝上小本实页，另一手托册，迎视像正商量一格；脸仍明亮年轻，未指空气。可承载规划对话，但纸上纹理不是实际event，坐姿不算新拓扑。"
+    },
+    "tomori/planning/mist": {
+      "disposition": "可复用",
+      "poseFamily": "窗榻正坐摊本指页",
+      "artJudgement": "阴天里指页/托册与视线接人仍成立，纸本和露膝袜口有自然遮挡；头身轻差无需重构。只是同榻小本情境，不能顶替时间轴试放或侧座演出。"
+    },
+    "tomori/planning/violet": {
+      "disposition": "可复用",
+      "poseFamily": "窗榻正坐摊本指页",
+      "artJudgement": "暮色保住指页而向人询问的关系，嘴和眉像商量不是教师讲解；座面、腿和本子连续。书页可作讨论意象，不可烧成真实日历或新增大姿态。"
+    },
+    "tomori/planning/rain": {
+      "disposition": "可复用",
+      "poseFamily": "窗榻正坐摊本指页",
+      "artJudgement": "夜光下双手和摊页仍明确，指尖有对象，脸没有成熟neutral的开领气质；室内外光连续。可以夜间商量安排，不等于规划业务已完成。"
+    },
+    "tomori/rest/apricot": {
+      "disposition": "可复用有效暂停；仅明确望窗/靠枕槽另补",
+      "poseFamily": "窗榻前坐右上转头",
+      "artJudgement": "书已放身侧、手回膝与坐垫，年轻的安静有自己注意，身体确实让出更多左空间；但只是转头前坐，右上目光未指明具体窗景，不能记作靠枕/抱膝或完整望窗转换。"
+    },
+    "tomori/rest/mist": {
+      "disposition": "可复用有效暂停；仅明确望窗/靠枕槽另补",
+      "poseFamily": "窗榻前坐右上转头",
+      "artJudgement": "阴天保柔和侧眼、手膝和承托，不是疲惫成人脸；书离膝的暂停语义可读。未真正靠枕，目光去处仅画外右上，若需明确望窗新拓扑另议，现天气不重构。"
+    },
+    "tomori/rest/violet": {
+      "disposition": "可复用有效暂停；仅明确望窗/靠枕槽另补",
+      "poseFamily": "窗榻前坐右上转头",
+      "artJudgement": "夕光里的空手与身侧合册把暂停说清，侧眼仍轻且年轻，房间有完整余晖。未靠枕或收腿，右上目光不能替具体窗外对象签字。"
+    },
+    "tomori/rest/rain": {
+      "disposition": "可复用有效暂停；仅明确望窗/靠枕槽另补",
+      "poseFamily": "窗榻前坐右上转头",
+      "artJudgement": "雨夜暖灯与空着的膝前有安静气息，身体和坐垫没有拼贴断层；但仍直背前坐，最多是轻转头暂停，不是抱膝倾诉或完整放松拓扑。"
+    },
+    "tomori/listening/apricot": {
+      "disposition": "可复用",
+      "poseFamily": "窗榻正坐合册倾听",
+      "artJudgement": "合书和双手收在膝上，略前倾与开口像听到一句后轻问确认，眼神直达对方；短发脸仍学生感。相处成立，但只是手/书/目光变化，非新身体拓扑。"
+    },
+    "tomori/listening/mist": {
+      "disposition": "可复用",
+      "poseFamily": "窗榻正坐合册倾听",
+      "artJudgement": "阴天的玫褐眼和轻开口没有失活，手不再压开放页，让说话的人获得注意；坐榻关系自然。与chat主要差在收册和倾听节拍，不另算空间动作。"
+    },
+    "tomori/listening/violet": {
+      "disposition": "可复用",
+      "poseFamily": "窗榻正坐合册倾听",
+      "artJudgement": "暖暮色与合册静手相容，身体轻向对方、眉眼有确认的一刻，年轻气质未丢；不是固定安慰笑。与前三主题同一倾听姿势，不能把天气当新动作。"
+    },
+    "tomori/listening/rain": {
+      "disposition": "可复用",
+      "poseFamily": "窗榻正坐合册倾听",
+      "artJudgement": "雨夜里手收稳、嘴像轻问而不抢长话，脸发与地面统一灯光；接人的注意明确。可用于倾诉回应，但并无抱膝、捧杯等另一承重姿态。"
+    },
+    "tomori/play/apricot": {
+      "disposition": "可复用；有限艺术基准",
+      "poseFamily": "窗榻正坐两手小纸物",
+      "artJudgement": "她因自己的小发现亮起来，手指仍照看小纸物，笑有分享的对象；轻脸颊与短发清楚，是root已选青春表演基准。书仍落膝，但仅手势/表情新情境，非新承重动作。"
+    },
+    "tomori/play/mist": {
+      "disposition": "可复用",
+      "poseFamily": "窗榻正坐两手小纸物",
+      "artJudgement": "漫射天光中小纸物与两手关系稳定，眼神亮而不婴儿化，笑仍来自分享；与暖杏相同身体关系，只是整室换光，健康轻差保留。"
+    },
+    "tomori/play/violet": {
+      "disposition": "可复用",
+      "poseFamily": "窗榻正坐两手小纸物",
+      "artJudgement": "暮色中她仍像想把新发现讲给同伴，纸物与手腕接得上，笑意轻年轻；脸、书、坐垫共享暖光。可保这份兴奋，不能当第二种家具/全身动作。"
+    },
+    "tomori/play/rain": {
+      "disposition": "可复用",
+      "poseFamily": "窗榻正坐两手小纸物",
+      "artJudgement": "夜灯将白纸和双手一起压暗，纸没有独立发光，眼神仍明亮；坐面与完整双鞋可理解。属于夜间共同轻玩的小表演，不是以换光凑动作。"
+    },
+    "tomori/attention/apricot": {
+      "disposition": "可复用，需实际对象落位",
+      "poseFamily": "窗榻正坐停笔看左侧",
+      "artJudgement": "笔停在自己的本子、另一手保页，眼睛转向左下而非假装硬指，年轻的专注可读；可与真实左侧新对象形成共同注意，但静图没证明节点指准。仍同榻坐姿。"
+    },
+    "tomori/attention/mist": {
+      "disposition": "可复用，需实际对象落位",
+      "poseFamily": "窗榻正坐停笔看左侧",
+      "artJudgement": "漫射光中轻睁的眼和停笔手有被引起注意的节拍，书膝关系自然。须让实际UI对象落在左侧视线区域，不能仅凭attention标签当新功能已理解；不是新身体动作。"
+    },
+    "tomori/attention/violet": {
+      "disposition": "可复用，需实际对象落位",
+      "poseFamily": "窗榻正坐停笔看左侧",
+      "artJudgement": "暮色里停笔而看左侧的变化可读，手没有悬空硬指，纸仍归自己膝上；年轻专注略严肃但未成人化。须与真实左侧对象相认，不能用标签代替共同注意。"
+    },
+    "tomori/attention/rain": {
+      "disposition": "可复用，需实际对象落位",
+      "poseFamily": "窗榻正坐停笔看左侧",
+      "artJudgement": "夜灯使本页、脸与腿一起进入暗部，笔和保页手有落点，注意向左而非无端挥手；同榻停笔可用，新对象的位置/理解仍要运行关系支撑。"
+    },
+    "tomori/resume/apricot": {
+      "disposition": "可复用",
+      "poseFamily": "窗榻正坐留页迎回",
+      "artJudgement": "留页的手尚未松开，目光先迎回来的人，闭口小笑轻而真，保住灯自己的阅读与相处；册子和膝座连续。是接续表情/手势，不是新身体姿态或真实停点已找回证明。"
+    },
+    "tomori/resume/mist": {
+      "disposition": "可复用",
+      "poseFamily": "窗榻正坐留页迎回",
+      "artJudgement": "阴天柔光中的留页和抬眼有先后，年轻脸并未冷成客服；同房间与身体比例稳定。可作归来关系，具体恢复页仍由owner，不把书页当已读历史。"
+    },
+    "tomori/resume/violet": {
+      "disposition": "可复用",
+      "poseFamily": "同榻正坐，手留书页，抬眼接续",
+      "artJudgement": "暮色紫完整原母亲看：仍有灯的学生面部、克制闭口笑和留在书页上的手；视线回到相处对象，接续关系自然，座面、腿与鞋的遮挡稳定，整体室内光一致。可作回返时刻的艺术母图；静图不证明真实来源页恢复，也不是新身体拓扑。"
+    },
+    "tomori/resume/rain": {
+      "disposition": "可复用",
+      "poseFamily": "同榻正坐，手留书页，抬眼接续",
+      "artJudgement": "夜雨暖金完整原母亲看：仍有灯的学生面部、克制闭口笑和留在书页上的手；视线回到相处对象，接续关系自然，座面、腿与鞋的遮挡稳定，整体室内光一致。可作回返时刻的艺术母图；静图不证明真实来源页恢复，也不是新身体拓扑。"
+    }
+  }
+}

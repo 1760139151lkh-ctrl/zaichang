@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "characterId": "anon",
+  "neutralTime": "day",
+  "purpose": "neutral-presence",
+  "motherOriginalPath": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/anon/time-only-neutral-v1/anon-neutral-time-day-v1.png",
+  "stages": [
+    {
+      "key": "figureMarkup",
+      "name": "figure-step1-marked-v2",
+      "prompt": "Use case: precise-object-edit. On this exact clean primary-approved Anon TIME-ONLY DAY mother, create F1 deliberate solid WHITE foreground SELECTION MARKUP. Full1536×1024 canvas and every source coordinate unchanged. Do not redraw person, pose, paper, light or room.\nPaint featureless solid PURE WHITE over the ENTIRE visible girl AND the COMPLETE small folded-paper piece between both hands. Include every fine long pink hair strand, all face/head/ears/neck, blazer/shirt/tie/skirt/outer pleated hem, complete arms/wrists/hands/fingers, ALL the held folded-paper object including dark fold lines and thin paper edges, bare thighs/knees, knee socks and both COMPLETE black loafers including straps/toes/sidewalls/outsoles/heels. Fill every hand line, paper fold, garment seam or shaded internal detail pure white; no colored/gray/black mark remains inside the selected hand-and-paper union. Shoes filled fully white to their actual full outer edge, no shrink/eroded contour.\nKeep REAL outside gaps between separated hair strands and between legs ORIGINAL COLORED ROOM. No new holes in face/neck/tie/torso/wrist/paper/lap. Only actual outside negative space remains colored. All unselected room stays original color: curtains, lamp/table/books/flowers, linen/bench/pillows/knit, desk/chair/shelves/plants, wood floor/rug and separate contact shadows. No expanding silhouette, floor ring, labels, crop, checkerboard, resize or transparency. Exact full opaque original scene with only girl+whole held paper deliberately flat white. This is selection, not new character RGB.",
+      "input": "mother",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-6d0f-74b2-b205-667f6c3b967b\\exec-9f156daf-9eec-4b12-a61e-1ceb71e217e1.png"
+    },
+    {
+      "key": "contactMarkup",
+      "name": "contact-step1-marked-v1",
+      "prompt": "Use case: precise-object-edit. On this exact primary-approved Anon time-only DAY mother, create S1 deliberate white local RECEIVER SELECTION MARKUP, full1536×1024 and original coordinates unchanged. No scene redraw.\nPaint PURE WHITE over BOTH COMPLETE black loafers and their actual tight source-local floor-contact shadow/wood receiver, as one continuous selected region per shoe. Include every real upper outline, whole toe/sidewall/outsole/heel; all internal shoe lines featureless WHITE. Select only actual short dark wood receiving area touching each sole, about8..20px beyond where actual shadow exists. Existing outer contact transitions feather softly back into original floor color over about8px, not a hard pointed wedge, detached ellipse or broad floor strip. No black moat at shoe edges.\nAlso WHITE the short real linen compression/contact immediately beneath skirt/hip at its actual bench support and any real cloth receiver touching the seated hem, tightly local, never an empty bench strip. Held paper has no separate bench contact; it stays original colored. All girl above shoe openings, socks, hands, paper, hair/face/body remain colored. All unrelated room/curtains/lamp/flowers/table/empty cushion/pillows/knit/plants/floor/rug and shadows remain original colored. No text, outlines, new objects, recenter/crop/resize/transparency. Output full opaque original RGB scene with only actual shoes+local receiver deliberately white; fixed included original material, no independent moving shadow.",
+      "input": "mother",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-6d0f-74b2-b205-667f6c3b967b\\exec-61f0b8a1-0b56-4f99-92d0-cd61fdcee992.png"
+    },
+    {
+      "key": "background",
+      "name": "background-v1",
+      "prompt": "Use case: precise-object-edit. Exact SAME-MOTHER empty receiving BACKGROUND for the primary-approved Anon neutral-presence TIME-ONLY DAY1536×1024 original. ONLY this exact full clean mother is input. Preserve same camera, every room/furniture coordinate, fully closed opaque inner curtains and seam, complete desk/chair/shelves/plants, blue-white porcelain lamp/cup/books/flowers on round table, linen window bench/pillows/knit, original wood floor/rug. Preserve exact soft neutral daytime light and original room colors.\nRemove ONLY entire girl, every pink hair strand, all uniform/skin/long socks/both shoes and the COMPLETE small folded-paper piece held by her hands. Remove ONLY her own cushion compression/contact and shoe floor/cast shadows. No ghost pink hair, paper scrap, sock, sole or replacement prop. Reconstruct matching local linen folds, bench wood and floorboards hidden by her, consistent with surrounding exact source. Do not redesign, move furniture, straighten all cloth, retheme, crop or add text. Curtains stay fully CLOSED opaque, no visible outside/weather/sky. Full opaque empty SAME room, exactly1536×1024. This is generated hidden BG for original RGB union later, not claimed bitwise source recovery.",
+      "input": "mother",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-6d0f-74b2-b205-667f6c3b967b\\exec-a6eac866-fca3-4751-b051-603184ab85a7.png"
+    },
+    {
+      "key": "figureMask",
+      "name": "figure-mask-v2",
+      "prompt": "Use case: background-extraction. Convert this exact inspected full1536×1024 white-foreground selection markup to an OPAQUE BLACK/WHITE luminance mask, exact original coordinates. All deliberately whitened girl + complete folded-paper object become SOLID PURE WHITE. Fill EVERY enclosed internal crease/gray/brown line within the selected face/hair/clothing/hand-and-paper/lap/shoe regions WHITE. Especially fill all thin finger or PAPER FOLD interior lines near x960..1090,y430..510; the hands and held paper are one fully selected solid-white union, no black strokes or internal holes. Full pencil-free paper shape and all shoes remain selected to real outside edge. Only actual outside gaps between separated hair strands and legs become BLACK; no new interior holes.\nALL originally colored ROOM becomes pure BLACK, including naturally pale curtains/linen/lamp/flowers and all unrelated floor or shadows. Do not mistake pale room for marked selection. Keep the exact silhouette; no crop, resize, recenter, erosion, expansion, new shape, colored pixels, checker, text or transparency. Gray only original external antialias, never paper/clothes/face/shoe interior. Exactly1536×1024 opaque mask.",
+      "input": "figure-step1-marked-v2",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-6d0f-74b2-b205-667f6c3b967b\\exec-0c901602-411f-4c54-841f-59a12de662b3.png"
+    },
+    {
+      "key": "contactMask",
+      "name": "contact-mask-v1",
+      "prompt": "Use case: background-extraction. Convert ONLY this full1536×1024 deliberate WHITE SHOES + LOCAL RECEIVER markup to exact-coordinate opaque black/white/soft-gray luminance mask. TWO ENTIRE deliberately white shoes become SOLID PURE WHITE including all internal seams, toes, sidewalls, soles and heels. Small deliberately white cushion receiver becomes white. Preserve existing smooth soft marked receiver halos as smooth white→gray→black coverage, never hard wedges. Shoe interiors and connection to receiver remain continuously white, no crack or excluded shoe edge. Every other original COLORED pixel becomes BLACK: girl above shoes, socks, hands/paper/hair/face/uniform, curtains, naturally pale lamp/linen/flowers, room furniture/plants/empty cushion/rug and unrelated floor. Gray only explicitly marked soft outer receiver transition and original antialias. No new geometry, crop/resize/recenter, outline, checker, RGB, alpha, text.1536×1024 fixed original source coverage for MAX(F,S), originalRGB once.",
+      "input": "contact-step1-marked-v1",
+      "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-6d0f-74b2-b205-667f6c3b967b\\exec-7fc3243a-fd88-4ce7-9707-fa836d9c30f8.png"
+    }
+  ]
+}

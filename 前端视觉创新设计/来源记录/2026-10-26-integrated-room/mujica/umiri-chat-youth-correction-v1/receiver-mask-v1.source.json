@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_review_recovery",
+  "session": "01a1769a-b7bc-71e2-813e-b17b39afa3c4",
+  "character": "umiri",
+  "activity": "chat",
+  "palette": "apricot",
+  "assetPurpose": "receiver-mask-v1",
+  "tool": "built-in image_gen.imagegen",
+  "exactArguments": {
+    "prompt": "Use case: background-extraction. Technical ORIGINAL-SOURCE LOCAL CONTACT RECEIVER selection only. The ONLY input is the exact approved full 1536x1024 Umiri mother, freshly drawn with notebook and pencil. No old masks or old pose inputs. Output ONE opaque full-canvas 1536x1024 luminance mask. Preserve all source coordinates and geometry; do not invent or repaint a shadow.\n\nMake the ENTIRE girl/hair/clothes/skin/notebook/pencil/boots pure BLACK. Make all furniture, room, daylight/window-floor reflections and rug BLACK except the tiny exposed receiver surfaces physically touching this original figure:\n1. Only the short, irregular compressed LINEN CUSHION lip immediately touching the underside of the gray skirt/hips at the original sitting location (around x955..1320,y557..608, an inspection neighborhood, NOT a rectangle to fill). Select the actual small pale/darker linen contact seam that remains visible just below the skirt edge and its very short soft transition down into the cushion. Do NOT select her skin/skirt, do NOT fill the long empty seat, whole cushion, pillow or knitted throw. There is NO side-palm support in this pose: both hands hold notebook/pencil. Do not invent a palm island.\n2. The existing short, irregular WOOD-FLOOR contact receiver immediately below/around the image-left/back platform boot sole (source sole bottom around y915, x1014..1109). Keep the complete boot BLACK, white only the real exposed floor-darkening/contact immediately below its edge, with genuine short gray softness into nearby wood.\n3. The corresponding source floor contact immediately below/around the image-right/front boot sole (bottom around y944, x1097..1176). Keep all boot/heel/sole material BLACK. White local contact core plus the original brief soft gray falloff; not a synthetic oval and no wide floor wash.\n\nOnly those small actual source-local receiving patches WHITE with real edge softness GRAY. All naturally bright linen/flowers/lamps/pages/curtains, long bench cushion, far floor highlights/window-grid shadows, rug and furniture shadows remain BLACK. No silhouette of the person, no line-art of the room, no traced limb or boot outlines. A receiver is a real surface BELOW/ADJACENT to a source contact, not a duplicate caster/person shape. Nothing moves or rescales. No UI/text/boxes/grid/checker/labels/crop/padding/new shadow geometry. This mask will select untouched original mother RGB and MAX-union with independent F, drawn once at fixed coordinates.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-26-integrated-room/mujica/umiri-chat-youth-correction-v1/umiri-chat-apricot-young-direct-attention-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "output": {
+    "originalToolPath": "C:/Users/17601/.codex/generated_images/01a1769a-b7bc-71e2-813e-b17b39afa3c4/exec-3024204e-733a-40c9-a954-d3c2f5c2416f.png",
+    "workspacePath": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mujica/umiri-chat-youth-correction-v1/receiver-mask-v1.png",
+    "copiedWithoutPixelEdits": true,
+    "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mujica/umiri-chat-youth-correction-v1/receiver-mask-v1.png",
+    "sha256": "72482586a186169b54af60400847c0fb4fe6ee3da5a34656f4c5ffa66ecc851c",
+    "bytes": 299051,
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "producerStatus": "HOLD: cushion receiver moved left; not adopted and not later Image input",
+  "sourceMother": {
+    "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mujica/umiri-chat-youth-correction-v1/umiri-chat-apricot-young-direct-attention-v1.png",
+    "sha256": "00b8ab33ca467c696a7c1bd4e5753900459dd46c07297ad026dbc21e36f13162",
+    "rootLimitedCompleteStaticMotherAdmission": true,
+    "layerAdmission": false
+  },
+  "generatedMaskRGBAdoptedAsFigureColor": false,
+  "primaryLayerApproved": false,
+  "runtimeRegistered": false,
+  "dynamicAdmission": false,
+  "inputFiles": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-26-integrated-room/mujica/umiri-chat-youth-correction-v1/umiri-chat-apricot-young-direct-attention-v1.png",
+      "sha256": "00b8ab33ca467c696a7c1bd4e5753900459dd46c07297ad026dbc21e36f13162",
+      "bytes": 2464089,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    }
+  ],
+  "originalToolBytesMatchWorkspace": true
+}

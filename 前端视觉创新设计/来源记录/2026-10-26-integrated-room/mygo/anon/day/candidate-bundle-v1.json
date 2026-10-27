@@ -1,0 +1,189 @@
+{
+  "schemaVersion": 1,
+  "id": "anon-neutral-time-day-new-layer-candidate-v1",
+  "recordedAtUtc": "2026-10-26T03:41:23.658297+00:00",
+  "characterId": "anon",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "neutralTime": "day",
+  "weather": "unknown",
+  "scope": "Original approved mother reused unchanged. New same-mother F/S and object-removal BG; no mother redraw or shared registry/ledger edit.",
+  "selected": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/anon/day/mother.png",
+      "sha256": "a7a8454ad67c374244dcc919a6af754c9e9fa2c153617584cce4f7dadafe0920",
+      "bytes": 2496553,
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "figureMask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/anon/day/figure-mask-v2.png",
+      "sha256": "bb937945e9613bd139c0e5be33fca3fb5367fd875d71f3dc57b1c07e90a4c9ca",
+      "bytes": 439098,
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "contactMask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/anon/day/contact-mask-v1.png",
+      "sha256": "ad7cdcfa4aa4af6dbf829c07192d7aea9c0ca069c3dfeff4c9a60209e6a994da",
+      "bytes": 368820,
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/anon/day/background-v1.png",
+      "sha256": "75b93193387c903f00101162eb0052f94be407d7b6318cd5e2ee456352e970d0",
+      "bytes": 2378747,
+      "canvas": [
+        1536,
+        1024
+      ]
+    }
+  },
+  "assembly": {
+    "kind": "source-rgb-max-luminance-v1",
+    "coverage": "MAX(L(F),L(S))",
+    "originalRgbDrawsPerUnion": 1,
+    "luminanceCoefficients": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "nativeMax": "SVG feBlend mode=lighten; sRGB",
+    "svg": "union-source-v1.svg",
+    "composite": "composite-source-v1.svg",
+    "contact": "contact-source-v1.svg",
+    "pngEditing": false
+  },
+  "geometry": {
+    "fixedOriginalSourceCoordinates": true,
+    "travelPx": 0,
+    "slope": 0,
+    "perspective": 0,
+    "sourceReceiverMaterialIncluded": true,
+    "independentlyMovableCaster": false
+  },
+  "priorMotherAdmission": {
+    "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/anon/day/mother-primary-admission-original.json",
+    "sha256": "09a0ade3ece08a4f716e7a34e6a32aea7391380877465ed3e8540a81c0147f3f",
+    "bytes": 2495
+  },
+  "currentObservation": {
+    "route": "formal CUA IAB plus supported per-tab CDP Page.captureScreenshot; source RGB native SVG MAX only",
+    "personallyViewed": true,
+    "page": "native-observe-v1.html",
+    "views": [
+      "complete mother/composite",
+      "whole source RGB union on light/dark/checker",
+      "face/long hair",
+      "complete held small folded paper and both hands with no internal coverage hole",
+      "visible seated hem/thigh/linen support",
+      "both complete shoes and local floor",
+      "receiver-only cloth/wood/overlap"
+    ],
+    "screenshots": [
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/anon/day/browser-observations/01-mother-composite.png",
+        "sha256": "8a4e6839b0e4bbeeba4e6f4772699eaf6ebccbfb3a5bc662af0f48aae2898a43",
+        "bytes": 135457,
+        "canvas": [
+          1265,
+          712
+        ],
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/anon/day/browser-observations/02-paper-hands-seat.png",
+        "sha256": "7e091987651007569a181d319a5cdbf62ae9ee709f0499b4e80c72b98a9c7327",
+        "bytes": 111561,
+        "canvas": [
+          1265,
+          712
+        ],
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/anon/day/browser-observations/03-light-dark-checker.png",
+        "sha256": "337cdfee398cd5e6a5eb9d3919559cb98bac1bcd84be2f44fe44271b8b4fd49e",
+        "bytes": 109247,
+        "canvas": [
+          1265,
+          712
+        ],
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/anon/day/browser-observations/04-face-hair.png",
+        "sha256": "ec108903003360041b7f6bed420cda90fa98b6287867eee4c3fd0be533ce0684",
+        "bytes": 119666,
+        "canvas": [
+          1265,
+          712
+        ],
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/anon/day/browser-observations/06-receiver.png",
+        "sha256": "1f74e178bb20ce03b6d1472fd48ae024f5886250add16e1b2dd53efe5e8d11d4",
+        "bytes": 1403186,
+        "canvas": [
+          3840,
+          2160
+        ],
+        "generationInputAllowed": false
+      }
+    ]
+  },
+  "producerFindings": {
+    "whole": "Fine pink hair, paper/fingers, body/uniform and complete shoes preserved as original mother RGB; no obvious person or paper ghost in BG.",
+    "paper": "Old external early F-v1 had interior paper/finger coverage lines. It was not used as input. New clean-mother white markup and conversion fill these internal lines; actual source-RGB browser comparison viewed.",
+    "receiver": "S covers complete shoes and local floor plus seated cloth; it overlaps original skirt/skin in the seat area. MAX draws same mother RGB once; source wood/linen included only at fixed original place.",
+    "limits": "Native static observation only. No runtime, motion, 360 activity-cell or user approval inferred."
+  },
+  "newImageCallsThisTurn": 5,
+  "primaryLayerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "original360ExactActivityCell": false,
+  "userApproved": false,
+  "generationReceipts": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/anon/day/figure-step1-marked-v2.source.json",
+      "sha256": "09f11b73e8d10a625b355fb780fa35acc6d9546d89b201a19d806c3bef058ff9",
+      "bytes": 3253
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/anon/day/contact-step1-marked-v1.source.json",
+      "sha256": "5fe2e2c7cf911072b1dc733ba8433593eb3fe83ac86d9163997397e8ceefb9a4",
+      "bytes": 3197
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/anon/day/background-v1.source.json",
+      "sha256": "cdfbf76d88b620bcee5d17c89cbb335522d2ba1a88bf830742f63027ac67874d",
+      "bytes": 2884
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/anon/day/figure-mask-v2.source.json",
+      "sha256": "7dfacfb776ae427c544b2c2ec3e8cc888bf338f2bc3a18ebca2e21465a5ea16c",
+      "bytes": 2868
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/anon/day/contact-mask-v1.source.json",
+      "sha256": "407dcd62d8cf375bcafd3a11a36441591dc8b8e73b64bd62c78a4d2a94e25bb5",
+      "bytes": 2689
+    }
+  ],
+  "actualOutputCopiesByteIdenticalToTool": {
+    "figure-step1-marked-v2": true,
+    "contact-step1-marked-v1": true,
+    "background-v1": true,
+    "figure-mask-v2": true,
+    "contact-mask-v1": true
+  }
+}

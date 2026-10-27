@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-resume-apricot-contact-step1-v2",
+  "stage": "S1-real-linen-correction",
+  "tool": "image_gen.imagegen",
+  "actualToolArguments": {
+    "prompt": "Use case: precise-object-edit. Exact source-coordinate contact receiver selection markup S1, NOT a new illustration.\nThe sole input is the admitted clean 1536x1024 Soyo resume v2 mother. Keep full canvas and ALL geometry/positions/RGB original EXCEPT the chosen technical selection color. Mark ONLY real visible receiving surfaces with SOLID ELECTRIC MAGENTA #FF00FF, not white. This unique marker will be converted into a mask; original RGB later comes only from the source mother.\nThe original girl and her book/bookmark/hair/skirt/shoes must remain IN ORIGINAL COLOR. Do NOT color any skirt fold, white hem trim, knee, sock, or shoe. The seat receiver is actual PALE LINEN DIRECTLY BENEATH her lower trailing skirt hem, not the hem itself. On the source lower-right skirt edge (approximately x979..1156,y563..589), follow the actual small compressed/shaded linen contact margin immediately BELOW the cloth. Select a short natural linen band about 8..18 source pixels deep where compression/shade really exists, with its real uneven contour and a small adjacent pressed wrinkle. The source left trailing skirt end around x820..858,y547..562 has a separate small actual linen receiver directly below it; mark only that contact linen. Do not mark long empty bench, large cushion rectangle, unrelated sunlight or distant textile. The main source seat facing/front lies below and must remain colored beyond this local contact region.\nAlso mark the COMPLETE actual dark close floor contact receiver under/around both source loafers around x741..923,y800..894, following real short toe/heel/sole shadow footprint about 8..22 pixels beyond actual sole ONLY where source shade exists. Keep shoes entirely colored. Select the source dark core plus natural short floor transition; do not add an ellipse, rectangle, whole-floor stripe, or distant rug/light patch.\nEverything else remains original: girl/book/cloth trim, room, window, curtain, desk, table/lamp, pillows, floor and rug. No new figure, changed pose, changed lighting, crop/shift/scale/zoom. Output ONE opaque 1536x1024 source-position RGB PNG with ONLY these few genuine linen/floor receivers magenta. No text or labels. This is fixed original-position included material; never an independently moving projected shadow.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-resume-apricot-literary-v2.png"
+    ],
+    "transparent_background": false
+  },
+  "generationStatus": "completed-output-and-exact-arguments-in-source-record",
+  "scope": "Source linen and real sole receiver; magenta technical markup; no runtime acceptance.",
+  "completedSourceRecord": "contact-step1-v2.source.json"
+}

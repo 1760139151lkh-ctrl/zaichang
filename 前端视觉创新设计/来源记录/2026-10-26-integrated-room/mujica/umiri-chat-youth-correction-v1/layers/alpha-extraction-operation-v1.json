@@ -1,0 +1,54 @@
+{
+  "operation": "original-RGB extraction with explicitly authorized semantic internal-alpha repair; no source-RGB edits",
+  "rawF": "figure-mask-v2.png",
+  "J": "included-coverage-v1.png",
+  "luminance": [
+    0.2126,
+    0.7152,
+    0.0722
+  ],
+  "alphaRepair": {
+    "region": [
+      1070,
+      410,
+      1290,
+      540
+    ],
+    "meaning": "source-inspected pencil/writing hand/notebook and immediately underlying opaque jacket/skirt only; not hair or legs or exterior air",
+    "method": "in this region only, white enclosed material holes and opaque material interior >2.5px from exterior; alpha >=128 defines supplied-mask material contour; every pixel outside this region and every exterior/gap edge unchanged",
+    "pixelsChanged": 23065,
+    "changedBounds": [
+      1070,
+      410,
+      1283,
+      540
+    ],
+    "sourceRGBChanged": false
+  },
+  "composition": "U=MAX(corrected F,S); exact original mother RGB drawn ONCE over same-mother BG",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "independentReceiverMovementAllowed": false,
+  "receiverExtraction": {
+    "source": "included-coverage-v1.png",
+    "reason": "raw J contained a tiny unselected-room patch in a top hair loop; do not use J whole as final matte",
+    "sourceDomains": {
+      "seatLinen": [
+        940,
+        550,
+        1330,
+        620
+      ],
+      "soleAdjacentFloor": [
+        975,
+        885,
+        1225,
+        968
+      ]
+    },
+    "method": "S = L(J) × (1 − correctedF/255) inside reviewed source-local contact domains; S=0 elsewhere; values inherited from J, no new shadow painted",
+    "bodyRGBAdoptedFromJ": false,
+    "portableCaster": false
+  }
+}

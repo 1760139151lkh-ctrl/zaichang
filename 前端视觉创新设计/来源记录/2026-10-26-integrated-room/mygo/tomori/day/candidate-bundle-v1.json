@@ -1,0 +1,246 @@
+{
+  "schemaVersion": 1,
+  "id": "tomori-neutral-time-day-reused-final-layer-candidate-v1",
+  "recordedAtUtc": "2026-10-26T02:57:08.620525+00:00",
+  "characterId": "tomori",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "neutralTime": "day",
+  "weather": "unknown",
+  "scope": "Recheck and deliver existing healthy same-mother source-RGB union. No mother redraw, no current Image call, no shared scene/ledger/runtime edit.",
+  "selected": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/day/mother.png",
+      "sha256": "ee943e04da7a50748d3e331ed4339548b842388027d0a5fe360e95a4c2d270b7",
+      "bytes": 2406170,
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "figureMask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/day/figure-mask-v3.png",
+      "sha256": "da290969009ad5a936bd387aef77b36f8fe18162cb9f01dd5d091d1768e69177",
+      "bytes": 443076,
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "contactMask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/day/contact-mask-v1.png",
+      "sha256": "dce8d12a86dc23146b4ac9f2b6a993eaba3dfc47edf6c27d9ecf7bb46c8a623c",
+      "bytes": 290716,
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/day/background-v1.png",
+      "sha256": "12a93086d4b9a71567f2c3820df6d4d2ac71a9b351d0178231170064f884f892",
+      "bytes": 2310752,
+      "canvas": [
+        1536,
+        1024
+      ]
+    }
+  },
+  "originalFiles": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/tomori-neutral-time-day-v1.png",
+      "sha256": "ee943e04da7a50748d3e331ed4339548b842388027d0a5fe360e95a4c2d270b7",
+      "bytes": 2406170
+    },
+    "figureMask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/figure-mask-v3.png",
+      "sha256": "da290969009ad5a936bd387aef77b36f8fe18162cb9f01dd5d091d1768e69177",
+      "bytes": 443076
+    },
+    "contactMask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/contact-mask-v1.png",
+      "sha256": "dce8d12a86dc23146b4ac9f2b6a993eaba3dfc47edf6c27d9ecf7bb46c8a623c",
+      "bytes": 290716
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/background-v1.png",
+      "sha256": "12a93086d4b9a71567f2c3820df6d4d2ac71a9b351d0178231170064f884f892",
+      "bytes": 2310752
+    }
+  },
+  "copiesByteIdenticalToOriginal": {
+    "mother": true,
+    "figureMask": true,
+    "contactMask": true,
+    "background": true
+  },
+  "assembly": {
+    "kind": "source-rgb-max-luminance-v1",
+    "coverage": "MAX(L(F),L(S))",
+    "originalRgbDrawsPerUnion": 1,
+    "luminanceCoefficients": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "nativeMax": "SVG feBlend mode=lighten; sRGB",
+    "svg": "union-source-v1.svg",
+    "composite": "composite-source-v1.svg",
+    "contact": "contact-source-v1.svg",
+    "pngEditing": false
+  },
+  "geometry": {
+    "fixedOriginalSourceCoordinates": true,
+    "travelPx": 0,
+    "slope": 0,
+    "perspective": 0,
+    "sourceReceiverMaterialIncluded": true,
+    "independentlyMovableCaster": false
+  },
+  "priorMotherAdmission": {
+    "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/root-primary-day-and-avatar-admission-v1.json",
+    "sha256": "b2888055e4087c1de912b1ad3e2319ad2dbdefe67370a68176b909cb4f4da798",
+    "bytes": 1825
+  },
+  "currentObservation": {
+    "route": "formal CUA IAB; Chrome extension timed out during unrelated official-page lookup",
+    "personallyViewed": true,
+    "page": "native-observe-v1.html",
+    "views": [
+      "mother and same-mother composite",
+      "full union on light/dark/checker",
+      "face/hair",
+      "whole pencil/notebook/lower cover/hand/true narrow arm gap",
+      "seat/hem/thigh",
+      "both complete shoes/floor contact",
+      "receiver-only cloth/wood material",
+      "clean BG PNG"
+    ],
+    "screenshots": [
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/day/browser-observations/01-mother-composite.png",
+        "sha256": "fa192e3e5418d8b1bc0128119da2852b696f3aba0e0e34069228ac8f4233443f",
+        "bytes": 131544,
+        "canvas": [
+          1265,
+          712
+        ],
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/day/browser-observations/02-light-dark-checker.png",
+        "sha256": "76c7a653c032503759ca9d499ff366a5c141f11326cf45662f845e71e2a3a533",
+        "bytes": 99830,
+        "canvas": [
+          1265,
+          712
+        ],
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/day/browser-observations/03-face-hair.png",
+        "sha256": "628f09c059ac8f8ef713e06da9510585da2d61d4c16efcd427f52e2ac3a6665c",
+        "bytes": 113219,
+        "canvas": [
+          1265,
+          712
+        ],
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/day/browser-observations/04-book-hands.png",
+        "sha256": "e51aa91fb97d90aa2c7037ec5d3d49abd455bf2e13ef2a6f64f4a39d5f4248e5",
+        "bytes": 108354,
+        "canvas": [
+          1265,
+          712
+        ],
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/day/browser-observations/05-seat-contact.png",
+        "sha256": "3f08c0f8d750fa0800f2977d86d3331c132acad20d52eb9915aa64ccd1d6c096",
+        "bytes": 112544,
+        "canvas": [
+          1265,
+          712
+        ],
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/day/browser-observations/06-shoes-floor.png",
+        "sha256": "c34d56879fb33ecaa5be7f0fbcb620d5b1130f0f3cd4a261aaa71b525f43ef71",
+        "bytes": 84721,
+        "canvas": [
+          1265,
+          712
+        ],
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/day/browser-observations/07-receiver.png",
+        "sha256": "bc75f041f76c331a48ae3b7fbc929cacc3d75411a80c801f491ae02033e7a461",
+        "bytes": 40775,
+        "canvas": [
+          1265,
+          712
+        ],
+        "generationInputAllowed": false
+      }
+    ]
+  },
+  "producerFindings": {
+    "whole": "Same-source RGB preserves expression, hands, book, shoes and original support; same-mother empty BG has no person/prop ghost.",
+    "mask": "Final F-v3 only; earlier HOLD F-v1/v2 were not copied or used as generation input. Complete book lower edge and pencil continuous, only actual narrow arm gap visible.",
+    "receiver": "S includes local linen/wood and a small overlap with original hem/skin; MAX draws source RGB once. Fixed original position only.",
+    "limits": "Current scope is static layer observation. No interactive runtime, motion, matrix cell or user approval inferred."
+  },
+  "newImageCallsThisTurn": 0,
+  "primaryLayerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "original360ExactActivityCell": false,
+  "userApproved": false,
+  "rootLayerAdmissionFile": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/day/root-primary-layer-admission-v1.json",
+  "primaryApproved": false,
+  "generationInputAllowed": false,
+  "userRejected": true,
+  "retiredByUser": true,
+  "currentAdmissionRevoked": true,
+  "revocation": {
+    "recordedAtUtc": "2026-10-26T03:59:35.716669+00:00",
+    "authority": "root direct message forwarding current user identity rejection and withdrawing root static admissions",
+    "reason": "User rejected Tomori neutral day as visually mature / 大妈感. Root revoked both day/night identity and derived layer admissions.",
+    "exactParentMessage": "用户刚直接否决灯neutral day成熟‘大妈感’，附件C:/Users/17601/AppData/Local/Temp/codex-clipboard-eab88100-12b1-4f85-9f66-bbd77e049890.png。Root撤回此前day/night身份/层准入（空间线正在移除两新运行登记及复制PNG）；请在你精确admission/candidate记录将当前primaryLayerApproved撤回，追加用户否决身份/成熟原因与时间，保技术观察历史但不得当当前批准，母及派生禁止后续输入。当前乐奈技术调用在途可保全返回，不重发/不再扩量mask。工作重心回到艺术选图：亲自把旧source中灯/爱音/乐奈/素世/立希少女感最好原图与被否决neutral逐幅对照，给root每人2个最有价值原母（完整图+真实角色气质理由），不靠SHA/骨架代替青春。不自行重画、不只列清单，先视觉判断。Root将亲看并选定基准。",
+    "forwardImageInputForbidden": true,
+    "appliesToMotherAndAllDerivatives": true,
+    "technicalObservationsRetainedAsHistoryOnly": true
+  },
+  "runtimeRegistrationStatus": "removed by space_motion after root/user revocation",
+  "status": "retired_user_rejected_mature_identity_no_forward_input",
+  "runtimeSceneHistory": {
+    "path": "前端视觉创新设计/运行素材/companion/scenes/tomori-neutral-presence-time-day-included-v1.scene.json",
+    "sha256": "5e43cd1c341cb6f932a5a31bd595c16f4c64b7abea914bc6875958ff0ce2ff1b",
+    "runtimeFourPNG": {
+      "mother": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/tomori-neutral-presence-time-day-included-v1-mother.png",
+        "sha256": "ee943e04da7a50748d3e331ed4339548b842388027d0a5fe360e95a4c2d270b7"
+      },
+      "background": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/tomori-neutral-presence-time-day-included-v1-background.png",
+        "sha256": "12a93086d4b9a71567f2c3820df6d4d2ac71a9b351d0178231170064f884f892"
+      },
+      "figureMask": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/tomori-neutral-presence-time-day-included-v1-mask.png",
+        "sha256": "da290969009ad5a936bd387aef77b36f8fe18162cb9f01dd5d091d1768e69177"
+      },
+      "contactMask": {
+        "path": "前端视觉创新设计/运行素材/companion/scenes/tomori-neutral-presence-time-day-included-v1-contact-mask.png",
+        "sha256": "dce8d12a86dc23146b4ac9f2b6a993eaba3dfc47edf6c27d9ecf7bb46c8a623c"
+      }
+    },
+    "runtimeAccepted": false,
+    "dynamicAccepted": false,
+    "original360ExactActivityCell": false
+  }
+}

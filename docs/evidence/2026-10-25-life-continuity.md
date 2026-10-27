@@ -81,3 +81,47 @@
 已清理仅上述五个未引用临时运行副本：`mutsumi-vertical-edge-cat-v1.png`、`mutsumi-vertical-edge-left-contact-v1.png`、`uika-vertical-edge-cat-v1.png`、`umiri-vertical-edge-cat-v1.png`、`nyamu-vertical-edge-cat-v1.png`，逻辑大小约4.18MB。完整原件与各自来源记录保留。
 
 最新方向替换后，另12份 `*vertical*static-clean.png` 运行副本逐份核对SHA与来源原件相同，源码无引用，逻辑合计9,869,701字节（约9.87MB）。非递归删除操作被自动安全审查阻止，未改用另一底层路线绕过；这些副本仍存在磁盘但没有runtime选择链。包括祥子pilot、睦双向、初华、海铃、若麦、灯v2、爱音v2、乐奈双向、素世和立希的static-clean副本，原source均保留。
+
+## 本轮接续：今天的节奏与同一路线往返
+
+本节是本轮子代理的实际观察，主线起点为 `e37a8b12`，产品变更尚未由本节代签主代理的最终集成验收。只使用独立合成资料目录 `.test-data/life-map-20261026`、Electron `9339` 与原有 Luna 入口；从旧合成目录只备份 SQLite、对应隐私围栏和材料，没有复制浏览器 cookies、账号或个人资料目录。真实操作由正式 CUA 经 DevTools screencast 转发；Node 连接仅用于只读 DOM、截图和经主代理许可的有界开发视口设置，没有通过隐藏业务 API 发 UI 输入，没有新增测试代码、fixture 或 runner。
+
+### 设计与实现
+
+新增 `route-pocket-focus-v1`、`today-rhythm-paper-v1` 与 `today-within-reach-v2`，完整 PNG、Prompt、输入和 SHA 均在本记录同日生活连续性来源目录。路线稿纯文字生成；两幅 Today 稿的唯一输入是已准入的干净 `literary-room-clear-day-v1.png`，未喂运行拼贴截图。主代理亲看后采用路线稿的工作面/操作关系及 Today v2 的当日轴、事件局部纸面、可见空档、同事件纸签；v1 大纸板仅保留比较来源。生成的刻度、地理、地点、安排与日期不充当事实，整页图片不进入产品背景。
+
+`TodayNavigation` 只持有菜单和搜索的局部展开状态。全部/未定/已做、托付、日期移动、课表和原日历导出统一收进可键盘操作的更多入口，原 AgendaView、NativeAgenda、CalendarHandoff 和唯一对话输入保持各自职责。主代理接入 Workspace/App 的同一个房间。第一轮实现将标题、小时和控件逐个衬白，主代理亲看后因碎片感打回；当前版本移除这些常驻芯片，以限域柔暖渐隐带、细时间轴承载标题/日期/小时，事项仍是独立纸面。`PagePanel.headingContent` 由主代理接线，保原 h1 焦点，标题、日期与近旁操作在同一行；夜间沿同一 room tokens。新源码正常重载后亲看，当前画面为 `today-continuous-rhythm-v3.png`，仍待主代理最终验收。确认已退出运行 markup 后，删除了对应旧周条、旧分段标签、旧范围/搜索与重复添加入口的专用 CSS，保留仍使用的校园、日历、搜索结果和时间轴规则。
+
+### 两个五分钟事项：真实保存、试放、取消与撤回
+
+沿正常输入明确保存了北京时间 2026-10-26 的 `18:00–18:05 整理课前纸张` 与 `18:25–18:30 装好文具`，不设提醒。它们是本轮合成交流，不是用户真实生活记录。
+
+- 第一项 ID：`direct:f40403345d3e094aa1a052d14c2a49bd162747ea3066f842ce45824029be73fd`；第二项 ID：`direct:016853868d6a2fe50643fea65f7e82222c9f6aeddbd5a04b8bcefcb75fe5ceb5`。实际回读均为五分钟、`saved=true`、修订 1。
+- 初查只读到前段 `min-height:30px` 时，曾过早判断旧分道 24px 必然与实绘 30px 不符；完整阅读后发现旧 `.is-short` 又覆盖为 24px，已向主代理纠正。没有在共享源中恢复旧算法制造 before，也没有声称本轮旧构建复现。
+- 在获准的 **600×720 开发视口**中，实际观察到新统一 30px 仍裁掉两行中的时段。随后将分道、卡片 inline 与短卡最小高度统一为 **44px**，同一两项各占一条视觉道，两行标题/时间完整，没有缩字号。该视口不冒称 OS 真缩窗或触控证明；观察后恢复 1220×768 开发尺寸，真实 OS 窗口仍由主代理另验。
+- 通过真实键盘到达第一项，`ArrowDown` 试放为 `18:15–18:20`；SQLite 仍是原 `18:00`、修订 1。Escape 后回原时刻。
+- 再次 ArrowDown、回车打开同一对象确认；600 宽底部纸签中，原/新时段、五分钟、采用和先放回均可见。点击采用，同 ID 成为 `2026-10-26T10:15:00.000Z`、修订 2；点击撤回挪动，同 ID 回到 `2026-10-26T10:00:00.000Z`、修订 3，五分钟不变。
+
+更多入口的全部、未定、已做和托付均实际进入；返回这一天恢复原两项并把焦点交回日期控件。键盘打开/选择菜单、搜索“文具”得到原第二项、Escape 回原轴均已操作。原 CalendarHandoff 表单可在菜单内滚动展开；第一次 Escape 只退出导出并回导出按钮，第二次退出更多并回触发点。此次未打开 OS 保存对话框，不能代签日历文件落盘链。后一日真实为空时，显示原空态，回今天保原事项。
+
+### 完整原路线交接与原处收回
+
+正常输入明确了蒙民伟楼到基础图书馆，不使用设备定位、不安排时间。Luna 实际生成约 302 米路线；SQLite 消息 `1585a7f9-f563-403c-9dbf-7bd8bcfdbc8d` 保存 scene `f7a44388-c42e-446b-8cc9-0173c2ffb9ff@2`、leg `c2351688-3ebe-480c-836a-2aad81cb6546`。原 leg 同时保存实际 `fromId=way/255623995`、`toId=way/237812466`、`mapVersion=campus-v3-f86b9ec6a26fb2b2` 和本次查询的避台阶/条件通行参数。`map_route` 与 `look_up map.route` 两个真实构造分支均沿原 SceneService 先组装后 remember，没有新事实库。旧快照缺条件时只提供明确重新计算的入口，不硬编原条件。
+
+原完整路线、手动补起点后的试放路线都已从真实按钮走 `shareMapContext` 交给原输入。正常重载后“接着这里”恢复同一对话、路线与草稿；再次带回原完整路线，未发文字“这条路先留着，等会儿接着聊。”保持，焦点为原 TEXTAREA。相邻路线纸面、操作主次和来源展开已亲看；路线连接虚线与未知入口说明保留。
+
+实际上提后发现了原有归途缺陷：展开使底层 `.message-scroll.scrollTop` 回零，原 frame 离开视口至数千像素，而原实现据 live frame 计算下拉距离，导致普通下拉不足以收回。组件现在保存打开时的 viewport 矩形和原 scroll owner 位置，在回落布局前还原滚动。展开位置也沿共享顶栏下方的 84px/100px，CSS 变量与手势计算共用，未改地图相机或地理。
+
+在新源码正常重载后实操上提、下拉：原 scrollTop `3517.666748046875`，展开后底层为 0，下拉后准确恢复原值；原地图 viewport top 回到 `200.2447967529297`，真实同一 `.campus-v2-stage` 仍连接且没有重建，草稿保持。此前曾用正式 CUA 的 CDP 能力观察同一拖动中间位置，普通 CUA drag 已在最终修复后完成整段往返。没有把单幅静图算作手势通过。
+
+### 本轮专注灯与重载恢复
+
+通过原输入旁的“开始专注”主动开始 session `990d7938-bd3a-47c1-a5a3-be6026f754fb`，正常暂停后实际累计 `14088.699999988079ms`。切今天再回聊天，仍是同一 session 的暂停态与 `00:14`。手动继续后正常重载 renderer，原 owner 恢复为同一 session、`paused`、`recovered=true`、`26281.399999976158ms`，显示“继续这段”，没有自动续计。点击结束，状态为 `ended`，累计仍为该值，暂停和重载后的等待没有计入。未新增任何模型请求、任务或掌握断言；`FocusLamp` / `focus-session` 源码保持原实现。实际结束画面为 `focus-restored-ended.png`。这是 renderer 重载证据，不冒称 OS 睡眠、进程退出或跨设备证明。
+
+### 检查与保留边界
+
+本线完成 TypeScript 检查、已有 282 项检查和现有 Vite renderer 构建，未新增测试。四条本轮助手消息的原 `contextReceipt.modelUsage.responseModel` 均只记录 `gpt-6-luna`，不是仅依据启动配置；未调用 DeepSeek。Vite 的现有大 chunk 与未来 configLoader 提示保留，没有为清除提示改写无关构建。
+
+诊断图均留在 `.test-data/life-map-20261026`：`map-original-restored-handoff.png`、`map-grip-return-fixed.png`、`timeline-short-600-before-fix.png`、`timeline-short-600-fixed.png`、`today-trial-600-editor.png`、`today-trial-600-undone.png`、`today-more-wide.png`、`today-calendar-options-wide.png`、`today-empty-after.png`、`today-continuous-rhythm-v3.png` 等。前期散片版本只保留诊断身份，不代表最终采纳。它们是实际界面证据，禁止回喂为新设计背景。
+
+主代理仍需亲看当前集成版本及其 OS 窗口、主题与全局角色表现；本节不把无人物 Today 环境算作 planning 人形矩阵完成。未删除诊断材料或用户数据；没有清理磁盘临时副本，本轮源码清理仅限已经退出 markup 的专用规则。

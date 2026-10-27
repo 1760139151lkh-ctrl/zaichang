@@ -16,6 +16,7 @@
     }
   ],
   "outputFile": "scene-background-v1.png",
-  "generationStatus": "prepared-not-yet-called",
-  "scope": "selection/restoration only; mother RGB once by MAX; runtime=false"
+  "generationStatus": "completed-output-and-exact-arguments-in-source-record",
+  "scope": "selection/restoration only; mother RGB once by MAX; runtime=false",
+  "completedSourceRecord": "background-v1.source.json"
 }

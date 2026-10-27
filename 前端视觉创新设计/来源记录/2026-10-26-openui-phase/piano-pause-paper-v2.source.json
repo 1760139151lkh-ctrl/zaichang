@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "tool": "image_gen.imagegen",
+  "inputImages": [],
+  "originalToolOutput": "C:\\Users\\17601\\.codex\\generated_images\\01a17614-5c43-7040-a97d-0d5ccac98d4c\\exec-06f959e5-c9f2-4efa-848c-05f7646631e0.png",
+  "output": "piano-pause-paper-v2.png",
+  "sha256": "4f3f7b31b71766cfac00eb61893314b1987c4480041eb6526f53df99bc79c765",
+  "promptFile": "piano-pause-paper-v2.prompt.txt",
+  "promptSha256": "b3feef78ca821ab21b174c6284d8cf4f4dac86638b5493df053647b0635360e1",
+  "producerViewed": true,
+  "rootApproved": false,
+  "runtimeAsset": false,
+  "mustNotBeReferenceInput": true,
+  "status": "candidate_causal_chain_clear_hammer_string_gap_inadequate",
+  "assessment": "Clear key rear/capstan/wippen/jack-to-knuckle chain and lifted damper, calm unified paper. Hammer head too close to string for claimed pre-escapement instant; not an accuracy reference."
+}

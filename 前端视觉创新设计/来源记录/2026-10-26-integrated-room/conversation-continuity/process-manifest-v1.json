@@ -1,0 +1,268 @@
+{
+  "kind": "explicit-selected-process-image-index-not-a-test-suite",
+  "scope": "8 distinct dialogue states across day/night plus one narrow selection state across day/night",
+  "primaryApproved": false,
+  "runtimeAccepted": false,
+  "commonGrid": "PROCESS_GRID_AND_DECISIONS.md",
+  "sourceReferences": "DOCUMENT_SOURCES.md",
+  "images": [
+    {
+      "path": "process/01-empty-day-v5.png",
+      "stateId": "01-empty",
+      "stateName": "空白输入",
+      "theme": "day",
+      "sha256": "4be3fb11a5e7285123b0d9951f3171fb7ff68649e2ee98493d0550d9bf15f750",
+      "actualSize": [
+        1536,
+        1024
+      ],
+      "source": "process/01-empty-day-v5.source.json",
+      "adopt": "没有历史时，只留房间、导航与唯一输入；不补欢迎大标题、建议卡或空态仪表盘。",
+      "avoid": "图稿导航与输入像素有轻微漂移，不能分态照抄；代码共用同一定位。"
+    },
+    {
+      "path": "process/01-empty-night-v5.png",
+      "stateId": "01-empty",
+      "stateName": "空白输入",
+      "theme": "night",
+      "sha256": "5dc27a5b4e3dd66542025a0f305a1be1687f4251aba077e777320144096aa277",
+      "actualSize": [
+        1536,
+        1024
+      ],
+      "source": "process/01-empty-night-v5.source.json",
+      "adopt": "没有历史时，只留房间、导航与唯一输入；不补欢迎大标题、建议卡或空态仪表盘。",
+      "avoid": "图稿导航与输入像素有轻微漂移，不能分态照抄；代码共用同一定位。"
+    },
+    {
+      "path": "process/02-draft-two-pdf-day-v5.png",
+      "stateId": "02-draft-two-pdf",
+      "stateName": "输入与双PDF",
+      "theme": "day",
+      "sha256": "812292e20b757c1fc33dc6c54f046e7950853c3850a40de98d90c0c5337efa2c",
+      "actualSize": [
+        1536,
+        1024
+      ],
+      "source": "process/02-draft-two-pdf-day-v5.source.json",
+      "adopt": "两份PDF作为小红封面附着同一composer；附件让输入向上生长，悬停时才出现该对象的移除。",
+      "avoid": "图片中封面实际偏大、输入高度不完全一致；组件按同一对象标尺与固定底锚实现，不把整个输入当一张静图。"
+    },
+    {
+      "path": "process/02-draft-two-pdf-night-v5.png",
+      "stateId": "02-draft-two-pdf",
+      "stateName": "输入与双PDF",
+      "theme": "night",
+      "sha256": "78553c6c20cd93ccc28c50adb3c780fd9ca32c2534c3d3a165e09ab07cf4cede",
+      "actualSize": [
+        1536,
+        1024
+      ],
+      "source": "process/02-draft-two-pdf-night-v5.source.json",
+      "adopt": "两份PDF作为小红封面附着同一composer；附件让输入向上生长，悬停时才出现该对象的移除。",
+      "avoid": "图片中封面实际偏大、输入高度不完全一致；组件按同一对象标尺与固定底锚实现，不把整个输入当一张静图。"
+    },
+    {
+      "path": "process/03-generating-cancel-day-v5.png",
+      "stateId": "03-generating-cancel",
+      "stateName": "生成可取消",
+      "theme": "day",
+      "sha256": "c720d2b01b155ad4396ef9b86c350e9761c787a0ef672e8d838ea5bf6946703c",
+      "actualSize": [
+        1536,
+        1024
+      ],
+      "source": "process/03-generating-cancel-day-v5.source.json",
+      "adopt": "回答从普通正文自然开始；用户仍能在原输入写下一句，主要动作仅由发送换为停止。",
+      "avoid": "不得因等待重建输入DOM/IME或锁定草稿；只在有真实run可取消时展示停止。图片的光标不是进度事实。"
+    },
+    {
+      "path": "process/03-generating-cancel-night-v2.png",
+      "stateId": "03-generating-cancel",
+      "stateName": "生成可取消",
+      "theme": "night",
+      "sha256": "71aac7c8769f1fd3c3b5658606f1bd03fe4e226fb46379b898ca2830d88ceb8b",
+      "actualSize": [
+        1536,
+        1024
+      ],
+      "source": "process/03-generating-cancel-night-v2.source.json",
+      "adopt": "回答从普通正文自然开始；用户仍能在原输入写下一句，主要动作仅由发送换为停止。",
+      "avoid": "不得因等待重建输入DOM/IME或锁定草稿；只在有真实run可取消时展示停止。图片的光标不是进度事实。"
+    },
+    {
+      "path": "process/04-short-reply-day-v6.png",
+      "stateId": "04-short-reply",
+      "stateName": "短回复",
+      "theme": "day",
+      "sha256": "65f8ea77fb2d5a59995a22bd7b2c5151b2ad8e029bc31c0ea0804f2d3f8380c6",
+      "actualSize": [
+        1536,
+        1024
+      ],
+      "source": "process/04-short-reply-day-v6.source.json",
+      "adopt": "短答保持两三句和就近来源，有空白也不强塞动态作品、追问按钮或下一步卡。",
+      "avoid": "source文字来自真实owner而非图片里的固定页码；不搬生图的缩略书内容、生成字体/背景重绘。"
+    },
+    {
+      "path": "process/04-short-reply-night-v6.png",
+      "stateId": "04-short-reply",
+      "stateName": "短回复",
+      "theme": "night",
+      "sha256": "913177a6ef88e376c6599a989e6917f05691257097233d9d6716111c39129fc1",
+      "actualSize": [
+        1536,
+        1024
+      ],
+      "source": "process/04-short-reply-night-v6.source.json",
+      "adopt": "短答保持两三句和就近来源，有空白也不强塞动态作品、追问按钮或下一步卡。",
+      "avoid": "source文字来自真实owner而非图片里的固定页码；不搬生图的缩略书内容、生成字体/背景重绘。"
+    },
+    {
+      "path": "process/05-long-sources-adjustable-day-v6.png",
+      "stateId": "05-long-sources-adjustable",
+      "stateName": "长回复与来源/可调对象",
+      "theme": "day",
+      "sha256": "a50596f973bbbb4d9d98f059684e0bc6d6616ca0f13107112c2ea2dd667d364f",
+      "actualSize": [
+        1536,
+        1024
+      ],
+      "source": "process/05-long-sources-adjustable-day-v6.source.json",
+      "adopt": "长文连续排版，源链接紧邻对应论述；可调对象在同一段工作里，输入仍在原位置。",
+      "avoid": "图中的曲线/刻度仅作视觉构想，局部形状不准确，绝不是计算证据；真实组件必须由公式和program当前inputs计算。不得截长文、缩字或贴整张图。"
+    },
+    {
+      "path": "process/05-long-sources-adjustable-night-v3.png",
+      "stateId": "05-long-sources-adjustable",
+      "stateName": "长回复与来源/可调对象",
+      "theme": "night",
+      "sha256": "5ce997db52bbff53f30b69f5205b7613d6d3cf5091912ceef040fda6cc7b23ad",
+      "actualSize": [
+        1536,
+        1024
+      ],
+      "source": "process/05-long-sources-adjustable-night-v3.source.json",
+      "adopt": "长文连续排版，源链接紧邻对应论述；可调对象在同一段工作里，输入仍在原位置。",
+      "avoid": "图中的曲线/刻度仅作视觉构想，局部形状不准确，绝不是计算证据；真实组件必须由公式和program当前inputs计算。不得截长文、缩字或贴整张图。"
+    },
+    {
+      "path": "process/06-selection-followup-day-v5.png",
+      "stateId": "06-selection-followup",
+      "stateName": "选段接问",
+      "theme": "day",
+      "sha256": "4b29f9565a93f7df812703a66394a1781c75d89fa72c07ee8c8bba189741da08",
+      "actualSize": [
+        1536,
+        1024
+      ],
+      "source": "process/06-selection-followup-day-v5.source.json",
+      "adopt": "只在真实选区旁出现一次问这句；同一输入接收可移除引用筹码和当前草稿。",
+      "avoid": "不按字符串第一次匹配原句；引用需原对象/修订/Unicode范围。图中自动添出的双色曲线不采纳，保原program。"
+    },
+    {
+      "path": "process/06-selection-followup-night-v5.png",
+      "stateId": "06-selection-followup",
+      "stateName": "选段接问",
+      "theme": "night",
+      "sha256": "6b741e03ef69dafee84ccc4852ce03a401479fc2621d28d89ce7ef964d9b41f5",
+      "actualSize": [
+        1536,
+        1024
+      ],
+      "source": "process/06-selection-followup-night-v5.source.json",
+      "adopt": "只在真实选区旁出现一次问这句；同一输入接收可移除引用筹码和当前草稿。",
+      "avoid": "不按字符串第一次匹配原句；引用需原对象/修订/Unicode范围。图中自动添出的双色曲线不采纳，保原program。"
+    },
+    {
+      "path": "process/07-cancel-preserve-draft-day-v4.png",
+      "stateId": "07-cancel-preserve-draft",
+      "stateName": "取消后保留草稿",
+      "theme": "day",
+      "sha256": "1b1ef8fd8762254b5a63b4f03c31af10e5ade17245fb057692e64d2b903419b1",
+      "actualSize": [
+        1536,
+        1024
+      ],
+      "source": "process/07-cancel-preserve-draft-day-v4.source.json",
+      "adopt": "取消保留已经显示的半段回答、未发新草稿和焦点；停止动作回到发送，不追加一排重试按钮。",
+      "avoid": "取消必须停止原run并拒晚到结果；图稿不证明取消实际生效、草稿持久或恢复通过。"
+    },
+    {
+      "path": "process/07-cancel-preserve-draft-night-v4.png",
+      "stateId": "07-cancel-preserve-draft",
+      "stateName": "取消后保留草稿",
+      "theme": "night",
+      "sha256": "7efb71e48562be402a56e4f19d50dbbc68a3821419f839318a62c5161d8182b5",
+      "actualSize": [
+        1536,
+        1024
+      ],
+      "source": "process/07-cancel-preserve-draft-night-v4.source.json",
+      "adopt": "取消保留已经显示的半段回答、未发新草稿和焦点；停止动作回到发送，不追加一排重试按钮。",
+      "avoid": "取消必须停止原run并拒晚到结果；图稿不证明取消实际生效、草稿持久或恢复通过。"
+    },
+    {
+      "path": "process/08-return-original-paragraph-day-v4.png",
+      "stateId": "08-return-original-paragraph",
+      "stateName": "回到原段",
+      "theme": "day",
+      "sha256": "d0153afc36a4500412812629c2e87e46d1a241c8deb7b75e102f6202288ed3d0",
+      "actualSize": [
+        1536,
+        1024
+      ],
+      "source": "process/08-return-original-paragraph-day-v4.source.json",
+      "adopt": "返回原段保留同一问题、选段引用、草稿、焦点和原处轻提示，不重播欢迎或新建会话。",
+      "avoid": "生图中的曲线形状或缺省显示不代表program重置；源码必须保同ID/revision/inputs。源页与聊天回原锚分别实际验证。"
+    },
+    {
+      "path": "process/08-return-original-paragraph-night-v4.png",
+      "stateId": "08-return-original-paragraph",
+      "stateName": "回到原段",
+      "theme": "night",
+      "sha256": "19663afdb4720e6b5f10cfe567719d43a48f3acd731721f823662df553c47a90",
+      "actualSize": [
+        1536,
+        1024
+      ],
+      "source": "process/08-return-original-paragraph-night-v4.source.json",
+      "adopt": "返回原段保留同一问题、选段引用、草稿、焦点和原处轻提示，不重播欢迎或新建会话。",
+      "avoid": "生图中的曲线形状或缺省显示不代表program重置；源码必须保同ID/revision/inputs。源页与聊天回原锚分别实际验证。"
+    },
+    {
+      "path": "process/09-narrow-selection-day-v2.png",
+      "stateId": "09-narrow-selection",
+      "stateName": "窄窗选段与同一输入",
+      "theme": "day",
+      "sha256": "c408d49a042730ea7ba0160d7c8327079ccdcafc7b8f5c9b969e386be9d89607",
+      "actualSize": [
+        971,
+        1619
+      ],
+      "source": "process/09-narrow-selection-day-v2.source.json",
+      "adopt": "窄窗只保必要两行导航，无额外聊天H1；正文/公式自然换行，同一底部输入接引用与草稿。",
+      "avoid": "画像实际尺寸约971/972×1619，并非请求600×1000；纵向房间重绘不作新背景。运行复用原Stage裁切，不缩整页或用大面板包住全站。"
+    },
+    {
+      "path": "process/09-narrow-selection-night-v2.png",
+      "stateId": "09-narrow-selection",
+      "stateName": "窄窗选段与同一输入",
+      "theme": "night",
+      "sha256": "ce762e47e91e97dca94450c1cb5027d679b9261f44177613490a42132bee39d4",
+      "actualSize": [
+        972,
+        1619
+      ],
+      "source": "process/09-narrow-selection-night-v2.source.json",
+      "adopt": "窄窗只保必要两行导航，无额外聊天H1；正文/公式自然换行，同一底部输入接引用与草稿。",
+      "avoid": "画像实际尺寸约971/972×1619，并非请求600×1000；纵向房间重绘不作新背景。运行复用原Stage裁切，不缩整页或用大面板包住全站。"
+    }
+  ],
+  "boundary": "18 selected images are image-led relation designs, not 18 approved runtime states. Shared geometry, actual actions/source identities, cancellation/return, motion and readability still require integrated code verification. Rejected calls remain traceable by metadata and original tool location, never as generation inputs.",
+  "supersededWorkspaceCandidates": [
+    "superseded/04-short-reply-day-v2.png",
+    "superseded/04-short-reply-night-v2.png",
+    "superseded/05-long-sources-adjustable-day-v3.png"
+  ]
+}

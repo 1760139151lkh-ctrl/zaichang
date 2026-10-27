@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-10-26T03:59:35.716669+00:00",
+  "reason": "User rejected Tomori neutral day as visually mature / 大妈感. Root revoked both day/night identity and derived layer admissions.",
+  "revocation": {
+    "recordedAtUtc": "2026-10-26T03:59:35.716669+00:00",
+    "authority": "root direct message forwarding current user identity rejection and withdrawing root static admissions",
+    "reason": "User rejected Tomori neutral day as visually mature / 大妈感. Root revoked both day/night identity and derived layer admissions.",
+    "exactParentMessage": "用户刚直接否决灯neutral day成熟‘大妈感’，附件C:/Users/17601/AppData/Local/Temp/codex-clipboard-eab88100-12b1-4f85-9f66-bbd77e049890.png。Root撤回此前day/night身份/层准入（空间线正在移除两新运行登记及复制PNG）；请在你精确admission/candidate记录将当前primaryLayerApproved撤回，追加用户否决身份/成熟原因与时间，保技术观察历史但不得当当前批准，母及派生禁止后续输入。当前乐奈技术调用在途可保全返回，不重发/不再扩量mask。工作重心回到艺术选图：亲自把旧source中灯/爱音/乐奈/素世/立希少女感最好原图与被否决neutral逐幅对照，给root每人2个最有价值原母（完整图+真实角色气质理由），不靠SHA/骨架代替青春。不自行重画、不只列清单，先视觉判断。Root将亲看并选定基准。",
+    "forwardImageInputForbidden": true,
+    "appliesToMotherAndAllDerivatives": true,
+    "technicalObservationsRetainedAsHistoryOnly": true
+  },
+  "ancestralMothers": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/tomori-neutral-time-day-v1.png",
+      "sha256": "ee943e04da7a50748d3e331ed4339548b842388027d0a5fe360e95a4c2d270b7",
+      "allDerivativesForbidden": true
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/tomori-neutral-time-night-v1.png",
+      "sha256": "36e1e2e4029d81914b4192cee8351d84b44fa0ef188c88910dd58d400a3e4300",
+      "allDerivativesForbidden": true
+    }
+  ],
+  "allCurrentOwnedPNG": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/day/background-v1.png",
+      "sha256": "12a93086d4b9a71567f2c3820df6d4d2ac71a9b351d0178231170064f884f892",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/day/contact-mask-v1.png",
+      "sha256": "dce8d12a86dc23146b4ac9f2b6a993eaba3dfc47edf6c27d9ecf7bb46c8a623c",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/day/figure-mask-v3.png",
+      "sha256": "da290969009ad5a936bd387aef77b36f8fe18162cb9f01dd5d091d1768e69177",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/day/mother.png",
+      "sha256": "ee943e04da7a50748d3e331ed4339548b842388027d0a5fe360e95a4c2d270b7",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/night/background-v1.png",
+      "sha256": "37b07f90a6cc0c0aee3ea820468e62eeab582453890a487e5b6f75807b57126d",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/night/contact-mask-v1.png",
+      "sha256": "0b70195abf477518d1f81159477bb7120962faeb37b924373c7f6df5db919796",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/night/contact-mask-v2.png",
+      "sha256": "255350e6ed6d2c1c612ce673be547e345bd081650a1c40df8c68150db7592075",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/night/contact-mask-v3.png",
+      "sha256": "fe8d93691568cc71c49049887c01a05f499abdf879a8b93ca1c06e31779c83ad",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/night/contact-step1-marked-v3.png",
+      "sha256": "54e0208f996c033db6d3dd855ca576934046c8224c1f15e1ccf00d3f56d28571",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/night/figure-mask-v5.png",
+      "sha256": "79bd5825a96b17f98f5f56713963862b186987971e199c6a9f6353a3a703d0cd",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/night/figure-mask-v6.png",
+      "sha256": "2af493eaee421f59e207257da44cb885ee52deba7bc1623a3b5a0ea0e33e9677",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/night/mother.png",
+      "sha256": "36e1e2e4029d81914b4192cee8351d84b44fa0ef188c88910dd58d400a3e4300",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/night/browser-observations/01-mother-composite.png",
+      "sha256": "9c78ece3633785dd6491dfd9f1f80c4916a9d9e957536d440759f256044e6838",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/night/browser-observations/02-light-dark-checker.png",
+      "sha256": "01e14ff097f9a443d09a3a1e981200f4dfaed15e98e49d08620ad1b0224b48bd",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/night/browser-observations/03-face-hair.png",
+      "sha256": "0015bdb4a103e22142d946092666713aaaabb09ca0c7b02d2c27854ac512c8b2",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/night/browser-observations/04-book-hands.png",
+      "sha256": "8c3f3a1c6e2fdd1ad0d931895d96c69d4f31eb5317e87be8df0f50f8fa1c4226",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/night/browser-observations/05-internal-fixed-material.png",
+      "sha256": "4e0bd279b44706b3c859feddccc5150b9e3838175b9cc84810ff4ea98d9f5273",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/night/browser-observations/06-seat-contact.png",
+      "sha256": "3d4a4e3376f6d1a658a09e4ba651d3168e41c456092ab37cdf53b37a8223234b",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/night/browser-observations/07-S-v3-shoeedge.png",
+      "sha256": "c0c7df3c53f302e9c0cc2ab69bf50ea4c4dbc3c1f63f6faabf559ad11b822c3d",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/night/browser-observations/08-S-v3-shoes-floor.png",
+      "sha256": "1eaa1544851f45be6454fe281f77a380aad845519f42d435832bcc416d5869f0",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/night/browser-observations/09-S-v3-light-dark-checker.png",
+      "sha256": "e7170a58fd561b232dd9a0bc62be7f7193151ae9816688f9c3de082d665593f8",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/night/browser-observations/10-S-v3-mother-composite.png",
+      "sha256": "b61ff441ca65fa0f19f794a0b180d90467db0a9ea5e6bf4fa7b0ffbc908a432d",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/night/browser-observations/HOLD-S-v1-shoeedge.png",
+      "sha256": "cbad67de2d673c324ebb378a7956993cef7234afea9cef4bd5df47b478e063e9",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/night/browser-observations/HOLD-S-v2-hard-receiver-shoeedge.png",
+      "sha256": "e80c4252e4914bcf2a0369ec5079b4cc12011189814600d8c36755ef11e9ffe4",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/day/browser-observations/01-mother-composite.png",
+      "sha256": "fa192e3e5418d8b1bc0128119da2852b696f3aba0e0e34069228ac8f4233443f",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/day/browser-observations/02-light-dark-checker.png",
+      "sha256": "76c7a653c032503759ca9d499ff366a5c141f11326cf45662f845e71e2a3a533",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/day/browser-observations/03-face-hair.png",
+      "sha256": "628f09c059ac8f8ef713e06da9510585da2d61d4c16efcd427f52e2ac3a6665c",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/day/browser-observations/04-book-hands.png",
+      "sha256": "e51aa91fb97d90aa2c7037ec5d3d49abd455bf2e13ef2a6f64f4a39d5f4248e5",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/day/browser-observations/05-seat-contact.png",
+      "sha256": "3f08c0f8d750fa0800f2977d86d3331c132acad20d52eb9915aa64ccd1d6c096",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/day/browser-observations/06-shoes-floor.png",
+      "sha256": "c34d56879fb33ecaa5be7f0fbcb620d5b1130f0f3cd4a261aaa71b525f43ef71",
+      "generationInputAllowed": false
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/day/browser-observations/07-receiver.png",
+      "sha256": "bc75f041f76c331a48ae3b7fbc929cacc3d75411a80c801f491ae02033e7a461",
+      "generationInputAllowed": false
+    }
+  ]
+}

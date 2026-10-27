@@ -1,0 +1,21 @@
+Overlay ONE readable desktop 在场 interface on the attached clean1536×1024 room plate, the ONLY image input. Treat the room as locked scenery: unchanged camera/crop, original complete window, shelves/left desk/chair, original LEFT-CENTRAL lamp/table, bench/pillows/throw/floor. Never relocate furniture to make a text lane. No person/avatar, no old UI or screenshot reference.
+
+One continuous conversation, not a workbench: small author labels and spaced prose, no one-card-per-paragraph, bubble staircase or side-by-side brown board. Text column left112px,right952px. When text exists, use only one delicate continuous local room-lit reading support behind its actual extent, soft dissolving edges, no visible big enclosing rectangle. Solid22px Chinese body at35px line-height, sources16px, equations24px. Protect contrast where scenery is detailed. No text painted across a bright lamp without support.
+
+FIXED PRODUCT RULER throughout all states:
+top72px; small24px “在场” at(40,36); “聊天 今天 留下” centered around(768,36). Active underline belongs to CHAT 聊天 ONLY, never 今天 or 留下. Quiet window controls top-right. No welcome headline, page title, date/subtitle or permanent instructions.
+ONE composer, left88,right1018,bottom952, width930; normal top880,height72. Quote/PDF rows grow UPWARD while keeping the SAME bottom/left/right. Plus near(122,916), one send ARROW or stop SQUARE near(982,916); never both. No second input, extra action toolbar or paper-plane fleets.
+The ENTIRE rightmost third (x1024..1536) remains ONLY ROOM below the top bar. No composer/panel/text may stretch into it. Composer is LEFT-ALIGNED, not centered across the whole canvas. This is critical.
+
+Public verified sample sources only: “线代 · 第13页” refers to MIT18.06 Lecture9 transcript p13 (n−r free variables); “微分 · 第2页” refers to MIT18.01 Lecture17 p2 (two parameters in the harmonic ODE solution). No invented source pages, no claim that a personal document was imported or a business action completed. Each requested frame shows only its actually relevant action.
+
+Restrained Apple-like spacing, simple controls, warm materials, clean readable mathematics. No green UI, generic gray rectangles, giant white/brown board, modal/dashboard, permanent “接着问” on unselected paragraphs, engineering terms, arrows dividing scenery, design labels, grid/dimensions, border/watermark or multiframe collage. Output only one coherent application screen.
+
+DAY variant. Keep the plate's actual warm apricot daylight, natural blue lake and golden tree/window light. Conversation ink is deep warm charcoal/brown on a thin local warm-ivory writing support where needed, never transparent gray letters. Composer is quiet warm-ivory translucent glass with brown glyphs and muted honey accent. The room stays daylight; do not darken it or add rainy-night lights.
+
+This frame is a FINISHED SHORT REPLY. Same user's sent question and exactly two tiny PDF objects remain at x112,y128/184. At x112,y282 show “祥子”, then only this short reply in ordinary continuous prose with no enclosing bubble:
+“这里它们在数同一种东西：约束之后，还能独立选择多少。
+Ax = 0 留下 n − rank(A) 个自由变量；y″ + y = 0 则有两个独立常数。”
+The unobtrusive source links “线代 · 第13页” and “微分 · 第2页” sit beside their respective sentences, not in a giant citations card. No graph yet and no contextual selection action because nothing is selected. Below this brief answer, leave breathing room rather than filling the screen. The fixed bottom composer has placeholder “接着说……” and just plus/send; no “接着问” pill or action bar on every paragraph.
+
+FINAL: Keep CHAT active; all UI below top72 remains x88..1018. Entire source x1024..1536 stays untouched room. Composer bottom952 and its left/right anchors never move.

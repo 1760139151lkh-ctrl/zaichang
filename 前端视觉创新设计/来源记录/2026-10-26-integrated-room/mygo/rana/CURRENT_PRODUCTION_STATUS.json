@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-10-26T04:11:54.451663+00:00",
+  "status": "stopped_pending_root_art_base_selection",
+  "parentInstruction": "Preserve returned technical outputs; do not resend or expand mask production; return to five-character original-art comparison.",
+  "actualImageOutputsTotal": 10,
+  "roles": [
+    {
+      "characterId": "rana",
+      "times": [
+        {
+          "neutralTime": "day",
+          "actualNewImageOutputs": 5,
+          "outputs": [
+            {
+              "stage": "figure-step1-marked-v1",
+              "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/rana/day/figure-step1-marked-v1.png",
+              "sha256": "316e98afbe0e35565ac4da059c9296cf761b774c1b8c9e70bf84d16b5964ff0b",
+              "copyMatchesToolOriginal": true
+            },
+            {
+              "stage": "contact-step1-marked-v1",
+              "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/rana/day/contact-step1-marked-v1.png",
+              "sha256": "3047b7fa2ff5c850fe13d08fae3b2aef4c7a41d851dda5efc6ea3d6e797d04a1",
+              "copyMatchesToolOriginal": true
+            },
+            {
+              "stage": "background-v1",
+              "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/rana/day/background-v1.png",
+              "sha256": "8c6990a147a3907661069b3f44a4ba24046148fb814c6cd933ce01180f26e0d8",
+              "copyMatchesToolOriginal": true
+            },
+            {
+              "stage": "figure-mask-v1",
+              "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/rana/day/figure-mask-v1.png",
+              "sha256": "05f4514394129ea47646ae62354453acfa41b510ac279a1d3f8c8e128c47eab0",
+              "copyMatchesToolOriginal": true
+            },
+            {
+              "stage": "contact-mask-v1",
+              "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/rana/day/contact-mask-v1.png",
+              "sha256": "8281fd51df2b090300de5af12e3f37e9affa6cda5edcd6affc61ebe172744d60",
+              "copyMatchesToolOriginal": true
+            }
+          ],
+          "currentBrowserScreenshotFiles": [
+            "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/rana/day/browser-observations/01-mother-composite.png",
+            "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/rana/day/browser-observations/02-light-dark-checker.png",
+            "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/rana/day/browser-observations/03-book-hands-seat.png",
+            "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/rana/day/browser-observations/04-shoes-floor.png",
+            "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/rana/day/browser-observations/05-receiver.png"
+          ]
+        },
+        {
+          "neutralTime": "night",
+          "actualNewImageOutputs": 5,
+          "outputs": [
+            {
+              "stage": "figure-step1-marked-v1",
+              "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/rana/night/figure-step1-marked-v1.png",
+              "sha256": "806e01c2ea990e0a4f79f32985dea2c3e151618361620777b7b70285aaabbec9",
+              "copyMatchesToolOriginal": true
+            },
+            {
+              "stage": "contact-step1-marked-v1",
+              "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/rana/night/contact-step1-marked-v1.png",
+              "sha256": "d315a3f3dbed94e86f701eec7692197a9f38542911a8984b8855147e9a44b175",
+              "copyMatchesToolOriginal": true
+            },
+            {
+              "stage": "background-v1",
+              "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/rana/night/background-v1.png",
+              "sha256": "b6beae66372296c592185ac1fee82efa8f97bf376c60b38c00613b142660f791",
+              "copyMatchesToolOriginal": true
+            },
+            {
+              "stage": "figure-mask-v1",
+              "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/rana/night/figure-mask-v1.png",
+              "sha256": "89d4e2d081b10137278f52a2f2d6935b448bcc71de0897d8502582833b021651",
+              "copyMatchesToolOriginal": true
+            },
+            {
+              "stage": "contact-mask-v1",
+              "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/rana/night/contact-mask-v1.png",
+              "sha256": "fe95401342c75287afb189698bbe2540669ea8a4a6f02b3d2a7f4fcf7dda9d26",
+              "copyMatchesToolOriginal": true
+            }
+          ],
+          "currentBrowserScreenshotFiles": [
+            "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/rana/night/browser-observations/01-mother-composite.png"
+          ]
+        }
+      ]
+    }
+  ],
+  "observedBoundary": "Day: full source/composite, full union on light/dark/checker, book/holding hand/supporting palm/seat, shoes/floor, receiver-only seen;5screens. Night: complete mother/composite only seen;1screen. Other night layer views NOT claimed checked.",
+  "primaryLayerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "original360ExactActivityCell": false
+}

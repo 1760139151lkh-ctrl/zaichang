@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "tool": "image_gen.imagegen",
+  "characterId": "rana",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "recordedAtUtc": "2026-10-26T03:50:26.874121+00:00",
+  "stage": "figure-step1-marked-v1",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/rana/day/mother.png",
+      "sha256": "b8d0c29a192672f90eb9a16420c571d64ad449903ef0e4dfc86ee8ff036e6a08",
+      "bytes": 2368228
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: precise-object-edit. On this EXACT clean primary-approved Kaname Rana TIME-ONLY DAY mother, create F1 deliberate SOLID WHITE foreground selection markup. Full original1536×1024 canvas and EVERY source coordinate unchanged. No redraw, new identity, pose or light.\nPaint featureless PURE WHITE over the ENTIRE visible seated girl AND her complete open book. Include every silver-white fine hair strand, whole head/face/ears/neck, sailor collar/bow/top/skirt/outer hem, complete arms/wrists/hands/fingers including the rightmost hand actually pressing the cushion, both bare knees/thighs, long knee socks, BOTH COMPLETE brown loafers with full toes/sidewalls/outsoles/heels, and the ENTIRE open book including dark cover/spine/lower page edge and hand-held page. Fill ALL enclosed internal face, garment, finger, page/cover/fold and shoe details WHITE with no colored or dark strokes inside. Book and hand union remains fully selected, never an internal dark line along the lap.\nOnly real OUTSIDE gaps between separated hair strands, between the legs and visible exterior spaces outside arm/body remain ORIGINAL COLORED ROOM. No new inside hole, no limb erosion, no expanding silhouette. All unselected scene stays its original RGB: closed curtains, lamp/flower/table/book stack, bench cushion/pillows/knit, desk/chair/plants, wood floor/rug and separate receiving shadows. No white floor ring, new object, text, checker, crop, resize, recenter or transparency. One opaque full original scene with ONLY complete Rana+held book intentionally flat white, exact1536×1024.",
+  "promptFile": {
+    "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/rana/day/figure-step1-marked-v1.prompt.txt",
+    "sha256": "af1b51cfd1c4ebafe18589f327ce555489c8eb9ce56b37653056bf9d9267c917",
+    "bytes": 1579
+  },
+  "toolOriginal": {
+    "path": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-6d0f-74b2-b205-667f6c3b967b\\exec-30d43534-dc7e-4033-bab3-65b0aef8167e.png",
+    "sha256": "316e98afbe0e35565ac4da059c9296cf761b774c1b8c9e70bf84d16b5964ff0b",
+    "bytes": 2150834
+  },
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/rana/day/figure-step1-marked-v1.png",
+    "sha256": "316e98afbe0e35565ac4da059c9296cf761b774c1b8c9e70bf84d16b5964ff0b",
+    "bytes": 2150834,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "pngBytesUnchanged": true,
+  "producerStatus": "actual_output_viewed_pending_original_RGB_browser_review",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "original360ExactActivityCell": false,
+  "generationInputAllowed": false,
+  "currentProductionStatus": "stopped_pending_root_art_base_selection",
+  "currentScopeNote": "Further mask production stopped by root; no identity rejection of Rana asserted. Retain returned actual outputs and historical generation facts."
+}

@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-mother-fixed-included-layer-production",
+  "producer": "/root/mujica_art",
+  "character": "umiri",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "weather": "unknown",
+  "weatherClaim": false,
+  "canvas": [
+    1536,
+    1024
+  ],
+  "stage": "S2",
+  "tool": "built-in image_gen.imagegen",
+  "exactPrompt": "Use case: background-extraction. Exact 1536x1024 technical mask conversion. Input1 is the healthy freshly WHITE-PAINTED Umiri DAY support receiver markup; input2 is the exact healthy original COLOR DAY mother used only to distinguish true skin/blue plaid/linen. No prior mask or screenshot is input. Preserve original whole canvas and painted ground positions.\n\nExtract the deliberate white receiver paint into an opaque black/white/gray luminance mask. Keep the two original painted FLOOR contact patches with their full real soft gray falloff at the exact positions BELOW both black boot soles. The left/back sole ends around y882; the right/front sole ends around y914. Keep the complete under-toe/under-heel grounded shape, not thin rims, not moved upward, not a new broad ellipse. Whole boots black. All non-selected room/person pixels black.\n\nCritical PALM correction: the actual side palm rests on the seat at x1270..1360, near y554..568. The receiver is ONLY the narrow original compressed linen DIRECTLY BELOW this skin, never the blue plaid pillow BEHIND the hand. Within the palm neighborhood x1250..1400, EVERY PIXEL ABOVE y564 must be PURE BLACK, and every pixel RIGHT of x1367 must be PURE BLACK. These are exclusion limits, NOT a rectangle to draw. The actual remaining receiver is a small irregular linen sliver just below the fingers/palm, approximately x1270..1365,y565..582. Copy only the white-painted under-palm footprint there. At its TOP boundary keep a precise source-contact edge that meets the hand; do NOT feather upward into the hand or blue plaid. A short soft gray fade is allowed ONLY downward/outward along real underlying linen. Do not keep any blue plaid or knitted throw RGB in this receiver, even as faint gray. All complete hand/fingers black because F supplies the hand.\n\nRetain the other small skirt-underlinen painted receiver at its actual existing position, narrow and local. Whole girl/book/grey skirt/skin/black boots and ALL naturally white curtain/cushion/knit/lamps/flowers/pages, distant wood and unmarked floor turn pure BLACK. Natural pale textured material isn't a painted mark. No full cushion stripe, far-right pillow/knit island, person outline, white arm, text, labels, boxes, crop, resize, padding, checkerboard or color scene. Output one original-position MASK; it selects exact ORIGINAL mother RGB only once in MAX(F,S), no new shadow art.",
+  "toolArguments": {
+    "prompt": "Use case: background-extraction. Exact 1536x1024 technical mask conversion. Input1 is the healthy freshly WHITE-PAINTED Umiri DAY support receiver markup; input2 is the exact healthy original COLOR DAY mother used only to distinguish true skin/blue plaid/linen. No prior mask or screenshot is input. Preserve original whole canvas and painted ground positions.\n\nExtract the deliberate white receiver paint into an opaque black/white/gray luminance mask. Keep the two original painted FLOOR contact patches with their full real soft gray falloff at the exact positions BELOW both black boot soles. The left/back sole ends around y882; the right/front sole ends around y914. Keep the complete under-toe/under-heel grounded shape, not thin rims, not moved upward, not a new broad ellipse. Whole boots black. All non-selected room/person pixels black.\n\nCritical PALM correction: the actual side palm rests on the seat at x1270..1360, near y554..568. The receiver is ONLY the narrow original compressed linen DIRECTLY BELOW this skin, never the blue plaid pillow BEHIND the hand. Within the palm neighborhood x1250..1400, EVERY PIXEL ABOVE y564 must be PURE BLACK, and every pixel RIGHT of x1367 must be PURE BLACK. These are exclusion limits, NOT a rectangle to draw. The actual remaining receiver is a small irregular linen sliver just below the fingers/palm, approximately x1270..1365,y565..582. Copy only the white-painted under-palm footprint there. At its TOP boundary keep a precise source-contact edge that meets the hand; do NOT feather upward into the hand or blue plaid. A short soft gray fade is allowed ONLY downward/outward along real underlying linen. Do not keep any blue plaid or knitted throw RGB in this receiver, even as faint gray. All complete hand/fingers black because F supplies the hand.\n\nRetain the other small skirt-underlinen painted receiver at its actual existing position, narrow and local. Whole girl/book/grey skirt/skin/black boots and ALL naturally white curtain/cushion/knit/lamps/flowers/pages, distant wood and unmarked floor turn pure BLACK. Natural pale textured material isn't a painted mark. No full cushion stripe, far-right pillow/knit island, person outline, white arm, text, labels, boxes, crop, resize, padding, checkerboard or color scene. Output one original-position MASK; it selects exact ORIGINAL mother RGB only once in MAX(F,S), no new shadow art.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-26-integrated-room/mujica/umiri-neutral/day/contact-step1-marked-v1.png",
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-day-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "originalToolOutput": "C:/Users/17601/.codex/generated_images/01a17613-9fc7-7603-bafc-5dc75152a695/exec-05fb0963-e5a6-419b-8c97-911b9fc9449c.png",
+  "output": {
+    "file": "contact-mask-v2.png",
+    "sha256": "cd7f0fd03bfc8f21a1acd56cd0530063be1cd80899015f21f3c2af80dff29395",
+    "bytes": 331365,
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mujica/umiri-neutral/day/contact-mask-v2.png"
+  },
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-26-integrated-room/mujica/umiri-neutral/day/contact-step1-marked-v1.png",
+      "sha256": "766284e1cbbce320a6c2d79f83dd07fd3b91e98aeacfef22bffda8922afda739"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-day-v1.png",
+      "sha256": "5daa0e42c8ef945858ebdc5f065270c14989d4d1d107756ab8667600af797108"
+    }
+  ],
+  "promptFile": "contact-mask-v2.prompt.txt",
+  "pngPixelEdited": false,
+  "producerPersonallyViewedOriginal": true,
+  "producerHeld": true,
+  "generationInputAllowed": false,
+  "producerObservation": "Hip receiver drifted onto thigh above actual seat. Complete result excluded and never fed forward.",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "dynamicAdmission": false,
+  "userApproved": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "heldOrReviewImagesUsedAsInput": false,
+  "privateExportOrUploadedReferenceUsedAsInput": false,
+  "exactPromptSHA256": "3e5c81b93a83609c1b56d6d9453b13a2e6ce602407602799557b060ae6f9c8f3",
+  "promptFileSHA256": "b2f89a0eb873f611c416ef18df51cc53c6dc7af53c13cc0be56add78cee54cef",
+  "originalToolOutputSHA256": "cd7f0fd03bfc8f21a1acd56cd0530063be1cd80899015f21f3c2af80dff29395",
+  "outputMatchesOriginalToolBytes": true
+}

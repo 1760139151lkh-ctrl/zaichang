@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "tool": "image_gen.imagegen",
+  "characterId": "rana",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "recordedAtUtc": "2026-10-26T03:50:26.918907+00:00",
+  "stage": "contact-step1-marked-v1",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/rana/day/mother.png",
+      "sha256": "b8d0c29a192672f90eb9a16420c571d64ad449903ef0e4dfc86ee8ff036e6a08",
+      "bytes": 2368228
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: precise-object-edit. Exact primary-approved Rana neutral-presence TIME-ONLY DAY mother,1536×1024, same original camera/coordinates. Create S1 WHITE LOCAL RECEIVER markup without scene redraw.\nPaint pure white over BOTH ENTIRE loafers including all dark toe/upper/sidewall/sole/heel outlines, plus their actual small original wood floor-contact shade as one continuous local region per shoe. Fill internal shoe details white. No excluded black shoe edge or moat. Keep wood selection tight to original contact, usually8..20px beyond soles only where source shade exists; feather softly into original colored floor over outer8px, no hard pointed wedge, detached ellipse or broad floor strip.\nAlso white-select the short real linen compression/contact directly under seated skirt/hip AND the tiny actual cloth receiver immediately under her rightmost supporting palm. Trace real local receiver, do not connect them with a broad empty bench band. Book is supported on lap and in hands; no separate book receiver on bench. All girl above shoe openings, socks, book/hands/hair/face/clothes stay original colored. Every unrelated room surface, curtain, lamp, empty cushion/pillow/knit, table/plant/desk/floor/rug stays original RGB. No new shadow, geometry, object, labels, crop/resize/recenter/transparency. Full opaque source scene with only shoes+real tiny receiving materials deliberately WHITE; fixed-position source included coverage.",
+  "promptFile": {
+    "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/rana/day/contact-step1-marked-v1.prompt.txt",
+    "sha256": "b3ecbb44eba30a42e7066a35329aac766945403915b808c239621f435efc1190",
+    "bytes": 1445
+  },
+  "toolOriginal": {
+    "path": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-6d0f-74b2-b205-667f6c3b967b\\exec-07700806-1a7f-409a-a56e-ce80ce29f175.png",
+    "sha256": "3047b7fa2ff5c850fe13d08fae3b2aef4c7a41d851dda5efc6ea3d6e797d04a1",
+    "bytes": 2283592
+  },
+  "output": {
+    "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/rana/day/contact-step1-marked-v1.png",
+    "sha256": "3047b7fa2ff5c850fe13d08fae3b2aef4c7a41d851dda5efc6ea3d6e797d04a1",
+    "bytes": 2283592,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "pngBytesUnchanged": true,
+  "producerStatus": "actual_output_viewed_pending_original_RGB_browser_review",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "original360ExactActivityCell": false,
+  "generationInputAllowed": false,
+  "currentProductionStatus": "stopped_pending_root_art_base_selection",
+  "currentScopeNote": "Further mask production stopped by root; no identity rejection of Rana asserted. Retain returned actual outputs and historical generation facts."
+}

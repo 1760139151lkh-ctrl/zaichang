@@ -1,0 +1,29 @@
+{
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "purpose": "Keep empty-state interface exploration; no runtime bitmap adoption",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "clean empty room only"
+    }
+  ],
+  "review": {
+    "reviewer": "notes_shell_design",
+    "imagePersonallyViewed": true,
+    "runtimeAccepted": false,
+    "primaryAccepted": false
+  },
+  "runtimeUse": "none",
+  "prompt": "keep-empty-a-paper-v1.prompt.txt",
+  "request": "keep-empty-a-paper-v1.request.json",
+  "output": {
+    "file": "keep-empty-a-paper-v1.png",
+    "sha256": "275f1dc8c98b912515109f3d4db45e484cf58d9d0a3a351360c772a12c59487b",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2362498
+  },
+  "directionSelectedBySubagent": false
+}

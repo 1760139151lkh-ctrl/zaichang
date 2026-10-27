@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "root / primary agent",
+  "source": "direct collaboration message from /root in current healthy session",
+  "recordedAtUtc": "2026-10-26T03:48:03.607504+00:00",
+  "exactPrimaryMessage": "Root现已亲读灯完整护照，亲看day/night完整原母、day浅深棋盘/笔书手/鞋接触，night最新S-v3浅深棋盘及鞋侧细缝修后对照；4PNG各自SHA也已实际回算一致。准入这两幅为固定原位source-RGB MAX(F,S)中性昼夜层；S原布/木纹不可独立移动，travel/slope/persp=0，不计360活动或动态完成，runtime仍false。请将精确root层准入记录落你目录并给space_motion两bundle；继续爱音/乐奈候选，root逐幅审后注册，不自签更多格。",
+  "characterId": "tomori",
+  "neutralTime": "night",
+  "selectedFourPNG": {
+    "mother": {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/night/mother.png",
+      "sha256": "36e1e2e4029d81914b4192cee8351d84b44fa0ef188c88910dd58d400a3e4300",
+      "bytes": 2137062,
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "figureMask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/night/figure-mask-v5.png",
+      "sha256": "79bd5825a96b17f98f5f56713963862b186987971e199c6a9f6353a3a703d0cd",
+      "bytes": 434833,
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "contactMask": {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/night/contact-mask-v3.png",
+      "sha256": "fe8d93691568cc71c49049887c01a05f499abdf879a8b93ca1c06e31779c83ad",
+      "bytes": 351479,
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "background": {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/night/background-v1.png",
+      "sha256": "37b07f90a6cc0c0aee3ea820468e62eeab582453890a487e5b6f75807b57126d",
+      "bytes": 2110676,
+      "canvas": [
+        1536,
+        1024
+      ]
+    }
+  },
+  "primaryLayerApproved": false,
+  "approvedScope": "Fixed original-position source-RGB MAX(F,S) neutral day/night included layer only; source cloth and wood not independently movable.",
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "original360ExactActivityCell": false,
+  "dynamicAccepted": false,
+  "userApproved": false,
+  "primaryApproved": false,
+  "generationInputAllowed": false,
+  "userRejected": true,
+  "retiredByUser": true,
+  "currentAdmissionRevoked": true,
+  "revocation": {
+    "recordedAtUtc": "2026-10-26T03:59:35.716669+00:00",
+    "authority": "root direct message forwarding current user identity rejection and withdrawing root static admissions",
+    "reason": "User rejected Tomori neutral day as visually mature / 大妈感. Root revoked both day/night identity and derived layer admissions.",
+    "exactParentMessage": "用户刚直接否决灯neutral day成熟‘大妈感’，附件C:/Users/17601/AppData/Local/Temp/codex-clipboard-eab88100-12b1-4f85-9f66-bbd77e049890.png。Root撤回此前day/night身份/层准入（空间线正在移除两新运行登记及复制PNG）；请在你精确admission/candidate记录将当前primaryLayerApproved撤回，追加用户否决身份/成熟原因与时间，保技术观察历史但不得当当前批准，母及派生禁止后续输入。当前乐奈技术调用在途可保全返回，不重发/不再扩量mask。工作重心回到艺术选图：亲自把旧source中灯/爱音/乐奈/素世/立希少女感最好原图与被否决neutral逐幅对照，给root每人2个最有价值原母（完整图+真实角色气质理由），不靠SHA/骨架代替青春。不自行重画、不只列清单，先视觉判断。Root将亲看并选定基准。",
+    "forwardImageInputForbidden": true,
+    "appliesToMotherAndAllDerivatives": true,
+    "technicalObservationsRetainedAsHistoryOnly": true
+  }
+}

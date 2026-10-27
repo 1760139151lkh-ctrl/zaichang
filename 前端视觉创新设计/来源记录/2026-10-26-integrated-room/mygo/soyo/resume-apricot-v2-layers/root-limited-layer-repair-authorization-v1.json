@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-10-26T05:52:16.750Z",
+  "source": "direct root message in same healthy session",
+  "exactPrimaryMessage": "主代理已亲看soyo-resume-apricot-literary-v2.png完整母（4381d5f5…）：青春蓝眼/轻下颌、普通布结/左胸章/裙双白线、留页抬眼与手书/腿鞋/坐垫关系可用。给该母仅有限静态艺术准入，不能当全矩阵/可滑行。请在现有同源精确记录上补确缺层：修F2书页/红书签黑线穿孔（新F mask须把人物衣物书笔内部完整白，不黑化五官衣纹/书画），生成去人BG与真实垫/鞋底receiver接触S；内置Image、同画布原景分离，禁止借旧v1mask或任何污染截图/成熟失败人，禁止改母本姿态/脸。无新人物/天气扩量，不注册不改src/总账。每层与合成先你亲看原母+浅/深/棋盘，实修错误后交root亲看，不能按mask数量通行。你会话仍健康请继续本次任务；如已收尾idle我再followup，勿新开替代。",
+  "mother": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-resume-apricot-literary-v2.png",
+    "sha256": "4381d5f5faeeeedf1b84bf9e69bad71fe4a6dc06a7d8653c8b1f88b48c559cbe"
+  },
+  "primaryStaticArtApproved": true,
+  "technicalLayerProductionAuthorized": true,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "wholeMatrixApproved": false,
+  "newPersonOrWeatherProductionAllowed": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0
+}

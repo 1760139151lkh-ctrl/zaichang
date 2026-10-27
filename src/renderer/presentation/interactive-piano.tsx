@@ -18,10 +18,13 @@ const rotate = (x: number, y: number, angle: number, origin: [number, number]): 
 /** A schematic with shared rigid joints. The two-link jack/wippen meets the
  * hammer knuckle until escapement; after that the hammer follows its own
  * finite flight. The schematic is deliberately not a measured piano model. */
-function PianoAction({ phase, held, pedal, note }: { phase: number; held: boolean; pedal: boolean; note: string }) {
-  const drive = held ? clamp(phase / .32, 0, 1) : 0;
-  const hammerLift = phase < .32 ? held ? phase / .32 * .78 : 0 : phase < .5 ? .78 + (phase - .32) / .18 * .22
-    : phase < .78 ? 1 - (phase - .5) / .28 * .75 : held ? .25 : .25 * (1 - phase) / .22;
+function PianoAction({ phase, held, pedal, inspecting, note }: { phase: number; held: boolean; pedal: boolean; inspecting: boolean; note: string }) {
+  // Seeking the finite stroke shows its driven phase even without a held
+  // performance key. It never acquires a key or triggers a sound.
+  const drive = inspecting ? phase < .78 ? clamp(phase / .32, 0, 1) : clamp((1 - phase) / .22, 0, 1)
+    : held ? clamp(phase / .32, 0, 1) : 0;
+  const hammerLift = phase < .32 ? held || inspecting ? phase / .32 * .78 : 0 : phase < .5 ? .78 + (phase - .32) / .18 * .22
+    : phase < .78 ? 1 - (phase - .5) / .28 * .75 : held && !inspecting ? .25 : .25 * (1 - phase) / .22;
   const hammerPivot: [number, number] = [435, 152], hammerAngle = -.1 - .46 * hammerLift;
   const hammerHead = rotate(140, 0, hammerAngle, hammerPivot), knuckle = rotate(32, 7, hammerAngle, hammerPivot);
   const hammerTail = rotate(30, 33, hammerAngle, hammerPivot);
@@ -39,7 +42,7 @@ function PianoAction({ phase, held, pedal, note }: { phase: number; held: boolea
     .18 * clamp((phase - .32) / .06, 0, 1), elbow) : jackTop;
   const keyFront = rotate(-138, 0, keyAngle, keyPivot), keyBack = rotate(212, 0, keyAngle, keyPivot);
   const backcheck = rotate(282, -33, keyAngle, keyPivot);
-  const damperLift = held || pedal ? 15 : 0;
+  const damperLift = pedal ? 15 : inspecting ? 15 * Math.min(1, drive * 2) : held ? 15 : 0;
   const stage = phase === 0 ? '' : phase < .32 ? '顶杆推动琴槌' : phase < .5 ? '顶杆让开，琴槌继续前行'
     : phase < .78 ? '琴槌击弦后回弹' : held ? '接木接住回落的琴槌' : pedal ? '琴槌回位，琴弦仍可振动' : '制音器落回琴弦';
   return <figure className="interactive-piano-action">
@@ -89,7 +92,7 @@ export function InteractivePiano({ props, renderNode }: ComponentRenderProps<Rec
   const root = useRef<HTMLDivElement>(null), keyboard = useRef<HTMLDivElement>(null);
   const owners = useRef(new Map<string, number>()), strikes = useRef(new Map<number, Strike>()), triggers = useRef(new Map<number, number>());
   const activations = useRef(new Set<ReturnType<typeof setTimeout>>());
-  const frame = useRef<number | undefined>(undefined), visible = useRef(true), pendingRelease = useRef(false);
+  const frame = useRef<number | undefined>(undefined), visible = useRef(true), pendingRelease = useRef(false), inspecting = useRef(false);
   const selected = Number(controls.inputs[props.selectedField]), phase = Number(controls.inputs[props.phaseField]);
   const [voiceRevision, setVoiceRevision] = useState(0), [windowStart, setWindowStart] = useState(() => windowFor(selected));
   const held = controls.inputs[props.heldField] as number[], pedal = controls.inputs[props.pedalField] === true;
@@ -102,6 +105,7 @@ export function InteractivePiano({ props, renderNode }: ComponentRenderProps<Rec
   };
   const releaseAll = (resetPhase = false) => {
     owners.current.clear(); silence();
+    if (resetPhase) inspecting.current = false;
     const { controls: next, props: value } = current.current;
     pendingRelease.current = !next.patch({ [value.heldField]: [], [value.pedalField]: false,
       ...(resetPhase ? { [value.phaseField]: 0 } : {}) }, 'control');
@@ -156,6 +160,7 @@ export function InteractivePiano({ props, renderNode }: ComponentRenderProps<Rec
     if (owners.current.get(source) === note) return;
     if (owners.current.has(source)) release(source);
     const first = ![...owners.current.values()].includes(note);
+    inspecting.current = false;
     owners.current.set(source, note);
     const accepted = next.patch({ [value.heldField]: [...new Set(owners.current.values())].sort((a, b) => a - b),
       [value.selectedField]: note }, 'control', value.id, `${noteName(note)}的琴键与声音`);
@@ -177,7 +182,7 @@ export function InteractivePiano({ props, renderNode }: ComponentRenderProps<Rec
     props.tuningHz, props.lengthRatio, props.tensionRatio, props.densityRatio]);
   useLayoutEffect(() => {
     const previousAudio = audio, previousId = props.id;
-    owners.current.clear(); strikes.current.clear(); triggers.current.clear();
+    owners.current.clear(); strikes.current.clear(); triggers.current.clear(); inspecting.current = false;
     const unregister = controls.registerMotion(() => {
       if (frame.current !== undefined) cancelAnimationFrame(frame.current);
       frame.current = undefined; strikes.current.clear();
@@ -246,11 +251,15 @@ export function InteractivePiano({ props, renderNode }: ComponentRenderProps<Rec
     }}
     onKeyDown={keyDown} onKeyUp={event => release(`key:${event.key.toLowerCase()}`)}
     onBlur={event => { if (!(event.relatedTarget instanceof Node) || !root.current?.contains(event.relatedTarget)) releaseAll(); }}>
-    {props.showMechanism && <><PianoAction phase={phase} held={held.includes(selected)} pedal={pedal} note={noteName(selected)} />
+    {props.showMechanism && <><PianoAction phase={phase} held={held.includes(selected)} pedal={pedal} inspecting={inspecting.current} note={noteName(selected)} />
       <div className="interactive-piano-process"><span>按下</span><input type="range" aria-label="击弦过程" min="0" max="1" step=".001" value={phase} disabled={disabled}
         onPointerDown={controls.stopMotions} onChange={event => {
           const state = controls.states[props.phaseField];
-          if (state.kind === 'number') controls.patch({ [props.phaseField]: snapProgramNumber(event.currentTarget.valueAsNumber, state) }, 'manual', props.id, '击弦过程');
+          if (state.kind === 'number') {
+            if (!inspecting.current) { owners.current.clear(); silence(); setVoiceRevision(value => value + 1); }
+            inspecting.current = true;
+            controls.patch({ [props.heldField]: [], [props.phaseField]: snapProgramNumber(event.currentTarget.valueAsNumber, state) }, 'manual', props.id, '击弦过程');
+          }
         }} /><span>回落</span></div></>}
     <div className="interactive-piano-register"><button type="button" disabled={disabled || windowStart === 21} aria-label="看更低的琴键"
       onClick={() => setWindowStart(value => Math.max(21, value - 12))}><ChevronLeft size={15} /></button>

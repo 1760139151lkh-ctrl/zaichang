@@ -1,0 +1,162 @@
+{
+  "schema": "source-production-bundle-not-runtime-scene",
+  "characterId": "sakiko",
+  "activity": "listening",
+  "theme": "rain",
+  "sceneFamily": "literary-room-v1",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "sourceMother": {
+    "path": "../sakiko-listening-forward-rain-v1.png",
+    "sha256": "abce5e07f77e0e847ef553c032ebcd43607f12cc87b9d258697fe43a51fc64e6"
+  },
+  "background": {
+    "file": "background-v1.png",
+    "sha256": "88c2a80d36771c02ed906edf78899bc00aed93dc8aabb05804fd7d1f93b23f06",
+    "bytes": 2274929,
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "figureF": {
+    "file": "figure-mask-v1.png",
+    "sha256": "6423cbf6756405749922677d673623bf16e32562d4c09e974d338f768d2fe082",
+    "bytes": 473229,
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "receiverS": {
+    "file": "contact-mask-v1.png",
+    "sha256": "00ae19156d2133604bcf6b2df47697c0141bc5a8743078f4b04a2a3cc8c52045",
+    "bytes": 349827,
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "coverage": "U(x,y)=MAX(L(F(x,y)),L(S(x,y))); original source mother RGB is drawn ONCE",
+  "render": {
+    "subject": "union-source-v1.svg",
+    "composite": "composite-source-v1.svg",
+    "sameCanvas": true,
+    "x": 0,
+    "y": 0,
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": "included original cushion/floor receiver material; not pure caster"
+  },
+  "propContinuity": "The held porcelain cup is part of the figure. Matching empty background leaves its original side-table spot empty and removes the held cup together with the girl. Full worn loafers belong to F; their original local floor receiver belongs to S.",
+  "producerObservations": {
+    "seen": [
+      "returned full opaque empty background and F/S images",
+      "IAB full mother/composite side-by-side",
+      "IAB dark background hair/face/cup/hands/skirts/calves"
+    ],
+    "unverifiedAtThisRecord": "Further foot/checker/light browser screenshots encountered local capture errors while AX stayed available. No browser/session termination was inferred. Primary still needs its own complete layer review.",
+    "result": "Initial composite and visible dark view show continuous figure/held cup and source scene. S contains a broad real cushion receiver; only fixed included use is proposed."
+  },
+  "review": {
+    "primaryMotherApproved": true,
+    "primaryLayerApproved": false,
+    "runtimeAccepted": false,
+    "dynamicAccepted": false
+  },
+  "calls": {
+    "count": 3,
+    "selected": "background-v1 + figure-mask-v1 + contact-mask-v1"
+  },
+  "observations": {
+    "full": "native-observe-v1.html",
+    "details": "detail-observe-v1.html"
+  },
+  "sourceAssetMetadata": [
+    {
+      "file": "background-v1.png",
+      "sha256": "88c2a80d36771c02ed906edf78899bc00aed93dc8aabb05804fd7d1f93b23f06",
+      "bytes": 2274929,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "file": "background-v1.prompt.txt",
+      "sha256": "4ce8b9786d3a1753957358f0d67dac65449fcfb0b2b68cd826a3527fcd604b33",
+      "bytes": 1504,
+      "size": null,
+      "mode": null
+    },
+    {
+      "file": "composite-source-v1.svg",
+      "sha256": "3f73d846bbd045b06a351b80759d7149401b80ccc5633780da5d33dd705ddb7a",
+      "bytes": 1085,
+      "size": null,
+      "mode": null
+    },
+    {
+      "file": "contact-mask-v1.png",
+      "sha256": "00ae19156d2133604bcf6b2df47697c0141bc5a8743078f4b04a2a3cc8c52045",
+      "bytes": 349827,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "file": "contact-mask-v1.prompt.txt",
+      "sha256": "3e510dec82e45bbc8a3fddf98e3f987c2d73e639d33ae3de869923c8fac95452",
+      "bytes": 1858,
+      "size": null,
+      "mode": null
+    },
+    {
+      "file": "detail-observe-v1.html",
+      "sha256": "1631ffbad36b2af25ab04301130812d0c9bf1e2f4ffb3be49cf774f6b2276994",
+      "bytes": 2696,
+      "size": null,
+      "mode": null
+    },
+    {
+      "file": "figure-mask-v1.png",
+      "sha256": "6423cbf6756405749922677d673623bf16e32562d4c09e974d338f768d2fe082",
+      "bytes": 473229,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "file": "figure-mask-v1.prompt.txt",
+      "sha256": "cece28aba752a27e76d01ed8445e0c93371c579bfdb1e917924b11619adea0f4",
+      "bytes": 1779,
+      "size": null,
+      "mode": null
+    },
+    {
+      "file": "native-observe-v1.html",
+      "sha256": "591a2074e4bbeeb81c057d099766402c28891e0360de26601debd451a98a6dc1",
+      "bytes": 5656,
+      "size": null,
+      "mode": null
+    },
+    {
+      "file": "union-source-v1.svg",
+      "sha256": "1c458d52d5254749d6c4320252a5e13b9cc5d190524cd5469549c36abba7aeeb",
+      "bytes": 1021,
+      "size": null,
+      "mode": null
+    }
+  ]
+}

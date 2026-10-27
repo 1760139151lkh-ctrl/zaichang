@@ -48,11 +48,31 @@
   "primaryLayerApproved": false,
   "runtimeAccepted": false,
   "userApproved": false,
-  "generationInputAllowed": true,
+  "generationInputAllowed": false,
   "travelPx": 0,
   "slope": 0,
   "perspective": 0,
   "original360ExactActivityCell": false,
   "sourceCodeOrRegistryChanged": false,
-  "generationInputScope": "Only immediate same-position S2 semantic mask conversion"
+  "generationInputScope": "Only immediate same-position S2 semantic mask conversion",
+  "historicalAdmissionStateBeforeUserRejection": {
+    "primaryApproved": false,
+    "primaryLayerApproved": false,
+    "generationInputAllowed": true
+  },
+  "runtimeRegistered": false,
+  "currentAdmissionRevoked": true,
+  "retiredByUser": true,
+  "userRejected": true,
+  "status": "withdrawn_user_rejected_mature_tomori_identity_no_forward_input",
+  "currentRevocationRecord": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/mygo/tomori/CURRENT_IMAGE_INPUT_EXCLUSIONS.json",
+  "revocation": {
+    "recordedAtUtc": "2026-10-26T03:59:35.716669+00:00",
+    "authority": "root direct message forwarding current user identity rejection and withdrawing root static admissions",
+    "reason": "User rejected Tomori neutral day as visually mature / 大妈感. Root revoked both day/night identity and derived layer admissions.",
+    "exactParentMessage": "用户刚直接否决灯neutral day成熟‘大妈感’，附件C:/Users/17601/AppData/Local/Temp/codex-clipboard-eab88100-12b1-4f85-9f66-bbd77e049890.png。Root撤回此前day/night身份/层准入（空间线正在移除两新运行登记及复制PNG）；请在你精确admission/candidate记录将当前primaryLayerApproved撤回，追加用户否决身份/成熟原因与时间，保技术观察历史但不得当当前批准，母及派生禁止后续输入。当前乐奈技术调用在途可保全返回，不重发/不再扩量mask。工作重心回到艺术选图：亲自把旧source中灯/爱音/乐奈/素世/立希少女感最好原图与被否决neutral逐幅对照，给root每人2个最有价值原母（完整图+真实角色气质理由），不靠SHA/骨架代替青春。不自行重画、不只列清单，先视觉判断。Root将亲看并选定基准。",
+    "forwardImageInputForbidden": true,
+    "appliesToMotherAndAllDerivatives": true,
+    "technicalObservationsRetainedAsHistoryOnly": true
+  }
 }
