@@ -117,13 +117,12 @@ export function LocalSearchPanel({ state, conversations, busy, onClose, onRestor
     finally { if (mounted.current) setRemoving(false); }
   }
 
-  return <Modal title="想找回哪一句？" className="local-search-panel" onClose={onClose} fallbackFocus={onRestoreFocus}>
+  return <Modal title="找一找" className="local-search-panel" onClose={onClose} fallbackFocus={onRestoreFocus}>
     <div className="local-search-body">
-      <p className="local-search-intro">找回一句话，也找回当时的思路。</p>
       <div className="local-search-input">
         <Search size={21} strokeWidth={1.5} />
         <input ref={input} autoFocus aria-label={selectedScope ? '在选中的对话里搜索原话' : '搜索对话、笔记与资料'} placeholder="想找回哪一句？" value={query} maxLength={LOCAL_SEARCH_LIMITS.query} onChange={event => { invalidate(); setQuery(event.target.value); }} />
-        {query ? <IconButton label="清空搜索" onClick={() => { invalidate(); setQuery(''); input.current?.focus(); }}><X size={17} /></IconButton> : <kbd>⌘ / Ctrl K</kbd>}
+        {query && <IconButton label="清空搜索" onClick={() => { invalidate(); setQuery(''); input.current?.focus(); }}><X size={17} /></IconButton>}
       </div>
       <div className="local-search-kinds" role="group" aria-label="寻找的内容">
         {kinds.map(option => <button type="button" key={option.value} aria-pressed={kind === option.value} onClick={() => { if (kind !== option.value) { invalidate(); setKind(option.value); } }}>{option.label}</button>)}
@@ -140,7 +139,7 @@ export function LocalSearchPanel({ state, conversations, busy, onClose, onRestor
             <summary>{sessionIds.length ? `在这 ${sessionIds.length} 段对话里找 · 更换范围` : '先选几段对话'}</summary>
             <div className="local-scope-list">{conversations.map(conversation => <label key={conversation.id}>
               <input type="checkbox" checked={sessionIds.includes(conversation.id)} disabled={!sessionIds.includes(conversation.id) && sessionIds.length >= LOCAL_SEARCH_LIMITS.sessions} onChange={() => chooseSession(conversation.id)} />
-              <span><strong>{conversation.title}</strong><small>{formatDateTime(conversation.updatedAt, state.settings.timeZone)}</small></span>
+              <span title={formatDateTime(conversation.updatedAt, state.settings.timeZone)}><strong>{conversation.title}</strong></span>
             </label>)}</div>
             {sessionIds.length >= LOCAL_SEARCH_LIMITS.sessions && <p>一次可以选 {LOCAL_SEARCH_LIMITS.sessions} 段，先留下这次想找的。</p>}
           </details>
@@ -148,12 +147,11 @@ export function LocalSearchPanel({ state, conversations, busy, onClose, onRestor
       </section>}
       <div className="local-search-results" aria-busy={loading}>
         {selectionMissing ? <div className="local-search-empty"><MessageCircle size={34} strokeWidth={1.2} /><h3>{conversations.length ? '想回到哪几段？' : '还没有留下的对话。'}</h3><p>{conversations.length ? '选好范围后，再找当时说过的话。' : '以后留下的对话，可以在这里选来找。'}</p></div> : !term ? kind === 'all' || kind === 'conversation' ? <>
-          {!!conversations.length && <p className="local-search-caption">{selectedScope ? '这次选中的对话' : '最近聊过'}</p>}
           {conversations.filter(conversation => !selectedScope || sessionIds.includes(conversation.id)).map(conversation => <div className="local-recent-row" key={conversation.id}>
             <button type="button" className="local-recent-open" disabled={busy || removing} onClick={() => void onOpen(conversation.id)}>
               <span className="local-search-symbol"><MessageCircle size={21} strokeWidth={1.4} /></span>
-              <span className="local-recent-copy"><strong>{conversation.title}</strong><small>{formatDateTime(conversation.updatedAt, state.settings.timeZone)}</small></span>
-              <span className="local-search-action">接着聊<ChevronRight size={15} /></span>
+              <span className="local-recent-copy" title={formatDateTime(conversation.updatedAt, state.settings.timeZone)}><strong>{conversation.title}</strong></span>
+              <span className="local-search-action" aria-label="接着聊"><ChevronRight size={18} /></span>
             </button>
             {deleting === conversation.id ? <div className="local-search-delete"><span>让这段对话离开？</span><button disabled={busy || removing} onClick={() => void remove(conversation.id)}>删除</button><button disabled={removing} onClick={() => setDeleting('')}>留下</button></div> : <IconButton className="local-recent-remove" label={`删除对话：${conversation.title}`} disabled={busy} onClick={() => setDeleting(conversation.id)}><Trash2 size={15} /></IconButton>}
           </div>)}
@@ -173,7 +171,6 @@ export function LocalSearchPanel({ state, conversations, busy, onClose, onRestor
       </div>
       {error && <div className="local-search-problem" role="alert"><p>这次没能接上，我们再找一次。</p><button type="button" className="text-button" onClick={() => setRetry(value => value + 1)}>重新找找</button><details><summary>看看原因</summary><p>{error}</p></details></div>}
       {!!visible?.warnings.length && <details className="local-search-coverage"><summary>有些内容暂时没能一起找</summary>{visible.warnings.map((warning, index) => <p key={index}>{warning.message}</p>)}</details>}
-      <footer className="local-search-footer"><span>只在这台电脑里寻找</span><span>{selectedScope ? `仅所选 ${sessionIds.length} 段对话` : kind === 'all' ? '对话 · 笔记 · 资料' : kindName[kind]}</span></footer>
     </div>
   </Modal>;
 }

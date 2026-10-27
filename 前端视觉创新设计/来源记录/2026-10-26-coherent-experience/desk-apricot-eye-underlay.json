@@ -1,0 +1,20 @@
+{
+  "generatedSource": "C:\\Users\\17601\\.codex\\generated_images\\01a17a92-ae0a-7132-848c-516e08efdd9b\\exec-8a31cfe6-d550-4173-8bc6-8dc4c87cd062.png",
+  "prompt": "Use case: precise-object-edit. This is a technical eye-underlay for an animation, NOT a finished character image and NOT a replacement for the original scene. Keep the EXACT original 1536x1024 canvas, camera, character placement, facial geometry, eyelids, eyelashes, eyebrows, nose, mouth, hair, skin, lighting, clothes and every background detail unchanged. Change ONLY the interiors of Sakiko's two existing visible eye openings: remove the golden irises/pupils and their highlights and fill those tiny original openings with naturally shaded off-white sclera consistent with the original light. Preserve both eyelid outlines at exactly their original locations and shapes; do not widen eyes, move the eye openings, shift her gaze by changing eye shapes, or change her expression. The original golden irises will be composited back from the original source by the app. No other part should be edited. No text, marks, callouts or crop. Output the same full canvas so only those two tiny eye interiors can be sampled by exact original-coordinate clipping.",
+  "referencedImages": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/运行素材/coherent-desk/desk-apricot.png"
+  ],
+  "output": "前端视觉创新设计/运行素材/coherent-desk/desk-apricot-eye-underlay.png",
+  "use": "Only inside the two original eye apertures. Never display the whole underlay or replace the mother. Golden iris pixels come from the exact original.",
+  "runtimeAccepted": true,
+  "primaryImageViewed": true,
+  "sha256": "2287429d8ae7e2667ee1121d4f8fbb346c169ea42139ba9843b0b69ac107e9f1",
+  "inputSha256": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/运行素材/coherent-desk/desk-apricot.png",
+      "sha256": "c4fe675947129b460cfb75a591f7e6c64b704d27919149c37e9634cf81e8e6bf"
+    }
+  ],
+  "runtimeScope": "原母图局部眼部采样；不替换整脸、整景，不认证口型、手臂或全身动作。",
+  "acceptanceEvidence": "docs/evidence/2026-10-26-frontend-reassessment.md"
+}

@@ -1,0 +1,24 @@
+{
+  "kind": "candidate",
+  "generatedSource": "C:\\Users\\17601\\.codex\\generated_images\\01a17a92-ae0a-7132-848c-516e08efdd9b\\exec-1527822c-0648-4d9b-b6fc-9c079bc03224.png",
+  "prompt": "Use case: stylized-concept. A text-free production background for a real companion reading app. Use the two reference images for the literary room and the exact youthful Sakiko identity only. NEW CAMERA: an intimate but practical view from the reader's place across the wooden desk. The dominant foreground object is a large OPEN PAPER NOTEBOOK LYING ON THE DESK, with two gently flattened ivory pages. It has visible spine, page thickness and a natural straight lower page edge. It must NOT be a vertical board, easel, clipboard or floating screen. Give the writing surfaces as much readable area as possible, with a shallow viewpoint like looking at a book on a slightly raised desk; nearly frontal page faces, gentle perspective, no dramatic foreshortening. The open book should extend from roughly x=420 to x=1470, y=340 to y=950 on a1536x1024 canvas. The entire two page interior is clean EMPTY paper, no writing, lines, figures, labels, page numbers or faux text. Surface is matte warm ivory, evenly lit, not pure white. Keep cast shadows only near outer edges, not over the writing area. The paper is part of the same room, not an application panel.\n\nSakiko sits on the LEFT behind the desk at a natural medium scale; her full youthful face and upper body, supporting chair, arms, her own small open blue book, and the scene's lamp are visible. She is already reading her own book and glances toward the large shared notebook with clear engaged golden eyes; an intelligent slight smile, relaxed but poised. Her right hand rests on her own book; her left hand rests visibly on the desk beside that book, not on her chin and not holding a pen to her lips. Same pale blue-lilac long hair, navy side ribbons, navy literary cardigan, light shirt collar with ribbon, navy plaid skirt; coherent anatomy and support. Preserve her youthful face/linework from portrait, avoid a mature fashion face. Her figure should occupy about the left third and should not dominate the upper half with an oversized face.\n\nAround the notebook we see warm wood, the full wooden window with lake and blue sky behind, brass lamp, ceramic tea cup, books and a little greenery. The notebook and Sakiko have equal emotional importance: two people can read and write here together. Rich subtle 2D anime literary painting, gentle morning apricot sunlight, no global milky wash. Do not put another paper or card on top of the notebook. No UI, text, icons, diagrams, cats or extra humans. This single coherent complete mother image will later host actual selectable text and live controls; it must remain a beautiful place with all writing surfaces blank.",
+  "referencedImages": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/运行素材/companion/scenes/literary-room-clear-day-v1.png",
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-user-selected-youth-avatar-20261025.png"
+  ],
+  "primaryImageViewed": true,
+  "runtimeAccepted": false,
+  "selection": "待实际内容与连续操作比较，不因生成成功准入。",
+  "output": "前端视觉创新设计/补充图稿/2026-10-26-coherent-experience/notebook-apricot.png",
+  "sha256": "a370a91eb132a50935455c83a92559200d9171932bfbace9743623aa82a92517",
+  "inputSha256": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/运行素材/companion/scenes/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-user-selected-youth-avatar-20261025.png",
+      "sha256": "bc92a4e0096411b0e58b5e4dfc12d61b48bf255f0fd7a544c039ae9e4cd7fc32"
+    }
+  ]
+}

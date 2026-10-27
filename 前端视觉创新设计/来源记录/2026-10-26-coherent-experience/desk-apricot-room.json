@@ -1,0 +1,23 @@
+{
+  "kind": "complete-working-scene",
+  "generatedSource": "C:\\Users\\17601\\.codex\\generated_images\\01a17a92-ae0a-7132-848c-516e08efdd9b\\exec-4efd3867-c58f-403a-ba0d-ccff1b136836.png",
+  "prompt": "Use case: precise-object-edit. Keep this exact 1536x1024 scene and Sakiko's pixels/composition/pose/identity/style as closely as possible. Remove ONLY the large blank paper and wooden reading stand on the RIGHT. Naturally complete the now-uncovered wooden tabletop, window bench, window and distant scenery behind them. This is a clean scene layer for a real frontend: a responsive live paper object will be placed on the right in code, so do not replace it with any new panel, book, board, card, decoration, text or interface. Preserve the character on the left at the same scale and position, her exact eyes, hair, outfit, head/hand posture, open book, tea cup and nearby lamp. Preserve light direction, room geometry and deep warm apricot atmosphere. The RIGHT foreground tabletop should be open and calm with no new props. Do not crop or move the camera. No cat, extra humans, letters, diagrams or controls.",
+  "referencedImages": [
+    "C:\\Users\\17601\\.codex\\generated_images\\01a17a92-ae0a-7132-848c-516e08efdd9b\\exec-cc6307bb-8bdd-48b1-b326-cc2075fc7f9b.png"
+  ],
+  "character": "sakiko",
+  "passportVersion": "2026-10-25.1",
+  "outfit": "sakiko-literary-navy-adaptation",
+  "primaryImageViewed": true,
+  "runtimeAccepted": true,
+  "output": "前端视觉创新设计/运行素材/coherent-desk/desk-apricot.png",
+  "sha256": "c4fe675947129b460cfb75a591f7e6c64b704d27919149c37e9634cf81e8e6bf",
+  "inputSha256": [
+    {
+      "path": "C:\\Users\\17601\\.codex\\generated_images\\01a17a92-ae0a-7132-848c-516e08efdd9b\\exec-cc6307bb-8bdd-48b1-b326-cc2075fc7f9b.png",
+      "sha256": "88cc03f27a78749b527b4c26da8464a93bcca6d6f39ae85839a55304cd06c3bb"
+    }
+  ],
+  "runtimeScope": "同镜头任务环境；保留原生正文、作品、输入与原文所有者。",
+  "acceptanceEvidence": "docs/evidence/2026-10-26-frontend-reassessment.md"
+}

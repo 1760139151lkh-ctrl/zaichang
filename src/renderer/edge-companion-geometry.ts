@@ -66,7 +66,7 @@ export function readEdgeCompanionScene(host: HTMLElement, anchor?: HTMLElement |
     if (element.dataset.presenceEdgeScene === 'true') {
       const cover = document.elementsFromPoint(rect.left + rect.width / 2, rect.top + 1)
         .find(node => !node.closest('.edge-companion-stage'));
-      if (cover?.closest('.titlebar,.page-content,.notes-content,.workspace,.reading-desk-frame,.keep-index,.keep-object,.keep-empty')) continue;
+      if (cover?.closest('.titlebar,.page-content,.notes-content,.workspace,.reading-desk-frame,.keep-index,.keep-object,.keep-empty,.cover-home,.settings-panel,.companion-settings-rows')) continue;
     }
     const allowed = element.dataset.presenceEdgeSides?.split(/[ ,]+/).filter((side): side is PresenceEdgeSide => sides.includes(side as PresenceEdgeSide));
     const pose = element.dataset.presenceEdgePose;
@@ -87,6 +87,9 @@ export function readEdgeCompanionScene(host: HTMLElement, anchor?: HTMLElement |
     // The map is the receiving background. Its full-size canvas must not
     // forbid every window edge; its actual controls still reserve their space.
     if (element.tagName === 'CANVAS' && element.closest('.campus-v2-stage')) continue;
+    // Invisible furniture hit regions are the same physical setting a cat can
+    // sit on. Visible controls, menus and text remain protected obstacles.
+    if (element.classList.contains('scene-object-hotspot')) continue;
     const style = getComputedStyle(element);
     if (style.visibility === 'hidden' || style.display === 'none') continue;
     const actual = element.classList.contains('scene-object-hotspot') ? element.querySelector('polygon')

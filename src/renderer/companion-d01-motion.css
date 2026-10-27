@@ -11,6 +11,8 @@
 .companion-d01-motion image {
   pointer-events: none;
 }
+.companion-eye-blink { opacity:0; transition:opacity 90ms ease-out; }
+.companion-eye-blink[data-closed='true'] { opacity:1; transition-duration:55ms; }
 
 .companion-d01-motion[data-d01-state="hidden"] {
   visibility: hidden;

@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "sakiko-rest-apricot-sidefold-included-v1",
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "activity": "rest",
+  "purpose": "activity",
+  "light": "morning",
+  "palette": "apricot",
+  "environmentVariant": "clear-day",
+  "width": 1536,
+  "height": 1024,
+  "mother": "sakiko-rest-apricot-sidefold-included-v1-mother.png",
+  "background": "sakiko-rest-apricot-sidefold-included-v1-background.png",
+  "mask": "sakiko-rest-apricot-sidefold-included-v1-mask.png",
+  "maskMode": "luminance",
+  "contactMask": "sakiko-rest-apricot-sidefold-included-v1-contact-mask.png",
+  "seat": [
+    0.812,
+    0.562
+  ],
+  "ground": [
+    0.59,
+    0.557
+  ],
+  "bodyBounds": [
+    0.553,
+    0.12,
+    0.962,
+    0.582
+  ],
+  "safeTextBoundary": 0.54,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "55.3% 12%, 96.2% 12%, 96.2% 58.2%, 55.3% 58.2%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "dynamicAccepted": false,
+    "contactAssemblyRecord": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/room-art/rest-layers/root-fixed-included-admission-v1.json",
+    "geometryRecord": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/room-art/rest-layers/calibration-initial-v1.json",
+    "geometryStatus": "Source-visible seated support and socked feet on the cushion only. Ground is the sock/cushion reference, not the detached shoes or floor. No hidden hip pivot or body translation is certified.",
+    "layerReview": "Root admitted exact F2/S2/BG bundle as fixed included original-RGB MAX coverage. S contains cushion, pillow and throw material; all movement parameters stay zero. Floor loafers remain in BG and the book remains with the figure.",
+    "runtimeSourceSha256": {
+      "mother": "ffc1c69e351ce6466806c4136fb9ed21a065bbe3fd574858489c070daad1eb19",
+      "background": "eced6521c38f7ad51f6cc03d2621b6d5eb20f460f6b1be1e9822f0fddcee258f",
+      "F": "37d7b29df3f0facb1517356fc34a38f98de6a6b0ad71a19d4cfa49a9ca89b531",
+      "S": "1eddd24608a7ecfeeffd3e689fbec4a10bb5a70e7656b36f66e0b7163c5bf242"
+    },
+    "geometryEvidence": {
+      "jointReceiverEnvelope": {
+        "sourcePixels": [
+          665,
+          124,
+          1498,
+          659
+        ],
+        "normalized": [
+          0.4329427083333333,
+          0.12109375,
+          0.9752604166666666,
+          0.6435546875
+        ],
+        "basis": "Read-only luminance >32 envelope of admitted unmodified F2/S2 for conservative shared-camera protection. It includes original receiving cloth, not only anatomy; runtime still uses continuous MAX luminance without threshold."
+      }
+    },
+    "runtimeEvidence": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/rest-runtime-reuse.json"
+  }
+}

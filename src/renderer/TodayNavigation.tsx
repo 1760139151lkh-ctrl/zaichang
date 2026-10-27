@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { Archive, CalendarDays, Check, ChevronLeft, ChevronRight, Clock3, List, MessageSquareText, MoreHorizontal, Plus, Search, Sparkles, X } from 'lucide-react';
+import { Archive, CalendarDays, Check, ChevronLeft, ChevronRight, Clock3, List, MapPinned, MessageSquareText, MoreHorizontal, Plus, Search, Sparkles, X } from 'lucide-react';
 import './today-navigation.css';
 
 export type TodayNavigationScope = 'day' | 'all' | 'undated' | 'completed';
@@ -20,6 +20,7 @@ export interface TodayNavigationProps {
   onQueryChange: (query: string) => void;
   onLayoutChange: (layout: 'timeline' | 'list') => void;
   onCompose: () => void;
+  onOpenMap?: () => void;
   onDiscussDay: () => void;
   campusTools?: ReactNode;
   calendarTools?: ReactNode;
@@ -41,7 +42,7 @@ const scopeOptions = [
 /** Local navigation only. The original AgendaView retains every owner and draft. */
 export function TodayNavigation({ selectedDate, today, timeZoneLabel, section, scope, query, dayLayout,
   hasTimeline, attention = 0, onDateChange, onSectionChange, onScopeChange, onQueryChange,
-  onLayoutChange, onCompose, onDiscussDay, campusTools, calendarTools }: TodayNavigationProps) {
+  onLayoutChange, onCompose, onOpenMap, onDiscussDay, campusTools, calendarTools }: TodayNavigationProps) {
   const options = useRef<HTMLDetailsElement>(null);
   const optionsTrigger = useRef<HTMLElement>(null);
   const searchTrigger = useRef<HTMLButtonElement>(null);
@@ -90,6 +91,7 @@ export function TodayNavigation({ selectedDate, today, timeZoneLabel, section, s
     </button>}
     {section === 'entrusted' && <button type="button" className="today-navigation-current" onClick={() => chooseScope('day')}><CalendarDays size={15} aria-hidden="true" />回到这一天</button>}
     <div className="today-navigation-actions">
+      {onOpenMap && <button type="button" className="today-navigation-icon" aria-label="打开校园地图" title="校园地图" onClick={onOpenMap}><MapPinned size={19} /></button>}
       <button type="button" className="today-navigation-add" aria-label="在对话里记一件事" onClick={onCompose}><Plus size={17} aria-hidden="true" /><span>记一件事</span></button>
       <button ref={searchTrigger} type="button" className="today-navigation-icon" aria-label={searching ? '收起安排搜索' : '找一件事'} aria-expanded={searching} onClick={() => {
         if (searching) { onQueryChange(''); setSearchOpen(false); return; }

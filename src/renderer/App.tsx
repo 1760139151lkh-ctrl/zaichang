@@ -52,7 +52,7 @@ import type { RehearsalInteraction, RehearsalRef } from '../shared/relationship-
 import './workspace-continuation.css';
 import './composer-continuation.css';
 import './reading-desk-integration.css';
-import { WorkspaceScenery } from './WorkspaceScenery';
+import { WorkspaceScenery, WorkspaceArtworkWarmup } from './WorkspaceScenery';
 import { AgendaView, type AgendaViewPosition, type WorkspaceView } from './Workspace';
 import { Navigation } from './Navigation';
 import { CompanionAvatar, CompanionScene, RestSpace, companionAuthorArtwork, companionRoomFrame, prefersQuietMotion, useCompanion, type CompanionRoomLayout } from './companion';
@@ -254,7 +254,27 @@ export function App() {
     activeRun = useRef(false);
   const [memoryNotice, setMemoryNotice] = useState<Memory | null>(null);
   const [panel, setPanel] = useState<Panel>(null);
-  const [view, setView] = useState<WorkspaceView>('chat');
+  const [view, setWorkspaceView] = useState<WorkspaceView>('chat');
+  const [homeVisible, setHomeVisible] = useState(true);
+  const [homeComposerHome, setHomeComposerHome] = useState<HTMLDivElement | null>(null);
+  const [homePreparationHome, setHomePreparationHome] = useState<HTMLDivElement | null>(null);
+  const [preparationHome, setPreparationHome] = useState<HTMLDivElement | null>(null);
+  const [preparationHost] = useState(() => document.createElement('div'));
+  const homeReturnView = useRef<WorkspaceView>('chat');
+  const personalReturn = useRef<{ home: boolean; view: WorkspaceView }>({ home: true, view: 'chat' });
+  const [companionEntry, setCompanionEntry] = useState<'partner' | 'light'>('partner');
+  const [companionEntryRevision, setCompanionEntryRevision] = useState(0);
+  const setView = useCallback((next: WorkspaceView) => {
+    setHomeVisible(false); setWorkspaceView(next);
+  }, []);
+  useLayoutEffect(() => {
+    const parent = homeVisible ? homePreparationHome : preparationHome;
+    if (!parent || preparationHost.parentElement === parent) return;
+    const atomic = parent as HTMLElement & { moveBefore?: (node: Node, child: Node | null) => void };
+    if (preparationHost.isConnected && atomic.moveBefore) atomic.moveBefore(preparationHost, null);
+    else parent.appendChild(preparationHost);
+  }, [homeVisible, homePreparationHome, preparationHome, preparationHost]);
+  useLayoutEffect(() => () => preparationHost.remove(), [preparationHost]);
   const previousSettingsView = useRef(view);
   useEffect(() => {
     const previous = previousSettingsView.current;
@@ -857,9 +877,10 @@ export function App() {
   useLayoutEffect(() => () => composerHost.remove(), [composerHost]);
   const composerMoveRequested = useRef(false), composerMoveAnimation = useRef<Animation | undefined>(undefined);
   const composerMoveOrigin = useRef<DOMRect | undefined>(undefined);
-  function requestComposerMove() {
-    composerMoveRequested.current = true;
-    composerMoveOrigin.current = composing.current || prefersQuietMotion() ? undefined : composerHost.getBoundingClientRect();
+  function requestComposerMove(animate = true) {
+    composerMoveRequested.current = animate;
+    if (!animate) composerMoveAnimation.current?.cancel();
+    composerMoveOrigin.current = !animate || composing.current || prefersQuietMotion() ? undefined : composerHost.getBoundingClientRect();
   }
   const currentComposerFollowup = composerFollowup?.sessionId === sessionId && composerFollowup?.boundary === boundaryRevision.current
     ? composerFollowup : undefined;
@@ -915,7 +936,8 @@ export function App() {
     }
   }
   function placeComposer() {
-    const parent = view === 'keep' && keepWriting && keepComposerHome ? keepComposerHome : composerDock.target?.element || composerHome;
+    const parent = homeVisible && homeComposerHome ? homeComposerHome
+      : view === 'keep' && keepWriting && keepComposerHome ? keepComposerHome : composerDock.target?.element || composerHome;
     if (parent) moveComposer(parent);
     settleReadFocus();
   }
@@ -936,7 +958,7 @@ export function App() {
       : writer.top < visible.top + 16 ? writer.top - visible.top - 16 : 0;
     if (shift) scroll.scrollTo({ top: scroll.scrollTop + shift, behavior: prefersQuietMotion() ? 'instant' : 'smooth' });
   }
-  useLayoutEffect(placeComposer, [composerHome, keepComposerHome, keepWriting, composerHost, composerDock.target, notesDiscussion, notesDiscussionHome, view, draftReady, navigating]);
+  useLayoutEffect(placeComposer, [homeVisible, homeComposerHome, composerHome, keepComposerHome, keepWriting, composerHost, composerDock.target, notesDiscussion, notesDiscussionHome, view, draftReady, navigating]);
   useEffect(() => { if (view !== 'keep') setKeepWriting(false); }, [view]);
   const readingAnchor = useRef<{ element: HTMLElement; offset: number } | undefined>(undefined);
   function rememberReadingPosition() {
@@ -952,7 +974,7 @@ export function App() {
     queueReturnCapture();
   }
   function captureWorkspaceReturn() {
-    if (!state || returnBoundary !== boundaryRevision.current || !draftReady || navigationPending.current || surfaceMode.current === 'public' || !returnCaptureReady.current
+    if (homeVisible || !state || returnBoundary !== boundaryRevision.current || !draftReady || navigationPending.current || surfaceMode.current === 'public' || !returnCaptureReady.current
       || !returnInteraction.current || returnRestoring.current || pendingReturnPosition.current
       || readingGesture.current <= returnDismissedGesture.current
       || viewRef.current === 'keep' && !!unsettledKeepMaterial.current
@@ -998,6 +1020,17 @@ export function App() {
     }
     if (!currentSession && !material && !note && !agenda && !address.keep && !address.materialDocument && (ephemeral || !draftRef.current.text.trim() && !getDraftAttachments(draftRef.current).length)) return;
     if (workspaceReturn.remember(address) && startupReturn) setStartupReturn(undefined);
+  }
+  function openHome() {
+    if (navigationPending.current || isPublicSurface() || homeVisible) return;
+    rememberReadingPosition(); captureWorkspaceReturn(); workspaceReturn.flush();
+    homeReturnView.current = viewRef.current;
+    requestComposerMove(false); setWorkspaceView('chat'); setHomeVisible(true); setPanel(null);
+  }
+  function closePersonal() {
+    const back = personalReturn.current;
+    if (back.home) { setWorkspaceView('chat'); setHomeVisible(true); }
+    else setView(back.view === 'settings' || back.view === 'companion' ? 'chat' : back.view);
   }
   captureReturnRef.current = captureWorkspaceReturn;
   useEffect(() => {
@@ -1062,15 +1095,17 @@ export function App() {
           : companionSceneMoment(selectedCompanionScene) || companionHint || presentedCompanionMoment
             || (chatSpace === 'reading' || needsReadingRoom || readingSelectedWork || hasScene ? 'reading' : 'chat');
   const canToggleRoom = view === 'chat' && companion.presence === 'window' && !compactConversation && !hasScene && !readingSelectedWork;
-  const atWindow = view === 'chat' && companion.presence === 'window'
+  const atWindow = homeVisible || view === 'chat' && companion.presence === 'window'
     && !focusActive && chatSpace !== 'reading' && !readingSelectedWork
     && (empty || (chatSpace === 'window' && !compactConversation && !hasScene));
-  const workspaceScene = view === 'materials' || view === 'chat' && !atWindow
+  const workspaceScene = homeVisible ? undefined : view === 'materials' || view === 'chat' && !atWindow
     && (focusActive || !!composerDock.target || !!currentComposerFollowup?.studyInteraction
       || !!latestAssistant?.scenes?.some(scene => scene.kind === 'study' || scene.kind === 'study_reference')) ? 'study'
     : view === 'chat' && !atWindow ? latestAssistant?.views?.some(value => value.program || value.programReference) ? 'studio' : 'conversation'
     : view === 'keep' || view === 'notes' ? 'keep' : view === 'agenda' ? 'today'
     : view === 'memory' ? 'memory' : view === 'settings' || view === 'companion' ? 'settings' : undefined;
+  const characterRoomWorkspace = !!workspaceScene && ['conversation', 'studio', 'study', 'today'].includes(workspaceScene)
+    && companion.presence === 'window' && companion.character !== 'sakiko';
   useLayoutEffect(() => {
     const main = appMainRef.current, space = conversationSpaceRef.current, workspace = materialConversationTarget.current;
     if (workspaceScene || !roomLayout || !main || !space || !workspace || view !== 'chat' && view !== 'materials') {
@@ -1086,7 +1121,7 @@ export function App() {
       const gutter = mainBox.width <= 600 ? 20 : 24;
       // Always project into the full, unstacked stage. The compact stage's
       // own resize report must not flip the decision back and forth.
-      const fullFrame = companionRoomFrame(mainBox.width, mainBox.height, roomLayout.sourceCanvas.width, roomLayout.sourceCanvas.height);
+      const fullFrame = companionRoomFrame(mainBox.width, mainBox.height, roomLayout.sourceCanvas.width, roomLayout.sourceCanvas.height, roomLayout.bodyBounds || undefined);
       const actor = roomLayout.actorVisible ? roomLayout.actorSourceRect : null;
       const readingTask = view === 'materials' || !atWindow || hasScene || readingSelectedWork;
       let spanLeft = gutter, spanRight = Math.max(gutter, workspaceWidth - gutter), paperSide: 'left' | 'right' = 'left';
@@ -1812,7 +1847,8 @@ export function App() {
         return;
       }
       if (e.key === 'Escape' && view !== 'chat') {
-        setView('chat');
+        if (view === 'companion' || view === 'settings') closePersonal();
+        else setView('chat');
         return;
       }
       if (e.key === 'Escape' && busy && !panel) void stopReply();
@@ -1848,7 +1884,8 @@ export function App() {
         setSessionId(undefined);
         setMessages([]);
         setPanel(null);
-        setView('chat');
+        requestComposerMove(false); homeReturnView.current = 'chat';
+        setWorkspaceView('chat'); setHomeVisible(true);
         followRef.current = true;
         startupReturnBoundary.current = boundaryRevision.current;
         setStartupReturn(workspaceReturn.read());
@@ -2208,6 +2245,7 @@ export function App() {
     if (!comparisonText || composing.current || sendPending.current || (!consumeDraft && busy) || navigationPending.current || !draftReady
       || surfaceMode.current === 'public' || closePending.current) return;
     if (queueHostAvailable.current === false) { notify('这条还没有发出，原稿留在这里。重启在场后再继续就好。'); return; }
+    if (homeVisible && consumeDraft) { requestComposerMove(false); setChatSpace('reading'); setHomeVisible(false); }
     sendPending.current = true;
     const sequence = ++sendSequence.current;
     const revision = draftRevision.current,
@@ -2263,7 +2301,7 @@ export function App() {
     const focusedSettingsContext = !selectedWorkspaceTarget && !selectedComparison ? selectedSettingsContext : undefined;
     const workspaceContext = workspaceSendContext(focusedSettingsContext ? focusedSettingsContext.section === 'companion' ? 'characters'
       : focusedSettingsContext.section === 'reading' ? 'appearance' : focusedSettingsContext.section === 'memory' ? 'memory' : 'settings'
-      : workspaceSurface(viewRef.current, messages.length === 0, selectedWorkspaceTarget),
+      : homeVisible ? 'home' : workspaceSurface(viewRef.current, messages.length === 0, selectedWorkspaceTarget),
       selectedWorkspaceTarget, selectedComparisonTarget, selectedFollowup?.messageId);
     if (focusedSettingsContext) workspaceContext.settingsContext = structuredClone(focusedSettingsContext);
     const validFollowup = selectedFollowup && selectedFollowup.sessionId === selectedSessionId && selectedFollowup.boundary === selectedBoundary
@@ -3144,11 +3182,6 @@ export function App() {
           requestComposerMove();
           composerDock.returnToChat(); requestAnimationFrame(() => inputRef.current?.focus({ preventScroll: true }));
         }}>回到聊天</button></div>}
-      {settingsContext && !comparisonAnchor && !currentWorkspaceReference(false) && <FocusContextChip
-        label={`${settingsContext.phase === 'saved' ? '刚才的' : '正在试的'}${settingsContext.section === 'companion' ? '陪伴与光线'
-          : settingsContext.section === 'persona' ? '相处约定' : settingsContext.section === 'reading' ? '阅读样式'
-            : settingsContext.section === 'campus_connection' ? '学校连接' : settingsContext.section === 'memory' ? '记忆设置' : '连接设置'}`}
-        onOpen={() => setView(settingsContext.returnTo.view)} onClear={clearSettingsContext} />}
       {comparisonAnchor && <FocusContextChip label={`对照 · ${comparisonAnchor.label}`} onClear={clearComparison}
         targetKey={workspaceTargetKey(comparisonAnchor.target)}
         onOpen={() => void attempt(() => openWorkspaceReference(comparisonAnchor.target))} />}
@@ -3290,6 +3323,11 @@ export function App() {
         />
         <div className="composer-toolbar">
           <div className="composer-left">
+            {settingsContext && !comparisonAnchor && !currentWorkspaceReference(false) && <button type="button"
+              className="icon-button composer-settings-cue" title="带着刚才的设置，点此移除" aria-label="不带上刚才的设置"
+              onPointerDown={event => { if (event.button === 0) event.preventDefault(); }} onClick={clearSettingsContext}>
+              <SlidersHorizontal size={18} /><X size={12} />
+            </button>}
             <div className="attachment-control" ref={attachmentControl}>
               <button
                 ref={attachmentTrigger}
@@ -3344,7 +3382,7 @@ export function App() {
                   >
                     <ImageIcon size={18} />
                     <span>
-                      添加图片<small>JPG、PNG 或 WebP</small>
+                      添加图片
                     </span>
                   </button>
                   <button
@@ -3357,10 +3395,11 @@ export function App() {
                   >
                     <Paperclip size={18} />
                     <span>
-                      添加文件<small>文本、Markdown 与 PDF</small>
+                      添加文件
                     </span>
                   </button>
                   <div className="composer-menu-divider" role="separator" />
+                  <button role="menuitem" type="button" onClick={() => { setAttachmentMenu(false); setView('materials'); }}><BookOpen size={18} /><span>打开共读桌</span></button>
                   <button role="menuitem" type="button" disabled={navigating} onClick={() => {
                     setAttachmentMenu(false); setScopeOpen(true);
                   }}>
@@ -3408,7 +3447,7 @@ export function App() {
             ?.scrollIntoView({ block: 'center', behavior: 'auto' }));
         }}
         name={state?.settings.persona.core.name || '祥子'}
-        active={!resting && (!!mapSheet || view !== 'chat' || !atWindow)}
+        active={!resting && (homeVisible || !!mapSheet || view !== 'chat' || !atWindow)}
         hidden={companion.presence === 'hidden' || surfaceMode.current === 'public'}
         onPlacementChange={placement => {
           setEdgePlacement(placement);
@@ -3416,7 +3455,7 @@ export function App() {
         }}
         onCall={() => {
           if (busy || !draftReady || navigating || surfaceMode.current === 'public') return;
-          if (view === 'chat') setChatSpace('reading');
+          if (view === 'chat' && !homeVisible) setChatSpace('reading');
           const quoted = materialQuoteRef.current || noteQuoteRef.current || conversationQuoteRef.current || assistantPassageRef.current;
           void send(quoted ? '就我引用的这一段，和我说一两句吧。'
             : `${state?.settings.persona.core.name?.trim() || '祥子'}，想听你说句话，一两句就好。`, false, undefined, undefined, true);
@@ -3463,7 +3502,7 @@ export function App() {
             )}
           </div>
         )}
-        {away && !empty ? (
+        {away && !empty && !homeVisible ? (
           <button
             className="scroll-bottom"
             aria-label="回到最新消息"
@@ -3651,34 +3690,67 @@ export function App() {
     {state?.presentation?.mode === 'public' ? <PublicDisplay surface={state.presentation} onEnd={endDisplay} notice={publicCloseNotice} /> : <ConversationTextFocusContext.Provider value={textFocus}>
     <ConversationComposerDockContext.Provider value={composerDock.value}>
     <div className={`app-shell ${atWindow ? 'has-window' : ''}${focusActive ? ' is-focusing' : ''}`}>
-      <div className="app-main" ref={appMainRef} style={workspaceScene ? undefined : roomPaperStyle} data-workspace-view={view} data-workspace-scene={workspaceScene}
-        data-room-layout={workspaceScene ? undefined : roomPaperPosition?.mode} data-room-paper-side={workspaceScene ? undefined : roomPaperPosition?.paperSide} data-room-source={workspaceScene ? undefined : roomPaperPosition?.sourceKey}>
-        {workspaceScene && workspaceScene !== 'settings' && <WorkspaceScenery scene={workspaceScene}
-          character={companion.character} showCharacter={companion.presence === 'window'} />}
+      <WorkspaceArtworkWarmup character={companion.character} sceneChoices={companion.sceneChoices} />
+      {createPortal(materials, preparationHost)}
+      <div className="app-main" ref={appMainRef} style={workspaceScene || homeVisible ? undefined : roomPaperStyle} data-workspace-view={homeVisible ? 'home' : view} data-workspace-scene={workspaceScene}
+        data-character-room={characterRoomWorkspace ? 'true' : undefined}
+        data-character-paper-side={characterRoomWorkspace ? roomLayout?.bodyBounds && (roomLayout.bodyBounds[0] + roomLayout.bodyBounds[2]) / 2 < .5 ? 'right' : 'left' : undefined}
+        data-cover-side={homeVisible && roomLayout?.bodyBounds && (roomLayout.bodyBounds[0] + roomLayout.bodyBounds[2]) / 2 < .5 ? 'right' : undefined}
+        data-settings-side={view === 'settings' && roomLayout?.bodyBounds && (roomLayout.bodyBounds[0] + roomLayout.bodyBounds[2]) / 2 < .5 ? 'right' : undefined}
+        data-room-layout={workspaceScene || homeVisible ? undefined : roomPaperPosition?.mode} data-room-paper-side={workspaceScene || homeVisible ? undefined : roomPaperPosition?.paperSide} data-room-source={workspaceScene || homeVisible ? undefined : roomPaperPosition?.sourceKey}>
+        {workspaceScene && workspaceScene !== 'settings' && workspaceScene !== 'keep' && workspaceScene !== 'memory' && !characterRoomWorkspace && <WorkspaceScenery key={`${companion.character}:${companion.presence}`} scene={workspaceScene}
+          character={companion.character} showCharacter={companion.presence === 'window'} motionTargets={d01Targets}
+          yieldToInput={composerFocused && composerWriting} reducedMotion={companion.reducedMotion} />}
+        {characterRoomWorkspace && <CompanionScene quiet representation="scene" ambientFit="room" onRoomLayout={setRoomLayout}
+          moment={workspaceScene === 'today' ? 'planning' : companionActivity} />}
+        {(workspaceScene === 'keep' || workspaceScene === 'memory') && <CompanionScene quiet moment="reading"
+          representation={view === 'notes' && notesDiscussion ? 'portrait' : 'scene'} ambientFit="room" />}
+        {view === 'settings' && <CompanionScene quiet representation="scene" moment="chat" onRoomLayout={setRoomLayout} />}
+        {view === 'companion' && <CompanionScene quiet representation="portrait" ambientFit="room" />}
         {!workspaceScene && (view === 'chat' || view === 'agenda' || view === 'materials' || view === 'keep' || view === 'notes') && <CompanionScene quiet={view !== 'chat' || !atWindow}
-          representation={view === 'keep' ? compactConversation ? 'portrait' : 'scene' : view === 'agenda' || view === 'materials' || view === 'notes' || hasScene || readingSelectedWork ? 'portrait' : 'auto'}
+          representation={homeVisible ? 'scene' : view === 'keep' ? compactConversation ? 'portrait' : 'scene' : view === 'agenda' || view === 'materials' || view === 'notes' || hasScene || readingSelectedWork ? 'portrait' : 'auto'}
           ambientFit={view === 'agenda' || view === 'materials' || view === 'notes' || view === 'keep' && compactConversation ? 'cover' : 'room'}
-          yieldToInput={composerFocused && composerWriting && !navigating && view !== 'keep'} moment={view === 'agenda' ? 'planning' : view === 'keep' || view === 'notes' ? 'reading' : companionActivity}
-          onRoomLayout={setRoomLayout} onStartFocus={draftReady && !navigating ? startFocus : undefined} onRest={openRest} focusActive={focusActive} />}
+          yieldToInput={composerFocused && composerWriting && !navigating && view !== 'keep'} moment={homeVisible ? empty && startupReturn ? 'resume' : 'chat' : view === 'agenda' ? 'planning' : view === 'keep' || view === 'notes' ? 'reading' : companionActivity}
+          onRoomLayout={setRoomLayout} onStartFocus={draftReady && !navigating ? homeVisible ? () => setView('materials') : startFocus : undefined}
+          deskActionLabel={homeVisible ? '一起读，打开共读桌' : undefined} onRest={openRest} focusActive={homeVisible ? false : focusActive} />}
         <header className="titlebar">
-          <button className="brand" onClick={() => setView('chat')} aria-label="在场，回到对话">
+          <button className="brand" onClick={openHome} aria-label="在场，回到封面" aria-current={homeVisible ? 'page' : undefined}>
             <Portal size={25} />
             <span>在场</span>
           </button>
           <div className="drag-space" />
           <Navigation
-            view={view}
+            view={homeVisible ? 'home' : view}
             busy={busy || navigating}
-            onView={next => { if (next !== view) searchNavigation.current++; setView(next); }}
+            onView={next => { if (next !== view) searchNavigation.current++;
+              if (next === 'chat' && empty) { openHome(); return; }
+              if (next === 'settings' && view !== 'settings' && view !== 'companion') personalReturn.current = { home: homeVisible, view };
+              setView(next); }}
             onNew={() => void newChat()}
             onHistory={() => { searchNavigation.current++; setPanel('history'); }}
-            onMap={() => { searchNavigation.current++; openMap(emptyRoute()); }}
-            onRest={openRest}
+            onCompanion={entry => { if (view !== 'companion') personalReturn.current = { home: homeVisible, view };
+              setCompanionEntry(entry); setCompanionEntryRevision(value => value + 1); setView('companion'); }}
           />
           <WindowControls onClose={() => void requestClose()} />
         </header>
-        {view === 'materials' && <div className="retained-heading reading-workspace-heading">
-          <button type="button" className="text-button" onClick={() => setView('chat')}>回到对话</button>
+        {homeVisible && <section className="cover-home" aria-label="窗边">
+          <h1>{state?.settings.persona.core.address.trim() ? `${state.settings.persona.core.address.trim()}，回来啦。` : '回来啦。'}</h1>
+          {loadError && <QuietNotice message={loadError} action={{ label: '重新打开', onClick: () => setLoadAttempt(n => n + 1) }} />}
+          <div className="cover-composer-home" ref={setHomeComposerHome} />
+          <div className="cover-continuations">
+            {startupReturn && startupReturnBoundary.current === boundaryRevision.current ? <button type="button" disabled={!draftReady || busy || navigating}
+              onClick={() => void restoreWorkspace(startupReturn)}><History size={18} /><span>接着上次</span><ArrowUpRight size={17} /></button>
+              : sessionId || homeReturnView.current !== 'chat' ? <button type="button" disabled={navigating}
+                title={homeReturnView.current === 'chat' ? state?.conversations.find(item => item.id === sessionId)?.title : undefined} onClick={() => setView(homeReturnView.current)}>
+                <History size={18} /><span>{homeReturnView.current === 'chat' ? '接着刚才'
+                  : ({ agenda: '刚才的安排', keep: '留下的那一页', notes: '刚才的笔记', materials: '刚才读的材料', memory: '关于你的记录', settings: '刚才的设置', companion: '继续挑选伙伴' } as const)[homeReturnView.current]}</span><ArrowUpRight size={17} /></button>
+              : previousConversation && <button type="button" disabled={busy || navigating} onClick={() => void openConversation(previousConversation.id)}><History size={18} /><span>{previousConversation.title}</span><ArrowUpRight size={17} /></button>}
+            <button type="button" onClick={() => setView('materials')}><BookOpen size={18} />一起读</button>
+            <button type="button" onClick={openRest}>先坐一会儿</button>
+          </div>
+          <div className="home-preparations" ref={setHomePreparationHome} />
+        </section>}
+        {view === 'materials' && compactConversation && <div className="retained-heading reading-workspace-heading">
           <div className="reading-pane-switch" aria-label="阅读与对话">
             <button type="button" aria-pressed={readingPane === 'reader'} onClick={() => setReadingPane('reader')}>原文</button>
             <button type="button" aria-pressed={readingPane === 'chat'} onClick={() => setReadingPane('chat')}>一起聊</button>
@@ -3719,7 +3791,7 @@ export function App() {
             <div className="composer-home" ref={setKeepComposerHome} />
           </div> : undefined} />}
         <div ref={conversationSpaceRef} className={`conversation-space ${view === 'materials' ? 'with-materials has-reading-desk' : ''}${activeDeskId ? ' has-open-reading-window' : ''}${documentReaderDropActive ? ' is-document-reader-drop' : ''}`} data-reading-pane={readingPane}
-          data-reading-side={readingSide} hidden={view !== 'chat' && view !== 'materials'}
+          data-reading-side={readingSide} hidden={homeVisible || view !== 'chat' && view !== 'materials'}
           onDragOverCapture={event => {
             if (!event.dataTransfer.types.includes(MATERIAL_DOCUMENT_MIME) || !(event.target instanceof Element)
               || !event.target.closest('.materials-panel') || navigationPending.current || isPublicSurface()) return;
@@ -3745,6 +3817,8 @@ export function App() {
         <div className="conversation-workspace-home" ref={setConversationHome} />
         </div>
         {state && materialsOpened && <ReadingDesk items={readingDeskItems} requestOpen={deskOpenRequest} openingRect={deskOpeningRect}
+          companionAtStart={companion.presence === 'window' && (workspaceScene === 'study' && companion.character === 'sakiko'
+            || characterRoomWorkspace && !!roomLayout?.bodyBounds && (roomLayout.bodyBounds[0] + roomLayout.bodyBounds[2]) / 2 < .5)}
           active={view === 'keep' || view === 'materials' && (!compactConversation || readingPane === 'reader')}
           boundary={`${state.privacyEpoch}:${state.policyRevision}:${state.sourceBoundary ?? 0}`} sessionId={sessionId}
           draftEnabled={draftReady && !navigating} refreshKey={`${messages.length}:${messages.at(-1)?.status || ''}`}
@@ -3779,6 +3853,7 @@ export function App() {
             onState={updateState}
             onPresentMatter={(matter) => void prepareDisplay({ matter })}
             onMap={(id) => void showPlace(id)}
+            onOpenMap={() => { searchNavigation.current++; openMap(emptyRoute()); }}
             onDiscuss={discussAgenda} focus={agendaContext?.focus} position={agendaPosition} onPositionChange={setAgendaPosition}
             onOpenOrigin={record => void attempt(() => openAgendaOrigin(record))}
             onReturnAddressChange={reportAgendaReturn} resume={agendaResume}
@@ -3791,9 +3866,11 @@ export function App() {
             embedded
             initialTab={view === 'memory' ? '记忆' : view === 'companion' ? '陪伴' : '偏好'}
             companionMoment={companionActivity}
+            companionEntry={companionEntry}
+            companionEntryRevision={companionEntryRevision}
             state={state}
             busy={busy}
-            onClose={() => setView('chat')}
+            onClose={closePersonal}
             onState={updateState}
             draft={settingsDraft}
             memoryWorkspace={memoryWorkspace}
@@ -4013,7 +4090,7 @@ export function App() {
                   onResume: () => restoreWorkspace(startupReturn) }}
                 onDismiss={() => { cancelReturnResume(); returnDismissedGesture.current = readingGesture.current;
                   setStartupReturn(undefined); workspaceReturn.forget(); }} />}
-              {materials}
+              <div ref={setPreparationHome} />
             </div>
           ) : (
             <>
@@ -4051,7 +4128,7 @@ export function App() {
                       />
                     </details>
                   )}
-                  {materials}
+                  <div ref={setPreparationHome} />
                 </div>
               </div>
               <div className="bottom-composer">

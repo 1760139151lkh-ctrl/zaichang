@@ -1,0 +1,20 @@
+{
+  "generatedSource": "C:\\Users\\17601\\.codex\\generated_images\\01a17a92-ae0a-7132-848c-516e08efdd9b\\exec-15ff2455-3221-45fd-9e38-9ef314233f5b.png",
+  "prompt": "Technical local expression-state edit of this exact approved 1536 x 1024 illustration. Preserve EXACT canvas size, framing, all hair strands, face contour, nose, mouth, cheeks, body, clothing, hand pose, furniture, book, lamp, background, this exact existing rain lighting, painted texture and original sharpness. Change ONLY both eyes to a natural soft closed-eye blink for the same youthful Sakiko. Each upper eyelid lowers onto the lower lid with delicately curved original-style lashes; relaxed lids, not a broad laughing squint. Closed eyelid curves must stay inside exactly the same eye openings, preserving their centers, tilt, size and facial geometry. Do not tilt or move the head or brows. No new image layout, no split image, no symbols, no text, no white or transparent background, no blur, no relighting. Output the single full-size original composition with this one local closed-eye expression. This is a frame used as a small aligned eyelid patch; registration matters more than additional artistic change.",
+  "referencedImages": [
+    "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\运行素材\\coherent-desk\\desk-rain.png"
+  ],
+  "output": "前端视觉创新设计/运行素材/coherent-desk/desk-rain-blink.png",
+  "use": "Only clipped eye/lash patches in exact original coordinates; never replaces the mother or full face.",
+  "runtimeAccepted": true,
+  "primaryImageViewed": true,
+  "sha256": "ca3d8d2e32c3989f8c0a7220a59e97f90b51603c3eddf188474c6cc9ad0308f2",
+  "inputSha256": [
+    {
+      "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\运行素材\\coherent-desk\\desk-rain.png",
+      "sha256": "bd299b917f64ecb8eb7c3774064c1ec0b7eddcbe88a015b7c1952c66cfcd62d8"
+    }
+  ],
+  "runtimeScope": "原母图局部眼部采样；不替换整脸、整景，不认证口型、手臂或全身动作。",
+  "acceptanceEvidence": "docs/evidence/2026-10-26-frontend-reassessment.md"
+}

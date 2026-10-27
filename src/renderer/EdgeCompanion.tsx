@@ -224,6 +224,7 @@ function EdgeCompanionFigure({ host: givenHost, anchor, character = 'sakiko', pl
     const currentScene = scene.current, sprite = visual.current;
     if (!currentScene || !sprite || event.button !== 0 || !event.isPrimary || grab.current) return;
     event.preventDefault(); event.stopPropagation(); operation.current++; pending.current = undefined; skipPointerClick.current = false; setOpen(false); quietTail();
+    event.currentTarget.focus({ preventScroll: true });
     const at = localEdgePoint(currentScene, event.clientX, event.clientY), beforeX = x.stop(), beforeY = y.stop();
     x.set(beforeX.value, beforeX.velocity); y.set(beforeY.value, beforeY.velocity); event.currentTarget.setPointerCapture(event.pointerId);
     grab.current = { id: event.pointerId, node: event.currentTarget, start: at, offset: { x: at.x - beforeX.value, y: at.y - beforeY.value },

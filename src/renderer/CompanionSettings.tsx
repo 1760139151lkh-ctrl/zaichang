@@ -1,12 +1,13 @@
 import { useEffect, useId, useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type MutableRefObject } from 'react';
-import { Check, ChevronRight, Heart, ImagePlus, Sun, Trash2 } from 'lucide-react';
+import { Check, ChevronRight, Heart, ImagePlus, LoaderCircle, Sun, Trash2 } from 'lucide-react';
 import type { PersonaState } from '../shared/persona';
 import type { State } from '../shared/types';
 import type { PersonaDraft } from './PersonaEditor';
-import { COMPANIONS, CompanionScene, CompanionPreviewProvider, WINDOW_LIGHT, companionName, companionSceneChoiceKey, useCompanion, type CompanionPreference, type CompanionPlacement, type CompanionMoment } from './companion';
+import { COMPANIONS, CompanionScene, CompanionPreviewProvider, WINDOW_LIGHT, companionName, companionSceneChoiceKey, companionPresenceArtwork, useCompanion, type CompanionPreference, type CompanionPlacement, type CompanionMoment } from './companion';
 import { APPEARANCE_PALETTES, previewAppearance, readEffectiveEnvironment, useAppearance, useEffectiveEnvironment, type AppearanceEnvironmentMode, type AppearancePalette } from './appearance';
-import { companionSceneArtwork, companionPaletteLight, companionRegisteredSceneArtwork, type SceneTransferChoice } from './companion-scenes';
+import { companionPaletteLight, companionRegisteredSceneArtwork, type SceneTransferChoice, type NeutralSceneTime } from './companion-scenes';
 import { Switch, uiError } from './ui';
+import { WorkspaceArtworkWarmup } from './WorkspaceScenery';
 import './companion-settings.css';
 
 export interface CompanionSettingsDraft {
@@ -47,7 +48,7 @@ function readBaseline(text: string | undefined, fallback: RoomBaseline): RoomBas
   } catch { return fallback; }
 }
 
-export function CompanionSettings({ draft, moment = 'chat' }: {
+export function CompanionSettings({ draft, moment = 'chat', roomMode = false, initialEntry, entryRevision = 0, onEditPersona }: {
   persona: PersonaState;
   draft: MutableRefObject<{ persona?: PersonaDraft; companion?: CompanionSettingsDraft }>;
   onState: (state: State) => void;
@@ -56,6 +57,9 @@ export function CompanionSettings({ draft, moment = 'chat' }: {
   saveOperation: (operation: () => Promise<void>) => Promise<void>;
   onEditPersona: () => void;
   moment?: CompanionMoment;
+  roomMode?: boolean;
+  initialEntry?: 'partner' | 'light';
+  entryRevision?: number;
 }) {
   const { value: savedValue, update, setPicture, removePicture, toggleFavorite } = useCompanion();
   const [appearance, setAppearance] = useAppearance();
@@ -95,8 +99,10 @@ export function CompanionSettings({ draft, moment = 'chat' }: {
   const file = useRef<HTMLInputElement>(null);
   const request = useRef(0);
   const [opening, setOpening] = useState(false);
+  const [preparingCharacter, setPreparingCharacter] = useState<string>();
   const [error, setError] = useState('');
-  const [expanded, setExpanded] = useState<'partner' | 'light'>();
+  const [expanded, setExpanded] = useState<'partner' | 'light' | undefined>(roomMode ? initialEntry : undefined);
+  useEffect(() => { if (roomMode) setExpanded(initialEntry); }, [roomMode, initialEntry, entryRevision]);
   const partnerButton = useRef<HTMLButtonElement>(null);
   const lightButton = useRef<HTMLButtonElement>(null);
   const picker = useRef<HTMLDivElement>(null);
@@ -107,15 +113,16 @@ export function CompanionSettings({ draft, moment = 'chat' }: {
   const roomOnly = value.character === 'light';
   const mode = environmentEdited ? environmentMode : appearance.environmentMode;
   const variant = mode === 'auto' ? environment.requestedVariant : undefined;
+  const neutralTime = variant === 'unknown' ? environment.isDay ? 'day' : 'night' : undefined;
   const sceneScope = companionSceneChoiceKey(value.character, moment, renderedPalette);
   const selectedScene = choices[sceneScope];
-  const activeScene = (selectedScene ? companionRegisteredSceneArtwork(selectedScene, value.character, value.light, renderedPalette, variant) : undefined)
-    ?? companionSceneArtwork(value.character, moment, value.light, renderedPalette, variant);
+  const activeScene = (selectedScene ? companionRegisteredSceneArtwork(selectedScene, value.character, value.light, renderedPalette, variant, neutralTime) : undefined)
+    ?? companionPresenceArtwork(value.character, moment, value.light, renderedPalette, variant, neutralTime);
   const identityPortrait = COMPANIONS.find(item => item.id === value.character);
   const portrait = custom?.image ?? identityPortrait?.image;
-  // Saving an identity does not require every current weather frame to exist.
-  const roomCanAdopt = roomOnly || value.presence === 'hidden' || !!portrait
-    || (value.presence === 'window' && !!activeScene);
+  // An avatar alone must not be presented as a complete room preview.
+  const roomCanAdopt = roomOnly || value.presence === 'hidden' || !!custom
+    || value.presence === 'corner' && !!portrait || value.presence === 'window' && !!activeScene;
   const gallery = [...COMPANIONS, ...value.pictures].sort((a, b) =>
     Number(value.favorites.includes(b.id)) - Number(value.favorites.includes(a.id)));
   const lightName = mode === 'auto' ? '随窗外' : APPEARANCE_PALETTES.find(item => item.id === renderedPalette)?.name;
@@ -164,23 +171,51 @@ export function CompanionSettings({ draft, moment = 'chat' }: {
     });
   }
   function choose(character: typeof value.character) {
-    request.current++; setOpening(false);
-    setPreview(current => ({ ...current, character }));
-    setExpanded(undefined);
-    requestAnimationFrame(() => partnerButton.current?.focus());
+    const id = ++request.current; setOpening(false); setPreparingCharacter(undefined); setError('');
+    let nextPalette = renderedPalette, nextVariant = variant;
+    let nextNeutral: NeutralSceneTime | undefined = neutralTime;
+    let useManualPalette = false;
+    if (roomMode && preview.presence === 'window' && character !== 'light' && !character.startsWith('custom:')
+      && !companionPresenceArtwork(character, moment, companionPaletteLight(renderedPalette), renderedPalette, variant, neutralTime)) {
+      const available = APPEARANCE_PALETTES.find(option => companionPresenceArtwork(character, moment, companionPaletteLight(option.id), option.id));
+      if (available) {
+        nextPalette = available.id; nextVariant = undefined; nextNeutral = undefined; useManualPalette = true;
+      }
+    }
+    const apply = () => {
+      if (id !== request.current) return;
+      setPreview(current => ({ ...current, character }));
+      if (useManualPalette) {
+        setEnvironmentMode('manual'); setPalette(nextPalette);
+        setEnvironmentEdited(origin.environmentMode !== 'manual' || nextPalette !== origin.palette);
+      }
+      if (!roomMode) { setExpanded(undefined); requestAnimationFrame(() => partnerButton.current?.focus()); }
+    };
+    const chosenId = choices[companionSceneChoiceKey(character, moment, nextPalette)];
+    const scene = (chosenId ? companionRegisteredSceneArtwork(chosenId, character, companionPaletteLight(nextPalette), nextPalette, nextVariant, nextNeutral) : undefined)
+      ?? companionPresenceArtwork(character, moment, companionPaletteLight(nextPalette), nextPalette, nextVariant, nextNeutral);
+    if (!roomMode || preview.presence !== 'window' || !scene) { apply(); return; }
+    setPreparingCharacter(character);
+    // Keep the visible person until this exact next pose can paint together;
+    // another choice or Cancel retires a late load.
+    const urls = [...new Set([scene.mother, scene.background, scene.figure, scene.mask, scene.contactMask, scene.shadow].filter((url): url is string => !!url))];
+    void Promise.all(urls.map(async url => { const image = new Image(); image.src = url; await image.decode();
+      if (image.naturalWidth !== scene.width || image.naturalHeight !== scene.height) throw new Error('incompatible_scene_canvas');
+    })).then(apply).catch(() => { if (id === request.current) setError('这个样子暂时没能打开，原来的选择还在。可以再选一次。'); })
+      .finally(() => { if (id === request.current) setPreparingCharacter(undefined); });
   }
   function chooseEnvironment(nextMode: AppearanceEnvironmentMode, nextPalette = palette) {
+    request.current++; setOpening(false); setPreparingCharacter(undefined);
     setEnvironmentMode(nextMode);
     setPalette(nextPalette);
     setEnvironmentEdited(nextMode !== origin.environmentMode || nextMode === 'manual' && nextPalette !== origin.palette);
-    setExpanded(undefined);
-    requestAnimationFrame(() => lightButton.current?.focus());
+    if (!roomMode) { setExpanded(undefined); requestAnimationFrame(() => lightButton.current?.focus()); }
   }
   function setPlacement(next: CompanionPlacement | ((current: CompanionPlacement) => CompanionPlacement)) {
     setPreview(current => ({ ...current, ...(typeof next === 'function' ? next(current) : next) }));
   }
   function cancelPreview() {
-    request.current++; setOpening(false);
+    request.current++; setOpening(false); setPreparingCharacter(undefined);
     endEnvironmentPreview.current?.();
     endEnvironmentPreview.current = undefined;
     delete draft.current.companion;
@@ -269,7 +304,8 @@ export function CompanionSettings({ draft, moment = 'chat' }: {
     setExpanded(undefined); button.current?.focus();
   }
 
-  return <section className="companion-settings" aria-label="陪伴的样子" onKeyDown={closePanel}>
+  return <section className={`companion-settings${roomMode ? ' companion-settings-room' : ''}`} aria-label="陪伴的样子" onKeyDown={closePanel}>
+    <WorkspaceArtworkWarmup character={value.character} sceneChoices={value.sceneChoices} />
     <div className="companion-settings-rows">
       <div className="companion-setting-row">
         <button ref={partnerButton} type="button" className="companion-setting-trigger" aria-label={'伙伴，' + companionName(value)} aria-expanded={expanded === 'partner'} aria-controls={panelId + '-partner'} onClick={() => togglePanel('partner')}>
@@ -279,9 +315,9 @@ export function CompanionSettings({ draft, moment = 'chat' }: {
         </button>
         {expanded === 'partner' && <div ref={picker} id={panelId + '-partner'} className="companion-partner-picker">
           <div className="character-choices" role="group" aria-label="选择伙伴">
-            {gallery.map(character => <button type="button" key={character.id} className="character-choice" aria-label={'fullName' in character ? value.names[character.id] ? companionName(value, character.id) + '，' + character.fullName : character.fullName : companionName(value, character.id)} aria-pressed={value.character === character.id} onClick={() => choose(character.id)}>
+            {gallery.map(character => <button type="button" key={character.id} className="character-choice" aria-label={'fullName' in character ? value.names[character.id] ? companionName(value, character.id) + '，' + character.fullName : character.fullName : companionName(value, character.id)} aria-pressed={value.character === character.id} aria-busy={preparingCharacter === character.id || undefined} onClick={() => choose(character.id)}>
               <span className={'character-picture ' + (character.id.startsWith('custom:') ? 'is-custom' : '')} style={{ backgroundImage: 'url(' + WINDOW_LIGHT[environment.light] + ')', ...('frame' in character ? { '--portrait-width': character.frame.portrait, '--portrait-top': character.frame.portraitTop, '--art-anchor': character.frame.anchor } : {}) } as CSSProperties}><img src={character.image} alt="" />{value.character === character.id && <span className="character-chosen"><Check size={12} /></span>}{value.favorites.includes(character.id) && <Heart size={12} className="companion-kept-mark" fill="currentColor" />}</span>
-              <span>{companionName(value, character.id)}</span>
+              <span>{companionName(value, character.id)}{preparingCharacter === character.id && <LoaderCircle size={16} className="spin" />}</span>
             </button>)}
           </div>
           <div className="companion-picker-actions">
@@ -315,7 +351,8 @@ export function CompanionSettings({ draft, moment = 'chat' }: {
       {roomStale && <div className="companion-preview-conflict" role="alert"><p>这里的选择刚在另一处改过。你试看的样子还留着。</p><button type="button" className="text-button" onClick={cancelPreview}>看看新选择</button><button type="button" className="text-button" onClick={keepPreviewAfterConflict}>保留这份试看</button></div>}
       {error && <p className="inline-problem companion-problem" role="alert">{error}</p>}
       {roomDirty && !roomCanAdopt && <p className="companion-scene-unavailable" role="status">这处窗边暂时没有合适的画面。<button type="button" className="text-button" onClick={() => setPreview(current => ({ ...current, presence: 'corner' }))}>留在页角</button></p>}
-      {(roomDirty || opening) && <div className="companion-preview-actions"><button type="button" className="text-button" onClick={cancelPreview}>取消</button><button type="button" className="primary-button" disabled={opening || roomStale || !roomCanAdopt || adopting} onClick={adoptPreview}>采用</button></div>}
+      {(roomDirty || opening || preparingCharacter) && <div className="companion-preview-actions"><button type="button" className="text-button" onClick={cancelPreview}>取消</button><button type="button" className="primary-button" disabled={opening || !!preparingCharacter || roomStale || !roomCanAdopt || adopting} onClick={adoptPreview}>采用</button></div>}
+      {roomMode && <button type="button" className="text-button companion-edit-persona" onClick={onEditPersona}>相处方式<ChevronRight size={17} /></button>}
     </div>
     <div className="companion-preview">
       <CompanionPreviewProvider preference={renderedPreference} positions={positions} choices={choices} onPositionChange={previewPosition} onSceneChoiceChange={previewSceneChoice}>

@@ -76,6 +76,7 @@ export function AgendaView({
   onState,
   onPresentMatter,
   onMap,
+  onOpenMap,
   onDiscuss,
   onOpenOrigin,
   position,
@@ -97,6 +98,7 @@ export function AgendaView({
   onState: (state: State) => void;
   onPresentMatter: (matter: SharedMatterView) => void;
   onMap: (id: string) => void;
+  onOpenMap?: () => void;
   onDiscuss?: (focus: AgendaFocus, label: string) => void;
   onOpenOrigin?: (record: AgendaReference) => void;
   position?: AgendaViewPosition;
@@ -592,7 +594,7 @@ export function AgendaView({
         section={section} scope={scope} query={query} dayLayout={dayLayout} hasTimeline={hasTimeline} attention={attention}
         onDateChange={date => { setSelectedDate(date); setScope('day'); setQuery(''); }}
         onSectionChange={setSection} onScopeChange={value => { setScope(value); setQuery(''); }}
-        onQueryChange={setQuery} onLayoutChange={setDayLayout} onCompose={onCompose}
+        onQueryChange={setQuery} onLayoutChange={setDayLayout} onCompose={onCompose} onOpenMap={onOpenMap}
         onDiscussDay={() => onContinue(`我们接着聊 ${selectedDate} 这一天的安排。`)}
         campusTools={state.presentation?.mode !== 'public'
           ? <CampusDayControls campus={campus} dayVisible={campusDayVisible} timeZone={zone} /> : undefined}

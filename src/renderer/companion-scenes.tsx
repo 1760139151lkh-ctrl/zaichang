@@ -24,11 +24,12 @@ export interface CompanionRoomLayout {
   viewportClientRect: CompanionRoomRect;
   frame: { x: number; y: number; width: number; height: number; scale: number };
   actorClientRect: CompanionRoomRect | null;
-  framePolicy: 'safe-cover' | 'protected-fit';
+  framePolicy: 'safe-cover' | 'protected-fit' | 'compact-cover';
 }
 export interface CompanionRoomActions {
   onRoomLayout?: (payload: CompanionRoomLayout | null) => void;
   onStartFocus?: () => void;
+  deskActionLabel?: string;
   onRest?: () => void;
   focusActive?: boolean;
 }
@@ -55,6 +56,7 @@ export interface SceneCalibration {
   perspective: number;
 }
 export interface CompanionSceneArtwork extends SceneCalibration {
+  renderMode?: 'layered' | 'complete-scene';
   id: string;
   sceneFamily: string;
   character: SceneCharacter;
@@ -98,6 +100,7 @@ export interface SceneTransferTarget extends SceneTransferChoice {
 // the viewport, and a tight portrait is never fitted into this coordinate space.
 const images = import.meta.glob('../../前端视觉创新设计/运行素材/companion/scenes/*.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
 interface SceneRegistration extends Omit<SceneCalibration, 'contactShadow'> {
+  renderMode?: 'layered' | 'complete-scene';
   schemaVersion: 1;
   id: string;
   sceneFamily: string;
@@ -259,7 +262,11 @@ const registrations = Object.entries(registrationFiles).filter(([, item]) => {
     && ['morning', 'dusk', 'night'].includes(item.light) && ['apricot', 'mist', 'violet', 'rain'].includes(item.palette)
     && validEnvironmentRegistration(item)
     && item.light === companionPaletteLight(item.palette)
-    && registeredFile(item.mother) && registeredFile(item.background) && (registeredFile(item.figure) || registeredFile(item.mask))
+    && registeredFile(item.mother) && registeredFile(item.background)
+    && (item.renderMode === 'complete-scene'
+      ? item.travel === 0 && item.slope === 0 && item.perspective === 0 && item.contactShadow?.mode === 'included'
+        && !item.figure && !item.mask && !item.contactMask && !item.shadow && !item.floorCast
+      : (item.renderMode === undefined || item.renderMode === 'layered') && (registeredFile(item.figure) || registeredFile(item.mask)))
     && (!item.figure || registeredFile(item.figure)) && (!item.mask || registeredFile(item.mask))
     && (item.maskMode === undefined || ['alpha', 'luminance'].includes(item.maskMode))
     && (item.maskMode !== 'luminance' || registeredFile(item.mask))
@@ -470,9 +477,19 @@ const roomFramingBounds = (() => {
   return [Math.max(0, limits[0] - 96 / roomBackgroundManifest.width), Math.max(0, limits[1] - 12 / roomBackgroundManifest.height),
     Math.min(1, limits[2] + 96 / roomBackgroundManifest.width), Math.min(1, limits[3] + 12 / roomBackgroundManifest.height)] as const;
 })();
-export function companionRoomFrame(width: number, height: number, canvasWidth: number, canvasHeight: number) {
+export function companionRoomFrame(width: number, height: number, canvasWidth: number, canvasHeight: number,
+  focusBounds?: readonly [number, number, number, number]) {
   const wideScale = Math.max(0, width / canvasWidth), tallScale = Math.max(0, height / canvasHeight);
   const cover = Math.max(wideScale, tallScale);
+  // A tall window uses a deliberate crop around the same actor, not a tiny
+  // complete landscape surrounded by letterboxing. Source pixels and all
+  // furniture/interaction coordinates still share this single transform.
+  if (focusBounds && width <= 760 && height > width * .9) {
+    const focusX = (focusBounds[0] + focusBounds[2]) * canvasWidth / 2;
+    return { scale: cover, x: Math.min(0, Math.max(width - canvasWidth * cover, width / 2 - focusX * cover)),
+      y: Math.min(0, (height - canvasHeight * cover) / 2), width: canvasWidth * cover,
+      height: canvasHeight * cover, policy: 'compact-cover' as const };
+  }
   const bounds = canvasWidth === roomBackgroundManifest?.width && canvasHeight === roomBackgroundManifest.height ? roomFramingBounds : [0, 0, 1, 1];
   const minimumX = -bounds[0] * canvasWidth * cover, maximumX = width - bounds[2] * canvasWidth * cover;
   const minimumY = -bounds[1] * canvasHeight * cover, maximumY = height - bounds[3] * canvasHeight * cover;
@@ -530,7 +547,7 @@ function useRoomLayoutReport(viewport: { current: HTMLDivElement | null }, callb
   }, []);
 }
 interface RoomHotspotAvailability { onHotspotsAvailableChange?: (available: boolean) => void }
-function RoomHotspots({ family, actor, enabled = true, onStartFocus, onRest, focusActive = false, onHotspotsAvailableChange }: {
+function RoomHotspots({ family, actor, enabled = true, onStartFocus, deskActionLabel, onRest, focusActive = false, onHotspotsAvailableChange }: {
   family: string; actor?: CompanionRoomRect | null; enabled?: boolean;
 } & CompanionRoomActions & RoomHotspotAvailability) {
   const hotspots = enabled && roomInteraction?.roomFamily === family ? roomInteraction.hotspots.filter(hotspot => {
@@ -550,9 +567,10 @@ function RoomHotspots({ family, actor, enabled = true, onStartFocus, onRest, foc
     const action = hotspot.action === 'start-focus' ? onStartFocus : onRest;
     const points = hotspot.polygon.map(point => point.join(',')).join(' ');
     const focus = hotspot.action === 'start-focus';
+    const label = focus ? deskActionLabel || (focusActive ? '专注进行中' : '开始专注') : '坐下歇一会儿';
     return <button key={hotspot.action} type="button" className="scene-object-hotspot" data-action={hotspot.action}
       data-active={focus && focusActive || undefined} disabled={focus && focusActive}
-      aria-label={focus ? focusActive ? '专注进行中' : '开始专注' : '坐下歇一会儿'}
+      aria-label={label} title={label}
       style={{ clipPath: `polygon(${hotspot.polygon.map(([x, y]) => `${x / roomInteraction.width * 100}% ${y / roomInteraction.height * 100}%`).join(',')})` }}
       onPointerDown={event => event.stopPropagation()} onClick={event => { event.stopPropagation(); action?.(); }}>
       <svg viewBox={`0 0 ${roomInteraction.width} ${roomInteraction.height}`} aria-hidden="true"><polygon points={points} vectorEffect="non-scaling-stroke" /></svg>
@@ -561,9 +579,42 @@ function RoomHotspots({ family, actor, enabled = true, onStartFocus, onRest, foc
 }
 export type CompanionAmbientFit = 'room' | 'cover';
 
+type RoomPerch = { id: string; label: string; x: number; y: number; pose: 'loaf' | 'curl' };
+const literaryFurniturePerches: RoomPerch[] = [
+  { id: 'lamp', label: '窗边灯罩', x: 510, y: 283, pose: 'loaf' },
+  { id: 'books', label: '圆桌上的书', x: 552, y: 488, pose: 'curl' },
+  { id: 'bench', label: '窗边软垫', x: 838, y: 548, pose: 'curl' },
+  { id: 'floor', label: '窗前地毯', x: 704, y: 964, pose: 'curl' },
+];
+// These actor supports were checked against the exact original mothers. Other
+// poses keep furniture points without inventing head or lap coordinates.
+const literaryActorPerches: Record<string, RoomPerch[]> = {
+  'sakiko-chat-apricot-literary-v1': [
+    { id: 'head', label: '祥子头顶', x: 1140, y: 120, pose: 'loaf' },
+    { id: 'lap', label: '祥子膝上', x: 1138, y: 559, pose: 'curl' },
+  ],
+  'sakiko-study-apricot-literary-desk-v1': [
+    { id: 'book', label: '祥子手边的书', x: 132, y: 379, pose: 'curl' },
+  ],
+};
+function RoomPerches({ family, actor, pose, actorStyle }: {
+  family: string; actor: CompanionRoomRect | null; pose?: string; actorStyle?: CSSProperties;
+}) {
+  if (family !== 'literary-room-v1') return null;
+  const render = (perch: RoomPerch) => <div key={perch.id} className="workspace-scene-perch"
+    data-presence-edge={`room-${pose || 'empty'}-${perch.id}`} data-presence-edge-label={perch.label}
+    data-presence-edge-sides="top" data-presence-edge-point="true" data-presence-edge-scene="true"
+    data-presence-edge-pose={perch.pose} style={{ left: perch.x - 36, top: perch.y, width: 72, height: 4 }} />;
+  return <>
+    {literaryFurniturePerches.filter(perch => !actor || perch.x < actor.left - 30 || perch.x > actor.left + actor.width + 30
+      || perch.y < actor.top || perch.y > actor.top + actor.height + 30).map(render)}
+    {pose && <div className="scene-actor-perches" style={actorStyle}>{(literaryActorPerches[pose] || []).map(render)}</div>}
+  </>;
+}
+
 /** Room presentation uses the common physical camera. Decorative cover is
  * only an admitted empty plate, with no room coordinates or interactions. */
-export function CompanionRoomStage({ artwork, reducedMotion = false, ambientFit = 'room', onRoomLayout, onStartFocus, onRest, focusActive, onHotspotsAvailableChange }: {
+export function CompanionRoomStage({ artwork, reducedMotion = false, ambientFit = 'room', onRoomLayout, onStartFocus, deskActionLabel, onRest, focusActive, onHotspotsAvailableChange }: {
   artwork: CompanionAmbientArtwork; reducedMotion?: boolean; ambientFit?: CompanionAmbientFit;
 } & CompanionRoomActions & RoomHotspotAvailability) {
   const viewport = useRef<HTMLDivElement>(null);
@@ -584,7 +635,7 @@ export function CompanionRoomStage({ artwork, reducedMotion = false, ambientFit 
     : artwork.fallbackBackground && !failed.has(artwork.fallbackBackground) ? artwork.fallbackBackground : undefined;
   const timeOnly = artwork.timeOnly || background !== artwork.background;
   const variant = timeOnly ? artwork.fallbackVariant : artwork.variant;
-  const frame = companionRoomFrame(size.width, size.height, artwork.width, artwork.height);
+  const frame = companionRoomFrame(size.width, size.height, artwork.width, artwork.height, [0, 0, 1, 1]);
   useRoomLayoutReport(viewport, ambientFit === 'cover' ? undefined : onRoomLayout, { family: artwork.sceneFamily, sourceKey: `${artwork.sceneFamily}:${background ?? 'unavailable'}`,
     sourceCanvas: { width: artwork.width, height: artwork.height }, poseId: null, support: null, bodyBounds: null, actorSourceRect: null, actorVisible: false, interaction: 'idle' }, frame);
   useLayoutEffect(() => {
@@ -605,7 +656,8 @@ export function CompanionRoomStage({ artwork, reducedMotion = false, ambientFit 
       : <div className="scene-canvas" style={{ width: artwork.width, height: artwork.height,
       transform: `translate(${frame.x}px, ${frame.y}px) scale(${frame.scale})`, transition: reducedMotion ? 'none' : undefined }}>
       <img key={background} className="scene-layer" src={background} alt="" draggable={false} onError={fail} onLoad={event => opened(event.currentTarget)} />
-      <RoomHotspots family={artwork.sceneFamily} enabled={openedBackground === background} onStartFocus={onStartFocus} onRest={onRest} focusActive={focusActive} onHotspotsAvailableChange={onHotspotsAvailableChange} />
+      <RoomHotspots family={artwork.sceneFamily} enabled={openedBackground === background} onStartFocus={onStartFocus} deskActionLabel={deskActionLabel} onRest={onRest} focusActive={focusActive} onHotspotsAvailableChange={onHotspotsAvailableChange} />
+      {openedBackground === background && <RoomPerches family={artwork.sceneFamily} actor={null} />}
     </div>)}
   </div>;
 }
@@ -617,7 +669,7 @@ export function companionScenePortrait(character: string) {
 
 /** Position follows a calibrated support surface; floor poses stay at their contact pivot. */
 export function CompanionSceneStage({ artwork, name, position, onCommit, transferTargets = [], transferScope, onTransferCommit, showFigure = true, interactive = true, quiet = false, reducedMotion = false, previewOnly = false,
-  yieldToInput = false, onRoomLayout, onStartFocus, onRest, focusActive, onHotspotsAvailableChange }: {
+  yieldToInput = false, onRoomLayout, onStartFocus, deskActionLabel, onRest, focusActive, onHotspotsAvailableChange }: {
   artwork: CompanionSceneArtwork;
   name: string;
   position: number;
@@ -704,7 +756,7 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, transfe
   const canTransfer = !yieldToInput && interactive && showFigure && sourceReady && !pendingTransfer && !!onTransferCommit && transferTargets.length > 0;
   const canMove = canSlide || canTransfer;
   // All layers share the family's safe camera, including a transfer preview.
-  const frame = companionRoomFrame(size.width, size.height, shown.width, shown.height);
+  const frame = companionRoomFrame(size.width, size.height, shown.width, shown.height, shown.bodyBounds);
   const scale = frame.scale;
   const stageX = moving && gesture.current ? gesture.current.stageX : frame.x;
   const stageY = moving && gesture.current ? gesture.current.stageY : frame.y;
@@ -1091,7 +1143,7 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, transfe
     </>}
     {sameRoom && (!failedMother || showEmptyRoom) && <div className="scene-canvas" style={{ width: shown.width, height: shown.height,
       transform: `translate(${stageX}px, ${stageY}px) scale(${scale})` }}>
-      {layered || showEmptyRoom ? <>
+      {layered || showEmptyRoom || !showFigure && shown.renderMode === 'complete-scene' ? <>
         <img key={`background-${imageKey}`} className="scene-layer" src={imageSource(shown.background)} alt="" draggable={false}
           onLoad={event => { if (verifyLayer(event.currentTarget)) setOpenedBackground(imageKey); }} onError={failLayer} />
         {showFigure && motherReady && !failedMother && fixedSourceShadow && shown.shadow && <svg className="scene-layer scene-source-shadow" viewBox={`0 0 ${shown.width} ${shown.height}`} aria-hidden="true">
@@ -1192,8 +1244,15 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, transfe
         </div>}
         {shown.foreground && <img className="scene-layer scene-foreground" src={imageSource(shown.foreground)} alt="" draggable={false} onLoad={event => verifyLayer(event.currentTarget)} onError={failLayer} />}
         <RoomHotspots family={shown.sceneFamily} actor={actorSourceRect} enabled={openedBackground === imageKey && !failedLayer && !moving && !pendingTransfer && !targetsOpen}
-          onStartFocus={onStartFocus} onRest={onRest} focusActive={focusActive} onHotspotsAvailableChange={onHotspotsAvailableChange} />
-      </> : showFigure && motherReady && !shown.contactMask ? <img className="scene-layer" src={imageSource(shown.mother)} alt="" draggable={false} onError={failMother} /> : null}
+          onStartFocus={onStartFocus} deskActionLabel={deskActionLabel} onRest={onRest} focusActive={focusActive} onHotspotsAvailableChange={onHotspotsAvailableChange} />
+      </> : showFigure && motherReady && !shown.contactMask ? <>
+        <img className="scene-layer" src={imageSource(shown.mother)} alt="" draggable={false} onError={failMother} />
+        {shown.renderMode === 'complete-scene' && <RoomHotspots family={shown.sceneFamily} actor={actorSourceRect}
+          enabled={!failedMother && !moving && !pendingTransfer && !targetsOpen} onStartFocus={onStartFocus}
+          deskActionLabel={deskActionLabel} onRest={onRest} focusActive={focusActive} onHotspotsAvailableChange={onHotspotsAvailableChange} />}
+      </> : null}
+      {!moving && !pendingTransfer && !targetsOpen && (openedBackground === imageKey || motherReady) && !failedLayer && !failedMother
+        && <RoomPerches family={shown.sceneFamily} actor={actorSourceRect} pose={actorVisible ? shown.id : undefined} actorStyle={actorStyle} />}
     </div>}
     {targetsOpen && canTransfer && <div ref={furnitureMenu} className="scene-furniture-menu" role="menu" aria-label="坐在哪里"
       onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setTargetsOpen(false); }}

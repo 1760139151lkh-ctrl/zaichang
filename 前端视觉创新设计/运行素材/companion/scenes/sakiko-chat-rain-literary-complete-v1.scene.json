@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "sakiko-chat-rain-literary-complete-v1",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "sakiko",
+  "activity": "chat",
+  "light": "night",
+  "palette": "rain",
+  "environmentVariant": "rain-night",
+  "width": 1536,
+  "height": 1024,
+  "mother": "sakiko-chat-rain-literary-complete-v1-mother.png",
+  "background": "literary-room-rain-night-v1.png",
+  "seat": [
+    0.81,
+    0.59
+  ],
+  "ground": [
+    0.65,
+    0.91
+  ],
+  "bodyBounds": [
+    0.56,
+    0.1,
+    0.91,
+    0.93
+  ],
+  "safeTextBoundary": 0.53,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "56% 10%, 91% 10%, 91% 93%, 56% 93%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "229156a8a56698f5e0fb73424c3b65dc5fe3adde0fbee3101033ca5df1ce3f2f"
+    },
+    "sourceRecord": "前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/chat-light-pilot/sakiko-chat-rain-v1.source.json",
+    "admission": "2026-10-26 primary personally viewed complete mother. Fixed original camera/pose only; conservative visible-body envelope for layout. No independent body movement, mask, or video claim.",
+    "runtimeEvidence": "完整房间预览已由主代理实际选择查看；固定母图，无人体平移。详见本轮前端重审记录。"
+  }
+}

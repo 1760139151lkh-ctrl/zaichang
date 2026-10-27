@@ -1,0 +1,24 @@
+{
+  "kind": "candidate",
+  "generatedSource": "C:\\Users\\17601\\.codex\\generated_images\\01a17a92-ae0a-7132-848c-516e08efdd9b\\exec-cc6307bb-8bdd-48b1-b326-cc2075fc7f9b.png",
+  "prompt": "Use case: stylized-concept. Create a production-ready text-free illustrated working scene for a desktop companion app. References: complete literary room for continuity and Sakiko's approved portrait for exact youthful identity. New camera closer to the working table, as though two people are sitting together. A real warm ivory reading sheet is supported on a low wooden reading stand on the RIGHT, with its writable face nearly frontal, filling roughly the right 60% of the picture from near the top to near the bottom. This quiet blank sheet is an actual scene object with warm light, fine paper fibers, restrained natural edges and contact shadow; not a luminous white dashboard or whiteboard pasted on top. No printed text, no ruled lines, no symbols, no interface, no fake formulas, no icons anywhere. Its central area must be even and low-contrast to host selectable live text and interactive graphics later. Keep the paper face straight enough for a real front-end; do not strongly foreshorten it. Leave the bottom paper edge and the wooden table visible.\n\nOn the LEFT, Sakiko is at the adjacent place at the table. Her visible face, upper body, supporting chair, forearms, own open book and nearby brass lamp clearly belong to the same scene. She is naturally sized, not a huge head filling half the screen. She is quietly listening to someone beside the paper: one hand keeps a page of her own book, the other rests loosely on the table, her golden eyes attend to the sheet's left edge, with a warm intelligent almost-smile. No stylized pointing into empty space, no pen at her lips. Same pale blue-lilac long hair, two navy side ribbons, youthful softly full cheeks, natural small chin, navy literary cardigan, light collar with navy ribbon, navy plaid skirt. If knees/feet are visible, bare knees, below-knee calf socks and complete loafers. Correct joint continuity and physical table/chair support. The two references define identity/world, not an instruction to paste a cutout.\n\nShow some of the familiar complete wooden window behind her, blue sky and lake, morning apricot sunlight, restrained shadows and a ceramic cup on the table. A foreground corner of a book or lamp can provide depth, but it must not intrude into the large quiet paper center. This is a cohesive fine 2D anime literary painting with believable materials and soft pencil/ink linework, not photorealism or a game UI screenshot. Keep contrast and scene saturation; no milky global wash, no giant empty wall. No cat (the existing interactive cat is added separately). No humans besides Sakiko. 1536x1024 landscape. This clean complete mother scene will be used for precise same-canvas extraction, so maintain one coherent camera, body, paper and tabletop.",
+  "referencedImages": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/运行素材/companion/scenes/literary-room-clear-day-v1.png",
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-user-selected-youth-avatar-20261025.png"
+  ],
+  "primaryImageViewed": true,
+  "runtimeAccepted": false,
+  "selection": "待实际内容与连续操作比较，不因生成成功准入。",
+  "output": "前端视觉创新设计/补充图稿/2026-10-26-coherent-experience/desk-apricot.png",
+  "sha256": "88cc03f27a78749b527b4c26da8464a93bcca6d6f39ae85839a55304cd06c3bb",
+  "inputSha256": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/运行素材/companion/scenes/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-user-selected-youth-avatar-20261025.png",
+      "sha256": "bc92a4e0096411b0e58b5e4dfc12d61b48bf255f0fd7a544c039ae9e4cd7fc32"
+    }
+  ]
+}

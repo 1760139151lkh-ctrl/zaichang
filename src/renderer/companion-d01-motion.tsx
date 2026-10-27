@@ -20,7 +20,7 @@ export interface CompanionD01Rig {
   height: number;
   source: string;
   cleanPlate: string;
-  arm: {
+  arm?: {
     erasePath: string;
     upperPath: string;
     forearmPath: string;
@@ -36,6 +36,7 @@ export interface CompanionD01Rig {
     cleanPlate: string;
     apertures: readonly { path: string; irisPath: string; center: Point }[];
     travel: Point;
+    blink?: { source: string; paths: readonly string[] };
   };
   head?: {
     background: string;
@@ -74,6 +75,7 @@ const rotate = (point: Point, pivot: Point, radians: number): Point => [
 /** Two connected source sections, with the original elbow bend retained.
  * Only the wrist's small gesture space changes; the shoulder never travels. */
 function armAngles(rig: CompanionD01Rig, target: Point): Point {
+  if (!rig.arm) return [0, 0];
   const { shoulder, elbow, wrist } = rig.arm;
   const upper = distance(shoulder, elbow), lower = distance(elbow, wrist);
   const dx = target[0] - wrist[0], dy = target[1] - wrist[1], direction = Math.max(1, Math.hypot(dx, dy));
@@ -96,9 +98,18 @@ function armAngles(rig: CompanionD01Rig, target: Point): Point {
 export function CompanionD01Motion({ rig, targets = emptyTargets, focusSlot, yieldToInput = false,
   hidden = false, reducedMotion = false, canvasRef, geometryKey, onReadyChange, onAssetError }: CompanionD01MotionProps) {
   const svg = useRef<SVGSVGElement>(null), id = useId().replace(/:/g, '');
-  const assetKey = [rig.id, rig.source, rig.cleanPlate, rig.eyes.cleanPlate, rig.head?.background,
-    rig.arm.sourcePose?.image, rig.arm.foregroundSource, rig.width, rig.height].join('|');
+  const assetKey = [rig.id, rig.source, rig.cleanPlate, rig.eyes.cleanPlate, rig.eyes.blink?.source, rig.head?.background,
+    rig.arm?.sourcePose?.image, rig.arm?.foregroundSource, rig.width, rig.height].join('|');
   const [loadedAsset, setLoadedAsset] = useState<string>(), [pageHidden, setPageHidden] = useState(document.hidden);
+  const [blinking, setBlinking] = useState(false);
+  const [systemReducedMotion, setSystemReducedMotion] = useState(() => matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const quietMotion = reducedMotion || systemReducedMotion;
+  useEffect(() => {
+    const preference = matchMedia('(prefers-reduced-motion: reduce)');
+    const changed = () => setSystemReducedMotion(preference.matches);
+    preference.addEventListener('change', changed);
+    return () => preference.removeEventListener('change', changed);
+  }, []);
   const ready = loadedAsset === assetKey;
   const [resolved, setResolved] = useState<{ key: string; slot: 'A' | 'B'; point: Point }[]>([]);
   const [rects, setRects] = useState<{ key: string; slot: 'A' | 'B'; rect: DOMRectReadOnly }[]>([]);
@@ -106,7 +117,8 @@ export function CompanionD01Motion({ rig, targets = emptyTargets, focusSlot, yie
   const assetError = useRef(onAssetError);
   assetError.current = onAssetError;
   const request = useRef(0);
-  const restUpper = angle(rig.arm.shoulder, rig.arm.elbow), restLower = angle(rig.arm.elbow, rig.arm.wrist);
+  const restUpper = rig.arm ? angle(rig.arm.shoulder, rig.arm.elbow) : 0;
+  const restLower = rig.arm ? angle(rig.arm.elbow, rig.arm.wrist) : 0;
   const upper = useSpringValue(restUpper, { stiffness: 420, damping: 40, precision: .0002 });
   const lower = useSpringValue(restLower, { stiffness: 420, damping: 40, precision: .0002 });
   const eyeX = useSpringValue(0, { stiffness: 560, damping: 45, precision: .005 });
@@ -116,7 +128,7 @@ export function CompanionD01Motion({ rig, targets = emptyTargets, focusSlot, yie
   useEffect(() => {
     let cancelled = false;
     setLoadedAsset(undefined);
-    const urls = [...new Set([rig.source, rig.cleanPlate, rig.eyes.cleanPlate, rig.head?.background, rig.arm.sourcePose?.image, rig.arm.foregroundSource]
+    const urls = [...new Set([rig.source, rig.cleanPlate, rig.eyes.cleanPlate, rig.eyes.blink?.source, rig.head?.background, rig.arm?.sourcePose?.image, rig.arm?.foregroundSource]
       .filter((url): url is string => !!url))];
     void Promise.all(urls.map(async url => {
       const image = new Image(); image.src = url;
@@ -127,8 +139,22 @@ export function CompanionD01Motion({ rig, targets = emptyTargets, focusSlot, yie
       if (!cancelled) { setLoadedAsset(undefined); assetError.current?.(); }
     });
     return () => { cancelled = true; };
-  }, [assetKey, rig.source, rig.cleanPlate, rig.eyes.cleanPlate, rig.head?.background, rig.arm.sourcePose?.image, rig.arm.foregroundSource, rig.width, rig.height]);
+  }, [assetKey, rig.source, rig.cleanPlate, rig.eyes.cleanPlate, rig.eyes.blink?.source, rig.head?.background, rig.arm?.sourcePose?.image, rig.arm?.foregroundSource, rig.width, rig.height]);
   useEffect(() => { onReadyChange?.(ready); }, [ready, onReadyChange]);
+  useEffect(() => {
+    setBlinking(false);
+    if (!ready || !rig.eyes.blink || hidden || pageHidden || quietMotion) return;
+    let timer = 0;
+    const blink = () => {
+      setBlinking(true);
+      timer = window.setTimeout(() => {
+        setBlinking(false);
+        timer = window.setTimeout(blink, 4800 + Math.random() * 2800);
+      }, 130);
+    };
+    timer = window.setTimeout(blink, 2800 + Math.random() * 1800);
+    return () => window.clearTimeout(timer);
+  }, [ready, rig.eyes.blink, hidden, pageHidden, quietMotion]);
 
   useLayoutEffect(() => {
     let controller: AbortController | undefined, frame = 0;
@@ -211,7 +237,7 @@ export function CompanionD01Motion({ rig, targets = emptyTargets, focusSlot, yie
   const eyeCenter: Point = rig.eyes.apertures.length ? [
     rig.eyes.apertures.reduce((sum, eye) => sum + eye.center[0], 0) / rig.eyes.apertures.length,
     rig.eyes.apertures.reduce((sum, eye) => sum + eye.center[1], 0) / rig.eyes.apertures.length,
-  ] : rig.arm.shoulder;
+  ] : rig.arm?.shoulder || [rig.width / 2, rig.height / 2];
   const wantedEyeX = attending ? clamp((selected![0] - eyeCenter[0]) / 280, -1, 1) * rig.eyes.travel[0] : 0;
   // Use the direction to the page rather than saturating on a distant page's
   // vertical offset; neighbouring lines must still have distinct gaze targets.
@@ -221,21 +247,24 @@ export function CompanionD01Motion({ rig, targets = emptyTargets, focusSlot, yie
   const wantedHead = rig.head && attending ? pitch * Math.sign(selected![0] - eyeCenter[0])
     * (rig.head.maxTilt ?? 1.2) * Math.PI / 180 : 0;
   useLayoutEffect(() => {
-    const immediate = hidden || pageHidden || reducedMotion;
+    const immediate = hidden || pageHidden || quietMotion;
     if (immediate) {
       upper.set(wantedUpper); lower.set(wantedLower); eyeX.set(wantedEyeX); eyeY.set(wantedEyeY); head.set(wantedHead);
     } else {
       upper.animate(wantedUpper); lower.animate(wantedLower); eyeX.animate(wantedEyeX); eyeY.animate(wantedEyeY); head.animate(wantedHead);
     }
-  }, [wantedUpper, wantedLower, wantedEyeX, wantedEyeY, wantedHead, hidden, pageHidden, reducedMotion,
+  }, [wantedUpper, wantedLower, wantedEyeX, wantedEyeY, wantedHead, hidden, pageHidden, quietMotion,
     upper.set, upper.animate, lower.set, lower.animate, eyeX.set, eyeX.animate, eyeY.set, eyeY.animate, head.set, head.animate]);
 
-  const elbow = rotate(rig.arm.elbow, rig.arm.shoulder, upper.value - restUpper);
-  const sourceArm = rig.arm.sourcePose || { image: rig.source, shoulder: rig.arm.shoulder, elbow: rig.arm.elbow, wrist: rig.arm.wrist };
-  const upperScale = distance(rig.arm.shoulder, rig.arm.elbow) / Math.max(1, distance(sourceArm.shoulder, sourceArm.elbow));
-  const lowerScale = distance(rig.arm.elbow, rig.arm.wrist) / Math.max(1, distance(sourceArm.elbow, sourceArm.wrist));
-  const upperTransform = `translate(${rig.arm.shoulder.join(' ')}) rotate(${degrees(upper.value - angle(sourceArm.shoulder, sourceArm.elbow))}) scale(${upperScale}) translate(${-sourceArm.shoulder[0]} ${-sourceArm.shoulder[1]})`;
-  const lowerTransform = `translate(${elbow[0]} ${elbow[1]}) rotate(${degrees(lower.value - angle(sourceArm.elbow, sourceArm.wrist))}) scale(${lowerScale}) translate(${-sourceArm.elbow[0]} ${-sourceArm.elbow[1]})`;
+  const arm = rig.arm;
+  const sourceArm = arm && (arm.sourcePose || { image: rig.source, shoulder: arm.shoulder, elbow: arm.elbow, wrist: arm.wrist });
+  const elbow = arm ? rotate(arm.elbow, arm.shoulder, upper.value - restUpper) : undefined;
+  const upperScale = arm && sourceArm ? distance(arm.shoulder, arm.elbow) / Math.max(1, distance(sourceArm.shoulder, sourceArm.elbow)) : 1;
+  const lowerScale = arm && sourceArm ? distance(arm.elbow, arm.wrist) / Math.max(1, distance(sourceArm.elbow, sourceArm.wrist)) : 1;
+  const upperTransform = arm && sourceArm ? `translate(${arm.shoulder.join(' ')}) rotate(${degrees(upper.value - angle(sourceArm.shoulder, sourceArm.elbow))}) scale(${upperScale}) translate(${-sourceArm.shoulder[0]} ${-sourceArm.shoulder[1]})` : undefined;
+  const lowerTransform = elbow && sourceArm ? `translate(${elbow[0]} ${elbow[1]}) rotate(${degrees(lower.value - angle(sourceArm.elbow, sourceArm.wrist))}) scale(${lowerScale}) translate(${-sourceArm.elbow[0]} ${-sourceArm.elbow[1]})` : undefined;
+  const activeOverlay = attending || Math.abs(eyeX.value) > .01 || Math.abs(eyeY.value) > .01
+    || Math.abs(head.value) > .0002 || Math.abs(upper.value - restUpper) > .0002 || Math.abs(lower.value - restLower) > .0002;
   // Keep the SVG mounted while images decode so its screen transform is ready.
   // Failed assets expose the original static actor underneath, without a
   // replacement character or a made-up gesture.
@@ -243,11 +272,13 @@ export function CompanionD01Motion({ rig, targets = emptyTargets, focusSlot, yie
     viewBox={`0 0 ${rig.width} ${rig.height}`} aria-hidden="true" focusable="false"
     data-d01-rig={rig.id} data-d01-ready={ready} data-d01-state={hidden || pageHidden ? 'hidden' : yieldToInput ? 'yield' : attending ? 'attend' : 'neutral'}>
     <defs>
-      <clipPath id={`${id}-erase`}><path d={rig.arm.erasePath} /></clipPath>
-      <clipPath id={`${id}-upper`}><path d={rig.arm.upperPath} /></clipPath>
-      <clipPath id={`${id}-forearm`}><path d={rig.arm.forearmPath} /></clipPath>
-      {rig.arm.foregroundPath && <clipPath id={`${id}-foreground`}><path d={rig.arm.foregroundPath} /></clipPath>}
-      {rig.arm.foregroundRestorePath && <clipPath id={`${id}-foreground-restore`}><path d={rig.arm.foregroundRestorePath} /></clipPath>}
+      {arm && <>
+        <clipPath id={`${id}-erase`}><path d={arm.erasePath} /></clipPath>
+        <clipPath id={`${id}-upper`}><path d={arm.upperPath} /></clipPath>
+        <clipPath id={`${id}-forearm`}><path d={arm.forearmPath} /></clipPath>
+        {arm.foregroundPath && <clipPath id={`${id}-foreground`}><path d={arm.foregroundPath} /></clipPath>}
+        {arm.foregroundRestorePath && <clipPath id={`${id}-foreground-restore`}><path d={arm.foregroundRestorePath} /></clipPath>}
+      </>}
       {rig.head && <>
         <clipPath id={`${id}-head-erase`}><path d={rig.head.erasePath} /></clipPath>
         <clipPath id={`${id}-head`}><path d={rig.head.path} /></clipPath>
@@ -257,16 +288,24 @@ export function CompanionD01Motion({ rig, targets = emptyTargets, focusSlot, yie
         <clipPath id={`${id}-eye-${index}`}><path d={eye.path} /></clipPath>
         <clipPath id={`${id}-iris-${index}`}><path d={eye.irisPath} /></clipPath>
       </g>)}
+      {rig.eyes.blink && <>
+        <filter id={`${id}-blink-feather`}><feGaussianBlur stdDeviation=".7" /></filter>
+        <mask id={`${id}-blink`} maskUnits="userSpaceOnUse" x="0" y="0" width={rig.width} height={rig.height} style={{ maskType: 'alpha' }}>
+          <g fill="white" filter={`url(#${id}-blink-feather)`}>{rig.eyes.blink.paths.map((path, index) => <path key={index} d={path} />)}</g>
+        </mask>
+      </>}
     </defs>
-    {ready && <g>
-      <image href={rig.cleanPlate} width={rig.width} height={rig.height} clipPath={`url(#${id}-erase)`} />
+    {ready && activeOverlay && <g>
+      {arm && <image href={rig.cleanPlate} width={rig.width} height={rig.height} clipPath={`url(#${id}-erase)`} />}
       {rig.head && <g clipPath={`url(#${id}-head-erase)`}>
         <image href={rig.head.background} width={rig.width} height={rig.height} transform={backgroundTransform} />
       </g>}
-      <g transform={upperTransform}><image href={sourceArm.image} width={rig.width} height={rig.height} clipPath={`url(#${id}-upper)`} /></g>
-      <g transform={lowerTransform}><image href={sourceArm.image} width={rig.width} height={rig.height} clipPath={`url(#${id}-forearm)`} /></g>
-      {rig.arm.foregroundPath && <image href={rig.arm.foregroundSource || rig.source} width={rig.width} height={rig.height} clipPath={`url(#${id}-foreground)`} />}
-      {rig.arm.foregroundRestorePath && <image href={rig.source} width={rig.width} height={rig.height} clipPath={`url(#${id}-foreground-restore)`} />}
+      {arm && sourceArm && <>
+        <g transform={upperTransform}><image href={sourceArm.image} width={rig.width} height={rig.height} clipPath={`url(#${id}-upper)`} /></g>
+        <g transform={lowerTransform}><image href={sourceArm.image} width={rig.width} height={rig.height} clipPath={`url(#${id}-forearm)`} /></g>
+        {arm.foregroundPath && <image href={arm.foregroundSource || rig.source} width={rig.width} height={rig.height} clipPath={`url(#${id}-foreground)`} />}
+        {arm.foregroundRestorePath && <image href={rig.source} width={rig.width} height={rig.height} clipPath={`url(#${id}-foreground-restore)`} />}
+      </>}
       <g transform={rig.head ? `rotate(${degrees(head.value)} ${rig.head.pivot.join(' ')})` : undefined}>
         {rig.head && <image href={rig.source} width={rig.width} height={rig.height} clipPath={`url(#${id}-head)`} />}
         {rig.eyes.apertures.map((eye, index) => <g key={index} clipPath={`url(#${id}-eye-${index})`}>
@@ -278,5 +317,8 @@ export function CompanionD01Motion({ rig, targets = emptyTargets, focusSlot, yie
       </g>
       {rig.head?.foregroundPath && <image href={rig.source} width={rig.width} height={rig.height} clipPath={`url(#${id}-collar)`} />}
     </g>}
+    {ready && rig.eyes.blink && !hidden && !pageHidden && !quietMotion && <image
+      className="companion-eye-blink" data-closed={blinking} href={rig.eyes.blink.source}
+      width={rig.width} height={rig.height} mask={`url(#${id}-blink)`} />}
   </svg>;
 }

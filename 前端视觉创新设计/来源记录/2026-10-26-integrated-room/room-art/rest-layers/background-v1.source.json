@@ -1,0 +1,35 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "matching empty-human background; detached shoes remain fixed at source-floor position",
+  "exactRequest": {
+    "prompt": "Precise same-canvas background extraction from this approved 1536×1024 illustrated mother. The attached complete image is the ONLY reference and target. Make its matching clean EMPTY HUMAN-FREE ROOM background, keeping EXACT camera, crop, scale, window mullions, lake/town/mountains/trees, curtains, shelves, left desk and chair, table/lamp/vase/books/cup, the original bench structure, plaid pillows, knitted throw, rug, floorboards, warm afternoon light and all unoccupied room textures unchanged.\n\nRemove only the entire girl: all head/hair/ribbons, face/body/clothes/skirt, both folded legs and dark socked feet, both arms/hands, and the closed blue book held on her lap. Reveal a believable continuous original cream cushion and original pillows/bench behind her. Remove only the compression and cast shadows caused by her body, folded legs, palms and book; do not remove room-owned shadows. Keep all fabric seams and folds continuous and physically plausible.\n\nIMPORTANT: The detached PAIR OF BROWN LOAFERS on the original wooden floor must remain exactly where they are, with their original shape, scale, perspective and floor contact shadows. They are fixed floor props in this extraction, not part of the removed person. No person remnant, hair strand, sock, blue lap book, silhouette, replacement girl or second pair of shoes.\n\nThe result is still the very same cared-for afternoon room, not a redecoration. Do not repaint the whole scene, make it generic, move the lamp/pillows/blanket, straighten the bench, add objects, crop, zoom, resize, change color grade or shift any geometry. No UI, labels, guide marks, frames, collage or watermark. Return one opaque 1536×1024 RGB complete background with the room preserved and only the specified human/book removal area restored.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-26-integrated-room/room-art/sakiko-rest-sidefold-apricot-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "inputSha256": "ffc1c69e351ce6466806c4136fb9ed21a065bbe3fd574858489c070daad1eb19",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-3caf-7462-9134-40d17eea23a0\\exec-5d4b625c-f6e0-49ce-a568-13516f6ef3fd.png",
+  "output": {
+    "path": "background-v1.png",
+    "file": "background-v1.png",
+    "sha256": "eced6521c38f7ad51f6cc03d2621b6d5eb20f460f6b1be1e9822f0fddcee258f",
+    "bytes": 2402606,
+    "actualSize": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "promptFile": "background-v1.prompt.txt",
+  "promptFileSha256": "fa27526d892cdb27daced839fa4ae2e7e054aefc98231f4aab3272430f615bc7",
+  "selectedForCurrentBundle": true,
+  "issue": null,
+  "review": {
+    "productionAgentViewed": true,
+    "primaryApproved": true,
+    "primaryReviewScope": "Root inspected source/composite side-by-side, checker and dark backgrounds using official IAB. Admitted this exact bundle as fixed-position included original receiver ONLY; no independent body translation, drag/motion or runtime acceptance. travel/slope/perspective remain zero.",
+    "runtimeAccepted": false
+  },
+  "boundary": "This is a source-aligned fixed layer/selection candidate. No PNG pixels were edited by script. Original mother RGB is used exactly once through SVG MAX luminance union; no threshold, dilation, edge repaint or geometry patch."
+}

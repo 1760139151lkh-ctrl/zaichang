@@ -1,0 +1,23 @@
+{
+  "kind": "complete-study-scene",
+  "generatedSource": "C:\\Users\\17601\\.codex\\generated_images\\01a17a92-ae0a-7132-848c-516e08efdd9b\\exec-8c019677-0a76-4727-a83f-0d5da044e041.png",
+  "prompt": "Use case: lighting-weather. Relight this EXACT approved complete literary room and Sakiko writing at the LEFT DESK into violet sunset outside, warm amber lamps, quiet mauve dusk fill and naturally relit skin. Keep exact 1536x1024 canvas, full room camera, all furniture and window geometry, Sakiko's exact position/scale, youthful face, blue-lilac hair and golden eyes, navy clothing, seated joints, arms, hands, writing implement, open book and contact with desk/chair. Do not move the person to the window seat. Do not enlarge her. Preserve her quiet concentrated writing expression and fine 2D literary anime style. All surfaces share the new complete lighting; no global hue filter, no blue skin. The right window bench stays empty and the room stays spacious. No UI, labels, text, extra books, stand, board, cat or new figure. A same-camera light variant for the actual shared reading space.",
+  "referencedImages": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/运行素材/companion/scenes/sakiko-study-apricot-literary-desk-v1-mother.png"
+  ],
+  "character": "sakiko",
+  "passportVersion": "2026-10-25.1",
+  "outfit": "sakiko-literary-navy-adaptation",
+  "primaryImageViewed": true,
+  "runtimeAccepted": true,
+  "output": "前端视觉创新设计/运行素材/coherent-desk/study-violet.png",
+  "sha256": "510e5b81539ee511799ad48127eb8ac10d6aa33352265da229d254dd5d82a4ca",
+  "inputSha256": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/运行素材/companion/scenes/sakiko-study-apricot-literary-desk-v1-mother.png",
+      "sha256": "00629c2e6e5b55901244a534145ab3c9d8c2f9c3cbf2ec2de8668f33037ccb04"
+    }
+  ],
+  "runtimeScope": "同镜头任务环境；保留原生正文、作品、输入与原文所有者。",
+  "acceptanceEvidence": "docs/evidence/2026-10-26-frontend-reassessment.md"
+}

@@ -1,0 +1,102 @@
+{
+  "canvas": [
+    1536,
+    1024
+  ],
+  "geometrySource": "src/renderer/WorkspaceScenery.tsx:deskEyeRig / deskBlinkPaths",
+  "images": [
+    {
+      "path": "前端视觉创新设计/运行素材/coherent-desk/desk-apricot.png",
+      "sha256": "c4fe675947129b460cfb75a591f7e6c64b704d27919149c37e9634cf81e8e6bf"
+    },
+    {
+      "path": "前端视觉创新设计/运行素材/coherent-desk/desk-apricot-blink.png",
+      "sha256": "c7ddf021a8a92e1794791d5b14c5f12877ea7abf4f554d94d77c1e35d974787e"
+    },
+    {
+      "path": "前端视觉创新设计/运行素材/coherent-desk/desk-mist.png",
+      "sha256": "415dcda3cc3f5417369c5b218c06e5b96b94a645d6f5bf32c87c2a5b26b7612f"
+    },
+    {
+      "path": "前端视觉创新设计/运行素材/coherent-desk/desk-mist-blink.png",
+      "sha256": "85f89cf3e525a14800ef48c6cb63cb3f70b739e0013574a444944f3898e21f21"
+    },
+    {
+      "path": "前端视觉创新设计/运行素材/coherent-desk/desk-violet.png",
+      "sha256": "3b7a01ab8f9c5114b73876227eae974df15d71fb5ba3e23d6fe0237557b42137"
+    },
+    {
+      "path": "前端视觉创新设计/运行素材/coherent-desk/desk-violet-blink.png",
+      "sha256": "8a3afce70f4ed839d6750aca27d0a1eddc5328ebdffce79e5050db25275ada21"
+    },
+    {
+      "path": "前端视觉创新设计/运行素材/coherent-desk/desk-rain.png",
+      "sha256": "bd299b917f64ecb8eb7c3774064c1ec0b7eddcbe88a015b7c1952c66cfcd62d8"
+    },
+    {
+      "path": "前端视觉创新设计/运行素材/coherent-desk/desk-rain-blink.png",
+      "sha256": "ca3d8d2e32c3989f8c0a7220a59e97f90b51603c3eddf188474c6cc9ad0308f2"
+    },
+    {
+      "path": "前端视觉创新设计/运行素材/coherent-desk/desk-apricot-eye-underlay.png",
+      "sha256": "2287429d8ae7e2667ee1121d4f8fbb346c169ea42139ba9843b0b69ac107e9f1"
+    }
+  ],
+  "blinkPaths": [
+    "M375 237 C410 233 443 248 457 267 L455 299 C425 301 391 288 378 273 Z",
+    "M503 282 C534 277 568 290 582 309 L574 340 C543 348 510 333 503 316 Z"
+  ],
+  "gaze": {
+    "palettes": [
+      "apricot"
+    ],
+    "eyeCenters": [
+      [
+        419,
+        268
+      ],
+      [
+        533,
+        309
+      ]
+    ],
+    "maximumTravelSourcePixels": [
+      1.8,
+      1
+    ],
+    "irisSource": "原母图RGB；只在两处原眼眶内移动。"
+  },
+  "blink": {
+    "palettes": [
+      "apricot",
+      "mist",
+      "violet",
+      "rain"
+    ],
+    "closedHoldMs": 130,
+    "opacityInMs": 55,
+    "opacityOutMs": 90,
+    "initialDelayMs": [
+      2800,
+      4600
+    ],
+    "repeatDelayMs": [
+      4800,
+      7600
+    ],
+    "maskFeatherSourcePixels": 0.7
+  },
+  "review": "四幅母图与四幅闭眼图分别亲看；眼部局部比较仅作检查。暖杏在实际界面暂时定住闭眼检查补片边缘后，已恢复正常节奏。四光场的实际工作面、选中对象、输入与少一点动态开关已操作；没有把静帧替代整段人体动态验收。",
+  "constraints": [
+    "绝不显示整幅眼白/闭眼补片替换母图。",
+    "页面隐藏或减少动态时停止定时眨眼；输入时收回局部视线。",
+    "失败时保留原母图，不进入低清视频降级。"
+  ],
+  "notCertified": [
+    "口型",
+    "手臂动作",
+    "全身运动",
+    "十角色全动作矩阵"
+  ],
+  "evidence": "docs/evidence/2026-10-26-frontend-reassessment.md"
+}

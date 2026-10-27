@@ -131,3 +131,31 @@
   .companion-settings .character-picture { aspect-ratio: .88; }
   .companion-settings .companion-preview-actions { padding-top: 16px; }
 }
+
+.companion-room-page { position:absolute; inset:0; min-height:0; overflow:hidden; }
+.companion-settings.companion-settings-room { position:absolute; inset:0; display:block; padding:0; max-width:none; }
+.companion-settings-room .companion-preview { position:absolute; inset:0; grid-column:auto; grid-row:auto; width:100%; height:100%; aspect-ratio:auto; border:0; border-radius:0; overflow:hidden; }
+.companion-settings-room .companion-preview > .companion-scene { position:absolute; inset:0; width:100%; height:100%; aspect-ratio:auto; }
+.companion-settings-room .companion-settings-rows { position:absolute; z-index:5; left:4%; top:18%; width:min(420px,38%); max-height:75%; overflow:auto; padding:18px 22px; border:1px solid #d5b78965; border-radius:16px; background:#33251bd9; backdrop-filter:blur(18px); color:#fff2dc; --text:#fff2dc; --text-secondary:#ead5b8; --text-tertiary:#dbc2a1; --surface:#38291ee8; --surface-raised:#59412de8; --border:#c9ac855c; --accent:#f1d59b; --accent-soft:#735539; --separator:#cfb38a4d; }
+.companion-settings-room .companion-setting-trigger { min-height:68px; grid-template-columns:60px 1fr 17px; }
+.companion-settings-room :is(.companion-setting-label,.companion-setting-value,.companion-current-partner,.companion-environment-option,.text-button,.character-choice,.companion-presence-choice select,.companion-preview-conflict,.companion-scene-unavailable) { font-size:16px; }
+.companion-settings-room .companion-current-face { width:42px; height:42px; }
+.companion-settings-room .character-choices { gap:12px 8px; padding-block:8px; }
+.companion-settings-room .character-choice { color:var(--text); }
+.companion-settings-room .character-choice > span:last-child { display:flex; align-items:center; justify-content:center; gap:5px; min-height:24px; }
+.companion-settings-room .companion-problem { font-size:16px; }
+.companion-settings-room .companion-environment-picker { display:grid; grid-template-columns:1fr 1fr; gap:8px; padding-top:12px; }
+.companion-settings-room .companion-environment-option { min-height:45px; border:1px solid transparent; padding:8px; border-radius:9px; background:#ffffff08; }
+.companion-settings-room .companion-environment-option[aria-pressed='true'] { border-color:var(--accent); background:#ffffff12; }
+.companion-settings-room .companion-environment-option.is-auto { grid-column:1 / -1; }
+.companion-settings-room .companion-edit-persona { margin-top:20px; padding:8px 0; }
+.companion-settings-room .companion-preview-actions { position:sticky; bottom:-18px; padding:18px 0 6px; background:#33251bf2; }
+.companion-settings-room .companion-preview-actions .primary-button { background:#ecd09a; color:#362719; font-size:16px; line-height:1.5; }
+.companion-room-close { position:absolute; z-index:6; right:24px; top:90px; width:42px; height:42px; background:#302419a6; color:#fff2dc; }
+.app-main .companion-room-close { color:#fff2dc; }
+@media(max-width:760px) {
+  .companion-settings-room .companion-settings-rows { left:4%; top:auto; bottom:3%; width:92%; max-height:48%; padding:12px 16px; }
+  .companion-settings-room .companion-preview { position:absolute; grid-row:auto; border-radius:0; }
+  .companion-settings-room .companion-environment-picker { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .companion-settings-room .companion-setting-trigger { min-height:54px; }
+}

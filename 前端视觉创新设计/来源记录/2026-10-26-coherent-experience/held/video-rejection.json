@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-26",
+  "runtimeAllowed": false,
+  "generationInputAllowed": false,
+  "reason": "Rejected after actual full-screen use: 1280x720 generated video and its extracted poster lost linework/material detail relative to approved 1536x1024 mothers. Enlarging the whole generated video is not an acceptable home-cover replacement. Original camera also changed. Restored the approved original scene in the running product.",
+  "files": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/home-motion-v1.mp4",
+      "bytes": 2484283,
+      "sha256": "a60be6e313351734e6e80d3afa1b216cba6b7fb39d2491f76a9696a2f632b438"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/home-motion-v2.mp4",
+      "bytes": 3798794,
+      "sha256": "c3cca312a4d524fcbabcf46cce0438b3d42168aed44d9a5f82e311a7c39e492e"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/held/sakiko-home-apricot-low-resolution-poster.png",
+      "bytes": 1012139,
+      "sha256": "2566685640e9b6cc9a50d0b274f5310b34dd8685ce0dcf35fb93621a8ccae826"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/held/sakiko-home-apricot-low-resolution.mp4",
+      "bytes": 2420723,
+      "sha256": "bc8dd042b3a75b033c51a31df6b363c0b9d08f3cd229a76422b4f946814d64f8"
+    }
+  ]
+}

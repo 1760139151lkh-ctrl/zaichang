@@ -151,6 +151,15 @@ export function KeepPanel({ snapshot, active = true, loading = false, loadingMor
   const boundary = snapshot ? `${snapshot.boundary.privacyEpoch}:${snapshot.boundary.policyRevision}:${snapshot.boundary.sourceBoundary}` : '';
   const allItems = useMemo(() => objects(snapshot), [snapshot]);
   const [collection, setCollection] = useState<'kept' | 'all'>('kept');
+  const [compact, setCompact] = useState(() => matchMedia('(max-width:760px)').matches);
+  const [indexOpen, setIndexOpen] = useState(false);
+  const indexSummary = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const media = matchMedia('(max-width:760px)');
+    const changed = () => setCompact(media.matches);
+    media.addEventListener('change', changed);
+    return () => media.removeEventListener('change', changed);
+  }, []);
   const items = useMemo(() => collection === 'all' ? allItems
     : allItems.filter(item => item.kind === 'notes' || item.kind === 'works'), [allItems, collection]);
   const [choice, setChoice] = useState<{ boundary: string; key: string }>();
@@ -249,6 +258,7 @@ export function KeepPanel({ snapshot, active = true, loading = false, loadingMor
   }
   function select(item: KeepObject, focus = false) {
     if (locked) return;
+    if (compact && !focus) { setIndexOpen(false); requestAnimationFrame(() => indexSummary.current?.focus({ preventScroll: true })); }
     if (selectionRequest) consumedSelectionRequest.current = selectionRequest.requestId;
     manualSelection.current = true;
     failedAction.current = undefined; setChoice({ boundary, key: item.key }); setLocalError('');
@@ -370,7 +380,9 @@ export function KeepPanel({ snapshot, active = true, loading = false, loadingMor
             onClick={() => void perform('new', onNewNote)}><Plus size={17} aria-hidden="true" /><span>新写一页</span></button>
         </div>
       </header>
-      <aside className="keep-index" aria-label="收藏目录">
+      <details className="keep-index" aria-label="收藏目录" open={!compact || indexOpen}
+        onToggle={event => { if (compact) setIndexOpen(event.currentTarget.open); }}>
+        <summary ref={indexSummary} className="keep-index-summary"><BookOpen size={18} />目录<ChevronRight size={18} /></summary>
         <div className="keep-collection-switch" aria-label="浏览范围">
           <button type="button" aria-pressed={collection === 'kept'} onClick={() => setCollection('kept')}>笔记与作品</button>
           <button type="button" aria-pressed={collection === 'all'} onClick={() => setCollection('all')}>全部内容</button>
@@ -386,10 +398,10 @@ export function KeepPanel({ snapshot, active = true, loading = false, loadingMor
           </button>)}
         </div>}
         <div className="keep-index-links">
-          <button type="button" disabled={locked} onClick={() => void perform('notes', onBrowseNotes)}>翻翻笔记</button>
-          <button type="button" disabled={locked} onClick={() => void perform('materials', onBrowseMaterials)}>打开资料</button>
+          <button type="button" disabled={locked} onClick={() => void perform('notes', onBrowseNotes)}><NotebookPen size={17} />笔记</button>
+          <button type="button" disabled={locked} onClick={() => void perform('materials', onBrowseMaterials)}><BookOpen size={17} />资料</button>
         </div>
-      </aside>
+      </details>
       {selected ? <article className="keep-object" id={`${id}-object`} role="tabpanel"
         aria-labelledby={`${id}-entry-${selectedIndex}`} data-presence-edge="keep-object"
         data-presence-edge-label="留下的这一页" data-presence-edge-sides="top right left" data-keep-kind={selected.kind}>

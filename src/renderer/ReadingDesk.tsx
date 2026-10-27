@@ -25,6 +25,9 @@ export interface ReadingDeskProps {
   requestOpen?: { id: string; requestId: number };
   /** First creation only. Reopening a frame never replaces its own geometry. */
   openingRect?: OpeningRect;
+  /** First-time placement leaves the seated companion visible. Existing user
+   * frame positions and explicit object-local openings keep their ownership. */
+  companionAtStart?: boolean;
   active?: boolean;
   boundary: string;
   sessionId?: string;
@@ -61,10 +64,11 @@ function resizeFrom(rect: Rect, width: number, height: number, size: Size): Rect
   return { ...rect, width: clamp(width, Math.min(310, availableWidth), availableWidth),
     height: clamp(height, Math.min(250, availableHeight), availableHeight) };
 }
-function initialRect(index: number, image: boolean, size: Size): Rect {
-  const width = Math.min(image ? 390 : 540, size.width * (size.width < 700 ? .93 : image ? .36 : .49));
+function initialRect(index: number, image: boolean, size: Size, companionAtStart = false): Rect {
+  const leaveRoom = companionAtStart && size.width > 900;
+  const width = Math.min(image ? 390 : 540, size.width * (size.width < 700 ? .93 : image ? .36 : leaveRoom ? .4 : .49));
   const height = Math.min(image ? 350 : 690, size.height * (image ? .61 : .95));
-  return constrain({ x: image ? size.width - width - 12 : 12 + (index % 3) * width * .58,
+  return constrain({ x: image ? size.width - width - 12 : (leaveRoom ? size.width * .24 : 0) + 12 + (index % 3) * width * .58,
     y: image ? 14 : 12 + (index % 3) * 36, width, height }, size);
 }
 function savedRect(id: string): Rect | undefined {
@@ -124,7 +128,7 @@ export function ReadingDesk(props: ReadingDeskProps) {
       if (previous.some(frame => frame.id === id)) return previous.map(frame => frame.id === id ? { ...frame, open: true, order,
         activation, resume: !frame.open ? resume : undefined } : frame);
       return [...previous, { id, open: true, order, activation, resume,
-        rect: constrain(preferred || savedRect(id) || initialRect(previous.filter(frame => frame.open).length, item.kind === 'image', available), available) }];
+        rect: constrain(preferred || savedRect(id) || initialRect(previous.filter(frame => frame.open).length, item.kind === 'image', available, callbacks.current.companionAtStart), available) }];
     });
     activeFrame.current = id; setActiveId(id); callbacks.current.onActiveChange?.(id);
     callbacks.current.onReturnAddressChange?.(undefined);

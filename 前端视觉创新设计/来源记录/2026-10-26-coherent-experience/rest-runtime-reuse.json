@@ -1,0 +1,42 @@
+{
+  "category": "existing-qualified-rest-pose",
+  "originalRegistration": "前端视觉创新设计/运行素材/companion/scenes/sakiko-rest-apricot-sidefold-included-v1.scene.json",
+  "originalAdmission": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/room-art/rest-layers/root-fixed-included-admission-v1.json",
+  "originalGeometry": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/room-art/rest-layers/calibration-initial-v1.json",
+  "files": [
+    {
+      "role": "mother",
+      "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-rest-apricot-sidefold-included-v1-mother.png",
+      "sha256": "ffc1c69e351ce6466806c4136fb9ed21a065bbe3fd574858489c070daad1eb19",
+      "bytes": 2429435,
+      "sourceCopy": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/room-art/sakiko-rest-sidefold-apricot-v1.png"
+    },
+    {
+      "role": "background",
+      "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-rest-apricot-sidefold-included-v1-background.png",
+      "sha256": "eced6521c38f7ad51f6cc03d2621b6d5eb20f460f6b1be1e9822f0fddcee258f",
+      "bytes": 2402606,
+      "sourceCopy": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/room-art/rest-layers/background-v1.png"
+    },
+    {
+      "role": "mask",
+      "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-rest-apricot-sidefold-included-v1-mask.png",
+      "sha256": "37d7b29df3f0facb1517356fc34a38f98de6a6b0ad71a19d4cfa49a9ca89b531",
+      "bytes": 492963,
+      "sourceCopy": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/room-art/rest-layers/figure-mask-v2.png"
+    },
+    {
+      "role": "contactMask",
+      "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-rest-apricot-sidefold-included-v1-contact-mask.png",
+      "sha256": "1eddd24608a7ecfeeffd3e689fbec4a10bb5a70e7656b36f66e0b7163c5bf242",
+      "bytes": 414401,
+      "sourceCopy": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/room-art/rest-layers/contact-mask-v2.png"
+    }
+  ],
+  "primaryOriginalViewed": true,
+  "runtimeAccepted": true,
+  "dynamicAccepted": false,
+  "runtimeObservation": "正式1220px窗口的先坐一会儿：人物、袜脚、软垫、书、接触与前景保持原母图关系；回到刚才恢复封面。固定姿态，不认证腿部或全身动画。",
+  "evidence": "docs/evidence/2026-10-26-frontend-reassessment.md",
+  "technicalLayersViewedByPrimary": true
+}

@@ -1,0 +1,24 @@
+{
+  "kind": "design",
+  "generatedSource": "C:\\Users\\17601\\.codex\\generated_images\\01a17a92-ae0a-7132-848c-516e08efdd9b\\exec-dca0d252-c38f-4368-8e97-6ba12722136a.png",
+  "prompt": "Use case: ui-mockup. Design the complete RETURNABLE HOME/COVER and a small opened companion/atmosphere chooser for 在场. Preserve the first reference's exact beautiful complete literary room, camera, furniture and youthful Sakiko seated on the window bench. Preserve the same pose and believable support, full window and desk, navy clothing, below-knee socks and complete loafers. The second reference is the approved youthful face identity/style; the first reference's body is already approved. Do not redraw a generic mature woman.\n\nThis is a place the user can come back to at any time while the actual conversation and unfinished work remain saved behind it. It is not an empty-chat placeholder. The visual should say “come back and spend time here” through its room and presence, without long product descriptions. Let the whole window, floor, desk, armchair and warm afternoon remain visible and richly colored. Do not wash the left half white.\n\nThe user opened the avatar to choose their companion. Show that choice IN THE WHOLE ROOM, not in a white settings page with a miniature postcard preview. A small elegant localized set of portraits/names on a darker warm material surface is enough, with 祥子 selected and 睦 / 爱音 / 灯 visible. Nearby make the four atmosphere choices legible at one glance: 暖杏 / 晨雾蓝 / 暮色紫 / 夜雨暖金, using small scene/light swatches and readable labels. They preview this same room. Include modest “取消” and “采用” actions together, with no explanatory subparagraph. The rest of the screen still feels like the home, not like a control panel.\n\nConcise top navigation is integrated with the room at its quiet edges: 在场 (a home/door mark), 聊天, 今天, 留下, search and the avatar; no opaque white horizontal title bar. At the lower left in natural breathing space, show “回来啦。” in large graceful clear Chinese lettering, one comfortable input with “想说什么？” and send icon, plus one actual resume object “刚才的相图 ↗” and a small “先坐一会儿” action. Keep controls readable through local contrast/material, not a full-screen white veil. No tiny timestamps, no duplicate menus, no rows of feature descriptions, no multi-panel dashboard. The chooser and input should coexist without covering Sakiko or destroying the room. Adapt their placement creatively to the room. 1536x1024. One polished complete desktop UI concept, no device frame or mockup annotations. Natural plant green is allowed; green UI is forbidden.",
+  "referencedImages": [
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.png",
+    "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-user-selected-youth-avatar-20261025.png"
+  ],
+  "primaryImageViewed": true,
+  "runtimeAccepted": false,
+  "selection": "待实际内容与连续操作比较，不因生成成功准入。",
+  "output": "前端视觉创新设计/补充图稿/2026-10-26-coherent-experience/home-and-atmosphere.png",
+  "sha256": "26e9b875e541aa30e91e3476440d7962c3c6889b58e90ad8201bae1289666526",
+  "inputSha256": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-literary-room/sakiko/pilot/sakiko-chat-apricot-v1.png",
+      "sha256": "8d8ca2d001893c16106ab797ec4a8a8c1e6576115a5a4c76ff1dd519eff4e2cd"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/来源记录/2026-10-25-integrated-room/mujica/avatars/sakiko-user-selected-youth-avatar-20261025.png",
+      "sha256": "bc92a4e0096411b0e58b5e4dfc12d61b48bf255f0fd7a544c039ae9e4cd7fc32"
+    }
+  ]
+}

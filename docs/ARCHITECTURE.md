@@ -6,6 +6,8 @@
 
 ## 2026-10-24 主循环与原所有者补充
 
+2026-10-26再次复审：封面为App内独立可见状态，原Workspace、ReadingDesk与Composer宿主保留，退出/返回不新建事实或输入。伙伴和光线预览复用运行场景的同一fallback规则；`complete-scene`只允许零平移、零倾斜、零透视的完整合格母图，不能被当成独立人体层拖移。`WorkspaceArtworkWarmup`仅预解码当前光线的临近工作场景；眼部局部层沿原画坐标使用原虹膜与经生成的眼白/闭眼补片，失效时露出原母图，减少动态或页面隐藏时停止局部眨眼。手部/头部旧rig仍保留兼容接口，本轮新场景未借用不匹配的旧像素。准备材料沿一个Portal宿主在封面和聊天间移动，不重复挂载PreparationShelf并重复签opened/displayed；其他角色的工作纸按当前RoomLayout人物位置选边。
+
 2026-10-26呈现层补充：任务环境由`WorkspaceScenery`显示，艺术背景、人物蒙版和装饰落点共用一套原画坐标投影；它不接管地图、消息或业务事实。猫仍使用原`EdgeCompanion`弹簧与有限外观存储；点支撑先核实际遮挡，姿态加载按资产保留就绪状态，避免换图夺走键盘焦点。长椅人物显示的是母图原像素，空背景与蒙版同画布登记。
 
 助手正文指向使用`AssistantTextSource`与`AssistantTextReference`：纯文选段依赖解析器给出的连续原文位置，完整公式在KaTeX替换DOM前登记原TeX范围。renderer只传session/message/SHA/Unicode地址；Repository重读原回复、校验来源链及当前权限，ContextCompiler将它标为助手历史而非用户事实，并写入`assistantTextSources`回执。返回书签只恢复地址，不能恢复过期权限；找不到同版正文时解除指向、保留自己的草稿。

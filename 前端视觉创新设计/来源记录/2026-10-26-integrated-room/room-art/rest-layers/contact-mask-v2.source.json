@@ -1,0 +1,35 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "receiver S mask-only interior fill preserving selected footprint",
+  "exactRequest": {
+    "prompt": "Edit this 1536×1024 grayscale CONTACT RECEIVER selection mask ONLY. Keep the same exact existing selected cushion-and-pillow receiver footprint, black subject cut-out, original position and scale, entire canvas and narrow soft outer boundary. This is a luminance selection correction, not a new room or shadow drawing.\n\nTurn ALL of the existing selected non-black RECEIVING FABRIC interior to solid opaque PURE WHITE, including its dark seams, weave, folds and shaded parts. The receiver is one selected piece of original source fabric; its photographed/painted brightness must NOT become variable opacity. Remove all visible cushion and plaid texture from the mask by making the selected receiver opaque white. Preserve only the narrow soft-edge transition into the surrounding black.\n\nKeep the actual removed girl-shaped cut-out and every unselected surrounding pixel pure BLACK, including the area above the cushion and in front of the pillow where the girl is. Do NOT fill the figure, create a white person, expand to the entire bench, connect the pillow across the black body cut-out, add a floor receiver, change the selected footprint, crop, zoom, shift, resize or add labels/grid/transparency. Return the full original 1536×1024 opaque grayscale RGB selection mask: flat WHITE selected local cloth interior, BLACK elsewhere, fine existing edge feather only.",
+    "referenced_image_paths": [
+      "C:\\Users\\17601\\.codex\\generated_images\\01a17613-3caf-7462-9134-40d17eea23a0\\exec-642fe952-ac97-49fd-b450-7f81c5d3b7aa.png"
+    ],
+    "transparent_background": false
+  },
+  "inputSha256": "0110b5f84bc0766c49bfe57d891dc0a7162c6639fd663c19d5cae6281c3dfc3b",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-3caf-7462-9134-40d17eea23a0\\exec-a2792e17-2b27-4321-b438-4e3e8b441bae.png",
+  "output": {
+    "path": "contact-mask-v2.png",
+    "file": "contact-mask-v2.png",
+    "sha256": "1eddd24608a7ecfeeffd3e689fbec4a10bb5a70e7656b36f66e0b7163c5bf242",
+    "bytes": 414401,
+    "actualSize": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "promptFile": "contact-mask-v2.prompt.txt",
+  "promptFileSha256": "dfd06757714225784eccb4d53ef201f23db88ecb40861707b540e47d62274eff",
+  "selectedForCurrentBundle": true,
+  "issue": null,
+  "review": {
+    "productionAgentViewed": true,
+    "primaryApproved": true,
+    "primaryReviewScope": "Root inspected source/composite side-by-side, checker and dark backgrounds using official IAB. Admitted this exact bundle as fixed-position included original receiver ONLY; no independent body translation, drag/motion or runtime acceptance. travel/slope/perspective remain zero.",
+    "runtimeAccepted": false
+  },
+  "boundary": "This is a source-aligned fixed layer/selection candidate. No PNG pixels were edited by script. Original mother RGB is used exactly once through SVG MAX luminance union; no threshold, dilation, edge repaint or geometry patch."
+}

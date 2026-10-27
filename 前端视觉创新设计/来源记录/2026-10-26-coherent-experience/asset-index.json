@@ -1,0 +1,311 @@
+{
+  "date": "2026-10-26",
+  "primaryReviewer": "root",
+  "evidence": "docs/evidence/2026-10-26-frontend-reassessment.md",
+  "clarityBaseline": "1536x1024原PNG；未使用720p视频、视频截帧或整景模糊替换。",
+  "acceptanceBoundary": "逐幅原图及局部补片已亲看；原生宽窄界面与真实流程另行验收。眼部补片按同母图坐标局部显示；不认证十角色全身动作矩阵。",
+  "entries": [
+    {
+      "path": "前端视觉创新设计/补充图稿/2026-10-26-coherent-experience/conversation-side.png",
+      "sha256": "92ff51df20d0ca32ed39583b0a5ebeadd51dae2e1aaac4f8f232fa2bcdb9dc6a",
+      "bytes": 2447616,
+      "category": "design-comparison",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/conversation-side.json",
+      "runtimeReferences": [],
+      "decision": "保留左侧人物与右侧独立纸面的关系；图内写实猫不采用。"
+    },
+    {
+      "path": "前端视觉创新设计/运行素材/coherent-desk/desk-apricot-blink.png",
+      "sha256": "c7ddf021a8a92e1794791d5b14c5f12877ea7abf4f554d94d77c1e35d974787e",
+      "bytes": 2380390,
+      "category": "local-eye-patch",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/desk-apricot-blink.json",
+      "runtimeReferences": [
+        "src/renderer/WorkspaceScenery.tsx"
+      ],
+      "decision": "原母图局部眼部采样；不替换整脸、整景，不认证口型、手臂或全身动作。"
+    },
+    {
+      "path": "前端视觉创新设计/运行素材/coherent-desk/desk-apricot-eye-underlay.png",
+      "sha256": "2287429d8ae7e2667ee1121d4f8fbb346c169ea42139ba9843b0b69ac107e9f1",
+      "bytes": 2342994,
+      "category": "local-eye-patch",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/desk-apricot-eye-underlay.json",
+      "runtimeReferences": [
+        "src/renderer/WorkspaceScenery.tsx"
+      ],
+      "decision": "原母图局部眼部采样；不替换整脸、整景，不认证口型、手臂或全身动作。"
+    },
+    {
+      "path": "前端视觉创新设计/运行素材/coherent-desk/desk-apricot.png",
+      "sha256": "c4fe675947129b460cfb75a591f7e6c64b704d27919149c37e9634cf81e8e6bf",
+      "bytes": 2411761,
+      "category": "runtime-scene",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/desk-apricot-room.json",
+      "runtimeReferences": [
+        "src/renderer/WorkspaceScenery.tsx"
+      ],
+      "decision": "同镜头任务环境；保留原生正文、作品、输入与原文所有者。"
+    },
+    {
+      "path": "前端视觉创新设计/补充图稿/2026-10-26-coherent-experience/desk-apricot.png",
+      "sha256": "88cc03f27a78749b527b4c26da8464a93bcca6d6f39ae85839a55304cd06c3bb",
+      "bytes": 2380788,
+      "category": "design-comparison",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/desk-apricot.json",
+      "runtimeReferences": [],
+      "decision": "保留人物、桌面与窗景；右侧实体白纸支架限制长内容，运行版已去除。"
+    },
+    {
+      "path": "前端视觉创新设计/运行素材/coherent-desk/desk-mist-blink.png",
+      "sha256": "85f89cf3e525a14800ef48c6cb63cb3f70b739e0013574a444944f3898e21f21",
+      "bytes": 2286053,
+      "category": "local-eye-patch",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/desk-mist-blink.json",
+      "runtimeReferences": [
+        "src/renderer/WorkspaceScenery.tsx"
+      ],
+      "decision": "原母图局部眼部采样；不替换整脸、整景，不认证口型、手臂或全身动作。"
+    },
+    {
+      "path": "前端视觉创新设计/运行素材/coherent-desk/desk-mist.png",
+      "sha256": "415dcda3cc3f5417369c5b218c06e5b96b94a645d6f5bf32c87c2a5b26b7612f",
+      "bytes": 2310220,
+      "category": "runtime-scene",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/desk-mist-room.json",
+      "runtimeReferences": [
+        "src/renderer/WorkspaceScenery.tsx"
+      ],
+      "decision": "同镜头任务环境；保留原生正文、作品、输入与原文所有者。"
+    },
+    {
+      "path": "前端视觉创新设计/运行素材/coherent-desk/desk-rain-blink.png",
+      "sha256": "ca3d8d2e32c3989f8c0a7220a59e97f90b51603c3eddf188474c6cc9ad0308f2",
+      "bytes": 2311256,
+      "category": "local-eye-patch",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/desk-rain-blink.json",
+      "runtimeReferences": [
+        "src/renderer/WorkspaceScenery.tsx"
+      ],
+      "decision": "原母图局部眼部采样；不替换整脸、整景，不认证口型、手臂或全身动作。"
+    },
+    {
+      "path": "前端视觉创新设计/运行素材/coherent-desk/desk-rain.png",
+      "sha256": "bd299b917f64ecb8eb7c3774064c1ec0b7eddcbe88a015b7c1952c66cfcd62d8",
+      "bytes": 2491994,
+      "category": "runtime-scene",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/desk-rain-room.json",
+      "runtimeReferences": [
+        "src/renderer/WorkspaceScenery.tsx"
+      ],
+      "decision": "同镜头任务环境；保留原生正文、作品、输入与原文所有者。"
+    },
+    {
+      "path": "前端视觉创新设计/运行素材/coherent-desk/desk-violet-blink.png",
+      "sha256": "8a3afce70f4ed839d6750aca27d0a1eddc5328ebdffce79e5050db25275ada21",
+      "bytes": 2178611,
+      "category": "local-eye-patch",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/desk-violet-blink.json",
+      "runtimeReferences": [
+        "src/renderer/WorkspaceScenery.tsx"
+      ],
+      "decision": "原母图局部眼部采样；不替换整脸、整景，不认证口型、手臂或全身动作。"
+    },
+    {
+      "path": "前端视觉创新设计/运行素材/coherent-desk/desk-violet.png",
+      "sha256": "3b7a01ab8f9c5114b73876227eae974df15d71fb5ba3e23d6fe0237557b42137",
+      "bytes": 2296920,
+      "category": "runtime-scene",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/desk-violet-room.json",
+      "runtimeReferences": [
+        "src/renderer/WorkspaceScenery.tsx"
+      ],
+      "decision": "同镜头任务环境；保留原生正文、作品、输入与原文所有者。"
+    },
+    {
+      "path": "前端视觉创新设计/补充图稿/2026-10-26-coherent-experience/home-and-atmosphere.png",
+      "sha256": "26e9b875e541aa30e91e3476440d7962c3c6889b58e90ad8201bae1289666526",
+      "bytes": 2435487,
+      "category": "design-comparison",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/home-and-atmosphere.json",
+      "runtimeReferences": [],
+      "decision": "采用完整房间内预览伙伴与四光场的组织方式；人物头像使用既有独立头像资产。"
+    },
+    {
+      "path": "前端视觉创新设计/补充图稿/2026-10-26-coherent-experience/notebook-apricot.png",
+      "sha256": "a370a91eb132a50935455c83a92559200d9171932bfbace9743623aa82a92517",
+      "bytes": 2424786,
+      "category": "design-comparison",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/notebook-apricot.json",
+      "runtimeReferences": [],
+      "decision": "保留前景共读意图；长内容高度不足，不作为运行底图。"
+    },
+    {
+      "path": "前端视觉创新设计/补充图稿/2026-10-26-coherent-experience/shared-notebook.png",
+      "sha256": "e61888d03fb98fc2ec7fc199a50d2f10c2eb7cb96d5c1249a686d8c61fdf52ef",
+      "bytes": 2329031,
+      "category": "design-comparison",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/shared-notebook.json",
+      "runtimeReferences": [],
+      "decision": "保留共同看一页的关系；低位书面容不下真实长回复，作为比较稿。"
+    },
+    {
+      "path": "前端视觉创新设计/运行素材/coherent-desk/study-mist.png",
+      "sha256": "0c625275e8c4c0850a50779f27cb841dccaca83a2359e048d6b3f8d135fc9074",
+      "bytes": 2398412,
+      "category": "runtime-scene",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/study-mist-room.json",
+      "runtimeReferences": [
+        "src/renderer/WorkspaceScenery.tsx"
+      ],
+      "decision": "同镜头任务环境；保留原生正文、作品、输入与原文所有者。"
+    },
+    {
+      "path": "前端视觉创新设计/运行素材/coherent-desk/study-rain.png",
+      "sha256": "75a041575bc5c82cb03bfe8992d1dc47af2ec21d143b9b0064af94af0319741e",
+      "bytes": 2459983,
+      "category": "runtime-scene",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/study-rain-room.json",
+      "runtimeReferences": [
+        "src/renderer/WorkspaceScenery.tsx"
+      ],
+      "decision": "同镜头任务环境；保留原生正文、作品、输入与原文所有者。"
+    },
+    {
+      "path": "前端视觉创新设计/运行素材/coherent-desk/study-violet.png",
+      "sha256": "510e5b81539ee511799ad48127eb8ac10d6aa33352265da229d254dd5d82a4ca",
+      "bytes": 2361010,
+      "category": "runtime-scene",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/study-violet-room.json",
+      "runtimeReferences": [
+        "src/renderer/WorkspaceScenery.tsx"
+      ],
+      "decision": "同镜头任务环境；保留原生正文、作品、输入与原文所有者。"
+    },
+    {
+      "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-mist-literary-complete-v1-mother.png",
+      "sha256": "6cbd83def33cf8284056992f10315a98101002d8f36f4d3d497548b7b4b73b9f",
+      "bytes": 2461416,
+      "category": "reused-complete-scene",
+      "registration": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-mist-literary-complete-v1.scene.json",
+      "runtimeReferences": [
+        "src/renderer/companion-scenes.tsx"
+      ],
+      "decision": "复用此前主代理准入的完整母图；只补固定场景注册，不冒充已完成独立人物分层。"
+    },
+    {
+      "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-violet-literary-complete-v1-mother.png",
+      "sha256": "3115fb3058cff052bddc376d4612aa842c96925e6708a809b434097980274b84",
+      "bytes": 2309955,
+      "category": "reused-complete-scene",
+      "registration": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-violet-literary-complete-v1.scene.json",
+      "runtimeReferences": [
+        "src/renderer/companion-scenes.tsx"
+      ],
+      "decision": "复用此前主代理准入的完整母图；只补固定场景注册，不冒充已完成独立人物分层。"
+    },
+    {
+      "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-rain-literary-complete-v1-mother.png",
+      "sha256": "229156a8a56698f5e0fb73424c3b65dc5fe3adde0fbee3101033ca5df1ce3f2f",
+      "bytes": 2274460,
+      "category": "reused-complete-scene",
+      "registration": "前端视觉创新设计/运行素材/companion/scenes/sakiko-chat-rain-literary-complete-v1.scene.json",
+      "runtimeReferences": [
+        "src/renderer/companion-scenes.tsx"
+      ],
+      "decision": "复用此前主代理准入的完整母图；只补固定场景注册，不冒充已完成独立人物分层。"
+    },
+    {
+      "role": "mother",
+      "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-rest-apricot-sidefold-included-v1-mother.png",
+      "sha256": "ffc1c69e351ce6466806c4136fb9ed21a065bbe3fd574858489c070daad1eb19",
+      "bytes": 2429435,
+      "category": "reused-rest-layer",
+      "registration": "前端视觉创新设计/运行素材/companion/scenes/sakiko-rest-apricot-sidefold-included-v1.scene.json",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/rest-runtime-reuse.json",
+      "runtimeReferences": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/companion.tsx"
+      ],
+      "decision": "复用已有固定同景联合层；仅补真实运行准入证据，不修改原图或移动参数。",
+      "sourceCopy": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/room-art/sakiko-rest-sidefold-apricot-v1.png"
+    },
+    {
+      "role": "background",
+      "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-rest-apricot-sidefold-included-v1-background.png",
+      "sha256": "eced6521c38f7ad51f6cc03d2621b6d5eb20f460f6b1be1e9822f0fddcee258f",
+      "bytes": 2402606,
+      "category": "reused-rest-layer",
+      "registration": "前端视觉创新设计/运行素材/companion/scenes/sakiko-rest-apricot-sidefold-included-v1.scene.json",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/rest-runtime-reuse.json",
+      "runtimeReferences": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/companion.tsx"
+      ],
+      "decision": "复用已有固定同景联合层；仅补真实运行准入证据，不修改原图或移动参数。",
+      "sourceCopy": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/room-art/rest-layers/background-v1.png"
+    },
+    {
+      "role": "mask",
+      "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-rest-apricot-sidefold-included-v1-mask.png",
+      "sha256": "37d7b29df3f0facb1517356fc34a38f98de6a6b0ad71a19d4cfa49a9ca89b531",
+      "bytes": 492963,
+      "category": "reused-rest-layer",
+      "registration": "前端视觉创新设计/运行素材/companion/scenes/sakiko-rest-apricot-sidefold-included-v1.scene.json",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/rest-runtime-reuse.json",
+      "runtimeReferences": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/companion.tsx"
+      ],
+      "decision": "复用已有固定同景联合层；仅补真实运行准入证据，不修改原图或移动参数。",
+      "sourceCopy": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/room-art/rest-layers/figure-mask-v2.png"
+    },
+    {
+      "role": "contactMask",
+      "path": "前端视觉创新设计/运行素材/companion/scenes/sakiko-rest-apricot-sidefold-included-v1-contact-mask.png",
+      "sha256": "1eddd24608a7ecfeeffd3e689fbec4a10bb5a70e7656b36f66e0b7163c5bf242",
+      "bytes": 414401,
+      "category": "reused-rest-layer",
+      "registration": "前端视觉创新设计/运行素材/companion/scenes/sakiko-rest-apricot-sidefold-included-v1.scene.json",
+      "sourceRecord": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/rest-runtime-reuse.json",
+      "runtimeReferences": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/companion.tsx"
+      ],
+      "decision": "复用已有固定同景联合层；仅补真实运行准入证据，不修改原图或移动参数。",
+      "sourceCopy": "前端视觉创新设计/来源记录/2026-10-26-integrated-room/room-art/rest-layers/contact-mask-v2.png"
+    }
+  ],
+  "rejectedVideoRecord": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/held/video-rejection.json",
+  "rejectedVideoDistributed": false,
+  "reusedDesignGenes": [
+    {
+      "catalog": "前端视觉创新设计/2026-10-23-深度评鉴/catalog.json",
+      "ids": [
+        "U001",
+        "U019"
+      ],
+      "use": "独立房间入口、接着刚才、一起读和休息；不沿用大面积白色覆盖。"
+    },
+    {
+      "catalog": "前端视觉创新设计/2026-10-23-深度评鉴/catalog.json",
+      "ids": [
+        "U003"
+      ],
+      "use": "今天的试放、取消与确认继续沿原安排对象。"
+    },
+    {
+      "catalog": "前端视觉创新设计/2026-10-23-深度评鉴/catalog.json",
+      "ids": [
+        "U004",
+        "U005"
+      ],
+      "use": "原文/笔记与同一交流输入、来源回去继续的关系。"
+    },
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-keep-and-continue/direction-d-within-reach-v1.png",
+      "use": "留下采用原对象目录与展读；D是方案方向名。"
+    }
+  ],
+  "eyeCalibration": "前端视觉创新设计/来源记录/2026-10-26-coherent-experience/eye-calibration.json"
+}

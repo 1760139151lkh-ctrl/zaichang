@@ -1,0 +1,148 @@
+{
+  "schema": "source-production-bundle-not-runtime-scene",
+  "characterId": "sakiko",
+  "activity": "rest",
+  "theme": "apricot",
+  "sceneFamily": "literary-room-v1",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "sourceMother": {
+    "path": "../sakiko-rest-sidefold-apricot-v1.png",
+    "sha256": "ffc1c69e351ce6466806c4136fb9ed21a065bbe3fd574858489c070daad1eb19"
+  },
+  "background": {
+    "file": "background-v1.png",
+    "sha256": "eced6521c38f7ad51f6cc03d2621b6d5eb20f460f6b1be1e9822f0fddcee258f",
+    "bytes": 2402606
+  },
+  "figureF": {
+    "file": "figure-mask-v2.png",
+    "sha256": "37d7b29df3f0facb1517356fc34a38f98de6a6b0ad71a19d4cfa49a9ca89b531",
+    "bytes": 492963
+  },
+  "receiverS": {
+    "file": "contact-mask-v2.png",
+    "sha256": "1eddd24608a7ecfeeffd3e689fbec4a10bb5a70e7656b36f66e0b7163c5bf242",
+    "bytes": 414401
+  },
+  "coverage": "U(x,y)=MAX(L(F(x,y)),L(S(x,y))); original source mother RGB is drawn ONCE",
+  "render": {
+    "subject": "union-source-v1.svg",
+    "composite": "composite-source-v1.svg",
+    "sameCanvas": true,
+    "x": 0,
+    "y": 0,
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "contactShadow": "included original receiver material; not pure caster",
+    "foreground": "local cushion/plaid-pillow/throw contact receiver remains inside fixed U; no separate redraw"
+  },
+  "fixedProps": "The pair of brown floor loafers stays in the matching background at original source coordinates, with original contact shadows. Figure contains socked feet and held blue lap book.",
+  "producerObservations": {
+    "route": "Existing 127.0.0.1:5188 asset server; current Chrome extension tab",
+    "seen": [
+      "full mother beside reconstructed scene",
+      "full union on light, dark and checkerboard",
+      "enlarged face/hair/ribbons",
+      "both hands and complete held book",
+      "skirt hem and both bent knees",
+      "both socked feet and all surrounding support cloth"
+    ],
+    "result": "No obvious missing body area, internal eye/clothing hole, detached hand/book, duplicated original RGB or hard seam seen in current native browser observation. Receiver has a broader original support-cloth envelope; it is accepted only as a fixed included joint subject candidate."
+  },
+  "review": {
+    "primaryMotherApproved": true,
+    "primaryLayerApproved": true,
+    "primaryLayerReviewScope": "Root personally inspected mother/composite pair, checker and dark on official IAB. Exact current F2/S2/BG bundle admitted only as fixed-position included layer candidate. Receiver includes original cushion/pillow/throw, so no body translation; travel=0. No dynamic or runtime acceptance.",
+    "runtimeAccepted": false,
+    "dynamicAccepted": false
+  },
+  "calls": {
+    "count": 5,
+    "firstMaskIssuesRecorded": true,
+    "selected": "background-v1 + figure-mask-v2 + contact-mask-v2",
+    "notSelected": [
+      "figure-mask-v1",
+      "contact-mask-v1"
+    ]
+  },
+  "observations": {
+    "full": "native-observe-v1.html",
+    "details": "detail-observe-v1.html"
+  },
+  "sourceAssetMetadata": [
+    {
+      "file": "background-v1.png",
+      "sha256": "eced6521c38f7ad51f6cc03d2621b6d5eb20f460f6b1be1e9822f0fddcee258f",
+      "bytes": 2402606
+    },
+    {
+      "file": "background-v1.prompt.txt",
+      "sha256": "fa27526d892cdb27daced839fa4ae2e7e054aefc98231f4aab3272430f615bc7",
+      "bytes": 1788
+    },
+    {
+      "file": "composite-source-v1.svg",
+      "sha256": "cda4773d3cf3481f70e30e818d82eb8bf976568c6fefc8b1f8650ef2b1109152",
+      "bytes": 1324
+    },
+    {
+      "file": "contact-mask-v1.png",
+      "sha256": "0110b5f84bc0766c49bfe57d891dc0a7162c6639fd663c19d5cae6281c3dfc3b",
+      "bytes": 413416
+    },
+    {
+      "file": "contact-mask-v1.prompt.txt",
+      "sha256": "eeaf87cafbfd22f781087cf3a1ba590fd9ae8bcb1204cb59863199ce5a737b30",
+      "bytes": 1996
+    },
+    {
+      "file": "contact-mask-v2.png",
+      "sha256": "1eddd24608a7ecfeeffd3e689fbec4a10bb5a70e7656b36f66e0b7163c5bf242",
+      "bytes": 414401
+    },
+    {
+      "file": "contact-mask-v2.prompt.txt",
+      "sha256": "dfd06757714225784eccb4d53ef201f23db88ecb40861707b540e47d62274eff",
+      "bytes": 1368
+    },
+    {
+      "file": "detail-observe-v1.html",
+      "sha256": "fb401cdbbdb04449d39a8dfe55734ce35e33dcdcb905b6ab2bcaccefdb1db34c",
+      "bytes": 2637
+    },
+    {
+      "file": "figure-mask-v1.png",
+      "sha256": "6db71cea9052f3e42fe5fdd0d90c5adfee9c00c95b01aa10124f42db38b204b7",
+      "bytes": 478586
+    },
+    {
+      "file": "figure-mask-v1.prompt.txt",
+      "sha256": "bcd0065c9571281d9a5807cd87c350a9fe1cdf7c3b8b34e5e0061ac93a09b82b",
+      "bytes": 1756
+    },
+    {
+      "file": "figure-mask-v2.png",
+      "sha256": "37d7b29df3f0facb1517356fc34a38f98de6a6b0ad71a19d4cfa49a9ca89b531",
+      "bytes": 492963
+    },
+    {
+      "file": "figure-mask-v2.prompt.txt",
+      "sha256": "dfc0283f02871cbee4d51ae130808da75123f07f91a478590fda7a396c1ebce7",
+      "bytes": 1501
+    },
+    {
+      "file": "native-observe-v1.html",
+      "sha256": "df5d7991b230b9efe63b7d2219b8eb317532e25db8be42bd1c0d41fcc8788a04",
+      "bytes": 9354
+    },
+    {
+      "file": "union-source-v1.svg",
+      "sha256": "85a2209562574c2b86f6daebbc439d694d0bcb277295dead86fad0a3c7288257",
+      "bytes": 1237
+    }
+  ]
+}

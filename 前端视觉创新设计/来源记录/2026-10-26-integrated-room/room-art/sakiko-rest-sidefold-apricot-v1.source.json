@@ -1,0 +1,47 @@
+{
+  "tool": "built-in image_gen",
+  "sourceSession": "01a17613-3caf-7462-9134-40d17eea23a0",
+  "sourceKind": "same-scene-new-character-from-clean-empty-room-and-text",
+  "characterId": "sakiko",
+  "sceneFamily": "literary-room-v1",
+  "activity": "rest",
+  "poseTopology": "side-seated-folded-legs-on-cushion",
+  "theme": "apricot",
+  "appearanceId": "sakiko-literary-navy-adaptation",
+  "passport": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/sakiko.md",
+    "version": "2026-10-25.1",
+    "sha256": "adc3cf454eebf2abd7ae79ceaa9c7854f489bdb5a1af09666849d3b29b5c876e"
+  },
+  "input": [
+    {
+      "path": "前端视觉创新设计/来源记录/2026-10-25-literary-room/plates/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "only image input; personally viewed clean empty room"
+    }
+  ],
+  "output": {
+    "path": "sakiko-rest-sidefold-apricot-v1.png",
+    "sha256": "ffc1c69e351ce6466806c4136fb9ed21a065bbe3fd574858489c070daad1eb19",
+    "actualSize": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "bytes": 2429435
+  },
+  "toolOriginalPath": "C:/Users/17601/.codex/generated_images/01a17613-3caf-7462-9134-40d17eea23a0/exec-ef7f3fc2-7790-4d3f-9b6c-7ed4ae67a748.png",
+  "promptFile": "sakiko-rest-sidefold-apricot-v1.prompt.txt",
+  "promptFileSha256": "615c7211a4a71c82fe4936cd53a9d305d1d05b646822a9900cd5989c3e7f2518",
+  "exactRequestFile": "sakiko-rest-sidefold-apricot-v1.request.json",
+  "review": {
+    "productionAgentViewed": true,
+    "primaryViewed": true,
+    "primaryApproved": true,
+    "primaryReviewBoundary": "Root personally viewed this exact complete static mother: folded socked feet/knee/hip continuity, weight on cushion and original-floor loafers accepted. Root message in current session authorizes same-canvas extraction. This is not layer, dynamic or runtime admission.",
+    "extractionComplete": false,
+    "runtimeAccepted": false,
+    "observation": "Personally viewed returned full image. Youthful blue-lavender hair/golden eyes and below-knee calf socks remain identifiable; both knees uncovered. Side-sitting with both bent lower legs on cushion differs from normal feet-down bench pose. Hip, thighs and folded calves are supported by cushion; one palm rests on cushion, other on blue book; shoes removed and paired on original floor. Figure turns toward the window with quiet attention. No obvious limb disconnection, room/UI collage or screenshot contamination seen. This is a static mother candidate; no primary admission, layer extraction, motion or runtime approval."
+  },
+  "boundary": "No old person image, official art, runtime screenshot, UI mockup or rejected mother was supplied. Existing empty room is the sole image input. Full character was constructed from text. Whole background/figure light was generated together; no later independent-character compositing."
+}

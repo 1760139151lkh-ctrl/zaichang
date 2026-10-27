@@ -1,0 +1,35 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "figure F mask-only interior fill preserving exterior contour",
+  "exactRequest": {
+    "prompt": "Edit this 1536×1024 black-and-white selection mask ONLY. Preserve the EXACT outer silhouette and its original pixel position, scale, entire frame and fine hair-tip antialias. This is a mask correction, not a new drawing. The selected subject is the complete side-seated girl plus her held closed lap book.\n\nInside the selected subject, fill ALL internal black/dark linework and ALL pale-gray interior pixels with solid opaque PURE WHITE: eyes/eyebrows/face/ear marks, hair interior strokes, collar/blouse/ribbon details, sleeve creases, cardigan button/hem lines, every hand/finger interior, book page/cover details, skirt/check patterns, both exposed knees, sock seams, all folded legs and both socked feet. A solid object remains selected across its internal drawing. Do NOT leave eye holes, face holes, sleeve seams, thigh outline cuts or book interior gaps.\n\nPreserve only actual external background holes as black: genuine gaps between separated hair locks, between arms and body where background is visible, or outside the subject boundary. Do not bridge outer hair loops or invent filled floating white islands. Keep all the broad surrounding canvas pure black. Preserve the original figure contour without enlarging, moving, smoothing away strands, cropping, zooming or re-centering. No detached floor shoes, cushion patch, new text or transparency. Return full original 1536×1024 opaque RGB binary-style silhouette with pure white interiors and only a thin original antialiased outer edge.",
+    "referenced_image_paths": [
+      "C:\\Users\\17601\\.codex\\generated_images\\01a17613-3caf-7462-9134-40d17eea23a0\\exec-2b14e54c-ad22-4aed-a9f1-0279f1c3b4db.png"
+    ],
+    "transparent_background": false
+  },
+  "inputSha256": "6db71cea9052f3e42fe5fdd0d90c5adfee9c00c95b01aa10124f42db38b204b7",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-3caf-7462-9134-40d17eea23a0\\exec-4ff2daff-f2d9-4b57-b2f7-e6995f02262c.png",
+  "output": {
+    "path": "figure-mask-v2.png",
+    "file": "figure-mask-v2.png",
+    "sha256": "37d7b29df3f0facb1517356fc34a38f98de6a6b0ad71a19d4cfa49a9ca89b531",
+    "bytes": 492963,
+    "actualSize": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "promptFile": "figure-mask-v2.prompt.txt",
+  "promptFileSha256": "dfc0283f02871cbee4d51ae130808da75123f07f91a478590fda7a396c1ebce7",
+  "selectedForCurrentBundle": true,
+  "issue": null,
+  "review": {
+    "productionAgentViewed": true,
+    "primaryApproved": true,
+    "primaryReviewScope": "Root inspected source/composite side-by-side, checker and dark backgrounds using official IAB. Admitted this exact bundle as fixed-position included original receiver ONLY; no independent body translation, drag/motion or runtime acceptance. travel/slope/perspective remain zero.",
+    "runtimeAccepted": false
+  },
+  "boundary": "This is a source-aligned fixed layer/selection candidate. No PNG pixels were edited by script. Original mother RGB is used exactly once through SVG MAX luminance union; no threshold, dilation, edge repaint or geometry patch."
+}

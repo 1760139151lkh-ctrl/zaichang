@@ -96,12 +96,15 @@ function registeredChoice(key: string, sceneId: unknown, variant?: EnvironmentVa
 // Presence can keep a reviewed neutral chat pose while its finer activity is
 // unavailable. Exact cell/coverage lookups remain exact, and the source keeps
 // its own support, geometry and environment rather than inheriting the request.
-// Only auto unknown-weather presence separates that time-only room from the
-// clock UI palette; manual and known-weather artwork queries stay exact.
-function presenceArtwork(character: string, moment: CompanionMoment, light: SceneLight, palette: AppearancePalette, variant?: EnvironmentVariant, neutralTime?: NeutralSceneTime) {
+// Automatic appearance may retain an independently reviewed time-only room
+// when its exact weather cell is missing. The source keeps its canonical
+// light/camera; explicit manual theme queries and coverage stay exact.
+export function companionPresenceArtwork(character: string, moment: CompanionMoment, light: SceneLight, palette: AppearancePalette, variant?: EnvironmentVariant, neutralTime?: NeutralSceneTime) {
   if (variant === 'unknown') return neutralTime === undefined ? undefined : companionNeutralPresenceArtwork(character, neutralTime);
   return companionSceneArtwork(character, moment, light, palette, variant)
-    ?? (moment !== 'chat' && moment !== 'night' ? companionSceneArtwork(character, 'chat', light, palette, variant) : undefined);
+    ?? (moment === 'reading' ? companionSceneArtwork(character, 'resume', light, palette, variant) : undefined)
+    ?? (moment !== 'chat' && moment !== 'night' ? companionSceneArtwork(character, 'chat', light, palette, variant) : undefined)
+    ?? (variant !== undefined ? companionNeutralPresenceArtwork(character, light === 'night' ? 'night' : 'day') : undefined);
 }
 function checkedSceneChoice(value: CompanionState, key: string, choice: SceneTransferChoice, expected?: SceneChoiceExpected) {
   const scope = choiceScope(key);
@@ -115,7 +118,7 @@ function checkedSceneChoice(value: CompanionState, key: string, choice: SceneTra
     throw new Error('这个坐姿现在还不能采用，原来的位置还在。');
   const selected = value.sceneChoices[key];
   const original = registeredChoice(key, selected, variant, environment.light, neutralTime)
-    ?? presenceArtwork(scope.character, scope.moment, environment.light, scope.palette, variant, neutralTime);
+    ?? companionPresenceArtwork(scope.character, scope.moment, environment.light, scope.palette, variant, neutralTime);
   const source = original && companionRegisteredSceneArtwork(original.id, scope.character, environment.light, scope.palette, variant, neutralTime);
   const sourcePosition = source ? companionScenePosition(source, value.scenePositions) : 0;
   if (!source || expected && (selected !== expected.currentChoice || source.id !== expected.sceneId || sourcePosition !== expected.position))
@@ -517,7 +520,7 @@ function CompanionFigure({ image, name, placement, interaction, yieldToInput = f
 }
 
 export function CompanionScene({ preview = false, quiet = false, yieldToInput = false, representation = 'auto', ambientFit = 'room', immersive = false, moment, placement, interaction, paletteOverride,
-  onRoomLayout, onStartFocus, onRest, focusActive = false }: { preview?: boolean; quiet?: boolean; yieldToInput?: boolean; representation?: 'auto' | 'scene' | 'portrait'; ambientFit?: CompanionAmbientFit; immersive?: boolean; moment?: CompanionMoment; placement?: CompanionPlacement; interaction?: PlacementInteraction; paletteOverride?: AppearancePalette } & CompanionRoomActions) {
+  onRoomLayout, onStartFocus, deskActionLabel, onRest, focusActive = false }: { preview?: boolean; quiet?: boolean; yieldToInput?: boolean; representation?: 'auto' | 'scene' | 'portrait'; ambientFit?: CompanionAmbientFit; immersive?: boolean; moment?: CompanionMoment; placement?: CompanionPlacement; interaction?: PlacementInteraction; paletteOverride?: AppearancePalette } & CompanionRoomActions) {
   const { value, setScenePosition, setSceneChoice } = useCompanion();
   const sceneElement = useRef<HTMLDivElement>(null);
   const [hotspotsAvailable, setHotspotsAvailable] = useState(false);
@@ -533,12 +536,13 @@ export function CompanionScene({ preview = false, quiet = false, yieldToInput = 
   const semanticActivity = semanticMoment === 'night' ? 'chat' : semanticMoment;
   const scope = companionSceneChoiceKey(value.character, semanticMoment, palette);
   const chosenArtwork = registeredChoice(scope, value.sceneChoices[scope], variant, light, neutralTime);
-  const resolvedArtwork = chosenArtwork ?? presenceArtwork(value.character, semanticMoment, light, palette, variant, neutralTime);
+  const resolvedArtwork = chosenArtwork ?? companionPresenceArtwork(value.character, semanticMoment, light, palette, variant, neutralTime);
   const artwork = resolvedArtwork?.source.kind === 'registered' ? resolvedArtwork : undefined;
   const ambient = companionAmbientArtwork({ mode: manualEnvironment ? 'manual' : 'auto', palette,
     requestedVariant: environment.requestedVariant, isDay: manualEnvironment ? light !== 'night' : environment.isDay });
   const sceneMoment = artwork?.activity ?? semanticMoment;
   const presenceFallback = artwork?.purpose === 'neutral-presence' ? 'time-neutral'
+    : !chosenArtwork && semanticActivity === 'reading' && artwork?.activity === 'resume' ? 'reading-with-resume-pose'
     : !chosenArtwork && artwork?.activity === 'chat' && semanticActivity !== 'chat' ? 'neutral-chat' : undefined;
   const image = value.character.startsWith('custom:') ? selectedPicture(value, semanticMoment, palette) : artwork?.mother;
   const transferTargets = artwork ? companionSceneTransferTargets(value.character, artwork, light, palette, value.scenePositions, semanticActivity, variant, neutralTime) : [];
@@ -594,10 +598,10 @@ export function CompanionScene({ preview = false, quiet = false, yieldToInput = 
         onCommit={position => setScenePosition(artwork.positionKey, position, value.scenePositions[artwork.positionKey] ?? 0)} transferTargets={transferTargets} transferScope={`${scope}:${environmentStamp}`}
         onTransferCommit={(choice: SceneTransferChoice, origin: Pick<SceneChoiceExpected, 'sceneId' | 'position'>) => setSceneChoice(scope, choice, { ...origin, currentChoice: value.sceneChoices[scope], environmentStamp })}
         showFigure={showFigure} interactive={showFigure} quiet={quiet && !preview} yieldToInput={yieldToInput} reducedMotion={value.reducedMotion} previewOnly={preview}
-        onRoomLayout={onRoomLayout} onStartFocus={roomInteractive ? onStartFocus : undefined} onRest={roomInteractive ? onRest : undefined} focusActive={focusActive} onHotspotsAvailableChange={setHotspotsAvailable} />
+        onRoomLayout={onRoomLayout} onStartFocus={roomInteractive ? onStartFocus : undefined} deskActionLabel={deskActionLabel} onRest={roomInteractive ? onRest : undefined} focusActive={focusActive} onHotspotsAvailableChange={setHotspotsAvailable} />
     </> : <>
       {ambient ? <CompanionRoomStage artwork={ambient} ambientFit={roomAmbientFit} reducedMotion={value.reducedMotion} onRoomLayout={onRoomLayout}
-        onStartFocus={roomInteractive ? onStartFocus : undefined} onRest={roomInteractive ? onRest : undefined} focusActive={focusActive} onHotspotsAvailableChange={setHotspotsAvailable} />
+        onStartFocus={roomInteractive ? onStartFocus : undefined} deskActionLabel={deskActionLabel} onRest={roomInteractive ? onRest : undefined} focusActive={focusActive} onHotspotsAvailableChange={setHotspotsAvailable} />
         : <div className="scene-environment-neutral" />}
       {showFigure && value.character.startsWith('custom:') && !failed && <CompanionFigure key={value.character} image={image!} name={companionName(value)} placement={placement ?? value} interaction={editable} yieldToInput={yieldToInput} onError={() => setFailed(true)} />}
     </>}
@@ -616,7 +620,7 @@ export function RestSpace({ onClose }: { onClose: () => void }) {
   return <dialog ref={ref} className="rest-space" aria-label="先坐一会儿" onCancel={event => { event.preventDefault(); onClose(); }}>
     <CompanionScene immersive moment="rest" />
     <div className="rest-brand"><Portal size={28} /><span>在场</span></div>
-    <button type="button" className="icon-button rest-close" aria-label="回到聊天" onClick={onClose}><X size={19} /></button>
-    <div className="rest-return"><h1>先坐一会儿。</h1><button type="button" onClick={onClose}><ArrowLeft size={17} />回到聊天</button></div>
+    <button type="button" className="icon-button rest-close" aria-label="回到刚才" onClick={onClose}><X size={19} /></button>
+    <div className="rest-return"><h1>先坐一会儿。</h1><button type="button" onClick={onClose}><ArrowLeft size={17} />回到刚才</button></div>
   </dialog>;
 }

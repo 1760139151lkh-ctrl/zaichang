@@ -6,7 +6,11 @@
 
 ## 本轮接续与视觉资产
 
-2026-10-26独立前端重审的当前入口是[实施与验收记录](docs/evidence/2026-10-26-frontend-reassessment.md)。`src/renderer/WorkspaceScenery.tsx`与`workspace-scenes.css`负责各任务的环境、文字尺度和同画布落点；`EdgeCompanion.tsx`、`edge-companion-geometry.ts`与`edge-companion-assets.ts`保留同一个猫的拖动、点/边支撑、姿态与恢复。新艺术资产位于`前端视觉创新设计/运行素材/workspaces`，实际Prompt与SHA位于`前端视觉创新设计/来源记录/2026-10-26-product-reassessment`。本轮按用户明确要求由主代理独立完成，不改变十二阶段正式研发的组织规则。
+2026-10-26当前前端入口是[同一实施记录](docs/evidence/2026-10-26-frontend-reassessment.md)的第二次复审部分。`App.tsx`维护独立封面，并复用原对话、输入、准备材料和阅读窗宿主；`Navigation.tsx`分别提供伙伴、光线与设置入口。`coherent-desk.css`整合完整房间与原生纸面；`WorkspaceScenery.tsx`负责近桌/共读/日程环境，`companion-d01-motion.tsx`负责同母图的局部眼部层。`EdgeCompanion.tsx`、`edge-companion-geometry.ts`与`companion-scenes.tsx`维护实际可见家具、人物和纸边落点，不能跨不相容母图套坐标。
+
+本轮精选图/补片、精确输入输出SHA、原Prompt及当前引用见[24张资产索引](前端视觉创新设计/来源记录/2026-10-26-coherent-experience/asset-index.json)。比较稿在`补充图稿/2026-10-26-coherent-experience`，新运行图在`运行素材/coherent-desk`；固定完整场景及复用休息联合层仍在`运行素材/companion/scenes`。被拒720p视频仅保留本机拒绝证据，不进入运行引用和源码同步。第一轮`workspaces`资产及其索引保留历史范围，当前并未继续引用已替换的空桌Keep背景。
+
+用户最新授权的两个Luna Max只做旧资产只读整理；主代理独立承担设计、改码、集成和实际验收，不扩大为十二阶段固定八人研发。
 
 助手选句/整公式沿`AssistantTextSource.tsx → RichText.tsx/LocalTextFocus.tsx → App.tsx → shared/workspace-context.ts → main/storage/repository.ts`传原文地址。`workspace-return.ts`恢复同地址；`runtime/context.ts`和`runtime/coordinator.ts`核原来源并登记回执。资产采用及对应源码见[本轮索引](前端视觉创新设计/来源记录/2026-10-26-product-reassessment/asset-index.json)。
 

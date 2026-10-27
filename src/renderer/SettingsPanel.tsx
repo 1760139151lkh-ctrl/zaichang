@@ -36,6 +36,8 @@ interface Props {
   embedded?: boolean;
   initialTab?: SettingsTab;
   companionMoment?: CompanionMoment;
+  companionEntry?: 'partner' | 'light';
+  companionEntryRevision?: number;
   state: State;
   busy: boolean;
   onState: (s: State) => void;
@@ -72,14 +74,16 @@ export function SettingsPanel({
   embedded,
   initialTab = '连接',
   companionMoment,
+  companionEntry = 'partner',
+  companionEntryRevision = 0,
 }: Props) {
   const [appearance, setAppearance] = useAppearance();
   const { reset: resetCompanion, value: companion, update: updateCompanion } = useCompanion();
   const interaction = state.settings.interaction || DEFAULT_INTERACTION;
-  const resumeNavigation = useRef(draft.current.navigation?.resume && draft.current.navigation.entry === initialTab
+  const resumeNavigation = useRef(initialTab !== '陪伴' && draft.current.navigation?.resume && draft.current.navigation.entry === initialTab
     ? draft.current.navigation : undefined);
   const [tab, setTab] = useState<SettingsTab>(resumeNavigation.current?.tab || initialTab);
-  const tabs: SettingsTab[] = embedded ? ['陪伴', '交流', '偏好', '连接'] : ['陪伴', '交流', '偏好', '连接', '记忆'];
+  const tabs: SettingsTab[] = embedded ? ['交流', '偏好', '连接', '记忆'] : ['陪伴', '交流', '偏好', '连接', '记忆'];
   const tabNames: Record<string, string> = { 陪伴: '陪伴', 交流: '相处', 偏好: '阅读', 连接: '连接', 记忆: '关于你' };
   const Frame = embedded ? PagePanel : Modal;
   const [key, setKey] = useState(draft.current.apiKey || '');
@@ -212,6 +216,11 @@ export function SettingsPanel({
           : connector.authStatus === 'failed'
             ? '需要重试'
             : '再试一下登录';
+  if (initialTab === '陪伴' && tab === '陪伴') return <section className="companion-room-page" aria-label="伙伴与氛围">
+    <CompanionSettings persona={state.settings.persona} draft={draft} moment="chat" roomMode initialEntry={companionEntry} entryRevision={companionEntryRevision}
+      onState={onState} busy={busy || !!pending} saving={pending === 'persona'} saveOperation={operation => perform('persona', operation)} onEditPersona={() => changeTab('交流')} />
+    <button type="button" className="companion-room-close icon-button" onClick={onClose} aria-label="返回刚才的页面"><X size={20} /></button>
+  </section>;
   return (
     <Frame
       title={tab === '资料' ? '资料与权限' : initialTab === '记忆' ? '关于你' : '设置'}

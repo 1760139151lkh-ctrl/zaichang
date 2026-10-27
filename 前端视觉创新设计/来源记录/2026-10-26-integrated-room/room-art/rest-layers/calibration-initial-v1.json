@@ -1,0 +1,46 @@
+{
+  "status": "producer-provisional-visible-source-coordinates-for-space-motion-owner",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "character": "sakiko",
+  "activity": "rest",
+  "theme": "apricot",
+  "sceneFamily": "literary-room-v1",
+  "support": "window-seat",
+  "seat": [
+    0.812,
+    0.562
+  ],
+  "ground": [
+    0.59,
+    0.557
+  ],
+  "bodyBounds": [
+    0.553,
+    0.12,
+    0.962,
+    0.582
+  ],
+  "safeTextBoundary": 0.54,
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "55.3% 12%, 96.2% 12%, 96.2% 58.2%, 55.3% 58.2%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "sourceFiles": {
+    "mother": "../sakiko-rest-sidefold-apricot-v1.png",
+    "background": "background-v1.png",
+    "mask": "figure-mask-v2.png",
+    "contactMask": "contact-mask-v2.png",
+    "maskMode": "luminance"
+  },
+  "calibrationBoundary": "Initial values are manually observed visible source-envelope references, not exact hidden hip anatomy. seat estimates seated pelvis/cushion relationship; ground references socked-foot cushion contact, not the detached floor shoes or floor-contact permission. No movable calibration is claimed. space_motion owns final registration/runtime fit.",
+  "fixedProps": "Detached floor loafers remain in BG at source coordinates. Book is included with figure. Source receiver is fixed with travel=0.",
+  "primaryReviewRecord": "root-fixed-included-admission-v1.json",
+  "runtimeAccepted": false
+}

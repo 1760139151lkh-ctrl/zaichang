@@ -1,0 +1,23 @@
+{
+  "kind": "complete-working-scene",
+  "generatedSource": "C:\\Users\\17601\\.codex\\generated_images\\01a17a92-ae0a-7132-848c-516e08efdd9b\\exec-dd9eced6-caf7-4964-ae0e-3e2894b31fdf.png",
+  "prompt": "Use case: lighting-weather. Change ONLY the complete scene lighting/weather to soft overcast morning, pale blue mist outside, diffuse blue-grey daylight with warm wood and a little gentle lamp light; no sunbeams, no blue skin. Preserve EXACT 1536x1024 camera, character scale, identity, golden eye color, hair, face, clothing, pose, all body joints, hands, her own book, tea cup, brass lamp, furniture and their positions. Keep the right half an unobstructed wooden table with the same window behind, no paper, no stand and no newly added props. Preserve the original fine youthful 2D literary anime paint/line style. Relight materials naturally as a whole; not a global color overlay. No UI, text, cat, panel or new figure. This must share the source's exact composition for a coherent working-scene theme transition.",
+  "referencedImages": [
+    "C:\\Users\\17601\\.codex\\generated_images\\01a17a92-ae0a-7132-848c-516e08efdd9b\\exec-4efd3867-c58f-403a-ba0d-ccff1b136836.png"
+  ],
+  "character": "sakiko",
+  "passportVersion": "2026-10-25.1",
+  "outfit": "sakiko-literary-navy-adaptation",
+  "primaryImageViewed": true,
+  "runtimeAccepted": true,
+  "output": "前端视觉创新设计/运行素材/coherent-desk/desk-mist.png",
+  "sha256": "415dcda3cc3f5417369c5b218c06e5b96b94a645d6f5bf32c87c2a5b26b7612f",
+  "inputSha256": [
+    {
+      "path": "C:\\Users\\17601\\.codex\\generated_images\\01a17a92-ae0a-7132-848c-516e08efdd9b\\exec-4efd3867-c58f-403a-ba0d-ccff1b136836.png",
+      "sha256": "c4fe675947129b460cfb75a591f7e6c64b704d27919149c37e9634cf81e8e6bf"
+    }
+  ],
+  "runtimeScope": "同镜头任务环境；保留原生正文、作品、输入与原文所有者。",
+  "acceptanceEvidence": "docs/evidence/2026-10-26-frontend-reassessment.md"
+}
