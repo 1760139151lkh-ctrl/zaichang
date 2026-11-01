@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_review_recovery",
+  "session": "01a1769a-b7bc-71e2-813e-b17b39afa3c4",
+  "character": "umiri",
+  "activity": "chat",
+  "palette": "apricot",
+  "assetPurpose": "figure-step1-marked-v1",
+  "tool": "built-in image_gen.imagegen",
+  "exactArguments": {
+    "prompt": "Use case: background-extraction. Technical SOURCE-ALIGNED foreground selection markup, not illustration. The only input is the exact approved 1536x1024 Umiri mother. Keep full canvas, camera and every source coordinate unchanged. Paint the ENTIRE existing girl AND her complete notebook AND pencil SOLID PURE WHITE directly over their exact source pixels; leave the original surrounding room COLORED and untouched. No new person, no face/pose change, no enlargement, crop, centering, shifted silhouette or new geometry.\n\nThe ONE white entity includes all hair mass, flyaway hairs and ear, entire face/eyes/nose/mouth, choker/earrings, black jacket including sleeves/lapels/straps, red top, gray skirt/belt, both hands/all fingers, pencil from tip to end, complete notebook covers/spine and ALL open page surfaces, both thighs/knees/calves, entire two boots with laces/soles/heels. All internal original lines, dark pupils, eyelashes, facial shading, jacket seams/zipper, skirt creases, book/page ruling/cover decoration, knee folds and boot-lace/sole grooves become WHITE: these are solid material, never holes or colored retained marks. The eyes and book page interiors must be as white as her torso.\n\nKeep actual gaps around separate hair strands, between fingers when room is truly visible, beside the small gap of forearm/notebook/waist, between the two calves and the narrow space between the two boots original COLORED ROOM. Do not bridge air gaps into the white entity. Cushion, blanket, plaid pillow, wood, floor and all contact/cast shadows remain original COLORED ROOM; none belong to the person. No white cushion lip or ground patch. Fine source exterior antialias only, no halo, outline, matte fringe or opacity fade through the body. Output one opaque full-canvas 1536x1024 PNG, white foreground selection over unchanged colored room, no text/grid/checker/labels.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mujica/umiri-chat-youth-correction-v1/umiri-chat-apricot-young-direct-attention-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "output": {
+    "originalToolPath": "C:/Users/17601/.codex/generated_images/01a1769a-b7bc-71e2-813e-b17b39afa3c4/exec-db6f3875-93c5-49d0-889a-00a806229a34.png",
+    "workspacePath": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mujica/umiri-chat-youth-correction-v1/figure-step1-marked-v1.png",
+    "copiedWithoutPixelEdits": true,
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mujica/umiri-chat-youth-correction-v1/figure-step1-marked-v1.png",
+    "sha256": "9841f3e6c90bdd2cef8269b13426d672338072645d4adc98dd6eaacd8cab0842",
+    "bytes": 2327467,
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "producerStatus": "technical-intermediate; pencil/book residual lines; never final RGB",
+  "sourceMother": {
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mujica/umiri-chat-youth-correction-v1/umiri-chat-apricot-young-direct-attention-v1.png",
+    "sha256": "00b8ab33ca467c696a7c1bd4e5753900459dd46c07297ad026dbc21e36f13162",
+    "rootLimitedCompleteStaticMotherAdmission": true,
+    "layerAdmission": false
+  },
+  "generatedMaskRGBAdoptedAsFigureColor": false,
+  "primaryLayerApproved": false,
+  "runtimeRegistered": false,
+  "dynamicAdmission": false,
+  "inputFiles": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mujica/umiri-chat-youth-correction-v1/umiri-chat-apricot-young-direct-attention-v1.png",
+      "sha256": "00b8ab33ca467c696a7c1bd4e5753900459dd46c07297ad026dbc21e36f13162",
+      "bytes": 2464089,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    }
+  ],
+  "originalToolBytesMatchWorkspace": true
+}

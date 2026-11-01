@@ -55,7 +55,7 @@ scene1 = WeatherScene("<scene-id>@<revision>")
 
 `DragHandle`抓取时锁定该次Group坐标系并只接收同一pointerId；Escape、失焦与取消回到抓取前的局部值，方向键可接管手势。新增`violet`数据色；历史`green`字段仍可解析，但显示为暮紫，新作品使用现行颜色名称。
 
-2026-10-24的[局部冲突恢复稿v3](../前端视觉创新设计/补充图稿/2026-10-24-matrix/openui/openui-local-conflict-recovery-v3.png)已由主代理亲看，接受同页纸、当前草稿与恢复动作的设计关系；图中曲线仍只作设计参考，运行数学由原生`Curve`求值。完整Prompt与独立尝试见[来源记录](../前端视觉创新设计/来源记录/2026-10-24-matrix/openui/openui-local-conflict-recovery-v3-source.json)：首次404和v2数学错误分别保留，均不计为合格运行图。本轮类型、既有Curve与smoke检查已通过，尚未取得这些修改后的Windows实际拖动、冲突选择、切页恢复、真实Luna续聊与设备听感证据，不能用图稿批准或检查结果代替这些体验。
+2026-10-24的[局部冲突恢复稿v3](../前端视觉创新设计/分类总库/03-补充设计稿/补充图稿/2026-10-24-matrix/openui/openui-local-conflict-recovery-v3.png)已由主代理亲看，接受同页纸、当前草稿与恢复动作的设计关系；图中曲线仍只作设计参考，运行数学由原生`Curve`求值。完整Prompt与独立尝试见[来源记录](../前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-24-matrix/openui/openui-local-conflict-recovery-v3-source.json)：首次404和v2数学错误分别保留，均不计为合格运行图。本轮类型、既有Curve与smoke检查已通过，尚未取得这些修改后的Windows实际拖动、冲突选择、切页恢复、真实Luna续聊与设备听感证据，不能用图稿批准或检查结果代替这些体验。
 
 关键实现：`shared/interactive-library.ts`、`interactive-program.ts`、`main/runtime/interactive-program.ts`、`interactive-program-local-state.ts`、`renderer/presentation/InteractiveProgramView.tsx`与`interactive-{context,primitives,graphics,motion,press,audio}.tsx`。
 

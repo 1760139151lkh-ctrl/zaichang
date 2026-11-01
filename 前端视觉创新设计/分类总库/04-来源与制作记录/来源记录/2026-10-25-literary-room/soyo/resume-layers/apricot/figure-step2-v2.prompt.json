@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-resume-apricot-figure-step2-v2",
+  "stage": "F2-semantic-interior-repair",
+  "tool": "image_gen.imagegen",
+  "actualToolArguments": {
+    "prompt": "Use case: precise-object-edit. Asset: exact same-canvas binary foreground selection, F2 repair, not an illustration.\nInput 1 is the existing original-position F1 technical selection: the girl and her held book are deliberately white. Input 2 is the exact admitted original Soyo resume v2 mother and is only a semantic reference for which gaps are real air. Keep the 1536x1024 canvas and the EXACT source foreground outer coordinates. No recenter, resize, crop, new pose, new anatomy, thicker outlines, or altered hair/hem/shoe contour. The original RGB will later be taken pixel-for-pixel from Input 2, never from your output.\nCreate ONE opaque BLACK AND WHITE matte: the complete original girl and the WHOLE actual lap-held open book, supporting hands, page corners, single hanging red bookmark ribbon, all clothes, hair strands, legs, socks, and both complete shoe soles/heels are SOLID PURE WHITE. Paint over EVERY residual internal line within the already-white girl/book/pages/hands/bookmark. In particular the thin page crease and cover lines near x844..1044,y443..514 and the ENTIRE narrow bookmark around x911..928,y489..543 are opaque physical material: fill ALL their internal strokes solid white. Internal outlines, book print, cloth seams, face detail, shoe shading and hair texture are NOT transparent. There must be no black line inside the real book or bookmark, no gray ghost face or gray garment texture inside the subject. Do not let the book's pale page color be mistaken for room background. Preserve fine external contour anti-aliasing only.\nOnly the actual original empty gaps OUTSIDE the physical subject remain BLACK: between the separated legs, tiny air between external curled hair loops, and the genuinely visible room around her hands/book. Compare with Input 2; do NOT mechanically fill true air pockets. All room/cushion/window/floor/side table/shadows are BLACK, including natural white fabrics and independent seat/floor contact shadows. No selected receiver patch in F. No labels, text, added mark or checkerboard. Output one 1536x1024 opaque binary-style selection with exact source placement.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/figure-step1-marked-v1.png",
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-resume-apricot-literary-v2.png"
+    ],
+    "transparent_background": false
+  },
+  "generationStatus": "completed-output-and-exact-arguments-in-source-record",
+  "scope": "Same-mother selection only; preserve original mother RGB; no runtime acceptance.",
+  "completedSourceRecord": "figure-step2-v2.source.json"
+}

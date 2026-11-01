@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "asset": "nyamu-attention-apricot-mother-candidate-v3.png",
+  "character": "nyamu",
+  "activity": "attention",
+  "palette": "apricot",
+  "light": "morning",
+  "width": 1536,
+  "height": 1024,
+  "tool": "image_gen.imagegen (built-in)",
+  "prompt": "nyamu-attention-apricot-v3-prompt.txt",
+  "identityText": "nyamu-identity.txt",
+  "identityBasis": "Parent's reviewed official character identity and fixed outfit, supplied as text only. Official images and other character mothers were not image inputs.",
+  "inputs": [
+    {
+      "file": "../../../../01-程序素材/运行素材/companion/scenes/room-apricot-candidate-v4.png",
+      "role": "approved clean empty room; sole image input",
+      "sha256": "fc408bc0206ddc9576736c9b14fabd669bebb4dd1bd455b14f2ee901586af9fa"
+    }
+  ],
+  "output": {
+    "file": "nyamu-attention-apricot-mother-candidate-v3.png",
+    "sha256": "12f2cd65c5ff361c4dcf91adeee7c117c2fece5113b9461eb7b8201f2da28451",
+    "sourceOutput": "generated_images/01a16a4a-7e12-7a32-91bd-ff069ca34ede/exec-9482f07a-a1f2-49cd-913a-b84df002bc3b.png"
+  },
+  "designerObservation": "Full image viewed. Youthful left profile and red-purple eye now face a concrete folded card planted on the existing blue DESKTOP book, which gives unambiguous actual tabletop support. Card belongs to background. Pelvis and both thighs angle left along bench; ribcage/shoulder and head follow into side view, unlike v1/v2 frontal torso. One low hand on own thigh, other palm grounded behind hip on cushion. Complete separate knees/shins/ankles and both left-oriented shoes meet floor; no crossing, limb fusion or invented hidden body observed. Body and object relationship differs from relaxed back-facing window rest, front-opening chat and reaching play. Parent must review full posture/identity/scale before any separation.",
+  "observedGaps": [
+    "Primary review and layers/runtime remain pending; not matrix coverage."
+  ],
+  "designerStatus": "candidate awaiting primary review",
+  "primaryReview": "pending; producer cannot approve",
+  "extraction": "matching background recovered; figure alpha, contact shadow and runtime acceptance remain pending",
+  "runtime": "not registered or verified",
+  "recoveredBackground": {
+    "file": "../../2026-10-24-recovered/nyamu-attention-apricot-background-recovered-v1.png",
+    "sha256": "900f9c156c8aa16cab463e5295861638634e338d22c001edcf5bf0cf2995513b",
+    "bytes": 2150141,
+    "width": 1536,
+    "height": 1024,
+    "classification": "B-background-candidate",
+    "inputMother": { "file": "nyamu-attention-apricot-mother-candidate-v3.png", "sha256": "12f2cd65c5ff361c4dcf91adeee7c117c2fece5113b9461eb7b8201f2da28451" },
+    "tool": "image_gen.imagegen (built-in)",
+    "executionId": "exec-33d28809-7268-45fd-8ef8-8d73c701e1cc",
+    "sourceConversationId": "01a16ccb-3714-7601-af9b-0bcd44f0f596",
+    "completedAtUtc": "2026-10-24T19:00:30.580Z",
+    "sourceOutput": "generated_images/01a16ccb-3714-7601-af9b-0bcd44f0f596/exec-33d28809-7268-45fd-8ef8-8d73c701e1cc.png",
+    "prompt": "../../2026-10-24-recovered/nyamu-attention-apricot-background-recovered-v1.prompt.txt",
+    "promptSha256": "708c7d76037f2289c662e958c4409194afe34a1341356aad90fa08740f158bd0",
+    "recoveryRecord": "../../2026-10-24-recovered/recovery.json",
+    "ownership": "Original upright card on the desktop blue book stays in background; the girl and both worn shoes are removed.",
+    "productionUse": "Same-mother layer extraction candidate only. Keep source canvas coordinates; do not substitute another activity's mother or use a failed mask.",
+    "review": { "producerViewedAgainstMother": true, "primaryViewedBackground": true, "primaryLayerApproved": false, "runtimeAccepted": false }
+  }
+}

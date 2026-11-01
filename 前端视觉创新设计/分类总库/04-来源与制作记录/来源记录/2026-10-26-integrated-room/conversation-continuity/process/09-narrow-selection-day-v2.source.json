@@ -1,0 +1,40 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "image-led-conversation-state-design-guide",
+  "stateId": "09-narrow-selection",
+  "stateName": "窄窗选段与同一输入",
+  "theme": "day",
+  "exactRequest": {
+    "prompt": "ONE portrait600×1000 FULL-BLEED 在场 desktop narrow window. Image1 clean literary room is the ONLY input, crop same room camera to portrait without inventing or stretching furniture. The image boundary IS the application window. Do NOT draw a smaller floating app/window inside it. No avatar whatsoever: no human face, no plant-circle photo, no cropped scenery icon, no initials badge.\nDAY variant. Keep the plate's actual warm apricot daylight, natural blue lake and golden tree/window light. Conversation ink is deep warm charcoal/brown on a thin local warm-ivory writing support where needed, never transparent gray letters. Composer is quiet warm-ivory translucent glass with brown glyphs and muted honey accent. The room stays daylight; do not darken it or add rainy-night lights.\n\nHeader starts at TOP0, width100%, total100px. First row tiny“在场”left20,y26 and quiet window controls right; second row only“聊天 今天 留下”centeredy72, CHAT active. No other page title, subtitle/date, sidebar or extra heading. Body starts immediately below at x24,y128; do NOT leave a huge empty room strip before text.\n\nThe view has returned to a selected reply paragraph in the SAME maths conversation. Previous user question and its two PDF attachments are ABOVE the current scroll position, so do not duplicate them or draw new user bubbles. Render only author label“祥子”as TEXT and this plain continuous reply at20px/32px:\n“它们都在数：约束之后，还能独立选择多少。\n对 Ax = 0，约束之后剩下 n − rank(A) 个自由变量。” Small actual source link“线代 · 第13页”.\n“对 y″ + y = 0，解写成 y = a cos x + b sin x。两个初值决定 a 和 b。” Small link“微分 · 第2页”.\n“我们先保留这个共同点，再回到两页各自的条件。”\n\nSelect ONLY“约束之后，还能独立选择多少”with warm-gold highlight. ONE small contextual“问这句”is beside that exact selected line. No repeated actions, no cards/bubbles enclosing paragraphs, no fake books/authors/pages, no plot. Formulas wrap naturally within552px, no tiny text or horizontal clipping.\n\nSINGLE composer fixed left16,right584,bottom976, grows UP to134px for a compact removable quote chip“约束之后，还能独立选择多少”and current draft“这里的‘独立’要满足什么条件？”with caret. One plus atleft, one send arrow atright, no second input/dialog/toolrow. Use solid readable ink and one subtle LOCAL continuous writing support whose edges dissolve into the room: day warm dark ink/thin ivory, night warm ivory/thin smoked tea. No whiteboard, giant brown rectangle, per-paragraph card, green UI or explanatory instructions.\n\nFINAL: full-bleed room app, header0..100, first texty128, bottom composer976; NO empty500px gap; NO floating inset window, NO avatars of any kind, NO extra title. Keep text and actions comfortably readable.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-clear-day-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "inputSha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-3caf-7462-9134-40d17eea23a0\\exec-2b4a6f7a-35d0-4181-9ace-897109bc7fed.png",
+  "output": {
+    "path": "09-narrow-selection-day-v2.png",
+    "sha256": "c408d49a042730ea7ba0160d7c8327079ccdcafc7b8f5c9b969e386be9d89607",
+    "bytes": 2136591,
+    "actualSize": [
+      971,
+      1619
+    ],
+    "mode": "RGB"
+  },
+  "promptFile": "09-narrow-selection-day-v2.prompt.txt",
+  "promptFileSha256": "6642090e38d884f96d7d2887c2b77981f08f9db6d76943f6732947abfe9d0afc",
+  "selectedForPrimaryProcessReview": true,
+  "review": {
+    "productionAgentViewed": true,
+    "primaryApproved": false,
+    "runtimeAccepted": false,
+    "adopt": "窄窗只保必要两行导航，无额外聊天H1；正文/公式自然换行，同一底部输入接引用与草稿。",
+    "doNotCopy": "画像实际尺寸约971/972×1619，并非请求600×1000；纵向房间重绘不作新背景。运行复用原Stage裁切，不缩整页或用大面板包住全站。"
+  },
+  "commonGeometryRecord": "../PROCESS_GRID_AND_DECISIONS.md",
+  "geometryBoundary": "All states share one declared grid and one composer/state identity. These generated rasters are relationship guides, not separate coordinate/furniture authorities; model output varies slightly. Code must use the shared grid and original room plate, not load a different page screenshot/background for each state.",
+  "dataBoundary": "Public mathematical sample backed by verified MIT source pages. No private user PDF/chat was transmitted. Artwork is not an import/query/action receipt or proof that any feature ran.",
+  "characterBoundary": "No new human figure, face, persona or character matrix asset was generated. No UI/poster/old person screenshot was supplied as image input."
+}

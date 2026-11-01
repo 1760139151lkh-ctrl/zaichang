@@ -1,9 +1,9 @@
 import { createContext, useCallback, useContext, useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent, type ReactNode } from 'react';
 import { ArrowLeft, X } from 'lucide-react';
 import { Portal } from './ui';
-import morning from '../../前端视觉创新设计/运行素材/companion/morning.png';
-import dusk from '../../前端视觉创新设计/运行素材/companion/dusk.png';
-import night from '../../前端视觉创新设计/运行素材/companion/night.png';
+import morning from '../../前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/morning.png';
+import dusk from '../../前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/dusk.png';
+import night from '../../前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/night.png';
 import { companionEnvironmentStamp, companionMoment, type CompanionMoment } from './companion-variants';
 import { companionActivities } from '../shared/companion-activity';
 import { companionPortrait } from './companion-portraits';

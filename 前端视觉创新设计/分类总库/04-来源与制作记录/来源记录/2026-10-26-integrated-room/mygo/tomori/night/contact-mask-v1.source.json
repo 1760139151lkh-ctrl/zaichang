@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "recordType": "source-rgb-included-layer-image-stage",
+  "characterId": "tomori",
+  "neutralTime": "night",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "stage": "S2",
+  "tool": "image_gen.imagegen",
+  "toolElapsedMs": 18088,
+  "recordedAt": "2026-10-26T01:36:59.166241+00:00",
+  "sourceConversationId": "01a17365-def4-7ef0-9767-09f785cec060",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/night/layers/contact-step1-marked-v1.png",
+      "sha256": "298356798943a9bfef95e8ca8ab267729e748713e584870ba455d28b0d0335a4",
+      "role": "Only personally inspected healthy night S1 deliberate local receiver markup; same-coordinate mask conversion",
+      "personallyViewedBeforeGeneration": true
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: background-extraction. S2 conversion of ONLY this healthy same-mother NIGHT S1 deliberate white receiver markup into an opaque1536x1024 black/white/soft-edge-gray luminance mask. EXACT canvas and source positions. Do not rediscover, move, resize or redesign the original marked patches. No crop/zoom/recenter.\n\nONLY deliberately added white areas in this input become WHITE: the small actual visible linen receiver immediately under/right seated hem, and FULL short local soft wood receiver footprints around BOTH complete shoes. Preserve their present full-area cores and diffuse outer edge, not shrinking to sole lines and not extending into a broad floor/illumination band. Keep original marked patch positions; no upward shift onto skin/plaid hem, no new empty-cushion island or bench-wide strip. The two shoe receiver areas may touch only where this markup already touches. Shoe leather/sole shapes themselves BLACK; F already preserves full shoes.\n\nEverything else BLACK: entire original colored girl, fine hair/face/clothes/skin/hands/pencil/notebook/legs/socks/shoes, all originally natural warm/pale curtain/linen/throw/lamp/shade/flowers/cup/bookstack, furniture/plants/rug/far floor/reflections, broad warm lamp glow and unrelated cast shade. Natural material brightness is not deliberate flat white markup; this is semantic conversion, never a brightness threshold. No generic oval/rectangle or portable blackblob, new shadow rendering, texture, color, checkerboard, guide or labels.\n\nKeep full WHITE receiver centers so the exact original darkened wood/linen grounding returns, with gray only original marked soft outside boundary. This coverage selects unchanged source RGB once through U=MAX(L(F),L(S)), travel/slope/perspective0, not independently movable shadow.",
+  "submittedPromptSha256": "7356d48e29a1b2ec04d77d053901197211a3c97b7261574337dd826aebcca9ff",
+  "promptFile": "contact-mask-v1.prompt.txt",
+  "promptFileSha256": "52042cf07c13512b8c3a24f0ec933601562caf349f6ca228b4820b20c60328f8",
+  "requestFile": "contact-mask-v1.request.json",
+  "requestSha256": "372b5fb57decd5ee9cb9e39c901524a00d7fcda2b7fce6498ea9043cce38c1d5",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-35e48e04-acee-47bb-aaea-228f469ab9e3.png",
+  "toolOriginalSha256": "0b70195abf477518d1f81159477bb7120962faeb37b924373c7f6df5db919796",
+  "output": {
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/tomori/night/contact-mask-v1.png",
+    "sha256": "0b70195abf477518d1f81159477bb7120962faeb37b924373c7f6df5db919796",
+    "bytes": 322068,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true,
+    "resizedOrRetouched": false
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "status": "candidate_await_original_rgb_review",
+    "observations": "Whole S2 viewed: one short actual right-hem linen receiver and full soft two-shoe floor footprints retained at S1 positions; no forced thigh/hem island, no broad lamp floor pool or empty bench strip selected. Final source-RGB same-mother BG review pending."
+  },
+  "primaryApproved": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "generationInputAllowed": false,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "original360ExactActivityCell": false,
+  "sourceCodeOrRegistryChanged": false,
+  "userRejected": true,
+  "retiredByUser": true,
+  "currentAdmissionRevoked": true,
+  "revocation": {
+    "recordedAtUtc": "2026-10-26T03:59:35.716669+00:00",
+    "authority": "root direct message forwarding current user identity rejection and withdrawing root static admissions",
+    "reason": "User rejected Tomori neutral day as visually mature / 大妈感. Root revoked both day/night identity and derived layer admissions.",
+    "exactParentMessage": "用户刚直接否决灯neutral day成熟‘大妈感’，附件C:/Users/17601/AppData/Local/Temp/codex-clipboard-eab88100-12b1-4f85-9f66-bbd77e049890.png。Root撤回此前day/night身份/层准入（空间线正在移除两新运行登记及复制PNG）；请在你精确admission/candidate记录将当前primaryLayerApproved撤回，追加用户否决身份/成熟原因与时间，保技术观察历史但不得当当前批准，母及派生禁止后续输入。当前乐奈技术调用在途可保全返回，不重发/不再扩量mask。工作重心回到艺术选图：亲自把旧source中灯/爱音/乐奈/素世/立希少女感最好原图与被否决neutral逐幅对照，给root每人2个最有价值原母（完整图+真实角色气质理由），不靠SHA/骨架代替青春。不自行重画、不只列清单，先视觉判断。Root将亲看并选定基准。",
+    "forwardImageInputForbidden": true,
+    "appliesToMotherAndAllDerivatives": true,
+    "technicalObservationsRetainedAsHistoryOnly": true
+  }
+}

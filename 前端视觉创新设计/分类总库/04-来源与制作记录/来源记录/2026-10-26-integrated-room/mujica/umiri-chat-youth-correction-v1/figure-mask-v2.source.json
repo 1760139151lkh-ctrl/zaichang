@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_review_recovery",
+  "session": "01a1769a-b7bc-71e2-813e-b17b39afa3c4",
+  "character": "umiri",
+  "activity": "chat",
+  "palette": "apricot",
+  "assetPurpose": "figure-mask-v2",
+  "tool": "built-in image_gen.imagegen",
+  "exactArguments": {
+    "prompt": "Make an exact 1536x1024 full-canvas SOURCE-ALIGNED segmentation mask of the only input, the approved original seated Umiri room picture. Do NOT redraw, move, crop, center or resize anything. This is technical selection, not a new illustration.\nPURE WHITE: the complete original girl as ONE SOLID ENTITY, all fine hair, face including EYES and mouth, earrings/choker, jacket/top/skirt/belt, both complete hands/fingers, her ENTIRE open notebook INCLUDING all pages, covers and page edges, the COMPLETE PENCIL held in her writing right hand, both continuous knees/calves, both entire laced boots including sole walls and grooves. Crucially, the small diagonal pencil sticking upward from her writing hand IS WHITE foreground, not a black hole. All face/book/clothing/skin/boot internal linework and shading are filled white. No book-page holes, no line through knees, no black pencil. Only true open air between separate strands or limbs is black.\nPURE BLACK: every pixel of the original room outside this foreground silhouette, including the sunlit seat cushion, floor and all contact shadows. Preserve real thin air gaps between calves/boots, around separated hair strands and outside the book/sleeve, but NOT lines inside material. Exact exterior antialias may be gray; no halos, new outlines or interior gray shading. Return only one opaque black-and-white mask at the source geometry with no text, labels, color or checker.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mujica/umiri-chat-youth-correction-v1/umiri-chat-apricot-young-direct-attention-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "output": {
+    "originalToolPath": "C:/Users/17601/.codex/generated_images/01a1769a-b7bc-71e2-813e-b17b39afa3c4/exec-071a82c8-226c-46bb-8ad4-96c9792d129b.png",
+    "workspacePath": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mujica/umiri-chat-youth-correction-v1/figure-mask-v2.png",
+    "copiedWithoutPixelEdits": true,
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mujica/umiri-chat-youth-correction-v1/figure-mask-v2.png",
+    "sha256": "1eafde30507e906f7515976f96a41282113f7b899f0c951f58f80a6c4d6714f8",
+    "bytes": 470980,
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "producerStatus": "raw has pencil/book seam holes; MAX with same-source F1 then explicitly authorized material-interior alpha repair; not standalone raw admission",
+  "sourceMother": {
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mujica/umiri-chat-youth-correction-v1/umiri-chat-apricot-young-direct-attention-v1.png",
+    "sha256": "00b8ab33ca467c696a7c1bd4e5753900459dd46c07297ad026dbc21e36f13162",
+    "rootLimitedCompleteStaticMotherAdmission": true,
+    "layerAdmission": false
+  },
+  "generatedMaskRGBAdoptedAsFigureColor": false,
+  "primaryLayerApproved": false,
+  "runtimeRegistered": false,
+  "dynamicAdmission": false,
+  "inputFiles": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mujica/umiri-chat-youth-correction-v1/umiri-chat-apricot-young-direct-attention-v1.png",
+      "sha256": "00b8ab33ca467c696a7c1bd4e5753900459dd46c07297ad026dbc21e36f13162",
+      "bytes": 2464089,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    }
+  ],
+  "originalToolBytesMatchWorkspace": true
+}

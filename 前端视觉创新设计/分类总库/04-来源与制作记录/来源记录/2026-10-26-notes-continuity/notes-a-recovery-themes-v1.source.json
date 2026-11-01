@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "prompt": "notes-a-recovery-themes-v1.prompt.txt",
+  "request": "notes-a-recovery-themes-v1.request.json",
+  "inputs": [
+    {
+      "file": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "clean daytime room only"
+    },
+    {
+      "file": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+      "role": "clean same-family night room only"
+    }
+  ],
+  "output": {
+    "file": "notes-a-recovery-themes-v1.png",
+    "sha256": "b85b0f1d25c07c812325d851275ecbb9fa2e67ee87d2ca291e98b246f77f0a39",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2305118
+  },
+  "review": {
+    "reviewer": "notes_shell_design",
+    "imagePersonallyViewed": true,
+    "scope": "Save failure retains draft, comparison keeps distinct versions, night uses smoke-tea, narrow content remains readable. Generated notebook hierarchy/header and material chip for own-note quote are not adopted.",
+    "primaryAccepted": false,
+    "runtimeAccepted": false
+  },
+  "sampleCopyIsAuthoredDesignExample": true,
+  "userUploadedImagesUsedAsInputs": false,
+  "generationInputAllowed": false,
+  "runtimeUse": "none"
+}

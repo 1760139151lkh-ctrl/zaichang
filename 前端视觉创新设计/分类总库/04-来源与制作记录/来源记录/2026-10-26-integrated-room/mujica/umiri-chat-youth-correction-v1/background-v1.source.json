@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_review_recovery",
+  "session": "01a1769a-b7bc-71e2-813e-b17b39afa3c4",
+  "character": "umiri",
+  "activity": "chat",
+  "palette": "apricot",
+  "assetPurpose": "background-v1",
+  "tool": "built-in image_gen.imagegen",
+  "exactArguments": {
+    "prompt": "Use case: precise-object-edit / background-extraction. The ONLY input is the exact approved 1536x1024 full-room Umiri mother. Produce its matching person-removed BACKGROUND PLATE. Remove only the entire girl, her hair, clothes, both complete boots, notebook and pencil, plus her source-local cushion compression/contact shadow and tiny shoe contact/cast shadows. Naturally reconstruct the empty seat cushion and the very small floor region formerly hidden by her. No ghost face, hair, boot, book, skirt, pale limb, cutout-shaped blur or erased-person silhouette may remain.\n\nPreserve the original full 1536x1024 canvas, fixed camera/framing/perspective, window mullions/lake view, curtains, left desk/chair/shelves, lamp table/cup/flowers, wooden bench front, exact plaid pillows/knitted throw, rug/floor and entire clear-day illumination. Keep unaffected source regions unchanged. Keep the genuine day window light and room shadows; do not remove daylight or draw a new lighting setup. Cushion is naturally empty, softly upholstered with the original linen weave, not a hard white patch. Keep all bench edges and floorboard directions continuous. This is the matching SAME-MOTHER clean BG, not a new room or copy of an older room. No characters, new objects, text, UI, labels, masks, checker, crop, resizing or zoom.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mujica/umiri-chat-youth-correction-v1/umiri-chat-apricot-young-direct-attention-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "output": {
+    "originalToolPath": "C:/Users/17601/.codex/generated_images/01a1769a-b7bc-71e2-813e-b17b39afa3c4/exec-a87c115c-cc64-49ca-ba94-9cf758f1aa6b.png",
+    "workspacePath": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mujica/umiri-chat-youth-correction-v1/background-v1.png",
+    "copiedWithoutPixelEdits": true,
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mujica/umiri-chat-youth-correction-v1/background-v1.png",
+    "sha256": "9aeedf1691ab74909466154ee1e70ba1211801eccea8eb73ca8d8ce47fa6ff2c",
+    "bytes": 2400598,
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "producerStatus": "producer-recommends-same-mother-BG; root-layer-review-pending",
+  "sourceMother": {
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mujica/umiri-chat-youth-correction-v1/umiri-chat-apricot-young-direct-attention-v1.png",
+    "sha256": "00b8ab33ca467c696a7c1bd4e5753900459dd46c07297ad026dbc21e36f13162",
+    "rootLimitedCompleteStaticMotherAdmission": true,
+    "layerAdmission": false
+  },
+  "generatedMaskRGBAdoptedAsFigureColor": false,
+  "primaryLayerApproved": false,
+  "runtimeRegistered": false,
+  "dynamicAdmission": false,
+  "inputFiles": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mujica/umiri-chat-youth-correction-v1/umiri-chat-apricot-young-direct-attention-v1.png",
+      "sha256": "00b8ab33ca467c696a7c1bd4e5753900459dd46c07297ad026dbc21e36f13162",
+      "bytes": 2464089,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    }
+  ],
+  "originalToolBytesMatchWorkspace": true
+}

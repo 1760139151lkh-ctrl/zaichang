@@ -1,19 +1,19 @@
-import sakiko from '../../前端视觉创新设计/运行素材/companion/portraits/sakiko-selected-soft-youth-edit-v3-20261025.png';
-import mutsumi from '../../前端视觉创新设计/运行素材/companion/portraits/mutsumi-youth-charm-v3-20261025.png';
-import uika from '../../前端视觉创新设计/运行素材/companion/portraits/uika-youth-charm-v3-20261025.png';
-import umiri from '../../前端视觉创新设计/运行素材/companion/portraits/umiri-youth-charm-v3-20261025.png';
-import nyamu from '../../前端视觉创新设计/运行素材/companion/portraits/nyamu-youth-charm-v3-20261025.png';
-import tomori from '../../前端视觉创新设计/运行素材/companion/portraits/tomori-youth-charm-v3-20261025.png';
-import anon from '../../前端视觉创新设计/运行素材/companion/portraits/anon-youth-charm-v3-20261025.png';
-import rana from '../../前端视觉创新设计/运行素材/companion/portraits/rana-youth-charm-v3-20261025.png';
-import soyo from '../../前端视觉创新设计/运行素材/companion/portraits/soyo-youth-charm-v3-20261025.png';
-import taki from '../../前端视觉创新设计/运行素材/companion/portraits/taki-youth-charm-v3-20261025.png';
+import sakiko from '../../前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/portraits/sakiko-selected-soft-youth-edit-v3-20261025.png';
+import mutsumi from '../../前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/portraits/mutsumi-youth-charm-v3-20261025.png';
+import uika from '../../前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/portraits/uika-youth-charm-v3-20261025.png';
+import umiri from '../../前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/portraits/umiri-youth-charm-v3-20261025.png';
+import nyamu from '../../前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/portraits/nyamu-youth-charm-v3-20261025.png';
+import tomori from '../../前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/portraits/tomori-youth-charm-v3-20261025.png';
+import anon from '../../前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/portraits/anon-youth-charm-v3-20261025.png';
+import rana from '../../前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/portraits/rana-youth-charm-v3-20261025.png';
+import soyo from '../../前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/portraits/soyo-youth-charm-v3-20261025.png';
+import taki from '../../前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/portraits/taki-youth-charm-v3-20261025.png';
 
 // Independently drawn portraits. The room's full-body images never supply
 // these faces; selecting a picture does not rewrite the saved persona.
 // Each closeup has its own avatar framing, independent of the old bust crop.
 // v3 faces and per-role circular frames were reviewed at 34/48px.
-// Source/purpose: 前端视觉创新设计/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/root-purpose-admission.json
+// Source/purpose: 前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-literary-room/portrait-youth-v3-review/root-purpose-admission.json
 // Circular portrait admission does not certify freeform mattes or room figures.
 const portraits: Record<string, { image: string; sha256: string; avatar?: { left: string; top: string; width: string } }> = {
   sakiko: { image: sakiko, sha256: '50ed57c7cb690ac52eb49190762f878a2b8e8db5eb75d5d3d3f220e771d86974',

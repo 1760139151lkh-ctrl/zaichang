@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "tool": "image_gen.imagegen",
+  "characterId": "rana",
+  "purpose": "neutral-presence",
+  "neutralTime": "night",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "recordedAtUtc": "2026-10-26T03:54:36.113141+00:00",
+  "stage": "contact-mask-v1",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/rana/night/contact-step1-marked-v1.png",
+      "sha256": "d315a3f3dbed94e86f701eec7692197a9f38542911a8984b8855147e9a44b175",
+      "bytes": 2090430
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: background-extraction. Convert ONLY this full1536×1024 deliberate shoes+LOCAL receiver white markup to a same-coordinate OPAQUE BLACK/WHITE/SOFT-GRAY luminance mask. Complete TWO white-marked loafers become SOLID PURE WHITE, every interior shoe crease/seam and sole detail filled white. Include their deliberately marked tiny immediate original floor contact/soft feather; no black moat on any shoe edge. Deliberate little white linen marks under hip/skirt and under rightmost supporting palm become white with their existing short soft edges. Do not extend to an empty bench band or new floor ellipse. Preserve exact marked coordinates and original external antialias/soft marked feather only. All remaining originally colored pixels including entire girl above shoe openings, socks, hands/book/hair/skin/uniform, naturally pale curtains/lamp/cushion, all room/furniture/plants/rug/floor become BLACK. No new geometry, color, text, checkerboard, crop, resize, recenter or transparency. Fixed source-local receiving material, overlapping F at shoes intentionally; original sourceRGB drawn only once withMAX.",
+  "promptFile": {
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/rana/night/contact-mask-v1.prompt.txt",
+    "sha256": "1739e51b9062b3241c8e1972089e74faabcac988cca1bde7878ca42add18aad7",
+    "bytes": 1118
+  },
+  "toolOriginal": {
+    "path": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-6d0f-74b2-b205-667f6c3b967b\\exec-8c3f0668-7fa1-4571-b0ed-68adc44c0e9f.png",
+    "sha256": "fe95401342c75287afb189698bbe2540669ea8a4a6f02b3d2a7f4fcf7dda9d26",
+    "bytes": 337941
+  },
+  "output": {
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/rana/night/contact-mask-v1.png",
+    "sha256": "fe95401342c75287afb189698bbe2540669ea8a4a6f02b3d2a7f4fcf7dda9d26",
+    "bytes": 337941,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "pngBytesUnchanged": true,
+  "producerStatus": "actual_output_viewed_pending_original_RGB_browser_review",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "original360ExactActivityCell": false,
+  "generationInputAllowed": false,
+  "currentProductionStatus": "stopped_pending_root_art_base_selection",
+  "currentScopeNote": "Further mask production stopped by root; no identity rejection of Rana asserted. Retain returned actual outputs and historical generation facts."
+}

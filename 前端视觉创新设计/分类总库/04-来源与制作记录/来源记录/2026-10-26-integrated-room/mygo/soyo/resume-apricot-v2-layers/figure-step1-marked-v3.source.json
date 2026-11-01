@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "stage": "F1",
+  "recordedAtUtc": "2026-10-26T05:56:39.366765+00:00",
+  "tool": "image_gen.imagegen",
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-resume-apricot-literary-v2.png",
+      "sha256": "4381d5f5faeeeedf1b84bf9e69bad71fe4a6dc06a7d8653c8b1f88b48c559cbe",
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: precise-object-edit. F1 ORIGINAL-POSITION FOREGROUND SELECTION MARKUP. ONLY INPUT is the exact approved full Soyo resume mother, 1536x1024. Do not redraw any person, change pose/face/proportions, move an outline, shift canvas, crop, resize or change room.\n\nKeep the WHOLE original room in its original colors. Paint SOLID OPAQUE FEATURELESS PURE WHITE over the COMPLETE girl, including every hair strand and hair wisp, ALL hair interiors especially dark strands along jaw/neck, face/chin/ears/neck/collar, clothes/bow/crest/cuffs/buttons/skirt/trim, both hands/fingers/arms, both full exposed knees/legs/socks and both entire brown loafers including dark sole/heel. Her ENTIRE open book with all lifted pages, both page blocks and the whole dark cover/spine/binding plus thin hanging RED RIBBON BOOKMARK are the same solid white foreground. All internal linework/self-shading is completely overwritten in WHITE: zero facial outlines, zero dark hair triangles under jaw, zero garment lines, zero finger outlines, zero book page/illustration/edge/binding outlines and zero ribbon tracing. A book edge that lies inside the girl/held-book union must be white on BOTH sides; do not create a gap between her real lap and the book binding. The ribbon must be filled white to its real tip, never just white outline.\n\nOnly genuine COLORED room gaps between separate exterior hair loops, arm/body exterior or between the two legs stay original colored room. Dark HAIR or clothes is selected solid white, not background. Do not mistake dark hair locks next to neck or the book's dark binding against her skirt for negative space. Every pixel inside the girl-plus-book-plus-ribbon object union must be white without line tracing.\n\nEVERYTHING else remains original colored room: full window/town, curtains, lamp/flowers/cup/table books, furniture and all empty pale linen cushion/throw/pillows, floor/rug, local shadows receiving her weight and shoes. Do not whiten natural bright room objects or any seat/floor band. Approximate book/ribbon region x838..1070,y430..546 and complete subject x730..1160,y112..898 are inspection guidance, never rectangles to paint. Preserve fine original outside contours and genuine gaps, no erode/dilate/invented support. Return one opaque full-color 1536x1024 PNG with ONLY the complete person/book/ribbon deliberately white, no UI/labels/arrows/checkerboard/text.",
+  "submittedPromptSha256": "02d832d7214511ad678d776d21ce536901497855e2359bc54d40e54fd1fbd200",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-6d0f-74b2-b205-667f6c3b967b\\exec-9bf48ccf-4b58-458e-8924-8275076a946f.png",
+  "toolOriginalSha256": "4e9d877b4984f36b5ae38b0c1f84aef5294a118bfb595494c1302b04e11f2425",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\分类总库\\04-来源与制作记录\\来源记录\\2026-10-26-integrated-room\\mygo\\soyo\\resume-apricot-v2-layers\\figure-step1-marked-v3.png",
+    "sha256": "4e9d877b4984f36b5ae38b0c1f84aef5294a118bfb595494c1302b04e11f2425",
+    "bytes": 2348051,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "toolPngBytesUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteActualOutput": true,
+    "status": "valid_selection_intermediate_for_F2_only",
+    "observation": "Complete source-position girl/book/ribbon union painted featureless white; previous black book/page/ribbon contours and neck hair wedges absent; actual colored outer hair-loop/leg gaps retained. Final original-RGB contour observation still pending."
+  },
+  "generationInputAllowed": true,
+  "inputAllowedScope": "only flatten this valid F1 into exact same-position F2",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false
+}

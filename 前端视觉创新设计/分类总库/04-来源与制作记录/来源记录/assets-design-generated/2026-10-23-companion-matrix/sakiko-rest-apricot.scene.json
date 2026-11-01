@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "recordType": "canonical-scene-reference",
+  "canonicalScene": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/sakiko-rest-apricot.scene.json",
+  "originalCandidateSha256": "f2c102807ef0aa0e630ae4f5459319bf06ff51dbcbd7da8fb9c1775e8f7c06aa",
+  "originalProducerReview": {
+    "approvedByPrimary": false,
+    "independentLayerFinish": {
+      "version": 7,
+      "producerViewed": "full light/dark, enlarged original-coordinate edges, complete room composite; listening also +/-12px inspection only",
+      "primary": "pending",
+      "runtime": "not registered or exercised"
+    }
+  },
+  "production": "sakiko-rest-apricot-layer-processing-v7.json",
+  "parameters": "sakiko-rest-apricot-layer-parameters-v7.json",
+  "note": "Root-admitted visible contract and PNG bytes unchanged; sole canonical scene registration is in runtime. No runtime acceptance inferred."
+}

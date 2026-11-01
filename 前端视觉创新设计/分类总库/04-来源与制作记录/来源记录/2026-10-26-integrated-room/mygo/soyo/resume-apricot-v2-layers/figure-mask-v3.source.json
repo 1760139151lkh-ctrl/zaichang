@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "stage": "F2",
+  "recordedAtUtc": "2026-10-26T05:58:16.821487+00:00",
+  "tool": "image_gen.imagegen",
+  "sourceMother": {
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-resume-apricot-literary-v2.png",
+    "sha256": "4381d5f5faeeeedf1b84bf9e69bad71fe4a6dc06a7d8653c8b1f88b48c559cbe"
+  },
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/soyo/resume-apricot-v2-layers/figure-step1-marked-v3.png",
+      "sha256": "4e9d877b4984f36b5ae38b0c1f84aef5294a118bfb595494c1302b04e11f2425",
+      "personallyViewedBeforeCall": true,
+      "role": "own valid F1 only"
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: precise-object-edit. F2: flatten THIS valid F1 selection markup to a black-and-white foreground coverage mask. Preserve full 1536x1024 canvas and EXACT white selected outlines at original coordinates. The complete girl, book, all lifted pages, cover/binding and red bookmark were deliberately painted solid white in the input. Keep every deliberately marked white object SOLID PURE WHITE throughout; do not recover any facial/hair/clothing/finger/book/ribbon linework. The figure interior has no lines at all. Do not trace dark contours through its book, face, bow, clothes or bookmark.\n\nTurn ALL remaining ORIGINAL COLORED ROOM pixels PURE BLACK, including naturally pale curtains/lamp/cushion/throw/flowers, colored windows, seat/floor/receiver shadows and furniture. Only deliberate foreground white stays white. Keep genuine colored gaps between separate outer hair loops and legs black at exactly their old positions. Natural white linen and lamps in the room are NOT selected white objects. Preserve thin marked hair strands, entire selected book/page edges and complete shoe soles. No dilation, erosion, shifting, new background islands, phantom hair/objects, gray room detail, internal black wedges or book/ribbon holes. Grayscale is allowed only on authentic outside antialiased contours.\n\nReturn ONE fully opaque 1536x1024 black-and-white PNG: unchanged complete white person+held book+bookmark, and black everywhere else. This is a technical selection conversion, not a reillustration. No UI/text/checkerboard/guides.",
+  "submittedPromptSha256": "1f4b6e9942a3d188e2b771eac7d57b2355c63f1cd8d0183d1f069d4824b7b1cc",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-6d0f-74b2-b205-667f6c3b967b\\exec-257fb0c0-4fb3-44a6-8fed-017b24a5865d.png",
+  "toolOriginalSha256": "45ae39339b78d817bb371ecd18c9e5dde85b5ab84bf5f664a87930249f1d18a2",
+  "output": {
+    "path": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\分类总库\\04-来源与制作记录\\来源记录\\2026-10-26-integrated-room\\mygo\\soyo\\resume-apricot-v2-layers\\figure-mask-v3.png",
+    "sha256": "45ae39339b78d817bb371ecd18c9e5dde85b5ab84bf5f664a87930249f1d18a2",
+    "bytes": 432736,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "toolPngBytesUnchanged": true
+  },
+  "producerReview": {
+    "personallyViewedCompleteActualOutput": true,
+    "status": "candidate_pending_original_rgb_dark_light_checker_observation",
+    "observation": "Whole F2 viewed. Girl/book/ribbon union featureless white with no book/page/ribbon internal lines. External hair/leg gaps retained. Need original-RGB close observation before final producer selection."
+  },
+  "generationInputAllowed": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false
+}

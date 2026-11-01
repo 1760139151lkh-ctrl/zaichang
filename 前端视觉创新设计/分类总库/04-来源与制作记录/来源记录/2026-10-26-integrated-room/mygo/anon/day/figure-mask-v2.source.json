@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "tool": "image_gen.imagegen",
+  "characterId": "anon",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "recordedAtUtc": "2026-10-26T03:16:59.066355+00:00",
+  "stage": "figure-mask-v2",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/anon/day/figure-step1-marked-v2.png",
+      "sha256": "f6f2c1a5ba6a56962be944dd1fad6c9649133ab5402e36904d0bee335c973183",
+      "bytes": 2196046
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: background-extraction. Convert this exact inspected full1536×1024 white-foreground selection markup to an OPAQUE BLACK/WHITE luminance mask, exact original coordinates. All deliberately whitened girl + complete folded-paper object become SOLID PURE WHITE. Fill EVERY enclosed internal crease/gray/brown line within the selected face/hair/clothing/hand-and-paper/lap/shoe regions WHITE. Especially fill all thin finger or PAPER FOLD interior lines near x960..1090,y430..510; the hands and held paper are one fully selected solid-white union, no black strokes or internal holes. Full pencil-free paper shape and all shoes remain selected to real outside edge. Only actual outside gaps between separated hair strands and legs become BLACK; no new interior holes.\nALL originally colored ROOM becomes pure BLACK, including naturally pale curtains/linen/lamp/flowers and all unrelated floor or shadows. Do not mistake pale room for marked selection. Keep the exact silhouette; no crop, resize, recenter, erosion, expansion, new shape, colored pixels, checker, text or transparency. Gray only original external antialias, never paper/clothes/face/shoe interior. Exactly1536×1024 opaque mask.",
+  "promptFile": {
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/anon/day/figure-mask-v2.prompt.txt",
+    "sha256": "d12c29f3f7b88ee2ab51a38d808323d51d332e3da25261299c790715693b46e5",
+    "bytes": 1197
+  },
+  "toolOriginal": {
+    "path": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-6d0f-74b2-b205-667f6c3b967b\\exec-0c901602-411f-4c54-841f-59a12de662b3.png",
+    "sha256": "bb937945e9613bd139c0e5be33fca3fb5367fd875d71f3dc57b1c07e90a4c9ca",
+    "bytes": 439098
+  },
+  "output": {
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/anon/day/figure-mask-v2.png",
+    "sha256": "bb937945e9613bd139c0e5be33fca3fb5367fd875d71f3dc57b1c07e90a4c9ca",
+    "bytes": 439098,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "pngBytesUnchanged": true,
+  "producerStatus": "actual_output_viewed_pending_original_RGB_browser_review",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "original360ExactActivityCell": false,
+  "generationInputAllowed": false
+}

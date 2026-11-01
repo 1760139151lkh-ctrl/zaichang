@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "producer": "/root/mujica_review_recovery",
+  "session": "01a1769a-b7bc-71e2-813e-b17b39afa3c4",
+  "character": "umiri",
+  "activity": "chat",
+  "palette": "apricot",
+  "assetPurpose": "figure-mask-v3",
+  "tool": "built-in image_gen.imagegen",
+  "exactArguments": {
+    "prompt": "只做原图同坐标技术选区，不重画人物。唯一输入为已批准的海铃原母，画布1536×1024，尺寸、位置、轮廓一像素不移动。\n请输出一张纯黑底上、没有任何内部线条的纯白人物实心剪影遮罩。把整个原人物（头发、脸、眼鼻口、耳饰颈带、皮夹克、红上衣、裙、腰带、两只手和手指、全部皮肤、双腿与两只完整靴子）连同整本书（书页、封面、书脊）和铅笔一起完整填成纯白实体。脸内和书内全白。深色皮革、黑眼珠、黑书皮、鞋带、衣褶、书页线、铅笔线、手指线都不是空气，全部白。\n特别注意：那支右手握着的斜铅笔在皮夹克前面，铅笔后方也是已选中的夹克实体。因此在最终遮罩里那条斜线应彻底消失，夹克→铅笔→手→整本书的内部是一整片没有黑灰细线的纯白。书下到大腿之间的黑裙三角也归白，不挖洞。不要输出线稿或负片，不保留五官和衣服细节。\n原房间、坐垫、毯子、木地板和接触阴影全部纯黑。只有真实看到房间的空气间隙保黑：分开的发丝之间、手臂/书外缘之外、两小腿之间、两靴之间；皮肤/衣物/书本内部无缝。保原来发丝细轮廓和外部抗锯齿灰边，不加光晕，不选坐垫或地板。全画布不裁切、不缩放、不重新居中，不加文字、方框、网格或透明背景。",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mujica/umiri-chat-youth-correction-v1/umiri-chat-apricot-young-direct-attention-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "output": {
+    "originalToolPath": "C:/Users/17601/.codex/generated_images/01a1769a-b7bc-71e2-813e-b17b39afa3c4/exec-6447622d-381b-4164-b517-283288f463b7.png",
+    "workspacePath": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mujica/umiri-chat-youth-correction-v1/figure-mask-v3.png",
+    "copiedWithoutPixelEdits": true,
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mujica/umiri-chat-youth-correction-v1/figure-mask-v3.png",
+    "sha256": "0c55590b1d5a3ec193373a51da488f2f7672f7cdd7b2d37e3f5421b6f2176562",
+    "bytes": 488882,
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "producerStatus": "HOLD: still black pencil/internal book seam and slight contour differences; not adopted, not later Image input",
+  "sourceMother": {
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mujica/umiri-chat-youth-correction-v1/umiri-chat-apricot-young-direct-attention-v1.png",
+    "sha256": "00b8ab33ca467c696a7c1bd4e5753900459dd46c07297ad026dbc21e36f13162",
+    "rootLimitedCompleteStaticMotherAdmission": true,
+    "layerAdmission": false
+  },
+  "generatedMaskRGBAdoptedAsFigureColor": false,
+  "primaryLayerApproved": false,
+  "runtimeRegistered": false,
+  "dynamicAdmission": false,
+  "inputFiles": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mujica/umiri-chat-youth-correction-v1/umiri-chat-apricot-young-direct-attention-v1.png",
+      "sha256": "00b8ab33ca467c696a7c1bd4e5753900459dd46c07297ad026dbc21e36f13162",
+      "bytes": 2464089,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    }
+  ],
+  "originalToolBytesMatchWorkspace": true
+}

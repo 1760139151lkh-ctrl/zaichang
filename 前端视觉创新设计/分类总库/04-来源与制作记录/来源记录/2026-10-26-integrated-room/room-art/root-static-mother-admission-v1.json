@@ -1,0 +1,18 @@
+{
+  "reviewer": "root primary agent in this session",
+  "evidence": "Direct parent collaboration message, received after both source PNGs were delivered",
+  "decision": "Admit only the two exact complete static mother candidates. No layer, dynamic or runtime admission.",
+  "assets": [
+    {
+      "path": "../../../../01-程序素材/运行素材/companion/scenes/sakiko-rest-apricot-sidefold-included-v1-mother.png",
+      "sha256": "ffc1c69e351ce6466806c4136fb9ed21a065bbe3fd574858489c070daad1eb19",
+      "rootObserved": "Root逐幅亲看：侧靠折腿，袜脚与膝髋连续，承重落软垫，乐福鞋原地板可见。"
+    },
+    {
+      "path": "sakiko-listening-forward-rain-v1.png",
+      "sha256": "abce5e07f77e0e847ef553c032ebcd43607f12cc87b9d258697fe43a51fc64e6",
+      "rootObserved": "Root逐幅亲看：雨夜前倾捧杯，手杯/腿支撑与同灯光成立。"
+    }
+  ],
+  "next": "Rest same-canvas matching background, figure mask and necessary included contact receiver first; primary will inspect light/dark/composite before rainy-night extraction. No runtime registration by room-art."
+}

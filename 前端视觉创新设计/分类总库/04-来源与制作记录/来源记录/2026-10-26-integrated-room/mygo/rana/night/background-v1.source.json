@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "tool": "image_gen.imagegen",
+  "characterId": "rana",
+  "purpose": "neutral-presence",
+  "neutralTime": "night",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "recordedAtUtc": "2026-10-26T03:54:36.072109+00:00",
+  "stage": "background-v1",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/rana/night/mother.png",
+      "sha256": "9188cbcf796537a4279efa30605439d0ec9beb385aa07dbc8e32f656039f66b9",
+      "bytes": 2139072
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: precise-object-edit. Produce exact SAME-MOTHER EMPTY BACKGROUND from this approved Kaname Rana neutral-presence TIME-ONLY NIGHT mother. Only this exact full clean original is input. Preserve full1536×1024, original camera and ALL room/furniture coordinates, fully closed opaque curtains/seam, desk/chair/shelves/plants, round table with porcelain lamp/cup/flowers/books, window bench/linen/pillows/knit, wood floor/rug and exact warm lamp-lit NIGHT light/colors.\nRemove ONLY the whole girl: all silver hair, uniform/skin/socks/both shoes/arms/hands and the COMPLETE OPEN BOOK in her lap/hands, no cover/page/hand/hair ghost. Remove only compression/contact/cast shadow caused by her seated hip, supporting rightmost palm and shoes. Reconstruct matching hidden local linen/folds, bench and original floorboards with surrounding soft light. No moved furniture, new book, prop, altered curtains, retheme, readable outside sky/weather, text, border, crop or resize. Full opaque empty SAME room, exactly1536×1024. Hidden surfaces are generatively reconstructed, not claimed bitwise known source.",
+  "promptFile": {
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/rana/night/background-v1.prompt.txt",
+    "sha256": "7104a26f5e12c1c9f9eb87f83210a774d2c53466e0317d7340dfa4833fef7a67",
+    "bytes": 1103
+  },
+  "toolOriginal": {
+    "path": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-6d0f-74b2-b205-667f6c3b967b\\exec-6562bd1e-e6f1-4a89-8d7d-7e1a3820928c.png",
+    "sha256": "b6beae66372296c592185ac1fee82efa8f97bf376c60b38c00613b142660f791",
+    "bytes": 2077435
+  },
+  "output": {
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/rana/night/background-v1.png",
+    "sha256": "b6beae66372296c592185ac1fee82efa8f97bf376c60b38c00613b142660f791",
+    "bytes": 2077435,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "pngBytesUnchanged": true,
+  "producerStatus": "actual_output_viewed_pending_original_RGB_browser_review",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "original360ExactActivityCell": false,
+  "generationInputAllowed": false,
+  "currentProductionStatus": "stopped_pending_root_art_base_selection",
+  "currentScopeNote": "Further mask production stopped by root; no identity rejection of Rana asserted. Retain returned actual outputs and historical generation facts."
+}

@@ -10,7 +10,7 @@
 
 - [ios-location.ts](../../src/main/ios-location.ts)：只列实际已启动的 iOS 模拟器，显式设备选择，本机连接与有界读写，原生消息逐点回流。
 - [原生桥、独立构建及配置方法](../../apps/location-bridge/ios/README.md)：Swift 6、CoreLocation、正常系统权限；Python 标准库/OpenSSH/Xcode 构建，不依赖 Codex 的会话或技能安装路径。
-- [原生 Image 图稿与本次 Prompt](../../前端视觉创新设计/精选图稿/B-微调复用/2026-10-23-ios-location-helper/README.md)：图稿先于最后一次小界面精修，实际以 SwiftUI 控件呈现，图稿不充当运行截图。
+- [原生 Image 图稿与本次 Prompt](../../前端视觉创新设计/分类总库/02-精选设计稿/精选图稿/B-微调复用/2026-10-23-ios-location-helper/README.md)：图稿先于最后一次小界面精修，实际以 SwiftUI 控件呈现，图稿不充当运行截图。
 
 Apple 官方文档本轮已读取：负 [`speed`](https://developer.apple.com/documentation/corelocation/cllocation/speed) 表示未知；[`verticalAccuracy`](https://developer.apple.com/documentation/corelocation/cllocation/verticalaccuracy) 小于等于零时海拔也无效；[`altitude`](https://developer.apple.com/documentation/corelocation/cllocation/altitude) 为平均海平面基准。当前保留合法水平位置，将缺少的速度、航向与海拔转为 null，不把未知当静止或 WGS84 椭球高。
 

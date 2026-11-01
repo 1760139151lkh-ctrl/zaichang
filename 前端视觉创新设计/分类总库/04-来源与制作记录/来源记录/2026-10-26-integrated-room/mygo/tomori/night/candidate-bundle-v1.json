@@ -1,0 +1,306 @@
+{
+  "schemaVersion": 1,
+  "id": "tomori-neutral-time-night-repaired-layer-candidate-v1",
+  "recordedAtUtc": "2026-10-26T03:09:03.217870+00:00",
+  "characterId": "tomori",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "neutralTime": "night",
+  "weather": "unknown",
+  "scope": "Existing approved mother, F-v5 and same-mother BG preserved; actual source-derived S-v3 repairs observed shoe contour gap.",
+  "selected": {
+    "mother": {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/tomori/night/mother.png",
+      "sha256": "36e1e2e4029d81914b4192cee8351d84b44fa0ef188c88910dd58d400a3e4300",
+      "bytes": 2137062,
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "figureMask": {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/tomori/night/figure-mask-v5.png",
+      "sha256": "79bd5825a96b17f98f5f56713963862b186987971e199c6a9f6353a3a703d0cd",
+      "bytes": 434833,
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "contactMask": {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/tomori/night/contact-mask-v3.png",
+      "sha256": "fe8d93691568cc71c49049887c01a05f499abdf879a8b93ca1c06e31779c83ad",
+      "bytes": 351479,
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "background": {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/tomori/night/background-v1.png",
+      "sha256": "37b07f90a6cc0c0aee3ea820468e62eeab582453890a487e5b6f75807b57126d",
+      "bytes": 2110676,
+      "canvas": [
+        1536,
+        1024
+      ]
+    }
+  },
+  "assembly": {
+    "kind": "source-rgb-max-luminance-v1",
+    "coverage": "MAX(L(F),L(S))",
+    "originalRgbDrawsPerUnion": 1,
+    "luminanceCoefficients": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "nativeMax": "SVG feBlend mode=lighten; sRGB",
+    "svg": "union-source-v1.svg",
+    "composite": "composite-source-v1.svg",
+    "contact": "contact-source-v1.svg",
+    "pngEditing": false
+  },
+  "geometry": {
+    "fixedOriginalSourceCoordinates": true,
+    "travelPx": 0,
+    "slope": 0,
+    "perspective": 0,
+    "sourceReceiverMaterialIncluded": true,
+    "independentlyMovableCaster": false
+  },
+  "priorMotherAdmission": {
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/tomori/night/mother-primary-admission-original.json",
+    "sha256": "2fb9e85b0190001bb034df1dccd5ada45a635860da479fcb2d0374b8d3aa3e4f",
+    "bytes": 1056
+  },
+  "currentObservation": {
+    "route": "formal CUA IAB",
+    "personallyViewed": true,
+    "page": "native-observe-v1.html",
+    "views": [
+      "mother/union/BG",
+      "light/dark/checker",
+      "face/hair",
+      "whole pencil/notebook/hands",
+      "tiny authorized included internal curtain slit",
+      "seat/hem",
+      "both shoes/floor",
+      "enlarged shoe contour gap original-trigger recheck"
+    ],
+    "screenshots": [
+      {
+        "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/tomori/night/browser-observations/01-mother-composite.png",
+        "sha256": "9c78ece3633785dd6491dfd9f1f80c4916a9d9e957536d440759f256044e6838",
+        "bytes": 123879,
+        "canvas": [
+          1265,
+          712
+        ],
+        "generationInputAllowed": false,
+        "diagnostic": true
+      },
+      {
+        "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/tomori/night/browser-observations/02-light-dark-checker.png",
+        "sha256": "01e14ff097f9a443d09a3a1e981200f4dfaed15e98e49d08620ad1b0224b48bd",
+        "bytes": 98173,
+        "canvas": [
+          1265,
+          712
+        ],
+        "generationInputAllowed": false,
+        "diagnostic": true
+      },
+      {
+        "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/tomori/night/browser-observations/03-face-hair.png",
+        "sha256": "0015bdb4a103e22142d946092666713aaaabb09ca0c7b02d2c27854ac512c8b2",
+        "bytes": 112890,
+        "canvas": [
+          1265,
+          712
+        ],
+        "generationInputAllowed": false,
+        "diagnostic": true
+      },
+      {
+        "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/tomori/night/browser-observations/04-book-hands.png",
+        "sha256": "8c3f3a1c6e2fdd1ad0d931895d96c69d4f31eb5317e87be8df0f50f8fa1c4226",
+        "bytes": 104591,
+        "canvas": [
+          1265,
+          712
+        ],
+        "generationInputAllowed": false,
+        "diagnostic": true
+      },
+      {
+        "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/tomori/night/browser-observations/05-internal-fixed-material.png",
+        "sha256": "4e0bd279b44706b3c859feddccc5150b9e3838175b9cc84810ff4ea98d9f5273",
+        "bytes": 69961,
+        "canvas": [
+          1265,
+          712
+        ],
+        "generationInputAllowed": false,
+        "diagnostic": true
+      },
+      {
+        "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/tomori/night/browser-observations/06-seat-contact.png",
+        "sha256": "3d4a4e3376f6d1a658a09e4ba651d3168e41c456092ab37cdf53b37a8223234b",
+        "bytes": 108455,
+        "canvas": [
+          1265,
+          712
+        ],
+        "generationInputAllowed": false,
+        "diagnostic": true
+      },
+      {
+        "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/tomori/night/browser-observations/07-S-v3-shoeedge.png",
+        "sha256": "c0c7df3c53f302e9c0cc2ab69bf50ea4c4dbc3c1f63f6faabf559ad11b822c3d",
+        "bytes": 84966,
+        "canvas": [
+          1265,
+          712
+        ],
+        "generationInputAllowed": false,
+        "diagnostic": false
+      },
+      {
+        "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/tomori/night/browser-observations/08-S-v3-shoes-floor.png",
+        "sha256": "1eaa1544851f45be6454fe281f77a380aad845519f42d435832bcc416d5869f0",
+        "bytes": 93447,
+        "canvas": [
+          1265,
+          712
+        ],
+        "generationInputAllowed": false,
+        "diagnostic": false
+      },
+      {
+        "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/tomori/night/browser-observations/09-S-v3-light-dark-checker.png",
+        "sha256": "e7170a58fd561b232dd9a0bc62be7f7193151ae9816688f9c3de082d665593f8",
+        "bytes": 97705,
+        "canvas": [
+          1265,
+          712
+        ],
+        "generationInputAllowed": false,
+        "diagnostic": false
+      },
+      {
+        "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/tomori/night/browser-observations/10-S-v3-mother-composite.png",
+        "sha256": "b61ff441ca65fa0f19f794a0b180d90467db0a9ea5e6bf4fa7b0ffbc908a432d",
+        "bytes": 123920,
+        "canvas": [
+          1265,
+          712
+        ],
+        "generationInputAllowed": false,
+        "diagnostic": false
+      },
+      {
+        "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/tomori/night/browser-observations/HOLD-S-v1-shoeedge.png",
+        "sha256": "cbad67de2d673c324ebb378a7956993cef7234afea9cef4bd5df47b478e063e9",
+        "bytes": 84590,
+        "canvas": [
+          1265,
+          712
+        ],
+        "generationInputAllowed": false,
+        "diagnostic": true
+      },
+      {
+        "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/tomori/night/browser-observations/HOLD-S-v2-hard-receiver-shoeedge.png",
+        "sha256": "e80c4252e4914bcf2a0369ec5079b4cc12011189814600d8c36755ef11e9ffe4",
+        "bytes": 86563,
+        "canvas": [
+          1265,
+          712
+        ],
+        "generationInputAllowed": false,
+        "diagnostic": true
+      }
+    ]
+  },
+  "producerFindings": {
+    "repair": "Original F-v5/S-v1 union had visible excluded thin shoe upper-edge line. Direct S-v2 fixed it but hard outer wood edge held. Direct F-v6 introduced internal line/gap held. Neither held output fed forward. Clean mother→new white markup→S-v3 repaired coverage with soft outer contact.",
+    "current": "F-v5 plus S-v3 now gives continuous full shoe coverage. Face/book/whole body and tiny fixed original-curtain slit remain exact mother RGB. Same-mother BG preserved.",
+    "limits": "S-v3 includes both shoes and local receiver, so overlaps F intentionally. MAX source RGB once. Fixed original position only, no motion/runtime/360 acceptance."
+  },
+  "newImageCallsThisTurn": 4,
+  "primaryLayerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "original360ExactActivityCell": false,
+  "userApproved": false,
+  "internalMaterialDecision": {
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/tomori/night/root-fixed-included-internal-gap-decision-v1.json",
+    "sha256": "56727005a02b323dc1dcabff2b1f8611753d381dfa9e2c4d36a987a75fd914cd",
+    "bytes": 1368
+  },
+  "generationReceipts": [
+    {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/tomori/night/contact-mask-v2.source.json",
+      "sha256": "97c330019015ced7ff247b77625d0a6a764250f7836e8f6e4fe6e047f0a73595",
+      "bytes": 4626
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/tomori/night/figure-mask-v6.source.json",
+      "sha256": "d6dda47631296fce7f7148e8ccf512268f70f3d7628187f3f2c0270745e3a0ce",
+      "bytes": 4732
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/tomori/night/contact-step1-marked-v3.source.json",
+      "sha256": "a3173b9fbd37b50c4a7cb9e996fed3bb8a3197f5d2f0630ef0a91b6769817be9",
+      "bytes": 3851
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/tomori/night/contact-mask-v3.source.json",
+      "sha256": "d3a02f5ae49e283ca9fbdfe6877569f23a2f48e94613abddd07f27ca3ffbec30",
+      "bytes": 3875
+    }
+  ],
+  "rootLayerAdmissionFile": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/tomori/night/root-primary-layer-admission-v1.json",
+  "primaryApproved": false,
+  "generationInputAllowed": false,
+  "userRejected": true,
+  "retiredByUser": true,
+  "currentAdmissionRevoked": true,
+  "revocation": {
+    "recordedAtUtc": "2026-10-26T03:59:35.716669+00:00",
+    "authority": "root direct message forwarding current user identity rejection and withdrawing root static admissions",
+    "reason": "User rejected Tomori neutral day as visually mature / 大妈感. Root revoked both day/night identity and derived layer admissions.",
+    "exactParentMessage": "用户刚直接否决灯neutral day成熟‘大妈感’，附件C:/Users/17601/AppData/Local/Temp/codex-clipboard-eab88100-12b1-4f85-9f66-bbd77e049890.png。Root撤回此前day/night身份/层准入（空间线正在移除两新运行登记及复制PNG）；请在你精确admission/candidate记录将当前primaryLayerApproved撤回，追加用户否决身份/成熟原因与时间，保技术观察历史但不得当当前批准，母及派生禁止后续输入。当前乐奈技术调用在途可保全返回，不重发/不再扩量mask。工作重心回到艺术选图：亲自把旧source中灯/爱音/乐奈/素世/立希少女感最好原图与被否决neutral逐幅对照，给root每人2个最有价值原母（完整图+真实角色气质理由），不靠SHA/骨架代替青春。不自行重画、不只列清单，先视觉判断。Root将亲看并选定基准。",
+    "forwardImageInputForbidden": true,
+    "appliesToMotherAndAllDerivatives": true,
+    "technicalObservationsRetainedAsHistoryOnly": true
+  },
+  "runtimeRegistrationStatus": "removed by space_motion after root/user revocation",
+  "status": "retired_user_rejected_mature_identity_no_forward_input",
+  "runtimeSceneHistory": {
+    "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/tomori-neutral-presence-time-night-included-v1.scene.json",
+    "sha256": "88990265f5dc8c88c15ace06471fea9c7a6514069dc69a7e52152d9e72ae747b",
+    "runtimeFourPNG": {
+      "mother": {
+        "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/tomori-neutral-presence-time-night-included-v1-mother.png",
+        "sha256": "36e1e2e4029d81914b4192cee8351d84b44fa0ef188c88910dd58d400a3e4300"
+      },
+      "background": {
+        "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/tomori-neutral-presence-time-night-included-v1-background.png",
+        "sha256": "37b07f90a6cc0c0aee3ea820468e62eeab582453890a487e5b6f75807b57126d"
+      },
+      "figureMask": {
+        "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/tomori-neutral-presence-time-night-included-v1-mask.png",
+        "sha256": "79bd5825a96b17f98f5f56713963862b186987971e199c6a9f6353a3a703d0cd"
+      },
+      "contactMask": {
+        "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/tomori-neutral-presence-time-night-included-v1-contact-mask.png",
+        "sha256": "fe8d93691568cc71c49049887c01a05f499abdf879a8b93ca1c06e31779c83ad"
+      }
+    },
+    "runtimeAccepted": false,
+    "dynamicAccepted": false,
+    "original360ExactActivityCell": false
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "key": "anon/rest/mist",
+  "tool": "built-in image_gen.imagegen",
+  "createdAtUtc": "2026-10-24T23:46:16.456Z",
+  "stage": "complete whole-scene lighting edit",
+  "file": "anon-rest-mist-mother-v1.png",
+  "sha256": "6f4bdc0b48e64ac44fc108a70a37315f697ebc2fa0f36d4580f52e74ad8a8fd6",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "originalOutputBasename": "exec-78f2a1b9-1c6a-4619-973f-60111cdf1774.png",
+  "prompt": "anon-rest-mist-mother-v1.prompt.txt",
+  "inputs": [
+    {
+      "file": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\分类总库\\04-来源与制作记录\\来源记录\\assets-design-generated\\2026-10-23-companion-matrix\\rana-anon\\anon-rest-apricot-mother-candidate-v1.png",
+      "role": "approved apricot complete mother; edit target",
+      "sha256": "55d2d4d6873bb1089bef893e5fe4e9d953a3e8d1eca651d50a575532e8c0ffbd"
+    },
+    {
+      "file": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/assets-design-generated/2026-10-23-companion-matrix/room-mist-candidate.png",
+      "role": "clean-room light reference only",
+      "sha256": "2482bc901cd8b1f20d6e86719a18a61e1af824ec8ea27c92cc684f9ca15fd9df"
+    }
+  ],
+  "designerPersonallyViewed": true,
+  "primaryMotherReview": "pending_current_root_review",
+  "layers": "not_produced",
+  "runtime": "not_registered",
+  "promptSha256": "746a75772a1f57049ff47e5b6fd01cbd5ba10118ac9b77e27a6ec00228da66b4",
+  "designerObservation": "Personally viewed the complete generated original. Head stays toward the window, body remains supported on the bench, two connected legs and whole shoes retained; no forced viewer smile. Complete requested environment light and natural skin bounce are present, with no split scene, text or UI. Primary approval and integrated layer/runtime remain separate."
+}

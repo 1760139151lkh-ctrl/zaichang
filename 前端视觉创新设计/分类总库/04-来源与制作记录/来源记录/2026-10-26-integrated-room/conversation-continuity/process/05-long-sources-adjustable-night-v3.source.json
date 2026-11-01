@@ -1,0 +1,40 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "image-led-conversation-state-design-guide",
+  "stateId": "05-long-sources-adjustable",
+  "stateName": "长回复与来源/可调对象",
+  "theme": "night",
+  "exactRequest": {
+    "prompt": "Create ONE1536×1024 full-bleed desktop app screen. The attached clean empty literary room is the ONLY image input. The room ITSELF fills the application window: no nested floating app window, no modal, no duplicate titlebar, no full-screen card. Keep its original camera, original window divisions, left desk/chair, LEFT-CENTRAL lamp/table, right bench and floor in place. No person/avatar.\n\nUse the SAME simple geometry in every frame: full-width72px top navigation, “在场” at(40,36), “聊天 今天 留下” centered around(768,36), CHAT ONLY underlined; quiet window controls far top-right. Text starts at x112,y128, readable22px/35px, maximumright952px. One bottom composer left88/right1018/bottom952, normalheight72. It only grows upward for a quote/PDF row, never moves sideways or becomes a different input. The rightmost third x1024..1536 stays only scenery below top72. One small plus left, one send arrow OR stop square right. No extra page title, welcome heading, date, subtitle, instructions or always-visible button strip.\n\nThe experience is one ongoing conversation. Render ONLY the requested words/actions below, no invented passages. Separate authors by a small name/space; never put each paragraph inside a card. Keep prose continuous and references immediately beside the relevant sentence. Source attachments are tiny upright dark-red book covers with short labels, not wide file bars or large PDF logos. A selected phrase has a contextual action ONLY when specified.\n\nMaterial stays inside the original room's light field. Glyphs are solid and legible. Quiet only the actual text region with a subtle continuous room-lit local veil whose edges dissolve, WITHOUT a big opaque rectangle, large white board, huge brown block or separate panel. Room continuity and reading contrast must coexist. No green UI, screenshot collage, design labels, guide grid or changes to scenery.\n\nFINAL GEOMETRY: one outer app window = entire1536×1024 image; full-width topnav72; one LEFT-ALIGNED composer x88..1018 bottom952; leave source x1024..1536 below top72 unoverlaid. Do not draw an inset app window.\n\nNIGHT variant. Preserve the actual complete rainy-night plate: cold dark-blue rain/window/lake and warm amber lamp/wood light. Body ink is warm ivory with clear contrast on a thin local smoked-tea writing support; no giant bright-white page or cool gray panel. Composer is warm smoked-brown translucent material with warm-ivory glyphs and muted honey accent. Same interface coordinates and sizes as DAY. Do not move furniture or paint daylight.\n\nThis frame is a FINISHED LONG RESPONSE WITH A SMALL DIRECTLY ADJUSTABLE MATHEMATICAL OBJECT. Same sent question/two PDF objects at top, same column. “祥子” at x112,y282. Render one flowing response without paragraph cards, in22px/35px:\n“它们都在数：约束之后，还能独立选择多少。\n对 Ax = 0，n 个未知量受到 rank(A) 个独立约束，所以剩下 n − rank(A) 个自由变量。” Put the small link “线代 · 第13页” beside that paragraph.\n“另一个例子是 y″ + y = 0，它的解可以写成 y = a cos x + b sin x。两个初值决定 a 和 b。” Put “微分 · 第2页” beside that paragraph.\n“我们先保留这个共同点，再回到两页各自的条件。”\nBelow on the SAME writing lane, around x112..900,y625..800, show a finely drawn warm curve y = a cos x + b sin x, with visible point values consistent with a=1.0,b=0.5: y(0)=1, y(π/2)=0.5, y(π)=-1, y(3π/2)=-0.5,y(2π)=1. Two small direct parameter lines “a  1.0” and “b  0.5” have simple draggable thumbs, no big plotting toolbar. The plot is an inline shared piece of thinking, no separate black engineering card or white panel. No selection and therefore no “问这句/接着问” toolbar. The composer holds current unfinished draft “那这里的‘独立’……” at the fixed bottom.\n\nThe source references are real public MIT PDFs, not personal data. Do not print MIT course titles or long filenames as attachment cards. Keep the requested tiny two-book objects and short nearby page links.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-rain-night-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "inputSha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-3caf-7462-9134-40d17eea23a0\\exec-2f3393bd-c6b3-4f17-bbbe-9b7c43e6a5a0.png",
+  "output": {
+    "path": "05-long-sources-adjustable-night-v3.png",
+    "sha256": "5ce997db52bbff53f30b69f5205b7613d6d3cf5091912ceef040fda6cc7b23ad",
+    "bytes": 2017120,
+    "actualSize": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "promptFile": "05-long-sources-adjustable-night-v3.prompt.txt",
+  "promptFileSha256": "d13f79a5acb0b57c3e427f3ca5bec48af93ee096c0a1d0960a6e943fb200e5a8",
+  "selectedForPrimaryProcessReview": true,
+  "review": {
+    "productionAgentViewed": true,
+    "primaryApproved": false,
+    "runtimeAccepted": false,
+    "adopt": "长文连续排版，源链接紧邻对应论述；可调对象在同一段工作里，输入仍在原位置。",
+    "doNotCopy": "图中的曲线/刻度仅作视觉构想，局部形状不准确，绝不是计算证据；真实组件必须由公式和program当前inputs计算。不得截长文、缩字或贴整张图。"
+  },
+  "commonGeometryRecord": "../PROCESS_GRID_AND_DECISIONS.md",
+  "geometryBoundary": "All states share one declared grid and one composer/state identity. These generated rasters are relationship guides, not separate coordinate/furniture authorities; model output varies slightly. Code must use the shared grid and original room plate, not load a different page screenshot/background for each state.",
+  "dataBoundary": "Public mathematical sample backed by verified MIT source pages. No private user PDF/chat was transmitted. Artwork is not an import/query/action receipt or proof that any feature ran.",
+  "characterBoundary": "No new human figure, face, persona or character matrix asset was generated. No UI/poster/old person screenshot was supplied as image input."
+}

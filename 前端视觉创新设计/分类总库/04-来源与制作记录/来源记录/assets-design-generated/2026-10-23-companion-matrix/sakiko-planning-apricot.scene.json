@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "recordType": "canonical-scene-reference",
+  "canonicalScene": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/sakiko-planning-apricot.scene.json",
+  "originalCandidateSha256": "8debe94852ad82884b7e4ecaa154ed75f9702711f011108569cd902891b53c23",
+  "originalProducerReview": {
+    "approvedByPrimary": false,
+    "motherApprovalRecord": "primary-prototype-reviews.json",
+    "layerReview": "awaiting-primary-registration",
+    "producerNote": "Original mother RGB retained exactly. Handled navy notebook belongs to the figure. Chair, desk, flat cream sheet, cup and lamp stay fixed in the mother-specific empty background. Character cast-shadow ghosts on desk/wall/floor have been removed; only explicit source contact residuals near hand/book, skirt/seat and soles use the separate shadow. Fixed hand/table contact admits no independent translation. No hidden anatomy inferred.",
+    "runtimeReviewRecord": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/assets-design-generated/2026-10-23-companion-matrix/primary-runtime-reviews.json",
+    "independentLayerFinish": {
+      "version": 6,
+      "producerViewed": "full light/dark, enlarged original-coordinate edges, complete room composite and empty background",
+      "primary": "pending",
+      "runtime": "not registered or exercised"
+    }
+  },
+  "production": "sakiko-planning-apricot-layer-processing-v6.json",
+  "parameters": "sakiko-planning-apricot-layer-parameters-v6.json",
+  "note": "Root-admitted visible contract and PNG bytes unchanged; sole canonical scene registration is in runtime. No runtime acceptance inferred."
+}

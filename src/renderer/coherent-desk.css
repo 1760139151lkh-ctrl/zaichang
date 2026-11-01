@@ -105,7 +105,7 @@ dialog.panel.local-search-panel { height:min(660px,calc(100dvh - 72px)); }
   border:1px solid color-mix(in srgb,var(--border) 70%,transparent); border-radius:3px 7px 5px 2px;
   background:var(--surface); box-shadow:0 13px 28px #1d100b30,-4px 3px 0 color-mix(in srgb,var(--surface) 85%,#826445);
 }
-.app-main:has(> .workspace-scenery[data-desk='true']) .conversation-workspace-host > .workspace::before { content:''; pointer-events:none; position:absolute; inset:0; z-index:-1; background:url('../../前端视觉创新设计/来源记录/2026-10-25-study-materials/paper-fiber-clean-v1.png') center/600px; mix-blend-mode:soft-light; opacity:.14; border-radius:inherit; }
+.app-main:has(> .workspace-scenery[data-desk='true']) .conversation-workspace-host > .workspace::before { content:''; pointer-events:none; position:absolute; inset:0; z-index:-1; background:url('../../前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-study-materials/paper-fiber-clean-v1.png') center/600px; mix-blend-mode:soft-light; opacity:.14; border-radius:inherit; }
 .app-main:has(> .workspace-scenery[data-desk='true']) .message-scroll { padding-inline:30px; }
 .app-main:has(> .workspace-scenery[data-desk='true']) .messages { width:100%; max-width:none; padding:26px 0 16px; }
 .app-main:has(> .workspace-scenery[data-desk='true']) .user-message { background:none; border:0; border-left:2px solid var(--accent); border-radius:0; padding:8px 0 8px 17px; margin:0 0 30px 12%; box-shadow:none; max-width:88%; }

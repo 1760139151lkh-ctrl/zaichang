@@ -1,0 +1,40 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "image-led-conversation-state-design-guide",
+  "stateId": "03-generating-cancel",
+  "stateName": "生成可取消",
+  "theme": "night",
+  "exactRequest": {
+    "prompt": "Overlay ONE readable desktop 在场 interface on the attached clean1536×1024 room plate, the ONLY image input. Treat the room as locked scenery: unchanged camera/crop, original complete window, shelves/left desk/chair, original LEFT-CENTRAL lamp/table, bench/pillows/throw/floor. Never relocate furniture to make a text lane. No person/avatar, no old UI or screenshot reference.\n\nOne continuous conversation, not a workbench: small author labels and spaced prose, no one-card-per-paragraph, bubble staircase or side-by-side brown board. Text column left112px,right952px. When text exists, use only one delicate continuous local room-lit reading support behind its actual extent, soft dissolving edges, no visible big enclosing rectangle. Solid22px Chinese body at35px line-height, sources16px, equations24px. Protect contrast where scenery is detailed. No text painted across a bright lamp without support.\n\nFIXED PRODUCT RULER throughout all states:\ntop72px; small24px “在场” at(40,36); “聊天 今天 留下” centered around(768,36). Active underline belongs to CHAT 聊天 ONLY, never 今天 or 留下. Quiet window controls top-right. No welcome headline, page title, date/subtitle or permanent instructions.\nONE composer, left88,right1018,bottom952, width930; normal top880,height72. Quote/PDF rows grow UPWARD while keeping the SAME bottom/left/right. Plus near(122,916), one send ARROW or stop SQUARE near(982,916); never both. No second input, extra action toolbar or paper-plane fleets.\nThe ENTIRE rightmost third (x1024..1536) remains ONLY ROOM below the top bar. No composer/panel/text may stretch into it. Composer is LEFT-ALIGNED, not centered across the whole canvas. This is critical.\n\nPublic verified sample sources only: “线代 · 第13页” refers to MIT18.06 Lecture9 transcript p13 (n−r free variables); “微分 · 第2页” refers to MIT18.01 Lecture17 p2 (two parameters in the harmonic ODE solution). No invented source pages, no claim that a personal document was imported or a business action completed. Each requested frame shows only its actually relevant action.\n\nRestrained Apple-like spacing, simple controls, warm materials, clean readable mathematics. No green UI, generic gray rectangles, giant white/brown board, modal/dashboard, permanent “接着问” on unselected paragraphs, engineering terms, arrows dividing scenery, design labels, grid/dimensions, border/watermark or multiframe collage. Output only one coherent application screen.\n\nNIGHT variant. Preserve the actual complete rainy-night plate: cold dark-blue rain/window/lake and warm amber lamp/wood light. Body ink is warm ivory with clear contrast on a thin local smoked-tea writing support; no giant bright-white page or cool gray panel. Composer is warm smoked-brown translucent material with warm-ivory glyphs and muted honey accent. Same interface coordinates and sizes as DAY. Do not move furniture or paint daylight.\n\nThis frame is RESPONSE IN PROGRESS after the previous draft was sent. Show the user's question at x112,y128, “这两处都说‘自由度’，是在说同一件事吗？”, with exactly two tiny red PDF objects beneath it at y184. They belong to that already-sent message, not duplicated in the composer. At x112,y282 a quiet “祥子” precedes a naturally appearing partial reply: “我先把两页里可选的量放在一起看。线代这里……” with one subtle ink-point/caret, no spinner card or fake progress. The bottom composer is still usable, normal72px, now holds a NEW UNSENT draft “我更想弄清第二页……” with insertion caret. The primary control at x982 is a single quiet stop SQUARE instead of send, visibly available to cancel this ongoing answer; plus remains left. Do not show send and stop together, or regenerate/retry/cancel button rows. The room and input never jump as text arrives.\n\nFINAL: Keep CHAT active; all UI below top72 remains x88..1018. Entire source x1024..1536 stays untouched room. Composer bottom952 and its left/right anchors never move.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-rain-night-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "inputSha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-3caf-7462-9134-40d17eea23a0\\exec-42826b34-96db-4f54-87c0-23ba128e0777.png",
+  "output": {
+    "path": "03-generating-cancel-night-v2.png",
+    "sha256": "71aac7c8769f1fd3c3b5658606f1bd03fe4e226fb46379b898ca2830d88ceb8b",
+    "bytes": 2067336,
+    "actualSize": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "promptFile": "03-generating-cancel-night-v2.prompt.txt",
+  "promptFileSha256": "a6b9e4bda03df76f987fde757a7003714f22e8ff7131ab84bb823bbce312ff17",
+  "selectedForPrimaryProcessReview": true,
+  "review": {
+    "productionAgentViewed": true,
+    "primaryApproved": false,
+    "runtimeAccepted": false,
+    "adopt": "回答从普通正文自然开始；用户仍能在原输入写下一句，主要动作仅由发送换为停止。",
+    "doNotCopy": "不得因等待重建输入DOM/IME或锁定草稿；只在有真实run可取消时展示停止。图片的光标不是进度事实。"
+  },
+  "commonGeometryRecord": "../PROCESS_GRID_AND_DECISIONS.md",
+  "geometryBoundary": "All states share one declared grid and one composer/state identity. These generated rasters are relationship guides, not separate coordinate/furniture authorities; model output varies slightly. Code must use the shared grid and original room plate, not load a different page screenshot/background for each state.",
+  "dataBoundary": "Public mathematical sample backed by verified MIT source pages. No private user PDF/chat was transmitted. Artwork is not an import/query/action receipt or proof that any feature ran.",
+  "characterBoundary": "No new human figure, face, persona or character matrix asset was generated. No UI/poster/old person screenshot was supplied as image input."
+}

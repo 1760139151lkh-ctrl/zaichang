@@ -43,6 +43,6 @@ python build.py --device <actual-booted-simulator-udid>
 
 原生缓冲只保最近 16 点，放在 App 私有目录，停止清空。桌面保留方式仍由运动 owner 的「当前窗口／本机加密」选择决定；本桥不把坐标送给模型或长期记忆。Apple 的负 speed、负 course 以及 `verticalAccuracy <= 0` 都作为未知；`altitude` 使用平均海平面基准。[Apple altitude](https://developer.apple.com/documentation/corelocation/cllocation/altitude)、[speed](https://developer.apple.com/documentation/corelocation/cllocation/speed)、[verticalAccuracy](https://developer.apple.com/documentation/corelocation/cllocation/verticalaccuracy)。
 
-界面先参考本轮已批准的[运动控件图稿](../../../前端视觉创新设计/精选图稿/A-标杆/2026-10-23-workout-controls/README.md)，再生成并亲看[原生位置随行图稿](../../../前端视觉创新设计/精选图稿/B-微调复用/2026-10-23-ios-location-helper/README.md)，落实暖灰金、单一状态与宽停止动作。模拟来源明确可见，不把图稿中的地图几何用于定位，也不把图稿当运行截图。
+界面先参考本轮已批准的[运动控件图稿](../../../前端视觉创新设计/分类总库/02-精选设计稿/精选图稿/A-标杆/2026-10-23-workout-controls/README.md)，再生成并亲看[原生位置随行图稿](../../../前端视觉创新设计/分类总库/02-精选设计稿/精选图稿/B-微调复用/2026-10-23-ios-location-helper/README.md)，落实暖灰金、单一状态与宽停止动作。模拟来源明确可见，不把图稿中的地图几何用于定位，也不把图稿当运行截图。
 
 本轮实际平台和操作证据见[第二阶段 iOS 位置记录](../../../docs/evidence/2026-10-23-stage02-ios-location.md)。iPhone/iPad 真机签名、户外 GPS、后台锁屏连续采样与跨设备同步分别需要其本身的实现和实测，不能由模拟器运行推断。

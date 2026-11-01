@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "recordType": "source-rgb-included-layer-image-stage",
+  "characterId": "tomori",
+  "neutralTime": "day",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "stage": "S2",
+  "tool": "image_gen.imagegen",
+  "toolElapsedMs": 20340,
+  "recordedAt": "2026-10-26T01:14:31.211483+00:00",
+  "sourceConversationId": "01a17365-def4-7ef0-9767-09f785cec060",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-literary-room/tomori/time-only-neutral-v1/day/layers/contact-step1-marked-v1.png",
+      "sha256": "e0c4036488b8e91150252dcc0549dbcc2af40dfabf669df82d7c3e5aab59714f",
+      "role": "Personally inspected healthy same-mother S1 receiver markup",
+      "personallyViewedBeforeGeneration": true
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/tomori/day/mother.png",
+      "sha256": "ee943e04da7a50748d3e331ed4339548b842388027d0a5fe360e95a4c2d270b7",
+      "role": "Exact clean approved mother only to distinguish added white from natural bright material",
+      "personallyViewedBeforeGeneration": true
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: background-extraction. S2 original-position receiving-material/contact LUMINANCE MASK for a FIXED included layer, opaque1536x1024. FIRST input is the personally inspected S1 deliberate white receiver markup. SECOND input is exact clean approved Tomori DAY mother ONLY to distinguish added white from unchanged natural-white linen/curtains. This is NOT rediscovery or new shadow design. Preserve exactly the added S1 islands/footprints at the same coordinates, no crop/resize/zoom/recenter/shift.\n\nONLY deliberately added white S1 receiving patches become WHITE: the small linen patches immediately touching her trailing hip/skirt/hem seat weight, and the FULL local floor receiver footprints around both actual grounded shoes. Keep both shoe-floor patches with substantial white core and the original soft-edge transition, not collapsing to 1–2px sole lines. Follow the existing added patch boundaries, no generic oval, rectangle, large floor band or invented shadow. Shoes themselves BLACK; a little boundary overlap with F is harmless under MAX. Do NOT relocate seat patches upward onto blazer/skin, outward onto empty cushion, or merge them into a long empty-seat strip. Book is on LAP, no separate book receiver.\n\nEVERYTHING ELSE BLACK: original colored girl/hair/face/clothes/skin/hands/pencil/notebook/legs/socks/shoes; all naturally white curtains/cushions/throw/lamp/shade/flowers/cup/book-stack; furniture/table/chair/rug/far floor/reflections and unrelated broad illumination. This is semantic added-mark conversion, not a brightness threshold. Fine gray only at the actual diffuse outer receiver boundary. No person features, colored room, checkerboard, labels, grid, shifted islands, new brush texture or portable blackblob.\n\nThe S mask selects unchanged original local wood/linen/contact RGB ONCE with F by U=MAX(L(F),L(S)); travel/slope/perspective=0. Keep the exact current full source canvas and receiving positions.",
+  "submittedPromptSha256": "9bfa3ff15ba5e21a727203fe8f1bdef82fa384a3bd55e09ba0ed042e910e11f9",
+  "promptFile": "contact-mask-v1.prompt.txt",
+  "promptFileSha256": "163fbc237e869b9e5c68a228552d02a59ef3472ae7cb08b1de02f48c4728bd0e",
+  "requestFile": "contact-mask-v1.request.json",
+  "requestSha256": "aeaf21630acaa72ef603c984b0cfccf0c803f136b5fcc5ee907fac9b6b1197f5",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17365-def4-7ef0-9767-09f785cec060\\exec-23c6a437-1c5f-468c-9718-f328e8bb205a.png",
+  "toolOriginalSha256": "dce8d12a86dc23146b4ac9f2b6a993eaba3dfc47edf6c27d9ecf7bb46c8a623c",
+  "output": {
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/tomori/day/contact-mask-v1.png",
+    "sha256": "dce8d12a86dc23146b4ac9f2b6a993eaba3dfc47edf6c27d9ecf7bb46c8a623c",
+    "bytes": 290716,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "toolPngBytesUnchanged": true,
+    "resizedOrRetouched": false
+  },
+  "producerReview": {
+    "personallyViewedWholeActualOutput": true,
+    "status": "candidate_await_original_rgb_union_review",
+    "observations": "S2 retains the two source-local seat islands and substantial two-shoe floor receiver rings at their marked positions, person/shoes/natural bright room black. No whole empty bench or broad floor illumination selected. Exact original-RGB/cleanBG continuity pending."
+  },
+  "primaryApproved": false,
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "userApproved": false,
+  "generationInputAllowed": false,
+  "travelPx": 0,
+  "slope": 0,
+  "perspective": 0,
+  "original360ExactActivityCell": false,
+  "sourceCodeOrRegistryChanged": false,
+  "userRejected": true,
+  "retiredByUser": true,
+  "currentAdmissionRevoked": true,
+  "revocation": {
+    "recordedAtUtc": "2026-10-26T03:59:35.716669+00:00",
+    "authority": "root direct message forwarding current user identity rejection and withdrawing root static admissions",
+    "reason": "User rejected Tomori neutral day as visually mature / 大妈感. Root revoked both day/night identity and derived layer admissions.",
+    "exactParentMessage": "用户刚直接否决灯neutral day成熟‘大妈感’，附件C:/Users/17601/AppData/Local/Temp/codex-clipboard-eab88100-12b1-4f85-9f66-bbd77e049890.png。Root撤回此前day/night身份/层准入（空间线正在移除两新运行登记及复制PNG）；请在你精确admission/candidate记录将当前primaryLayerApproved撤回，追加用户否决身份/成熟原因与时间，保技术观察历史但不得当当前批准，母及派生禁止后续输入。当前乐奈技术调用在途可保全返回，不重发/不再扩量mask。工作重心回到艺术选图：亲自把旧source中灯/爱音/乐奈/素世/立希少女感最好原图与被否决neutral逐幅对照，给root每人2个最有价值原母（完整图+真实角色气质理由），不靠SHA/骨架代替青春。不自行重画、不只列清单，先视觉判断。Root将亲看并选定基准。",
+    "forwardImageInputForbidden": true,
+    "appliesToMotherAndAllDerivatives": true,
+    "technicalObservationsRetainedAsHistoryOnly": true
+  }
+}

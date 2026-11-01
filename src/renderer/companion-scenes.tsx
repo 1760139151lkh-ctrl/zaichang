@@ -3,7 +3,7 @@ import type { CompanionMoment } from './companion-variants';
 import type { AppearancePalette, EffectiveEnvironment, EnvironmentVariant } from './appearance';
 import { useSpringValue } from './motion/use-spring';
 import { companionActivities, type CompanionActivity } from '../shared/companion-activity';
-import primarySakikoMotherReviews from '../../前端视觉创新设计/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json';
+import primarySakikoMotherReviews from '../../前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-literary-room/primary-sakiko-pilot-mother-reviews-v1.json';
 import { uiError } from './ui';
 
 export type SceneCharacter = 'sakiko' | 'mutsumi' | 'anon' | 'tomori' | 'uika' | 'umiri' | 'nyamu' | 'rana' | 'soyo' | 'taki';
@@ -98,7 +98,7 @@ export interface SceneTransferTarget extends SceneTransferChoice {
 
 // Every layer has the mother's complete canvas. No layer independently covers
 // the viewport, and a tight portrait is never fitted into this coordinate space.
-const images = import.meta.glob('../../前端视觉创新设计/运行素材/companion/scenes/*.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+const images = import.meta.glob('../../前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/*.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
 interface SceneRegistration extends Omit<SceneCalibration, 'contactShadow'> {
   renderMode?: 'layered' | 'complete-scene';
   schemaVersion: 1;
@@ -140,9 +140,9 @@ function activeMotherSourceAllowed(item: SceneRegistration) {
   const mother = item.review?.runtimeSourceSha256?.mother;
   return typeof mother === 'string' && /^[a-f0-9]{64}$/.test(mother) && !retiredMotherHashes.has(mother);
 }
-const registrationFiles = import.meta.glob('../../前端视觉创新设计/运行素材/companion/scenes/*.scene.json', { eager: true, import: 'default' }) as Record<string, SceneRegistration>;
+const registrationFiles = import.meta.glob('../../前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/*.scene.json', { eager: true, import: 'default' }) as Record<string, SceneRegistration>;
 const registeredFile = (name: string | undefined) => name && /^[-a-z0-9]+\.png$/.test(name)
-  ? images[`../../前端视觉创新设计/运行素材/companion/scenes/${name}`] : undefined;
+  ? images[`../../前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/${name}`] : undefined;
 interface RoomBackgroundManifest {
   roomFamily: string;
   width: number;
@@ -162,16 +162,16 @@ interface RoomInteractionGeometry {
 }
 // The asset owner supplies the one active room. A missing manifest never
 // permits a legacy room or a different camera to stand in for it.
-const roomManifests = import.meta.glob('../../前端视觉创新设计/运行素材/companion/scenes/literary-room-ambient-backgrounds.json', { eager: true, import: 'default' }) as Record<string, RoomBackgroundManifest>;
+const roomManifests = import.meta.glob('../../前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-ambient-backgrounds.json', { eager: true, import: 'default' }) as Record<string, RoomBackgroundManifest>;
 const roomBackgroundManifest = Object.values(roomManifests).find(item => item?.review?.approvedByPrimary === true
   && typeof item.roomFamily === 'string' && /^[a-z0-9][a-z0-9-]{0,63}$/.test(item.roomFamily) && item.width === 1536 && item.height === 1024
   && item.weather && typeof item.weather === 'object' && item.timeOnly && typeof item.timeOnly === 'object');
 export function companionActiveSceneFamily() { return roomBackgroundManifest?.roomFamily; }
-const interactionFiles = import.meta.glob('../../前端视觉创新设计/运行素材/companion/scenes/*.interaction.json', { eager: true, import: 'default' }) as Record<string, RoomInteractionGeometry>;
+const interactionFiles = import.meta.glob('../../前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/*.interaction.json', { eager: true, import: 'default' }) as Record<string, RoomInteractionGeometry>;
 const interactionReference = roomBackgroundManifest?.interactionGeometry;
 const interactionCandidate = interactionReference && /^[-a-z0-9]+\.interaction\.json$/.test(interactionReference.file)
   && /^[a-f0-9]{64}$/.test(interactionReference.sha256) && validCalibrationRecord(interactionReference.sourceRecord)
-  ? interactionFiles[`../../前端视觉创新设计/运行素材/companion/scenes/${interactionReference.file}`] : undefined;
+  ? interactionFiles[`../../前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/${interactionReference.file}`] : undefined;
 const roomInteraction = validRoomInteraction(interactionCandidate) ? interactionCandidate : undefined;
 function validInteractionPolygon(value: unknown): value is SourceShadowPolygon {
   return Array.isArray(value) && value.length >= 3 && value.length <= 32
@@ -662,9 +662,9 @@ export function CompanionRoomStage({ artwork, reducedMotion = false, ambientFit 
   </div>;
 }
 
-const portraits = import.meta.glob('../../前端视觉创新设计/运行素材/companion/portraits/*-portrait.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+const portraits = import.meta.glob('../../前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/portraits/*-portrait.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
 export function companionScenePortrait(character: string) {
-  return portraits[`../../前端视觉创新设计/运行素材/companion/portraits/${character}-portrait.png`];
+  return portraits[`../../前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/portraits/${character}-portrait.png`];
 }
 
 /** Position follows a calibrated support surface; floor poses stay at their contact pivot. */

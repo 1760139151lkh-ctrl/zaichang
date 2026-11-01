@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-resume-apricot-figure-step2-v3",
+  "cell": "soyo/resume/apricot",
+  "recordedAtUtc": "2026-10-26T06:38:41.848502+00:00",
+  "tool": "image_gen.imagegen",
+  "actualToolArguments": {
+    "prompt": "Use case: precise-object-edit. Technical matte correction ONLY; NOT a new character or RGB illustration.\nInput 1 is the current 1536x1024 foreground matte. Input 2 is its exact original source mother. Preserve canvas, position, outer hair, head, torso, skirt, both legs and shoes as existing. Correct the single semantic omission and residual internal detail. Output opaque black/white matte only.\nThe dark NAVY LEFT SLEEVE which supports the left underside of the open book is real cloth, NOT air: in source coordinates approximately x852..915,y488..523, it forms the small dark curved hanging sleeve beneath the left book cover, immediately above the source left knee. Read its exact SOURCE outer contour from Input 2 and include the WHOLE existing sleeve there as solid WHITE. Do not invent sleeve outside the actual source. Preserve the brown background immediately outside this real sleeve and between source sleeve/skirt as BLACK wherever actually visible. Do not cut off any real book cover or sleeve, and do not whiten imaginary gap.\nInside the actual whole book, both hands and long red bookmark ribbon around x911..928,y489..543, REMOVE EVERY internal crease/cover/page/hand/ribbon line: physical material is PURE WHITE. The white foreground must not have black/gray line drawings inside its solid material. Internal book linework and the ribbon on top of the knee are not holes. Keep only external antialiasing. The rest of the physical girl is opaque WHITE as well; no face, clothing or hair texture inside solid selected material.\nKeep all TRUE outside air spaces black, particularly the separated legs and small external hair loops. Every room/furniture/cushion/floor/shadow stays black. Do not redraw approximate whole-body contour, do not reframe, crop, zoom, stretch or shift. Source RGB later comes unchanged from Input 2; no source RGB will be adopted from this matte. One exact 1536x1024 matte, no text or new object.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/figure-mask-v2.png",
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-resume-apricot-literary-v2.png"
+    ],
+    "transparent_background": false
+  },
+  "submittedPromptSha256": "60de8d4fb153479e4e019b8b21cc8c4afda64124059627d7c38c4012c4866b88",
+  "promptRecord": "figure-step2-v3.prompt.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/figure-mask-v2.png",
+      "sha256": "87c5bbee4c68be621ed17e4b07fdb4426b3c81333dce330471aea76f30a6f610",
+      "bytes": 477868,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "personallyViewedBeforeCall": true
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-resume-apricot-literary-v2.png",
+      "sha256": "4381d5f5faeeeedf1b84bf9e69bad71fe4a6dc06a7d8653c8b1f88b48c559cbe",
+      "bytes": 2473344,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "sourceMother": {
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-resume-apricot-literary-v2.png",
+    "sha256": "4381d5f5faeeeedf1b84bf9e69bad71fe4a6dc06a7d8653c8b1f88b48c559cbe",
+    "bytes": 2473344,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "output": {
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/figure-mask-v3.png",
+    "sha256": "17666afee26800c057e04ac80c0865a6111bc8690e49c50713e2eb07a74365aa",
+    "bytes": 440360,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a176d5-c7d7-7052-9110-2c35bcf9b466\\exec-1c8b1f68-6b70-49ef-a65d-e30e3fc0eeb3.png",
+  "completedFileTimeUtc": "2026-10-26T06:25:35.676107+00:00",
+  "generationCompleted": true,
+  "producerSelectionStatus": "selected-matte-input: source sleeve restored and book/ribbon lines removed; alpha cleanup recorded separately",
+  "originalGeneratedPngBytesUnchanged": true,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "primaryLayerApproved": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0
+}

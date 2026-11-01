@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-resume-apricot-contact-step2-v1",
+  "cell": "soyo/resume/apricot",
+  "recordedAtUtc": "2026-10-26T06:38:41.848502+00:00",
+  "tool": "image_gen.imagegen",
+  "actualToolArguments": {
+    "prompt": "Use case: precise-object-edit. Asset: receiver/contact matte S2, technical selection only, 1536x1024 full source canvas.\nThe only input is S1. Preserve exact coordinates and shape of ONLY the deliberately PURE WHITE small physical receiver patches: the local cushion/linen directly beneath the skirt/hip, and the short local floor-contact patches beneath the two shoes. Convert those intentionally white regions to WHITE on a BLACK background. Convert EVERY colored pixel to BLACK, including the girl/hair/face/uniform/book/bookmark/legs/socks/shoes and naturally pale curtains/cushion/cloth/lamp. Do not mistake natural white shirt trim, pages, curtains, sunlit linen or rug for selected material. Do not add or enlarge any patch. Preserve the true soft boundary of the selected close shadow receivers, not a hard oval or whole-seat band. No white strips beneath the lap book; no detached floor or curtain islands. Pure white interior with antialiasing only at selection edge; no colored or gray shading in patch interior. Keep original 1536x1024 canvas, no crop/resize/shift/recenter; no text/checker/labels. This matte is ONLY fixed source receiving material used once with the figure by MAX, never an independently moving shadow caster.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/contact-step1-marked-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "submittedPromptSha256": "8c703753ebb8f8669d89cc5dacf11a5c812326b7c94586a4fae81ac5fc5571ac",
+  "promptRecord": "contact-step2-v1.prompt.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/contact-step1-marked-v1.png",
+      "sha256": "65db8725d9b18cfe5e8682db8172b325d1ab246d961950e7abc302a02e224d2c",
+      "bytes": 2434809,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "sourceMother": {
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-resume-apricot-literary-v2.png",
+    "sha256": "4381d5f5faeeeedf1b84bf9e69bad71fe4a6dc06a7d8653c8b1f88b48c559cbe",
+    "bytes": 2473344,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "output": {
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/contact-mask-v1.png",
+    "sha256": "e8523183bc0c66f8608eba4c7c944a75429f67c10681eb9a375e36a8375f9c45",
+    "bytes": 302947,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a176d5-c7d7-7052-9110-2c35bcf9b466\\exec-385825a2-24cc-46a6-9302-489f5146edb4.png",
+  "completedFileTimeUtc": "2026-10-26T06:22:45.628856+00:00",
+  "generationCompleted": true,
+  "producerSelectionStatus": "not-selected: selected hem cloth instead of sufficient actual linen",
+  "originalGeneratedPngBytesUnchanged": true,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "primaryLayerApproved": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0
+}

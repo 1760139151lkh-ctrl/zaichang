@@ -1,0 +1,32 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "fixed included cushion and local floor receiver S",
+  "exactRequest": {
+    "prompt": "Create a same-canvas 1536×1024 opaque grayscale CONTACT RECEIVER selection mask S from this approved rainy-night mother, the ONLY image input. This is a fixed INCLUDED ORIGINAL RECEIVING-MATERIAL mask, not a new shadow and not a movable pure caster.\n\nSelect only the actual visible cream-cushion contact/compression receiver immediately below and behind the seated hips and skirt, following source cloth around x925..1300,y535..650; and the actual compact original wooden-floor receiver/contact-darkness immediately adjacent to BOTH complete loafer soles/heels around x925..1155,y800..910. These ranges are search areas, NEVER rectangles/ellipses to fill. Follow the real irregular tapered original contact footprint. Keep only necessary local receiving surface, not entire bench, room, floorboards, rug or unrelated lamplight.\n\nSelected RECEIVING MATERIAL is flat opaque PURE WHITE throughout its interior. White means selected regardless of original fabric/floor brightness: do NOT copy grayscale weave, folds, shoe patterns, wood grain, lighting texture or dark seam lines into the mask. Only its narrow true outer feather transitions gray into black. The actual girl, all hair/clothing/hands/knees/socks/SHOES and HELD CUP are pure BLACK, since those original pixels belong to F. Floor light grid, room/furniture shadows, pillows away from body contact, table/lamp/flowers/books, window/rain/town and every other unselected pixel are pure BLACK. Do not invent a large continuous oval cast shadow.\n\nKeep exact original coordinates, camera and full 1536×1024 frame. Return only this flat-white local cushion/floor receiver footprint on a solid black opaque canvas, with thin original soft-edge feather. No colored or textured receiver, person silhouette, new shadow geometry, new object, crop/zoom/resize, text/grid/border, checkerboard or transparency.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/room-art/sakiko-listening-forward-rain-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "inputSha256": "abce5e07f77e0e847ef553c032ebcd43607f12cc87b9d258697fe43a51fc64e6",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-3caf-7462-9134-40d17eea23a0\\exec-077b86d5-3740-4c82-9c6a-de460816d352.png",
+  "output": {
+    "file": "contact-mask-v1.png",
+    "sha256": "00ae19156d2133604bcf6b2df47697c0141bc5a8743078f4b04a2a3cc8c52045",
+    "bytes": 349827,
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "promptFile": "contact-mask-v1.prompt.txt",
+  "promptFileSha256": "3e510dec82e45bbc8a3fddf98e3f987c2d73e639d33ae3de869923c8fac95452",
+  "selectedForCurrentBundle": true,
+  "review": {
+    "productionAgentViewed": true,
+    "primaryApproved": false,
+    "runtimeAccepted": false
+  },
+  "boundary": "Same original mother RGB rendered once through U=MAX(LF,LS); no PNG pixel script edits, no threshold/dilation/edge repaint or geometric patch. Fixed original receiving material, not pure caster."
+}

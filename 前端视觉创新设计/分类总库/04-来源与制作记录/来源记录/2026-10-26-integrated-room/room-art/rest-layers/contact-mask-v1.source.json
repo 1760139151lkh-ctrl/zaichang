@@ -1,0 +1,34 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "first receiver S selection",
+  "exactRequest": {
+    "prompt": "Use case: precise-object-edit. Produce an EXACT SAME-CANVAS 1536×1024 CONTACT RECEIVING-SURFACE luminance mask S from the approved mother image, the only image input. Select only the ORIGINAL visible narrow fabric compression/contact/shaded receiver caused by this exact side-sitting girl in its original source position. This layer is an INCLUDED ORIGINAL RECEIVING MATERIAL selection, not an independently movable pure shadow.\n\nPaint WHITE only the actual cream-cushion receiver immediately beneath and behind her seated hip, skirt, folded calves/socked feet and her weight-bearing palm: follow the organic soft cushion contact band spanning roughly x850..1420,y520..625. Also retain only the small actual shaded plaid-pillow receiver directly behind her supported lower back/shoulder where it touches, near x1320..1450,y330..560. These are SEARCH REGIONS, not white rectangles to fill. Follow actual contours and original soft shadow extent, tapering into black beyond the narrow receiver. Do not make a giant bench/pillow silhouette, new oval shadow or continuous arbitrary horizontal strip.\n\nAll actual girl pixels, including hair/ribbons, skin/hands, cardigan, skirt, knees, socks/feet and lap blue book must be BLACK; their self-shadows belong to F. All detached brown floor loafers and their fixed floor shadows stay BLACK because the shoes remain in the matching background. All unrelated room, cushion away from body contacts, unoccupied pillows, knitted throw, lamp/table, books/cup/flowers, window/lake, desk/chair/plants, floor/rug and sunlight lattice stay BLACK. Naturally pale fabric is not automatically a contact receiver.\n\nKeep exact original camera, canvas and pixel coordinates. Return only opaque grayscale RGB black canvas with selected real local receiving cloth in white/gray and narrow original soft-edge antialias. No colored room, girl silhouette, new object/anatomy/shadow geometry, crop, zoom, resize, text, grid, border, guide marks, checkerboard or transparency.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/sakiko-rest-apricot-sidefold-included-v1-mother.png"
+    ],
+    "transparent_background": false
+  },
+  "inputSha256": "ffc1c69e351ce6466806c4136fb9ed21a065bbe3fd574858489c070daad1eb19",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-3caf-7462-9134-40d17eea23a0\\exec-642fe952-ac97-49fd-b450-7f81c5d3b7aa.png",
+  "output": {
+    "path": "contact-mask-v1.png",
+    "file": "contact-mask-v1.png",
+    "sha256": "0110b5f84bc0766c49bfe57d891dc0a7162c6639fd663c19d5cae6281c3dfc3b",
+    "bytes": 413416,
+    "actualSize": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "promptFile": "contact-mask-v1.prompt.txt",
+  "promptFileSha256": "eeaf87cafbfd22f781087cf3a1ba590fd9ae8bcb1204cb59863199ce5a737b30",
+  "selectedForCurrentBundle": false,
+  "issue": "Selected cloth retained grayscale material texture in mask interior, making internal opacity vary with cloth brightness. Superseded by v2 mask-only correction.",
+  "review": {
+    "productionAgentViewed": true,
+    "primaryApproved": false,
+    "runtimeAccepted": false
+  },
+  "boundary": "This is a source-aligned fixed layer/selection candidate. No PNG pixels were edited by script. Original mother RGB is used exactly once through SVG MAX luminance union; no threshold, dilation, edge repaint or geometry patch."
+}

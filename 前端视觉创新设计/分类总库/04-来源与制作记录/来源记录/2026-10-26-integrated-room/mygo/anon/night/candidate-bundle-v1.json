@@ -1,0 +1,199 @@
+{
+  "schemaVersion": 1,
+  "id": "anon-neutral-time-night-new-layer-candidate-v1",
+  "recordedAtUtc": "2026-10-26T03:41:23.764523+00:00",
+  "characterId": "anon",
+  "purpose": "neutral-presence",
+  "environmentBasis": "time",
+  "neutralTime": "night",
+  "weather": "unknown",
+  "scope": "Original approved mother reused unchanged. New same-mother F/S and object-removal BG; no mother redraw or shared registry/ledger edit.",
+  "selected": {
+    "mother": {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/anon/night/mother.png",
+      "sha256": "b8c250ba5b96fa1f8d0710adb8426758875861e628697efa121034053304b2d8",
+      "bytes": 2155733,
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "figureMask": {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/anon/night/figure-mask-v1.png",
+      "sha256": "980dff4fa522f0eda0135ab0a8f8b23f068ea926fdb58972f7472734e1f313d1",
+      "bytes": 464257,
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "contactMask": {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/anon/night/contact-mask-v1.png",
+      "sha256": "275094f67c08335f7708aaf38cbeb21300d86fa475079bde9bf7071d69661f28",
+      "bytes": 345196,
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "background": {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/anon/night/background-v1.png",
+      "sha256": "bbe4fe41caefb75753756bca68824cd036a373d59391ff57987b146387382e2e",
+      "bytes": 2084207,
+      "canvas": [
+        1536,
+        1024
+      ]
+    }
+  },
+  "assembly": {
+    "kind": "source-rgb-max-luminance-v1",
+    "coverage": "MAX(L(F),L(S))",
+    "originalRgbDrawsPerUnion": 1,
+    "luminanceCoefficients": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "nativeMax": "SVG feBlend mode=lighten; sRGB",
+    "svg": "union-source-v1.svg",
+    "composite": "composite-source-v1.svg",
+    "contact": "contact-source-v1.svg",
+    "pngEditing": false
+  },
+  "geometry": {
+    "fixedOriginalSourceCoordinates": true,
+    "travelPx": 0,
+    "slope": 0,
+    "perspective": 0,
+    "sourceReceiverMaterialIncluded": true,
+    "independentlyMovableCaster": false
+  },
+  "priorMotherAdmission": {
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/anon/night/mother-primary-admission-original.json",
+    "sha256": "7207bff7d5a74b7c31def21207756c376cbaadf74046c353e318ba4fc90f1688",
+    "bytes": 1054
+  },
+  "currentObservation": {
+    "route": "formal CUA IAB plus supported per-tab CDP Page.captureScreenshot; source RGB native SVG MAX only",
+    "personallyViewed": true,
+    "page": "native-observe-v1.html",
+    "views": [
+      "complete mother/composite",
+      "whole source RGB union on light/dark/checker",
+      "face/long hair",
+      "complete held small folded paper and both hands with no internal coverage hole",
+      "visible seated hem/thigh/linen support",
+      "both complete shoes and local floor",
+      "receiver-only cloth/wood/overlap"
+    ],
+    "screenshots": [
+      {
+        "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/anon/night/browser-observations/01-mother-composite.png",
+        "sha256": "359a6200431c1316e90507fec5d1892b042bc1648bd032ecdaab3c41ba9bcc47",
+        "bytes": 125811,
+        "canvas": [
+          1265,
+          720
+        ],
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/anon/night/browser-observations/02-paper-hands-seat.png",
+        "sha256": "4179358bcb880c1ece6c820c31779adafd1f2491978f3229cbfd0273b750d4c4",
+        "bytes": 1181343,
+        "canvas": [
+          3840,
+          2160
+        ],
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/anon/night/browser-observations/03-light-dark-checker.png",
+        "sha256": "ba66a9bb0794d3d8af989dc5b848cb0e367142562a6790e263918c9a2890d764",
+        "bytes": 1999070,
+        "canvas": [
+          3840,
+          2160
+        ],
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/anon/night/browser-observations/04-face-hair.png",
+        "sha256": "1dcaa0f82adeb4bd20e2ec04db5bab770104c40a07ab57d9cdd99eb9644b85ce",
+        "bytes": 2030721,
+        "canvas": [
+          3840,
+          2160
+        ],
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/anon/night/browser-observations/05-shoes-floor.png",
+        "sha256": "4edb95b54d2dea0ded3d5ec0ecbcfbdeb5b63fef054b06bce337ad73259cf8c7",
+        "bytes": 1467369,
+        "canvas": [
+          3840,
+          2160
+        ],
+        "generationInputAllowed": false
+      },
+      {
+        "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/anon/night/browser-observations/06-receiver.png",
+        "sha256": "2b31483bd7cf1e41cf32a326d0d849a07e06f4b5092957632ce98c76152ae6c8",
+        "bytes": 1174526,
+        "canvas": [
+          3840,
+          2160
+        ],
+        "generationInputAllowed": false
+      }
+    ]
+  },
+  "producerFindings": {
+    "whole": "Fine pink hair, paper/fingers, body/uniform and complete shoes preserved as original mother RGB; no obvious person or paper ghost in BG.",
+    "paper": "Old external early F-v1 had interior paper/finger coverage lines. It was not used as input. New clean-mother white markup and conversion fill these internal lines; actual source-RGB browser comparison viewed.",
+    "receiver": "S covers complete shoes and local floor plus seated cloth; it overlaps original skirt/skin in the seat area. MAX draws same mother RGB once; source wood/linen included only at fixed original place.",
+    "limits": "Native static observation only. No runtime, motion, 360 activity-cell or user approval inferred."
+  },
+  "newImageCallsThisTurn": 5,
+  "primaryLayerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "original360ExactActivityCell": false,
+  "userApproved": false,
+  "generationReceipts": [
+    {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/anon/night/figure-step1-marked-v1.source.json",
+      "sha256": "fd2e3d4537f27d75bab32f6fedf147bfc00d355dd5a2218951cd8e9d52d7c305",
+      "bytes": 3263
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/anon/night/contact-step1-marked-v1.source.json",
+      "sha256": "5341aac22d7370dd01e62be2af590971e529fcf9b2f93e9f1e7dad0b1cfc6ac1",
+      "bytes": 3207
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/anon/night/background-v1.source.json",
+      "sha256": "f0346bb6719a290aab365fbebb4dd12df9c797377e2f7fd49075d5c5c24cfa4a",
+      "bytes": 2912
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/anon/night/figure-mask-v1.source.json",
+      "sha256": "9d075ddef1ff7ec69a22ff1f95c7f0429c6cb51440d07bb629abadc476f7efb6",
+      "bytes": 2876
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/anon/night/contact-mask-v1.source.json",
+      "sha256": "82d9a3895bf8dec705fa01aedc6fb50594f5eb0317d43810235abf74424a70c1",
+      "bytes": 2697
+    }
+  ],
+  "actualOutputCopiesByteIdenticalToTool": {
+    "figure-step1-marked-v1": true,
+    "contact-step1-marked-v1": true,
+    "background-v1": true,
+    "figure-mask-v1": true,
+    "contact-mask-v1": true
+  }
+}

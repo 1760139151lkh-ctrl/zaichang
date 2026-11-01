@@ -322,9 +322,9 @@
       "workspaceWideDiffCheck": {
         "exitCode": 2,
         "otherPathsWithWhitespace": [
-          "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/anon-rest-mist-mother-v1.source.json",
-          "前端视觉创新设计/来源记录/2026-10-24-matrix/mygo/anon-rest-violet-mother-v1.source.json",
-          "前端视觉创新设计/来源记录/2026-10-24-matrix/primary-direct-review.json"
+          "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-24-matrix/mygo/anon-rest-mist-mother-v1.source.json",
+          "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-24-matrix/mygo/anon-rest-violet-mother-v1.source.json",
+          "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-24-matrix/primary-direct-review.json"
         ],
         "note": "Workspace-wide check also reports CRLF whitespace in asset metadata outside this documentation edit. Those files were not changed by this task."
       },

@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-mother-fixed-included-layer-production",
+  "producer": "/root/mujica_art",
+  "character": "umiri",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "weather": "unknown",
+  "weatherClaim": false,
+  "canvas": [
+    1536,
+    1024
+  ],
+  "stage": "F2",
+  "tool": "built-in image_gen.imagegen",
+  "exactPrompt": "Use case: background-extraction. Technical foreground luminance-mask conversion only. The ONLY input is the new original-position white-painted Umiri DAY foreground markup. Output ONE exact full-canvas 1536x1024 opaque BLACK/WHITE/edgeGRAY PNG. Preserve every selected person's and book's source silhouette and coordinates, hair flyaways, all fingers, bare knees/calves and the full soles/heels/laces of both boots. No scale, crop, recenter, pose redesign or geometry change.\n\nMake the entire already-white person and entire selected book one SOLID WHITE foreground. Pure white inside all face, hair mass, body, sleeves, skirt, thighs/knees/calves, boots and book. REMOVE internal line-art/crease seams in the selected material: the few fine coloured page/cover lines in the marked book and tiny finger-on-book creases become WHITE, never black holes. The two touching knees at x985..1005,y520..568 are continuous selected SKIN: keep this entire knee overlap solid WHITE, with no hairline black cut through the skin. Boots stay solid white internally; laces/metal/sole grooves are source RGB details, not holes. Hair interior and clothing creases are likewise opaque white.\n\nTurn all original COLORED background PURE BLACK, including natural bright curtains/cushion/knit/lamp/page highlights OUTSIDE the already selected whole book, wooden room, floor and all receiving shadows. Keep real air gaps black: between separated calves below the knee overlap; between the leaning side arm and waist; actual open gap under the forearm/book; real small gaps separating distinct hair strands or fingers. These are visible source gaps, unlike drawn lines inside skin/book. The original blue plaid pillow beyond the supporting side fingertips stays BLACK; no little pillow stripe extending from her hand, no cushion/floor in F.\n\nExternal edges may retain their original fine antialias, never a diffuse halo or extra outline. All internal selected material must remain pure white, not grey shading. This is exact source-position selection, not a new illustration. No text, labels, boxes, arrows, checkerboard, new shadows or transparent background. It will be MAX-unioned with a separately selected source receiver and used to draw the exact ORIGINAL MOTHER RGB just once.",
+  "toolArguments": {
+    "prompt": "Use case: background-extraction. Technical foreground luminance-mask conversion only. The ONLY input is the new original-position white-painted Umiri DAY foreground markup. Output ONE exact full-canvas 1536x1024 opaque BLACK/WHITE/edgeGRAY PNG. Preserve every selected person's and book's source silhouette and coordinates, hair flyaways, all fingers, bare knees/calves and the full soles/heels/laces of both boots. No scale, crop, recenter, pose redesign or geometry change.\n\nMake the entire already-white person and entire selected book one SOLID WHITE foreground. Pure white inside all face, hair mass, body, sleeves, skirt, thighs/knees/calves, boots and book. REMOVE internal line-art/crease seams in the selected material: the few fine coloured page/cover lines in the marked book and tiny finger-on-book creases become WHITE, never black holes. The two touching knees at x985..1005,y520..568 are continuous selected SKIN: keep this entire knee overlap solid WHITE, with no hairline black cut through the skin. Boots stay solid white internally; laces/metal/sole grooves are source RGB details, not holes. Hair interior and clothing creases are likewise opaque white.\n\nTurn all original COLORED background PURE BLACK, including natural bright curtains/cushion/knit/lamp/page highlights OUTSIDE the already selected whole book, wooden room, floor and all receiving shadows. Keep real air gaps black: between separated calves below the knee overlap; between the leaning side arm and waist; actual open gap under the forearm/book; real small gaps separating distinct hair strands or fingers. These are visible source gaps, unlike drawn lines inside skin/book. The original blue plaid pillow beyond the supporting side fingertips stays BLACK; no little pillow stripe extending from her hand, no cushion/floor in F.\n\nExternal edges may retain their original fine antialias, never a diffuse halo or extra outline. All internal selected material must remain pure white, not grey shading. This is exact source-position selection, not a new illustration. No text, labels, boxes, arrows, checkerboard, new shadows or transparent background. It will be MAX-unioned with a separately selected source receiver and used to draw the exact ORIGINAL MOTHER RGB just once.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mujica/umiri-neutral/day/figure-step1-marked-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "originalToolOutput": "C:/Users/17601/.codex/generated_images/01a17613-9fc7-7603-bafc-5dc75152a695/exec-b4666b92-a8f2-4b7a-93b5-a3edce782003.png",
+  "output": {
+    "file": "figure-mask-v1.png",
+    "sha256": "b079e2363b77b5ab2722415b11466162eedc6cec99956ec26d6277c5b42d18e1",
+    "bytes": 481598,
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mujica/umiri-neutral/day/figure-mask-v1.png"
+  },
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mujica/umiri-neutral/day/figure-step1-marked-v1.png",
+      "sha256": "5ce67885a74272ed457c6a6ff50e48107de6594fc3b0d681865f7c6a0f6e74ee"
+    }
+  ],
+  "promptFile": "figure-mask-v1.prompt.txt",
+  "pngPixelEdited": false,
+  "producerPersonallyViewedOriginal": true,
+  "producerHeld": false,
+  "generationInputAllowed": false,
+  "producerObservation": "New opaque person mask closes old knee transparency seam. Native original-RGB face, book, body/boots inspected. Retained secondary candidate; joint coverage is final static proposal.",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "runtimeRegistered": false,
+  "dynamicAdmission": false,
+  "userApproved": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "heldOrReviewImagesUsedAsInput": false,
+  "privateExportOrUploadedReferenceUsedAsInput": false,
+  "exactPromptSHA256": "27544cd5845dfc588d9904206cda1ea213cec867e30df7940b9d4559339572dc",
+  "promptFileSHA256": "6428f030bfaa1050a2478067305c0b4f379d5276e05d3b29d2d1fe380632bffa",
+  "originalToolOutputSHA256": "b079e2363b77b5ab2722415b11466162eedc6cec99956ec26d6277c5b42d18e1",
+  "outputMatchesOriginalToolBytes": true
+}

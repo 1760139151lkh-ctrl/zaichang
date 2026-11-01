@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "prompt": "notes-b-writing-v2.prompt.txt",
+  "request": "notes-b-writing-v2.request.json",
+  "input": [
+    {
+      "file": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "approved clean empty room only"
+    }
+  ],
+  "output": {
+    "file": "notes-b-writing-v2.png",
+    "sha256": "36bb9376a74398bee0dddb64220db9af680a77205fabf05fe42b390e11f45cf5",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2258260
+  },
+  "sampleCopy": {
+    "authoredForThisDesign": true,
+    "isLiveUserOrModelContent": false
+  },
+  "review": {
+    "reviewer": "notes_shell_design",
+    "imagePersonallyViewed": true,
+    "scope": "Quiet low-left folio, no added type labels/tags, one source tab and one contextual save.",
+    "primaryAccepted": false,
+    "runtimeAccepted": false
+  },
+  "runtimeUse": "none",
+  "generationInputAllowed": false
+}

@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-resume-apricot-contact-step1-v1",
+  "cell": "soyo/resume/apricot",
+  "recordedAtUtc": "2026-10-26T06:38:41.848502+00:00",
+  "tool": "image_gen.imagegen",
+  "actualToolArguments": {
+    "prompt": "Use case: precise-object-edit. Asset: local original receiver/contact/grounding-shadow selection markup, S1.\nThe ONLY input is this exact clean root-approved Soyo resume apricot mother, 1536x1024. Preserve the entire original canvas, all source coordinates and camera framing. No crop/resize/zoom/centering/shift, no changes to pose, expression, proportions, wardrobe, linework or source geometry. This is technical selection/restoration for a FIXED original-RGB included layer, not a new character illustration. Root approved minor theme/pose differences; preserve this exact original.\nKeep the entire girl, all hair/face/uniform/hands, knees/socks/whole shoes, entire lap book and pencil/bookmark IN THEIR ORIGINAL COLORS. Paint PURE WHITE only on the ACTUAL SMALL LOCAL RECEIVING MATERIALS physically touching this exact seated subject: a few visible linen/compression/contact islands directly under the trailing skirt and rear hip where source shade really exists, plus the COMPLETE ACTUAL short soft ground-contact shadow/receiver patches of both source shoes. The source shoes lie around x741..923,y800..894. Preserve the local dark floor footprint beneath/around each actual source toe/heel/sole (roughly 8..35 source pixels outside each sole WHERE shade is actually visible), including its dark core and gentle outer edge. The shoes stay colored; do NOT merely outline them with a 2-pixel white sole stroke. Follow the real source shadow's irregular boundary and wood-grain falloff, not an invented oval/rectangle or a whole floor strip. Two patches may meet only where source shadows really connect. No room-wide lamp/furniture/window shadow, sunlight/reflection, rug fringe or far-away floor selection.\nThe held book is on her lap: its pages, pen, bookmark, supporting knees/hands, and self-shadow belong to F, not a fabricated book receiver on empty right cushion. Select NO separate book stripe on the empty seat. Keep all natural pale empty cushion, curtains, lamp, cup, flowers, rug/light patch and garment white trim unchanged colored, not deliberately white. Do not select the long empty bench to either side or a detached distant bright linen island. Select only real close physical receiver patches around actual skirt/hip/soles; no new shadow or added material. Output one opaque full-color 1536x1024 original-position PNG, with only those few actual local receiver/foot-shadow regions deliberately white. This is fixed included source material, travel/slope/perspective=0, never an independently moving caster.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-resume-apricot-literary-v2.png"
+    ],
+    "transparent_background": false
+  },
+  "submittedPromptSha256": "13d529cdbcdc77e1f24874a4399763d5ab54c0895ee8e84db7c928bb37f0ab8e",
+  "promptRecord": "contact-step1-v1.prompt.json",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-resume-apricot-literary-v2.png",
+      "sha256": "4381d5f5faeeeedf1b84bf9e69bad71fe4a6dc06a7d8653c8b1f88b48c559cbe",
+      "bytes": 2473344,
+      "canvas": [
+        1536,
+        1024
+      ],
+      "personallyViewedBeforeCall": true
+    }
+  ],
+  "sourceMother": {
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-resume-apricot-literary-v2.png",
+    "sha256": "4381d5f5faeeeedf1b84bf9e69bad71fe4a6dc06a7d8653c8b1f88b48c559cbe",
+    "bytes": 2473344,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "output": {
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-literary-room/soyo/resume-layers/apricot/contact-step1-marked-v1.png",
+    "sha256": "65db8725d9b18cfe5e8682db8172b325d1ab246d961950e7abc302a02e224d2c",
+    "bytes": 2434809,
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a176d5-c7d7-7052-9110-2c35bcf9b466\\exec-2baa8e9f-4cfc-4f97-b888-be5c03e2e8c2.png",
+  "completedFileTimeUtc": "2026-10-26T06:18:46.103180+00:00",
+  "generationCompleted": true,
+  "producerSelectionStatus": "superseded: white marking ambiguous beside pale linen",
+  "originalGeneratedPngBytesUnchanged": true,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "primaryLayerApproved": false,
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0
+}

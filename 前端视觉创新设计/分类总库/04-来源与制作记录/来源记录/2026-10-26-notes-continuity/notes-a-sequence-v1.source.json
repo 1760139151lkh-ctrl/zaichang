@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "prompt": "notes-a-sequence-v1.prompt.txt",
+  "request": "notes-a-sequence-v1.request.json",
+  "input": [
+    {
+      "file": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-clear-day-v1.png",
+      "sha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+      "role": "approved clean empty room only"
+    }
+  ],
+  "output": {
+    "file": "notes-a-sequence-v1.png",
+    "sha256": "4e7f9dc1293f90040d7f07a7f6a52c70c0e70619f8171603cfdce3a34a829267",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2325580
+  },
+  "sampleCopy": {
+    "authoredForThisDesign": true,
+    "isLiveUserOrModelContent": false
+  },
+  "review": {
+    "reviewer": "notes_shell_design",
+    "imagePersonallyViewed": true,
+    "scope": "Six-beat state exploration. Preserve original object, action anchor and local selection; generated source chip wrongly names material rather than note identity and is rejected.",
+    "primaryAccepted": true,
+    "primaryAcceptanceScope": "Root personally viewed and selected direction A's single page, direct writing, stable page and save anchors. Intent only; generated pixels, fictitious source labels and runtime/motion acceptance are excluded.",
+    "runtimeAccepted": false
+  },
+  "runtimeUse": "none",
+  "generationInputAllowed": false
+}

@@ -1,0 +1,40 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "image-led-conversation-state-design-guide",
+  "stateId": "07-cancel-preserve-draft",
+  "stateName": "取消后保留草稿",
+  "theme": "night",
+  "exactRequest": {
+    "prompt": "Create ONE1536×1024 full-bleed desktop app screen. The attached clean empty literary room is the ONLY image input. The room ITSELF fills the application window: no nested floating app window, no modal, no duplicate titlebar, no full-screen card. Keep its original camera, original window divisions, left desk/chair, LEFT-CENTRAL lamp/table, right bench and floor in place. No person/avatar.\n\nUse the SAME simple geometry in every frame: full-width72px top navigation, “在场” at(40,36), “聊天 今天 留下” centered around(768,36), CHAT ONLY underlined; quiet window controls far top-right. Text starts at x112,y128, readable22px/35px, maximumright952px. One bottom composer left88/right1018/bottom952, normalheight72. It only grows upward for a quote/PDF row, never moves sideways or becomes a different input. The rightmost third x1024..1536 stays only scenery below top72. One small plus left, one send arrow OR stop square right. No extra page title, welcome heading, date, subtitle, instructions or always-visible button strip.\n\nThe experience is one ongoing conversation. Render ONLY the requested words/actions below, no invented passages. Separate authors by a small name/space; never put each paragraph inside a card. Keep prose continuous and references immediately beside the relevant sentence. Source attachments are tiny upright dark-red book covers with short labels, not wide file bars or large PDF logos. A selected phrase has a contextual action ONLY when specified.\n\nMaterial stays inside the original room's light field. Glyphs are solid and legible. Quiet only the actual text region with a subtle continuous room-lit local veil whose edges dissolve, WITHOUT a big opaque rectangle, large white board, huge brown block or separate panel. Room continuity and reading contrast must coexist. No green UI, screenshot collage, design labels, guide grid or changes to scenery.\n\nFINAL GEOMETRY: one outer app window = entire1536×1024 image; full-width topnav72; one LEFT-ALIGNED composer x88..1018 bottom952; leave source x1024..1536 below top72 unoverlaid. Do not draw an inset app window.\n\nNIGHT variant. Preserve the actual complete rainy-night plate: cold dark-blue rain/window/lake and warm amber lamp/wood light. Body ink is warm ivory with clear contrast on a thin local smoked-tea writing support; no giant bright-white page or cool gray panel. Composer is warm smoked-brown translucent material with warm-ivory glyphs and muted honey accent. Same interface coordinates and sizes as DAY. Do not move furniture or paint daylight.\n\nHISTORY CONTENT REQUIREMENT: This is a single MATHEMATICS conversation with author labels“我”and“祥子”only. Always retain the exact sent user question“这两处都说‘自由度’，是在说同一件事吗？” and exactly TWO TINY red book-cover objects“线代”“微分”near it, never wide attachment bars. Do not substitute philosophical dialogue or introduce other authors/book titles. No duplicate question. No nested floating app window.\n\nThis frame is AFTER THE USER STOPPED the in-progress answer in state03. Same user question/two sent PDF objects remain at the original place. Preserve the partial reply already written, exactly at x112,y282: “我先把两页里可选的量放在一起看。线代这里……” as ordinary stopped text, not erased or replaced by a failure card. A tiny unobtrusive “已停下” may appear with the reply author to explain the real outcome, no alert banner, progress dot or spinner.\nThe NEW UNSENT draft “我更想弄清第二页……” survives unchanged in the SAME fixed composer with its insertion caret and focus; no attachments suddenly disappear from the sent user message. The right control has returned from stop square to the single send arrow. Do not add retry/regenerate/continue/cancel button rows or a new blank input. There is no late arriving graph/response. Calm room and retained draft make stopping feel safe.\n\nKeep the original room and the common topnav/body/composer anchors. Print only the specified math conversation, no extra content.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-rain-night-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "inputSha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-3caf-7462-9134-40d17eea23a0\\exec-33c0df01-23e2-434e-8380-14d3783d1ec7.png",
+  "output": {
+    "path": "07-cancel-preserve-draft-night-v4.png",
+    "sha256": "7efb71e48562be402a56e4f19d50dbbc68a3821419f839318a62c5161d8182b5",
+    "bytes": 2067692,
+    "actualSize": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "promptFile": "07-cancel-preserve-draft-night-v4.prompt.txt",
+  "promptFileSha256": "11c44c2980bb2fe526159ec30fe8d95d5cc8af0b821b497b9b6e733306d80ab6",
+  "selectedForPrimaryProcessReview": true,
+  "review": {
+    "productionAgentViewed": true,
+    "primaryApproved": false,
+    "runtimeAccepted": false,
+    "adopt": "取消保留已经显示的半段回答、未发新草稿和焦点；停止动作回到发送，不追加一排重试按钮。",
+    "doNotCopy": "取消必须停止原run并拒晚到结果；图稿不证明取消实际生效、草稿持久或恢复通过。"
+  },
+  "commonGeometryRecord": "../PROCESS_GRID_AND_DECISIONS.md",
+  "geometryBoundary": "All states share one declared grid and one composer/state identity. These generated rasters are relationship guides, not separate coordinate/furniture authorities; model output varies slightly. Code must use the shared grid and original room plate, not load a different page screenshot/background for each state.",
+  "dataBoundary": "Public mathematical sample backed by verified MIT source pages. No private user PDF/chat was transmitted. Artwork is not an import/query/action receipt or proof that any feature ran.",
+  "characterBoundary": "No new human figure, face, persona or character matrix asset was generated. No UI/poster/old person screenshot was supplied as image input."
+}

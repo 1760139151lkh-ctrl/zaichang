@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "recordType": "same-source-fixed-MAX-FJ-original-RGB-layer-candidate",
+  "producer": "/root/mujica_art",
+  "character": "umiri",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "palette": "mist",
+  "light": "morning",
+  "weather": "unknown",
+  "weatherClaim": false,
+  "sourceCanvas": [
+    1536,
+    1024
+  ],
+  "selected": {
+    "mother": {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/umiri-neutral-presence-time-day-v1.png",
+      "sha256": "5daa0e42c8ef945858ebdc5f065270c14989d4d1d107756ab8667600af797108",
+      "bytes": 2383284
+    },
+    "F": {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mujica/umiri-neutral/day/figure-mask-v1.png",
+      "file": "figure-mask-v1.png",
+      "sha256": "b079e2363b77b5ab2722415b11466162eedc6cec99956ec26d6277c5b42d18e1",
+      "bytes": 481598,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "J": {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mujica/umiri-neutral/day/included-coverage-v1.png",
+      "file": "included-coverage-v1.png",
+      "sha256": "2e6b2a49d5e5032fa32a6b792cbbdbf99762fd0a06162cfc4db348de57c11360",
+      "bytes": 532154,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "BG": {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/day/layers/background-v1.png",
+      "sha256": "f018ca65d519d713fe7176799e8c656fac92113e4886b226af24e8c267a0df8d",
+      "bytes": 2275566
+    }
+  },
+  "motherAdmission": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-literary-room/umiri/time-only-neutral-v1/root-primary-mother-admission-v1.json",
+  "composition": {
+    "formula": "U=MAX(L(F),L(J)); exact ORIGINAL mother RGB drawn ONCE over same-mother BG",
+    "luminance": [
+      0.2126,
+      0.7152,
+      0.0722
+    ],
+    "colorInterpolationFilters": "sRGB",
+    "originalMotherRGBDrawCount": 1,
+    "generatedMarkupOrRepaintRGBAdopted": false,
+    "receiverIncludedInJ": true,
+    "JContainsOverlappingForegroundCoverage": true,
+    "JIsStandalonePortableCaster": false,
+    "maskPixelEditing": false,
+    "sourceRGBPixelEditing": false,
+    "thresholdMorphology": false,
+    "travel": 0,
+    "slope": 0,
+    "perspective": 0,
+    "independentPropOrReceiverMovementAllowed": false
+  },
+  "producerReview": {
+    "personallyViewedCompleteMother": true,
+    "personallyViewedSameMotherBG": true,
+    "personallyViewedNativeFinalComposition": true,
+    "method": "Existing Chrome extension browser1, CUA DOM navigation and advertised tab CDP Page.captureScreenshot at actual CSS content rectangles; original screenshot PNG bytes saved unchanged.",
+    "observationPage": "joint-observe-v4.html",
+    "evidence": "browser-observations/final-v2",
+    "observed": [
+      "whole source and final composite",
+      "full contour light/dark/checker",
+      "complete face and fine external hair",
+      "book/retaining fingers and continuous knee skin",
+      "skirt and side palm source-local cushion support",
+      "two entire platform boots/laces/soles and source-local soft floor contact"
+    ],
+    "result": "Producer recommends root static review. Root layer approval, integrated runtime, animation and 360 exact activity credit remain false.",
+    "supersedes": "assembly-joint-v1.json (historical single-J candidate)",
+    "sourceBoundaryNote": "Hair and hand keep fine original light-colored outline; only fixed same-mother use is proposed, not freeform moving cutout."
+  },
+  "primaryLayerApproved": false,
+  "runtimeRegistered": false,
+  "runtimeAccepted": false,
+  "dynamicAdmission": false,
+  "original360Credit": false,
+  "userApproved": false,
+  "sharedRegistryOrCodeChanged": false,
+  "newTests": false,
+  "cleanupPerformed": false
+}

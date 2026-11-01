@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-10-26T05:56:17.123Z",
+  "assetRole": "same-canvas clean empty-room BG candidate from approved healthy complete mother",
+  "productionMode": "built-in image_gen.imagegen edit",
+  "requestRecord": "bg-v1.request.json",
+  "exactPromptRecord": "bg-v1.prompt.txt",
+  "onlyInput": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-25-literary-room/soyo/apricot-wardrobe-correction-v2/soyo-resume-apricot-literary-v2.png",
+    "sha256": "4381d5f5faeeeedf1b84bf9e69bad71fe4a6dc06a7d8653c8b1f88b48c559cbe",
+    "role": "only complete healthy mother; no mask, composite screenshot or rejected neutral used",
+    "canvas": [
+      1536,
+      1024
+    ]
+  },
+  "artifact": {
+    "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/soyo/resume-apricot-v2-layers/bg/soyo-resume-apricot-v2-bg-v1.png",
+    "sha256": "99cffbe34a3eb29604a885d813c93049180106325115adccfb07c8621a0bafd8",
+    "bytes": 2452751,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "originalToolOutput": "C:/Users/17601/.codex/generated_images/01a176a2-9a91-77a2-ad66-f9dcb620a2ba/exec-69d9a761-bab8-4055-ba84-fd675a5aec8a.png",
+    "originalToolOutputSha256": "99cffbe34a3eb29604a885d813c93049180106325115adccfb07c8621a0bafd8",
+    "copiedByteIdentical": true,
+    "notResizedOrReencoded": true
+  },
+  "toolOutputHint": "Generated images are saved to C:\\Users\\17601\\.codex\\generated_images\\01a176a2-9a91-77a2-ad66-f9dcb620a2ba as C:\\Users\\17601\\.codex\\generated_images\\01a176a2-9a91-77a2-ad66-f9dcb620a2ba\\exec-69d9a761-bab8-4055-ba84-fd675a5aec8a.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+  "visualObservation": {
+    "reviewer": "mygo_review_consistency",
+    "viewedSourceCompleteOriginal": true,
+    "viewedReturnedCompleteBG": true,
+    "personAndHeldBookRemoved": true,
+    "redRibbonBookmarkRemoved": true,
+    "visibleHumanGhostOrDetachedPropObserved": false,
+    "newBookInRemovedAreaObserved": false,
+    "furnitureOrCameraShiftObserved": false,
+    "roomSpecificObservation": [
+      "原人物从头发至双鞋全部不见，膝上整本书、所有持书页和红书签未残留。",
+      "原座位处恢复连续米白坐垫与木前沿，没有可见人形轮廓或人形压陷；窗框/湖景在原被遮挡处自然续上。",
+      "鞋与鞋影原占据的地板恢复连续木纹与既有窗光，未观察到额外鞋、局部人影或书影。",
+      "左侧书桌木椅、台灯及桌上既有书，左近边几灯花杯与书、右侧格纹枕与织物位置保持；环境书不是本次移除对象。",
+      "窗外湖城、窗帘、日光与整体暖杏色调在全画面一致；没有新天气、新家具或新物体替补人物。"
+    ],
+    "observationLimit": "视觉观察未发现上述缺陷，不声称未编辑区域像素完全相同；尚待主代理完整亲看及F/S合成验收。"
+  },
+  "producerDisposition": "BG candidate visually suitable for parent full-original review and composition only",
+  "primaryApproved": false,
+  "runtimeRegistered": false,
+  "srcOrGlobalLedgerEdited": false,
+  "newWeatherOrCharacterProduction": false,
+  "futureGenerationInputApprovalGranted": false
+}

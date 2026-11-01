@@ -1,0 +1,34 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "first figure F selection",
+  "exactRequest": {
+    "prompt": "Use case: precise-object-edit. Produce an EXACT SAME-CANVAS 1536×1024 FIGURE luminance mask F from this approved mother image, the only image input. Do not redesign, re-center, rescale or translate the figure. Trace her actual existing outline at its original pixel locations.\n\nMake the complete girl and the closed blue BOOK ON HER LAP pure opaque WHITE: all fine hair and ribbons, face, neck, cardigan sleeves, both actual hands and all fingers, blouse/ribbon, every edge of the navy plaid skirt, exposed knees, both bent lower legs, both dark socked feet and all visible sock toes. Her side-folded legs extend LEFTWARD along the cushion around x850..1250,y440..590; include the actual full narrow sock-toe outline and every original skirt corner, not an upright sitting replacement. Keep natural small gaps within hair and between body/arm where the original room truly shows through as black. Preserve thin original-edge antialias but no broad white halo.\n\nTurn EVERY other original pixel pure BLACK, including all cushions, pillows, throw, window/lake/town, lamp, plants, shelves, desk/chair, table flowers/cup/books, floor and rug. IMPORTANT: the detached PAIR OF BROWN LOAFERS on the FLOOR stay BLACK: these are fixed background props, not part of F. The closed blue book resting in her lap stays WHITE as a real held object; table books stay BLACK.\n\nReturn only an opaque black image with the complete exact existing person-and-held-book silhouette white, full original 1536×1024 frame. No colored image, new anatomy, new pose, inferred hidden limbs, broad receiving cushion, floor shadows, crop, zoom, padding change, label, border, guide mark, checkerboard or transparency. This is a selection of existing source pixels, not new character art.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/sakiko-rest-apricot-sidefold-included-v1-mother.png"
+    ],
+    "transparent_background": false
+  },
+  "inputSha256": "ffc1c69e351ce6466806c4136fb9ed21a065bbe3fd574858489c070daad1eb19",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-3caf-7462-9134-40d17eea23a0\\exec-2b14e54c-ad22-4aed-a9f1-0279f1c3b4db.png",
+  "output": {
+    "path": "figure-mask-v1.png",
+    "file": "figure-mask-v1.png",
+    "sha256": "6db71cea9052f3e42fe5fdd0d90c5adfee9c00c95b01aa10124f42db38b204b7",
+    "bytes": 478586,
+    "actualSize": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "promptFile": "figure-mask-v1.prompt.txt",
+  "promptFileSha256": "bcd0065c9571281d9a5807cd87c350a9fe1cdf7c3b8b34e5e0061ac93a09b82b",
+  "selectedForCurrentBundle": false,
+  "issue": "Internal face/clothing/book linework remained dark inside F; it would leave holes. Superseded by v2 mask-only correction.",
+  "review": {
+    "productionAgentViewed": true,
+    "primaryApproved": false,
+    "runtimeAccepted": false
+  },
+  "boundary": "This is a source-aligned fixed layer/selection candidate. No PNG pixels were edited by script. Original mother RGB is used exactly once through SVG MAX luminance union; no threshold, dilation, edge repaint or geometry patch."
+}

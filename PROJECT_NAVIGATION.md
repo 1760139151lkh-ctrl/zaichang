@@ -6,13 +6,17 @@
 
 ## 本轮接续与视觉资产
 
+2026-10-31 图片整理入口为[分类总库](前端视觉创新设计/分类总库/README.md)。A/B/C 精选稿、补充稿、程序素材、来源制作记录、统一图库、过程与历史截图和逐张查看的会话原图已迁入。相同文件按 SHA-256 归并，旧会话路径的必要硬链接与分类原件共享同一文件数据。迁移和去重明细位于本机 `output/2026-10-31-任务与图片整理/`，该目录不作为公开素材。
+
+本地主线同步范围、迁移后运行依赖修复与本次检查见[2026-10-31 同步记录](docs/GITHUB_SYNC_2026-10-31.md)；历史同步档案不代替当前远端回执。
+
 2026-10-26当前前端入口是[同一实施记录](docs/evidence/2026-10-26-frontend-reassessment.md)的第二次复审部分。`App.tsx`维护独立封面，并复用原对话、输入、准备材料和阅读窗宿主；`Navigation.tsx`分别提供伙伴、光线与设置入口。`coherent-desk.css`整合完整房间与原生纸面；`WorkspaceScenery.tsx`负责近桌/共读/日程环境，`companion-d01-motion.tsx`负责同母图的局部眼部层。`EdgeCompanion.tsx`、`edge-companion-geometry.ts`与`companion-scenes.tsx`维护实际可见家具、人物和纸边落点，不能跨不相容母图套坐标。
 
-本轮精选图/补片、精确输入输出SHA、原Prompt及当前引用见[24张资产索引](前端视觉创新设计/来源记录/2026-10-26-coherent-experience/asset-index.json)。比较稿在`补充图稿/2026-10-26-coherent-experience`，新运行图在`运行素材/coherent-desk`；固定完整场景及复用休息联合层仍在`运行素材/companion/scenes`。被拒720p视频仅保留本机拒绝证据，不进入运行引用和源码同步。第一轮`workspaces`资产及其索引保留历史范围，当前并未继续引用已替换的空桌Keep背景。
+本轮精选图/补片、精确输入输出SHA、原Prompt及当前引用见[24张资产索引](前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-coherent-experience/asset-index.json)。比较稿在`分类总库/03-补充设计稿/补充图稿/2026-10-26-coherent-experience`，新运行图在`分类总库/01-程序素材/coherent-desk`；固定完整场景及复用休息联合层仍在`分类总库/01-程序素材/运行素材/companion/scenes`。被拒720p视频仅保留本机拒绝证据，不进入运行引用和源码同步。第一轮`workspaces`资产及其索引保留历史范围，当前并未继续引用已替换的空桌Keep背景。
 
 用户最新授权的两个Luna Max只做旧资产只读整理；主代理独立承担设计、改码、集成和实际验收，不扩大为十二阶段固定八人研发。
 
-助手选句/整公式沿`AssistantTextSource.tsx → RichText.tsx/LocalTextFocus.tsx → App.tsx → shared/workspace-context.ts → main/storage/repository.ts`传原文地址。`workspace-return.ts`恢复同地址；`runtime/context.ts`和`runtime/coordinator.ts`核原来源并登记回执。资产采用及对应源码见[本轮索引](前端视觉创新设计/来源记录/2026-10-26-product-reassessment/asset-index.json)。
+助手选句/整公式沿`AssistantTextSource.tsx → RichText.tsx/LocalTextFocus.tsx → App.tsx → shared/workspace-context.ts → main/storage/repository.ts`传原文地址。`workspace-return.ts`恢复同地址；`runtime/context.ts`和`runtime/coordinator.ts`核原来源并登记回执。资产采用及对应源码见[本轮索引](前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-product-reassessment/asset-index.json)。
 
 [核心技能完整目录](核心技能/README.md)分别提供[前端设计](核心技能/前端设计/SKILL.md)、[后端设计](核心技能/后端设计/SKILL.md)和[Gemini 视频生成](核心技能/Gemini视频生成/SKILL.md)。每份保留全部配套文件；前后端的日常维护源仍在 `.agents/skills`，醒目目录与维护源同步更新。仓库同步范围见[2026-10-24 同步说明](docs/GITHUB_SYNC_2026-10-24.md)。
 
@@ -38,7 +42,7 @@
 | [后端与Harness总监技能](.agents/skills/zaichang-backend-director/SKILL.md)                                                          | 六层记忆、Hermes主循环、十角色活人演出、边做边说、主动陪伴、OpenUI与跨端扩展(`X01–X16`)永久规范  |
 | [前端与视觉总监技能](.agents/skills/zaichang-frontend-director/SKILL.md)                                                            | 窗边在场美学、十角色多维矩阵、四步同景生图管线、光学对齐与交互动效永久规范                       |
 
-`前端视觉创新设计`是全部前端视觉来源和资产的统一入口。旧[统一图库](前端视觉创新设计/统一图库/README.md)与[来源记录](前端视觉创新设计/来源记录/)提供历史路径；本轮分类、剔除和新路径以catalog为准，不能用旧数量/approval字段恢复已删除错图。最初[图片来源对话](前端视觉创新设计/图片来源对话.md)保留原文。
+`前端视觉创新设计`是全部前端视觉来源和资产的统一入口。旧[统一图库](前端视觉创新设计/分类总库/05-图库候选/统一图库/README.md)与[来源记录](前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/)提供历史路径；本轮分类、剔除和新路径以catalog为准，不能用旧数量/approval字段恢复已删除错图。最初[图片来源对话](前端视觉创新设计/图片来源对话.md)保留原文。
 
 本轮起点`2155a0e`已包含盘点的五个分支提交。最终远端头统一与保存状态以本轮实际Git回执为准；源码、旧EXE和公共review不是同一发布基线。
 

@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "tool": "image_gen.imagegen",
+  "characterId": "anon",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "recordedAtUtc": "2026-10-26T03:16:58.980242+00:00",
+  "stage": "figure-step1-marked-v2",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/anon/day/mother.png",
+      "sha256": "a7a8454ad67c374244dcc919a6af754c9e9fa2c153617584cce4f7dadafe0920",
+      "bytes": 2496553
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: precise-object-edit. On this exact clean primary-approved Anon TIME-ONLY DAY mother, create F1 deliberate solid WHITE foreground SELECTION MARKUP. Full1536×1024 canvas and every source coordinate unchanged. Do not redraw person, pose, paper, light or room.\nPaint featureless solid PURE WHITE over the ENTIRE visible girl AND the COMPLETE small folded-paper piece between both hands. Include every fine long pink hair strand, all face/head/ears/neck, blazer/shirt/tie/skirt/outer pleated hem, complete arms/wrists/hands/fingers, ALL the held folded-paper object including dark fold lines and thin paper edges, bare thighs/knees, knee socks and both COMPLETE black loafers including straps/toes/sidewalls/outsoles/heels. Fill every hand line, paper fold, garment seam or shaded internal detail pure white; no colored/gray/black mark remains inside the selected hand-and-paper union. Shoes filled fully white to their actual full outer edge, no shrink/eroded contour.\nKeep REAL outside gaps between separated hair strands and between legs ORIGINAL COLORED ROOM. No new holes in face/neck/tie/torso/wrist/paper/lap. Only actual outside negative space remains colored. All unselected room stays original color: curtains, lamp/table/books/flowers, linen/bench/pillows/knit, desk/chair/shelves/plants, wood floor/rug and separate contact shadows. No expanding silhouette, floor ring, labels, crop, checkerboard, resize or transparency. Exact full opaque original scene with only girl+whole held paper deliberately flat white. This is selection, not new character RGB.",
+  "promptFile": {
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/anon/day/figure-step1-marked-v2.prompt.txt",
+    "sha256": "f2c06733c432926f44c78292a332dc6856a69eee8dff9ce7ec5ede4374696e08",
+    "bytes": 1573
+  },
+  "toolOriginal": {
+    "path": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-6d0f-74b2-b205-667f6c3b967b\\exec-9f156daf-9eec-4b12-a61e-1ceb71e217e1.png",
+    "sha256": "f6f2c1a5ba6a56962be944dd1fad6c9649133ab5402e36904d0bee335c973183",
+    "bytes": 2196046
+  },
+  "output": {
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/anon/day/figure-step1-marked-v2.png",
+    "sha256": "f6f2c1a5ba6a56962be944dd1fad6c9649133ab5402e36904d0bee335c973183",
+    "bytes": 2196046,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "pngBytesUnchanged": true,
+  "producerStatus": "actual_output_viewed_pending_original_RGB_browser_review",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "original360ExactActivityCell": false,
+  "generationInputAllowed": true
+}

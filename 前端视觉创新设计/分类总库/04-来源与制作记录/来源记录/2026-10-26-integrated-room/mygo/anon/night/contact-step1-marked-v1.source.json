@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "tool": "image_gen.imagegen",
+  "characterId": "anon",
+  "purpose": "neutral-presence",
+  "neutralTime": "night",
+  "environmentBasis": "time",
+  "weather": "unknown",
+  "recordedAtUtc": "2026-10-26T03:27:23.633685+00:00",
+  "stage": "contact-step1-marked-v1",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/anon/night/mother.png",
+      "sha256": "b8c250ba5b96fa1f8d0710adb8426758875861e628697efa121034053304b2d8",
+      "bytes": 2155733
+    }
+  ],
+  "exactSubmittedPrompt": "Use case: precise-object-edit. On this exact primary-approved Anon time-only NIGHT mother, create S1 deliberate white local RECEIVER SELECTION MARKUP, full1536×1024 and original coordinates unchanged. No scene redraw.\nPaint PURE WHITE over BOTH COMPLETE black loafers and their actual tight source-local floor-contact shadow/wood receiver, as one continuous selected region per shoe. Include every real upper outline, whole toe/sidewall/outsole/heel; all internal shoe lines featureless WHITE. Select only actual short dark wood receiving area touching each sole, about8..20px beyond where actual shadow exists. Existing outer contact transitions feather softly back into original floor color over about8px, not a hard pointed wedge, detached ellipse or broad floor strip. No black moat at shoe edges.\nAlso WHITE the short real linen compression/contact immediately beneath skirt/hip at its actual bench support and any real cloth receiver touching the seated hem, tightly local, never an empty bench strip. Held paper has no separate bench contact; it stays original colored. All girl above shoe openings, socks, hands, paper, hair/face/body remain colored. All unrelated room/curtains/lamp/flowers/table/empty cushion/pillows/knit/plants/floor/rug and shadows remain original colored. No text, outlines, new objects, recenter/crop/resize/transparency. Output full opaque original RGB scene with only actual shoes+local receiver deliberately white; fixed included original material, no independent moving shadow.",
+  "promptFile": {
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/anon/night/contact-step1-marked-v1.prompt.txt",
+    "sha256": "af1d53de2df5eefdbb66d0bbe795f2e2e44e220990c5d22febd27cb75cf08dad",
+    "bytes": 1516
+  },
+  "toolOriginal": {
+    "path": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-6d0f-74b2-b205-667f6c3b967b\\exec-af69f2c9-7ce8-43e8-9a59-9124bd757a00.png",
+    "sha256": "8f11640f8a62378476bd5646194f01372f5a6fa2f201256860357ad61b484da4",
+    "bytes": 2048007
+  },
+  "output": {
+    "path": "前端视觉创新设计/分类总库/04-来源与制作记录/来源记录/2026-10-26-integrated-room/mygo/anon/night/contact-step1-marked-v1.png",
+    "sha256": "8f11640f8a62378476bd5646194f01372f5a6fa2f201256860357ad61b484da4",
+    "bytes": 2048007,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "pngBytesUnchanged": true,
+  "producerStatus": "actual_output_viewed_pending_original_RGB_browser_review",
+  "primaryLayerApproved": false,
+  "runtimeAccepted": false,
+  "original360ExactActivityCell": false,
+  "generationInputAllowed": true
+}

@@ -1,0 +1,40 @@
+{
+  "tool": "built-in image_gen",
+  "kind": "image-led-conversation-state-design-guide",
+  "stateId": "05-long-sources-adjustable",
+  "stateName": "长回复与来源/可调对象",
+  "theme": "day",
+  "exactRequest": {
+    "prompt": "Create ONE1536×1024 full-bleed desktop app screen. The attached clean empty literary room is the ONLY image input. The room ITSELF fills the application window: no nested floating app window, no modal, no duplicate titlebar, no full-screen card. Keep its original camera, original window divisions, left desk/chair, LEFT-CENTRAL lamp/table, right bench and floor in place. No person/avatar.\n\nUse the SAME simple geometry in every frame: full-width72px top navigation, “在场” at(40,36), “聊天 今天 留下” centered around(768,36), CHAT ONLY underlined; quiet window controls far top-right. Text starts at x112,y128, readable22px/35px, maximumright952px. One bottom composer left88/right1018/bottom952, normalheight72. It only grows upward for a quote/PDF row, never moves sideways or becomes a different input. The rightmost third x1024..1536 stays only scenery below top72. One small plus left, one send arrow OR stop square right. No extra page title, welcome heading, date, subtitle, instructions or always-visible button strip.\n\nThe experience is one ongoing conversation. Render ONLY the requested words/actions below, no invented passages. Separate authors by a small name/space; never put each paragraph inside a card. Keep prose continuous and references immediately beside the relevant sentence. Source attachments are tiny upright dark-red book covers with short labels, not wide file bars or large PDF logos. A selected phrase has a contextual action ONLY when specified.\n\nMaterial stays inside the original room's light field. Glyphs are solid and legible. Quiet only the actual text region with a subtle continuous room-lit local veil whose edges dissolve, WITHOUT a big opaque rectangle, large white board, huge brown block or separate panel. Room continuity and reading contrast must coexist. No green UI, screenshot collage, design labels, guide grid or changes to scenery.\n\nFINAL GEOMETRY: one outer app window = entire1536×1024 image; full-width topnav72; one LEFT-ALIGNED composer x88..1018 bottom952; leave source x1024..1536 below top72 unoverlaid. Do not draw an inset app window.\n\nDAY variant. Keep the plate's actual warm apricot daylight, natural blue lake and golden tree/window light. Conversation ink is deep warm charcoal/brown on a thin local warm-ivory writing support where needed, never transparent gray letters. Composer is quiet warm-ivory translucent glass with brown glyphs and muted honey accent. The room stays daylight; do not darken it or add rainy-night lights.\n\nHISTORY CONTENT REQUIREMENT: This is a single MATHEMATICS conversation with author labels“我”and“祥子”only. Always retain the exact sent user question“这两处都说‘自由度’，是在说同一件事吗？” and exactly TWO TINY red book-cover objects“线代”“微分”near it, never wide attachment bars. Do not substitute philosophical dialogue or introduce other authors/book titles. No duplicate question. No nested floating app window.\n\nThis frame is a FINISHED LONG RESPONSE WITH A SMALL DIRECTLY ADJUSTABLE MATHEMATICAL OBJECT. Same sent question/two PDF objects at top, same column. “祥子” at x112,y282. Render one flowing response without paragraph cards, in22px/35px:\n“它们都在数：约束之后，还能独立选择多少。\n对 Ax = 0，n 个未知量受到 rank(A) 个独立约束，所以剩下 n − rank(A) 个自由变量。” Put the small link “线代 · 第13页” beside that paragraph.\n“另一个例子是 y″ + y = 0，它的解可以写成 y = a cos x + b sin x。两个初值决定 a 和 b。” Put “微分 · 第2页” beside that paragraph.\n“我们先保留这个共同点，再回到两页各自的条件。”\nBelow on the SAME writing lane, around x112..900,y625..800, show a finely drawn warm curve y = a cos x + b sin x, with visible point values consistent with a=1.0,b=0.5: y(0)=1, y(π/2)=0.5, y(π)=-1, y(3π/2)=-0.5,y(2π)=1. Two small direct parameter lines “a  1.0” and “b  0.5” have simple draggable thumbs, no big plotting toolbar. The plot is an inline shared piece of thinking, no separate black engineering card or white panel. No selection and therefore no “问这句/接着问” toolbar. The composer holds current unfinished draft “那这里的‘独立’……” at the fixed bottom.\n\nSTRICT SOURCE OBJECTS: the only attachments are TWO TINY red BOOK-COVER rectangles labelled线代/微分, around38×52px, beside each other. Do NOT print PDF logos or wide attachment filename bars, English course names, transcript labels, giant source badges or metadata. Actual source links stay small beside answer text. Entire original room stays unchanged, especially original LEFT-CENTRAL lamp/table, desk/chair and window proportions; do not crop/zoom/reframe to fit text. Exactly one full-bleed app, no nested window. Chat ONLY active. One continuous conversation and the fixed lower-left input. No new content beyond requested text.",
+    "referenced_image_paths": [
+      "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-clear-day-v1.png"
+    ],
+    "transparent_background": false
+  },
+  "inputSha256": "f9a1a6a33c682a27dd2a8bf40ff361e0c9ceed52bbc7bd811db70694bef8664c",
+  "toolOriginalPath": "C:\\Users\\17601\\.codex\\generated_images\\01a17613-3caf-7462-9134-40d17eea23a0\\exec-dea318c1-545c-4149-982d-14c4f71cc781.png",
+  "output": {
+    "path": "05-long-sources-adjustable-day-v6.png",
+    "sha256": "a50596f973bbbb4d9d98f059684e0bc6d6616ca0f13107112c2ea2dd667d364f",
+    "bytes": 2050288,
+    "actualSize": [
+      1536,
+      1024
+    ],
+    "mode": "RGB"
+  },
+  "promptFile": "05-long-sources-adjustable-day-v6.prompt.txt",
+  "promptFileSha256": "31177ef56776e54e485f42c297e576f9d3f1af9165a339d70f057fa6f6f6cc6a",
+  "selectedForPrimaryProcessReview": true,
+  "review": {
+    "productionAgentViewed": true,
+    "primaryApproved": false,
+    "runtimeAccepted": false,
+    "adopt": "长文连续排版，源链接紧邻对应论述；可调对象在同一段工作里，输入仍在原位置。",
+    "doNotCopy": "图中的曲线/刻度仅作视觉构想，局部形状不准确，绝不是计算证据；真实组件必须由公式和program当前inputs计算。不得截长文、缩字或贴整张图。"
+  },
+  "commonGeometryRecord": "../PROCESS_GRID_AND_DECISIONS.md",
+  "geometryBoundary": "All states share one declared grid and one composer/state identity. These generated rasters are relationship guides, not separate coordinate/furniture authorities; model output varies slightly. Code must use the shared grid and original room plate, not load a different page screenshot/background for each state.",
+  "dataBoundary": "Public mathematical sample backed by verified MIT source pages. No private user PDF/chat was transmitted. Artwork is not an import/query/action receipt or proof that any feature ran.",
+  "characterBoundary": "No new human figure, face, persona or character matrix asset was generated. No UI/poster/old person screenshot was supplied as image input."
+}

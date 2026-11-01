@@ -1,0 +1,22 @@
+{
+  "generator": "image_gen",
+  "source": "C:\\Users\\17601\\Documents\\ChatGPT\\在场\\前端视觉创新设计\\分类总库\\04-来源与制作记录\\来源记录\\2026-10-26-product-reassessment\\held\\today-sakiko-day-v1.png",
+  "sha256": "c3372a4a09dbbe9cf7cd69ae517b7c0c44fb09edd4c15e26147f065e0bbe64e5",
+  "runtime": null,
+  "prompt": "Edit the FIRST reference only by adding Toyokawa Sakiko naturally seated on the existing wooden bench at the far RIGHT. Preserve the first reference's EXACT 1536x1024 canvas, camera, architecture, empty left wall, floor, lamp, flowers and bench geometry. The second reference is the approved youthful face identity only. This is a refined anime / realistic architectural illustration for a calm desktop companion, not a promotional portrait. Sakiko: original youthful Ave Mujica recognition, pale periwinkle long hair with two deep navy ribbons, golden eyes, softly rounded youthful cheeks, slender youthful jaw; NOT mature, NOT baby/chibi. Outfit is an original literary everyday outfit: navy cardigan over ivory collared blouse with a narrow navy ribbon, modest navy grey checked skirt reaching near her knees, calf-length navy socks stopping below the knees, brown loafers. Put her on the RIGHT end of this real bench. Approximate source-space anchors: crown around (1375,535), pelvis genuinely supported by bench seat around (1370,842), knees extending gently toward lower-left around (1245,885), loafers resting on the real foreground paving around (1210,994) and (1300,1002), all shoes inside the canvas. Use these only to guide sensible anatomy, never stretch limbs to force coordinates. Correct hip-thigh-knee-shin-ankle connection, believable gravity, two complete arms/hands, leg lengths and perspective. Knees together, shins angled naturally, no crossed legs. Both feet meet the floor with soft contact shadows; thighs rest on the actual seat. Hair and cardigan lie against the bench, not float. She looks toward us with a quiet, friendly and slightly curious expression, hands loosely resting on one knee, leaving part of the other thigh free. A small closed book rests on the bench beside her. Keep her within the right third; the huge left wall remains absolutely untouched and empty for REAL UI. Match warm late morning sunlight, real cast shadows and warm edges of first reference. Do not add cats, typography, icons, interface, speech balloons, watermarks, additional people or new furniture. Do not redraw or crop the scene; the bench arm must correctly occlude what lies behind it. This first whole-scene mother will later be separated into exact same-canvas layers, so continuity is essential.",
+  "transparent_background": false,
+  "inputs": [
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/01-程序素材/运行素材/workspaces/today-apricot.png",
+      "sha256": "eea0f2d6b3307530fa641286f441faecc9c870d14e09e19237fc97ba788fa89d"
+    },
+    {
+      "path": "C:/Users/17601/Documents/ChatGPT/在场/前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/portraits/sakiko-user-selected-youth-avatar-20261025.png",
+      "sha256": "bc92a4e0096411b0e58b5e4dfc12d61b48bf255f0fd7a544c039ae9e4cd7fc32"
+    }
+  ],
+  "review": "Held: loafers touch/crop the bottom edge. Do not use as generation reference. The replacement uses the clean environment and approved avatar.",
+  "runtimeVerified": false,
+  "runtimeAllowed": false,
+  "generationInputAllowed": false
+}
