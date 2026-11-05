@@ -2237,6 +2237,8 @@ export class KernelRepository {
     const denied = this.conversationPlanningMetadata(sessionId).filter(row => !this.planningMessageReadable(handle, row.value)).map(row => row.id);
     const rows = this.db.prepare(`SELECT m.id,m.role,CASE WHEN m.role='user' THEN (SELECT content FROM h_evidence WHERE id=m.id) ELSE m.content END AS content,m.created_at,
       json_extract(m.payload,'$.status') AS reply_status,
+      json_extract(m.payload,'$.authorName') AS author_name,
+      json_extract(m.payload,'$.authorCompanionId') AS author_companion_id,
       CASE WHEN m.role='user' THEN (SELECT version FROM h_evidence WHERE id=m.id) END AS content_version,
       CASE WHEN m.role='user' THEN (SELECT json_extract(payload,'$.imageSource') FROM h_evidence WHERE id=m.id AND json_extract(payload,'$.kind')='user_message') END AS image_source,
       CASE WHEN m.role='user' THEN (SELECT json_extract(payload,'$.sourceContext') FROM h_evidence WHERE id=m.id) END AS source_context FROM messages m
@@ -2259,6 +2261,8 @@ export class KernelRepository {
     for (const row of rows) this.recordAccess(handle, { ...row, source: 'history:self' }, 'conversation_history');
     return rows.reverse().map(row => ({ id: String(row.id), role: row.role as 'user' | 'assistant', content: String(row.content), createdAt: String(row.created_at),
       ...(row.role === 'assistant' ? assistantReplyState(row.reply_status) : {}),
+      ...(row.role === 'assistant' && row.author_name ? { authorName: String(row.author_name) } : {}),
+      ...(row.role === 'assistant' && row.author_companion_id ? { authorCompanionId: String(row.author_companion_id) } : {}),
       ...(row.role === 'user' ? { contentVersion: Number(row.content_version) } : {}),
       ...(row.role === 'user' ? { ...sourceImageProjection(row.image_source, String(row.id), Number(row.content_version)), ...this.messageImageAttachments(handle, String(row.id)) } : {}),
       ...sourceContextProjection(row.source_context) }));
@@ -2297,12 +2301,14 @@ export class KernelRepository {
     const f = this.filter(handle);
     let row = this.db.prepare(`WITH eligible AS MATERIALIZED(
       SELECT r.id,r.seq,r.content,r.version,m.created_at,json_extract(r.payload,'$.sourceContext') AS source_context,
+        json_extract(m.payload,'$.authorName') AS author_name,
+        json_extract(m.payload,'$.authorCompanionId') AS author_companion_id,
         CASE WHEN json_extract(r.payload,'$.kind')='user_message' THEN json_extract(r.payload,'$.imageSource') END AS image_source FROM h_evidence r JOIN messages m ON m.id=r.id
       WHERE ${f.sql} AND m.session_id=? AND m.role='user' AND r.status='active'
       AND r.id NOT IN (SELECT value FROM json_each(?))
       AND NOT EXISTS(SELECT 1 FROM h_source_restrictions x WHERE x.event_id=r.id)),
       scored AS (SELECT e.*,(${grams.map(() => 'CASE WHEN instr(lower(e.content),?)>0 THEN 1 ELSE 0 END').join('+')}) AS matches FROM eligible e)
-      SELECT id,content,version,created_at,source_context,image_source FROM scored WHERE matches>0 ORDER BY matches DESC,seq DESC LIMIT 1`).get(
+      SELECT id,content,version,created_at,source_context,image_source,author_name,author_companion_id FROM scored WHERE matches>0 ORDER BY matches DESC,seq DESC LIMIT 1`).get(
       ...f.params, sessionId, JSON.stringify(excludeIds), ...grams,
     );
     // A deictic follow-up can share no literal bigram with its earlier
@@ -2310,6 +2316,8 @@ export class KernelRepository {
     // retain one substantial older user statement as a candidate. Its length
     // is only a retrieval fallback, never evidence that it is still the topic.
     if (!row) row = this.db.prepare(`SELECT r.id,r.content,r.version,m.created_at,json_extract(r.payload,'$.sourceContext') AS source_context,
+      json_extract(m.payload,'$.authorName') AS author_name,
+      json_extract(m.payload,'$.authorCompanionId') AS author_companion_id,
       CASE WHEN json_extract(r.payload,'$.kind')='user_message' THEN json_extract(r.payload,'$.imageSource') END AS image_source FROM h_evidence r JOIN messages m ON m.id=r.id
       WHERE ${f.sql} AND m.session_id=? AND m.role='user' AND r.status='active'
       AND r.id NOT IN (SELECT value FROM json_each(?))
@@ -2318,6 +2326,8 @@ export class KernelRepository {
     if (!row) return null;
     this.recordAccess(handle, { ...row, source: 'history:self' }, 'conversation_anchor');
     return { id: String(row.id), role: 'user' as const, content: String(row.content), contentVersion: Number(row.version), createdAt: String(row.created_at),
+      ...(row.author_name ? { authorName: String(row.author_name) } : {}),
+      ...(row.author_companion_id ? { authorCompanionId: String(row.author_companion_id) } : {}),
       ...sourceImageProjection(row.image_source, String(row.id), Number(row.version)), ...this.messageImageAttachments(handle, String(row.id)),
       ...sourceContextProjection(row.source_context) };
   }
@@ -4208,7 +4218,9 @@ export class KernelRepository {
     const envelope = this.assistantHistoryEnvelope(handle, true);
     if (!envelope || this.hasFence('history:self') || this.hasFence(messageId, 'history:self')) return;
     const row = this.db.prepare(`${envelope.permitted} SELECT p.id,p.session_id,p.created_at,
-      note_codepoint_length(m.content) AS code_points,json_extract(m.payload,'$.status') AS reply_status
+      note_codepoint_length(m.content) AS code_points,json_extract(m.payload,'$.status') AS reply_status,
+      json_extract(m.payload,'$.authorName') AS author_name,
+      json_extract(m.payload,'$.authorCompanionId') AS author_companion_id
       FROM permitted p JOIN messages m ON m.id=p.id WHERE p.id=? AND p.session_id=? LIMIT 1`)
       .get(...envelope.params, messageId, sessionId);
     if (!row || !Number.isSafeInteger(row.code_points) || Number(row.code_points) <= 0) return;
@@ -4216,6 +4228,8 @@ export class KernelRepository {
     if (!source || !this.planningMessageReadable(handle, source.value, proofs)) return;
     return { messageId: String(row.id), sessionId: String(row.session_id), createdAt: String(row.created_at),
       codePoints: Number(row.code_points), status: String(row.reply_status), bodyProvided: false as const,
+      ...(row.author_name ? { authorName: String(row.author_name) } : {}),
+      ...(row.author_companion_id ? { authorCompanionId: String(row.author_companion_id) } : {}),
       ...assistantReplyState(row.reply_status) };
   }
   /** One explicit navigation step. Qualify the anchor and its immediate prior
@@ -4240,11 +4254,15 @@ export class KernelRepository {
     if (!identity) return;
     const source = this.conversationPlanningMetadata(sessionId, new Set([messageId]))[0];
     if (!source || !this.planningMessageReadable(handle, source.value, { checked: new Map(), permits })) return;
-    const body = this.db.prepare(`SELECT m.content,json_extract(m.payload,'$.status') AS reply_status FROM messages m
+    const body = this.db.prepare(`SELECT m.content,json_extract(m.payload,'$.status') AS reply_status,
+      json_extract(m.payload,'$.authorName') AS author_name,
+      json_extract(m.payload,'$.authorCompanionId') AS author_companion_id FROM messages m
       WHERE m.id=? AND m.session_id=? AND m.role='assistant' AND ${assistantReplyStatusSql()} LIMIT 1`).get(messageId, sessionId);
     if (!body) return;
     this.recordAccess(handle, { id: messageId, source: 'history:self' }, 'assistant_text_' + purpose);
     return { id: messageId, sessionId, createdAt: String(identity.created_at), text: String(body.content),
+      ...(body.author_name ? { authorName: String(body.author_name) } : {}),
+      ...(body.author_companion_id ? { authorCompanionId: String(body.author_companion_id) } : {}),
       assistantTextSources: (source.value.contextReceipt.assistantTextSources || []) as AssistantTextReference[],
       authority: 'assistant_history_not_user_fact' as const, ...assistantReplyState(body.reply_status) };
   }
@@ -4366,7 +4384,11 @@ export class KernelRepository {
     const metadata = new Map([...new Set([...candidates.map(row => String(row.session_id)), ...works.map(work => work.sessionId)])].flatMap(sessionId =>
       this.conversationPlanningMetadata(sessionId).filter(row => selected.has(row.id)).map(row => [row.id, row.value] as const)));
     const denied = [...metadata].filter(([, value]) => !this.planningMessageReadable(handle, value, proofs)).map(([id]) => id);
-    const rows = this.db.prepare(`${permitted} SELECT id,session_id,content,created_at,message_order,json_extract(payload,'$.status') AS reply_status FROM permitted WHERE id IN (SELECT value FROM json_each(?))
+    const rows = this.db.prepare(`${permitted} SELECT id,session_id,content,created_at,message_order,
+      json_extract(payload,'$.status') AS reply_status,
+      json_extract(payload,'$.authorName') AS author_name,
+      json_extract(payload,'$.authorCompanionId') AS author_companion_id
+      FROM permitted WHERE id IN (SELECT value FROM json_each(?))
       AND id NOT IN (SELECT value FROM json_each(?)) ORDER BY created_at DESC,message_order DESC LIMIT ?`).all(...params.slice(0, -1), JSON.stringify([...selected]), JSON.stringify(denied), Math.max(1, Math.min(options.limit || 8, 12)));
     for (const row of rows) this.access.push({ principalId: scope.principalId, scopeId: handle.id, purposes: scope.purposes, source: 'history:self', objectId: String(row.id), kind: 'assistant_original' });
     return rows.map(row => {
@@ -4378,6 +4400,8 @@ export class KernelRepository {
         ...chapters.map(work => ({ messageId: work.messageId, sceneId: work.scene.id, sceneRevision: work.scene.revision }))];
       return { id: String(row.id), sessionId: String(row.session_id), text: String(row.content), createdAt: String(row.created_at), authority: 'assistant_history_not_user_fact',
         ...assistantReplyState(row.reply_status),
+        ...(row.author_name ? { authorName: String(row.author_name) } : {}),
+        ...(row.author_companion_id ? { authorCompanionId: String(row.author_companion_id) } : {}),
         ...(anchor ? { position: String(row.created_at) < anchor.createdAt || String(row.created_at) === anchor.createdAt && Number(row.message_order) < anchor.ordinal
           ? 'before_anchor' as const : 'after_anchor' as const, anchorSource: anchor.ref } : {}),
         historicalWorks: chapters.map(({ scene, messageId }) => ({ kind: 'curiosity_chapter' as const, messageId,

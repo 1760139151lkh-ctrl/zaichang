@@ -347,13 +347,13 @@ export class ToolRegistry {
             ...(error.diagnostic.previous ? { previous: error.diagnostic.previous } : {}) },
           retry: error.code.startsWith('interactive_') || error.diagnostic.input || error.diagnostic.previous
             ? (programAttempt ? '这份稿还没发表，下面的批注留着具体缺口。' : '')
-              + '先把当前这一处接好；沿原作续改时，仍用那份原稿的来源和版本。已有说明够用就能继续改，缺哪部分再展开相应做法。新的可用部分做好以后，也能接回眼前的交流。'
-            : '这份理解还没保存，批注留下了缺口。可以对照原话、当时的条件和期限继续整理，说不准的先留着；眼前的问题仍可以先好好回答。',
+              + '先把当前这一处接好；沿原作续改时，仍用那份原稿的来源和版本。已有说明够用就能继续改，缺哪部分再展开相应做法。新的可用部分做好以后，也能接回眼前的交流。（注：diagnostic 仅供你内部修正调用，对用户说话时切勿复述“未通过校验/表达式报错”等内部校验术语，保持角色自然口吻。）'
+            : '这份理解还没保存，批注留下了缺口。可以对照原话、当时的条件和期限继续整理，说不准的先留着；眼前的问题仍可以先好好回答。（注：批注仅供内部修正，切勿向用户念出校验术语。）',
         } : {}),
         ...(error instanceof z.ZodError ? {
           fields: error.issues.slice(0, 12).map(issue => ({ path: issue.path.join('.'), code: issue.code, requirement: parameterRequirement(issue) })),
           ...(this.allSpecs().some(spec => spec.function.name === name) ? { usage: { tool: USE_TOOL, arguments: { name } } } : {}),
-          retry: '下面留着没填对的位置和需要的内容，完整用法也有入口可看。修好后可以接着办；若刚才涉及实际修改，先核对原动作的结果。',
+          retry: '下面留着没填对的位置和需要的内容，完整用法也有入口可看。修好后可以接着办；若刚才涉及实际修改，先核对原动作的结果。（注：字段校验信息仅供你修正参数，对用户说话时保持自然人话，不要复述内部报错。）',
         } : {}),
       };
       (this.run.observations ||= []).push({ tool: name, requestedArguments, result: failedResult, ...(toolCallId ? { toolCallId } : {}) });

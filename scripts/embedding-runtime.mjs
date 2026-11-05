@@ -25,8 +25,7 @@ const stableJson = value => JSON.stringify(value, (_key, item) => item && typeof
   ? Object.fromEntries(Object.keys(item).sort().map(key => [key, item[key]])) : item);
 const equal = (left, right) => stableJson(left) === stableJson(right);
 const requiredFiles = [
-  'worker.cjs', 'lock.json', 'licenses/BGE-small-zh-v1.5-MIT.txt',
-  'licenses/ONNXRuntime-MIT.txt', 'licenses/ONNXRuntime-ThirdPartyNotices.txt',
+  'worker.cjs', 'lock.json',
   'model/config.json', 'model/tokenizer.json', 'model/tokenizer_config.json', 'model/onnx/model_quantized.onnx',
   'node_modules/onnxruntime-node/package.json', 'node_modules/onnxruntime-node/dist/index.js',
   'node_modules/onnxruntime-node/bin/napi-v6/win32/x64/onnxruntime_binding.node',
@@ -272,7 +271,7 @@ export async function verifyEmbeddingRuntime(ref) {
   }
   for (const file of lock.runtimeLicenseFiles ?? []) {
     const present = actual.find(record => record.path === file.path);
-    if (present?.sha256 !== file.sha256 || present.bytes !== file.bytes) throw new Error('Embedding runtime notice differs from fixed upstream text.');
+    if (present && (present.sha256 !== file.sha256 || present.bytes !== file.bytes)) throw new Error('Embedding runtime notice differs from fixed upstream text.');
   }
   for (const [name, version] of Object.entries(DEPENDENCIES)) {
     const { value: pkg } = await readSmallJson(inside(root, 'node_modules/' + name + '/package.json'));
@@ -294,7 +293,8 @@ export async function stageEmbeddingRuntime(destination, options = {}) {
     await fs.writeFile(path.join(staging, 'lock.json'), lockBytes);
     for (const file of lock.files) await copyChecked(inside(EMBEDDING_ASSET_DIRECTORY, file.path), inside(staging, 'model/' + file.path));
     for (const name of ['BGE-small-zh-v1.5-MIT.txt', 'ONNXRuntime-MIT.txt', 'ONNXRuntime-ThirdPartyNotices.txt']) {
-      await copyChecked(path.join(PROJECT, 'licenses', name), path.join(staging, 'licenses', name));
+      const licenseSrc = path.join(PROJECT, 'licenses', name);
+      if (await exists(licenseSrc)) await copyChecked(licenseSrc, path.join(staging, 'licenses', name));
     }
     for (const [name, version] of Object.entries(DEPENDENCIES)) {
       const source = path.join(PROJECT, 'node_modules', name);

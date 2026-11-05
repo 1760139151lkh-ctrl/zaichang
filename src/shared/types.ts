@@ -562,5 +562,5 @@ export const DEFAULT_SETTINGS: Settings = {
   launchAtLogin: false,
   notificationPreview: 'words',
   companionCheckIns: 'sometimes',
-  defaultsVersion: 2,
+  defaultsVersion: 3,
 };

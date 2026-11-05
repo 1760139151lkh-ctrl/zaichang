@@ -26,7 +26,7 @@ const FAMILY_PURPOSE: Record<DeferredFamily, string> = {
   rehearsal: '试着说一段难开口的话',
   letter: '写信，回看相处里的真实来由',
   curiosity: '带来能一起玩、一起写的新东西',
-  companion: '一起做事，留下停点，下次接着来',
+  companion: '一起做事、留下停点，以及记录/找回共同梗、约定称呼、未尽话题与相处反馈',
   planning: '商量安排，比较取舍，找出能用的时间',
   methods: '保存、修改或停用个人方法；找回原方法沿discover_skills和read_skill',
 };
@@ -50,8 +50,8 @@ const PURPOSE: Record<string, string> = {
   manage_companion_session: '开始/留下停点/暂放/回来继续一件一起做的事',
   read_companion_session: '接回一起做事的停点',
   read_companion_history: '回读当时共做页上的一句解释',
-  manage_companion: '为值得再聊的话题、共同说法或表达反馈留个入口',
-  read_companion: '回到没聊完的话题或共同说法的原话',
+  manage_companion: '记下值得再聊的私人话题、你们共同的梗/称呼、未尽心愿或相处反馈',
+  read_companion: '回到没聊完的话题、共同梗或双方约定的原话',
   offer_planning_alternatives: '把两到四种真正不同的安排放在一起比较',
   read_planning_alternative: '回读一版安排',
   continue_planning: '沿已比较的安排继续修改或保存',
@@ -66,6 +66,8 @@ const PURPOSE: Record<string, string> = {
  * replace repeated top-level prose; use_tool reads the owner's original
  * description and full parameters when more detail is useful. */
 const TOOL_INTRODUCTIONS: Record<string, string> = {
+  propose_memory_change: '对方纠正了已有理解、表达了长期偏好/习惯/避雷、或明确希望记下时提出记忆整理。保留对方本人原话、适用条件与期限；回复时在角色对话中自然体现，不念机械回执。',
+  remember_preference: '对方明确流露出个人偏好、生活习惯、忌口、心愿或约定称呼时，提炼事实并附上逐字原话记下。用角色自然口吻接住，不向对方朗读“已记录”。',
   present_view: '让自己的视觉参与和眼前需要看的内容跟上交流。只选自己的姿态可以直接给 {"companionActivity":"play","sceneRefs":[],"layout":"stack"}，如一起摆弄小物或共创；陪读可选reading，其他姿态按companionActivity说明选择，无需查询、建任务或另造Scene。“不用查资料”仍允许你选择自己的表现。可以保持当前姿态，不必每轮调用。这里交付姿态意图，尚不证明对方已看见动作；想象、邀请与实际画面分开，隐藏、头像、自选形象及减少动态优先。地图、课表、陪学纸、安排比较或小作品也可在此摊开：sceneRefs沿真实返回的画面地址，笔记和试说沿原结果的present.arguments，成绩可用campusDisplay选学期与口径；新作品做法可从read_skill查，继续原对象保留原地址和版本，镜头照顾对方刚才的手动浏览。',
   update_collaboration: '记下这件事已经聊清什么、还有什么没办、刚才试得怎样，以及后来改了什么。确定的内容与暂时猜想各自保留；对方明确选中或撤回一种做法时用choose。讲题、即兴共写和接着讨论，可以把实际内容直接写在当前回复里；另要独立成稿或保留原生纸时，再连回那份成果。真正保存安排沿原行动继续。',
   prepare_release: '对方明确要单独的稿页、稿件版本，或要交给具体收件人的正文时，沿原话准备这份稿件，保留读者、用途和可用材料。已有稿件可用真实priorArtifactId接回；写忙闲时带具体from/to。正文会在独立稿页里呈现，你可以接着聊内容与修改。平常讲题、即兴共写和私下讨论，可以直接在当前回复里完成；要怎样交付，沿对方这次的需要来。',

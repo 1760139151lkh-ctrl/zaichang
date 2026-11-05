@@ -19,7 +19,7 @@ import type { AssistantWorkSource, ClockPort, HostIdentity, ReminderSpeaker } fr
 import { interactiveProgramSourceSchema } from '../shared/harness';
 import { redactExport } from './runtime/redaction';
 import { assertTestStoreFile } from './testBoundary';
-import { applyPersonaUpdate, companionPreset, initialPersona, isUntouchedDefaultPersona, isUntouchedPresetPersona, migratePersona, personaStateSchema } from '../shared/persona';
+import { applyPersonaUpdate, companionPreset, CANONICAL_CHARACTER_IDS, initialPersona, isUntouchedDefaultPersona, isUntouchedPresetPersona, migratePersona, personaPreset, personaStateSchema } from '../shared/persona';
 import { DEFAULT_INTERACTION, LEGACY_DEFAULT_INTERACTION, type InteractionPreferences } from '../shared/interaction';
 import { NotesService } from './notes/service';
 import { canonical } from './runtime/semantics';
@@ -135,7 +135,16 @@ export class Store {
         .every(key => stored.interaction![key] === LEGACY_DEFAULT_INTERACTION[key])) interaction = { ...DEFAULT_INTERACTION };
       migrated = true;
     }
-    if (migrated) this.putMeta('settings', { ...stored, persona, interaction, defaultsVersion: 2 });
+    if ((stored.defaultsVersion ?? 1) < 3) {
+      if (persona.revision === 0 && persona.source === 'default' && persona.savedAt === null && persona.history.length === 0
+        && (persona.core.visualBinding?.portrayalBasis === 'source_inspired'
+          || (CANONICAL_CHARACTER_IDS as readonly string[]).includes(persona.core.presetId)
+          || persona.core.identity.endsWith('启发的在场陪伴角色'))) {
+        persona = { ...persona, core: { ...personaPreset(persona.core.presetId), address: persona.core.address } };
+      }
+      migrated = true;
+    }
+    if (migrated) this.putMeta('settings', { ...stored, persona, interaction, defaultsVersion: 3 });
     return {
       ...DEFAULT_SETTINGS,
       ...stored,
@@ -143,7 +152,7 @@ export class Store {
       persona,
       model: DEEPSEEK_MODEL,
       hasKey: false,
-      defaultsVersion: 2,
+      defaultsVersion: 3,
     };
   }
   /** Services that are on by default receive their grant once; anything the
@@ -268,7 +277,7 @@ export class Store {
       if (value.interaction?.initiative === 'prepare' && previous.interaction.initiative !== 'prepare') this.runtime.attention.keepPreparedInApp();
       if (value.interaction?.followup === 'on_request' && previous.interaction.followup !== 'on_request') this.runtime.attention.keepPreparedInApp();
     }
-    this.putMeta('settings', { ...this.settings(), ...patch, persona, model: DEEPSEEK_MODEL, hasKey: false, defaultsVersion: 2 });
+    this.putMeta('settings', { ...this.settings(), ...patch, persona, model: DEEPSEEK_MODEL, hasKey: false, defaultsVersion: 3 });
     this.notifySettingsChanged();
   }
   session(id?: string, title = '新的对话'): string {

@@ -25,7 +25,7 @@ const GUIDANCE = `这里有少量仍可回读的相处线索，以及上次一�
 
 每条read都通向原来照管这份内容的地方，能带回具体背景和当前仍可读的条件。上次的帮法与解释，也可以在本人此刻的愿望下重新想一想。小习惯这里只带着方法名，read_skill还能读到它的正文和适用条件。
 
-旧对话里的说话人沿当时的真实记录理解，身份尚不清楚时，这一层也保留未知。角色换过以后，历史中的参与者与眼前角色各有自己的身份，那段交流仍属于在场里留下的历史，当前角色可以用自己的方式理解和接续。陪学地址只是纸页的来处，题目和答案是否读过有自己的记录；共做起点也只说明上次停在哪里，恢复与完成各有实际的过程和依据。
+旧对话里的说话人沿当时的真实记录理解，身份尚不清楚时，这一层也保留未知。角色换过以后，历史中的参与者与眼前角色各有自己的身份，各个角色并不是割裂的，知晓彼此的原作羁绊与共同经历；那段交流仍属于在场里留下的历史，当前角色可以用自己的身份和彼此间的人际关系理解和接续，绝不冒充自己亲历。陪学地址只是纸页的来处，题目和答案是否读过有自己的记录；共做起点也只说明上次停在哪里，恢复与完成各有实际的过程和依据。
 
 这份线索没有覆盖全部前情，未列出的内容仍可能在原处。地址由应用照管，本人可以继续用自己的话提起它们。`;
 
@@ -70,6 +70,7 @@ export async function buildLifeContinuity(
     return [{ id: thread.id, revision: thread.revision, kind: thread.kind, title: thread.title,
       updatedAt: thread.updatedAt, fromCurrentConversation: thread.fromCurrentConversation,
       personaRelation: thread.personaRelation,
+      ...(thread.previousCompanion ? { previousCompanion: thread.previousCompanion } : {}),
       read: { tool: 'read_companion', arguments: { id: thread.id, expectedRevision: thread.revision } } }];
   });
   // The method title is a discovery cue; its actual instructions still require

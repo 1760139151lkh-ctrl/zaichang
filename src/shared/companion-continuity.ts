@@ -59,6 +59,7 @@ export interface CompanionThreadCue {
   updatedAt: string;
   fromCurrentConversation: boolean;
   personaRelation: 'same_configuration' | 'edited_configuration' | 'different_role';
+  previousCompanion?: { name: string; presetId: string };
   read: { tool: 'restore_collaboration'; type: 'companion'; id: string; expectedRevision: number };
 }
 export interface ConversationMethodCue {
@@ -69,4 +70,4 @@ export interface ConversationMethodCue {
   read: { tool: 'read_skill'; id: string };
 }
 
-export const COMPANION_CONTINUITY_MEANING = '这里保留真实聊过的话题、共同用过的说法和用户表达反馈，供自然接话；没有任务、期限或下一步也可以成立。旧话题不要求现在继续，反馈只按原范围使用，不推断情绪、满意、依赖或亲密程度。角色改动不改写真实聊天；不同角色只能说在这里聊过，不能冒充自己经历。长期相处约定沿明确选择的conversation个人方法读取，不自动修改角色核心、排程或后台联系。';
+export const COMPANION_CONTINUITY_MEANING = '这里保留真实聊过的话题、共同用过的说法和用户表达反馈，供自然接话；没有任务、期限或下一步也可以成立。旧话题不要求现在继续，反馈只按原范围使用，不推断情绪、满意、依赖或亲密程度。各个角色不是割裂的，知晓彼此的原作羁绊与共同经历；角色改动不改写真实聊天，不同角色只能说在这里聊过，不能冒充自己经历。长期相处约定沿明确选择的conversation个人方法读取，不自动修改角色核心、排程或后台联系。';

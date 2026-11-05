@@ -665,14 +665,14 @@ const specs: SpecDefinition[] = [
   {
     name: 'propose_memory_change',
     description:
-      '对方纠正了已有理解或明确希望记下时，沿这次原话的位置提出修改，把说的是谁、现实还是假设、适用条件与期限一起留好。普通交谈可以先照眼前原话自然回应，值得留下的部分另行整理。结果会说明这份候选是否已经保存；具体安排仍沿原行动办理。',
+      '对方纠正了已有理解、表达了长期偏好与生活习惯、或明确希望记下时，沿这次原话的位置提出记忆整理，把说的是谁、现实还是假设、适用条件与期限一起留好。普通交谈先照眼前原话自然回应，值得珍惜留下的部分在此整理。结果会说明是否已保存；具体安排仍沿原行动办理。',
     schema: changeSchema,
     grant: 'memory:write',
     mutates: true,
   },
   {
     name: 'remember_preference',
-    description: '兼容入口：只提出用户本轮明确偏好。source_quote 须逐字来自本人原文，条件和期限一起保留。',
+    description: '记下对方本轮明确表达的个人偏好、生活习惯、忌口、心愿、爱称或避雷。text 提炼具体偏好事实，source_quote 须逐字引用对方本人原话，条件和期限一起保留。回复时用角色自然口吻体现，绝不念机械公文。',
     schema: z.object({ text: z.string().min(1).max(140), source_quote: z.string().min(2).max(300) }).strict(),
     grant: 'memory:write',
     mutates: true,
@@ -1438,7 +1438,7 @@ export class RuntimeCoordinator {
       id: scene.id, revision: scene.revision, sourceId: scene.source.sourceId, fetchedAt: scene.source.fetchedAt,
       ...(scene.source.expiresAt ? { expiresAt: scene.source.expiresAt } : {}),
     }))].map(scene => [`${scene.id}@${scene.revision}`, scene])).values()];
-    const authorName = persona.core.name.trim() || '在场', authorCompanionId = persona.core.visualBinding?.companionId;
+    const authorName = persona.core.name.trim() || '在场', authorCompanionId = persona.core.visualBinding?.companionId || (persona.core.presetId !== 'custom' ? persona.core.presetId : undefined);
     const message: Message = { id: messageId, sessionId: publication.sessionId, role: 'assistant',
       authorName, ...(authorCompanionId ? { authorCompanionId } : {}), content: publication.artifact.body, createdAt: this.repo.clock.now(),
       status: 'done', steps: [], obligations: [], actions: [], retention: session.ingress.contract.retention,
@@ -3757,7 +3757,7 @@ export class RuntimeCoordinator {
         if (!this.repo.planningMessageReadable(handle, { contextReceipt: session.pack.receipt, scenes }))
           throw new HarnessError('attention_source_changed', '这份内容的一处来由已经变化，没有发出旧稿。');
         const now = this.repo.clock.now();
-        const authorName = persona.core.name.trim() || '在场', authorCompanionId = persona.core.visualBinding?.companionId;
+        const authorName = persona.core.name.trim() || '在场', authorCompanionId = persona.core.visualBinding?.companionId || (persona.core.presetId !== 'custom' ? persona.core.presetId : undefined);
         const message: Message = { id: draft.messageId, sessionId: presence.sessionId, role: 'assistant',
           authorName, ...(authorCompanionId ? { authorCompanionId } : {}), content: args.message.trim(), createdAt: now, status: 'done',
           steps: [], obligations: [], actions: [], retention: 'purpose_scoped', proactive: 'check_in',
@@ -4223,6 +4223,8 @@ export class RuntimeCoordinator {
             session.assistantTextPassages!.set(passageId, passage);
             return { passageId, ...passage, bodyProvided: false,
               ...(row.replyState ? { replyState: row.replyState } : {}),
+              ...(row.authorName ? { authorName: row.authorName } : {}),
+              ...(row.authorCompanionId ? { authorCompanionId: row.authorCompanionId } : {}),
               read: { tool: 'read_assistant_history', arguments: { id: row.id, textOnly: true, passageId,
                 offset: range.start, limit: Math.min(16000, range.end - range.start) } } };
           });
@@ -4251,7 +4253,10 @@ export class RuntimeCoordinator {
             result = { status: 'fresh', textOnly: true, messageId: row.id, passageId: args.passageId,
             previous: { tool: 'read_assistant_history', arguments: { id: row.id, textOnly: true, previous: true } }, items: [{
             id: row.id, sessionId: row.sessionId, createdAt: row.createdAt, authority: row.authority, contentSha256,
-            ...(row.replyState ? { replyState: row.replyState } : {}), text: codePointSlice(row.text, start, end), bodyProvided: true,
+            ...(row.replyState ? { replyState: row.replyState } : {}),
+            ...(row.authorName ? { authorName: row.authorName } : {}),
+            ...(row.authorCompanionId ? { authorCompanionId: row.authorCompanionId } : {}),
+            text: codePointSlice(row.text, start, end), bodyProvided: true,
             coverage: { start, end, total, complete: start === 0 && end === total },
             passageCoverage: { start: passage.start, end: passage.end, complete: start === passage.start && end === passage.end },
             nextOffset: end < passage.end ? end : null,

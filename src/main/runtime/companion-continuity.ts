@@ -254,6 +254,9 @@ export class CompanionContinuityService {
       id: record.id, revision: record.revision, kind: data.kind, title: record.title, updatedAt: data.updatedAt,
       fromCurrentConversation: record.data.sessionId === options.sessionId || Array.isArray(record.data.sessionIds) && record.data.sessionIds.includes(options.sessionId),
       personaRelation: this.personaRelation(data.persona, options.persona),
+      ...(data.persona?.name && data.persona?.presetId !== options.persona.core.presetId ? {
+        previousCompanion: { name: data.persona.name, presetId: data.persona.presetId },
+      } : {}),
       read: { tool: 'restore_collaboration', type: 'companion', id: record.id, expectedRevision: record.revision },
     }));
     const availableMethods = this.methods.catalog(handle, { usage: 'conversation', ...(!options.allowCrossSession ? { sessionId: options.sessionId } : {}) });

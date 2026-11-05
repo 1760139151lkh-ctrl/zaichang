@@ -1,6 +1,6 @@
 import { useEffect, useId, useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type MutableRefObject } from 'react';
 import { Check, ChevronRight, Heart, ImagePlus, LoaderCircle, Sun, Trash2 } from 'lucide-react';
-import type { PersonaState } from '../shared/persona';
+import { companionPreset, isUntouchedPresetPersona, selectCompanionPersona, type PersonaState } from '../shared/persona';
 import type { State } from '../shared/types';
 import type { PersonaDraft } from './PersonaEditor';
 import { COMPANIONS, CompanionScene, CompanionPreviewProvider, WINDOW_LIGHT, companionName, companionSceneChoiceKey, companionPresenceArtwork, useCompanion, type CompanionPreference, type CompanionPlacement, type CompanionMoment } from './companion';
@@ -48,7 +48,7 @@ function readBaseline(text: string | undefined, fallback: RoomBaseline): RoomBas
   } catch { return fallback; }
 }
 
-export function CompanionSettings({ draft, moment = 'chat', roomMode = false, initialEntry, entryRevision = 0, onEditPersona }: {
+export function CompanionSettings({ persona, draft, onState, busy, saving, saveOperation, moment = 'chat', roomMode = false, initialEntry, entryRevision = 0, onEditPersona }: {
   persona: PersonaState;
   draft: MutableRefObject<{ persona?: PersonaDraft; companion?: CompanionSettingsDraft }>;
   onState: (state: State) => void;
@@ -91,6 +91,9 @@ export function CompanionSettings({ draft, moment = 'chat', roomMode = false, in
   const roomDirty = previewStamp !== savedStamp;
   const roomStale = savedStamp !== baseline && previewStamp !== baseline && previewStamp !== savedStamp;
   const [adopting, setAdopting] = useState(false);
+  const [syncPersonaVoice, setSyncPersonaVoice] = useState(false);
+  const targetPartnerPreset = companionPreset(preview.character);
+  const canSyncPersonaVoice = roomDirty && !isUntouchedPresetPersona(persona) && !!targetPartnerPreset && persona.core.presetId !== preview.character;
   const endEnvironmentPreview = useRef<(() => void) | undefined>(undefined);
   const renderedPalette = environmentEdited && environmentMode === 'manual' ? palette : environment.palette;
   const renderedPreference = { ...preview, light: companionPaletteLight(renderedPalette) };
@@ -185,6 +188,7 @@ export function CompanionSettings({ draft, moment = 'chat', roomMode = false, in
     const apply = () => {
       if (id !== request.current) return;
       setPreview(current => ({ ...current, character }));
+      setSyncPersonaVoice(false);
       if (useManualPalette) {
         setEnvironmentMode('manual'); setPalette(nextPalette);
         setEnvironmentEdited(origin.environmentMode !== 'manual' || nextPalette !== origin.palette);
@@ -225,7 +229,7 @@ export function CompanionSettings({ draft, moment = 'chat', roomMode = false, in
     setEnvironmentMode(appearance.environmentMode);
     setEnvironmentEdited(false);
     setPositions({ ...savedValue.scenePositions }); setChoices({ ...savedValue.sceneChoices });
-    setBaseline(savedStamp); setError(''); setExpanded(undefined);
+    setBaseline(savedStamp); setError(''); setExpanded(undefined); setSyncPersonaVoice(false);
   }
   function previewPosition(key: string, position: number) {
     const changed = position !== (origin.positions[key] ?? 0);
@@ -250,19 +254,32 @@ export function CompanionSettings({ draft, moment = 'chat', roomMode = false, in
   }
   function adoptPreview() {
     if (opening || roomStale || !roomCanAdopt || adopting) return;
+    const shouldSyncVoice = canSyncPersonaVoice && syncPersonaVoice && !busy && !saving;
+    const targetCharacter = preview.character;
     perform(() => {
       const expectedEnvironment = { palette: origin.palette, environmentMode: origin.environmentMode };
       const nextEnvironment = { palette: environmentMode === 'manual' ? palette : origin.palette, environmentMode };
       if (environmentEdited) setAppearance(environmentMode === 'auto' ? { environmentMode: 'auto' } : nextEnvironment, expectedEnvironment);
       const edited = Object.fromEntries([...positionEdits.current].map(key => [key, positions[key]]));
       const editedChoices = Object.fromEntries([...choiceEdits.current].map(key => [key, choices[key]]));
-      try { update(preview, edited, origin, editedChoices); setAdopting(true); setExpanded(undefined); }
+      try { update(preview, edited, origin, editedChoices); setAdopting(true); setExpanded(undefined); setSyncPersonaVoice(false); }
       catch (problem) {
         if (environmentEdited) {
           try { setAppearance(expectedEnvironment, nextEnvironment); }
           catch { throw new Error('这次没能完整留下选择。你试看的样子还在，先看看当前的选择吧。'); }
         }
         throw problem;
+      }
+      if (shouldSyncVoice) {
+        void saveOperation(async () => {
+          const next = await window.zaichang.saveSettings({
+            personaUpdate: {
+              expectedRevision: persona.revision,
+              core: selectCompanionPersona(persona.core, targetCharacter, 'use_character_preset'),
+            },
+          });
+          onState(next);
+        }).catch(problem => setError(uiError(problem)));
       }
     });
   }
@@ -351,6 +368,7 @@ export function CompanionSettings({ draft, moment = 'chat', roomMode = false, in
       {roomStale && <div className="companion-preview-conflict" role="alert"><p>这里的选择刚在另一处改过。你试看的样子还留着。</p><button type="button" className="text-button" onClick={cancelPreview}>看看新选择</button><button type="button" className="text-button" onClick={keepPreviewAfterConflict}>保留这份试看</button></div>}
       {error && <p className="inline-problem companion-problem" role="alert">{error}</p>}
       {roomDirty && !roomCanAdopt && <p className="companion-scene-unavailable" role="status">这处窗边暂时没有合适的画面。<button type="button" className="text-button" onClick={() => setPreview(current => ({ ...current, presence: 'corner' }))}>留在页角</button></p>}
+      {canSyncPersonaVoice && <Switch label={`连说话方式也换成${targetPartnerPreset.label}${persona.core.address ? `（保留称呼「${persona.core.address}」）` : ''}`} checked={syncPersonaVoice} onChange={next => { if (!busy && !saving) setSyncPersonaVoice(next); }} />}
       {(roomDirty || opening || preparingCharacter) && <div className="companion-preview-actions"><button type="button" className="text-button" onClick={cancelPreview}>取消</button><button type="button" className="primary-button" disabled={opening || !!preparingCharacter || roomStale || !roomCanAdopt || adopting} onClick={adoptPreview}>采用</button></div>}
       {roomMode && <button type="button" className="text-button companion-edit-persona" onClick={onEditPersona}>相处方式<ChevronRight size={17} /></button>}
     </div>

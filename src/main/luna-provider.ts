@@ -124,6 +124,7 @@ class LunaTransport {
     const features = Object.fromEntries(['shell_tool', 'unified_exec', 'shell_snapshot', 'multi_agent', 'apps', 'plugins', 'remote_plugin', 'browser_use', 'computer_use', 'image_generation', 'memories', 'hooks', 'goals', 'skill_search', 'sleep_tool', 'workspace_dependencies', 'context_management', 'code_mode', 'view_image'].map(name => [name, false]));
     this.config = { features, web_search: 'disabled', tools: { view_image: false }, project_doc_max_bytes: 0, history: { persistence: 'none' }, model_context_window: 1_000_000, model_auto_compact_token_limit: 999_999_999 };
     this.child = (this.dependencies.spawn || spawn)(this.dependencies.executable || lunaExecutable(), ['app-server', ...Object.entries(features).flatMap(([name, value]) => ['-c', `features.${name}=${value}`])], { cwd: this.cwd, env: lunaEnvironment(), windowsHide: true, stdio: ['pipe', 'pipe', 'pipe'] }) as ChildProcessWithoutNullStreams;
+    this.child.stdin.on('error', () => {});
     this.child.stderr.resume();
     this.child.on('error', () => this.close(new ProviderError('App Server 代测进程暂时无法启动。', false, 'transport')));
     this.child.on('exit', () => this.close(new ProviderError('App Server 代测进程已结束。', false, 'transport')));
@@ -305,6 +306,7 @@ export class AppServerLunaClient {
           throw new ProviderError(`Luna 代测请求未完成（HTTP ${status}）。`, status === 429 || status >= 500, status === 401 ? 'authentication' : status === 402 ? 'quota' : status === 429 ? 'rate_limit' : 'protocol', status);
         }
         let ended = false, finalOutputAvailable = false, content = '', responseModel: string | undefined, usage: Completion['usage'];
+        let firstTextItemId: string | undefined, secondaryItemId: string | undefined, secondaryBuffer = '', secondaryDiverged = false;
         const items: Item[] = [];
         const itemKinds = new Map<string, { type: string; role?: string }>(), partKinds = new Map<string, string>();
         await readSSE(upstream, data => {
@@ -326,9 +328,40 @@ export class AppServerLunaClient {
             if (typeof event.delta !== 'string' || item && (item.type !== 'message' || item.role !== 'assistant')
               || part && part !== 'output_text')
               throw new ProviderError('Luna 返回的正文与原消息类型没有对应上。', false, 'protocol', undefined, usage);
-            content += event.delta;
-            if (content.length > MODEL_WIRE_LIMITS.textCharacters) throw new ProviderError('回复达到本次长度上限。');
-            onText?.(event.delta);
+            if (!firstTextItemId || event.item_id === firstTextItemId) {
+              firstTextItemId = event.item_id;
+              content += event.delta;
+              if (content.length > MODEL_WIRE_LIMITS.textCharacters) throw new ProviderError('回复达到本次长度上限。');
+              onText?.(event.delta);
+            } else {
+              if (secondaryItemId !== event.item_id) {
+                secondaryItemId = event.item_id;
+                secondaryBuffer = '';
+                secondaryDiverged = false;
+              }
+              secondaryBuffer += event.delta;
+              if (!secondaryDiverged) {
+                if (content.startsWith(secondaryBuffer)) {
+                  // Still replaying the earlier assistant message item; wait until it diverges.
+                } else if (secondaryBuffer.startsWith(content)) {
+                  const extra = secondaryBuffer.slice(content.length);
+                  content = secondaryBuffer;
+                  secondaryDiverged = true;
+                  if (content.length > MODEL_WIRE_LIMITS.textCharacters) throw new ProviderError('回复达到本次长度上限。');
+                  if (extra) onText?.(extra);
+                } else {
+                  const joined = '\n\n' + secondaryBuffer;
+                  content += joined;
+                  secondaryDiverged = true;
+                  if (content.length > MODEL_WIRE_LIMITS.textCharacters) throw new ProviderError('回复达到本次长度上限。');
+                  onText?.(joined);
+                }
+              } else {
+                content += event.delta;
+                if (content.length > MODEL_WIRE_LIMITS.textCharacters) throw new ProviderError('回复达到本次长度上限。');
+                onText?.(event.delta);
+              }
+            }
           }
           if (event.type === 'response.output_item.done') items.push(event.item);
           if (event.response?.usage) {
@@ -356,9 +389,11 @@ export class AppServerLunaClient {
         const tool_calls = items.filter(item => item.type === 'function_call').map(item => ({ id: item.call_id, type: 'function' as const, function: { name: item.name, arguments: item.arguments } }));
         if (tool_calls.length > 8 || tool_calls.some(call => !call.id || !tools.some(tool => tool.function.name === call.function.name) || call.function.arguments.length > toolArgumentCharacterLimit(call.function.name))) throw new ProviderError('Luna 返回了不在本轮工具契约内的请求。', false, 'protocol', undefined, usage);
         if (items.some(item => !['message', 'reasoning', 'function_call'].includes(item.type))) throw new ProviderError('Luna 返回了额外原生工具，代测已停止。', false, 'protocol', undefined, usage);
-        const completedText = items.filter(item => item.type === 'message' && item.role === 'assistant')
-          .flatMap(item => Array.isArray(item.content) ? item.content : [])
-          .filter(part => part.type === 'output_text' && typeof part.text === 'string').map(part => part.text).join('');
+        const completedText = mergeAssistantMessageTexts(items.filter(item => item.type === 'message' && item.role === 'assistant')
+          .map(item => (Array.isArray(item.content) ? item.content : [])
+            .filter((part: any) => part.type === 'output_text' && typeof part.text === 'string')
+            .map((part: any) => part.text)
+            .join('')));
         if (finalOutputAvailable || completedText) content = completedText;
         if (content.length > MODEL_WIRE_LIMITS.textCharacters) throw new ProviderError('回复达到本次长度上限。', false, 'output_length', undefined, usage);
         if (!content && !tool_calls.length) throw new ProviderError('Luna 没有返回可用内容。', false, 'empty_response', undefined, usage);
@@ -425,6 +460,18 @@ export class AppServerLunaClient {
       })();
     }
   }
+}
+
+function mergeAssistantMessageTexts(texts: string[]): string {
+  let merged = '';
+  for (const text of texts) {
+    if (!text) continue;
+    if (!merged) { merged = text; continue; }
+    if (text.trim() === merged.trim() || text.startsWith(merged)) { merged = text; continue; }
+    if (merged.startsWith(text)) continue;
+    merged += '\n\n' + text;
+  }
+  return merged;
 }
 
 function decodeProtocol(value: string): Item[] {

@@ -56,6 +56,7 @@ import { WorkspaceScenery, WorkspaceArtworkWarmup } from './WorkspaceScenery';
 import { AgendaView, type AgendaViewPosition, type WorkspaceView } from './Workspace';
 import { Navigation } from './Navigation';
 import { CompanionAvatar, CompanionScene, RestSpace, companionAuthorArtwork, companionRoomFrame, prefersQuietMotion, useCompanion, type CompanionRoomLayout } from './companion';
+import { companionPreset, isUntouchedPresetPersona } from '../shared/persona';
 import { Fragment, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import {
   ArrowDown,
@@ -1719,6 +1720,12 @@ export function App() {
       });
     });
   }, [loadAttempt]);
+  useEffect(() => {
+    if (!api || !state || state.presentation?.mode === 'public') return;
+    if (!isUntouchedPresetPersona(state.settings.persona)) return;
+    if (!companionPreset(companion.character) || state.settings.persona.core.presetId === companion.character) return;
+    void api.followDefaultCompanion(companion.character).then(updateState).catch(() => {});
+  }, [companion.character, state]);
   useEffect(() => {
     if (view === 'chat') {
       const gesture = readingGesture.current, selectedNavigation = navigation.current, boundary = boundaryRevision.current;

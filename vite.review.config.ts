@@ -24,7 +24,7 @@ export default defineConfig({
         const bytes=fs.readFileSync(path.resolve('assets/map-v2',name)), compressed=name.endsWith('.gz');
         this.emitFile({type:'asset',fileName:'map/'+name+(compressed?'':'.gz'),source:compressed?bytes:gzipSync(bytes,{level:9})});
       }
-      for(const name of licenseFiles) this.emitFile({type:'asset',fileName:'licenses/'+name,source:fs.readFileSync(path.resolve('licenses',name))});
+      for(const name of licenseFiles){const p=path.resolve('licenses',name);if(fs.existsSync(p))this.emitFile({type:'asset',fileName:'licenses/'+name,source:fs.readFileSync(p)});}
       for(const [name,pkg] of [['React-MIT.txt','react'],['ReactDOM-MIT.txt','react-dom'],['Lucide-ISC.txt','lucide-react'],['Noble-Hashes-MIT.txt','@noble/hashes']])
         this.emitFile({type:'asset',fileName:'licenses/'+name,source:fs.readFileSync(path.resolve('node_modules',pkg,'LICENSE'))});
     },

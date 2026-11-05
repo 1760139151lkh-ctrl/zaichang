@@ -354,7 +354,7 @@ export class Harness {
     };
     const admissionStep = { id: 'admission:' + userId, title: '读你这句话', status: 'running' as const };
     const authorCore = this.store.settings().persona?.core;
-    const authorName = authorCore?.name || '在场', authorCompanionId = authorCore?.visualBinding?.companionId;
+    const authorName = authorCore?.name || '在场', authorCompanionId = authorCore?.visualBinding?.companionId || (authorCore?.presetId && authorCore.presetId !== 'custom' ? authorCore.presetId : undefined);
     const message: Message = { ...user, image: undefined, attachments: undefined, submittedMaterialDocument: undefined,
       id: randomUUID(), role: 'assistant', authorName, ...(authorCompanionId ? { authorCompanionId } : {}),
       content: '', status: 'running', steps: [admissionStep], demo: this.store.settings().mode === 'demo' };
@@ -614,7 +614,7 @@ export class Harness {
             if (request.tools?.some(tool => !allowed.some(spec => spec.function.name === tool.function.name))) throw new HarnessError('background_tool', '后台请求了未允许工具。');
             let messages = coalesceUserTextParts(request.messages);
             if (!worker) await delegation.consume(messages);
-            if (run.dependencyNotices?.length) { messages = [...messages, { role: 'system', content: '刚才看过的一些内容有了新版本，下面是现在的记录，可以看看哪些判断需要跟着调整：\n' + JSON.stringify(run.dependencyNotices) }]; run.dependencyNotices = []; }
+            if (run.dependencyNotices?.length) { messages = [...messages, { role: 'system', content: '刚才看过的一些内容有了新版本，下面是现在的记录，可以看看哪些判断需要跟着调整；说明时保持自然角色口吻：\n' + JSON.stringify(run.dependencyNotices) }]; run.dependencyNotices = []; }
             const decision = !worker && submittedDecision();
             if (decision) { controller.abort(decisionSaved); throw decisionSaved; }
             const modelTools = request.tools || [];
@@ -1079,7 +1079,7 @@ export class Harness {
         if (this.boundaryChanged) {
           message.content = '';
           message.hostStatus = { kind: 'notice', code: 'source_changed',
-            text: run.privacyResult?.text || '资料使用范围已更新，本轮处理已停止。' };
+            text: run.privacyResult?.text || '资料范围刚刚改过了，这次就先停在这里。' };
           message.actions = [];
           message.steps = [];
           message.obligations = [];
@@ -1360,7 +1360,7 @@ export class Harness {
             && (notice as { kind?: string }).kind === 'note_revision');
           const includesDependencyNotices = dependencyNoticesInRequest.length > 0 && !['release_write', 'release_review'].includes(options?.phase || '');
           if (includesDependencyNotices) {
-            messages = [...messages, { role: 'system', content: '刚才用到的几项资料有了变化，下面带来了它们的当前记录。可以看看哪些判断需要随之调整，再沿对方眼前的意思继续；资料里的话仍保有各自的来源。\n' + JSON.stringify(dependencyNoticesInRequest) }];
+            messages = [...messages, { role: 'system', content: '刚才用到的几项资料有了变化，下面带来了它们的当前记录。可以看看哪些判断需要随之调整，再沿对方眼前的意思继续；资料里的话仍保有各自的来源。说明变化时请用你平常的人话自然讲清，保持鲜活角色声线，不要向用户念出JSON或工程黑话。\n' + JSON.stringify(dependencyNoticesInRequest) }];
           }
           const noteVersionInRequest = noteNoticesInRequest.length ? activeRun.noteChangeVersion || 0 : activeRun.noteChangesSeenByMain || 0;
           if (phase === 'main' && !options?.actorId && options?.hostCompression) {
@@ -1533,6 +1533,50 @@ export class Harness {
           meaning: '这是同一对话上一条回复的位置，正文还没有随地址展开。若眼前正在接其中一处，可以先用locate在原回复内找连续短语，再沿那一段的地址读原文。旧回复旁的天气、路线或文件另留在各自原处。',
         } : undefined;
         if (currentAssistantReference) pack.data.currentAssistantReference = currentAssistantReference;
+        const activeCompanionId = settings.persona.core.visualBinding?.companionId || settings.persona.core.presetId;
+        const activeAuthorName = settings.persona.core.name.trim() || '在场';
+        const identityRecord = assistantIdentity as (typeof assistantIdentity & { authorName?: string; authorCompanionId?: string }) | undefined;
+
+        // Collect all distinct earlier companions from history and identityRecord (ordered by recency)
+        const earlierCompanions: { name: string; companionId: string }[] = [];
+        const seenCompanionKeys = new Set<string>();
+
+        const recordCandidate = (name?: string, companionId?: string) => {
+          if (!name && !companionId) return;
+          const resolvedName = name || '前一位伙伴';
+          const resolvedId = companionId || 'previous_companion';
+          const isCurrent = (companionId && companionId === activeCompanionId) || resolvedName === activeAuthorName;
+          if (isCurrent) return;
+          const key = `${resolvedId}:${resolvedName}`;
+          if (!seenCompanionKeys.has(key)) {
+            seenCompanionKeys.add(key);
+            earlierCompanions.push({ name: resolvedName, companionId: resolvedId });
+          }
+        };
+
+        if (identityRecord?.authorCompanionId || identityRecord?.authorName) {
+          recordCandidate(identityRecord.authorName, identityRecord.authorCompanionId);
+        }
+
+        if (Array.isArray(pack.data.history)) {
+          for (let i = pack.data.history.length - 1; i >= 0; i--) {
+            const item = pack.data.history[i] as any;
+            if (item && item.role === 'assistant') {
+              recordCandidate(item.authorName, item.authorCompanionId);
+            }
+          }
+        }
+
+        if (earlierCompanions.length > 0) {
+          const primary = earlierCompanions[0];
+          const allNames = earlierCompanions.map(c => `「${c.name}」`).join('、');
+          pack.data.previousCompanionInSession = {
+            name: primary.name,
+            companionId: primary.companionId,
+            ...(earlierCompanions.length > 1 ? { priorCompanions: earlierCompanions } : {}),
+            meaning: `此前在这段对话里陪伴过对方的是${allNames}。各个角色不是割裂的，知晓彼此的原作羁绊与共同经历（如初华懂小祥的傲娇脆弱、睦递黄瓜的安静、爱音的元气打趣等）；但严禁将此前其他伙伴说的话或办成的事冒充为你自己的亲历，请以你当前的鲜活身份和你们之间的真实人际关系自然接续。`,
+          };
+        }
         if (mayRecoverTaskMaterial && (run.ingress.requiresReadPurpose || !discussionScope.sources.includes('history:self')))
           pack.data.conversationReading = {
             recent: { tool: 'restore_collaboration', arguments: { type: 'conversation', view: 'recent' } },
@@ -2553,7 +2597,7 @@ export class Harness {
               meaning: '这仍是刚才那一轮。quotedOriginal带的是原消息的逐字引文，仍属于eventId所指的原发言，供这次回看时接续；这里没有新增用户原话。这份回看也没有带来对方的试用反馈、赞同或选择，实际操作仍看各自的原记录。这一次是在同一条回复里接着完善原来的帮助。' });
             completionContinuations.add(continuation);
             result = await runHermes({ ...execution, runId: contract.id + ':continuation:' + (repair + 1), history: preceding,
-              system: execution.system + '\n这仍是对方刚才那一次原话之后的接续。下面是伙伴帮忙回看这条回复时提出的意见，来自这次内部协作，对方此刻没有再说一句。你可以结合原话和真正读到的资料独立判断，反馈也可能误会了你。先前随工具说出的前段、已经展开的图和完成的稿件仍保留着；同一条消息里可续改的末段会换成你这次的新稿，旧末段不会再另外留一份。可以参考旧稿，决定怎样保留原本妥当的内容、补齐对方还需要的帮助。末段可能也曾短暂显示过，若判断有了变化，照自己的方式说清缘由便好。已经办成的事沿原记录接着走。怎么与对方交流仍由你决定，这份协作反馈只是帮助你把事情照顾好。\n' + JSON.stringify(review),
+              system: execution.system + '\n这仍是对方刚才那一次原话之后的接续。下面是伙伴帮忙回看这条回复时提出的意见，来自这次内部协作，对方此刻没有再说一句。你可以结合原话和真正读到的资料独立判断，反馈也可能误会了你。先前随工具说出的前段、已经展开的图和完成的稿件仍保留着；同一条消息里可续改的末段会换成你这次的新稿，旧末段不会再另外留一份。可以参考旧稿，决定怎样保留原本妥当的内容、补齐对方还需要的帮助。末段可能也曾短暂显示过，若判断有了变化，照自己的方式说清缘由便好。已经办成的事沿原记录接着走。怎么与对方交流仍由你决定，这份协作反馈只是帮助你把事情照顾好。\n注意：修补时始终保持你鲜活的角色口吻、称呼与傲娇/温柔/真诚脾气，绝不能退化为客服报告或审查通告，也不要向对方念出内部审查条目。\n' + JSON.stringify(review),
               // The adapter projects this registered packet to host context;
               // the actual human original remains in its original history row.
               userMessage: [{ type: 'text', text: continuation }],
@@ -2713,7 +2757,7 @@ export class Harness {
       };
       const text = this.boundaryChanged && run.privacyResult ? run.privacyResult.text
         : localUnavailable ? '现在还没有可用的本机模型，这段内容暂时只在当前窗口。' : statusText[code]
-        + (confirmedPriorEffects.size ? '已核实成功的操作结果保留在对应记录中。' : '');
+        + (confirmedPriorEffects.size ? '前面已经办妥的部分还好好留着，没有丢。' : '');
       message.hostStatus = { kind: this.boundaryChanged ? 'notice' : message.status === 'cancelled' ? 'cancelled' : 'error',
         code, text: redactCredentials(text) };
       message.steps = message.steps.map((s) =>

@@ -166,3 +166,344 @@ test('shipped defaults migrate once without touching anything the person chose',
     assert.equal(fresh.settings().persona.revision, 0, 'following the artwork is not a user save');
   } finally { fresh.close(); }
 });
+
+test('canonical characters have authentic voices, correct CV attribution and non-isolated cross-companion continuity', async () => {
+  const { personaPreset, personaGuidance, personaVoiceAnchor, CANONICAL_CHARACTER_IDS } = await import('../../src/shared/persona');
+  const { characterPortrayal } = await import('../../src/shared/persona-portrayals');
+  const { Harness } = await import('../../src/main/harness');
+  const { Store } = await import('../../src/main/store');
+  const { randomUUID } = await import('node:crypto');
+
+  // 1. Verify Uika canon facts: Sasaki Rico is CV, Sakura Ayane is Afterglow Ran / yuri meta
+  const uikaPortrayal = characterPortrayal('uika')!;
+  assert.match(uikaPortrayal.establishedTraits.join(' '), /佐佐木李子/);
+  assert.match(uikaPortrayal.establishedTraits.join(' '), /Sasaki Rico/);
+  assert.match(uikaPortrayal.establishedTraits.join(' '), /佐仓绫音/);
+  assert.match(uikaPortrayal.establishedTraits.join(' '), /美竹兰/);
+  assert.doesNotMatch(uikaPortrayal.establishedTraits[1], /由佐仓绫音注入灵魂/);
+
+  const uikaAnchor = personaVoiceAnchor({ ...migratePersona(), core: personaPreset('uika') });
+  assert.match(uikaAnchor, /佐佐木李子/);
+  assert.match(uikaAnchor, /美竹兰/);
+  assert.match(uikaAnchor, /佐仓绫音/);
+
+  // 2. Verify Sakiko: localized Chinese ojou-sama tone migration, no desuwa repetition in summary/identity
+  const sakikoPreset = personaPreset('sakiko');
+  const sakikoPortrayal = characterPortrayal('sakiko')!;
+  assert.doesNotMatch(sakikoPortrayal.summary, /句句不离ですわ/);
+  assert.doesNotMatch(sakikoPortrayal.summary, /ですわ/);
+  assert.doesNotMatch(sakikoPreset.identity, /句句带着ですわ/);
+  assert.doesNotMatch(sakikoPreset.identity, /ですわ/);
+
+  const sakikoAnchor = personaVoiceAnchor({ ...migratePersona(), core: sakikoPreset });
+  assert.match(sakikoAnchor, /本小姐/);
+  assert.match(sakikoAnchor, /成何体统/);
+  assert.match(sakikoAnchor, /大小姐/);
+  assert.match(sakikoAnchor, /傲娇/);
+  assert.doesNotMatch(sakikoAnchor, /每句都带上ですわ/);
+  assert.doesNotMatch(sakikoAnchor, /句句不离ですわ/);
+  assert.doesNotMatch(sakikoAnchor, /句句带着ですわ/);
+
+  const { PRESENCE_NOTE } = await import('../../src/main/runtime/prompt-composition');
+  assert.doesNotMatch(PRESENCE_NOTE, /ですわ/);
+  assert.match(PRESENCE_NOTE, /保持大小姐傲娇/);
+
+  // 3. Verify Mutsumi: authentic quiet rhythm, cucumber, 苦如犀 (苦しい)
+  const mutsumiPortrayal = characterPortrayal('mutsumi')!;
+  assert.doesNotMatch(mutsumiPortrayal.summary, /秒懂「苦しい」/);
+  assert.doesNotMatch(mutsumiPortrayal.adaptation, /「苦しい」/);
+  assert.doesNotMatch(mutsumiPortrayal.intimacy, /苦しい呢/);
+  assert.match(mutsumiPortrayal.summary, /苦如犀/);
+  assert.match(mutsumiPortrayal.intimacy, /心里很苦呢/);
+  const mutsumiPreset = personaPreset('mutsumi');
+  assert.doesNotMatch(mutsumiPreset.identity, /懂你「苦しい」/);
+  assert.match(mutsumiPreset.identity, /苦如犀/);
+  const mutsumiAnchor = personaVoiceAnchor({ ...migratePersona(), core: mutsumiPreset });
+  assert.match(mutsumiAnchor, /木子米/);
+  assert.match(mutsumiAnchor, /苦しい/);
+  assert.match(mutsumiAnchor, /黄瓜/);
+
+  // 3b. Verify Uika and Anon clean Chinese localization
+  const uikaPortrayalData = characterPortrayal('uika')!;
+  assert.doesNotMatch(uikaPortrayalData.establishedTraits.join(' '), /「いつも通り」/);
+  assert.doesNotMatch(uikaPortrayalData.situatedExamples.map(e => e.response).join(' '), /「いつも通り」/);
+  assert.match(uikaPortrayalData.situatedExamples.map(e => e.response).join(' '), /和往常一样/);
+  const uikaAnchorVoice = personaVoiceAnchor({ ...migratePersona(), core: personaPreset('uika') });
+  assert.doesNotMatch(uikaAnchorVoice, /「いつも通り」/);
+  assert.match(uikaAnchorVoice, /和往常一样/);
+
+  const anonPortrayalData = characterPortrayal('anon')!;
+  assert.doesNotMatch(anonPortrayalData.establishedTraits.join(' '), /、何か？/);
+  assert.doesNotMatch(anonPortrayalData.easterEggs.join(' '), /、何か？/);
+  assert.doesNotMatch(anonPortrayalData.adaptation, /、何か？/);
+  assert.match(anonPortrayalData.establishedTraits.join(' '), /是又怎样啦！/);
+  assert.match(anonPortrayalData.adaptation, /是又怎样啦！/);
+  const anonAnchorVoice = personaVoiceAnchor({ ...migratePersona(), core: personaPreset('anon') });
+  assert.doesNotMatch(anonAnchorVoice, /、何か？/);
+  assert.match(anonAnchorVoice, /是又怎样啦！/);
+
+  // 4. Verify all 10 characters are canonical and have full portrayals
+  for (const id of CANONICAL_CHARACTER_IDS) {
+    const p = characterPortrayal(id);
+    assert.ok(p, `Portrayal exists for ${id}`);
+    assert.ok(p.name, `Portrayal name exists for ${id}`);
+    assert.ok(p.voice, `Portrayal voice exists for ${id}`);
+    assert.ok(p.easterEggs.length > 0, `Portrayal easterEggs exist for ${id}`);
+  }
+
+  // 5. Verify cross-companion session continuity in harness
+  const store = new Store(':memory:');
+  try {
+    const sakiCore = personaPreset('sakiko');
+    store.saveSettings({ mode: 'deepseek', memoryEnabled: true, personaUpdate: { expectedRevision: 0, core: sakiCore } });
+    const sessionId = store.session(undefined, '琴房');
+    store.putMessage({
+      id: randomUUID(),
+      sessionId,
+      role: 'user',
+      content: '今晚练习怎么样了？',
+      createdAt: '2026-11-04T11:59:00Z',
+      status: 'done',
+      steps: [],
+      obligations: [],
+      actions: [],
+      retention: 'purpose_scoped',
+    } as any);
+    // Previous assistant message was by Sakiko
+    store.putMessage({
+      id: randomUUID(),
+      sessionId,
+      role: 'assistant',
+      authorName: '丰川祥子',
+      authorCompanionId: 'sakiko',
+      content: '副歌前的那段转调本小姐已经磨稳了，今晚就练到这里。',
+      createdAt: '2026-11-04T12:00:00Z',
+      status: 'done',
+      steps: [],
+      obligations: [],
+      actions: [],
+      retention: 'purpose_scoped',
+    } as any);
+
+    // Now user switches companion to Mutsumi
+    const mutsumiCore = personaPreset('mutsumi');
+    store.saveSettings({ personaUpdate: { expectedRevision: store.settings().persona.revision, core: mutsumiCore } });
+
+    const hostScope = store.runtime.policy.hostScope();
+    const assistantIdentity = store.kernel.latestAssistantReplyIdentity(hostScope, sessionId, []);
+    assert.ok(assistantIdentity, 'assistantIdentity retrieved from message history');
+    assert.equal(assistantIdentity.authorName, '丰川祥子');
+    assert.equal(assistantIdentity.authorCompanionId, 'sakiko');
+
+    const activeCompanionId = store.settings().persona.core.visualBinding?.companionId || store.settings().persona.core.presetId;
+    assert.equal(activeCompanionId, 'mutsumi');
+
+    const identityRecord = assistantIdentity as any;
+    const authorDiffers = (identityRecord?.authorCompanionId && identityRecord.authorCompanionId !== activeCompanionId)
+      || (identityRecord?.authorName && identityRecord.authorName !== (store.settings().persona.core.name.trim() || '在场'));
+    assert.ok(authorDiffers, 'Author difference is accurately recognized');
+
+    const prevName = identityRecord?.authorName || '前一位伙伴';
+    const previousCompanionInSession = {
+      name: prevName,
+      companionId: identityRecord?.authorCompanionId || 'previous_companion',
+      meaning: `此前在这段对话里陪伴对方的是「${prevName}」。各个角色不是割裂的，知晓彼此的原作羁绊与共同经历；但严禁将上一位伙伴说的话或办成的事冒充为你自己的亲历，请以你当前的鲜活身份和你们之间的真实人际关系自然接续。`,
+    };
+
+    assert.equal(previousCompanionInSession.name, '丰川祥子');
+    assert.equal(previousCompanionInSession.companionId, 'sakiko');
+    assert.match(previousCompanionInSession.meaning, /各个角色不是割裂的/);
+    assert.match(previousCompanionInSession.meaning, /严禁将上一位伙伴说的话或办成的事冒充为你自己的亲历/);
+  } finally {
+    store.close();
+  }
+});
+
+test('personaVoiceAnchor preserves user-authored personas and custom voices while keeping soul injection for terms of endearment', async () => {
+  const { personaPreset, personaVoiceAnchor, selectCompanionPersona, isPresetVoiceKept, migratePersona } = await import('../../src/shared/persona');
+
+  // 1. Changing address (or name) while keeping preset voice fields retains soul injection & nicknames
+  const sakikoCore = personaPreset('sakiko');
+  assert.equal(isPresetVoiceKept(sakikoCore), true);
+  const endearingSakiko = { ...sakikoCore, address: '亲爱的', name: '小祥老婆' };
+  assert.equal(isPresetVoiceKept(endearingSakiko), true, 'changing address/name does not break keepsPresetVoice');
+  const endearingAnchor = personaVoiceAnchor({ ...migratePersona(), core: endearingSakiko });
+  assert.match(endearingAnchor, /亲爱的/);
+  assert.match(endearingAnchor, /小祥老婆/);
+  assert.match(endearingAnchor, /本小姐/, 'sakiko soul traits are kept when preset voice fields are unchanged');
+  assert.match(endearingAnchor, /成何体统/, 'sakiko ojou-sama scolding is kept');
+  assert.match(endearingAnchor, /灵魂铁律/, 'soul injection header is kept');
+  assert.match(endearingAnchor, /傲娇/, 'tsundere tone is kept');
+  assert.doesNotMatch(endearingAnchor, /句句不离ですわ/);
+  assert.doesNotMatch(endearingAnchor, /句句带着ですわ/);
+  assert.match(endearingAnchor, /saki酱/, 'canonical nicknames are kept');
+
+  // 2. Preserving an edited role (user_authored portrayalBasis) does NOT inject canonical soul or nicknames
+  const edited = { ...personaPreset('sakiko'), name: '我选的名字', voice: '我自己编辑的简明语气' };
+  const preservedRole = selectCompanionPersona(edited, 'mutsumi', 'preserve_role');
+  assert.equal(preservedRole.visualBinding?.portrayalBasis, 'user_authored');
+  const preservedAnchor = personaVoiceAnchor({ ...migratePersona(), core: preservedRole });
+  assert.doesNotMatch(preservedAnchor, /主客体分清/, 'canonical nicknames line is not injected into user_authored persona');
+  assert.doesNotMatch(preservedAnchor, /灵魂铁律/, 'canonical soul injection is not injected into user_authored persona');
+  assert.doesNotMatch(preservedAnchor, /苦しい/, 'mutsumi soul is not injected into user_authored persona');
+  assert.doesNotMatch(preservedAnchor, /ですわ/, 'sakiko soul is not injected into user_authored persona');
+  assert.doesNotMatch(preservedAnchor, /本小姐/, 'sakiko ojou-sama traits not injected into user_authored persona');
+  assert.match(preservedAnchor, /我自己编辑的简明语气/, 'custom voice text is directly used');
+
+  // 3. Custom-edited voice (!keepsPresetVoice) on a preset does NOT inject soul injection
+  const modifiedVoice = { ...personaPreset('mutsumi'), voice: '冷静直接，不讲多余修饰。' };
+  assert.equal(isPresetVoiceKept(modifiedVoice), false, 'custom voice modifies preset voice');
+  const modifiedAnchor = personaVoiceAnchor({ ...migratePersona(), core: modifiedVoice });
+  assert.doesNotMatch(modifiedAnchor, /主客体分清/, 'canonical nicknames omitted when voice is edited');
+  assert.doesNotMatch(modifiedAnchor, /灵魂铁律/, 'canonical soul injection omitted when voice is edited');
+  assert.doesNotMatch(modifiedAnchor, /苦しい/, 'canonical soul injection omitted when voice is edited');
+  assert.doesNotMatch(modifiedAnchor, /本小姐/, 'canonical soul injection omitted when voice is edited');
+  assert.match(modifiedAnchor, /冷静直接，不讲多余修饰。/);
+});
+
+test('3+ companion rotation in a session retains all distinct prior speakers and propagates author attribution', async () => {
+  const { personaPreset } = await import('../../src/shared/persona');
+  const { Store } = await import('../../src/main/store');
+  const { randomUUID } = await import('node:crypto');
+
+  const store = new Store(':memory:');
+  try {
+    const sakiCore = personaPreset('sakiko');
+    store.saveSettings({ mode: 'deepseek', memoryEnabled: true, personaUpdate: { expectedRevision: 0, core: sakiCore } });
+    const sessionId = store.session(undefined, '三角色轮换琴房');
+
+    // User message creates session evidence for assistant history envelope
+    store.putMessage({
+      id: randomUUID(),
+      sessionId,
+      role: 'user',
+      content: '今晚练习计划安排得怎么样？',
+      createdAt: '2026-11-04T11:59:00Z',
+      status: 'done',
+      steps: [], obligations: [], actions: [], retention: 'purpose_scoped',
+    } as any);
+
+    // Obtain host scope and policy receipt values
+    const hostScope = store.runtime.policy.hostScope();
+    const scopeData = store.runtime.policy.validate(hostScope);
+    const testReceipt = {
+      id: randomUUID(),
+      privacyEpoch: scopeData.privacyEpoch,
+      policyRevision: scopeData.policyRevision,
+      providedEvidenceIds: [],
+      providedSourceIds: ['history:self'],
+    };
+
+    // Turn 1: Sakiko speaks
+    const sakiMsgId = randomUUID();
+    store.putMessage({
+      id: sakiMsgId,
+      sessionId,
+      role: 'assistant',
+      authorName: '丰川祥子',
+      authorCompanionId: 'sakiko',
+      content: '今晚练习的曲目就按这个清单来，休得偷懒。',
+      createdAt: '2026-11-04T12:00:00Z',
+      status: 'done',
+      steps: [], obligations: [], actions: [], retention: 'purpose_scoped',
+      contextReceipt: testReceipt,
+    } as any);
+
+    // Verify repository speaker attribution for assistantTextForLocalRead and assistantHistory
+    const localRead = store.runtime.repo.assistantTextForLocalRead(hostScope, sessionId, sakiMsgId, 'locate');
+    assert.ok(localRead);
+    assert.equal(localRead.authorName, '丰川祥子');
+    assert.equal(localRead.authorCompanionId, 'sakiko');
+
+    const historyRows = store.runtime.repo.assistantHistory(hostScope, { id: sakiMsgId });
+    assert.equal(historyRows.length, 1);
+    assert.equal(historyRows[0].authorName, '丰川祥子');
+    assert.equal(historyRows[0].authorCompanionId, 'sakiko');
+
+    // Turn 2: Switch to Mutsumi, who also speaks
+    const mutsumiMsgId = randomUUID();
+    store.putMessage({
+      id: mutsumiMsgId,
+      sessionId,
+      role: 'assistant',
+      authorName: '若叶睦',
+      authorCompanionId: 'mutsumi',
+      content: '……黄瓜很脆。吉他，调好了。',
+      createdAt: '2026-11-04T12:05:00Z',
+      status: 'done',
+      steps: [], obligations: [], actions: [], retention: 'purpose_scoped',
+      contextReceipt: testReceipt,
+    } as any);
+
+    // Turn 3: Now user switches companion to Uika
+    const uikaCore = personaPreset('uika');
+    store.saveSettings({ personaUpdate: { expectedRevision: store.settings().persona.revision, core: uikaCore } });
+
+    // Retrieve conversation history & assistant identity
+    const assistantIdentity = store.kernel.latestAssistantReplyIdentity(hostScope, sessionId, []);
+    assert.ok(assistantIdentity);
+    assert.equal(assistantIdentity.authorName, '若叶睦');
+    assert.equal(assistantIdentity.authorCompanionId, 'mutsumi');
+
+    const history = store.runtime.repo.conversationHistory(hostScope, sessionId, [], 5);
+    const assistantHistoryMsgs = history.filter(m => m.role === 'assistant');
+    assert.equal(assistantHistoryMsgs.length, 2);
+    assert.equal(assistantHistoryMsgs[0].authorName, '丰川祥子');
+    assert.equal(assistantHistoryMsgs[0].authorCompanionId, 'sakiko');
+    assert.equal(assistantHistoryMsgs[1].authorName, '若叶睦');
+    assert.equal(assistantHistoryMsgs[1].authorCompanionId, 'mutsumi');
+
+    // Verify that multi-companion rotation collects all distinct prior speakers via actual Harness run
+    const { Harness } = await import('../../src/main/harness');
+    const { DeepSeekClient } = await import('../../src/main/provider');
+    const { withHostReplies } = await import('./support');
+    let capturedPreviousCompanion: any = null;
+    const client = new DeepSeekClient('synthetic');
+    client.complete = async (messages, tools) => {
+      const names = (tools || []).map(tool => tool.function.name);
+      if (names.length === 1 && names[0].startsWith('verify_')) {
+        return { content: '', tool_calls: [{ id: 'verify', type: 'function', function: { name: names[0], arguments: JSON.stringify({ neededForCurrentRequest: true, allowed: true, sourceQuote: '', reason: 'fixture' }) } }] };
+      }
+      for (const m of messages) {
+        const parts = Array.isArray(m.content) ? m.content : [{ type: 'text', text: m.content }];
+        for (const p of parts) {
+          if (p.type === 'text' && typeof p.text === 'string') {
+            for (const line of p.text.split('\n')) {
+              const trimmed = line.trim();
+              if (trimmed.startsWith('{"referenceMaterial":')) {
+                try {
+                  const obj = JSON.parse(trimmed);
+                  capturedPreviousCompanion = obj.referenceMaterial?.previousCompanionInSession;
+                } catch {}
+              }
+            }
+          }
+        }
+      }
+      return { content: '初华在此哦～', tool_calls: [] };
+    };
+    const harness = new Harness(store, () => 'synthetic', () => {}, () => withHostReplies(client));
+    harness.start(sessionId, '初华，今晚练得怎么样？');
+    await harness.idle();
+    await harness.stop();
+
+    assert.ok(capturedPreviousCompanion, 'previousCompanionInSession was captured from harness reference material');
+    assert.equal(capturedPreviousCompanion.name, '若叶睦');
+    assert.equal(capturedPreviousCompanion.companionId, 'mutsumi');
+    assert.deepEqual(capturedPreviousCompanion.priorCompanions, [
+      { name: '若叶睦', companionId: 'mutsumi' },
+      { name: '丰川祥子', companionId: 'sakiko' },
+    ]);
+    assert.match(capturedPreviousCompanion.meaning, /「若叶睦」/);
+    assert.match(capturedPreviousCompanion.meaning, /「丰川祥子」/);
+
+    const latestMsgs = store.messages(sessionId);
+    const uikaReply = latestMsgs[latestMsgs.length - 1];
+    assert.equal(uikaReply.authorName, '三角初华');
+    assert.equal(uikaReply.authorCompanionId, 'uika');
+  } finally {
+    store.close();
+  }
+});
+
+

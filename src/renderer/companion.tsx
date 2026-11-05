@@ -336,7 +336,20 @@ export function companionName(value: CompanionState, id: CharacterId = value.cha
 }
 /** A legacy display-label fallback, never an identity migration or biography. */
 export function companionAuthorArtwork(authorName?: string) {
-  return COMPANIONS.find(character => character.fullName === authorName)?.id;
+  if (!authorName) return undefined;
+  const direct = COMPANIONS.find(character => character.fullName === authorName || character.name === authorName)?.id;
+  if (direct) return direct;
+  if (/爽世|素世|soyo/i.test(authorName)) return 'soyo';
+  if (/喵梦|若麦|nyamu/i.test(authorName)) return 'nyamu';
+  if (/初华|uika/i.test(authorName)) return 'uika';
+  if (/海铃|umiri/i.test(authorName)) return 'umiri';
+  if (/乐奈|猫猫|rana/i.test(authorName)) return 'rana';
+  if (/立希|taki/i.test(authorName)) return 'taki';
+  if (/爱音|anon/i.test(authorName)) return 'anon';
+  if (/灯|tomori/i.test(authorName)) return 'tomori';
+  if (/睦|木子米|mutsumi/i.test(authorName)) return 'mutsumi';
+  if (/祥子|saki/i.test(authorName)) return 'sakiko';
+  return undefined;
 }
 export function CompanionAvatar({ className = '', size = 34, characterId }: { className?: string; size?: number; characterId?: string }) {
   const { value } = useCompanion();

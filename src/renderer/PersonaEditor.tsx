@@ -190,6 +190,16 @@ export function PersonaEditor({
     <section className="preference-section persona-editor">
       <div className="persona-heading">
         <h3 className="section-title">你喜欢的相处方式</h3>
+        {!candidate && core.presetId !== 'custom' && (!samePersonaCore({ ...core, address: '' }, personaPreset(core.presetId)) || core.identity.endsWith('启发的在场陪伴角色')) && (
+          <button type="button" className="text-button" disabled={locked}
+            onClick={() => previewCandidate({
+              core: { ...personaPreset(core.presetId), address: core.address },
+              origin: `${PERSONA_PRESETS.find(item => item.id === core.presetId)?.label || core.name}（原味设定）`,
+              external: false,
+            })}>
+            预览新版「{core.name}」原味设定
+          </button>
+        )}
       </div>
       <div className="persona-writing">
         <div className="persona-identity-row">
