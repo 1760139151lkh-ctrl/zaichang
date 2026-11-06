@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-chat-violet-literary-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "soyo",
+  "activity": "chat",
+  "light": "dusk",
+  "palette": "violet",
+  "environmentVariant": "twilight",
+  "width": 1536,
+  "height": 1024,
+  "mother": "soyo-chat-violet-literary-complete-20261105-mother.png",
+  "background": "literary-room-twilight-v1.png",
+  "seat": [
+    0.67,
+    0.58
+  ],
+  "ground": [
+    0.53,
+    0.89
+  ],
+  "bodyBounds": [
+    0.46,
+    0.09,
+    0.76,
+    0.92
+  ],
+  "safeTextBoundary": 0.43000000000000005,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "46.0% 9.0%, 76.0% 9.0%, 76.0% 92.0%, 46.0% 92.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "a173d58c7535eec63f5847b8cca29d498fc2b449fd15ee86da59ce3f6d9b4db4"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/soyo-violet.source.json",
+    "admission": "Personally viewed: youthful Soyo, clear blue eyes and own long hair, complete chosen outfit interpretation, real notebook-pencil-hand contact; middle bench support and natural separate seated legs and complete grounded loafers, coherent dusk lighting, left working area preserved. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  }
+}

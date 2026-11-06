@@ -159,6 +159,10 @@ export function resolveEffectiveEnvironment(value: Appearance, host: AppearanceE
 export function readEffectiveEnvironment(): EffectiveEnvironment {
   return effective ??= resolveEffectiveEnvironment(displayedAppearance(), observation);
 }
+/** Resolve a choice for artwork preparation without changing the visible or saved room. */
+export function resolveAppearanceChoice(patch: Partial<Appearance>): EffectiveEnvironment {
+  return resolveEffectiveEnvironment(mergeAppearance(displayedAppearance(), patch), observation);
+}
 function applyAppearance() {
   if (!initialized) return;
   const value = displayedAppearance();

@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "id": "anon-neutral-presence-time-day-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "anon",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "mist",
+  "width": 1536,
+  "height": 1024,
+  "mother": "anon-neutral-presence-time-day-complete-20261105-mother.png",
+  "background": "literary-room-time-day-v1.png",
+  "seat": [
+    0.55,
+    0.56
+  ],
+  "ground": [
+    0.45,
+    0.83
+  ],
+  "bodyBounds": [
+    0.38,
+    0.09,
+    0.65,
+    0.87
+  ],
+  "safeTextBoundary": 0.35,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "38.0% 9.0%, 65.0% 9.0%, 65.0% 87.0%, 38.0% 87.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "047ab7f60a162166045cad812db0e98350ec31e789ad5adccfef6477f8393f69"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/anon-neutral-day.source.json",
+    "admission": "Personally viewed: youthful Anon with own pink hair and grey-blue eyes, complete green school outfit, original left bench position; fingers hold paper bird, supported hips and connected separate legs/full black loafers grounded; closed curtains and diffuse day light, no weather claim. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  },
+  "purpose": "neutral-presence",
+  "neutralTime": "day"
+}

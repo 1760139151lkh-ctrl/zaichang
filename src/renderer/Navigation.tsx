@@ -1,7 +1,8 @@
-import { Pencil, Search, Settings2, Sun } from 'lucide-react';
+import { Pencil, Search, Settings2 } from 'lucide-react';
 import type { WorkspaceView } from './Workspace';
 import { CompanionAvatar } from './companion';
 import { APPEARANCE_PALETTES, useEffectiveEnvironment } from './appearance';
+import { AppearanceIcon } from './AppearanceIcon';
 
 /** Places stay stable; personal appearance and app preferences have their own
  * entrances instead of sharing a drawer with every kind of work. */
@@ -25,7 +26,7 @@ export function Navigation({ busy, view, onView, onNew, onHistory, onCompanion }
     <div className="navigation-personal">
       <button type="button" className="nav-button" aria-label="搜索对话、笔记与资料" title="搜索 · Ctrl K" onClick={onHistory}><Search size={19} /></button>
       {(view === 'chat' || view === 'home') && <button type="button" className="nav-button nav-new-conversation" aria-label="新的对话" title="新的对话 · Ctrl N" onClick={onNew} disabled={busy}><Pencil size={18} /></button>}
-      <button type="button" className="nav-button navigation-atmosphere" aria-label={`选择氛围，当前${lightName}`} title="选择氛围" onClick={() => onCompanion('light')}><Sun size={19} /><span>{lightName}</span></button>
+      <button type="button" className="nav-button navigation-atmosphere" aria-label={`选择氛围，当前${lightName}`} title={environment.mode === 'auto' ? `随窗外 · ${lightName}` : lightName} onClick={() => onCompanion('light')}><AppearanceIcon palette={environment.palette} automatic={environment.mode === 'auto'} /></button>
       <button type="button" className="nav-button companion-menu-trigger" aria-label="选择伙伴" title="选择伙伴" aria-current={view === 'companion' ? 'page' : undefined} onClick={() => onCompanion('partner')}><CompanionAvatar size={35} /></button>
       <button type="button" className="nav-button navigation-preferences" aria-label="相处、阅读与连接设置" title="设置" aria-current={view === 'settings' ? 'page' : undefined} onClick={() => onView('settings')}><Settings2 size={19} /></button>
     </div>

@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "nyamu-chat-mist-literary-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "nyamu",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "mist",
+  "environmentVariant": "overcast-day",
+  "width": 1536,
+  "height": 1024,
+  "mother": "nyamu-chat-mist-literary-complete-20261105-mother.png",
+  "background": "literary-room-overcast-day-v1.png",
+  "seat": [
+    0.8,
+    0.6
+  ],
+  "ground": [
+    0.65,
+    0.9
+  ],
+  "bodyBounds": [
+    0.55,
+    0.09,
+    0.92,
+    0.94
+  ],
+  "safeTextBoundary": 0.52,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "55.00000000000001% 9.0%, 92.0% 9.0%, 92.0% 94.0%, 55.00000000000001% 94.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "f926ebc51877fa2abdee9fdae6ba27e3f178da4acbb8e73b38296b5524a86941"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/nyamu-mist.source.json",
+    "admission": "Personally viewed: youthful Nyamu, short purple bob and rose-purple eyes, full grey ruffled outfit and bare legs with complete black ankle-strap heels; fingers support actual paper flower, hips supported, separate continuous legs and grounded soles, diffuse overcast light. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  }
+}

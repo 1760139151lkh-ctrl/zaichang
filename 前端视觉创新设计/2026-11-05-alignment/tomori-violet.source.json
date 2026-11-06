@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-05",
+  "character": "tomori",
+  "palette": "violet",
+  "generatorOriginal": "exec-8c860f70-a5ba-46b1-ae8c-2ca99a6c9c16.png",
+  "runtimeMother": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/tomori-chat-violet-literary-complete-20261105-mother.png",
+  "sha256": "4701c1af43a7336422770a3b43535f6c14693d6d94342413a87590b01cd3b40d",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c"
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/tomori-chat-apricot-literary-mother-v1.png",
+      "sha256": "f075324f63e151e4045b4ac5ee87f30dc8295295b81f12c97ddb30ab56ac34d9"
+    }
+  ],
+  "characterPassport": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/tomori.md",
+    "sha256": "3a73a8f8299e7645ea96f6d07051a38bb2ccdb4b4e7e25e19eb08d51e2d08d3c"
+  },
+  "prompt": "前端视觉创新设计/2026-11-05-alignment/tomori-violet.prompt.txt",
+  "classification": "B",
+  "primaryReview": "Personally viewed: youthful Tomori, short hair and soft rose eyes, project costume interpretation, hands supported by notebook with pencil in spine, natural seated mass and separate full supported loafers; soft dusk light.",
+  "implementation": "src/renderer/companion-scenes.tsx; src/renderer/CompanionSettings.tsx",
+  "boundary": "Full generated scene, fixed calibrated canvas; no independently movable body.",
+  "runtimeReview": {
+    "accepted": true,
+    "evidence": "docs/evidence/2026-11-05-voice-input.md",
+    "scope": "Individually selected and adopted in the actual Electron renderer; manual palette or clock-based neutral presence, with optical layout review. Whole-scene transition and real controls only; no independent body animation/video claim."
+  }
+}

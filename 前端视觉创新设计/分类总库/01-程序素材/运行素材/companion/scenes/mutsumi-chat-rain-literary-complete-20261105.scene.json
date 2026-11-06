@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "mutsumi-chat-rain-literary-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "mutsumi",
+  "activity": "chat",
+  "light": "night",
+  "palette": "rain",
+  "environmentVariant": "rain-night",
+  "width": 1536,
+  "height": 1024,
+  "mother": "mutsumi-chat-rain-literary-complete-20261105-mother.png",
+  "background": "literary-room-rain-night-v1.png",
+  "seat": [
+    0.8,
+    0.61
+  ],
+  "ground": [
+    0.66,
+    0.91
+  ],
+  "bodyBounds": [
+    0.57,
+    0.1,
+    0.92,
+    0.94
+  ],
+  "safeTextBoundary": 0.5399999999999999,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "56.99999999999999% 10.0%, 92.0% 10.0%, 92.0% 94.0%, 56.99999999999999% 94.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "431064cd104a4932ccf0f9a8369f476d2c638786aa77ec94cf824ef25f2ccaaa"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/mutsumi-rain.source.json",
+    "admission": "Personally viewed final revision: youthful Mutsumi with own long mint-grey hair, silver clip and gold-brown eyes, full uniform; hand lifts real book page and palm supported by cushion, continuous hips-knees-ankles/full loafers grounded. Soft lamp-only rain-night floor, rejected daylight stripes removed; first revision preserved outside repository. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  }
+}

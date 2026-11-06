@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "nyamu-chat-violet-literary-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "nyamu",
+  "activity": "chat",
+  "light": "dusk",
+  "palette": "violet",
+  "environmentVariant": "twilight",
+  "width": 1536,
+  "height": 1024,
+  "mother": "nyamu-chat-violet-literary-complete-20261105-mother.png",
+  "background": "literary-room-twilight-v1.png",
+  "seat": [
+    0.8,
+    0.6
+  ],
+  "ground": [
+    0.65,
+    0.9
+  ],
+  "bodyBounds": [
+    0.53,
+    0.09,
+    0.92,
+    0.94
+  ],
+  "safeTextBoundary": 0.5,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "53.0% 9.0%, 92.0% 9.0%, 92.0% 94.0%, 53.0% 94.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "a3637bbaada13ac009dc526b7b8e72b176b1391dfa89cc20b015091ea17be8d1"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/nyamu-violet.source.json",
+    "admission": "Personally viewed: youthful expressive Nyamu, paper flower meets supporting hand, other hand naturally finishing a fold, hips on cushion, connected knees and ankles and full heel shoes on floor; coherent twilight. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  }
+}

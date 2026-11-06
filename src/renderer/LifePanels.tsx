@@ -9,6 +9,8 @@ import {
   Monitor,
   RotateCcw,
   MapPin,
+  LoaderCircle,
+  MessageCircle,
   X,
 } from 'lucide-react';
 import type { Action, State } from '../shared/types';
@@ -297,6 +299,8 @@ export function AgendaEditor({
       if (editorLive.current) setPending(false);
     }
   }
+  const saveLabel = pending ? '正在保存' : cancelledOccurrence ? '重新放回这一次' : trialInstant
+    ? calendarCommitment(original).occupiesTime ? '采用这个时间' : '保存这个时间' : '保存';
   const form = (
       <form
         className="panel-body"
@@ -405,7 +409,7 @@ export function AgendaEditor({
         ) : (
           <div className="agenda-edit-time-fields">
             <label className="field-label">
-              什么时候 · {timeZoneLabel(zone)}
+              时间 · {timeZoneLabel(zone)}
               <input
                 type="datetime-local"
                 step="1"
@@ -417,7 +421,7 @@ export function AgendaEditor({
               />
             </label>
             <label className="field-label">
-              {original.planRef ? '整段占用' : '留多久'} · 分钟
+              {original.planRef ? '整段占用' : '时长'} · 分钟
               <input
                 type="number"
                 aria-label="安排时长"
@@ -506,16 +510,17 @@ export function AgendaEditor({
           </div>
         )}
         <div className="field-buttons">
-          <button
+          {(personalEdits || trialInstant || cancelledOccurrence) && <button
             className="primary-button"
+            aria-label={saveLabel}
+            title={saveLabel}
             disabled={pending || !title.trim() || !current || changed || previewing || !!previewError}
           >
-            {pending ? '正在保存…' : cancelledOccurrence ? '重新放回这一次' : trialInstant
-              ? calendarCommitment(original).occupiesTime ? '采用这个时间' : '保存这个时间' : '保存'}
-          </button>
-          <button type="button" className="text-button" onClick={onClose} disabled={pending}>
+            {pending ? <LoaderCircle size={23} className="spin" /> : <Check size={24} />}
+          </button>}
+          {!embedded && <button type="button" className="text-button" onClick={onClose} disabled={pending}>
             {trialInstant ? '先放回' : '取消'}
-          </button>
+          </button>}
         </div>
         {onDiscuss && <button type="button" className="text-button agenda-discuss-link" disabled={pending || !current || changed || personalEdits
           || !!duration && (!Number.isInteger(Number(duration)) || Number(duration) < 1 || Number(duration) > 1440)}
@@ -524,13 +529,13 @@ export function AgendaEditor({
             const focus: AgendaFocus = { record: { id: current.id, revision: current.revision || 1, ...(once ? { occurrenceDate } : {}) },
               ...(trialInstant ? { trial: { proposedStart: trialInstant, durationMinutes: duration ? Number(duration) : null } } : {}) };
             onDiscuss(focus, `${original.title}${focus.trial ? ` · ${formatDateTime(trialInstant!, zone)} · ${duration ? `${Number(duration)}分钟` : '结束未定'}试放` : ''}`);
-          }}>{trialInstant && preview?.occupancy && (preview.occupancy.related.length > 0 || preview.occupancy.multipleWorkUnits)
+          }}><MessageCircle size={22} /><span className="sr-only">{trialInstant && preview?.occupancy && (preview.occupancy.related.length > 0 || preview.occupancy.multipleWorkUnits)
             ? '连同准备和转场一起商量' : trialInstant && original.planRef ? '一起看看整段安排'
-              : trialInstant ? '讨论这次试放' : '接着聊这件事'}<ArrowUpRight size={14} /></button>}
+              : trialInstant ? '讨论这次试放' : '接着聊这件事'}</span></button>}
         {onOpenOrigin && <button type="button" className="text-button agenda-origin-link" disabled={pending || !current || changed || personalEdits}
           title={personalEdits ? '先保存或取消修改，再返回原交流' : '回到当时商量这项安排的原对话'}
           onClick={() => { if (current) onOpenOrigin({ id: current.id, revision: current.revision || 1, ...(once ? { occurrenceDate } : {}) }); }}>
-          <BookOpen size={14} aria-hidden="true" />原交流</button>}
+          <BookOpen size={22} aria-hidden="true" /><span className="sr-only">原交流</span></button>}
         {once && !cancelledOccurrence && <button type="button" className="text-button agenda-cancel-once" disabled={pending || !current || changed}
           onClick={() => void save(true)}>取消这一次</button>}
       </form>

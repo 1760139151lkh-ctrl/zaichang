@@ -4,6 +4,7 @@ import type { MaterialsBridge } from './materials';
 import type { LocalSearchBridge } from './search';
 import type { AgendaBridge } from './agenda';
 import type { KeepBridge } from './keep';
+import type { SpeechBridge } from './speech';
 import { DEFAULT_INTERACTION, type InteractionPreferences } from './interaction';
 import { DEFAULT_PERSONA, type PersonaState, type PersonaUpdate } from './persona';
 
@@ -381,7 +382,7 @@ export interface WorkoutDeviceChoice {
   provenance: 'device' | 'simulated' | 'unknown';
   reason?: string;
 }
-export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge, AgendaBridge, KeepBridge {
+export interface Bridge extends NotesBridge, MaterialsBridge, LocalSearchBridge, AgendaBridge, KeepBridge, SpeechBridge {
   environment(): Promise<import('./environment').CompanionEnvironment>;
   tiyiStatus(input?: { refreshGateway?: boolean }): Promise<import('./tiyi').TiyiConnectorState>;
   tiyiConnect(input?: { via?: 'direct' | 'webvpn'; accountLogin?: boolean }): Promise<import('./tiyi').TiyiConnectorState & { check: {

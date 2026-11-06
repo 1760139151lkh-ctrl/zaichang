@@ -731,7 +731,7 @@ export function CompanionSceneStage({ artwork, name, position, onCommit, transfe
   const motherReady = openedMother === imageKey;
   const backgroundReady = openedBackground === imageKey;
   const contactReady = !shown.contactMask || openedContactAssembly === imageKey;
-  const subjectReady = motherReady && backgroundReady && !failedMother && contactReady && (!shown.contactMask || !failedLayer);
+  const subjectReady = motherReady && (shown.renderMode === 'complete-scene' || backgroundReady) && !failedMother && contactReady && (!shown.contactMask || !failedLayer);
   const shownBounds = seatPositionBounds(shown);
   const shownPosition = dragPreview ? Math.max(shownBounds[0], Math.min(shownBounds[1], dragPreview.position)) : value;
   const latest = useRef({ onCommit, position, artwork, sourceKey, quiet, yieldToInput, interactive, showFigure, previewOnly, transferTargets, transferScope, onTransferCommit });

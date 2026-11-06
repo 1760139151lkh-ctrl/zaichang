@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "id": "umiri-neutral-presence-time-day-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "umiri",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "mist",
+  "width": 1536,
+  "height": 1024,
+  "mother": "umiri-neutral-presence-time-day-complete-20261105-mother.png",
+  "background": "literary-room-time-day-v1.png",
+  "seat": [
+    0.75,
+    0.57
+  ],
+  "ground": [
+    0.64,
+    0.91
+  ],
+  "bodyBounds": [
+    0.55,
+    0.1,
+    0.87,
+    0.94
+  ],
+  "safeTextBoundary": 0.52,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "55.00000000000001% 10.0%, 87.0% 10.0%, 87.0% 94.0%, 55.00000000000001% 94.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "7965041f5783fdd370a07a4efff91e8c7bf4bbdc9a52989b4409120ed94a5919"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/umiri-neutral-day.source.json",
+    "admission": "Personally viewed: youthful Umiri with correct short dark hair, grey-blue eyes and complete punk outfit; closed curtains and diffuse day light, no weather claim, paper held at lap, supported hips and continuous separate legs/full boots on floor. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  },
+  "purpose": "neutral-presence",
+  "neutralTime": "day"
+}

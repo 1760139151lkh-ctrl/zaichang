@@ -4,6 +4,7 @@ import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { stageMaterialRuntime } from './material-runtime.mjs';
 import { stageEmbeddingRuntime } from './embedding-runtime.mjs';
+import { stageSpeechRuntime } from './speech-runtime.mjs';
 
 if (process.platform !== 'win32') throw new Error('This packaging target currently supports Windows only.');
 const project = process.cwd(), source = path.resolve('.runtime/hermes-agent');
@@ -97,6 +98,7 @@ fs.copyFileSync(path.join(source, 'LICENSE'), 'licenses/Hermes-MIT.txt');
 fs.copyFileSync(path.join(pythonHome, 'LICENSE.txt'), 'licenses/Python-LICENSE.txt');
 const materialRuntime = await stageMaterialRuntime(path.resolve('build/material-runtime-staging-' + Date.now()));
 const embeddingRuntime = await stageEmbeddingRuntime(path.resolve('build/embedding-runtime-staging-' + Date.now()), { immutableResource: true });
+const speechRuntime = await stageSpeechRuntime(path.resolve('build/speech-runtime-staging-' + Date.now()));
 fs.copyFileSync(path.join(materialRuntime.path, 'node_modules/pdfjs-dist/LICENSE'), 'licenses/PDFJS-APACHE-2.0.txt');
 fs.copyFileSync(path.join(materialRuntime.path, 'node_modules/@napi-rs/canvas/LICENSE'), 'licenses/Canvas-MIT.txt');
 const info = JSON.parse(execFileSync(path.join(pyTarget, 'python.exe'), ['-I', '-B', '-c', 'import sys,json,openai,httpx; print(json.dumps({"python":sys.version,"base":sys.base_prefix,"openai":openai.__version__}))'], { cwd: target, encoding: 'utf8', windowsHide: true }));
@@ -110,13 +112,16 @@ const baseConfig = JSON.parse(fs.readFileSync('package.json', 'utf8')).build;
 const config = { ...baseConfig, files: [...baseConfig.files,
   '!dist-electron/material-runtime{,/**/*}', '!dist-electron/embedding-runtime{,/**/*}', '!node_modules/pdfjs-dist{,/**/*}',
   '!node_modules/onnxruntime-node{,/**/*}', '!node_modules/onnxruntime-common{,/**/*}', '!node_modules/@huggingface/tokenizers{,/**/*}',
-  '!node_modules/@napi-rs/canvas{,/**/*}', '!node_modules/@napi-rs/canvas-win32-x64-msvc{,/**/*}'],
+  '!node_modules/@napi-rs/canvas{,/**/*}', '!node_modules/@napi-rs/canvas-win32-x64-msvc{,/**/*}',
+  '!dist-electron/speech-runtime{,/**/*}', '!node_modules/sherpa-onnx-node{,/**/*}', '!node_modules/sherpa-onnx-win-x64{,/**/*}'],
   extraResources: [...(baseConfig.extraResources || []),
     { from: target, to: 'hermes-runtime', filter: ['**/*', '**/.*', '**/.*/**'] },
     { from: materialRuntime.path, to: 'material-runtime', filter: ['**/*'] },
     { from: embeddingRuntime.path, to: 'embedding-runtime', filter: ['**/*'] },
     { from: path.join(embeddingRuntime.path, 'node_modules'), to: 'embedding-runtime/node_modules', filter: ['**/*'] },
+    { from: speechRuntime.path, to: 'speech-runtime', filter: ['**/*'] },
+    { from: path.join(speechRuntime.path, 'node_modules'), to: 'speech-runtime/node_modules', filter: ['**/*'] },
     // electron-builder omits a source root's node_modules; copy that subtree explicitly.
     { from: path.join(materialRuntime.path, 'node_modules'), to: 'material-runtime/node_modules', filter: ['**/*'] }] };
 fs.writeFileSync('build/hermes-builder.json', JSON.stringify(config, null, 2));
-console.log(JSON.stringify({ staged: target, python: info.python, materialRuntime, packageConfig: 'build/hermes-builder.json' }));
+console.log(JSON.stringify({ staged: target, python: info.python, materialRuntime, speechRuntime, packageConfig: 'build/hermes-builder.json' }));

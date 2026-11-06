@@ -645,7 +645,6 @@ dialog.panel.agenda-editor {
 .agenda-timeline-card.is-moving { z-index: 5; box-shadow: 0 8px 24px #57371920; background: color-mix(in srgb, var(--accent-soft) 77%, var(--surface)); border-color: color-mix(in srgb, var(--accent) 46%, var(--border)); }
 .agenda-timeline.is-dragging .agenda-timeline-card.is-moving { cursor: grabbing; transition: none; }
 .agenda-timeline-ghost { position: absolute; min-height: 4px; border: 1px dashed color-mix(in srgb, var(--accent) 48%, transparent); background: color-mix(in srgb, var(--accent-soft) 23%, transparent); border-radius: 10px; pointer-events: none; }
-.agenda-timeline-ghost > span { display: block; padding: 6px 12px; color: var(--text-tertiary); font-size: 11px; }
 .today-move-undo { display: flex; align-items: center; gap: 16px; margin: 15px 0 3px 66px; padding: 11px 13px; border: 1px solid var(--separator); border-radius: 12px; background: color-mix(in srgb, var(--surface) 78%, transparent); }
 .today-move-undo > div { flex: 1; min-width: 0; }
 .today-move-undo p { font-size: 12px; line-height: 1.7; color: var(--text-secondary); margin: 0; }

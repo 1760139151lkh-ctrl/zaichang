@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "umiri-chat-mist-literary-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "umiri",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "mist",
+  "environmentVariant": "overcast-day",
+  "width": 1536,
+  "height": 1024,
+  "mother": "umiri-chat-mist-literary-complete-20261105-mother.png",
+  "background": "literary-room-overcast-day-v1.png",
+  "seat": [
+    0.8,
+    0.6
+  ],
+  "ground": [
+    0.65,
+    0.9
+  ],
+  "bodyBounds": [
+    0.56,
+    0.1,
+    0.9,
+    0.93
+  ],
+  "safeTextBoundary": 0.53,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "56.00000000000001% 10.0%, 90.0% 10.0%, 90.0% 93.0%, 56.00000000000001% 93.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "2350dae1110aafac9ad6d1def0e01634246f4802930ed76ff26fccf5f8ac4ab2"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/umiri-mist.source.json",
+    "admission": "Personally viewed: youthful Umiri, correct short dark hair and grey-blue eyes, complete punk clothing and bare calves, both hands meet folded paper; hips supported, separate continuous knee-ankle-boot paths, complete soles grounded, coherent overcast light. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  }
+}

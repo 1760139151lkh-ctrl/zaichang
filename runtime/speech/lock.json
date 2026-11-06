@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "runtimeVersion": "sherpa-onnx-2.0.1-sensevoice-small-int8-2024-07-17-silero-vad-v1",
+  "modelId": "sensevoice-small-int8-2024-07-17",
+  "label": "SenseVoice 小型识别模型（int8）",
+  "model": {
+    "name": "SenseVoiceSmall",
+    "authors": "Alibaba Group (FunAudioLLM / FunASR)",
+    "upstream": "https://github.com/FunAudioLLM/SenseVoice",
+    "export": "https://huggingface.co/csukuangfj/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-2024-07-17",
+    "revision": "2365baeacb507f821a0c8120fcee3d484dba7a07",
+    "license": "FunASR Model Open Source License Agreement 1.1 (attribute the source and authors, keep the model name)",
+    "languages": [
+      "zh",
+      "en",
+      "yue",
+      "ja",
+      "ko"
+    ]
+  },
+  "dependencies": {
+    "sherpa-onnx-node": "2.0.1",
+    "sherpa-onnx-win-x64": "2.0.1"
+  },
+  "hosts": [
+    "huggingface.co",
+    "hf.co",
+    "hf-mirror.com"
+  ],
+  "download": [
+    {
+      "path": "sense-voice/model.int8.onnx",
+      "bytes": 239233841,
+      "sha256": "c71f0ce00bec95b07744e116345e33d8cbbe08cef896382cf907bf4b51a2cd51",
+      "sources": [
+        "https://huggingface.co/csukuangfj/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-2024-07-17/resolve/2365baeacb507f821a0c8120fcee3d484dba7a07/model.int8.onnx",
+        "https://hf-mirror.com/csukuangfj/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-2024-07-17/resolve/2365baeacb507f821a0c8120fcee3d484dba7a07/model.int8.onnx"
+      ]
+    },
+    {
+      "path": "sense-voice/tokens.txt",
+      "bytes": 315894,
+      "sha256": "f449eb28dc567533d7fa59be34e2abca8784f771850c78a47fb731a31429a1dc",
+      "sources": [
+        "https://huggingface.co/csukuangfj/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-2024-07-17/resolve/2365baeacb507f821a0c8120fcee3d484dba7a07/tokens.txt",
+        "https://hf-mirror.com/csukuangfj/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-2024-07-17/resolve/2365baeacb507f821a0c8120fcee3d484dba7a07/tokens.txt"
+      ]
+    }
+  ],
+  "bundled": [
+    {
+      "path": "vad/silero_vad.onnx",
+      "bytes": 643854,
+      "sha256": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6",
+      "origin": "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/silero_vad.onnx",
+      "license": "MIT (snakers4/silero-vad)"
+    }
+  ],
+  "nativeRuntimeNotices": [
+    {
+      "path": "licenses/ONNXRuntime-speech-MIT.txt",
+      "source": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.28.2/LICENSE",
+      "bytes": 1073,
+      "sha256": "2f07c72751aed99790b8a4869cf2311df85a860b22ded05fa22803587a48922c"
+    },
+    {
+      "path": "licenses/ONNXRuntime-speech-ThirdPartyNotices.txt",
+      "source": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.28.2/ThirdPartyNotices.txt",
+      "bytes": 325054,
+      "sha256": "0e07b95f3a8d6230037707c5c4a2b554d12c4cb67369669ac255635528ffcee2"
+    }
+  ]
+}

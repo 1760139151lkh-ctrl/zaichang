@@ -121,7 +121,7 @@
 .app-main:has(> .companion-scene[data-scene-family]) .composer-area:not(.is-study-writing) .composer textarea:focus-visible {
   color: var(--room-ink);
   background: transparent;
-  font-size: 16px;
+  font-size: var(--composer-writing-size,16px);
   line-height: 1.7;
 }
 .app-main:has(> .companion-scene[data-scene-family]) .composer-area:not(.is-study-writing) .composer textarea::placeholder { color: var(--room-ink-secondary); opacity: 1; }

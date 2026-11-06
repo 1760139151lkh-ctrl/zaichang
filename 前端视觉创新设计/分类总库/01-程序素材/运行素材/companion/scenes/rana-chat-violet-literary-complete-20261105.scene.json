@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "rana-chat-violet-literary-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "rana",
+  "activity": "chat",
+  "light": "dusk",
+  "palette": "violet",
+  "environmentVariant": "twilight",
+  "width": 1536,
+  "height": 1024,
+  "mother": "rana-chat-violet-literary-complete-20261105-mother.png",
+  "background": "literary-room-twilight-v1.png",
+  "seat": [
+    0.78,
+    0.57
+  ],
+  "ground": [
+    0.64,
+    0.9
+  ],
+  "bodyBounds": [
+    0.56,
+    0.09,
+    0.9,
+    0.94
+  ],
+  "safeTextBoundary": 0.53,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "56.00000000000001% 9.0%, 90.0% 9.0%, 90.0% 94.0%, 56.00000000000001% 94.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "e7a6349a86a557de403cf5134ac38c076766efbeda29735c595ca49e17ea3ff5"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/rana-violet.source.json",
+    "admission": "Personally viewed: Rana silver hair and correct own right gold/left blue eyes, youthful curious face, project-original clothing; fingertip meets real paper and other palm meets cushion, complete continuous hips-knees-ankles and boots, coherent soft dusk. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  }
+}

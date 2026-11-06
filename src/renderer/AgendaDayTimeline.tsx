@@ -680,9 +680,7 @@ export function AgendaDayTimeline({
                 width: `${100 / ghost.lanes}%`,
               }}
               aria-hidden="true"
-            >
-              <span>{oldRange.start < day.start || oldRange.end > day.end ? timeRange(oldRange.start, oldRange.end) : clock(oldRange.start)}</span>
-            </div>
+            />
           )}
           {drawingEntries.map((entry) => {
             const layout = laneByKey.get(entry.key) || entry;

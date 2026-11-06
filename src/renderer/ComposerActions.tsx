@@ -1,5 +1,4 @@
 import { ArrowUp, Square } from 'lucide-react';
-import './composer-actions.css';
 
 export interface ComposerActionsProps {
   busy: boolean;
@@ -20,11 +19,11 @@ export function ComposerActions({ busy, submitting, hasDraft, onStop }: Composer
       onClick={onStop}
     ><Square size={13} fill="currentColor" /></button>}
     {(!busy || hasDraft) && <button
-      className={`send-button${busy ? ' composer-supplement' : ''}`}
+      className="send-button"
       type="submit"
       aria-label={busy ? '发送补充，按这段话继续' : '发送'}
       title={busy ? '按这段话接着聊 · Enter' : '发送 · Enter'}
       disabled={submitting || !hasDraft}
-    >{busy ? '补一句' : <ArrowUp size={22} />}</button>}
+    ><ArrowUp size={22} /></button>}
   </>;
 }

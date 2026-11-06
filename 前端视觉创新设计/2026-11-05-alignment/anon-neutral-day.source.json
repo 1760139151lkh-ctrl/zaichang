@@ -1,0 +1,34 @@
+{
+  "date": "2026-11-05",
+  "character": "anon",
+  "palette": "mist",
+  "generatorOriginal": "exec-957bca6d-b85a-4d66-9600-5faea2b67480.png",
+  "runtimeMother": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/anon-neutral-presence-time-day-complete-20261105-mother.png",
+  "sha256": "047ab7f60a162166045cad812db0e98350ec31e789ad5adccfef6477f8393f69",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-time-day-v1.png",
+      "sha256": "aa4ce3dcab5cd2366c9f1c4eadcff0ab85537ab45e5a3b0643c4d01588e6e247"
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/anon-chat-apricot-literary-mother-v1.png",
+      "sha256": "53ee79ee3e5e210fc875d6ed062543c21cc2001831ede42dad814367a6103b7c"
+    }
+  ],
+  "characterPassport": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/anon.md",
+    "sha256": "de7782a11d0e620b3d25de33ac7a964142a39322e6fa8f0ceceea2bc6d501b19"
+  },
+  "prompt": "前端视觉创新设计/2026-11-05-alignment/anon-neutral-day.prompt.txt",
+  "classification": "B",
+  "primaryReview": "Personally viewed: youthful Anon with own pink hair and grey-blue eyes, complete green school outfit, original left bench position; fingers hold paper bird, supported hips and connected separate legs/full black loafers grounded; closed curtains and diffuse day light, no weather claim.",
+  "implementation": "src/renderer/companion-scenes.tsx; src/renderer/CompanionSettings.tsx",
+  "boundary": "Full generated scene, fixed calibrated canvas; no independently movable body.",
+  "runtimeReview": {
+    "accepted": true,
+    "evidence": "docs/evidence/2026-11-05-voice-input.md",
+    "scope": "Individually selected and adopted in the actual Electron renderer; manual palette or clock-based neutral presence, with optical layout review. Whole-scene transition and real controls only; no independent body animation/video claim."
+  }
+}

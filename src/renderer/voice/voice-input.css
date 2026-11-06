@@ -1,0 +1,53 @@
+/* Icon-only dictation. Nothing records or animates a waveform without real capture. */
+.composer {
+  --text:var(--writing-ink); --text-secondary:var(--writing-muted); --text-tertiary:var(--writing-faint);
+  --accent:var(--writing-accent); --accent-soft:var(--writing-accent-soft); --accent-dim:#c7a16b;
+  --accent-ink:#392b20; --border:var(--writing-border); color:var(--text);
+}
+.voice-button { --voice-level:0; position:relative; flex:0 0 48px; width:48px; height:48px; border-radius:50%; transition:background 160ms,color 160ms,box-shadow 100ms,transform 160ms; }
+.composer-right > .send-button { flex:0 0 48px; width:48px; height:48px; padding:0; }
+.voice-button:active { transform:scale(.9); }
+.voice-button.is-listening { color:var(--accent); background:var(--accent-soft); box-shadow:0 0 0 calc(2px + var(--voice-level) * 7px) color-mix(in srgb,var(--accent) 13%,transparent); }
+.voice-button > svg { animation:voice-icon-in 160ms both; }
+.composer .voice-feedback { grid-column:1 / -1; margin:4px 0 0; padding:6px 1px 0; border-top:1px solid var(--border); }
+.voice-feedback { display:flex; align-items:center; gap:14px; min-height:34px; color:inherit; animation:voice-reveal 200ms both; }
+.voice-clock { flex-shrink:0; font-size:14px; font-variant-numeric:tabular-nums; opacity:.8; }
+.voice-level { display:flex; align-items:center; justify-content:space-between; flex:1; min-width:32px; height:24px; gap:2px; color:var(--writing-accent); }
+.voice-level i { --level:0; display:block; flex:1; max-width:3px; height:calc(2px + var(--level) * 20px); border-radius:2px; background:currentColor; transition:height 100ms linear; }
+.voice-feedback[data-phase='preparing'] .voice-level { opacity:.7; }
+.voice-feedback[data-phase='finishing'] .voice-level { opacity:.3; transition:opacity 160ms; }
+.voice-result { display:flex; align-items:center; flex:1; color:var(--writing-accent); }
+.voice-result > svg { animation:voice-icon-in 220ms both; }
+.voice-problem .voice-result { color:inherit; }
+.voice-feedback-actions { display:flex; align-items:center; flex-shrink:0; gap:5px; }
+.voice-feedback-actions .icon-button { width:32px; height:32px; color:inherit; border-radius:50%; }
+.cover-home .composer { grid-template-columns:36px minmax(0,1fr) auto; }
+.cover-home .composer .composer-right { width:auto; gap:8px; }
+.cover-home .composer .voice-button.is-listening { color:#ffe0a8; background:#b9935633; box-shadow:0 0 0 calc(2px + var(--voice-level) * 7px) #f4ce8f18; }
+.cover-home .voice-level,.cover-home .voice-result { color:#f4ce8f; }
+.cover-home .composer .voice-feedback { border-color:#eadac02e; }
+.cover-home { container-type:inline-size; container-name:arrival; }
+@container arrival (max-width:480px) {
+  .app-main:has(> .companion-scene[data-scene-family]) :is(.workspace.welcome,.cover-home) .composer { grid-template-columns:minmax(0,1fr) auto; row-gap:8px; }
+  .app-main:has(> .companion-scene[data-scene-family]) :is(.workspace.welcome,.cover-home) .composer textarea { grid-column:1 / -1; }
+  .app-main:has(> .companion-scene[data-scene-family]) :is(.workspace.welcome,.cover-home) .composer-left { grid-column:1; grid-row:calc(var(--composer-input-row) + 1); }
+  .app-main:has(> .companion-scene[data-scene-family]) :is(.workspace.welcome,.cover-home) .composer-right { grid-column:2; grid-row:calc(var(--composer-input-row) + 1); }
+  .cover-home .composer .voice-feedback { grid-row:calc(var(--composer-input-row) + 2); }
+}
+.voice-spinner { animation:voice-spin 1s linear infinite !important; }
+@keyframes voice-spin { to { transform:rotate(360deg); } }
+@keyframes voice-icon-in { from { opacity:.25; transform:scale(.65); } }
+@keyframes voice-reveal { from { opacity:0; transform:translateY(5px); } }
+.voice-inline-field { grid-column:1 / -1; flex:1 0 100%; width:100%; min-width:0; padding:4px 0; }
+@media(max-width:600px) {
+  .cover-home .composer .composer-right { gap:3px; }
+  .voice-feedback { gap:10px; }
+  .voice-level { gap:2px; }
+  .voice-level i:nth-child(-n+32) { display:none; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .voice-button,.voice-level i { transition:none; }
+  .voice-button > svg,.voice-spinner,.voice-feedback,.voice-result > svg { animation:none !important; }
+}
+:root[data-motion='reduced'] :is(.voice-button,.voice-level i) { transition:none; }
+:root[data-motion='reduced'] :is(.voice-button > svg,.voice-spinner,.voice-feedback,.voice-result > svg) { animation:none !important; }

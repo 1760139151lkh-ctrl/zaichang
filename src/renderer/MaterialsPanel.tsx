@@ -67,7 +67,7 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
   const [loading, setLoading] = useState(false), [choosing, setChoosing] = useState(false), [exporting, setExporting] = useState(false);
   const [error, setError] = useState(''), [listError, setListError] = useState(''), [notice, setNotice] = useState('');
   const [quote, setQuote] = useState<MaterialQuote>();
-  const [quotePosition, setQuotePosition] = useState<{ left: number; top: number }>();
+  const [quoteInView, setQuoteInView] = useState(false);
   const [quoteBusy, setQuoteBusy] = useState(false);
   const [savedNote, setSavedNote] = useState<{ id: string; revision: number }>();
   const [notes, setNotes] = useState<MaterialNote[]>([]), [notesError, setNotesError] = useState('');
@@ -282,7 +282,7 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     resumeSelection.current = undefined; let live = true; const navigation = readerNavigation.current, originalKey = readingKey;
     void api.materialsQuote({ target, quote: selected.quote }).then(value => {
       if (!live || navigation !== readerNavigation.current || originalKey !== currentReadingKey.current || selected.boundary !== destination.current.boundary) return;
-      setQuote(value); setQuotePosition({ left: 12, top: 76 });
+      setQuote(value); setQuoteInView(true);
       setHighlight({ kind: 'material', resourceId: value.resourceId, sha256: value.sha256,
         ...(value.page ? { page: value.page } : {}), field: 'body', offset: value.start, end: value.end });
     }).catch(problem => { if (live && navigation === readerNavigation.current && originalKey === currentReadingKey.current) setNotice(readingError(problem)); });
@@ -460,7 +460,7 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
     window.addEventListener('pointerdown', clear);
     return () => window.removeEventListener('pointerdown', clear);
   }, [quote, frameless]);
-  function positionHeldQuote() {
+  function syncHeldQuoteVisibility() {
     if (!quote || !active) return;
     const box = reader.current?.getBoundingClientRect(), scroll = scroller.current?.getBoundingClientRect();
     if (!box || !scroll) return;
@@ -474,28 +474,18 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
         ? [...held.range.getClientRects()] : [];
     const rect = rectangles.find(value => value.bottom > scroll.top && value.top < scroll.bottom
       && value.right > scroll.left && value.left < scroll.right);
-    if (!rect) { if (frameless) setQuotePosition(undefined); return; }
-    const actions = quoteActions.current?.getBoundingClientRect();
-    const width = actions?.width || Math.min(300, box.width - 16), height = actions?.height || 48;
-    const minTop = Math.max(8, scroll.top - box.top + 8);
-    const maxTop = Math.max(minTop, Math.min(box.height - height - 8, scroll.bottom - box.top - height - 8));
-    const above = rect.top - box.top - height - 8, below = rect.bottom - box.top + 8;
-    const top = above >= minTop ? above : below <= maxTop ? below : Math.max(minTop, Math.min(maxTop, above));
-    setQuotePosition(current => {
-      const next = { left: Math.max(8, Math.min(box.width - width - 8, rect.left - box.left)), top };
-      return current?.left === next.left && current.top === next.top ? current : next;
-    });
+    setQuoteInView(!!rect);
   }
-  useLayoutEffect(() => { positionHeldQuote(); }, [quote, active, zoom, frameless, !!quotePosition]);
+  useLayoutEffect(() => { syncHeldQuoteVisibility(); }, [quote, active, zoom, frameless, quoteInView]);
   useEffect(() => {
     if (!quote || !reader.current) return;
-    const observer = new ResizeObserver(positionHeldQuote);
+    const observer = new ResizeObserver(syncHeldQuoteVisibility);
     observer.observe(reader.current);
     if (quoteActions.current) observer.observe(quoteActions.current);
     return () => observer.disconnect();
-  }, [frameless, quote, active, zoom, !!quotePosition]);
+  }, [frameless, quote, active, zoom, quoteInView]);
   useEffect(() => {
-    if (libraryOnly || !pendingRef || target?.kind === 'saved') return;
+    if (libraryOnly || fixedDocument || !pendingRef || target?.kind === 'saved') return;
     setPage(1); setOffset(0); setView(pendingRef.mediaType === 'application/pdf' ? 'page' : 'text');
   }, [pendingRef?.resourceId]);
   useEffect(() => {
@@ -665,9 +655,7 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
       text, page: document.page, start, end: start + Array.from(text).length };
     quoteRange.current = { key: readingKey, sha256: current.sha256, start: current.start, end: current.end, range: range.cloneRange() };
     setQuote(current);
-    const rect = range.getBoundingClientRect(), container = reader.current?.getBoundingClientRect();
-    if (container) setQuotePosition({ left: Math.max(12, Math.min(container.width - 292, rect.left - container.left)),
-      top: Math.max(116, Math.min(container.height - 110, rect.top - container.top - 52)) });
+    setQuoteInView(true);
     setSavedNote(undefined);
     return current;
   }
@@ -681,9 +669,7 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
       start: selection.start, end: selection.end, range: selected.getRangeAt(0).cloneRange() } : undefined;
     setQuote({ resourceId: document.item.resourceId, sha256: document.item.sha256, name: document.item.name,
       text, page: document.page, start: selection.start, end: selection.end });
-    const container = reader.current?.getBoundingClientRect(), rect = selection.rect;
-    if (container) setQuotePosition({ left: Math.max(12, Math.min(container.width - 292, rect.left - container.left)),
-      top: Math.max(76, Math.min(container.height - 110, rect.top - container.top - 52)) });
+    setQuoteInView(true);
     setNotice(''); setSavedNote(undefined);
   }, [document, readingKey]);
   async function useQuote(operation: 'chat' | 'note' | 'tray') {
@@ -877,7 +863,7 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
       onKeyDownCapture={() => { revealPending.current = false; if (resumeInFlight.current) interruptResume(); }}>
       {!target ? <div className="materials-welcome">
         <div className="materials-welcome-copy"><h1>资料</h1></div>
-        {allItems.length ? index : <div className="materials-empty"><div className="materials-paper-mark"><FileText size={52} strokeWidth={1} /></div><button className="primary-button" title="打开 PDF、Markdown 或文字文件" onClick={() => void attach()} disabled={choosing || !draftEnabled}><FolderOpen size={17} />{choosing ? '等你选好…' : '选一份资料'}</button></div>}
+        {allItems.length ? index : <div className="materials-empty"><button className="icon-button materials-choose" aria-label="选一份资料" title="打开 PDF、Markdown 或文字文件" onClick={() => void attach()} disabled={choosing || !draftEnabled}>{choosing ? <LoaderCircle size={25} className="spin" /> : <FolderOpen size={25} />}</button></div>}
         {listError && !allItems.length && <p className="materials-muted" role="alert">{listError}</p>}
       </div> : <>
         <div className="materials-toolbar">
@@ -906,7 +892,7 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
             readingPositions.save(document.item, { page, offset, view, zoom, scrollTop: scroller.current.scrollTop });
             reportReturnAddress();
           }
-          if (quote && active) { if (frameless) positionHeldQuote(); else setQuote(undefined); }
+          if (quote && active) { if (frameless) syncHeldQuoteVisibility(); else setQuote(undefined); }
         }}>
           {!currentBoundary || readingBusy || !!document && documentReadingKey.current !== readingKey ? <div className="materials-opening" role="status"><LoaderCircle size={23} className="spin" /><p>正在翻开这一页…</p></div> : error ? <div className="materials-recovery" role="alert">
             <div className="materials-paper-mark"><FileText size={48} strokeWidth={1} /></div><h2>这份文件没能打开。</h2><p>你可以再试一次，也可以换一份原文件。</p>
@@ -930,14 +916,14 @@ export function MaterialsPanel({ pending, sessionId, boundary, compact = false, 
             {view === 'text' && document.needsVisual && document.text && <p className="materials-page-note">这一页还有图表，切到「页面」可以一起看。</p>}
           </> : null}
         </div>
-        {quote && (!frameless || quotePosition) && currentBoundary && !readingBusy && documentReadingKey.current === readingKey && <div ref={quoteActions} className="material-selection-actions" style={quotePosition} role="group" aria-label="选段操作" onMouseDown={event => event.preventDefault()}>
+        {quote && (!frameless || quoteInView) && currentBoundary && !readingBusy && documentReadingKey.current === readingKey && <div ref={quoteActions} className="material-selection-actions" role="group" aria-label="选段操作" onMouseDown={event => event.preventDefault()}>
           {(!!children || !!conversationTarget || !!bookmarkTray) && <button type="button" className="material-drag-quote" aria-label="拖动引用选段到当前推导、笔记或对话" title="拖动这段原文"
             disabled={!draftEnabled || quoteBusy} onPointerDown={beginQuotePointer} onPointerMove={moveQuotePointer}
             onPointerUp={endQuotePointer} onPointerCancel={clearQuoteTransfer}
             onLostPointerCapture={() => { if (quotePointer.current) clearQuoteTransfer(); }}
             onClick={event => { if (event.detail === 0) void useQuote(bookmarkTray ? 'tray' : 'chat'); }}><GripVertical size={17} /></button>}
-          <button disabled={!draftEnabled || quoteBusy} onClick={() => void useQuote('chat')}><MessageCircle size={17} />引用这段</button>
-          <button disabled={quoteBusy || notePending} onClick={() => void useQuote('note')}><StickyNote size={17} />留作笔记</button>
+          <button aria-label="引用这段" title="引用这段" disabled={!draftEnabled || quoteBusy} onClick={() => void useQuote('chat')}><MessageCircle size={22} /></button>
+          <button aria-label="留作笔记" title="留作笔记" disabled={quoteBusy || notePending} onClick={() => void useQuote('note')}><StickyNote size={22} /></button>
           {bookmarkTray && <button type="button" className="icon-button" aria-label="更多选段操作" title="更多选段操作"
             disabled={quoteBusy} onClick={() => void useQuote('tray')}><MoreHorizontal size={17} /></button>}
         </div>}

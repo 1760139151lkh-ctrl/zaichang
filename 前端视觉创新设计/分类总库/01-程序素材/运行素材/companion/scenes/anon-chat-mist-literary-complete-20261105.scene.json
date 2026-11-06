@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "anon-chat-mist-literary-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "anon",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "mist",
+  "environmentVariant": "overcast-day",
+  "width": 1536,
+  "height": 1024,
+  "mother": "anon-chat-mist-literary-complete-20261105-mother.png",
+  "background": "literary-room-overcast-day-v1.png",
+  "seat": [
+    0.54,
+    0.55
+  ],
+  "ground": [
+    0.43,
+    0.83
+  ],
+  "bodyBounds": [
+    0.37,
+    0.1,
+    0.63,
+    0.86
+  ],
+  "safeTextBoundary": 0.35,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "37.0% 10.0%, 63.0% 10.0%, 63.0% 86.0%, 37.0% 86.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "a2fb005c8c89401ddccc28b5932d7d807d0585a9acc573433d552745055972d0"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/anon-mist.source.json",
+    "admission": "Personally viewed: youthful long pink-haired Anon, clear grey-blue eyes, complete green-uniform details preserved with black loafers; original middle-left bench seat retained, hands hold paper bird, coherent hips-knees-ankles and grounded full shoes, soft overcast light; empty right workspace. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  }
+}

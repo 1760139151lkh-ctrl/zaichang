@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "tomori-chat-mist-literary-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "tomori",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "mist",
+  "environmentVariant": "overcast-day",
+  "width": 1536,
+  "height": 1024,
+  "mother": "tomori-chat-mist-literary-complete-20261105-mother.png",
+  "background": "literary-room-overcast-day-v1.png",
+  "seat": [
+    0.8,
+    0.6
+  ],
+  "ground": [
+    0.65,
+    0.9
+  ],
+  "bodyBounds": [
+    0.53,
+    0.1,
+    0.87,
+    0.93
+  ],
+  "safeTextBoundary": 0.5,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "53.0% 10.0%, 87.0% 10.0%, 87.0% 93.0%, 53.0% 93.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "c700e7b7efc36439e273c5be5df2fd042056868feafda326c29386cedd6a31cf"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/tomori-mist.source.json",
+    "admission": "Personally viewed: recognizable youthful short-haired Tomori with soft rose-brown eyes, chosen project costume interpretation retained without claiming exact movie uniform; hands and pencil meet actual notebook, hips supported, continuous separate legs and full loafers grounded; overcast light coherent. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  }
+}

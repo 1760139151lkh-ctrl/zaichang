@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-05",
+  "character": "tomori",
+  "palette": "mist",
+  "generatorOriginal": "exec-2f00a14c-166f-48dc-b467-726635729db1.png",
+  "runtimeMother": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/tomori-chat-mist-literary-complete-20261105-mother.png",
+  "sha256": "c700e7b7efc36439e273c5be5df2fd042056868feafda326c29386cedd6a31cf",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a"
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/tomori-chat-apricot-literary-mother-v1.png",
+      "sha256": "f075324f63e151e4045b4ac5ee87f30dc8295295b81f12c97ddb30ab56ac34d9"
+    }
+  ],
+  "characterPassport": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/tomori.md",
+    "sha256": "3a73a8f8299e7645ea96f6d07051a38bb2ccdb4b4e7e25e19eb08d51e2d08d3c"
+  },
+  "prompt": "前端视觉创新设计/2026-11-05-alignment/tomori-mist.prompt.txt",
+  "classification": "B",
+  "primaryReview": "Personally viewed: recognizable youthful short-haired Tomori with soft rose-brown eyes, chosen project costume interpretation retained without claiming exact movie uniform; hands and pencil meet actual notebook, hips supported, continuous separate legs and full loafers grounded; overcast light coherent.",
+  "implementation": "src/renderer/companion-scenes.tsx; src/renderer/CompanionSettings.tsx",
+  "boundary": "Full generated scene, fixed calibrated canvas; no independently movable body.",
+  "runtimeReview": {
+    "accepted": true,
+    "evidence": "docs/evidence/2026-11-05-voice-input.md",
+    "scope": "Individually selected and adopted in the actual Electron renderer; manual palette or clock-based neutral presence, with optical layout review. Whole-scene transition and real controls only; no independent body animation/video claim."
+  }
+}

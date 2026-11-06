@@ -11,6 +11,8 @@ import type { AgendaFocus, AgendaReference } from '../shared/agenda';
 import type { SharedMapRoute } from '../shared/map-context';
 import { LocalSearchPanel } from './LocalSearchPanel';
 import { ComposerActions } from './ComposerActions';
+import { useDictation } from './voice/DictationProvider';
+import { VoiceButton, VoiceFeedback } from './voice/VoiceInput';
 import { FocusContextChip } from './FocusContextChip';
 import { currentWorkspaceTarget, resolveWorkspaceTargetRect, sameWorkspaceTarget, workspaceSendContext, workspaceSurface, workspaceTargetAtSend, workspaceTargetKey } from './workspace-context';
 import type { CompanionD01Target } from './companion-d01-motion';
@@ -55,7 +57,7 @@ import './reading-desk-integration.css';
 import { WorkspaceScenery, WorkspaceArtworkWarmup } from './WorkspaceScenery';
 import { AgendaView, type AgendaViewPosition, type WorkspaceView } from './Workspace';
 import { Navigation } from './Navigation';
-import { CompanionAvatar, CompanionScene, RestSpace, companionAuthorArtwork, companionRoomFrame, prefersQuietMotion, useCompanion, type CompanionRoomLayout } from './companion';
+import { CompanionAvatar, CompanionScene, RestSpace, companionAuthorArtwork, companionName, companionRoomFrame, prefersQuietMotion, useCompanion, type CompanionRoomLayout } from './companion';
 import { companionPreset, isUntouchedPresetPersona } from '../shared/persona';
 import { Fragment, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import {
@@ -189,6 +191,7 @@ function appendKeepPage<T>(first: KeepPage<T>, next: KeepPage<T>, identity: (val
 
 export function App() {
   const { value: companion } = useCompanion();
+  const dictation = useDictation();
   const [state, setState] = useState<State | null>(null);
   const boundaryRevision = useRef('');
   const [turnControls, setTurnControls] = useState<TurnControls>({});
@@ -263,6 +266,7 @@ export function App() {
   const [preparationHost] = useState(() => document.createElement('div'));
   const homeReturnView = useRef<WorkspaceView>('chat');
   const personalReturn = useRef<{ home: boolean; view: WorkspaceView }>({ home: true, view: 'chat' });
+  const personalReturnFocus = useRef<HTMLElement | null>(null);
   const [companionEntry, setCompanionEntry] = useState<'partner' | 'light'>('partner');
   const [companionEntryRevision, setCompanionEntryRevision] = useState(0);
   const setView = useCallback((next: WorkspaceView) => {
@@ -1032,6 +1036,10 @@ export function App() {
     const back = personalReturn.current;
     if (back.home) { setWorkspaceView('chat'); setHomeVisible(true); }
     else setView(back.view === 'settings' || back.view === 'companion' ? 'chat' : back.view);
+    requestAnimationFrame(() => {
+      if (document.activeElement === document.body && personalReturnFocus.current?.isConnected)
+        personalReturnFocus.current.focus({ preventScroll: true });
+    });
   }
   captureReturnRef.current = captureWorkspaceReturn;
   useEffect(() => {
@@ -1163,6 +1171,12 @@ export function App() {
     '--room-stage-left': `${roomPaperPosition.stageLeft}px`, '--room-stage-top': `${roomPaperPosition.stageTop}px`,
     '--room-stage-width': `${roomPaperPosition.stageWidth}px`, '--room-stage-height': `${roomPaperPosition.stageHeight}px`,
     '--room-content-top': `${roomPaperPosition.contentTop}px`,
+  } as CSSProperties : undefined;
+  const roomPaperOnRight = !!roomLayout?.actorVisible && !!roomLayout.bodyBounds
+    && (roomLayout.bodyBounds[0] + roomLayout.bodyBounds[2]) / 2 < .55;
+  const roomActorStyle = roomLayout?.actorClientRect ? {
+    '--room-actor-left': `${roomLayout.actorClientRect.left - roomLayout.viewportClientRect.left}px`,
+    '--room-actor-right': `${roomLayout.actorClientRect.left + roomLayout.actorClientRect.width - roomLayout.viewportClientRect.left}px`,
   } as CSSProperties : undefined;
   useLayoutEffect(() => {
     const viewport = scrollRef.current, anchor = readingAnchor.current;
@@ -1830,8 +1844,16 @@ export function App() {
       el.scrollTop = caretAtEnd ? el.scrollHeight : scrollTop;
     };
     resize();
+    let lastWidth = el?.clientWidth ?? 0;
+    const observer = new ResizeObserver(() => {
+      const width = el?.clientWidth ?? 0;
+      if (width === lastWidth) return;
+      lastWidth = width;
+      resize();
+    });
+    if (el) observer.observe(el);
     window.addEventListener('resize', resize);
-    return () => window.removeEventListener('resize', resize);
+    return () => { observer.disconnect(); window.removeEventListener('resize', resize); };
   }, [input, attachment, view, readingPane, empty, notesDiscussion, notesDiscussionHome, composerDock.target?.key]);
   useEffect(() => {
     const key = (e: KeyboardEvent) => {
@@ -1864,6 +1886,8 @@ export function App() {
     return () => window.removeEventListener('keydown', key);
   }, [busy, panel, attachmentMenu, mapSheet, view]);
   async function newChat() {
+    if (busy || sendPending.current || navigationPending.current || closePending.current) return;
+    await dictation?.settle(inputRef.current);
     if (busy || sendPending.current || navigationPending.current || closePending.current) return;
     if (!keepUnsavedEdits('开始新的对话')) return;
     captureWorkspaceReturn(); workspaceReturn.flush();
@@ -1904,6 +1928,7 @@ export function App() {
     }
   }
   async function openConversation(id: string, destination?: Extract<LocalSearchLocator, { kind: 'conversation' }>, stillRequested?: () => boolean) {
+    await dictation?.settle(inputRef.current);
     if (busy || sendPending.current) {
       notify('先停止当前回复，再打开另一段对话。');
       return;
@@ -2242,13 +2267,14 @@ export function App() {
     };
   }, [searchTarget, sessionId, view]);
   async function send(
-    value = draftRef.current.text,
+    value?: string,
     consumeDraft = true,
     retryImage?: Message['image'],
     retryControls?: TurnControls,
     summonEdge = false,
   ) {
-    const text = value, comparisonText = text.trim();
+    if (consumeDraft) await dictation?.settle(inputRef.current);
+    const text = value ?? draftRef.current.text, comparisonText = text.trim();
     if (!comparisonText || composing.current || sendPending.current || (!consumeDraft && busy) || navigationPending.current || !draftReady
       || surfaceMode.current === 'public' || closePending.current) return;
     if (queueHostAvailable.current === false) { notify('这条还没有发出，原稿留在这里。重启在场后再继续就好。'); return; }
@@ -3304,6 +3330,7 @@ export function App() {
       >
         <textarea
           ref={inputRef}
+          data-dictation-owner={sessionId || 'new'}
           aria-label="和在场说说"
           placeholder={busy ? '想到了什么，也可以先写下来…' : composerDock.target ? '我接下来想到的是…' : empty ? '随便说一句，也可以。' : '接着说…'}
           value={input}
@@ -3441,10 +3468,12 @@ export function App() {
             </button>}
           </div>
           <div className="composer-right">
+            <VoiceButton targetRef={inputRef} disabled={!draftReady || navigating} />
             <ComposerActions busy={busy} submitting={starting || !draftReady || navigating}
               hasDraft={!!input.trim()} onStop={() => void stopReply()} />
           </div>
         </div>
+        <VoiceFeedback targetRef={inputRef} />
       </form>
       <EdgeCompanion host={mapSheet ? mapPresenceHost : appMainRef.current} anchor={mapSheet ? null : edgeAnchor} character={companion.character} placement={edgePlacement} text={edgeSpeech} busy={busy}
         replyAvailable={!!edgeReplyText && edgeReply?.status !== 'running'} onOpenReply={() => {
@@ -3453,9 +3482,9 @@ export function App() {
           requestAnimationFrame(() => scrollRef.current?.querySelector<HTMLElement>(`[data-message-id="${CSS.escape(edgeReply.id)}"]`)
             ?.scrollIntoView({ block: 'center', behavior: 'auto' }));
         }}
-        name={state?.settings.persona.core.name || '祥子'}
+        name={companionName(companion)}
         active={!resting && (homeVisible || !!mapSheet || view !== 'chat' || !atWindow)}
-        hidden={companion.presence === 'hidden' || surfaceMode.current === 'public'}
+        hidden={companion.presence === 'hidden' || surfaceMode.current === 'public' || view === 'companion' || view === 'settings'}
         onPlacementChange={placement => {
           setEdgePlacement(placement);
           try { localStorage.setItem('zaichang.edge-companion-placement.v1', JSON.stringify(placement)); } catch { /* The placement still works in this window. */ }
@@ -3699,11 +3728,12 @@ export function App() {
     <div className={`app-shell ${atWindow ? 'has-window' : ''}${focusActive ? ' is-focusing' : ''}`}>
       <WorkspaceArtworkWarmup character={companion.character} sceneChoices={companion.sceneChoices} />
       {createPortal(materials, preparationHost)}
-      <div className="app-main" ref={appMainRef} style={workspaceScene || homeVisible ? undefined : roomPaperStyle} data-workspace-view={homeVisible ? 'home' : view} data-workspace-scene={workspaceScene}
+      <div className="app-main" ref={appMainRef} style={{ ...roomActorStyle, ...(workspaceScene || homeVisible ? undefined : roomPaperStyle) }} data-workspace-view={homeVisible ? 'home' : view} data-workspace-scene={workspaceScene}
         data-character-room={characterRoomWorkspace ? 'true' : undefined}
-        data-character-paper-side={characterRoomWorkspace ? roomLayout?.bodyBounds && (roomLayout.bodyBounds[0] + roomLayout.bodyBounds[2]) / 2 < .5 ? 'right' : 'left' : undefined}
-        data-cover-side={homeVisible && roomLayout?.bodyBounds && (roomLayout.bodyBounds[0] + roomLayout.bodyBounds[2]) / 2 < .5 ? 'right' : undefined}
-        data-settings-side={view === 'settings' && roomLayout?.bodyBounds && (roomLayout.bodyBounds[0] + roomLayout.bodyBounds[2]) / 2 < .5 ? 'right' : undefined}
+        data-character-paper-side={characterRoomWorkspace ? roomPaperOnRight ? 'right' : 'left' : undefined}
+        data-cover-side={homeVisible && roomPaperOnRight ? 'right' : undefined}
+        data-settings-side={view === 'settings' && roomPaperOnRight ? 'right' : undefined}
+        data-keep-side={(view === 'keep' || view === 'notes') && roomPaperOnRight ? 'right' : undefined}
         data-room-layout={workspaceScene || homeVisible ? undefined : roomPaperPosition?.mode} data-room-paper-side={workspaceScene || homeVisible ? undefined : roomPaperPosition?.paperSide} data-room-source={workspaceScene || homeVisible ? undefined : roomPaperPosition?.sourceKey}>
         {workspaceScene && workspaceScene !== 'settings' && workspaceScene !== 'keep' && workspaceScene !== 'memory' && !characterRoomWorkspace && <WorkspaceScenery key={`${companion.character}:${companion.presence}`} scene={workspaceScene}
           character={companion.character} showCharacter={companion.presence === 'window'} motionTargets={d01Targets}
@@ -3711,7 +3741,7 @@ export function App() {
         {characterRoomWorkspace && <CompanionScene quiet representation="scene" ambientFit="room" onRoomLayout={setRoomLayout}
           moment={workspaceScene === 'today' ? 'planning' : companionActivity} />}
         {(workspaceScene === 'keep' || workspaceScene === 'memory') && <CompanionScene quiet moment="reading"
-          representation={view === 'notes' && notesDiscussion ? 'portrait' : 'scene'} ambientFit="room" />}
+          representation={view === 'notes' && notesDiscussion ? 'portrait' : 'scene'} ambientFit="room" onRoomLayout={setRoomLayout} />}
         {view === 'settings' && <CompanionScene quiet representation="scene" moment="chat" onRoomLayout={setRoomLayout} />}
         {view === 'companion' && <CompanionScene quiet representation="portrait" ambientFit="room" />}
         {!workspaceScene && (view === 'chat' || view === 'agenda' || view === 'materials' || view === 'keep' || view === 'notes') && <CompanionScene quiet={view !== 'chat' || !atWindow}
@@ -3731,11 +3761,15 @@ export function App() {
             busy={busy || navigating}
             onView={next => { if (next !== view) searchNavigation.current++;
               if (next === 'chat' && empty) { openHome(); return; }
-              if (next === 'settings' && view !== 'settings' && view !== 'companion') personalReturn.current = { home: homeVisible, view };
+              if (next === 'settings' && view !== 'settings' && view !== 'companion') {
+                personalReturn.current = { home: homeVisible, view };
+                personalReturnFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+              }
               setView(next); }}
             onNew={() => void newChat()}
             onHistory={() => { searchNavigation.current++; setPanel('history'); }}
             onCompanion={entry => { if (view !== 'companion') personalReturn.current = { home: homeVisible, view };
+              personalReturnFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
               setCompanionEntry(entry); setCompanionEntryRevision(value => value + 1); setView('companion'); }}
           />
           <WindowControls onClose={() => void requestClose()} />
@@ -3825,7 +3859,7 @@ export function App() {
         </div>
         {state && materialsOpened && <ReadingDesk items={readingDeskItems} requestOpen={deskOpenRequest} openingRect={deskOpeningRect}
           companionAtStart={companion.presence === 'window' && (workspaceScene === 'study' && companion.character === 'sakiko'
-            || characterRoomWorkspace && !!roomLayout?.bodyBounds && (roomLayout.bodyBounds[0] + roomLayout.bodyBounds[2]) / 2 < .5)}
+            || characterRoomWorkspace && roomPaperOnRight)}
           active={view === 'keep' || view === 'materials' && (!compactConversation || readingPane === 'reader')}
           boundary={`${state.privacyEpoch}:${state.policyRevision}:${state.sourceBoundary ?? 0}`} sessionId={sessionId}
           draftEnabled={draftReady && !navigating} refreshKey={`${messages.length}:${messages.at(-1)?.status || ''}`}
@@ -4118,7 +4152,6 @@ export function App() {
                 }}
               >
                 <div className="messages">
-                  {empty && view === 'materials' && !input.trim() && <div className="reading-conversation-welcome"><BookOpen size={24} strokeWidth={1.2} /><h2>这一页，我们一起读。</h2><p>不明白的地方，可以选一段带过来。<br />想到哪里，就从哪里聊起。</p></div>}
                   {renderedMessages}
                   {activeMatter && (
                     <details className="current-matter">

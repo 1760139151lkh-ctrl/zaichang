@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "taki-chat-violet-literary-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "taki",
+  "activity": "chat",
+  "light": "dusk",
+  "palette": "violet",
+  "environmentVariant": "twilight",
+  "width": 1536,
+  "height": 1024,
+  "mother": "taki-chat-violet-literary-complete-20261105-mother.png",
+  "background": "literary-room-twilight-v1.png",
+  "seat": [
+    0.7,
+    0.58
+  ],
+  "ground": [
+    0.55,
+    0.9
+  ],
+  "bodyBounds": [
+    0.47,
+    0.08,
+    0.8,
+    0.94
+  ],
+  "safeTextBoundary": 0.43999999999999995,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "47.0% 8.0%, 80.0% 8.0%, 80.0% 94.0%, 47.0% 94.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "34d7497e2df4e180c811cb7ca126616a3a55cf33539cb0a924cd4548da7a4f33"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/taki-violet.source.json",
+    "admission": "Personally viewed: youthful Taki identity and complete tan school outfit, correct notebook/pen contact and supported hips, natural separate leg paths to full grounded loafers, original middle-right seat preserved; soft coherent dusk light. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  }
+}

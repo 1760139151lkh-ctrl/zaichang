@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-05",
+  "character": "mutsumi",
+  "palette": "violet",
+  "generatorOriginal": "exec-5c755e01-d569-466a-91d9-8e6111d9ec80.png",
+  "runtimeMother": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/mutsumi-chat-violet-literary-complete-20261105-mother.png",
+  "sha256": "d5e36056971187c5c0b0e37db7934a00b07074be35abb1dd86a5c2b480ffd91e",
+  "prompt": "前端视觉创新设计/2026-11-05-alignment/mutsumi-violet.prompt.txt",
+  "classification": "B",
+  "primaryReview": "Personally viewed: youthful Mutsumi, full uniform, hips supported by cushion; connected knees/ankles, full supported loafers, coherent twilight light, book clear of working area.",
+  "implementation": "src/renderer/companion-scenes.tsx; src/renderer/CompanionSettings.tsx",
+  "boundary": "Full generated scene, fixed calibrated canvas; no independently movable body.",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/mutsumi-chat-apricot-literary-mother-v1.png",
+      "sha256": "9d529789ece89f44b166f39dd259136257598cfd546009e49fae74140cbf8b6d"
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c"
+    }
+  ],
+  "characterPassport": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/mutsumi.md",
+    "sha256": "189d1a17f6e4c2656692437167c50d2a89379cf50b16bc354df3ac8406e4610c"
+  },
+  "runtimeReview": {
+    "accepted": true,
+    "evidence": "docs/evidence/2026-11-05-voice-input.md",
+    "scope": "Individually selected and adopted in the actual Electron renderer; manual palette or clock-based neutral presence, with optical layout review. Whole-scene transition and real controls only; no independent body animation/video claim."
+  }
+}

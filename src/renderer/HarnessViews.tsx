@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type Dispatch, type SetStateAction } from 'react';
-import { BookOpen, Check, ChevronRight, CircleAlert, FileText, Image as ImageIcon, Layers, Link2, LoaderCircle, MessageSquareText, Minus, PanelsTopLeft, Pause, Pencil, RotateCcw, X } from 'lucide-react';
+import { BookOpen, Check, ChevronRight, CircleAlert, FileText, Image as ImageIcon, Layers, Link2, LoaderCircle, MessageSquareText, Minus, PanelsTopLeft, Pause, Pencil, Plus, RotateCcw, X } from 'lucide-react';
 import type { Action, Bridge, Message, ReplySourceAddress, ReplySourceDisplay, ReplySourcePage, RuntimeOverview, State, Step } from '../shared/types';
 import type { Condition, EvidenceEvent, MemoryView } from '../shared/harness';
 import { IconButton, Modal, Switch, uiError } from './ui';
@@ -2005,18 +2005,19 @@ export function MemoryPanelSimple({
           </div>
         </details>
       )}
-      {!memories.length && <p className="memory-empty">还没有留下关于你的记录。</p>}
+      {!memories.length && <div className="memory-empty" aria-label="还没有留下关于你的记录"><BookOpen size={68} strokeWidth={1} aria-hidden="true" /></div>}
       </div>
       <div className={`memory-editor-simple ${editorOpen ? 'open' : ''}`}>
         {!editorOpen ? (
           <button
             type="button"
             className="memory-add-trigger"
+            aria-label="告诉在场一件事"
+            title="告诉在场一件事"
             onClick={() => openEditor()}
             disabled={!!pending}
           >
-            <span>告诉在场一件事</span>
-            <ChevronRight size={15} />
+            <Plus size={23} />
           </button>
         ) : (
           <form
@@ -2124,9 +2125,9 @@ export function MemoryPanelSimple({
         </p>
       )}
       {notice && (
-        <p role="status" className="harness-inline-status">
-          {notice}
-        </p>
+        <div role="status" className="memory-feedback">
+          <Check size={22} aria-hidden="true" /><span className="sr-only">{notice}</span>
+        </div>
       )}
     </section>
   );

@@ -969,11 +969,11 @@ export function NotesPanel({
         </nav>}
         <div className="notes-folio">
         <div className="notes-toolbar">
-          <button type="button" className="notes-back" disabled={busy} onClick={() => void close()}><ChevronLeft size={16} aria-hidden="true" /><span>留下</span></button>
+          <button type="button" className="notes-back" title="回到留下" disabled={busy} onClick={() => void close()}><ChevronLeft size={23} aria-hidden="true" /><span className="sr-only">留下</span></button>
           <div className="notes-page-tools">
             <button ref={indexButton} type="button" className="notes-index-toggle" aria-label="翻翻笔记" title="翻翻笔记"
               aria-expanded={indexOpen} aria-controls={`${panelId}-index`} disabled={busy || quoting} onClick={toggleIndex}>
-              <BookOpen size={17} aria-hidden="true" /><span>笔记</span><ChevronDown size={12} aria-hidden="true" />
+              <BookOpen size={23} aria-hidden="true" /><span className="sr-only">笔记</span>
             </button>
             <div className="notes-object-menu">
               <button ref={menuButton} type="button" className="notes-icon-button" aria-label="当前笔记操作" title="当前笔记操作"
@@ -1256,7 +1256,7 @@ export function NotesPanel({
                           aria-label="保存笔记"
                           disabled={busy || !hasContent || !dirty || !!conflict}
                         >
-                          {busy ? '保存中…' : error ? '再保存一次' : '保存'}
+                          <Check size={23} aria-hidden="true" />
                         </button>
                       ) : editor.note ? <span className="notes-saved-mark" title={`已保存 · ${date(editor.note.updatedAt)}`} aria-label={`已保存 · ${date(editor.note.updatedAt)}`}><Check size={18} aria-hidden="true" /></span> : null}</div>
                       {receipt && (

@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-05",
+  "character": "rana",
+  "palette": "rain",
+  "generatorOriginal": "exec-11ec5ff4-77aa-4c83-b40b-e469a0770c02.png",
+  "runtimeMother": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/rana-chat-rain-literary-complete-20261105-mother.png",
+  "sha256": "5c27b3348f8f2a789c3bb0e80200cc957ac8f45d0890e39e7c8f095b90d4b880",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1"
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/rana-chat-apricot-literary-mother-v1.png",
+      "sha256": "060e897c7b9ebdefc5ab84d6fbada2983625b19e6a4ebc57501ede19c5259919"
+    }
+  ],
+  "characterPassport": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/rana.md",
+    "sha256": "d39286e83289d7c67222428a139b8650ff9f60a0e78e49c0a8393b3079f2e892"
+  },
+  "prompt": "前端视觉创新设计/2026-11-05-alignment/rana-rain.prompt.txt",
+  "classification": "B",
+  "primaryReview": "Personally viewed: correct youthful Rana identity and unswapped gold/blue eye relation, project-original complete outfit, paper on lap and palm supported, separate seated leg paths into complete grounded boots, soft night lamp with no daytime window stripes.",
+  "implementation": "src/renderer/companion-scenes.tsx; src/renderer/CompanionSettings.tsx",
+  "boundary": "Full generated scene, fixed calibrated canvas; no independently movable body.",
+  "runtimeReview": {
+    "accepted": true,
+    "evidence": "docs/evidence/2026-11-05-voice-input.md",
+    "scope": "Individually selected and adopted in the actual Electron renderer; manual palette or clock-based neutral presence, with optical layout review. Whole-scene transition and real controls only; no independent body animation/video claim."
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "anon-chat-violet-literary-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "anon",
+  "activity": "chat",
+  "light": "dusk",
+  "palette": "violet",
+  "environmentVariant": "twilight",
+  "width": 1536,
+  "height": 1024,
+  "mother": "anon-chat-violet-literary-complete-20261105-mother.png",
+  "background": "literary-room-twilight-v1.png",
+  "seat": [
+    0.55,
+    0.55
+  ],
+  "ground": [
+    0.45,
+    0.85
+  ],
+  "bodyBounds": [
+    0.38,
+    0.1,
+    0.65,
+    0.87
+  ],
+  "safeTextBoundary": 0.35,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "38.0% 10.0%, 65.0% 10.0%, 65.0% 87.0%, 38.0% 87.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "eb224cadbbdb601fb4f15fb82160bc2ffa96fb2488c72e9218f9626830f01e72"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/anon-violet.source.json",
+    "admission": "Personally viewed: youthful Anon, coherent green school outfit, hands support real paper bird; original left bench position preserved, complete hips-knees-ankles and supported black shoes, dusk lighting, right working area clear. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  }
+}

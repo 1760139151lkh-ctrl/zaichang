@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-05",
+  "tool": "built-in image_gen",
+  "generatorOriginal": "exec-9c3327ca-90f6-468f-b5c6-beae6e96a5dc.png",
+  "classification": "B",
+  "sha256": "1d12dcf8dd6bf94f044ec8260b0067f202065e2965ae5b9c868d8687fe87fc27",
+  "image": "前端视觉创新设计/2026-11-05-alignment/reading-page.png",
+  "use": "Local PDF and co-reading",
+  "prompt": {
+    "path": "前端视觉创新设计/2026-11-05-alignment/reading-page.prompt.md",
+    "sha256": "1be08cfe9abcd5b0e2de1b65cb519daf6bb0a0f90a8d657aa425fe4986b6726a"
+  },
+  "implementation": [
+    "src/renderer/MaterialsPanel.tsx",
+    "src/renderer/ReadingDesk.tsx",
+    "src/renderer/coherent-desk.css"
+  ],
+  "review": "Primary personally inspected the original full-page image, then reviewed the real integrated components. Adopted spatial/material/icon grammar; retained real app data and brand, never pasted the page as UI.",
+  "prescription": "No redundant copy, no duplicate cancel/save controls, no white UI blocks; control geometry follows real actor/viewport boundaries. Generated sample text is not application data. Omit the unsolicited English header subtitle and use the actual owner PDF, not generated academic text.",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/2026-11-05-alignment/character-atmosphere-page.png",
+      "sha256": "ee7dc6bfb28926ab8d3326be6dea8732eb9789d4ccb081d71f7cac31da2987dd"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "id": "umiri-neutral-presence-time-night-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "umiri",
+  "activity": "chat",
+  "light": "night",
+  "palette": "rain",
+  "width": 1536,
+  "height": 1024,
+  "mother": "umiri-neutral-presence-time-night-complete-20261105-mother.png",
+  "background": "literary-room-time-night-v1.png",
+  "seat": [
+    0.76,
+    0.59
+  ],
+  "ground": [
+    0.63,
+    0.9
+  ],
+  "bodyBounds": [
+    0.54,
+    0.1,
+    0.87,
+    0.94
+  ],
+  "safeTextBoundary": 0.51,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "54.0% 10.0%, 87.0% 10.0%, 87.0% 94.0%, 54.0% 94.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "9b37fe0d5b273c3c3d129dbb028dea7d8db59a6d5ec1dad5bc5939199d995b7d"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/umiri-neutral-night.source.json",
+    "admission": "Personally viewed: youthful attentive Umiri and complete outfit, hand meets real book and palm supported by cushion; closed curtains, soft lamp-only night with no weather claim or sun stripes, connected seated hips-knees-ankles and full grounded boots. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  },
+  "purpose": "neutral-presence",
+  "neutralTime": "night"
+}

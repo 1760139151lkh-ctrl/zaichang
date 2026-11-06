@@ -1,0 +1,76 @@
+{
+  "date": "2026-11-05",
+  "generator": "GPT Image (built-in)",
+  "baseline": "用户本轮明确选定的棕色整页；不采用白色越界稿、紫色浮条与下载/设置弹窗。",
+  "userSelectionSha256": "94e7d64c7ce3dc5489f9f247316cedc7e3ed4ec309f6e8155ac5da348fdcd5a5",
+  "pages": [
+    {
+      "page": "home",
+      "file": "voice-page-home-brown.png",
+      "prompt": "voice-page-home-brown.prompt.txt",
+      "bytes": 2711188,
+      "sha256": "94e7d64c7ce3dc5489f9f247316cedc7e3ed4ec309f6e8155ac5da348fdcd5a5",
+      "classification": "A",
+      "review": "完整边框可见；棕色承托、暖金控件；语音与文字各占独立行。现有导航与真实内容沿原实现，生成示例不作事实。",
+      "originalGeneratedSha256": "9bf3a250943abe0e26f21513773e9a5ef5386eab285f9cc01c1c5469fff625a8",
+      "source": "User-selected attached version of the generated full home page; original generation retained in local recovery archive."
+    },
+    {
+      "page": "chat",
+      "file": "voice-page-chat-brown.png",
+      "prompt": "voice-page-chat-brown.prompt.txt",
+      "bytes": 2083678,
+      "sha256": "d1b2a385b1782dd754bfdd1dd0d6d7a54cfe5b4c842ac82f655428c449d33117",
+      "classification": "B — qualified full-page UI reference",
+      "review": "完整边框可见；棕色承托、暖金控件；语音与文字各占独立行。现有导航与真实内容沿原实现，生成示例不作事实。"
+    },
+    {
+      "page": "search",
+      "file": "voice-page-search-brown.png",
+      "prompt": "voice-page-search-brown.prompt.txt",
+      "bytes": 2083296,
+      "sha256": "ccceaad45ba2f539dcb582742584bc0947f6f2864dac2063cb626c48b3b70dfe",
+      "classification": "B — qualified full-page UI reference",
+      "review": "完整边框可见；棕色承托、暖金控件；语音与文字各占独立行。现有导航与真实内容沿原实现，生成示例不作事实。"
+    }
+  ],
+  "supplementalComposer": {
+    "date": "2026-11-05",
+    "generator": "GPT Image (built-in)",
+    "classification": "A — voice interaction layout reference",
+    "file": "voice-input-final.png",
+    "bytes": 1756790,
+    "sha256": "6def45d39026207fb537ae3fe18d50994909890c8c2823a7f7aee367e273aca4",
+    "prompt": "voice-input-final.prompt.txt",
+    "adopted": [
+      "原输入框麦克风与停止共槽",
+      "实际音量的连续声波与计时",
+      "仅录音时出现取消",
+      "结束后按实际剪贴板结果出现恢复或复制，并保留撤销"
+    ],
+    "implementation": [
+      "src/renderer/voice/VoiceInput.tsx",
+      "src/renderer/voice/voice-input.css"
+    ],
+    "review": "已亲看最终稿及实际宽窗、窄窗录音画面。界面为真实组件，图稿不作为运行背景。模型随应用分发；无下载入口、弹窗、偏好工具条和可见解释段落。被否决稿保留在本机恢复档案。"
+  },
+  "characterPassport": "sakiko 2026-10-25.1 / sakiko-literary-navy-adaptation",
+  "runtime": "采用完整页面的材质、空间安全区、控件与反馈层级，转为真实组件。背景继续采用原有合格母图，未把整页稿贴进程序。",
+  "implementation": [
+    "src/renderer/voice/VoiceInput.tsx",
+    "src/renderer/voice/voice-input.css",
+    "src/renderer/coherent-desk.css",
+    "src/renderer/local-search.css",
+    "src/renderer/LocalSearchPanel.tsx"
+  ],
+  "inputScenes": [
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/sakiko-resume-apricot-recognition-v2-mother.png",
+      "sha256": "a8801f784b77d632509818d102a8b899d0bdda99afe904085196a9e8c5bee279"
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/coherent-desk/desk-apricot.png",
+      "sha256": "c4fe675947129b460cfb75a591f7e6c64b704d27919149c37e9634cf81e8e6bf"
+    }
+  ]
+}

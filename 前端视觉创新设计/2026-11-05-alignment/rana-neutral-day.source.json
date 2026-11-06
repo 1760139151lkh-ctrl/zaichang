@@ -1,0 +1,34 @@
+{
+  "date": "2026-11-05",
+  "character": "rana",
+  "palette": "mist",
+  "generatorOriginal": "exec-7eedae53-8c9a-4a42-a8a1-bb98386fbe94.png",
+  "runtimeMother": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/rana-neutral-presence-time-day-complete-20261105-mother.png",
+  "sha256": "59bad7bcc66450f00c42347196f0bfb205dcf4f7c6820163627083d9cc90ca22",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-time-day-v1.png",
+      "sha256": "aa4ce3dcab5cd2366c9f1c4eadcff0ab85537ab45e5a3b0643c4d01588e6e247"
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/rana-chat-apricot-literary-mother-v1.png",
+      "sha256": "060e897c7b9ebdefc5ab84d6fbada2983625b19e6a4ebc57501ede19c5259919"
+    }
+  ],
+  "characterPassport": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/rana.md",
+    "sha256": "d39286e83289d7c67222428a139b8650ff9f60a0e78e49c0a8393b3079f2e892"
+  },
+  "prompt": "前端视觉创新设计/2026-11-05-alignment/rana-neutral-day.prompt.txt",
+  "classification": "B",
+  "primaryReview": "Personally viewed final revision: youthful Rana, own right gold/left blue eyes visually verified, full project-original outfit; hand meets actual paper corner and other palm supported, continuous seated hips-knees-ankles and complete grounded boots. Closed curtains, diffuse day, no weather claim; rejected floating attention marks removed.",
+  "implementation": "src/renderer/companion-scenes.tsx; src/renderer/CompanionSettings.tsx",
+  "boundary": "Full generated scene, fixed calibrated canvas; no independently movable body.",
+  "runtimeReview": {
+    "accepted": true,
+    "evidence": "docs/evidence/2026-11-05-voice-input.md",
+    "scope": "Individually selected and adopted in the actual Electron renderer; manual palette or clock-based neutral presence, with optical layout review. Whole-scene transition and real controls only; no independent body animation/video claim."
+  }
+}

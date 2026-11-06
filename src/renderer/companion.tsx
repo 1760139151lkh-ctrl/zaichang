@@ -35,6 +35,18 @@ export const COMPANIONS = characterSlots.map(character => ({
   frame: { portrait: '122%', portraitTop: '0%', anchor: '50%' },
   avatar: companionPortrait(character.id)?.avatar || { left: '-30%', top: '-16%', width: '160%' },
 })).filter(character => character.image);
+const portraitImages: HTMLImageElement[] = [];
+let portraitPreparation: Promise<void> | undefined;
+export function prepareCompanionPortraits(): Promise<void> {
+  if (!portraitPreparation) {
+    portraitImages.splice(0, portraitImages.length, ...COMPANIONS.map(character => {
+      const image = new Image(); image.src = character.image; return image;
+    }));
+    portraitPreparation = Promise.all(portraitImages.map(image => image.decode())).then(() => undefined)
+      .catch(error => { portraitPreparation = undefined; throw error; });
+  }
+  return portraitPreparation;
+}
 export const WINDOW_LIGHT = { morning, dusk, night };
 type CharacterId = SceneCharacter | 'light' | `custom:${string}`;
 export interface CompanionPlacement { scale: number; position: number; verticalPosition: number }

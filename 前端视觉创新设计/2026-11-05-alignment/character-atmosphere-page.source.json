@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-05",
+  "tool": "built-in image_gen",
+  "generatorOriginal": "exec-735200f4-4135-4265-8c3e-a5f70e1fe05b.png",
+  "classification": "B",
+  "sha256": "ee7dc6bfb28926ab8d3326be6dea8732eb9789d4ccb081d71f7cac31da2987dd",
+  "image": "前端视觉创新设计/2026-11-05-alignment/character-atmosphere-page.png",
+  "use": "Character/atmosphere selector",
+  "prompt": {
+    "path": "前端视觉创新设计/2026-11-05-alignment/character-atmosphere-page.prompt.txt",
+    "sha256": "2872f14174e1a969ad32ecdcf4d826960a73cc6b2c4605dca8990ee6fe7593a5"
+  },
+  "implementation": [
+    "src/renderer/CompanionSettings.tsx",
+    "src/renderer/companion-settings.css",
+    "src/renderer/coherent-desk.css"
+  ],
+  "review": "Primary personally inspected the original full-page image, then reviewed the real integrated components. Adopted spatial/material/icon grammar; retained real app data and brand, never pasted the page as UI.",
+  "prescription": "No redundant copy, no duplicate cancel/save controls, no white UI blocks; control geometry follows real actor/viewport boundaries. Generated sample text is not application data.",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/2026-11-05-voice-input/voice-page-home-brown.png",
+      "sha256": "94e7d64c7ce3dc5489f9f247316cedc7e3ed4ec309f6e8155ac5da348fdcd5a5"
+    },
+    {
+      "kind": "private-integrated-rendering",
+      "sha256": "081565d8ee7ae5d40fe2e0074147068d4119057d12ce48320534c5d3d8dd5ef2",
+      "publication": "Private UI screenshot retained in local recovery only; exact source traced to the original generation call."
+    }
+  ]
+}

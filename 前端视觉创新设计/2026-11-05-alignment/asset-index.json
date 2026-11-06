@@ -1,0 +1,508 @@
+{
+  "version": 1,
+  "date": "2026-11-05",
+  "runtimeScenes": [
+    {
+      "id": "anon-chat-mist-literary-complete-20261105",
+      "sha256": "a2fb005c8c89401ddccc28b5932d7d807d0585a9acc573433d552745055972d0",
+      "classification": "B",
+      "use": "anon: mist",
+      "source": "前端视觉创新设计/2026-11-05-alignment/anon-mist.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/anon-chat-mist-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "anon-neutral-presence-time-day-complete-20261105",
+      "sha256": "047ab7f60a162166045cad812db0e98350ec31e789ad5adccfef6477f8393f69",
+      "classification": "B",
+      "use": "anon: day",
+      "source": "前端视觉创新设计/2026-11-05-alignment/anon-neutral-day.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/anon-neutral-presence-time-day-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "anon-neutral-presence-time-night-complete-20261105",
+      "sha256": "d0c0a93654ab1ca70de9fa1d0724476030eb6906cbc3079d8c3dd045298c9c38",
+      "classification": "B",
+      "use": "anon: night",
+      "source": "前端视觉创新设计/2026-11-05-alignment/anon-neutral-night.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/anon-neutral-presence-time-night-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "anon-chat-rain-literary-complete-20261105",
+      "sha256": "8203abef4f48fa755e22dceb6d3193e585d99bb02eb972999e6e880692656bb4",
+      "classification": "B",
+      "use": "anon: rain",
+      "source": "前端视觉创新设计/2026-11-05-alignment/anon-rain.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/anon-chat-rain-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "anon-chat-violet-literary-complete-20261105",
+      "sha256": "eb224cadbbdb601fb4f15fb82160bc2ffa96fb2488c72e9218f9626830f01e72",
+      "classification": "B",
+      "use": "anon: violet",
+      "source": "前端视觉创新设计/2026-11-05-alignment/anon-violet.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/anon-chat-violet-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "mutsumi-chat-mist-literary-complete-20261105",
+      "sha256": "7c47fa53bfe545a4114cc9f8eefe8b78cacde282a4c4f0530057191b5f555a3b",
+      "classification": "B",
+      "use": "mutsumi: mist",
+      "source": "前端视觉创新设计/2026-11-05-alignment/mutsumi-mist.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/mutsumi-chat-mist-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "mutsumi-chat-rain-literary-complete-20261105",
+      "sha256": "431064cd104a4932ccf0f9a8369f476d2c638786aa77ec94cf824ef25f2ccaaa",
+      "classification": "B",
+      "use": "mutsumi: rain",
+      "source": "前端视觉创新设计/2026-11-05-alignment/mutsumi-rain.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/mutsumi-chat-rain-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "mutsumi-chat-violet-literary-complete-20261105",
+      "sha256": "d5e36056971187c5c0b0e37db7934a00b07074be35abb1dd86a5c2b480ffd91e",
+      "classification": "B",
+      "use": "mutsumi: violet",
+      "source": "前端视觉创新设计/2026-11-05-alignment/mutsumi-violet.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/mutsumi-chat-violet-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "nyamu-chat-mist-literary-complete-20261105",
+      "sha256": "f926ebc51877fa2abdee9fdae6ba27e3f178da4acbb8e73b38296b5524a86941",
+      "classification": "B",
+      "use": "nyamu: mist",
+      "source": "前端视觉创新设计/2026-11-05-alignment/nyamu-mist.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/nyamu-chat-mist-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "nyamu-chat-rain-literary-complete-20261105",
+      "sha256": "22eafeaedaed67e3ec4160a6c484c0cf9cda78012b26e32e9d573fdaacbffd80",
+      "classification": "B",
+      "use": "nyamu: rain",
+      "source": "前端视觉创新设计/2026-11-05-alignment/nyamu-rain.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/nyamu-chat-rain-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "nyamu-chat-violet-literary-complete-20261105",
+      "sha256": "a3637bbaada13ac009dc526b7b8e72b176b1391dfa89cc20b015091ea17be8d1",
+      "classification": "B",
+      "use": "nyamu: violet",
+      "source": "前端视觉创新设计/2026-11-05-alignment/nyamu-violet.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/nyamu-chat-violet-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "rana-chat-mist-literary-complete-20261105",
+      "sha256": "dfdfdfc7aa12a8ef977fe0fc94e190f194d5b7a331b09b593a2f5a7378848c89",
+      "classification": "B",
+      "use": "rana: mist",
+      "source": "前端视觉创新设计/2026-11-05-alignment/rana-mist.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/rana-chat-mist-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "rana-neutral-presence-time-day-complete-20261105",
+      "sha256": "59bad7bcc66450f00c42347196f0bfb205dcf4f7c6820163627083d9cc90ca22",
+      "classification": "B",
+      "use": "rana: day",
+      "source": "前端视觉创新设计/2026-11-05-alignment/rana-neutral-day.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/rana-neutral-presence-time-day-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "rana-neutral-presence-time-night-complete-20261105",
+      "sha256": "d0aca10deb4ff5073e46eb54667bdeb6edd5d5f6ffd234b9ce68979b5c074bab",
+      "classification": "B",
+      "use": "rana: night",
+      "source": "前端视觉创新设计/2026-11-05-alignment/rana-neutral-night.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/rana-neutral-presence-time-night-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "rana-chat-rain-literary-complete-20261105",
+      "sha256": "5c27b3348f8f2a789c3bb0e80200cc957ac8f45d0890e39e7c8f095b90d4b880",
+      "classification": "B",
+      "use": "rana: rain",
+      "source": "前端视觉创新设计/2026-11-05-alignment/rana-rain.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/rana-chat-rain-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "rana-chat-violet-literary-complete-20261105",
+      "sha256": "e7a6349a86a557de403cf5134ac38c076766efbeda29735c595ca49e17ea3ff5",
+      "classification": "B",
+      "use": "rana: violet",
+      "source": "前端视觉创新设计/2026-11-05-alignment/rana-violet.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/rana-chat-violet-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "soyo-chat-mist-literary-complete-20261105",
+      "sha256": "5dbc6a02ae69963670aa863717f1b18f7e18a88f3205cd3c7c1035ac885d1ec2",
+      "classification": "B",
+      "use": "soyo: mist",
+      "source": "前端视觉创新设计/2026-11-05-alignment/soyo-mist.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/soyo-chat-mist-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "soyo-chat-rain-literary-complete-20261105",
+      "sha256": "ff5dd454c7862ddb5fa5342ae5373413414bfbc8c1736ea5ebe4251fa9a02296",
+      "classification": "B",
+      "use": "soyo: rain",
+      "source": "前端视觉创新设计/2026-11-05-alignment/soyo-rain.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/soyo-chat-rain-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "soyo-chat-violet-literary-complete-20261105",
+      "sha256": "a173d58c7535eec63f5847b8cca29d498fc2b449fd15ee86da59ce3f6d9b4db4",
+      "classification": "B",
+      "use": "soyo: violet",
+      "source": "前端视觉创新设计/2026-11-05-alignment/soyo-violet.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/soyo-chat-violet-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "taki-chat-mist-literary-complete-20261105",
+      "sha256": "3b1cbf43171bd5b256e9b7d17659356f83bd7e7c300281282b0e48171c69685b",
+      "classification": "B",
+      "use": "taki: mist",
+      "source": "前端视觉创新设计/2026-11-05-alignment/taki-mist.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/taki-chat-mist-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "taki-chat-rain-literary-complete-20261105",
+      "sha256": "6926869218eda6c948f4e9cc0b647d76212b0f5cbf8a1b0e225577ed4869659f",
+      "classification": "B",
+      "use": "taki: rain",
+      "source": "前端视觉创新设计/2026-11-05-alignment/taki-rain.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/taki-chat-rain-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "taki-chat-violet-literary-complete-20261105",
+      "sha256": "34d7497e2df4e180c811cb7ca126616a3a55cf33539cb0a924cd4548da7a4f33",
+      "classification": "B",
+      "use": "taki: violet",
+      "source": "前端视觉创新设计/2026-11-05-alignment/taki-violet.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/taki-chat-violet-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "tomori-chat-mist-literary-complete-20261105",
+      "sha256": "c700e7b7efc36439e273c5be5df2fd042056868feafda326c29386cedd6a31cf",
+      "classification": "B",
+      "use": "tomori: mist",
+      "source": "前端视觉创新设计/2026-11-05-alignment/tomori-mist.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/tomori-chat-mist-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "tomori-neutral-presence-time-day-complete-20261105",
+      "sha256": "4848009648608b6c13280e6392f60c02db25dcfe6f9b668ae3825d5e8073b55d",
+      "classification": "B",
+      "use": "tomori: day",
+      "source": "前端视觉创新设计/2026-11-05-alignment/tomori-neutral-day.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/tomori-neutral-presence-time-day-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "tomori-neutral-presence-time-night-complete-20261105",
+      "sha256": "ecee7fd7465aea6527afc9c0146d985330ff68829ffb75f5b293afcef3a9268d",
+      "classification": "B",
+      "use": "tomori: night",
+      "source": "前端视觉创新设计/2026-11-05-alignment/tomori-neutral-night.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/tomori-neutral-presence-time-night-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "tomori-chat-rain-literary-complete-20261105",
+      "sha256": "36730d414f2fbd0a11be264b2e3b761326ed1070af207f8d82193bbabb4c6fae",
+      "classification": "B",
+      "use": "tomori: rain",
+      "source": "前端视觉创新设计/2026-11-05-alignment/tomori-rain.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/tomori-chat-rain-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "tomori-chat-violet-literary-complete-20261105",
+      "sha256": "4701c1af43a7336422770a3b43535f6c14693d6d94342413a87590b01cd3b40d",
+      "classification": "B",
+      "use": "tomori: violet",
+      "source": "前端视觉创新设计/2026-11-05-alignment/tomori-violet.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/tomori-chat-violet-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "uika-chat-mist-literary-complete-20261105",
+      "sha256": "f5f4386f66ddacf996184057ad253ec80f73919f703c92176ef765b9e1ccf500",
+      "classification": "B",
+      "use": "uika: mist",
+      "source": "前端视觉创新设计/2026-11-05-alignment/uika-mist.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/uika-chat-mist-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "uika-chat-rain-literary-complete-20261105",
+      "sha256": "602191fdf4dc292b95ac6d3911c45ce191de80d8e92ed408270ba35450991f49",
+      "classification": "B",
+      "use": "uika: rain",
+      "source": "前端视觉创新设计/2026-11-05-alignment/uika-rain.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/uika-chat-rain-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "uika-chat-violet-literary-complete-20261105",
+      "sha256": "12885fe24523346f83d299ecb50e21b0d5d0f0353997f22d3ae2bd265b372118",
+      "classification": "B",
+      "use": "uika: violet",
+      "source": "前端视觉创新设计/2026-11-05-alignment/uika-violet.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/uika-chat-violet-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "umiri-chat-mist-literary-complete-20261105",
+      "sha256": "2350dae1110aafac9ad6d1def0e01634246f4802930ed76ff26fccf5f8ac4ab2",
+      "classification": "B",
+      "use": "umiri: mist",
+      "source": "前端视觉创新设计/2026-11-05-alignment/umiri-mist.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/umiri-chat-mist-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "umiri-neutral-presence-time-day-complete-20261105",
+      "sha256": "7965041f5783fdd370a07a4efff91e8c7bf4bbdc9a52989b4409120ed94a5919",
+      "classification": "B",
+      "use": "umiri: day",
+      "source": "前端视觉创新设计/2026-11-05-alignment/umiri-neutral-day.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/umiri-neutral-presence-time-day-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "umiri-neutral-presence-time-night-complete-20261105",
+      "sha256": "9b37fe0d5b273c3c3d129dbb028dea7d8db59a6d5ec1dad5bc5939199d995b7d",
+      "classification": "B",
+      "use": "umiri: night",
+      "source": "前端视觉创新设计/2026-11-05-alignment/umiri-neutral-night.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/umiri-neutral-presence-time-night-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "umiri-chat-rain-literary-complete-20261105",
+      "sha256": "2e811734045bd78c6342630fbd946592b462ee74b81c601698fcaa46bca05847",
+      "classification": "B",
+      "use": "umiri: rain",
+      "source": "前端视觉创新设计/2026-11-05-alignment/umiri-rain.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/umiri-chat-rain-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    },
+    {
+      "id": "umiri-chat-violet-literary-complete-20261105",
+      "sha256": "af456542d5aadef61fedc20593da49a3c289d3d6752d6b5e8f3675e70379bc12",
+      "classification": "B",
+      "use": "umiri: violet",
+      "source": "前端视觉创新设计/2026-11-05-alignment/umiri-violet.source.json",
+      "registration": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/umiri-chat-violet-literary-complete-20261105.scene.json",
+      "implementation": [
+        "src/renderer/companion-scenes.tsx",
+        "src/renderer/CompanionSettings.tsx"
+      ]
+    }
+  ],
+  "pageDesigns": [
+    {
+      "image": "前端视觉创新设计/2026-11-05-alignment/character-atmosphere-page.png",
+      "sha256": "ee7dc6bfb28926ab8d3326be6dea8732eb9789d4ccb081d71f7cac31da2987dd",
+      "classification": "B",
+      "source": "前端视觉创新设计/2026-11-05-alignment/character-atmosphere-page.source.json",
+      "use": "Character/atmosphere selector"
+    },
+    {
+      "image": "前端视觉创新设计/2026-11-05-alignment/character-atmosphere-narrow.png",
+      "sha256": "14f0f49cbd6582aa3b911645be4c693e16acdd84429ba7d8ea1cd087e9ebb551",
+      "classification": "B",
+      "source": "前端视觉创新设计/2026-11-05-alignment/character-atmosphere-narrow.source.json",
+      "use": "Narrow selector: complete room then controls"
+    },
+    {
+      "image": "前端视觉创新设计/2026-11-05-alignment/character-atmosphere-medium.png",
+      "sha256": "7eda4ec0675e48f6d9d6ed00d55f71a34a96dce4038a7710195fa264e4ddfc50",
+      "classification": "B",
+      "source": "前端视觉创新设计/2026-11-05-alignment/character-atmosphere-medium.source.json",
+      "use": "Medium selector: separate room and controls"
+    },
+    {
+      "image": "前端视觉创新设计/2026-11-05-alignment/settings-reading.png",
+      "sha256": "73cf503417fc977c11fdfd8ff18713f8b432602d985c8dde0da076683368b0e5",
+      "classification": "B",
+      "source": "前端视觉创新设计/2026-11-05-alignment/settings-reading.source.json",
+      "use": "Reading preferences"
+    },
+    {
+      "image": "前端视觉创新设计/2026-11-05-alignment/settings-persona.png",
+      "sha256": "fd9f0a7e7f1d3ef5901e61b6acadecc5ef9ff9f3bc6582b9406364e71772fa29",
+      "classification": "B",
+      "source": "前端视觉创新设计/2026-11-05-alignment/settings-persona.source.json",
+      "use": "Editable relationship/persona"
+    },
+    {
+      "image": "前端视觉创新设计/2026-11-05-alignment/settings-connection.png",
+      "sha256": "4f92c132305f102eb1caafebd2716a289a6d0794a85e0deefc0bf75d552beb05",
+      "classification": "B",
+      "source": "前端视觉创新设计/2026-11-05-alignment/settings-connection.source.json",
+      "use": "Existing connection settings"
+    },
+    {
+      "image": "前端视觉创新设计/2026-11-05-alignment/settings-memory.png",
+      "sha256": "92a36d2dbceea3067cc0626f307fad6b85257f6bd353458a3631ff735da6aba2",
+      "classification": "B",
+      "source": "前端视觉创新设计/2026-11-05-alignment/settings-memory.source.json",
+      "use": "Local memory controls and empty state"
+    },
+    {
+      "image": "前端视觉创新设计/2026-11-05-alignment/keep-page.png",
+      "sha256": "b741839c86a4633fcda2ab719f7bf96b7771e7dd323a1ec1f548036b9410226d",
+      "classification": "B",
+      "source": "前端视觉创新设计/2026-11-05-alignment/keep-page.source.json",
+      "use": "Saved content folio"
+    },
+    {
+      "image": "前端视觉创新设计/2026-11-05-alignment/notes-page.png",
+      "sha256": "b52fd26e48a66b83b261cf03af8d7c2f37fcb97ee1f1e9a6a76ebebe68b8c5d8",
+      "classification": "B",
+      "source": "前端视觉创新设计/2026-11-05-alignment/notes-page.source.json",
+      "use": "Notebook editor"
+    },
+    {
+      "image": "前端视觉创新设计/2026-11-05-alignment/reading-page.png",
+      "sha256": "1d12dcf8dd6bf94f044ec8260b0067f202065e2965ae5b9c868d8687fe87fc27",
+      "classification": "B",
+      "source": "前端视觉创新设计/2026-11-05-alignment/reading-page.source.json",
+      "use": "Local PDF and co-reading"
+    },
+    {
+      "image": "前端视觉创新设计/2026-11-05-alignment/calendar-page.png",
+      "sha256": "8a9d10f79fe2504878b3cbbef0c79aca2bc562fb3ecc1745ed34ab0eb1ca83fb",
+      "classification": "B",
+      "source": "前端视觉创新设计/2026-11-05-alignment/calendar-page.source.json",
+      "use": "Timeline and agenda editing"
+    }
+  ],
+  "evidence": "docs/evidence/2026-11-05-voice-input.md",
+  "privateEvidence": "Local recovery archive; not published with source.",
+  "motionBoundary": "Adopted complete scenes are fixed whole-canvas imagery. Scoped scene transitions, live capture waveform, spring interactions and existing companion motions are separate real runtime behavior; this is not a completed multi-activity animated character matrix."
+}

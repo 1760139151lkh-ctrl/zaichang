@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-05",
+  "tool": "built-in image_gen",
+  "generatorOriginal": "exec-19a48d17-3c1f-4eb8-a11d-5e5abab721a6.png",
+  "classification": "B",
+  "sha256": "73cf503417fc977c11fdfd8ff18713f8b432602d985c8dde0da076683368b0e5",
+  "image": "前端视觉创新设计/2026-11-05-alignment/settings-reading.png",
+  "use": "Reading preferences",
+  "prompt": {
+    "path": "前端视觉创新设计/2026-11-05-alignment/settings-reading.prompt.md",
+    "sha256": "6f1ce7921a1b4e2c0fee28e137635376e965e8112446ca1cbee7987dde42ecc0"
+  },
+  "implementation": [
+    "src/renderer/SettingsPanel.tsx",
+    "src/renderer/settings-refinement.css",
+    "src/renderer/coherent-desk.css"
+  ],
+  "review": "Primary personally inspected the original full-page image, then reviewed the real integrated components. Adopted spatial/material/icon grammar; retained real app data and brand, never pasted the page as UI.",
+  "prescription": "No redundant copy, no duplicate cancel/save controls, no white UI blocks; control geometry follows real actor/viewport boundaries. Generated sample text is not application data.",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/2026-11-05-alignment/character-atmosphere-page.png",
+      "sha256": "ee7dc6bfb28926ab8d3326be6dea8732eb9789d4ccb081d71f7cac31da2987dd"
+    }
+  ]
+}

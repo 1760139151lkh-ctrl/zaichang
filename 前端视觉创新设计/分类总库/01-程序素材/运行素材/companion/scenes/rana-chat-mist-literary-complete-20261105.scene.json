@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "rana-chat-mist-literary-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "rana",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "mist",
+  "environmentVariant": "overcast-day",
+  "width": 1536,
+  "height": 1024,
+  "mother": "rana-chat-mist-literary-complete-20261105-mother.png",
+  "background": "literary-room-overcast-day-v1.png",
+  "seat": [
+    0.78,
+    0.56
+  ],
+  "ground": [
+    0.67,
+    0.9
+  ],
+  "bodyBounds": [
+    0.56,
+    0.09,
+    0.9,
+    0.94
+  ],
+  "safeTextBoundary": 0.53,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "56.00000000000001% 9.0%, 90.0% 9.0%, 90.0% 94.0%, 56.00000000000001% 94.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "dfdfdfc7aa12a8ef977fe0fc94e190f194d5b7a331b09b593a2f5a7378848c89"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/rana-mist.source.json",
+    "admission": "Personally viewed: youthful Rana, silver short hair and own right gold/left blue eyes verified visually; project-original black-over-white long-sleeve outfit and white shorts retained, paper held by fingers, hips on cushion and full connected legs/boots grounded; overcast light coherent. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  }
+}

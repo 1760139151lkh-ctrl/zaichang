@@ -21,10 +21,6 @@
 .with-materials .bubble { max-width:100%; }
 .with-materials .message-assistant { padding-left:0; }
 .with-materials .assistant-avatar { display:none; }
-.reading-conversation-welcome { color:var(--text-secondary); margin:clamp(30px,8vh,95px) 0 45px; text-align:center; }
-.reading-conversation-welcome > svg { color:var(--accent-dim); }
-.reading-conversation-welcome h2 { color:var(--text); font-weight:450; font-size:22px; line-height:1.6; margin:22px 0 14px; }
-.reading-conversation-welcome p { font-size:14px; line-height:2; }
 .reading-pane-switch { display:none; }
 .attachment .text-button { white-space:nowrap; font-size:11px; }
 .navigation-menu > .nav-narrow-only { display:none; }

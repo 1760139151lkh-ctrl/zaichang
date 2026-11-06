@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "soyo-chat-rain-literary-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "soyo",
+  "activity": "chat",
+  "light": "night",
+  "palette": "rain",
+  "environmentVariant": "rain-night",
+  "width": 1536,
+  "height": 1024,
+  "mother": "soyo-chat-rain-literary-complete-20261105-mother.png",
+  "background": "literary-room-rain-night-v1.png",
+  "seat": [
+    0.67,
+    0.58
+  ],
+  "ground": [
+    0.54,
+    0.87
+  ],
+  "bodyBounds": [
+    0.46,
+    0.09,
+    0.76,
+    0.91
+  ],
+  "safeTextBoundary": 0.43000000000000005,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "46.0% 9.0%, 76.0% 9.0%, 76.0% 91.0%, 46.0% 91.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "ff5dd454c7862ddb5fa5342ae5373413414bfbc8c1736ea5ebe4251fa9a02296"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/soyo-rain.source.json",
+    "admission": "Personally viewed: youthful attentive Soyo with light-brown long hair and blue eyes, chosen complete outfit interpretation, hand holds real page and other rests on lap, original middle seat, coherent hip-knee-ankle continuity and full loafers grounded; soft lamp night light without daylight floor stripes. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  }
+}

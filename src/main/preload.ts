@@ -125,6 +125,19 @@ const bridge: Bridge = {
   exportData: () => ipcRenderer.invoke('data:export'),
   openLink: (url) => ipcRenderer.invoke('link:open', url),
   copyText: (text) => ipcRenderer.invoke('text:copy', text),
+  speechStatus: () => ipcRenderer.invoke('speech:status'),
+  speechStart: input => ipcRenderer.invoke('speech:start', input),
+  // Audio goes one way and needs no reply: 10 small messages a second while someone is talking.
+  speechAudio: (sessionId, sequence, samples) => ipcRenderer.send('speech:audio', sessionId, sequence, samples),
+  speechStop: input => ipcRenderer.invoke('speech:stop', input),
+  speechCancel: input => ipcRenderer.invoke('speech:cancel', input),
+  speechRestoreClipboard: () => ipcRenderer.invoke('speech:clipboard-restore'),
+  speechOpenMicrophoneSettings: () => ipcRenderer.invoke('speech:open-microphone-settings'),
+  onSpeech: callback => {
+    const listener = (_event: Electron.IpcRendererEvent, event: import('../shared/speech').SpeechEvent) => callback(event);
+    ipcRenderer.on('zaichang:speech', listener);
+    return () => ipcRenderer.removeListener('zaichang:speech', listener);
+  },
   window: (action) => ipcRenderer.send('window', action),
   onNavigate: (callback) => {
     const listener = (_event: unknown, target: unknown) => callback(target as never);

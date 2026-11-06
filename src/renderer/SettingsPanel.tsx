@@ -7,7 +7,7 @@ import {
   type Dispatch,
   type SetStateAction,
 } from 'react';
-import { ArrowLeft, Check, ChevronRight, Download, LoaderCircle, Pencil, Trash2, X } from 'lucide-react';
+import { ArrowLeft, BookOpen, Check, ChevronRight, Download, Heart, LoaderCircle, Pencil, Plug, RefreshCw, Sun, Trash2, UserRound, X } from 'lucide-react';
 import { IconButton, Modal, PagePanel, Switch, uiError } from './ui';
 import { MemoryPanelSimple, SourcePermissions, type MemoryWorkspaceState } from './HarnessViews';
 import type { SettingsUpdate, State } from '../shared/types';
@@ -22,6 +22,7 @@ import './settings-refinement.css';
 
 const api = window.zaichang;
 type SettingsTab = '陪伴' | '交流' | '偏好' | '连接' | '记忆' | '资料';
+const settingsTabIcons = { 陪伴: Sun, 交流: Heart, 偏好: BookOpen, 连接: Plug, 记忆: UserRound, 资料: BookOpen };
 export interface SettingsDraft {
   apiKey?: string;
   guidance?: string;
@@ -227,6 +228,7 @@ export function SettingsPanel({
       onClose={onClose}
       className={`settings-panel settings-refined ${initialTab === '记忆' ? 'memory-page' : ''} ${['陪伴', '交流', '偏好'].includes(tab) ? 'settings-wide' : ''} ${tab === '偏好' ? 'settings-rhythm' : tab === '交流' ? 'settings-conversation' : tab === '连接' ? 'settings-connect' : ''}`}
     >
+      {embedded && <button type="button" className="icon-button settings-return" aria-label="返回刚才的页面" onClick={onClose}><X size={21} /></button>}
       {tab === '资料' ? (
         <button ref={sourceBackRef} className="source-back text-button" onClick={() => changeTab('连接')}>
           <ArrowLeft size={14} />
@@ -234,7 +236,7 @@ export function SettingsPanel({
         </button>
       ) : initialTab !== '记忆' ? (
         <div className="panel-tabs" role="tablist" aria-label="在场设置">
-          {tabs.map((t, i) => (
+          {tabs.map((t, i) => { const TabIcon = settingsTabIcons[t]; return (
             <button
               key={t}
               id={`settings-tab-${i}`}
@@ -242,6 +244,8 @@ export function SettingsPanel({
                 tabRefs.current[i] = el;
               }}
               role="tab"
+              aria-label={tabNames[t]}
+              title={tabNames[t]}
               aria-selected={tab === t}
               aria-controls={`settings-panel-${i}`}
               tabIndex={tab === t ? 0 : -1}
@@ -259,9 +263,9 @@ export function SettingsPanel({
                 }
               }}
             >
-              {tabNames[t]}
+              <TabIcon size={24} aria-hidden="true" /><span className="sr-only">{tabNames[t]}</span>
             </button>
-          ))}
+          ); })}
         </div>
       ) : null}
       <div
@@ -297,7 +301,9 @@ export function SettingsPanel({
                     </button>
                   )}
                   <button
-                    className={state.settings.mode === 'demo' ? 'subtle-button' : 'primary-button'}
+                    className="icon-button connection-check"
+                    aria-label={pending === 'test' ? '正在检查连接' : '检查连接'}
+                    title="检查连接"
                     disabled={disabled}
                     onClick={() => {
                       testCancelled.current = false;
@@ -307,8 +313,7 @@ export function SettingsPanel({
                       });
                     }}
                   >
-                    {pending === 'test' && <LoaderCircle size={14} className="spin" />}
-                    {pending === 'test' ? '正在检查…' : '检查连接'}
+                    {pending === 'test' ? <LoaderCircle size={22} className="spin" /> : <RefreshCw size={22} />}
                   </button>
                   {pending === 'test' && (
                     <button

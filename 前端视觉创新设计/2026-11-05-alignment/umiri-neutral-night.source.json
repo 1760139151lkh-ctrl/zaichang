@@ -1,0 +1,34 @@
+{
+  "date": "2026-11-05",
+  "character": "umiri",
+  "palette": "rain",
+  "generatorOriginal": "exec-aea0b0e4-7c25-40d8-9839-7722cea16d18.png",
+  "runtimeMother": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/umiri-neutral-presence-time-night-complete-20261105-mother.png",
+  "sha256": "9b37fe0d5b273c3c3d129dbb028dea7d8db59a6d5ec1dad5bc5939199d995b7d",
+  "purpose": "neutral-presence",
+  "neutralTime": "night",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-time-night-v1.png",
+      "sha256": "d9c41c4278dd8a4efae1a91102e16349ad4dcf9829963c31ddc421dfc3652253"
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/umiri-chat-apricot-literary-mother-v2.png",
+      "sha256": "b54800a320a163629dba745183efa63d18a83aa1ae19ba0f9382fdb546b12844"
+    }
+  ],
+  "characterPassport": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/umiri.md",
+    "sha256": "760b038d3ff84a770c80bf6144e52265d8109e41ecd5cb3440408561ac2bc0da"
+  },
+  "prompt": "前端视觉创新设计/2026-11-05-alignment/umiri-neutral-night.prompt.txt",
+  "classification": "B",
+  "primaryReview": "Personally viewed: youthful attentive Umiri and complete outfit, hand meets real book and palm supported by cushion; closed curtains, soft lamp-only night with no weather claim or sun stripes, connected seated hips-knees-ankles and full grounded boots.",
+  "implementation": "src/renderer/companion-scenes.tsx; src/renderer/CompanionSettings.tsx",
+  "boundary": "Full generated scene, fixed calibrated canvas; no independently movable body.",
+  "runtimeReview": {
+    "accepted": true,
+    "evidence": "docs/evidence/2026-11-05-voice-input.md",
+    "scope": "Individually selected and adopted in the actual Electron renderer; manual palette or clock-based neutral presence, with optical layout review. Whole-scene transition and real controls only; no independent body animation/video claim."
+  }
+}

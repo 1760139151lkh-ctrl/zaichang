@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "umiri-chat-rain-literary-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "umiri",
+  "activity": "chat",
+  "light": "night",
+  "palette": "rain",
+  "environmentVariant": "rain-night",
+  "width": 1536,
+  "height": 1024,
+  "mother": "umiri-chat-rain-literary-complete-20261105-mother.png",
+  "background": "literary-room-rain-night-v1.png",
+  "seat": [
+    0.8,
+    0.6
+  ],
+  "ground": [
+    0.65,
+    0.9
+  ],
+  "bodyBounds": [
+    0.56,
+    0.1,
+    0.9,
+    0.93
+  ],
+  "safeTextBoundary": 0.53,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "56.00000000000001% 10.0%, 90.0% 10.0%, 90.0% 93.0%, 56.00000000000001% 93.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "2e811734045bd78c6342630fbd946592b462ee74b81c601698fcaa46bca05847"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/umiri-rain.source.json",
+    "admission": "Personally viewed revision: removed daytime window sun stripes; soft warm lamp light on character and floor, clear youthful face, fingers hold real book and other palm supported, complete boots and continuous seated legs. First rain output rejected for incoherent sunlight. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  }
+}

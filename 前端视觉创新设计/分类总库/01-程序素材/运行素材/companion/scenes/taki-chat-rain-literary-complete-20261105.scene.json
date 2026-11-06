@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "taki-chat-rain-literary-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "taki",
+  "activity": "chat",
+  "light": "night",
+  "palette": "rain",
+  "environmentVariant": "rain-night",
+  "width": 1536,
+  "height": 1024,
+  "mother": "taki-chat-rain-literary-complete-20261105-mother.png",
+  "background": "literary-room-rain-night-v1.png",
+  "seat": [
+    0.71,
+    0.59
+  ],
+  "ground": [
+    0.57,
+    0.91
+  ],
+  "bodyBounds": [
+    0.49,
+    0.08,
+    0.81,
+    0.94
+  ],
+  "safeTextBoundary": 0.45999999999999996,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "49.0% 8.0%, 81.0% 8.0%, 81.0% 94.0%, 49.0% 94.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "6926869218eda6c948f4e9cc0b647d76212b0f5cbf8a1b0e225577ed4869659f"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/taki-rain.source.json",
+    "admission": "Personally viewed: youthful attentive Taki with long dark hair and purple eyes, full tan school outfit and waist trim, palm on actual book and other palm on cushion, continuous seated hips-knees-ankles with full grounded loafers; soft lamp night light and no hard daylight window stripes. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  }
+}

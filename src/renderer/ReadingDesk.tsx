@@ -66,7 +66,7 @@ function resizeFrom(rect: Rect, width: number, height: number, size: Size): Rect
 }
 function initialRect(index: number, image: boolean, size: Size, companionAtStart = false): Rect {
   const leaveRoom = companionAtStart && size.width > 900;
-  const width = Math.min(image ? 390 : 540, size.width * (size.width < 700 ? .93 : image ? .36 : leaveRoom ? .4 : .49));
+  const width = Math.min(image ? 390 : 540, size.width * (size.width < 700 ? .93 : image ? .36 : leaveRoom ? .4 : .49) - (leaveRoom && !image ? 16 : 0));
   const height = Math.min(image ? 350 : 690, size.height * (image ? .61 : .95));
   return constrain({ x: image ? size.width - width - 12 : (leaveRoom ? size.width * .24 : 0) + 12 + (index % 3) * width * .58,
     y: image ? 14 : 12 + (index % 3) * 36, width, height }, size);

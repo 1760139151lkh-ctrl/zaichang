@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "umiri-chat-violet-literary-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "umiri",
+  "activity": "chat",
+  "light": "dusk",
+  "palette": "violet",
+  "environmentVariant": "twilight",
+  "width": 1536,
+  "height": 1024,
+  "mother": "umiri-chat-violet-literary-complete-20261105-mother.png",
+  "background": "literary-room-twilight-v1.png",
+  "seat": [
+    0.8,
+    0.6
+  ],
+  "ground": [
+    0.65,
+    0.9
+  ],
+  "bodyBounds": [
+    0.54,
+    0.1,
+    0.9,
+    0.93
+  ],
+  "safeTextBoundary": 0.51,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "54.0% 10.0%, 90.0% 10.0%, 90.0% 93.0%, 54.0% 93.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "af456542d5aadef61fedc20593da49a3c289d3d6752d6b5e8f3675e70379bc12"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/umiri-violet.source.json",
+    "admission": "Personally viewed: youthful Umiri, paper airplane physically pinched in hand, other palm on cushion, seated hips and separate leg paths connect to grounded complete boots; coherent dusk light and full empty working area. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  }
+}

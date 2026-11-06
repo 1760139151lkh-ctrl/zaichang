@@ -1,0 +1,25 @@
+{
+  "date": "2026-11-05",
+  "tool": "built-in image_gen",
+  "generatorOriginal": "exec-16fdc0be-70fd-4cbf-a9aa-07f613076588.png",
+  "classification": "B",
+  "sha256": "14f0f49cbd6582aa3b911645be4c693e16acdd84429ba7d8ea1cd087e9ebb551",
+  "image": "前端视觉创新设计/2026-11-05-alignment/character-atmosphere-narrow.png",
+  "use": "Narrow selector: complete room then controls",
+  "prompt": {
+    "path": "前端视觉创新设计/2026-11-05-alignment/character-atmosphere-narrow.prompt.md",
+    "sha256": "7b324262bf38174be1423183332e1e21e3664737123b763b489660fe131a2b90"
+  },
+  "implementation": [
+    "src/renderer/companion-settings.css",
+    "src/renderer/coherent-desk.css"
+  ],
+  "review": "Primary personally inspected the original full-page image, then reviewed the real integrated components. Adopted spatial/material/icon grammar; retained real app data and brand, never pasted the page as UI.",
+  "prescription": "No redundant copy, no duplicate cancel/save controls, no white UI blocks; control geometry follows real actor/viewport boundaries. Generated sample text is not application data.",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/2026-11-05-alignment/character-atmosphere-page.png",
+      "sha256": "ee7dc6bfb28926ab8d3326be6dea8732eb9789d4ccb081d71f7cac31da2987dd"
+    }
+  ]
+}

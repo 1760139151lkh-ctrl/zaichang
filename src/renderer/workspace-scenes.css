@@ -122,7 +122,7 @@
 .app-main[data-workspace-scene='today'] .today-empty h2 { font-size:20px; font-weight:450; }
 .app-main[data-workspace-scene='today'] .today-options-popover { background:var(--surface-raised); }
 .app-main[data-workspace-scene='today'] .today-navigation-actions::before { display:none; }
-.app-main[data-workspace-scene='today'] :is(.agenda-timeline-tools .text-button,.agenda-timeline-tick time,.agenda-timeline-card-title > strong,.agenda-timeline-card-time,.agenda-timeline-card-detail,.agenda-timeline-ghost > span,.agenda-timeline-feedback,.agenda-edit-conflicts span,.agenda-edit-conflicts > p,.agenda-preview-error,.agenda-preview-sources,.agenda-edit-details > summary,.agenda-editor-inline .field-label,.agenda-editor-inline .agenda-edit-time-fields input) { font-size:16px; }
+.app-main[data-workspace-scene='today'] :is(.agenda-timeline-tools .text-button,.agenda-timeline-tick time,.agenda-timeline-card-title > strong,.agenda-timeline-card-time,.agenda-timeline-card-detail,.agenda-timeline-feedback,.agenda-edit-conflicts span,.agenda-edit-conflicts > p,.agenda-preview-error,.agenda-preview-sources,.agenda-edit-details > summary,.agenda-editor-inline .field-label,.agenda-editor-inline .agenda-edit-time-fields input) { font-size:16px; }
 .app-main[data-workspace-scene='today'] .agenda-timeline-card.is-short .agenda-timeline-card-title > strong { font-size:16px; }
 .app-main[data-workspace-scene='today'] .agenda-timeline-card { contain:paint; }
 .app-main[data-workspace-scene='today'] .agenda-timeline-card :is(.agenda-timeline-card-title,.agenda-timeline-card-time,.agenda-timeline-card-detail) { position:relative; z-index:1; }
@@ -220,8 +220,6 @@
 .app-main[data-workspace-scene='study'] .reading-desk-frame { background:var(--surface); backdrop-filter:none; border-radius:9px; }
 .app-main[data-workspace-scene='study'] .reading-legacy-text { font-family:var(--font-body); }
 .app-main[data-workspace-scene='study'] .with-materials .conversation-workspace-host { padding-left:0; }
-.app-main[data-workspace-scene='study'] .reading-conversation-welcome { padding:24px; margin:30px 0; }
-.app-main[data-workspace-scene='study'] .reading-conversation-welcome p { display:none; }
 .app-main .study-desk :is(.study-question,.study-question-label > h4,.study-work-heading h3,.study-handwritten,.study-margin-note,.study-hint-envelope > span,.study-writing-dock .composer textarea) { font-family:var(--font-body); }
 .app-main .study-desk .study-source-paper { align-self:start; }
 @container study-desk (min-width:621px) {

@@ -1,0 +1,34 @@
+{
+  "date": "2026-11-05",
+  "character": "uika",
+  "palette": "rain",
+  "generatorOriginal": "exec-4f5b90f4-7520-45b0-bc09-00e0366daf40.png",
+  "runtimeMother": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/uika-chat-rain-literary-complete-20261105-mother.png",
+  "sha256": "602191fdf4dc292b95ac6d3911c45ce191de80d8e92ed408270ba35450991f49",
+  "purpose": "activity",
+  "neutralTime": null,
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1"
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/uika-chat-apricot-literary-mother-v1.png",
+      "sha256": "df94d1a87f41775108d5b319a6bcc8ec4372283b770ef05ae764adedf2500c5d"
+    }
+  ],
+  "characterPassport": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/uika.md",
+    "sha256": "08e1b6e7dfa31b9c82d2ad5446b482655cd548c2191926b46840af5b515fdf5b"
+  },
+  "prompt": "前端视觉创新设计/2026-11-05-alignment/uika-rain.prompt.txt",
+  "classification": "B",
+  "primaryReview": "Personally viewed final revision: youthful Uika with short gold hair and purple eyes, full casual outfit, palm meets book and other palm supported; two separate continuous leg paths under skirt into complete sneakers grounded. Soft lamp rain-night floor without inherited sun stripes; first revision preserved outside repository.",
+  "implementation": "src/renderer/companion-scenes.tsx; src/renderer/CompanionSettings.tsx",
+  "boundary": "Full generated scene, fixed calibrated canvas; no independently movable body.",
+  "runtimeReview": {
+    "accepted": true,
+    "evidence": "docs/evidence/2026-11-05-voice-input.md",
+    "scope": "Individually selected and adopted in the actual Electron renderer; manual palette or clock-based neutral presence, with optical layout review. Whole-scene transition and real controls only; no independent body animation/video claim."
+  }
+}

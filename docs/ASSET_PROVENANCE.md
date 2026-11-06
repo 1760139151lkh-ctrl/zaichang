@@ -1,5 +1,13 @@
 # Asset provenance
 
+## 2026-11-05 local speech input
+
+SenseVoiceSmall's fixed INT8 export, vocabulary and Silero detector are identified by byte size, source revision and SHA-256 in [runtime/speech/lock.json](../runtime/speech/lock.json). The build stages these files with sherpa-onnx 2.0.1 and the original license texts; the installed app does not download on first use. See [third-party notices](../THIRD_PARTY_NOTICES.md).
+
+The [final GPT Image voice layout](../前端视觉创新设计/2026-11-05-voice-input/asset-index.json) preserves the exact prompt and image hash. It guides the idle, recording and completed icon states; runtime uses live React controls and microphone levels. Rejected popup/download/preference drafts remain in the local recovery archive and have no runtime references.
+
+The [alignment ledger](../前端视觉创新设计/2026-11-05-alignment/asset-index.json) adds 35 individually inspected whole-scene mothers and 11 full-page designs. Each generation record links the exact prompt, input order and hashes; runtime scenes also retain the character passport and accepted mother hash. All ten characters were selected in each manual palette and both clock-based neutral periods in real Electron. Complete-scene acceptance certifies the inspected scene and integrated placement; it does not certify an independently moving body or the unfinished multi-activity video matrix. Rejected rain-lighting and decorative-mark variants remain private and have no runtime references. Page designs guide live components; invented document text and an unsolicited generated subtitle were omitted.
+
 ## 2026-10-23 same-room character scenes
 
 The current [55-asset provenance ledger](implementation/2026-10-23-unified/asset-provenance.json) records selected output hashes, source bindings, exact retained prompts and three rejected candidates. All four characters have six states: chat, reading, planning, rest, play and night. Sakiko additionally supplies the morning-mist and violet-dusk theme mothers. All selected layers share a 1536 × 1024 mother canvas. Runtime uses generated masks only for alpha and displays the matching mother pixels; it does not display the mask's redrawn RGB. The original pilot/input-reference gaps, the rejected retry's unrecorded prompt and limits of generative clean plates remain explicit.

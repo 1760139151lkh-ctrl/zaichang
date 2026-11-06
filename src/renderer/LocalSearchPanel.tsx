@@ -155,14 +155,14 @@ export function LocalSearchPanel({ state, conversations, busy, onClose, onRestor
             </button>
             {deleting === conversation.id ? <div className="local-search-delete"><span>让这段对话离开？</span><button disabled={busy || removing} onClick={() => void remove(conversation.id)}>删除</button><button disabled={removing} onClick={() => setDeleting('')}>留下</button></div> : <IconButton className="local-recent-remove" label={`删除对话：${conversation.title}`} disabled={busy} onClick={() => setDeleting(conversation.id)}><Trash2 size={15} /></IconButton>}
           </div>)}
-          {!conversations.length && <div className="local-search-empty"><History size={34} strokeWidth={1.2} /><h3>故事，从第一次对话开始。</h3><p>以后想起一句话，可以来这里找。</p></div>}
-        </> : <div className="local-search-empty"><BookOpen size={35} strokeWidth={1.2} /><h3>还记得哪个词？</h3><p>写下它，我们从{kindName[kind]}里找找。</p></div> : <>
+          {!conversations.length && <div className="local-search-empty" aria-label="没有已保存的对话"><History size={34} strokeWidth={1.2} /></div>}
+        </> : <div className="local-search-empty" aria-label={`搜索${kindName[kind]}`}><BookOpen size={35} strokeWidth={1.2} /></div> : <>
           {visible?.items.map(hit => {
             const Icon = hit.kind === 'conversation' ? MessageCircle : hit.kind === 'note' ? BookOpen : FileText;
             return <button type="button" className={`local-search-hit is-${hit.kind}`} key={hit.id} disabled={busy || !!opening} onClick={() => void select(hit)}>
               <span className="local-search-symbol"><Icon size={23} strokeWidth={1.4} /></span>
-              <span className="local-hit-copy"><span className="local-hit-kind">{kindName[hit.kind]}{hit.locator.kind === 'material' && hit.locator.page ? ` · 第 ${hit.locator.page} 页` : hit.kind === 'conversation' && hit.role ? hit.role === 'user' ? ' · 你说过' : ' · 在场的回复' : ''}</span><strong>{hit.title}</strong><span className="local-hit-excerpt"><Excerpt hit={hit} /></span></span>
-              <span className="local-search-action">{opening === hit.id ? <LoaderCircle size={17} className="spin" /> : <>{kindAction[hit.kind]}<ArrowUpRight size={16} /></>}</span>
+              <span className="local-hit-copy"><strong>{hit.snippet.trim() === hit.title.trim() ? <Excerpt hit={hit} /> : hit.title}</strong><span className="local-hit-kind">{kindName[hit.kind]}{hit.locator.kind === 'material' && hit.locator.page ? ` · 第 ${hit.locator.page} 页` : hit.kind === 'conversation' && hit.role ? hit.role === 'user' ? ' · 你说过' : ' · 在场的回复' : ''}</span>{hit.snippet.trim() !== hit.title.trim() && <span className="local-hit-excerpt"><Excerpt hit={hit} /></span>}</span>
+              <span className="local-search-action">{opening === hit.id ? <LoaderCircle size={17} className="spin" /> : <><span className="sr-only">{kindAction[hit.kind]}</span><ArrowUpRight size={18} /></>}</span>
             </button>;
           })}
           {loading && !visible?.items.length ? <div className="local-search-empty local-search-looking" role="status"><LoaderCircle size={28} strokeWidth={1.2} className="spin" /><p>在留下的文字里找找…</p></div> : visible && !visible.items.length && !error && <div className="local-search-empty"><BookOpen size={36} strokeWidth={1.1} /><h3>{visible.nextCursor ? '还可以再往前找找。' : '这次还没有找到。'}</h3><p>{visible.nextCursor ? '前面的文字还没翻完，可以接着找。' : '换一个短一点的词，也许就想起来了。'}</p></div>}

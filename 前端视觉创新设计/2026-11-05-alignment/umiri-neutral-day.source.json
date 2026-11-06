@@ -1,0 +1,34 @@
+{
+  "date": "2026-11-05",
+  "character": "umiri",
+  "palette": "mist",
+  "generatorOriginal": "exec-f91f1390-2116-42b7-868c-6a56143ee930.png",
+  "runtimeMother": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/umiri-neutral-presence-time-day-complete-20261105-mother.png",
+  "sha256": "7965041f5783fdd370a07a4efff91e8c7bf4bbdc9a52989b4409120ed94a5919",
+  "purpose": "neutral-presence",
+  "neutralTime": "day",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-time-day-v1.png",
+      "sha256": "aa4ce3dcab5cd2366c9f1c4eadcff0ab85537ab45e5a3b0643c4d01588e6e247"
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/umiri-chat-apricot-literary-mother-v2.png",
+      "sha256": "b54800a320a163629dba745183efa63d18a83aa1ae19ba0f9382fdb546b12844"
+    }
+  ],
+  "characterPassport": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/umiri.md",
+    "sha256": "760b038d3ff84a770c80bf6144e52265d8109e41ecd5cb3440408561ac2bc0da"
+  },
+  "prompt": "前端视觉创新设计/2026-11-05-alignment/umiri-neutral-day.prompt.txt",
+  "classification": "B",
+  "primaryReview": "Personally viewed: youthful Umiri with correct short dark hair, grey-blue eyes and complete punk outfit; closed curtains and diffuse day light, no weather claim, paper held at lap, supported hips and continuous separate legs/full boots on floor.",
+  "implementation": "src/renderer/companion-scenes.tsx; src/renderer/CompanionSettings.tsx",
+  "boundary": "Full generated scene, fixed calibrated canvas; no independently movable body.",
+  "runtimeReview": {
+    "accepted": true,
+    "evidence": "docs/evidence/2026-11-05-voice-input.md",
+    "scope": "Individually selected and adopted in the actual Electron renderer; manual palette or clock-based neutral presence, with optical layout review. Whole-scene transition and real controls only; no independent body animation/video claim."
+  }
+}

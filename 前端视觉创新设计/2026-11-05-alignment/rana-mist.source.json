@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-05",
+  "character": "rana",
+  "palette": "mist",
+  "generatorOriginal": "exec-fab8aa53-ac6a-458b-8439-e36e45e599dc.png",
+  "runtimeMother": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/rana-chat-mist-literary-complete-20261105-mother.png",
+  "sha256": "dfdfdfc7aa12a8ef977fe0fc94e190f194d5b7a331b09b593a2f5a7378848c89",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a"
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/rana-chat-apricot-literary-mother-v1.png",
+      "sha256": "060e897c7b9ebdefc5ab84d6fbada2983625b19e6a4ebc57501ede19c5259919"
+    }
+  ],
+  "characterPassport": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/rana.md",
+    "sha256": "d39286e83289d7c67222428a139b8650ff9f60a0e78e49c0a8393b3079f2e892"
+  },
+  "prompt": "前端视觉创新设计/2026-11-05-alignment/rana-mist.prompt.txt",
+  "classification": "B",
+  "primaryReview": "Personally viewed: youthful Rana, silver short hair and own right gold/left blue eyes verified visually; project-original black-over-white long-sleeve outfit and white shorts retained, paper held by fingers, hips on cushion and full connected legs/boots grounded; overcast light coherent.",
+  "implementation": "src/renderer/companion-scenes.tsx; src/renderer/CompanionSettings.tsx",
+  "boundary": "Full generated scene, fixed calibrated canvas; no independently movable body.",
+  "runtimeReview": {
+    "accepted": true,
+    "evidence": "docs/evidence/2026-11-05-voice-input.md",
+    "scope": "Individually selected and adopted in the actual Electron renderer; manual palette or clock-based neutral presence, with optical layout review. Whole-scene transition and real controls only; no independent body animation/video claim."
+  }
+}

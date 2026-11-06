@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "id": "tomori-neutral-presence-time-night-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "tomori",
+  "activity": "chat",
+  "light": "night",
+  "palette": "rain",
+  "width": 1536,
+  "height": 1024,
+  "mother": "tomori-neutral-presence-time-night-complete-20261105-mother.png",
+  "background": "literary-room-time-night-v1.png",
+  "seat": [
+    0.76,
+    0.56
+  ],
+  "ground": [
+    0.61,
+    0.86
+  ],
+  "bodyBounds": [
+    0.53,
+    0.1,
+    0.87,
+    0.9
+  ],
+  "safeTextBoundary": 0.5,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "53.0% 10.0%, 87.0% 10.0%, 87.0% 90.0%, 53.0% 90.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "ecee7fd7465aea6527afc9c0146d985330ff68829ffb75f5b293afcef3a9268d"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/tomori-neutral-night.source.json",
+    "admission": "Personally viewed: youthful attentive Tomori with correct short hair/eye family and chosen project clothing, closed book meets palm/lap and other palm supported on cushion; connected seated legs and full grounded loafers, closed curtains and soft lamp-only night, no weather claim. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  },
+  "purpose": "neutral-presence",
+  "neutralTime": "night"
+}

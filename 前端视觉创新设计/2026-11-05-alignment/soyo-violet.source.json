@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-05",
+  "character": "soyo",
+  "palette": "violet",
+  "generatorOriginal": "exec-94bc44cd-137c-4ed3-87f7-d9264841d3a9.png",
+  "runtimeMother": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/soyo-chat-violet-literary-complete-20261105-mother.png",
+  "sha256": "a173d58c7535eec63f5847b8cca29d498fc2b449fd15ee86da59ce3f6d9b4db4",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c"
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/soyo-chat-apricot-literary-mother-v1.png",
+      "sha256": "20942d064ae0af479ede2868d689e105433022e8c0448d45301bd7fc9301bfd8"
+    }
+  ],
+  "characterPassport": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/soyo.md",
+    "sha256": "1ec8b260d40f8363c096ed8392547dd276d2318df5aadbe34b1f51e51e2ed04e"
+  },
+  "prompt": "前端视觉创新设计/2026-11-05-alignment/soyo-violet.prompt.txt",
+  "classification": "B",
+  "primaryReview": "Personally viewed: youthful Soyo, clear blue eyes and own long hair, complete chosen outfit interpretation, real notebook-pencil-hand contact; middle bench support and natural separate seated legs and complete grounded loafers, coherent dusk lighting, left working area preserved.",
+  "implementation": "src/renderer/companion-scenes.tsx; src/renderer/CompanionSettings.tsx",
+  "boundary": "Full generated scene, fixed calibrated canvas; no independently movable body.",
+  "runtimeReview": {
+    "accepted": true,
+    "evidence": "docs/evidence/2026-11-05-voice-input.md",
+    "scope": "Individually selected and adopted in the actual Electron renderer; manual palette or clock-based neutral presence, with optical layout review. Whole-scene transition and real controls only; no independent body animation/video claim."
+  }
+}

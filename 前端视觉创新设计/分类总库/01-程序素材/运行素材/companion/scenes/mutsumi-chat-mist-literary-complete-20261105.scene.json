@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "mutsumi-chat-mist-literary-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "mutsumi",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "mist",
+  "environmentVariant": "overcast-day",
+  "width": 1536,
+  "height": 1024,
+  "mother": "mutsumi-chat-mist-literary-complete-20261105-mother.png",
+  "background": "literary-room-overcast-day-v1.png",
+  "seat": [
+    0.8,
+    0.6
+  ],
+  "ground": [
+    0.65,
+    0.9
+  ],
+  "bodyBounds": [
+    0.58,
+    0.1,
+    0.91,
+    0.93
+  ],
+  "safeTextBoundary": 0.55,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "57.99999999999999% 10.0%, 91.0% 10.0%, 91.0% 93.0%, 57.99999999999999% 93.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "7c47fa53bfe545a4114cc9f8eefe8b78cacde282a4c4f0530057191b5f555a3b"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/mutsumi-mist.source.json",
+    "admission": "Personally viewed: youthful Mutsumi, clear eyes and silver hair clip, both hands meet actual book, hips on cushion, continuous knees/ankles, full loafers on floor, diffuse overcast light. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  }
+}

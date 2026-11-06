@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "taki-chat-mist-literary-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "taki",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "mist",
+  "environmentVariant": "overcast-day",
+  "width": 1536,
+  "height": 1024,
+  "mother": "taki-chat-mist-literary-complete-20261105-mother.png",
+  "background": "literary-room-overcast-day-v1.png",
+  "seat": [
+    0.7,
+    0.58
+  ],
+  "ground": [
+    0.57,
+    0.91
+  ],
+  "bodyBounds": [
+    0.49,
+    0.08,
+    0.8,
+    0.94
+  ],
+  "safeTextBoundary": 0.45999999999999996,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "49.0% 8.0%, 80.0% 8.0%, 80.0% 94.0%, 49.0% 94.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "3b1cbf43171bd5b256e9b7d17659356f83bd7e7c300281282b0e48171c69685b"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/taki-mist.source.json",
+    "admission": "Personally viewed: youthful Taki with long dark hair and clear purple eyes, complete tan high-school sailor dress with double buttons, white waist trim, red bow, dark knee socks and full loafers; hands meet real notebook/pen, middle-right bench support and continuous separate legs, coherent overcast light. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  }
+}

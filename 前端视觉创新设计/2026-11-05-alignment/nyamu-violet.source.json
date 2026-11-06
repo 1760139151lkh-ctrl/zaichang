@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-05",
+  "character": "nyamu",
+  "palette": "violet",
+  "generatorOriginal": "exec-9c691566-4134-40a4-a42b-0ba1c8339a04.png",
+  "runtimeMother": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/nyamu-chat-violet-literary-complete-20261105-mother.png",
+  "sha256": "a3637bbaada13ac009dc526b7b8e72b176b1391dfa89cc20b015091ea17be8d1",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c"
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/nyamu-chat-apricot-literary-mother-v1.png",
+      "sha256": "096bd7f5f0138e8b961c91d52dc8e68b29bcda1600bbb9ca444bd1c7eff75313"
+    }
+  ],
+  "characterPassport": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/nyamu.md",
+    "sha256": "c5acd92fe6cd9ccf35785bd09e7f71337bca5bf7eb0fdd37629e78780eb9ebe1"
+  },
+  "prompt": "前端视觉创新设计/2026-11-05-alignment/nyamu-violet.prompt.txt",
+  "classification": "B",
+  "primaryReview": "Personally viewed: youthful expressive Nyamu, paper flower meets supporting hand, other hand naturally finishing a fold, hips on cushion, connected knees and ankles and full heel shoes on floor; coherent twilight.",
+  "implementation": "src/renderer/companion-scenes.tsx; src/renderer/CompanionSettings.tsx",
+  "boundary": "Full generated scene, fixed calibrated canvas; no independently movable body.",
+  "runtimeReview": {
+    "accepted": true,
+    "evidence": "docs/evidence/2026-11-05-voice-input.md",
+    "scope": "Individually selected and adopted in the actual Electron renderer; manual palette or clock-based neutral presence, with optical layout review. Whole-scene transition and real controls only; no independent body animation/video claim."
+  }
+}

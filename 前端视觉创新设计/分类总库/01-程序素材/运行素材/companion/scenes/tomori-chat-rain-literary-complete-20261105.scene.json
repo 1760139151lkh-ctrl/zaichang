@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "tomori-chat-rain-literary-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "tomori",
+  "activity": "chat",
+  "light": "night",
+  "palette": "rain",
+  "environmentVariant": "rain-night",
+  "width": 1536,
+  "height": 1024,
+  "mother": "tomori-chat-rain-literary-complete-20261105-mother.png",
+  "background": "literary-room-rain-night-v1.png",
+  "seat": [
+    0.8,
+    0.6
+  ],
+  "ground": [
+    0.65,
+    0.9
+  ],
+  "bodyBounds": [
+    0.53,
+    0.1,
+    0.87,
+    0.93
+  ],
+  "safeTextBoundary": 0.5,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "53.0% 10.0%, 87.0% 10.0%, 87.0% 93.0%, 53.0% 93.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "36730d414f2fbd0a11be264b2e3b761326ed1070af207f8d82193bbabb4c6fae"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/tomori-rain.source.json",
+    "admission": "Personally viewed: youthful attentive Tomori with correct short hair and rose eye family, chosen project costume; fingers hold real page, second hand rests on notebook, connected seated hips-knees-ankles and full supported loafers, soft night lamp without daylight floor bands. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  }
+}

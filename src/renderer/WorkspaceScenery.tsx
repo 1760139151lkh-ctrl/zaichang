@@ -1,7 +1,7 @@
 import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { useEffectiveEnvironment } from './appearance';
 import { CompanionD01Motion, type CompanionD01Rig, type CompanionD01Target } from './companion-d01-motion';
-import { companionPresenceArtwork } from './companion';
+import { companionPresenceArtwork, prepareCompanionPortraits } from './companion';
 import { companionRegisteredSceneArtwork } from './companion-scenes';
 import conversationDay from '../../前端视觉创新设计/分类总库/01-程序素材/运行素材/workspaces/conversation-apricot.png';
 import conversationNight from '../../前端视觉创新设计/分类总库/01-程序素材/运行素材/workspaces/conversation-rain.png';
@@ -73,6 +73,7 @@ const seatedFigures: Record<string, string> = {
 export function WorkspaceArtworkWarmup({ character, sceneChoices }: { character: string; sceneChoices?: Record<string, string> }) {
   const environment = useEffectiveEnvironment();
   const retained = useRef<HTMLImageElement[]>([]);
+  useEffect(() => { void prepareCompanionPortraits().catch(() => {}); }, []);
   useEffect(() => {
     const palette = environment.palette;
     const variant = environment.mode === 'auto' ? environment.requestedVariant : undefined;

@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-05",
+  "character": "soyo",
+  "palette": "rain",
+  "generatorOriginal": "exec-18d2cb93-10af-4b76-abbb-cf2238455b1d.png",
+  "runtimeMother": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/soyo-chat-rain-literary-complete-20261105-mother.png",
+  "sha256": "ff5dd454c7862ddb5fa5342ae5373413414bfbc8c1736ea5ebe4251fa9a02296",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1"
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/soyo-chat-apricot-literary-mother-v1.png",
+      "sha256": "20942d064ae0af479ede2868d689e105433022e8c0448d45301bd7fc9301bfd8"
+    }
+  ],
+  "characterPassport": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/soyo.md",
+    "sha256": "1ec8b260d40f8363c096ed8392547dd276d2318df5aadbe34b1f51e51e2ed04e"
+  },
+  "prompt": "前端视觉创新设计/2026-11-05-alignment/soyo-rain.prompt.txt",
+  "classification": "B",
+  "primaryReview": "Personally viewed: youthful attentive Soyo with light-brown long hair and blue eyes, chosen complete outfit interpretation, hand holds real page and other rests on lap, original middle seat, coherent hip-knee-ankle continuity and full loafers grounded; soft lamp night light without daylight floor stripes.",
+  "implementation": "src/renderer/companion-scenes.tsx; src/renderer/CompanionSettings.tsx",
+  "boundary": "Full generated scene, fixed calibrated canvas; no independently movable body.",
+  "runtimeReview": {
+    "accepted": true,
+    "evidence": "docs/evidence/2026-11-05-voice-input.md",
+    "scope": "Individually selected and adopted in the actual Electron renderer; manual palette or clock-based neutral presence, with optical layout review. Whole-scene transition and real controls only; no independent body animation/video claim."
+  }
+}

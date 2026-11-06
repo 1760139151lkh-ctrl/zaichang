@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-05",
+  "character": "nyamu",
+  "palette": "rain",
+  "generatorOriginal": "exec-8a36a2bf-3069-47cd-8ec3-eb6e7f8d789f.png",
+  "runtimeMother": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/nyamu-chat-rain-literary-complete-20261105-mother.png",
+  "sha256": "22eafeaedaed67e3ec4160a6c484c0cf9cda78012b26e32e9d573fdaacbffd80",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-rain-night-v1.png",
+      "sha256": "164a719790fa1d298f45d72d8618bf05819608362a4cd35f32e2828b14ad19b1"
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/nyamu-chat-apricot-literary-mother-v1.png",
+      "sha256": "096bd7f5f0138e8b961c91d52dc8e68b29bcda1600bbb9ca444bd1c7eff75313"
+    }
+  ],
+  "characterPassport": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/nyamu.md",
+    "sha256": "c5acd92fe6cd9ccf35785bd09e7f71337bca5bf7eb0fdd37629e78780eb9ebe1"
+  },
+  "prompt": "前端视觉创新设计/2026-11-05-alignment/nyamu-rain.prompt.txt",
+  "classification": "B",
+  "primaryReview": "Personally viewed: youthful Nyamu, attentive turn with paper flower in palm and other palm supported on cushion; correct complete ankle-strap heel shoes, natural seated hip-knee-ankle continuity, soft lamp lighting without daytime floor stripes.",
+  "implementation": "src/renderer/companion-scenes.tsx; src/renderer/CompanionSettings.tsx",
+  "boundary": "Full generated scene, fixed calibrated canvas; no independently movable body.",
+  "runtimeReview": {
+    "accepted": true,
+    "evidence": "docs/evidence/2026-11-05-voice-input.md",
+    "scope": "Individually selected and adopted in the actual Electron renderer; manual palette or clock-based neutral presence, with optical layout review. Whole-scene transition and real controls only; no independent body animation/video claim."
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "anon-chat-rain-literary-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "anon",
+  "activity": "chat",
+  "light": "night",
+  "palette": "rain",
+  "environmentVariant": "rain-night",
+  "width": 1536,
+  "height": 1024,
+  "mother": "anon-chat-rain-literary-complete-20261105-mother.png",
+  "background": "literary-room-rain-night-v1.png",
+  "seat": [
+    0.55,
+    0.56
+  ],
+  "ground": [
+    0.45,
+    0.86
+  ],
+  "bodyBounds": [
+    0.38,
+    0.09,
+    0.65,
+    0.88
+  ],
+  "safeTextBoundary": 0.35,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "38.0% 9.0%, 65.0% 9.0%, 65.0% 88.0%, 38.0% 88.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "8203abef4f48fa755e22dceb6d3193e585d99bb02eb972999e6e880692656bb4"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/anon-rain.source.json",
+    "admission": "Personally viewed: youthful attentive Anon with own pink hair and grey-blue eyes, paper on lap and other palm on cushion, original left seat retained; connected legs and full black shoes grounded; soft lamp light without hard daylight window stripes, right work area clear. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  }
+}

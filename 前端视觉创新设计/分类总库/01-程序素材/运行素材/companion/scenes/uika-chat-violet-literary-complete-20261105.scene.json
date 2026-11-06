@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "uika-chat-violet-literary-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "uika",
+  "activity": "chat",
+  "light": "dusk",
+  "palette": "violet",
+  "environmentVariant": "twilight",
+  "width": 1536,
+  "height": 1024,
+  "mother": "uika-chat-violet-literary-complete-20261105-mother.png",
+  "background": "literary-room-twilight-v1.png",
+  "seat": [
+    0.8,
+    0.6
+  ],
+  "ground": [
+    0.65,
+    0.9
+  ],
+  "bodyBounds": [
+    0.5,
+    0.1,
+    0.88,
+    0.92
+  ],
+  "safeTextBoundary": 0.55,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "50.0% 10.0%, 88.0% 10.0%, 88.0% 92.0%, 50.0% 92.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "12885fe24523346f83d299ecb50e21b0d5d0f0353997f22d3ae2bd265b372118"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/uika-violet.source.json",
+    "admission": "Personally viewed: youthful Uika, full casual clothing, hands rest on knees, notebook on cushion, coherent seated mass, two complete sneakers supported by floor; warm twilight integrated. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  }
+}

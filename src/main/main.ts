@@ -73,6 +73,9 @@ import { interactiveProgramReferenceSchema } from '../shared/interactive-program
 import { createOpportunityScheduler } from './runtime/opportunity-scheduler';
 import { calendarExportInput } from '../shared/calendar-export';
 import { exportCalendarSnapshot } from './actions/calendar-export';
+import { speechSessionInput, speechStartInput } from '../shared/speech';
+import { SpeechService } from './speech/speech-service';
+import { SPEECH_MODEL_ID } from './speech/speech-contract';
 
 assertTestDataDirectory();
 // The installed product owns a relocatable interpreter and pinned engine.
@@ -597,8 +600,48 @@ app.whenReady().then(async () => {
       return new Response('Not found', { status: 404 });
     return net.fetch(pathToFileURL(file).toString());
   });
-  session.defaultSession.setPermissionRequestHandler((_w, _permission, callback) => callback(false));
-  session.defaultSession.setPermissionCheckHandler(() => false);
+  // Speech and its verified model ship together; first use does not open a download flow.
+  const speechRuntimeRoot = app.isPackaged ? path.join(process.resourcesPath, 'speech-runtime') : path.resolve(__dirname, 'speech-runtime');
+  const speech = new SpeechService({
+    runtimeRoot: speechRuntimeRoot,
+    models: {
+      ...(process.env.ZAICHANG_SPEECH_MODEL_ROOT ? { override: path.resolve(process.env.ZAICHANG_SPEECH_MODEL_ROOT) } : {}),
+      packaged: path.join(speechRuntimeRoot, 'model'),
+      installDir: path.join(dataDir, 'speech', SPEECH_MODEL_ID),
+    },
+    send: event => { if (window && !window.isDestroyed() && !window.webContents.isDestroyed()) window.webContents.send('zaichang:speech', event); },
+    isPublic: () => store.runtime.presentation.public,
+  });
+  app.on('will-quit', () => speech.dispose());
+  // Everything is denied except the microphone, for this app's own page only, never video, never
+  // while the view is public. The operating system's own microphone switch still applies on top.
+  const ownPage = (contents: Electron.WebContents | null, address: string | undefined, mainFrame = true) => {
+    if (!address || !mainFrame || !contents || !window || window.isDestroyed() || contents !== window.webContents) return false;
+    try {
+      const url = new URL(address);
+      return (url.protocol === 'app:' && url.hostname === 'zaichang') || (process.env.ZAICHANG_DEV === '1' && url.origin === 'http://127.0.0.1:5173');
+    } catch { return false; }
+  };
+  session.defaultSession.setPermissionRequestHandler((contents, permission, callback, details) => {
+    const types = (details as { mediaTypes?: string[] }).mediaTypes;
+    callback(permission === 'media' && !!types?.length && types.every(type => type === 'audio')
+      && ownPage(contents, details.requestingUrl, details.isMainFrame) && !store.runtime.presentation.public);
+  });
+  session.defaultSession.setPermissionCheckHandler((contents, permission, _origin, details) =>
+    permission === 'media' && (details as { mediaType?: string }).mediaType === 'audio'
+      && ownPage(contents, details.requestingUrl, details.isMainFrame) && !store.runtime.presentation.public);
+  handle('speech:status', () => speech.status());
+  handle('speech:start', value => speech.start(speechStartInput.parse(value)));
+  handle('speech:stop', value => speech.stop(speechSessionInput.parse(value).sessionId));
+  handle('speech:cancel', value => speech.cancel(speechSessionInput.parse(value).sessionId));
+  handle('speech:clipboard-restore', () => speech.restoreClipboard());
+  handle('speech:open-microphone-settings', () => speech.openMicrophoneSettings());
+  ipcMain.on('speech:audio', (event, sessionId, sequence, samples) => {
+    // A fire-and-forget channel: anything not from our own page, or while public, is dropped silently.
+    try { trusted(event); } catch { return; }
+    if (store.runtime.presentation.public) return;
+    speech.audio(sessionId, sequence, samples);
+  });
   handle('state', state);
   handle('environment:read', value => {
     z.undefined().parse(value);
@@ -618,7 +661,7 @@ app.whenReady().then(async () => {
   handle('presentation:surface', async value => {
     const mode = z.enum(['private', 'public']).parse(value);
     store.runtime.presentation.setSurface(mode);
-    if (mode === 'public') { localSearch.cancel(); mapLocation.cancel(); latestDeviceLocation = undefined; connectionController?.abort(); tiyiConnectController?.abort(); tiyiSchool?.cancelRequests(); tiyiSchool?.closeLogin(); store.runtime.spatial.share({ enabled: false }); await workouts?.suspend().catch(() => undefined); await harness.stop(); store.runtime.materials.endConversation(); }
+    if (mode === 'public') { void speech.endActive('private'); localSearch.cancel(); mapLocation.cancel(); latestDeviceLocation = undefined; connectionController?.abort(); tiyiConnectController?.abort(); tiyiSchool?.cancelRequests(); tiyiSchool?.closeLogin(); store.runtime.spatial.share({ enabled: false }); await workouts?.suspend().catch(() => undefined); await harness.stop(); store.runtime.materials.endConversation(); }
     return state();
   });
   handle('presentation:select', value => {
@@ -1225,10 +1268,13 @@ app.whenReady().then(async () => {
   window.on('focus', refreshVisibleEnvironment);
   window.on('hide', syncEnvironmentActivity);
   window.on('minimize', () => store.runtime.environment.setActive(false));
+  // A microphone that keeps listening while the window is out of sight would surprise anyone.
+  window.on('hide', () => void speech.endActive('hidden'));
+  window.on('minimize', () => void speech.endActive('hidden'));
   // Track lock/sleep before loading the renderer: a load or focus event must
   // not restart weather while the desktop is still locked or suspended.
-  powerMonitor.on('suspend', () => { environmentSuspended = true; store.runtime.environment.setActive(false); });
-  powerMonitor.on('lock-screen', () => { environmentLocked = true; store.runtime.environment.setActive(false); });
+  powerMonitor.on('suspend', () => { environmentSuspended = true; store.runtime.environment.setActive(false); void speech.endActive('hidden'); });
+  powerMonitor.on('lock-screen', () => { environmentLocked = true; store.runtime.environment.setActive(false); void speech.endActive('hidden'); });
   powerMonitor.on('resume', () => { environmentSuspended = false; refreshVisibleEnvironment(); });
   powerMonitor.on('unlock-screen', () => { environmentLocked = false; refreshVisibleEnvironment(); });
   window.once('ready-to-show', () => {

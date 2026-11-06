@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type MutableRefObject } from 'react';
-import { Download, LoaderCircle, Upload, Undo2 } from 'lucide-react';
+import { Check, Download, LoaderCircle, Upload, Undo2 } from 'lucide-react';
 import type { PersonaCore, PersonaState } from '../shared/persona';
 import {
   PERSONA_PRESETS,
@@ -346,16 +346,17 @@ export function PersonaEditor({
           </>}
         </div>}
         <div className="field-buttons persona-save-row">
-          <button className="primary-button"
+          {(dirty || stale || !!candidate) && <button className="primary-button persona-save"
+            aria-label={stale ? '用这份草稿替换' : '保存约定'}
+            title={stale ? '用这份草稿替换' : '保存约定'}
             disabled={locked || busy || !dirty || (stale && reviewedRevision !== persona.revision)}
             onClick={() => {
               if (stale) {
                 if (reviewedRevision === persona.revision) void save({ expectedRevision: reviewedRevision, core });
               } else void save({ expectedRevision: editor.expectedRevision, core });
             }}>
-            {locked && <LoaderCircle size={14} className="spin" />}
-            {stale ? '用这份草稿替换' : '保存约定'}
-          </button>
+            {locked ? <LoaderCircle size={22} className="spin" /> : <Check size={23} />}
+          </button>}
           {(dirty || stale || !!candidate) && <button className="text-button" disabled={locked}
             onClick={() => candidate ? dismissCandidate() : reset()}>
             {candidate ? '回到原稿' : '取消修改'}

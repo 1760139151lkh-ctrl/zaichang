@@ -1,5 +1,5 @@
 import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent, type ReactNode } from 'react';
-import { ArrowUpRight, BookOpen, ChevronRight, Clock3, LoaderCircle, MessageCircle, NotebookPen, PanelsTopLeft,
+import { ArrowUpRight, BookOpen, ChevronRight, Clock3, Folder, LoaderCircle, MessageCircle, NotebookPen, PanelsTopLeft,
   PencilLine, Plus, Search } from 'lucide-react';
 import type { KeepSnapshot, KeepWorkItem, KeepWorkLocator } from '../shared/keep';
 import { materialQuoteAddress } from '../shared/materials';
@@ -372,21 +372,21 @@ export function KeepPanel({ snapshot, active = true, loading = false, loadingMor
   return <section className={`keep-panel${empty ? ' is-empty' : ''}`} hidden={!active} aria-label="留下" aria-busy={loading && !snapshot}>
     <div className="keep-within-reach">
       <header className="keep-heading" aria-label="留下的操作">
-        <h1>留下</h1>
+        <h1 className="sr-only">留下</h1>
+        <div className="keep-collection-switch" aria-label="浏览范围">
+          <button type="button" aria-label="笔记与作品" title="笔记与作品" aria-pressed={collection === 'kept'} onClick={() => setCollection('kept')}><BookOpen size={24} /><span className="sr-only">笔记与作品</span></button>
+          <button type="button" aria-label="全部内容" title="全部内容" aria-pressed={collection === 'all'} onClick={() => setCollection('all')}><Folder size={24} /><span className="sr-only">全部内容</span></button>
+        </div>
         <div className="keep-tools">
           <button type="button" className="keep-icon-action" disabled={locked} title="找一找" aria-label="找一找留下的内容"
             onClick={() => void perform('find', onHistory)}><Search size={18} aria-hidden="true" /></button>
-          <button type="button" className="keep-new-page" disabled={locked} title="写一页笔记" aria-label="写一页笔记"
-            onClick={() => void perform('new', onNewNote)}><Plus size={17} aria-hidden="true" /><span>新写一页</span></button>
+          {!empty && <button type="button" className="keep-new-page" disabled={locked} title="写一页笔记" aria-label="写一页笔记"
+            onClick={() => void perform('new', onNewNote)}><PencilLine size={22} aria-hidden="true" /></button>}
         </div>
       </header>
       <details className="keep-index" aria-label="收藏目录" open={!compact || indexOpen}
         onToggle={event => { if (compact) setIndexOpen(event.currentTarget.open); }}>
         <summary ref={indexSummary} className="keep-index-summary"><BookOpen size={18} />目录<ChevronRight size={18} /></summary>
-        <div className="keep-collection-switch" aria-label="浏览范围">
-          <button type="button" aria-pressed={collection === 'kept'} onClick={() => setCollection('kept')}>笔记与作品</button>
-          <button type="button" aria-pressed={collection === 'all'} onClick={() => setCollection('all')}>全部内容</button>
-        </div>
         {!!items.length && <div className="keep-object-flow" ref={rail} role="tablist" aria-label="留下的内容" aria-orientation="vertical">
           {items.map((item, index) => <button type="button" role="tab" key={item.key} data-keep-key={item.key}
             id={`${id}-entry-${index}`} aria-controls={`${id}-object`} aria-selected={selected?.key === item.key}
@@ -398,8 +398,8 @@ export function KeepPanel({ snapshot, active = true, loading = false, loadingMor
           </button>)}
         </div>}
         <div className="keep-index-links">
-          <button type="button" disabled={locked} onClick={() => void perform('notes', onBrowseNotes)}><NotebookPen size={17} />笔记</button>
-          <button type="button" disabled={locked} onClick={() => void perform('materials', onBrowseMaterials)}><BookOpen size={17} />资料</button>
+          <button type="button" disabled={locked} aria-label="笔记" title="笔记" onClick={() => void perform('notes', onBrowseNotes)}><NotebookPen size={22} /></button>
+          <button type="button" disabled={locked} aria-label="资料" title="资料" onClick={() => void perform('materials', onBrowseMaterials)}><BookOpen size={22} /></button>
         </div>
       </details>
       {selected ? <article className="keep-object" id={`${id}-object`} role="tabpanel"
@@ -407,12 +407,13 @@ export function KeepPanel({ snapshot, active = true, loading = false, loadingMor
         data-presence-edge-label="留下的这一页" data-presence-edge-sides="top right left" data-keep-kind={selected.kind}>
         <div className="keep-object-content" key={selected.key}>{detail(selected)}</div>
       </article> : empty ? <div className="keep-empty">
+        <BookOpen size={68} strokeWidth={1} aria-hidden="true" />
         <button type="button" className="keep-empty-write" disabled={locked} aria-label="写一页笔记" onClick={() => void perform('new', onNewNote)}>
-          <PencilLine size={22} aria-hidden="true" /><span>写一页</span>
+          <Plus size={23} aria-hidden="true" />
         </button>
         <div className="keep-empty-tools">
-          <button type="button" disabled={locked} onClick={() => void perform('notes', onBrowseNotes)}><NotebookPen size={16} aria-hidden="true" />翻翻笔记</button>
-          <button type="button" disabled={locked} onClick={() => void perform('materials', onBrowseMaterials)}><BookOpen size={16} aria-hidden="true" />打开资料</button>
+          <button type="button" disabled={locked} aria-label="翻翻笔记" title="翻翻笔记" onClick={() => void perform('notes', onBrowseNotes)}><NotebookPen size={22} aria-hidden="true" /></button>
+          <button type="button" disabled={locked} aria-label="打开资料" title="打开资料" onClick={() => void perform('materials', onBrowseMaterials)}><BookOpen size={22} aria-hidden="true" /></button>
         </div>
       </div> : null}
       <div className="keep-composer-slot" data-keep-composer-slot hidden={!composer}>{composer}</div>

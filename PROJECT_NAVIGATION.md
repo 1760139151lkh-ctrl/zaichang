@@ -48,6 +48,10 @@
 
 ## 目录与文档职责
 
+语音输入沿 `renderer/voice/VoiceInput.tsx → DictationProvider.tsx → preload Bridge → main/speech/speech-service.ts → speech-engine.ts → speech-worker.ts`。`dictation-text.ts` 跟踪光标和归属范围，`speech-clipboard.ts` 保护剪贴板；`runtime/speech/lock.json` 与 `scripts/speech-runtime.mjs` 提供随软件分发的固定资源。界面只有按当前操作出现的必要图标，无语音下载／设置弹窗。实际范围见[语音记录](docs/evidence/2026-11-05-voice-input.md)。
+
+本轮逐项视觉检查的整页稿、35 幅新场景和哈希关联见[对齐资产索引](前端视觉创新设计/2026-11-05-alignment/asset-index.json)。选择/采用与局部转场由 `CompanionSettings.tsx` 持有；`companion-scenes.tsx` 报告真实人物画布边界，`App.tsx` 将边界交给书写面布局，`coherent-desk.css` 维持共同棕色表面。共读的选段行在 `MaterialsPanel.tsx`，独立阅读窗的位置和弹簧仍归 `ReadingDesk.tsx`；固定阅读窗不再被待发送附件的初始页覆盖。实际检查边界沿上述语音记录维护。
+
 ```text
 src/
   main/          宿主、SQLite、权限、模型、工具、记忆和行动

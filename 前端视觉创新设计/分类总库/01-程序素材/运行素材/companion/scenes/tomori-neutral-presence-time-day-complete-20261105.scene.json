@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "id": "tomori-neutral-presence-time-day-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "tomori",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "mist",
+  "width": 1536,
+  "height": 1024,
+  "mother": "tomori-neutral-presence-time-day-complete-20261105-mother.png",
+  "background": "literary-room-time-day-v1.png",
+  "seat": [
+    0.75,
+    0.56
+  ],
+  "ground": [
+    0.61,
+    0.86
+  ],
+  "bodyBounds": [
+    0.53,
+    0.1,
+    0.86,
+    0.9
+  ],
+  "safeTextBoundary": 0.5,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "53.0% 10.0%, 86.0% 10.0%, 86.0% 90.0%, 53.0% 90.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "4848009648608b6c13280e6392f60c02db25dcfe6f9b668ae3825d5e8073b55d"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/tomori-neutral-day.source.json",
+    "admission": "Personally viewed: youthful Tomori with own short hair and rose-brown eyes, complete chosen project costume, hand holds actual page and book supported on lap; hips on cushion, continuous separate legs and full grounded loafers; closed curtain diffuse day light with no weather claim. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  },
+  "purpose": "neutral-presence",
+  "neutralTime": "day"
+}

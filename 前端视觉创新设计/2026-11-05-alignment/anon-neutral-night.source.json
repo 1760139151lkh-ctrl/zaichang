@@ -1,0 +1,34 @@
+{
+  "date": "2026-11-05",
+  "character": "anon",
+  "palette": "rain",
+  "generatorOriginal": "exec-fd53c56f-f57a-4196-a65b-8a06129770c4.png",
+  "runtimeMother": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/anon-neutral-presence-time-night-complete-20261105-mother.png",
+  "sha256": "d0c0a93654ab1ca70de9fa1d0724476030eb6906cbc3079d8c3dd045298c9c38",
+  "purpose": "neutral-presence",
+  "neutralTime": "night",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-time-night-v1.png",
+      "sha256": "d9c41c4278dd8a4efae1a91102e16349ad4dcf9829963c31ddc421dfc3652253"
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/anon-chat-apricot-literary-mother-v1.png",
+      "sha256": "53ee79ee3e5e210fc875d6ed062543c21cc2001831ede42dad814367a6103b7c"
+    }
+  ],
+  "characterPassport": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/anon.md",
+    "sha256": "de7782a11d0e620b3d25de33ac7a964142a39322e6fa8f0ceceea2bc6d501b19"
+  },
+  "prompt": "前端视觉创新设计/2026-11-05-alignment/anon-neutral-night.prompt.txt",
+  "classification": "B",
+  "primaryReview": "Personally viewed: youthful attentive Anon, correct complete green outfit and original left seat, paper on lap and other palm meets cushion, coherent seated hips-knees-ankles and full black loafers grounded; closed curtain soft lamp-only night with no weather claim.",
+  "implementation": "src/renderer/companion-scenes.tsx; src/renderer/CompanionSettings.tsx",
+  "boundary": "Full generated scene, fixed calibrated canvas; no independently movable body.",
+  "runtimeReview": {
+    "accepted": true,
+    "evidence": "docs/evidence/2026-11-05-voice-input.md",
+    "scope": "Individually selected and adopted in the actual Electron renderer; manual palette or clock-based neutral presence, with optical layout review. Whole-scene transition and real controls only; no independent body animation/video claim."
+  }
+}

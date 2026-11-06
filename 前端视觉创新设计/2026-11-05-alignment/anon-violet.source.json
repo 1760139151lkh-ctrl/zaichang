@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-05",
+  "character": "anon",
+  "palette": "violet",
+  "generatorOriginal": "exec-3832a3b4-1b3e-42e4-97ce-4d0c9f958063.png",
+  "runtimeMother": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/anon-chat-violet-literary-complete-20261105-mother.png",
+  "sha256": "eb224cadbbdb601fb4f15fb82160bc2ffa96fb2488c72e9218f9626830f01e72",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-twilight-v1.png",
+      "sha256": "b1293f06aa080e01f3b51c746d554cc40a23c85a1c6900305de6f7a2dae4968c"
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/anon-chat-apricot-literary-mother-v1.png",
+      "sha256": "53ee79ee3e5e210fc875d6ed062543c21cc2001831ede42dad814367a6103b7c"
+    }
+  ],
+  "characterPassport": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/anon.md",
+    "sha256": "de7782a11d0e620b3d25de33ac7a964142a39322e6fa8f0ceceea2bc6d501b19"
+  },
+  "prompt": "前端视觉创新设计/2026-11-05-alignment/anon-violet.prompt.txt",
+  "classification": "B",
+  "primaryReview": "Personally viewed: youthful Anon, coherent green school outfit, hands support real paper bird; original left bench position preserved, complete hips-knees-ankles and supported black shoes, dusk lighting, right working area clear.",
+  "implementation": "src/renderer/companion-scenes.tsx; src/renderer/CompanionSettings.tsx",
+  "boundary": "Full generated scene, fixed calibrated canvas; no independently movable body.",
+  "runtimeReview": {
+    "accepted": true,
+    "evidence": "docs/evidence/2026-11-05-voice-input.md",
+    "scope": "Individually selected and adopted in the actual Electron renderer; manual palette or clock-based neutral presence, with optical layout review. Whole-scene transition and real controls only; no independent body animation/video claim."
+  }
+}

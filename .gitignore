@@ -16,6 +16,11 @@
 !/PROJECT_NAVIGATION.md
 !/README.md
 !/THIRD_PARTY_NOTICES.md
+!/licenses/SenseVoice-model-FunASR-1.1.txt
+!/licenses/Silero-VAD-MIT.txt
+!/licenses/sherpa-onnx-Apache-2.0.txt
+!/licenses/ONNXRuntime-speech-MIT.txt
+!/licenses/ONNXRuntime-speech-ThirdPartyNotices.txt
 !/assets/map-v2/SOURCE.md
 !/前端视觉创新设计/*.md
 !/assets/map-v2/commons-observations.json
@@ -46,8 +51,11 @@
 !/runtime/hermes/lock.json
 !/runtime/hermes/sidecar.py
 !/runtime/embedding/lock.json
+!/runtime/speech/lock.json
+!/runtime/speech/vad/silero_vad.onnx
 !/runtime/tiyi/signing-lock.json
 !/scripts/embedding-runtime.mjs
+!/scripts/speech-runtime.mjs
 !/scripts/inspect-prompt.mjs
 !/scripts/inspect-prompt-entry.ts
 !/scripts/build-electron.mjs

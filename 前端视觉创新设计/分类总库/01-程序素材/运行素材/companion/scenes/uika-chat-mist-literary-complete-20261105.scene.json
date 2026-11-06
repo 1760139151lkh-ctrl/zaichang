@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "uika-chat-mist-literary-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "uika",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "mist",
+  "environmentVariant": "overcast-day",
+  "width": 1536,
+  "height": 1024,
+  "mother": "uika-chat-mist-literary-complete-20261105-mother.png",
+  "background": "literary-room-overcast-day-v1.png",
+  "seat": [
+    0.8,
+    0.6
+  ],
+  "ground": [
+    0.65,
+    0.9
+  ],
+  "bodyBounds": [
+    0.5,
+    0.1,
+    0.88,
+    0.92
+  ],
+  "safeTextBoundary": 0.55,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "50.0% 10.0%, 88.0% 10.0%, 88.0% 92.0%, 50.0% 92.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "f5f4386f66ddacf996184057ad253ec80f73919f703c92176ef765b9e1ccf500"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/uika-mist.source.json",
+    "admission": "Personally viewed: youthful Uika with correct short gold hair and purple eyes, complete casual outfit; pencil meets notebook, hips on cushion, long skirt and two separate ankles and full sneakers, diffuse daylight. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "id": "rana-neutral-presence-time-day-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "rana",
+  "activity": "chat",
+  "light": "morning",
+  "palette": "mist",
+  "width": 1536,
+  "height": 1024,
+  "mother": "rana-neutral-presence-time-day-complete-20261105-mother.png",
+  "background": "literary-room-time-day-v1.png",
+  "seat": [
+    0.77,
+    0.56
+  ],
+  "ground": [
+    0.65,
+    0.88
+  ],
+  "bodyBounds": [
+    0.56,
+    0.09,
+    0.9,
+    0.92
+  ],
+  "safeTextBoundary": 0.53,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "56.00000000000001% 9.0%, 90.0% 9.0%, 90.0% 92.0%, 56.00000000000001% 92.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "59bad7bcc66450f00c42347196f0bfb205dcf4f7c6820163627083d9cc90ca22"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/rana-neutral-day.source.json",
+    "admission": "Personally viewed final revision: youthful Rana, own right gold/left blue eyes visually verified, full project-original outfit; hand meets actual paper corner and other palm supported, continuous seated hips-knees-ankles and complete grounded boots. Closed curtains, diffuse day, no weather claim; rejected floating attention marks removed. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  },
+  "purpose": "neutral-presence",
+  "neutralTime": "day"
+}

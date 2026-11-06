@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "tomori-chat-violet-literary-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "tomori",
+  "activity": "chat",
+  "light": "dusk",
+  "palette": "violet",
+  "environmentVariant": "twilight",
+  "width": 1536,
+  "height": 1024,
+  "mother": "tomori-chat-violet-literary-complete-20261105-mother.png",
+  "background": "literary-room-twilight-v1.png",
+  "seat": [
+    0.8,
+    0.6
+  ],
+  "ground": [
+    0.65,
+    0.9
+  ],
+  "bodyBounds": [
+    0.53,
+    0.1,
+    0.87,
+    0.93
+  ],
+  "safeTextBoundary": 0.5,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "53.0% 10.0%, 87.0% 10.0%, 87.0% 93.0%, 53.0% 93.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "4701c1af43a7336422770a3b43535f6c14693d6d94342413a87590b01cd3b40d"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/tomori-violet.source.json",
+    "admission": "Personally viewed: youthful Tomori, short hair and soft rose eyes, project costume interpretation, hands supported by notebook with pencil in spine, natural seated mass and separate full supported loafers; soft dusk light. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  }
+}

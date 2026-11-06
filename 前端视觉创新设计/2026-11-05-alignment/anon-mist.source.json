@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-05",
+  "character": "anon",
+  "palette": "mist",
+  "generatorOriginal": "exec-c077f56a-0b8b-4e54-8543-d974f19b306b.png",
+  "runtimeMother": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/anon-chat-mist-literary-complete-20261105-mother.png",
+  "sha256": "a2fb005c8c89401ddccc28b5932d7d807d0585a9acc573433d552745055972d0",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a"
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/anon-chat-apricot-literary-mother-v1.png",
+      "sha256": "53ee79ee3e5e210fc875d6ed062543c21cc2001831ede42dad814367a6103b7c"
+    }
+  ],
+  "characterPassport": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/anon.md",
+    "sha256": "de7782a11d0e620b3d25de33ac7a964142a39322e6fa8f0ceceea2bc6d501b19"
+  },
+  "prompt": "前端视觉创新设计/2026-11-05-alignment/anon-mist.prompt.txt",
+  "classification": "B",
+  "primaryReview": "Personally viewed: youthful long pink-haired Anon, clear grey-blue eyes, complete green-uniform details preserved with black loafers; original middle-left bench seat retained, hands hold paper bird, coherent hips-knees-ankles and grounded full shoes, soft overcast light; empty right workspace.",
+  "implementation": "src/renderer/companion-scenes.tsx; src/renderer/CompanionSettings.tsx",
+  "boundary": "Full generated scene, fixed calibrated canvas; no independently movable body.",
+  "runtimeReview": {
+    "accepted": true,
+    "evidence": "docs/evidence/2026-11-05-voice-input.md",
+    "scope": "Individually selected and adopted in the actual Electron renderer; manual palette or clock-based neutral presence, with optical layout review. Whole-scene transition and real controls only; no independent body animation/video claim."
+  }
+}

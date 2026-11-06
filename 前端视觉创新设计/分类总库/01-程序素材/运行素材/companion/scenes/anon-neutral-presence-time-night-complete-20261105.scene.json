@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "id": "anon-neutral-presence-time-night-complete-20261105",
+  "renderMode": "complete-scene",
+  "sceneFamily": "literary-room-v1",
+  "character": "anon",
+  "activity": "chat",
+  "light": "night",
+  "palette": "rain",
+  "width": 1536,
+  "height": 1024,
+  "mother": "anon-neutral-presence-time-night-complete-20261105-mother.png",
+  "background": "literary-room-time-night-v1.png",
+  "seat": [
+    0.55,
+    0.57
+  ],
+  "ground": [
+    0.45,
+    0.83
+  ],
+  "bodyBounds": [
+    0.38,
+    0.09,
+    0.66,
+    0.87
+  ],
+  "safeTextBoundary": 0.35,
+  "support": "window-seat",
+  "contactShadow": {
+    "mode": "included"
+  },
+  "contourComplete": true,
+  "hitPolygon": "38.0% 9.0%, 66.0% 9.0%, 66.0% 87.0%, 38.0% 87.0%",
+  "travel": 0,
+  "slope": 0,
+  "perspective": 0,
+  "review": {
+    "approvedByPrimary": true,
+    "runtimeAccepted": true,
+    "runtimeSourceSha256": {
+      "mother": "d0c0a93654ab1ca70de9fa1d0724476030eb6906cbc3079d8c3dd045298c9c38"
+    },
+    "sourceRecord": "前端视觉创新设计/2026-11-05-alignment/anon-neutral-night.source.json",
+    "admission": "Personally viewed: youthful attentive Anon, correct complete green outfit and original left seat, paper on lap and other palm meets cushion, coherent seated hips-knees-ankles and full black loafers grounded; closed curtain soft lamp-only night with no weather claim. Complete original canvas and included support; travel=0. No independent body-motion or video claim.",
+    "runtimeEvidence": "docs/evidence/2026-11-05-voice-input.md"
+  },
+  "purpose": "neutral-presence",
+  "neutralTime": "night"
+}

@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-05",
+  "character": "mutsumi",
+  "palette": "mist",
+  "generatorOriginal": "exec-4f8e9942-eea1-4520-aa4a-d87aa0b87aa2.png",
+  "runtimeMother": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/mutsumi-chat-mist-literary-complete-20261105-mother.png",
+  "sha256": "7c47fa53bfe545a4114cc9f8eefe8b78cacde282a4c4f0530057191b5f555a3b",
+  "prompt": "前端视觉创新设计/2026-11-05-alignment/mutsumi-mist.prompt.txt",
+  "classification": "B",
+  "primaryReview": "Personally viewed: youthful Mutsumi, clear eyes and silver hair clip, both hands meet actual book, hips on cushion, continuous knees/ankles, full loafers on floor, diffuse overcast light.",
+  "implementation": "src/renderer/companion-scenes.tsx; src/renderer/CompanionSettings.tsx",
+  "boundary": "Full generated scene, fixed calibrated canvas; no independently movable body.",
+  "inputs": [
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/mutsumi-chat-apricot-literary-mother-v1.png",
+      "sha256": "9d529789ece89f44b166f39dd259136257598cfd546009e49fae74140cbf8b6d"
+    },
+    {
+      "path": "前端视觉创新设计/分类总库/01-程序素材/运行素材/companion/scenes/literary-room-overcast-day-v1.png",
+      "sha256": "d52ad659141ac87eddb8a5f1f88011b6e2c47e7800e5fbe6c8def56d3847ba0a"
+    }
+  ],
+  "characterPassport": {
+    "path": ".agents/skills/zaichang-frontend-director/references/characters/mutsumi.md",
+    "sha256": "189d1a17f6e4c2656692437167c50d2a89379cf50b16bc354df3ac8406e4610c"
+  },
+  "runtimeReview": {
+    "accepted": true,
+    "evidence": "docs/evidence/2026-11-05-voice-input.md",
+    "scope": "Individually selected and adopted in the actual Electron renderer; manual palette or clock-based neutral presence, with optical layout review. Whole-scene transition and real controls only; no independent body animation/video claim."
+  }
+}
